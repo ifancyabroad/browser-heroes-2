@@ -1,0 +1,53 @@
+{
+	"name": "@app/web",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Gameplay + landing page frontend (Vite + React + TS + Phaser).",
+	"license": "MIT",
+	"type": "module",
+	"engines": {
+		"node": ">=18.18"
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc -b --pretty false && vite build",
+		"preview": "vite preview",
+		"typecheck": "tsc -b --pretty false",
+		"lint": "eslint .",
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
+	"dependencies": {
+		"@app/shared": "workspace:*",
+		"@tanstack/react-query": "^5.90.20",
+		"ky": "^1.14.3",
+		"phaser": "^3.90.0",
+		"react": "^19.2.3",
+		"react-dom": "^19.2.3",
+		"react-error-boundary": "^6.1.0",
+		"react-router-dom": "^7.13.0",
+		"zustand": "^5.0.10"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.39.2",
+		"@tailwindcss/vite": "^4.1.18",
+		"@tanstack/react-query-devtools": "^5.91.2",
+		"@testing-library/dom": "^10.4.1",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@types/node": "^25.0.10",
+		"@types/react": "^19.2.9",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^5.1.2",
+		"eslint": "^9.39.2",
+		"eslint-plugin-react-hooks": "^7.0.1",
+		"eslint-plugin-react-refresh": "^0.4.26",
+		"globals": "^17.1.0",
+		"jsdom": "^27.4.0",
+		"tailwindcss": "^4.1.18",
+		"typescript": "~5.9.3",
+		"typescript-eslint": "^8.53.1",
+		"vite": "^7.3.1",
+		"vitest": "^4.0.18"
+	}
+}
