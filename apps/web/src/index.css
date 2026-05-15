@@ -1,14 +1,64 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
 @import "tailwindcss";
 
+@font-face {
+	font-family: "IBM VGA";
+	src: url("./assets/fonts/WebPlus_IBM_VGA_8x16.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
 @theme {
-	--color-primary: #6366f1;
-	--color-primary-contrast: #ffffff;
-	--font-sans: "Inter", sans-serif;
+	/* Backgrounds */
+	--color-bg-base: #000000;
+	--color-bg-elevated: #040204;
+
+	/* Primary accent */
+	--color-primary: #fce94f;
+	--color-primary-contrast: #000000;
+
+	/* Secondary accent */
+	--color-secondary: #50c050;
+	--color-secondary-contrast: #000000;
+
+	/* Text palette */
+	--color-text: #babdb6;
+	--color-text-bright: #fff;
+	--color-text-label: #8f5902;
+	--color-text-muted: #707070;
+
+	/* Borders */
+	--color-border: #7d623c;
+
+	/* Semantic */
+	--color-error: #cc3333;
+	--color-success: #8ae234;
+	--color-info: #204a87;
+
+	/* Game-specific */
+	--color-hp: #992020;
+	--color-xp: #8040c0;
+	--color-legendary: #ff7800;
+	--color-epic: #ff47da;
+	--color-rare: #2f6bc6;
+	--color-uncommon: #99e64c;
+	--color-common: #fff;
+
+	/* Font — IBM VGA 8x16 bitmap, the authentic DOS terminal font */
+	--font-sans: "IBM VGA", monospace;
+	--font-mono: "IBM VGA", monospace;
 }
 
 html,
 body,
 #root {
 	height: 100%;
+}
+
+body {
+	font-family: "IBM VGA", monospace;
+	color: var(--color-text);
+	font-size: 16px;
+	line-height: 1.5;
+	background-color: #000000;
 }

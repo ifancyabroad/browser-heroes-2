@@ -20,6 +20,7 @@
 	"dependencies": {
 		"@app/shared": "workspace:*",
 		"@tanstack/react-query": "^5.90.20",
+		"clsx": "^2.1.1",
 		"ky": "^1.14.3",
 		"phaser": "^3.90.0",
 		"react": "^19.2.3",
