@@ -34,6 +34,9 @@ importers:
 
     apps/api:
         dependencies:
+            "@app/content":
+                specifier: workspace:*
+                version: link:../../packages/content
             "@app/shared":
                 specifier: workspace:*
                 version: link:../../packages/shared
@@ -83,6 +86,9 @@ importers:
 
     apps/web:
         dependencies:
+            "@app/content":
+                specifier: workspace:*
+                version: link:../../packages/content
             "@app/shared":
                 specifier: workspace:*
                 version: link:../../packages/shared
@@ -174,6 +180,12 @@ importers:
             vitest:
                 specifier: ^4.0.18
                 version: 4.0.18(@types/node@25.0.10)(jiti@2.6.1)(jsdom@27.4.0)(lightningcss@1.30.2)(tsx@4.21.0)(yaml@2.8.2)
+
+    packages/content:
+        dependencies:
+            zod:
+                specifier: ^4.3.6
+                version: 4.3.6
 
     packages/shared:
         dependencies:

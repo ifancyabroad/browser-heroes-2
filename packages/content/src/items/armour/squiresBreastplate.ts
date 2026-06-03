@@ -1,0 +1,19 @@
+import { buildArmour } from "../../builders/buildArmour";
+
+export default buildArmour({
+	id: "squires_breastplate",
+	name: "Squire's Breastplate",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8I4m42K8Jd2iOdVxQS?alt=media&token=f2284381-1d33-41ab-9aeb-373418c6e990",
+	level: 2,
+	price: 380,
+	armourClass: 16,
+	armourType: "heavy",
+	properties: [
+		{
+			name: "charisma",
+			type: "stat",
+			value: 2,
+		},
+	],
+	type: "armour",
+});
