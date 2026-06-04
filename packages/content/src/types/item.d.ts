@@ -63,12 +63,14 @@ export interface IEffect {
 	max?: number;
 	min?: number;
 	target?: string;
-	type: "auxiliary" | "damage" | "heal" | "status";
+	type: "auxiliary" | "damage" | "heal" | "status" | "weaponDamage";
 	difficulty?: number;
 	duration?: number;
 	modifier?: number | string;
 	effect?: string;
 	properties?: IProperty[];
+	accuracy?: number;
+	multiplier?: number;
 }
 
 export interface IWeapon {

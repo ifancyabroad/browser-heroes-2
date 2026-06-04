@@ -40,12 +40,13 @@ export const EffectSchema = z.object({
 	max: z.number().optional(),
 	min: z.number().optional(),
 	target: z.enum(["enemy", "self"]).optional(),
-	type: z.enum(["auxiliary", "damage", "heal", "status"]),
+	type: z.enum(["auxiliary", "damage", "heal", "status", "weaponDamage"]),
 	difficulty: z.number().optional(),
 	duration: z.number().optional(),
-	modifier: z.number().optional(),
+	modifier: z.union([z.number(), z.string()]).optional(),
 	effect: z.string().optional(),
 	properties: z.array(ArmourPropertySchema).optional(),
+	accuracy: z.number().optional(),
 });
 
 export const WeaponSchema = z.object({
