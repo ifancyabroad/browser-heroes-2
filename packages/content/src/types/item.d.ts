@@ -30,3 +30,62 @@ export interface IArmour {
 }
 
 export type ArmourId = string;
+
+// Weapon types
+export type DamageType =
+	| "acid"
+	| "cold"
+	| "crushing"
+	| "fire"
+	| "lightning"
+	| "necrotic"
+	| "piercing"
+	| "poison"
+	| "radiant"
+	| "slashing";
+
+export type WeaponSize = "oneHanded" | "twoHanded";
+export type WeaponType =
+	| "axe"
+	| "bow"
+	| "club"
+	| "crossbow"
+	| "dagger"
+	| "hammer"
+	| "mace"
+	| "spear"
+	| "staff"
+	| "sword"
+	| "wand";
+
+export interface IEffect {
+	damageType?: DamageType;
+	max?: number;
+	min?: number;
+	target?: string;
+	type: "auxiliary" | "damage" | "heal" | "status";
+	difficulty?: number;
+	duration?: number;
+	modifier?: number | string;
+	effect?: string;
+	properties?: IProperty[];
+}
+
+export interface IWeapon {
+	id: string;
+	name: string;
+	description?: string;
+	icon: string;
+	level: number;
+	price: number;
+	min: number;
+	max: number;
+	size: WeaponSize;
+	type: "weapon";
+	weaponType: WeaponType;
+	damageType: DamageType;
+	properties?: IProperty[];
+	effects?: IEffect[];
+}
+
+export type WeaponId = string;
