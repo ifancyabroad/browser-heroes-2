@@ -36,3 +36,5 @@ export interface IClass {
 }
 
 export type ClassId = string;
+
+export type ClassDefinition = IClass;

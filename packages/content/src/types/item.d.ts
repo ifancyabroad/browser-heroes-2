@@ -91,3 +91,5 @@ export interface IWeapon {
 }
 
 export type WeaponId = string;
+
+export type ItemDefinition = IArmour | IWeapon;

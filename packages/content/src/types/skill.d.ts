@@ -28,3 +28,5 @@ export interface ISkill {
 }
 
 export type SkillId = string;
+
+export type SkillDefinition = ISkill;

@@ -53,3 +53,5 @@ export interface IEnemy {
 }
 
 export type EnemyId = string;
+
+export type EnemyDefinition = IEnemy;
