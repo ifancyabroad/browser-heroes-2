@@ -193,6 +193,9 @@ importers:
             chokidar-cli:
                 specifier: ^3.0.0
                 version: 3.0.0
+            concurrently:
+                specifier: ^10.0.3
+                version: 10.0.3
             tsx:
                 specifier: ^3.12.7
                 version: 3.14.0
@@ -1971,6 +1974,13 @@ packages:
             }
         engines: { node: ">=10" }
 
+    chalk@5.6.2:
+        resolution:
+            {
+                integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==,
+            }
+        engines: { node: ^12.17.0 || ^14.13 || >=16.0.0 }
+
     chokidar-cli@3.0.0:
         resolution:
             {
@@ -2005,6 +2015,13 @@ packages:
             {
                 integrity: sha512-PYeGSEmmHM6zvoef2w8TPzlrnNpXIjTipYK780YswmIP9vjxmd6Y2a3CB2Ks6/AU8NHjZugXvo8w3oWM2qnwXA==,
             }
+
+    cliui@9.0.1:
+        resolution:
+            {
+                integrity: sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w==,
+            }
+        engines: { node: ">=20" }
 
     clsx@2.1.1:
         resolution:
@@ -2070,6 +2087,14 @@ packages:
             {
                 integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==,
             }
+
+    concurrently@10.0.3:
+        resolution:
+            {
+                integrity: sha512-hc3LH4UaKWd/bbyDK/IGVa4RB6PtQ3CUYwtrkzqHn+wIG3Hr5fhpRlk0L/gCa8ZE1L/Ufj50Zho69cI5w8SQBA==,
+            }
+        engines: { node: ">=22" }
+        hasBin: true
 
     content-disposition@1.0.1:
         resolution:
@@ -3722,6 +3747,12 @@ packages:
             }
         engines: { node: ">= 18" }
 
+    rxjs@7.8.2:
+        resolution:
+            {
+                integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==,
+            }
+
     safe-buffer@5.2.1:
         resolution:
             {
@@ -3807,6 +3838,13 @@ packages:
                 integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==,
             }
         engines: { node: ">=8" }
+
+    shell-quote@1.8.4:
+        resolution:
+            {
+                integrity: sha512-VsC6n6vz1ihYYyZZwX7YZSF5l5x36ca17OC+a69h94YqB7X6XLwf+5MOgynYir2SLFUbl8gIYvBo8K8RoNQ6bQ==,
+            }
+        engines: { node: ">= 0.4" }
 
     side-channel-list@1.0.0:
         resolution:
@@ -3963,6 +4001,13 @@ packages:
             }
         engines: { node: ">=8" }
 
+    supports-color@10.2.2:
+        resolution:
+            {
+                integrity: sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g==,
+            }
+        engines: { node: ">=18" }
+
     supports-color@7.2.0:
         resolution:
             {
@@ -4064,6 +4109,13 @@ packages:
             }
         engines: { node: ">=20" }
 
+    tree-kill@1.2.2:
+        resolution:
+            {
+                integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==,
+            }
+        hasBin: true
+
     ts-api-utils@2.4.0:
         resolution:
             {
@@ -4072,6 +4124,12 @@ packages:
         engines: { node: ">=18.12" }
         peerDependencies:
             typescript: ">=4.8.4"
+
+    tslib@2.8.1:
+        resolution:
+            {
+                integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==,
+            }
 
     tsx@3.14.0:
         resolution:
@@ -4373,6 +4431,13 @@ packages:
                 integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==,
             }
 
+    y18n@5.0.8:
+        resolution:
+            {
+                integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==,
+            }
+        engines: { node: ">=10" }
+
     yallist@3.1.1:
         resolution:
             {
@@ -4393,11 +4458,25 @@ packages:
                 integrity: sha512-3lbsNRf/j+A4QuSZfDRA7HRSfWrzO0YjqTJd5kjAq37Zep1CEgaYmrH9Q3GwPiB9cHyd1Y1UwggGhJGoxipbzg==,
             }
 
+    yargs-parser@22.0.0:
+        resolution:
+            {
+                integrity: sha512-rwu/ClNdSMpkSrUb+d6BRsSkLUq1fmfsY6TOpYzTwvwkg1/NRG85KBy3kq++A8LKQwX6lsu+aWad+2khvuXrqw==,
+            }
+        engines: { node: ^20.19.0 || ^22.12.0 || >=23 }
+
     yargs@13.3.2:
         resolution:
             {
                 integrity: sha512-AX3Zw5iPruN5ie6xGRIDgqkT+ZhnRlZMLMHAs8tg7nRruy2Nb+i5o9bwghAogtM08q1dpr2LVoS8KSTMYpWXUw==,
             }
+
+    yargs@18.0.0:
+        resolution:
+            {
+                integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==,
+            }
+        engines: { node: ^20.19.0 || ^22.12.0 || >=23 }
 
     yocto-queue@0.1.0:
         resolution:
@@ -5394,6 +5473,8 @@ snapshots:
             ansi-styles: 4.3.0
             supports-color: 7.2.0
 
+    chalk@5.6.2: {}
+
     chokidar-cli@3.0.0:
         dependencies:
             chokidar: 3.6.0
@@ -5427,6 +5508,12 @@ snapshots:
             string-width: 3.1.0
             strip-ansi: 5.2.0
             wrap-ansi: 5.1.0
+
+    cliui@9.0.1:
+        dependencies:
+            string-width: 7.2.0
+            strip-ansi: 7.1.2
+            wrap-ansi: 9.0.2
 
     clsx@2.1.1: {}
 
@@ -5463,6 +5550,15 @@ snapshots:
             - supports-color
 
     concat-map@0.0.1: {}
+
+    concurrently@10.0.3:
+        dependencies:
+            chalk: 5.6.2
+            rxjs: 7.8.2
+            shell-quote: 1.8.4
+            supports-color: 10.2.2
+            tree-kill: 1.2.2
+            yargs: 18.0.0
 
     content-disposition@1.0.1: {}
 
@@ -6404,6 +6500,10 @@ snapshots:
         transitivePeerDependencies:
             - supports-color
 
+    rxjs@7.8.2:
+        dependencies:
+            tslib: 2.8.1
+
     safe-buffer@5.2.1: {}
 
     safer-buffer@2.1.2: {}
@@ -6454,6 +6554,8 @@ snapshots:
             shebang-regex: 3.0.0
 
     shebang-regex@3.0.0: {}
+
+    shell-quote@1.8.4: {}
 
     side-channel-list@1.0.0:
         dependencies:
@@ -6546,6 +6648,8 @@ snapshots:
 
     strip-json-comments@3.1.1: {}
 
+    supports-color@10.2.2: {}
+
     supports-color@7.2.0:
         dependencies:
             has-flag: 4.0.0
@@ -6591,9 +6695,13 @@ snapshots:
         dependencies:
             punycode: 2.3.1
 
+    tree-kill@1.2.2: {}
+
     ts-api-utils@2.4.0(typescript@5.9.3):
         dependencies:
             typescript: 5.9.3
+
+    tslib@2.8.1: {}
 
     tsx@3.14.0:
         dependencies:
@@ -6762,6 +6870,8 @@ snapshots:
 
     y18n@4.0.3: {}
 
+    y18n@5.0.8: {}
+
     yallist@3.1.1: {}
 
     yaml@2.8.2: {}
@@ -6770,6 +6880,8 @@ snapshots:
         dependencies:
             camelcase: 5.3.1
             decamelize: 1.2.0
+
+    yargs-parser@22.0.0: {}
 
     yargs@13.3.2:
         dependencies:
@@ -6783,6 +6895,15 @@ snapshots:
             which-module: 2.0.1
             y18n: 4.0.3
             yargs-parser: 13.1.2
+
+    yargs@18.0.0:
+        dependencies:
+            cliui: 9.0.1
+            escalade: 3.2.0
+            get-caller-file: 2.0.5
+            string-width: 7.2.0
+            y18n: 5.0.8
+            yargs-parser: 22.0.0
 
     yocto-queue@0.1.0: {}
 

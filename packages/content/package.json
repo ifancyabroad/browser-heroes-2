@@ -20,12 +20,14 @@
 		"dist"
 	],
 	"scripts": {
-		"dev": "tsc -w -p tsconfig.build.json",
+		"dev": "concurrently \"pnpm run dev:types\" \"pnpm run watch:content\"",
+		"dev:types": "tsc -w -p tsconfig.build.json",
+		"prebuild": "pnpm run generate:content",
 		"build": "tsc -p tsconfig.build.json",
 		"typecheck": "tsc -p tsconfig.build.json --noEmit",
 		"lint": "eslint .",
 		"generate:content": "tsx src/scripts/generateContent.ts",
-		"generate:content:watch": "chokidar \"src/{skills,enemies,items,classes}/**/*.ts\" -c \"pnpm run generate:content\" --initial"
+		"watch:content": "chokidar \"src/**/*.ts\" -c \"pnpm run generate:content\" --initial"
 	},
 	"dependencies": {
 		"zod": "^4.3.6"
@@ -33,6 +35,7 @@
 	"devDependencies": {
 		"@types/node": "^18.16.0",
 		"chokidar-cli": "^3.0.0",
+		"concurrently": "^10.0.3",
 		"tsx": "^3.12.7"
 	}
 }
