@@ -20,14 +20,14 @@
 		"dist"
 	],
 	"scripts": {
-		"dev": "concurrently \"pnpm run dev:types\" \"pnpm run watch:content\"",
+		"dev": "pnpm run generate:content && concurrently \"pnpm run dev:types\" \"pnpm run watch:content\"",
 		"dev:types": "tsc -w -p tsconfig.build.json",
 		"prebuild": "pnpm run generate:content",
 		"build": "tsc -p tsconfig.build.json",
 		"typecheck": "tsc -p tsconfig.build.json --noEmit",
 		"lint": "eslint .",
 		"generate:content": "tsx src/scripts/generateContent.ts",
-		"watch:content": "chokidar \"src/**/*.ts\" -c \"pnpm run generate:content\" --initial"
+		"watch:content": "chokidar \"src/**/*.ts\" -c \"pnpm run generate:content\""
 	},
 	"dependencies": {
 		"zod": "^4.3.6"
