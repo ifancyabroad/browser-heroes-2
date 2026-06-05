@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..", "..");
 const SRC = join(ROOT, "src");
-const OUT_DIR = join(SRC, "generated");
+const OUT_DIR = join(ROOT, "generated");
 
 type Collected = { id: string; file: string; importName: string }[];
 
@@ -131,10 +131,10 @@ async function run() {
 
 	mkdirSync(OUT_DIR, { recursive: true });
 
-	await generateFor("skill", skillsDir, "../types/skill");
-	await generateFor("enemy", enemiesDir, "../types/enemy");
-	await generateFor("item", itemsDir, "../types/item");
-	await generateFor("class", classesDir, "../types/class");
+	await generateFor("skill", skillsDir, "../src/types/skill");
+	await generateFor("enemy", enemiesDir, "../src/types/enemy");
+	await generateFor("item", itemsDir, "../src/types/item");
+	await generateFor("class", classesDir, "../src/types/class");
 
 	const manifests = [
 		"// Generated — do not edit by hand",
