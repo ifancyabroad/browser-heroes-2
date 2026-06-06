@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@app/content": "workspace:*",
+		"@app/engine": "workspace:*",
 		"@app/shared": "workspace:*",
 		"@tanstack/react-query": "^5.90.20",
 		"clsx": "^2.1.1",

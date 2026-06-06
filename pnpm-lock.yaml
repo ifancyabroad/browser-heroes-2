@@ -37,6 +37,9 @@ importers:
             "@app/content":
                 specifier: workspace:*
                 version: link:../../packages/content
+            "@app/engine":
+                specifier: workspace:*
+                version: link:../../packages/engine
             "@app/shared":
                 specifier: workspace:*
                 version: link:../../packages/shared
@@ -89,6 +92,9 @@ importers:
             "@app/content":
                 specifier: workspace:*
                 version: link:../../packages/content
+            "@app/engine":
+                specifier: workspace:*
+                version: link:../../packages/engine
             "@app/shared":
                 specifier: workspace:*
                 version: link:../../packages/shared
@@ -199,6 +205,8 @@ importers:
             tsx:
                 specifier: ^3.12.7
                 version: 3.14.0
+
+    packages/engine: {}
 
     packages/shared:
         dependencies:

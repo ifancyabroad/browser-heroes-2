@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"@app/content": "workspace:*",
+		"@app/engine": "workspace:*",
 		"@app/shared": "workspace:*",
 		"compression": "^1.8.1",
 		"cors": "^2.8.6",
