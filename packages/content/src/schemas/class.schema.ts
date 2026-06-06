@@ -1,23 +1,7 @@
 import { z } from "zod";
+import { AttributesSchema, EquipmentSchema } from "./common.schema";
 
 export const ClassTacticSchema = z.enum(["caster", "default"]);
-
-export const ClassEquipmentSchema = z
-	.object({
-		body: z.string().nonempty().optional(),
-		hand1: z.string().nonempty().optional(),
-		hand2: z.string().nonempty().optional(),
-	})
-	.optional();
-
-export const ClassStatsSchema = z.object({
-	charisma: z.number(),
-	constitution: z.number(),
-	dexterity: z.number(),
-	intelligence: z.number(),
-	strength: z.number(),
-	wisdom: z.number(),
-});
 
 export const ClassSchema = z.object({
 	id: z.string().nonempty(),
@@ -55,9 +39,9 @@ export const ClassSchema = z.object({
 		]),
 	),
 	skills: z.array(z.string().nonempty()),
-	stats: ClassStatsSchema,
+	stats: AttributesSchema,
 	tactics: ClassTacticSchema,
-	equipment: ClassEquipmentSchema,
+	equipment: EquipmentSchema.optional(),
 });
 
 export type Class = z.infer<typeof ClassSchema>;

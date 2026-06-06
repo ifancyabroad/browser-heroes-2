@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EffectSchema } from "./item.schema";
+import { EffectSchema } from "./effect.schema";
 
 export const SkillSchema = z.object({
 	id: z.string().nonempty(),

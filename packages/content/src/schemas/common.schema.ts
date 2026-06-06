@@ -1,0 +1,73 @@
+import { z } from "zod";
+
+export const EquipmentSlotSchema = z.enum([
+	"head",
+	"neck",
+	"body",
+	"hands",
+	"finger1",
+	"finger2",
+	"waist",
+	"feet",
+	"hand1",
+	"hand2",
+]);
+
+export const DamageTypeSchema = z.enum([
+	"acid",
+	"cold",
+	"crushing",
+	"fire",
+	"lightning",
+	"necrotic",
+	"piercing",
+	"poison",
+	"radiant",
+	"slashing",
+]);
+
+export const AttributeSchema = z.enum([
+	"strength",
+	"dexterity",
+	"constitution",
+	"intelligence",
+	"wisdom",
+	"charisma",
+]);
+
+export const EquipmentSchema = z.object({
+	head: z.string().nonempty().optional(),
+	neck: z.string().nonempty().optional(),
+	body: z.string().nonempty().optional(),
+	hands: z.string().nonempty().optional(),
+	finger1: z.string().nonempty().optional(),
+	finger2: z.string().nonempty().optional(),
+	waist: z.string().nonempty().optional(),
+	feet: z.string().nonempty().optional(),
+	hand1: z.string().nonempty().optional(),
+	hand2: z.string().nonempty().optional(),
+});
+
+export const BonusDamageSchema = z.object({
+	acid: z.number(),
+	cold: z.number(),
+	crushing: z.number(),
+	fire: z.number(),
+	lightning: z.number(),
+	necrotic: z.number(),
+	piercing: z.number(),
+	poison: z.number(),
+	radiant: z.number(),
+	slashing: z.number(),
+});
+
+export const ResistancesSchema = BonusDamageSchema;
+
+export const AttributesSchema = z.object({
+	strength: z.number(),
+	dexterity: z.number(),
+	constitution: z.number(),
+	intelligence: z.number(),
+	wisdom: z.number(),
+	charisma: z.number(),
+});

@@ -1,4 +1,4 @@
-import { TAttributes } from "./common";
+import { TAttributes, TEquipment } from "./common";
 import type { ArmourType, WeaponType } from "./item";
 import type { SkillClass } from "./skill";
 

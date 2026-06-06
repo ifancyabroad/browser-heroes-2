@@ -1,10 +1,6 @@
 import { z } from "zod";
-
-export const ArmourPropertySchema = z.object({
-	name: z.string().nonempty(),
-	type: z.enum(["resistance", "damage", "stat", "auxiliaryStat", "heal"]),
-	value: z.number(),
-});
+import { DamageTypeSchema } from "./common.schema";
+import { EffectSchema, PropertySchema } from "./effect.schema";
 
 export const ArmourSchema = z.object({
 	id: z.string().nonempty(),
@@ -15,39 +11,12 @@ export const ArmourSchema = z.object({
 	price: z.number(),
 	armourClass: z.number().optional(),
 	armourType: z.enum(["light", "medium", "heavy", "cloth", "misc"]),
-	properties: z.array(ArmourPropertySchema).optional(),
+	properties: z.array(PropertySchema).optional(),
 	characterClass: z.string().nonempty().optional(),
 	type: z.enum(["amulet", "armour", "belt", "boots", "gloves", "helmet", "ring", "shield"]),
 });
 
 export type Armour = z.infer<typeof ArmourSchema>;
-
-export const EffectSchema = z.object({
-	damageType: z
-		.enum([
-			"acid",
-			"cold",
-			"crushing",
-			"fire",
-			"lightning",
-			"necrotic",
-			"piercing",
-			"poison",
-			"radiant",
-			"slashing",
-		])
-		.optional(),
-	max: z.number().optional(),
-	min: z.number().optional(),
-	target: z.enum(["enemy", "self"]).optional(),
-	type: z.enum(["auxiliary", "damage", "heal", "status", "weaponDamage"]),
-	difficulty: z.number().optional(),
-	duration: z.number().optional(),
-	modifier: z.union([z.number(), z.string()]).optional(),
-	effect: z.string().optional(),
-	properties: z.array(ArmourPropertySchema).optional(),
-	accuracy: z.number().optional(),
-});
 
 export const WeaponSchema = z.object({
 	id: z.string().nonempty(),
@@ -73,19 +42,8 @@ export const WeaponSchema = z.object({
 		"sword",
 		"wand",
 	]),
-	damageType: z.enum([
-		"acid",
-		"cold",
-		"crushing",
-		"fire",
-		"lightning",
-		"necrotic",
-		"piercing",
-		"poison",
-		"radiant",
-		"slashing",
-	]),
-	properties: z.array(ArmourPropertySchema).optional(),
+	damageType: DamageTypeSchema,
+	properties: z.array(PropertySchema).optional(),
 	effects: z.array(EffectSchema).optional(),
 });
 
