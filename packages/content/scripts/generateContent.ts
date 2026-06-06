@@ -3,9 +3,9 @@ import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dirname, "..", "..");
+const ROOT = join(__dirname, "..");
 const SRC = join(ROOT, "src");
-const OUT_DIR = join(ROOT, "generated");
+const OUT_DIR = join(SRC, "generated");
 
 type Collected = { id: string; file: string; importName: string }[];
 
@@ -131,10 +131,10 @@ async function run() {
 
 	mkdirSync(OUT_DIR, { recursive: true });
 
-	await generateFor("skill", skillsDir, "../src/types/skill");
-	await generateFor("enemy", enemiesDir, "../src/types/enemy");
-	await generateFor("item", itemsDir, "../src/types/item");
-	await generateFor("class", classesDir, "../src/types/class");
+	await generateFor("skill", skillsDir, "../types/skill");
+	await generateFor("enemy", enemiesDir, "../types/enemy");
+	await generateFor("item", itemsDir, "../types/item");
+	await generateFor("class", classesDir, "../types/class");
 
 	const manifests = [
 		"// Generated — do not edit by hand",
@@ -149,8 +149,22 @@ async function run() {
 		"export const ITEM_IDS = itemIds;",
 		"export const CLASS_IDS = classIds;",
 	];
-	writeFileSync(join(OUT_DIR, "manifests.ts"), manifests.join("\n"), "utf-8");
-	console.log(`Wrote ${join(OUT_DIR, "manifests.ts")}`);
+	const manifestsPath = join(OUT_DIR, "manifests.ts");
+	writeFileSync(manifestsPath, manifests.join("\n"), "utf-8");
+	console.log(`Wrote ${manifestsPath}`);
+
+	const indexSource = [
+		"// Generated — do not edit by hand",
+		"",
+		"export * from './skills.registry';",
+		"export * from './enemies.registry';",
+		"export * from './items.registry';",
+		"export * from './classes.registry';",
+		"export * from './manifests';",
+	];
+	const indexPath = join(OUT_DIR, "index.ts");
+	writeFileSync(indexPath, indexSource.join("\n"), "utf-8");
+	console.log(`Wrote ${indexPath}`);
 }
 
 if (process.argv.includes("--watch")) {

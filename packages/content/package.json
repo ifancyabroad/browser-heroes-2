@@ -26,8 +26,8 @@
 		"build": "tsc -p tsconfig.build.json",
 		"typecheck": "tsc -p tsconfig.build.json --noEmit",
 		"lint": "eslint .",
-		"generate:content": "tsx src/scripts/generateContent.ts",
-		"watch:content": "chokidar \"src/**/*.ts\" -c \"pnpm run generate:content\""
+		"generate:content": "tsx scripts/generateContent.ts",
+		"watch:content": "chokidar \"src/**/*.ts\" \"scripts/**/*.ts\" -i \"src/generated/**\" -c \"pnpm run generate:content\""
 	},
 	"dependencies": {
 		"zod": "^4.3.6"
