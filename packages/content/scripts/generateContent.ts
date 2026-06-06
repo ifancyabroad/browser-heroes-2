@@ -27,6 +27,15 @@ function walk(dir: string): string[] {
 	return files;
 }
 
+function writeFileIfChanged(path: string, content: string) {
+	if (existsSync(path) && readFileSync(path, "utf-8") === content) {
+		return;
+	}
+
+	writeFileSync(path, content, "utf-8");
+	console.log(`Wrote ${path}`);
+}
+
 function toImportPath(from: string, to: string) {
 	let rel = relative(dirname(from), to);
 	if (!rel.startsWith(".")) rel = `./${rel}`;
@@ -38,7 +47,7 @@ function sanitizeName(base: string) {
 }
 
 function collectType(dir: string, prefix: string): Collected {
-	const files = walk(dir);
+	const files = walk(dir).sort((a, b) => a.localeCompare(b, "en"));
 	const collected: Collected = [];
 	let idx = 0;
 	for (const f of files) {
@@ -49,15 +58,11 @@ function collectType(dir: string, prefix: string): Collected {
 	return collected;
 }
 
-async function generateFor(type: string, dir: string, typeDefImportPath: string) {
+function generateFor(type: string, dir: string, typeDefImportPath: string) {
 	const plural = pluralize(type);
 	const collected = collectType(dir, type.slice(0, 3));
 	const idsFile = join(OUT_DIR, `${type}Ids.ts`);
 	const registryFile = join(OUT_DIR, `${plural}.registry.ts`);
-
-	for (const c of collected) {
-		// placeholder to ensure importName exists; actual imports are emitted in output file
-	}
 
 	const idValues: string[] = [];
 	for (const c of collected) {
@@ -105,10 +110,8 @@ async function generateFor(type: string, dir: string, typeDefImportPath: string)
 		`};`,
 	];
 
-	writeFileSync(idsFile, `// Generated — do not edit by hand\n\n${idsArrayText}\n`, "utf-8");
-	writeFileSync(registryFile, registryLines.join("\n"), "utf-8");
-	console.log(`Wrote ${idsFile}`);
-	console.log(`Wrote ${registryFile}`);
+	writeFileIfChanged(idsFile, `// Generated — do not edit by hand\n\n${idsArrayText}\n`);
+	writeFileIfChanged(registryFile, registryLines.join("\n"));
 }
 
 function capitalize(s: string) {
@@ -126,7 +129,7 @@ function pluralize(type: string) {
 	}
 }
 
-async function run() {
+function run() {
 	const skillsDir = join(SRC, "skills");
 	const enemiesDir = join(SRC, "enemies");
 	const itemsDir = join(SRC, "items");
@@ -134,10 +137,10 @@ async function run() {
 
 	mkdirSync(OUT_DIR, { recursive: true });
 
-	await generateFor("skill", skillsDir, "../types/skill");
-	await generateFor("enemy", enemiesDir, "../types/enemy");
-	await generateFor("item", itemsDir, "../types/item");
-	await generateFor("class", classesDir, "../types/class");
+	generateFor("skill", skillsDir, "../types/skill");
+	generateFor("enemy", enemiesDir, "../types/enemy");
+	generateFor("item", itemsDir, "../types/item");
+	generateFor("class", classesDir, "../types/class");
 
 	const manifests = [
 		"// Generated — do not edit by hand",
@@ -153,8 +156,7 @@ async function run() {
 		"export const CLASS_IDS = classIds;",
 	];
 	const manifestsPath = join(OUT_DIR, "manifests.ts");
-	writeFileSync(manifestsPath, manifests.join("\n"), "utf-8");
-	console.log(`Wrote ${manifestsPath}`);
+	writeFileIfChanged(manifestsPath, manifests.join("\n"));
 
 	const indexSource = [
 		"// Generated — do not edit by hand",
@@ -166,8 +168,7 @@ async function run() {
 		"export * from './manifests';",
 	];
 	const indexPath = join(OUT_DIR, "index.ts");
-	writeFileSync(indexPath, indexSource.join("\n"), "utf-8");
-	console.log(`Wrote ${indexPath}`);
+	writeFileIfChanged(indexPath, indexSource.join("\n"));
 }
 
 if (process.argv.includes("--watch")) {
