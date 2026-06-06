@@ -1,26 +1,26 @@
 import { z } from "zod";
-import { DamageTypeSchema } from "./common.schema";
+import { damageTypeSchema } from "./common.schema";
 
-export const EffectTypeSchema = z.enum(["auxiliary", "damage", "heal", "status", "weaponDamage"]);
-export const PropertyTypeSchema = z.enum(["resistance", "damage", "stat", "auxiliaryStat", "heal"]);
+export const effectTypeSchema = z.enum(["auxiliary", "damage", "heal", "status", "weaponDamage"]);
+export const propertyTypeSchema = z.enum(["resistance", "damage", "stat", "auxiliaryStat", "heal"]);
 
-export const PropertySchema = z.object({
+export const propertySchema = z.object({
 	name: z.string().nonempty(),
-	type: PropertyTypeSchema,
+	type: propertyTypeSchema,
 	value: z.number(),
 });
 
-export const EffectSchema = z.object({
-	damageType: DamageTypeSchema.optional(),
+export const effectSchema = z.object({
+	damageType: damageTypeSchema.optional(),
 	max: z.number().optional(),
 	min: z.number().optional(),
 	target: z.string().nonempty().optional(),
-	type: EffectTypeSchema,
+	type: effectTypeSchema,
 	difficulty: z.number().optional(),
 	duration: z.number().optional(),
 	modifier: z.union([z.number(), z.string()]).optional(),
 	effect: z.string().optional(),
-	properties: z.array(PropertySchema).optional(),
+	properties: z.array(propertySchema).optional(),
 	accuracy: z.number().optional(),
 	multiplier: z.number().optional(),
 });

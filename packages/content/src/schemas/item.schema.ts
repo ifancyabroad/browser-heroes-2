@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { DamageTypeSchema } from "./common.schema";
-import { EffectSchema, PropertySchema } from "./effect.schema";
+import { damageTypeSchema } from "./common.schema";
+import { effectSchema, propertySchema } from "./effect.schema";
 
-export const ArmourSchema = z.object({
+export const armourSchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
 	description: z.string().nonempty().optional(),
@@ -11,14 +11,14 @@ export const ArmourSchema = z.object({
 	price: z.number(),
 	armourClass: z.number().optional(),
 	armourType: z.enum(["light", "medium", "heavy", "cloth", "misc"]),
-	properties: z.array(PropertySchema).optional(),
+	properties: z.array(propertySchema).optional(),
 	characterClass: z.string().nonempty().optional(),
 	type: z.enum(["amulet", "armour", "belt", "boots", "gloves", "helmet", "ring", "shield"]),
 });
 
-export type Armour = z.infer<typeof ArmourSchema>;
+export type Armour = z.infer<typeof armourSchema>;
 
-export const WeaponSchema = z.object({
+export const weaponSchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
 	description: z.string().nonempty().optional(),
@@ -42,9 +42,9 @@ export const WeaponSchema = z.object({
 		"sword",
 		"wand",
 	]),
-	damageType: DamageTypeSchema,
-	properties: z.array(PropertySchema).optional(),
-	effects: z.array(EffectSchema).optional(),
+	damageType: damageTypeSchema,
+	properties: z.array(propertySchema).optional(),
+	effects: z.array(effectSchema).optional(),
 });
 
-export type Weapon = z.infer<typeof WeaponSchema>;
+export type Weapon = z.infer<typeof weaponSchema>;

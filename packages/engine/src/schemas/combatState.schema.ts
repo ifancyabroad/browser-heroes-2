@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AttributesSchema, itemIds, skillIds } from "@app/content";
+import { attributesSchema, itemIds, skillIds } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
 export const combatantSideSchema = z.enum(["player", "enemy"]);
@@ -35,7 +35,7 @@ export const combatantStateSchema = z.object({
 	level: z.number().int().min(1),
 	maxHp: z.number().int().min(1),
 	currentHp: z.number().int().min(0),
-	stats: AttributesSchema,
+	stats: attributesSchema,
 	skills: z.array(combatantSkillStateSchema),
 	items: z.array(combatantItemStateSchema),
 	activeEffects: z.array(activeCombatEffectSchema),

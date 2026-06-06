@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { EffectSchema } from "./effect.schema";
+import { effectSchema } from "./effect.schema";
 
-export const SkillSchema = z.object({
+export const skillSchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
 	description: z.string().nonempty().optional(),
@@ -22,7 +22,7 @@ export const SkillSchema = z.object({
 		"warrior",
 	]),
 	target: z.enum(["enemy"]).optional(),
-	effects: z.array(EffectSchema).optional(),
+	effects: z.array(effectSchema).optional(),
 });
 
-export type Skill = z.infer<typeof SkillSchema>;
+export type Skill = z.infer<typeof skillSchema>;

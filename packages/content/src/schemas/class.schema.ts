@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { AttributesSchema, EquipmentSchema } from "./common.schema";
+import { attributesSchema, equipmentSchema } from "./common.schema";
 
-export const ClassTacticSchema = z.enum(["caster", "default"]);
+export const classTacticSchema = z.enum(["caster", "default"]);
 
-export const ClassSchema = z.object({
+export const classSchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
 	description: z.string().nonempty().optional(),
@@ -39,9 +39,9 @@ export const ClassSchema = z.object({
 		]),
 	),
 	skills: z.array(z.string().nonempty()),
-	stats: AttributesSchema,
-	tactics: ClassTacticSchema,
-	equipment: EquipmentSchema.optional(),
+	stats: attributesSchema,
+	tactics: classTacticSchema,
+	equipment: equipmentSchema.optional(),
 });
 
-export type Class = z.infer<typeof ClassSchema>;
+export type Class = z.infer<typeof classSchema>;

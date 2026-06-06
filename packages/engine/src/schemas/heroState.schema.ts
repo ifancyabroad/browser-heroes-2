@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AttributesSchema, classIds, itemIds, skillIds } from "@app/content";
+import { attributesSchema, classIds, itemIds, skillIds } from "@app/content";
 
 export const heroSkillStateSchema = z.object({
 	skillId: z.enum(skillIds),
@@ -24,7 +24,7 @@ export const heroStateSchema = z.object({
 	xp: z.number().int().min(0),
 	maxHp: z.number().int().min(1),
 	currentHp: z.number().int().min(0),
-	stats: AttributesSchema,
+	stats: attributesSchema,
 	skills: z.array(heroSkillStateSchema),
 	items: z.array(heroItemStateSchema),
 });

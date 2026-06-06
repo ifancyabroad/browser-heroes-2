@@ -1,8 +1,8 @@
 import type { ISkill } from "../types/skill";
-import { SkillSchema } from "../schemas/skill.schema";
+import { skillSchema } from "../schemas/skill.schema";
 
 export const buildSkill = (skill: ISkill) => {
-	const parsed = SkillSchema.parse(skill);
+	const parsed = skillSchema.parse(skill);
 	return parsed;
 };
 

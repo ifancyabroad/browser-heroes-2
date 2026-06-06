@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const EquipmentSlotSchema = z.enum([
+export const equipmentSlotSchema = z.enum([
 	"head",
 	"neck",
 	"body",
@@ -13,7 +13,7 @@ export const EquipmentSlotSchema = z.enum([
 	"hand2",
 ]);
 
-export const DamageTypeSchema = z.enum([
+export const damageTypeSchema = z.enum([
 	"acid",
 	"cold",
 	"crushing",
@@ -26,7 +26,7 @@ export const DamageTypeSchema = z.enum([
 	"slashing",
 ]);
 
-export const AttributeSchema = z.enum([
+export const attributeSchema = z.enum([
 	"strength",
 	"dexterity",
 	"constitution",
@@ -35,7 +35,7 @@ export const AttributeSchema = z.enum([
 	"charisma",
 ]);
 
-export const EquipmentSchema = z.object({
+export const equipmentSchema = z.object({
 	head: z.string().nonempty().optional(),
 	neck: z.string().nonempty().optional(),
 	body: z.string().nonempty().optional(),
@@ -48,7 +48,7 @@ export const EquipmentSchema = z.object({
 	hand2: z.string().nonempty().optional(),
 });
 
-export const BonusDamageSchema = z.object({
+export const bonusDamageSchema = z.object({
 	acid: z.number(),
 	cold: z.number(),
 	crushing: z.number(),
@@ -61,9 +61,9 @@ export const BonusDamageSchema = z.object({
 	slashing: z.number(),
 });
 
-export const ResistancesSchema = BonusDamageSchema;
+export const resistancesSchema = bonusDamageSchema;
 
-export const AttributesSchema = z.object({
+export const attributesSchema = z.object({
 	strength: z.number(),
 	dexterity: z.number(),
 	constitution: z.number(),

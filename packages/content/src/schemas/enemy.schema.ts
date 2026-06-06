@@ -1,12 +1,12 @@
 import { z } from "zod";
 import {
-	AttributesSchema,
-	DamageTypeSchema,
-	EquipmentSchema,
-	ResistancesSchema,
+	attributesSchema,
+	damageTypeSchema,
+	equipmentSchema,
+	resistancesSchema,
 } from "./common.schema";
 
-export const EnemyZoneSchema = z.enum([
+export const enemyZoneSchema = z.enum([
 	"abyss",
 	"castle",
 	"desert",
@@ -19,25 +19,25 @@ export const EnemyZoneSchema = z.enum([
 	"volcano",
 ]);
 
-export const EnemyTacticSchema = z.enum(["caster", "concede", "default"]);
+export const enemyTacticSchema = z.enum(["caster", "concede", "default"]);
 
-export const EnemySchema = z.object({
+export const enemySchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
 	description: z.string().optional(),
 	portrait: z.string().nonempty(),
 	boss: z.boolean(),
 	challenge: z.number(),
-	zone: EnemyZoneSchema,
-	resistances: ResistancesSchema,
+	zone: enemyZoneSchema,
+	resistances: resistancesSchema,
 	skills: z.array(z.string().nonempty()),
-	stats: AttributesSchema,
-	tactics: EnemyTacticSchema,
+	stats: attributesSchema,
+	tactics: enemyTacticSchema,
 	naturalArmourClass: z.number(),
 	naturalMinDamage: z.number(),
 	naturalMaxDamage: z.number(),
-	naturalDamageType: DamageTypeSchema,
-	equipment: EquipmentSchema.optional(),
+	naturalDamageType: damageTypeSchema,
+	equipment: equipmentSchema.optional(),
 });
 
-export type Enemy = z.infer<typeof EnemySchema>;
+export type Enemy = z.infer<typeof enemySchema>;
