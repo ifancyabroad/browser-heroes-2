@@ -35,6 +35,4 @@ export interface IClass {
 	equipment?: IClassEquipment;
 }
 
-export type ClassId = string;
-
 export type ClassDefinition = IClass;

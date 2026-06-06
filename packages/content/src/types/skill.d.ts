@@ -27,6 +27,4 @@ export interface ISkill {
 	effects?: IEffect[];
 }
 
-export type SkillId = string;
-
 export type SkillDefinition = ISkill;

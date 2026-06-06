@@ -52,6 +52,4 @@ export interface IEnemy {
 	equipment?: IEnemyEquipment;
 }
 
-export type EnemyId = string;
-
 export type EnemyDefinition = IEnemy;
