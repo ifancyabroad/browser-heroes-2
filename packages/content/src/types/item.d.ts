@@ -1,8 +1,4 @@
-export interface IProperty {
-	name: string;
-	type: "resistance" | "damage" | "stat" | "auxiliaryStat" | "heal";
-	value: number;
-}
+import { IProperty } from "./effect";
 
 export type ArmourType = "light" | "medium" | "heavy" | "cloth" | "misc";
 export type ArmourSlot =
@@ -29,21 +25,6 @@ export interface IArmour {
 	type: ArmourSlot; // original type field from source (helmet, boots, etc.)
 }
 
-export type ArmourId = string;
-
-// Weapon types
-export type DamageType =
-	| "acid"
-	| "cold"
-	| "crushing"
-	| "fire"
-	| "lightning"
-	| "necrotic"
-	| "piercing"
-	| "poison"
-	| "radiant"
-	| "slashing";
-
 export type WeaponSize = "oneHanded" | "twoHanded";
 export type WeaponType =
 	| "axe"
@@ -57,21 +38,6 @@ export type WeaponType =
 	| "staff"
 	| "sword"
 	| "wand";
-
-export interface IEffect {
-	damageType?: DamageType;
-	max?: number;
-	min?: number;
-	target?: string;
-	type: "auxiliary" | "damage" | "heal" | "status" | "weaponDamage";
-	difficulty?: number;
-	duration?: number;
-	modifier?: number | string;
-	effect?: string;
-	properties?: IProperty[];
-	accuracy?: number;
-	multiplier?: number;
-}
 
 export interface IWeapon {
 	id: string;
@@ -89,7 +55,5 @@ export interface IWeapon {
 	properties?: IProperty[];
 	effects?: IEffect[];
 }
-
-export type WeaponId = string;
 
 export type ItemDefinition = IArmour | IWeapon;

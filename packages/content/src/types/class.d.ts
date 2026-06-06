@@ -1,23 +1,8 @@
+import { TAttributes } from "./common";
 import type { ArmourType, WeaponType } from "./item";
 import type { SkillClass } from "./skill";
 
 export type ClassTactic = "caster" | "default";
-export type ClassEquipmentSlot = "body" | "hand1" | "hand2";
-
-export interface IClassStats {
-	charisma: number;
-	constitution: number;
-	dexterity: number;
-	intelligence: number;
-	strength: number;
-	wisdom: number;
-}
-
-export interface IClassEquipment {
-	body?: string;
-	hand1?: string;
-	hand2?: string;
-}
 
 export interface IClass {
 	id: string;
@@ -30,9 +15,9 @@ export interface IClass {
 	armourTypes: ArmourType[];
 	weaponTypes: WeaponType[];
 	skills: string[];
-	stats: IClassStats;
+	stats: TAttributes;
 	tactics: ClassTactic;
-	equipment?: IClassEquipment;
+	equipment?: Partial<TEquipment>;
 }
 
 export type ClassDefinition = IClass;

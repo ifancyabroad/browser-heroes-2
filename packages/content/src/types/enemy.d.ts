@@ -1,4 +1,4 @@
-import type { DamageType } from "./item";
+import type { DamageType, TAttributes, TEquipment, TResistances } from "./common";
 
 export type EnemyZone =
 	| "abyss"
@@ -13,25 +13,6 @@ export type EnemyZone =
 	| "volcano";
 
 export type EnemyTactic = "caster" | "concede" | "default";
-export type EnemyEquipmentSlot = "body" | "hand1" | "hand2" | "head";
-
-export type TEnemyResistances = Record<DamageType, number>;
-
-export interface IEnemyStats {
-	charisma: number;
-	constitution: number;
-	dexterity: number;
-	intelligence: number;
-	strength: number;
-	wisdom: number;
-}
-
-export interface IEnemyEquipment {
-	body?: string;
-	hand1?: string;
-	hand2?: string;
-	head?: string;
-}
 
 export interface IEnemy {
 	id: string;
@@ -41,15 +22,15 @@ export interface IEnemy {
 	boss: boolean;
 	challenge: number;
 	zone: EnemyZone;
-	resistances: TEnemyResistances;
-	skills?: string[];
-	stats: IEnemyStats;
+	resistances: TResistances;
+	skills: string[];
+	stats: TAttributes;
 	tactics: EnemyTactic;
 	naturalArmourClass: number;
 	naturalMinDamage: number;
 	naturalMaxDamage: number;
 	naturalDamageType: DamageType;
-	equipment?: IEnemyEquipment;
+	equipment?: Partial<TEquipment>;
 }
 
 export type EnemyDefinition = IEnemy;
