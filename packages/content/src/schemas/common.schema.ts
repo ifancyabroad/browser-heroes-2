@@ -72,6 +72,10 @@ export const attributesSchema = z.object({
 	charisma: z.number(),
 });
 
+export const diceFormulaSchema = z
+	.string()
+	.regex(/^\d+d\d+([+-]\d+)?$/, "Expected dice formula like 1d6, 2d8+3, or 1d4-1");
+
 export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
 export type DamageType = z.infer<typeof damageTypeSchema>;
 export type Attribute = z.infer<typeof attributeSchema>;
@@ -79,3 +83,4 @@ export type Equipment = z.infer<typeof equipmentSchema>;
 export type BonusDamage = z.infer<typeof bonusDamageSchema>;
 export type Resistances = z.infer<typeof resistancesSchema>;
 export type Attributes = z.infer<typeof attributesSchema>;
+export type DiceFormula = z.infer<typeof diceFormulaSchema>;
