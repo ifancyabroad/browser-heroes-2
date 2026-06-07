@@ -1,5 +1,17 @@
 # Browser Heroes 2 — Contributor & AI Agent Rules
 
+## Project Docs
+
+Consult the relevant docs before changing related systems:
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Combat](docs/COMBAT.md)
+- [Infrastructure](docs/INFRASTRUCTURE.md)
+- [Product Requirements](docs/PRD.md)
+- [Game Rules](docs/RULES.md)
+
+---
+
 ## Core Principles
 
 - Prefer simple solutions over unnecessary abstraction
