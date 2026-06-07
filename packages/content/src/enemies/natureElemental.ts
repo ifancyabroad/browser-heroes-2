@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 10,
 	},
 	combat: {
-		maxHp: 190,
+		hitDice: "18d8+109",
 		armourClass: 16,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 6,
 		damageAffinities: {
 			resistances: ["acid", "cold", "crushing", "lightning", "piercing", "slashing"],
 			immunities: ["poison"],
@@ -28,7 +27,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Venomous Bite",
-			attackBonus: 11,
+			attackAttribute: "constitution",
 			damage: {
 				dice: "2d4+2",
 				type: "poison",

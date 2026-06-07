@@ -44,7 +44,7 @@ export const damageAffinitiesSchema = z
 
 export const enemyBasicAttackSchema = z.object({
 	name: z.string().nonempty(),
-	attackBonus: z.number().int().default(0),
+	attackAttribute: attributeSchema.optional(),
 	damage: z.object({
 		dice: diceFormulaSchema,
 		type: damageTypeSchema,
@@ -53,10 +53,9 @@ export const enemyBasicAttackSchema = z.object({
 });
 
 export const enemyCombatSchema = z.object({
-	maxHp: z.number().int().positive(),
+	hitDice: diceFormulaSchema,
 	armourClass: z.number().int().positive(),
-	attackBonus: z.number().int().default(0),
-	damageBonus: z.number().int().default(0),
+	proficiencyBonus: z.number().int().min(0).default(0),
 	damageAffinities: damageAffinitiesSchema.default({
 		resistances: [],
 		immunities: [],

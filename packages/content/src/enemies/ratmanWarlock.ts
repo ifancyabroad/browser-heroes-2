@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 12,
 	},
 	combat: {
-		maxHp: 101,
+		hitDice: "13d8+42",
 		armourClass: 12,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 5,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -28,7 +27,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Claw",
-			attackBonus: 8,
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d4",
 				type: "slashing",

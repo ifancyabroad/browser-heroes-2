@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 8,
 	},
 	combat: {
-		maxHp: 70,
+		hitDice: "12d8+16",
 		armourClass: 12,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 4,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -28,7 +27,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Slam",
-			attackBonus: 3,
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d4",
 				type: "crushing",

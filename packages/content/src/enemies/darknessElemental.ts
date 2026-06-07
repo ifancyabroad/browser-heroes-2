@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 6,
 	},
 	combat: {
-		maxHp: 172,
+		hitDice: "18d8+91",
 		armourClass: 17,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 6,
 		damageAffinities: {
 			resistances: [
 				"acid",
@@ -37,7 +36,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Withering Touch",
-			attackBonus: 12,
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "2d4+2",
 				type: "necrotic",

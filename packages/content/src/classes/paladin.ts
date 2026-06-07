@@ -18,7 +18,7 @@ export default buildClass({
 		wisdom: 16,
 	},
 	combat: {
-		hitDie: "d10",
+		hitDie: "1d10",
 		skillIds: ["holy_strike"],
 		featIds: [],
 		tactic: "default",

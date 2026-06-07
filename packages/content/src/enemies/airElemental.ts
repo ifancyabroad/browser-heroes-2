@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 6,
 	},
 	combat: {
-		maxHp: 146,
+		hitDice: "17d8+69",
 		armourClass: 16,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 6,
 		damageAffinities: {
 			resistances: ["acid", "cold", "crushing", "fire", "lightning", "piercing", "slashing"],
 			immunities: ["poison"],
@@ -28,7 +27,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Static Touch",
-			attackBonus: 12,
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "2d4+2",
 				type: "lightning",

@@ -18,7 +18,7 @@ export default buildClass({
 		wisdom: 10,
 	},
 	combat: {
-		hitDie: "d10",
+		hitDie: "1d10",
 		skillIds: ["armour_break"],
 		featIds: [],
 		tactic: "default",

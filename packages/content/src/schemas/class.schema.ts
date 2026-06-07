@@ -2,7 +2,7 @@ import { z } from "zod";
 import {
 	armourTypeSchema,
 	attributesSchema,
-	diceSchema,
+	diceFormulaSchema,
 	equipmentSchema,
 	skillPoolSchema,
 	tacticSchema,
@@ -15,7 +15,7 @@ export const classProficienciesSchema = z.object({
 });
 
 export const classCombatSchema = z.object({
-	hitDie: diceSchema,
+	hitDie: diceFormulaSchema,
 	skillIds: z.array(z.string().nonempty()).default([]),
 	featIds: z.array(z.string().nonempty()).default([]),
 	tactic: tacticSchema.default("default"),

@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 7,
 	},
 	combat: {
-		maxHp: 192,
+		hitDice: "13d12+107",
 		armourClass: 11,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 5,
 		damageAffinities: {
 			resistances: ["crushing", "piercing", "slashing"],
 			immunities: ["fire", "poison"],
@@ -28,7 +27,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Burning Touch",
-			attackBonus: 7,
+			attackAttribute: "constitution",
 			damage: {
 				dice: "1d8",
 				type: "fire",

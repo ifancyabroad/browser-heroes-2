@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 11,
 	},
 	combat: {
-		maxHp: 190,
+		hitDice: "20d8+100",
 		armourClass: 20,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 6,
 		damageAffinities: {
 			resistances: ["acid", "crushing", "lightning", "piercing", "slashing"],
 			immunities: ["cold", "poison"],
@@ -28,7 +27,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Freezing Touch",
-			attackBonus: 13,
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+6",
 				type: "cold",

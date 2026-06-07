@@ -17,10 +17,9 @@ export default buildEnemy({
 		charisma: 14,
 	},
 	combat: {
-		maxHp: 409,
+		hitDice: "21d12+272",
 		armourClass: 18,
-		attackBonus: 0,
-		damageBonus: 0,
+		proficiencyBonus: 7,
 		damageAffinities: {
 			resistances: ["cold", "poison"],
 			immunities: [],
@@ -28,7 +27,7 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Bite",
-			attackBonus: 14,
+			attackAttribute: "strength",
 			damage: {
 				dice: "2d4+4",
 				type: "piercing",
