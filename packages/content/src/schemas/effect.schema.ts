@@ -1,31 +1,107 @@
 import { z } from "zod";
-import { damageTypeSchema } from "./common.schema";
+import {
+	attributeSchema,
+	damageTypeSchema,
+	diceFormulaSchema,
+	skillTargetSchema,
+} from "./common.schema";
 
-export const effectTypeSchema = z.enum(["auxiliary", "damage", "heal", "status", "weaponDamage"]);
-export const propertyTypeSchema = z.enum(["resistance", "damage", "stat", "auxiliaryStat", "heal"]);
+export const damageEffectSchema = z.object({
+	type: z.literal("damage"),
+	target: skillTargetSchema.default("enemy"),
+	damageType: damageTypeSchema,
+	dice: diceFormulaSchema,
 
-export const propertySchema = z.object({
-	name: z.string().nonempty(),
-	type: propertyTypeSchema,
+	/**
+	 * Optional attribute modifier added to damage.
+	 * Example: 1d8 + STR mod, 2d6 + INT mod.
+	 */
+	attribute: attributeSchema.optional(),
+});
+
+export const weaponDamageEffectSchema = z.object({
+	type: z.literal("weaponDamage"),
+	target: skillTargetSchema.default("enemy"),
+
+	/**
+	 * Multiplier applied to the combatant's basic attack damage.
+	 * Example: 1.5 = 150% weapon/basic attack damage.
+	 */
+	multiplier: z.number().positive().default(1),
+	damageTypeOverride: damageTypeSchema.optional(),
+	extraDice: diceFormulaSchema.optional(),
+	extraDamageType: damageTypeSchema.optional(),
+});
+
+export const healEffectSchema = z.object({
+	type: z.literal("heal"),
+	target: skillTargetSchema.default("self"),
+	dice: diceFormulaSchema,
+
+	/**
+	 * Optional attribute modifier added to healing.
+	 */
+	attribute: attributeSchema.optional(),
+});
+
+export const applyStatusEffectSchema = z.object({
+	type: z.literal("applyStatus"),
+	target: skillTargetSchema,
+	statusId: z.string().nonempty(),
+	durationTurns: z.number().int().positive(),
+});
+
+export const modifyStatEffectSchema = z.object({
+	type: z.literal("modifyStat"),
+	target: skillTargetSchema,
+	stat: z.enum([
+		"armourClass",
+		"proficiencyBonus",
+		"strength",
+		"dexterity",
+		"constitution",
+		"intelligence",
+		"wisdom",
+		"charisma",
+	]),
+	operation: z.enum(["add", "multiply", "set"]),
 	value: z.number(),
+
+	/**
+	 * If omitted, treat as lasting for the whole combat or until removed,
+	 * depending on your engine rules.
+	 */
+	durationTurns: z.number().int().positive().optional(),
 });
 
-export const effectSchema = z.object({
-	damageType: damageTypeSchema.optional(),
-	max: z.number().optional(),
-	min: z.number().optional(),
-	target: z.string().nonempty().optional(),
-	type: effectTypeSchema,
-	difficulty: z.number().optional(),
-	duration: z.number().optional(),
-	modifier: z.union([z.number(), z.string()]).optional(),
-	effect: z.string().optional(),
-	properties: z.array(propertySchema).optional(),
-	accuracy: z.number().optional(),
-	multiplier: z.number().optional(),
+export const cleanseEffectSchema = z.object({
+	type: z.literal("cleanse"),
+	target: skillTargetSchema.default("self"),
+
+	/**
+	 * If provided, removes only these statuses.
+	 */
+	statusIds: z.array(z.string().nonempty()).default([]),
+
+	/**
+	 * If true, removes all negative statuses.
+	 */
+	allNegative: z.boolean().default(false),
 });
 
-export type EffectType = z.infer<typeof effectTypeSchema>;
-export type PropertyType = z.infer<typeof propertyTypeSchema>;
-export type Property = z.infer<typeof propertySchema>;
+export const effectSchema = z.discriminatedUnion("type", [
+	damageEffectSchema,
+	weaponDamageEffectSchema,
+	healEffectSchema,
+	applyStatusEffectSchema,
+	modifyStatEffectSchema,
+	cleanseEffectSchema,
+]);
+
 export type Effect = z.infer<typeof effectSchema>;
+export type DamageEffect = z.infer<typeof damageEffectSchema>;
+export type WeaponDamageEffect = z.infer<typeof weaponDamageEffectSchema>;
+export type HealEffect = z.infer<typeof healEffectSchema>;
+export type ApplyStatusEffect = z.infer<typeof applyStatusEffectSchema>;
+export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
+export type CleanseEffect = z.infer<typeof cleanseEffectSchema>;
