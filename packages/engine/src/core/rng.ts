@@ -1,22 +1,24 @@
-export type RngState = string;
+export type RngState = {
+	value: number;
+};
 
 export type RngResult<T> = {
 	value: T;
 	rngState: RngState;
 };
 
-/**
- * Temporary deterministic RNG helper.
- *
- * This is intentionally simple for now. Later you can replace the internals
- * with a better seeded RNG without changing the calling pattern.
- */
+export function createInitialRngState(seed: string): RngState {
+	return {
+		value: hashSeed(seed),
+	};
+}
+
 export function randomFloat(rngState: RngState): RngResult<number> {
-	const next = nextSeed(rngState);
+	const nextState = nextRngState(rngState);
 
 	return {
-		value: numberFromSeed(next),
-		rngState: next,
+		value: nextState.value / 4294967296,
+		rngState: nextState,
 	};
 }
 
@@ -25,39 +27,34 @@ export function randomInt(
 	minInclusive: number,
 	maxInclusive: number,
 ): RngResult<number> {
-	const result = randomFloat(rngState);
+	const roll = randomFloat(rngState);
 
-	const value = Math.floor(result.value * (maxInclusive - minInclusive + 1)) + minInclusive;
+	const value = Math.floor(roll.value * (maxInclusive - minInclusive + 1)) + minInclusive;
 
 	return {
 		value,
-		rngState: result.rngState,
+		rngState: roll.rngState,
 	};
 }
 
-export function randomChance(rngState: RngState, chance: number): RngResult<boolean> {
-	const result = randomFloat(rngState);
+function nextRngState(rngState: RngState): RngState {
+	let t = rngState.value + 0x6d2b79f5;
+
+	t = Math.imul(t ^ (t >>> 15), t | 1);
+	t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
 
 	return {
-		value: result.value < chance,
-		rngState: result.rngState,
+		value: (t ^ (t >>> 14)) >>> 0,
 	};
 }
 
-function nextSeed(seed: string): string {
-	let hash = 0;
+function hashSeed(seed: string): number {
+	let hash = 2166136261;
 
 	for (let i = 0; i < seed.length; i += 1) {
-		hash = (hash * 31 + seed.charCodeAt(i)) | 0;
+		hash ^= seed.charCodeAt(i);
+		hash = Math.imul(hash, 16777619);
 	}
 
-	const next = Math.abs(hash + 1).toString();
-
-	return next;
-}
-
-function numberFromSeed(seed: string): number {
-	const numeric = Number(seed) || 1;
-
-	return (numeric % 10_000) / 10_000;
+	return hash >>> 0;
 }

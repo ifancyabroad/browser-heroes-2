@@ -2,6 +2,7 @@ import { z } from "zod";
 import { heroStateSchema } from "./heroState.schema";
 import { combatStateSchema } from "./combatState.schema";
 import { runLogEntrySchema } from "./log.schema";
+import { rngStateSchema } from "./rng.schema";
 
 export const runPhaseSchema = z.enum(["town", "combat", "dead", "complete"]);
 
@@ -21,7 +22,7 @@ export const runStateSchema = z.object({
 	version: z.number().int().min(1),
 	id: z.string(),
 	seed: z.string(),
-	rngState: z.string(),
+	rngState: rngStateSchema,
 	phase: runPhaseSchema,
 	battleNumber: z.number().int().min(1),
 	zoneNumber: z.number().int().min(1),
