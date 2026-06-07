@@ -6,14 +6,10 @@ export default buildClass({
 	description: "Unscrupulous and underhanded, strikes from the shadows.",
 	portrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-N_OzueqvUwAUNXnlWpb%2Fportrait?alt=media&token=de94ca09-ad4c-475c-90e1-4a366208dcfd",
-	fallenImage:
+	enemyPortrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-N_OzueqvUwAUNXnlWpb%2FfallenImage?alt=media&token=7cfc636a-f564-426c-9349-cb2882dff972",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-N_OzueqvUwAUNXnlWpb%2Ficon?alt=media&token=17a65949-4a70-4c8a-9c6a-398da73a2806",
-	skillClasses: ["rogue", "assassin"],
-	armourTypes: ["light", "misc"],
-	weaponTypes: ["dagger", "crossbow", "bow"],
-	skills: ["attack", "poison_bomb"],
-	stats: {
+	attributes: {
 		charisma: 14,
 		constitution: 14,
 		dexterity: 18,
@@ -21,9 +17,20 @@ export default buildClass({
 		strength: 12,
 		wisdom: 10,
 	},
-	tactics: "default",
-	equipment: {
-		body: "-Nm2AhkGYoZ3Qw0JaJfd",
-		hand1: "-NNwMy0q-XKUT-EUvxFF",
+	combat: {
+		hitDie: "d8",
+		skillIds: ["poison_bomb"],
+		featIds: [],
 	},
+	proficiencies: {
+		armourTypes: ["light"],
+		weaponTypes: ["dagger", "crossbow", "bow"],
+	},
+	skillPoolIds: ["rogue", "assassin"],
+	tactic: "default",
+	startingEquipment: {
+		body: "padded_armour",
+		hand1: "dagger",
+	},
+	tags: [],
 });

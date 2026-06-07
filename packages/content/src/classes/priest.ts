@@ -6,14 +6,10 @@ export default buildClass({
 	description: "Dedicated to the Gods, wielding both shadow and holy energy.",
 	portrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2Fportrait?alt=media&token=5706e514-d9c2-4b14-b6cc-7c4ba2098b66",
-	fallenImage:
+	enemyPortrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2FfallenImage?alt=media&token=e9a18220-283a-4c0f-837f-20607ecd2e17",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2Ficon?alt=media&token=5a190297-3ee0-4e43-afb7-f59c86c339c8",
-	skillClasses: ["cleric", "occultist"],
-	armourTypes: ["cloth", "misc"],
-	weaponTypes: ["mace", "hammer", "club", "staff"],
-	skills: ["attack", "holy_bolt"],
-	stats: {
+	attributes: {
 		charisma: 10,
 		constitution: 14,
 		dexterity: 14,
@@ -21,9 +17,20 @@ export default buildClass({
 		strength: 12,
 		wisdom: 18,
 	},
-	tactics: "default",
-	equipment: {
-		body: "-NgO5fUaNmJH7LpPo2LP",
-		hand1: "-NgO--jUsGrVSzpmk0lB",
+	combat: {
+		hitDie: "d8",
+		skillIds: ["holy_bolt"],
+		featIds: [],
 	},
+	proficiencies: {
+		armourTypes: ["cloth"],
+		weaponTypes: ["mace", "hammer", "club", "staff"],
+	},
+	skillPoolIds: ["cleric", "occultist"],
+	tactic: "default",
+	startingEquipment: {
+		body: "travellers_robe",
+		hand1: "mace",
+	},
+	tags: [],
 });
