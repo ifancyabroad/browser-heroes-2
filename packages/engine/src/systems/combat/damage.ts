@@ -1,22 +1,35 @@
 import type { CombatantState } from "../../schemas";
 
-type DamageInput = {
+export type DamageInput = {
 	attacker: CombatantState;
 	defender: CombatantState;
-	basePower: number;
+	basePower?: number;
 };
 
-type DamageResult = {
+export type DamageResult = {
 	amount: number;
 	wasBlocked: boolean;
 };
 
 export function calculateDamage(input: DamageInput): DamageResult {
+	const basePower = input.basePower ?? input.attacker.stats.attack;
+
+	const rawDamage = basePower - input.defender.stats.defense;
+
+	const amount = Math.max(1, rawDamage);
+
 	return {
-		amount: Math.max(
-			1,
-			input.basePower + input.attacker.stats.strength - input.defender.stats.constitution,
-		),
+		amount,
 		wasBlocked: false,
+	};
+}
+
+export function applyDamage(combatant: CombatantState, damage: DamageResult): CombatantState {
+	const nextHp = Math.max(0, combatant.currentHp - damage.amount);
+
+	return {
+		...combatant,
+		currentHp: nextHp,
+		isDead: nextHp <= 0,
 	};
 }

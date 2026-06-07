@@ -1,24 +1,27 @@
-export { applyAction } from "./actions";
+export { applyAction, validateAction } from "./actions";
 
 export {
 	engineActionSchema,
+	engineResultSchema,
 	runStateSchema,
-	heroStateSchema,
-	combatStateSchema,
-	combatantStateSchema,
+	deserializeRunStateResultSchema,
 } from "./schemas";
 
 export type {
 	EngineAction,
+	EngineResult,
+	EngineEvent,
+	EngineErrorCode,
 	RunState,
 	RunPhase,
 	HeroState,
 	CombatState,
-	CombatStatus,
 	CombatantState,
-	CombatantSide,
-	CombatLogEntry,
-	RunLogEntry,
+	DeserializeRunStateResult,
 } from "./schemas";
 
 export { serializeRunState, deserializeRunState, deserializeRunStateJson } from "./serialization";
+
+export { selectAvailableActions, selectCombatView } from "./selectors";
+
+export type { CombatView } from "./selectors";

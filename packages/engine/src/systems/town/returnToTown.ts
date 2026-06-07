@@ -1,43 +1,48 @@
-import { EngineResult, RunState } from "../../schemas";
+import type { EngineResult, RunState } from "../../schemas";
+
+import { failureResult, successResult } from "../../core/result";
+import { applyCombatReward, calculateCombatReward } from "../progression/rewards";
+import { syncHeroFromPlayerCombatant } from "../combat/combatMappers";
 
 export function returnToTown(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
-		return {
-			ok: false,
-			state,
-			events: [],
-			error: "INVALID_PHASE",
-		};
+		return failureResult(state, "INVALID_PHASE");
 	}
 
 	if (state.combat.status !== "enemy_dead") {
-		return {
-			ok: false,
-			state,
-			events: [],
-			error: "INVALID_PHASE",
-		};
+		return failureResult(state, "INVALID_PHASE");
 	}
 
-	const nextState: RunState = {
-		...state,
-		phase: "town",
-		combat: null,
-		battleNumber: state.battleNumber + 1,
-		goldMultiplier: 1,
+	const reward = calculateCombatReward(state);
 
-		hero: {
-			...state.hero,
-			// Sync hero HP from combat state.
-			// Later this may be handled by a dedicated mapper.
-			currentHp: state.combat.player.currentHp,
-			maxHp: state.combat.player.maxHp,
+	const rewardedState = applyCombatReward(
+		{
+			...state,
+			hero: syncHeroFromPlayerCombatant(state.hero, state.combat.player),
 		},
-	};
+		reward,
+	);
 
+	return successResult(
+		{
+			...rewardedState,
+			phase: "town",
+			combat: null,
+			battleNumber: state.battleNumber + 1,
+			goldMultiplier: 1,
+			town: createTownState(),
+		},
+		[
+			{
+				type: "RETURNED_TO_TOWN",
+			},
+		],
+	);
+}
+
+function createTownState(): RunState["town"] {
 	return {
-		ok: true,
-		state: nextState,
-		events: [{ type: "RETURNED_TO_TOWN" }],
+		shopSlots: [],
+		rerollCost: 5,
 	};
 }
