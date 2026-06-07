@@ -72,9 +72,51 @@ export const attributesSchema = z.object({
 	charisma: z.number(),
 });
 
+export const diceSchema = z.enum(["d6", "d8", "d10", "d12"]);
+
 export const diceFormulaSchema = z
 	.string()
 	.regex(/^\d+d\d+([+-]\d+)?$/, "Expected dice formula like 1d6, 2d8+3, or 1d4-1");
+
+export const skillPoolSchema = z.enum([
+	"assassin",
+	"barbarian",
+	"cleric",
+	"mage",
+	"occultist",
+	"rogue",
+	"warlock",
+	"warrior",
+]);
+
+export const armourTypeSchema = z.enum(["cloth", "light", "medium", "heavy"]);
+
+export const weaponTypeSchema = z.enum([
+	"axe",
+	"bow",
+	"club",
+	"crossbow",
+	"dagger",
+	"hammer",
+	"mace",
+	"spear",
+	"staff",
+	"sword",
+	"wand",
+]);
+
+export const zoneSchema = z.enum([
+	"abyss",
+	"castle",
+	"desert",
+	"dungeon",
+	"forest",
+	"hills",
+	"ocean",
+	"plains",
+	"tower",
+	"volcano",
+]);
 
 export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
 export type DamageType = z.infer<typeof damageTypeSchema>;
@@ -83,4 +125,9 @@ export type Equipment = z.infer<typeof equipmentSchema>;
 export type BonusDamage = z.infer<typeof bonusDamageSchema>;
 export type Resistances = z.infer<typeof resistancesSchema>;
 export type Attributes = z.infer<typeof attributesSchema>;
+export type Dice = z.infer<typeof diceSchema>;
 export type DiceFormula = z.infer<typeof diceFormulaSchema>;
+export type SkillPool = z.infer<typeof skillPoolSchema>;
+export type ArmourType = z.infer<typeof armourTypeSchema>;
+export type WeaponType = z.infer<typeof weaponTypeSchema>;
+export type Zone = z.infer<typeof zoneSchema>;

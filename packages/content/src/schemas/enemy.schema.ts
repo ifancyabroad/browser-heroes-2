@@ -4,20 +4,8 @@ import {
 	attributesSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
+	zoneSchema,
 } from "./common.schema";
-
-export const enemyZoneSchema = z.enum([
-	"abyss",
-	"castle",
-	"desert",
-	"dungeon",
-	"forest",
-	"hills",
-	"ocean",
-	"plains",
-	"tower",
-	"volcano",
-]);
 
 export const enemyRankSchema = z.enum(["normal", "elite", "boss"]);
 
@@ -83,7 +71,7 @@ export const enemyCombatSchema = z.object({
 
 export const enemyEncounterSchema = z
 	.object({
-		zone: enemyZoneSchema,
+		zone: zoneSchema,
 		minBattle: z.number().int().positive().optional(),
 		maxBattle: z.number().int().positive().optional(),
 		weight: z.number().positive().default(1),
@@ -115,6 +103,5 @@ export const enemySchema = z.object({
 
 export type Enemy = z.infer<typeof enemySchema>;
 export type EnemyDefinition = Enemy;
-export type EnemyZone = z.infer<typeof enemyZoneSchema>;
 export type EnemyRank = z.infer<typeof enemyRankSchema>;
 export type EnemyTactic = z.infer<typeof enemyTacticSchema>;
