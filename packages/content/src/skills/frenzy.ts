@@ -1,20 +1,51 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "frenzy",
+	name: "Frenzy",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eQinII0AhDAXshQjR?alt=media&token=d363d059-dc53-4296-9320-e15b90b39722",
+	pool: "common",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			duration: 4,
-			effect: "frenzy",
-			target: "self",
-			type: "auxiliary",
+			rank: 1,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "frenzy",
+					durationTurns: 4,
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "frenzy",
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "frenzy",
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eQinII0AhDAXshQjR?alt=media&token=d363d059-dc53-4296-9320-e15b90b39722",
-	level: 3,
-	maxUses: 1,
-	name: "Frenzy",
-	price: 0,
-	id: "frenzy",
+	tags: [],
 });

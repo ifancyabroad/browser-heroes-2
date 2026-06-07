@@ -1,36 +1,85 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "rogue",
+	id: "acid_burn",
+	name: "Acid Burn",
 	description: "Fling acid at the enemy to corrode their defense.",
-	effects: [
-		{
-			damageType: "acid",
-			max: 12,
-			min: 1,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqaJ9QZYIpe6P1iDYy?alt=media&token=a61f4af5-9abf-4e8c-b41c-2cabd76120a1",
+	pool: "rogue",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 6,
+		save: {
+			attribute: "dexterity",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 3,
+			},
 		},
+	},
+	ranks: [
 		{
-			accuracy: 50,
-			difficulty: 19,
-			duration: 4,
-			modifier: "dexterity",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "1d12",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -5,
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d12-4",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -7,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d12-1",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -10,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqaJ9QZYIpe6P1iDYy?alt=media&token=a61f4af5-9abf-4e8c-b41c-2cabd76120a1",
-	level: 2,
-	maxUses: 6,
-	name: "Acid Burn",
-	price: 120,
-	id: "acid_burn",
+	tags: [],
 });

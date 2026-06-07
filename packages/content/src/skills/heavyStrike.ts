@@ -1,19 +1,48 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warrior",
+	id: "heavy_strike",
+	name: "Heavy Strike",
 	description: "Deliver a powerful blow designed to deal significant damage to a single target.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgpxFRvn_sOrij-K0F?alt=media&token=92063fcb-0f0c-4f6c-aec9-4c6d205bc431",
+	pool: "warrior",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			multiplier: 1.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.88,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 2.25,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgpxFRvn_sOrij-K0F?alt=media&token=92063fcb-0f0c-4f6c-aec9-4c6d205bc431",
-	level: 2,
-	maxUses: 4,
-	name: "Heavy Strike",
-	price: 0,
-	id: "heavy_strike",
+	tags: [],
 });

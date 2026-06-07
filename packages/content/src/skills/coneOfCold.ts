@@ -1,36 +1,78 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "cone_of_cold",
+	name: "Cone of Cold",
 	description: "Emit a frigid blast, freezing enemies in a wide cone.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh5vG7znDT-6DBan2F?alt=media&token=4bfc216a-ef3b-4f89-a987-74741a2f1d2c",
+	pool: "mage",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			damageType: "cold",
-			max: 20,
-			min: 8,
-			modifier: "intelligence",
-			target: "enemy",
-			type: "damage",
-		},
-		{
-			difficulty: 18,
-			duration: 4,
-			modifier: "constitution",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "dexterity",
-					type: "stat",
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "1d12+8",
+					attribute: "intelligence",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
 					value: -4,
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "2d12+7",
+					attribute: "intelligence",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
+					value: -6,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "2d12+14",
+					attribute: "intelligence",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
+					value: -8,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh5vG7znDT-6DBan2F?alt=media&token=4bfc216a-ef3b-4f89-a987-74741a2f1d2c",
-	level: 3,
-	maxUses: 4,
-	name: "Cone of Cold",
-	price: 0,
-	id: "cone_of_cold",
+	tags: [],
 });

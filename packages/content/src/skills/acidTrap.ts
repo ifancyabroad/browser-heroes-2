@@ -1,37 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "rogue",
+	id: "acid_trap",
+	name: "Acid Trap",
 	description: "Trap your enemy to incapacitate them and reduce their defenses.",
-	effects: [
-		{
-			accuracy: 100,
-			difficulty: 22,
-			duration: 1,
-			effect: "stun",
-			modifier: "dexterity",
-			target: "enemy",
-			type: "auxiliary",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqdkxMP9wTCz81_T4e?alt=media&token=ff085bdf-6540-4975-9837-bbf5a6d3a5bc",
+	pool: "rogue",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 3,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 6,
+			},
 		},
+	},
+	ranks: [
 		{
-			difficulty: 22,
-			duration: 5,
-			modifier: "dexterity",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "acid",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 1,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "acid_resistance_down",
+					durationTurns: 5,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 2,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "acid_resistance_down",
+					durationTurns: 6,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 3,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "acid_resistance_down",
+					durationTurns: 7,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqdkxMP9wTCz81_T4e?alt=media&token=ff085bdf-6540-4975-9837-bbf5a6d3a5bc",
-	level: 4,
-	maxUses: 3,
-	name: "Acid Trap",
-	price: 1380,
-	id: "acid_trap",
+	tags: [],
 });

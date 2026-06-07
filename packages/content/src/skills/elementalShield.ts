@@ -1,37 +1,88 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warrior",
+	id: "elemental_shield",
+	name: "Elemental Shield",
 	description:
 		"Summon a protective barrier infused with elemental energy to guard against attacks.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCz3gjt9HaaTCJh2XIS?alt=media&token=32b231dd-9a2e-4b5d-997c-4647a8fcb717",
+	pool: "warrior",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			duration: 8,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "fire",
-					type: "resistance",
-					value: 40,
+					type: "applyStatus",
+					target: "self",
+					statusId: "fire_resistance_up",
+					durationTurns: 8,
 				},
 				{
-					name: "cold",
-					type: "resistance",
-					value: 40,
+					type: "applyStatus",
+					target: "self",
+					statusId: "cold_resistance_up",
+					durationTurns: 8,
 				},
 				{
-					name: "lightning",
-					type: "resistance",
-					value: 40,
+					type: "applyStatus",
+					target: "self",
+					statusId: "lightning_resistance_up",
+					durationTurns: 8,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "fire_resistance_up",
+					durationTurns: 9,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "cold_resistance_up",
+					durationTurns: 9,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "lightning_resistance_up",
+					durationTurns: 9,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "fire_resistance_up",
+					durationTurns: 10,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "cold_resistance_up",
+					durationTurns: 10,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "lightning_resistance_up",
+					durationTurns: 10,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCz3gjt9HaaTCJh2XIS?alt=media&token=32b231dd-9a2e-4b5d-997c-4647a8fcb717",
-	level: 2,
-	maxUses: 4,
-	name: "Elemental Shield",
-	price: 0,
-	id: "elemental_shield",
+	tags: [],
 });

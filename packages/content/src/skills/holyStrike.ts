@@ -1,27 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "cleric",
+	id: "holy_strike",
+	name: "Holy Strike",
 	description: "Unleash divine retribution, smiting foes with holy power.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkP4BW6tSXQG6EoCJq?alt=media&token=1cc90227-b3e3-4e44-bd0c-c35455a2cc97",
+	pool: "cleric",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 7,
+	},
+	ranks: [
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "1d8",
+				},
+			],
 		},
 		{
-			damageType: "radiant",
-			max: 8,
-			min: 1,
-			modifier: "",
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "2d8-2",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "2d8",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkP4BW6tSXQG6EoCJq?alt=media&token=1cc90227-b3e3-4e44-bd0c-c35455a2cc97",
-	level: 1,
-	maxUses: 7,
-	name: "Holy Strike",
-	price: 0,
-	id: "holy_strike",
+	tags: [],
 });

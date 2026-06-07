@@ -1,30 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "barbarian",
+	id: "whirlwind_strike",
+	name: "Whirlwind Strike",
 	description:
 		"Unleash a flurry of attacks in a spinning motion, hitting your foe three times in quick succession.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqUWZDeys5x3n8eLNA?alt=media&token=74ce578b-3e45-44d2-8565-ccd0187437d0",
+	pool: "barbarian",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+			],
 		},
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+			],
 		},
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqUWZDeys5x3n8eLNA?alt=media&token=74ce578b-3e45-44d2-8565-ccd0187437d0",
-	level: 4,
-	maxUses: 2,
-	name: "Whirlwind Strike",
-	price: 1260,
-	id: "whirlwind_strike",
+	tags: [],
 });

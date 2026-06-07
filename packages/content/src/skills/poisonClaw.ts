@@ -1,26 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "poison_claw",
+	name: "Poison Claw",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eQx8AckjJR4EGe9i3?alt=media&token=30cb17bb-8570-4a33-bd25-58c19d54a370",
+	pool: "common",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 6,
+	},
+	ranks: [
 		{
-			damageType: "poison",
-			max: 4,
-			min: 1,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "1d6-1",
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+			],
 		},
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d6-3",
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d6-2",
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eQx8AckjJR4EGe9i3?alt=media&token=30cb17bb-8570-4a33-bd25-58c19d54a370",
-	level: 1,
-	maxUses: 6,
-	name: "Poison Claw",
-	price: 0,
-	id: "poison_claw",
+	tags: [],
 });

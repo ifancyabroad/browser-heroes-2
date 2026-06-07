@@ -1,26 +1,57 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "stoke_the_flames",
+	name: "Stoke the Flames",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OA7zdXDv3eGxenwra8y?alt=media&token=d0758678-8c24-457e-a357-e3c3221df9d5",
+	pool: "unique",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			duration: 4,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "fire",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
 					value: 40,
+					durationTurns: 4,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 60,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 80,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OA7zdXDv3eGxenwra8y?alt=media&token=d0758678-8c24-457e-a357-e3c3221df9d5",
-	level: 2,
-	maxUses: 1,
-	name: "Stoke the Flames",
-	price: 0,
-	id: "stoke_the_flames",
+	tags: [],
 });

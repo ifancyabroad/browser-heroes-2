@@ -1,35 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "corrupting_touch",
+	name: "Corrupting Touch",
 	description: "",
-	effects: [
-		{
-			damageType: "necrotic",
-			max: 20,
-			min: 8,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkZtl6i7THVGIaWaQR?alt=media&token=196c494d-dcca-4687-9f79-92d97c171f04",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 6,
+		save: {
+			attribute: "wisdom",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "wisdom",
+				includeProficiency: true,
+				bonus: 0,
+			},
 		},
+	},
+	ranks: [
 		{
-			difficulty: 12,
-			duration: 2,
-			modifier: "wisdom",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "necrotic",
-					type: "resistance",
-					value: -20,
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "1d12+8",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "necrotic_resistance_down",
+					durationTurns: 2,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "2d12+7",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "necrotic_resistance_down",
+					durationTurns: 3,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "2d12+14",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "necrotic_resistance_down",
+					durationTurns: 4,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkZtl6i7THVGIaWaQR?alt=media&token=196c494d-dcca-4687-9f79-92d97c171f04",
-	level: 3,
-	maxUses: 6,
-	name: "Corrupting Touch",
-	price: 0,
-	id: "corrupting_touch",
+	tags: [],
 });

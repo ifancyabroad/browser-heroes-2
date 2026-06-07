@@ -1,22 +1,54 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "frost_arrow",
+	name: "Frost Arrow",
 	description: "Conjure a frost arrow.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3xGd_-Cawo2Zo0ipP?alt=media&token=4890dfe4-70f3-459d-b6f1-bce3c3ab7daf",
+	pool: "mage",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 12,
+	},
+	ranks: [
 		{
-			damageType: "cold",
-			max: 10,
-			min: 1,
-			modifier: "intelligence",
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "1d10",
+					attribute: "intelligence",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "2d10-3",
+					attribute: "intelligence",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "2d10-1",
+					attribute: "intelligence",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3xGd_-Cawo2Zo0ipP?alt=media&token=4890dfe4-70f3-459d-b6f1-bce3c3ab7daf",
-	level: 1,
-	maxUses: 12,
-	name: "Frost Arrow",
-	price: 120,
-	id: "frost_arrow",
+	tags: [],
 });

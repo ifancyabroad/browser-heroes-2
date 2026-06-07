@@ -1,32 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "assassin",
+	id: "acrobatic_strike",
+	name: "Acrobatic Strike",
 	description: "Strike the enemy from above as you leap over them in an attempt to get behind.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqZdRYK5clYyJxqQKi?alt=media&token=7529994a-db1d-47e4-8a6f-b1b517e85d8c",
+	pool: "assassin",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
-		},
-		{
-			accuracy: 50,
-			duration: 1,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "critChance",
-					type: "auxiliaryStat",
-					value: 8,
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "critChance_auxiliaryStat_up",
+					durationTurns: 1,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "critChance_auxiliaryStat_up",
+					durationTurns: 2,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "critChance_auxiliaryStat_up",
+					durationTurns: 3,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqZdRYK5clYyJxqQKi?alt=media&token=7529994a-db1d-47e4-8a6f-b1b517e85d8c",
-	level: 1,
-	maxUses: 2,
-	name: "Acrobatic Strike",
-	price: 90,
-	id: "acrobatic_strike",
+	tags: [],
 });

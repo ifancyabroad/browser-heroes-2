@@ -1,22 +1,54 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "cleric",
+	id: "holy_bolt",
+	name: "Holy Bolt",
 	description: "Fire a burst of radiant energy that sears enemies with divine power.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTRbewhOgSp1zw1Uu7?alt=media&token=dca7c698-b44a-4c75-932c-b2291934e4cf",
+	pool: "cleric",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 12,
+	},
+	ranks: [
 		{
-			damageType: "radiant",
-			max: 10,
-			min: 1,
-			modifier: "wisdom",
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "1d10",
+					attribute: "wisdom",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "2d10-3",
+					attribute: "wisdom",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "2d10-1",
+					attribute: "wisdom",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTRbewhOgSp1zw1Uu7?alt=media&token=dca7c698-b44a-4c75-932c-b2291934e4cf",
-	level: 1,
-	maxUses: 12,
-	name: "Holy Bolt",
-	price: 0,
-	id: "holy_bolt",
+	tags: [],
 });

@@ -1,29 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "barbarian",
+	id: "charge",
+	name: "Charge",
 	description: "Sprint towards the enemy catching them off guard with a chance to stun.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZMHqP01D8-tN-uBn5s?alt=media&token=38cb6db9-89a4-485b-b439-9dd9373a43ec",
+	pool: "barbarian",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			multiplier: 1.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 1,
+				},
+			],
 		},
 		{
-			accuracy: 50,
-			difficulty: 10,
-			duration: 1,
-			effect: "stun",
-			modifier: "strength",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.88,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 2,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 2.25,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 3,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZMHqP01D8-tN-uBn5s?alt=media&token=38cb6db9-89a4-485b-b439-9dd9373a43ec",
-	level: 1,
-	maxUses: 1,
-	name: "Charge",
-	price: 200,
-	target: "enemy",
-	id: "charge",
+	tags: [],
 });

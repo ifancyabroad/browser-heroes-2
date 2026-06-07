@@ -1,23 +1,62 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "cripple",
+	name: "Cripple",
 	description:
 		"Inflict debilitating injury with Cripple, weakening enemies and hindering their movements in the throes of battle.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgzTUnXwX4Iw8JGJev?alt=media&token=0e42a7f5-dee5-4f7a-8366-3563b162943f",
+	pool: "common",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 6,
+		save: {
+			attribute: "dexterity",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 3,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 19,
-			duration: 6,
-			effect: "cripple",
-			modifier: "dexterity",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 1,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cripple",
+					durationTurns: 6,
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cripple",
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cripple",
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgzTUnXwX4Iw8JGJev?alt=media&token=0e42a7f5-dee5-4f7a-8366-3563b162943f",
-	level: 1,
-	maxUses: 6,
-	name: "Cripple",
-	price: 0,
-	id: "cripple",
+	tags: [],
 });

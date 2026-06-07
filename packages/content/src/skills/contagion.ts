@@ -1,35 +1,86 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "occultist",
+	id: "contagion",
+	name: "Contagion",
 	description:
 		"Infect the enemy with a virulent poison, significantly increasing the damage over time as it spreads through their system.",
-	effects: [
-		{
-			difficulty: 19,
-			duration: 6,
-			effect: "poison",
-			modifier: "wisdom",
-			target: "enemy",
-			type: "auxiliary",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6DWEvSdPHN3sCBzuV?alt=media&token=29173920-9308-4195-a763-56e611914d4b",
+	pool: "occultist",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "wisdom",
+				includeProficiency: true,
+				bonus: 3,
+			},
 		},
+	},
+	ranks: [
 		{
-			duration: 6,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "poison",
-					type: "damage",
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 6,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "poison",
+					operation: "add",
 					value: 100,
+					durationTurns: 6,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 7,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "poison",
+					operation: "add",
+					value: 150,
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 8,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "poison",
+					operation: "add",
+					value: 200,
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6DWEvSdPHN3sCBzuV?alt=media&token=29173920-9308-4195-a763-56e611914d4b",
-	level: 4,
-	maxUses: 2,
-	name: "Contagion",
-	price: 0,
-	id: "contagion",
+	tags: [],
 });

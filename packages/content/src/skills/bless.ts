@@ -1,21 +1,52 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "bless",
+	name: "Bless",
 	description:
 		"Invoke a sacred boon that grants the blessed effect, ensuring all saving throws succeed.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkFjgyu0pTYRw3DVD-?alt=media&token=a19ceedb-9e70-46fb-a0b1-34a68b122a7d",
+	pool: "common",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 8,
+	},
+	ranks: [
 		{
-			duration: 8,
-			effect: "bless",
-			target: "self",
-			type: "auxiliary",
+			rank: 1,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "bless",
+					durationTurns: 8,
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "bless",
+					durationTurns: 9,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "bless",
+					durationTurns: 10,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkFjgyu0pTYRw3DVD-?alt=media&token=a19ceedb-9e70-46fb-a0b1-34a68b122a7d",
-	level: 1,
-	maxUses: 8,
-	name: "Bless",
-	price: 0,
-	id: "bless",
+	tags: [],
 });

@@ -1,36 +1,105 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "call_upon_rit_chi",
+	name: "Call Upon Rit Chi",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9__YsYeJoI_hGpg6Ba?alt=media&token=9df26944-5d84-4818-a6eb-1284025422dc",
+	pool: "unique",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			duration: 6,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "strength",
-					type: "stat",
+					type: "modifyStat",
+					target: "self",
+					stat: "strength",
+					operation: "add",
 					value: 4,
+					durationTurns: 6,
 				},
 				{
-					name: "dexterity",
-					type: "stat",
+					type: "modifyStat",
+					target: "self",
+					stat: "dexterity",
+					operation: "add",
 					value: 4,
+					durationTurns: 6,
 				},
 				{
-					name: "constitution",
-					type: "stat",
+					type: "modifyStat",
+					target: "self",
+					stat: "constitution",
+					operation: "add",
 					value: 4,
+					durationTurns: 6,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "strength",
+					operation: "add",
+					value: 6,
+					durationTurns: 7,
+				},
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "dexterity",
+					operation: "add",
+					value: 6,
+					durationTurns: 7,
+				},
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "constitution",
+					operation: "add",
+					value: 6,
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "strength",
+					operation: "add",
+					value: 8,
+					durationTurns: 8,
+				},
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "dexterity",
+					operation: "add",
+					value: 8,
+					durationTurns: 8,
+				},
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "constitution",
+					operation: "add",
+					value: 8,
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9__YsYeJoI_hGpg6Ba?alt=media&token=9df26944-5d84-4818-a6eb-1284025422dc",
-	level: 3,
-	maxUses: 1,
-	name: "Call Upon Rit Chi",
-	price: 0,
-	id: "call_upon_rit_chi",
+	tags: [],
 });

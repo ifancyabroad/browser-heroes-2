@@ -1,21 +1,51 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "cleric",
+	id: "cure_minor_wounds",
+	name: "Cure Minor Wounds",
 	description: "Restore a small amount of health to aid in recovery from minor injuries.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTQlY-RMpBaNkunfb7?alt=media&token=cdc6656e-ac5c-4366-a65f-6c4025c17ac0",
+	pool: "cleric",
+	category: "heal",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			max: 10,
-			min: 4,
-			modifier: "wisdom",
-			target: "self",
-			type: "heal",
+			rank: 1,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "1d8+3",
+					attribute: "wisdom",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "2d8+1",
+					attribute: "wisdom",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "2d8+4",
+					attribute: "wisdom",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTQlY-RMpBaNkunfb7?alt=media&token=cdc6656e-ac5c-4366-a65f-6c4025c17ac0",
-	level: 1,
-	maxUses: 2,
-	name: "Cure Minor Wounds",
-	price: 0,
-	id: "cure_minor_wounds",
+	tags: [],
 });

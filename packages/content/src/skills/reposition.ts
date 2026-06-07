@@ -1,26 +1,51 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "reposition",
+	name: "Reposition",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9_cea1qIQBNQ3ncod_?alt=media&token=0b715183-560d-4152-a792-aba05400eff2",
+	pool: "common",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			duration: 3,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "hitChance",
-					type: "auxiliaryStat",
-					value: 8,
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 3,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 4,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 5,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9_cea1qIQBNQ3ncod_?alt=media&token=0b715183-560d-4152-a792-aba05400eff2",
-	level: 3,
-	maxUses: 4,
-	name: "Reposition",
-	price: 0,
-	id: "reposition",
+	tags: [],
 });

@@ -1,37 +1,88 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "acid_rain",
+	name: "Acid Rain",
 	description: "Summon corrosive acid from the skies.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3z5D4In6VQLtKZxrV?alt=media&token=88adbc86-f012-43b3-b304-45ba2281e9fe",
+	pool: "mage",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 12,
+		save: {
+			attribute: "dexterity",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			accuracy: 100,
-			difficulty: 12,
-			duration: 5,
-			modifier: "dexterity",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -4,
+					durationTurns: 5,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "1d10",
+					attribute: "intelligence",
 				},
 			],
-			target: "enemy",
-			type: "status",
 		},
 		{
-			damageType: "acid",
-			max: 10,
-			min: 1,
-			modifier: "intelligence",
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -6,
+					durationTurns: 6,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d10-3",
+					attribute: "intelligence",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -8,
+					durationTurns: 7,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d10-1",
+					attribute: "intelligence",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3z5D4In6VQLtKZxrV?alt=media&token=88adbc86-f012-43b3-b304-45ba2281e9fe",
-	level: 1,
-	maxUses: 12,
-	name: "Acid Rain",
-	price: 350,
-	id: "acid_rain",
+	tags: [],
 });

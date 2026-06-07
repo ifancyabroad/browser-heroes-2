@@ -1,26 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "cold_bite",
+	name: "Cold Bite",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eOvYZWqjCOQtT8moN?alt=media&token=dd7a00ee-354d-42bb-b663-12671198f43f",
+	pool: "common",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			damageType: "cold",
-			max: 15,
-			min: 6,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "1d10+5",
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+			],
 		},
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "2d10+4",
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "2d10+9",
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eOvYZWqjCOQtT8moN?alt=media&token=dd7a00ee-354d-42bb-b663-12671198f43f",
-	level: 3,
-	maxUses: 4,
-	name: "Cold Bite",
-	price: 0,
-	id: "cold_bite",
+	tags: [],
 });

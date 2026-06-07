@@ -1,23 +1,62 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "rogue",
+	id: "cruel_deception",
+	name: "Cruel Deception",
 	description:
 		"Manipulate your foe with deceptive tactics, charming them into possibly turning their attacks on themselves.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI1V0XtHIyPF14LC8N2?alt=media&token=725a9b62-6b5c-4e3f-aa3f-833d9e0c9b7d",
+	pool: "rogue",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "wisdom",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "wisdom",
+				includeProficiency: true,
+				bonus: 3,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 19,
-			duration: 4,
-			effect: "charm",
-			modifier: "wisdom",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 1,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "charm",
+					durationTurns: 4,
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "charm",
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "charm",
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI1V0XtHIyPF14LC8N2?alt=media&token=725a9b62-6b5c-4e3f-aa3f-833d9e0c9b7d",
-	level: 4,
-	maxUses: 2,
-	name: "Cruel Deception",
-	price: 0,
-	id: "cruel_deception",
+	tags: [],
 });

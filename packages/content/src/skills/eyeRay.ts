@@ -1,45 +1,115 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "eye_ray",
+	name: "Eye Ray",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC3fgWvaJhBd1_Ar0AK?alt=media&token=31bbe6e1-3867-4a52-9b86-20209b2cae4f",
+	pool: "unique",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 12,
+		save: {
+			attribute: "wisdom",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "wisdom",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			damageType: "necrotic",
-			max: 30,
-			min: 12,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "2d12+8",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "charm",
+					durationTurns: 1,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 1,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "blind",
+					durationTurns: 1,
+				},
+			],
 		},
 		{
-			difficulty: 6,
-			duration: 1,
-			effect: "charm",
-			modifier: "wisdom",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "3d12+11",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "charm",
+					durationTurns: 2,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 2,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "blind",
+					durationTurns: 2,
+				},
+			],
 		},
 		{
-			difficulty: 8,
-			duration: 1,
-			effect: "stun",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
-		},
-		{
-			difficulty: 10,
-			duration: 1,
-			effect: "blind",
-			modifier: "dexterity",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "4d12+14",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "charm",
+					durationTurns: 3,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 3,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "blind",
+					durationTurns: 3,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC3fgWvaJhBd1_Ar0AK?alt=media&token=31bbe6e1-3867-4a52-9b86-20209b2cae4f",
-	level: 4,
-	maxUses: 12,
-	name: "Eye Ray",
-	price: 0,
-	id: "eye_ray",
+	tags: [],
 });

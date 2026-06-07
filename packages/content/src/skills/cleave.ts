@@ -1,27 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "barbarian",
+	id: "cleave",
+	name: "Cleave",
 	description: "A powerful weapon swing that deals additional slashing damage.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NJLRtY1B4JdDuOGq2sd?alt=media&token=23f9149d-b849-48df-a3b7-bbbfe6bdc20a",
+	pool: "barbarian",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 7,
+	},
+	ranks: [
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "slashing",
+					dice: "1d8",
+				},
+			],
 		},
 		{
-			damageType: "slashing",
-			max: 8,
-			min: 1,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "slashing",
+					dice: "2d8-2",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "slashing",
+					dice: "2d8",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NJLRtY1B4JdDuOGq2sd?alt=media&token=23f9149d-b849-48df-a3b7-bbbfe6bdc20a",
-	level: 1,
-	maxUses: 7,
-	name: "Cleave",
-	price: 20,
-	target: "enemy",
-	id: "cleave",
+	tags: [],
 });

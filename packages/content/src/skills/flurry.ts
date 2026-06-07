@@ -1,34 +1,93 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "rogue",
+	id: "flurry",
+	name: "Flurry",
 	description: "Unleash a rapid series of strikes, overwhelming your enemy with speed and force.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqcxgP5ITgFn-T8xj6?alt=media&token=2ccf3d59-a4f4-41ce-ba9b-7e9fccac6a6d",
+	pool: "rogue",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			multiplier: 0.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.5,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.5,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.5,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.5,
+				},
+			],
 		},
 		{
-			multiplier: 0.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.63,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.63,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.63,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.63,
+				},
+			],
 		},
 		{
-			multiplier: 0.5,
-			target: "enemy",
-			type: "weaponDamage",
-		},
-		{
-			multiplier: 0.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.75,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.75,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.75,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.75,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqcxgP5ITgFn-T8xj6?alt=media&token=2ccf3d59-a4f4-41ce-ba9b-7e9fccac6a6d",
-	level: 4,
-	maxUses: 2,
-	name: "Flurry",
-	price: 550,
-	id: "flurry",
+	tags: [],
 });

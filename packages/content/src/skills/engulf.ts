@@ -1,40 +1,103 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "engulf",
+	name: "Engulf",
 	description: "",
-	effects: [
-		{
-			damageType: "fire",
-			max: 20,
-			min: 8,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OBGREObRlRFCR7M2Ni4?alt=media&token=a9d9314a-5813-4428-ac32-a6e8724f9222",
+	pool: "unique",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 7,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "constitution",
+				includeProficiency: true,
+				bonus: 3,
+			},
 		},
+	},
+	ranks: [
 		{
-			difficulty: 19,
-			duration: 3,
-			modifier: "constitution",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "dexterity",
-					type: "stat",
-					value: -4,
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "1d12+8",
 				},
 				{
-					name: "fire",
-					type: "resistance",
-					value: -50,
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
+					value: -4,
+					durationTurns: 3,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 3,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d12+7",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
+					value: -6,
+					durationTurns: 4,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 4,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d12+14",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
+					value: -8,
+					durationTurns: 5,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 5,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OBGREObRlRFCR7M2Ni4?alt=media&token=a9d9314a-5813-4428-ac32-a6e8724f9222",
-	level: 3,
-	maxUses: 7,
-	name: "Engulf",
-	price: 0,
-	id: "engulf",
+	tags: [],
 });

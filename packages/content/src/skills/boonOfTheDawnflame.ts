@@ -1,31 +1,81 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "boon_of_the_dawnflame",
+	name: "Boon of the Dawnflame",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCKBZQcW3cNIj2iVasE?alt=media&token=fe75ce58-2614-435f-915d-12a869debee7",
+	pool: "unique",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			duration: 6,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "radiant",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "radiant",
+					operation: "add",
 					value: 50,
+					durationTurns: 6,
 				},
 				{
-					name: "fire",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
 					value: 50,
+					durationTurns: 6,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "radiant",
+					operation: "add",
+					value: 75,
+					durationTurns: 7,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 75,
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "radiant",
+					operation: "add",
+					value: 100,
+					durationTurns: 8,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 100,
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCKBZQcW3cNIj2iVasE?alt=media&token=fe75ce58-2614-435f-915d-12a869debee7",
-	level: 4,
-	maxUses: 1,
-	name: "Boon of the Dawnflame",
-	price: 0,
-	id: "boon_of_the_dawnflame",
+	tags: [],
 });

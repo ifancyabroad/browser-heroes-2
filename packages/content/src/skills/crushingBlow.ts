@@ -1,26 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "barbarian",
+	id: "crushing_blow",
+	name: "Crushing Blow",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-ODAw3gDINrvjsnEE52L?alt=media&token=583e5483-a891-4f18-a897-0bc2f4781577",
+	pool: "barbarian",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 7,
+	},
+	ranks: [
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "1d8+3",
+				},
+			],
 		},
 		{
-			damageType: "crushing",
-			max: 10,
-			min: 4,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d8+1",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d8+4",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-ODAw3gDINrvjsnEE52L?alt=media&token=583e5483-a891-4f18-a897-0bc2f4781577",
-	level: 2,
-	maxUses: 7,
-	name: "Crushing Blow",
-	price: 0,
-	id: "crushing_blow",
+	tags: [],
 });

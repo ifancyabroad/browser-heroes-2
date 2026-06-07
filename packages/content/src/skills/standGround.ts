@@ -1,43 +1,111 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warrior",
+	id: "stand_ground",
+	name: "Stand Ground",
 	description: "Stand your ground to greatly increase defenses but reduce mobility.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NJPxBkEam2oJZtHIBgY?alt=media&token=b7cdb6a8-bff3-4b1a-bac6-5ef4d8717f27",
+	pool: "warrior",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 6,
+	},
+	ranks: [
 		{
-			accuracy: 100,
-			duration: 8,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "slashing",
-					type: "resistance",
-					value: 25,
+					type: "applyStatus",
+					target: "self",
+					statusId: "slashing_resistance_up",
+					durationTurns: 8,
 				},
 				{
-					name: "crushing",
-					type: "resistance",
-					value: 25,
+					type: "applyStatus",
+					target: "self",
+					statusId: "crushing_resistance_up",
+					durationTurns: 8,
 				},
 				{
-					name: "piercing",
-					type: "resistance",
-					value: 25,
+					type: "applyStatus",
+					target: "self",
+					statusId: "piercing_resistance_up",
+					durationTurns: 8,
 				},
 				{
-					name: "dexterity",
-					type: "stat",
+					type: "modifyStat",
+					target: "self",
+					stat: "dexterity",
+					operation: "add",
 					value: -2,
+					durationTurns: 8,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "slashing_resistance_up",
+					durationTurns: 9,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "crushing_resistance_up",
+					durationTurns: 9,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "piercing_resistance_up",
+					durationTurns: 9,
+				},
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "dexterity",
+					operation: "add",
+					value: -3,
+					durationTurns: 9,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "slashing_resistance_up",
+					durationTurns: 10,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "crushing_resistance_up",
+					durationTurns: 10,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "piercing_resistance_up",
+					durationTurns: 10,
+				},
+				{
+					type: "modifyStat",
+					target: "self",
+					stat: "dexterity",
+					operation: "add",
+					value: -4,
+					durationTurns: 10,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NJPxBkEam2oJZtHIBgY?alt=media&token=b7cdb6a8-bff3-4b1a-bac6-5ef4d8717f27",
-	level: 1,
-	maxUses: 6,
-	name: "Stand Ground",
-	price: 70,
-	target: "enemy",
-	id: "stand_ground",
+	tags: [],
 });

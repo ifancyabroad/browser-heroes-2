@@ -1,37 +1,85 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warrior",
+	id: "armour_break",
+	name: "Armour Break",
 	description: "A powerful blow that weakens an enemy's defenses.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZMIV5OGOr4bChwrNEE?alt=media&token=34d14684-6c64-4822-b3e6-36161dedd07a",
+	pool: "warrior",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 8,
+		save: {
+			attribute: "strength",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "strength",
+				includeProficiency: true,
+				bonus: 6,
+			},
+		},
+	},
+	ranks: [
 		{
-			accuracy: 100,
-			difficulty: 22,
-			duration: 4,
-			modifier: "strength",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -4,
+					durationTurns: 4,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "1d8",
 				},
 			],
-			target: "enemy",
-			type: "status",
 		},
 		{
-			damageType: "crushing",
-			max: 8,
-			min: 1,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -6,
+					durationTurns: 5,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d8-2",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -8,
+					durationTurns: 6,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d8",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZMIV5OGOr4bChwrNEE?alt=media&token=34d14684-6c64-4822-b3e6-36161dedd07a",
-	level: 1,
-	maxUses: 8,
-	name: "Armour Break",
-	price: 160,
-	target: "enemy",
-	id: "armour_break",
+	tags: [],
 });

@@ -1,37 +1,80 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warlock",
+	id: "corruption",
+	name: "Corruption",
 	description:
 		"Unleash a vile energy that has a chance to cripple the enemy and lower their resistance to necrotic damage.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI64f_s2x2W6j2Qsv1t?alt=media&token=cf6bc665-0adb-4186-8e75-fe2a87447c91",
+	pool: "warlock",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+		save: {
+			attribute: "intelligence",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "intelligence",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 16,
-			duration: 5,
-			modifier: "intelligence",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "necrotic",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "necrotic_resistance_down",
+					durationTurns: 5,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cripple",
+					durationTurns: 5,
 				},
 			],
-			target: "enemy",
-			type: "status",
 		},
 		{
-			difficulty: 16,
-			duration: 5,
-			effect: "cripple",
-			modifier: "intelligence",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "necrotic_resistance_down",
+					durationTurns: 6,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cripple",
+					durationTurns: 6,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "necrotic_resistance_down",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cripple",
+					durationTurns: 7,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI64f_s2x2W6j2Qsv1t?alt=media&token=cf6bc665-0adb-4186-8e75-fe2a87447c91",
-	level: 3,
-	maxUses: 4,
-	name: "Corruption",
-	price: 0,
-	id: "corruption",
+	tags: [],
 });

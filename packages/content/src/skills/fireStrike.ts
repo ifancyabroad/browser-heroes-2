@@ -1,27 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "barbarian",
+	id: "fire_strike",
+	name: "Fire Strike",
 	description: "Infuse your attack with searing flames to scorch your target.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NKt0W8prsXi7-54nBVz?alt=media&token=20861d4d-7243-4d77-84b4-9d5a0a5f986a",
+	pool: "barbarian",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 7,
+	},
+	ranks: [
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "1d10+5",
+				},
+			],
 		},
 		{
-			damageType: "fire",
-			max: 15,
-			min: 6,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d10+4",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d10+9",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NKt0W8prsXi7-54nBVz?alt=media&token=20861d4d-7243-4d77-84b4-9d5a0a5f986a",
-	level: 3,
-	maxUses: 7,
-	name: "Fire Strike",
-	price: 160,
-	target: "enemy",
-	id: "fire_strike",
+	tags: [],
 });

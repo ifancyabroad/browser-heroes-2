@@ -1,29 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "drop_from_above",
+	name: "Drop from Above",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4o-B22zajLRPINRfV?alt=media&token=35e3da97-d73c-4b4f-982c-30174dabdb12",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 1,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "constitution",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			damageType: "crushing",
-			max: 30,
-			min: 12,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d12+8",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 1,
+				},
+			],
 		},
 		{
-			difficulty: 16,
-			duration: 1,
-			effect: "stun",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "3d12+11",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 2,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "4d12+14",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 3,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4o-B22zajLRPINRfV?alt=media&token=35e3da97-d73c-4b4f-982c-30174dabdb12",
-	level: 3,
-	maxUses: 1,
-	name: "Drop from Above",
-	price: 0,
-	id: "drop_from_above",
+	tags: [],
 });

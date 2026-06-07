@@ -1,28 +1,69 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "rogue",
+	id: "acid_bomb",
+	name: "Acid Bomb",
 	description: "Throw a bomb of corrosive acid at the enemy.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqc6Kl781JP6QdXB-m?alt=media&token=f946c220-9eb8-446a-be8b-62798aec2e29",
+	pool: "rogue",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			damageType: "fire",
-			max: 18,
-			min: 10,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d10+3",
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d10+3",
+				},
+			],
 		},
 		{
-			damageType: "acid",
-			max: 18,
-			min: 10,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "3d10+4",
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "3d10+4",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "4d10+5",
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "4d10+5",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqc6Kl781JP6QdXB-m?alt=media&token=f946c220-9eb8-446a-be8b-62798aec2e29",
-	level: 3,
-	maxUses: 4,
-	name: "Acid Bomb",
-	price: 600,
-	id: "acid_bomb",
+	tags: [],
 });

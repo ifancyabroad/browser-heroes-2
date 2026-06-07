@@ -1,37 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "occultist",
+	id: "insect_plague",
+	name: "Insect Plague",
 	description:
 		"Unleash a swarm of biting insects that deal piercing damage and erode enemy defenses.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OHmFdmEfDy-KwSu7E7r?alt=media&token=daa6345a-26b7-446a-b518-0ae67fd60830",
+	pool: "occultist",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 7,
+	},
+	ranks: [
 		{
-			damageType: "piercing",
-			max: 15,
-			min: 6,
-			modifier: "wisdom",
-			target: "enemy",
-			type: "damage",
-		},
-		{
-			difficulty: 17,
-			duration: 4,
-			modifier: "constitution",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "damage",
+					target: "enemy",
+					damageType: "piercing",
+					dice: "1d10+5",
+					attribute: "wisdom",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -4,
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "piercing",
+					dice: "2d10+4",
+					attribute: "wisdom",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -6,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "piercing",
+					dice: "2d10+9",
+					attribute: "wisdom",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -8,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OHmFdmEfDy-KwSu7E7r?alt=media&token=daa6345a-26b7-446a-b518-0ae67fd60830",
-	level: 2,
-	maxUses: 7,
-	name: "Insect Plague",
-	price: 0,
-	id: "insect_plague",
+	tags: [],
 });

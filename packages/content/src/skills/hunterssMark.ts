@@ -1,40 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "hunterss_mark",
+	name: "Hunters's Mark",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCyGQhU_sx4-m68ZoQs?alt=media&token=28c9604f-8d09-4c21-afe1-ebc6b258c750",
+	pool: "common",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "dexterity",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 4,
+			},
+		},
+	},
+	ranks: [
 		{
-			duration: 4,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "hitChance",
-					type: "auxiliaryStat",
-					value: 5,
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 4,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 4,
 				},
 			],
-			target: "self",
-			type: "status",
 		},
 		{
-			difficulty: 20,
-			duration: 4,
-			modifier: "dexterity",
-			properties: [
+			rank: 2,
+			effects: [
 				{
-					name: "piercing",
-					type: "resistance",
-					value: -40,
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 5,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 5,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 6,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCyGQhU_sx4-m68ZoQs?alt=media&token=28c9604f-8d09-4c21-afe1-ebc6b258c750",
-	level: 3,
-	maxUses: 2,
-	name: "Hunters's Mark",
-	price: 0,
-	id: "hunterss_mark",
+	tags: [],
 });

@@ -1,27 +1,58 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "assassin",
+	id: "enhance_poison",
+	name: "Enhance Poison",
 	description:
 		"Amplify the potency of your poison, causing it to inflict greater, lingering damage.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh16M9sVTTOKw5g6rO?alt=media&token=c934a0ad-5942-45c9-ada7-02516b04aa9b",
+	pool: "assassin",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 6,
+	},
+	ranks: [
 		{
-			duration: 8,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "poison",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "poison",
+					operation: "add",
 					value: 50,
+					durationTurns: 8,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "poison",
+					operation: "add",
+					value: 75,
+					durationTurns: 9,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "poison",
+					operation: "add",
+					value: 100,
+					durationTurns: 10,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh16M9sVTTOKw5g6rO?alt=media&token=c934a0ad-5942-45c9-ada7-02516b04aa9b",
-	level: 2,
-	maxUses: 6,
-	name: "Enhance Poison",
-	price: 0,
-	id: "enhance_poison",
+	tags: [],
 });

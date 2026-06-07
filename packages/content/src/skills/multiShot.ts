@@ -1,29 +1,78 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "multi_shot",
+	name: "Multi Shot",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC-KtM9y-zKPmVbOwsO?alt=media&token=fad213f7-bc3e-4374-8ab1-d50259c9899b",
+	pool: "common",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			multiplier: 0.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.5,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.5,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.5,
+				},
+			],
 		},
 		{
-			multiplier: 0.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.63,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.63,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.63,
+				},
+			],
 		},
 		{
-			multiplier: 0.5,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.75,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.75,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 0.75,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC-KtM9y-zKPmVbOwsO?alt=media&token=fad213f7-bc3e-4374-8ab1-d50259c9899b",
-	level: 2,
-	maxUses: 2,
-	name: "Multi Shot",
-	price: 0,
-	id: "multi_shot",
+	tags: [],
 });

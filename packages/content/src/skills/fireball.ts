@@ -1,36 +1,72 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warlock",
+	id: "fireball",
+	name: "Fireball",
 	description: "Conjure a ball of fire.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc4-UVARP8jFmsiuXC9?alt=media&token=07349932-ea92-4da5-abf5-892cb4b16ba4",
+	pool: "warlock",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			damageType: "fire",
-			max: 20,
-			min: 8,
-			modifier: "intelligence",
-			target: "enemy",
-			type: "damage",
-		},
-		{
-			difficulty: 18,
-			duration: 4,
-			modifier: "constitution",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "fire",
-					type: "resistance",
-					value: -25,
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "1d12+8",
+					attribute: "intelligence",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d12+7",
+					attribute: "intelligence",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d12+14",
+					attribute: "intelligence",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc4-UVARP8jFmsiuXC9?alt=media&token=07349932-ea92-4da5-abf5-892cb4b16ba4",
-	level: 3,
-	maxUses: 4,
-	name: "Fireball",
-	price: 1000,
-	id: "fireball",
+	tags: [],
 });

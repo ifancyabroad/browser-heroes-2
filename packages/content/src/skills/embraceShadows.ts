@@ -1,26 +1,57 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warlock",
+	id: "embrace_shadows",
+	name: "Embrace Shadows",
 	description: "Imbue yourself with necrotic energy to improve spell power.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh4hPWuWx_NN1YApGU?alt=media&token=deb4a7d0-86c8-4750-afea-79b9730efece",
+	pool: "warlock",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			duration: 8,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "necrotic",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "necrotic",
+					operation: "add",
 					value: 80,
+					durationTurns: 8,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "necrotic",
+					operation: "add",
+					value: 120,
+					durationTurns: 9,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "necrotic",
+					operation: "add",
+					value: 160,
+					durationTurns: 10,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh4hPWuWx_NN1YApGU?alt=media&token=deb4a7d0-86c8-4750-afea-79b9730efece",
-	level: 2,
-	maxUses: 4,
-	name: "Embrace Shadows",
-	price: 0,
-	id: "embrace_shadows",
+	tags: [],
 });

@@ -1,37 +1,87 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "assassin",
+	id: "cloak_of_shadows",
+	name: "Cloak Of Shadows",
 	description: "Shroud yourself in dark energy, enhancing resistance to elemental attacks.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqdUiFhyxCULAsWYJl?alt=media&token=ab345aab-5ea3-49ef-81e8-ed3481946db6",
+	pool: "assassin",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 3,
+	},
+	ranks: [
 		{
-			accuracy: 100,
-			duration: 5,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "fire",
-					type: "resistance",
-					value: 75,
+					type: "applyStatus",
+					target: "self",
+					statusId: "fire_resistance_up",
+					durationTurns: 5,
 				},
 				{
-					name: "cold",
-					type: "resistance",
-					value: 75,
+					type: "applyStatus",
+					target: "self",
+					statusId: "cold_resistance_up",
+					durationTurns: 5,
 				},
 				{
-					name: "lightning",
-					type: "resistance",
-					value: 75,
+					type: "applyStatus",
+					target: "self",
+					statusId: "lightning_resistance_up",
+					durationTurns: 5,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "fire_resistance_up",
+					durationTurns: 6,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "cold_resistance_up",
+					durationTurns: 6,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "lightning_resistance_up",
+					durationTurns: 6,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "fire_resistance_up",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "cold_resistance_up",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "lightning_resistance_up",
+					durationTurns: 7,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqdUiFhyxCULAsWYJl?alt=media&token=ab345aab-5ea3-49ef-81e8-ed3481946db6",
-	level: 4,
-	maxUses: 3,
-	name: "Cloak Of Shadows",
-	price: 1300,
-	id: "cloak_of_shadows",
+	tags: [],
 });

@@ -1,36 +1,93 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "molten_overdrive",
+	name: "Molten Overdrive",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCK1lVEhQnzlaTAST3j?alt=media&token=7979c186-71db-4fd9-9147-1b0bf2479ca7",
+	pool: "unique",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			duration: 6,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "hitChance",
-					type: "auxiliaryStat",
-					value: 4,
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 6,
 				},
 				{
-					name: "critChance",
-					type: "auxiliaryStat",
-					value: 4,
+					type: "applyStatus",
+					target: "self",
+					statusId: "critChance_auxiliaryStat_up",
+					durationTurns: 6,
 				},
 				{
-					name: "crushing",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "crushing",
+					operation: "add",
 					value: 50,
+					durationTurns: 6,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "critChance_auxiliaryStat_up",
+					durationTurns: 7,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "crushing",
+					operation: "add",
+					value: 75,
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 8,
+				},
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "critChance_auxiliaryStat_up",
+					durationTurns: 8,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "crushing",
+					operation: "add",
+					value: 100,
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCK1lVEhQnzlaTAST3j?alt=media&token=7979c186-71db-4fd9-9147-1b0bf2479ca7",
-	level: 4,
-	maxUses: 1,
-	name: "Molten Overdrive",
-	price: 0,
-	id: "molten_overdrive",
+	tags: [],
 });

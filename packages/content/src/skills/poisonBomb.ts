@@ -1,30 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "assassin",
+	id: "poison_bomb",
+	name: "Poison Bomb",
 	description: "Throw a poisoned explosive at the enemy with a chance to poison them.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqbgWmfMqnnjnXn-Hp?alt=media&token=7b653a63-5cb5-41f1-aafe-45beb0b53579",
+	pool: "assassin",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 6,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 3,
+			},
+		},
+	},
+	ranks: [
 		{
-			damageType: "poison",
-			max: 8,
-			min: 1,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "1d8",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 4,
+				},
+			],
 		},
 		{
-			accuracy: 50,
-			difficulty: 19,
-			duration: 4,
-			effect: "poison",
-			modifier: "dexterity",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d8-2",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d8",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqbgWmfMqnnjnXn-Hp?alt=media&token=7b653a63-5cb5-41f1-aafe-45beb0b53579",
-	level: 1,
-	maxUses: 6,
-	name: "Poison Bomb",
-	price: 760,
-	id: "poison_bomb",
+	tags: [],
 });

@@ -1,19 +1,48 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "leap_attack",
+	name: "Leap Attack",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC3_Ea2wZ_5cHuPGwB5?alt=media&token=94f7574d-1aa9-468b-8dc3-700988e623bf",
+	pool: "common",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			multiplier: 1.75,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.75,
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 2.19,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 2.63,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC3_Ea2wZ_5cHuPGwB5?alt=media&token=94f7574d-1aa9-468b-8dc3-700988e623bf",
-	level: 3,
-	maxUses: 4,
-	name: "Leap Attack",
-	price: 0,
-	id: "leap_attack",
+	tags: [],
 });

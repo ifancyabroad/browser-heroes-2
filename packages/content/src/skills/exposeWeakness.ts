@@ -1,28 +1,67 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "assassin",
+	id: "expose_weakness",
+	name: "Expose Weakness",
 	description: "Exploit armour weaknesses to maximize the impact of attacks.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh2aa9hENKmzll2Md-?alt=media&token=811b82c0-59e5-4f46-afbd-0993015d3472",
+	pool: "assassin",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+		save: {
+			attribute: "dexterity",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 5,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 21,
-			duration: 6,
-			modifier: "dexterity",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -8,
+					durationTurns: 6,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -12,
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -16,
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh2aa9hENKmzll2Md-?alt=media&token=811b82c0-59e5-4f46-afbd-0993015d3472",
-	level: 3,
-	maxUses: 4,
-	name: "Expose Weakness",
-	price: 0,
-	id: "expose_weakness",
+	tags: [],
 });

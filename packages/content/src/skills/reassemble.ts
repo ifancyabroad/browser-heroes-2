@@ -1,20 +1,48 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "reassemble",
+	name: "Reassemble",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCJvsz-cgkVxZDlPuMY?alt=media&token=97b401ea-d6db-44bd-afd5-6e55d5de18bd",
+	pool: "common",
+	category: "heal",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			max: 50,
-			min: 20,
-			target: "self",
-			type: "heal",
+			rank: 1,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "3d12+16",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "5d12+18",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "6d12+28",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCJvsz-cgkVxZDlPuMY?alt=media&token=97b401ea-d6db-44bd-afd5-6e55d5de18bd",
-	level: 4,
-	maxUses: 1,
-	name: "Reassemble",
-	price: 0,
-	id: "reassemble",
+	tags: [],
 });

@@ -1,20 +1,48 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "regeneration",
+	name: "Regeneration",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkbeREMKyQCVSlZOQf?alt=media&token=25e7cb8e-1605-4ad5-8a17-23bc534c950e",
+	pool: "common",
+	category: "heal",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			max: 10,
-			min: 4,
-			target: "self",
-			type: "heal",
+			rank: 1,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "1d8+3",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "2d8+1",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "2d8+4",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkbeREMKyQCVSlZOQf?alt=media&token=25e7cb8e-1605-4ad5-8a17-23bc534c950e",
-	level: 2,
-	maxUses: 2,
-	name: "Regeneration",
-	price: 0,
-	id: "regeneration",
+	tags: [],
 });

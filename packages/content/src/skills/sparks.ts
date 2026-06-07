@@ -1,22 +1,54 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "sparks",
+	name: "Sparks",
 	description: "Shoot lightning from your fingers.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh50tlZXmwsJcskPE8?alt=media&token=f0c44bf4-c4c5-4cf2-b8d5-30203a07ecc6",
+	pool: "mage",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 12,
+	},
+	ranks: [
 		{
-			damageType: "lightning",
-			max: 8,
-			min: 1,
-			modifier: "intelligence",
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					dice: "1d8",
+					attribute: "intelligence",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					dice: "2d8-2",
+					attribute: "intelligence",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					dice: "2d8",
+					attribute: "intelligence",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh50tlZXmwsJcskPE8?alt=media&token=f0c44bf4-c4c5-4cf2-b8d5-30203a07ecc6",
-	level: 1,
-	maxUses: 12,
-	name: "Sparks",
-	price: 0,
-	id: "sparks",
+	tags: [],
 });

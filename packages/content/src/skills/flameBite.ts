@@ -1,26 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "flame_bite",
+	name: "Flame Bite",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OFEZCfd9D55StQEZpFP?alt=media&token=215eafa2-0cf5-48b3-a9cd-350afcbf6ba2",
+	pool: "common",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "1d10+5",
+				},
+			],
 		},
 		{
-			damageType: "fire",
-			max: 15,
-			min: 6,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d10+4",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d10+9",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OFEZCfd9D55StQEZpFP?alt=media&token=215eafa2-0cf5-48b3-a9cd-350afcbf6ba2",
-	level: 3,
-	maxUses: 4,
-	name: "Flame Bite",
-	price: 0,
-	id: "flame_bite",
+	tags: [],
 });

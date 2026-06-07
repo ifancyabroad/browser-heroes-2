@@ -1,29 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "disease_shot",
+	name: "Disease Shot",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9_dP0Qn57Vq0CTiSVO?alt=media&token=586dc311-85ef-4c5d-88b3-93a36aaf845b",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "constitution",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			damageType: "poison",
-			max: 20,
-			min: 8,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "1d12+8",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 4,
+				},
+			],
 		},
 		{
-			difficulty: 16,
-			duration: 4,
-			effect: "poison",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d12+7",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d12+14",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9_dP0Qn57Vq0CTiSVO?alt=media&token=586dc311-85ef-4c5d-88b3-93a36aaf845b",
-	level: 3,
-	maxUses: 2,
-	name: "Disease Shot",
-	price: 0,
-	id: "disease_shot",
+	tags: [],
 });

@@ -1,39 +1,116 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "barbarian",
+	id: "intimidating_shout",
+	name: "Intimidating Shout",
 	description:
 		"Release a fearsome bellow that shakes enemies, reducing their physical damage output.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-ODDidCmcQZoicnvq99Q?alt=media&token=3cc7e953-5373-4cb2-9f48-9d71cba0c175",
+	pool: "barbarian",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+		save: {
+			attribute: "wisdom",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "wisdom",
+				includeProficiency: true,
+				bonus: 3,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 19,
-			duration: 4,
-			modifier: "wisdom",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "slashing",
-					type: "damage",
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "slashing",
+					operation: "add",
 					value: -50,
+					durationTurns: 4,
 				},
 				{
-					name: "crushing",
-					type: "damage",
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "crushing",
+					operation: "add",
 					value: -50,
+					durationTurns: 4,
 				},
 				{
-					name: "piercing",
-					type: "damage",
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "piercing",
+					operation: "add",
 					value: -50,
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "slashing",
+					operation: "add",
+					value: -75,
+					durationTurns: 5,
+				},
+				{
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "crushing",
+					operation: "add",
+					value: -75,
+					durationTurns: 5,
+				},
+				{
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "piercing",
+					operation: "add",
+					value: -75,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "slashing",
+					operation: "add",
+					value: -100,
+					durationTurns: 6,
+				},
+				{
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "crushing",
+					operation: "add",
+					value: -100,
+					durationTurns: 6,
+				},
+				{
+					type: "modifyDamage",
+					target: "enemy",
+					damageType: "piercing",
+					operation: "add",
+					value: -100,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-ODDidCmcQZoicnvq99Q?alt=media&token=3cc7e953-5373-4cb2-9f48-9d71cba0c175",
-	level: 3,
-	maxUses: 4,
-	name: "Intimidating Shout",
-	price: 0,
-	id: "intimidating_shout",
+	tags: [],
 });

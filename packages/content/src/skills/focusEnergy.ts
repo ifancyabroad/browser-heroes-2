@@ -1,26 +1,51 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "warrior",
+	id: "focus_energy",
+	name: "Focus Energy",
 	description: "Channel your concentration to sharpen precision and increase hit accuracy.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgpG6pLRAqTW1AU0Eg?alt=media&token=049464de-0935-4c27-9f76-c3be3474a194",
+	pool: "warrior",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 6,
+	},
+	ranks: [
 		{
-			duration: 8,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "hitChance",
-					type: "auxiliaryStat",
-					value: 6,
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 8,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 9,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "self",
+					statusId: "hitChance_auxiliaryStat_up",
+					durationTurns: 10,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgpG6pLRAqTW1AU0Eg?alt=media&token=049464de-0935-4c27-9f76-c3be3474a194",
-	level: 2,
-	maxUses: 6,
-	name: "Focus Energy",
-	price: 0,
-	id: "focus_energy",
+	tags: [],
 });

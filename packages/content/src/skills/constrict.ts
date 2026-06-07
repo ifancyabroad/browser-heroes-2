@@ -1,35 +1,85 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "constrict",
+	name: "Constrict",
 	description: "",
-	effects: [
-		{
-			damageType: "crushing",
-			max: 20,
-			min: 8,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC0KVp8uW27MHyrOLUj?alt=media&token=d7857ebc-fff4-4729-a859-0b359f9af9ea",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 5,
+		save: {
+			attribute: "strength",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "strength",
+				includeProficiency: true,
+				bonus: 3,
+			},
 		},
+	},
+	ranks: [
 		{
-			difficulty: 19,
-			duration: 4,
-			modifier: "strength",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "1d12+8",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -4,
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d12+7",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -6,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d12+14",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -8,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC0KVp8uW27MHyrOLUj?alt=media&token=d7857ebc-fff4-4729-a859-0b359f9af9ea",
-	level: 3,
-	maxUses: 5,
-	name: "Constrict",
-	price: 0,
-	id: "constrict",
+	tags: [],
 });

@@ -1,42 +1,103 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "into_the_grinder",
+	name: "Into the Grinder",
 	description: "",
-	effects: [
-		{
-			damageType: "acid",
-			max: 12,
-			min: 6,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OAc58blrXjj8BuSCn6r?alt=media&token=4bcc1ca7-a2a9-4b6c-ad2c-17cd91337f6d",
+	pool: "unique",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "strength",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "strength",
+				includeProficiency: true,
+				bonus: 0,
+			},
 		},
+	},
+	ranks: [
 		{
-			damageType: "crushing",
-			max: 12,
-			min: 6,
-			target: "enemy",
-			type: "damage",
-		},
-		{
-			difficulty: 16,
-			duration: 4,
-			modifier: "strength",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "1d8+5",
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "1d8+5",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -3,
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d8+4",
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d8+4",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -4,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d8+8",
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d8+8",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -6,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OAc58blrXjj8BuSCn6r?alt=media&token=4bcc1ca7-a2a9-4b6c-ad2c-17cd91337f6d",
-	level: 3,
-	maxUses: 2,
-	name: "Into the Grinder",
-	price: 0,
-	id: "into_the_grinder",
+	tags: [],
 });

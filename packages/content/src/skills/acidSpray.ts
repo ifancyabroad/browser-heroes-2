@@ -1,35 +1,85 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "acid_spray",
+	name: "Acid Spray",
 	description: "",
-	effects: [
-		{
-			damageType: "acid",
-			max: 15,
-			min: 6,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTn5gefrbm_w1g4ocL?alt=media&token=d2280b22-36b1-4e96-a969-c667322ebc91",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "dexterity",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 1,
+			},
 		},
+	},
+	ranks: [
 		{
-			difficulty: 17,
-			duration: 6,
-			modifier: "dexterity",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "armourClass",
-					type: "auxiliaryStat",
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "1d10+5",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
 					value: -4,
+					durationTurns: 6,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d10+4",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -6,
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "acid",
+					dice: "2d10+9",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					operation: "add",
+					value: -8,
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTn5gefrbm_w1g4ocL?alt=media&token=d2280b22-36b1-4e96-a969-c667322ebc91",
-	level: 2,
-	maxUses: 2,
-	name: "Acid Spray",
-	price: 0,
-	id: "acid_spray",
+	tags: [],
 });

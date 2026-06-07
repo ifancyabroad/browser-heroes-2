@@ -1,45 +1,115 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "obliterate",
+	name: "Obliterate",
 	description: "",
-	effects: [
-		{
-			damageType: "crushing",
-			max: 40,
-			min: 16,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4ec48-KD77fXEGDx8?alt=media&token=10218c46-11e1-4597-ae2d-545151ea8879",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "constitution",
+				includeProficiency: true,
+				bonus: 3,
+			},
 		},
+	},
+	ranks: [
 		{
-			difficulty: 19,
-			duration: 3,
-			modifier: "constitution",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "slashing",
-					type: "resistance",
-					value: -50,
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d12+15",
 				},
 				{
-					name: "crushing",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "slashing_resistance_down",
+					durationTurns: 3,
 				},
 				{
-					name: "piercing",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "crushing_resistance_down",
+					durationTurns: 3,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 3,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "3d12+21",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "slashing_resistance_down",
+					durationTurns: 4,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "crushing_resistance_down",
+					durationTurns: 4,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 4,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "4d12+27",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "slashing_resistance_down",
+					durationTurns: 5,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "crushing_resistance_down",
+					durationTurns: 5,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 5,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4ec48-KD77fXEGDx8?alt=media&token=10218c46-11e1-4597-ae2d-545151ea8879",
-	level: 4,
-	maxUses: 2,
-	name: "Obliterate",
-	price: 0,
-	id: "obliterate",
+	tags: [],
 });

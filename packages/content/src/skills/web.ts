@@ -1,28 +1,67 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "web",
+	name: "Web",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTOiesS7DlEfpA_jDR?alt=media&token=5141b1d2-6098-4490-9b6d-a6c56e24c8f3",
+	pool: "common",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+		save: {
+			attribute: "dexterity",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 14,
-			duration: 4,
-			modifier: "dexterity",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "dexterity",
-					type: "stat",
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
 					value: -8,
+					durationTurns: 4,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
+					value: -12,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "dexterity",
+					operation: "add",
+					value: -16,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTOiesS7DlEfpA_jDR?alt=media&token=5141b1d2-6098-4490-9b6d-a6c56e24c8f3",
-	level: 2,
-	maxUses: 4,
-	name: "Web",
-	price: 0,
-	id: "web",
+	tags: [],
 });

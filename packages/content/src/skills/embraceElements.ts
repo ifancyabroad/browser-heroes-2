@@ -1,36 +1,105 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "embrace_elements",
+	name: "Embrace Elements",
 	description: "Fuse with elements, amplifying prowess in elemental warfare.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh3D7-ihgBpi0AbfB5?alt=media&token=7a3eb5c6-1571-4e5d-8945-9efb3875f991",
+	pool: "mage",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			duration: 8,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "cold",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "cold",
+					operation: "add",
 					value: 50,
+					durationTurns: 8,
 				},
 				{
-					name: "fire",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
 					value: 50,
+					durationTurns: 8,
 				},
 				{
-					name: "lightning",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "lightning",
+					operation: "add",
 					value: 50,
+					durationTurns: 8,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "cold",
+					operation: "add",
+					value: 75,
+					durationTurns: 9,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 75,
+					durationTurns: 9,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "lightning",
+					operation: "add",
+					value: 75,
+					durationTurns: 9,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "cold",
+					operation: "add",
+					value: 100,
+					durationTurns: 10,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 100,
+					durationTurns: 10,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "lightning",
+					operation: "add",
+					value: 100,
+					durationTurns: 10,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh3D7-ihgBpi0AbfB5?alt=media&token=7a3eb5c6-1571-4e5d-8945-9efb3875f991",
-	level: 2,
-	maxUses: 4,
-	name: "Embrace Elements",
-	price: 0,
-	id: "embrace_elements",
+	tags: [],
 });

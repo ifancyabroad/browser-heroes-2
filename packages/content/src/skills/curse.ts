@@ -1,21 +1,52 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "occultist",
+	id: "curse",
+	name: "Curse",
 	description:
 		"Inflict a debilitating curse that forces the enemy to fail all saving throws, leaving them vulnerable.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkGRRiaTZa0Q2JeWOd?alt=media&token=3cc333c5-9195-4969-9a08-eb4ab974bc34",
+	pool: "occultist",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 8,
+	},
+	ranks: [
 		{
-			duration: 6,
-			effect: "curse",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 1,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "curse",
+					durationTurns: 6,
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "curse",
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "curse",
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkGRRiaTZa0Q2JeWOd?alt=media&token=3cc333c5-9195-4969-9a08-eb4ab974bc34",
-	level: 1,
-	maxUses: 8,
-	name: "Curse",
-	price: 0,
-	id: "curse",
+	tags: [],
 });

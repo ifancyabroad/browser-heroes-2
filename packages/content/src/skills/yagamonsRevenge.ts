@@ -1,31 +1,81 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "yagamons_revenge",
+	name: "Yagamon's Revenge",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCZHaFOopyGcTKt8Pva?alt=media&token=b85e09f9-35c8-4273-9e7b-e1d481defdfe",
+	pool: "unique",
+	category: "buff",
+	usage: {
+		target: "self",
+		requiresAttackRoll: false,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			duration: 4,
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "crushing",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "crushing",
+					operation: "add",
 					value: 50,
+					durationTurns: 4,
 				},
 				{
-					name: "fire",
-					type: "damage",
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
 					value: 50,
+					durationTurns: 4,
 				},
 			],
-			target: "self",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "crushing",
+					operation: "add",
+					value: 75,
+					durationTurns: 5,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 75,
+					durationTurns: 5,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "crushing",
+					operation: "add",
+					value: 100,
+					durationTurns: 6,
+				},
+				{
+					type: "modifyDamage",
+					target: "self",
+					damageType: "fire",
+					operation: "add",
+					value: 100,
+					durationTurns: 6,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCZHaFOopyGcTKt8Pva?alt=media&token=b85e09f9-35c8-4273-9e7b-e1d481defdfe",
-	level: 4,
-	maxUses: 1,
-	name: "Yagamon's Revenge",
-	price: 0,
-	id: "yagamons_revenge",
+	tags: [],
 });

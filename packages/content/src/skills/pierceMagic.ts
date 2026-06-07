@@ -1,39 +1,97 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "pierce_magic",
+	name: "Pierce Magic",
 	description: "Reduce the opponents magic resistance.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc404KHFQ3zZaHpCbe2?alt=media&token=b2a650c7-b8ae-4b7a-93e7-fb8f090a1e85",
+	pool: "mage",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+		save: {
+			attribute: "intelligence",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "intelligence",
+				includeProficiency: true,
+				bonus: 4,
+			},
+		},
+	},
+	ranks: [
 		{
-			accuracy: 100,
-			difficulty: 20,
-			duration: 6,
-			modifier: "intelligence",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "cold",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cold_resistance_down",
+					durationTurns: 6,
 				},
 				{
-					name: "fire",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 6,
 				},
 				{
-					name: "lightning",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "lightning_resistance_down",
+					durationTurns: 6,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cold_resistance_down",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "lightning_resistance_down",
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "cold_resistance_down",
+					durationTurns: 8,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "fire_resistance_down",
+					durationTurns: 8,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "lightning_resistance_down",
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc404KHFQ3zZaHpCbe2?alt=media&token=b2a650c7-b8ae-4b7a-93e7-fb8f090a1e85",
-	level: 3,
-	maxUses: 4,
-	name: "Pierce Magic",
-	price: 950,
-	id: "pierce_magic",
+	tags: [],
 });

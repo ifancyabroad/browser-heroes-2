@@ -1,29 +1,79 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "minotaur_charge",
+	name: "Minotaur Charge",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eSRJIY86RZLdUWrd8?alt=media&token=dd7c5e27-3d52-4755-b538-5c7c5b4bb164",
+	pool: "unique",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 1,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "dexterity",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 12,
-			duration: 1,
-			effect: "stun",
-			modifier: "dexterity",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 1,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 1,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "piercing",
+					dice: "1d8+3",
+				},
+			],
 		},
 		{
-			damageType: "piercing",
-			max: 10,
-			min: 4,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 2,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "piercing",
+					dice: "2d8+1",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 3,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "piercing",
+					dice: "2d8+4",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eSRJIY86RZLdUWrd8?alt=media&token=dd7c5e27-3d52-4755-b538-5c7c5b4bb164",
-	level: 2,
-	maxUses: 1,
-	name: "Minotaur Charge",
-	price: 0,
-	id: "minotaur_charge",
+	tags: [],
 });

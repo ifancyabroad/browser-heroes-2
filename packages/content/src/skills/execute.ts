@@ -1,27 +1,66 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "unique",
+	id: "execute",
+	name: "Execute",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eoWCYJQSO0rbXfU9J?alt=media&token=8876c24f-0392-49c5-93eb-d0f618fe1476",
+	pool: "unique",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 1,
+	},
+	ranks: [
 		{
-			multiplier: 2,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 1,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 2,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "bleed",
+					durationTurns: 5,
+				},
+			],
 		},
 		{
-			difficulty: 19,
-			duration: 5,
-			effect: "bleed",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 2.5,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "bleed",
+					durationTurns: 6,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 3,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "bleed",
+					durationTurns: 7,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eoWCYJQSO0rbXfU9J?alt=media&token=8876c24f-0392-49c5-93eb-d0f618fe1476",
-	level: 3,
-	maxUses: 1,
-	name: "Execute",
-	price: 0,
-	id: "execute",
+	tags: [],
 });

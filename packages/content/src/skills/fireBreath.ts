@@ -1,21 +1,51 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "fire_breath",
+	name: "Fire Breath",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9ePhvfJJr-bhi0Iial?alt=media&token=e696471d-3bbd-45a5-a596-e9c20de5956f",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			damageType: "fire",
-			max: 50,
-			min: 20,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "3d12+16",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "5d12+18",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "6d12+28",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9ePhvfJJr-bhi0Iial?alt=media&token=e696471d-3bbd-45a5-a596-e9c20de5956f",
-	level: 4,
-	maxUses: 2,
-	name: "Fire Breath",
-	price: 0,
-	id: "fire_breath",
+	tags: [],
 });

@@ -1,39 +1,97 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "barbarian",
+	id: "tenderise",
+	name: "Tenderise",
 	description: "Beat the enemy into submission with a chance to lower physical resistances.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqXb0gVgqwcQmz5Kty?alt=media&token=888faf17-25f3-4981-b1d4-34a7017ebade",
+	pool: "barbarian",
+	category: "debuff",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 4,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "constitution",
+				includeProficiency: true,
+				bonus: 6,
+			},
+		},
+	},
+	ranks: [
 		{
-			accuracy: 50,
-			difficulty: 22,
-			duration: 5,
-			modifier: "constitution",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "slashing",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "slashing_resistance_down",
+					durationTurns: 5,
 				},
 				{
-					name: "crushing",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "crushing_resistance_down",
+					durationTurns: 5,
 				},
 				{
-					name: "piercing",
-					type: "resistance",
-					value: -50,
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 5,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "slashing_resistance_down",
+					durationTurns: 6,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "crushing_resistance_down",
+					durationTurns: 6,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 6,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "slashing_resistance_down",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "crushing_resistance_down",
+					durationTurns: 7,
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "piercing_resistance_down",
+					durationTurns: 7,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqXb0gVgqwcQmz5Kty?alt=media&token=888faf17-25f3-4981-b1d4-34a7017ebade",
-	level: 4,
-	maxUses: 4,
-	name: "Tenderise",
-	price: 1020,
-	id: "tenderise",
+	tags: [],
 });

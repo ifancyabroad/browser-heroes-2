@@ -1,22 +1,54 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "lighting_bolt",
+	name: "Lighting Bolt",
 	description: "Conjure a lightning bolt.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3zPER2-voArWHwNy9?alt=media&token=6edea4db-a6d1-4951-8d0a-a67acfb4e788",
+	pool: "mage",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 7,
+	},
+	ranks: [
 		{
-			damageType: "lightning",
-			max: 15,
-			min: 6,
-			modifier: "intelligence",
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					dice: "1d10+5",
+					attribute: "intelligence",
+				},
+			],
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					dice: "2d10+4",
+					attribute: "intelligence",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					dice: "2d10+9",
+					attribute: "intelligence",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3zPER2-voArWHwNy9?alt=media&token=6edea4db-a6d1-4951-8d0a-a67acfb4e788",
-	level: 2,
-	maxUses: 7,
-	name: "Lighting Bolt",
-	price: 280,
-	id: "lighting_bolt",
+	tags: [],
 });

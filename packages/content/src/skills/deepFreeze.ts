@@ -1,31 +1,73 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "mage",
+	id: "deep_freeze",
+	name: "Deep Freeze",
 	description:
 		"A concentrated frost spell that encases the target in solid ice, dealing damage and rendering them unable to act.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc43Ea3uk2s6Flfxpga?alt=media&token=595b97e4-435b-4750-a958-e1980de2946f",
+	pool: "mage",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+	},
+	ranks: [
 		{
-			damageType: "cold",
-			max: 30,
-			min: 12,
-			modifier: "intelligence",
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "2d12+8",
+					attribute: "intelligence",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 2,
+				},
+			],
 		},
 		{
-			difficulty: 19,
-			duration: 2,
-			effect: "stun",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "3d12+11",
+					attribute: "intelligence",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 3,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "4d12+14",
+					attribute: "intelligence",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 4,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc43Ea3uk2s6Flfxpga?alt=media&token=595b97e4-435b-4750-a958-e1980de2946f",
-	level: 4,
-	maxUses: 2,
-	name: "Deep Freeze",
-	price: 1320,
-	id: "deep_freeze",
+	tags: [],
 });

@@ -1,34 +1,84 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "toxic_bite",
+	name: "Toxic Bite",
 	description: "",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCiu-f5bl8zaJxDA2ji?alt=media&token=96da30c0-726e-4617-b0f7-cc2a6b62ac38",
+	pool: "common",
+	category: "attack",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: true,
+		maxUses: 4,
+	},
+	ranks: [
 		{
-			damageType: "poison",
-			max: 15,
-			min: 6,
-			target: "enemy",
-			type: "damage",
+			rank: 1,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "1d10+5",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 6,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1,
+				},
+			],
 		},
 		{
-			difficulty: 14,
-			duration: 6,
-			effect: "poison",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d10+4",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 7,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.25,
+				},
+			],
 		},
 		{
-			multiplier: 1,
-			target: "enemy",
-			type: "weaponDamage",
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "poison",
+					dice: "2d10+9",
+				},
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poison",
+					durationTurns: 8,
+				},
+				{
+					type: "weaponDamage",
+					target: "enemy",
+					multiplier: 1.5,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCiu-f5bl8zaJxDA2ji?alt=media&token=96da30c0-726e-4617-b0f7-cc2a6b62ac38",
-	level: 3,
-	maxUses: 4,
-	name: "Toxic Bite",
-	price: 0,
-	id: "toxic_bite",
+	tags: [],
 });

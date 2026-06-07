@@ -1,35 +1,85 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "devour_soul",
+	name: "Devour Soul",
 	description: "",
-	effects: [
-		{
-			damageType: "necrotic",
-			max: 30,
-			min: 12,
-			target: "enemy",
-			type: "damage",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC0IqVe3gyJes08fYye?alt=media&token=db556fe6-0ff7-44b9-9d74-d19d08057a0f",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 2,
+		save: {
+			attribute: "wisdom",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "wisdom",
+				includeProficiency: true,
+				bonus: 1,
+			},
 		},
+	},
+	ranks: [
 		{
-			difficulty: 17,
-			duration: 6,
-			modifier: "wisdom",
-			properties: [
+			rank: 1,
+			effects: [
 				{
-					name: "constitution",
-					type: "stat",
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "2d12+8",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "constitution",
+					operation: "add",
 					value: -5,
+					durationTurns: 6,
 				},
 			],
-			target: "enemy",
-			type: "status",
+		},
+		{
+			rank: 2,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "3d12+11",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "constitution",
+					operation: "add",
+					value: -7,
+					durationTurns: 7,
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "4d12+14",
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "constitution",
+					operation: "add",
+					value: -10,
+					durationTurns: 8,
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC0IqVe3gyJes08fYye?alt=media&token=db556fe6-0ff7-44b9-9d74-d19d08057a0f",
-	level: 3,
-	maxUses: 2,
-	name: "Devour Soul",
-	price: 0,
-	id: "devour_soul",
+	tags: [],
 });

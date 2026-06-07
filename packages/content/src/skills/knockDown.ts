@@ -1,30 +1,80 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	class: "common",
+	id: "knock_down",
+	name: "Knock Down",
 	description:
 		"Topple adversaries with the forceful Knock Down skill, sending enemies crashing to the ground in a stunning display of power.",
-	effects: [
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgrvvBiejH010EI8ME?alt=media&token=562118d9-90e1-4dc3-91fc-3a3ca57c6ea5",
+	pool: "common",
+	category: "spell",
+	usage: {
+		target: "enemy",
+		requiresAttackRoll: false,
+		maxUses: 1,
+		save: {
+			attribute: "constitution",
+			onSuccess: "noEffect",
+			dc: {
+				base: 8,
+				attribute: "strength",
+				includeProficiency: true,
+				bonus: 0,
+			},
+		},
+	},
+	ranks: [
 		{
-			difficulty: 14,
-			duration: 2,
-			effect: "stun",
-			modifier: "strength",
-			target: "enemy",
-			type: "auxiliary",
+			rank: 1,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 2,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "1d12+8",
+				},
+			],
 		},
 		{
-			damageType: "crushing",
-			max: 20,
-			min: 8,
-			target: "enemy",
-			type: "damage",
+			rank: 2,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 3,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d12+7",
+				},
+			],
+		},
+		{
+			rank: 3,
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stun",
+					durationTurns: 4,
+				},
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "2d12+14",
+				},
+			],
 		},
 	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgrvvBiejH010EI8ME?alt=media&token=562118d9-90e1-4dc3-91fc-3a3ca57c6ea5",
-	level: 3,
-	maxUses: 1,
-	name: "Knock Down",
-	price: 0,
-	id: "knock_down",
+	tags: [],
 });
