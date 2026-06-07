@@ -21,13 +21,13 @@ export default buildClass({
 		hitDie: "d8",
 		skillIds: ["holy_bolt"],
 		featIds: [],
+		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["cloth"],
 		weaponTypes: ["mace", "hammer", "club", "staff"],
 	},
 	skillPoolIds: ["cleric", "occultist"],
-	tactic: "default",
 	startingEquipment: {
 		body: "travellers_robe",
 		hand1: "mace",

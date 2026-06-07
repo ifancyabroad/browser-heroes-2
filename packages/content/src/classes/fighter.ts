@@ -21,13 +21,13 @@ export default buildClass({
 		hitDie: "d10",
 		skillIds: ["armour_break"],
 		featIds: [],
+		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["heavy", "medium"],
 		weaponTypes: ["sword", "axe", "club", "hammer", "mace", "spear"],
 	},
 	skillPoolIds: ["warrior", "barbarian"],
-	tactic: "default",
 	startingEquipment: {
 		body: "hide_armour",
 		hand1: "longsword",

@@ -4,12 +4,11 @@ import {
 	attributesSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
+	tacticSchema,
 	zoneSchema,
 } from "./common.schema";
 
 export const enemyRankSchema = z.enum(["normal", "elite", "boss"]);
-
-export const enemyTacticSchema = z.enum(["default", "aggressive", "defensive", "caster", "random"]);
 
 export const damageAffinitiesSchema = z
 	.object({
@@ -66,7 +65,7 @@ export const enemyCombatSchema = z.object({
 	basicAttack: enemyBasicAttackSchema,
 	skillIds: z.array(z.string().nonempty()).default([]),
 	featIds: z.array(z.string().nonempty()).default([]),
-	tactic: enemyTacticSchema.default("default"),
+	tactic: tacticSchema.default("default"),
 });
 
 export const enemyEncounterSchema = z
@@ -104,4 +103,3 @@ export const enemySchema = z.object({
 export type Enemy = z.infer<typeof enemySchema>;
 export type EnemyDefinition = Enemy;
 export type EnemyRank = z.infer<typeof enemyRankSchema>;
-export type EnemyTactic = z.infer<typeof enemyTacticSchema>;

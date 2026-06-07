@@ -21,13 +21,13 @@ export default buildClass({
 		hitDie: "d8",
 		skillIds: ["flame_arrow"],
 		featIds: [],
+		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["light", "medium"],
 		weaponTypes: ["sword", "axe", "spear", "mace", "hammer", "club", "staff"],
 	},
 	skillPoolIds: ["barbarian", "warlock"],
-	tactic: "default",
 	startingEquipment: {
 		body: "hide_armour",
 		hand1: "quarterstaff",

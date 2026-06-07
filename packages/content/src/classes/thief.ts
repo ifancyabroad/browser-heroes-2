@@ -21,13 +21,13 @@ export default buildClass({
 		hitDie: "d8",
 		skillIds: ["poison_bomb"],
 		featIds: [],
+		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["light"],
 		weaponTypes: ["dagger", "crossbow", "bow"],
 	},
 	skillPoolIds: ["rogue", "assassin"],
-	tactic: "default",
 	startingEquipment: {
 		body: "padded_armour",
 		hand1: "dagger",

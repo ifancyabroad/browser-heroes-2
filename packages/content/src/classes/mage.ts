@@ -21,13 +21,13 @@ export default buildClass({
 		hitDie: "d6",
 		skillIds: ["sparks"],
 		featIds: [],
+		tactic: "caster",
 	},
 	proficiencies: {
 		armourTypes: ["cloth"],
 		weaponTypes: ["staff", "wand"],
 	},
 	skillPoolIds: ["mage", "warlock"],
-	tactic: "caster",
 	startingEquipment: {
 		body: "knaves_robe",
 		hand1: "quarterstaff",

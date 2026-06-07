@@ -21,13 +21,13 @@ export default buildClass({
 		hitDie: "d8",
 		skillIds: ["inflict_wounds"],
 		featIds: [],
+		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["light"],
 		weaponTypes: ["dagger", "sword", "axe", "bow", "crossbow"],
 	},
 	skillPoolIds: ["assassin", "occultist"],
-	tactic: "default",
 	startingEquipment: {
 		body: "padded_armour",
 		hand1: "dagger",

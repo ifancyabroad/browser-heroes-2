@@ -21,13 +21,13 @@ export default buildClass({
 		hitDie: "d10",
 		skillIds: ["holy_strike"],
 		featIds: [],
+		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["heavy", "medium"],
 		weaponTypes: ["sword", "axe", "club", "mace", "hammer", "spear"],
 	},
 	skillPoolIds: ["warrior", "cleric"],
-	tactic: "default",
 	startingEquipment: {
 		body: "breastplate",
 		hand1: "mace",

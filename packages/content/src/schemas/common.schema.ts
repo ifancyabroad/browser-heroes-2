@@ -118,6 +118,8 @@ export const zoneSchema = z.enum([
 	"volcano",
 ]);
 
+export const tacticSchema = z.enum(["default", "aggressive", "defensive", "caster", "random"]);
+
 export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
 export type DamageType = z.infer<typeof damageTypeSchema>;
 export type Attribute = z.infer<typeof attributeSchema>;
@@ -131,3 +133,4 @@ export type SkillPool = z.infer<typeof skillPoolSchema>;
 export type ArmourType = z.infer<typeof armourTypeSchema>;
 export type WeaponType = z.infer<typeof weaponTypeSchema>;
 export type Zone = z.infer<typeof zoneSchema>;
+export type Tactic = z.infer<typeof tacticSchema>;

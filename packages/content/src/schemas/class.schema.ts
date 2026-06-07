@@ -5,10 +5,9 @@ import {
 	diceSchema,
 	equipmentSchema,
 	skillPoolSchema,
+	tacticSchema,
 	weaponTypeSchema,
 } from "./common.schema";
-
-export const classTacticSchema = z.enum(["default", "aggressive", "defensive", "caster"]);
 
 export const classProficienciesSchema = z.object({
 	armourTypes: z.array(armourTypeSchema).default([]),
@@ -19,6 +18,7 @@ export const classCombatSchema = z.object({
 	hitDie: diceSchema,
 	skillIds: z.array(z.string().nonempty()).default([]),
 	featIds: z.array(z.string().nonempty()).default([]),
+	tactic: tacticSchema.default("default"),
 });
 
 export const classSchema = z.object({
@@ -33,10 +33,8 @@ export const classSchema = z.object({
 	proficiencies: classProficienciesSchema,
 	skillPoolIds: z.array(skillPoolSchema).default([]),
 	startingEquipment: equipmentSchema.optional(),
-	tactic: classTacticSchema.default("default"),
 	tags: z.array(z.string().nonempty()).default([]),
 });
 
 export type Class = z.infer<typeof classSchema>;
-export type ClassTactic = z.infer<typeof classTacticSchema>;
 export type ClassDefinition = Class;
