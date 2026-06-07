@@ -48,3 +48,8 @@ export const weaponSchema = z.object({
 });
 
 export type Weapon = z.infer<typeof weaponSchema>;
+export type ArmourType = Armour["armourType"];
+export type ArmourSlot = Armour["type"];
+export type WeaponSize = Weapon["size"];
+export type WeaponType = Weapon["weaponType"];
+export type ItemDefinition = Armour | Weapon;

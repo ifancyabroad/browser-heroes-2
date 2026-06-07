@@ -1,6 +1,6 @@
 // Generated — do not edit by hand
 
-import type { SkillDefinition } from '../types/skill';
+import type { SkillDefinition } from '../schemas';
 import type { SkillId } from './skillIds';
 import { skillIds } from './skillIds';
 

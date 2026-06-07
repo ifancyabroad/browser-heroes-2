@@ -1,6 +1,6 @@
 // Generated — do not edit by hand
 
-import type { EnemyDefinition } from '../types/enemy';
+import type { EnemyDefinition } from '../schemas';
 import type { EnemyId } from './enemyIds';
 import { enemyIds } from './enemyIds';
 

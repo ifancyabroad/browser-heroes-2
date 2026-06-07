@@ -24,3 +24,8 @@ export const effectSchema = z.object({
 	accuracy: z.number().optional(),
 	multiplier: z.number().optional(),
 });
+
+export type EffectType = z.infer<typeof effectTypeSchema>;
+export type PropertyType = z.infer<typeof propertyTypeSchema>;
+export type Property = z.infer<typeof propertySchema>;
+export type Effect = z.infer<typeof effectSchema>;

@@ -26,3 +26,6 @@ export const skillSchema = z.object({
 });
 
 export type Skill = z.infer<typeof skillSchema>;
+export type SkillClass = Skill["class"];
+export type SkillTarget = NonNullable<Skill["target"]>;
+export type SkillDefinition = Skill;

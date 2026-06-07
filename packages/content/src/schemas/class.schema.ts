@@ -45,3 +45,6 @@ export const classSchema = z.object({
 });
 
 export type Class = z.infer<typeof classSchema>;
+export type ClassTactic = z.infer<typeof classTacticSchema>;
+export type ClassSkillClass = Class["skillClasses"][number];
+export type ClassDefinition = Class;

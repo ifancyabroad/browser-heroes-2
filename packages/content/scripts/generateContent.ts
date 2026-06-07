@@ -137,10 +137,10 @@ function run() {
 
 	mkdirSync(OUT_DIR, { recursive: true });
 
-	generateFor("skill", skillsDir, "../types/skill");
-	generateFor("enemy", enemiesDir, "../types/enemy");
-	generateFor("item", itemsDir, "../types/item");
-	generateFor("class", classesDir, "../types/class");
+	generateFor("skill", skillsDir, "../schemas");
+	generateFor("enemy", enemiesDir, "../schemas");
+	generateFor("item", itemsDir, "../schemas");
+	generateFor("class", classesDir, "../schemas");
 
 	const manifests = [
 		"// Generated — do not edit by hand",

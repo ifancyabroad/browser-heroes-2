@@ -71,3 +71,11 @@ export const attributesSchema = z.object({
 	wisdom: z.number(),
 	charisma: z.number(),
 });
+
+export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
+export type DamageType = z.infer<typeof damageTypeSchema>;
+export type Attribute = z.infer<typeof attributeSchema>;
+export type Equipment = z.infer<typeof equipmentSchema>;
+export type BonusDamage = z.infer<typeof bonusDamageSchema>;
+export type Resistances = z.infer<typeof resistancesSchema>;
+export type Attributes = z.infer<typeof attributesSchema>;

@@ -1,6 +1,6 @@
 // Generated — do not edit by hand
 
-import type { ClassDefinition } from '../types/class';
+import type { ClassDefinition } from '../schemas';
 import type { ClassId } from './classIds';
 import { classIds } from './classIds';
 

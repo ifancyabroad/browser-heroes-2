@@ -41,3 +41,6 @@ export const enemySchema = z.object({
 });
 
 export type Enemy = z.infer<typeof enemySchema>;
+export type EnemyZone = z.infer<typeof enemyZoneSchema>;
+export type EnemyTactic = z.infer<typeof enemyTacticSchema>;
+export type EnemyDefinition = Enemy;

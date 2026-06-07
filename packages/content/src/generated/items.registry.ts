@@ -1,6 +1,6 @@
 // Generated — do not edit by hand
 
-import type { ItemDefinition } from '../types/item';
+import type { ItemDefinition } from '../schemas';
 import type { ItemId } from './itemIds';
 import { itemIds } from './itemIds';
 
