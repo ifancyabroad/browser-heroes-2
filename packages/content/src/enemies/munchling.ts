@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["go_for_the_eyes", "cold_bite"],
+		skills: [
+			{
+				skillId: "go_for_the_eyes",
+				rank: 1,
+			},
+			{
+				skillId: "cold_bite",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "strength"],
 	},
 	encounter: {
 		zone: "ocean",

@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cure_minor_wounds", "holy_bolt", "power_word_shield"],
+		skills: [
+			{
+				skillId: "cure_minor_wounds",
+				rank: 1,
+			},
+			{
+				skillId: "holy_bolt",
+				rank: 1,
+			},
+			{
+				skillId: "power_word_shield",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["wisdom", "constitution"],
 	},
 	encounter: {
 		zone: "castle",

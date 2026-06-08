@@ -43,9 +43,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["tenderise", "mighty_blow", "overpower"],
+		skills: [
+			{
+				skillId: "tenderise",
+				rank: 2,
+			},
+			{
+				skillId: "mighty_blow",
+				rank: 2,
+			},
+			{
+				skillId: "overpower",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "dungeon",

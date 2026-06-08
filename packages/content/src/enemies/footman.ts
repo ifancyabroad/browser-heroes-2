@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["heavy_strike", "armour_break"],
+		skills: [
+			{
+				skillId: "heavy_strike",
+				rank: 1,
+			},
+			{
+				skillId: "armour_break",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "castle",

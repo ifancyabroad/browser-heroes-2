@@ -43,16 +43,37 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: [
-			"finger_of_death",
-			"globe_of_invulnerability",
-			"chain_lightning",
-			"dragon_breath",
-			"pierce_magic",
-			"binkus_deathray",
+		skills: [
+			{
+				skillId: "finger_of_death",
+				rank: 3,
+			},
+			{
+				skillId: "globe_of_invulnerability",
+				rank: 3,
+			},
+			{
+				skillId: "chain_lightning",
+				rank: 3,
+			},
+			{
+				skillId: "dragon_breath",
+				rank: 3,
+			},
+			{
+				skillId: "pierce_magic",
+				rank: 3,
+			},
+			{
+				skillId: "binkus_deathray",
+				rank: 3,
+			},
 		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["intelligence", "wisdom", "constitution"],
 	},
 	encounter: {
 		zone: "dungeon",

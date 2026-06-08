@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cleave", "minotaur_charge", "frenzy"],
+		skills: [
+			{
+				skillId: "cleave",
+				rank: 3,
+			},
+			{
+				skillId: "minotaur_charge",
+				rank: 3,
+			},
+			{
+				skillId: "frenzy",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "wisdom"],
 	},
 	encounter: {
 		zone: "forest",

@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["double_strike", "burning_rampage"],
+		skills: [
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+			{
+				skillId: "burning_rampage",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "tower",

@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "holy_strike", "thou_hast_bested_me"],
+		skills: [
+			{
+				skillId: "charge",
+				rank: 3,
+			},
+			{
+				skillId: "holy_strike",
+				rank: 3,
+			},
+			{
+				skillId: "thou_hast_bested_me",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "defensive",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "castle",

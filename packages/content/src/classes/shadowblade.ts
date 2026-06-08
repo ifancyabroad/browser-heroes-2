@@ -19,13 +19,19 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skillIds: ["inflict_wounds"],
+		skills: [
+			{
+				skillId: "inflict_wounds",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["light"],
 		weaponTypes: ["dagger", "sword", "axe", "bow", "crossbow"],
+		savingThrows: ["dexterity", "intelligence"],
 	},
 	skillPoolIds: ["assassin", "occultist"],
 	startingEquipment: {

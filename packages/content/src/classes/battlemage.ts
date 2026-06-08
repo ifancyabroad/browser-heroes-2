@@ -19,13 +19,19 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skillIds: ["flame_arrow"],
+		skills: [
+			{
+				skillId: "flame_arrow",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["light", "medium"],
 		weaponTypes: ["sword", "axe", "spear", "mace", "hammer", "club", "staff"],
+		savingThrows: ["constitution", "intelligence"],
 	},
 	skillPoolIds: ["barbarian", "warlock"],
 	startingEquipment: {

@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["curse", "chosen_by_the_nameless", "drain_life", "power_word_confusion"],
+		skills: [
+			{
+				skillId: "curse",
+				rank: 2,
+			},
+			{
+				skillId: "chosen_by_the_nameless",
+				rank: 2,
+			},
+			{
+				skillId: "drain_life",
+				rank: 2,
+			},
+			{
+				skillId: "power_word_confusion",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["wisdom", "dexterity"],
 	},
 	encounter: {
 		zone: "dungeon",

@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["berserk", "heavy_strike"],
+		skills: [
+			{
+				skillId: "berserk",
+				rank: 2,
+			},
+			{
+				skillId: "heavy_strike",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "desert",

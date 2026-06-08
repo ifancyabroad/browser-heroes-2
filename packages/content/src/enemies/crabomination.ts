@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["crab_hammer", "powerful_blow", "skull_bash"],
+		skills: [
+			{
+				skillId: "crab_hammer",
+				rank: 2,
+			},
+			{
+				skillId: "powerful_blow",
+				rank: 2,
+			},
+			{
+				skillId: "skull_bash",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "strength"],
 	},
 	encounter: {
 		zone: "ocean",

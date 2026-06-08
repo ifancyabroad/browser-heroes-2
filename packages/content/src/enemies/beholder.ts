@@ -34,9 +34,17 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["eye_ray"],
+		skills: [
+			{
+				skillId: "eye_ray",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "intelligence"],
 	},
 	encounter: {
 		zone: "volcano",

@@ -43,9 +43,21 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["nightmares", "creeping_darkness"],
+		skills: [
+			{
+				skillId: "nightmares",
+				rank: 2,
+			},
+			{
+				skillId: "creeping_darkness",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "tower",

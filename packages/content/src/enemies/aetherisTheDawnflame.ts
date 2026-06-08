@@ -45,15 +45,33 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: [
-			"dragon_focus",
-			"multi_strike",
-			"breath_of_the_dawnflame",
-			"boon_of_the_dawnflame",
-			"rebirth",
+		skills: [
+			{
+				skillId: "dragon_focus",
+				rank: 3,
+			},
+			{
+				skillId: "multi_strike",
+				rank: 3,
+			},
+			{
+				skillId: "breath_of_the_dawnflame",
+				rank: 3,
+			},
+			{
+				skillId: "boon_of_the_dawnflame",
+				rank: 3,
+			},
+			{
+				skillId: "rebirth",
+				rank: 3,
+			},
 		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "charisma"],
 	},
 	encounter: {
 		zone: "tower",

@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["detect_blood", "leap_attack"],
+		skills: [
+			{
+				skillId: "detect_blood",
+				rank: 2,
+			},
+			{
+				skillId: "leap_attack",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "strength"],
 	},
 	encounter: {
 		zone: "abyss",

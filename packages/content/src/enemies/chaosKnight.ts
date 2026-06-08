@@ -43,9 +43,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["disarm", "focus_energy", "whirlwind_strike"],
+		skills: [
+			{
+				skillId: "disarm",
+				rank: 2,
+			},
+			{
+				skillId: "focus_energy",
+				rank: 2,
+			},
+			{
+				skillId: "whirlwind_strike",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "dungeon",

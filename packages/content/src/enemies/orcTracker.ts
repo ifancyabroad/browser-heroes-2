@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["multi_shot", "take_aim", "trip_wire"],
+		skills: [
+			{
+				skillId: "multi_shot",
+				rank: 2,
+			},
+			{
+				skillId: "take_aim",
+				rank: 2,
+			},
+			{
+				skillId: "trip_wire",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "plains",

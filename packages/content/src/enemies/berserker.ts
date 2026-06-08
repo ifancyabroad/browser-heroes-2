@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["armour_break", "berserk", "cleave"],
+		skills: [
+			{
+				skillId: "armour_break",
+				rank: 2,
+			},
+			{
+				skillId: "berserk",
+				rank: 2,
+			},
+			{
+				skillId: "cleave",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "castle",

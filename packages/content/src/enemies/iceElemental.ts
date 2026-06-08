@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "ice_punch"],
+		skills: [
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+			{
+				skillId: "ice_punch",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "tower",

@@ -19,13 +19,19 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d10",
-		skillIds: ["armour_break"],
+		skills: [
+			{
+				skillId: "armour_break",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["heavy", "medium"],
 		weaponTypes: ["sword", "axe", "club", "hammer", "mace", "spear"],
+		savingThrows: ["strength", "constitution"],
 	},
 	skillPoolIds: ["warrior", "barbarian"],
 	startingEquipment: {

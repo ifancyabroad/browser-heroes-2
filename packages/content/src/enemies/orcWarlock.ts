@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["shadow_bolt", "fireball", "iron_skin", "embrace_shadows"],
+		skills: [
+			{
+				skillId: "shadow_bolt",
+				rank: 2,
+			},
+			{
+				skillId: "fireball",
+				rank: 2,
+			},
+			{
+				skillId: "iron_skin",
+				rank: 2,
+			},
+			{
+				skillId: "embrace_shadows",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["intelligence", "constitution"],
 	},
 	encounter: {
 		zone: "plains",

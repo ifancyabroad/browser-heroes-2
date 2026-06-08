@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["cure_medium_wounds", "bless", "lighting_bolt"],
+		skills: [
+			{
+				skillId: "cure_medium_wounds",
+				rank: 1,
+			},
+			{
+				skillId: "bless",
+				rank: 1,
+			},
+			{
+				skillId: "lighting_bolt",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "desert",

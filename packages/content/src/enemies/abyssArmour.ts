@@ -43,9 +43,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["armour_break", "disarm", "wind_strike"],
+		skills: [
+			{
+				skillId: "armour_break",
+				rank: 2,
+			},
+			{
+				skillId: "disarm",
+				rank: 2,
+			},
+			{
+				skillId: "wind_strike",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "abyss",

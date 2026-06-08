@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["tenderise", "double_strike"],
+		skills: [
+			{
+				skillId: "tenderise",
+				rank: 2,
+			},
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "abyss",

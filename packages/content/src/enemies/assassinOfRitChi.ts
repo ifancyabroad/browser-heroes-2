@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["acrobatic_strike", "evasion", "backstab"],
+		skills: [
+			{
+				skillId: "acrobatic_strike",
+				rank: 2,
+			},
+			{
+				skillId: "evasion",
+				rank: 2,
+			},
+			{
+				skillId: "backstab",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "desert",

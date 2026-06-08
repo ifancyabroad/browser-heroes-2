@@ -34,9 +34,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skills: [],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "hills",

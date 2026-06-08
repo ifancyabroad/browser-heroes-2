@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["flurry", "expose_weakness", "shadow_strike"],
+		skills: [
+			{
+				skillId: "flurry",
+				rank: 2,
+			},
+			{
+				skillId: "expose_weakness",
+				rank: 2,
+			},
+			{
+				skillId: "shadow_strike",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "hills",

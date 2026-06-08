@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["reposition", "head_shot"],
+		skills: [
+			{
+				skillId: "reposition",
+				rank: 2,
+			},
+			{
+				skillId: "head_shot",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "plains",

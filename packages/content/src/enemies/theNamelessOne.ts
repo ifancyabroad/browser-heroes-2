@@ -43,9 +43,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["tentacle_wrap", "multi_strike", "horrifying_visage", "tentacle_crush"],
+		skills: [
+			{
+				skillId: "tentacle_wrap",
+				rank: 3,
+			},
+			{
+				skillId: "multi_strike",
+				rank: 3,
+			},
+			{
+				skillId: "horrifying_visage",
+				rank: 3,
+			},
+			{
+				skillId: "tentacle_crush",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "dungeon",

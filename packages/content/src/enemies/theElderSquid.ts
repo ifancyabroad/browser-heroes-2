@@ -34,15 +34,33 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: [
-			"globe_of_invulnerability",
-			"drain_energy",
-			"tentacle_wrap",
-			"psionic_blast",
-			"drain_life",
+		skills: [
+			{
+				skillId: "globe_of_invulnerability",
+				rank: 3,
+			},
+			{
+				skillId: "drain_energy",
+				rank: 3,
+			},
+			{
+				skillId: "tentacle_wrap",
+				rank: 3,
+			},
+			{
+				skillId: "psionic_blast",
+				rank: 3,
+			},
+			{
+				skillId: "drain_life",
+				rank: 3,
+			},
 		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["intelligence", "wisdom", "strength"],
 	},
 	encounter: {
 		zone: "ocean",

@@ -19,13 +19,19 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skillIds: ["poison_bomb"],
+		skills: [
+			{
+				skillId: "poison_bomb",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["light"],
 		weaponTypes: ["dagger", "crossbow", "bow"],
+		savingThrows: ["dexterity", "charisma"],
 	},
 	skillPoolIds: ["rogue", "assassin"],
 	startingEquipment: {

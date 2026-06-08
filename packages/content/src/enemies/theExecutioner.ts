@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["knock_down", "execute", "powerful_blow"],
+		skills: [
+			{
+				skillId: "knock_down",
+				rank: 3,
+			},
+			{
+				skillId: "execute",
+				rank: 3,
+			},
+			{
+				skillId: "powerful_blow",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "hills",

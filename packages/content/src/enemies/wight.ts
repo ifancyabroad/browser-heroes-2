@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "constitution",
 			},
 		},
-		skillIds: ["corrupting_touch", "evasion"],
+		skills: [
+			{
+				skillId: "corrupting_touch",
+				rank: 2,
+			},
+			{
+				skillId: "evasion",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "strength"],
 	},
 	encounter: {
 		zone: "hills",

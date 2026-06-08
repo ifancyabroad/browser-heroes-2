@@ -19,13 +19,19 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d10",
-		skillIds: ["holy_strike"],
+		skills: [
+			{
+				skillId: "holy_strike",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["heavy", "medium"],
 		weaponTypes: ["sword", "axe", "club", "mace", "hammer", "spear"],
+		savingThrows: ["wisdom", "charisma"],
 	},
 	skillPoolIds: ["warrior", "cleric"],
 	startingEquipment: {

@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["berserk", "double_strike", "knock_down", "overpower"],
+		skills: [
+			{
+				skillId: "berserk",
+				rank: 3,
+			},
+			{
+				skillId: "double_strike",
+				rank: 3,
+			},
+			{
+				skillId: "knock_down",
+				rank: 3,
+			},
+			{
+				skillId: "overpower",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "plains",

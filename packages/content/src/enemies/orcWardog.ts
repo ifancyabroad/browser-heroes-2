@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "berserk", "leap_attack"],
+		skills: [
+			{
+				skillId: "charge",
+				rank: 2,
+			},
+			{
+				skillId: "berserk",
+				rank: 2,
+			},
+			{
+				skillId: "leap_attack",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "plains",

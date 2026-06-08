@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cripple", "take_aim"],
+		skills: [
+			{
+				skillId: "cripple",
+				rank: 1,
+			},
+			{
+				skillId: "take_aim",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "castle",

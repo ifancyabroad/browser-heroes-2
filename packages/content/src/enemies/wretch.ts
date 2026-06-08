@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["evasion", "leap_attack"],
+		skills: [
+			{
+				skillId: "evasion",
+				rank: 1,
+			},
+			{
+				skillId: "leap_attack",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "strength"],
 	},
 	encounter: {
 		zone: "dungeon",

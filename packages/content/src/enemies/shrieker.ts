@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["evasion", "deafening_screech"],
+		skills: [
+			{
+				skillId: "evasion",
+				rank: 1,
+			},
+			{
+				skillId: "deafening_screech",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "forest",

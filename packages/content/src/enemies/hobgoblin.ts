@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["acrobatic_strike", "cripple"],
+		skills: [
+			{
+				skillId: "acrobatic_strike",
+				rank: 1,
+			},
+			{
+				skillId: "cripple",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "forest",

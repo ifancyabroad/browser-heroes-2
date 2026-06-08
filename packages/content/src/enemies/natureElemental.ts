@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "constitution",
 			},
 		},
-		skillIds: ["nature_s_blessing", "poison_cloud"],
+		skills: [
+			{
+				skillId: "nature_s_blessing",
+				rank: 2,
+			},
+			{
+				skillId: "poison_cloud",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "strength"],
 	},
 	encounter: {
 		zone: "tower",

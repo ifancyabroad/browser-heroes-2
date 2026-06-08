@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["power_word_fortitude", "cure_major_wounds", "flamestrike", "holy_bolt"],
+		skills: [
+			{
+				skillId: "power_word_fortitude",
+				rank: 2,
+			},
+			{
+				skillId: "cure_major_wounds",
+				rank: 2,
+			},
+			{
+				skillId: "flamestrike",
+				rank: 2,
+			},
+			{
+				skillId: "holy_bolt",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["wisdom", "constitution"],
 	},
 	encounter: {
 		zone: "ocean",

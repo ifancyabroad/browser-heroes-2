@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["multi_shot", "reposition", "burning_shot"],
+		skills: [
+			{
+				skillId: "multi_shot",
+				rank: 3,
+			},
+			{
+				skillId: "reposition",
+				rank: 3,
+			},
+			{
+				skillId: "burning_shot",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "castle",

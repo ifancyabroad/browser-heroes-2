@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["leap_attack", "overpower", "toxic_bite"],
+		skills: [
+			{
+				skillId: "leap_attack",
+				rank: 2,
+			},
+			{
+				skillId: "overpower",
+				rank: 2,
+			},
+			{
+				skillId: "toxic_bite",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "dungeon",

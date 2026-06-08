@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["battle_cry", "armour_break"],
+		skills: [
+			{
+				skillId: "battle_cry",
+				rank: 1,
+			},
+			{
+				skillId: "armour_break",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "plains",

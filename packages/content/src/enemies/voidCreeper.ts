@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cone_of_cold", "drain_life", "psionic_blast"],
+		skills: [
+			{
+				skillId: "cone_of_cold",
+				rank: 2,
+			},
+			{
+				skillId: "drain_life",
+				rank: 2,
+			},
+			{
+				skillId: "psionic_blast",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["intelligence", "wisdom"],
 	},
 	encounter: {
 		zone: "ocean",

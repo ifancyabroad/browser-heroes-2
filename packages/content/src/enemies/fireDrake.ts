@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["fire_breath", "drop_from_above"],
+		skills: [
+			{
+				skillId: "fire_breath",
+				rank: 2,
+			},
+			{
+				skillId: "drop_from_above",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "charisma"],
 	},
 	encounter: {
 		zone: "volcano",

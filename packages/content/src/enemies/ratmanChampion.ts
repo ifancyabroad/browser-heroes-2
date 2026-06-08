@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["shield_wall", "disarm", "rend"],
+		skills: [
+			{
+				skillId: "shield_wall",
+				rank: 2,
+			},
+			{
+				skillId: "disarm",
+				rank: 2,
+			},
+			{
+				skillId: "rend",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "desert",

@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "armour_break"],
+		skills: [
+			{
+				skillId: "charge",
+				rank: 2,
+			},
+			{
+				skillId: "armour_break",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "strength"],
 	},
 	encounter: {
 		zone: "desert",

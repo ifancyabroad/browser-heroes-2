@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["petrifying_gaze", "leap_attack", "toxic_bite"],
+		skills: [
+			{
+				skillId: "petrifying_gaze",
+				rank: 1,
+			},
+			{
+				skillId: "leap_attack",
+				rank: 1,
+			},
+			{
+				skillId: "toxic_bite",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "strength"],
 	},
 	encounter: {
 		zone: "volcano",

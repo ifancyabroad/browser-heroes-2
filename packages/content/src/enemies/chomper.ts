@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["poison_bite", "growth"],
+		skills: [
+			{
+				skillId: "poison_bite",
+				rank: 1,
+			},
+			{
+				skillId: "growth",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "strength"],
 	},
 	encounter: {
 		zone: "forest",

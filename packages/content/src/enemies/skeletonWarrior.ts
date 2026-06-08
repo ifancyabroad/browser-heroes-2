@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["rend", "cleave"],
+		skills: [
+			{
+				skillId: "rend",
+				rank: 1,
+			},
+			{
+				skillId: "cleave",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "hills",

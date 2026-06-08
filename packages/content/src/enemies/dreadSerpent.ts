@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["toxic_bite", "acid_spray"],
+		skills: [
+			{
+				skillId: "toxic_bite",
+				rank: 2,
+			},
+			{
+				skillId: "acid_spray",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "hills",

@@ -34,9 +34,17 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["combust"],
+		skills: [
+			{
+				skillId: "combust",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "volcano",

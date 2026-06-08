@@ -34,9 +34,17 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["doom_song"],
+		skills: [
+			{
+				skillId: "doom_song",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "ocean",

@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["embrace_shadows", "flame_arrow", "shadow_bolt", "blind"],
+		skills: [
+			{
+				skillId: "embrace_shadows",
+				rank: 2,
+			},
+			{
+				skillId: "flame_arrow",
+				rank: 2,
+			},
+			{
+				skillId: "shadow_bolt",
+				rank: 2,
+			},
+			{
+				skillId: "blind",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["intelligence", "dexterity"],
 	},
 	encounter: {
 		zone: "desert",

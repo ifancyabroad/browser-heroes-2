@@ -19,13 +19,19 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d6",
-		skillIds: ["sparks"],
+		skills: [
+			{
+				skillId: "sparks",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {
 		armourTypes: ["cloth"],
 		weaponTypes: ["staff", "wand"],
+		savingThrows: ["intelligence", "wisdom"],
 	},
 	skillPoolIds: ["mage", "warlock"],
 	startingEquipment: {

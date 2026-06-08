@@ -43,9 +43,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["wind_strike", "evasion", "drop_from_above"],
+		skills: [
+			{
+				skillId: "wind_strike",
+				rank: 2,
+			},
+			{
+				skillId: "evasion",
+				rank: 2,
+			},
+			{
+				skillId: "drop_from_above",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "strength"],
 	},
 	encounter: {
 		zone: "abyss",

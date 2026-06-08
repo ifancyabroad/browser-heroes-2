@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["knock_down", "reconstruct", "acquire_target", "double_strike"],
+		skills: [
+			{
+				skillId: "knock_down",
+				rank: 2,
+			},
+			{
+				skillId: "reconstruct",
+				rank: 2,
+			},
+			{
+				skillId: "acquire_target",
+				rank: 2,
+			},
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "volcano",

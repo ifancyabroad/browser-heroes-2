@@ -42,9 +42,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "deafening_roar", "tenderise"],
+		skills: [
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+			{
+				skillId: "deafening_roar",
+				rank: 2,
+			},
+			{
+				skillId: "tenderise",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "dungeon",

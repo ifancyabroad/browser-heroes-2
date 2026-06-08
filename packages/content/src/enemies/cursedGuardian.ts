@@ -43,9 +43,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["obliterate", "devour_soul", "double_strike"],
+		skills: [
+			{
+				skillId: "obliterate",
+				rank: 2,
+			},
+			{
+				skillId: "devour_soul",
+				rank: 2,
+			},
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "abyss",

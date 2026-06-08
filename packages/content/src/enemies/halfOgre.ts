@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["battle_cry", "heavy_strike", "skull_bash"],
+		skills: [
+			{
+				skillId: "battle_cry",
+				rank: 2,
+			},
+			{
+				skillId: "heavy_strike",
+				rank: 2,
+			},
+			{
+				skillId: "skull_bash",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "plains",

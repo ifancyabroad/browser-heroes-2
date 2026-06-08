@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["disease_shot", "make_it_rain", "reposition"],
+		skills: [
+			{
+				skillId: "disease_shot",
+				rank: 3,
+			},
+			{
+				skillId: "make_it_rain",
+				rank: 3,
+			},
+			{
+				skillId: "reposition",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "dexterity"],
 	},
 	encounter: {
 		zone: "desert",

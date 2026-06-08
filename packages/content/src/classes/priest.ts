@@ -19,13 +19,19 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skillIds: ["holy_bolt"],
+		skills: [
+			{
+				skillId: "holy_bolt",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
 		armourTypes: ["cloth"],
 		weaponTypes: ["mace", "hammer", "club", "staff"],
+		savingThrows: ["wisdom", "charisma"],
 	},
 	skillPoolIds: ["cleric", "occultist"],
 	startingEquipment: {

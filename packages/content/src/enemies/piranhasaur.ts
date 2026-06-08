@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cold_bite", "detect_blood"],
+		skills: [
+			{
+				skillId: "cold_bite",
+				rank: 2,
+			},
+			{
+				skillId: "detect_blood",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "ocean",

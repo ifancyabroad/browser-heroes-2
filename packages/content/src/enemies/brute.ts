@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["stand_ground", "focus_energy"],
+		skills: [
+			{
+				skillId: "stand_ground",
+				rank: 2,
+			},
+			{
+				skillId: "focus_energy",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "strength"],
 	},
 	encounter: {
 		zone: "castle",

@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["armour", "sparks", "frost_arrow", "flame_arrow"],
+		skills: [
+			{
+				skillId: "armour",
+				rank: 2,
+			},
+			{
+				skillId: "sparks",
+				rank: 2,
+			},
+			{
+				skillId: "frost_arrow",
+				rank: 2,
+			},
+			{
+				skillId: "flame_arrow",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["intelligence", "constitution"],
 	},
 	encounter: {
 		zone: "castle",

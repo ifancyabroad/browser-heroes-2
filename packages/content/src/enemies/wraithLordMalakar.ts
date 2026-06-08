@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "charisma",
 			},
 		},
-		skillIds: ["corrupting_touch", "wail", "cloak_of_shadows"],
+		skills: [
+			{
+				skillId: "corrupting_touch",
+				rank: 3,
+			},
+			{
+				skillId: "wail",
+				rank: 3,
+			},
+			{
+				skillId: "cloak_of_shadows",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution", "charisma"],
 	},
 	encounter: {
 		zone: "hills",

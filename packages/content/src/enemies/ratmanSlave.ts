@@ -34,9 +34,17 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["poison_bomb"],
+		skills: [
+			{
+				skillId: "poison_bomb",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "wisdom"],
 	},
 	encounter: {
 		zone: "desert",

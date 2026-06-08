@@ -44,9 +44,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["deafening_roar", "fire_breath", "dragon_focus", "multi_strike"],
+		skills: [
+			{
+				skillId: "deafening_roar",
+				rank: 3,
+			},
+			{
+				skillId: "fire_breath",
+				rank: 3,
+			},
+			{
+				skillId: "dragon_focus",
+				rank: 3,
+			},
+			{
+				skillId: "multi_strike",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "charisma"],
 	},
 	encounter: {
 		zone: "volcano",

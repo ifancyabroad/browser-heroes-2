@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "earthquake", "obliterate"],
+		skills: [
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+			{
+				skillId: "earthquake",
+				rank: 2,
+			},
+			{
+				skillId: "obliterate",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "tower",

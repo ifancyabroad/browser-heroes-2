@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["engulf", "fireball", "pierce_magic", "embrace_elements"],
+		skills: [
+			{
+				skillId: "engulf",
+				rank: 2,
+			},
+			{
+				skillId: "fireball",
+				rank: 2,
+			},
+			{
+				skillId: "pierce_magic",
+				rank: 2,
+			},
+			{
+				skillId: "embrace_elements",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "caster",
+	},
+	proficiencies: {
+		savingThrows: ["intelligence", "constitution"],
 	},
 	encounter: {
 		zone: "volcano",

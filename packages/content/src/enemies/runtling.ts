@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["charge", "acid_bite"],
+		skills: [
+			{
+				skillId: "charge",
+				rank: 1,
+			},
+			{
+				skillId: "acid_bite",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "intelligence"],
 	},
 	encounter: {
 		zone: "forest",

@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "drain_energy", "call_upon_rit_chi"],
+		skills: [
+			{
+				skillId: "double_strike",
+				rank: 3,
+			},
+			{
+				skillId: "drain_energy",
+				rank: 3,
+			},
+			{
+				skillId: "call_upon_rit_chi",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "strength", "dexterity"],
 	},
 	encounter: {
 		zone: "desert",

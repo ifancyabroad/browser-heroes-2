@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["constrict", "flame_bite"],
+		skills: [
+			{
+				skillId: "constrict",
+				rank: 2,
+			},
+			{
+				skillId: "flame_bite",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "volcano",

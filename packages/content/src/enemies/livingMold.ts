@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["regeneration", "poison_bite"],
+		skills: [
+			{
+				skillId: "regeneration",
+				rank: 1,
+			},
+			{
+				skillId: "poison_bite",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "strength"],
 	},
 	encounter: {
 		zone: "forest",

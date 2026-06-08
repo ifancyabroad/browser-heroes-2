@@ -34,9 +34,21 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["into_the_grinder", "leap_attack"],
+		skills: [
+			{
+				skillId: "into_the_grinder",
+				rank: 2,
+			},
+			{
+				skillId: "leap_attack",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "hills",

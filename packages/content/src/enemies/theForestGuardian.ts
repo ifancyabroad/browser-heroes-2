@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "constitution",
 			},
 		},
-		skillIds: ["double_strike", "focus_energy", "stoke_the_flames"],
+		skills: [
+			{
+				skillId: "double_strike",
+				rank: 3,
+			},
+			{
+				skillId: "focus_energy",
+				rank: 3,
+			},
+			{
+				skillId: "stoke_the_flames",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["constitution", "dexterity", "strength"],
 	},
 	encounter: {
 		zone: "forest",

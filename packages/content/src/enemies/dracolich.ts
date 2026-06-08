@@ -34,9 +34,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["tail_swipe", "double_strike", "necro_breath", "dragon_focus"],
+		skills: [
+			{
+				skillId: "tail_swipe",
+				rank: 2,
+			},
+			{
+				skillId: "double_strike",
+				rank: 2,
+			},
+			{
+				skillId: "necro_breath",
+				rank: 2,
+			},
+			{
+				skillId: "dragon_focus",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "charisma"],
 	},
 	encounter: {
 		zone: "dungeon",

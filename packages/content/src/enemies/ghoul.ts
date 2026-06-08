@@ -34,9 +34,17 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["ghoul_strike"],
+		skills: [
+			{
+				skillId: "ghoul_strike",
+				rank: 1,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "strength"],
 	},
 	encounter: {
 		zone: "hills",

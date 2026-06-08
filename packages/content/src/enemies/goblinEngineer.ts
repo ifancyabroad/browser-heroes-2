@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["acid_bomb", "acid_trap", "poison_bomb"],
+		skills: [
+			{
+				skillId: "acid_bomb",
+				rank: 2,
+			},
+			{
+				skillId: "acid_trap",
+				rank: 2,
+			},
+			{
+				skillId: "poison_bomb",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "abyss",

@@ -43,9 +43,29 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "fireball", "fire_strike", "yagamon_s_revenge"],
+		skills: [
+			{
+				skillId: "double_strike",
+				rank: 3,
+			},
+			{
+				skillId: "fireball",
+				rank: 3,
+			},
+			{
+				skillId: "fire_strike",
+				rank: 3,
+			},
+			{
+				skillId: "yagamon_s_revenge",
+				rank: 3,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "constitution", "charisma"],
 	},
 	encounter: {
 		zone: "volcano",

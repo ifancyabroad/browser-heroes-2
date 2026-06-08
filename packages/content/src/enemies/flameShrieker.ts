@@ -34,9 +34,25 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["burning_rampage", "deafening_screech", "leap_attack"],
+		skills: [
+			{
+				skillId: "burning_rampage",
+				rank: 2,
+			},
+			{
+				skillId: "deafening_screech",
+				rank: 2,
+			},
+			{
+				skillId: "leap_attack",
+				rank: 2,
+			},
+		],
 		featIds: [],
 		tactic: "default",
+	},
+	proficiencies: {
+		savingThrows: ["strength", "dexterity"],
 	},
 	encounter: {
 		zone: "volcano",
