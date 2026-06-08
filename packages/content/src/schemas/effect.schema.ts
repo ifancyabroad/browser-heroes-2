@@ -82,6 +82,19 @@ export const applyStatusEffectSchema = z.object({
 	durationTurns: z.number().int().positive(),
 });
 
+export const removeStatusEffectSchema = z
+	.object({
+		type: z.literal("removeStatus"),
+		target: skillTargetSchema,
+		statusIds: z.array(statusEffectSchema).default([]),
+		allNegative: z.boolean().default(false),
+		allPositive: z.boolean().default(false),
+	})
+	.refine((effect) => effect.statusIds.length > 0 || effect.allNegative || effect.allPositive, {
+		message: "removeStatus effect must provide statusIds, allNegative, or allPositive",
+		path: ["statusIds"],
+	});
+
 export const modifyStatEffectSchema = z.object({
 	type: z.literal("modifyStat"),
 	target: skillTargetSchema,
@@ -109,20 +122,13 @@ export const modifyDamageAffinityEffectSchema = z.object({
 	durationTurns: z.number().int().positive().optional(),
 });
 
-export const cleanseEffectSchema = z.object({
-	type: z.literal("cleanse"),
-	target: z.literal("self").default("self"),
-	statusIds: z.array(statusEffectSchema).default([]),
-	allNegative: z.boolean().default(false),
-});
-
 export const riderEffectSchema = z.discriminatedUnion("type", [
 	damageEffectSchema,
 	healEffectSchema,
 	applyStatusEffectSchema,
+	removeStatusEffectSchema,
 	modifyStatEffectSchema,
 	modifyDamageEffectSchema,
-	cleanseEffectSchema,
 ]);
 
 export const attackRiderTimingSchema = z.enum(["onHit", "onCrit"]);
@@ -148,10 +154,10 @@ export const effectSchema = z.discriminatedUnion("type", [
 	attackDamageEffectSchema,
 	healEffectSchema,
 	applyStatusEffectSchema,
+	removeStatusEffectSchema,
 	modifyStatEffectSchema,
 	modifyDamageEffectSchema,
 	modifyDamageAffinityEffectSchema,
-	cleanseEffectSchema,
 ]);
 
 export type StatusEffect = z.infer<typeof statusEffectSchema>;
@@ -169,7 +175,7 @@ export type DamageEffect = z.infer<typeof damageEffectSchema>;
 export type AttackDamageEffect = z.infer<typeof attackDamageEffectSchema>;
 export type HealEffect = z.infer<typeof healEffectSchema>;
 export type ApplyStatusEffect = z.infer<typeof applyStatusEffectSchema>;
+export type RemoveStatusEffect = z.infer<typeof removeStatusEffectSchema>;
 export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
 export type ModifyDamageEffect = z.infer<typeof modifyDamageEffectSchema>;
 export type ModifyDamageAffinityEffect = z.infer<typeof modifyDamageAffinityEffectSchema>;
-export type CleanseEffect = z.infer<typeof cleanseEffectSchema>;
