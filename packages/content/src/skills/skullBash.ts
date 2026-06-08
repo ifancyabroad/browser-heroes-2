@@ -12,11 +12,11 @@ export default buildSkill({
 			rank: 1,
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyDamageAffinity",
 					target: "enemy",
-					damageType: "crushing",
+					affinity: "vulnerability",
 					operation: "add",
-					value: 25,
+					damageType: "crushing",
 					durationTurns: 5,
 				},
 				{
@@ -42,11 +42,11 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyDamageAffinity",
 					target: "enemy",
-					damageType: "crushing",
+					affinity: "vulnerability",
 					operation: "add",
-					value: 38,
+					damageType: "crushing",
 					durationTurns: 6,
 				},
 				{
@@ -72,11 +72,11 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyDamageAffinity",
 					target: "enemy",
-					damageType: "crushing",
+					affinity: "vulnerability",
 					operation: "add",
-					value: 50,
+					damageType: "crushing",
 					durationTurns: 7,
 				},
 				{

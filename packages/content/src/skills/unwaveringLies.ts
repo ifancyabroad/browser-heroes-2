@@ -12,11 +12,11 @@ export default buildSkill({
 			rank: 1,
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyDamageAffinity",
 					target: "enemy",
-					damageType: "necrotic",
+					affinity: "vulnerability",
 					operation: "add",
-					value: 25,
+					damageType: "necrotic",
 					durationTurns: 3,
 				},
 				{
@@ -41,11 +41,11 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyDamageAffinity",
 					target: "enemy",
-					damageType: "necrotic",
+					affinity: "vulnerability",
 					operation: "add",
-					value: 38,
+					damageType: "necrotic",
 					durationTurns: 4,
 				},
 				{
@@ -70,11 +70,11 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyDamageAffinity",
 					target: "enemy",
-					damageType: "necrotic",
+					affinity: "vulnerability",
 					operation: "add",
-					value: 50,
+					damageType: "necrotic",
 					durationTurns: 5,
 				},
 				{
