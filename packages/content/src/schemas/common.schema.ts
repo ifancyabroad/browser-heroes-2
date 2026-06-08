@@ -103,6 +103,13 @@ export const skillCategorySchema = z.enum([
 
 export const skillTargetSchema = z.enum(["self", "enemy"]);
 
+export const skillRankValueSchema = z.union([z.literal(1), z.literal(2), z.literal(3)]);
+
+export const skillRefSchema = z.object({
+	skillId: z.string().nonempty(),
+	rank: skillRankValueSchema.default(1),
+});
+
 export const armourTypeSchema = z.enum(["cloth", "light", "medium", "heavy"]);
 
 export const weaponTypeSchema = z.enum([

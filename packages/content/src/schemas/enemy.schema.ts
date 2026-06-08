@@ -4,6 +4,7 @@ import {
 	attributesSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
+	skillRefSchema,
 	tacticSchema,
 	zoneSchema,
 } from "./common.schema";
@@ -42,6 +43,10 @@ export const damageAffinitiesSchema = z
 		}
 	});
 
+export const enemyProficienciesSchema = z.object({
+	savingThrows: z.array(attributeSchema).default([]),
+});
+
 export const enemyBasicAttackSchema = z.object({
 	name: z.string().nonempty(),
 	attackAttribute: attributeSchema.optional(),
@@ -62,7 +67,7 @@ export const enemyCombatSchema = z.object({
 		vulnerabilities: [],
 	}),
 	basicAttack: enemyBasicAttackSchema,
-	skillIds: z.array(z.string().nonempty()).default([]),
+	skills: z.array(skillRefSchema).default([]),
 	featIds: z.array(z.string().nonempty()).default([]),
 	tactic: tacticSchema.default("default"),
 });
@@ -95,6 +100,7 @@ export const enemySchema = z.object({
 	threat: z.number().int().positive().default(1),
 	attributes: attributesSchema,
 	combat: enemyCombatSchema,
+	proficiencies: enemyProficienciesSchema,
 	encounter: enemyEncounterSchema,
 	tags: z.array(z.string().nonempty()).default([]),
 });

@@ -5,6 +5,7 @@ import {
 	diceFormulaSchema,
 	equipmentSchema,
 	skillPoolSchema,
+	skillRefSchema,
 	tacticSchema,
 	weaponTypeSchema,
 } from "./common.schema";
@@ -12,11 +13,12 @@ import {
 export const classProficienciesSchema = z.object({
 	armourTypes: z.array(armourTypeSchema).default([]),
 	weaponTypes: z.array(weaponTypeSchema).default([]),
+	savingThrows: z.array(attributesSchema).default([]),
 });
 
 export const classCombatSchema = z.object({
 	hitDie: diceFormulaSchema,
-	skillIds: z.array(z.string().nonempty()).default([]),
+	skills: z.array(skillRefSchema).default([]),
 	featIds: z.array(z.string().nonempty()).default([]),
 	tactic: tacticSchema.default("default"),
 });
