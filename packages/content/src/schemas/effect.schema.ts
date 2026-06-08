@@ -6,41 +6,60 @@ import {
 	skillTargetSchema,
 } from "./common.schema";
 
-export const damageEffectSchema = z.object({
-	type: z.literal("damage"),
-	target: skillTargetSchema.default("enemy"),
-	damageType: damageTypeSchema,
-	dice: diceFormulaSchema,
+export const modifiableStatSchema = z.enum([
+	"armourClass",
+	"damageReduction",
+	"proficiencyBonus",
+	"attackRollBonus",
+	"savingThrowBonus",
+	"saveDcBonus",
+	"critChance",
+	"critMultiplier",
+	"healingMultiplier",
+	"strength",
+	"dexterity",
+	"constitution",
+	"intelligence",
+	"wisdom",
+	"charisma",
+]);
 
-	/**
-	 * Optional attribute modifier added to damage.
-	 * Example: 1d8 + STR mod, 2d6 + INT mod.
-	 */
-	attribute: attributeSchema.optional(),
+export const modifierOperationSchema = z.enum(["add", "multiply", "set"]);
+
+export const saveOutcomeSchema = z.enum(["noEffect", "halfDamage"]);
+
+export const saveDcSchema = z.object({
+	base: z.number().int().default(8),
+	attribute: attributeSchema,
+	includeProficiency: z.boolean().default(true),
+	bonus: z.number().int().default(0),
 });
 
-export const weaponDamageEffectSchema = z.object({
-	type: z.literal("weaponDamage"),
-	target: skillTargetSchema.default("enemy"),
-
-	/**
-	 * Multiplier applied to the combatant's basic attack damage.
-	 * Example: 1.5 = 150% weapon/basic attack damage.
-	 */
-	multiplier: z.number().positive().default(1),
-	damageTypeOverride: damageTypeSchema.optional(),
-	extraDice: diceFormulaSchema.optional(),
-	extraDamageType: damageTypeSchema.optional(),
+export const savingThrowSchema = z.object({
+	attribute: attributeSchema,
+	dc: saveDcSchema,
+	onSuccess: saveOutcomeSchema.default("noEffect"),
 });
+
+export const damageEffectSchema = z
+	.object({
+		type: z.literal("damage"),
+		target: skillTargetSchema.default("enemy"),
+		damageType: damageTypeSchema,
+		dice: diceFormulaSchema,
+		attribute: attributeSchema.optional(),
+		requiresAttackRoll: z.boolean().default(false),
+		save: savingThrowSchema.optional(),
+	})
+	.refine((effect) => !(effect.requiresAttackRoll && effect.save), {
+		message: "Damage effect should not require both an attack roll and a saving throw",
+		path: ["save"],
+	});
 
 export const healEffectSchema = z.object({
 	type: z.literal("heal"),
-	target: skillTargetSchema.default("self"),
+	target: z.literal("self").default("self"),
 	dice: diceFormulaSchema,
-
-	/**
-	 * Optional attribute modifier added to healing.
-	 */
 	attribute: attributeSchema.optional(),
 });
 
@@ -54,23 +73,9 @@ export const applyStatusEffectSchema = z.object({
 export const modifyStatEffectSchema = z.object({
 	type: z.literal("modifyStat"),
 	target: skillTargetSchema,
-	stat: z.enum([
-		"armourClass",
-		"proficiencyBonus",
-		"strength",
-		"dexterity",
-		"constitution",
-		"intelligence",
-		"wisdom",
-		"charisma",
-	]),
-	operation: z.enum(["add", "multiply", "set"]),
+	stat: modifiableStatSchema,
+	operation: modifierOperationSchema,
 	value: z.number(),
-
-	/**
-	 * If omitted, treat as lasting for the whole combat or until removed,
-	 * depending on your engine rules.
-	 */
 	durationTurns: z.number().int().positive().optional(),
 });
 
@@ -85,22 +90,13 @@ export const modifyDamageEffectSchema = z.object({
 
 export const cleanseEffectSchema = z.object({
 	type: z.literal("cleanse"),
-	target: skillTargetSchema.default("self"),
-
-	/**
-	 * If provided, removes only these statuses.
-	 */
+	target: z.literal("self").default("self"),
 	statusIds: z.array(z.string().nonempty()).default([]),
-
-	/**
-	 * If true, removes all negative statuses.
-	 */
 	allNegative: z.boolean().default(false),
 });
 
-export const effectSchema = z.discriminatedUnion("type", [
+export const riderEffectSchema = z.discriminatedUnion("type", [
 	damageEffectSchema,
-	weaponDamageEffectSchema,
 	healEffectSchema,
 	applyStatusEffectSchema,
 	modifyStatEffectSchema,
@@ -108,9 +104,45 @@ export const effectSchema = z.discriminatedUnion("type", [
 	cleanseEffectSchema,
 ]);
 
+export const attackRiderTimingSchema = z.enum(["onHit", "onCrit"]);
+
+export const attackRiderSchema = z.object({
+	timing: attackRiderTimingSchema,
+	save: savingThrowSchema.optional(),
+	effects: z.array(riderEffectSchema).min(1),
+});
+
+export const attackDamageEffectSchema = z.object({
+	type: z.literal("attackDamage"),
+	target: z.literal("enemy").default("enemy"),
+	multiplier: z.number().positive().default(1),
+	damageTypeOverride: damageTypeSchema.optional(),
+	extraDice: diceFormulaSchema.optional(),
+	extraDamageType: damageTypeSchema.optional(),
+	attackRiders: z.array(attackRiderSchema).default([]),
+});
+
+export const effectSchema = z.discriminatedUnion("type", [
+	damageEffectSchema,
+	attackDamageEffectSchema,
+	healEffectSchema,
+	applyStatusEffectSchema,
+	modifyStatEffectSchema,
+	modifyDamageEffectSchema,
+	cleanseEffectSchema,
+]);
+
+export type SaveOutcome = z.infer<typeof saveOutcomeSchema>;
+export type SavingThrow = z.infer<typeof savingThrowSchema>;
+
+export type RiderEffect = z.infer<typeof riderEffectSchema>;
+export type AttackRiderTiming = z.infer<typeof attackRiderTimingSchema>;
+export type AttackRider = z.infer<typeof attackRiderSchema>;
+
 export type Effect = z.infer<typeof effectSchema>;
+
 export type DamageEffect = z.infer<typeof damageEffectSchema>;
-export type WeaponDamageEffect = z.infer<typeof weaponDamageEffectSchema>;
+export type AttackDamageEffect = z.infer<typeof attackDamageEffectSchema>;
 export type HealEffect = z.infer<typeof healEffectSchema>;
 export type ApplyStatusEffect = z.infer<typeof applyStatusEffectSchema>;
 export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
