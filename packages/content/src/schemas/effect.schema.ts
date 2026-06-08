@@ -100,6 +100,15 @@ export const modifyDamageEffectSchema = z.object({
 	durationTurns: z.number().int().positive().optional(),
 });
 
+export const modifyDamageAffinityEffectSchema = z.object({
+	type: z.literal("modifyDamageAffinity"),
+	target: skillTargetSchema,
+	affinity: z.enum(["resistance", "immunity", "vulnerability"]),
+	operation: z.enum(["add", "remove"]),
+	damageType: damageTypeSchema,
+	durationTurns: z.number().int().positive().optional(),
+});
+
 export const cleanseEffectSchema = z.object({
 	type: z.literal("cleanse"),
 	target: z.literal("self").default("self"),
@@ -141,6 +150,7 @@ export const effectSchema = z.discriminatedUnion("type", [
 	applyStatusEffectSchema,
 	modifyStatEffectSchema,
 	modifyDamageEffectSchema,
+	modifyDamageAffinityEffectSchema,
 	cleanseEffectSchema,
 ]);
 
@@ -161,4 +171,5 @@ export type HealEffect = z.infer<typeof healEffectSchema>;
 export type ApplyStatusEffect = z.infer<typeof applyStatusEffectSchema>;
 export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
 export type ModifyDamageEffect = z.infer<typeof modifyDamageEffectSchema>;
+export type ModifyDamageAffinityEffect = z.infer<typeof modifyDamageAffinityEffectSchema>;
 export type CleanseEffect = z.infer<typeof cleanseEffectSchema>;
