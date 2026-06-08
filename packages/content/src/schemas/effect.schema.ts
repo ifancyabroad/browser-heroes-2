@@ -63,10 +63,22 @@ export const healEffectSchema = z.object({
 	attribute: attributeSchema.optional(),
 });
 
+export const statusEffectSchema = z.enum([
+	"bleeding",
+	"burning",
+	"poisoned",
+	"stunned",
+	"frozen",
+	"weakened",
+	"vulnerable",
+	"shielded",
+	"regenerating",
+]);
+
 export const applyStatusEffectSchema = z.object({
 	type: z.literal("applyStatus"),
 	target: skillTargetSchema,
-	statusId: z.string().nonempty(),
+	statusId: statusEffectSchema,
 	durationTurns: z.number().int().positive(),
 });
 
@@ -91,7 +103,7 @@ export const modifyDamageEffectSchema = z.object({
 export const cleanseEffectSchema = z.object({
 	type: z.literal("cleanse"),
 	target: z.literal("self").default("self"),
-	statusIds: z.array(z.string().nonempty()).default([]),
+	statusIds: z.array(statusEffectSchema).default([]),
 	allNegative: z.boolean().default(false),
 });
 
@@ -131,6 +143,8 @@ export const effectSchema = z.discriminatedUnion("type", [
 	modifyDamageEffectSchema,
 	cleanseEffectSchema,
 ]);
+
+export type StatusEffect = z.infer<typeof statusEffectSchema>;
 
 export type SaveOutcome = z.infer<typeof saveOutcomeSchema>;
 export type SavingThrow = z.infer<typeof savingThrowSchema>;
