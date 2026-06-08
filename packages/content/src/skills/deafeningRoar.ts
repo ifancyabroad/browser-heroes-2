@@ -7,21 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhgy1Vmh0FTTPCWBory?alt=media&token=9f2b03e8-b95d-403d-86e0-acd4e362468e",
 	pool: "common",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 6,
-		save: {
-			attribute: "wisdom",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "wisdom",
-				includeProficiency: true,
-				bonus: 4,
-			},
-		},
-	},
+	maxUses: 6,
 	ranks: [
 		{
 			rank: 1,

@@ -8,21 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI69Ynmtt7mlCy4Zmvt?alt=media&token=2a821a50-422e-4e9a-b94d-1c4d5ca41f7d",
 	pool: "warlock",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 8,
-		save: {
-			attribute: "wisdom",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "intelligence",
-				includeProficiency: true,
-				bonus: 1,
-			},
-		},
-	},
+	maxUses: 8,
 	ranks: [
 		{
 			rank: 1,
@@ -30,7 +16,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "blind",
+					statusId: "weakened",
 					durationTurns: 8,
 				},
 			],
@@ -41,7 +27,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "blind",
+					statusId: "weakened",
 					durationTurns: 9,
 				},
 			],
@@ -52,7 +38,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "blind",
+					statusId: "weakened",
 					durationTurns: 10,
 				},
 			],

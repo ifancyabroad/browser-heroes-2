@@ -3,23 +3,20 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "take_aim",
 	name: "Take Aim",
-	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC-I-fGj92SL-q-oVdg?alt=media&token=fea4cf2a-726e-4526-b795-42b115e42305",
 	pool: "common",
 	category: "buff",
-	usage: {
-		target: "self",
-		requiresAttackRoll: false,
-		maxUses: 8,
-	},
+	maxUses: 8,
 	ranks: [
 		{
 			rank: 1,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyStat",
 					target: "self",
-					statusId: "hitChance_auxiliaryStat_up",
+					stat: "attackRollBonus",
+					operation: "add",
+					value: 2,
 					durationTurns: 4,
 				},
 			],
@@ -28,9 +25,11 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyStat",
 					target: "self",
-					statusId: "hitChance_auxiliaryStat_up",
+					stat: "attackRollBonus",
+					operation: "add",
+					value: 3,
 					durationTurns: 5,
 				},
 			],
@@ -39,9 +38,11 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyStat",
 					target: "self",
-					statusId: "hitChance_auxiliaryStat_up",
+					stat: "attackRollBonus",
+					operation: "add",
+					value: 4,
 					durationTurns: 6,
 				},
 			],

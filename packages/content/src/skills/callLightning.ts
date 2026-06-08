@@ -8,11 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6F5twLiJIL3ZO7bdu?alt=media&token=c2458ca7-b772-4e17-bbdc-ee5b2c56413c",
 	pool: "occultist",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 4,
-	},
+	maxUses: 4,
 	ranks: [
 		{
 			rank: 1,
@@ -23,6 +19,7 @@ export default buildSkill({
 					damageType: "lightning",
 					dice: "1d12+8",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -35,6 +32,7 @@ export default buildSkill({
 					damageType: "lightning",
 					dice: "2d12+7",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -47,6 +45,7 @@ export default buildSkill({
 					damageType: "lightning",
 					dice: "2d12+14",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 			],
 		},

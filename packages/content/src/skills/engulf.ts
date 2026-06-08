@@ -3,25 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "engulf",
 	name: "Engulf",
-	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OBGREObRlRFCR7M2Ni4?alt=media&token=a9d9314a-5813-4428-ac32-a6e8724f9222",
 	pool: "unique",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 7,
-		save: {
-			attribute: "constitution",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "constitution",
-				includeProficiency: true,
-				bonus: 3,
-			},
-		},
-	},
+	maxUses: 7,
 	ranks: [
 		{
 			rank: 1,
@@ -31,6 +16,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "fire",
 					dice: "1d12+8",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 3,
+						},
+					},
 				},
 				{
 					type: "modifyStat",
@@ -41,9 +37,11 @@ export default buildSkill({
 					durationTurns: 3,
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "fire_resistance_down",
+					damageType: "fire",
+					operation: "add",
+					value: 25,
 					durationTurns: 3,
 				},
 			],
@@ -56,6 +54,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "fire",
 					dice: "2d12+7",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 3,
+						},
+					},
 				},
 				{
 					type: "modifyStat",
@@ -66,9 +75,11 @@ export default buildSkill({
 					durationTurns: 4,
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "fire_resistance_down",
+					damageType: "fire",
+					operation: "add",
+					value: 38,
 					durationTurns: 4,
 				},
 			],
@@ -81,6 +92,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "fire",
 					dice: "2d12+14",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 3,
+						},
+					},
 				},
 				{
 					type: "modifyStat",
@@ -91,9 +113,11 @@ export default buildSkill({
 					durationTurns: 5,
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "fire_resistance_down",
+					damageType: "fire",
+					operation: "add",
+					value: 50,
 					durationTurns: 5,
 				},
 			],

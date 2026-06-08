@@ -7,21 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZMIV5OGOr4bChwrNEE?alt=media&token=34d14684-6c64-4822-b3e6-36161dedd07a",
 	pool: "warrior",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 8,
-		save: {
-			attribute: "strength",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "strength",
-				includeProficiency: true,
-				bonus: 6,
-			},
-		},
-	},
+	maxUses: 8,
 	ranks: [
 		{
 			rank: 1,
@@ -39,6 +25,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "1d8",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "strength",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "strength",
+							includeProficiency: true,
+							bonus: 6,
+						},
+					},
 				},
 			],
 		},
@@ -58,6 +55,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "2d8-2",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "strength",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "strength",
+							includeProficiency: true,
+							bonus: 6,
+						},
+					},
 				},
 			],
 		},
@@ -77,6 +85,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "2d8",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "strength",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "strength",
+							includeProficiency: true,
+							bonus: 6,
+						},
+					},
 				},
 			],
 		},

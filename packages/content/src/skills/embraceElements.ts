@@ -7,11 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh3D7-ihgBpi0AbfB5?alt=media&token=7a3eb5c6-1571-4e5d-8945-9efb3875f991",
 	pool: "mage",
 	category: "buff",
-	usage: {
-		target: "self",
-		requiresAttackRoll: false,
-		maxUses: 4,
-	},
+	maxUses: 4,
 	ranks: [
 		{
 			rank: 1,

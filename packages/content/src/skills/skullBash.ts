@@ -3,33 +3,20 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "skull_bash",
 	name: "Skull Bash",
-	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCUDaUsTx_tLKhlQzc6?alt=media&token=65159a77-f38c-4e64-be8f-589968f22505",
 	pool: "common",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 5,
-		save: {
-			attribute: "constitution",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "constitution",
-				includeProficiency: true,
-				bonus: 2,
-			},
-		},
-	},
+	maxUses: 5,
 	ranks: [
 		{
 			rank: 1,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "crushing_resistance_down",
+					damageType: "crushing",
+					operation: "add",
+					value: 25,
 					durationTurns: 5,
 				},
 				{
@@ -37,6 +24,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "1d8+3",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 2,
+						},
+					},
 				},
 			],
 		},
@@ -44,9 +42,11 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "crushing_resistance_down",
+					damageType: "crushing",
+					operation: "add",
+					value: 38,
 					durationTurns: 6,
 				},
 				{
@@ -54,6 +54,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "2d8+1",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 2,
+						},
+					},
 				},
 			],
 		},
@@ -61,9 +72,11 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "crushing_resistance_down",
+					damageType: "crushing",
+					operation: "add",
+					value: 50,
 					durationTurns: 7,
 				},
 				{
@@ -71,6 +84,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "2d8+4",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 2,
+						},
+					},
 				},
 			],
 		},

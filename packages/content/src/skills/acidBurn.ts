@@ -7,21 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqaJ9QZYIpe6P1iDYy?alt=media&token=a61f4af5-9abf-4e8c-b41c-2cabd76120a1",
 	pool: "rogue",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 6,
-		save: {
-			attribute: "dexterity",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "dexterity",
-				includeProficiency: true,
-				bonus: 3,
-			},
-		},
-	},
+	maxUses: 6,
 	ranks: [
 		{
 			rank: 1,
@@ -31,6 +17,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "acid",
 					dice: "1d12",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "dexterity",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "dexterity",
+							includeProficiency: true,
+							bonus: 3,
+						},
+					},
 				},
 				{
 					type: "modifyStat",
@@ -50,6 +47,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "acid",
 					dice: "2d12-4",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "dexterity",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "dexterity",
+							includeProficiency: true,
+							bonus: 3,
+						},
+					},
 				},
 				{
 					type: "modifyStat",
@@ -69,6 +77,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "acid",
 					dice: "2d12-1",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "dexterity",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "dexterity",
+							includeProficiency: true,
+							bonus: 3,
+						},
+					},
 				},
 				{
 					type: "modifyStat",

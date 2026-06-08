@@ -8,11 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OHmFdmEfDy-KwSu7E7r?alt=media&token=daa6345a-26b7-446a-b518-0ae67fd60830",
 	pool: "occultist",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 7,
-	},
+	maxUses: 7,
 	ranks: [
 		{
 			rank: 1,
@@ -23,6 +19,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "1d10+5",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyStat",
@@ -43,6 +40,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d10+4",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyStat",
@@ -63,6 +61,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d10+9",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyStat",

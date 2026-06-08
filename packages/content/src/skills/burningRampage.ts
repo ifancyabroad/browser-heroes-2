@@ -8,11 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZMJ9LGQM22pDRl_EYc?alt=media&token=4ea45e0b-68b0-4d8c-aaa2-c40d339d7682",
 	pool: "barbarian",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 5,
-	},
+	maxUses: 5,
 	ranks: [
 		{
 			rank: 1,
@@ -23,6 +19,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "1d6-1",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -30,6 +27,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "1d6-1",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -37,6 +35,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "1d6-1",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -49,6 +48,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d6-3",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -56,6 +56,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d6-3",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -63,6 +64,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d6-3",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -75,6 +77,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d6-2",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -82,6 +85,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d6-2",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -89,6 +93,7 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d6-2",
 					attribute: "strength",
+					requiresAttackRoll: false,
 				},
 			],
 		},

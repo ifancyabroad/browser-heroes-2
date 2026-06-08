@@ -3,25 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "deafening_screech",
 	name: "Deafening Screech",
-	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OBGO_dOy08BrKDH_l3L?alt=media&token=c0825b48-2dc2-4d61-ae5d-8a16b4a4a13c",
 	pool: "common",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 6,
-		save: {
-			attribute: "wisdom",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "wisdom",
-				includeProficiency: true,
-				bonus: 1,
-			},
-		},
-	},
+	maxUses: 6,
 	ranks: [
 		{
 			rank: 1,

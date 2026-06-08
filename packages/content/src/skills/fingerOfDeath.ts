@@ -8,11 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc40XqHNv0vjMrSUhRM?alt=media&token=dabb826c-2381-4766-92e9-36c52dcda625",
 	pool: "warlock",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 4,
-	},
+	maxUses: 4,
 	ranks: [
 		{
 			rank: 1,
@@ -23,6 +19,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "2d12+8",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyDamage",
@@ -59,6 +56,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "3d12+11",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyDamage",
@@ -95,6 +93,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "4d12+14",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyDamage",

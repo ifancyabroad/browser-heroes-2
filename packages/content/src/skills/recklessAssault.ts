@@ -8,21 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OHyIphJAxFajeUy4Ru1?alt=media&token=ff9a0bae-c3b9-467a-a907-426e8444107b",
 	pool: "barbarian",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 2,
-		save: {
-			attribute: "constitution",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "constitution",
-				includeProficiency: true,
-				bonus: 0,
-			},
-		},
-	},
+	maxUses: 2,
 	ranks: [
 		{
 			rank: 1,
@@ -30,7 +16,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "self",
-					statusId: "stun",
+					statusId: "stunned",
 					durationTurns: 1,
 				},
 				{
@@ -39,6 +25,17 @@ export default buildSkill({
 					damageType: "crushing",
 					dice: "1d12+8",
 					attribute: "strength",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 				{
 					type: "damage",
@@ -46,6 +43,17 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "1d12+8",
 					attribute: "strength",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 			],
 		},
@@ -55,7 +63,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "self",
-					statusId: "stun",
+					statusId: "stunned",
 					durationTurns: 2,
 				},
 				{
@@ -64,6 +72,17 @@ export default buildSkill({
 					damageType: "crushing",
 					dice: "2d12+7",
 					attribute: "strength",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 				{
 					type: "damage",
@@ -71,6 +90,17 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d12+7",
 					attribute: "strength",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 			],
 		},
@@ -80,7 +110,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "self",
-					statusId: "stun",
+					statusId: "stunned",
 					durationTurns: 3,
 				},
 				{
@@ -89,6 +119,17 @@ export default buildSkill({
 					damageType: "crushing",
 					dice: "2d12+14",
 					attribute: "strength",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 				{
 					type: "damage",
@@ -96,6 +137,17 @@ export default buildSkill({
 					damageType: "fire",
 					dice: "2d12+14",
 					attribute: "strength",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 			],
 		},

@@ -8,11 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhgx8gnKSMnxB7h9F60?alt=media&token=eb3b73bb-3dd1-4891-9ce8-94920b18ee74",
 	pool: "common",
 	category: "buff",
-	usage: {
-		target: "self",
-		requiresAttackRoll: false,
-		maxUses: 5,
-	},
+	maxUses: 5,
 	ranks: [
 		{
 			rank: 1,

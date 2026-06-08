@@ -8,21 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6DWEvSdPHN3sCBzuV?alt=media&token=29173920-9308-4195-a763-56e611914d4b",
 	pool: "occultist",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 2,
-		save: {
-			attribute: "constitution",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "wisdom",
-				includeProficiency: true,
-				bonus: 3,
-			},
-		},
-	},
+	maxUses: 2,
 	ranks: [
 		{
 			rank: 1,
@@ -30,7 +16,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "poison",
+					statusId: "poisoned",
 					durationTurns: 6,
 				},
 				{
@@ -49,7 +35,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "poison",
+					statusId: "poisoned",
 					durationTurns: 7,
 				},
 				{
@@ -68,7 +54,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "poison",
+					statusId: "poisoned",
 					durationTurns: 8,
 				},
 				{

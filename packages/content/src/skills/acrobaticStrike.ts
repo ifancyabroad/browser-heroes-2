@@ -7,25 +7,30 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqZdRYK5clYyJxqQKi?alt=media&token=7529994a-db1d-47e4-8a6f-b1b517e85d8c",
 	pool: "assassin",
 	category: "attack",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: true,
-		maxUses: 2,
-	},
+	maxUses: 2,
 	ranks: [
 		{
 			rank: 1,
 			effects: [
 				{
-					type: "weaponDamage",
+					type: "attackDamage",
 					target: "enemy",
 					multiplier: 1,
-				},
-				{
-					type: "applyStatus",
-					target: "self",
-					statusId: "critChance_auxiliaryStat_up",
-					durationTurns: 1,
+					attackRiders: [
+						{
+							timing: "onHit",
+							effects: [
+								{
+									type: "modifyStat",
+									target: "self",
+									stat: "critChance",
+									operation: "add",
+									value: 5,
+									durationTurns: 1,
+								},
+							],
+						},
+					],
 				},
 			],
 		},
@@ -33,15 +38,24 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "weaponDamage",
+					type: "attackDamage",
 					target: "enemy",
 					multiplier: 1.25,
-				},
-				{
-					type: "applyStatus",
-					target: "self",
-					statusId: "critChance_auxiliaryStat_up",
-					durationTurns: 2,
+					attackRiders: [
+						{
+							timing: "onHit",
+							effects: [
+								{
+									type: "modifyStat",
+									target: "self",
+									stat: "critChance",
+									operation: "add",
+									value: 8,
+									durationTurns: 2,
+								},
+							],
+						},
+					],
 				},
 			],
 		},
@@ -49,15 +63,24 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "weaponDamage",
+					type: "attackDamage",
 					target: "enemy",
 					multiplier: 1.5,
-				},
-				{
-					type: "applyStatus",
-					target: "self",
-					statusId: "critChance_auxiliaryStat_up",
-					durationTurns: 3,
+					attackRiders: [
+						{
+							timing: "onHit",
+							effects: [
+								{
+									type: "modifyStat",
+									target: "self",
+									stat: "critChance",
+									operation: "add",
+									value: 10,
+									durationTurns: 3,
+								},
+							],
+						},
+					],
 				},
 			],
 		},

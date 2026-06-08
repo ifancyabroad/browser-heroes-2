@@ -7,11 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTRbewhOgSp1zw1Uu7?alt=media&token=dca7c698-b44a-4c75-932c-b2291934e4cf",
 	pool: "cleric",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 12,
-	},
+	maxUses: 12,
 	ranks: [
 		{
 			rank: 1,
@@ -22,6 +18,7 @@ export default buildSkill({
 					damageType: "radiant",
 					dice: "1d10",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -34,6 +31,7 @@ export default buildSkill({
 					damageType: "radiant",
 					dice: "2d10-3",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -46,6 +44,7 @@ export default buildSkill({
 					damageType: "radiant",
 					dice: "2d10-1",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 			],
 		},

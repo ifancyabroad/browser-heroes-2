@@ -8,35 +8,23 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI64f_s2x2W6j2Qsv1t?alt=media&token=cf6bc665-0adb-4186-8e75-fe2a87447c91",
 	pool: "warlock",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 4,
-		save: {
-			attribute: "intelligence",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "intelligence",
-				includeProficiency: true,
-				bonus: 0,
-			},
-		},
-	},
+	maxUses: 4,
 	ranks: [
 		{
 			rank: 1,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "necrotic_resistance_down",
+					damageType: "necrotic",
+					operation: "add",
+					value: 25,
 					durationTurns: 5,
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "cripple",
+					statusId: "weakened",
 					durationTurns: 5,
 				},
 			],
@@ -45,15 +33,17 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "necrotic_resistance_down",
+					damageType: "necrotic",
+					operation: "add",
+					value: 38,
 					durationTurns: 6,
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "cripple",
+					statusId: "weakened",
 					durationTurns: 6,
 				},
 			],
@@ -62,15 +52,17 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "necrotic_resistance_down",
+					damageType: "necrotic",
+					operation: "add",
+					value: 50,
 					durationTurns: 7,
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "cripple",
+					statusId: "weakened",
 					durationTurns: 7,
 				},
 			],

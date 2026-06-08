@@ -3,25 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "web",
 	name: "Web",
-	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTOiesS7DlEfpA_jDR?alt=media&token=5141b1d2-6098-4490-9b6d-a6c56e24c8f3",
 	pool: "common",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 4,
-		save: {
-			attribute: "dexterity",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "dexterity",
-				includeProficiency: true,
-				bonus: 0,
-			},
-		},
-	},
+	maxUses: 4,
 	ranks: [
 		{
 			rank: 1,

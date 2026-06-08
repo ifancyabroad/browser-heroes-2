@@ -7,11 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTQlY-RMpBaNkunfb7?alt=media&token=cdc6656e-ac5c-4366-a65f-6c4025c17ac0",
 	pool: "cleric",
 	category: "heal",
-	usage: {
-		target: "self",
-		requiresAttackRoll: false,
-		maxUses: 2,
-	},
+	maxUses: 2,
 	ranks: [
 		{
 			rank: 1,

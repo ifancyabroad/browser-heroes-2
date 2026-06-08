@@ -8,11 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6B_gQDrYyGkqVIUeX?alt=media&token=8414323d-ecd8-4fd7-909a-f2e1950bc0f8",
 	pool: "warlock",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 1,
-	},
+	maxUses: 1,
 	ranks: [
 		{
 			rank: 1,
@@ -20,7 +16,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "self",
-					statusId: "bleed",
+					statusId: "bleeding",
 					durationTurns: 4,
 				},
 				{
@@ -28,6 +24,7 @@ export default buildSkill({
 					target: "self",
 					damageType: "slashing",
 					dice: "1d6",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -35,6 +32,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "4d12+19",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -44,7 +42,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "self",
-					statusId: "bleed",
+					statusId: "bleeding",
 					durationTurns: 5,
 				},
 				{
@@ -52,6 +50,7 @@ export default buildSkill({
 					target: "self",
 					damageType: "slashing",
 					dice: "2d6-2",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -59,6 +58,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "6d12+26",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -68,7 +68,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "self",
-					statusId: "bleed",
+					statusId: "bleeding",
 					durationTurns: 6,
 				},
 				{
@@ -76,6 +76,7 @@ export default buildSkill({
 					target: "self",
 					damageType: "slashing",
 					dice: "2d6",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -83,6 +84,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "8d12+34",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 			],
 		},

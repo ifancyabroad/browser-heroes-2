@@ -3,15 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "yagamons_revenge",
 	name: "Yagamon's Revenge",
-	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCZHaFOopyGcTKt8Pva?alt=media&token=b85e09f9-35c8-4273-9e7b-e1d481defdfe",
 	pool: "unique",
 	category: "buff",
-	usage: {
-		target: "self",
-		requiresAttackRoll: false,
-		maxUses: 1,
-	},
+	maxUses: 1,
 	ranks: [
 		{
 			rank: 1,

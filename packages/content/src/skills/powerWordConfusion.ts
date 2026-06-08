@@ -8,21 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6P21THAWT0E0VgnjP?alt=media&token=f59fa068-f3d0-47ed-91af-92b438cb3825",
 	pool: "occultist",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 2,
-		save: {
-			attribute: "wisdom",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "wisdom",
-				includeProficiency: true,
-				bonus: 0,
-			},
-		},
-	},
+	maxUses: 2,
 	ranks: [
 		{
 			rank: 1,
@@ -30,13 +16,13 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "blind",
+					statusId: "weakened",
 					durationTurns: 3,
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "charm",
+					statusId: "weakened",
 					durationTurns: 3,
 				},
 			],
@@ -47,13 +33,13 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "blind",
+					statusId: "weakened",
 					durationTurns: 4,
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "charm",
+					statusId: "weakened",
 					durationTurns: 4,
 				},
 			],
@@ -64,13 +50,13 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "blind",
+					statusId: "weakened",
 					durationTurns: 5,
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "charm",
+					statusId: "weakened",
 					durationTurns: 5,
 				},
 			],

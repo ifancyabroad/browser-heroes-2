@@ -7,11 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh5vG7znDT-6DBan2F?alt=media&token=4bfc216a-ef3b-4f89-a987-74741a2f1d2c",
 	pool: "mage",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 4,
-	},
+	maxUses: 4,
 	ranks: [
 		{
 			rank: 1,
@@ -22,6 +18,7 @@ export default buildSkill({
 					damageType: "cold",
 					dice: "1d12+8",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyStat",
@@ -42,6 +39,7 @@ export default buildSkill({
 					damageType: "cold",
 					dice: "2d12+7",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyStat",
@@ -62,6 +60,7 @@ export default buildSkill({
 					damageType: "cold",
 					dice: "2d12+14",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "modifyStat",

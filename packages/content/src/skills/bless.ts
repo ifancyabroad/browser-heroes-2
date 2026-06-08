@@ -8,19 +8,17 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkFjgyu0pTYRw3DVD-?alt=media&token=a19ceedb-9e70-46fb-a0b1-34a68b122a7d",
 	pool: "common",
 	category: "buff",
-	usage: {
-		target: "self",
-		requiresAttackRoll: false,
-		maxUses: 8,
-	},
+	maxUses: 8,
 	ranks: [
 		{
 			rank: 1,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyStat",
 					target: "self",
-					statusId: "bless",
+					stat: "savingThrowBonus",
+					operation: "add",
+					value: 5,
 					durationTurns: 8,
 				},
 			],
@@ -29,9 +27,11 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyStat",
 					target: "self",
-					statusId: "bless",
+					stat: "savingThrowBonus",
+					operation: "add",
+					value: 8,
 					durationTurns: 9,
 				},
 			],
@@ -40,9 +40,11 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyStat",
 					target: "self",
-					statusId: "bless",
+					stat: "savingThrowBonus",
+					operation: "add",
+					value: 10,
 					durationTurns: 10,
 				},
 			],

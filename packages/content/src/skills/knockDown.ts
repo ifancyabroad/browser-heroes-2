@@ -8,21 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgrvvBiejH010EI8ME?alt=media&token=562118d9-90e1-4dc3-91fc-3a3ca57c6ea5",
 	pool: "common",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 1,
-		save: {
-			attribute: "constitution",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "strength",
-				includeProficiency: true,
-				bonus: 0,
-			},
-		},
-	},
+	maxUses: 1,
 	ranks: [
 		{
 			rank: 1,
@@ -30,7 +16,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "stun",
+					statusId: "stunned",
 					durationTurns: 2,
 				},
 				{
@@ -38,6 +24,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "1d12+8",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "strength",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 			],
 		},
@@ -47,7 +44,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "stun",
+					statusId: "stunned",
 					durationTurns: 3,
 				},
 				{
@@ -55,6 +52,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "2d12+7",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "strength",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 			],
 		},
@@ -64,7 +72,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "stun",
+					statusId: "stunned",
 					durationTurns: 4,
 				},
 				{
@@ -72,6 +80,17 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "crushing",
 					dice: "2d12+14",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "strength",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 			],
 		},

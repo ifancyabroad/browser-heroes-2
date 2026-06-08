@@ -7,21 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh2aa9hENKmzll2Md-?alt=media&token=811b82c0-59e5-4f46-afbd-0993015d3472",
 	pool: "assassin",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 4,
-		save: {
-			attribute: "dexterity",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "dexterity",
-				includeProficiency: true,
-				bonus: 5,
-			},
-		},
-	},
+	maxUses: 4,
 	ranks: [
 		{
 			rank: 1,

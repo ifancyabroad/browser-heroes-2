@@ -8,11 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTbEHpokQy-0H5xsHh?alt=media&token=e978b5e3-acb5-417a-b99d-377658894756",
 	pool: "occultist",
 	category: "heal",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 2,
-	},
+	maxUses: 2,
 	ranks: [
 		{
 			rank: 1,
@@ -23,6 +19,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "1d10+5",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "heal",
@@ -41,6 +38,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "2d10+4",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "heal",
@@ -59,6 +57,7 @@ export default buildSkill({
 					damageType: "necrotic",
 					dice: "2d10+9",
 					attribute: "wisdom",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "heal",

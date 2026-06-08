@@ -8,21 +8,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgzTUnXwX4Iw8JGJev?alt=media&token=0e42a7f5-dee5-4f7a-8366-3563b162943f",
 	pool: "common",
 	category: "debuff",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 6,
-		save: {
-			attribute: "dexterity",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "dexterity",
-				includeProficiency: true,
-				bonus: 3,
-			},
-		},
-	},
+	maxUses: 6,
 	ranks: [
 		{
 			rank: 1,
@@ -30,7 +16,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "cripple",
+					statusId: "weakened",
 					durationTurns: 6,
 				},
 			],
@@ -41,7 +27,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "cripple",
+					statusId: "weakened",
 					durationTurns: 7,
 				},
 			],
@@ -52,7 +38,7 @@ export default buildSkill({
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "cripple",
+					statusId: "weakened",
 					durationTurns: 8,
 				},
 			],

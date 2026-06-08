@@ -3,25 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "disease_shot",
 	name: "Disease Shot",
-	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9_dP0Qn57Vq0CTiSVO?alt=media&token=586dc311-85ef-4c5d-88b3-93a36aaf845b",
 	pool: "common",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 2,
-		save: {
-			attribute: "constitution",
-			onSuccess: "noEffect",
-			dc: {
-				base: 8,
-				attribute: "constitution",
-				includeProficiency: true,
-				bonus: 0,
-			},
-		},
-	},
+	maxUses: 2,
 	ranks: [
 		{
 			rank: 1,
@@ -31,11 +16,22 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "poison",
 					dice: "1d12+8",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "poison",
+					statusId: "poisoned",
 					durationTurns: 4,
 				},
 			],
@@ -48,11 +44,22 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "poison",
 					dice: "2d12+7",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "poison",
+					statusId: "poisoned",
 					durationTurns: 5,
 				},
 			],
@@ -65,11 +72,22 @@ export default buildSkill({
 					target: "enemy",
 					damageType: "poison",
 					dice: "2d12+14",
+					requiresAttackRoll: false,
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: {
+							base: 8,
+							attribute: "constitution",
+							includeProficiency: true,
+							bonus: 0,
+						},
+					},
 				},
 				{
 					type: "applyStatus",
 					target: "enemy",
-					statusId: "poison",
+					statusId: "poisoned",
 					durationTurns: 6,
 				},
 			],

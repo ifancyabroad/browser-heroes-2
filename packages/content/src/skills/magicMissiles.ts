@@ -7,11 +7,7 @@ export default buildSkill({
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3yZ_5d4QQI4y90Inu?alt=media&token=494feabb-a251-4b55-afb0-0194a5b4000a",
 	pool: "mage",
 	category: "spell",
-	usage: {
-		target: "enemy",
-		requiresAttackRoll: false,
-		maxUses: 7,
-	},
+	maxUses: 7,
 	ranks: [
 		{
 			rank: 1,
@@ -22,6 +18,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "1d6",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -29,6 +26,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "1d6",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -36,6 +34,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "1d6",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -48,6 +47,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d6-2",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -55,6 +55,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d6-2",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -62,6 +63,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d6-2",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -74,6 +76,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d6",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -81,6 +84,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d6",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 				{
 					type: "damage",
@@ -88,6 +92,7 @@ export default buildSkill({
 					damageType: "piercing",
 					dice: "2d6",
 					attribute: "intelligence",
+					requiresAttackRoll: false,
 				},
 			],
 		},
