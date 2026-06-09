@@ -1,11 +1,11 @@
 import { z } from "zod";
+import { damageTypeSchema } from "./common.schema";
 import {
 	damageAffinityKindSchema,
 	damageAffinityOperationSchema,
-	damageTypeSchema,
 	modifiableStatSchema,
 	modifierOperationSchema,
-} from "./common.schema";
+} from "./modifier.schema";
 
 export const itemRaritySchema = z.enum(["common", "uncommon", "rare", "epic", "legendary"]);
 

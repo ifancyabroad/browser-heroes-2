@@ -1,14 +1,16 @@
 import { z } from "zod";
 import {
 	attributeSchema,
-	damageAffinityKindSchema,
-	damageAffinityOperationSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
-	modifiableStatSchema,
-	modifierOperationSchema,
 	skillTargetSchema,
 } from "./common.schema";
+import {
+	damageAffinityKindSchema,
+	damageAffinityOperationSchema,
+	modifiableStatSchema,
+	modifierOperationSchema,
+} from "./modifier.schema";
 
 export const saveOutcomeSchema = z.enum(["noEffect", "halfDamage"]);
 

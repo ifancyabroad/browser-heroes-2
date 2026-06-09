@@ -5,3 +5,5 @@ export * from "./enemy.schema";
 export * from "./armour.schema";
 export * from "./weapon.schema";
 export * from "./class.schema";
+export * from "./modifier.schema";
+export * from "./feat.schema";

@@ -1,21 +1,12 @@
 import { z } from "zod";
-import { attributeSchema, damageTypeSchema, diceFormulaSchema } from "./common.schema";
+import {
+	attributeSchema,
+	damageTypeSchema,
+	diceFormulaSchema,
+	weaponTypeSchema,
+} from "./common.schema";
 import { attackRiderSchema } from "./effect.schema";
 import { itemModifierSchema, itemRaritySchema } from "./armour.schema";
-
-export const weaponTypeSchema = z.enum([
-	"axe",
-	"bow",
-	"club",
-	"crossbow",
-	"dagger",
-	"hammer",
-	"mace",
-	"spear",
-	"staff",
-	"sword",
-	"wand",
-]);
 
 export const weaponHandednessSchema = z.enum(["oneHanded", "twoHanded"]);
 
@@ -44,7 +35,6 @@ export const weaponSchema = z.object({
 	tags: z.array(z.string().nonempty()).default([]),
 });
 
-export type WeaponType = z.infer<typeof weaponTypeSchema>;
 export type WeaponHandedness = z.infer<typeof weaponHandednessSchema>;
 export type WeaponRange = z.infer<typeof weaponRangeSchema>;
 export type WeaponDamage = z.infer<typeof weaponDamageSchema>;
