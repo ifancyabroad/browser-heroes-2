@@ -1,23 +1,29 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "piercing",
+	id: "bow_of_the_fox",
+	name: "Bow of the Fox",
 	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAsd0XmXJ11SL3kS6QB?alt=media&token=f4593aa1-45d4-4cdb-b999-9cb4e62724a2",
-	level: 2,
-	max: 9,
-	min: 2,
-	name: "Bow of the Fox",
 	price: 230,
-	properties: [
+	rarity: "common",
+	type: "weapon",
+	weaponType: "bow",
+	handedness: "twoHanded",
+	range: "ranged",
+	damage: {
+		dice: "1d8+1",
+		type: "piercing",
+		attribute: "dexterity",
+	},
+	modifiers: [
 		{
-			name: "dexterity",
-			type: "stat",
+			type: "modifyStat",
+			stat: "dexterity",
+			operation: "add",
 			value: 2,
 		},
 	],
-	size: "twoHanded",
-	type: "weapon",
-	weaponType: "bow",
-	id: "bow_of_the_fox",
+	attackRiders: [],
+	tags: [],
 });

@@ -1,26 +1,44 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "crushing",
-	description: "",
-	effects: [
-		{
-			difficulty: 12,
-			duration: 3,
-			effect: "curse",
-			modifier: "wisdom",
-			target: "enemy",
-			type: "auxiliary",
-		},
-	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAshWX7bewXN5wSNS9O?alt=media&token=e048efc6-6ab4-4fe3-b5ee-241c7a3b3197",
-	level: 2,
-	max: 7,
-	min: 2,
+	id: "cursing_stick",
 	name: "Cursing Stick",
+	description: "",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAshWX7bewXN5wSNS9O?alt=media&token=e048efc6-6ab4-4fe3-b5ee-241c7a3b3197",
 	price: 230,
-	size: "oneHanded",
+	rarity: "common",
 	type: "weapon",
 	weaponType: "mace",
-	id: "cursing_stick",
+	handedness: "oneHanded",
+	range: "melee",
+	damage: {
+		dice: "1d6+1",
+		type: "crushing",
+		attribute: "strength",
+	},
+	modifiers: [],
+	attackRiders: [
+		{
+			timing: "onHit",
+			save: {
+				attribute: "wisdom",
+				dc: {
+					base: 12,
+					attribute: "wisdom",
+					includeProficiency: false,
+					bonus: 0,
+				},
+				onSuccess: "noEffect",
+			},
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "weakened",
+					durationTurns: 3,
+				},
+			],
+		},
+	],
+	tags: [],
 });

@@ -1,33 +1,41 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "crushing",
+	id: "divine_candle",
+	name: "Divine Candle",
 	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OI6WPS67ruK5CEZybAn?alt=media&token=d882c531-920d-4cde-8657-5574b841233c",
-	level: 4,
-	max: 11,
-	min: 4,
-	name: "Divine Candle",
 	price: 1460,
-	properties: [
+	rarity: "common",
+	type: "weapon",
+	weaponType: "staff",
+	handedness: "twoHanded",
+	range: "melee",
+	damage: {
+		dice: "1d8+3",
+		type: "crushing",
+		attribute: "strength",
+	},
+	modifiers: [
 		{
-			name: "radiant",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "radiant",
+			operation: "add",
 			value: 50,
 		},
 		{
-			name: "necrotic",
-			type: "resistance",
-			value: 50,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "necrotic",
 		},
 		{
-			name: "wisdom",
-			type: "stat",
+			type: "modifyStat",
+			stat: "wisdom",
+			operation: "add",
 			value: 2,
 		},
 	],
-	size: "twoHanded",
-	type: "weapon",
-	weaponType: "staff",
-	id: "divine_candle",
+	attackRiders: [],
+	tags: [],
 });

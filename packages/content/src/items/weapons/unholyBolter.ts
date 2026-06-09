@@ -1,33 +1,43 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "piercing",
+	id: "unholy_bolter",
+	name: "Unholy Bolter",
 	description:
 		"The Unholy Bolter is a sinister crossbow adorned with dark symbols and a blackened finish. It fires cursed bolts that deal extra damage and drain vitality. Favored by dark sorcerers, this weapon embodies malevolence and relentless power in battle.",
-	effects: [
-		{
-			damageType: "necrotic",
-			max: 10,
-			min: 4,
-			target: "enemy",
-			type: "damage",
-		},
-	],
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O839Fwy6z4MdXojSNBz?alt=media&token=6e194bb4-0ded-4bc6-9221-f52888a19361",
-	level: 4,
-	max: 12,
-	min: 5,
-	name: "Unholy Bolter",
 	price: 1200,
-	properties: [
+	rarity: "common",
+	type: "weapon",
+	weaponType: "crossbow",
+	handedness: "twoHanded",
+	range: "ranged",
+	damage: {
+		dice: "1d8+4",
+		type: "piercing",
+		attribute: "dexterity",
+	},
+	modifiers: [
 		{
-			name: "necrotic",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "necrotic",
+			operation: "add",
 			value: 50,
 		},
 	],
-	size: "twoHanded",
-	type: "weapon",
-	weaponType: "crossbow",
-	id: "unholy_bolter",
+	attackRiders: [
+		{
+			timing: "onHit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "1d7+3",
+					requiresAttackRoll: false,
+				},
+			],
+		},
+	],
+	tags: [],
 });

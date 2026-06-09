@@ -1,26 +1,44 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "slashing",
-	description: "",
-	effects: [
-		{
-			difficulty: 16,
-			duration: 2,
-			effect: "poison",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
-		},
-	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAsywEq4QvRRmq2hLKG?alt=media&token=174229a2-1d4a-4fbd-89da-765fd5d8f3a2",
-	level: 2,
-	max: 7,
-	min: 2,
+	id: "venom_blade",
 	name: "Venom Blade",
+	description: "",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAsywEq4QvRRmq2hLKG?alt=media&token=174229a2-1d4a-4fbd-89da-765fd5d8f3a2",
 	price: 250,
-	size: "oneHanded",
+	rarity: "common",
 	type: "weapon",
 	weaponType: "sword",
-	id: "venom_blade",
+	handedness: "oneHanded",
+	range: "melee",
+	damage: {
+		dice: "1d6+1",
+		type: "slashing",
+		attribute: "strength",
+	},
+	modifiers: [],
+	attackRiders: [
+		{
+			timing: "onHit",
+			save: {
+				attribute: "constitution",
+				dc: {
+					base: 16,
+					attribute: "constitution",
+					includeProficiency: false,
+					bonus: 0,
+				},
+				onSuccess: "noEffect",
+			},
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poisoned",
+					durationTurns: 2,
+				},
+			],
+		},
+	],
+	tags: [],
 });

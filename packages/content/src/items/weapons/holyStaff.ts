@@ -1,28 +1,35 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "crushing",
+	id: "holy_staff",
+	name: "Holy Staff",
 	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OIMLXg0JszLaTsPa2ad?alt=media&token=9e75c817-b42b-4ddf-8dd1-fef681fd313e",
-	level: 3,
-	max: 10,
-	min: 3,
-	name: "Holy Staff",
 	price: 620,
-	properties: [
+	rarity: "common",
+	type: "weapon",
+	weaponType: "staff",
+	handedness: "twoHanded",
+	range: "melee",
+	damage: {
+		dice: "1d8+2",
+		type: "crushing",
+		attribute: "strength",
+	},
+	modifiers: [
 		{
-			name: "heal",
-			type: "heal",
+			type: "modifyStat",
+			stat: "healingMultiplier",
+			operation: "add",
 			value: 40,
 		},
 		{
-			name: "wisdom",
-			type: "stat",
+			type: "modifyStat",
+			stat: "wisdom",
+			operation: "add",
 			value: 2,
 		},
 	],
-	size: "twoHanded",
-	type: "weapon",
-	weaponType: "staff",
-	id: "holy_staff",
+	attackRiders: [],
+	tags: [],
 });

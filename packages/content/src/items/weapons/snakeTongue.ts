@@ -1,33 +1,51 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "poison",
-	description: "",
-	effects: [
-		{
-			difficulty: 16,
-			duration: 2,
-			effect: "poison",
-			modifier: "constitution",
-			target: "enemy",
-			type: "auxiliary",
-		},
-	],
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAt06i5FZejZc6JogoT?alt=media&token=159f7546-ec58-461e-9e02-ac18c8517b32",
-	level: 2,
-	max: 5,
-	min: 2,
+	id: "snake_tongue",
 	name: "Snake Tongue",
+	description: "",
+	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAt06i5FZejZc6JogoT?alt=media&token=159f7546-ec58-461e-9e02-ac18c8517b32",
 	price: 220,
-	properties: [
+	rarity: "common",
+	type: "weapon",
+	weaponType: "wand",
+	handedness: "oneHanded",
+	range: "ranged",
+	damage: {
+		dice: "1d4+1",
+		type: "poison",
+		attribute: "intelligence",
+	},
+	modifiers: [
 		{
-			name: "poison",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "poison",
+			operation: "add",
 			value: 20,
 		},
 	],
-	size: "oneHanded",
-	type: "weapon",
-	weaponType: "wand",
-	id: "snake_tongue",
+	attackRiders: [
+		{
+			timing: "onHit",
+			save: {
+				attribute: "constitution",
+				dc: {
+					base: 16,
+					attribute: "constitution",
+					includeProficiency: false,
+					bonus: 0,
+				},
+				onSuccess: "noEffect",
+			},
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "poisoned",
+					durationTurns: 2,
+				},
+			],
+		},
+	],
+	tags: [],
 });

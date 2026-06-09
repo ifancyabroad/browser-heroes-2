@@ -1,28 +1,35 @@
 import { buildWeapon } from "../../builders/buildWeapon";
 
 export default buildWeapon({
-	damageType: "crushing",
+	id: "bo_staff",
+	name: "Bo Staff",
 	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OI6XABb86ffAJIOt5Zr?alt=media&token=96f1c1b9-aeb0-4f1f-9f56-ee955c7a6c99",
-	level: 3,
-	max: 12,
-	min: 3,
-	name: "Bo Staff",
 	price: 560,
-	properties: [
+	rarity: "common",
+	type: "weapon",
+	weaponType: "staff",
+	handedness: "twoHanded",
+	range: "melee",
+	damage: {
+		dice: "1d10+2",
+		type: "crushing",
+		attribute: "strength",
+	},
+	modifiers: [
 		{
-			name: "strength",
-			type: "stat",
+			type: "modifyStat",
+			stat: "strength",
+			operation: "add",
 			value: 2,
 		},
 		{
-			name: "wisdom",
-			type: "stat",
+			type: "modifyStat",
+			stat: "wisdom",
+			operation: "add",
 			value: 2,
 		},
 	],
-	size: "twoHanded",
-	type: "weapon",
-	weaponType: "staff",
-	id: "bo_staff",
+	attackRiders: [],
+	tags: [],
 });
