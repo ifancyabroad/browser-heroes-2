@@ -7,3 +7,4 @@ export * from "./weapon.schema";
 export * from "./class.schema";
 export * from "./modifier.schema";
 export * from "./feat.schema";
+export * from "./item.schema";

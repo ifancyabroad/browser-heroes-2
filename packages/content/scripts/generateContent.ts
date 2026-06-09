@@ -134,6 +134,7 @@ function run() {
 	const enemiesDir = join(SRC, "enemies");
 	const itemsDir = join(SRC, "items");
 	const classesDir = join(SRC, "classes");
+	const featsDir = join(SRC, "feats");
 
 	mkdirSync(OUT_DIR, { recursive: true });
 
@@ -141,6 +142,7 @@ function run() {
 	generateFor("enemy", enemiesDir, "../schemas");
 	generateFor("item", itemsDir, "../schemas");
 	generateFor("class", classesDir, "../schemas");
+	generateFor("feat", featsDir, "../schemas");
 
 	const manifests = [
 		"// Generated — do not edit by hand",
@@ -149,11 +151,13 @@ function run() {
 		"import { enemyIds } from './enemyIds';",
 		"import { itemIds } from './itemIds';",
 		"import { classIds } from './classIds';",
+		"import { featIds } from './featIds';",
 		"",
 		"export const SKILL_IDS = skillIds;",
 		"export const ENEMY_IDS = enemyIds;",
 		"export const ITEM_IDS = itemIds;",
 		"export const CLASS_IDS = classIds;",
+		"export const FEAT_IDS = featIds;",
 	];
 	const manifestsPath = join(OUT_DIR, "manifests.ts");
 	writeFileIfChanged(manifestsPath, manifests.join("\n"));
@@ -165,6 +169,7 @@ function run() {
 		"export * from './enemies.registry';",
 		"export * from './items.registry';",
 		"export * from './classes.registry';",
+		"export * from './feats.registry';",
 		"export * from './manifests';",
 	];
 	const indexPath = join(OUT_DIR, "index.ts");
