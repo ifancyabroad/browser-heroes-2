@@ -1,104 +1,82 @@
-# Browser Heroes 2 — Architecture Principles
+# Browser Heroes 2 - Architecture Principles
 
----
+## 1. Purpose
 
-# 1. Purpose
+This document defines the system boundaries and ownership rules that keep Browser Heroes 2 maintainable.
 
-This document defines the architectural constraints and system boundaries that govern Browser Heroes 2.
+It covers architecture only. Product goals, player-facing rules, combat behavior, and operational infrastructure belong in their own documents.
 
-Its goals are to:
+## 2. Architectural Philosophy
 
-- preserve maintainability
-- prevent architectural drift
-- support deterministic simulation
-- guide AI-assisted development
-- reduce unnecessary complexity
-
-This document defines architectural principles, not implementation details.
-
----
-
-# 2. Core Architectural Philosophy
-
-Browser Heroes 2 is built around a deterministic simulation core capable of running:
-
-- client-side
-- server-side
-- offline
-
-The simulation layer is the primary source of gameplay truth.
-
-Presentation, persistence, networking, and tooling are secondary systems built around the simulation.
+Browser Heroes 2 is built around a deterministic shared gameplay core that can run client-side, server-side, and offline.
 
 The architecture prioritizes:
 
 - simplicity
 - determinism
-- modularity
-- readability
-- portability
+- explicit state transitions
+- reusable shared gameplay logic
+- clear package boundaries
+- small systems that remain understandable by one developer
 
 The architecture avoids:
 
-- premature abstraction
-- tightly coupled systems
-- hidden state mutation
-- unnecessary framework complexity
-- AI-generated architectural sprawl
+- duplicated gameplay rules
+- hidden mutable state
+- UI-owned gameplay outcomes
+- backend-only gameplay divergence
+- speculative abstraction
 
----
+## 3. System Layers
 
-# 3. System Layers
+### 3.1 Simulation Layer
 
----
+The simulation layer is the gameplay source of truth.
 
-## 3.1 Simulation Layer
+It owns:
 
-The simulation layer contains:
+- action validation and application
+- deterministic combat transitions
+- progression and town transitions
+- run state serialization boundaries
+- selectors that project simulation state for callers
 
-- combat resolution
-- progression systems
-- hero systems
-- enemy systems
-- item systems
-- deterministic state transitions
+The simulation layer must remain framework-agnostic and must not depend on UI, rendering, persistence, networking, or runtime timing.
 
-The simulation layer:
+### 3.2 Content Layer
 
-- must not depend on UI
-- must not depend on networking
-- must not depend on persistence systems
-- must not depend on rendering systems
-- must avoid side-effect-driven logic
+The content layer owns declarative game definitions and generated registries.
 
-The simulation layer must remain executable:
+It contains the stable game content surface used by the engine and apps, including classes, enemies, items, skills, and feats.
 
-- client-side
-- server-side
-- offline
+Content should remain:
 
----
+- data-driven where practical
+- human-readable
+- versionable
+- reusable across frontend and backend systems
 
-## 3.2 Application Layer
+Generated registries may support lookup and type safety, but docs should not duplicate their contents.
+
+### 3.3 Application Layer
 
 The application layer coordinates systems around the simulation.
 
-Responsibilities include:
+It may handle:
 
 - session flow
 - save/load orchestration
 - networking coordination
 - runtime orchestration
-- event broadcasting
 - input coordination
 
 The application layer must not contain gameplay rules.
 
----
+### 3.4 Presentation Layer
 
-## 3.3 Presentation Layer
+The presentation layer renders and gathers player intent.
 
-The presentation layer is responsible for:
+It owns:
 
 - rendering
 - user interaction
@@ -106,173 +84,47 @@ The presentation layer is responsible for:
 - visual feedback
 - responsive layout
 
-The presentation layer:
+The presentation layer must display simulation state or request state transitions. It must not calculate gameplay outcomes or directly mutate simulation state.
 
-- must never calculate gameplay outcomes
-- must never directly mutate simulation state
-- must only display or request state transitions
+## 4. Package Boundaries
 
-UI is a projection of simulation state.
+Workspace packages should have explicit responsibilities:
 
----
+- `packages/engine` owns deterministic gameplay state transitions and projections.
+- `packages/content` owns declarative content definitions and generated registries.
+- `packages/shared` owns app/API shared contracts that are not gameplay rules.
+- `apps/web` presents the game and sends player intent to shared systems.
+- `apps/api` persists, validates, and exposes backend services without duplicating gameplay logic.
 
-# 4. Deterministic Simulation Rules
+Cross-package dependencies should remain deliberate, minimal, and acyclic.
 
-The simulation must support:
+## 5. Determinism and State
 
-- deterministic replay
-- offline execution
-- server-side validation
-- combat reconstruction
-- reproducible runs
-- save/load parity
+Game state is explicit serializable data.
 
-The following rules must always hold true:
+The following rules must hold:
 
-- identical state + identical input = identical outcome
-- all randomness derives from seeded generators
-- gameplay outcomes must not depend on runtime timing
-- no hidden runtime state may influence simulation outcomes
+- identical state plus identical input produces identical outcome
+- randomness derives from seeded generators
+- runtime timing does not affect gameplay results
+- no hidden global state influences simulation outcomes
+- state transitions remain traceable and replayable
 
----
+The complete run should always be representable as a snapshot. Save/load parity, replay verification, server-side validation, and combat reconstruction should all build from that same explicit state model.
 
-# 5. State Management Principles
+## 6. Modularity Principles
 
-Game state is treated as explicit serializable data.
+Gameplay systems should communicate through explicit inputs, outputs, state transitions, and events.
 
-The architecture avoids:
+New abstractions should only be introduced when they reduce meaningful duplication, improve readability, or clarify ownership. Prefer plain functions and direct data flow where practical.
 
-- hidden mutable global state
-- implicit cross-system mutation
-- gameplay singletons
-- UI-owned gameplay state
+## 7. Testing Philosophy
 
-State transitions should remain:
+Testing should prioritize deterministic simulation correctness, replay safety, and stable gameplay transitions.
 
-- explicit
-- traceable
-- serializable
-- replayable
+Preferred tests are targeted, lightweight, and close to the behavior they protect.
 
-The complete game state should always be representable as a snapshot.
-
----
-
-# 6. Content Architecture
-
-Gameplay content should remain data-driven where practical.
-
-Examples include:
-
-- hero definitions
-- enemy definitions
-- item definitions
-- skill definitions
-- loot tables
-- encounter pools
-
-Content should:
-
-- remain declarative
-- remain human-readable
-- remain versionable
-- be reusable across frontend and backend systems
-
-Gameplay behavior should not be tightly coupled to UI implementation.
-
----
-
-# 7. Related Documents
-
-- Persistence implementation details: see INFRASTRUCTURE.md §8
-- Networking implementation details: see INFRASTRUCTURE.md §11
-- AI development principles: see AGENTS.md
-
----
-
-# 8. Complexity Management
-
-Avoiding overengineering is a primary architectural goal.
-
-New abstractions should only be introduced when they:
-
-- reduce meaningful duplication
-- improve maintainability
-- improve extensibility
-- improve readability
-
-The architecture should prefer:
-
-- directness over indirection
-- understandable systems over theoretical purity
-- stable patterns over experimental patterns
-
-Premature scalability concerns should not override simplicity.
-
----
-
-# 9. Testing Philosophy
-
-Testing should focus primarily on:
-
-- deterministic simulation correctness
-- replay integrity
-- gameplay stability
-
-The preferred testing strategy is:
-
-- targeted simulation tests
-- lightweight validation
-- replay verification where valuable
-
-Testing systems should remain lightweight and maintainable.
-
----
-
-# 10. UI Principles
-
-The UI should remain:
-
-- minimal
-- responsive
-- information-dense
-- mobile-compatible
-- fast to navigate
-
-Visual complexity should never obscure gameplay clarity.
-
-The architecture should support:
-
-- desktop play
-- mobile play
-- progressive enhancement
-- low-overhead rendering
-
----
-
-# 11. Modularity Principles
-
-Gameplay systems should remain modular and replaceable.
-
-Examples include:
-
-- isolated enemy AI behaviors
-- independently definable skills
-- composable item modifiers
-- data-driven content systems
-
-Systems should communicate through:
-
-- explicit inputs
-- explicit outputs
-- state transitions
-- event flows
-
-Implicit cross-system dependencies should be avoided.
-
----
-
-# 12. Non-Goals
+## 8. Non-Goals
 
 The architecture is not intended to optimize for:
 
@@ -280,20 +132,6 @@ The architecture is not intended to optimize for:
 - microservice-heavy infrastructure
 - enterprise abstraction layers
 - highly distributed systems
-- framework-driven complexity
+- framework-driven gameplay systems
 
-The project instead prioritizes:
-
-- maintainability
-- clarity
-- extensibility
-- deterministic correctness
-- sustainable solo or small-team development
-
----
-
-# 13. Guiding Principle
-
-The architecture should remain understandable by a single developer.
-
-If a system becomes difficult to reason about, replay mentally, or explain simply, the simpler solution should generally be preferred.
+The guiding principle is simple: if a system becomes difficult to reason about or explain, prefer the simpler design.

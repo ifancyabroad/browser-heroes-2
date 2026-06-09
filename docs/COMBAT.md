@@ -1,357 +1,189 @@
-# Browser Heroes 2 — Combat Resolution Specification
+# Browser Heroes 2 - Combat Design
 
----
+## 1. Combat Goals
 
-# 1. Combat Goals
+Combat should be deterministic, readable, low-friction, and strategically expressive.
 
-Combat should be:
+The system is DnD-adjacent rather than a strict tabletop rules clone. It uses familiar RPG ideas such as attributes, proficiencies, dice rolls, hit dice, damage dice, D20 checks, and saving throws while keeping browser play fast.
 
-- deterministic
-- readable
-- low-friction
-- strategically expressive
-- easy to resolve mentally from logs and state
-
-Combat is designed around:
+Combat should support:
 
 - short decision cycles
 - build synergy discovery
-- incremental power growth
-- explainable outcomes
+- clear logs and outcomes
+- deterministic replay
+- meaningful variation from seeded randomness
 
----
+## 2. Combat Structure
 
-# 2. Combat Structure
+Combat consists of one hero against one enemy.
 
-Combat consists of:
+Combat has:
 
-- one player hero
-- one enemy
 - alternating turns
-
-The player always acts first on turn 1. Turns then alternate: player → enemy → player → enemy.
-
-Combat contains:
-
 - no positioning system
 - no movement system
 - no simultaneous action resolution
 
----
+The player acts first unless a future rule explicitly says otherwise.
 
-# 3. Combat State
+## 3. Combatants
 
-## 3.1 Player Combat State
+Combatants are derived from hero, enemy, item, skill, and feat content.
 
-- current HP
-- stats
-- active effects
-- skills
-- equipped items
-- temporary modifiers
+Combat-relevant identity includes:
 
----
+- current and maximum HP
+- six core attributes
+- proficiencies
+- active skills
+- passive feats
+- equipment
+- active temporary effects
+- combat log state
 
-## 3.2 Enemy Combat State
+The exact stored shape belongs to code, not this document.
 
-- current HP
-- stats
-- active effects
-- skills
-- equipped items
-- temporary modifiers
-- enemy archetype
-- AI profile
+Encounter context includes turn state, combat log state, encounter type, RNG/run state, and any relevant zone or encounter modifiers.
 
----
+## 4. Attributes, Proficiencies, and Dice
 
-## 3.3 Encounter State
+Combat uses six attributes:
 
-- turn number
-- combat log
-- RNG state
-- zone modifiers
-- encounter modifiers
+- strength
+- dexterity
+- constitution
+- intelligence
+- wisdom
+- charisma
 
----
+Attributes and proficiencies influence attacks, saves, damage, mitigation, skill effects, and class or enemy identity.
 
-# 4. Turn Resolution
+Dice are deterministic because rolls consume seeded RNG from run state. Dice may be used for:
 
-Each turn resolves in the following order:
+- D20 checks
+- attack resolution
+- saving throws
+- hit dice
+- damage rolls
+- effect rolls
 
-1. Action selection
-2. Action resolution
-3. Effect resolution
-4. Death check
-5. Turn transition
+This document intentionally does not define exact formulas.
 
----
+Randomness is permitted only in explicitly defined systems such as damage ranges, critical outcomes, enemy generation, loot generation, and skill offerings.
 
-## 4.1 Valid Actions
+## 5. Turn Resolution
 
-Combat actions include:
+Each turn resolves conceptually as:
 
-- basic attack
-- skill usage
+1. Select a valid action.
+2. Resolve the action.
+3. Apply relevant dice checks and modifiers.
+4. Apply damage, healing, effects, or other outcomes.
+5. Check death and combat end conditions.
+6. Advance the turn and write log entries.
+
+Only explicit rules may interrupt or alter this order.
+
+## 6. Valid Actions
+
+Combat actions may include:
+
+- basic attacks
+- active skill usage
 - consumable usage
 
-Only one action may be selected per turn.
+Only one player action is selected per player turn unless a rule explicitly grants another action.
 
----
-
-## 4.2 Resolution Order
-
-Actions resolve in the following sequence:
-
-1. Determine target
-2. Calculate base effect
-3. Apply offensive modifiers
-4. Apply defensive mitigation
-5. Apply conditional effects
-6. Apply final result
-7. Write combat log entry
-
----
-
-# 5. Damage Resolution
+## 7. Damage and Mitigation
 
 Damage follows this conceptual flow:
 
 ```text
-Base Value
-→ Offensive Modifiers
-→ Defensive Mitigation
-→ Conditional Effects
-→ Final Damage
+Base roll or value
+-> offensive modifiers
+-> defensive mitigation
+-> conditional effects
+-> final outcome
 ```
 
----
+Damage may derive from weapons, skills, attributes, proficiencies, damage dice, feats, items, and temporary effects.
 
-## 5.1 Offensive Modifiers
+Mitigation may derive from armour, attributes, resistances, feats, items, saving throws, and temporary effects.
 
-Damage may scale from:
+Damaging actions must result in at least 1 damage or an explicit blocked, avoided, or immune outcome. Invisible nullification is not allowed.
 
-- stats
-- weapon values
-- skill multipliers
-- item modifiers
-- temporary effects
+## 8. Skills
 
----
+Skills are active combat abilities.
 
-## 5.2 Defensive Mitigation
+Skills may:
 
-Damage reduction may derive from:
+- deal damage
+- heal
+- apply temporary effects
+- impose conditions
+- modify the current combat state
+- create utility effects
 
-- resistances
-- defensive effects
-- temporary modifiers
-- enemy traits
+Skills should have clear targets, readable outcomes, and log entries that explain what happened.
 
----
+## 9. Feats
 
-## 5.3 Minimum Damage Rule
+Feats are passive build features.
 
-Damaging actions must result in either:
+Feats may:
 
-- at least 1 damage
-- or an explicit blocked outcome
+- modify stats or derived combat values
+- modify damage or resistances
+- add passive attack riders
+- improve survivability or utility
+- reinforce class, item, or build identity
 
-Invisible nullification is not allowed.
+Feats are not selected as combat actions. Their effects should be visible through state, combat logs, or clear derived outcomes.
 
----
+## 10. Temporary Effects
 
-# 6. Randomness Rules
+Temporary effects are combat-limited conditions, buffs, debuffs, or state modifiers.
 
-Randomness is permitted only in explicitly defined systems.
+They should define their timing, duration, stacking behavior, and expiration condition in code or content. Implicit stacking behavior is not allowed.
 
-Examples include:
+Effects may trigger at clear timing points such as turn start, turn end, on attack, on damage taken, on skill use, or on death.
 
-- damage ranges
-- critical hits
-- enemy generation
-- loot generation
-- skill offerings
+Conditions such as poison, burn, stun, or freeze should remain understandable through visible state and combat logs.
 
-All randomness must:
+## 11. Death and Combat End
 
-- derive from seeded RNG
-- remain reproducible from run state
-- preserve deterministic replayability
-
----
-
-# 7. Status Effects
-
-Status effects are condition-based temporary modifiers (e.g. poison, burn). They are distinct from buffs and debuffs (§9), which modify stats or behavior directly.
-
-Examples include:
-
-- poison
-- burn
-- stun
-- freeze
-
----
-
-## 7.1 Status Effect Definition
-
-Every status effect must define:
-
-- source
-- duration
-- trigger timing
-- stacking behavior
-- expiration condition
-
----
-
-## 7.2 Effect Timing
-
-Effects may trigger:
-
-- at turn start
-- at turn end
-- on attack
-- on damage taken
-- on skill usage
-- on death
-
----
-
-# 8. Skill Resolution
-
-Skills are specialized combat actions.
-
-Every skill defines:
-
-- target type
-- effect type
-- scaling source
-- timing behavior
-- special rules
-
----
-
-## 8.1 Skill Categories
-
-Skills may include:
-
-- direct damage
-- damage-over-time
-- healing
-- defensive effects
-- buffs and debuffs
-- reactive effects
-- passive effects
-
----
-
-## 8.2 Skill Clarity
-
-Skill outcomes must always remain understandable through:
-
-- combat logs
-- visible modifiers
-- explicit resolution rules
-
----
-
-# 9. Buff & Debuff Rules
-
-Buffs and debuffs are temporary combat modifiers.
-
-Modifiers may affect:
-
-- stats
-- damage
-- mitigation
-- resistances
-- skill behavior
-
----
-
-## 9.1 Stacking Rules
-
-Modifiers must explicitly define:
-
-- stacking behavior
-- additive or multiplicative behavior
-- refresh or replacement behavior
-
-Implicit stacking behavior is not allowed.
-
----
-
-# 10. Death Resolution
-
-When HP reaches 0:
-
-- the entity dies immediately
-- pending actions are canceled unless explicitly persistent
-
----
-
-## 10.1 Combat End Rules
+When a combatant reaches 0 HP, that combatant dies immediately unless an explicit rule prevents it.
 
 On enemy death:
 
-- combat ends immediately
-- rewards are generated
-- progression updates resolve
+- combat ends
+- rewards and progression may resolve
+- the player may continue forward or return to town where applicable
 
 On player death:
 
 - the run ends immediately
 
----
+## 12. Combat Logging
 
-# 11. Combat Logging
+Combat logs are part of the authoritative combat state.
 
-Every combat action must generate a log entry containing:
+Logs should make outcomes understandable by recording the actor, action, target, important modifiers or rolls, outcome, and final result where relevant.
 
-- source
-- action
-- target
-- modifiers
-- outcome
-- final result
+## 13. Enemy Behavior
 
-Combat logs are considered part of the authoritative combat state.
+Enemy behavior should be deterministic, learnable, and strategically exploitable.
 
----
+Enemy decisions may use simple tactics or conditional rules, but should avoid opaque exceptions and arbitrary outcomes.
 
-# 12. Enemy AI Rules
+## 14. Scope Boundaries
 
-Enemy AI operates through:
+This document does not define:
 
-- deterministic decision profiles
-- conditional behavior rules
-
-Enemy behavior should remain:
-
-- understandable
-- learnable
-- strategically exploitable
-
-Enemy behavior should avoid:
-
-- arbitrary outcomes
-- opaque logic
-- hidden rule exceptions
-
----
-
-# 13. Deferred Design Areas
-
-This document intentionally does not define:
-
-- exact formulas
-- stat lists
-- critical hit formulas
-- evasion systems
-- speed-based or conditional initiative systems
-- resource systems
-- detailed enemy AI implementations
-
-These systems will be defined in future subsystem specifications.
+- exact combat formulas
+- exact stat scaling
+- exact critical hit behavior
+- exact enemy AI implementation
+- code schemas or registry contents

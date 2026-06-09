@@ -1,93 +1,62 @@
-# MERN Phaser Template (Monorepo)
+# Browser Heroes 2
 
-A starter template for building games with **React 19 + Vite + Tailwind v4 + Phaser 3** (web) and **Express 5 + Mongoose 9 + Zod** (API). Shared types live in `packages/shared`. Data fetching uses **TanStack Query** + **ky**.
+Browser Heroes 2 is a browser roguelike RPG built around fast, repeatable runs of deterministic turn-based combat.
 
-## Tech Stack
-
-| Layer           | Technologies                                                        |
-| --------------- | ------------------------------------------------------------------- |
-| Frontend        | React 19, Vite 7, Tailwind CSS 4, Phaser 3, TanStack Query, Zustand |
-| Backend         | Express 5, Mongoose 9, Zod validation                               |
-| Tooling         | TypeScript 5.9, ESLint 9, Prettier, Vitest, Husky                   |
-| Package Manager | pnpm workspaces                                                     |
+The project uses a pnpm workspace monorepo so the web app, API, shared gameplay engine, and content package can evolve together without duplicating rules.
 
 ## Prerequisites
 
-- Node.js 18+ (20+ recommended)
+- Node.js 18.18+
 - pnpm 10+
-- MongoDB instance (local or Atlas)
+- MongoDB for API persistence
 
 ## Quick Start
 
 ```bash
 pnpm install
-pnpm dev          # runs web + api + shared watchers in parallel
-# Web: http://localhost:5173
-# API: http://localhost:4000
+pnpm dev
 ```
 
-## Project Layout
+Default local services:
 
-```
-apps/
-  api/           # Express 5 API with Mongoose, Helmet, CORS, Compression
-  web/           # Vite + React + Tailwind v4 + Phaser game
-packages/
-  shared/        # Shared Zod schemas & TypeScript types
-```
+- Web: `http://localhost:5173`
+- API: `http://localhost:4000`
 
-## Environment Variables
+## Environment
 
-**API** (`apps/api/.env`)
+The API expects MongoDB configuration in `apps/api/.env`:
 
 ```env
 PORT=4000
-MONGO_URI=mongodb://127.0.0.1:27017/your_game
-# WEB_ORIGIN=https://your-site.example  # CORS origin for production
+MONGO_URI=mongodb://127.0.0.1:27017/browser_heroes_2
+# WEB_ORIGIN=https://your-site.example
 ```
 
-**Web** (`apps/web/.env`) - optional
+The web app may optionally set `VITE_API_BASE_URL` in `apps/web/.env`.
 
-```env
-VITE_API_BASE_URL=/api
+## Workspace Layout
+
+```text
+apps/
+  api/       Express API for persistence, scores, and backend services
+  web/       React, Vite, and Phaser browser client
+packages/
+  content/   Declarative game content and generated registries
+  engine/    Shared deterministic gameplay engine
+  shared/    Shared app/API types and schemas
 ```
 
-## Shared Types
-
-The `@app/shared` package exports types used by both apps:
-
-```ts
-import { ScoreSchema, ScoreInput, ScoreResponse, HealthResponse } from "@app/shared";
-```
-
-## Scripts
+## Common Scripts
 
 ```bash
-# Development
-pnpm dev              # Run all apps in watch mode
-
-# Quality
-pnpm typecheck        # Type check all packages
-pnpm lint             # ESLint (v9 flat config)
-pnpm format           # Prettier
-
-# Testing
-pnpm test             # Run all tests (Vitest)
-pnpm --filter @app/web test:watch   # Watch mode for web tests
-
-# Build & Production
-pnpm build            # Build all packages
-pnpm --filter @app/api start        # Run API from dist/
-pnpm --filter @app/web preview      # Preview web build
+pnpm dev          # Run workspace dev tasks
+pnpm build        # Build all packages and apps
+pnpm typecheck    # Type check the workspace
+pnpm lint         # Run ESLint
+pnpm test         # Run tests
+pnpm format       # Format files with Prettier
 ```
 
-## Notes
+## Documentation
 
-- Vite dev server proxies `/api` requests to `http://localhost:4000`
-- When using **ky**, omit the leading `/` in paths:
-    ```ts
-    api.get("health").json(); // ✓ correct
-    api.get("/health").json(); // ✗ incorrect
-    ```
-- The web app includes an `ErrorBoundary` using [react-error-boundary](https://github.com/bvaughn/react-error-boundary)
-- Pre-commit hooks run ESLint and Prettier via Husky + lint-staged
+Start with the [documentation map](docs/README.md). The docs are intentionally concise: they describe product intent, gameplay rules, architecture boundaries, combat direction, and infrastructure principles without duplicating volatile code or schemas.
