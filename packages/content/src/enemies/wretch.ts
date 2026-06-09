@@ -36,15 +36,11 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "evasion",
-				rank: 1,
-			},
-			{
 				skillId: "leap_attack",
 				rank: 1,
 			},
 		],
-		featIds: [],
+		featIds: ["evasion"],
 		tactic: "default",
 	},
 	proficiencies: {

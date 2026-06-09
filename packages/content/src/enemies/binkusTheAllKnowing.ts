@@ -49,10 +49,6 @@ export default buildEnemy({
 				rank: 3,
 			},
 			{
-				skillId: "globe_of_invulnerability",
-				rank: 3,
-			},
-			{
 				skillId: "chain_lightning",
 				rank: 3,
 			},
@@ -61,15 +57,11 @@ export default buildEnemy({
 				rank: 3,
 			},
 			{
-				skillId: "pierce_magic",
-				rank: 3,
-			},
-			{
 				skillId: "binkus_deathray",
 				rank: 3,
 			},
 		],
-		featIds: [],
+		featIds: ["arcane_warding", "arcane_penetration"],
 		tactic: "caster",
 	},
 	proficiencies: {

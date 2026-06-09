@@ -36,15 +36,7 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "embrace_shadows",
-				rank: 2,
-			},
-			{
 				skillId: "flame_arrow",
-				rank: 2,
-			},
-			{
-				skillId: "shadow_bolt",
 				rank: 2,
 			},
 			{
@@ -52,7 +44,7 @@ export default buildEnemy({
 				rank: 2,
 			},
 		],
-		featIds: [],
+		featIds: ["embrace_shadows", "shadow_focus"],
 		tactic: "caster",
 	},
 	proficiencies: {

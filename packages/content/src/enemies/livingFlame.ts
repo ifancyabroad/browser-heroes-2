@@ -43,16 +43,8 @@ export default buildEnemy({
 				skillId: "fireball",
 				rank: 2,
 			},
-			{
-				skillId: "pierce_magic",
-				rank: 2,
-			},
-			{
-				skillId: "embrace_elements",
-				rank: 2,
-			},
 		],
-		featIds: [],
+		featIds: ["arcane_penetration", "embrace_elements"],
 		tactic: "caster",
 	},
 	proficiencies: {

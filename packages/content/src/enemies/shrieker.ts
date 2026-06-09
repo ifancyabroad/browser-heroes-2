@@ -36,15 +36,11 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "evasion",
-				rank: 1,
-			},
-			{
 				skillId: "deafening_screech",
 				rank: 1,
 			},
 		],
-		featIds: [],
+		featIds: ["evasion"],
 		tactic: "default",
 	},
 	proficiencies: {

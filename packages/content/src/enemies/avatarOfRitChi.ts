@@ -40,15 +40,11 @@ export default buildEnemy({
 				rank: 3,
 			},
 			{
-				skillId: "drain_energy",
-				rank: 3,
-			},
-			{
 				skillId: "call_upon_rit_chi",
 				rank: 3,
 			},
 		],
-		featIds: [],
+		featIds: ["siphoned_vigor"],
 		tactic: "default",
 	},
 	proficiencies: {

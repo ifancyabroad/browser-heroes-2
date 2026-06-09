@@ -36,10 +36,6 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "armour",
-				rank: 2,
-			},
-			{
 				skillId: "sparks",
 				rank: 2,
 			},
@@ -52,7 +48,7 @@ export default buildEnemy({
 				rank: 2,
 			},
 		],
-		featIds: [],
+		featIds: ["armour"],
 		tactic: "caster",
 	},
 	proficiencies: {

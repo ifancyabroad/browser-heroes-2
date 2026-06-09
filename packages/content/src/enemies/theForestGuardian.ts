@@ -40,15 +40,11 @@ export default buildEnemy({
 				rank: 3,
 			},
 			{
-				skillId: "focus_energy",
-				rank: 3,
-			},
-			{
 				skillId: "stoke_the_flames",
 				rank: 3,
 			},
 		],
-		featIds: [],
+		featIds: ["focus_energy"],
 		tactic: "default",
 	},
 	proficiencies: {

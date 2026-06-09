@@ -40,15 +40,11 @@ export default buildEnemy({
 				rank: 2,
 			},
 			{
-				skillId: "acid_trap",
-				rank: 2,
-			},
-			{
 				skillId: "poison_bomb",
 				rank: 2,
 			},
 		],
-		featIds: [],
+		featIds: ["corrosive_craft"],
 		tactic: "default",
 	},
 	proficiencies: {

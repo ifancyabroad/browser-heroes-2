@@ -36,19 +36,11 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "acrobatic_strike",
-				rank: 2,
-			},
-			{
-				skillId: "evasion",
-				rank: 2,
-			},
-			{
 				skillId: "backstab",
 				rank: 2,
 			},
 		],
-		featIds: [],
+		featIds: ["acrobatic_training", "evasion"],
 		tactic: "default",
 	},
 	proficiencies: {

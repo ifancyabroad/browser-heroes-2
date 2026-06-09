@@ -36,15 +36,11 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "acrobatic_strike",
-				rank: 1,
-			},
-			{
 				skillId: "cripple",
 				rank: 1,
 			},
 		],
-		featIds: [],
+		featIds: ["acrobatic_training"],
 		tactic: "default",
 	},
 	proficiencies: {

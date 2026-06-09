@@ -36,10 +36,6 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "battle_cry",
-				rank: 2,
-			},
-			{
 				skillId: "heavy_strike",
 				rank: 2,
 			},
@@ -48,7 +44,7 @@ export default buildEnemy({
 				rank: 2,
 			},
 		],
-		featIds: [],
+		featIds: ["brute_strength"],
 		tactic: "default",
 	},
 	proficiencies: {

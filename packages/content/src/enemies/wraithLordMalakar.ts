@@ -43,12 +43,8 @@ export default buildEnemy({
 				skillId: "wail",
 				rank: 3,
 			},
-			{
-				skillId: "cloak_of_shadows",
-				rank: 3,
-			},
 		],
-		featIds: [],
+		featIds: ["cloak_of_shadows"],
 		tactic: "caster",
 	},
 	proficiencies: {

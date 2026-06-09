@@ -43,12 +43,8 @@ export default buildEnemy({
 				skillId: "holy_bolt",
 				rank: 1,
 			},
-			{
-				skillId: "power_word_shield",
-				rank: 1,
-			},
 		],
-		featIds: [],
+		featIds: ["runic_ward"],
 		tactic: "caster",
 	},
 	proficiencies: {

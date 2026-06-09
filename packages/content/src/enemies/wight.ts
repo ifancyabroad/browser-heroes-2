@@ -39,12 +39,8 @@ export default buildEnemy({
 				skillId: "corrupting_touch",
 				rank: 2,
 			},
-			{
-				skillId: "evasion",
-				rank: 2,
-			},
 		],
-		featIds: [],
+		featIds: ["evasion"],
 		tactic: "default",
 	},
 	proficiencies: {

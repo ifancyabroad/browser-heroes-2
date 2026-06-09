@@ -36,15 +36,11 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "battle_cry",
-				rank: 1,
-			},
-			{
 				skillId: "armour_break",
 				rank: 1,
 			},
 		],
-		featIds: [],
+		featIds: ["brute_strength"],
 		tactic: "default",
 	},
 	proficiencies: {

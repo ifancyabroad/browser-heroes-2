@@ -49,15 +49,11 @@ export default buildEnemy({
 				rank: 2,
 			},
 			{
-				skillId: "focus_energy",
-				rank: 2,
-			},
-			{
 				skillId: "whirlwind_strike",
 				rank: 2,
 			},
 		],
-		featIds: [],
+		featIds: ["focus_energy"],
 		tactic: "default",
 	},
 	proficiencies: {

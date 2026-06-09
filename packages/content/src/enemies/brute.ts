@@ -39,12 +39,8 @@ export default buildEnemy({
 				skillId: "stand_ground",
 				rank: 2,
 			},
-			{
-				skillId: "focus_energy",
-				rank: 2,
-			},
 		],
-		featIds: [],
+		featIds: ["focus_energy"],
 		tactic: "default",
 	},
 	proficiencies: {

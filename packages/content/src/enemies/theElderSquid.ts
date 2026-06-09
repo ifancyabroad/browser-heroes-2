@@ -36,14 +36,6 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "globe_of_invulnerability",
-				rank: 3,
-			},
-			{
-				skillId: "drain_energy",
-				rank: 3,
-			},
-			{
 				skillId: "tentacle_wrap",
 				rank: 3,
 			},
@@ -56,7 +48,7 @@ export default buildEnemy({
 				rank: 3,
 			},
 		],
-		featIds: [],
+		featIds: ["arcane_warding", "siphoned_vigor"],
 		tactic: "default",
 	},
 	proficiencies: {
