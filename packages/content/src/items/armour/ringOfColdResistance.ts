@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Ring of Cold Resistance",
 	description: "Shields against bitter cold, a ring of unwavering resistance.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NgJz9XiQvutptUoYpNc?alt=media&token=ef4fd764-7ee4-4463-bd09-ab7e0572e468",
-	level: 1,
 	price: 90,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "cold",
-			type: "resistance",
-			value: 40,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "cold",
 		},
 	],
-	type: "ring",
+	tags: [],
 });

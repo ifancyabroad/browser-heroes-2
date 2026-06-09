@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Novice Hood",
 	description: "Basic headwear for novice adventurers, offering modest protection.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDYFP4JZdQ4KT3WfiB?alt=media&token=5060ad42-fc80-4398-9e04-16c277b7beff",
-	level: 1,
 	price: 120,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "helmet",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "intelligence",
-			type: "stat",
+			type: "modifyStat",
+			stat: "intelligence",
+			operation: "add",
 			value: 1,
 		},
 	],
-	type: "helmet",
+	tags: [],
 });

@@ -5,20 +5,24 @@ export default buildArmour({
 	name: "Boots of the Black Knight",
 	description: "These boots enhance strength and resilience, embodying the Black Knight's power.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDMcHFa0GCkFUel8IG?alt=media&token=78f93c9a-8395-47bd-90ab-8cd813cfa4cc",
-	level: 3,
 	price: 760,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "strength",
-			type: "stat",
+			type: "modifyStat",
+			stat: "strength",
+			operation: "add",
 			value: 2,
 		},
 		{
-			name: "critChance",
-			type: "auxiliaryStat",
+			type: "modifyStat",
+			stat: "critChance",
+			operation: "add",
 			value: 2,
 		},
 	],
-	type: "boots",
+	tags: [],
 });

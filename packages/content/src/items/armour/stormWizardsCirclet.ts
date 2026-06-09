@@ -4,15 +4,18 @@ export default buildArmour({
 	id: "storm_wizards_circlet",
 	name: "Storm Wizard's Circlet",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsZTuo1olBNdnfJYWQ?alt=media&token=8d3c28ed-83f4-4113-b8bf-3a6c12cb4714",
-	level: 2,
 	price: 290,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "helmet",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "lightning",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "lightning",
+			operation: "add",
 			value: 25,
 		},
 	],
-	type: "helmet",
+	tags: [],
 });

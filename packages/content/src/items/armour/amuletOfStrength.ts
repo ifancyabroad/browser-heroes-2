@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Amulet of Strength",
 	description: "An enchanted amulet that amplifies the wearer's strength.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9SWjFRnu58szE_T-J?alt=media&token=e81fa74d-fb48-4a21-83fb-e12ed100f319",
-	level: 1,
 	price: 130,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "amulet",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "strength",
-			type: "stat",
+			type: "modifyStat",
+			stat: "strength",
+			operation: "add",
 			value: 1,
 		},
 	],
-	type: "amulet",
+	tags: [],
 });

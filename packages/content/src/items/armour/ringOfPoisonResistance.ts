@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Ring of Poison Resistance",
 	description: "A ring that grants resistance against harmful poisons.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEQlT7a5v8nuldO2WS?alt=media&token=b6e08ced-2d2e-4709-9929-f0868687d916",
-	level: 1,
 	price: 80,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "poison",
-			type: "resistance",
-			value: 40,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "poison",
 		},
 	],
-	type: "ring",
+	tags: [],
 });

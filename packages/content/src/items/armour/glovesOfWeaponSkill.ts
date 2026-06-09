@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Gloves of Weapon Skill",
 	description: "Gloves that empower the wearer with unparalleled weapon expertise.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDUFkHJg969i8Fdv_B?alt=media&token=fc0ea003-8434-4a9c-9e2c-6a00ecc7c459",
-	level: 2,
 	price: 350,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "gloves",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "hitChance",
-			type: "auxiliaryStat",
+			type: "modifyStat",
+			stat: "attackRollBonus",
+			operation: "add",
 			value: 2,
 		},
 	],
-	type: "gloves",
+	tags: [],
 });

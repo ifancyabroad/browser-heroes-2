@@ -4,21 +4,24 @@ export default buildArmour({
 	id: "deathstalker_boots",
 	name: "Deathstalker Boots",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD1qgQRzqiWV8YTEeLZ?alt=media&token=509cf88b-b8a7-4c9b-b1e8-8630ae48c041",
-	level: 4,
 	price: 1600,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "dexterity",
-			type: "stat",
+			type: "modifyStat",
+			stat: "dexterity",
+			operation: "add",
 			value: 4,
 		},
 		{
-			name: "slashing",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "slashing",
+			operation: "add",
 			value: 40,
 		},
 	],
-	characterClass: "-N_OzueqvUwAUNXnlWpb",
-	type: "boots",
+	tags: [],
 });

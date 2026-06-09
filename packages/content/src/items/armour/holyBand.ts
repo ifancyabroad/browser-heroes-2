@@ -5,20 +5,24 @@ export default buildArmour({
 	name: "Holy Band",
 	description: "A band blessed by divine powers, offering protection against dark forces.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEhe4hPN0nCGqfx5Mm?alt=media&token=75289b31-bd0e-4d91-bbc7-46d4edcd4cb4",
-	level: 3,
 	price: 750,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "necrotic",
-			type: "resistance",
-			value: 20,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "necrotic",
 		},
 		{
-			name: "radiant",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "radiant",
+			operation: "add",
 			value: 40,
 		},
 	],
-	type: "ring",
+	tags: [],
 });

@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Fortified Gloves",
 	description: "Insulated gloves, shielding hands from bitter cold and frost.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NNvLkVyFUS4L9Zio2lO?alt=media&token=a7399be8-2084-424e-ba6c-c90cafd7b831",
-	level: 1,
 	price: 70,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "gloves",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "slashing",
-			type: "resistance",
-			value: 20,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "slashing",
 		},
 	],
-	type: "gloves",
+	tags: [],
 });

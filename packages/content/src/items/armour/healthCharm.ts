@@ -4,15 +4,18 @@ export default buildArmour({
 	id: "health_charm",
 	name: "Health Charm",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsIblfA-f9wC2IECtw?alt=media&token=db750ac1-1764-4e14-a95f-cfded7aeaaf4",
-	level: 1,
 	price: 120,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "constitution",
-			type: "stat",
+			type: "modifyStat",
+			stat: "constitution",
+			operation: "add",
 			value: 1,
 		},
 	],
-	type: "ring",
+	tags: [],
 });

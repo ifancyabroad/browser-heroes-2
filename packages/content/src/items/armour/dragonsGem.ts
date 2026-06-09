@@ -6,25 +6,30 @@ export default buildArmour({
 	description:
 		"A ring housing a sparkling dragon's gem, amplifying the wearer's power and resilience.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEkYmCcJMY3uyCVbHm?alt=media&token=4cf48342-af39-48ee-aadb-97df113e7437",
-	level: 4,
 	price: 1650,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "fire",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "fire",
+			operation: "add",
 			value: 40,
 		},
 		{
-			name: "fire",
-			type: "resistance",
-			value: 40,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "fire",
 		},
 		{
-			name: "constitution",
-			type: "stat",
+			type: "modifyStat",
+			stat: "constitution",
+			operation: "add",
 			value: 2,
 		},
 	],
-	type: "ring",
+	tags: [],
 });

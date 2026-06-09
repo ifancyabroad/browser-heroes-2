@@ -5,20 +5,24 @@ export default buildArmour({
 	name: "Warlock's Striders",
 	description: "Warlock's Striders designed for comfort and mystical energy absorption.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDM2ApQWMggqJzd1Oj?alt=media&token=14c5b834-aaa3-4d82-8cf9-460aec1a16d5",
-	level: 2,
 	price: 280,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "necrotic",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "necrotic",
+			operation: "add",
 			value: 20,
 		},
 		{
-			name: "intelligence",
-			type: "stat",
+			type: "modifyStat",
+			stat: "intelligence",
+			operation: "add",
 			value: 1,
 		},
 	],
-	type: "boots",
+	tags: [],
 });

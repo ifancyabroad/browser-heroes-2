@@ -4,21 +4,25 @@ export default buildArmour({
 	id: "sacrificial_armour",
 	name: "Sacrificial Armour",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8DB8llPrfIqwDRaGca?alt=media&token=f0558ab9-d029-42a2-984f-f46c40e10257",
-	level: 4,
 	price: 1740,
+	rarity: "common",
+	type: "armour",
+	slot: "body",
+	category: "light",
 	armourClass: 12,
-	armourType: "light",
-	properties: [
+	modifiers: [
 		{
-			name: "hitChance",
-			type: "auxiliaryStat",
+			type: "modifyStat",
+			stat: "attackRollBonus",
+			operation: "add",
 			value: 3,
 		},
 		{
-			name: "critChance",
-			type: "auxiliaryStat",
+			type: "modifyStat",
+			stat: "critChance",
+			operation: "add",
 			value: 3,
 		},
 	],
-	type: "armour",
+	tags: [],
 });

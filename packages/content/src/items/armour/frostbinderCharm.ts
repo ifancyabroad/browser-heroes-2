@@ -5,20 +5,24 @@ export default buildArmour({
 	name: "Frostbinder Charm",
 	description: "This Frost Necklace wards off heat and enhances cold-based abilities.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9Ue6ryYmCcBTwKlt_?alt=media&token=b5b63707-2bc7-4040-96ea-ea4ce1dae8bd",
-	level: 3,
 	price: 560,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "amulet",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "fire",
-			type: "resistance",
-			value: 20,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "fire",
 		},
 		{
-			name: "cold",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "cold",
+			operation: "add",
 			value: 40,
 		},
 	],
-	type: "amulet",
+	tags: [],
 });

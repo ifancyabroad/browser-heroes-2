@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Fortified Strap",
 	description: "Sturdy leather belt, offering durability and style for rugged adventurers.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9_mMbYto-jb_Yxxmx?alt=media&token=45c7eab4-6c56-4db3-883f-f05eb9400c8e",
-	level: 1,
 	price: 70,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "belt",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "piercing",
-			type: "resistance",
-			value: 20,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "piercing",
 		},
 	],
-	type: "belt",
+	tags: [],
 });

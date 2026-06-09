@@ -5,20 +5,24 @@ export default buildArmour({
 	name: "Giant's Gauntlets",
 	description: "These gauntlets grant the power of giants, crushing foes with ease.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDWVyxvBUSN2fJhVNb?alt=media&token=19380ca9-003d-4319-a1ba-db40e083687e",
-	level: 4,
 	price: 1590,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "gloves",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "strength",
-			type: "stat",
+			type: "modifyStat",
+			stat: "strength",
+			operation: "add",
 			value: 4,
 		},
 		{
-			name: "crushing",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "crushing",
+			operation: "add",
 			value: 40,
 		},
 	],
-	type: "gloves",
+	tags: [],
 });

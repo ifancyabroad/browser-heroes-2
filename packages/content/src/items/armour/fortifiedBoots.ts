@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Fortified Boots",
 	description: "Reliable leather boots offering protection and comfort on any quest.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDIo0EKUsHIJUotmlJ?alt=media&token=5fec3690-b6e7-4086-9fe0-2aeec23c5fb2",
-	level: 1,
 	price: 70,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "crushing",
-			type: "resistance",
-			value: 20,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "crushing",
 		},
 	],
-	type: "boots",
+	tags: [],
 });

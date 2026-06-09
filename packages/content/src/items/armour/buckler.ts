@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Buckler",
 	description: "Basic yet dependable, an essential companion for any aspiring adventurer.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NgJzNDx7O2sLwCLS8rd?alt=media&token=5896ce43-f035-4706-b700-1b59b1b2cdc9",
-	level: 1,
 	price: 10,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "shield",
+	category: "shield",
+	modifiers: [
 		{
-			name: "armourClass",
-			type: "auxiliaryStat",
+			type: "modifyStat",
+			stat: "armourClass",
+			operation: "add",
 			value: 1,
 		},
 	],
-	type: "shield",
+	tags: [],
 });

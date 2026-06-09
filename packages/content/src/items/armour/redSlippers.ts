@@ -5,20 +5,24 @@ export default buildArmour({
 	name: "Red Slippers",
 	description: "Fire Boots that offer both defense and control over fiery environments.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDOAnwyIZqnaKvgDbO?alt=media&token=6af4b127-989a-4b95-9cda-79d6dd858438",
-	level: 3,
 	price: 700,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "fire",
-			type: "resistance",
-			value: 20,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "fire",
 		},
 		{
-			name: "fire",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "fire",
+			operation: "add",
 			value: 40,
 		},
 	],
-	type: "boots",
+	tags: [],
 });

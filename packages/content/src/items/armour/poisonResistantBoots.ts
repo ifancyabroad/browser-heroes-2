@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Poison Resistant Boots",
 	description: "These boots shield the wearer from poison.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDJkRq2hFzUkbrhgnp?alt=media&token=14effb20-a458-4ea8-93a6-fa976e1f4519",
-	level: 1,
 	price: 90,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "poison",
-			type: "resistance",
-			value: 40,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "poison",
 		},
 	],
-	type: "boots",
+	tags: [],
 });

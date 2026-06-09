@@ -4,15 +4,18 @@ export default buildArmour({
 	id: "silk_gloves",
 	name: "Silk Gloves",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsYtmhF3Mc-4-848Du?alt=media&token=36cbd4e6-c3d8-466c-9fa3-26b040b1d179",
-	level: 2,
 	price: 290,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "gloves",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "fire",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "fire",
+			operation: "add",
 			value: 25,
 		},
 	],
-	type: "gloves",
+	tags: [],
 });

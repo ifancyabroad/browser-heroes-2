@@ -4,15 +4,18 @@ export default buildArmour({
 	id: "poison_charm",
 	name: "Poison Charm",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsTzrNjIZxmo7LLkrz?alt=media&token=55301e83-5f15-4d7c-8433-77b0a3a4e4ac",
-	level: 2,
 	price: 240,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "amulet",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "poison",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "poison",
+			operation: "add",
 			value: 25,
 		},
 	],
-	type: "amulet",
+	tags: [],
 });

@@ -5,20 +5,24 @@ export default buildArmour({
 	name: "Burnt Chain",
 	description: "The Burning Amulet, channeling the essence of raging flames.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9Y9q53Z1Bfpt1UeVf?alt=media&token=6ebf052d-76d4-4bd0-8848-42209f28f097",
-	level: 3,
 	price: 600,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "amulet",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "fire",
-			type: "resistance",
-			value: -50,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "fire",
 		},
 		{
-			name: "fire",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "fire",
+			operation: "add",
 			value: 100,
 		},
 	],
-	type: "amulet",
+	tags: [],
 });

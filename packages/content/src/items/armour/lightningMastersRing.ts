@@ -6,15 +6,18 @@ export default buildArmour({
 	description:
 		"A ring crackling with electric energy, empowering the wearer with mastery over lightning.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEhK5Irt3URTvs3ztw?alt=media&token=ffc28e5f-85d6-4e07-9856-9ec1333fd136",
-	level: 3,
 	price: 710,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "lightning",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "lightning",
+			operation: "add",
 			value: 40,
 		},
 	],
-	type: "ring",
+	tags: [],
 });

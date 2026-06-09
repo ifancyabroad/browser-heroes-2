@@ -4,15 +4,18 @@ export default buildArmour({
 	id: "novice_boots",
 	name: "Novice Boots",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsFEXygHRoGvMIceZi?alt=media&token=114849b5-76ba-4073-ad67-172831503e57",
-	level: 1,
 	price: 120,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "intelligence",
-			type: "stat",
+			type: "modifyStat",
+			stat: "intelligence",
+			operation: "add",
 			value: 1,
 		},
 	],
-	type: "boots",
+	tags: [],
 });

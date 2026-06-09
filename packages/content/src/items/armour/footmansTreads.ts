@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Footman's Treads",
 	description: "Sturdy boots built to withstand the rigors of the battlefield.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDK8HCNK_ICHhqb-V1?alt=media&token=242591a8-6248-4a4b-b924-585a97fc9cee",
-	level: 2,
 	price: 240,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "boots",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "constitution",
-			type: "stat",
+			type: "modifyStat",
+			stat: "constitution",
+			operation: "add",
 			value: 2,
 		},
 	],
-	type: "boots",
+	tags: [],
 });

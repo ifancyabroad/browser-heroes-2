@@ -4,21 +4,24 @@ export default buildArmour({
 	id: "centurions_gauntlets",
 	name: "Centurion's Gauntlets",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGGrPdsWdsGO48_7m6?alt=media&token=64aeb067-5f6e-462c-80fb-522f077cc3fa",
-	level: 4,
 	price: 1600,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "gloves",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "intelligence",
-			type: "stat",
+			type: "modifyStat",
+			stat: "intelligence",
+			operation: "add",
 			value: 4,
 		},
 		{
-			name: "fire",
-			type: "damage",
+			type: "modifyDamage",
+			damageType: "fire",
+			operation: "add",
 			value: 40,
 		},
 	],
-	characterClass: "-OI74eayTZduv3tnmUwr",
-	type: "gloves",
+	tags: [],
 });

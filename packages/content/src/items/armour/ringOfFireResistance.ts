@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Ring of Fire Resistance",
 	description: "Withstands searing temperatures, a ring providing steadfast fire resistance.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NgJyz3yv_isH2ozl7vj?alt=media&token=bda92907-6815-4c01-89ec-301c4b803d0f",
-	level: 1,
 	price: 90,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "fire",
-			type: "resistance",
-			value: 40,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "fire",
 		},
 	],
-	type: "ring",
+	tags: [],
 });

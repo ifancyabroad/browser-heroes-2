@@ -5,15 +5,18 @@ export default buildArmour({
 	name: "Lion's Courage",
 	description: "A ring embossed with a roaring lion, instilling courage and valor in its wearer.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEiKLauj-s86ubKuGI?alt=media&token=2fe3517b-1a31-43dd-ab5d-f019b490c932",
-	level: 4,
 	price: 1240,
-	armourType: "misc",
-	properties: [
+	rarity: "common",
+	type: "armour",
+	slot: "ring",
+	category: "accessory",
+	modifiers: [
 		{
-			name: "charisma",
-			type: "stat",
+			type: "modifyStat",
+			stat: "charisma",
+			operation: "add",
 			value: 6,
 		},
 	],
-	type: "ring",
+	tags: [],
 });
