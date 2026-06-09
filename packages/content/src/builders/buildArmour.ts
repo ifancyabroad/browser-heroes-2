@@ -1,5 +1,5 @@
-import type { Armour } from "../schemas/item.schema";
-import { armourSchema } from "../schemas/item.schema";
+import type { Armour } from "../schemas/armour.schema";
+import { armourSchema } from "../schemas/armour.schema";
 
 export const buildArmour = (armour: Armour) => {
 	const parsed = armourSchema.parse(armour);

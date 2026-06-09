@@ -1,30 +1,14 @@
 import { z } from "zod";
 import {
 	attributeSchema,
+	damageAffinityKindSchema,
+	damageAffinityOperationSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
+	modifiableStatSchema,
+	modifierOperationSchema,
 	skillTargetSchema,
 } from "./common.schema";
-
-export const modifiableStatSchema = z.enum([
-	"armourClass",
-	"damageReduction",
-	"proficiencyBonus",
-	"attackRollBonus",
-	"savingThrowBonus",
-	"saveDcBonus",
-	"critChance",
-	"critMultiplier",
-	"healingMultiplier",
-	"strength",
-	"dexterity",
-	"constitution",
-	"intelligence",
-	"wisdom",
-	"charisma",
-]);
-
-export const modifierOperationSchema = z.enum(["add", "multiply", "set"]);
 
 export const saveOutcomeSchema = z.enum(["noEffect", "halfDamage"]);
 
@@ -116,8 +100,8 @@ export const modifyDamageEffectSchema = z.object({
 export const modifyDamageAffinityEffectSchema = z.object({
 	type: z.literal("modifyDamageAffinity"),
 	target: skillTargetSchema,
-	affinity: z.enum(["resistance", "immunity", "vulnerability"]),
-	operation: z.enum(["add", "remove"]),
+	affinity: damageAffinityKindSchema,
+	operation: damageAffinityOperationSchema,
 	damageType: damageTypeSchema,
 	durationTurns: z.number().int().positive().optional(),
 });

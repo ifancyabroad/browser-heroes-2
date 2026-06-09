@@ -35,6 +35,30 @@ export const attributeSchema = z.enum([
 	"charisma",
 ]);
 
+export const modifiableStatSchema = z.enum([
+	"armourClass",
+	"damageReduction",
+	"proficiencyBonus",
+	"attackRollBonus",
+	"savingThrowBonus",
+	"saveDcBonus",
+	"critChance",
+	"critMultiplier",
+	"healingMultiplier",
+	"strength",
+	"dexterity",
+	"constitution",
+	"intelligence",
+	"wisdom",
+	"charisma",
+]);
+
+export const modifierOperationSchema = z.enum(["add", "multiply", "set"]);
+
+export const damageAffinityKindSchema = z.enum(["resistance", "immunity", "vulnerability"]);
+
+export const damageAffinityOperationSchema = z.enum(["add", "remove"]);
+
 export const equipmentSchema = z.object({
 	head: z.string().nonempty().optional(),
 	neck: z.string().nonempty().optional(),
@@ -148,6 +172,10 @@ export type Equipment = z.infer<typeof equipmentSchema>;
 export type BonusDamage = z.infer<typeof bonusDamageSchema>;
 export type Resistances = z.infer<typeof resistancesSchema>;
 export type Attributes = z.infer<typeof attributesSchema>;
+export type ModifiableStat = z.infer<typeof modifiableStatSchema>;
+export type ModifierOperation = z.infer<typeof modifierOperationSchema>;
+export type DamageAffinityKind = z.infer<typeof damageAffinityKindSchema>;
+export type DamageAffinityOperation = z.infer<typeof damageAffinityOperationSchema>;
 export type Dice = z.infer<typeof diceSchema>;
 export type DiceFormula = z.infer<typeof diceFormulaSchema>;
 export type SkillPool = z.infer<typeof skillPoolSchema>;
