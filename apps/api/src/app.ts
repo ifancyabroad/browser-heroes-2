@@ -2,7 +2,8 @@ import express from "express";
 import helmet from "helmet";
 import compression from "compression";
 import { corsMiddleware } from "./config/cors";
-import routes from "./routes";
+import { sessionMiddleware } from "./config/session";
+import { routes } from "./routes";
 import { errorHandler, notFoundHandler } from "./middlewares/error";
 
 export function buildApp() {
@@ -16,6 +17,8 @@ export function buildApp() {
 	app.use(express.json());
 	// gzip responses
 	app.use(compression());
+	// Session management
+	app.use(sessionMiddleware);
 
 	// Routes
 	app.use("/api", routes);

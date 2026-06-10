@@ -46,6 +46,9 @@ importers:
             compression:
                 specifier: ^1.8.1
                 version: 1.8.1
+            connect-mongo:
+                specifier: ^6.0.0
+                version: 6.0.0(express-session@1.19.0)(mongodb@7.0.0)
             cors:
                 specifier: ^2.8.6
                 version: 2.8.6
@@ -55,6 +58,9 @@ importers:
             express:
                 specifier: ^5.2.1
                 version: 5.2.1
+            express-session:
+                specifier: ^1.19.0
+                version: 1.19.0
             helmet:
                 specifier: ^8.1.0
                 version: 8.1.0
@@ -74,6 +80,9 @@ importers:
             "@types/express":
                 specifier: ^5.0.6
                 version: 5.0.6
+            "@types/express-session":
+                specifier: ^1.19.0
+                version: 1.19.0
             "@types/node":
                 specifier: ^25.0.10
                 version: 25.0.10
@@ -1508,6 +1517,12 @@ packages:
                 integrity: sha512-v4zIMr/cX7/d2BpAEX3KNKL/JrT1s43s96lLvvdTmza1oEvDudCqK9aF/djc/SWgy8Yh0h30TZx5VpzqFCxk5A==,
             }
 
+    "@types/express-session@1.19.0":
+        resolution:
+            {
+                integrity: sha512-GbypG0bog68UbOq2tSAp7SclvCUm3ha1uDi58OPRGK1NfRvCIu7Gz0M7fTGtpNG1T9a29GpuurQj9zEcT/lMXQ==,
+            }
+
     "@types/express@5.0.6":
         resolution:
             {
@@ -1854,6 +1869,12 @@ packages:
             }
         engines: { node: ">= 0.4" }
 
+    asn1.js@5.4.1:
+        resolution:
+            {
+                integrity: sha512-+I//4cYPccV8LdmBLiX8CYvf9Sp3vQsrqu2QNXRcrbiWvcx/UdlFiqUJJzxRQxgsZmvhXhn4cSKeSmoFjVdupA==,
+            }
+
     assertion-error@2.0.1:
         resolution:
             {
@@ -1886,6 +1907,12 @@ packages:
                 integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==,
             }
         engines: { node: ">=8" }
+
+    bn.js@4.12.3:
+        resolution:
+            {
+                integrity: sha512-fGTi3gxV/23FTYdAoUtLYp6qySe2KE3teyZitipKNRuVYcBkoP/bB3guXN/XVKUe9mxCHXnc9C4ocyz8OmgN0g==,
+            }
 
     body-parser@2.2.2:
         resolution:
@@ -2111,6 +2138,16 @@ packages:
         engines: { node: ">=22" }
         hasBin: true
 
+    connect-mongo@6.0.0:
+        resolution:
+            {
+                integrity: sha512-mHxfnTiWk7ZtxmHdcrFBKlr7fCtgGoFpx/oe9jFW0yb2NinagsxEeuol78nUWMpnWyYK0nnuXMlU9wrgUjTE6g==,
+            }
+        engines: { node: ">=20.8.0" }
+        peerDependencies:
+            express-session: ^1.17.1
+            mongodb: ">=5.0.0"
+
     content-disposition@1.0.1:
         resolution:
             {
@@ -2129,6 +2166,12 @@ packages:
         resolution:
             {
                 integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==,
+            }
+
+    cookie-signature@1.0.7:
+        resolution:
+            {
+                integrity: sha512-NXdYc3dLr47pBkpUCHtKSwIOQXLVn8dZEuywboCOJY/osA0wFSLlSawr3KN8qXJEyX66FcONTH8EIlVuK0yyFA==,
             }
 
     cookie-signature@1.2.2:
@@ -2523,6 +2566,13 @@ packages:
                 integrity: sha512-knvyeauYhqjOYvQ66MznSMs83wmHrCycNEN6Ao+2AeYEfxUIkuiVxdEa1qlGEPK+We3n0THiDciYSsCcgW/DoA==,
             }
         engines: { node: ">=12.0.0" }
+
+    express-session@1.19.0:
+        resolution:
+            {
+                integrity: sha512-0csaMkGq+vaiZTmSMMGkfdCOabYv192VbytFypcvI0MANrp+4i/7yEkJ0sbAEhycQjntaKGzYfjfXQyVb7BHMA==,
+            }
+        engines: { node: ">= 0.8.0" }
 
     express@5.2.1:
         resolution:
@@ -2989,6 +3039,13 @@ packages:
                 integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==,
             }
 
+    kruptein@3.0.8:
+        resolution:
+            {
+                integrity: sha512-0CyalFA0Cjp3jnziMp0u1uLZW2/ouhQ0mEMfYlroBXNe86na1RwAuwBcdRAegeWZNMfQy/G5fN47g/Axjtqrfw==,
+            }
+        engines: { node: ">8" }
+
     ky@1.14.3:
         resolution:
             {
@@ -3256,6 +3313,12 @@ packages:
                 integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==,
             }
         engines: { node: ">=4" }
+
+    minimalistic-assert@1.0.1:
+        resolution:
+            {
+                integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==,
+            }
 
     minimatch@3.1.2:
         resolution:
@@ -3613,6 +3676,13 @@ packages:
                 integrity: sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==,
             }
         engines: { node: ">=0.6" }
+
+    random-bytes@1.0.0:
+        resolution:
+            {
+                integrity: sha512-iv7LhNVO047HzYR3InF6pUcUsPQiHTM1Qal51DcGSuZFBil1aBBWG5eHPNek7bvILMaYJ/8RU1e8w1AMdHmLQQ==,
+            }
+        engines: { node: ">= 0.8" }
 
     range-parser@1.2.1:
         resolution:
@@ -4192,6 +4262,13 @@ packages:
             }
         engines: { node: ">=14.17" }
         hasBin: true
+
+    uid-safe@2.1.5:
+        resolution:
+            {
+                integrity: sha512-KPHm4VL5dDXKz01UuEd88Df+KzynaohSL9fBh096KWAxSKZQDI2uBrVqtvRM4rwrIrRRKsdLNML/lnaaVSRioA==,
+            }
+        engines: { node: ">= 0.8" }
 
     undici-types@5.26.5:
         resolution:
@@ -5170,6 +5247,10 @@ snapshots:
             "@types/range-parser": 1.2.7
             "@types/send": 1.2.1
 
+    "@types/express-session@1.19.0":
+        dependencies:
+            "@types/express": 5.0.6
+
     "@types/express@5.0.6":
         dependencies:
             "@types/body-parser": 1.19.6
@@ -5412,6 +5493,13 @@ snapshots:
 
     aria-query@5.3.2: {}
 
+    asn1.js@5.4.1:
+        dependencies:
+            bn.js: 4.12.3
+            inherits: 2.0.4
+            minimalistic-assert: 1.0.1
+            safer-buffer: 2.1.2
+
     assertion-error@2.0.1: {}
 
     balanced-match@1.0.2: {}
@@ -5423,6 +5511,8 @@ snapshots:
             require-from-string: 2.0.2
 
     binary-extensions@2.3.0: {}
+
+    bn.js@4.12.3: {}
 
     body-parser@2.2.2:
         dependencies:
@@ -5575,11 +5665,22 @@ snapshots:
             tree-kill: 1.2.2
             yargs: 18.0.0
 
+    connect-mongo@6.0.0(express-session@1.19.0)(mongodb@7.0.0):
+        dependencies:
+            debug: 4.4.3
+            express-session: 1.19.0
+            kruptein: 3.0.8
+            mongodb: 7.0.0
+        transitivePeerDependencies:
+            - supports-color
+
     content-disposition@1.0.1: {}
 
     content-type@1.0.5: {}
 
     convert-source-map@2.0.0: {}
+
+    cookie-signature@1.0.7: {}
 
     cookie-signature@1.2.2: {}
 
@@ -5836,6 +5937,19 @@ snapshots:
     eventemitter3@5.0.4: {}
 
     expect-type@1.3.0: {}
+
+    express-session@1.19.0:
+        dependencies:
+            cookie: 0.7.2
+            cookie-signature: 1.0.7
+            debug: 2.6.9
+            depd: 2.0.0
+            on-headers: 1.1.0
+            parseurl: 1.3.3
+            safe-buffer: 5.2.1
+            uid-safe: 2.1.5
+        transitivePeerDependencies:
+            - supports-color
 
     express@5.2.1:
         dependencies:
@@ -6111,6 +6225,10 @@ snapshots:
         dependencies:
             json-buffer: 3.0.1
 
+    kruptein@3.0.8:
+        dependencies:
+            asn1.js: 5.4.1
+
     ky@1.14.3: {}
 
     levn@0.4.1:
@@ -6245,6 +6363,8 @@ snapshots:
     mimic-function@5.0.1: {}
 
     min-indent@1.0.1: {}
+
+    minimalistic-assert@1.0.1: {}
 
     minimatch@3.1.2:
         dependencies:
@@ -6409,6 +6529,8 @@ snapshots:
     qs@6.14.1:
         dependencies:
             side-channel: 1.1.0
+
+    random-bytes@1.0.0: {}
 
     range-parser@1.2.1: {}
 
@@ -6755,6 +6877,10 @@ snapshots:
             - supports-color
 
     typescript@5.9.3: {}
+
+    uid-safe@2.1.5:
+        dependencies:
+            random-bytes: 1.0.0
 
     undici-types@5.26.5: {}
 
