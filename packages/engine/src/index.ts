@@ -1,5 +1,9 @@
 export { applyAction, validateAction } from "./actions";
 
+export { createInitialRunState } from "./state";
+
+export type { CreateInitialRunStateInput } from "./state";
+
 export {
 	engineActionSchema,
 	engineResultSchema,

@@ -31,7 +31,7 @@ export const runStateSchema = z.object({
 	combat: combatStateSchema.nullable(),
 	town: townStateSchema.nullable(),
 	gold: z.number().int().min(0),
-	goldMultiplier: z.number().int().min(1),
+	streak: z.number().int().min(0),
 	log: z.array(runLogEntrySchema),
 });
 

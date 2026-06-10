@@ -29,7 +29,7 @@ export function returnToTown(state: RunState): EngineResult {
 			phase: "town",
 			combat: null,
 			battleNumber: state.battleNumber + 1,
-			goldMultiplier: 1,
+			streak: 0,
 			town: createTownState(),
 		},
 		[

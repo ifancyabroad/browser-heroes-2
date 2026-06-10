@@ -7,7 +7,8 @@ export type CombatReward = {
 
 export function calculateCombatReward(state: RunState): CombatReward {
 	return {
-		gold: 10 * state.goldMultiplier,
+		// TODO: Add proper formula
+		gold: 10 * state.streak,
 		xp: 5,
 	};
 }

@@ -29,7 +29,7 @@ export function continueToNextCombat(state: RunState): EngineResult {
 		phase: "town",
 		combat: null,
 		battleNumber: state.battleNumber + 1,
-		goldMultiplier: state.goldMultiplier + 1,
+		streak: state.streak + 1,
 	};
 
 	const enterResult = enterCombat(readyState);
