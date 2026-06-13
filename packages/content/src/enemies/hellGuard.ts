@@ -53,7 +53,7 @@ export default buildEnemy({
 				rank: 2,
 			},
 			{
-				skillId: "hunters_s_mark",
+				skillId: "hunterss_mark",
 				rank: 2,
 			},
 		],

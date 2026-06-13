@@ -89,23 +89,30 @@ function generateFor(type: string, dir: string, typeDefImportPath: string) {
 	const sortedImportLines = collected.map(
 		(c) => `import ${c.importName} from '${toImportPath(registryFile, c.file)}';`,
 	);
-	const idsArrayText = `export const ${type}Ids = ${JSON.stringify(collected.map((c) => c.id))} as const;\nexport type ${capitalize(type)}Id = (typeof ${type}Ids)[number];`;
+	const typeName = capitalize(type);
+	const idsArrayText = [
+		'import { z } from "zod";',
+		"",
+		`export const ${type}Ids = ${JSON.stringify(collected.map((c) => c.id))} as const;`,
+		`export const ${type}IdSchema = z.enum(${type}Ids);`,
+		`export type ${typeName}Id = z.infer<typeof ${type}IdSchema>;`,
+	].join("\n");
 
 	const registryLines = [
 		"// Generated — do not edit by hand",
 		"",
-		`import type { ${capitalize(type)}Definition } from '${typeDefImportPath}';`,
-		`import type { ${capitalize(type)}Id } from './${type}Ids';`,
-		`import { ${type}Ids } from './${type}Ids';`,
+		`import type { ${typeName}Definition } from '${typeDefImportPath}';`,
+		`import type { ${typeName}Id } from './${type}Ids';`,
+		`import { ${type}IdSchema, ${type}Ids } from './${type}Ids';`,
 		"",
 		...sortedImportLines,
 		"",
-		`export { ${type}Ids };`,
-		`export type { ${capitalize(type)}Id } from './${type}Ids';`,
+		`export { ${type}IdSchema, ${type}Ids };`,
+		`export type { ${typeName}Id } from './${type}Ids';`,
 		"",
-		`export const ${plural}: readonly ${capitalize(type)}Definition[] = [${collected.map((c) => c.importName).join(", ")}];`,
+		`export const ${plural}: readonly ${typeName}Definition[] = [${collected.map((c) => c.importName).join(", ")}];`,
 		"",
-		`export const ${plural.toUpperCase()}_BY_ID: Record<${capitalize(type)}Id, ${capitalize(type)}Definition> = {`,
+		`export const ${plural.toUpperCase()}_BY_ID: Record<${typeName}Id, ${typeName}Definition> = {`,
 		...collected.map((c) => `  ${JSON.stringify(c.id)}: ${c.importName},`),
 		`};`,
 	];
@@ -147,17 +154,23 @@ function run() {
 	const manifests = [
 		"// Generated — do not edit by hand",
 		"",
-		"import { skillIds } from './skillIds';",
-		"import { enemyIds } from './enemyIds';",
-		"import { itemIds } from './itemIds';",
-		"import { classIds } from './classIds';",
-		"import { featIds } from './featIds';",
+		"import { skillIdSchema, skillIds } from './skillIds';",
+		"import { enemyIdSchema, enemyIds } from './enemyIds';",
+		"import { itemIdSchema, itemIds } from './itemIds';",
+		"import { classIdSchema, classIds } from './classIds';",
+		"import { featIdSchema, featIds } from './featIds';",
 		"",
 		"export const SKILL_IDS = skillIds;",
 		"export const ENEMY_IDS = enemyIds;",
 		"export const ITEM_IDS = itemIds;",
 		"export const CLASS_IDS = classIds;",
 		"export const FEAT_IDS = featIds;",
+		"",
+		"export const SKILL_ID_SCHEMA = skillIdSchema;",
+		"export const ENEMY_ID_SCHEMA = enemyIdSchema;",
+		"export const ITEM_ID_SCHEMA = itemIdSchema;",
+		"export const CLASS_ID_SCHEMA = classIdSchema;",
+		"export const FEAT_ID_SCHEMA = featIdSchema;",
 	];
 	const manifestsPath = join(OUT_DIR, "manifests.ts");
 	writeFileIfChanged(manifestsPath, manifests.join("\n"));

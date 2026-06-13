@@ -36,7 +36,7 @@ export default buildClass({
 	skillPoolIds: ["cleric", "occultist"],
 	startingEquipment: {
 		body: "travellers_robe",
-		hand1: "mace",
+		mainHand: "mace",
 	},
 	tags: [],
 });

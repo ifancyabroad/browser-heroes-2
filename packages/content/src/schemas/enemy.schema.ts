@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
 	attributeSchema,
 	attributesSchema,
+	basicAttackSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
 	skillRefSchema,
@@ -47,16 +48,6 @@ export const enemyProficienciesSchema = z.object({
 	savingThrows: z.array(attributeSchema).default([]),
 });
 
-export const enemyBasicAttackSchema = z.object({
-	name: z.string().nonempty(),
-	attackAttribute: attributeSchema.optional(),
-	damage: z.object({
-		dice: diceFormulaSchema,
-		type: damageTypeSchema,
-		attribute: attributeSchema.optional(),
-	}),
-});
-
 export const enemyCombatSchema = z.object({
 	hitDice: diceFormulaSchema,
 	armourClass: z.number().int().positive(),
@@ -66,7 +57,7 @@ export const enemyCombatSchema = z.object({
 		immunities: [],
 		vulnerabilities: [],
 	}),
-	basicAttack: enemyBasicAttackSchema,
+	basicAttack: basicAttackSchema,
 	skills: z.array(skillRefSchema).default([]),
 	featIds: z.array(z.string().nonempty()).default([]),
 	tactic: tacticSchema.default("default"),

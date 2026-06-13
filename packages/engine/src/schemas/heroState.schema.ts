@@ -1,34 +1,52 @@
 import { z } from "zod";
-import { attributesSchema, classIds, itemIds, skillIds } from "@app/content";
+import {
+	attributesSchema,
+	classIdSchema,
+	featIdSchema,
+	itemIdSchema,
+	skillIdSchema,
+} from "@app/content";
 
 export const heroSkillStateSchema = z.object({
-	skillId: z.enum(skillIds),
+	skillId: skillIdSchema,
+	rank: z.number().int().min(1).max(3).default(1),
 
 	// Optional because not every skill needs charges.
 	chargesRemaining: z.number().int().min(0).optional(),
 });
 
-export const heroItemStateSchema = z.object({
+export const equippedItemStateSchema = z.object({
 	instanceId: z.string(),
-	itemId: z.enum(itemIds),
+	itemId: itemIdSchema,
+});
 
-	// Keep this simple for now. Later you may add affixes, durability, rarity rolls, etc.
-	equipped: z.boolean().default(false),
+export const heroEquipmentStateSchema = z.object({
+	head: equippedItemStateSchema.nullable(),
+	neck: equippedItemStateSchema.nullable(),
+	body: equippedItemStateSchema.nullable(),
+	hands: equippedItemStateSchema.nullable(),
+	finger1: equippedItemStateSchema.nullable(),
+	finger2: equippedItemStateSchema.nullable(),
+	waist: equippedItemStateSchema.nullable(),
+	feet: equippedItemStateSchema.nullable(),
+	mainHand: equippedItemStateSchema.nullable(),
+	offHand: equippedItemStateSchema.nullable(),
 });
 
 export const heroStateSchema = z.object({
 	id: z.string(),
 	name: z.string(),
-	classId: z.enum(classIds),
+	classId: classIdSchema,
 	level: z.number().int().min(1),
 	xp: z.number().int().min(0),
 	maxHp: z.number().int().min(1),
 	currentHp: z.number().int().min(0),
-	stats: attributesSchema,
+	attributes: attributesSchema,
 	skills: z.array(heroSkillStateSchema),
-	items: z.array(heroItemStateSchema),
+	featIds: z.array(featIdSchema),
+	equipment: heroEquipmentStateSchema,
 });
 
 export type HeroSkillState = z.infer<typeof heroSkillStateSchema>;
-export type HeroItemState = z.infer<typeof heroItemStateSchema>;
+export type HeroEquipmentState = z.infer<typeof heroEquipmentStateSchema>;
 export type HeroState = z.infer<typeof heroStateSchema>;

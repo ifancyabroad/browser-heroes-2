@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const equipmentSlotSchema = z.enum([
+export const equipmentSlots = [
 	"head",
 	"neck",
 	"body",
@@ -9,11 +9,13 @@ export const equipmentSlotSchema = z.enum([
 	"finger2",
 	"waist",
 	"feet",
-	"hand1",
-	"hand2",
-]);
+	"mainHand",
+	"offHand",
+] as const;
 
-export const damageTypeSchema = z.enum([
+export const equipmentSlotSchema = z.enum(equipmentSlots);
+
+export const damageTypes = [
 	"acid",
 	"cold",
 	"crushing",
@@ -24,16 +26,20 @@ export const damageTypeSchema = z.enum([
 	"poison",
 	"radiant",
 	"slashing",
-]);
+] as const;
 
-export const attributeSchema = z.enum([
+export const damageTypeSchema = z.enum(damageTypes);
+
+export const attributes = [
 	"strength",
 	"dexterity",
 	"constitution",
 	"intelligence",
 	"wisdom",
 	"charisma",
-]);
+] as const;
+
+export const attributeSchema = z.enum(attributes);
 
 export const equipmentSchema = z.object({
 	head: z.string().nonempty().optional(),
@@ -44,8 +50,8 @@ export const equipmentSchema = z.object({
 	finger2: z.string().nonempty().optional(),
 	waist: z.string().nonempty().optional(),
 	feet: z.string().nonempty().optional(),
-	hand1: z.string().nonempty().optional(),
-	hand2: z.string().nonempty().optional(),
+	mainHand: z.string().nonempty().optional(),
+	offHand: z.string().nonempty().optional(),
 });
 
 export const bonusDamageSchema = z.object({
@@ -78,7 +84,7 @@ export const diceFormulaSchema = z
 	.string()
 	.regex(/^\d+d\d+([+-]\d+)?$/, "Expected dice formula like 1d6, 2d8+3, or 1d4-1");
 
-export const skillPoolSchema = z.enum([
+export const skillPools = [
 	"assassin",
 	"barbarian",
 	"cleric",
@@ -89,9 +95,11 @@ export const skillPoolSchema = z.enum([
 	"unique",
 	"warlock",
 	"warrior",
-]);
+] as const;
 
-export const skillCategorySchema = z.enum([
+export const skillPoolSchema = z.enum(skillPools);
+
+export const skillCategories = [
 	"attack",
 	"spell",
 	"heal",
@@ -99,7 +107,9 @@ export const skillCategorySchema = z.enum([
 	"debuff",
 	"defensive",
 	"utility",
-]);
+] as const;
+
+export const skillCategorySchema = z.enum(skillCategories);
 
 export const skillTargetSchema = z.enum(["self", "enemy"]);
 
@@ -110,9 +120,11 @@ export const skillRefSchema = z.object({
 	rank: skillRankValueSchema.default(1),
 });
 
-export const armourTypeSchema = z.enum(["cloth", "light", "medium", "heavy"]);
+export const armourTypes = ["cloth", "light", "medium", "heavy"] as const;
 
-export const weaponTypeSchema = z.enum([
+export const armourTypeSchema = z.enum(armourTypes);
+
+export const weaponTypes = [
 	"axe",
 	"bow",
 	"club",
@@ -124,9 +136,11 @@ export const weaponTypeSchema = z.enum([
 	"staff",
 	"sword",
 	"wand",
-]);
+] as const;
 
-export const zoneSchema = z.enum([
+export const weaponTypeSchema = z.enum(weaponTypes);
+
+export const zones = [
 	"abyss",
 	"castle",
 	"desert",
@@ -137,9 +151,23 @@ export const zoneSchema = z.enum([
 	"plains",
 	"tower",
 	"volcano",
-]);
+] as const;
 
-export const tacticSchema = z.enum(["default", "aggressive", "defensive", "caster", "random"]);
+export const zoneSchema = z.enum(zones);
+
+export const tactics = ["default", "aggressive", "defensive", "caster", "random"] as const;
+
+export const tacticSchema = z.enum(tactics);
+
+export const basicAttackSchema = z.object({
+	name: z.string().nonempty(),
+	attackAttribute: attributeSchema.optional(),
+	damage: z.object({
+		dice: diceFormulaSchema,
+		type: damageTypeSchema,
+		attribute: attributeSchema.optional(),
+	}),
+});
 
 export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
 export type DamageType = z.infer<typeof damageTypeSchema>;
@@ -157,3 +185,4 @@ export type ArmourType = z.infer<typeof armourTypeSchema>;
 export type WeaponType = z.infer<typeof weaponTypeSchema>;
 export type Zone = z.infer<typeof zoneSchema>;
 export type Tactic = z.infer<typeof tacticSchema>;
+export type BasicAttack = z.infer<typeof basicAttackSchema>;

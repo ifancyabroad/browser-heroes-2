@@ -9,9 +9,7 @@ export function deriveRunSummary(state: RunState) {
 		classId: state.hero.classId,
 		level: state.hero.level,
 		battleNumber: state.battleNumber,
-		// TODO: fix these
-		highestBattleReached: state.battleNumber,
-		zoneId: state.zoneNumber,
+		zoneNumber: state.zoneNumber,
 	};
 }
 

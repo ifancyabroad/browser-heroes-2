@@ -36,8 +36,8 @@ export default buildClass({
 	skillPoolIds: ["warrior", "cleric"],
 	startingEquipment: {
 		body: "breastplate",
-		hand1: "mace",
-		hand2: "shield",
+		mainHand: "mace",
+		offHand: "shield",
 	},
 	tags: [],
 });

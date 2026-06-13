@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { skillIds } from "@app/content";
+import { skillIdSchema } from "@app/content";
 
 export const enterCombatActionSchema = z.object({
 	type: z.literal("ENTER_COMBAT"),
@@ -11,7 +11,7 @@ export const playerBasicAttackActionSchema = z.object({
 
 export const playerUseSkillActionSchema = z.object({
 	type: z.literal("PLAYER_USE_SKILL"),
-	skillId: z.enum(skillIds),
+	skillId: skillIdSchema,
 	targetCombatantId: z.string(),
 });
 

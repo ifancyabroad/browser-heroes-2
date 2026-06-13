@@ -57,7 +57,7 @@ export default buildEnemy({
 				rank: 3,
 			},
 			{
-				skillId: "yagamon_s_revenge",
+				skillId: "yagamons_revenge",
 				rank: 3,
 			},
 		],

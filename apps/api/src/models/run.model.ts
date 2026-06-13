@@ -23,18 +23,16 @@ const runSummarySchema = new Schema(
 		battleNumber: {
 			type: Number,
 			required: true,
-			default: 0,
-			min: 0,
-		},
-		highestBattleReached: {
-			type: Number,
-			required: true,
-			default: 0,
-			min: 0,
+			default: 1,
+			min: 1,
 			index: true,
 		},
-		zoneId: {
-			type: String,
+		zoneNumber: {
+			type: Number,
+			required: true,
+			default: 1,
+			min: 1,
+			index: true,
 		},
 	},
 	{
@@ -92,8 +90,8 @@ const runSchema = new Schema(
 
 runSchema.index({ userId: 1, status: 1 });
 runSchema.index({ userId: 1, createdAt: -1 });
-runSchema.index({ status: 1, "summary.highestBattleReached": -1 });
-runSchema.index({ userId: 1, "summary.highestBattleReached": -1 });
+runSchema.index({ status: 1, "summary.battleNumber": -1 });
+runSchema.index({ userId: 1, "summary.battleNumber": -1 });
 
 export type RunDocument = InferSchemaType<typeof runSchema>;
 

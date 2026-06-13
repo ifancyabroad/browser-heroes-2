@@ -36,7 +36,7 @@ export default buildClass({
 	skillPoolIds: ["rogue", "assassin"],
 	startingEquipment: {
 		body: "padded_armour",
-		hand1: "dagger",
+		mainHand: "dagger",
 	},
 	tags: [],
 });

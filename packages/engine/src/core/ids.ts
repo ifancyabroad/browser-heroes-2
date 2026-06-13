@@ -17,3 +17,19 @@ export function createItemInstanceId(runId: string, index: number): string {
 export function createEffectInstanceId(combatId: string, index: number): string {
 	return `${combatId}:effect:${index}`;
 }
+
+export function createCombatantId(combatId: string, side: "player" | "enemy"): string {
+	return `${combatId}:combatant:${side}`;
+}
+
+export function createEnemyInstanceId(combatId: string): string {
+	return `${combatId}:enemy`;
+}
+
+export function createStartingItemInstanceId(runId: string, slot: string): string {
+	return `${runId}:item:starting:${slot}`;
+}
+
+export function createSkillInstanceId(combatantId: string, skillId: string): string {
+	return `${combatantId}:skill:${skillId}`;
+}

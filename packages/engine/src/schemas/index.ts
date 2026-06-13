@@ -41,9 +41,13 @@ export {
 
 export type { RunState, RunPhase, TownState, TownShopSlot } from "./runState.schema";
 
-export { heroStateSchema, heroSkillStateSchema, heroItemStateSchema } from "./heroState.schema";
+export {
+	heroStateSchema,
+	heroSkillStateSchema,
+	heroEquipmentStateSchema,
+} from "./heroState.schema";
 
-export type { HeroState, HeroSkillState, HeroItemState } from "./heroState.schema";
+export type { HeroState, HeroSkillState, HeroEquipmentState } from "./heroState.schema";
 
 export {
 	combatStateSchema,

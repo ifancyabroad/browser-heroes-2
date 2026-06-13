@@ -36,8 +36,8 @@ export default buildClass({
 	skillPoolIds: ["assassin", "occultist"],
 	startingEquipment: {
 		body: "padded_armour",
-		hand1: "dagger",
-		hand2: "dagger",
+		mainHand: "dagger",
+		offHand: "dagger",
 	},
 	tags: [],
 });

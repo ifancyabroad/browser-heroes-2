@@ -36,7 +36,7 @@ export default buildClass({
 	skillPoolIds: ["barbarian", "warlock"],
 	startingEquipment: {
 		body: "hide_armour",
-		hand1: "quarterstaff",
+		mainHand: "quarterstaff",
 	},
 	tags: [],
 });

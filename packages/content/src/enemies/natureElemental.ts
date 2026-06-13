@@ -36,7 +36,7 @@ export default buildEnemy({
 		},
 		skills: [
 			{
-				skillId: "nature_s_blessing",
+				skillId: "natures_blessing",
 				rank: 2,
 			},
 			{

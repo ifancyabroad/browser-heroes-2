@@ -1,5 +1,13 @@
 import { z } from "zod";
-import { attributesSchema, itemIds, skillIds } from "@app/content";
+import {
+	attributeSchema,
+	attributesSchema,
+	basicAttackSchema,
+	damageAffinitiesSchema,
+	featIdSchema,
+	itemIdSchema,
+	skillIdSchema,
+} from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
 export const combatantSideSchema = z.enum(["player", "enemy"]);
@@ -17,32 +25,37 @@ export const activeCombatEffectSchema = z.object({
 });
 
 export const combatantSkillStateSchema = z.object({
-	skillId: z.enum(skillIds),
+	skillId: skillIdSchema,
 	chargesRemaining: z.number().int().min(0).optional(),
-	cooldownRemaining: z.number().int().min(0).optional(),
 });
 
 export const combatantItemStateSchema = z.object({
 	instanceId: z.string(),
-	itemId: z.enum(itemIds),
+	itemId: itemIdSchema,
 	equipped: z.boolean().default(false),
 });
 
 export const combatantStateSchema = z.object({
 	id: combatantIdSchema,
 	side: combatantSideSchema,
+	sourceId: z.string(),
 	name: z.string(),
 	level: z.number().int().min(1),
 	maxHp: z.number().int().min(1),
 	currentHp: z.number().int().min(0),
-	stats: attributesSchema,
+	attributes: attributesSchema,
+	armourClass: z.number().int().min(0),
+	proficiencyBonus: z.number().int().min(0),
+	savingThrowProficiencies: z.array(attributeSchema),
+	damageAffinities: damageAffinitiesSchema,
+	basicAttack: basicAttackSchema,
 	skills: z.array(combatantSkillStateSchema),
-	items: z.array(combatantItemStateSchema),
+	featIds: z.array(featIdSchema),
+
 	activeEffects: z.array(activeCombatEffectSchema),
-	isDead: z.boolean(),
 });
 
-export const combatStatusSchema = z.enum(["active", "enemy_dead", "player_dead", "complete"]);
+export const combatStatusSchema = z.enum(["active", "player_won", "enemy_won"]);
 
 export const combatStateSchema = z.object({
 	id: z.string(),

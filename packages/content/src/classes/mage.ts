@@ -36,7 +36,7 @@ export default buildClass({
 	skillPoolIds: ["mage", "warlock"],
 	startingEquipment: {
 		body: "knaves_robe",
-		hand1: "quarterstaff",
+		mainHand: "quarterstaff",
 	},
 	tags: [],
 });
