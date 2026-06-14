@@ -13,7 +13,7 @@ export default buildWeapon({
 	handedness: "twoHanded",
 	range: "melee",
 	damage: {
-		dice: "1d7+3",
+		dice: "1d8+3",
 		type: "slashing",
 		attribute: "strength",
 	},

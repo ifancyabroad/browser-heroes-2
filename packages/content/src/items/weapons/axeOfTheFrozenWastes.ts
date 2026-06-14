@@ -39,7 +39,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "cold",
-					dice: "1d7+3",
+					dice: "1d8+3",
 					requiresAttackRoll: false,
 				},
 			],
