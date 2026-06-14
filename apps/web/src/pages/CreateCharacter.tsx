@@ -1,12 +1,11 @@
 import Card from "../components/Card";
 import logo from "../assets/images/logos/browser_heroes.png";
-import { useCurrentUser } from "../features/auth";
-import { Link } from "../components/Link";
+import { ClassSelection } from "../features/createCharacter";
+import type { ClassId } from "packages/content/dist/generated/classes.registry";
+import { useState } from "react";
 
-export default function Landing() {
-	const { data } = useCurrentUser();
-
-	console.log("currentUser", data?.user);
+export default function CreateCharacter() {
+	const [selectedClassId, setSelectedClassId] = useState<ClassId | null>(null);
 
 	return (
 		<div className="min-h-screen flex flex-col overflow-hidden">
@@ -16,12 +15,11 @@ export default function Landing() {
 				<div className="max-w-sm w-full">
 					<Card className="text-center flex flex-col items-center gap-4">
 						<img src={logo} alt="Browser Heroes" width="260" />
-						<p>Your new adventure awaits you!</p>
-						<div className="flex justify-center gap-4">
-							<Link className="text-primary" to="/create-character">
-								PLAY NOW
-							</Link>
-						</div>
+						<p>Select a class to begin</p>
+						<ClassSelection
+							selectedClassId={selectedClassId}
+							onSelect={setSelectedClassId}
+						/>
 					</Card>
 				</div>
 			</div>
