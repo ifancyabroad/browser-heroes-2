@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { createRunBodySchema } from "@app/shared";
 import {
 	createRunController,
 	getCurrentRunController,
@@ -6,7 +7,6 @@ import {
 } from "../controllers/run.controller";
 import { requireUserSession } from "../middlewares/auth";
 import { validateBody } from "../middlewares/validate";
-import { createRunBodySchema } from "../schemas/runApi.schema";
 
 export const runRoutes = Router();
 

@@ -23,7 +23,6 @@ interface GameState {
 	score: number;
 	isPlaying: boolean;
 	timeLeft: number;
-	playerName: string;
 
 	// Actions
 	addPoints: (points: number) => void;
@@ -31,7 +30,6 @@ interface GameState {
 	endGame: () => void;
 	resetGame: () => void;
 	setTimeLeft: (time: number) => void;
-	setPlayerName: (name: string) => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -39,15 +37,13 @@ export const useGameStore = create<GameState>((set) => ({
 	score: 0,
 	isPlaying: false,
 	timeLeft: GAME_DURATION,
-	playerName: "",
 
 	// Actions
 	addPoints: (points) => set((state) => ({ score: state.score + points })),
 	startGame: () => set({ isPlaying: true, score: 0, timeLeft: GAME_DURATION }),
 	endGame: () => set({ isPlaying: false }),
-	resetGame: () => set({ score: 0, isPlaying: false, timeLeft: GAME_DURATION, playerName: "" }),
+	resetGame: () => set({ score: 0, isPlaying: false, timeLeft: GAME_DURATION }),
 	setTimeLeft: (time) => set({ timeLeft: time }),
-	setPlayerName: (name) => set({ playerName: name }),
 }));
 
 export { GAME_DURATION };

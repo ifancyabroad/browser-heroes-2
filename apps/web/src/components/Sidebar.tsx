@@ -1,13 +1,9 @@
-import { useScores } from "../features/scores/useScores";
-
 type SidebarProps = {
 	open: boolean;
 	onClose: () => void;
 };
 
 export default function Sidebar({ open, onClose }: SidebarProps) {
-	const { data: scores, isLoading: scoresLoading, isError: scoresError } = useScores();
-
 	return (
 		<>
 			<div
@@ -57,44 +53,13 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 					</div>
 				</div>
 
-				{/* Leaderboard */}
+				{/* Navigation */}
 				<div className="px-5 py-4">
 					<h2 className="text-xs font-medium uppercase tracking-wider text-neutral-500 mb-3">
-						Leaderboard
+						Game
 					</h2>
 
-					{scoresLoading && <p className="text-sm text-neutral-500">Loading...</p>}
-
-					{scoresError && (
-						<p className="text-sm text-neutral-500">Unable to load scores</p>
-					)}
-
-					{scores && scores.length === 0 && (
-						<p className="text-sm text-neutral-500">No entries yet</p>
-					)}
-
-					{scores && scores.length > 0 && (
-						<div className="space-y-1">
-							{scores.slice(0, 10).map((score, index) => (
-								<div
-									key={score._id}
-									className="flex items-center justify-between py-2 px-3 rounded hover:bg-neutral-800/50 transition-colors"
-								>
-									<div className="flex items-center gap-3">
-										<span className="text-xs font-medium text-neutral-600 w-4">
-											{index + 1}
-										</span>
-										<span className="text-sm text-neutral-300">
-											{score.player}
-										</span>
-									</div>
-									<span className="text-sm font-medium tabular-nums text-neutral-400">
-										{score.points.toLocaleString()}
-									</span>
-								</div>
-							))}
-						</div>
-					)}
+					<p className="text-sm text-neutral-500">Score saving is currently offline.</p>
 				</div>
 			</aside>
 		</>

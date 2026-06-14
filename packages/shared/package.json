@@ -26,6 +26,8 @@
 		"lint": "eslint ."
 	},
 	"dependencies": {
+		"@app/content": "workspace:*",
+		"@app/engine": "workspace:*",
 		"zod": "^4.3.6"
 	}
 }

@@ -1,13 +1,22 @@
+import type { RunView } from "@app/shared";
+import { classIdSchema } from "@app/content";
 import type { RunDocument } from "../models/run.model";
 
-export function toRunView(run: RunDocument & { _id: unknown }) {
+function toIsoString(value: Date): string {
+	return value.toISOString();
+}
+
+export function toRunView(run: RunDocument & { _id: unknown }): RunView {
 	return {
 		id: String(run._id),
 		status: run.status,
-		summary: run.summary,
+		summary: {
+			...run.summary,
+			classId: classIdSchema.parse(run.summary.classId),
+		},
 		state: run.state,
-		createdAt: run.createdAt,
-		updatedAt: run.updatedAt,
-		completedAt: run.completedAt ?? null,
+		createdAt: toIsoString(run.createdAt),
+		updatedAt: toIsoString(run.updatedAt),
+		completedAt: run.completedAt ? toIsoString(run.completedAt) : null,
 	};
 }

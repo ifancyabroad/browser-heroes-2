@@ -12,7 +12,6 @@ describe("gameStore", () => {
 		expect(state.score).toBe(0);
 		expect(state.isPlaying).toBe(false);
 		expect(state.timeLeft).toBe(GAME_DURATION);
-		expect(state.playerName).toBe("");
 	});
 
 	it("should add points", () => {
@@ -47,23 +46,16 @@ describe("gameStore", () => {
 	it("should reset game completely", () => {
 		useGameStore.getState().startGame();
 		useGameStore.getState().addPoints(100);
-		useGameStore.getState().setPlayerName("TestPlayer");
 		useGameStore.getState().resetGame();
 
 		const state = useGameStore.getState();
 		expect(state.isPlaying).toBe(false);
 		expect(state.score).toBe(0);
 		expect(state.timeLeft).toBe(GAME_DURATION);
-		expect(state.playerName).toBe("");
 	});
 
 	it("should set time left", () => {
 		useGameStore.getState().setTimeLeft(15);
 		expect(useGameStore.getState().timeLeft).toBe(15);
-	});
-
-	it("should set player name", () => {
-		useGameStore.getState().setPlayerName("Alice");
-		expect(useGameStore.getState().playerName).toBe("Alice");
 	});
 });

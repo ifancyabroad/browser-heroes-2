@@ -1,7 +1,8 @@
 import type { Request, Response } from "express";
+import type { AuthUserResponse } from "@app/shared";
 import { createGuestUser, getUserById, toAuthUserView } from "../services/auth.service";
 
-export async function createGuestSession(req: Request, res: Response) {
+export async function createGuestSession(req: Request, res: Response<AuthUserResponse>) {
 	if (req.session.userId) {
 		const existingUser = await getUserById(req.session.userId);
 
@@ -24,7 +25,7 @@ export async function createGuestSession(req: Request, res: Response) {
 	});
 }
 
-export async function getCurrentUser(req: Request, res: Response) {
+export async function getCurrentUser(req: Request, res: Response<AuthUserResponse>) {
 	if (!req.session.userId) {
 		res.status(200).json({
 			user: null,

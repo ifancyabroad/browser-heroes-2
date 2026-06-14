@@ -1,9 +1,9 @@
 import { Types } from "mongoose";
+import type { CreateRunBody, RunSummaryView } from "@app/shared";
+import { createInitialRunState, type RunState } from "@app/engine";
 import { RunModel } from "../models/run.model";
-import type { CreateRunBody } from "../schemas/runApi.schema";
-import { createInitialRunState, RunState } from "@app/engine";
 
-export function deriveRunSummary(state: RunState) {
+export function deriveRunSummary(state: RunState): RunSummaryView {
 	return {
 		heroName: state.hero.name,
 		classId: state.hero.classId,

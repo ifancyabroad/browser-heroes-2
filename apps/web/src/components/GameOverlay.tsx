@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useGameStore, GAME_DURATION } from "../stores/gameStore";
-import { useCreateScore } from "../features/scores/useScores";
 
 /**
  * Overlay component for game UI controls.
@@ -10,34 +8,13 @@ import { useCreateScore } from "../features/scores/useScores";
  * - Ended: Game over screen with score submission
  */
 export default function GameOverlay() {
-	const { score, isPlaying, timeLeft, playerName, startGame, resetGame, setPlayerName } =
-		useGameStore();
-	const createScore = useCreateScore();
-	const [submitted, setSubmitted] = useState(false);
+	const { score, isPlaying, timeLeft, startGame, resetGame } = useGameStore();
 
-	const gameEnded = !isPlaying && score > 0 && !submitted;
-	const gameIdle = !isPlaying && (score === 0 || submitted);
-
-	const handleSubmit = () => {
-		if (!playerName.trim()) return;
-		createScore.mutate(
-			{ player: playerName.trim(), points: score },
-			{
-				onSuccess: () => {
-					setSubmitted(true);
-				},
-			},
-		);
-	};
+	const gameEnded = !isPlaying && score > 0;
+	const gameIdle = !isPlaying && score === 0;
 
 	const handlePlayAgain = () => {
-		setSubmitted(false);
 		resetGame();
-	};
-
-	const handleStart = () => {
-		setSubmitted(false);
-		startGame();
 	};
 
 	// Format time as MM:SS
@@ -52,7 +29,7 @@ export default function GameOverlay() {
 			{/* Idle state: Start button */}
 			{gameIdle && (
 				<button
-					onClick={handleStart}
+					onClick={startGame}
 					className="pointer-events-auto rounded bg-white px-6 py-3 text-sm font-medium text-neutral-900 shadow-lg transition-all hover:bg-neutral-100 active:scale-95"
 				>
 					Start
@@ -81,7 +58,7 @@ export default function GameOverlay() {
 				</>
 			)}
 
-			{/* Game ended state: Score submission */}
+			{/* Game ended state */}
 			{gameEnded && (
 				<div className="pointer-events-auto w-full max-w-xs rounded-lg border border-neutral-800 bg-neutral-900/95 backdrop-blur-sm p-6 shadow-xl">
 					<div className="text-center mb-5">
@@ -94,37 +71,13 @@ export default function GameOverlay() {
 					</div>
 
 					<div className="space-y-3">
-						<input
-							type="text"
-							value={playerName}
-							onChange={(e) => setPlayerName(e.target.value)}
-							placeholder="Your name"
-							maxLength={20}
-							className="w-full rounded border border-neutral-700 bg-neutral-800 px-3 py-2 text-sm text-white placeholder-neutral-500 focus:border-neutral-600 focus:outline-none transition-colors"
-							onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-						/>
-
-						<button
-							onClick={handleSubmit}
-							disabled={!playerName.trim() || createScore.isPending}
-							className="w-full rounded bg-white px-4 py-2 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-100 disabled:opacity-50 disabled:cursor-not-allowed"
-						>
-							{createScore.isPending ? "Saving..." : "Save Score"}
-						</button>
-
 						<button
 							onClick={handlePlayAgain}
-							className="w-full rounded px-4 py-2 text-sm font-medium text-neutral-400 transition-colors hover:text-white hover:bg-neutral-800"
+							className="w-full rounded bg-white px-4 py-2 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-100"
 						>
 							Try Again
 						</button>
 					</div>
-
-					{createScore.isError && (
-						<p className="mt-3 text-center text-xs text-red-400">
-							Could not save score. Please try again.
-						</p>
-					)}
 				</div>
 			)}
 		</div>

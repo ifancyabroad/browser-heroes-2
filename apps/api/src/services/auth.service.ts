@@ -1,3 +1,4 @@
+import type { AuthUserType, AuthUserView } from "@app/shared";
 import { UserModel } from "../models/user.model";
 
 export async function createGuestUser() {
@@ -14,10 +15,10 @@ export async function getUserById(userId: string) {
 
 export function toAuthUserView(user: {
 	_id: unknown;
-	type: "guest" | "registered";
+	type: AuthUserType;
 	displayName?: string | null;
 	email?: string | null;
-}) {
+}): AuthUserView {
 	return {
 		id: String(user._id),
 		type: user.type,
