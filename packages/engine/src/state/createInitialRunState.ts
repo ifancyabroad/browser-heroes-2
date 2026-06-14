@@ -13,11 +13,6 @@ export type CreateInitialRunStateInput = {
 };
 
 export function createInitialRunState(input: CreateInitialRunStateInput): RunState {
-	const hero = createInitialHeroState({
-		heroName: input.heroName,
-		classId: input.classId,
-	});
-
 	const state: RunState = {
 		version: 1,
 
@@ -32,7 +27,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		zoneNumber: 1,
 		endlessCycle: 0,
 
-		hero,
+		hero: createInitialHeroState(input),
 
 		combat: null,
 
@@ -44,7 +39,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		log: [
 			{
 				id: createRunLogId(input.runId, 1),
-				message: `Run started for ${hero.name}.`,
+				message: `Run started for ${input.heroName}.`,
 				eventType: "run_started",
 			},
 		],

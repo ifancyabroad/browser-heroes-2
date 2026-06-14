@@ -78,11 +78,16 @@ export const attributesSchema = z.object({
 	charisma: z.number(),
 });
 
-export const diceSchema = z.enum(["d6", "d8", "d10", "d12"]);
+export const dice = ["d4", "d6", "d8", "d10", "d12", "d20", "d100"] as const;
+
+export const diceSchema = z.enum(dice);
 
 export const diceFormulaSchema = z
 	.string()
-	.regex(/^\d+d\d+([+-]\d+)?$/, "Expected dice formula like 1d6, 2d8+3, or 1d4-1");
+	.regex(
+		/^\d+d(4|6|8|10|12|20|100)([+-]\d+)?$/,
+		"Expected a valid dice formula such as 1d6, 2d8+3, or 1d20-1",
+	);
 
 export const skillPools = [
 	"assassin",

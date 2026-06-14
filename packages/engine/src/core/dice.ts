@@ -1,16 +1,24 @@
+import { dice, type Dice, type DiceFormula } from "@app/content";
 import { randomInt, type RngResult, type RngState } from "./rng";
 
-export type DieSides = 4 | 6 | 8 | 10 | 12 | 20 | 100;
+type ExtractDieSides<T extends string> = T extends `d${infer Sides extends number}` ? Sides : never;
+
+export type DieSides = ExtractDieSides<Dice>;
+
+export type ParsedDiceFormula = {
+	count: number;
+	sides: DieSides;
+	modifier: number;
+};
 
 export type DieRoll = {
 	sides: DieSides;
 	value: number;
 };
 
-export type DiceRoll = {
-	count: number;
-	sides: DieSides;
+export type DiceRoll = ParsedDiceFormula & {
 	rolls: number[];
+	rollTotal: number;
 	total: number;
 };
 
@@ -19,6 +27,30 @@ export type D20Roll = {
 	isNaturalOne: boolean;
 	isNaturalTwenty: boolean;
 };
+
+const supportedDieSides = new Set<number>(dice.map((die) => Number(die.slice(1))));
+
+export function parseDiceFormula(formula: DiceFormula): ParsedDiceFormula {
+	const match = /^([1-9]\d*)d(\d+)([+-]\d+)?$/.exec(formula);
+
+	if (!match) {
+		throw new Error(`Invalid dice formula: ${formula}`);
+	}
+
+	const count = Number(match[1]);
+	const sides = Number(match[2]);
+	const modifier = Number(match[3] ?? 0);
+
+	if (!isDieSides(sides)) {
+		throw new Error(`Unsupported die size: d${sides}`);
+	}
+
+	return {
+		count,
+		sides,
+		modifier,
+	};
+}
 
 export function rollDie(rngState: RngState, sides: DieSides): RngResult<DieRoll> {
 	const result = randomInt(rngState, 1, sides);
@@ -32,32 +64,36 @@ export function rollDie(rngState: RngState, sides: DieSides): RngResult<DieRoll>
 	};
 }
 
-export function rollDice(
-	rngState: RngState,
-	input: {
-		count: number;
-		sides: DieSides;
-	},
-): RngResult<DiceRoll> {
+export function rollDice(rngState: RngState, formula: DiceFormula): RngResult<DiceRoll> {
+	const parsed = parseDiceFormula(formula);
+
 	let nextRngState = rngState;
 	const rolls: number[] = [];
 
-	for (let i = 0; i < input.count; i += 1) {
-		const result = rollDie(nextRngState, input.sides);
+	for (let index = 0; index < parsed.count; index += 1) {
+		const result = rollDie(nextRngState, parsed.sides);
 
 		rolls.push(result.value.value);
 		nextRngState = result.rngState;
 	}
 
+	const rollTotal = rolls.reduce((total, roll) => total + roll, 0);
+
 	return {
 		value: {
-			count: input.count,
-			sides: input.sides,
+			...parsed,
 			rolls,
-			total: rolls.reduce((sum, value) => sum + value, 0),
+			rollTotal,
+			total: rollTotal + parsed.modifier,
 		},
 		rngState: nextRngState,
 	};
+}
+
+export function getMaximumDiceValue(formula: DiceFormula): number {
+	const { count, sides, modifier } = parseDiceFormula(formula);
+
+	return count * sides + modifier;
 }
 
 export function rollD20(rngState: RngState): RngResult<D20Roll> {
@@ -73,33 +109,6 @@ export function rollD20(rngState: RngState): RngResult<D20Roll> {
 	};
 }
 
-export type D20CheckResult = {
-	d20: D20Roll;
-	modifier: number;
-	total: number;
-	target: number;
-	success: boolean;
-};
-
-export function rollD20Check(
-	rngState: RngState,
-	input: {
-		modifier: number;
-		target: number;
-	},
-): RngResult<D20CheckResult> {
-	const d20 = rollD20(rngState);
-
-	const total = d20.value.roll + input.modifier;
-
-	return {
-		value: {
-			d20: d20.value,
-			modifier: input.modifier,
-			total,
-			target: input.target,
-			success: d20.value.isNaturalTwenty || total >= input.target,
-		},
-		rngState: d20.rngState,
-	};
+function isDieSides(value: number): value is DieSides {
+	return supportedDieSides.has(value);
 }

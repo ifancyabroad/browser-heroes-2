@@ -14,14 +14,20 @@ import {
 	type HeroState,
 } from "../schemas";
 import { createStartingItemInstanceId } from "../core/ids";
+import { calculateStartingHp } from "../systems/progression/calculateStartingHp";
 
 export type CreateInitialHeroStateInput = {
+	runId: string;
 	heroName: string;
 	classId: ClassId;
 };
 
 export function createInitialHeroState(input: CreateInitialHeroStateInput): HeroState {
 	const classDefinition = CLASSES_BY_ID[input.classId];
+	const maxHp = calculateStartingHp(
+		classDefinition.combat.hitDie,
+		classDefinition.attributes.constitution,
+	);
 
 	const hero: HeroState = {
 		id: "player",
@@ -29,12 +35,12 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 		classId: input.classId,
 		level: 1,
 		xp: 0,
-		maxHp: 30,
-		currentHp: 30,
+		maxHp,
+		currentHp: maxHp,
 		attributes: classDefinition.attributes,
 		skills: createInitialSkills(classDefinition),
 		featIds: [],
-		equipment: createInitialEquipment(classDefinition),
+		equipment: createInitialEquipment(classDefinition, input.runId),
 	};
 
 	return heroStateSchema.parse(hero);
@@ -71,7 +77,10 @@ const EMPTY_EQUIPMENT: HeroEquipmentState = {
 	offHand: null,
 };
 
-function createInitialEquipment(classDefinition: ClassDefinition): HeroEquipmentState {
+function createInitialEquipment(
+	classDefinition: ClassDefinition,
+	runId: string,
+): HeroEquipmentState {
 	const equipment: HeroEquipmentState = {
 		...EMPTY_EQUIPMENT,
 	};
@@ -84,8 +93,7 @@ function createInitialEquipment(classDefinition: ClassDefinition): HeroEquipment
 		}
 
 		equipment[slot] = {
-			// TODO: Fix ID generation
-			instanceId: createStartingItemInstanceId("player", slot),
+			instanceId: createStartingItemInstanceId(runId, slot),
 			itemId: itemIdSchema.parse(rawItemId),
 		};
 	}
