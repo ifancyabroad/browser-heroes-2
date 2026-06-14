@@ -1,8 +1,13 @@
 import Card from "../components/Card";
 import logo from "../assets/images/logos/browser_heroes.png";
 import { Button } from "../components/Button";
+import { useCurrentUser } from "../features/auth";
 
 export default function Landing() {
+	const { data } = useCurrentUser();
+
+	console.log("currentUser", data?.user);
+
 	return (
 		<div className="min-h-screen flex flex-col overflow-hidden">
 			{/* TODO: Add header */}
