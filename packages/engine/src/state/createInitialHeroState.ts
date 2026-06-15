@@ -1,8 +1,6 @@
 import {
 	CLASSES_BY_ID,
 	equipmentSlots,
-	itemIdSchema,
-	skillIdSchema,
 	SKILLS_BY_ID,
 	type Class,
 	type ClassId,
@@ -48,11 +46,10 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 
 function createInitialSkills(classDefinition: Class): HeroSkillState[] {
 	return classDefinition.combat.skills.map((skill) => {
-		const validatedSkillId = skillIdSchema.parse(skill.skillId);
-		const skillDefinition = SKILLS_BY_ID[validatedSkillId];
+		const skillDefinition = SKILLS_BY_ID[skill.skillId];
 
 		const mappedSkill: HeroSkillState = {
-			skillId: validatedSkillId,
+			skillId: skill.skillId,
 			rank: skill.rank,
 		};
 
@@ -83,15 +80,15 @@ function createInitialEquipment(classDefinition: Class, runId: string): HeroEqui
 	};
 
 	for (const slot of equipmentSlots) {
-		const rawItemId = classDefinition.startingEquipment?.[slot];
+		const itemId = classDefinition.startingEquipment?.[slot];
 
-		if (!rawItemId) {
+		if (!itemId) {
 			continue;
 		}
 
 		equipment[slot] = {
 			instanceId: createStartingItemInstanceId(runId, slot),
-			itemId: itemIdSchema.parse(rawItemId),
+			itemId,
 		};
 	}
 

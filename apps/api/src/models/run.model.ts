@@ -1,4 +1,5 @@
 import { Schema, model, type InferSchemaType } from "mongoose";
+import { classIds } from "@app/content";
 
 export const RUN_STATUSES = ["active", "dead", "victory", "abandoned"] as const;
 
@@ -11,6 +12,7 @@ const runSummarySchema = new Schema(
 		},
 		classId: {
 			type: String,
+			enum: classIds,
 			required: true,
 			index: true,
 		},

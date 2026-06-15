@@ -1,5 +1,4 @@
 import type { RunView } from "@app/shared";
-import { classIdSchema } from "@app/content";
 import type { RunDocument } from "../models/run.model";
 
 function toIsoString(value: Date): string {
@@ -10,10 +9,7 @@ export function toRunView(run: RunDocument & { _id: unknown }): RunView {
 	return {
 		id: String(run._id),
 		status: run.status,
-		summary: {
-			...run.summary,
-			classId: classIdSchema.parse(run.summary.classId),
-		},
+		summary: run.summary,
 		state: run.state,
 		createdAt: toIsoString(run.createdAt),
 		updatedAt: toIsoString(run.updatedAt),

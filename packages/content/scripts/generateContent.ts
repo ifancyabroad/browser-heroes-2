@@ -90,6 +90,7 @@ function generateFor(type: string, dir: string, typeDefImportPath: string) {
 		(c) => `import ${c.importName} from '${toImportPath(registryFile, c.file)}';`,
 	);
 	const typeName = capitalize(type);
+	const contentTypeImports = getContentTypeImports(type);
 	const idsArrayText = [
 		'import { z } from "zod";',
 		"",
@@ -103,6 +104,8 @@ function generateFor(type: string, dir: string, typeDefImportPath: string) {
 		"",
 		`import type { ${typeName}Definition } from '${typeDefImportPath}';`,
 		`import type { ${typeName}Id } from './${type}Ids';`,
+		...contentTypeImports,
+		`import type { ${getTypeHelperImports(type).join(", ")} } from './typeHelpers';`,
 		`import { ${type}IdSchema, ${type}Ids } from './${type}Ids';`,
 		"",
 		...sortedImportLines,
@@ -110,8 +113,7 @@ function generateFor(type: string, dir: string, typeDefImportPath: string) {
 		`export { ${type}IdSchema, ${type}Ids };`,
 		`export type { ${typeName}Id } from './${type}Ids';`,
 		"",
-		"type WithGeneratedId<TDefinition extends { id: string }, TId extends string> = TDefinition extends unknown ? Omit<TDefinition, 'id'> & { id: TId } : never;",
-		`export type ${typeName} = WithGeneratedId<${typeName}Definition, ${typeName}Id>;`,
+		`export type ${typeName} = ${getContentTypeExpression(type, typeName)};`,
 		"",
 		`export const ${plural}: readonly ${typeName}[] = [${collected.map((c) => c.importName).join(", ")}] as readonly ${typeName}[];`,
 		"",
@@ -126,6 +128,57 @@ function generateFor(type: string, dir: string, typeDefImportPath: string) {
 
 function capitalize(s: string) {
 	return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function getContentTypeImports(type: string) {
+	switch (type) {
+		case "class":
+			return [
+				"import type { FeatId } from './featIds';",
+				"import type { ItemId } from './itemIds';",
+				"import type { SkillId } from './skillIds';",
+			];
+		case "enemy":
+			return [
+				"import type { FeatId } from './featIds';",
+				"import type { SkillId } from './skillIds';",
+			];
+		default:
+			return [];
+	}
+}
+
+function getTypeHelperImports(type: string) {
+	switch (type) {
+		case "class":
+			return ["WithCombatContentIds", "WithEquipmentItemIds", "WithGeneratedId"];
+		case "enemy":
+			return ["WithCombatContentIds", "WithGeneratedId"];
+		default:
+			return ["WithGeneratedId"];
+	}
+}
+
+function getContentTypeExpression(type: string, typeName: string) {
+	const baseType = `WithGeneratedId<${typeName}Definition, ${typeName}Id>`;
+
+	switch (type) {
+		case "class":
+			return [
+				`Omit<${baseType}, 'combat' | 'startingEquipment'> & {`,
+				`  combat: WithCombatContentIds<${typeName}Definition['combat'], SkillId, FeatId>;`,
+				`  startingEquipment?: WithEquipmentItemIds<NonNullable<${typeName}Definition['startingEquipment']>, ItemId>;`,
+				"}",
+			].join("\n");
+		case "enemy":
+			return [
+				`Omit<${baseType}, 'combat'> & {`,
+				`  combat: WithCombatContentIds<${typeName}Definition['combat'], SkillId, FeatId>;`,
+				"}",
+			].join("\n");
+		default:
+			return baseType;
+	}
 }
 
 function pluralize(type: string) {
@@ -153,6 +206,25 @@ function run() {
 	generateFor("item", itemsDir, "../schemas");
 	generateFor("class", classesDir, "../schemas");
 	generateFor("feat", featsDir, "../schemas");
+
+	const typeHelpers = [
+		"// Generated â€” do not edit by hand",
+		"",
+		"export type WithGeneratedId<TDefinition extends { id: string }, TId extends string> = TDefinition extends unknown ? Omit<TDefinition, 'id'> & { id: TId } : never;",
+		"",
+		"export type WithSkillRefId<TSkillRef extends { skillId: string }, TSkillId extends string> = Omit<TSkillRef, 'skillId'> & { skillId: TSkillId };",
+		"",
+		"export type WithCombatContentIds<TCombat extends { skills: readonly { skillId: string }[]; featIds: readonly string[] }, TSkillId extends string, TFeatId extends string> = Omit<TCombat, 'skills' | 'featIds'> & {",
+		"  skills: readonly WithSkillRefId<TCombat['skills'][number], TSkillId>[];",
+		"  featIds: readonly TFeatId[];",
+		"};",
+		"",
+		"export type WithEquipmentItemIds<TEquipment, TItemId extends string> = TEquipment extends object ? {",
+		"  [TSlot in keyof TEquipment]: TEquipment[TSlot] extends string | undefined ? TItemId | undefined : TEquipment[TSlot];",
+		"} : TEquipment;",
+	];
+	const typeHelpersPath = join(OUT_DIR, "typeHelpers.ts");
+	writeFileIfChanged(typeHelpersPath, typeHelpers.join("\n"));
 
 	const manifests = [
 		"// Generated — do not edit by hand",

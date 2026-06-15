@@ -2,6 +2,9 @@
 
 import type { EnemyDefinition } from '../schemas';
 import type { EnemyId } from './enemyIds';
+import type { FeatId } from './featIds';
+import type { SkillId } from './skillIds';
+import type { WithCombatContentIds, WithGeneratedId } from './typeHelpers';
 import { enemyIdSchema, enemyIds } from './enemyIds';
 
 import ene_abomination_0 from '../enemies/abomination';
@@ -109,8 +112,9 @@ import ene_wretch_100 from '../enemies/wretch';
 export { enemyIdSchema, enemyIds };
 export type { EnemyId } from './enemyIds';
 
-type WithGeneratedId<TDefinition extends { id: string }, TId extends string> = TDefinition extends unknown ? Omit<TDefinition, 'id'> & { id: TId } : never;
-export type Enemy = WithGeneratedId<EnemyDefinition, EnemyId>;
+export type Enemy = Omit<WithGeneratedId<EnemyDefinition, EnemyId>, 'combat'> & {
+  combat: WithCombatContentIds<EnemyDefinition['combat'], SkillId, FeatId>;
+};
 
 export const enemies: readonly Enemy[] = [ene_abomination_0, ene_abyssArmour_1, ene_abyssRider_2, ene_aetherisTheDawnflame_3, ene_airElemental_4, ene_assassinOfRitChi_5, ene_avatarOfRitChi_6, ene_basilisk_7, ene_beholder_8, ene_berserker_9, ene_binkusTheAllKnowing_10, ene_brute_11, ene_carrionStalker_12, ene_chaosKnight_13, ene_chaosMauler_14, ene_chomper_15, ene_colossalPiranhasaur_16, ene_crabomination_17, ene_cursedGuardian_18, ene_cyclops_19, ene_dampHighPriestess_20, ene_darknessElemental_21, ene_dracolich_22, ene_drakusTheAwakened_23, ene_dreadSerpent_24, ene_dunzarakTheDeceived_25, ene_earthElemental_26, ene_fireBeetle_27, ene_fireDrake_28, ene_fireElemental_29, ene_fireSnake_30, ene_flameShrieker_31, ene_footman_32, ene_forsakenBrotherMcinnes_33, ene_ghoul_34, ene_giantYeti_35, ene_glompling_36, ene_goblinEngineer_37, ene_golem_38, ene_gremlinCultist_39, ene_greyhornTheCaged_40, ene_grotesque_41, ene_guard_42, ene_guardCaptain_43, ene_halfOgre_44, ene_hellGuard_45, ene_hobgoblin_46, ene_hydraOfTheDeep_47, ene_iceElemental_48, ene_knight_49, ene_livingFlame_50, ene_livingMold_51, ene_lurker_52, ene_magmaElemental_53, ene_monk_54, ene_mountedRatman_55, ene_munchling_56, ene_natureElemental_57, ene_necromental_58, ene_orcCatapult_59, ene_orcGrunt_60, ene_orcSoldier_61, ene_orcTracker_62, ene_orcWarchiefZog_63, ene_orcWardog_64, ene_orcWarlock_65, ene_peon_66, ene_piranhasaur_67, ene_pitFiendYagamon_68, ene_powerElemental_69, ene_pygmy_70, ene_ratOgre_76, ene_ratmanArcher_71, ene_ratmanChampion_72, ene_ratmanShaman_73, ene_ratmanSlave_74, ene_ratmanWarlock_75, ene_runtling_77, ene_sharkman_78, ene_shrieker_79, ene_sirMichaelTheConceder_80, ene_skeleton_81, ene_skeletonWarrior_82, ene_squib_83, ene_stitchedOgre_84, ene_theElderSquid_85, ene_theExecutioner_86, ene_theForestGuardian_87, ene_theHellfireCatapult_88, ene_theNamelessOne_89, ene_theRoyalBallista_90, ene_urzulTheAscended_91, ene_vilespawn_92, ene_voidCreeper_93, ene_waterElemental_94, ene_wight_95, ene_wingedNightmare_96, ene_wizard_97, ene_worg_98, ene_wraithLordMalakar_99, ene_wretch_100] as readonly Enemy[];
 

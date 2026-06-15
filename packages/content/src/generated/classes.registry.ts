@@ -2,6 +2,10 @@
 
 import type { ClassDefinition } from '../schemas';
 import type { ClassId } from './classIds';
+import type { FeatId } from './featIds';
+import type { ItemId } from './itemIds';
+import type { SkillId } from './skillIds';
+import type { WithCombatContentIds, WithEquipmentItemIds, WithGeneratedId } from './typeHelpers';
 import { classIdSchema, classIds } from './classIds';
 
 import cla_battlemage_0 from '../classes/battlemage';
@@ -15,8 +19,10 @@ import cla_thief_6 from '../classes/thief';
 export { classIdSchema, classIds };
 export type { ClassId } from './classIds';
 
-type WithGeneratedId<TDefinition extends { id: string }, TId extends string> = TDefinition extends unknown ? Omit<TDefinition, 'id'> & { id: TId } : never;
-export type Class = WithGeneratedId<ClassDefinition, ClassId>;
+export type Class = Omit<WithGeneratedId<ClassDefinition, ClassId>, 'combat' | 'startingEquipment'> & {
+  combat: WithCombatContentIds<ClassDefinition['combat'], SkillId, FeatId>;
+  startingEquipment?: WithEquipmentItemIds<NonNullable<ClassDefinition['startingEquipment']>, ItemId>;
+};
 
 export const classes: readonly Class[] = [cla_battlemage_0, cla_fighter_1, cla_mage_2, cla_paladin_3, cla_priest_4, cla_shadowblade_5, cla_thief_6] as readonly Class[];
 
