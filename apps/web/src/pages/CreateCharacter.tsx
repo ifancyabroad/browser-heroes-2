@@ -1,7 +1,7 @@
 import Card from "../components/Card";
 import logo from "../assets/images/logos/browser_heroes.png";
 import { ClassSelection } from "../features/createCharacter";
-import type { ClassId } from "packages/content/dist/generated/classes.registry";
+import type { ClassId } from "@app/content";
 import { useState } from "react";
 
 export default function CreateCharacter() {

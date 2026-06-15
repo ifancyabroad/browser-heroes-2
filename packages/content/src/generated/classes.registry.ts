@@ -15,9 +15,12 @@ import cla_thief_6 from '../classes/thief';
 export { classIdSchema, classIds };
 export type { ClassId } from './classIds';
 
-export const classes: readonly ClassDefinition[] = [cla_battlemage_0, cla_fighter_1, cla_mage_2, cla_paladin_3, cla_priest_4, cla_shadowblade_5, cla_thief_6];
+type WithGeneratedId<TDefinition extends { id: string }, TId extends string> = TDefinition extends unknown ? Omit<TDefinition, 'id'> & { id: TId } : never;
+export type Class = WithGeneratedId<ClassDefinition, ClassId>;
 
-export const CLASSES_BY_ID: Record<ClassId, ClassDefinition> = {
+export const classes: readonly Class[] = [cla_battlemage_0, cla_fighter_1, cla_mage_2, cla_paladin_3, cla_priest_4, cla_shadowblade_5, cla_thief_6] as readonly Class[];
+
+export const CLASSES_BY_ID = {
   "battlemage": cla_battlemage_0,
   "fighter": cla_fighter_1,
   "mage": cla_mage_2,
@@ -25,4 +28,4 @@ export const CLASSES_BY_ID: Record<ClassId, ClassDefinition> = {
   "priest": cla_priest_4,
   "shadowblade": cla_shadowblade_5,
   "thief": cla_thief_6,
-};
+} as Record<ClassId, Class>;

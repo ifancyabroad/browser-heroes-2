@@ -27,5 +27,4 @@ export const featSchema = z
 	});
 
 export type FeatCategory = z.infer<typeof featCategorySchema>;
-export type Feat = z.infer<typeof featSchema>;
-export type FeatDefinition = Feat;
+export type FeatDefinition = z.infer<typeof featSchema>;

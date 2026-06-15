@@ -4,7 +4,7 @@ import {
 	itemIdSchema,
 	skillIdSchema,
 	SKILLS_BY_ID,
-	type ClassDefinition,
+	type Class,
 	type ClassId,
 } from "@app/content";
 import {
@@ -46,7 +46,7 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 	return heroStateSchema.parse(hero);
 }
 
-function createInitialSkills(classDefinition: ClassDefinition): HeroSkillState[] {
+function createInitialSkills(classDefinition: Class): HeroSkillState[] {
 	return classDefinition.combat.skills.map((skill) => {
 		const validatedSkillId = skillIdSchema.parse(skill.skillId);
 		const skillDefinition = SKILLS_BY_ID[validatedSkillId];
@@ -77,10 +77,7 @@ const EMPTY_EQUIPMENT: HeroEquipmentState = {
 	offHand: null,
 };
 
-function createInitialEquipment(
-	classDefinition: ClassDefinition,
-	runId: string,
-): HeroEquipmentState {
+function createInitialEquipment(classDefinition: Class, runId: string): HeroEquipmentState {
 	const equipment: HeroEquipmentState = {
 		...EMPTY_EQUIPMENT,
 	};

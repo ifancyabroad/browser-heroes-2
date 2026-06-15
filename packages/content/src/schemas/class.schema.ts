@@ -39,5 +39,4 @@ export const classSchema = z.object({
 	tags: z.array(z.string().nonempty()).default([]),
 });
 
-export type Class = z.infer<typeof classSchema>;
-export type ClassDefinition = Class;
+export type ClassDefinition = z.infer<typeof classSchema>;

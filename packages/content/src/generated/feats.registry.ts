@@ -40,9 +40,12 @@ import fea_unyieldingGuard_31 from '../feats/unyieldingGuard';
 export { featIdSchema, featIds };
 export type { FeatId } from './featIds';
 
-export const feats: readonly FeatDefinition[] = [fea_acidTempering_0, fea_acrobaticTraining_1, fea_arcanePenetration_2, fea_arcaneWarding_3, fea_armour_4, fea_bruteStrength_5, fea_chitinWard_6, fea_cloakOfShadows_7, fea_corrosiveCraft_8, fea_corruption_9, fea_dancersGrace_10, fea_devotedSpirit_11, fea_divineInspiration_12, fea_divineProtection_13, fea_divineStrength_14, fea_duelistTraining_15, fea_elementalShield_16, fea_embraceElements_17, fea_embraceShadows_18, fea_enhancePoison_19, fea_evasion_20, fea_fearsomePresence_21, fea_focusEnergy_22, fea_ironSkin_23, fea_pestilentAffinity_24, fea_primalFury_25, fea_quickFingers_26, fea_runicWard_27, fea_shadowFocus_28, fea_shadowmeld_29, fea_siphonedVigor_30, fea_unyieldingGuard_31];
+type WithGeneratedId<TDefinition extends { id: string }, TId extends string> = TDefinition extends unknown ? Omit<TDefinition, 'id'> & { id: TId } : never;
+export type Feat = WithGeneratedId<FeatDefinition, FeatId>;
 
-export const FEATS_BY_ID: Record<FeatId, FeatDefinition> = {
+export const feats: readonly Feat[] = [fea_acidTempering_0, fea_acrobaticTraining_1, fea_arcanePenetration_2, fea_arcaneWarding_3, fea_armour_4, fea_bruteStrength_5, fea_chitinWard_6, fea_cloakOfShadows_7, fea_corrosiveCraft_8, fea_corruption_9, fea_dancersGrace_10, fea_devotedSpirit_11, fea_divineInspiration_12, fea_divineProtection_13, fea_divineStrength_14, fea_duelistTraining_15, fea_elementalShield_16, fea_embraceElements_17, fea_embraceShadows_18, fea_enhancePoison_19, fea_evasion_20, fea_fearsomePresence_21, fea_focusEnergy_22, fea_ironSkin_23, fea_pestilentAffinity_24, fea_primalFury_25, fea_quickFingers_26, fea_runicWard_27, fea_shadowFocus_28, fea_shadowmeld_29, fea_siphonedVigor_30, fea_unyieldingGuard_31] as readonly Feat[];
+
+export const FEATS_BY_ID = {
   "acid_tempering": fea_acidTempering_0,
   "acrobatic_training": fea_acrobaticTraining_1,
   "arcane_penetration": fea_arcanePenetration_2,
@@ -75,4 +78,4 @@ export const FEATS_BY_ID: Record<FeatId, FeatDefinition> = {
   "shadowmeld": fea_shadowmeld_29,
   "siphoned_vigor": fea_siphonedVigor_30,
   "unyielding_guard": fea_unyieldingGuard_31,
-};
+} as Record<FeatId, Feat>;

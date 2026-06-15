@@ -37,5 +37,4 @@ export const skillSchema = z.object({
 	tags: z.array(z.string().nonempty()).default([]),
 });
 
-export type Skill = z.infer<typeof skillSchema>;
-export type SkillDefinition = Skill;
+export type SkillDefinition = z.infer<typeof skillSchema>;

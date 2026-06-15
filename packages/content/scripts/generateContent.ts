@@ -110,11 +110,14 @@ function generateFor(type: string, dir: string, typeDefImportPath: string) {
 		`export { ${type}IdSchema, ${type}Ids };`,
 		`export type { ${typeName}Id } from './${type}Ids';`,
 		"",
-		`export const ${plural}: readonly ${typeName}Definition[] = [${collected.map((c) => c.importName).join(", ")}];`,
+		"type WithGeneratedId<TDefinition extends { id: string }, TId extends string> = TDefinition extends unknown ? Omit<TDefinition, 'id'> & { id: TId } : never;",
+		`export type ${typeName} = WithGeneratedId<${typeName}Definition, ${typeName}Id>;`,
 		"",
-		`export const ${plural.toUpperCase()}_BY_ID: Record<${typeName}Id, ${typeName}Definition> = {`,
+		`export const ${plural}: readonly ${typeName}[] = [${collected.map((c) => c.importName).join(", ")}] as readonly ${typeName}[];`,
+		"",
+		`export const ${plural.toUpperCase()}_BY_ID = {`,
 		...collected.map((c) => `  ${JSON.stringify(c.id)}: ${c.importName},`),
-		`};`,
+		`} as Record<${typeName}Id, ${typeName}>;`,
 	];
 
 	writeFileIfChanged(idsFile, `// Generated — do not edit by hand\n\n${idsArrayText}\n`);

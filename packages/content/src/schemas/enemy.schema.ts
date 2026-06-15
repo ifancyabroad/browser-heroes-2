@@ -96,6 +96,5 @@ export const enemySchema = z.object({
 	tags: z.array(z.string().nonempty()).default([]),
 });
 
-export type Enemy = z.infer<typeof enemySchema>;
-export type EnemyDefinition = Enemy;
+export type EnemyDefinition = z.infer<typeof enemySchema>;
 export type EnemyRank = z.infer<typeof enemyRankSchema>;
