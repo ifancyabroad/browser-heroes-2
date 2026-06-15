@@ -1,11 +1,11 @@
-// Generated — do not edit by hand
+// Generated - do not edit by hand
 
 import type { ClassDefinition } from '../schemas';
 import type { ClassId } from './classIds';
 import type { FeatId } from './featIds';
 import type { ItemId } from './itemIds';
 import type { SkillId } from './skillIds';
-import type { WithCombatContentIds, WithEquipmentItemIds, WithGeneratedId } from './typeHelpers';
+import type { WithCombatContentIds, WithEquipmentItemIds, WithGeneratedId } from '../types/contentTypes';
 import { classIdSchema, classIds } from './classIds';
 
 import cla_battlemage_0 from '../classes/battlemage';
@@ -24,9 +24,12 @@ export type Class = Omit<WithGeneratedId<ClassDefinition, ClassId>, 'combat' | '
   startingEquipment?: WithEquipmentItemIds<NonNullable<ClassDefinition['startingEquipment']>, ItemId>;
 };
 
-export const classes: readonly Class[] = [cla_battlemage_0, cla_fighter_1, cla_mage_2, cla_paladin_3, cla_priest_4, cla_shadowblade_5, cla_thief_6] as readonly Class[];
+const rawClasses = [cla_battlemage_0, cla_fighter_1, cla_mage_2, cla_paladin_3, cla_priest_4, cla_shadowblade_5, cla_thief_6] satisfies readonly ClassDefinition[];
 
-export const CLASSES_BY_ID = {
+// Reference IDs are validated by generateContent.ts before this registry is written.
+export const classes = rawClasses as readonly Class[];
+
+const rawClassesById = {
   "battlemage": cla_battlemage_0,
   "fighter": cla_fighter_1,
   "mage": cla_mage_2,
@@ -34,4 +37,7 @@ export const CLASSES_BY_ID = {
   "priest": cla_priest_4,
   "shadowblade": cla_shadowblade_5,
   "thief": cla_thief_6,
-} as Record<ClassId, Class>;
+} satisfies Record<ClassId, ClassDefinition>;
+
+// Reference IDs are validated by generateContent.ts before this registry is written.
+export const CLASSES_BY_ID = rawClassesById as Record<ClassId, Class>;

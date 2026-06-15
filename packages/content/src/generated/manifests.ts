@@ -1,4 +1,4 @@
-// Generated — do not edit by hand
+// Generated - do not edit by hand
 
 import { skillIdSchema, skillIds } from './skillIds';
 import { enemyIdSchema, enemyIds } from './enemyIds';

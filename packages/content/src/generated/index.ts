@@ -1,4 +1,4 @@
-// Generated — do not edit by hand
+// Generated - do not edit by hand
 
 export * from './skills.registry';
 export * from './enemies.registry';
