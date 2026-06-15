@@ -1,26 +1,46 @@
-import Card from "../components/Card";
-import logo from "../assets/images/logos/browser_heroes.png";
-import { ClassSelection } from "../features/createCharacter";
-import type { ClassId } from "@app/content";
+import { classes, type ClassId } from "@app/content";
 import { useState } from "react";
+import { HeroNameModal } from "../features/createCharacter/components/HeroNameModal";
+import { ClassCard } from "../features/createCharacter/components/ClassCard";
 
 export default function CreateCharacter() {
 	const [selectedClassId, setSelectedClassId] = useState<ClassId | null>(null);
 
+	function handleSelect(classId: ClassId) {
+		setSelectedClassId(classId);
+	}
+
+	function handleClose() {
+		setSelectedClassId(null);
+	}
+
+	function handleConfirm(heroName: string) {
+		console.log({
+			classId: selectedClassId,
+			heroName,
+		});
+	}
+
 	return (
 		<div className="min-h-screen flex flex-col overflow-hidden">
-			{/* TODO: Add header */}
-
 			<div className="flex-1 flex items-center justify-center">
-				<div className="max-w-sm w-full">
-					<Card className="text-center flex flex-col items-center gap-4">
-						<img src={logo} alt="Browser Heroes" width="260" />
-						<p>Select a class to begin</p>
-						<ClassSelection
-							selectedClassId={selectedClassId}
-							onSelect={setSelectedClassId}
-						/>
-					</Card>
+				<div className="container mx-auto px-4">
+					<h1 className="text-text-bright text-center mb-4">Select a class to begin</h1>
+					<div className="grid gap-4 grid-cols-2">
+						{classes.map((gameClass) => (
+							<ClassCard
+								key={gameClass.id}
+								gameClass={gameClass}
+								onSelect={handleSelect}
+							/>
+						))}
+					</div>
+
+					<HeroNameModal
+						open={Boolean(selectedClassId)}
+						onClose={handleClose}
+						onConfirm={handleConfirm}
+					/>
 				</div>
 			</div>
 		</div>
