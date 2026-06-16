@@ -1,7 +1,6 @@
 import { classes, type ClassId } from "@app/content";
 import { useState } from "react";
-import { HeroNameModal } from "../features/createCharacter/components/HeroNameModal";
-import { ClassCard } from "../features/createCharacter/components/ClassCard";
+import { ClassCard, HeroNameModal } from "../features/createCharacter";
 
 export default function CreateCharacter() {
 	const [selectedClassId, setSelectedClassId] = useState<ClassId | null>(null);

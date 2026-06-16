@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal } from "../../../components/Modal";
+import { Button } from "../../../components/Button";
 
 type HeroNameModalProps = {
 	open: boolean;
@@ -17,6 +18,10 @@ export function HeroNameModal({
 	const [heroName, setHeroName] = useState("");
 
 	const trimmedName = heroName.trim();
+
+	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+		setHeroName(event.target.value);
+	}
 
 	function handleSubmit(event: React.FormEvent) {
 		event.preventDefault();
@@ -36,30 +41,37 @@ export function HeroNameModal({
 			closeOnBackdropClick={!isSubmitting}
 			footer={
 				<>
-					<button type="button" onClick={onClose} disabled={isSubmitting}>
+					<Button
+						type="button"
+						onClick={onClose}
+						disabled={isSubmitting}
+						className="text-text-bright"
+					>
 						Cancel
-					</button>
+					</Button>
 
-					<button
+					<Button
 						type="submit"
 						form="hero-name-form"
 						disabled={!trimmedName || isSubmitting}
+						className="text-primary"
 					>
 						{isSubmitting ? "Creating..." : "Start Game"}
-					</button>
+					</Button>
 				</>
 			}
 		>
 			<form id="hero-name-form" onSubmit={handleSubmit}>
-				<label>
-					Hero name
-					<input
-						value={heroName}
-						onChange={(event) => setHeroName(event.target.value)}
-						disabled={isSubmitting}
-						autoFocus
-					/>
-				</label>
+				<input
+					id="hero-name-input"
+					type="text"
+					value={heroName}
+					onChange={handleChange}
+					disabled={isSubmitting}
+					autoComplete="off"
+					className="w-full border-2 border-border bg-bg-base px-3 py-2 text-text-bright caret-primary outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+					autoFocus
+				/>
 			</form>
 		</Modal>
 	);

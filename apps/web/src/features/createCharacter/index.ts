@@ -1,1 +1,2 @@
-export { ClassSelection } from "./components/ClassSelection";
+export { ClassCard } from "./components/ClassCard";
+export { HeroNameModal } from "./components/HeroNameModal";

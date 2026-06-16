@@ -34,19 +34,17 @@ export function Modal({
 				role="dialog"
 				aria-modal="true"
 				aria-labelledby="modal-title"
-				className="w-full max-w-md rounded bg-white p-6"
+				className="border-2 border-border bg-bg-elevated w-full max-w-md p-6"
 			>
 				<header className="mb-4 flex items-center justify-between">
-					<h2 id="modal-title">{title}</h2>
-
-					<button type="button" onClick={onClose} aria-label="Close modal">
-						×
-					</button>
+					<h2 id="modal-title" className="text-text-bright">
+						{title}
+					</h2>
 				</header>
 
 				<div>{children}</div>
 
-				{footer && <footer className="mt-6 flex justify-end gap-2">{footer}</footer>}
+				{footer && <footer className="mt-6 flex justify-end gap-4">{footer}</footer>}
 			</div>
 		</div>,
 		document.body,
