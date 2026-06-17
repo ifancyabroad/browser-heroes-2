@@ -57,7 +57,6 @@ export {
 	combatantIdSchema,
 	activeCombatEffectSchema,
 	combatantSkillStateSchema,
-	combatantItemStateSchema,
 } from "./combatState.schema";
 
 export type {
@@ -68,7 +67,6 @@ export type {
 	CombatantId,
 	ActiveCombatEffect,
 	CombatantSkillState,
-	CombatantItemState,
 } from "./combatState.schema";
 
 export { combatLogEntrySchema, runLogEntrySchema, logActorSchema } from "./log.schema";

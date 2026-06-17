@@ -52,4 +52,11 @@ export const passiveModifierSchema = z.discriminatedUnion("type", [
 	passiveDamageAffinityModifierSchema,
 ]);
 
+export type ModifiableStat = z.infer<typeof modifiableStatSchema>;
+export type ModifierOperation = z.infer<typeof modifierOperationSchema>;
+export type DamageAffinityKind = z.infer<typeof damageAffinityKindSchema>;
+export type DamageAffinityOperation = z.infer<typeof damageAffinityOperationSchema>;
+export type PassiveStatModifier = z.infer<typeof passiveStatModifierSchema>;
+export type PassiveDamageModifier = z.infer<typeof passiveDamageModifierSchema>;
+export type PassiveDamageAffinityModifier = z.infer<typeof passiveDamageAffinityModifierSchema>;
 export type PassiveModifier = z.infer<typeof passiveModifierSchema>;

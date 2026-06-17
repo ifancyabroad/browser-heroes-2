@@ -10,7 +10,7 @@ export function continueToNextCombat(state: RunState): EngineResult {
 		return failureResult(state, "INVALID_PHASE");
 	}
 
-	if (state.combat.status !== "enemy_dead") {
+	if (state.combat.status !== "player_won") {
 		return failureResult(state, "INVALID_PHASE");
 	}
 

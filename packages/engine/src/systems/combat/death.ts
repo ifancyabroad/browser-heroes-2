@@ -1,17 +1,17 @@
 import type { CombatState } from "../../schemas";
 
 export function resolveCombatStatus(combat: CombatState): CombatState {
-	if (combat.player.isDead) {
+	if (combat.player.currentHp <= 0) {
 		return {
 			...combat,
-			status: "player_dead",
+			status: "enemy_won",
 		};
 	}
 
-	if (combat.enemy.isDead) {
+	if (combat.enemy.currentHp <= 0) {
 		return {
 			...combat,
-			status: "enemy_dead",
+			status: "player_won",
 		};
 	}
 
@@ -22,9 +22,9 @@ export function resolveCombatStatus(combat: CombatState): CombatState {
 }
 
 export function isCombatVictory(combat: CombatState): boolean {
-	return combat.status === "enemy_dead";
+	return combat.status === "player_won";
 }
 
 export function isCombatDefeat(combat: CombatState): boolean {
-	return combat.status === "player_dead";
+	return combat.status === "enemy_won";
 }

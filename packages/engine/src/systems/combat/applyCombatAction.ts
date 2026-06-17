@@ -1,9 +1,8 @@
 import type { CombatState, EngineAction, EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
-import { applyDamage, calculateDamage } from "./damage";
-import { appendCombatLog } from "./combatLog";
 import { resolveCombatStatus } from "./death";
+import { resolveBasicAttack } from "./attacks";
 
 export function applyCombatAction(state: RunState, action: EngineAction): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
@@ -25,15 +24,18 @@ export function applyCombatAction(state: RunState, action: EngineAction): Engine
 
 function resolveBasicAttackRound(state: RunState): EngineResult {
 	const combat = state.combat!;
+	const playerAttack = resolveBasicAttack({
+		combat,
+		attackerSide: "player",
+		rngState: state.rngState,
+	});
+	const afterPlayerDeathCheck = resolveCombatStatus(playerAttack.value);
 
-	const afterPlayerAttack = resolveAttack(combat, "player");
-
-	const afterPlayerDeathCheck = resolveCombatStatus(afterPlayerAttack);
-
-	if (afterPlayerDeathCheck.status === "enemy_dead") {
+	if (afterPlayerDeathCheck.status === "player_won") {
 		return successResult(
 			{
 				...state,
+				rngState: playerAttack.rngState,
 				combat: afterPlayerDeathCheck,
 			},
 			[
@@ -45,14 +47,21 @@ function resolveBasicAttackRound(state: RunState): EngineResult {
 		);
 	}
 
-	const afterEnemyAttack = resolveAttack(afterPlayerDeathCheck, "enemy");
+	const enemyAttack = resolveBasicAttack({
+		combat: {
+			...afterPlayerDeathCheck,
+			activeActor: "enemy",
+		},
+		attackerSide: "enemy",
+		rngState: playerAttack.rngState,
+	});
+	const afterEnemyDeathCheck = resolveCombatStatus(enemyAttack.value);
 
-	const afterEnemyDeathCheck = resolveCombatStatus(afterEnemyAttack);
-
-	if (afterEnemyDeathCheck.status === "player_dead") {
+	if (afterEnemyDeathCheck.status === "enemy_won") {
 		return successResult(
 			{
 				...state,
+				rngState: enemyAttack.rngState,
 				phase: "dead",
 				combat: afterEnemyDeathCheck,
 			},
@@ -68,11 +77,8 @@ function resolveBasicAttackRound(state: RunState): EngineResult {
 	return successResult(
 		{
 			...state,
-			combat: {
-				...afterEnemyDeathCheck,
-				turnNumber: afterEnemyDeathCheck.turnNumber + 1,
-				activeActor: "player",
-			},
+			rngState: enemyAttack.rngState,
+			combat: advanceTurn(afterEnemyDeathCheck),
 		},
 		[
 			{
@@ -82,28 +88,10 @@ function resolveBasicAttackRound(state: RunState): EngineResult {
 	);
 }
 
-function resolveAttack(combat: CombatState, attackerSide: "player" | "enemy"): CombatState {
-	const attacker = attackerSide === "player" ? combat.player : combat.enemy;
-
-	const defender = attackerSide === "player" ? combat.enemy : combat.player;
-
-	const damage = calculateDamage({
-		attacker,
-		defender,
-	});
-
-	const updatedDefender = applyDamage(defender, damage);
-
-	const nextCombat: CombatState = {
+function advanceTurn(combat: CombatState): CombatState {
+	return {
 		...combat,
-		player: updatedDefender.side === "player" ? updatedDefender : combat.player,
-		enemy: updatedDefender.side === "enemy" ? updatedDefender : combat.enemy,
+		turnNumber: combat.turnNumber + 1,
+		activeActor: "player",
 	};
-
-	return appendCombatLog(nextCombat, {
-		turnNumber: combat.turnNumber,
-		actor: attacker.side,
-		message: `${attacker.name} attacks ${defender.name} for ${damage.amount} damage.`,
-		eventType: "basic_attack",
-	});
 }

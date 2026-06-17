@@ -5,11 +5,12 @@ import {
 	featIdSchema,
 	itemIdSchema,
 	skillIdSchema,
+	skillRankValueSchema,
 } from "@app/content";
 
 export const heroSkillStateSchema = z.object({
 	skillId: skillIdSchema,
-	rank: z.number().int().min(1).max(3).default(1),
+	rank: skillRankValueSchema.default(1),
 
 	// Optional because not every skill needs charges.
 	chargesRemaining: z.number().int().min(0).optional(),

@@ -17,7 +17,7 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 		];
 	}
 
-	if (state.phase === "combat" && state.combat?.status === "enemy_dead") {
+	if (state.phase === "combat" && state.combat?.status === "player_won") {
 		return [
 			{
 				type: "CONTINUE_TO_NEXT_COMBAT",

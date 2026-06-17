@@ -5,8 +5,8 @@ import {
 	basicAttackSchema,
 	damageAffinitiesSchema,
 	featIdSchema,
-	itemIdSchema,
 	skillIdSchema,
+	skillRankValueSchema,
 } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
@@ -16,7 +16,7 @@ export const combatantIdSchema = z.string();
 
 export const activeCombatEffectSchema = z.object({
 	id: z.string(),
-	// Example: poison, burn, stun, strength_buff, etc.
+	// Placeholder until active combat effects are implemented in a focused pass.
 	effectId: z.string(),
 	sourceCombatantId: combatantIdSchema,
 	targetCombatantId: combatantIdSchema,
@@ -26,13 +26,12 @@ export const activeCombatEffectSchema = z.object({
 
 export const combatantSkillStateSchema = z.object({
 	skillId: skillIdSchema,
+	rank: skillRankValueSchema,
 	chargesRemaining: z.number().int().min(0).optional(),
 });
 
-export const combatantItemStateSchema = z.object({
-	instanceId: z.string(),
-	itemId: itemIdSchema,
-	equipped: z.boolean().default(false),
+export const combatantBasicAttackSchema = basicAttackSchema.extend({
+	proficient: z.boolean(),
 });
 
 export const combatantStateSchema = z.object({
@@ -48,10 +47,9 @@ export const combatantStateSchema = z.object({
 	proficiencyBonus: z.number().int().min(0),
 	savingThrowProficiencies: z.array(attributeSchema),
 	damageAffinities: damageAffinitiesSchema,
-	basicAttack: basicAttackSchema,
+	basicAttack: combatantBasicAttackSchema,
 	skills: z.array(combatantSkillStateSchema),
 	featIds: z.array(featIdSchema),
-
 	activeEffects: z.array(activeCombatEffectSchema),
 });
 
@@ -71,8 +69,8 @@ export const combatStateSchema = z.object({
 export type CombatantSide = z.infer<typeof combatantSideSchema>;
 export type CombatantId = z.infer<typeof combatantIdSchema>;
 export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;
+export type CombatantBasicAttack = z.infer<typeof combatantBasicAttackSchema>;
 export type CombatantSkillState = z.infer<typeof combatantSkillStateSchema>;
-export type CombatantItemState = z.infer<typeof combatantItemStateSchema>;
 export type CombatantState = z.infer<typeof combatantStateSchema>;
 export type CombatStatus = z.infer<typeof combatStatusSchema>;
 export type CombatState = z.infer<typeof combatStateSchema>;

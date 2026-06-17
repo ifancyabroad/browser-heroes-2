@@ -186,6 +186,7 @@ export type DiceFormula = z.infer<typeof diceFormulaSchema>;
 export type SkillPool = z.infer<typeof skillPoolSchema>;
 export type SkillCategory = z.infer<typeof skillCategorySchema>;
 export type SkillTarget = z.infer<typeof skillTargetSchema>;
+export type SkillRankValue = z.infer<typeof skillRankValueSchema>;
 export type ArmourType = z.infer<typeof armourTypeSchema>;
 export type WeaponType = z.infer<typeof weaponTypeSchema>;
 export type Zone = z.infer<typeof zoneSchema>;

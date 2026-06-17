@@ -92,6 +92,9 @@ export type ItemRarity = z.infer<typeof itemRaritySchema>;
 export type ArmourSlot = z.infer<typeof armourSlotSchema>;
 export type ArmourCategory = z.infer<typeof armourCategorySchema>;
 
+export type ItemStatModifier = z.infer<typeof itemStatModifierSchema>;
+export type ItemDamageModifier = z.infer<typeof itemDamageModifierSchema>;
+export type ItemDamageAffinityModifier = z.infer<typeof itemDamageAffinityModifierSchema>;
 export type ItemModifier = z.infer<typeof itemModifierSchema>;
 
 export type BodyArmour = z.infer<typeof bodyArmourSchema>;

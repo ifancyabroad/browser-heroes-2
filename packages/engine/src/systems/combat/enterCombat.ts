@@ -2,7 +2,8 @@ import type { CombatState, EngineResult, RunState } from "../../schemas";
 
 import { createCombatId } from "../../core/ids";
 import { failureResult, successResult } from "../../core/result";
-import { createEnemyCombatantForRun, createPlayerCombatantFromHero } from "./combatMappers";
+import { createEnemyCombatantFromDefinition, createPlayerCombatantFromHero } from "./combatMappers";
+import { getEncounterTypeForBattle, selectEnemyForRun } from "./encounters";
 
 export function enterCombat(state: RunState): EngineResult {
 	if (state.phase !== "town") {
@@ -11,12 +12,18 @@ export function enterCombat(state: RunState): EngineResult {
 
 	const combatId = createCombatId(state.id, state.battleNumber);
 
-	const player = createPlayerCombatantFromHero(state.hero);
-	const enemy = createEnemyCombatantForRun(state);
+	const selectedEnemy = selectEnemyForRun(state);
+
+	if (!selectedEnemy) {
+		return failureResult(state, "VALIDATION_FAILED");
+	}
+
+	const player = createPlayerCombatantFromHero(state.hero, combatId);
+	const enemy = createEnemyCombatantFromDefinition(selectedEnemy.value, combatId);
 
 	const combat: CombatState = {
 		id: combatId,
-		encounterType: getEncounterType(state),
+		encounterType: getEncounterTypeForBattle(state.battleNumber),
 		turnNumber: 1,
 		activeActor: "player",
 		player,
@@ -36,6 +43,7 @@ export function enterCombat(state: RunState): EngineResult {
 	return successResult(
 		{
 			...state,
+			rngState: selectedEnemy.rngState,
 			phase: "combat",
 			combat,
 			town: null,
@@ -47,12 +55,4 @@ export function enterCombat(state: RunState): EngineResult {
 			},
 		],
 	);
-}
-
-function getEncounterType(state: RunState): CombatState["encounterType"] {
-	if (state.battleNumber % 10 === 0) {
-		return "boss";
-	}
-
-	return "standard";
 }
