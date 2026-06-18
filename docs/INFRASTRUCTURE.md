@@ -43,9 +43,10 @@ Frontend stack direction:
 - Tailwind CSS
 - Zustand
 - TanStack Query
-- Phaser
 
 The frontend is responsible for rendering, user interaction, local orchestration, visual feedback, and client-side simulation execution where appropriate.
+
+The web client does not use Phaser or another standalone game rendering engine. Town, combat, and meta-game screens should be implemented as React interfaces backed by shared engine state and selectors.
 
 The frontend should prioritize responsiveness, fast loading, mobile compatibility, and low runtime overhead.
 

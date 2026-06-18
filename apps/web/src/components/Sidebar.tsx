@@ -24,12 +24,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 				<div className="sticky top-0 z-10 border-b border-neutral-800 bg-neutral-900/95 backdrop-blur">
 					<div className="flex items-center justify-between px-5 py-4">
 						<div>
-							<h1 className="text-base font-semibold text-white">
-								MERN Phaser Template
-							</h1>
-							<p className="text-xs text-neutral-500 mt-0.5">
-								Full-stack game starter
-							</p>
+							<h1 className="text-base font-semibold text-white">Browser Heroes 2</h1>
+							<p className="text-xs text-neutral-500 mt-0.5">Run preparation</p>
 						</div>
 						<button
 							onClick={onClose}
@@ -59,7 +55,9 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 						Game
 					</h2>
 
-					<p className="text-sm text-neutral-500">Score saving is currently offline.</p>
+					<p className="text-sm text-neutral-500">
+						Town, combat, and run screens share the same interface.
+					</p>
 				</div>
 			</aside>
 		</>

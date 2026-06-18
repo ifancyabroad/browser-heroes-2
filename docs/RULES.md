@@ -98,7 +98,7 @@ Consumables are consumed on use and may be acquired through town or reward syste
 
 Town is the preparation and recovery layer between encounters.
 
-In the client, town is presented as a top-down map used to interact with facilities and begin the next combat encounter.
+In the client, town is presented as a React interface used to interact with facilities and begin the next combat encounter.
 
 Town may support:
 

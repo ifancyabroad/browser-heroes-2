@@ -39,7 +39,7 @@ The web app may optionally set `VITE_API_BASE_URL` in `apps/web/.env`.
 ```text
 apps/
   api/       Express API for persistence, scores, and backend services
-  web/       React, Vite, and Phaser browser client
+  web/       React and Vite browser client
 packages/
   content/   Declarative game content and generated registries
   engine/    Shared deterministic gameplay engine

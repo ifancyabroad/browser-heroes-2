@@ -116,9 +116,6 @@ importers:
             ky:
                 specifier: ^1.14.3
                 version: 1.14.3
-            phaser:
-                specifier: ^3.90.0
-                version: 3.90.0
             react:
                 specifier: ^19.2.3
                 version: 19.2.3
@@ -3599,12 +3596,6 @@ packages:
                 integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==,
             }
 
-    phaser@3.90.0:
-        resolution:
-            {
-                integrity: sha512-/cziz/5ZIn02uDkC9RzN8VF9x3Gs3XdFFf9nkiMEQT3p7hQlWuyjy4QWosU802qqno2YSLn2BfqwOKLv/sSVfQ==,
-            }
-
     picocolors@1.1.1:
         resolution:
             {
@@ -6496,10 +6487,6 @@ snapshots:
     path-to-regexp@8.3.0: {}
 
     pathe@2.0.3: {}
-
-    phaser@3.90.0:
-        dependencies:
-            eventemitter3: 5.0.4
 
     picocolors@1.1.1: {}
 

@@ -1,8 +1,8 @@
 {
-	"name": "mern-phaser-monorepo",
+	"name": "browser-heroes-2",
 	"version": "0.1.0",
 	"private": true,
-	"description": "Monorepo for a MERN + React + Vite + Phaser game with an Express + Mongoose API.",
+	"description": "Monorepo for a React + Vite browser RPG with an Express + Mongoose API.",
 	"license": "MIT",
 	"type": "module",
 	"packageManager": "pnpm@10.14.0",
