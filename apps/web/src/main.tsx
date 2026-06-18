@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./components/ErrorFallback";
 import { SessionGate } from "./features/auth";
+import { ErrorModal } from "./components/ErrorModal.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
 				<BrowserRouter>
 					<SessionGate>
 						<App />
+						<ErrorModal />
 					</SessionGate>
 				</BrowserRouter>
 				<ReactQueryDevtools initialIsOpen={false} />
