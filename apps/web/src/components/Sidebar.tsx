@@ -1,9 +1,24 @@
-type SidebarProps = {
+import type { PropsWithChildren, ReactNode } from "react";
+import clsx from "clsx";
+
+type SidebarProps = PropsWithChildren<{
 	open: boolean;
 	onClose: () => void;
-};
+	title?: ReactNode;
+	className?: string;
+	contentClassName?: string;
+	"aria-label"?: string;
+}>;
 
-export default function Sidebar({ open, onClose }: SidebarProps) {
+export function Sidebar({
+	open,
+	onClose,
+	title,
+	className,
+	contentClassName,
+	children,
+	"aria-label": ariaLabel = "Sidebar",
+}: SidebarProps) {
 	return (
 		<>
 			<div
@@ -12,31 +27,32 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 			/>
 
 			<aside
-				className={[
+				aria-label={ariaLabel}
+				className={clsx(
 					"fixed md:static inset-y-0 left-0 z-50 md:z-0",
-					"w-80 max-w-full bg-neutral-900 border-r border-neutral-800",
+					"w-80 max-w-full border-r border-border bg-bg-base",
 					"overflow-y-auto",
 					"transform transition-transform duration-200",
 					open ? "translate-x-0" : "-translate-x-full md:translate-x-0",
-				].join(" ")}
+					className,
+				)}
 			>
-				{/* Header */}
-				<div className="sticky top-0 z-10 border-b border-neutral-800 bg-neutral-900/95 backdrop-blur">
-					<div className="flex items-center justify-between px-5 py-4">
-						<div>
-							<h1 className="text-base font-semibold text-white">Browser Heroes 2</h1>
-							<p className="text-xs text-neutral-500 mt-0.5">Run preparation</p>
-						</div>
+				<header className="sticky top-0 z-10 border-b border-border bg-bg-base">
+					<div className="flex items-start justify-between gap-4 px-4 py-4 text-base">
+						<div className="min-w-0 flex-1">{title}</div>
+
 						<button
 							onClick={onClose}
-							className="md:hidden p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-800 rounded transition-colors"
+							className="md:hidden border border-border bg-bg-elevated p-1 text-text-muted transition-colors hover:text-text-bright"
 							aria-label="Close sidebar"
+							type="button"
 						>
 							<svg
-								className="w-4 h-4"
+								className="h-4 w-4"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
+								aria-hidden="true"
 							>
 								<path
 									strokeLinecap="round"
@@ -47,19 +63,12 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 							</svg>
 						</button>
 					</div>
-				</div>
+				</header>
 
-				{/* Navigation */}
-				<div className="px-5 py-4">
-					<h2 className="text-xs font-medium uppercase tracking-wider text-neutral-500 mb-3">
-						Game
-					</h2>
-
-					<p className="text-sm text-neutral-500">
-						Town, combat, and run screens share the same interface.
-					</p>
-				</div>
+				<div className={clsx("px-4 py-4 text-base", contentClassName)}>{children}</div>
 			</aside>
 		</>
 	);
 }
+
+export default Sidebar;
