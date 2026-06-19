@@ -8,7 +8,7 @@ export function useCreateRun() {
 	return useMutation({
 		mutationFn: createRun,
 		onSuccess: (data) => {
-			queryClient.setQueryData(runKeys.current(), data.run);
+			queryClient.setQueryData(runKeys.current(), data);
 		},
 	});
 }

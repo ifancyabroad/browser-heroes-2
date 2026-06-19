@@ -1,11 +1,12 @@
 import type { PropsWithChildren } from "react";
 import { useCurrentUser } from "../hooks/useCurrentUser";
+import { PageLoader } from "../../../components/PageLoader";
 
 export function SessionGate({ children }: PropsWithChildren) {
 	const { isPending, isError } = useCurrentUser();
 
 	if (isPending) {
-		return <div>Loading...</div>;
+		return <PageLoader />;
 	}
 
 	if (isError) {

@@ -1,4 +1,5 @@
 import type { RunView } from "@app/shared";
+import { Layout } from "../../../components/Layout";
 
 type TownViewProps = {
 	run: RunView;
@@ -9,7 +10,7 @@ export function TownView({ run }: TownViewProps) {
 	const { gold, hero } = state;
 
 	return (
-		<main>
+		<Layout>
 			<h1>Town</h1>
 
 			<p>{hero.name}</p>
@@ -21,6 +22,6 @@ export function TownView({ run }: TownViewProps) {
 			<p>Battle: {state.battleNumber}</p>
 
 			<button type="button">Enter Combat</button>
-		</main>
+		</Layout>
 	);
 }

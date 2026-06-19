@@ -1,12 +1,13 @@
 import { Navigate } from "react-router-dom";
 import { useCurrentRun } from "../features/runs";
 import { TownView } from "../features/town";
+import { PageLoader } from "../components/PageLoader";
 
 export default function Game() {
 	const { data, isPending } = useCurrentRun();
 
 	if (isPending) {
-		return <p>Loading run...</p>;
+		return <PageLoader />;
 	}
 
 	if (!data?.run) {

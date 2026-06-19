@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useCreateGuestSession, useCurrentUser } from "../features/auth";
 import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
+import { Layout } from "../components/Layout";
 
 export default function CreateCharacter() {
 	const navigate = useNavigate();
@@ -44,11 +45,11 @@ export default function CreateCharacter() {
 	}
 
 	return (
-		<div className="min-h-screen flex flex-col overflow-hidden">
+		<Layout>
 			<div className="flex-1 flex items-center justify-center">
-				<div className="container mx-auto px-4">
+				<div className="mx-auto w-full max-w-4xl px-4">
 					<h1 className="text-text-bright text-center mb-4">Select a class to begin</h1>
-					<div className="grid gap-4 grid-cols-2">
+					<div className="grid gap-4 md:grid-cols-2">
 						{classes.map((gameClass) => (
 							<ClassCard
 								key={gameClass.id}
@@ -65,6 +66,6 @@ export default function CreateCharacter() {
 					/>
 				</div>
 			</div>
-		</div>
+		</Layout>
 	);
 }

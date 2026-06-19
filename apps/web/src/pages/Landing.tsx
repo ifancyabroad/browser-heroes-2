@@ -2,6 +2,7 @@ import { Card } from "../components/Card";
 import logo from "../assets/images/logos/browser_heroes.png";
 import { useCurrentUser } from "../features/auth";
 import { Link } from "../components/Link";
+import { Layout } from "../components/Layout";
 
 export default function Landing() {
 	const { data } = useCurrentUser();
@@ -9,7 +10,7 @@ export default function Landing() {
 	console.log("currentUser", data?.user);
 
 	return (
-		<div className="min-h-screen flex flex-col overflow-hidden">
+		<Layout>
 			{/* TODO: Add header */}
 
 			<div className="flex-1 flex items-center justify-center">
@@ -25,6 +26,6 @@ export default function Landing() {
 					</Card>
 				</div>
 			</div>
-		</div>
+		</Layout>
 	);
 }
