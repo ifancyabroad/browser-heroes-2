@@ -1,6 +1,13 @@
-import { applyAction, runStateSchema, type EngineAction, type RunState } from "@app/engine";
+import {
+	applyAction,
+	engineResultSchema,
+	runStateSchema,
+	type EngineAction,
+	type RunState,
+} from "@app/engine";
 import { RunActionModel } from "../models/runAction.model";
 import { RunModel, type RunDocument } from "../models/run.model";
+import mongoose from "mongoose";
 
 export type ApplyRunActionInput = {
 	userId: string;
@@ -9,40 +16,44 @@ export type ApplyRunActionInput = {
 };
 
 export async function applyRunAction(input: ApplyRunActionInput) {
-	const run = await RunModel.findOne({
-		_id: input.runId,
-		userId: input.userId,
-		status: "active",
+	return mongoose.connection.transaction(async (session) => {
+		const run = await RunModel.findOne({
+			_id: input.runId,
+			userId: input.userId,
+			status: "active",
+		}).session(session);
+
+		if (!run) {
+			throw new Error("RUN_NOT_FOUND");
+		}
+
+		const currentState = runStateSchema.parse(run.state);
+
+		const result = engineResultSchema.parse(applyAction(currentState, input.action));
+
+		const sequence = run.nextActionSequence;
+
+		applyStateToRun(run, result.state);
+		run.nextActionSequence += 1;
+
+		await run.save({ session });
+
+		await RunActionModel.create(
+			[
+				{
+					runId: run._id,
+					userId: input.userId,
+					sequence,
+					action: input.action,
+					success: result.ok,
+					error: result.ok ? undefined : result.error,
+				},
+			],
+			{ session },
+		);
+
+		return { run, result };
 	});
-
-	if (!run) {
-		throw new Error("RUN_NOT_FOUND");
-	}
-
-	const currentState = runStateSchema.parse(run.state);
-	const result = applyAction(currentState, input.action);
-	const nextState = runStateSchema.parse(result.state);
-
-	const sequence = run.nextActionSequence;
-
-	applyStateToRun(run, nextState);
-	run.nextActionSequence += 1;
-
-	await run.save();
-
-	await RunActionModel.create({
-		runId: run._id,
-		userId: input.userId,
-		sequence,
-		action: input.action,
-		success: result.ok,
-		error: result.ok ? undefined : result.error,
-	});
-
-	return {
-		run,
-		result,
-	};
 }
 
 function applyStateToRun(run: RunDocument, state: RunState): void {
