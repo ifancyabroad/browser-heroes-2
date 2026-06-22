@@ -7,7 +7,12 @@ import type {
 	CurrentRunResponse,
 	GetRunResponse,
 } from "@app/shared";
-import { createRun, getCurrentRunForUser, getRunForUser } from "../services/run.service";
+import {
+	createRun,
+	getCurrentRunForUser,
+	getRunActions,
+	getRunForUser,
+} from "../services/run.service";
 import { toRunView } from "../services/projection.service";
 import { applyRunAction } from "../services/engine.service";
 
@@ -72,5 +77,16 @@ export async function applyRunActionController(
 	res.status(200).json({
 		result: response.result,
 		run: response.run,
+	});
+}
+
+export async function getRunActionsController(req: Request<{ runId: string }>, res: Response) {
+	const actions = await getRunActions({
+		userId: req.session.userId!,
+		runId: req.params.runId,
+	});
+
+	res.status(200).json({
+		actions,
 	});
 }

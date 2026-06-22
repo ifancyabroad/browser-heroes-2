@@ -1,11 +1,14 @@
 import { applyAction, runStateSchema, type EngineAction, type RunState } from "@app/engine";
-import { RunModel } from "../models/run.model";
+import { RunActionModel } from "../models/runAction.model";
+import { RunModel, type RunDocument } from "../models/run.model";
 
-export async function applyRunAction(input: {
+export type ApplyRunActionInput = {
 	userId: string;
 	runId: string;
 	action: EngineAction;
-}) {
+};
+
+export async function applyRunAction(input: ApplyRunActionInput) {
 	const run = await RunModel.findOne({
 		_id: input.runId,
 		userId: input.userId,
@@ -16,26 +19,40 @@ export async function applyRunAction(input: {
 		throw new Error("RUN_NOT_FOUND");
 	}
 
-	// Important when loading Schema.Types.Mixed from persistence.
 	const currentState = runStateSchema.parse(run.state);
-
 	const result = applyAction(currentState, input.action);
 	const nextState = runStateSchema.parse(result.state);
 
-	run.state = nextState;
-	run.summary = deriveRunSummary(nextState);
-	run.status = deriveRunStatus(nextState);
+	const sequence = run.nextActionSequence;
 
-	if (run.status !== "active") {
-		run.completedAt = new Date();
-	}
+	applyStateToRun(run, nextState);
+	run.nextActionSequence += 1;
 
 	await run.save();
 
+	await RunActionModel.create({
+		runId: run._id,
+		userId: input.userId,
+		sequence,
+		action: input.action,
+		success: result.ok,
+		error: result.ok ? undefined : result.error,
+	});
+
 	return {
-		result,
 		run,
+		result,
 	};
+}
+
+function applyStateToRun(run: RunDocument, state: RunState): void {
+	run.state = state;
+	run.summary = deriveRunSummary(state);
+	run.status = deriveRunStatus(state);
+
+	if (run.status !== "active" && !run.completedAt) {
+		run.completedAt = new Date();
+	}
 }
 
 function deriveRunSummary(state: RunState) {
@@ -52,8 +69,10 @@ function deriveRunStatus(state: RunState): "active" | "dead" | "victory" {
 	switch (state.phase) {
 		case "dead":
 			return "dead";
+
 		case "complete":
 			return "victory";
+
 		default:
 			return "active";
 	}

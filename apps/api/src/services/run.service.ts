@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import type { CreateRunBody, RunSummaryView } from "@app/shared";
 import { createInitialRunState, type RunState } from "@app/engine";
 import { RunModel } from "../models/run.model";
+import { RunActionModel } from "../models/runAction.model";
 
 export function deriveRunSummary(state: RunState): RunSummaryView {
 	return {
@@ -48,4 +49,22 @@ export async function getRunForUser(params: { userId: string; runId: string }) {
 		_id: params.runId,
 		userId: params.userId,
 	});
+}
+
+export async function getRunActions(input: { userId: string; runId: string }) {
+	const runExists = await RunModel.exists({
+		_id: input.runId,
+		userId: input.userId,
+	});
+
+	if (!runExists) {
+		throw new Error("RUN_NOT_FOUND");
+	}
+
+	return RunActionModel.find({
+		runId: input.runId,
+		userId: input.userId,
+	})
+		.sort({ sequence: 1 })
+		.lean();
 }

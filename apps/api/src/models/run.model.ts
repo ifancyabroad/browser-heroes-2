@@ -59,6 +59,13 @@ const runSchema = new Schema(
 			index: true,
 		},
 
+		nextActionSequence: {
+			type: Number,
+			required: true,
+			default: 1,
+			min: 1,
+		},
+
 		/**
 		 * Full engine-owned run state.
 		 *
