@@ -87,6 +87,7 @@ const runSchema = new Schema(
 	},
 	{
 		timestamps: true,
+		optimisticConcurrency: true,
 	},
 );
 

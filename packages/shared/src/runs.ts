@@ -1,5 +1,5 @@
 import { classIdSchema, type ClassId } from "@app/content";
-import type { RunState } from "@app/engine";
+import { engineActionSchema, type RunState } from "@app/engine";
 import { z } from "zod";
 
 export const createRunBodySchema = z.object({
@@ -46,3 +46,9 @@ export interface ApiErrorResponse {
 	message?: string;
 	details?: unknown;
 }
+
+export const applyRunActionBodySchema = z.object({
+	action: engineActionSchema,
+});
+
+export type ApplyRunActionBody = z.infer<typeof applyRunActionBodySchema>;
