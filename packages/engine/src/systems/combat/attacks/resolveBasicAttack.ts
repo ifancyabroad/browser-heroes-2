@@ -1,23 +1,30 @@
 import type { Attribute } from "@app/content";
-import type { CombatantSide, CombatState } from "../../schemas";
-import type { RngResult, RngState } from "../../core/rng";
-import { appendCombatLog } from "./combatLog";
-import { resolveAttackRoll } from "./checks";
-import { applyDamage, calculateDamage } from "./damage";
 
-export function resolveBasicAttack(input: {
+import type { CombatantSide, CombatantState, CombatState } from "../../../schemas";
+
+import type { RngResult, RngState } from "../../../core/rng";
+
+import { appendCombatLog } from "../combatLog";
+import { resolveAttackRoll } from "../checks";
+import { applyDamage, calculateDamage } from "../damage";
+import { getCombatant, getOpponent, replaceCombatant } from "../combatants/combatantSelectors";
+
+type ResolveBasicAttackInput = {
 	combat: CombatState;
 	attackerSide: CombatantSide;
 	rngState: RngState;
-}): RngResult<CombatState> {
+};
+
+export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<CombatState> {
 	const attacker = getCombatant(input.combat, input.attackerSide);
+
 	const defender = getOpponent(input.combat, input.attackerSide);
-	const attackAttribute = getBasicAttackAttribute(attacker.basicAttack);
+
 	const attackRoll = resolveAttackRoll({
 		rngState: input.rngState,
 		attacker,
 		defender,
-		attribute: attackAttribute,
+		attribute: getBasicAttackAttribute(attacker.basicAttack),
 		proficient: attacker.basicAttack.proficient,
 	});
 
@@ -26,7 +33,7 @@ export function resolveBasicAttack(input: {
 			value: appendCombatLog(input.combat, {
 				turnNumber: input.combat.turnNumber,
 				actor: attacker.side,
-				message: `${attacker.name} attacks ${defender.name} but misses.`,
+				message: `${attacker.name} attacks ` + `${defender.name} but misses.`,
 				eventType: "basic_attack",
 			}),
 			rngState: attackRoll.rngState,
@@ -42,32 +49,23 @@ export function resolveBasicAttack(input: {
 		attribute: attacker.basicAttack.damage.attribute,
 		critical: attackRoll.value.critical,
 	});
+
 	const updatedDefender = applyDamage(defender, damage.value);
-	const nextCombat: CombatState = {
-		...input.combat,
-		player: updatedDefender.side === "player" ? updatedDefender : input.combat.player,
-		enemy: updatedDefender.side === "enemy" ? updatedDefender : input.combat.enemy,
-	};
+
+	const nextCombat = replaceCombatant(input.combat, updatedDefender);
 
 	return {
 		value: appendCombatLog(nextCombat, {
 			turnNumber: input.combat.turnNumber,
 			actor: attacker.side,
-			message: `${attacker.name} attacks ${defender.name} for ${damage.value.amount} damage.`,
+			message:
+				`${attacker.name} attacks ${defender.name} ` + `for ${damage.value.amount} damage.`,
 			eventType: "basic_attack",
 		}),
 		rngState: damage.rngState,
 	};
 }
 
-function getBasicAttackAttribute(basicAttack: CombatState["player"]["basicAttack"]): Attribute {
+function getBasicAttackAttribute(basicAttack: CombatantState["basicAttack"]): Attribute {
 	return basicAttack.attackAttribute ?? basicAttack.damage.attribute ?? "strength";
-}
-
-function getCombatant(combat: CombatState, side: CombatantSide): CombatState["player"] {
-	return side === "player" ? combat.player : combat.enemy;
-}
-
-function getOpponent(combat: CombatState, side: CombatantSide): CombatState["player"] {
-	return side === "player" ? combat.enemy : combat.player;
 }

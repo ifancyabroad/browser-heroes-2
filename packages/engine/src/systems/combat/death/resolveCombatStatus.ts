@@ -1,4 +1,4 @@
-import type { CombatState } from "../../schemas";
+import type { CombatState } from "../../../schemas";
 
 export function resolveCombatStatus(combat: CombatState): CombatState {
 	if (combat.player.currentHp <= 0) {
@@ -19,12 +19,4 @@ export function resolveCombatStatus(combat: CombatState): CombatState {
 		...combat,
 		status: "active",
 	};
-}
-
-export function isCombatVictory(combat: CombatState): boolean {
-	return combat.status === "player_won";
-}
-
-export function isCombatDefeat(combat: CombatState): boolean {
-	return combat.status === "enemy_won";
 }
