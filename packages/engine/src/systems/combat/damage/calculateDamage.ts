@@ -56,9 +56,7 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 
 	const damageReduction = input.defender.combatStats.damageReduction;
 
-	const reducedAmount = applyDamageReduction(affinityModifiedAmount, damageReduction);
-
-	const amount = applyMinimumDamage(reducedAmount, affinity);
+	const amount = applyDamageReduction(affinityModifiedAmount, damageReduction);
 
 	return {
 		value: {
@@ -72,8 +70,4 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 		},
 		rngState: roll.rngState,
 	};
-}
-
-function applyMinimumDamage(amount: number, affinity: DamageAffinity): number {
-	return affinity === "immune" ? 0 : Math.max(1, amount);
 }
