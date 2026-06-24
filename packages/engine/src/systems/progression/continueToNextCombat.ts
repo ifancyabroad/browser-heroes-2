@@ -3,7 +3,7 @@ import type { EngineResult, RunState } from "../../schemas";
 import { failureResult, successResult } from "../../core/result";
 import { enterCombat } from "../combat/enterCombat";
 import { calculateCombatReward, applyCombatReward } from "./rewards";
-import { syncHeroFromPlayerCombatant } from "../combat/combatMappers";
+import { syncHeroFromPlayerCombatant } from "../combat/combatants/syncHeroFromCombatant";
 
 export function continueToNextCombat(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {

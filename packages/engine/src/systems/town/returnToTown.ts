@@ -2,7 +2,7 @@ import type { EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { applyCombatReward, calculateCombatReward } from "../progression/rewards";
-import { syncHeroFromPlayerCombatant } from "../combat/combatMappers";
+import { syncHeroFromPlayerCombatant } from "../combat/combatants/syncHeroFromCombatant";
 
 export function returnToTown(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
