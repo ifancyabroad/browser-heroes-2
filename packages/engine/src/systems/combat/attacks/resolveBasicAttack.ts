@@ -4,9 +4,10 @@ import type { CombatantSide, CombatantState, CombatState } from "../../../schema
 
 import type { RngResult, RngState } from "../../../core/rng";
 
-import { appendCombatLog } from "../combatLog";
-import { resolveAttackRoll } from "../checks";
-import { applyDamage, calculateDamage } from "../damage";
+import { appendCombatLog } from "../logs/appendCombatLog";
+import { resolveAttackRoll } from "../checks/resolveAttackRoll";
+import { applyDamage } from "../damage/applyDamage";
+import { calculateDamage } from "../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../combatants/combatantSelectors";
 
 type ResolveBasicAttackInput = {

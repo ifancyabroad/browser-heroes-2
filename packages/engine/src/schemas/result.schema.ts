@@ -8,6 +8,7 @@ export const engineErrorCodeSchema = z.enum([
 	"COMBAT_NOT_ACTIVE",
 	"RUN_ENDED",
 	"VALIDATION_FAILED",
+	"NO_ELIGIBLE_ENEMY",
 ]);
 
 export const engineSuccessResultSchema = z.object({
