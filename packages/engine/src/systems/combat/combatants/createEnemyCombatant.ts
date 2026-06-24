@@ -1,12 +1,10 @@
-import { type Enemy } from "@app/content";
-
+import type { Enemy } from "@app/content";
 import type { CombatantState } from "../../../schemas";
 
 import { getMaximumDiceValue } from "../../../core/dice";
 import { createCombatantId } from "../../../core/ids";
 import { applyAttributeModifiers } from "../modifiers/applyAttributeModifiers";
-import { applyPassiveDamageAffinities } from "../modifiers/applyDamageAffinityModifiers";
-import { applyPassiveStatModifiers } from "../modifiers/applyStatModifiers";
+import { buildCombatStats } from "../modifiers/buildCombatStats";
 import { collectPassiveModifiers } from "../modifiers/collectPassiveModifiers";
 import { createCombatantSkillFromEnemySkill } from "./combatantSkills";
 
@@ -16,6 +14,13 @@ export function createEnemyCombatant(enemy: Enemy, combatId: string): CombatantS
 	const passiveModifiers = collectPassiveModifiers([], featIds);
 
 	const attributes = applyAttributeModifiers(enemy.attributes, passiveModifiers);
+
+	const combatStats = buildCombatStats({
+		baseArmourClass: enemy.combat.armourClass,
+		baseProficiencyBonus: enemy.combat.proficiencyBonus,
+		baseDamageAffinities: enemy.combat.damageAffinities,
+		passiveModifiers,
+	});
 
 	const maxHp = getMaximumDiceValue(enemy.combat.hitDice);
 
@@ -28,31 +33,8 @@ export function createEnemyCombatant(enemy: Enemy, combatId: string): CombatantS
 		maxHp,
 		currentHp: maxHp,
 		attributes,
-		armourClass: Math.max(
-			0,
-			Math.floor(
-				applyPassiveStatModifiers(
-					"armourClass",
-					enemy.combat.armourClass,
-					passiveModifiers,
-				),
-			),
-		),
-		proficiencyBonus: Math.max(
-			0,
-			Math.floor(
-				applyPassiveStatModifiers(
-					"proficiencyBonus",
-					enemy.combat.proficiencyBonus,
-					passiveModifiers,
-				),
-			),
-		),
+		combatStats,
 		savingThrowProficiencies: enemy.proficiencies.savingThrows,
-		damageAffinities: applyPassiveDamageAffinities(
-			enemy.combat.damageAffinities,
-			passiveModifiers,
-		),
 		basicAttack: {
 			...enemy.combat.basicAttack,
 			proficient: true,

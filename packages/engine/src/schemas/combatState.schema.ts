@@ -4,6 +4,7 @@ import {
 	attributesSchema,
 	basicAttackSchema,
 	damageAffinitiesSchema,
+	damageTypeSchema,
 	featIdSchema,
 	skillIdSchema,
 	skillRankValueSchema,
@@ -34,6 +35,26 @@ export const combatantBasicAttackSchema = basicAttackSchema.extend({
 	proficient: z.boolean(),
 });
 
+export const combatantDamageModifierSchema = z.object({
+	damageType: damageTypeSchema.optional(),
+	operation: z.enum(["add", "multiply"]),
+	value: z.number(),
+});
+
+export const combatantCombatStatsSchema = z.object({
+	armourClass: z.number().int().min(0),
+	proficiencyBonus: z.number().int().min(0),
+	attackRollBonus: z.number(),
+	savingThrowBonus: z.number(),
+	saveDcBonus: z.number(),
+	critChance: z.number(),
+	critMultiplier: z.number(),
+	damageReduction: z.number(),
+	healingMultiplier: z.number(),
+	damageAffinities: damageAffinitiesSchema,
+	damageModifiers: z.array(combatantDamageModifierSchema),
+});
+
 export const combatantStateSchema = z.object({
 	id: combatantIdSchema,
 	side: combatantSideSchema,
@@ -43,10 +64,8 @@ export const combatantStateSchema = z.object({
 	maxHp: z.number().int().min(1),
 	currentHp: z.number().int().min(0),
 	attributes: attributesSchema,
-	armourClass: z.number().int().min(0),
-	proficiencyBonus: z.number().int().min(0),
+	combatStats: combatantCombatStatsSchema,
 	savingThrowProficiencies: z.array(attributeSchema),
-	damageAffinities: damageAffinitiesSchema,
 	basicAttack: combatantBasicAttackSchema,
 	skills: z.array(combatantSkillStateSchema),
 	featIds: z.array(featIdSchema),
@@ -71,6 +90,7 @@ export type CombatantId = z.infer<typeof combatantIdSchema>;
 export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;
 export type CombatantBasicAttack = z.infer<typeof combatantBasicAttackSchema>;
 export type CombatantSkillState = z.infer<typeof combatantSkillStateSchema>;
+export type CombatantCombatStats = z.infer<typeof combatantCombatStatsSchema>;
 export type CombatantState = z.infer<typeof combatantStateSchema>;
 export type CombatStatus = z.infer<typeof combatStatusSchema>;
 export type CombatState = z.infer<typeof combatStateSchema>;

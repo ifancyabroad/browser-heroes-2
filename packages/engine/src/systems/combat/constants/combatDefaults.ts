@@ -1,6 +1,6 @@
 import type { CombatantState } from "../../../schemas";
 
-export const EMPTY_DAMAGE_AFFINITIES: CombatantState["damageAffinities"] = {
+export const EMPTY_DAMAGE_AFFINITIES: CombatantState["combatStats"]["damageAffinities"] = {
 	resistances: [],
 	immunities: [],
 	vulnerabilities: [],

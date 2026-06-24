@@ -3,7 +3,7 @@ import type { CombatantState } from "../../../schemas";
 
 import type { CombatModifier } from "./applyStatModifiers";
 
-type DamageAffinities = CombatantState["damageAffinities"];
+type DamageAffinities = CombatantState["combatStats"]["damageAffinities"];
 
 export function applyPassiveDamageAffinities(
 	baseAffinities: DamageAffinities,

@@ -7,15 +7,15 @@ export function getDamageAffinity(
 	defender: CombatantState,
 	damageType: DamageType,
 ): DamageAffinity {
-	if (defender.damageAffinities.immunities.includes(damageType)) {
+	if (defender.combatStats.damageAffinities.immunities.includes(damageType)) {
 		return "immune";
 	}
 
-	if (defender.damageAffinities.vulnerabilities.includes(damageType)) {
+	if (defender.combatStats.damageAffinities.vulnerabilities.includes(damageType)) {
 		return "vulnerable";
 	}
 
-	if (defender.damageAffinities.resistances.includes(damageType)) {
+	if (defender.combatStats.damageAffinities.resistances.includes(damageType)) {
 		return "resistant";
 	}
 

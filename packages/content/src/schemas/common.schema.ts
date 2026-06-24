@@ -30,6 +30,38 @@ export const damageTypes = [
 
 export const damageTypeSchema = z.enum(damageTypes);
 
+export const damageAffinitiesSchema = z
+	.object({
+		resistances: z.array(damageTypeSchema).default([]),
+		immunities: z.array(damageTypeSchema).default([]),
+		vulnerabilities: z.array(damageTypeSchema).default([]),
+	})
+	.superRefine((affinities, ctx) => {
+		const groups = [
+			["resistances", affinities.resistances],
+			["immunities", affinities.immunities],
+			["vulnerabilities", affinities.vulnerabilities],
+		] as const;
+
+		const seen = new Map<string, string>();
+
+		for (const [groupName, damageTypes] of groups) {
+			for (const damageType of damageTypes) {
+				const existingGroup = seen.get(damageType);
+
+				if (existingGroup) {
+					ctx.addIssue({
+						code: z.ZodIssueCode.custom,
+						message: `${damageType} cannot appear in both ${existingGroup} and ${groupName}`,
+						path: [groupName],
+					});
+				}
+
+				seen.set(damageType, groupName);
+			}
+		}
+	});
+
 export const attributes = [
 	"strength",
 	"dexterity",
@@ -176,6 +208,7 @@ export const basicAttackSchema = z.object({
 
 export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
 export type DamageType = z.infer<typeof damageTypeSchema>;
+export type DamageAffinities = z.infer<typeof damageAffinitiesSchema>;
 export type Attribute = z.infer<typeof attributeSchema>;
 export type Equipment = z.infer<typeof equipmentSchema>;
 export type BonusDamage = z.infer<typeof bonusDamageSchema>;

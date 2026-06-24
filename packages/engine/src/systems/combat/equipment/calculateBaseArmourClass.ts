@@ -1,26 +1,20 @@
 import type { HeroEquipmentState } from "../../../schemas";
 import { calculateAttributeModifier } from "../../../core/attributes";
-
-import { applyPassiveStatModifiers } from "../modifiers/applyStatModifiers";
-import type { CombatModifier } from "../modifiers/applyStatModifiers";
 import { getEquippedBodyArmour, type BodyArmour } from "./getEquippedBodyArmour";
 
-export function calculatePlayerArmourClass(
+export function calculateBaseArmourClass(
 	equipment: HeroEquipmentState,
 	dexterityScore: number,
-	passiveModifiers: readonly CombatModifier[],
 ): number {
 	const bodyArmour = getEquippedBodyArmour(equipment.body?.itemId);
+
 	const dexterityModifier = calculateAttributeModifier(dexterityScore);
 
-	const baseArmourClass = bodyArmour
-		? calculateBodyArmourClass(bodyArmour, dexterityModifier)
-		: 10 + dexterityModifier;
+	if (!bodyArmour) {
+		return 10 + dexterityModifier;
+	}
 
-	return Math.max(
-		0,
-		Math.floor(applyPassiveStatModifiers("armourClass", baseArmourClass, passiveModifiers)),
-	);
+	return calculateBodyArmourClass(bodyArmour, dexterityModifier);
 }
 
 function calculateBodyArmourClass(armour: BodyArmour, dexterityModifier: number): number {

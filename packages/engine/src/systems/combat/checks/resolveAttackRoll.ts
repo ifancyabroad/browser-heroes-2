@@ -31,11 +31,11 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 
 	const attributeModifier = getAttributeModifier(input.attacker, input.attribute);
 
-	const proficiencyBonus = input.proficient ? input.attacker.proficiencyBonus : 0;
+	const proficiencyBonus = input.proficient ? input.attacker.combatStats.proficiencyBonus : 0;
 
 	const total = roll.value.roll + attributeModifier + proficiencyBonus;
 
-	const targetArmourClass = input.defender.armourClass;
+	const targetArmourClass = input.defender.combatStats.armourClass;
 
 	const critical = roll.value.isNaturalTwenty;
 

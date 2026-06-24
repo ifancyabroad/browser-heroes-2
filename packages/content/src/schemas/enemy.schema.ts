@@ -3,7 +3,7 @@ import {
 	attributeSchema,
 	attributesSchema,
 	basicAttackSchema,
-	damageTypeSchema,
+	damageAffinitiesSchema,
 	diceFormulaSchema,
 	skillRefSchema,
 	tacticSchema,
@@ -11,38 +11,6 @@ import {
 } from "./common.schema";
 
 export const enemyRankSchema = z.enum(["normal", "elite", "boss"]);
-
-export const damageAffinitiesSchema = z
-	.object({
-		resistances: z.array(damageTypeSchema).default([]),
-		immunities: z.array(damageTypeSchema).default([]),
-		vulnerabilities: z.array(damageTypeSchema).default([]),
-	})
-	.superRefine((affinities, ctx) => {
-		const groups = [
-			["resistances", affinities.resistances],
-			["immunities", affinities.immunities],
-			["vulnerabilities", affinities.vulnerabilities],
-		] as const;
-
-		const seen = new Map<string, string>();
-
-		for (const [groupName, damageTypes] of groups) {
-			for (const damageType of damageTypes) {
-				const existingGroup = seen.get(damageType);
-
-				if (existingGroup) {
-					ctx.addIssue({
-						code: z.ZodIssueCode.custom,
-						message: `${damageType} cannot appear in both ${existingGroup} and ${groupName}`,
-						path: [groupName],
-					});
-				}
-
-				seen.set(damageType, groupName);
-			}
-		}
-	});
 
 export const enemyProficienciesSchema = z.object({
 	savingThrows: z.array(attributeSchema).default([]),
