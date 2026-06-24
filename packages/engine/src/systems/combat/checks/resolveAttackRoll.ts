@@ -12,6 +12,7 @@ export type AttackRollResult = {
 	attribute: Attribute;
 	attributeModifier: number;
 	proficiencyBonus: number;
+	attackRollBonus: number;
 	total: number;
 	targetArmourClass: number;
 	hit: boolean;
@@ -33,7 +34,9 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 
 	const proficiencyBonus = input.proficient ? input.attacker.combatStats.proficiencyBonus : 0;
 
-	const total = roll.value.roll + attributeModifier + proficiencyBonus;
+	const attackRollBonus = input.attacker.combatStats.attackRollBonus;
+
+	const total = roll.value.roll + attributeModifier + proficiencyBonus + attackRollBonus;
 
 	const targetArmourClass = input.defender.combatStats.armourClass;
 
@@ -47,6 +50,7 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 			attribute: input.attribute,
 			attributeModifier,
 			proficiencyBonus,
+			attackRollBonus,
 			total,
 			targetArmourClass,
 			hit,

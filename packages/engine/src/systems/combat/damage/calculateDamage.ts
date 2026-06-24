@@ -8,13 +8,17 @@ import { getAttributeModifier } from "../checks/getAttributeModifier";
 import { applyDamageAffinity, getDamageAffinity, type DamageAffinity } from "./damageAffinity";
 
 import { rollDamageDice, type DamageRollSummary } from "./rollDamageDice";
+import { applyDamageModifiers } from "./applyDamageModifiers";
+import { applyDamageReduction } from "./applyDamageReduction";
 
 export type DamageResult = {
 	amount: number;
 	damageType: DamageType;
 	roll: DamageRollSummary;
 	abilityModifier: number;
+	modifiedBaseAmount: number;
 	affinity: DamageAffinity;
+	damageReduction: number;
 };
 
 type CalculateDamageInput = {
@@ -40,11 +44,21 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 
 	const baseAmount = roll.value.total + abilityModifier;
 
+	const attackerModifiedAmount = applyDamageModifiers({
+		baseAmount,
+		damageType: input.damageType,
+		modifiers: input.attacker.combatStats.damageModifiers,
+	});
+
 	const affinity = getDamageAffinity(input.defender, input.damageType);
 
-	const modifiedAmount = applyDamageAffinity(baseAmount, affinity);
+	const affinityModifiedAmount = applyDamageAffinity(attackerModifiedAmount, affinity);
 
-	const amount = applyMinimumDamage(modifiedAmount, affinity);
+	const damageReduction = input.defender.combatStats.damageReduction;
+
+	const reducedAmount = applyDamageReduction(affinityModifiedAmount, damageReduction);
+
+	const amount = applyMinimumDamage(reducedAmount, affinity);
 
 	return {
 		value: {
@@ -52,7 +66,9 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 			damageType: input.damageType,
 			roll: roll.value,
 			abilityModifier,
+			modifiedBaseAmount: attackerModifiedAmount,
 			affinity,
+			damageReduction,
 		},
 		rngState: roll.rngState,
 	};
