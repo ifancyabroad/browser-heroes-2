@@ -1,6 +1,9 @@
 import clsx from "clsx";
 import { SKILLS_BY_ID } from "@app/content";
 import type { CombatantSkillState, CombatantState } from "@app/engine";
+import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
+import continueIcon from "../../../assets/images/actions/Skill_Move.png";
+import townIcon from "../../../assets/images/actions/Town_01.png";
 
 // TODO: Replace with engine-owned action slot capacity once action slots become gameplay state.
 const combatActionSlotCount = 8;
@@ -8,7 +11,9 @@ const combatActionSlotCount = 8;
 type CombatActionBarProps = {
 	player: CombatantState;
 	isPending: boolean;
-	isVictory: boolean;
+	canBasicAttack: boolean;
+	canContinue: boolean;
+	canReturnToTown: boolean;
 	onBasicAttack: () => void;
 	onContinue: () => void;
 	onReturnToTown: () => void;
@@ -17,60 +22,133 @@ type CombatActionBarProps = {
 export function CombatActionBar({
 	player,
 	isPending,
-	isVictory,
+	canBasicAttack,
+	canContinue,
+	canReturnToTown,
 	onBasicAttack,
 	onContinue,
 	onReturnToTown,
 }: CombatActionBarProps) {
-	const usedSlotCount = isVictory ? 2 : 1 + player.skills.length;
+	const usedSlotCount = 1 + player.skills.length;
 	const emptySlotCount = Math.max(0, combatActionSlotCount - usedSlotCount);
 
 	return (
-		<section
-			className="flex flex-wrap justify-center gap-1 sm:gap-2"
-			aria-label="Combat actions"
-		>
-			{isVictory ? (
-				<>
-					<TextActionSlot disabled={isPending} label="Continue" onClick={onContinue} />
-					<TextActionSlot disabled={isPending} label="Town" onClick={onReturnToTown} />
-				</>
-			) : (
-				<>
-					<BasicAttackSlot
-						basicAttackName={player.basicAttack.name}
-						disabled={isPending}
-						onClick={onBasicAttack}
-					/>
-					{player.skills.map((skill) => (
-						<SkillSlot key={skill.skillId} skill={skill} />
-					))}
-				</>
-			)}
+		<section aria-label="Command bar">
+			<div className="grid grid-cols-5 justify-items-center gap-1 sm:gap-2 md:hidden">
+				<CombatSlots
+					player={player}
+					isPending={isPending}
+					canBasicAttack={canBasicAttack}
+					onBasicAttack={onBasicAttack}
+				/>
+				<EmptyActionSlots count={emptySlotCount} />
+				<RunActionSlots
+					isPending={isPending}
+					canContinue={canContinue}
+					canReturnToTown={canReturnToTown}
+					onContinue={onContinue}
+					onReturnToTown={onReturnToTown}
+				/>
+			</div>
 
-			{Array.from({ length: emptySlotCount }, (_, index) => (
-				<EmptyActionSlot key={`empty-action-${index}`} />
-			))}
+			<div className="hidden md:flex md:items-start md:justify-between md:gap-2">
+				<div className="flex flex-wrap justify-start gap-2" aria-label="Combat actions">
+					<CombatSlots
+						player={player}
+						isPending={isPending}
+						canBasicAttack={canBasicAttack}
+						onBasicAttack={onBasicAttack}
+					/>
+					<EmptyActionSlots count={emptySlotCount} />
+				</div>
+
+				<div className="flex flex-wrap justify-end gap-2" aria-label="Run actions">
+					<RunActionSlots
+						isPending={isPending}
+						canContinue={canContinue}
+						canReturnToTown={canReturnToTown}
+						onContinue={onContinue}
+						onReturnToTown={onReturnToTown}
+					/>
+				</div>
+			</div>
 		</section>
 	);
 }
 
-type BasicAttackSlotProps = {
-	basicAttackName: string;
+type CombatSlotsProps = {
+	player: CombatantState;
+	isPending: boolean;
+	canBasicAttack: boolean;
+	onBasicAttack: () => void;
+};
+
+function CombatSlots({ player, isPending, canBasicAttack, onBasicAttack }: CombatSlotsProps) {
+	return (
+		<>
+			<IconActionSlot
+				ariaLabel={`Basic attack: ${player.basicAttack.name}`}
+				disabled={isPending || !canBasicAttack}
+				icon={attackIcon}
+				onClick={onBasicAttack}
+			/>
+			{player.skills.map((skill) => (
+				<SkillSlot key={skill.skillId} skill={skill} />
+			))}
+		</>
+	);
+}
+
+type RunActionSlotsProps = {
+	isPending: boolean;
+	canContinue: boolean;
+	canReturnToTown: boolean;
+	onContinue: () => void;
+	onReturnToTown: () => void;
+};
+
+function RunActionSlots({
+	isPending,
+	canContinue,
+	canReturnToTown,
+	onContinue,
+	onReturnToTown,
+}: RunActionSlotsProps) {
+	return (
+		<>
+			<IconActionSlot
+				ariaLabel="Continue to next battle"
+				disabled={isPending || !canContinue}
+				icon={continueIcon}
+				onClick={onContinue}
+			/>
+			<IconActionSlot
+				ariaLabel="Return to town"
+				disabled={isPending || !canReturnToTown}
+				icon={townIcon}
+				onClick={onReturnToTown}
+			/>
+		</>
+	);
+}
+
+type IconActionSlotProps = {
+	ariaLabel: string;
 	disabled: boolean;
+	icon: string;
 	onClick: () => void;
 };
 
-function BasicAttackSlot({ basicAttackName, disabled, onClick }: BasicAttackSlotProps) {
+function IconActionSlot({ ariaLabel, disabled, icon, onClick }: IconActionSlotProps) {
 	return (
 		<button
 			type="button"
 			className={getActionSlotClassName(disabled)}
 			disabled={disabled}
-			aria-label={`Basic attack: ${basicAttackName}`}
+			aria-label={ariaLabel}
 			onClick={onClick}
 		>
-			<ActionSlotImage src={SKILLS_BY_ID.attack.icon} />
+			<ActionSlotImage src={icon} />
 		</button>
 	);
 }
@@ -99,29 +177,16 @@ function SkillSlot({ skill }: { skill: CombatantSkillState }) {
 	);
 }
 
-type TextActionSlotProps = {
-	disabled: boolean;
-	label: string;
-	onClick: () => void;
-};
-
-function TextActionSlot({ disabled, label, onClick }: TextActionSlotProps) {
+function EmptyActionSlot() {
 	return (
-		<button
-			type="button"
-			className={getActionSlotClassName(disabled)}
-			disabled={disabled}
-			onClick={onClick}
-		>
-			<span className="text-text-bright">{label}</span>
-		</button>
+		<div className="aspect-square w-full max-w-16 shrink-0 border-2 border-dashed border-border/70 sm:max-w-20 md:w-20 md:max-w-none" />
 	);
 }
 
-function EmptyActionSlot() {
-	return (
-		<div className="h-16 w-16 shrink-0 border-2 border-dashed border-border/70 sm:h-20 sm:w-20" />
-	);
+function EmptyActionSlots({ count }: { count: number }) {
+	return Array.from({ length: count }, (_, index) => (
+		<EmptyActionSlot key={`empty-action-${index}`} />
+	));
 }
 
 type ActionSlotImageProps = {
@@ -144,7 +209,7 @@ function ActionSlotImage({ src }: ActionSlotImageProps) {
 
 function getActionSlotClassName(disabled: boolean) {
 	return clsx(
-		"relative h-16 w-16 overflow-hidden bg-bg-elevated transition-colors sm:h-20 sm:w-20",
+		"relative aspect-square w-full max-w-16 overflow-hidden bg-bg-elevated transition-colors sm:max-w-20 md:w-20 md:max-w-none",
 		"flex shrink-0 items-center justify-center text-center",
 		disabled
 			? "cursor-not-allowed opacity-60"

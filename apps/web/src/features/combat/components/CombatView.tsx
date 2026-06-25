@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { CLASSES_BY_ID } from "@app/content";
-import { getZoneForRun, type EngineAction } from "@app/engine";
+import { getZoneForRun, selectAvailableActions, type EngineAction } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { Layout } from "../../../components/Layout";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
@@ -33,7 +33,9 @@ export function CombatView({ run }: CombatViewProps) {
 
 	const heroClass = CLASSES_BY_ID[hero.classId];
 	const zoneLabel = formatTitle(getZoneForRun(run.state.zoneNumber));
-	const isVictory = combat.status === "player_won";
+	const availableActionTypes = new Set(
+		selectAvailableActions(run.state).map((action) => action.type),
+	);
 
 	function submitAction(action: EngineAction, fallbackErrorMessage: string) {
 		applyRunAction.mutate(
@@ -121,7 +123,9 @@ export function CombatView({ run }: CombatViewProps) {
 					<CombatActionBar
 						player={combat.player}
 						isPending={applyRunAction.isPending}
-						isVictory={isVictory}
+						canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
+						canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
+						canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
 						onBasicAttack={handleBasicAttack}
 						onContinue={handleContinue}
 						onReturnToTown={handleReturnToTown}
