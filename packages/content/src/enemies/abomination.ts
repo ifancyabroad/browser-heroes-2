@@ -16,7 +16,7 @@ export default buildEnemy({
 		charisma: 5,
 	},
 	combat: {
-		hitDice: "15d8+77",
+		hitDice: "1d8+5",
 		armourClass: 14,
 		proficiencyBonus: 5,
 		damageAffinities: {
