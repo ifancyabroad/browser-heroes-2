@@ -1,7 +1,7 @@
 import { attributes, CLASSES_BY_ID } from "@app/content";
 import type { RunView } from "@app/shared";
 import { Sidebar } from "../../../components/Sidebar";
-import { ResourceBar } from "./ResourceBar";
+import { ResourceBar } from "../../../components/ResourceBar";
 import { StatList, type StatListItem } from "./StatList";
 
 type HeroSidebarProps = {
@@ -52,7 +52,7 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 			<section className="grid gap-2" aria-label="Hero resources">
 				<ResourceBar
 					label="HP"
-					value={`${hero.currentHp} / ${hero.maxHp}`}
+					value={`${hero.currentHp}/${hero.maxHp}`}
 					tone="hp"
 					fillPercent={(hero.currentHp / hero.maxHp) * 100}
 				/>

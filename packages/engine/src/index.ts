@@ -21,10 +21,15 @@ export type {
 	HeroState,
 	CombatState,
 	CombatantState,
+	CombatantSkillState,
+	CombatLogEntry,
+	ActiveCombatEffect,
 	DeserializeRunStateResult,
 } from "./schemas";
 
 export { serializeRunState, deserializeRunState, deserializeRunStateJson } from "./serialization";
+
+export { getZoneForRun } from "./systems/encounters";
 
 export { selectAvailableActions, selectCombatView } from "./selectors";
 
