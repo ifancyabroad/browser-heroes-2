@@ -12,7 +12,7 @@ async function main() {
 
 	createSocketServer(httpServer);
 
-	app.listen(env.PORT, () => {
+	httpServer.listen(env.PORT, () => {
 		console.log(`🚀 API listening on port ${env.PORT}`);
 	});
 }
