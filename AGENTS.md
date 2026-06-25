@@ -6,6 +6,7 @@ Consult the relevant docs before changing related systems:
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Combat](docs/COMBAT.md)
+- [Design](docs/DESIGN.md)
 - [Infrastructure](docs/INFRASTRUCTURE.md)
 - [Product Requirements](docs/PRD.md)
 - [Game Rules](docs/RULES.md)

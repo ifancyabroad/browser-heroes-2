@@ -8,6 +8,7 @@ These docs should explain intent, boundaries, and stable rules. They should not 
 
 - [Product Requirements](PRD.md) - product vision, core loop, design goals, and scope boundaries.
 - [Architecture](ARCHITECTURE.md) - system ownership, package boundaries, deterministic simulation constraints, and state principles.
+- [Design](DESIGN.md) - UI visual direction, Tailwind usage, theme variables, reusable components, typography, and consistency rules.
 - [Game Rules](RULES.md) - player-facing run, progression, town, skill, feat, item, and completion rules.
 - [Combat](COMBAT.md) - combat model, turn resolution principles, dice direction, and combat-specific behavior.
 - [Infrastructure](INFRASTRUCTURE.md) - runtime, persistence, networking, deployment, auth, offline, and operational principles.
