@@ -55,7 +55,6 @@ export const enemySchema = z.object({
 	description: z.string().optional(),
 	portrait: z.string().nonempty(),
 	rank: enemyRankSchema.default("normal"),
-	level: z.number().int().positive(),
 	threat: z.number().int().positive().default(1),
 	attributes: attributesSchema,
 	combat: enemyCombatSchema,

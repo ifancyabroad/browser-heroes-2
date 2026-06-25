@@ -24,7 +24,7 @@ export function enterCombat(state: RunState): EngineResult {
 
 	const player = createPlayerCombatant(state.hero, combatId);
 
-	const enemy = createEnemyCombatant(selectedEnemy.value, combatId);
+	const enemy = createEnemyCombatant(selectedEnemy.value, combatId, state.zoneNumber);
 
 	const combat: CombatState = {
 		id: combatId,

@@ -6,7 +6,6 @@ export default buildEnemy({
 	portrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NhkbQX-i_HQ7Gt2qHgm?alt=media&token=a269a32a-249f-494f-9674-f0eddcdaa190",
 	rank: "normal",
-	level: 8,
 	threat: 8,
 	attributes: {
 		strength: 12,

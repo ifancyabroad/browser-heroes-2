@@ -8,7 +8,11 @@ import { buildCombatStats } from "../modifiers/buildCombatStats";
 import { collectPassiveModifiers } from "../modifiers/collectPassiveModifiers";
 import { createCombatantSkillFromEnemySkill } from "./combatantSkills";
 
-export function createEnemyCombatant(enemy: Enemy, combatId: string): CombatantState {
+export function createEnemyCombatant(
+	enemy: Enemy,
+	combatId: string,
+	level: number,
+): CombatantState {
 	const featIds = [...new Set(enemy.combat.featIds)];
 
 	const passiveModifiers = collectPassiveModifiers([], featIds);
@@ -29,7 +33,7 @@ export function createEnemyCombatant(enemy: Enemy, combatId: string): CombatantS
 		side: "enemy",
 		sourceId: enemy.id,
 		name: enemy.name,
-		level: enemy.level,
+		level,
 		maxHp,
 		currentHp: maxHp,
 		attributes,
