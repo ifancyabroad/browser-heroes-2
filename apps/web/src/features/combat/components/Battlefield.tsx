@@ -40,7 +40,6 @@ export function Battlefield({
 					image={heroPortrait}
 					alt={heroName}
 					className="aspect-[4/3] min-h-80"
-					imageClassName="opacity-25"
 				/>
 
 				<PortraitStage
@@ -51,7 +50,7 @@ export function Battlefield({
 					<CombatViewTabs
 						activeTab={activeTab}
 						onTabChange={onTabChange}
-						className="absolute left-3 right-3 top-3 z-10 justify-end"
+						className="absolute left-3 right-3 top-3 z-10 justify-center"
 					/>
 					<CombatLogOverlay active={activeTab === "log"} entries={logEntries} />
 				</PortraitStage>
@@ -66,7 +65,7 @@ export function Battlefield({
 					<CombatViewTabs
 						activeTab={activeTab}
 						onTabChange={onTabChange}
-						className="absolute left-3 right-3 top-3 z-10 justify-end"
+						className="absolute left-3 right-3 top-3 z-10 justify-center"
 					/>
 					<CombatLogOverlay active={activeTab === "log"} entries={logEntries} />
 				</PortraitStage>
@@ -86,8 +85,8 @@ function CombatLogOverlay({ active, entries }: CombatLogOverlayProps) {
 	}
 
 	return (
-		<div className="absolute inset-x-0 bottom-0 top-12 bg-bg-base/70">
-			<CombatLogPanel entries={entries} className="h-full" />
+		<div className="absolute inset-0 z-0 flex flex-col bg-bg-base/70 pt-12">
+			<CombatLogPanel entries={entries} className="min-h-0 flex-1" />
 		</div>
 	);
 }

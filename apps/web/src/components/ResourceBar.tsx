@@ -31,7 +31,7 @@ export function ResourceBar({ label, tone, value, fillPercent, className }: Reso
 			)}
 			title={accessibleLabel}
 		>
-			<div className="h-4 bg-text-muted/30" aria-label={accessibleLabel}>
+			<div className="h-6 bg-text-muted/30" aria-label={accessibleLabel}>
 				{clampedFillPercent !== null && (
 					<div
 						className={clsx("h-full", fillClassByTone[tone])}
