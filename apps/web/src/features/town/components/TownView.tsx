@@ -63,6 +63,7 @@ export function TownView({ run }: TownViewProps) {
 								className="text-primary"
 								type="button"
 								onClick={handleEnterCombat}
+								disabled={applyRunAction.isPending}
 							>
 								Enter Combat
 							</Button>

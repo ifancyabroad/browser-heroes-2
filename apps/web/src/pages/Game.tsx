@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useCurrentRun } from "../features/runs";
 import { TownView } from "../features/town";
 import { PageLoader } from "../components/PageLoader";
+import { CombatView } from "../features/combat";
 
 export default function Game() {
 	const { data, isPending } = useCurrentRun();
@@ -21,7 +22,7 @@ export default function Game() {
 			return <TownView run={run} />;
 
 		case "combat":
-			return <p>Combat phase</p>;
+			return <CombatView run={run} />;
 
 		case "dead":
 			return <p>Run over</p>;
