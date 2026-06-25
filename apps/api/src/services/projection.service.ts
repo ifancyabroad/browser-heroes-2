@@ -1,5 +1,6 @@
-import type { RunView } from "@app/shared";
+import type { ApplyRunActionResponse, RunView } from "@app/shared";
 import type { RunDocument } from "../models/run.model";
+import type { EngineResult } from "@app/engine";
 
 function toIsoString(value: Date): string {
 	return value.toISOString();
@@ -14,5 +15,15 @@ export function toRunView(run: RunDocument & { _id: unknown }): RunView {
 		createdAt: toIsoString(run.createdAt),
 		updatedAt: toIsoString(run.updatedAt),
 		completedAt: run.completedAt ? toIsoString(run.completedAt) : null,
+	};
+}
+
+export function toApplyRunActionResponse(
+	run: RunDocument & { _id: unknown },
+	result: EngineResult,
+): ApplyRunActionResponse {
+	return {
+		run: toRunView(run),
+		result,
 	};
 }

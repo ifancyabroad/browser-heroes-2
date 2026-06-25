@@ -1,5 +1,5 @@
 import { classIdSchema, type ClassId } from "@app/content";
-import { engineActionSchema, type RunState } from "@app/engine";
+import { engineActionSchema, type EngineResult, type RunState } from "@app/engine";
 import { z } from "zod";
 
 export const createRunBodySchema = z.object({
@@ -52,3 +52,27 @@ export const applyRunActionBodySchema = z.object({
 });
 
 export type ApplyRunActionBody = z.infer<typeof applyRunActionBodySchema>;
+
+export interface ApplyRunActionResponse {
+	run: RunView;
+	result: EngineResult;
+}
+
+export const runActionPayloadSchema = z.object({
+	runId: z.string().nonempty(),
+	action: engineActionSchema,
+});
+
+export type RunActionPayload = z.infer<typeof runActionPayloadSchema>;
+
+export type SocketResponse<T> =
+	| {
+			ok: true;
+			data: T;
+	  }
+	| {
+			ok: false;
+			error: string;
+	  };
+
+export type RunActionResponse = SocketResponse<ApplyRunActionResponse>;

@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import type {
 	ApiErrorResponse,
 	ApplyRunActionBody,
+	ApplyRunActionResponse,
 	CreateRunBody,
 	CreateRunResponse,
 	CurrentRunResponse,
@@ -13,7 +14,7 @@ import {
 	getRunActions,
 	getRunForUser,
 } from "../services/run.service";
-import { toRunView } from "../services/projection.service";
+import { toApplyRunActionResponse, toRunView } from "../services/projection.service";
 import { applyRunAction } from "../services/engine.service";
 
 export async function createRunController(
@@ -65,8 +66,8 @@ export async function getRunController(
 }
 
 export async function applyRunActionController(
-	req: Request<{ runId: string }, unknown, ApplyRunActionBody>,
-	res: Response,
+	req: Request<{ runId: string }, ApplyRunActionResponse, ApplyRunActionBody>,
+	res: Response<ApplyRunActionResponse>,
 ) {
 	const response = await applyRunAction({
 		userId: req.session.userId!,
@@ -74,10 +75,7 @@ export async function applyRunActionController(
 		action: req.body.action,
 	});
 
-	res.status(200).json({
-		result: response.result,
-		run: response.run,
-	});
+	res.status(200).json(toApplyRunActionResponse(response.run, response.result));
 }
 
 export async function getRunActionsController(req: Request<{ runId: string }>, res: Response) {

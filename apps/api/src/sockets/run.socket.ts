@@ -1,21 +1,7 @@
-import { engineActionSchema, type EngineAction } from "@app/engine";
 import type { Socket } from "socket.io";
 import { applyRunAction } from "../services/engine.service";
-
-type RunActionPayload = {
-	runId: string;
-	action: EngineAction;
-};
-
-type RunActionResponse =
-	| {
-			ok: true;
-			result: Awaited<ReturnType<typeof applyRunAction>>["result"];
-	  }
-	| {
-			ok: false;
-			error: string;
-	  };
+import { RunActionPayload, runActionPayloadSchema, RunActionResponse } from "@app/shared";
+import { toApplyRunActionResponse } from "../services/projection.service";
 
 export function registerRunSocket(socket: Socket) {
 	socket.on(
@@ -32,17 +18,17 @@ export function registerRunSocket(socket: Socket) {
 					return;
 				}
 
-				const action = engineActionSchema.parse(payload.action);
+				const parsedPayload = runActionPayloadSchema.parse(payload);
 
-				const { result } = await applyRunAction({
+				const response = await applyRunAction({
 					userId,
-					runId: payload.runId,
-					action,
+					runId: parsedPayload.runId,
+					action: parsedPayload.action,
 				});
 
 				respond({
 					ok: true,
-					result,
+					data: toApplyRunActionResponse(response.run, response.result),
 				});
 			} catch (error) {
 				respond({
