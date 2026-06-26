@@ -33,4 +33,4 @@ export { getZoneForRun } from "./systems/encounters";
 
 export { selectAvailableActions, selectCombatView } from "./selectors";
 
-export type { CombatView } from "./selectors";
+export type { CombatViewState } from "./selectors";

@@ -7,6 +7,7 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	RUN_ENDED: "This run has already ended.",
 	VALIDATION_FAILED: "The action could not be validated.",
 	NO_ELIGIBLE_ENEMY: "No enemy is available for this battle.",
+	ENEMY_DEFINITION_NOT_FOUND: "Enemy details could not be loaded for this battle.",
 };
 
 export function getEngineErrorMessage(error: EngineErrorCode): string {

@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { CLASSES_BY_ID } from "@app/content";
-import { getZoneForRun, selectAvailableActions, type EngineAction } from "@app/engine";
+import { selectAvailableActions, selectCombatView, type EngineAction } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { Layout } from "../../../components/Layout";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
@@ -20,19 +20,22 @@ export function CombatView({ run }: CombatViewProps) {
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
 
-	const { combat, hero } = run.state;
+	const { hero } = run.state;
+	const combatView = selectCombatView(run.state);
+	const enemySourceId = combatView?.combat.enemy.sourceId ?? null;
 
 	const enemyDefinition = useMemo(
-		() => (combat ? getEnemyDefinition(combat.enemy.sourceId) : null),
-		[combat],
+		() => (enemySourceId ? getEnemyDefinition(enemySourceId) : null),
+		[enemySourceId],
 	);
 
-	if (!combat) {
+	if (!combatView) {
 		return <p>Combat state is unavailable.</p>;
 	}
 
+	const { battleNumber, combat, goldMultiplier, zone } = combatView;
 	const heroClass = CLASSES_BY_ID[hero.classId];
-	const zoneLabel = formatTitle(getZoneForRun(run.state.zoneNumber));
+	const zoneLabel = formatTitle(zone);
 	const availableActionTypes = new Set(
 		selectAvailableActions(run.state).map((action) => action.type),
 	);
@@ -88,8 +91,8 @@ export function CombatView({ run }: CombatViewProps) {
 			<div className="flex flex-1 bg-bg-base text-base text-text">
 				<div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-4 px-4 py-3 md:px-6 md:py-4">
 					<CombatStatsBar
-						battleNumber={run.state.battleNumber}
-						goldMultiplier={run.state.streak + 1}
+						battleNumber={battleNumber}
+						goldMultiplier={goldMultiplier}
 						turnNumber={combat.turnNumber}
 						zoneLabel={zoneLabel}
 					/>
