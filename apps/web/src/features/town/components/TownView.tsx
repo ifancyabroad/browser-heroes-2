@@ -46,7 +46,7 @@ export function TownView({ run }: TownViewProps) {
 
 	return (
 		<Layout>
-			<div className="flex flex-1 bg-bg-base text-base">
+			<div className="flex min-h-0 flex-1 overflow-hidden bg-bg-base text-base">
 				<HeroSidebar run={run} open={sidebarOpen} onClose={handleCloseSidebar} />
 
 				<section className="flex min-w-0 flex-1 flex-col">

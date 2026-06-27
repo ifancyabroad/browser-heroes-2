@@ -1,9 +1,13 @@
-import { attributes, CLASSES_BY_ID } from "@app/content";
-import { selectHeroProgression, type HeroProgressionView } from "@app/engine";
+import { CLASSES_BY_ID } from "@app/content";
+import { selectHeroProgression, selectHeroView, type HeroProgressionView } from "@app/engine";
 import type { RunView } from "@app/shared";
+import { useState } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
-import { StatList, type StatListItem } from "./StatList";
+import { Tabs } from "../../../components/Tabs";
+import { HeroDetailsTab } from "./HeroDetailsTab";
+import { HeroEquipmentTab } from "./HeroEquipmentTab";
+import { HeroSkillsTab } from "./HeroSkillsTab";
 
 type HeroSidebarProps = {
 	run: RunView;
@@ -11,28 +15,23 @@ type HeroSidebarProps = {
 	onClose: () => void;
 };
 
-function formatLabel(value: string) {
-	return value.charAt(0).toUpperCase() + value.slice(1);
-}
+type HeroSidebarTab = "details" | "equipment" | "skills";
+
+const heroSidebarTabs = [
+	{ label: "Details", value: "details" },
+	{ label: "Equipment", value: "equipment" },
+	{ label: "Skills", value: "skills" },
+] as const;
 
 export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
+	const [activeTab, setActiveTab] = useState<HeroSidebarTab>("details");
+
 	const { state } = run;
-	const { hero } = state;
-	const heroClass = CLASSES_BY_ID[hero.classId];
+	const heroView = selectHeroView(state);
+	const heroClass = CLASSES_BY_ID[heroView.classId];
 	const progression = selectHeroProgression(state);
 	const xpResource = getXpResource(progression);
-
-	const attributeItems: StatListItem[] = attributes.map((attribute) => ({
-		label: formatLabel(attribute),
-		value: hero.attributes[attribute],
-	}));
-
-	const runItems: StatListItem[] = [
-		{ label: "Gold", value: state.gold },
-		{ label: "Battle", value: state.battleNumber },
-		{ label: "Zone", value: state.zoneNumber },
-		{ label: "Streak", value: state.streak },
-	];
+	const { health } = heroView;
 
 	return (
 		<Sidebar
@@ -40,47 +39,79 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 			onClose={onClose}
 			aria-label="Hero details"
 			title={
-				<div
-					className="grid gap-1 text-base"
-					title={`${hero.name} the ${heroClass.name} - Level ${hero.level}`}
-				>
-					<p className="truncate text-primary">
-						{hero.name} the {heroClass.name}
-					</p>
-					<p className="text-text">Level {hero.level}</p>
+				<div className="grid gap-2 text-base">
+					<div className="grid gap-1">
+						<p className="truncate text-primary">
+							{heroView.name} the {heroClass.name}
+						</p>
+						<p className="text-text">Level {heroView.level}</p>
+					</div>
+
+					<section className="grid gap-2" aria-label="Hero resources">
+						<ResourceBar
+							label="HP"
+							value={`${health.currentHp}/${health.maxHp}`}
+							tone="hp"
+							fillPercent={(health.currentHp / health.maxHp) * 100}
+						/>
+						<ResourceBar
+							label="XP"
+							value={xpResource.value}
+							tone="xp"
+							fillPercent={xpResource.fillPercent}
+						/>
+					</section>
 				</div>
 			}
-			contentClassName="grid gap-4"
+			contentClassName="grid content-start gap-4 pt-2"
 		>
-			<section className="grid gap-2" aria-label="Hero resources">
-				<ResourceBar
-					label="HP"
-					value={`${hero.currentHp}/${hero.maxHp}`}
-					tone="hp"
-					fillPercent={(hero.currentHp / hero.maxHp) * 100}
-				/>
-				<ResourceBar
-					label="XP"
-					value={xpResource.value}
-					tone="xp"
-					fillPercent={xpResource.fillPercent}
-				/>
-			</section>
+			<RunInfo
+				gold={state.gold}
+				battleNumber={state.battleNumber}
+				zoneNumber={state.zoneNumber}
+			/>
 
-			<section className="grid gap-2" aria-labelledby="attributes-heading">
-				<h2 id="attributes-heading" className="text-base text-text-bright">
-					Attributes
-				</h2>
-				<StatList items={attributeItems} />
-			</section>
+			<Tabs
+				aria-label="Hero sidebar"
+				items={heroSidebarTabs}
+				value={activeTab}
+				onChange={setActiveTab}
+				className="gap-x-3"
+			/>
 
-			<section className="grid gap-2" aria-labelledby="run-heading">
-				<h2 id="run-heading" className="text-base text-text-bright">
-					Run
-				</h2>
-				<StatList items={runItems} />
-			</section>
+			{activeTab === "details" && <HeroDetailsTab heroView={heroView} />}
+			{activeTab === "equipment" && <HeroEquipmentTab equipment={heroView.equipment} />}
+			{activeTab === "skills" && (
+				<HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />
+			)}
 		</Sidebar>
+	);
+}
+
+type RunInfoProps = {
+	gold: number;
+	battleNumber: number;
+	zoneNumber: number;
+};
+
+function RunInfo({ gold, battleNumber, zoneNumber }: RunInfoProps) {
+	const runItems = [
+		{ label: "Gold", value: gold },
+		{ label: "Battle", value: battleNumber },
+		{ label: "Zone", value: zoneNumber },
+	];
+
+	return (
+		<section aria-label="Run">
+			<dl className="flex flex-wrap items-center gap-x-5 gap-y-1 text-base">
+				{runItems.map((item) => (
+					<div key={item.label} className="flex items-center gap-2">
+						<dt className="text-text-label">{item.label}</dt>
+						<dd className="text-text-bright">{item.value}</dd>
+					</div>
+				))}
+			</dl>
+		</section>
 	);
 }
 

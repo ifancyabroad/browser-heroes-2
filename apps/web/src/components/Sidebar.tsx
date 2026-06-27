@@ -30,20 +30,19 @@ export function Sidebar({
 				aria-label={ariaLabel}
 				className={clsx(
 					"fixed md:static inset-y-0 left-0 z-50 md:z-0",
-					"w-80 max-w-full border-r border-border bg-bg-base",
-					"overflow-y-auto",
+					"h-dvh max-h-dvh w-96 max-w-full overflow-y-auto bg-bg-base",
 					"transform transition-transform duration-200",
 					open ? "translate-x-0" : "-translate-x-full md:translate-x-0",
 					className,
 				)}
 			>
-				<header className="sticky top-0 z-10 border-b border-border bg-bg-base">
+				<header className="bg-bg-base">
 					<div className="flex items-start justify-between gap-4 px-4 py-4 text-base">
 						<div className="min-w-0 flex-1">{title}</div>
 
 						<button
 							onClick={onClose}
-							className="md:hidden border border-border bg-bg-elevated p-1 text-text-muted transition-colors hover:text-text-bright"
+							className="bg-bg-elevated p-1 text-text-muted transition-colors hover:text-text-bright md:hidden"
 							aria-label="Close sidebar"
 							type="button"
 						>

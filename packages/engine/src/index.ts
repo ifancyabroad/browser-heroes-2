@@ -34,6 +34,11 @@ export { serializeRunState, deserializeRunState, deserializeRunStateJson } from 
 
 export { getZoneForRun } from "./systems/encounters";
 
-export { selectAvailableActions, selectCombatView, selectHeroProgression } from "./selectors";
+export {
+	selectAvailableActions,
+	selectCombatView,
+	selectHeroProgression,
+	selectHeroView,
+} from "./selectors";
 
-export type { CombatViewState, HeroProgressionView } from "./selectors";
+export type { CombatViewState, HeroProgressionView, HeroView } from "./selectors";

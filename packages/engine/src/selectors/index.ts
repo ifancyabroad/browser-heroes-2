@@ -7,3 +7,7 @@ export type { CombatViewState } from "./selectCombatView";
 export { selectHeroProgression } from "./selectHeroProgression";
 
 export type { HeroProgressionView } from "./selectHeroProgression";
+
+export { selectHeroView } from "./selectHeroView";
+
+export type { HeroView } from "./selectHeroView";
