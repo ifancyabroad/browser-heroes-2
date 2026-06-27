@@ -1,7 +1,8 @@
 import type { Enemy } from "@app/content";
 import type { CombatantState } from "../../../schemas";
 
-import { getMaximumDiceValue } from "../../../core/dice";
+import { calculateMaxHpForLevel } from "../../progression/health/calculateMaxHpForLevel";
+import { calculateBaseProficiencyBonus } from "../../combat/rules/calculateBaseProficiencyBonus";
 import { createCombatantId } from "../../../core/ids";
 import { applyAttributeModifiers } from "../modifiers/applyAttributeModifiers";
 import { buildCombatStats } from "../modifiers/buildCombatStats";
@@ -21,12 +22,12 @@ export function createEnemyCombatant(
 
 	const combatStats = buildCombatStats({
 		baseArmourClass: enemy.combat.armourClass,
-		baseProficiencyBonus: enemy.combat.proficiencyBonus,
+		baseProficiencyBonus: calculateBaseProficiencyBonus(level),
 		baseDamageAffinities: enemy.combat.damageAffinities,
 		passiveModifiers,
 	});
 
-	const maxHp = getMaximumDiceValue(enemy.combat.hitDice);
+	const maxHp = calculateMaxHpForLevel(enemy.combat.hitDie, attributes.constitution, level);
 
 	return {
 		id: createCombatantId(combatId, "enemy"),

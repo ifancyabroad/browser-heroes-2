@@ -4,7 +4,7 @@ import {
 	attributesSchema,
 	basicAttackSchema,
 	damageAffinitiesSchema,
-	diceFormulaSchema,
+	hitDieSchema,
 	skillRefSchema,
 	tacticSchema,
 	zoneSchema,
@@ -17,9 +17,8 @@ export const enemyProficienciesSchema = z.object({
 });
 
 export const enemyCombatSchema = z.object({
-	hitDice: diceFormulaSchema,
+	hitDie: hitDieSchema,
 	armourClass: z.number().int().positive(),
-	proficiencyBonus: z.number().int().min(0).default(0),
 	damageAffinities: damageAffinitiesSchema.default({
 		resistances: [],
 		immunities: [],

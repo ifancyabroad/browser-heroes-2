@@ -121,6 +121,8 @@ export const diceFormulaSchema = z
 		"Expected a valid dice formula such as 1d6, 2d8+3, or 1d20-1",
 	);
 
+export const hitDieSchema = z.enum(["1d4", "1d6", "1d8", "1d10", "1d12"]);
+
 export const skillPools = [
 	"assassin",
 	"barbarian",
@@ -216,6 +218,7 @@ export type Resistances = z.infer<typeof resistancesSchema>;
 export type Attributes = z.infer<typeof attributesSchema>;
 export type Dice = z.infer<typeof diceSchema>;
 export type DiceFormula = z.infer<typeof diceFormulaSchema>;
+export type HitDie = z.infer<typeof hitDieSchema>;
 export type SkillPool = z.infer<typeof skillPoolSchema>;
 export type SkillCategory = z.infer<typeof skillCategorySchema>;
 export type SkillTarget = z.infer<typeof skillTargetSchema>;

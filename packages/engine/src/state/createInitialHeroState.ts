@@ -12,8 +12,7 @@ import {
 	type HeroState,
 } from "../schemas";
 import { createStartingItemInstanceId } from "../core/ids";
-import { calculateStartingHp } from "../systems/progression/health/calculateStartingHp";
-
+import { calculateMaxHpForLevel } from "../systems/progression/health/calculateMaxHpForLevel";
 export type CreateInitialHeroStateInput = {
 	runId: string;
 	heroName: string;
@@ -22,9 +21,10 @@ export type CreateInitialHeroStateInput = {
 
 export function createInitialHeroState(input: CreateInitialHeroStateInput): HeroState {
 	const classDefinition = CLASSES_BY_ID[input.classId];
-	const maxHp = calculateStartingHp(
+	const maxHp = calculateMaxHpForLevel(
 		classDefinition.combat.hitDie,
 		classDefinition.attributes.constitution,
+		1,
 	);
 
 	const hero: HeroState = {
