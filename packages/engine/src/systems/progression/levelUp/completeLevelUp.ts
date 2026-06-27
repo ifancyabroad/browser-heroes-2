@@ -3,13 +3,16 @@ import { SKILLS_BY_ID, type SkillId } from "@app/content";
 import { failureResult, successResult } from "../../../core/result";
 import type {
 	CompleteLevelUpAction,
+	EngineEvent,
 	EngineResult,
 	HeroSkillState,
 	HeroState,
 	LevelUpOption,
+	PendingLevelUp,
 	RunState,
 } from "../../../schemas";
 import { createPendingLevelUp } from "./createPendingLevelUp";
+import { createPlayerCombatant } from "../../combat/combatants/createPlayerCombatant";
 
 export function completeLevelUp(state: RunState, action: CompleteLevelUpAction): EngineResult {
 	const pendingLevelUp = state.hero.pendingLevelUp;
@@ -28,61 +31,29 @@ export function completeLevelUp(state: RunState, action: CompleteLevelUpAction):
 		return failureResult(state, "INVALID_LEVEL_UP_SELECTION");
 	}
 
-	const completedLevel = pendingLevelUp.level;
-	const hpGain = pendingLevelUp.hpGain;
-	const newMaxHp = state.hero.maxHp + hpGain;
-
-	let updatedHero: HeroState = {
-		...state.hero,
-		level: completedLevel,
-		maxHp: newMaxHp,
-		currentHp: newMaxHp,
-		pendingLevelUp: null,
-	};
-
-	if (selectedOption?.type === "skill") {
-		updatedHero = applySkillOption(updatedHero, selectedOption);
-	}
-
-	if (selectedOption?.type === "feat") {
-		updatedHero = {
-			...updatedHero,
-			featIds: [...updatedHero.featIds, selectedOption.featId],
-		};
-	}
-
-	const completedSelection =
-		selectedOption?.type === "skill"
-			? {
-					type: "skill" as const,
-					skillId: selectedOption.skillId,
-					resultingRank: selectedOption.resultingRank,
-				}
-			: selectedOption?.type === "feat"
-				? {
-						type: "feat" as const,
-						featId: selectedOption.featId,
-					}
-				: null;
+	const updatedHero = applyLevelUpToHero(state.hero, pendingLevelUp, selectedOption);
 
 	const nextPendingLevelUp = createPendingLevelUp(updatedHero, state.rngState);
+
+	const finalHero: HeroState = {
+		...updatedHero,
+		pendingLevelUp: nextPendingLevelUp.value,
+	};
 
 	return successResult(
 		{
 			...state,
 			rngState: nextPendingLevelUp.rngState,
-			hero: {
-				...updatedHero,
-				pendingLevelUp: nextPendingLevelUp.value,
-			},
+			hero: finalHero,
+			combat: refreshCompletedCombatPlayer(state.combat, finalHero),
 		},
 		[
 			{
 				type: "LEVEL_UP_COMPLETED",
-				level: completedLevel,
-				hpGain,
-				newMaxHp,
-				selection: completedSelection,
+				level: pendingLevelUp.level,
+				hpGain: pendingLevelUp.hpGain,
+				newMaxHp: finalHero.maxHp,
+				selection: createCompletedSelection(selectedOption),
 			},
 		],
 	);
@@ -148,5 +119,69 @@ function createNewSkillState(skillId: SkillId): HeroSkillState {
 					chargesRemaining: skillDefinition.maxUses,
 				}
 			: {}),
+	};
+}
+
+function applyLevelUpToHero(
+	hero: HeroState,
+	pendingLevelUp: PendingLevelUp,
+	selectedOption: LevelUpOption | null,
+): HeroState {
+	const newMaxHp = hero.maxHp + pendingLevelUp.hpGain;
+
+	let updatedHero: HeroState = {
+		...hero,
+		level: pendingLevelUp.level,
+		maxHp: newMaxHp,
+		currentHp: newMaxHp,
+		pendingLevelUp: null,
+	};
+
+	if (selectedOption?.type === "skill") {
+		updatedHero = applySkillOption(updatedHero, selectedOption);
+	}
+
+	if (selectedOption?.type === "feat") {
+		updatedHero = {
+			...updatedHero,
+			featIds: [...updatedHero.featIds, selectedOption.featId],
+		};
+	}
+
+	return updatedHero;
+}
+
+type CompletedLevelUpSelection = Extract<EngineEvent, { type: "LEVEL_UP_COMPLETED" }>["selection"];
+
+function createCompletedSelection(option: LevelUpOption | null): CompletedLevelUpSelection {
+	if (!option) {
+		return null;
+	}
+
+	if (option.type === "skill") {
+		return {
+			type: "skill",
+			skillId: option.skillId,
+			resultingRank: option.resultingRank,
+		};
+	}
+
+	return {
+		type: "feat",
+		featId: option.featId,
+	};
+}
+
+function refreshCompletedCombatPlayer(
+	combat: RunState["combat"],
+	hero: HeroState,
+): RunState["combat"] {
+	if (!combat || combat.status === "player_won") {
+		return combat;
+	}
+
+	return {
+		...combat,
+		player: createPlayerCombatant(hero, combat.id),
 	};
 }
