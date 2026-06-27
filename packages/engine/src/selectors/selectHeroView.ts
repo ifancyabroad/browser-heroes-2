@@ -1,20 +1,14 @@
 import type { ClassId, FeatId } from "@app/content";
 
 import type { HeroEquipmentState, HeroSkillState, RunState } from "../schemas";
-import {
-	deriveHeroStats,
-	type DerivedHeroStats,
-} from "../systems/progression/hero/deriveHeroStats";
+import { deriveHeroStats, type DerivedHeroStats } from "../systems/hero/deriveHeroStats";
 
 export type HeroView = {
 	name: string;
 	level: number;
 	classId: ClassId;
 
-	health: {
-		currentHp: number;
-		maxHp: number;
-	};
+	health: DerivedHeroStats["health"];
 
 	attributes: DerivedHeroStats["attributes"];
 	combatStats: DerivedHeroStats["combatStats"];
@@ -34,10 +28,7 @@ export function selectHeroView(state: RunState): HeroView {
 		level: hero.level,
 		classId: hero.classId,
 
-		health: {
-			currentHp: hero.currentHp,
-			maxHp: hero.maxHp,
-		},
+		health: derivedStats.health,
 
 		attributes: derivedStats.attributes,
 		combatStats: derivedStats.combatStats,

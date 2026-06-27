@@ -1,23 +1,27 @@
 import { CLASSES_BY_ID, type Attributes, type Class, type FeatId } from "@app/content";
 
-import type { HeroState } from "../../../schemas";
-import { EMPTY_DAMAGE_AFFINITIES } from "../../combat/constants/combatDefaults";
-import { calculateBaseArmourClass } from "../../combat/equipment/calculateBaseArmourClass";
+import type { HeroState } from "../../schemas";
+import { EMPTY_DAMAGE_AFFINITIES } from "../combat/constants/combatDefaults";
+import { calculateBaseArmourClass } from "../combat/equipment/calculateBaseArmourClass";
 import {
 	collectEquipmentModifiers,
 	collectFeatModifiers,
-} from "../../combat/modifiers/collectPassiveModifiers";
-import { deriveAttributes, type DerivedAttributes } from "../../combat/modifiers/deriveAttributes";
-import {
-	deriveCombatStats,
-	type DerivedCombatStats,
-} from "../../combat/modifiers/deriveCombatStats";
-import { calculateBaseProficiencyBonus } from "../../combat/rules/calculateBaseProficiencyBonus";
+} from "../combat/modifiers/collectPassiveModifiers";
+import { deriveAttributes, type DerivedAttributes } from "../combat/modifiers/deriveAttributes";
+import { deriveCombatStats, type DerivedCombatStats } from "../combat/modifiers/deriveCombatStats";
+import { calculateBaseProficiencyBonus } from "../combat/rules/calculateBaseProficiencyBonus";
+import { deriveHeroHealth } from "./deriveHeroHealth";
+
+export type DerivedHeroHealth = {
+	maxHp: number;
+	currentHp: number;
+};
 
 export type DerivedHeroStats = {
 	attributes: DerivedAttributes;
 	effectiveAttributes: Attributes;
 	combatStats: DerivedCombatStats;
+	health: DerivedHeroHealth;
 	featIds: FeatId[];
 	proficiencies: Class["proficiencies"];
 };
@@ -50,10 +54,19 @@ export function deriveHeroStats(hero: HeroState): DerivedHeroStats {
 		modifiers,
 	});
 
+	const health = deriveHeroHealth({
+		baseConstitution: hero.attributes.constitution,
+		effectiveConstitution: effectiveAttributes.constitution,
+		level: hero.level,
+		currentHp: hero.currentHp,
+		maxHp: hero.maxHp,
+	});
+
 	return {
 		attributes,
 		effectiveAttributes,
 		combatStats,
+		health,
 		featIds,
 		proficiencies: classDefinition.proficiencies,
 	};

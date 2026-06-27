@@ -2,8 +2,8 @@ import type { DamageAffinities, PassiveDamageModifier } from "@app/content";
 
 import type { CombatantCombatStats } from "../../../schemas";
 
-import { applyPassiveDamageAffinities } from "./applyDamageAffinityModifiers";
-import type { DerivedValue, ResolvedModifier } from "./modifier.types";
+import { deriveDamageAffinities, toDamageAffinities } from "./deriveDamageAffinities";
+import type { DerivedDamageAffinities, DerivedValue, ResolvedModifier } from "./modifier.types";
 import { resolveModifiedStat } from "./resolveModifiedStat";
 
 export type ResolvedDamageModifier = ResolvedModifier & {
@@ -20,7 +20,7 @@ export type DerivedCombatStats = {
 	critMultiplier: DerivedValue;
 	damageReduction: DerivedValue;
 	healingMultiplier: DerivedValue;
-	damageAffinities: DamageAffinities;
+	damageAffinities: DerivedDamageAffinities;
 	damageModifiers: ResolvedDamageModifier[];
 };
 
@@ -57,7 +57,7 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 
 		healingMultiplier: resolveModifiedStat("healingMultiplier", 1, modifiers),
 
-		damageAffinities: applyPassiveDamageAffinities(input.baseDamageAffinities, modifiers),
+		damageAffinities: deriveDamageAffinities(input.baseDamageAffinities, modifiers),
 
 		damageModifiers: modifiers.filter(isResolvedDamageModifier),
 	};
@@ -93,7 +93,7 @@ export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCo
 		critMultiplier: derived.critMultiplier.value,
 		damageReduction: derived.damageReduction.value,
 		healingMultiplier: derived.healingMultiplier.value,
-		damageAffinities: derived.damageAffinities,
+		damageAffinities: toDamageAffinities(derived.damageAffinities),
 		damageModifiers: derived.damageModifiers.map(({ modifier }) => modifier),
 	};
 }

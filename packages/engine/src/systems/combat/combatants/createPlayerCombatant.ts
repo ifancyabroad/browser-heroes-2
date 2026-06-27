@@ -6,7 +6,7 @@ import { getEquippedWeapon } from "../equipment/getEquippedWeapon";
 import { isHeroWeaponProficient } from "../equipment/weaponProficiency";
 import { toCombatantCombatStats } from "../modifiers/deriveCombatStats";
 import { createCombatantSkillFromHeroSkill } from "./combatantSkills";
-import { deriveHeroStats } from "../../progression/hero/deriveHeroStats";
+import { deriveHeroStats } from "../../hero/deriveHeroStats";
 
 export function createPlayerCombatant(hero: HeroState, combatId: string): CombatantState {
 	const derivedHeroStats = deriveHeroStats(hero);
@@ -23,8 +23,8 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 		sourceId: hero.classId,
 		name: hero.name,
 		level: hero.level,
-		maxHp: hero.maxHp,
-		currentHp: hero.currentHp,
+		maxHp: derivedHeroStats.health.maxHp,
+		currentHp: derivedHeroStats.health.currentHp,
 		attributes,
 		combatStats,
 		savingThrowProficiencies: derivedHeroStats.proficiencies.savingThrows,

@@ -1,4 +1,11 @@
-import type { ClassId, FeatId, ItemId, ModifierOperation, PassiveModifier } from "@app/content";
+import type {
+	ClassId,
+	DamageType,
+	FeatId,
+	ItemId,
+	ModifierOperation,
+	PassiveModifier,
+} from "@app/content";
 
 export type ModifierSource =
 	| {
@@ -32,4 +39,26 @@ export type DerivedValue = {
 	baseValue: number;
 	value: number;
 	contributions: ModifierContribution[];
+};
+
+export type DamageAffinityOperation = "add" | "remove";
+
+export type DamageAffinityContribution = {
+	source: ModifierSource;
+	operation: DamageAffinityOperation;
+	previousValue: boolean;
+	resultingValue: boolean;
+};
+
+export type DerivedDamageAffinity = {
+	damageType: DamageType;
+	baseValue: boolean;
+	value: boolean;
+	contributions: DamageAffinityContribution[];
+};
+
+export type DerivedDamageAffinities = {
+	resistances: DerivedDamageAffinity[];
+	immunities: DerivedDamageAffinity[];
+	vulnerabilities: DerivedDamageAffinity[];
 };
