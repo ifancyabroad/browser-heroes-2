@@ -1,4 +1,4 @@
-import type { RunState } from "../schemas";
+import type { PendingLevelUp, RunState } from "../schemas";
 
 import { MAX_HERO_LEVEL } from "../systems/progression/constants/levelProgression";
 import { getLevelForXp } from "../systems/progression/level/getLevelForXp";
@@ -13,7 +13,7 @@ export type HeroProgressionView = {
 	nextLevelXp: number | null;
 	availableLevel: number;
 	canLevelUp: boolean;
-	pendingLevelUp: RunState["hero"]["pendingLevelUp"];
+	pendingLevelUp: PendingLevelUp | null;
 	resultingMaxHp: number | null;
 };
 
