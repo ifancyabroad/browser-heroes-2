@@ -11,6 +11,7 @@ import { ErrorFallback } from "./components/ErrorFallback";
 import { SessionGate } from "./features/auth";
 import { ErrorModal } from "./components/ErrorModal.tsx";
 import { SocketConnection } from "./components/SocketConnection.tsx";
+import { TooltipProvider } from "./components/Tooltip.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -22,11 +23,13 @@ createRoot(document.getElementById("root")!).render(
 		>
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
-					<SessionGate>
-						<SocketConnection />
-						<App />
-						<ErrorModal />
-					</SessionGate>
+					<TooltipProvider>
+						<SessionGate>
+							<SocketConnection />
+							<App />
+							<ErrorModal />
+						</SessionGate>
+					</TooltipProvider>
 				</BrowserRouter>
 				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryClientProvider>

@@ -1,11 +1,17 @@
 import type {
+	ArmourCategory,
+	ArmourSlot,
 	ArmourType,
 	Attribute,
 	DamageType,
 	EquipmentSlot,
 	FeatCategory,
+	ItemRarity,
+	ModifiableStat,
 	SkillCategory,
 	SkillPool,
+	WeaponHandedness,
+	WeaponRange,
 	WeaponType,
 } from "@app/content";
 
@@ -30,6 +36,24 @@ export const combatStatShortLabels = {
 	healingMultiplier: "Healing",
 } as const;
 
+export const modifiableStatLabels: Record<ModifiableStat, string> = {
+	armourClass: combatStatShortLabels.armourClass,
+	damageReduction: combatStatShortLabels.damageReduction,
+	proficiencyBonus: combatStatShortLabels.proficiencyBonus,
+	attackRollBonus: combatStatShortLabels.attackRollBonus,
+	savingThrowBonus: combatStatShortLabels.savingThrowBonus,
+	saveDcBonus: combatStatShortLabels.saveDcBonus,
+	critChance: combatStatShortLabels.critChance,
+	critMultiplier: combatStatShortLabels.critMultiplier,
+	healingMultiplier: combatStatShortLabels.healingMultiplier,
+	strength: attributeShortLabels.strength,
+	dexterity: attributeShortLabels.dexterity,
+	constitution: attributeShortLabels.constitution,
+	intelligence: attributeShortLabels.intelligence,
+	wisdom: attributeShortLabels.wisdom,
+	charisma: attributeShortLabels.charisma,
+};
+
 export const equipmentSlotLabels: Record<EquipmentSlot, string> = {
 	head: "Head",
 	neck: "Neck",
@@ -41,6 +65,14 @@ export const equipmentSlotLabels: Record<EquipmentSlot, string> = {
 	feet: "Feet",
 	mainHand: "Main Hand",
 	offHand: "Off Hand",
+};
+
+export const itemRarityLabels: Record<ItemRarity, string> = {
+	common: "Common",
+	uncommon: "Uncommon",
+	rare: "Rare",
+	epic: "Epic",
+	legendary: "Legendary",
 };
 
 export const damageTypeLabels: Record<DamageType, string> = {
@@ -56,11 +88,31 @@ export const damageTypeLabels: Record<DamageType, string> = {
 	slashing: "Slash",
 };
 
+export const armourSlotLabels: Record<ArmourSlot, string> = {
+	body: "Body",
+	shield: "Shield",
+	helmet: "Helmet",
+	gloves: "Gloves",
+	boots: "Boots",
+	belt: "Belt",
+	amulet: "Amulet",
+	ring: "Ring",
+};
+
 export const armourTypeLabels: Record<ArmourType, string> = {
 	cloth: "Cloth",
 	light: "Light",
 	medium: "Medium",
 	heavy: "Heavy",
+};
+
+export const armourCategoryLabels: Record<ArmourCategory, string> = {
+	cloth: "Cloth",
+	light: "Light",
+	medium: "Medium",
+	heavy: "Heavy",
+	shield: "Shield",
+	accessory: "Accessory",
 };
 
 export const weaponTypeLabels: Record<WeaponType, string> = {
@@ -75,6 +127,16 @@ export const weaponTypeLabels: Record<WeaponType, string> = {
 	staff: "Staff",
 	sword: "Sword",
 	wand: "Wand",
+};
+
+export const weaponHandednessLabels: Record<WeaponHandedness, string> = {
+	oneHanded: "One-handed",
+	twoHanded: "Two-handed",
+};
+
+export const weaponRangeLabels: Record<WeaponRange, string> = {
+	melee: "Melee",
+	ranged: "Ranged",
 };
 
 export const skillCategoryLabels: Record<SkillCategory, string> = {
