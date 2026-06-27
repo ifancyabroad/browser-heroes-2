@@ -1,16 +1,18 @@
 import type { PassiveDamageAffinityModifier } from "@app/content";
 import type { CombatantState } from "../../../schemas";
 
-import type { CombatModifier } from "./applyStatModifiers";
+import type { ResolvedModifier } from "./modifier.types";
 
 type DamageAffinities = CombatantState["combatStats"]["damageAffinities"];
 
 export function applyPassiveDamageAffinities(
 	baseAffinities: DamageAffinities,
-	modifiers: readonly CombatModifier[],
+	modifiers: readonly ResolvedModifier[],
 ): DamageAffinities {
 	return modifiers.reduce<DamageAffinities>(
-		(affinities, modifier) => {
+		(affinities, resolvedModifier) => {
+			const { modifier } = resolvedModifier;
+
 			if (modifier.type !== "modifyDamageAffinity") {
 				return affinities;
 			}

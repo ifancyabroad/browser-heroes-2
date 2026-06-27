@@ -4,9 +4,9 @@ import type { CombatantState } from "../../../schemas";
 import { calculateMaxHpForLevel } from "../../progression/health/calculateMaxHpForLevel";
 import { calculateBaseProficiencyBonus } from "../../combat/rules/calculateBaseProficiencyBonus";
 import { createCombatantId } from "../../../core/ids";
-import { applyAttributeModifiers } from "../modifiers/applyAttributeModifiers";
-import { buildCombatStats } from "../modifiers/buildCombatStats";
-import { collectPassiveModifiers } from "../modifiers/collectPassiveModifiers";
+import { deriveAttributes } from "../modifiers/deriveAttributes";
+import { deriveCombatStats, toCombatantCombatStats } from "../modifiers/deriveCombatStats";
+import { collectFeatModifiers } from "../modifiers/collectPassiveModifiers";
 import { createCombatantSkillFromEnemySkill } from "./combatantSkills";
 
 export function createEnemyCombatant(
@@ -16,16 +16,27 @@ export function createEnemyCombatant(
 ): CombatantState {
 	const featIds = [...new Set(enemy.combat.featIds)];
 
-	const passiveModifiers = collectPassiveModifiers([], featIds);
+	const passiveModifiers = collectFeatModifiers(featIds);
 
-	const attributes = applyAttributeModifiers(enemy.attributes, passiveModifiers);
+	const derivedAttributes = deriveAttributes(enemy.attributes, passiveModifiers);
 
-	const combatStats = buildCombatStats({
+	const attributes = {
+		strength: derivedAttributes.strength.value,
+		dexterity: derivedAttributes.dexterity.value,
+		constitution: derivedAttributes.constitution.value,
+		intelligence: derivedAttributes.intelligence.value,
+		wisdom: derivedAttributes.wisdom.value,
+		charisma: derivedAttributes.charisma.value,
+	};
+
+	const derivedCombatStats = deriveCombatStats({
 		baseArmourClass: enemy.combat.armourClass,
 		baseProficiencyBonus: calculateBaseProficiencyBonus(level),
 		baseDamageAffinities: enemy.combat.damageAffinities,
-		passiveModifiers,
+		modifiers: passiveModifiers,
 	});
+
+	const combatStats = toCombatantCombatStats(derivedCombatStats);
 
 	const maxHp = calculateMaxHpForLevel(enemy.combat.hitDie, attributes.constitution, level);
 

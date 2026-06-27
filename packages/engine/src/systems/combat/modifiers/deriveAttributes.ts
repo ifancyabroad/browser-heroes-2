@@ -1,0 +1,33 @@
+import type { Attribute, Attributes } from "@app/content";
+
+import type { DerivedValue, ResolvedModifier } from "./modifier.types";
+import { resolveModifiedStat } from "./resolveModifiedStat";
+
+export type DerivedAttributes = Record<Attribute, DerivedValue>;
+
+export function deriveAttributes(
+	attributes: Attributes,
+	modifiers: readonly ResolvedModifier[],
+): DerivedAttributes {
+	return {
+		strength: resolveAttribute("strength", attributes.strength, modifiers),
+		dexterity: resolveAttribute("dexterity", attributes.dexterity, modifiers),
+		constitution: resolveAttribute("constitution", attributes.constitution, modifiers),
+		intelligence: resolveAttribute("intelligence", attributes.intelligence, modifiers),
+		wisdom: resolveAttribute("wisdom", attributes.wisdom, modifiers),
+		charisma: resolveAttribute("charisma", attributes.charisma, modifiers),
+	};
+}
+
+function resolveAttribute(
+	attribute: Attribute,
+	baseValue: number,
+	modifiers: readonly ResolvedModifier[],
+): DerivedValue {
+	const derivedValue = resolveModifiedStat(attribute, baseValue, modifiers);
+
+	return {
+		...derivedValue,
+		value: Math.floor(derivedValue.value),
+	};
+}
