@@ -1,4 +1,5 @@
 import { attributes, CLASSES_BY_ID } from "@app/content";
+import { selectHeroProgression, type HeroProgressionView } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
@@ -18,6 +19,8 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 	const { state } = run;
 	const { hero } = state;
 	const heroClass = CLASSES_BY_ID[hero.classId];
+	const progression = selectHeroProgression(state);
+	const xpResource = getXpResource(progression);
 
 	const attributeItems: StatListItem[] = attributes.map((attribute) => ({
 		label: formatLabel(attribute),
@@ -56,7 +59,12 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 					tone="hp"
 					fillPercent={(hero.currentHp / hero.maxHp) * 100}
 				/>
-				<ResourceBar label="XP" value={`${hero.xp} total`} tone="xp" />
+				<ResourceBar
+					label="XP"
+					value={xpResource.value}
+					tone="xp"
+					fillPercent={xpResource.fillPercent}
+				/>
 			</section>
 
 			<section className="grid gap-2" aria-labelledby="attributes-heading">
@@ -74,4 +82,21 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 			</section>
 		</Sidebar>
 	);
+}
+
+function getXpResource(progression: HeroProgressionView) {
+	if (progression.nextLevelXp === null) {
+		return {
+			value: "Max",
+			fillPercent: 100,
+		};
+	}
+
+	const progressXp = Math.max(0, progression.xp - progression.currentLevelXp);
+	const neededXp = Math.max(1, progression.nextLevelXp - progression.currentLevelXp);
+
+	return {
+		value: `${progressXp}/${neededXp}`,
+		fillPercent: (progressXp / neededXp) * 100,
+	};
 }

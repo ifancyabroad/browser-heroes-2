@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { createPortal } from "react-dom";
+import clsx from "clsx";
 
 type ModalProps = PropsWithChildren<{
 	open: boolean;
@@ -7,6 +8,7 @@ type ModalProps = PropsWithChildren<{
 	onClose: () => void;
 	footer?: ReactNode;
 	closeOnBackdropClick?: boolean;
+	className?: string;
 }>;
 
 export function Modal({
@@ -15,6 +17,7 @@ export function Modal({
 	onClose,
 	footer,
 	closeOnBackdropClick = true,
+	className,
 	children,
 }: ModalProps) {
 	if (!open) {
@@ -23,7 +26,7 @@ export function Modal({
 
 	return createPortal(
 		<div
-			className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+			className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4"
 			onMouseDown={(event) => {
 				if (closeOnBackdropClick && event.target === event.currentTarget) {
 					onClose();
@@ -34,7 +37,10 @@ export function Modal({
 				role="dialog"
 				aria-modal="true"
 				aria-labelledby="modal-title"
-				className="border-2 border-border bg-bg-elevated w-full max-w-md p-6"
+				className={clsx(
+					"w-full max-w-md border-2 border-border bg-bg-elevated p-6",
+					className,
+				)}
 			>
 				<header className="mb-4 flex items-center justify-between">
 					<h2 id="modal-title" className="text-text-bright">

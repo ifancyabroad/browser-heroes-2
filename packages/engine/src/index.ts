@@ -25,12 +25,15 @@ export type {
 	CombatLogEntry,
 	ActiveCombatEffect,
 	DeserializeRunStateResult,
+	PendingLevelUp,
+	LevelUpOption,
+	LevelUpSelection,
 } from "./schemas";
 
 export { serializeRunState, deserializeRunState, deserializeRunStateJson } from "./serialization";
 
 export { getZoneForRun } from "./systems/encounters";
 
-export { selectAvailableActions, selectCombatView } from "./selectors";
+export { selectAvailableActions, selectCombatView, selectHeroProgression } from "./selectors";
 
-export type { CombatViewState } from "./selectors";
+export type { CombatViewState, HeroProgressionView } from "./selectors";

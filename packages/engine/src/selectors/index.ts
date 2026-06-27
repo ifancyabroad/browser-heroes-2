@@ -5,3 +5,5 @@ export { selectCombatView } from "./selectCombatView";
 export type { CombatViewState } from "./selectCombatView";
 
 export { selectHeroProgression } from "./selectHeroProgression";
+
+export type { HeroProgressionView } from "./selectHeroProgression";

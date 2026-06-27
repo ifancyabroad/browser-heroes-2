@@ -8,6 +8,8 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	VALIDATION_FAILED: "The action could not be validated.",
 	NO_ELIGIBLE_ENEMY: "No enemy is available for this battle.",
 	ENEMY_DEFINITION_NOT_FOUND: "Enemy details could not be loaded for this battle.",
+	LEVEL_UP_NOT_AVAILABLE: "There is no level-up available right now.",
+	INVALID_LEVEL_UP_SELECTION: "That level-up choice is not available.",
 };
 
 export function getEngineErrorMessage(error: EngineErrorCode): string {

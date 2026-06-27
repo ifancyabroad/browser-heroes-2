@@ -3,6 +3,7 @@ import { useCurrentRun } from "../features/runs";
 import { TownView } from "../features/town";
 import { PageLoader } from "../components/PageLoader";
 import { CombatView } from "../features/combat";
+import { LevelUpModalController } from "../features/levelUp";
 
 export default function Game() {
 	const { data, isPending } = useCurrentRun();
@@ -16,18 +17,30 @@ export default function Game() {
 	}
 
 	const { run } = data;
+	let view;
 
 	switch (run.state.phase) {
 		case "town":
-			return <TownView run={run} />;
+			view = <TownView run={run} />;
+			break;
 
 		case "combat":
-			return <CombatView run={run} />;
+			view = <CombatView run={run} />;
+			break;
 
 		case "dead":
-			return <p>Run over</p>;
+			view = <p>Run over</p>;
+			break;
 
 		case "complete":
-			return <p>Run complete</p>;
+			view = <p>Run complete</p>;
+			break;
 	}
+
+	return (
+		<>
+			{view}
+			<LevelUpModalController run={run} />
+		</>
+	);
 }
