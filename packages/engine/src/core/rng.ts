@@ -58,3 +58,29 @@ function hashSeed(seed: string): number {
 
 	return hash >>> 0;
 }
+
+export function selectRandomItems<T>(
+	items: readonly T[],
+	count: number,
+	rngState: RngState,
+): RngResult<T[]> {
+	const remaining = [...items];
+	const selected: T[] = [];
+	let nextRngState = rngState;
+
+	const selectionCount = Math.min(Math.max(0, count), remaining.length);
+
+	while (selected.length < selectionCount) {
+		const roll = randomInt(nextRngState, 0, remaining.length - 1);
+
+		const [item] = remaining.splice(roll.value, 1);
+
+		selected.push(item);
+		nextRngState = roll.rngState;
+	}
+
+	return {
+		value: selected,
+		rngState: nextRngState,
+	};
+}

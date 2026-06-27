@@ -1,6 +1,6 @@
 import type { DiceFormula } from "@app/content";
-import { calculateAttributeModifier } from "../../core/attributes";
-import { getMaximumDiceValue } from "../../core/dice";
+import { calculateAttributeModifier } from "../../../core/attributes";
+import { getMaximumDiceValue } from "../../../core/dice";
 
 export function calculateStartingHp(hitDie: DiceFormula, constitution: number): number {
 	const hitDieMaximum = getMaximumDiceValue(hitDie);

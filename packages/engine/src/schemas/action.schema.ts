@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { skillIdSchema } from "@app/content";
+import { levelUpSelectionSchema } from "./levelUp.schema";
 
 export const enterCombatActionSchema = z.object({
 	type: z.literal("ENTER_COMBAT"),
@@ -41,6 +42,11 @@ export const rerollShopActionSchema = z.object({
 	type: z.literal("REROLL_SHOP"),
 });
 
+export const completeLevelUpActionSchema = z.object({
+	type: z.literal("COMPLETE_LEVEL_UP"),
+	selection: levelUpSelectionSchema.nullable(),
+});
+
 export const engineActionSchema = z.discriminatedUnion("type", [
 	enterCombatActionSchema,
 	playerBasicAttackActionSchema,
@@ -51,6 +57,7 @@ export const engineActionSchema = z.discriminatedUnion("type", [
 	buyItemActionSchema,
 	restAtTownActionSchema,
 	rerollShopActionSchema,
+	completeLevelUpActionSchema,
 ]);
 
 export type EnterCombatAction = z.infer<typeof enterCombatActionSchema>;
@@ -62,5 +69,6 @@ export type ReturnToTownAction = z.infer<typeof returnToTownActionSchema>;
 export type BuyItemAction = z.infer<typeof buyItemActionSchema>;
 export type RestAtTownAction = z.infer<typeof restAtTownActionSchema>;
 export type RerollShopAction = z.infer<typeof rerollShopActionSchema>;
+export type CompleteLevelUpAction = z.infer<typeof completeLevelUpActionSchema>;
 
 export type EngineAction = z.infer<typeof engineActionSchema>;

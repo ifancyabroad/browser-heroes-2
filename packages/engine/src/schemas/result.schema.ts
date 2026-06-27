@@ -10,6 +10,8 @@ export const engineErrorCodeSchema = z.enum([
 	"VALIDATION_FAILED",
 	"NO_ELIGIBLE_ENEMY",
 	"ENEMY_DEFINITION_NOT_FOUND",
+	"LEVEL_UP_NOT_AVAILABLE",
+	"INVALID_LEVEL_UP_SELECTION",
 ]);
 
 export const engineSuccessResultSchema = z.object({

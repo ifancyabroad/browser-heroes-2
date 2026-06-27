@@ -1,6 +1,10 @@
-import type { EngineAction, RunState } from "../schemas";
+import type { CompleteLevelUpAction, EngineAction, PendingLevelUp, RunState } from "../schemas";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
+	if (state.hero.pendingLevelUp) {
+		return getLevelUpActions(state.hero.pendingLevelUp);
+	}
+
 	if (state.phase === "town") {
 		return [
 			{
@@ -29,4 +33,35 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 	}
 
 	return [];
+}
+
+function getLevelUpActions(pendingLevelUp: PendingLevelUp): CompleteLevelUpAction[] {
+	if (pendingLevelUp.options.length === 0) {
+		return [
+			{
+				type: "COMPLETE_LEVEL_UP",
+				selection: null,
+			},
+		];
+	}
+
+	return pendingLevelUp.options.map((option) => {
+		if (option.type === "skill") {
+			return {
+				type: "COMPLETE_LEVEL_UP",
+				selection: {
+					type: "skill",
+					skillId: option.skillId,
+				},
+			};
+		}
+
+		return {
+			type: "COMPLETE_LEVEL_UP",
+			selection: {
+				type: "feat",
+				featId: option.featId,
+			},
+		};
+	});
 }

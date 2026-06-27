@@ -5,6 +5,7 @@ import { syncHeroFromPlayerCombatant } from "../../combat/combatants/syncHeroFro
 import { applyCombatReward } from "./applyCombatReward";
 import { calculateCombatReward, type CombatReward } from "./calculateCombatReward";
 import { calculateGoldMultiplier } from "./calculateGoldMultiplier";
+import { createPendingLevelUp } from "../levelUp/createPendingLevelUp";
 
 export type ApplyVictoryRewardResult = {
 	state: RunState;
@@ -33,8 +34,19 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 		hero: syncHeroFromPlayerCombatant(state.hero, state.combat.player),
 	};
 
+	const rewardedState = applyCombatReward(syncedState, reward);
+
+	const pendingLevelUpResult = createPendingLevelUp(rewardedState.hero, rewardedState.rngState);
+
 	return {
-		state: applyCombatReward(syncedState, reward),
+		state: {
+			...rewardedState,
+			rngState: pendingLevelUpResult.rngState,
+			hero: {
+				...rewardedState.hero,
+				pendingLevelUp: pendingLevelUpResult.value,
+			},
+		},
 		reward,
 	};
 }

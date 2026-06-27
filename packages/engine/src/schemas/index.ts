@@ -4,6 +4,7 @@ export {
 	playerBasicAttackActionSchema,
 	continueToNextCombatActionSchema,
 	returnToTownActionSchema,
+	completeLevelUpActionSchema,
 } from "./action.schema";
 
 export type {
@@ -12,6 +13,7 @@ export type {
 	PlayerBasicAttackAction,
 	ContinueToNextCombatAction,
 	ReturnToTownAction,
+	CompleteLevelUpAction,
 } from "./action.schema";
 
 export { engineEventSchema } from "./event.schema";
@@ -82,3 +84,19 @@ export {
 } from "./serialization.schema";
 
 export type { DeserializeRunStateResult } from "./serialization.schema";
+
+export {
+	featLevelUpOptionSchema,
+	levelUpOptionSchema,
+	pendingLevelUpSchema,
+	skillLevelUpOptionSchema,
+	levelUpSelectionSchema,
+} from "./levelUp.schema";
+
+export type {
+	FeatLevelUpOption,
+	LevelUpOption,
+	PendingLevelUp,
+	SkillLevelUpOption,
+	LevelUpSelection,
+} from "./levelUp.schema";

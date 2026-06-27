@@ -7,6 +7,7 @@ import {
 	skillIdSchema,
 	skillRankValueSchema,
 } from "@app/content";
+import { pendingLevelUpSchema } from "./levelUp.schema";
 
 export const heroSkillStateSchema = z.object({
 	skillId: skillIdSchema,
@@ -46,6 +47,7 @@ export const heroStateSchema = z.object({
 	skills: z.array(heroSkillStateSchema),
 	featIds: z.array(featIdSchema),
 	equipment: heroEquipmentStateSchema,
+	pendingLevelUp: pendingLevelUpSchema.nullable(),
 });
 
 export type HeroSkillState = z.infer<typeof heroSkillStateSchema>;

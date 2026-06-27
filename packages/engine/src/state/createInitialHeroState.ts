@@ -12,7 +12,7 @@ import {
 	type HeroState,
 } from "../schemas";
 import { createStartingItemInstanceId } from "../core/ids";
-import { calculateStartingHp } from "../systems/progression/calculateStartingHp";
+import { calculateStartingHp } from "../systems/progression/health/calculateStartingHp";
 
 export type CreateInitialHeroStateInput = {
 	runId: string;
@@ -39,6 +39,7 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 		skills: createInitialSkills(classDefinition),
 		featIds: [],
 		equipment: createInitialEquipment(classDefinition, input.runId),
+		pendingLevelUp: null,
 	};
 
 	return heroStateSchema.parse(hero);
