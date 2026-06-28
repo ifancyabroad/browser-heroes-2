@@ -1,18 +1,22 @@
-import type { AttackDamageEffect, DamageType } from "@app/content";
+import type { DamageType } from "@app/content";
 
 import type { CombatantSide, CombatState } from "../../../../schemas";
+
 import type { RngResult, RngState } from "../../../../core/rng";
+
+import type { SupportedAttackDamageEffect } from "../validatePlayerSkillUse";
 
 import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { applyDamage } from "../../damage/applyDamage";
 import { calculateDamage } from "../../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { appendCombatLog } from "../../logs/appendCombatLog";
+import { resolveAttackRiderEffects } from "../resolveAttackRiderEffects";
 
 type ResolveAttackDamageEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
-	effect: AttackDamageEffect;
+	effect: SupportedAttackDamageEffect;
 	skillName: string;
 	rngState: RngState;
 };
@@ -49,7 +53,7 @@ export function resolveAttackDamageEffect(
 
 	const damageType: DamageType = input.effect.damageTypeOverride ?? actor.basicAttack.damage.type;
 
-	const damage = calculateDamage({
+	const mainDamage = calculateDamage({
 		rngState: attackRoll.rngState,
 		attacker: actor,
 		defender: target,
@@ -60,19 +64,61 @@ export function resolveAttackDamageEffect(
 		multiplier: input.effect.multiplier,
 	});
 
-	const updatedTarget = applyDamage(target, damage.value);
+	let rngState = mainDamage.rngState;
+	let totalDamage = mainDamage.value.amount;
 
-	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
+	let updatedTarget = applyDamage(target, mainDamage.value);
+
+	if (input.effect.extraDice) {
+		const extraDamage = calculateDamage({
+			rngState,
+			attacker: actor,
+			defender: updatedTarget,
+			dice: input.effect.extraDice,
+			damageType: input.effect.extraDamageType ?? damageType,
+			critical: attackRoll.value.critical,
+		});
+
+		rngState = extraDamage.rngState;
+		totalDamage += extraDamage.value.amount;
+
+		updatedTarget = applyDamage(updatedTarget, extraDamage.value);
+	}
+
+	let resolvedCombat = replaceCombatant(input.combat, updatedTarget);
+
+	resolvedCombat = appendCombatLog(resolvedCombat, {
+		turnNumber: input.combat.turnNumber,
+		actor: actor.side,
+		message:
+			`${actor.name} uses ${input.skillName} on ` +
+			`${target.name} for ${totalDamage} damage.`,
+		eventType: "skill_used",
+	});
+
+	for (const rider of input.effect.attackRiders) {
+		const shouldResolve =
+			rider.timing === "onHit" || (rider.timing === "onCrit" && attackRoll.value.critical);
+
+		if (!shouldResolve) {
+			continue;
+		}
+
+		const riderResult = resolveAttackRiderEffects({
+			combat: resolvedCombat,
+			actorSide: input.actorSide,
+			effects: rider.effects,
+			save: rider.save,
+			skillName: input.skillName,
+			rngState,
+		});
+
+		resolvedCombat = riderResult.value;
+		rngState = riderResult.rngState;
+	}
 
 	return {
-		value: appendCombatLog(updatedCombat, {
-			turnNumber: input.combat.turnNumber,
-			actor: actor.side,
-			message:
-				`${actor.name} uses ${input.skillName} on ` +
-				`${target.name} for ${damage.value.amount} damage.`,
-			eventType: "skill_used",
-		}),
-		rngState: damage.rngState,
+		value: resolvedCombat,
+		rngState,
 	};
 }

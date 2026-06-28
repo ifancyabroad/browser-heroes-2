@@ -40,6 +40,10 @@ export const damageEffectSchema = z
 	.refine((effect) => !(effect.requiresAttackRoll && effect.save), {
 		message: "Damage effect should not require both an attack roll and a saving throw",
 		path: ["save"],
+	})
+	.refine((effect) => !effect.requiresAttackRoll || effect.attribute !== undefined, {
+		message: "Attack-roll damage effects must provide an attribute",
+		path: ["attribute"],
 	});
 
 export const healEffectSchema = z.object({
@@ -125,15 +129,20 @@ export const attackRiderSchema = z.object({
 	effects: z.array(riderEffectSchema).min(1),
 });
 
-export const attackDamageEffectSchema = z.object({
-	type: z.literal("attackDamage"),
-	target: z.literal("enemy").default("enemy"),
-	multiplier: z.number().positive().default(1),
-	damageTypeOverride: damageTypeSchema.optional(),
-	extraDice: diceFormulaSchema.optional(),
-	extraDamageType: damageTypeSchema.optional(),
-	attackRiders: z.array(attackRiderSchema).default([]),
-});
+export const attackDamageEffectSchema = z
+	.object({
+		type: z.literal("attackDamage"),
+		target: z.literal("enemy").default("enemy"),
+		multiplier: z.number().positive().default(1),
+		damageTypeOverride: damageTypeSchema.optional(),
+		extraDice: diceFormulaSchema.optional(),
+		extraDamageType: damageTypeSchema.optional(),
+		attackRiders: z.array(attackRiderSchema).default([]),
+	})
+	.refine((effect) => effect.extraDamageType === undefined || effect.extraDice !== undefined, {
+		message: "extraDamageType requires extraDice",
+		path: ["extraDamageType"],
+	});
 
 export const effectSchema = z.discriminatedUnion("type", [
 	damageEffectSchema,

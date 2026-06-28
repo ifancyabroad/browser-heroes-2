@@ -1,4 +1,13 @@
-import { SKILLS_BY_ID, type Effect, type Skill } from "@app/content";
+import {
+	SKILLS_BY_ID,
+	type AttackDamageEffect,
+	type AttackRider,
+	type DamageEffect,
+	type Effect,
+	type HealEffect,
+	type RiderEffect,
+	type Skill,
+} from "@app/content";
 
 import type {
 	CombatantSkillState,
@@ -7,7 +16,17 @@ import type {
 	PlayerUseSkillAction,
 } from "../../../schemas";
 
-export type SupportedSkillEffect = Extract<Effect, { type: "damage" | "attackDamage" | "heal" }>;
+export type SupportedRiderEffect = Extract<RiderEffect, { type: "damage" | "heal" }>;
+
+export type SupportedAttackRider = Omit<AttackRider, "effects"> & {
+	effects: SupportedRiderEffect[];
+};
+
+export type SupportedAttackDamageEffect = Omit<AttackDamageEffect, "attackRiders"> & {
+	attackRiders: SupportedAttackRider[];
+};
+
+export type SupportedSkillEffect = DamageEffect | HealEffect | SupportedAttackDamageEffect;
 
 export type ValidatedPlayerSkillUse = {
 	skill: Skill;
@@ -48,7 +67,9 @@ export function validatePlayerSkillUse(
 	const skill = SKILLS_BY_ID[action.skillId];
 	const rank = skill.ranks[skillState.rank - 1];
 
-	if (!rank.effects.every(isSupportedSkillEffect)) {
+	const effects = getSupportedSkillEffects(rank.effects);
+
+	if (!effects) {
 		return {
 			ok: false,
 			error: "SKILL_EFFECT_NOT_SUPPORTED",
@@ -60,23 +81,65 @@ export function validatePlayerSkillUse(
 		value: {
 			skill,
 			skillState,
-			effects: rank.effects,
+			effects,
 		},
 	};
 }
 
-function isSupportedSkillEffect(effect: Effect): effect is SupportedSkillEffect {
-	switch (effect.type) {
-		case "damage":
-			return !effect.requiresAttackRoll && !effect.save;
+function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | null {
+	const supportedEffects: SupportedSkillEffect[] = [];
 
-		case "attackDamage":
-			return effect.extraDice === undefined && effect.attackRiders.length === 0;
+	for (const effect of effects) {
+		switch (effect.type) {
+			case "damage":
+			case "heal":
+				supportedEffects.push(effect);
+				break;
 
-		case "heal":
-			return true;
+			case "attackDamage": {
+				const attackRiders = getSupportedAttackRiders(effect.attackRiders);
 
-		default:
-			return false;
+				if (!attackRiders) {
+					return null;
+				}
+
+				supportedEffects.push({
+					...effect,
+					attackRiders,
+				});
+
+				break;
+			}
+
+			default:
+				return null;
+		}
 	}
+
+	return supportedEffects;
+}
+
+function getSupportedAttackRiders(riders: AttackRider[]): SupportedAttackRider[] | null {
+	const supportedRiders: SupportedAttackRider[] = [];
+
+	for (const rider of riders) {
+		if (rider.save) {
+			return null;
+		}
+
+		if (!rider.effects.every(isSupportedRiderEffect)) {
+			return null;
+		}
+
+		supportedRiders.push({
+			...rider,
+			effects: rider.effects,
+		});
+	}
+
+	return supportedRiders;
+}
+
+function isSupportedRiderEffect(effect: RiderEffect): effect is SupportedRiderEffect {
+	return effect.type === "damage" || effect.type === "heal";
 }

@@ -13,6 +13,7 @@ type ResolveHealEffectInput = {
 	actorSide: CombatantSide;
 	effect: HealEffect;
 	skillName: string;
+	logContext?: "skill" | "rider";
 	rngState: RngState;
 };
 
@@ -45,13 +46,17 @@ export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<Comb
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
+	const message =
+		input.logContext === "rider"
+			? `${input.skillName} restores an additional ${actualHealing} health to ${target.name}.`
+			: `${actor.name} uses ${input.skillName} and restores ${actualHealing} health.`;
+
 	return {
 		value: appendCombatLog(updatedCombat, {
 			turnNumber: input.combat.turnNumber,
 			actor: actor.side,
-			message:
-				`${actor.name} uses ${input.skillName} and restores ` + `${actualHealing} health.`,
-			eventType: "healing_done",
+			message,
+			eventType: input.logContext === "rider" ? "effect_applied" : "healing_done",
 		}),
 		rngState: roll.rngState,
 	};
