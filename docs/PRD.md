@@ -2,83 +2,119 @@
 
 ## 1. Vision
 
-Browser Heroes 2 is a free-to-play browser roguelike RPG built around fast, repeatable runs of turn-based combat progression.
+Browser Heroes 2 is a browser roguelike RPG built around fast, repeatable runs of deterministic turn-based combat.
 
-Players create a hero, develop a build through items, active skills, and passive feats, and advance through increasingly difficult zones.
+Players create a hero, push through a sequence of encounters, develop a flexible build through class identity, skills, feats, and equipment, and decide when to press forward or return to town.
 
-The game emphasizes:
+The game should feel like a retro fantasy RPG: readable, compact, quick to understand, and punishing enough that choices matter.
 
-- short replayable runs
-- emergent build combinations
-- deterministic turn-based combat
-- high run-to-run variability
-- low onboarding friction
-- long-term replayability
+The product emphasizes:
 
-## 2. Core Gameplay Loop
+- fast tactical combat
+- short decision cycles
+- flexible class-based builds
+- curated level-up choices
+- strategic town checkpoints
+- deterministic outcomes from seeded randomness
+- readable failure and victory states
+- long-term replayability through content variety and later meta systems
+
+## 2. Current Playable Loop
+
+The current implementation supports the core skeleton of a run:
+
+1. Start a guest session.
+2. Create a hero by choosing a class and name.
+3. Enter town.
+4. Start combat from town.
+5. Resolve combat through basic attacks.
+6. Earn rewards after victory.
+7. Complete pending level-up choices when offered.
+8. Continue directly to the next combat or return to town.
+9. End the run on player death.
+
+Town currently acts as a run checkpoint and launch point. More town decisions are planned.
+
+Combat currently focuses on basic attack rounds. Active skill use, consumables, richer enemy behavior, and deeper effect timing are planned or scaffolded, but are not the primary playable surface yet.
+
+## 3. Intended Full Loop
+
+The intended full run remains a 100-battle ladder across zones, with a boss encounter every 10 battles.
+
+The long-term loop is:
 
 1. Create a hero.
-2. Enter town.
-3. Prepare through shops, recovery, and consumables.
-4. Enter combat.
-5. Defeat sequential enemies.
-6. Face a boss every 10th battle.
-7. Unlock the next zone after each boss.
+2. Prepare in town.
+3. Enter combat.
+4. Defeat sequential enemies.
+5. Face a boss every 10th battle.
+6. Unlock or advance through zone pressure after boss milestones.
+7. Develop a build through rewards, equipment, skills, and feats.
 8. Defeat the final boss at battle 100.
-9. Continue into endless progression or end the run.
+9. Continue into optional endless progression or end the run.
 
-## 3. Core Systems
+Endless progression is part of the product vision, but should not be treated as current playable behavior until implemented.
 
-Detailed player-facing rules are defined in `RULES.md`.
+## 4. Core Systems
 
-### 3.1 Hero and Build System
+Detailed player-facing rules belong in `RULES.md`. Combat-specific behavior belongs in `COMBAT.md`.
 
-Heroes have class identity, attributes, proficiencies, active skills, passive feats, equipment, level, XP, and run-specific resources.
+### 4.1 Hero and Build System
 
-### 3.2 Combat System
+Heroes have class identity, attributes, proficiencies, active skills, passive feats, equipment, level, XP, health, gold, and run-specific state.
 
-Combat is deterministic, turn-based, and resolved between the player hero and a single enemy. See `COMBAT.md`.
+Classes should establish identity and starting direction, while skills, feats, equipment, and level-up offers allow each run to branch.
 
-### 3.3 Progression System
+Build decisions should be expressive without requiring players to manage large build trees during fast runs.
 
-Players earn rewards from victories, level up, develop their build, and advance through increasingly difficult zones.
+### 4.2 Combat System
 
-### 3.4 Content System
+Combat is deterministic, turn-based, and resolved between the player hero and a single enemy.
 
-The game uses shared declarative content for classes, enemies, items, skills, feats, and related build options. Content should support broad build variety without moving gameplay authority into UI or backend-only code.
+The intended combat feel is fast tactical RPG combat: basic attacks stay simple, while skills, items, conditions, and enemy behaviors add readable choices over time.
 
-### 3.5 Town System
+### 4.3 Progression System
 
-Town is the between-combat preparation layer for shopping, recovery, consumables, rerolls, and run decisions.
+Players earn XP and gold from combat victories. Level-ups may offer a small curated set of skill or feat options.
 
-### 3.6 Meta Systems
+Progression should reward continuing a run while making risk visible. Returning to town should be a meaningful pacing and safety decision rather than a purely cosmetic step.
 
-Leaderboards, run history, hero inspection, ghost encounters, and world activity provide social and replayability layers outside individual runs.
+### 4.4 Content System
 
-## 4. Design Goals
+The game uses shared declarative content for classes, enemies, items, skills, feats, and related build options.
 
-- Runs should be fast and replayable.
-- Build variety should emerge through items, skills, feats, and class identity.
-- Combat should remain readable and low-friction.
-- Randomness should create meaningful variation while remaining deterministic.
-- The game should support both casual and optimization-focused playstyles.
-- The UI should remain minimal, responsive, and information-dense.
+Content should support variety and synergy without moving gameplay authority into UI or backend-only code.
 
-## 5. Win and Failure Conditions
+### 4.5 Town System
 
-Victory is achieved by defeating the final boss at battle 100. Player death ends the run immediately. Endless progression is available after victory.
+Town is intended to be a strategic checkpoint between fights.
 
-See `RULES.md` for run completion rules.
+Planned town responsibilities include shops, recovery, rerolls, consumable management, equipment decisions, and run continuation choices. The current implementation exposes a minimal town surface while this layer grows.
+
+### 4.6 Meta Systems
+
+Ghosts, leaderboards, run history, hero inspection, and world activity are important later systems. They should support replayability and asynchronous social presence, but they are secondary to the core run and combat loop today.
+
+Meta systems must not override deterministic run rules unless their effects are represented explicitly in run state.
+
+## 5. Design Goals
+
+- Runs should be quick to start and easy to repeat.
+- Combat should remain readable even when builds become more complex.
+- Choices should be meaningful without becoming slow or opaque.
+- Randomness should create variation while remaining deterministic and replayable.
+- Death should feel fair, explainable, and consequential.
+- The UI should remain compact, responsive, and information-dense.
+- The project should remain maintainable by one developer.
 
 ## 6. Scope Boundaries
 
 This document does not define:
 
-- combat formulas
-- stat scaling
+- exact combat formulas
+- exact stat scaling
 - exact content schemas
 - item generation algorithms
-- technical architecture
-- infrastructure
-- database design
-- UI implementation details
+- route or database shapes
+- deployment implementation
+- detailed UI component APIs

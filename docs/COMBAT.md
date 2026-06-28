@@ -4,28 +4,30 @@
 
 Combat should be deterministic, readable, low-friction, and strategically expressive.
 
-The system is DnD-adjacent rather than a strict tabletop rules clone. It uses familiar RPG ideas such as attributes, proficiencies, dice rolls, hit dice, damage dice, D20 checks, and saving throws while keeping browser play fast.
+The intended feel is fast tactical RPG combat. Basic attacks should remain easy to understand, while skills, items, conditions, and enemy behavior add decision depth over time.
 
 Combat should support:
 
 - short decision cycles
-- build synergy discovery
-- clear logs and outcomes
+- clear combatant state
+- readable logs
 - deterministic replay
+- build synergy discovery
 - meaningful variation from seeded randomness
 
-## 2. Combat Structure
+## 2. Current Combat Model
 
-Combat consists of one hero against one enemy.
+Combat currently consists of one hero against one enemy.
 
-Combat has:
+Current combat has:
 
-- alternating turns
 - no positioning system
 - no movement system
-- no simultaneous action resolution
+- no simultaneous action selection
+- player-initiated basic attack rounds
+- deterministic enemy response during the same resolved round
 
-The player acts first unless a future rule explicitly says otherwise.
+The player currently acts through basic attack actions. Active skill use, consumables, richer enemy tactics, and deeper temporary effects are planned/scaffolded and should not be treated as current playable behavior.
 
 ## 3. Combatants
 
@@ -35,16 +37,16 @@ Combat-relevant identity includes:
 
 - current and maximum HP
 - six core attributes
-- proficiencies
+- derived combat stats
+- saving throw proficiencies
+- basic attack data
 - active skills
-- passive feats
-- equipment
+- passive feat IDs
+- equipment-derived modifiers
 - active temporary effects
 - combat log state
 
 The exact stored shape belongs to code, not this document.
-
-Encounter context includes turn state, combat log state, encounter type, RNG/run state, and any relevant zone or encounter modifiers.
 
 ## 4. Attributes, Proficiencies, and Dice
 
@@ -57,9 +59,11 @@ Combat uses six attributes:
 - wisdom
 - charisma
 
-Attributes and proficiencies influence attacks, saves, damage, mitigation, skill effects, and class or enemy identity.
+Attributes and proficiencies influence attacks, saves, damage, mitigation, health, class identity, and enemy identity.
 
-Dice are deterministic because rolls consume seeded RNG from run state. Dice may be used for:
+Dice and random selection consume seeded RNG from run state. Identical state plus identical action should produce identical outcomes.
+
+Dice may be used for:
 
 - D20 checks
 - attack resolution
@@ -67,33 +71,41 @@ Dice are deterministic because rolls consume seeded RNG from run state. Dice may
 - hit dice
 - damage rolls
 - effect rolls
+- random encounter or level-up option selection
 
-This document intentionally does not define exact formulas.
+This document intentionally avoids exact formulas and tuning values.
 
-Randomness is permitted only in explicitly defined systems such as damage ranges, critical outcomes, enemy generation, loot generation, and skill offerings.
+## 5. Basic Attack Round
 
-## 5. Turn Resolution
+Current player combat resolution is round-based from the player's perspective:
 
-Each turn resolves conceptually as:
+1. The player submits a basic attack action.
+2. The engine validates that combat is active.
+3. The player attack resolves.
+4. Combat status is checked.
+5. If the enemy dies, victory rewards are applied.
+6. If the enemy survives, the enemy basic attack resolves.
+7. Combat status is checked again.
+8. The run either advances the combat turn, ends in defeat, or waits at victory.
 
-1. Select a valid action.
-2. Resolve the action.
-3. Apply relevant dice checks and modifiers.
-4. Apply damage, healing, effects, or other outcomes.
-5. Check death and combat end conditions.
-6. Advance the turn and write log entries.
-
-Only explicit rules may interrupt or alter this order.
+This keeps the UI simple while preserving engine-owned combat resolution.
 
 ## 6. Valid Actions
 
-Combat actions may include:
+Current playable actions around combat include:
 
-- basic attacks
-- active skill usage
-- consumable usage
+- basic attack while combat is active
+- continue to next combat after victory
+- return to town after victory
+- complete pending level-up choices when required
 
-Only one player action is selected per player turn unless a rule explicitly grants another action.
+Planned or scaffolded action surfaces include:
+
+- active skill use
+- consumable use
+- richer town actions that affect combat readiness
+
+Only the engine decides whether an action is valid for the current run state.
 
 ## 7. Damage and Mitigation
 
@@ -102,81 +114,82 @@ Damage follows this conceptual flow:
 ```text
 Base roll or value
 -> offensive modifiers
--> defensive mitigation
--> conditional effects
+-> defender affinity
+-> damage reduction
 -> final outcome
 ```
 
-Damage may derive from weapons, skills, attributes, proficiencies, damage dice, feats, items, and temporary effects.
+Damage may derive from weapons, skills, attributes, proficiencies, feats, items, and temporary effects.
 
-Mitigation may derive from armour, attributes, resistances, feats, items, saving throws, and temporary effects.
+Mitigation may derive from armour, attributes, damage affinities, damage reduction, feats, items, saving throws, and temporary effects.
 
-Damaging actions must result in at least 1 damage or an explicit blocked, avoided, or immune outcome. Invisible nullification is not allowed.
+Damage affinities include normal, resistant, immune, and vulnerable outcomes. Combat logs should make important outcomes understandable.
 
-## 8. Skills
+## 8. Skills and Consumables
 
-Skills are active combat abilities.
+Skills are intended to be active combat abilities. Consumables are intended to provide limited-use recovery, combat, or utility effects.
 
-Skills may:
+Current state: skills can exist on combatants and can be gained or ranked through progression, but direct player skill actions and consumable actions are not yet part of the playable combat loop.
 
-- deal damage
-- heal
-- apply temporary effects
-- impose conditions
-- modify the current combat state
-- create utility effects
+When implemented, skills and consumables should have:
 
-Skills should have clear targets, readable outcomes, and log entries that explain what happened.
+- clear targets
+- readable outcomes
+- explicit usage limits where applicable
+- deterministic resolution
+- log entries that explain what happened
 
-## 9. Feats
+## 9. Feats and Passive Modifiers
 
-Feats are passive build features.
+Feats are passive build features and are not selected as combat actions.
 
-Feats may:
+Passive modifiers may affect attributes, combat stats, damage, mitigation, affinities, or other derived outcomes.
 
-- modify stats or derived combat values
-- modify damage or resistances
-- add passive attack riders
-- improve survivability or utility
-- reinforce class, item, or build identity
+Passive effects should remain visible through derived state, combat logs, or clear outcomes. Hidden exceptions should be avoided.
 
-Feats are not selected as combat actions. Their effects should be visible through state, combat logs, or clear derived outcomes.
+## 10. Temporary Effects and Conditions
 
-## 10. Temporary Effects
+Temporary effects are planned combat-limited buffs, debuffs, or conditions.
 
-Temporary effects are combat-limited conditions, buffs, debuffs, or state modifiers.
+Effects should define timing, duration, stacking behavior, and expiration in code or content. Implicit stacking behavior is not allowed.
 
-They should define their timing, duration, stacking behavior, and expiration condition in code or content. Implicit stacking behavior is not allowed.
-
-Effects may trigger at clear timing points such as turn start, turn end, on attack, on damage taken, on skill use, or on death.
+Future timing points may include turn start, turn end, on attack, on damage taken, on skill use, and on death.
 
 Conditions such as poison, burn, stun, or freeze should remain understandable through visible state and combat logs.
 
 ## 11. Death and Combat End
 
-When a combatant reaches 0 HP, that combatant dies immediately unless an explicit rule prevents it.
+When a combatant reaches 0 HP, combat status is checked immediately.
 
 On enemy death:
 
-- combat ends
-- rewards and progression may resolve
-- the player may continue forward or return to town where applicable
+- combat enters a victory state
+- rewards are applied
+- pending level-up may be created
+- the player may continue forward or return to town after required choices
 
 On player death:
 
-- the run ends immediately
+- combat ends in defeat
+- the run moves to the dead phase
+
+The complete phase is reserved for the intended full victory condition.
 
 ## 12. Combat Logging
 
-Combat logs are part of the authoritative combat state.
+Combat logs are part of authoritative combat state.
 
-Logs should make outcomes understandable by recording the actor, action, target, important modifiers or rolls, outcome, and final result where relevant.
+Logs should make outcomes understandable by recording important events such as combat start, attacks, misses, damage, victory, defeat, rewards, and future skill or effect outcomes.
+
+Logs should explain what happened without exposing fragile internal implementation detail.
 
 ## 13. Enemy Behavior
 
-Enemy behavior should be deterministic, learnable, and strategically exploitable.
+Current enemy behavior is simple and deterministic: after a surviving player attack, the enemy responds through its basic attack.
 
-Enemy decisions may use simple tactics or conditional rules, but should avoid opaque exceptions and arbitrary outcomes.
+Future enemy behavior may use skills, conditions, and simple tactical rules. Enemy decisions should be learnable, deterministic, and strategically exploitable.
+
+Avoid opaque exceptions and arbitrary outcomes.
 
 ## 14. Scope Boundaries
 
@@ -186,4 +199,5 @@ This document does not define:
 - exact stat scaling
 - exact critical hit behavior
 - exact enemy AI implementation
-- code schemas or registry contents
+- content schemas
+- generated registry contents

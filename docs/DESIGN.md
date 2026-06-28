@@ -2,28 +2,43 @@
 
 ## 1. Purpose
 
-This document defines the UI design rules for Browser Heroes 2.
+This document defines UI design direction for Browser Heroes 2.
 
-It covers visual direction, styling conventions, component reuse, and interface consistency. Product goals, game rules, combat behavior, architecture, and infrastructure belong in their own documents.
+It covers visual direction, styling conventions, reusable components, layout expectations, and presentation-layer constraints. Product goals, game rules, combat behavior, architecture, and infrastructure belong in their own documents.
 
 ## 2. Visual Direction
 
-Browser Heroes 2 should feel like a retro, minimalist, fantasy RPG.
+Browser Heroes 2 should feel like a retro, minimalist fantasy RPG.
 
 The UI should emphasize:
 
 - terminal-inspired readability
-- clear fantasy RPG information hierarchy
+- compact RPG information hierarchy
 - sparse decoration
 - high contrast
-- compact, information-dense screens
+- dense but scannable screens
 - simple shapes and direct interactions
+- readable consequences for success, failure, and risk
 
-The interface should support the text-based game aesthetic without becoming noisy or hard to scan.
+The interface should support a text-forward game aesthetic without becoming noisy or hard to scan.
 
-## 3. Styling System
+## 3. Current UI Shape
 
-Tailwind is the CSS framework for the web app.
+The current web app includes:
+
+- a landing screen
+- character creation with class selection and hero naming
+- a town screen with hero inspection and combat entry
+- a combat screen with combatants, stats, log/portrait view, and action controls
+- level-up modal flow
+- dead and complete placeholders
+- shared error and loading states
+
+Town and combat should continue to feel like parts of the same game surface, not unrelated pages.
+
+## 4. Styling System
+
+Tailwind CSS is the styling system for the web app.
 
 Use Tailwind utility classes for layout, spacing, color, typography, and state styling. Prefer existing theme variables from `apps/web/src/index.css` through Tailwind classes such as `bg-bg-base`, `bg-bg-elevated`, `text-text`, `text-text-bright`, `text-primary`, `border-border`, `text-success`, and `text-error`.
 
@@ -31,7 +46,7 @@ Avoid hard-coded colors, one-off arbitrary values, and local CSS unless a reusab
 
 When new visual tokens are needed, add them deliberately to the theme so future UI can reuse the same language.
 
-## 4. Typography
+## 5. Typography
 
 Font size should remain 16px throughout the UI to preserve the terminal-style text-based RPG feel.
 
@@ -39,11 +54,11 @@ Prefer inherited text size or Tailwind's `text-base`. Avoid introducing smaller 
 
 Use hierarchy through color, spacing, borders, grouping, and placement rather than font-size changes.
 
-## 5. Components
+## 6. Components
 
 Create and use reusable components instead of rebuilding the same UI patterns from scratch.
 
-Before adding new UI, check the existing component layer in `apps/web/src/components` and feature-specific component folders. Prefer extending simple primitives such as buttons, cards, modals, sidebars, resource bars, and stat lists when they fit the need.
+Before adding new UI, check the existing component layer and feature-specific component folders. Prefer extending simple primitives such as buttons, cards, modals, sidebars, tabs, tooltips, resource bars, and stat displays when they fit the need.
 
 Reusable components should stay focused:
 
@@ -55,7 +70,44 @@ Reusable components should stay focused:
 
 If a pattern appears in multiple places, extract a small reusable component rather than copying markup and class strings.
 
-## 6. Consistency
+## 7. Layout and Interaction
+
+Screens should remain responsive, readable, and efficient.
+
+Common player decisions should be easy to scan:
+
+- hero state
+- resources
+- enemy state
+- combat log
+- available actions
+- rewards
+- progression choices
+- equipment and skills
+
+Interactive elements should be obvious, keyboard-accessible where practical, and consistent in hover, focus, disabled, pending, and error states.
+
+Town should feel like a strategic checkpoint as planned systems are added. Combat should keep fast action readable even as active skills, consumables, and conditions are introduced.
+
+## 8. Presentation Boundaries
+
+UI may present simulation state and collect player intent, but it must not calculate gameplay outcomes.
+
+The presentation layer should:
+
+- render engine state and selector output
+- submit actions to the appropriate runtime path
+- show pending, success, and error states
+- use shared content for labels, icons, portraits, and item/skill details
+
+The presentation layer must not:
+
+- decide whether gameplay actions succeed
+- calculate damage, rewards, level-ups, or enemy selection
+- mutate authoritative run state directly
+- duplicate engine formulas
+
+## 9. Consistency
 
 Consistency is a core design requirement.
 
@@ -73,17 +125,7 @@ Use the established visual vocabulary:
 
 Avoid decorative styles that pull the game away from its retro fantasy terminal identity.
 
-## 7. Layout and Interaction
-
-Screens should remain responsive, readable, and efficient.
-
-Prefer layouts that make common player decisions easy to scan: hero state, resources, enemy state, rewards, inventory, actions, and progression should be organized predictably.
-
-Interactive elements should be obvious, keyboard-accessible where practical, and consistent in hover, focus, disabled, and loading states.
-
-UI may present simulation state and collect player intent, but it must not calculate gameplay outcomes.
-
-## 8. Non-Goals
+## 10. Non-Goals
 
 This document is not intended to define:
 

@@ -1,23 +1,23 @@
-# Browser Heroes 2 - Architecture Principles
+# Browser Heroes 2 - Architecture
 
 ## 1. Purpose
 
-This document defines the system boundaries and ownership rules that keep Browser Heroes 2 maintainable.
+This document defines system ownership and boundaries for Browser Heroes 2.
 
-It covers architecture only. Product goals, player-facing rules, combat behavior, and operational infrastructure belong in their own documents.
+It covers architecture only. Product intent, player-facing rules, combat behavior, UI design, and operational infrastructure belong in their own documents.
 
 ## 2. Architectural Philosophy
 
-Browser Heroes 2 is built around a deterministic shared gameplay core that can run client-side, server-side, and offline.
+Browser Heroes 2 is built around a deterministic shared gameplay core that can be used by both the web client and backend services.
 
 The architecture prioritizes:
 
-- simplicity
-- determinism
-- explicit state transitions
+- simple package boundaries
+- deterministic state transitions
+- explicit serializable state
 - reusable shared gameplay logic
-- clear package boundaries
-- small systems that remain understandable by one developer
+- data-driven content where practical
+- small modules that remain understandable by one developer
 
 The architecture avoids:
 
@@ -25,106 +25,103 @@ The architecture avoids:
 - hidden mutable state
 - UI-owned gameplay outcomes
 - backend-only gameplay divergence
-- speculative abstraction
+- speculative services or managers
+- framework-dependent engine logic
 
-## 3. System Layers
+## 3. Workspace Ownership
 
-### 3.1 Simulation Layer
+The project is a pnpm workspace with apps and packages that have distinct responsibilities.
+
+- `packages/engine` owns deterministic run state, action validation/application, combat transitions, progression, town transitions, serialization, and selectors.
+- `packages/content` owns declarative game definitions, content schemas/builders, generated IDs, generated registries, manifests, and content reference validation.
+- `packages/shared` owns contracts shared by the web app and API, such as request/response shapes and socket payload contracts that are not gameplay rules.
+- `apps/web` owns presentation, user interaction, client orchestration, query/socket integration, and rendering projected engine state.
+- `apps/api` owns sessions, persistence, backend orchestration, action submission, validation, and run/action storage.
+
+Cross-package dependencies should remain deliberate and acyclic. Gameplay authority belongs in the engine and content packages, not in app-specific code.
+
+## 4. Simulation Layer
 
 The simulation layer is the gameplay source of truth.
 
 It owns:
 
-- action validation and application
-- deterministic combat transitions
-- progression and town transitions
-- run state serialization boundaries
-- selectors that project simulation state for callers
+- creating initial run state
+- validating engine actions
+- applying state transitions
+- resolving combat rounds
+- applying rewards and level-ups
+- managing town/combat/death/completion phases
+- serializing and deserializing run state
+- projecting state through selectors for callers
 
-The simulation layer must remain framework-agnostic and must not depend on UI, rendering, persistence, networking, or runtime timing.
+The simulation layer must remain framework-agnostic. It must not depend on React, Express, Mongoose, Socket.IO, browser APIs, rendering, persistence, networking, or runtime timing.
 
-### 3.2 Content Layer
+## 5. Content Layer
 
-The content layer owns declarative game definitions and generated registries.
+The content layer owns authored game definitions and generated lookup surfaces.
 
-It contains the stable game content surface used by the engine and apps, including classes, enemies, items, skills, and feats.
+It includes classes, enemies, items, skills, feats, and supporting content types. Authored content is validated through builders and schemas, then collected into generated IDs, registries, and manifests.
 
-Content should remain:
+Generated registries support lookup, type safety, and stable content imports. Documentation should describe this workflow, not duplicate generated contents.
 
-- data-driven where practical
-- human-readable
-- versionable
-- reusable across frontend and backend systems
+Reference validation should catch broken content links where practical. Content should remain readable, versionable, and reusable across engine, web, and API systems.
 
-Generated registries may support lookup and type safety, but docs should not duplicate their contents.
+## 6. Application and Presentation Layers
 
-### 3.3 Application Layer
+The application layer coordinates runtime systems around the simulation.
 
-The application layer coordinates systems around the simulation.
+The API currently:
 
-It may handle:
+- creates and loads runs
+- stores full engine-owned run snapshots
+- records submitted actions in sequence
+- applies actions through the shared engine
+- derives lightweight summaries for querying and display
+- exposes REST and socket-based action submission paths
 
-- session flow
-- save/load orchestration
-- networking coordination
-- runtime orchestration
-- input coordination
+The web app currently:
 
-The application layer must not contain gameplay rules.
+- creates guest sessions when needed
+- creates heroes and runs
+- displays town, combat, dead, and complete states
+- submits player intent to the backend
+- renders engine selectors and shared content
+- shows level-up choices and hero state
 
-### 3.4 Presentation Layer
+The presentation layer may display simulation state and collect player intent. It must not calculate gameplay outcomes or directly mutate authoritative run state.
 
-The presentation layer renders and gathers player intent.
-
-It owns:
-
-- rendering
-- user interaction
-- animations
-- visual feedback
-- responsive layout
-
-The presentation layer must display simulation state or request state transitions. It must not calculate gameplay outcomes or directly mutate simulation state.
-
-## 4. Package Boundaries
-
-Workspace packages should have explicit responsibilities:
-
-- `packages/engine` owns deterministic gameplay state transitions and projections.
-- `packages/content` owns declarative content definitions and generated registries.
-- `packages/shared` owns app/API shared contracts that are not gameplay rules.
-- `apps/web` presents the game and sends player intent to shared systems.
-- `apps/api` persists, validates, and exposes backend services without duplicating gameplay logic.
-
-Cross-package dependencies should remain deliberate, minimal, and acyclic.
-
-## 5. Determinism and State
+## 7. Determinism and State
 
 Game state is explicit serializable data.
 
 The following rules must hold:
 
 - identical state plus identical input produces identical outcome
-- randomness derives from seeded generators
+- randomness derives from seeded run RNG
 - runtime timing does not affect gameplay results
 - no hidden global state influences simulation outcomes
-- state transitions remain traceable and replayable
+- state transitions remain traceable
 
-The complete run should always be representable as a snapshot. Save/load parity, replay verification, server-side validation, and combat reconstruction should all build from that same explicit state model.
+The entire run should always be representable as a snapshot. Save/load parity, replay investigation, server-side validation, and combat reconstruction should all build from that same explicit state model.
 
-## 6. Modularity Principles
+## 8. Selectors and Projections
 
-Gameplay systems should communicate through explicit inputs, outputs, state transitions, and events.
+Selectors are the boundary between authoritative state and UI-friendly views.
 
-New abstractions should only be introduced when they reduce meaningful duplication, improve readability, or clarify ownership. Prefer plain functions and direct data flow where practical.
+Selectors may derive hero stats, combat views, progression state, and available actions. UI code should prefer selectors and shared content lookups over recalculating gameplay logic.
 
-## 7. Testing Philosophy
+Projection code in the API may derive summaries for persistence and responses, but those summaries are not authoritative gameplay data.
 
-Testing should prioritize deterministic simulation correctness, replay safety, and stable gameplay transitions.
+## 9. Testing Philosophy
+
+Testing should prioritize deterministic simulation correctness, action validation, serialization safety, replayability, and stable package boundaries.
 
 Preferred tests are targeted, lightweight, and close to the behavior they protect.
 
-## 8. Non-Goals
+UI tests should focus on rendering, interaction, and error boundaries. They should not duplicate engine rule tests.
+
+## 10. Non-Goals
 
 The architecture is not intended to optimize for:
 
@@ -133,5 +130,6 @@ The architecture is not intended to optimize for:
 - enterprise abstraction layers
 - highly distributed systems
 - framework-driven gameplay systems
+- schema documentation inside prose docs
 
 The guiding principle is simple: if a system becomes difficult to reason about or explain, prefer the simpler design.

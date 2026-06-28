@@ -4,149 +4,157 @@
 
 A run is a self-contained sequence of combat encounters connected by town visits and progression choices.
 
-A run ends when the player dies or manually completes the run after victory conditions are met.
+The current run flow supports town, combat, victory rewards, level-up choices, continuing to the next combat, returning to town, and death.
+
+The intended full run is a 100-battle ladder. Every 10th battle is a boss encounter. Defeating the final boss at battle 100 is the intended victory condition. Optional endless progression is planned after victory.
 
 ## 2. Primary Game States
 
-The game operates through two primary playable states:
+The game currently operates through explicit run phases:
 
-- Town: preparation, recovery, shopping, and run decisions.
-- Combat: turn-based encounter between the hero and one enemy.
+- Town: the between-combat checkpoint and current entry point into combat.
+- Combat: a turn-based encounter between the hero and one enemy.
+- Dead: the run has ended after player defeat.
+- Complete: reserved for run victory.
 
-State transitions are explicit:
+State transitions are explicit and engine-owned:
 
 - Town -> Combat
-- Combat -> Town
 - Combat -> Combat
+- Combat -> Town
+- Combat -> Dead
+- Combat -> Complete, when victory conditions are implemented
 
-After a victorious combat, the player may return to town or continue directly to the next encounter. Continuing increases the active gold multiplier. Returning to town resets it.
-
-Town visits are optional between battles once combat has been won.
+After a victorious combat, the player may continue directly to the next combat or return to town. Continuing preserves and increases run momentum through the active streak. Returning to town resets that streak.
 
 ## 3. Hero and Build Rules
 
 A hero represents the player's run identity.
 
-Hero and build state may include:
+Hero and build state includes:
 
 - class identity
 - level and XP
-- gold
 - current and maximum HP
-- attributes
-- proficiencies
+- attributes and proficiencies
 - active skills
 - passive feats
-- equipped and carried items
-- current run state
+- equipment
+- gold and run progress
 
-Heroes persist for the duration of a run only.
+Classes set the hero's starting direction. Skills, feats, and equipment should let each run branch into flexible builds.
 
-## 4. Progression Rules
+Heroes currently persist for the duration of a run. Long-term account or meta progression must be introduced explicitly and must not be hidden inside run rules.
 
-XP and rewards are awarded after combat victories.
+## 4. Encounters and Zones
 
-Level-ups may grant stat growth, skill choices, feat choices, or other build development depending on progression rules.
+Combat encounters select enemies from the current zone and encounter type.
 
-Every 10th encounter is a boss encounter. Defeating a boss unlocks the next zone.
+Every 10th battle is a boss encounter. Non-boss battles are standard encounters.
 
-Zones define broad enemy pools, difficulty progression, and run pacing.
+Zones define broad enemy pools, run pacing, and difficulty identity. The intended full game progresses through a fixed zone ladder toward battle 100. Endless progression should reuse or extend this structure at higher pressure once implemented.
 
-## 5. Skills
+## 5. Progression and Rewards
 
-Skills are active abilities used during combat.
+Victorious combat awards XP and gold.
 
-Skills may deal damage, heal, apply temporary effects, impose conditions, or provide combat utility.
+Gold rewards are affected by the current streak. Continuing directly to the next combat increases the streak; returning to town resets it.
 
-Skills can have ranks, limits, charges, or other usage rules where defined by their content and combat behavior.
+Level-ups are triggered by XP thresholds. When a level-up is pending, the player must complete it before normal run actions continue.
 
-Skills are replenished on town visits unless a skill explicitly defines a different per-encounter or per-run rule.
+Level-up choices are intended to stay curated: the player should choose from a small set of relevant skill or feat options rather than manage a large open tree during the run.
 
-Detailed combat resolution for skills belongs in the Combat document.
+## 6. Skills
 
-## 6. Feats
+Skills are active abilities owned by heroes, enemies, or other combatants.
+
+Current state: heroes can start with skills and gain or rank skills through level-up choices. Direct player skill use in combat is planned/scaffolded and should not be documented as current playable behavior.
+
+Skills may eventually:
+
+- deal damage
+- heal
+- apply temporary effects
+- impose conditions
+- create utility effects
+- use charges, ranks, or other limits
+
+Detailed skill resolution belongs in `COMBAT.md`.
+
+## 7. Feats
 
 Feats are passive build features.
 
-Feats may provide permanent bonuses, modify combat values, add passive attack riders, or reinforce class and item synergies.
+Current state: feats can be part of class identity and can be gained through level-up choices where eligible.
 
-Feats are not selected as combat actions. Their impact should be reflected through clear state, readable outcomes, or combat logs.
+Feats may:
 
-## 7. Item Rules
+- modify attributes or combat values
+- modify damage or affinities
+- improve survivability or utility
+- reinforce class, skill, item, or build identity
+
+Feats are not selected as combat actions. Their impact should appear through derived state, readable outcomes, or combat logs.
+
+## 8. Item and Equipment Rules
 
 Items modify hero capabilities during a run.
 
+Current state: equipment can be part of hero state and can affect derived combat values. Starting equipment and item definitions are available through shared content.
+
+Planned item and town systems include acquiring items, buying from shops, rerolling shops, using consumables, and making richer equipment decisions during town visits.
+
 Items may:
 
-- modify stats
 - provide weapons or armour
+- modify stats
 - affect damage or mitigation
 - interact with skills or feats
 - provide consumable effects
 
-Items may be acquired through town systems, boss rewards, ghost rewards, or other run rewards.
-
 Items persist during a run but do not carry between runs unless a future meta system explicitly allows it.
-
-## 8. Consumable Rules
-
-Consumables provide limited-use recovery, combat, or utility effects.
-
-Consumables are consumed on use and may be acquired through town or reward systems.
 
 ## 9. Town Rules
 
-Town is the preparation and recovery layer between encounters.
+Town is intended to be a strategic checkpoint between encounters.
 
-In the client, town is presented as a React interface used to interact with facilities and begin the next combat encounter.
+Current state: town allows the player to inspect the hero and enter combat.
 
-Town may support:
+Planned town behavior includes:
 
 - item shops
-- rerolls
 - rest or recovery
+- shop rerolls
 - consumable management
-- run continuation decisions
+- equipment decisions
+- continue-or-reset risk pacing
 
-Town contains no combat encounters.
+Town should not contain combat encounters. It may prepare, recover, or redirect the run, but combat outcomes remain engine-owned.
 
-## 10. Ghost Encounters
-
-Standard combat slots may be replaced by ghost encounters where allowed.
-
-A ghost encounter pits the player against a fallen player's hero snapshot using the same combat rules as standard encounters.
-
-Boss encounters are not replaced by ghosts.
-
-## 11. Meta Systems
-
-Outside individual runs, the game may support:
-
-- leaderboards
-- run history
-- hero inspection
-- ghost records
-- world activity events
-
-Meta systems must not change deterministic run rules unless explicitly represented in run state.
-
-## 12. Victory, Failure, and Endless Progression
-
-Victory is achieved by defeating the final boss at battle 100.
-
-After victory, the player may enter endless progression. Endless progression repeats the zone structure at higher difficulty tiers, increasing enemy and boss pressure through values such as level, resistance, and damage output.
-
-Highest battle reached is tracked for leaderboard purposes.
+## 10. Death, Victory, and Endless Progression
 
 Player death immediately ends the run.
 
-## 13. Scope Boundaries
+The intended victory condition is defeating the final boss at battle 100. The complete run phase exists for this direction, but the surrounding victory and endless systems should be treated as planned until implemented.
+
+Endless progression should continue after victory at higher pressure while preserving deterministic run rules.
+
+## 11. Meta Systems
+
+Ghost encounters, leaderboards, run history, hero inspection, and world activity are planned later systems.
+
+These systems should support replayability and asynchronous social presence. They must not alter deterministic run behavior unless their effects are represented explicitly in run state.
+
+Ghost encounters should use the same combat rules as standard encounters when implemented. Boss encounters should not be replaced by ghosts unless a future rule explicitly changes that.
+
+## 12. Scope Boundaries
 
 This document does not define:
 
-- combat formulas
-- turn resolution details
+- exact combat formulas
+- exact stat scaling
 - exact enemy AI logic
-- stat scaling formulas
+- content schemas
+- generated registries
 - item generation algorithms
-- infrastructure or persistence implementation
+- infrastructure or persistence details

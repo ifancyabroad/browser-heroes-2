@@ -1,8 +1,8 @@
-# Browser Heroes 2 - Infrastructure Principles
+# Browser Heroes 2 - Infrastructure
 
 ## 1. Purpose
 
-This document defines the operational, deployment, persistence, and runtime principles for Browser Heroes 2.
+This document defines runtime, persistence, networking, deployment, authentication, and operational direction for Browser Heroes 2.
 
 Architecture boundaries belong in `ARCHITECTURE.md`. Gameplay rules belong in `RULES.md` and `COMBAT.md`.
 
@@ -28,68 +28,122 @@ The project avoids:
 - excessive cloud abstraction
 - speculative scalability systems
 
-## 3. Runtime Model
+## 3. Current Runtime Model
 
-The frontend, backend, engine, and content packages are developed in a pnpm workspace.
+The project runs as a pnpm workspace containing a React/Vite web app, an Express API, and shared engine/content/shared packages.
 
-Gameplay logic must remain portable and environment-independent. The backend may validate and persist gameplay outcomes, but must not introduce gameplay divergence from the shared simulation.
+Current local responsibilities:
+
+- the web app renders the game and submits player intent
+- the API manages sessions, persistence, and backend action application
+- the engine resolves deterministic gameplay transitions
+- the content package provides validated shared game definitions
+- the shared package provides web/API contracts
+
+Gameplay logic must remain portable and environment-independent. The backend may validate and persist gameplay outcomes, but must not introduce gameplay divergence from the shared engine.
 
 ## 4. Frontend Infrastructure
 
-Frontend stack direction:
+Current frontend stack:
 
 - React
 - Vite
 - Tailwind CSS
-- Zustand
 - TanStack Query
+- Zustand
+- Socket.IO client
 
-The frontend is responsible for rendering, user interaction, local orchestration, visual feedback, and client-side simulation execution where appropriate.
+The frontend is responsible for rendering, user interaction, local orchestration, visual feedback, and submitting player intent.
 
-The web client does not use Phaser or another standalone game rendering engine. Town, combat, and meta-game screens should be implemented as React interfaces backed by shared engine state and selectors.
+The web client does not use Phaser or another standalone game rendering engine. Town, combat, character creation, and meta-game screens should be implemented as React interfaces backed by shared engine state, content, and selectors.
 
 The frontend should prioritize responsiveness, fast loading, mobile compatibility, and low runtime overhead.
 
 ## 5. Backend Infrastructure
 
-Backend stack direction:
+Current backend stack:
 
 - Node.js
 - Express
 - Mongoose
+- MongoDB
 - Zod
 - Socket.IO
+- Express sessions backed by MongoDB
 
-Backend responsibilities may include:
+The backend currently supports guest-first sessions, run creation, current run lookup, run retrieval, action submission, action history, health checks, and socket-based run actions.
 
+Backend responsibilities include:
+
+- session management
 - persistence
-- leaderboards
-- ghost systems
-- world event broadcasting
-- account systems
-- replay storage
-- validation of simulation outcomes
+- applying actions through the shared engine
+- validating request bodies and engine results
+- storing run snapshots
+- recording action history
+- deriving non-authoritative summaries for querying and responses
 
-The backend should remain lightweight, operationally simple, and stateless where practical.
+The backend should remain lightweight, operationally simple, and stateless where practical outside session and database storage.
 
-## 6. Database Principles
+## 6. Persistence Model
 
-MongoDB is the primary persistence direction.
+MongoDB is the current persistence store.
+
+Runs store the full engine-owned run state as the authoritative gameplay snapshot. Persistence should not duplicate the full engine state shape as database schema fields.
+
+The database may store derived summaries for lookup, display, and indexing. These summaries are not authoritative gameplay data and should be regenerated from run state when state changes.
+
+Run actions are recorded in sequence for debugging, replay investigation, and future audit/reconstruction workflows.
 
 Persistence should support:
 
 - flexible run storage
-- replay persistence
-- ghost reconstruction
-- progression history
-- event logging
+- action history
 - debugging and historical analysis
+- future replay validation
+- future ghost and leaderboard systems
 
-Stored data should preserve enough information to support deterministic replay and investigation.
+## 7. Networking Model
 
-## 7. Hosting and Deployment
+Browser Heroes 2 is not a real-time multiplayer game.
 
-Deployment direction:
+Current networking supports standard HTTP API requests and Socket.IO action submission. Both paths should route gameplay actions through the same backend engine application flow.
+
+Networking exists primarily for:
+
+- submitting player intent
+- keeping persisted run state current
+- future ghost synchronization
+- future leaderboard updates
+- future world activity broadcasting
+- future account persistence upgrades
+
+The networking model should avoid:
+
+- real-time combat synchronization
+- lockstep multiplayer systems
+- latency-sensitive gameplay mechanics
+
+## 8. Authentication and Sessions
+
+The current authentication model is guest-first.
+
+Players can begin without account creation. Guest sessions are stored through server-side sessions and associated with persisted users and runs.
+
+The intended direction is:
+
+- anonymous guest-first accounts
+- optional account creation later
+- progression persistence upgrades where useful
+- low onboarding friction
+
+Gameplay should remain accessible without mandatory account creation.
+
+## 9. Deployment Direction
+
+Current docs should treat deployment as direction unless deployment automation is present in the codebase.
+
+Preferred deployment direction:
 
 - AWS infrastructure
 - CloudFront CDN
@@ -101,51 +155,28 @@ Deployment should prioritize operational familiarity, reliability, predictable r
 
 Build artifacts should be repeatable and environment-specific configuration should stay explicit.
 
-## 8. Offline Support
+## 10. Offline Direction
 
-Offline capability is a desirable architectural property.
+Offline capability is a desirable architectural property, not current product behavior.
 
-Infrastructure should preserve the ability to:
+Infrastructure and engine design should preserve the ability to:
 
 - run gameplay locally
 - save runs locally
 - replay runs offline
 - synchronize progression later where practical
 
-The simulation engine should not require persistent server connectivity.
+The simulation engine should not require persistent server connectivity, even when the current web flow uses backend persistence.
 
-## 9. Networking Principles
+## 11. Planned Meta Infrastructure
 
-Browser Heroes 2 is not a real-time multiplayer game.
+Ghost encounters, leaderboards, run history, hero inspection, and world activity are planned later systems.
 
-Networking exists primarily for:
+Infrastructure for these systems should build on engine snapshots, action history, deterministic replay, and derived summaries rather than introducing separate gameplay rules.
 
-- ghost synchronization
-- leaderboard updates
-- world event broadcasting
-- account persistence
-- asynchronous social presence
+Socket.IO should primarily support lightweight event delivery and social/world activity broadcasting. It should not become a real-time combat authority.
 
-Socket.IO should primarily support lightweight event delivery and social/world activity broadcasting.
-
-The networking model should avoid:
-
-- real-time combat synchronization
-- lockstep multiplayer systems
-- latency-sensitive gameplay mechanics
-
-## 10. Authentication Principles
-
-Authentication model:
-
-- anonymous guest-first accounts
-- optional account creation
-
-The system should support frictionless onboarding, temporary guest progression, optional account linking, and progression persistence upgrades.
-
-Gameplay should remain accessible without mandatory account creation.
-
-## 11. CI/CD Principles
+## 12. CI/CD and Operations
 
 CI/CD should prioritize simplicity, repeatability, reliability, and fast feedback loops.
 
@@ -156,15 +187,7 @@ The pipeline should:
 - minimize manual deployment steps
 - preserve deterministic build outputs
 
-The CI/CD system should avoid excessive environment fragmentation and brittle deployment orchestration.
-
-## 12. Scalability Philosophy
-
-The project should support moderate scale while remaining operationally manageable.
-
-Scalability priorities include efficient frontend delivery, scalable API hosting where required, efficient replay and leaderboard persistence, and low-latency asset delivery.
-
-Scalability should evolve incrementally based on real usage patterns.
+Operational systems should be added incrementally based on real needs.
 
 ## 13. Guiding Principle
 
