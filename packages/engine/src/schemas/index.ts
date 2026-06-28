@@ -14,6 +14,7 @@ export type {
 	ContinueToNextCombatAction,
 	ReturnToTownAction,
 	CompleteLevelUpAction,
+	PlayerUseSkillAction,
 } from "./action.schema";
 
 export { engineEventSchema } from "./event.schema";

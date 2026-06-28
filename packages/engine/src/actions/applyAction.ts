@@ -12,6 +12,7 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 			return enterCombat(state);
 
 		case "PLAYER_BASIC_ATTACK":
+		case "PLAYER_USE_SKILL":
 			return applyCombatAction(state, action);
 
 		case "CONTINUE_TO_NEXT_COMBAT":

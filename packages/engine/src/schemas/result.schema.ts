@@ -12,6 +12,9 @@ export const engineErrorCodeSchema = z.enum([
 	"ENEMY_DEFINITION_NOT_FOUND",
 	"LEVEL_UP_NOT_AVAILABLE",
 	"INVALID_LEVEL_UP_SELECTION",
+	"SKILL_NOT_KNOWN",
+	"SKILL_HAS_NO_USES_REMAINING",
+	"SKILL_EFFECT_NOT_SUPPORTED",
 ]);
 
 export const engineSuccessResultSchema = z.object({

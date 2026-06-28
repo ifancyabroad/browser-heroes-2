@@ -29,6 +29,7 @@ type CalculateDamageInput = {
 	damageType: DamageType;
 	attribute?: Attribute;
 	critical?: boolean;
+	multiplier?: number;
 };
 
 export function calculateDamage(input: CalculateDamageInput): RngResult<DamageResult> {
@@ -50,9 +51,11 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 		modifiers: input.attacker.combatStats.damageModifiers,
 	});
 
+	const multipliedAmount = attackerModifiedAmount * (input.multiplier ?? 1);
+
 	const affinity = getDamageAffinity(input.defender, input.damageType);
 
-	const affinityModifiedAmount = applyDamageAffinity(attackerModifiedAmount, affinity);
+	const affinityModifiedAmount = applyDamageAffinity(multipliedAmount, affinity);
 
 	const damageReduction = input.defender.combatStats.damageReduction;
 

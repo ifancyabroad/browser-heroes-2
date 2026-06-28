@@ -13,7 +13,6 @@ export const playerBasicAttackActionSchema = z.object({
 export const playerUseSkillActionSchema = z.object({
 	type: z.literal("PLAYER_USE_SKILL"),
 	skillId: skillIdSchema,
-	targetCombatantId: z.string(),
 });
 
 export const playerUseConsumableActionSchema = z.object({
