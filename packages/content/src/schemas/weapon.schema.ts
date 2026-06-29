@@ -39,3 +39,4 @@ export type WeaponHandedness = z.infer<typeof weaponHandednessSchema>;
 export type WeaponRange = z.infer<typeof weaponRangeSchema>;
 export type WeaponDamage = z.infer<typeof weaponDamageSchema>;
 export type Weapon = z.infer<typeof weaponSchema>;
+export type WeaponInput = z.input<typeof weaponSchema>;

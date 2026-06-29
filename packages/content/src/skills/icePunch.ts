@@ -24,7 +24,6 @@ export default buildSkill({
 									target: "enemy",
 									damageType: "cold",
 									dice: "1d12+8",
-									requiresAttackRoll: true,
 								},
 								{
 									type: "modifyStat",
@@ -56,7 +55,6 @@ export default buildSkill({
 									target: "enemy",
 									damageType: "cold",
 									dice: "2d12+7",
-									requiresAttackRoll: true,
 								},
 								{
 									type: "modifyStat",
@@ -88,7 +86,6 @@ export default buildSkill({
 									target: "enemy",
 									damageType: "cold",
 									dice: "2d12+14",
-									requiresAttackRoll: true,
 								},
 								{
 									type: "modifyStat",

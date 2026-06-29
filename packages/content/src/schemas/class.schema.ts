@@ -40,3 +40,4 @@ export const classSchema = z.object({
 });
 
 export type ClassDefinition = z.infer<typeof classSchema>;
+export type ClassDefinitionInput = z.input<typeof classSchema>;

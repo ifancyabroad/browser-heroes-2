@@ -24,7 +24,6 @@ export default buildSkill({
 									target: "enemy",
 									damageType: "poison",
 									dice: "1d10+5",
-									requiresAttackRoll: true,
 								},
 								{
 									type: "applyStatus",
@@ -54,7 +53,6 @@ export default buildSkill({
 									target: "enemy",
 									damageType: "poison",
 									dice: "2d10+4",
-									requiresAttackRoll: true,
 								},
 								{
 									type: "applyStatus",
@@ -84,7 +82,6 @@ export default buildSkill({
 									target: "enemy",
 									damageType: "poison",
 									dice: "2d10+9",
-									requiresAttackRoll: true,
 								},
 								{
 									type: "applyStatus",

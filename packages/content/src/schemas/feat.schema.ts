@@ -28,3 +28,4 @@ export const featSchema = z
 
 export type FeatCategory = z.infer<typeof featCategorySchema>;
 export type FeatDefinition = z.infer<typeof featSchema>;
+export type FeatDefinitionInput = z.input<typeof featSchema>;

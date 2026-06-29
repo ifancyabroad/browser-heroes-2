@@ -26,6 +26,7 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		combat: combatAfterCharge,
 		actorSide: "player",
 		effects: validation.value.effects,
+		skillId: validation.value.skill.id,
 		skillName: validation.value.skill.name,
 		rngState: state.rngState,
 	});

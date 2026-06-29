@@ -63,4 +63,5 @@ export const enemySchema = z.object({
 });
 
 export type EnemyDefinition = z.infer<typeof enemySchema>;
+export type EnemyDefinitionInput = z.input<typeof enemySchema>;
 export type EnemyRank = z.infer<typeof enemyRankSchema>;

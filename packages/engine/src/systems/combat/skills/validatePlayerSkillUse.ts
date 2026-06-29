@@ -5,6 +5,9 @@ import {
 	type DamageEffect,
 	type Effect,
 	type HealEffect,
+	type ModifyDamageAffinityEffect,
+	type ModifyDamageEffect,
+	type ModifyStatEffect,
 	type RiderEffect,
 	type Skill,
 } from "@app/content";
@@ -26,7 +29,13 @@ export type SupportedAttackDamageEffect = Omit<AttackDamageEffect, "attackRiders
 	attackRiders: SupportedAttackRider[];
 };
 
-export type SupportedSkillEffect = DamageEffect | HealEffect | SupportedAttackDamageEffect;
+export type SupportedSkillEffect =
+	| DamageEffect
+	| HealEffect
+	| SupportedAttackDamageEffect
+	| ModifyStatEffect
+	| ModifyDamageEffect
+	| ModifyDamageAffinityEffect;
 
 export type ValidatedPlayerSkillUse = {
 	skill: Skill;
@@ -93,6 +102,9 @@ function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | n
 		switch (effect.type) {
 			case "damage":
 			case "heal":
+			case "modifyStat":
+			case "modifyDamage":
+			case "modifyDamageAffinity":
 				supportedEffects.push(effect);
 				break;
 

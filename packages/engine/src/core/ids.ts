@@ -24,7 +24,8 @@ export function createStartingItemInstanceId(runId: string, slot: EquipmentSlot)
 export function createEffectInstanceId(
 	combatId: string,
 	turnNumber: number,
+	sourceCombatantId: string,
 	index: number,
 ): string {
-	return `${combatId}:turn:${turnNumber}:effect:${index}`;
+	return `${combatId}:turn:${turnNumber}:source:${sourceCombatantId}:effect:${index}`;
 }

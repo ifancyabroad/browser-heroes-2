@@ -101,3 +101,4 @@ export type BodyArmour = z.infer<typeof bodyArmourSchema>;
 export type ShieldArmour = z.infer<typeof shieldArmourSchema>;
 export type AccessoryArmour = z.infer<typeof accessoryArmourSchema>;
 export type Armour = z.infer<typeof armourSchema>;
+export type ArmourInput = z.input<typeof armourSchema>;

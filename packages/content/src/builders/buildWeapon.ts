@@ -1,7 +1,7 @@
-import type { Weapon } from "../schemas/weapon.schema";
+import type { Weapon, WeaponInput } from "../schemas/weapon.schema";
 import { weaponSchema } from "../schemas/weapon.schema";
 
-export const buildWeapon = (weapon: Weapon) => {
+export const buildWeapon = (weapon: WeaponInput): Weapon => {
 	const parsed = weaponSchema.parse(weapon);
 	return parsed;
 };

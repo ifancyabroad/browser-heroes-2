@@ -91,7 +91,7 @@ export const modifyStatEffectSchema = z.object({
 	stat: modifiableStatSchema,
 	operation: modifierOperationSchema,
 	value: z.number(),
-	durationTurns: z.number().int().positive().optional(),
+	durationTurns: z.number().int().positive(),
 });
 
 export const modifyDamageEffectSchema = z.object({
@@ -100,7 +100,7 @@ export const modifyDamageEffectSchema = z.object({
 	damageType: damageTypeSchema.optional(),
 	operation: z.enum(["add", "multiply"]),
 	value: z.number(),
-	durationTurns: z.number().int().positive().optional(),
+	durationTurns: z.number().int().positive(),
 });
 
 export const modifyDamageAffinityEffectSchema = z.object({
@@ -109,7 +109,7 @@ export const modifyDamageAffinityEffectSchema = z.object({
 	affinity: damageAffinityKindSchema,
 	operation: damageAffinityOperationSchema,
 	damageType: damageTypeSchema,
-	durationTurns: z.number().int().positive().optional(),
+	durationTurns: z.number().int().positive(),
 });
 
 export const riderEffectSchema = z.discriminatedUnion("type", [

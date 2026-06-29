@@ -38,3 +38,4 @@ export const skillSchema = z.object({
 });
 
 export type SkillDefinition = z.infer<typeof skillSchema>;
+export type SkillDefinitionInput = z.input<typeof skillSchema>;

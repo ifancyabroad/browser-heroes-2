@@ -8,6 +8,11 @@ import {
 	featIdSchema,
 	skillIdSchema,
 	skillRankValueSchema,
+	damageAffinityKindSchema,
+	damageAffinityOperationSchema,
+	modifiableStatSchema,
+	modifierOperationSchema,
+	statusEffectSchema,
 } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
@@ -15,15 +20,46 @@ export const combatantSideSchema = z.enum(["player", "enemy"]);
 
 export const combatantIdSchema = z.string();
 
-export const activeCombatEffectSchema = z.object({
+const activeCombatEffectBaseSchema = z.object({
 	id: z.string(),
-	// Placeholder until active combat effects are implemented in a focused pass.
-	effectId: z.string(),
 	sourceCombatantId: combatantIdSchema,
-	targetCombatantId: combatantIdSchema,
-	durationTurns: z.number().int().min(0),
-	stacks: z.number().int().min(1).default(1),
+	sourceSkillId: skillIdSchema,
+	sourceEffectIndex: z.number().int().min(0),
+	remainingTurns: z.number().int().positive(),
 });
+
+export const activeStatModifierSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("modifyStat"),
+	stat: modifiableStatSchema,
+	operation: modifierOperationSchema,
+	value: z.number(),
+});
+
+export const activeDamageModifierSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("modifyDamage"),
+	damageType: damageTypeSchema.optional(),
+	operation: z.enum(["add", "multiply"]),
+	value: z.number(),
+});
+
+export const activeDamageAffinityModifierSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("modifyDamageAffinity"),
+	affinity: damageAffinityKindSchema,
+	operation: damageAffinityOperationSchema,
+	damageType: damageTypeSchema,
+});
+
+export const activeStatusEffectSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("status"),
+	statusId: statusEffectSchema,
+});
+
+export const activeCombatEffectSchema = z.discriminatedUnion("type", [
+	activeStatModifierSchema,
+	activeDamageModifierSchema,
+	activeDamageAffinityModifierSchema,
+	activeStatusEffectSchema,
+]);
 
 export const combatantSkillStateSchema = z.object({
 	skillId: skillIdSchema,
@@ -87,10 +123,14 @@ export const combatStateSchema = z.object({
 
 export type CombatantSide = z.infer<typeof combatantSideSchema>;
 export type CombatantId = z.infer<typeof combatantIdSchema>;
-export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;
 export type CombatantBasicAttack = z.infer<typeof combatantBasicAttackSchema>;
 export type CombatantSkillState = z.infer<typeof combatantSkillStateSchema>;
 export type CombatantCombatStats = z.infer<typeof combatantCombatStatsSchema>;
 export type CombatantState = z.infer<typeof combatantStateSchema>;
 export type CombatStatus = z.infer<typeof combatStatusSchema>;
 export type CombatState = z.infer<typeof combatStateSchema>;
+export type ActiveStatModifier = z.infer<typeof activeStatModifierSchema>;
+export type ActiveDamageModifier = z.infer<typeof activeDamageModifierSchema>;
+export type ActiveDamageAffinityModifier = z.infer<typeof activeDamageAffinityModifierSchema>;
+export type ActiveStatusEffect = z.infer<typeof activeStatusEffectSchema>;
+export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;
