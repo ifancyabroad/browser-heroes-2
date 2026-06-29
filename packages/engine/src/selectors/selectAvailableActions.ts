@@ -1,4 +1,10 @@
-import type { CompleteLevelUpAction, EngineAction, PendingLevelUp, RunState } from "../schemas";
+import type {
+	CompleteLevelUpAction,
+	EngineAction,
+	PendingLevelUp,
+	PlayerUseSkillAction,
+	RunState,
+} from "../schemas";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -18,6 +24,7 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 			{
 				type: "PLAYER_BASIC_ATTACK",
 			},
+			...getSkillActions(state),
 		];
 	}
 
@@ -64,4 +71,17 @@ function getLevelUpActions(pendingLevelUp: PendingLevelUp): CompleteLevelUpActio
 			},
 		};
 	});
+}
+
+function getSkillActions(state: RunState): PlayerUseSkillAction[] {
+	if (!state.combat) {
+		return [];
+	}
+
+	return state.combat.player.skills
+		.filter((skill) => skill.chargesRemaining === undefined || skill.chargesRemaining > 0)
+		.map((skill) => ({
+			type: "PLAYER_USE_SKILL",
+			skillId: skill.skillId,
+		}));
 }
