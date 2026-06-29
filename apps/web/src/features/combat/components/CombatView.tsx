@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { CLASSES_BY_ID } from "@app/content";
+import { CLASSES_BY_ID, type SkillId } from "@app/content";
 import { selectAvailableActions, selectCombatView, type EngineAction } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { Layout } from "../../../components/Layout";
@@ -9,7 +9,8 @@ import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
 import { CombatantPanel } from "./CombatantPanel";
 import { CombatStatsBar } from "./CombatStatsBar";
-import { formatTitle, getEnemyDefinition } from "../utils/combatDisplay";
+import { getEnemyDefinition } from "../utils/combatDisplay";
+import { formatTitle } from "../../../game/effectDisplay";
 
 type CombatViewProps = {
 	run: RunView;
@@ -36,8 +37,12 @@ export function CombatView({ run }: CombatViewProps) {
 	const { battleNumber, combat, goldMultiplier, zone } = combatView;
 	const heroClass = CLASSES_BY_ID[hero.classId];
 	const zoneLabel = formatTitle(zone);
-	const availableActionTypes = new Set(
-		selectAvailableActions(run.state).map((action) => action.type),
+	const availableActions = selectAvailableActions(run.state);
+	const availableActionTypes = new Set(availableActions.map((action) => action.type));
+	const availableSkillIds = new Set(
+		availableActions.flatMap((action) =>
+			action.type === "PLAYER_USE_SKILL" ? [action.skillId] : [],
+		),
 	);
 
 	function submitAction(action: EngineAction, fallbackErrorMessage: string) {
@@ -86,6 +91,16 @@ export function CombatView({ run }: CombatViewProps) {
 		);
 	}
 
+	function handleUseSkill(skillId: SkillId) {
+		submitAction(
+			{
+				type: "PLAYER_USE_SKILL",
+				skillId,
+			},
+			"Unable to use that skill. Please try again.",
+		);
+	}
+
 	return (
 		<Layout>
 			<div className="flex flex-1 bg-bg-base text-base text-text">
@@ -127,9 +142,11 @@ export function CombatView({ run }: CombatViewProps) {
 						player={combat.player}
 						isPending={applyRunAction.isPending}
 						canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
+						availableSkillIds={availableSkillIds}
 						canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
 						canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
 						onBasicAttack={handleBasicAttack}
+						onUseSkill={handleUseSkill}
 						onContinue={handleContinue}
 						onReturnToTown={handleReturnToTown}
 					/>

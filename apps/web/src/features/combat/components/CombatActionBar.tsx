@@ -1,9 +1,11 @@
 import clsx from "clsx";
-import { SKILLS_BY_ID } from "@app/content";
+import { SKILLS_BY_ID, type SkillId } from "@app/content";
 import type { CombatantSkillState, CombatantState } from "@app/engine";
+import { Tooltip } from "../../../components/Tooltip";
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import continueIcon from "../../../assets/images/actions/Skill_Move.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
+import { SkillTooltipContent } from "./SkillTooltipContent";
 
 // TODO: Replace with engine-owned action slot capacity once action slots become gameplay state.
 const combatActionSlotCount = 8;
@@ -12,9 +14,11 @@ type CombatActionBarProps = {
 	player: CombatantState;
 	isPending: boolean;
 	canBasicAttack: boolean;
+	availableSkillIds: ReadonlySet<SkillId>;
 	canContinue: boolean;
 	canReturnToTown: boolean;
 	onBasicAttack: () => void;
+	onUseSkill: (skillId: SkillId) => void;
 	onContinue: () => void;
 	onReturnToTown: () => void;
 };
@@ -23,9 +27,11 @@ export function CombatActionBar({
 	player,
 	isPending,
 	canBasicAttack,
+	availableSkillIds,
 	canContinue,
 	canReturnToTown,
 	onBasicAttack,
+	onUseSkill,
 	onContinue,
 	onReturnToTown,
 }: CombatActionBarProps) {
@@ -39,7 +45,9 @@ export function CombatActionBar({
 					player={player}
 					isPending={isPending}
 					canBasicAttack={canBasicAttack}
+					availableSkillIds={availableSkillIds}
 					onBasicAttack={onBasicAttack}
+					onUseSkill={onUseSkill}
 				/>
 				<EmptyActionSlots count={emptySlotCount} />
 				<RunActionSlots
@@ -57,7 +65,9 @@ export function CombatActionBar({
 						player={player}
 						isPending={isPending}
 						canBasicAttack={canBasicAttack}
+						availableSkillIds={availableSkillIds}
 						onBasicAttack={onBasicAttack}
+						onUseSkill={onUseSkill}
 					/>
 					<EmptyActionSlots count={emptySlotCount} />
 				</div>
@@ -80,10 +90,19 @@ type CombatSlotsProps = {
 	player: CombatantState;
 	isPending: boolean;
 	canBasicAttack: boolean;
+	availableSkillIds: ReadonlySet<SkillId>;
 	onBasicAttack: () => void;
+	onUseSkill: (skillId: SkillId) => void;
 };
 
-function CombatSlots({ player, isPending, canBasicAttack, onBasicAttack }: CombatSlotsProps) {
+function CombatSlots({
+	player,
+	isPending,
+	canBasicAttack,
+	availableSkillIds,
+	onBasicAttack,
+	onUseSkill,
+}: CombatSlotsProps) {
 	return (
 		<>
 			<IconActionSlot
@@ -93,7 +112,12 @@ function CombatSlots({ player, isPending, canBasicAttack, onBasicAttack }: Comba
 				onClick={onBasicAttack}
 			/>
 			{player.skills.map((skill) => (
-				<SkillSlot key={skill.skillId} skill={skill} />
+				<SkillSlot
+					key={skill.skillId}
+					skill={skill}
+					disabled={isPending || !availableSkillIds.has(skill.skillId)}
+					onUseSkill={onUseSkill}
+				/>
 			))}
 		</>
 	);
@@ -153,27 +177,40 @@ function IconActionSlot({ ariaLabel, disabled, icon, onClick }: IconActionSlotPr
 	);
 }
 
-function SkillSlot({ skill }: { skill: CombatantSkillState }) {
+type SkillSlotProps = {
+	skill: CombatantSkillState;
+	disabled: boolean;
+	onUseSkill: (skillId: SkillId) => void;
+};
+
+function SkillSlot({ skill, disabled, onUseSkill }: SkillSlotProps) {
 	const definition = SKILLS_BY_ID[skill.skillId];
 	const usesLabel = getUsesLabel(skill, definition.maxUses);
 
 	return (
-		<button
-			type="button"
-			className={getActionSlotClassName(true)}
-			disabled
-			aria-label={`${definition.name} unavailable`}
+		<Tooltip
+			content={<SkillTooltipContent skill={skill} definition={definition} />}
+			className="w-full max-w-16 sm:max-w-20 md:w-20 md:max-w-none"
+			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 		>
-			<ActionSlotImage src={definition.icon} />
-			<span className="absolute left-1 top-1 bg-bg-base/80 px-1 text-text-bright">
-				R{skill.rank}
-			</span>
-			{usesLabel && (
-				<span className="absolute bottom-1 right-1 bg-bg-base/80 px-1 text-primary">
-					{usesLabel}
+			<button
+				type="button"
+				className={getActionSlotClassName(disabled)}
+				disabled={disabled}
+				aria-label={disabled ? `${definition.name} unavailable` : `Use ${definition.name}`}
+				onClick={() => onUseSkill(skill.skillId)}
+			>
+				<ActionSlotImage src={definition.icon} />
+				<span className="absolute left-1 top-1 bg-bg-base/80 px-1 text-text-bright">
+					R{skill.rank}
 				</span>
-			)}
-		</button>
+				{usesLabel && (
+					<span className="absolute bottom-1 right-1 bg-bg-base/80 px-1 text-primary">
+						{usesLabel}
+					</span>
+				)}
+			</button>
+		</Tooltip>
 	);
 }
 

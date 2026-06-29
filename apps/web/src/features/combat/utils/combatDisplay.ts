@@ -7,10 +7,3 @@ export function getEnemyDefinition(sourceId: string): Enemy | null {
 
 	return null;
 }
-
-export function formatTitle(value: string) {
-	return value
-		.split("_")
-		.join(" ")
-		.replace(/\b\w/g, (character) => character.toUpperCase());
-}
