@@ -7,6 +7,7 @@ import { rollDamageDice } from "../../damage/rollDamageDice";
 import { getAttributeModifier } from "../../checks/getAttributeModifier";
 import { getCombatant, replaceCombatant } from "../../combatants/combatantSelectors";
 import { appendCombatLog } from "../../logs/appendCombatLog";
+import { getEffectiveCombatStatValue } from "../../effects/getEffectiveCombatStatValue";
 
 type ResolveHealEffectInput = {
 	combat: CombatState;
@@ -33,7 +34,7 @@ export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<Comb
 
 	const baseAmount = Math.max(0, roll.value.total + attributeModifier);
 
-	const healingMultiplier = actor.combatStats.healingMultiplier;
+	const healingMultiplier = getEffectiveCombatStatValue(actor, "healingMultiplier");
 
 	const healingAmount = Math.max(0, Math.floor(baseAmount * healingMultiplier));
 

@@ -7,6 +7,8 @@ import { rollD20, type D20Roll } from "../../../core/dice";
 
 import { getAttributeModifier } from "./getAttributeModifier";
 
+import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+
 export type AttackRollResult = {
 	roll: D20Roll;
 	attribute: Attribute;
@@ -32,13 +34,15 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 
 	const attributeModifier = getAttributeModifier(input.attacker, input.attribute);
 
-	const proficiencyBonus = input.proficient ? input.attacker.combatStats.proficiencyBonus : 0;
+	const proficiencyBonus = input.proficient
+		? getEffectiveCombatStatValue(input.attacker, "proficiencyBonus")
+		: 0;
 
-	const attackRollBonus = input.attacker.combatStats.attackRollBonus;
+	const attackRollBonus = getEffectiveCombatStatValue(input.attacker, "attackRollBonus");
 
 	const total = roll.value.roll + attributeModifier + proficiencyBonus + attackRollBonus;
 
-	const targetArmourClass = input.defender.combatStats.armourClass;
+	const targetArmourClass = getEffectiveCombatStatValue(input.defender, "armourClass");
 
 	const critical = roll.value.isNaturalTwenty;
 

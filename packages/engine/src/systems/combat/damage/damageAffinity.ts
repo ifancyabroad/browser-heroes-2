@@ -1,5 +1,6 @@
 import type { DamageType } from "@app/content";
 import type { CombatantState } from "../../../schemas";
+import { getEffectiveDamageAffinities } from "../effects/getEffectiveDamageAffinities";
 
 export type DamageAffinity = "normal" | "resistant" | "immune" | "vulnerable";
 
@@ -7,15 +8,17 @@ export function getDamageAffinity(
 	defender: CombatantState,
 	damageType: DamageType,
 ): DamageAffinity {
-	if (defender.combatStats.damageAffinities.immunities.includes(damageType)) {
+	const affinities = getEffectiveDamageAffinities(defender);
+
+	if (affinities.immunities.includes(damageType)) {
 		return "immune";
 	}
 
-	if (defender.combatStats.damageAffinities.vulnerabilities.includes(damageType)) {
+	if (affinities.vulnerabilities.includes(damageType)) {
 		return "vulnerable";
 	}
 
-	if (defender.combatStats.damageAffinities.resistances.includes(damageType)) {
+	if (affinities.resistances.includes(damageType)) {
 		return "resistant";
 	}
 

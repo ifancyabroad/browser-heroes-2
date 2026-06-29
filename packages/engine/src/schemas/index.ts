@@ -72,6 +72,9 @@ export type {
 	ActiveCombatEffect,
 	CombatantSkillState,
 	CombatantCombatStats,
+	ActiveDamageAffinityModifier,
+	ActiveDamageModifier,
+	ActiveStatModifier,
 } from "./combatState.schema";
 
 export { combatLogEntrySchema, runLogEntrySchema, logActorSchema } from "./log.schema";

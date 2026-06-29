@@ -1,4 +1,4 @@
-import { EquipmentSlot } from "@app/content";
+import type { EquipmentSlot } from "@app/content";
 import type { CombatantSide } from "../schemas";
 
 export function createCombatId(runId: string, battleNumber: number): string {

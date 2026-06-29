@@ -10,6 +10,8 @@ import { applyDamageAffinity, getDamageAffinity, type DamageAffinity } from "./d
 import { rollDamageDice, type DamageRollSummary } from "./rollDamageDice";
 import { applyDamageModifiers } from "./applyDamageModifiers";
 import { applyDamageReduction } from "./applyDamageReduction";
+import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveDamageModifiers } from "../effects/getEffectiveDamageModifiers";
 
 export type DamageResult = {
 	amount: number;
@@ -48,7 +50,7 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 	const attackerModifiedAmount = applyDamageModifiers({
 		baseAmount,
 		damageType: input.damageType,
-		modifiers: input.attacker.combatStats.damageModifiers,
+		modifiers: getEffectiveDamageModifiers(input.attacker),
 	});
 
 	const multipliedAmount = attackerModifiedAmount * (input.multiplier ?? 1);
@@ -57,7 +59,7 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 
 	const affinityModifiedAmount = applyDamageAffinity(multipliedAmount, affinity);
 
-	const damageReduction = input.defender.combatStats.damageReduction;
+	const damageReduction = getEffectiveCombatStatValue(input.defender, "damageReduction");
 
 	const amount = applyDamageReduction(affinityModifiedAmount, damageReduction);
 
