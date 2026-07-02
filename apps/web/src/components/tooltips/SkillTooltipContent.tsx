@@ -1,6 +1,6 @@
-import { type Skill, type SkillId, type SkillRankValue } from "@app/content";
+import { type AttackRider, type Skill, type SkillId, type SkillRankValue } from "@app/content";
 import { skillCategoryLabels, skillPoolLabels } from "../../game/displayLabels";
-import { formatSkillEffect } from "../../game/effectDisplay";
+import { formatRiderEffect, formatSavingThrow, formatSkillEffect } from "../../game/effectDisplay";
 import {
 	TooltipDetailList,
 	type TooltipDetailRow,
@@ -65,9 +65,12 @@ export function SkillTooltipContent({ skill, definition }: SkillTooltipContentPr
 					{rank.effects.map((effect, index) => (
 						<li
 							key={`${effect.type}-${index}`}
-							className="break-words text-text-bright"
+							className="grid gap-1 break-words text-text-bright"
 						>
-							{formatSkillEffect(effect)}
+							<p>{formatSkillEffect(effect)}</p>
+							{effect.type === "attackDamage" && effect.attackRiders.length > 0 && (
+								<AttackRiderList riders={effect.attackRiders} />
+							)}
 						</li>
 					))}
 				</ul>
@@ -82,4 +85,37 @@ function getUsesLabel(skill: { chargesRemaining?: number }, maxUses: number | un
 	}
 
 	return `${skill.chargesRemaining ?? maxUses}/${maxUses}`;
+}
+
+function AttackRiderList({ riders }: { riders: readonly AttackRider[] }) {
+	return (
+		<ul className="grid gap-1">
+			{riders.map((rider, riderIndex) => (
+				<AttackRiderItem
+					key={`${rider.timing}-${riderIndex}`}
+					rider={rider}
+					index={riderIndex}
+				/>
+			))}
+		</ul>
+	);
+}
+
+function AttackRiderItem({ rider, index }: { rider: AttackRider; index: number }) {
+	const trigger = rider.timing === "onHit" ? "On hit" : "On crit";
+	const effectText = rider.effects.map(formatRiderEffect).join("; ");
+	const saveText = rider.save ? `${formatSavingThrow(rider.save)}; ` : "";
+
+	return (
+		<li key={`${rider.timing}-${index}`} className="break-words text-text-bright">
+			<span className="text-text-muted">- </span>
+			<span className="text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
+				<span className="px-1">{trigger}</span>
+			</span>{" "}
+			<span>
+				{saveText}
+				{effectText}
+			</span>
+		</li>
+	);
 }

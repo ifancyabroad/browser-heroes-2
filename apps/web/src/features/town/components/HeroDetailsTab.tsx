@@ -170,7 +170,7 @@ function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 							}
 							placement="right"
 							className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+							contentClassName="w-72 max-w-[calc(100vw-1rem)] sm:w-80"
 						>
 							<HeroStatValue stat={item.value} signed={item.signed} />
 						</Tooltip>

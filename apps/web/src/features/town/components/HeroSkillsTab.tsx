@@ -35,7 +35,7 @@ export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 											/>
 										}
 										placement="right"
-										className="group block min-w-0 max-w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+										className="group !block w-full min-w-0 max-w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 										contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 									>
 										<AbilityRow
@@ -97,7 +97,7 @@ function AbilityRow({ icon, name, meta, badges }: AbilityRowProps) {
 			className={clsx(
 				"grid gap-3 py-1",
 				badges.length > 0
-					? "grid-cols-[3rem_minmax(0,1fr)_auto]"
+					? "grid-cols-[3rem_minmax(0,1fr)_3.5rem]"
 					: "grid-cols-[3rem_minmax(0,1fr)]",
 			)}
 		>
