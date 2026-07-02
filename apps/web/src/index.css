@@ -55,6 +55,25 @@ body,
 	height: 100%;
 }
 
+* {
+	scrollbar-color: var(--color-border) transparent;
+	scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+	width: 1px;
+	height: 1px;
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	background: var(--color-border);
+	border-radius: 0;
+}
+
 body {
 	font-family: "IBM VGA", monospace;
 	color: var(--color-text);
