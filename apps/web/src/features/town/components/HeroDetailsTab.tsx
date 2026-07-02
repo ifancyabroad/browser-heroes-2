@@ -1,10 +1,14 @@
 import { attributes } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
+import { Tooltip } from "../../../components/Tooltip";
+import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
 import { HeroSidebarSection, SidebarValueList } from "./HeroSidebarPrimitives";
 import {
 	armourTypeLabels,
+	attributeLabels,
 	attributeShortLabels,
+	combatStatLabels,
 	combatStatShortLabels,
 	damageTypeLabels,
 	weaponTypeLabels,
@@ -15,6 +19,7 @@ type DamageModifier = HeroView["combatStats"]["damageModifiers"][number]["modifi
 
 type StatGridItem = {
 	label: string;
+	fullLabel: string;
 	value: HeroDerivedValue;
 	signed?: boolean;
 };
@@ -22,48 +27,58 @@ type StatGridItem = {
 export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 	const attributeItems: StatGridItem[] = attributes.map((attribute) => ({
 		label: attributeShortLabels[attribute],
+		fullLabel: attributeLabels[attribute],
 		value: heroView.attributes[attribute],
 	}));
 
 	const combatItems: StatGridItem[] = [
 		{
 			label: combatStatShortLabels.armourClass,
+			fullLabel: combatStatLabels.armourClass,
 			value: heroView.combatStats.armourClass,
 		},
 		{
 			label: combatStatShortLabels.proficiencyBonus,
+			fullLabel: combatStatLabels.proficiencyBonus,
 			value: heroView.combatStats.proficiencyBonus,
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.attackRollBonus,
+			fullLabel: combatStatLabels.attackRollBonus,
 			value: heroView.combatStats.attackRollBonus,
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.savingThrowBonus,
+			fullLabel: combatStatLabels.savingThrowBonus,
 			value: heroView.combatStats.savingThrowBonus,
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.saveDcBonus,
+			fullLabel: combatStatLabels.saveDcBonus,
 			value: heroView.combatStats.saveDcBonus,
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.critChance,
+			fullLabel: combatStatLabels.critChance,
 			value: heroView.combatStats.critChance,
 		},
 		{
 			label: combatStatShortLabels.critMultiplier,
+			fullLabel: combatStatLabels.critMultiplier,
 			value: heroView.combatStats.critMultiplier,
 		},
 		{
 			label: combatStatShortLabels.damageReduction,
+			fullLabel: combatStatLabels.damageReduction,
 			value: heroView.combatStats.damageReduction,
 		},
 		{
 			label: combatStatShortLabels.healingMultiplier,
+			fullLabel: combatStatLabels.healingMultiplier,
 			value: heroView.combatStats.healingMultiplier,
 		},
 	];
@@ -145,7 +160,20 @@ function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 				<div key={item.label} className="flex items-baseline justify-between gap-2">
 					<dt className="text-text-label">{item.label}</dt>
 					<dd className="text-right">
-						<HeroStatValue stat={item.value} signed={item.signed} />
+						<Tooltip
+							content={
+								<StatTooltipContent
+									label={item.fullLabel}
+									stat={item.value}
+									signed={item.signed}
+								/>
+							}
+							placement="right"
+							className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+						>
+							<HeroStatValue stat={item.value} signed={item.signed} />
+						</Tooltip>
 					</dd>
 				</div>
 			))}

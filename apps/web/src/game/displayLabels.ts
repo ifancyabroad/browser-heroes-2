@@ -24,6 +24,15 @@ export const attributeShortLabels: Record<Attribute, string> = {
 	charisma: "CHA",
 };
 
+export const attributeLabels: Record<Attribute, string> = {
+	strength: "Strength",
+	dexterity: "Dexterity",
+	constitution: "Constitution",
+	intelligence: "Intelligence",
+	wisdom: "Wisdom",
+	charisma: "Charisma",
+};
+
 export const combatStatShortLabels = {
 	armourClass: "AC",
 	proficiencyBonus: "Prof",
@@ -34,6 +43,18 @@ export const combatStatShortLabels = {
 	critMultiplier: "Crit x",
 	damageReduction: "DR",
 	healingMultiplier: "Healing",
+} as const;
+
+export const combatStatLabels = {
+	armourClass: "Armour Class",
+	proficiencyBonus: "Proficiency Bonus",
+	attackRollBonus: "Attack Roll Bonus",
+	savingThrowBonus: "Saving Throw Bonus",
+	saveDcBonus: "Save DC Bonus",
+	critChance: "Critical Chance",
+	critMultiplier: "Critical Multiplier",
+	damageReduction: "Damage Reduction",
+	healingMultiplier: "Healing Multiplier",
 } as const;
 
 export const modifiableStatLabels: Record<ModifiableStat, string> = {
