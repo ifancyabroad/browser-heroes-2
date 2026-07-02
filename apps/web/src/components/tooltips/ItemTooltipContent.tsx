@@ -1,5 +1,4 @@
 import type { AttackRider, EquipmentSlot, Item, ItemRarity } from "@app/content";
-import type { ReactNode } from "react";
 import clsx from "clsx";
 import {
 	armourCategoryLabels,
@@ -11,23 +10,23 @@ import {
 	weaponHandednessLabels,
 	weaponRangeLabels,
 	weaponTypeLabels,
-} from "../../../game/displayLabels";
+} from "../../game/displayLabels";
 import {
 	formatItemModifier,
 	formatRiderEffect,
 	formatSavingThrow,
 	formatTitle,
 	getModifierTextClassName,
-} from "../../../game/effectDisplay";
+} from "../../game/effectDisplay";
+import {
+	TooltipDetailList,
+	type TooltipDetailRow,
+	TooltipSection,
+} from "./TooltipContentPrimitives";
 
 type ItemTooltipContentProps = {
 	item: Item;
 	slot: EquipmentSlot;
-};
-
-type DetailRow = {
-	label: string;
-	value: string;
 };
 
 export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
@@ -59,7 +58,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 				<p className="border-t border-border pt-2 text-text">{item.description}</p>
 			)}
 
-			<DetailList rows={getItemDetailRows(item, slot)} />
+			<TooltipDetailList rows={getItemDetailRows(item, slot)} />
 
 			{item.modifiers.length > 0 && (
 				<TooltipSection title="Modifiers">
@@ -112,8 +111,8 @@ export function getItemRarityTextClassName(rarity: ItemRarity) {
 	}
 }
 
-function getItemDetailRows(item: Item, slot: EquipmentSlot): DetailRow[] {
-	const rows: DetailRow[] = [
+function getItemDetailRows(item: Item, slot: EquipmentSlot): TooltipDetailRow[] {
+	const rows: TooltipDetailRow[] = [
 		{ label: "Equipped", value: equipmentSlotLabels[slot] },
 		{ label: "Price", value: `${item.price} gold` },
 	];
@@ -138,28 +137,6 @@ function getItemDetailRows(item: Item, slot: EquipmentSlot): DetailRow[] {
 		{ label: "Category", value: armourCategoryLabels[item.category] },
 		...(item.slot === "body" ? [{ label: "AC", value: String(item.armourClass) }] : []),
 	];
-}
-
-function DetailList({ rows }: { rows: readonly DetailRow[] }) {
-	return (
-		<dl className="grid gap-1 border-t border-border pt-2">
-			{rows.map((row) => (
-				<div key={row.label} className="flex items-baseline justify-between gap-3">
-					<dt className="shrink-0 text-text-label">{row.label}</dt>
-					<dd className="min-w-0 break-words text-right text-text-bright">{row.value}</dd>
-				</div>
-			))}
-		</dl>
-	);
-}
-
-function TooltipSection({ title, children }: { title: string; children: ReactNode }) {
-	return (
-		<section className="grid gap-1 border-t border-border pt-2" aria-label={title}>
-			<p className="text-text-label">{title}</p>
-			{children}
-		</section>
-	);
 }
 
 function AttackRiderList({ riders }: { riders: readonly AttackRider[] }) {

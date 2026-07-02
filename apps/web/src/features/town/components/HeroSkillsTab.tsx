@@ -1,6 +1,8 @@
 import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
+import { Tooltip } from "../../../components/Tooltip";
+import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
 import {
 	featCategoryLabels,
@@ -25,16 +27,28 @@ export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 
 							return (
 								<li key={skill.skillId}>
-									<AbilityRow
-										icon={definition.icon}
-										name={definition.name}
-										meta={`${skillCategoryLabels[definition.category]} / ${skillPoolLabels[definition.pool]}`}
-										badges={
-											usesLabel
-												? [`R${skill.rank}`, usesLabel]
-												: [`R${skill.rank}`]
+									<Tooltip
+										content={
+											<SkillTooltipContent
+												skill={skill}
+												definition={definition}
+											/>
 										}
-									/>
+										placement="right"
+										className="group block min-w-0 max-w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+										contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+									>
+										<AbilityRow
+											icon={definition.icon}
+											name={definition.name}
+											meta={`${skillCategoryLabels[definition.category]} / ${skillPoolLabels[definition.pool]}`}
+											badges={
+												usesLabel
+													? [`R${skill.rank}`, usesLabel]
+													: [`R${skill.rank}`]
+											}
+										/>
+									</Tooltip>
 								</li>
 							);
 						})}

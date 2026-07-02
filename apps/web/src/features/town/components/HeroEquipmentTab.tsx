@@ -2,8 +2,11 @@ import { equipmentSlots, ITEMS_BY_ID } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
+import {
+	getItemRarityTextClassName,
+	ItemTooltipContent,
+} from "../../../components/tooltips/ItemTooltipContent";
 import { equipmentSlotLabels } from "../../../game/displayLabels";
-import { getItemRarityTextClassName, ItemTooltipContent } from "./ItemTooltipContent";
 
 type HeroEquipmentTabProps = {
 	equipment: HeroView["equipment"];

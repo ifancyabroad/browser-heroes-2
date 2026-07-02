@@ -2,10 +2,10 @@ import clsx from "clsx";
 import { SKILLS_BY_ID, type SkillId } from "@app/content";
 import type { CombatantSkillState, CombatantState } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
+import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import continueIcon from "../../../assets/images/actions/Skill_Move.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
-import { SkillTooltipContent } from "./SkillTooltipContent";
 
 // TODO: Replace with engine-owned action slot capacity once action slots become gameplay state.
 const combatActionSlotCount = 8;
