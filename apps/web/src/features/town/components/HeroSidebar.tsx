@@ -1,9 +1,10 @@
 import { CLASSES_BY_ID } from "@app/content";
-import { selectHeroProgression, selectHeroView, type HeroProgressionView } from "@app/engine";
+import { selectHeroProgression, selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
+import { getXpResource } from "../../../game/resourceDisplay";
 import { Tabs } from "../../../components/Tabs";
 import { HeroDetailsTab } from "./HeroDetailsTab";
 import { HeroEquipmentTab } from "./HeroEquipmentTab";
@@ -40,12 +41,15 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 			aria-label="Hero details"
 			title={
 				<div className="grid gap-2 text-base">
-					<div className="grid gap-1">
-						<p className="truncate text-primary">
-							{heroView.name} the {heroClass.name}
-						</p>
-						<p className="text-text">Level {heroView.level}</p>
-					</div>
+					<h2
+						className="truncate text-base text-text-bright"
+						title={`Level ${heroView.level} ${heroClass.name} ${heroView.name}`}
+					>
+						Level {heroView.level}{" "}
+						<span className="text-primary">
+							{heroClass.name} {heroView.name}
+						</span>
+					</h2>
 
 					<section className="grid gap-2" aria-label="Hero resources">
 						<ResourceBar
@@ -113,21 +117,4 @@ function RunInfo({ gold, battleNumber, zoneNumber }: RunInfoProps) {
 			</dl>
 		</section>
 	);
-}
-
-function getXpResource(progression: HeroProgressionView) {
-	if (progression.nextLevelXp === null) {
-		return {
-			value: "Max",
-			fillPercent: 100,
-		};
-	}
-
-	const progressXp = Math.max(0, progression.xp - progression.currentLevelXp);
-	const neededXp = Math.max(1, progression.nextLevelXp - progression.currentLevelXp);
-
-	return {
-		value: `${progressXp}/${neededXp}`,
-		fillPercent: (progressXp / neededXp) * 100,
-	};
 }
