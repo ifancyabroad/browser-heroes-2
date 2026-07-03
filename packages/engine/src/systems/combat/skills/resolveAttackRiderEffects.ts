@@ -12,6 +12,7 @@ import { resolveSavingThrow } from "../checks/resolveSavingThrow";
 import { appendCombatLog } from "../logs/appendCombatLog";
 import { applyRecurringEffect } from "./effects/applyRecurringEffect";
 import { applyStatusEffect } from "./effects/applyStatusEffect";
+import { applyTemporaryModifierEffect } from "./effects/applyTemporaryModifierEffect";
 
 type ResolveAttackRiderEffectsInput = {
 	combat: CombatState;
@@ -111,6 +112,22 @@ export function resolveAttackRiderEffects(
 
 				combat = result.value;
 				rngState = result.rngState;
+				break;
+			}
+
+			case "modifyStat":
+			case "modifyDamage":
+			case "modifyDamageTaken": {
+				const result = applyTemporaryModifierEffect({
+					combat,
+					actorSide: input.actorSide,
+					effect,
+					sourceEffectKey,
+					skillId: input.skillId,
+					skillName: input.skillName,
+				});
+
+				combat = result;
 				break;
 			}
 

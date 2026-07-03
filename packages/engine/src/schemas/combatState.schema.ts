@@ -43,6 +43,13 @@ export const activeDamageModifierSchema = activeCombatEffectBaseSchema.extend({
 	value: z.number(),
 });
 
+export const activeDamageTakenModifierSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("modifyDamageTaken"),
+	damageType: damageTypeSchema.optional(),
+	operation: z.enum(["add", "multiply"]),
+	value: z.number(),
+});
+
 export const activeDamageAffinityModifierSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("modifyDamageAffinity"),
 	affinity: damageAffinityKindSchema,
@@ -74,6 +81,7 @@ export const activeShieldEffectSchema = activeCombatEffectBaseSchema.extend({
 export const activeCombatEffectSchema = z.discriminatedUnion("type", [
 	activeStatModifierSchema,
 	activeDamageModifierSchema,
+	activeDamageTakenModifierSchema,
 	activeDamageAffinityModifierSchema,
 	activeStatusEffectSchema,
 	activeDamageOverTimeEffectSchema,
@@ -151,6 +159,7 @@ export type CombatStatus = z.infer<typeof combatStatusSchema>;
 export type CombatState = z.infer<typeof combatStateSchema>;
 export type ActiveStatModifier = z.infer<typeof activeStatModifierSchema>;
 export type ActiveDamageModifier = z.infer<typeof activeDamageModifierSchema>;
+export type ActiveDamageTakenModifier = z.infer<typeof activeDamageTakenModifierSchema>;
 export type ActiveDamageAffinityModifier = z.infer<typeof activeDamageAffinityModifierSchema>;
 export type ActiveStatusEffect = z.infer<typeof activeStatusEffectSchema>;
 export type ActiveDamageOverTimeEffect = z.infer<typeof activeDamageOverTimeEffectSchema>;

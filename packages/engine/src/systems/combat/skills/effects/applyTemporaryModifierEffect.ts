@@ -1,6 +1,7 @@
 import type {
 	ModifyDamageAffinityEffect,
 	ModifyDamageEffect,
+	ModifyDamageTakenEffect,
 	ModifyStatEffect,
 	SkillId,
 } from "@app/content";
@@ -13,7 +14,11 @@ import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/co
 import { appendCombatLog } from "../../logs/appendCombatLog";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
 
-type TemporaryModifierEffect = ModifyStatEffect | ModifyDamageEffect | ModifyDamageAffinityEffect;
+type TemporaryModifierEffect =
+	| ModifyStatEffect
+	| ModifyDamageEffect
+	| ModifyDamageTakenEffect
+	| ModifyDamageAffinityEffect;
 
 type ApplyTemporaryModifierEffectInput = {
 	combat: CombatState;
@@ -88,6 +93,15 @@ function createActiveCombatEffect(input: {
 			return {
 				...base,
 				type: "modifyDamage",
+				damageType: input.effect.damageType,
+				operation: input.effect.operation,
+				value: input.effect.value,
+			};
+
+		case "modifyDamageTaken":
+			return {
+				...base,
+				type: "modifyDamageTaken",
 				damageType: input.effect.damageType,
 				operation: input.effect.operation,
 				value: input.effect.value,

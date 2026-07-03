@@ -53,7 +53,7 @@ export const healEffectSchema = z.object({
 	attribute: attributeSchema.optional(),
 });
 
-export const statusEffectSchema = z.enum(["stunned", "frozen", "weakened", "vulnerable"]);
+export const statusEffectSchema = z.enum(["stunned", "silenced"]);
 
 export const applyStatusEffectSchema = z.object({
 	type: z.literal("applyStatus"),
@@ -88,6 +88,15 @@ export const modifyStatEffectSchema = z.object({
 export const modifyDamageEffectSchema = z.object({
 	type: z.literal("modifyDamage"),
 	target: skillTargetSchema.default("self"),
+	damageType: damageTypeSchema.optional(),
+	operation: z.enum(["add", "multiply"]),
+	value: z.number(),
+	durationTurns: z.number().int().positive(),
+});
+
+export const modifyDamageTakenEffectSchema = z.object({
+	type: z.literal("modifyDamageTaken"),
+	target: skillTargetSchema,
 	damageType: damageTypeSchema.optional(),
 	operation: z.enum(["add", "multiply"]),
 	value: z.number(),
@@ -133,6 +142,7 @@ export const riderEffectSchema = z.discriminatedUnion("type", [
 	removeStatusEffectSchema,
 	modifyStatEffectSchema,
 	modifyDamageEffectSchema,
+	modifyDamageTakenEffectSchema,
 	damageOverTimeEffectSchema,
 	healOverTimeEffectSchema,
 	shieldEffectSchema,
@@ -169,6 +179,7 @@ export const effectSchema = z.discriminatedUnion("type", [
 	removeStatusEffectSchema,
 	modifyStatEffectSchema,
 	modifyDamageEffectSchema,
+	modifyDamageTakenEffectSchema,
 	modifyDamageAffinityEffectSchema,
 	damageOverTimeEffectSchema,
 	healOverTimeEffectSchema,
@@ -193,6 +204,7 @@ export type ApplyStatusEffect = z.infer<typeof applyStatusEffectSchema>;
 export type RemoveStatusEffect = z.infer<typeof removeStatusEffectSchema>;
 export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
 export type ModifyDamageEffect = z.infer<typeof modifyDamageEffectSchema>;
+export type ModifyDamageTakenEffect = z.infer<typeof modifyDamageTakenEffectSchema>;
 export type ModifyDamageAffinityEffect = z.infer<typeof modifyDamageAffinityEffectSchema>;
 export type DamageOverTimeEffect = z.infer<typeof damageOverTimeEffectSchema>;
 export type HealOverTimeEffect = z.infer<typeof healOverTimeEffectSchema>;

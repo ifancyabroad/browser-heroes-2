@@ -12,6 +12,7 @@ import { applyDamageModifiers } from "./applyDamageModifiers";
 import { applyDamageReduction } from "./applyDamageReduction";
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
 import { getEffectiveDamageModifiers } from "../effects/getEffectiveDamageModifiers";
+import { getEffectiveDamageTakenModifiers } from "../effects/getEffectiveDamageTakenModifiers";
 
 export type DamageResult = {
 	amount: number;
@@ -55,9 +56,15 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 
 	const multipliedAmount = attackerModifiedAmount * (input.multiplier ?? 1);
 
+	const defenderModifiedAmount = applyDamageModifiers({
+		baseAmount: multipliedAmount,
+		damageType: input.damageType,
+		modifiers: getEffectiveDamageTakenModifiers(input.defender),
+	});
+
 	const affinity = getDamageAffinity(input.defender, input.damageType);
 
-	const affinityModifiedAmount = applyDamageAffinity(multipliedAmount, affinity);
+	const affinityModifiedAmount = applyDamageAffinity(defenderModifiedAmount, affinity);
 
 	const damageReduction = getEffectiveCombatStatValue(input.defender, "damageReduction");
 

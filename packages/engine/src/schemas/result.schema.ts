@@ -16,6 +16,7 @@ export const engineErrorCodeSchema = z.enum([
 	"SKILL_HAS_NO_USES_REMAINING",
 	"SKILL_EFFECT_NOT_SUPPORTED",
 	"PLAYER_CANNOT_ACT",
+	"PLAYER_IS_SILENCED",
 ]);
 
 export const engineSuccessResultSchema = z.object({

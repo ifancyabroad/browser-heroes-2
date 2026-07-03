@@ -21,23 +21,31 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 	}
 
 	if (state.phase === "combat" && state.combat?.status === "active") {
-		if (state.phase === "combat" && state.combat?.status === "active") {
-			const skipTurnAction: EngineAction = {
-				type: "PLAYER_SKIP_TURN",
-			};
+		const player = state.combat.player;
 
-			if (hasActiveStatus(state.combat.player, "stunned")) {
-				return [skipTurnAction];
-			}
-
+		if (hasActiveStatus(player, "stunned")) {
 			return [
 				{
-					type: "PLAYER_BASIC_ATTACK",
+					type: "PLAYER_SKIP_TURN",
 				},
-				...getSkillActions(state),
-				skipTurnAction,
 			];
 		}
+
+		const actions: EngineAction[] = [
+			{
+				type: "PLAYER_BASIC_ATTACK",
+			},
+		];
+
+		if (!hasActiveStatus(player, "silenced")) {
+			actions.push(...getSkillActions(state));
+		}
+
+		actions.push({
+			type: "PLAYER_SKIP_TURN",
+		});
+
+		return actions;
 	}
 
 	if (state.phase === "combat" && state.combat?.status === "player_won") {

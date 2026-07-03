@@ -14,6 +14,7 @@ import {
 	type ModifyStatEffect,
 	type RiderEffect,
 	type Skill,
+	ModifyDamageTakenEffect,
 } from "@app/content";
 
 import type {
@@ -26,7 +27,16 @@ import type {
 export type SupportedRiderEffect = Extract<
 	RiderEffect,
 	{
-		type: "damage" | "heal" | "applyStatus" | "damageOverTime" | "healOverTime" | "shield";
+		type:
+			| "damage"
+			| "heal"
+			| "applyStatus"
+			| "damageOverTime"
+			| "healOverTime"
+			| "shield"
+			| "modifyStat"
+			| "modifyDamage"
+			| "modifyDamageTaken";
 	}
 >;
 
@@ -45,6 +55,7 @@ export type SupportedSkillEffect =
 	| ApplyStatusEffect
 	| ModifyStatEffect
 	| ModifyDamageEffect
+	| ModifyDamageTakenEffect
 	| ModifyDamageAffinityEffect
 	| DamageOverTimeEffect
 	| HealOverTimeEffect
@@ -118,6 +129,7 @@ function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | n
 			case "applyStatus":
 			case "modifyStat":
 			case "modifyDamage":
+			case "modifyDamageTaken":
 			case "modifyDamageAffinity":
 			case "damageOverTime":
 			case "healOverTime":
@@ -173,6 +185,9 @@ function isSupportedRiderEffect(effect: RiderEffect): effect is SupportedRiderEf
 		case "damageOverTime":
 		case "healOverTime":
 		case "shield":
+		case "modifyStat":
+		case "modifyDamage":
+		case "modifyDamageTaken":
 			return true;
 
 		default:

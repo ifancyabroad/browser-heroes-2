@@ -87,6 +87,7 @@ function resolveSkillEffect(
 
 		case "modifyStat":
 		case "modifyDamage":
+		case "modifyDamageTaken":
 		case "modifyDamageAffinity":
 			return {
 				value: applyTemporaryModifierEffect({

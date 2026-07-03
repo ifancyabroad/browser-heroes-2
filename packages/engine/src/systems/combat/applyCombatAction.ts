@@ -22,6 +22,10 @@ export function applyCombatAction(state: RunState, action: EngineAction): Engine
 		return failureResult(state, "PLAYER_CANNOT_ACT");
 	}
 
+	if (hasActiveStatus(state.combat.player, "silenced") && action.type === "PLAYER_USE_SKILL") {
+		return failureResult(state, "PLAYER_IS_SILENCED");
+	}
+
 	switch (action.type) {
 		case "PLAYER_BASIC_ATTACK":
 			return resolveBasicAttackRound(state);

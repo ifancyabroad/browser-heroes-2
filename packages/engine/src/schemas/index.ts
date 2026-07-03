@@ -79,6 +79,7 @@ export type {
 	CombatantCombatStats,
 	ActiveDamageAffinityModifier,
 	ActiveDamageModifier,
+	ActiveDamageTakenModifier,
 	ActiveStatModifier,
 	ActiveStatusEffect,
 	ActiveDamageOverTimeEffect,
