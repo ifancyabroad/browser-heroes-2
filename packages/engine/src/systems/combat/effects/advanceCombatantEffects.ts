@@ -5,19 +5,43 @@ import type { ActiveCombatEffect, CombatantSide, CombatState } from "../../../sc
 import { advanceActiveEffects } from "./advanceActiveEffects";
 import { getCombatant, replaceCombatant } from "../combatants/combatantSelectors";
 import { appendCombatLog } from "../logs/appendCombatLog";
+import { RngResult, RngState } from "../../../core/rng";
+import { resolveDamageOverTimeEffects } from "./resolveDamageOverTimeEffects";
+import { resolveHealOverTimeEffects } from "./resolveHealOverTimeEffects";
 
 type AdvanceCombatantEffectsInput = {
 	combat: CombatState;
 	combatantSide: CombatantSide;
 	effectIds: ReadonlySet<string>;
+	rngState: RngState;
 };
 
-export function advanceCombatantEffects(input: AdvanceCombatantEffectsInput): CombatState {
-	const combatant = getCombatant(input.combat, input.combatantSide);
+export function advanceCombatantEffects(
+	input: AdvanceCombatantEffectsInput,
+): RngResult<CombatState> {
+	let currentResult = resolveDamageOverTimeEffects({
+		combat: input.combat,
+		combatantSide: input.combatantSide,
+		effectIds: input.effectIds,
+		rngState: input.rngState,
+	});
+
+	const combatantAfterDamage = getCombatant(currentResult.value, input.combatantSide);
+
+	if (combatantAfterDamage.currentHp > 0) {
+		currentResult = resolveHealOverTimeEffects({
+			combat: currentResult.value,
+			combatantSide: input.combatantSide,
+			effectIds: input.effectIds,
+			rngState: currentResult.rngState,
+		});
+	}
+
+	const combatant = getCombatant(currentResult.value, input.combatantSide);
 
 	const result = advanceActiveEffects(combatant, input.effectIds);
 
-	let combat = replaceCombatant(input.combat, result.combatant);
+	let combat = replaceCombatant(currentResult.value, result.combatant);
 
 	for (const expiredEffect of getUniqueExpiredSkillEffects(result.expiredEffects)) {
 		const stillActive = result.combatant.activeEffects.some(
@@ -40,7 +64,10 @@ export function advanceCombatantEffects(input: AdvanceCombatantEffectsInput): Co
 		});
 	}
 
-	return combat;
+	return {
+		value: combat,
+		rngState: currentResult.rngState,
+	};
 }
 
 function getUniqueExpiredSkillEffects(effects: ActiveCombatEffect[]): ActiveCombatEffect[] {

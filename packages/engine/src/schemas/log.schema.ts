@@ -19,6 +19,7 @@ export const combatLogEntrySchema = z.object({
 			"healing_done",
 			"combat_ended",
 			"turn_skipped",
+			"effect_triggered",
 		])
 		.optional(),
 });

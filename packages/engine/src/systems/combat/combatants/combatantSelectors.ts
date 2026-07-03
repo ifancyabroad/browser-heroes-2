@@ -14,3 +14,15 @@ export function replaceCombatant(combat: CombatState, combatant: CombatantState)
 		[combatant.side]: combatant,
 	};
 }
+
+export function getCombatantById(combat: CombatState, combatantId: string): CombatantState {
+	if (combat.player.id === combatantId) {
+		return combat.player;
+	}
+
+	if (combat.enemy.id === combatantId) {
+		return combat.enemy;
+	}
+
+	throw new Error(`Combatant ${combatantId} does not exist in combat ${combat.id}`);
+}

@@ -3,11 +3,10 @@ import type { HealEffect } from "@app/content";
 import type { CombatantSide, CombatState } from "../../../../schemas";
 import type { RngResult, RngState } from "../../../../core/rng";
 
-import { rollDamageDice } from "../../damage/rollDamageDice";
-import { getAttributeModifier } from "../../checks/getAttributeModifier";
 import { getCombatant, replaceCombatant } from "../../combatants/combatantSelectors";
 import { appendCombatLog } from "../../logs/appendCombatLog";
-import { getEffectiveCombatStatValue } from "../../effects/getEffectiveCombatStatValue";
+import { calculateHealing } from "../../healing/calculateHealing";
+import { applyHealing } from "../../healing/applyHealing";
 
 type ResolveHealEffectInput = {
 	combat: CombatState;
@@ -23,27 +22,17 @@ export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<Comb
 
 	const target = actor;
 
-	const roll = rollDamageDice({
+	const healing = calculateHealing({
 		rngState: input.rngState,
-		formula: input.effect.dice,
+		healer: actor,
+		dice: input.effect.dice,
+		attribute: input.effect.attribute,
 	});
 
-	const attributeModifier = input.effect.attribute
-		? getAttributeModifier(actor, input.effect.attribute)
-		: 0;
+	const appliedHealing = applyHealing(target, healing.value.amount);
 
-	const baseAmount = Math.max(0, roll.value.total + attributeModifier);
-
-	const healingMultiplier = getEffectiveCombatStatValue(actor, "healingMultiplier");
-
-	const healingAmount = Math.max(0, Math.floor(baseAmount * healingMultiplier));
-
-	const actualHealing = Math.min(healingAmount, target.maxHp - target.currentHp);
-
-	const updatedTarget = {
-		...target,
-		currentHp: target.currentHp + actualHealing,
-	};
+	const updatedTarget = appliedHealing.combatant;
+	const actualHealing = appliedHealing.actualHealing;
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
@@ -59,6 +48,6 @@ export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<Comb
 			message,
 			eventType: input.logContext === "rider" ? "effect_applied" : "healing_done",
 		}),
-		rngState: roll.rngState,
+		rngState: healing.rngState,
 	};
 }

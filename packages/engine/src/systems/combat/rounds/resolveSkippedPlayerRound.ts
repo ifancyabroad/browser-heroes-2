@@ -31,32 +31,34 @@ export function resolveSkippedPlayerRound(
 		eventType: "turn_skipped",
 	});
 
-	const combatAfterPlayerEffects = advanceCombatantEffects({
+	const playerEffects = advanceCombatantEffects({
 		combat: combatAfterPlayerSkip,
 		combatantSide: "player",
 		effectIds: playerEffectIds,
-	});
-
-	const enemyEffectIds = getActiveEffectIds(combatAfterPlayerEffects.enemy);
-
-	const enemyTurn = resolveEnemyTurn({
-		combat: combatAfterPlayerSkip,
 		rngState: state.rngState,
 	});
 
-	const combatAfterEnemyEffects = advanceCombatantEffects({
+	const enemyEffectIds = getActiveEffectIds(playerEffects.value.enemy);
+
+	const enemyTurn = resolveEnemyTurn({
+		combat: combatAfterPlayerSkip,
+		rngState: playerEffects.rngState,
+	});
+
+	const enemyEffects = advanceCombatantEffects({
 		combat: enemyTurn.value,
 		combatantSide: "enemy",
 		effectIds: enemyEffectIds,
+		rngState: enemyTurn.rngState,
 	});
 
-	const afterEnemyDeathCheck = resolveCombatStatus(combatAfterEnemyEffects);
+	const afterEnemyDeathCheck = resolveCombatStatus(enemyEffects.value);
 
 	if (afterEnemyDeathCheck.status === "enemy_won") {
 		return successResult(
 			{
 				...state,
-				rngState: enemyTurn.rngState,
+				rngState: enemyEffects.rngState,
 				phase: "dead",
 				combat: afterEnemyDeathCheck,
 			},
@@ -72,7 +74,7 @@ export function resolveSkippedPlayerRound(
 	return successResult(
 		{
 			...state,
-			rngState: enemyTurn.rngState,
+			rngState: enemyEffects.rngState,
 			combat: advanceTurn(afterEnemyDeathCheck),
 		},
 		[
