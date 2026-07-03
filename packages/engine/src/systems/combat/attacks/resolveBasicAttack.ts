@@ -9,6 +9,7 @@ import { resolveAttackRoll } from "../checks/resolveAttackRoll";
 import { applyDamage } from "../damage/applyDamage";
 import { calculateDamage } from "../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../combatants/combatantSelectors";
+import { getDamageMessage } from "../damage/getDamageMessage";
 
 type ResolveBasicAttackInput = {
 	combat: CombatState;
@@ -51,7 +52,9 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 		critical: attackRoll.value.critical,
 	});
 
-	const updatedDefender = applyDamage(defender, damage.value);
+	const appliedDamage = applyDamage(defender, damage.value);
+
+	const updatedDefender = appliedDamage.combatant;
 
 	const nextCombat = replaceCombatant(input.combat, updatedDefender);
 
@@ -59,8 +62,11 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 		value: appendCombatLog(nextCombat, {
 			turnNumber: input.combat.turnNumber,
 			actor: attacker.side,
-			message:
-				`${attacker.name} attacks ${defender.name} ` + `for ${damage.value.amount} damage.`,
+			message: getDamageMessage({
+				prefix: `${attacker.name} attacks ${defender.name}`,
+				hpDamage: appliedDamage.hpDamage,
+				absorbedDamage: appliedDamage.absorbedDamage,
+			}),
 			eventType: "basic_attack",
 		}),
 		rngState: damage.rngState,

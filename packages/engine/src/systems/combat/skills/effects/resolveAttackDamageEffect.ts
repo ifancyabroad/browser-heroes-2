@@ -12,6 +12,7 @@ import { calculateDamage } from "../../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { appendCombatLog } from "../../logs/appendCombatLog";
 import { resolveAttackRiderEffects } from "../resolveAttackRiderEffects";
+import { getDamageMessage } from "../../damage/getDamageMessage";
 
 type ResolveAttackDamageEffectInput = {
 	combat: CombatState;
@@ -67,9 +68,12 @@ export function resolveAttackDamageEffect(
 	});
 
 	let rngState = mainDamage.rngState;
-	let totalDamage = mainDamage.value.amount;
 
-	let updatedTarget = applyDamage(target, mainDamage.value);
+	const appliedMainDamage = applyDamage(target, mainDamage.value);
+
+	let updatedTarget = appliedMainDamage.combatant;
+	let totalHpDamage = appliedMainDamage.hpDamage;
+	let totalAbsorbedDamage = appliedMainDamage.absorbedDamage;
 
 	if (input.effect.extraDice) {
 		const extraDamage = calculateDamage({
@@ -82,9 +86,12 @@ export function resolveAttackDamageEffect(
 		});
 
 		rngState = extraDamage.rngState;
-		totalDamage += extraDamage.value.amount;
 
-		updatedTarget = applyDamage(updatedTarget, extraDamage.value);
+		const appliedExtraDamage = applyDamage(updatedTarget, extraDamage.value);
+
+		updatedTarget = appliedExtraDamage.combatant;
+		totalHpDamage += appliedExtraDamage.hpDamage;
+		totalAbsorbedDamage += appliedExtraDamage.absorbedDamage;
 	}
 
 	let resolvedCombat = replaceCombatant(input.combat, updatedTarget);
@@ -92,9 +99,11 @@ export function resolveAttackDamageEffect(
 	resolvedCombat = appendCombatLog(resolvedCombat, {
 		turnNumber: input.combat.turnNumber,
 		actor: actor.side,
-		message:
-			`${actor.name} uses ${input.skillName} on ` +
-			`${target.name} for ${totalDamage} damage.`,
+		message: getDamageMessage({
+			prefix: `${actor.name} uses ${input.skillName} on ` + `${target.name}`,
+			hpDamage: totalHpDamage,
+			absorbedDamage: totalAbsorbedDamage,
+		}),
 		eventType: "skill_used",
 	});
 

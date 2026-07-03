@@ -8,6 +8,7 @@ import { getCombatant, getCombatantById, replaceCombatant } from "../combatants/
 import { applyDamage } from "../damage/applyDamage";
 import { calculateDamage } from "../damage/calculateDamage";
 import { appendCombatLog } from "../logs/appendCombatLog";
+import { getDamageMessage } from "../damage/getDamageMessage";
 
 type ResolveDamageOverTimeEffectsInput = {
 	combat: CombatState;
@@ -42,7 +43,9 @@ export function resolveDamageOverTimeEffects(
 
 		rngState = damage.rngState;
 
-		const updatedTarget = applyDamage(target, damage.value);
+		const appliedDamage = applyDamage(target, damage.value);
+
+		const updatedTarget = appliedDamage.combatant;
 
 		combat = replaceCombatant(combat, updatedTarget);
 
@@ -51,9 +54,11 @@ export function resolveDamageOverTimeEffects(
 		combat = appendCombatLog(combat, {
 			turnNumber: combat.turnNumber,
 			actor: target.side,
-			message:
-				`${skill.name} deals ${damage.value.amount} ` +
-				`${damage.value.damageType} damage to ${target.name}.`,
+			message: getDamageMessage({
+				prefix: `${skill.name} affects ${target.name}`,
+				hpDamage: appliedDamage.hpDamage,
+				absorbedDamage: appliedDamage.absorbedDamage,
+			}),
 			eventType: "effect_triggered",
 		});
 	}

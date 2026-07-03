@@ -9,6 +9,7 @@ import { applyDamage } from "../../damage/applyDamage";
 import { calculateDamage } from "../../damage/calculateDamage";
 import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
+import { getDamageMessage } from "../../damage/getDamageMessage";
 
 type ResolveDamageEffectInput = {
 	combat: CombatState;
@@ -97,20 +98,21 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 				}
 			: damage.value;
 
-	const updatedTarget = applyDamage(target, resolvedDamage);
+	const appliedDamage = applyDamage(target, resolvedDamage);
+
+	const updatedTarget = appliedDamage.combatant;
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
-
-	const message =
-		input.logContext === "rider"
-			? `${input.skillName} deals an additional ${damage.value.amount} damage to ${target.name}.`
-			: `${actor.name} uses ${input.skillName} on ${target.name} for ${damage.value.amount} damage.`;
 
 	return {
 		value: appendCombatLog(updatedCombat, {
 			turnNumber: input.combat.turnNumber,
 			actor: actor.side,
-			message,
+			message: getDamageMessage({
+				prefix: `${actor.name} uses ${input.skillName} on ` + `${target.name}`,
+				hpDamage: appliedDamage.hpDamage,
+				absorbedDamage: appliedDamage.absorbedDamage,
+			}),
 			eventType: input.logContext === "rider" ? "effect_applied" : "damage_dealt",
 		}),
 		rngState: damage.rngState,
