@@ -21,9 +21,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "damageOverTime",
 									target: "enemy",
-									statusId: "poisoned",
+									damageType: "poison",
+									dice: "1d4",
 									durationTurns: 6,
 								},
 								{
@@ -50,9 +51,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "damageOverTime",
 									target: "enemy",
-									statusId: "poisoned",
+									damageType: "poison",
+									dice: "1d6",
 									durationTurns: 7,
 								},
 								{
@@ -79,9 +81,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "damageOverTime",
 									target: "enemy",
-									statusId: "poisoned",
+									damageType: "poison",
+									dice: "1d8",
 									durationTurns: 8,
 								},
 								{

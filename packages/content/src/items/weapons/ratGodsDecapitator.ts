@@ -39,9 +39,10 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "applyStatus",
+					type: "damageOverTime",
 					target: "enemy",
-					statusId: "bleeding",
+					damageType: "slashing",
+					dice: "1d10",
 					durationTurns: 6,
 				},
 			],

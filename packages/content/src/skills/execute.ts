@@ -20,9 +20,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "damageOverTime",
 									target: "enemy",
-									statusId: "bleeding",
+									damageType: "slashing",
+									dice: "1d8",
 									durationTurns: 5,
 								},
 							],
@@ -43,9 +44,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "damageOverTime",
 									target: "enemy",
-									statusId: "bleeding",
+									damageType: "slashing",
+									dice: "1d10",
 									durationTurns: 6,
 								},
 							],
@@ -66,9 +68,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "damageOverTime",
 									target: "enemy",
-									statusId: "bleeding",
+									damageType: "slashing",
+									dice: "1d12",
 									durationTurns: 7,
 								},
 							],

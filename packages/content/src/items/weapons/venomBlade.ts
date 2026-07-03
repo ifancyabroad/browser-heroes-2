@@ -32,9 +32,10 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "applyStatus",
+					type: "damageOverTime",
 					target: "enemy",
-					statusId: "poisoned",
+					damageType: "poison",
+					dice: "1d4",
 					durationTurns: 2,
 				},
 			],

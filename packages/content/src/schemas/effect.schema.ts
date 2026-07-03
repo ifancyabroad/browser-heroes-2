@@ -53,17 +53,7 @@ export const healEffectSchema = z.object({
 	attribute: attributeSchema.optional(),
 });
 
-export const statusEffectSchema = z.enum([
-	"bleeding",
-	"burning",
-	"poisoned",
-	"stunned",
-	"frozen",
-	"weakened",
-	"vulnerable",
-	"shielded",
-	"regenerating",
-]);
+export const statusEffectSchema = z.enum(["stunned", "frozen", "weakened", "vulnerable"]);
 
 export const applyStatusEffectSchema = z.object({
 	type: z.literal("applyStatus"),
@@ -112,6 +102,29 @@ export const modifyDamageAffinityEffectSchema = z.object({
 	durationTurns: z.number().int().positive(),
 });
 
+export const damageOverTimeEffectSchema = z.object({
+	type: z.literal("damageOverTime"),
+	target: skillTargetSchema,
+	damageType: damageTypeSchema,
+	dice: diceFormulaSchema,
+	durationTurns: z.number().int().positive(),
+	save: savingThrowSchema.optional(),
+});
+
+export const healOverTimeEffectSchema = z.object({
+	type: z.literal("healOverTime"),
+	target: z.literal("self").default("self"),
+	dice: diceFormulaSchema,
+	durationTurns: z.number().int().positive(),
+});
+
+export const shieldEffectSchema = z.object({
+	type: z.literal("shield"),
+	target: z.literal("self").default("self"),
+	amount: z.number().int().positive(),
+	durationTurns: z.number().int().positive(),
+});
+
 export const riderEffectSchema = z.discriminatedUnion("type", [
 	damageEffectSchema,
 	healEffectSchema,
@@ -119,6 +132,9 @@ export const riderEffectSchema = z.discriminatedUnion("type", [
 	removeStatusEffectSchema,
 	modifyStatEffectSchema,
 	modifyDamageEffectSchema,
+	damageOverTimeEffectSchema,
+	healOverTimeEffectSchema,
+	shieldEffectSchema,
 ]);
 
 export const attackRiderTimingSchema = z.enum(["onHit", "onCrit"]);
@@ -153,6 +169,9 @@ export const effectSchema = z.discriminatedUnion("type", [
 	modifyStatEffectSchema,
 	modifyDamageEffectSchema,
 	modifyDamageAffinityEffectSchema,
+	damageOverTimeEffectSchema,
+	healOverTimeEffectSchema,
+	shieldEffectSchema,
 ]);
 
 export type StatusEffect = z.infer<typeof statusEffectSchema>;
@@ -174,3 +193,6 @@ export type RemoveStatusEffect = z.infer<typeof removeStatusEffectSchema>;
 export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
 export type ModifyDamageEffect = z.infer<typeof modifyDamageEffectSchema>;
 export type ModifyDamageAffinityEffect = z.infer<typeof modifyDamageAffinityEffectSchema>;
+export type DamageOverTimeEffect = z.infer<typeof damageOverTimeEffectSchema>;
+export type HealOverTimeEffect = z.infer<typeof healOverTimeEffectSchema>;
+export type ShieldEffect = z.infer<typeof shieldEffectSchema>;

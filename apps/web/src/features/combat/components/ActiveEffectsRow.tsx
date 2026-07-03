@@ -142,7 +142,7 @@ function getActiveEffectTextClassName(effect: ActiveCombatEffect) {
 function getActiveEffectTone(effect: ActiveCombatEffect): "positive" | "negative" | "neutral" {
 	switch (effect.type) {
 		case "status":
-			return isPositiveStatus(effect.statusId) ? "positive" : "negative";
+			return "negative";
 
 		case "modifyStat":
 		case "modifyDamage":
@@ -156,10 +156,6 @@ function getActiveEffectTone(effect: ActiveCombatEffect): "positive" | "negative
 			return improvesDefense ? "positive" : "negative";
 		}
 	}
-}
-
-function isPositiveStatus(statusId: Extract<ActiveCombatEffect, { type: "status" }>["statusId"]) {
-	return statusId === "shielded" || statusId === "regenerating";
 }
 
 function getNumericModifierTone(

@@ -99,6 +99,15 @@ export function formatSkillEffect(effect: Effect) {
 
 		case "modifyDamageAffinity":
 			return `${effect.operation === "add" ? "Add" : "Remove"} ${damageTypeLabels[effect.damageType]} ${formatTitle(effect.affinity)} on ${formatTarget(effect.target)} for ${effect.durationTurns} turns`;
+
+		case "damageOverTime":
+			return `${formatTarget(effect.target)} takes ${effect.dice} ${damageTypeLabels[effect.damageType]} for ${effect.durationTurns} turns${effect.save ? "; saving throw" : ""}`;
+
+		case "healOverTime":
+			return `Heal ${formatTarget(effect.target)} for ${effect.dice} for ${effect.durationTurns} turns`;
+
+		case "shield":
+			return `Shield ${formatTarget(effect.target)} for ${effect.amount} for ${effect.durationTurns} turns`;
 	}
 }
 
@@ -121,6 +130,15 @@ export function formatRiderEffect(effect: RiderEffect) {
 
 		case "modifyDamage":
 			return `Modify ${formatTarget(effect.target)} ${effect.damageType ? damageTypeLabels[effect.damageType] : "all"} damage ${formatModifierValue(effect.operation, effect.value)}${formatOptionalDuration(effect.durationTurns)}`;
+
+		case "damageOverTime":
+			return `${formatTarget(effect.target)} takes ${effect.dice} ${damageTypeLabels[effect.damageType]}${formatOptionalDuration(effect.durationTurns)}${effect.save ? `; ${formatSavingThrow(effect.save)}` : ""}`;
+
+		case "healOverTime":
+			return `Heal ${formatTarget(effect.target)} for ${effect.dice}${formatOptionalDuration(effect.durationTurns)}`;
+
+		case "shield":
+			return `Shield ${formatTarget(effect.target)} for ${effect.amount}${formatOptionalDuration(effect.durationTurns)}`;
 	}
 }
 

@@ -14,9 +14,10 @@ export default buildSkill({
 			rank: 1,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "damageOverTime",
 					target: "self",
-					statusId: "bleeding",
+					damageType: "slashing",
+					dice: "1d4",
 					durationTurns: 4,
 				},
 				{
@@ -40,9 +41,10 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "damageOverTime",
 					target: "self",
-					statusId: "bleeding",
+					damageType: "slashing",
+					dice: "1d4",
 					durationTurns: 5,
 				},
 				{
@@ -66,9 +68,10 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "damageOverTime",
 					target: "self",
-					statusId: "bleeding",
+					damageType: "slashing",
+					dice: "1d6",
 					durationTurns: 6,
 				},
 				{
