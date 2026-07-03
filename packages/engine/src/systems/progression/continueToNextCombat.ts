@@ -2,6 +2,7 @@ import type { EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { enterCombat } from "../combat/enterCombat";
+import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
 
 export function continueToNextCombat(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
@@ -12,11 +13,14 @@ export function continueToNextCombat(state: RunState): EngineResult {
 		return failureResult(state, "INVALID_PHASE");
 	}
 
+	const battleNumber = state.battleNumber + 1;
+
 	const readyState: RunState = {
 		...state,
 		phase: "town",
 		combat: null,
-		battleNumber: state.battleNumber + 1,
+		battleNumber,
+		zoneNumber: getZoneNumberForBattle(battleNumber),
 		streak: state.streak + 1,
 	};
 
