@@ -46,6 +46,10 @@ export const completeLevelUpActionSchema = z.object({
 	selection: levelUpSelectionSchema.nullable(),
 });
 
+export const playerSkipTurnActionSchema = z.object({
+	type: z.literal("PLAYER_SKIP_TURN"),
+});
+
 export const engineActionSchema = z.discriminatedUnion("type", [
 	enterCombatActionSchema,
 	playerBasicAttackActionSchema,
@@ -57,6 +61,7 @@ export const engineActionSchema = z.discriminatedUnion("type", [
 	restAtTownActionSchema,
 	rerollShopActionSchema,
 	completeLevelUpActionSchema,
+	playerSkipTurnActionSchema,
 ]);
 
 export type EnterCombatAction = z.infer<typeof enterCombatActionSchema>;
@@ -69,5 +74,6 @@ export type BuyItemAction = z.infer<typeof buyItemActionSchema>;
 export type RestAtTownAction = z.infer<typeof restAtTownActionSchema>;
 export type RerollShopAction = z.infer<typeof rerollShopActionSchema>;
 export type CompleteLevelUpAction = z.infer<typeof completeLevelUpActionSchema>;
+export type PlayerSkipTurnAction = z.infer<typeof playerSkipTurnActionSchema>;
 
 export type EngineAction = z.infer<typeof engineActionSchema>;

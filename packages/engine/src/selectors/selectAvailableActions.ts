@@ -5,6 +5,7 @@ import type {
 	PlayerUseSkillAction,
 	RunState,
 } from "../schemas";
+import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -20,12 +21,23 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 	}
 
 	if (state.phase === "combat" && state.combat?.status === "active") {
-		return [
-			{
-				type: "PLAYER_BASIC_ATTACK",
-			},
-			...getSkillActions(state),
-		];
+		if (state.phase === "combat" && state.combat?.status === "active") {
+			const skipTurnAction: EngineAction = {
+				type: "PLAYER_SKIP_TURN",
+			};
+
+			if (hasActiveStatus(state.combat.player, "stunned")) {
+				return [skipTurnAction];
+			}
+
+			return [
+				{
+					type: "PLAYER_BASIC_ATTACK",
+				},
+				...getSkillActions(state),
+				skipTurnAction,
+			];
+		}
 	}
 
 	if (state.phase === "combat" && state.combat?.status === "player_won") {

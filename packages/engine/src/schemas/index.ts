@@ -15,6 +15,11 @@ export type {
 	ReturnToTownAction,
 	CompleteLevelUpAction,
 	PlayerUseSkillAction,
+	PlayerUseConsumableAction,
+	BuyItemAction,
+	RestAtTownAction,
+	RerollShopAction,
+	PlayerSkipTurnAction,
 } from "./action.schema";
 
 export { engineEventSchema } from "./event.schema";

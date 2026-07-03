@@ -13,6 +13,7 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	SKILL_NOT_KNOWN: "That skill is not available to this hero.",
 	SKILL_HAS_NO_USES_REMAINING: "That skill has no uses remaining.",
 	SKILL_EFFECT_NOT_SUPPORTED: "That skill is not supported yet.",
+	PLAYER_CANNOT_ACT: "The player cannot act right now.",
 };
 
 export function getEngineErrorMessage(error: EngineErrorCode): string {

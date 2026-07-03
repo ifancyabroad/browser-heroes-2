@@ -5,11 +5,16 @@ import { resolveBasicAttack } from "../attacks/resolveBasicAttack";
 import { resolveCombatStatus } from "../death/resolveCombatStatus";
 import { advanceTurn } from "./advanceTurn";
 import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward";
+import { getActiveEffectIds } from "../effects/advanceActiveEffects";
+import { advanceCombatantEffects } from "../effects/advanceCombatantEffects";
+import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
 
 export function resolveBasicAttackRound(state: RunState): EngineResult {
 	if (!state.combat) {
 		throw new Error("resolveBasicAttackRound requires active combat");
 	}
+
+	const playerEffectIds = getActiveEffectIds(state.combat.player);
 
 	const playerAttack = resolveBasicAttack({
 		combat: state.combat,
@@ -17,7 +22,13 @@ export function resolveBasicAttackRound(state: RunState): EngineResult {
 		rngState: state.rngState,
 	});
 
-	const afterPlayerDeathCheck = resolveCombatStatus(playerAttack.value);
+	const combatAfterPlayerEffects = advanceCombatantEffects({
+		combat: playerAttack.value,
+		combatantSide: "player",
+		effectIds: playerEffectIds,
+	});
+
+	const afterPlayerDeathCheck = resolveCombatStatus(combatAfterPlayerEffects);
 
 	if (afterPlayerDeathCheck.status === "player_won") {
 		const completedState: RunState = {
@@ -41,22 +52,26 @@ export function resolveBasicAttackRound(state: RunState): EngineResult {
 		]);
 	}
 
-	const enemyAttack = resolveBasicAttack({
-		combat: {
-			...afterPlayerDeathCheck,
-			activeActor: "enemy",
-		},
-		attackerSide: "enemy",
+	const enemyEffectIds = getActiveEffectIds(afterPlayerDeathCheck.enemy);
+
+	const enemyTurn = resolveEnemyTurn({
+		combat: afterPlayerDeathCheck,
 		rngState: playerAttack.rngState,
 	});
 
-	const afterEnemyDeathCheck = resolveCombatStatus(enemyAttack.value);
+	const combatAfterEnemyEffects = advanceCombatantEffects({
+		combat: enemyTurn.value,
+		combatantSide: "enemy",
+		effectIds: enemyEffectIds,
+	});
+
+	const afterEnemyDeathCheck = resolveCombatStatus(combatAfterEnemyEffects);
 
 	if (afterEnemyDeathCheck.status === "enemy_won") {
 		return successResult(
 			{
 				...state,
-				rngState: enemyAttack.rngState,
+				rngState: enemyTurn.rngState,
 				phase: "dead",
 				combat: afterEnemyDeathCheck,
 			},
@@ -72,7 +87,7 @@ export function resolveBasicAttackRound(state: RunState): EngineResult {
 	return successResult(
 		{
 			...state,
-			rngState: enemyAttack.rngState,
+			rngState: enemyTurn.rngState,
 			combat: advanceTurn(afterEnemyDeathCheck),
 		},
 		[

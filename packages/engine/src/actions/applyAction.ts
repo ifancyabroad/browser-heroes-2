@@ -13,6 +13,7 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "PLAYER_BASIC_ATTACK":
 		case "PLAYER_USE_SKILL":
+		case "PLAYER_SKIP_TURN":
 			return applyCombatAction(state, action);
 
 		case "CONTINUE_TO_NEXT_COMBAT":

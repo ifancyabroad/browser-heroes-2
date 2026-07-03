@@ -1,18 +1,22 @@
 import type { EngineResult, PlayerUseSkillAction, RunState } from "../../../schemas";
 
 import { failureResult, successResult } from "../../../core/result";
-import { resolveBasicAttack } from "../attacks/resolveBasicAttack";
 import { resolveCombatStatus } from "../death/resolveCombatStatus";
 import { advanceTurn } from "./advanceTurn";
 import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward";
 import { consumePlayerSkillCharge } from "../skills/consumePlayerSkillCharge";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { validatePlayerSkillUse } from "../skills/validatePlayerSkillUse";
+import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
+import { getActiveEffectIds } from "../effects/advanceActiveEffects";
+import { advanceCombatantEffects } from "../effects/advanceCombatantEffects";
 
 export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction): EngineResult {
 	if (!state.combat) {
 		throw new Error("resolveSkillRound requires active combat");
 	}
+
+	const playerEffectIds = getActiveEffectIds(state.combat.player);
 
 	const validation = validatePlayerSkillUse(state.combat, action);
 
@@ -31,7 +35,13 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		rngState: state.rngState,
 	});
 
-	const afterPlayerDeathCheck = resolveCombatStatus(playerSkill.value);
+	const combatAfterPlayerEffects = advanceCombatantEffects({
+		combat: playerSkill.value,
+		combatantSide: "player",
+		effectIds: playerEffectIds,
+	});
+
+	const afterPlayerDeathCheck = resolveCombatStatus(combatAfterPlayerEffects);
 
 	if (afterPlayerDeathCheck.status === "player_won") {
 		const completedState: RunState = {
@@ -55,22 +65,26 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		]);
 	}
 
-	const enemyAttack = resolveBasicAttack({
-		combat: {
-			...afterPlayerDeathCheck,
-			activeActor: "enemy",
-		},
-		attackerSide: "enemy",
+	const enemyEffectIds = getActiveEffectIds(afterPlayerDeathCheck.enemy);
+
+	const enemyTurn = resolveEnemyTurn({
+		combat: afterPlayerDeathCheck,
 		rngState: playerSkill.rngState,
 	});
 
-	const afterEnemyDeathCheck = resolveCombatStatus(enemyAttack.value);
+	const combatAfterEnemyEffects = advanceCombatantEffects({
+		combat: enemyTurn.value,
+		combatantSide: "enemy",
+		effectIds: enemyEffectIds,
+	});
+
+	const afterEnemyDeathCheck = resolveCombatStatus(combatAfterEnemyEffects);
 
 	if (afterEnemyDeathCheck.status === "enemy_won") {
 		return successResult(
 			{
 				...state,
-				rngState: enemyAttack.rngState,
+				rngState: enemyTurn.rngState,
 				phase: "dead",
 				combat: afterEnemyDeathCheck,
 			},
@@ -86,7 +100,7 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 	return successResult(
 		{
 			...state,
-			rngState: enemyAttack.rngState,
+			rngState: enemyTurn.rngState,
 			combat: advanceTurn(afterEnemyDeathCheck),
 		},
 		[

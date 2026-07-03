@@ -155,6 +155,9 @@ function getActiveEffectTone(effect: ActiveCombatEffect): "positive" | "negative
 
 			return improvesDefense ? "positive" : "negative";
 		}
+
+		default:
+			return "neutral";
 	}
 }
 
