@@ -17,6 +17,8 @@ export const engineErrorCodeSchema = z.enum([
 	"SKILL_EFFECT_NOT_SUPPORTED",
 	"PLAYER_CANNOT_ACT",
 	"PLAYER_IS_SILENCED",
+	"LEVEL_UP_REQUIRED",
+	"REWARD_SELECTION_REQUIRED",
 ]);
 
 export const engineSuccessResultSchema = z.object({

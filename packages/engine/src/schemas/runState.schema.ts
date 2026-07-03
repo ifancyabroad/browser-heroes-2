@@ -4,6 +4,7 @@ import { heroStateSchema } from "./heroState.schema";
 import { combatStateSchema } from "./combatState.schema";
 import { runLogEntrySchema } from "./log.schema";
 import { rngStateSchema } from "./rng.schema";
+import { pendingRewardChoiceSchema } from "./bossReward.schema";
 
 export const runPhaseSchema = z.enum(["town", "combat", "dead", "complete"]);
 
@@ -34,6 +35,7 @@ export const runStateSchema = z.object({
 	gold: z.number().int().min(0),
 	streak: z.number().int().min(0),
 	log: z.array(runLogEntrySchema),
+	pendingRewardChoice: pendingRewardChoiceSchema.nullable(),
 });
 
 export type RunPhase = z.infer<typeof runPhaseSchema>;

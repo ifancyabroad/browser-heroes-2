@@ -114,3 +114,7 @@ export type {
 	SkillLevelUpOption,
 	LevelUpSelection,
 } from "./levelUp.schema";
+
+export { bossRewardOptionSchema, pendingRewardChoiceSchema } from "./bossReward.schema";
+
+export type { BossRewardOption, PendingRewardChoice } from "./bossReward.schema";

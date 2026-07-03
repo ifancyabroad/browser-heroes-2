@@ -43,6 +43,8 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 				eventType: "run_started",
 			},
 		],
+
+		pendingRewardChoice: null,
 	};
 
 	return runStateSchema.parse(state);

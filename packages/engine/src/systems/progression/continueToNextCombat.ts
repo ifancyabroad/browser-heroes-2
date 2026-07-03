@@ -13,6 +13,14 @@ export function continueToNextCombat(state: RunState): EngineResult {
 		return failureResult(state, "INVALID_PHASE");
 	}
 
+	if (state.hero.pendingLevelUp) {
+		return failureResult(state, "LEVEL_UP_REQUIRED");
+	}
+
+	if (state.pendingRewardChoice) {
+		return failureResult(state, "REWARD_SELECTION_REQUIRED");
+	}
+
 	const battleNumber = state.battleNumber + 1;
 
 	const readyState: RunState = {
