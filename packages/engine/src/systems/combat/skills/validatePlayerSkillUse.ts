@@ -152,10 +152,6 @@ function getSupportedAttackRiders(riders: AttackRider[]): SupportedAttackRider[]
 	const supportedRiders: SupportedAttackRider[] = [];
 
 	for (const rider of riders) {
-		if (rider.save) {
-			return null;
-		}
-
 		if (!rider.effects.every(isSupportedRiderEffect)) {
 			return null;
 		}
