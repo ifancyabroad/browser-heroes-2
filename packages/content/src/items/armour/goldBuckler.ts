@@ -10,7 +10,6 @@ export default buildArmour({
 	rarity: "common",
 	type: "armour",
 	slot: "shield",
-	category: "shield",
 	modifiers: [
 		{
 			type: "modifyStat",

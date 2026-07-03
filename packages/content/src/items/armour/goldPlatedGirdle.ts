@@ -8,7 +8,6 @@ export default buildArmour({
 	rarity: "common",
 	type: "armour",
 	slot: "belt",
-	category: "accessory",
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",

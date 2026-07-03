@@ -9,7 +9,6 @@ export default buildArmour({
 	rarity: "common",
 	type: "armour",
 	slot: "boots",
-	category: "accessory",
 	modifiers: [
 		{
 			type: "modifyStat",

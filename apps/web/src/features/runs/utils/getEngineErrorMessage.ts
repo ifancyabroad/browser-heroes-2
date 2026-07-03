@@ -15,6 +15,11 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	SKILL_EFFECT_NOT_SUPPORTED: "That skill is not supported yet.",
 	PLAYER_CANNOT_ACT: "The player cannot act right now.",
 	PLAYER_IS_SILENCED: "The player cannot use skills while silenced.",
+	LEVEL_UP_REQUIRED: "Choose a level-up reward before continuing.",
+	REWARD_SELECTION_REQUIRED: "Choose a reward before continuing.",
+	REWARD_NOT_AVAILABLE: "There is no reward available right now.",
+	INVALID_REWARD_SELECTION: "That reward choice is not available.",
+	INVALID_EQUIPMENT_SLOT: "That item cannot be equipped there.",
 };
 
 export function getEngineErrorMessage(error: EngineErrorCode): string {

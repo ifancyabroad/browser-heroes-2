@@ -131,12 +131,19 @@ function getItemDetailRows(item: Item, slot: EquipmentSlot): TooltipDetailRow[] 
 		];
 	}
 
-	return [
+	const armourRows: TooltipDetailRow[] = [
 		...rows,
 		{ label: "Slot", value: armourSlotLabels[item.slot] },
-		{ label: "Category", value: armourCategoryLabels[item.category] },
-		...(item.slot === "body" ? [{ label: "AC", value: String(item.armourClass) }] : []),
 	];
+
+	if (item.slot === "body") {
+		armourRows.push(
+			{ label: "Category", value: armourCategoryLabels[item.category] },
+			{ label: "AC", value: String(item.armourClass) },
+		);
+	}
+
+	return armourRows;
 }
 
 function AttackRiderList({ riders }: { riders: readonly AttackRider[] }) {

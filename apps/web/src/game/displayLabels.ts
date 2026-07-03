@@ -1,8 +1,8 @@
 import type {
-	ArmourCategory,
 	ArmourSlot,
 	ArmourType,
 	Attribute,
+	BodyArmourCategory,
 	DamageType,
 	EquipmentSlot,
 	FeatCategory,
@@ -125,15 +125,14 @@ export const armourTypeLabels: Record<ArmourType, string> = {
 	light: "Light",
 	medium: "Medium",
 	heavy: "Heavy",
+	shield: "Shield",
 };
 
-export const armourCategoryLabels: Record<ArmourCategory, string> = {
+export const armourCategoryLabels: Record<BodyArmourCategory, string> = {
 	cloth: "Cloth",
 	light: "Light",
 	medium: "Medium",
 	heavy: "Heavy",
-	shield: "Shield",
-	accessory: "Accessory",
 };
 
 export const weaponTypeLabels: Record<WeaponType, string> = {
