@@ -10,6 +10,8 @@ import { resolveDamageEffect } from "./effects/resolveDamageEffect";
 import { resolveAttackDamageEffect } from "./effects/resolveAttackDamageEffect";
 import { resolveHealEffect } from "./effects/resolveHealEffect";
 import { applyTemporaryModifierEffect } from "./effects/applyTemporaryModifierEffect";
+import { applyRecurringEffect } from "./effects/applyRecurringEffect";
+import { applyStatusEffect } from "./effects/applyStatusEffect";
 
 type ResolveSkillEffectsInput = {
 	combat: CombatState;
@@ -72,6 +74,17 @@ function resolveSkillEffect(
 				effect: input.effect,
 			});
 
+		case "applyStatus":
+			return applyStatusEffect({
+				combat: input.combat,
+				actorSide: input.actorSide,
+				effect: input.effect,
+				sourceEffectKey: `effect:${input.effectIndex}`,
+				skillId: input.skillId,
+				skillName: input.skillName,
+				rngState: input.rngState,
+			});
+
 		case "modifyStat":
 		case "modifyDamage":
 		case "modifyDamageAffinity":
@@ -80,7 +93,22 @@ function resolveSkillEffect(
 					combat: input.combat,
 					actorSide: input.actorSide,
 					effect: input.effect,
-					effectIndex: input.effectIndex,
+					sourceEffectKey: `effect:${input.effectIndex}`,
+					skillId: input.skillId,
+					skillName: input.skillName,
+				}),
+				rngState: input.rngState,
+			};
+
+		case "damageOverTime":
+		case "healOverTime":
+		case "shield":
+			return {
+				value: applyRecurringEffect({
+					combat: input.combat,
+					actorSide: input.actorSide,
+					effect: input.effect,
+					sourceEffectKey: `effect:${input.effectIndex}`,
 					skillId: input.skillId,
 					skillName: input.skillName,
 				}),

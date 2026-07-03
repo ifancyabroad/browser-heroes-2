@@ -60,6 +60,7 @@ export const applyStatusEffectSchema = z.object({
 	target: skillTargetSchema,
 	statusId: statusEffectSchema,
 	durationTurns: z.number().int().positive(),
+	save: savingThrowSchema.optional(),
 });
 
 export const removeStatusEffectSchema = z

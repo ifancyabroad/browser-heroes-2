@@ -25,7 +25,7 @@ export function createEffectInstanceId(
 	combatId: string,
 	turnNumber: number,
 	sourceCombatantId: string,
-	index: number,
+	sourceEffectKey: string,
 ): string {
-	return `${combatId}:turn:${turnNumber}:source:${sourceCombatantId}:effect:${index}`;
+	return `${combatId}:turn:${turnNumber}:source:${sourceCombatantId}:effect:${sourceEffectKey}`;
 }

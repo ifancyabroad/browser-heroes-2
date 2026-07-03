@@ -8,7 +8,7 @@ export function upsertActiveCombatEffect(
 		(activeEffect) =>
 			activeEffect.sourceCombatantId === effect.sourceCombatantId &&
 			activeEffect.sourceSkillId === effect.sourceSkillId &&
-			activeEffect.sourceEffectIndex === effect.sourceEffectIndex,
+			activeEffect.sourceEffectKey === effect.sourceEffectKey,
 	);
 
 	if (existingEffectIndex === -1) {

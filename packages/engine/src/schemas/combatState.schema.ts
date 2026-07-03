@@ -13,6 +13,7 @@ import {
 	modifiableStatSchema,
 	modifierOperationSchema,
 	statusEffectSchema,
+	diceFormulaSchema,
 } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
@@ -24,7 +25,7 @@ const activeCombatEffectBaseSchema = z.object({
 	id: z.string(),
 	sourceCombatantId: combatantIdSchema,
 	sourceSkillId: skillIdSchema,
-	sourceEffectIndex: z.number().int().min(0),
+	sourceEffectKey: z.string().min(1),
 	remainingTurns: z.number().int().positive(),
 });
 
@@ -54,11 +55,30 @@ export const activeStatusEffectSchema = activeCombatEffectBaseSchema.extend({
 	statusId: statusEffectSchema,
 });
 
+export const activeDamageOverTimeEffectSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("damageOverTime"),
+	damageType: damageTypeSchema,
+	dice: diceFormulaSchema,
+});
+
+export const activeHealOverTimeEffectSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("healOverTime"),
+	dice: diceFormulaSchema,
+});
+
+export const activeShieldEffectSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("shield"),
+	remainingAmount: z.number().int().min(0),
+});
+
 export const activeCombatEffectSchema = z.discriminatedUnion("type", [
 	activeStatModifierSchema,
 	activeDamageModifierSchema,
 	activeDamageAffinityModifierSchema,
 	activeStatusEffectSchema,
+	activeDamageOverTimeEffectSchema,
+	activeHealOverTimeEffectSchema,
+	activeShieldEffectSchema,
 ]);
 
 export const combatantSkillStateSchema = z.object({
@@ -133,4 +153,7 @@ export type ActiveStatModifier = z.infer<typeof activeStatModifierSchema>;
 export type ActiveDamageModifier = z.infer<typeof activeDamageModifierSchema>;
 export type ActiveDamageAffinityModifier = z.infer<typeof activeDamageAffinityModifierSchema>;
 export type ActiveStatusEffect = z.infer<typeof activeStatusEffectSchema>;
+export type ActiveDamageOverTimeEffect = z.infer<typeof activeDamageOverTimeEffectSchema>;
+export type ActiveHealOverTimeEffect = z.infer<typeof activeHealOverTimeEffectSchema>;
+export type ActiveShieldEffect = z.infer<typeof activeShieldEffectSchema>;
 export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;

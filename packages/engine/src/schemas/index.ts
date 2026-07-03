@@ -75,6 +75,10 @@ export type {
 	ActiveDamageAffinityModifier,
 	ActiveDamageModifier,
 	ActiveStatModifier,
+	ActiveStatusEffect,
+	ActiveDamageOverTimeEffect,
+	ActiveHealOverTimeEffect,
+	ActiveShieldEffect,
 } from "./combatState.schema";
 
 export { combatLogEntrySchema, runLogEntrySchema, logActorSchema } from "./log.schema";

@@ -6,17 +6,22 @@ import type { SupportedRiderEffect } from "./validatePlayerSkillUse";
 
 import { resolveDamageEffect } from "./effects/resolveDamageEffect";
 import { resolveHealEffect } from "./effects/resolveHealEffect";
-import type { SavingThrow } from "@app/content";
+import type { SavingThrow, SkillId } from "@app/content";
 import { getCombatant, getOpponent } from "../combatants/combatantSelectors";
 import { resolveSavingThrow } from "../checks/resolveSavingThrow";
 import { appendCombatLog } from "../logs/appendCombatLog";
+import { applyRecurringEffect } from "./effects/applyRecurringEffect";
+import { applyStatusEffect } from "./effects/applyStatusEffect";
 
 type ResolveAttackRiderEffectsInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
 	effects: SupportedRiderEffect[];
 	save?: SavingThrow;
+	skillId: SkillId;
 	skillName: string;
+	parentEffectIndex: number;
+	riderIndex: number;
 	rngState: RngState;
 };
 
@@ -54,7 +59,14 @@ export function resolveAttackRiderEffects(
 		}
 	}
 
-	for (const effect of input.effects) {
+	for (let effectIndex = 0; effectIndex < input.effects.length; effectIndex += 1) {
+		const effect = input.effects[effectIndex];
+
+		const sourceEffectKey =
+			`effect:${input.parentEffectIndex}` +
+			`:rider:${input.riderIndex}` +
+			`:effect:${effectIndex}`;
+
 		switch (effect.type) {
 			case "damage": {
 				const result = resolveDamageEffect({
@@ -85,6 +97,35 @@ export function resolveAttackRiderEffects(
 				rngState = result.rngState;
 				break;
 			}
+
+			case "applyStatus": {
+				const result = applyStatusEffect({
+					combat,
+					actorSide: input.actorSide,
+					effect,
+					sourceEffectKey,
+					skillId: input.skillId,
+					skillName: input.skillName,
+					rngState,
+				});
+
+				combat = result.value;
+				rngState = result.rngState;
+				break;
+			}
+
+			case "damageOverTime":
+			case "healOverTime":
+			case "shield":
+				combat = applyRecurringEffect({
+					combat,
+					actorSide: input.actorSide,
+					effect,
+					sourceEffectKey,
+					skillId: input.skillId,
+					skillName: input.skillName,
+				});
+				break;
 		}
 	}
 

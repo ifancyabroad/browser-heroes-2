@@ -1,4 +1,4 @@
-import type { DamageType } from "@app/content";
+import type { DamageType, SkillId } from "@app/content";
 
 import type { CombatantSide, CombatState } from "../../../../schemas";
 
@@ -17,6 +17,8 @@ type ResolveAttackDamageEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
 	effect: SupportedAttackDamageEffect;
+	effectIndex: number;
+	skillId: SkillId;
 	skillName: string;
 	rngState: RngState;
 };
@@ -96,7 +98,9 @@ export function resolveAttackDamageEffect(
 		eventType: "skill_used",
 	});
 
-	for (const rider of input.effect.attackRiders) {
+	for (let riderIndex = 0; riderIndex < input.effect.attackRiders.length; riderIndex += 1) {
+		const rider = input.effect.attackRiders[riderIndex];
+
 		const shouldResolve =
 			rider.timing === "onHit" || (rider.timing === "onCrit" && attackRoll.value.critical);
 
@@ -109,7 +113,10 @@ export function resolveAttackDamageEffect(
 			actorSide: input.actorSide,
 			effects: rider.effects,
 			save: rider.save,
+			skillId: input.skillId,
 			skillName: input.skillName,
+			parentEffectIndex: input.effectIndex,
+			riderIndex,
 			rngState,
 		});
 

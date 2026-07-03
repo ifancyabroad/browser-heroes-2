@@ -1,4 +1,8 @@
 import {
+	type ApplyStatusEffect,
+	type DamageOverTimeEffect,
+	type HealOverTimeEffect,
+	type ShieldEffect,
 	SKILLS_BY_ID,
 	type AttackDamageEffect,
 	type AttackRider,
@@ -19,7 +23,12 @@ import type {
 	PlayerUseSkillAction,
 } from "../../../schemas";
 
-export type SupportedRiderEffect = Extract<RiderEffect, { type: "damage" | "heal" }>;
+export type SupportedRiderEffect = Extract<
+	RiderEffect,
+	{
+		type: "damage" | "heal" | "applyStatus" | "damageOverTime" | "healOverTime" | "shield";
+	}
+>;
 
 export type SupportedAttackRider = Omit<AttackRider, "effects"> & {
 	effects: SupportedRiderEffect[];
@@ -33,9 +42,13 @@ export type SupportedSkillEffect =
 	| DamageEffect
 	| HealEffect
 	| SupportedAttackDamageEffect
+	| ApplyStatusEffect
 	| ModifyStatEffect
 	| ModifyDamageEffect
-	| ModifyDamageAffinityEffect;
+	| ModifyDamageAffinityEffect
+	| DamageOverTimeEffect
+	| HealOverTimeEffect
+	| ShieldEffect;
 
 export type ValidatedPlayerSkillUse = {
 	skill: Skill;
@@ -102,9 +115,13 @@ function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | n
 		switch (effect.type) {
 			case "damage":
 			case "heal":
+			case "applyStatus":
 			case "modifyStat":
 			case "modifyDamage":
 			case "modifyDamageAffinity":
+			case "damageOverTime":
+			case "healOverTime":
+			case "shield":
 				supportedEffects.push(effect);
 				break;
 
@@ -153,5 +170,16 @@ function getSupportedAttackRiders(riders: AttackRider[]): SupportedAttackRider[]
 }
 
 function isSupportedRiderEffect(effect: RiderEffect): effect is SupportedRiderEffect {
-	return effect.type === "damage" || effect.type === "heal";
+	switch (effect.type) {
+		case "damage":
+		case "heal":
+		case "applyStatus":
+		case "damageOverTime":
+		case "healOverTime":
+		case "shield":
+			return true;
+
+		default:
+			return false;
+	}
 }

@@ -1,38 +1,31 @@
-import type {
-	ModifyDamageAffinityEffect,
-	ModifyDamageEffect,
-	ModifyStatEffect,
-	SkillId,
-} from "@app/content";
+import type { DamageOverTimeEffect, HealOverTimeEffect, ShieldEffect, SkillId } from "@app/content";
 
 import type { ActiveCombatEffect, CombatantSide, CombatState } from "../../../../schemas";
 
 import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
-import { appendCombatLog } from "../../logs/appendCombatLog";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
+import { appendCombatLog } from "../../logs/appendCombatLog";
 
-type TemporaryModifierEffect = ModifyStatEffect | ModifyDamageEffect | ModifyDamageAffinityEffect;
+type RecurringEffect = DamageOverTimeEffect | HealOverTimeEffect | ShieldEffect;
 
-type ApplyTemporaryModifierEffectInput = {
+type ApplyRecurringEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
-	effect: TemporaryModifierEffect;
+	effect: RecurringEffect;
 	sourceEffectKey: string;
 	skillId: SkillId;
 	skillName: string;
 };
 
-export function applyTemporaryModifierEffect(
-	input: ApplyTemporaryModifierEffectInput,
-): CombatState {
+export function applyRecurringEffect(input: ApplyRecurringEffectInput): CombatState {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
 		input.effect.target === "self" ? actor : getOpponent(input.combat, input.actorSide);
 
-	const activeEffect = createActiveCombatEffect({
+	const activeEffect = createActiveRecurringEffect({
 		combat: input.combat,
 		actorId: actor.id,
 		effect: input.effect,
@@ -54,10 +47,10 @@ export function applyTemporaryModifierEffect(
 	});
 }
 
-function createActiveCombatEffect(input: {
+function createActiveRecurringEffect(input: {
 	combat: CombatState;
 	actorId: string;
-	effect: TemporaryModifierEffect;
+	effect: RecurringEffect;
 	sourceEffectKey: string;
 	skillId: SkillId;
 }): ActiveCombatEffect {
@@ -75,31 +68,26 @@ function createActiveCombatEffect(input: {
 	};
 
 	switch (input.effect.type) {
-		case "modifyStat":
+		case "damageOverTime":
 			return {
 				...base,
-				type: "modifyStat",
-				stat: input.effect.stat,
-				operation: input.effect.operation,
-				value: input.effect.value,
+				type: "damageOverTime",
+				damageType: input.effect.damageType,
+				dice: input.effect.dice,
 			};
 
-		case "modifyDamage":
+		case "healOverTime":
 			return {
 				...base,
-				type: "modifyDamage",
-				damageType: input.effect.damageType,
-				operation: input.effect.operation,
-				value: input.effect.value,
+				type: "healOverTime",
+				dice: input.effect.dice,
 			};
 
-		case "modifyDamageAffinity":
+		case "shield":
 			return {
 				...base,
-				type: "modifyDamageAffinity",
-				affinity: input.effect.affinity,
-				operation: input.effect.operation,
-				damageType: input.effect.damageType,
+				type: "shield",
+				remainingAmount: input.effect.amount,
 			};
 	}
 }
