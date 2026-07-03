@@ -29,9 +29,10 @@ export default buildSkill({
 					},
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 1,
 				},
 				{
@@ -41,9 +42,10 @@ export default buildSkill({
 					durationTurns: 1,
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 1,
 				},
 			],
@@ -69,9 +71,10 @@ export default buildSkill({
 					},
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 2,
 				},
 				{
@@ -81,9 +84,10 @@ export default buildSkill({
 					durationTurns: 2,
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 2,
 				},
 			],
@@ -109,9 +113,10 @@ export default buildSkill({
 					},
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 3,
 				},
 				{
@@ -121,9 +126,10 @@ export default buildSkill({
 					durationTurns: 3,
 				},
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 3,
 				},
 			],

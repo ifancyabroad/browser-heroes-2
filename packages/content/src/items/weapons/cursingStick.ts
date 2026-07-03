@@ -32,9 +32,10 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 3,
 				},
 			],

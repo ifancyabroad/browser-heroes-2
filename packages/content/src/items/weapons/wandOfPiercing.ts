@@ -33,9 +33,10 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamageTaken",
 					target: "enemy",
-					statusId: "vulnerable",
+					operation: "multiply",
+					value: 1.25,
 					durationTurns: 4,
 				},
 			],

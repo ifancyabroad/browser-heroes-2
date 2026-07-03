@@ -21,9 +21,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "modifyDamage",
 									target: "enemy",
-									statusId: "weakened",
+									operation: "multiply",
+									value: 0.75,
 									durationTurns: 3,
 								},
 								{
@@ -51,9 +52,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "modifyDamage",
 									target: "enemy",
-									statusId: "weakened",
+									operation: "multiply",
+									value: 0.75,
 									durationTurns: 4,
 								},
 								{
@@ -81,9 +83,10 @@ export default buildSkill({
 							timing: "onHit",
 							effects: [
 								{
-									type: "applyStatus",
+									type: "modifyDamage",
 									target: "enemy",
-									statusId: "weakened",
+									operation: "multiply",
+									value: 0.75,
 									durationTurns: 5,
 								},
 								{

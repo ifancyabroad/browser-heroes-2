@@ -14,9 +14,10 @@ export default buildSkill({
 			rank: 1,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 4,
 				},
 			],
@@ -25,9 +26,10 @@ export default buildSkill({
 			rank: 2,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 5,
 				},
 			],
@@ -36,9 +38,10 @@ export default buildSkill({
 			rank: 3,
 			effects: [
 				{
-					type: "applyStatus",
+					type: "modifyDamage",
 					target: "enemy",
-					statusId: "weakened",
+					operation: "multiply",
+					value: 0.75,
 					durationTurns: 6,
 				},
 			],
