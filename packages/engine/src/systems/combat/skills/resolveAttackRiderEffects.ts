@@ -116,16 +116,21 @@ export function resolveAttackRiderEffects(
 
 			case "damageOverTime":
 			case "healOverTime":
-			case "shield":
-				combat = applyRecurringEffect({
+			case "shield": {
+				const result = applyRecurringEffect({
 					combat,
 					actorSide: input.actorSide,
 					effect,
 					sourceEffectKey,
 					skillId: input.skillId,
 					skillName: input.skillName,
+					rngState,
 				});
+
+				combat = result.value;
+				rngState = result.rngState;
 				break;
+			}
 		}
 	}
 

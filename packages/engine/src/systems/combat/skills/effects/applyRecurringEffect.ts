@@ -7,6 +7,8 @@ import { createEffectInstanceId } from "../../../../core/ids";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
 import { appendCombatLog } from "../../logs/appendCombatLog";
+import type { RngResult, RngState } from "../../../../core/rng";
+import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
 
 type RecurringEffect = DamageOverTimeEffect | HealOverTimeEffect | ShieldEffect;
 
@@ -17,13 +19,39 @@ type ApplyRecurringEffectInput = {
 	sourceEffectKey: string;
 	skillId: SkillId;
 	skillName: string;
+	rngState: RngState;
 };
 
-export function applyRecurringEffect(input: ApplyRecurringEffectInput): CombatState {
+export function applyRecurringEffect(input: ApplyRecurringEffectInput): RngResult<CombatState> {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
 		input.effect.target === "self" ? actor : getOpponent(input.combat, input.actorSide);
+
+	let rngState = input.rngState;
+
+	if (input.effect.type === "damageOverTime" && input.effect.save) {
+		const savingThrow = resolveSavingThrow({
+			rngState,
+			attacker: actor,
+			defender: target,
+			save: input.effect.save,
+		});
+
+		rngState = savingThrow.rngState;
+
+		if (savingThrow.value.success) {
+			return {
+				value: appendCombatLog(input.combat, {
+					turnNumber: input.combat.turnNumber,
+					actor: target.side,
+					message: `${target.name} resists ` + `${input.skillName}.`,
+					eventType: "skill_used",
+				}),
+				rngState,
+			};
+		}
+	}
 
 	const activeEffect = createActiveRecurringEffect({
 		combat: input.combat,
@@ -37,14 +65,18 @@ export function applyRecurringEffect(input: ApplyRecurringEffectInput): CombatSt
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
-	return appendCombatLog(updatedCombat, {
-		turnNumber: input.combat.turnNumber,
-		actor: actor.side,
-		message:
-			`${actor.name} uses ${input.skillName}, applying an effect ` +
-			`to ${target.name} for ${activeEffect.remainingTurns} turns.`,
-		eventType: "effect_applied",
-	});
+	return {
+		value: appendCombatLog(updatedCombat, {
+			turnNumber: input.combat.turnNumber,
+			actor: actor.side,
+			message:
+				`${actor.name} uses ${input.skillName}, ` +
+				`applying an effect to ${target.name} ` +
+				`for ${activeEffect.remainingTurns} turns.`,
+			eventType: "effect_applied",
+		}),
+		rngState,
+	};
 }
 
 function createActiveRecurringEffect(input: {
