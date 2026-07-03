@@ -2,7 +2,7 @@ import type { CombatantSide, CombatState } from "../../../schemas";
 
 import type { RngResult, RngState } from "../../../core/rng";
 
-import type { SupportedRiderEffect } from "./validatePlayerSkillUse";
+import type { SupportedRiderEffect } from "./validateCombatantSkillUse";
 
 import { resolveDamageEffect } from "./effects/resolveDamageEffect";
 import { resolveHealEffect } from "./effects/resolveHealEffect";

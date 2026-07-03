@@ -4,7 +4,7 @@ import type { CombatantSide, CombatState } from "../../../../schemas";
 
 import type { RngResult, RngState } from "../../../../core/rng";
 
-import type { SupportedAttackDamageEffect } from "../validatePlayerSkillUse";
+import type { SupportedAttackDamageEffect } from "../validateCombatantSkillUse";
 
 import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { applyDamage } from "../../damage/applyDamage";

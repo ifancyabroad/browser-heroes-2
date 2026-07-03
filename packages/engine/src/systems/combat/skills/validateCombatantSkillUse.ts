@@ -15,14 +15,10 @@ import {
 	type RiderEffect,
 	type Skill,
 	ModifyDamageTakenEffect,
+	SkillId,
 } from "@app/content";
 
-import type {
-	CombatantSkillState,
-	CombatState,
-	EngineErrorCode,
-	PlayerUseSkillAction,
-} from "../../../schemas";
+import type { CombatantSkillState, CombatantState, EngineErrorCode } from "../../../schemas";
 
 export type SupportedRiderEffect = Extract<
 	RiderEffect,
@@ -61,27 +57,27 @@ export type SupportedSkillEffect =
 	| HealOverTimeEffect
 	| ShieldEffect;
 
-export type ValidatedPlayerSkillUse = {
+export type ValidatedCombatantSkillUse = {
 	skill: Skill;
 	skillState: CombatantSkillState;
 	effects: SupportedSkillEffect[];
 };
 
-type ValidatePlayerSkillUseResult =
+type ValidateCombatantSkillUseResult =
 	| {
 			ok: true;
-			value: ValidatedPlayerSkillUse;
+			value: ValidatedCombatantSkillUse;
 	  }
 	| {
 			ok: false;
 			error: EngineErrorCode;
 	  };
 
-export function validatePlayerSkillUse(
-	combat: CombatState,
-	action: PlayerUseSkillAction,
-): ValidatePlayerSkillUseResult {
-	const skillState = combat.player.skills.find((skill) => skill.skillId === action.skillId);
+export function validateCombatantSkillUse(
+	combatant: CombatantState,
+	skillId: SkillId,
+): ValidateCombatantSkillUseResult {
+	const skillState = combatant.skills.find((skill) => skill.skillId === skillId);
 
 	if (!skillState) {
 		return {
@@ -97,7 +93,7 @@ export function validatePlayerSkillUse(
 		};
 	}
 
-	const skill = SKILLS_BY_ID[action.skillId];
+	const skill = SKILLS_BY_ID[skillId];
 	const rank = skill.ranks[skillState.rank - 1];
 
 	const effects = getSupportedSkillEffects(rank.effects);

@@ -4,7 +4,7 @@ import type { CombatantSide, CombatState } from "../../../schemas";
 
 import type { RngResult, RngState } from "../../../core/rng";
 
-import type { SupportedSkillEffect } from "./validatePlayerSkillUse";
+import type { SupportedSkillEffect } from "./validateCombatantSkillUse";
 
 import { resolveDamageEffect } from "./effects/resolveDamageEffect";
 import { resolveAttackDamageEffect } from "./effects/resolveAttackDamageEffect";

@@ -4,9 +4,9 @@ import { failureResult, successResult } from "../../../core/result";
 import { resolveCombatStatus } from "../death/resolveCombatStatus";
 import { advanceTurn } from "./advanceTurn";
 import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward";
-import { consumePlayerSkillCharge } from "../skills/consumePlayerSkillCharge";
+import { consumeCombatantSkillCharge } from "../skills/consumeCombatantSkillCharge";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
-import { validatePlayerSkillUse } from "../skills/validatePlayerSkillUse";
+import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
 import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
 import { getActiveEffectIds } from "../effects/advanceActiveEffects";
 import { advanceCombatantEffects } from "../effects/advanceCombatantEffects";
@@ -18,13 +18,13 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 
 	const playerEffectIds = getActiveEffectIds(state.combat.player);
 
-	const validation = validatePlayerSkillUse(state.combat, action);
+	const validation = validateCombatantSkillUse(state.combat.player, action.skillId);
 
 	if (!validation.ok) {
 		return failureResult(state, validation.error);
 	}
 
-	const combatAfterCharge = consumePlayerSkillCharge(state.combat, action.skillId);
+	const combatAfterCharge = consumeCombatantSkillCharge(state.combat, "player", action.skillId);
 
 	const playerSkill = resolveSkillEffects({
 		combat: combatAfterCharge,
