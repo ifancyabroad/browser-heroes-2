@@ -5,6 +5,7 @@ import { continueToNextCombat } from "../systems/progression/continueToNextComba
 import { returnToTown } from "../systems/town/returnToTown";
 import { failureResult } from "../core/result";
 import { completeLevelUp } from "../systems/progression/levelUp/completeLevelUp";
+import { completeRewardChoice } from "../systems/progression/rewards/completeRewardChoice";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -24,6 +25,9 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "COMPLETE_LEVEL_UP":
 			return completeLevelUp(state, action);
+
+		case "SELECT_REWARD":
+			return completeRewardChoice(state, action);
 
 		default:
 			return failureResult(state, "INVALID_ACTION");

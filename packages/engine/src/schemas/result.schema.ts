@@ -19,6 +19,9 @@ export const engineErrorCodeSchema = z.enum([
 	"PLAYER_IS_SILENCED",
 	"LEVEL_UP_REQUIRED",
 	"REWARD_SELECTION_REQUIRED",
+	"REWARD_NOT_AVAILABLE",
+	"INVALID_REWARD_SELECTION",
+	"INVALID_EQUIPMENT_SLOT",
 ]);
 
 export const engineSuccessResultSchema = z.object({

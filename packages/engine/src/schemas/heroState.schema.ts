@@ -50,6 +50,7 @@ export const heroStateSchema = z.object({
 	pendingLevelUp: pendingLevelUpSchema.nullable(),
 });
 
+export type EquippedItemState = z.infer<typeof equippedItemStateSchema>;
 export type HeroSkillState = z.infer<typeof heroSkillStateSchema>;
 export type HeroEquipmentState = z.infer<typeof heroEquipmentStateSchema>;
 export type HeroState = z.infer<typeof heroStateSchema>;

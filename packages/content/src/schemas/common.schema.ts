@@ -159,7 +159,7 @@ export const skillRefSchema = z.object({
 	rank: skillRankValueSchema.default(1),
 });
 
-export const armourTypes = ["cloth", "light", "medium", "heavy"] as const;
+export const armourTypes = ["cloth", "light", "medium", "heavy", "shield"] as const;
 
 export const armourTypeSchema = z.enum(armourTypes);
 

@@ -20,6 +20,7 @@ export type {
 	RestAtTownAction,
 	RerollShopAction,
 	PlayerSkipTurnAction,
+	SelectRewardAction,
 } from "./action.schema";
 
 export { engineEventSchema } from "./event.schema";
@@ -55,7 +56,12 @@ export {
 	heroEquipmentStateSchema,
 } from "./heroState.schema";
 
-export type { HeroState, HeroSkillState, HeroEquipmentState } from "./heroState.schema";
+export type {
+	HeroState,
+	HeroSkillState,
+	HeroEquipmentState,
+	EquippedItemState,
+} from "./heroState.schema";
 
 export {
 	combatStateSchema,

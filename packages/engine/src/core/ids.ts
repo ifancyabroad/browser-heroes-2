@@ -29,3 +29,11 @@ export function createEffectInstanceId(
 ): string {
 	return `${combatId}:turn:${turnNumber}:source:${sourceCombatantId}:effect:${sourceEffectKey}`;
 }
+
+export function createRewardItemInstanceId(
+	runId: string,
+	battleNumber: number,
+	itemId: string,
+): string {
+	return `${runId}:item:reward:${battleNumber}:${itemId}`;
+}

@@ -7,9 +7,11 @@ import {
 	modifierOperationSchema,
 } from "./modifier.schema";
 
-export const itemRaritySchema = z.enum(["common", "uncommon", "rare", "epic", "legendary"]);
+export const itemRarities = ["common", "uncommon", "rare", "epic", "legendary"] as const;
 
-export const armourSlotSchema = z.enum([
+export const itemRaritySchema = z.enum(itemRarities);
+
+export const armourSlots = [
 	"body",
 	"shield",
 	"helmet",
@@ -18,18 +20,13 @@ export const armourSlotSchema = z.enum([
 	"belt",
 	"amulet",
 	"ring",
-]);
+] as const;
 
-export const bodyArmourCategorySchema = z.enum(["cloth", "light", "medium", "heavy"]);
+export const armourSlotSchema = z.enum(armourSlots);
 
-export const armourCategorySchema = z.enum([
-	"cloth",
-	"light",
-	"medium",
-	"heavy",
-	"shield",
-	"accessory",
-]);
+export const bodyArmourCategories = ["cloth", "light", "medium", "heavy"] as const;
+
+export const bodyArmourCategorySchema = z.enum(bodyArmourCategories);
 
 export const itemStatModifierSchema = z.object({
 	type: z.literal("modifyStat"),
@@ -78,19 +75,17 @@ export const bodyArmourSchema = armourBaseSchema.extend({
 
 export const shieldArmourSchema = armourBaseSchema.extend({
 	slot: z.literal("shield"),
-	category: z.literal("shield"),
 });
 
 export const accessoryArmourSchema = armourBaseSchema.extend({
 	slot: z.enum(["helmet", "gloves", "boots", "belt", "amulet", "ring"]),
-	category: z.literal("accessory"),
 });
 
 export const armourSchema = z.union([bodyArmourSchema, shieldArmourSchema, accessoryArmourSchema]);
 
 export type ItemRarity = z.infer<typeof itemRaritySchema>;
 export type ArmourSlot = z.infer<typeof armourSlotSchema>;
-export type ArmourCategory = z.infer<typeof armourCategorySchema>;
+export type BodyArmourCategory = z.infer<typeof bodyArmourCategorySchema>;
 
 export type ItemStatModifier = z.infer<typeof itemStatModifierSchema>;
 export type ItemDamageModifier = z.infer<typeof itemDamageModifierSchema>;

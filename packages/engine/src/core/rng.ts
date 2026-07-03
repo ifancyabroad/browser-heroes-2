@@ -84,3 +84,42 @@ export function selectRandomItems<T>(
 		rngState: nextRngState,
 	};
 }
+
+export type WeightedItem<T> = {
+	value: T;
+	weight: number;
+};
+
+export function selectWeightedItem<T>(
+	items: readonly WeightedItem<T>[],
+	rngState: RngState,
+): RngResult<T> | null {
+	const eligibleItems = items.filter((item) => item.weight > 0);
+
+	if (eligibleItems.length === 0) {
+		return null;
+	}
+
+	const totalWeight = eligibleItems.reduce((sum, item) => sum + item.weight, 0);
+
+	const roll = randomFloat(rngState);
+	const targetWeight = roll.value * totalWeight;
+
+	let runningWeight = 0;
+
+	for (const item of eligibleItems) {
+		runningWeight += item.weight;
+
+		if (targetWeight < runningWeight) {
+			return {
+				value: item.value,
+				rngState: roll.rngState,
+			};
+		}
+	}
+
+	return {
+		value: eligibleItems[eligibleItems.length - 1].value,
+		rngState: roll.rngState,
+	};
+}

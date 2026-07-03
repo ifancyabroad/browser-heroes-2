@@ -1,4 +1,10 @@
-import { featIdSchema, skillIdSchema, skillRankValueSchema } from "@app/content";
+import {
+	equipmentSlotSchema,
+	featIdSchema,
+	itemIdSchema,
+	skillIdSchema,
+	skillRankValueSchema,
+} from "@app/content";
 import { z } from "zod";
 
 const combatStartedEventSchema = z.object({
@@ -56,6 +62,20 @@ const levelUpCompletedEventSchema = z.object({
 	selection: completedLevelUpSelectionSchema.nullable(),
 });
 
+const rewardSelectedEventSchema = z.discriminatedUnion("rewardType", [
+	z.object({
+		type: z.literal("REWARD_SELECTED"),
+		rewardType: z.literal("gold"),
+		amount: z.number().int().positive(),
+	}),
+	z.object({
+		type: z.literal("REWARD_SELECTED"),
+		rewardType: z.literal("item"),
+		itemId: itemIdSchema,
+		equipmentSlot: equipmentSlotSchema,
+	}),
+]);
+
 export const engineEventSchema = z.union([
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
@@ -64,6 +84,7 @@ export const engineEventSchema = z.union([
 	returnedToTownEventSchema,
 	nextCombatReadyEventSchema,
 	levelUpCompletedEventSchema,
+	rewardSelectedEventSchema,
 ]);
 
 export type EngineEvent = z.infer<typeof engineEventSchema>;
