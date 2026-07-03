@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { equipmentSlotSchema, skillIdSchema } from "@app/content";
+import { skillIdSchema } from "@app/content";
 import { levelUpSelectionSchema } from "./levelUp.schema";
+import { rewardSelectionSchema } from "./reward.schema";
 
 export const enterCombatActionSchema = z.object({
 	type: z.literal("ENTER_COMBAT"),
@@ -52,8 +53,7 @@ export const playerSkipTurnActionSchema = z.object({
 
 export const selectRewardActionSchema = z.object({
 	type: z.literal("SELECT_REWARD"),
-	optionIndex: z.number().int().min(0).max(2),
-	equipmentSlot: equipmentSlotSchema.optional(),
+	selection: rewardSelectionSchema,
 });
 
 export const engineActionSchema = z.discriminatedUnion("type", [

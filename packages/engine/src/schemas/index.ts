@@ -115,6 +115,10 @@ export type {
 	LevelUpSelection,
 } from "./levelUp.schema";
 
-export { bossRewardOptionSchema, pendingRewardChoiceSchema } from "./bossReward.schema";
+export {
+	rewardOptionSchema,
+	pendingRewardChoiceSchema,
+	rewardSelectionSchema,
+} from "./reward.schema";
 
-export type { BossRewardOption, PendingRewardChoice } from "./bossReward.schema";
+export type { RewardOption, PendingRewardChoice, RewardSelection } from "./reward.schema";
