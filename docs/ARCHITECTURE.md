@@ -50,6 +50,7 @@ It owns:
 - validating engine actions
 - applying state transitions
 - resolving combat rounds
+- resolving player skill actions and active combat effects
 - applying rewards and level-ups
 - managing town/combat/death/completion phases
 - serializing and deserializing run state

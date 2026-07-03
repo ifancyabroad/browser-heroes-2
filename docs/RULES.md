@@ -68,16 +68,19 @@ Level-up choices are intended to stay curated: the player should choose from a s
 
 Skills are active abilities owned by heroes, enemies, or other combatants.
 
-Current state: heroes can start with skills and gain or rank skills through level-up choices. Direct player skill use in combat is planned/scaffolded and should not be documented as current playable behavior.
+Current state: heroes can start with skills, gain or rank skills through level-up choices, and use available skills during active combat. Skill actions are engine-validated and are unavailable when the hero is silenced. A stunned hero cannot act and may only skip the turn.
 
-Skills may eventually:
+Implemented skill effects may:
 
 - deal damage
 - heal
 - apply temporary effects
 - impose conditions
-- create utility effects
 - use charges, ranks, or other limits
+
+Supported active effects include temporary stat, damage, damage-taken, and damage-affinity modifiers; statuses; shields; damage over time; and healing over time. `removeStatus` exists in content schemas and display formatting, but its engine resolution is not implemented yet.
+
+Enemy skill ownership exists in content/state, but enemy combat behavior currently uses deterministic basic attacks rather than enemy skill selection.
 
 Detailed skill resolution belongs in `COMBAT.md`.
 

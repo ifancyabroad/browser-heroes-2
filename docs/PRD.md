@@ -27,7 +27,7 @@ The current implementation supports the core skeleton of a run:
 2. Create a hero by choosing a class and name.
 3. Enter town.
 4. Start combat from town.
-5. Resolve combat through basic attacks.
+5. Resolve combat through basic attacks or available hero skills.
 6. Earn rewards after victory.
 7. Complete pending level-up choices when offered.
 8. Continue directly to the next combat or return to town.
@@ -35,7 +35,7 @@ The current implementation supports the core skeleton of a run:
 
 Town currently acts as a run checkpoint and launch point. More town decisions are planned.
 
-Combat currently focuses on basic attack rounds. Active skill use, consumables, richer enemy behavior, and deeper effect timing are planned or scaffolded, but are not the primary playable surface yet.
+Combat currently supports basic attack rounds, player skill use, readable combat logs, and active effects such as temporary modifiers, statuses, shields, damage over time, and healing over time. Consumables, enemy skill use, richer enemy behavior, and status removal are planned or scaffolded, but are not the primary playable surface yet.
 
 ## 3. Intended Full Loop
 
@@ -71,7 +71,7 @@ Build decisions should be expressive without requiring players to manage large b
 
 Combat is deterministic, turn-based, and resolved between the player hero and a single enemy.
 
-The intended combat feel is fast tactical RPG combat: basic attacks stay simple, while skills, items, conditions, and enemy behaviors add readable choices over time.
+The intended combat feel is fast tactical RPG combat: basic attacks stay simple, while skills, active effects, items, conditions, and enemy behaviors add readable choices over time.
 
 ### 4.3 Progression System
 
