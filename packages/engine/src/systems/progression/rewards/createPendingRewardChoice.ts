@@ -3,7 +3,8 @@ import type { CombatState, HeroState, PendingRewardChoice } from "../../../schem
 import type { RngResult, RngState } from "../../../core/rng";
 
 import { createItemRewardOptions } from "./createItemRewardOptions";
-import { REWARD_GOLD_MULTIPLIER } from "./rewardConstants";
+
+const REWARD_GOLD_MULTIPLIER = 10;
 
 type CreatePendingRewardChoiceInput = {
 	hero: HeroState;
