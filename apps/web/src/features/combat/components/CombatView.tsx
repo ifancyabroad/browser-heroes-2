@@ -80,6 +80,15 @@ export function CombatView({ run }: CombatViewProps) {
 		);
 	}
 
+	function handleSkipTurn() {
+		submitAction(
+			{
+				type: "PLAYER_SKIP_TURN",
+			},
+			"Unable to skip the turn. Please try again.",
+		);
+	}
+
 	function handleContinue() {
 		submitAction(
 			{
@@ -168,10 +177,12 @@ export function CombatView({ run }: CombatViewProps) {
 							player={combat.player}
 							isPending={applyRunAction.isPending}
 							canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
+							canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
 							availableSkillIds={availableSkillIds}
 							canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
 							canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
 							onBasicAttack={handleBasicAttack}
+							onSkipTurn={handleSkipTurn}
 							onUseSkill={handleUseSkill}
 							onContinue={handleContinue}
 							onReturnToTown={handleReturnToTown}

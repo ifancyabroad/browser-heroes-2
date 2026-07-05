@@ -6,6 +6,7 @@ import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipCo
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import continueIcon from "../../../assets/images/actions/Skill_Move.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
+import skipTurnIcon from "../../../assets/images/icons/skill_3_stuned.png";
 
 // TODO: Replace with engine-owned action slot capacity once action slots become gameplay state.
 const combatActionSlotCount = 8;
@@ -14,10 +15,12 @@ type CombatActionBarProps = {
 	player: CombatantState;
 	isPending: boolean;
 	canBasicAttack: boolean;
+	canSkipTurn: boolean;
 	availableSkillIds: ReadonlySet<SkillId>;
 	canContinue: boolean;
 	canReturnToTown: boolean;
 	onBasicAttack: () => void;
+	onSkipTurn: () => void;
 	onUseSkill: (skillId: SkillId) => void;
 	onContinue: () => void;
 	onReturnToTown: () => void;
@@ -27,15 +30,17 @@ export function CombatActionBar({
 	player,
 	isPending,
 	canBasicAttack,
+	canSkipTurn,
 	availableSkillIds,
 	canContinue,
 	canReturnToTown,
 	onBasicAttack,
+	onSkipTurn,
 	onUseSkill,
 	onContinue,
 	onReturnToTown,
 }: CombatActionBarProps) {
-	const usedSlotCount = 1 + player.skills.length;
+	const usedSlotCount = 2 + player.skills.length;
 	const emptySlotCount = Math.max(0, combatActionSlotCount - usedSlotCount);
 
 	return (
@@ -45,8 +50,10 @@ export function CombatActionBar({
 					player={player}
 					isPending={isPending}
 					canBasicAttack={canBasicAttack}
+					canSkipTurn={canSkipTurn}
 					availableSkillIds={availableSkillIds}
 					onBasicAttack={onBasicAttack}
+					onSkipTurn={onSkipTurn}
 					onUseSkill={onUseSkill}
 				/>
 				<EmptyActionSlots count={emptySlotCount} />
@@ -65,8 +72,10 @@ export function CombatActionBar({
 						player={player}
 						isPending={isPending}
 						canBasicAttack={canBasicAttack}
+						canSkipTurn={canSkipTurn}
 						availableSkillIds={availableSkillIds}
 						onBasicAttack={onBasicAttack}
+						onSkipTurn={onSkipTurn}
 						onUseSkill={onUseSkill}
 					/>
 					<EmptyActionSlots count={emptySlotCount} />
@@ -90,8 +99,10 @@ type CombatSlotsProps = {
 	player: CombatantState;
 	isPending: boolean;
 	canBasicAttack: boolean;
+	canSkipTurn: boolean;
 	availableSkillIds: ReadonlySet<SkillId>;
 	onBasicAttack: () => void;
+	onSkipTurn: () => void;
 	onUseSkill: (skillId: SkillId) => void;
 };
 
@@ -99,8 +110,10 @@ function CombatSlots({
 	player,
 	isPending,
 	canBasicAttack,
+	canSkipTurn,
 	availableSkillIds,
 	onBasicAttack,
+	onSkipTurn,
 	onUseSkill,
 }: CombatSlotsProps) {
 	return (
@@ -110,6 +123,12 @@ function CombatSlots({
 				disabled={isPending || !canBasicAttack}
 				icon={attackIcon}
 				onClick={onBasicAttack}
+			/>
+			<IconActionSlot
+				ariaLabel="Skip turn"
+				disabled={isPending || !canSkipTurn}
+				icon={skipTurnIcon}
+				onClick={onSkipTurn}
 			/>
 			{player.skills.map((skill) => (
 				<SkillSlot
