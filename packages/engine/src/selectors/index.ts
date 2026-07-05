@@ -11,3 +11,7 @@ export type { HeroProgressionView } from "./selectHeroProgression";
 export { selectHeroView } from "./selectHeroView";
 
 export type { HeroView } from "./selectHeroView";
+
+export { selectRewardChoiceView } from "./selectRewardChoiceView";
+
+export type { RewardChoiceView, RewardChoiceOptionView } from "./selectRewardChoiceView";

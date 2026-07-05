@@ -19,6 +19,10 @@ export type CombatViewState = {
 	isActive: boolean;
 	isVictory: boolean;
 	isDefeat: boolean;
+
+	hasPendingLevelUp: boolean;
+	hasPendingRewardChoice: boolean;
+	canLeaveVictory: boolean;
 };
 
 export function selectCombatView(state: RunState): CombatViewState | null {
@@ -43,5 +47,12 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 		isActive: combat.status === "active",
 		isVictory: combat.status === "player_won",
 		isDefeat: combat.status === "enemy_won",
+
+		hasPendingLevelUp: state.hero.pendingLevelUp !== null,
+		hasPendingRewardChoice: state.pendingRewardChoice !== null,
+		canLeaveVictory:
+			combat.status === "player_won" &&
+			state.hero.pendingLevelUp === null &&
+			state.pendingRewardChoice === null,
 	};
 }

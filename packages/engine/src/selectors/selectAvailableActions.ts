@@ -12,6 +12,10 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 		return getLevelUpActions(state.hero.pendingLevelUp);
 	}
 
+	if (state.pendingRewardChoice) {
+		return getRewardActions(state);
+	}
+
 	if (state.phase === "town") {
 		return [
 			{
@@ -90,6 +94,36 @@ function getLevelUpActions(pendingLevelUp: PendingLevelUp): CompleteLevelUpActio
 				featId: option.featId,
 			},
 		};
+	});
+}
+
+function getRewardActions(state: RunState): EngineAction[] {
+	const pendingRewardChoice = state.pendingRewardChoice;
+
+	if (!pendingRewardChoice) {
+		return [];
+	}
+
+	return pendingRewardChoice.options.flatMap((option, optionIndex): EngineAction[] => {
+		if (option.type === "gold") {
+			return [
+				{
+					type: "SELECT_REWARD",
+					selection: {
+						optionIndex,
+					},
+				},
+			];
+		}
+
+		return [
+			{
+				type: "SELECT_REWARD",
+				selection: {
+					optionIndex,
+				},
+			},
+		];
 	});
 }
 
