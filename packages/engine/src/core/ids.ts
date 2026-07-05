@@ -37,3 +37,7 @@ export function createRewardItemInstanceId(
 ): string {
 	return `${runId}:item:reward:${battleNumber}:${itemId}`;
 }
+
+export function createTownShopSlotId(runId: string, index: number): string {
+	return `${runId}:town:shop:${index}`;
+}

@@ -21,6 +21,12 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 			{
 				type: "ENTER_COMBAT",
 			},
+			{
+				type: "REROLL_SHOP",
+			},
+			{
+				type: "REST_AT_TOWN",
+			},
 		];
 	}
 

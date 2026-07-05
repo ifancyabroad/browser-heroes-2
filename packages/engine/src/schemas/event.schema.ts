@@ -76,6 +76,11 @@ const rewardSelectedEventSchema = z.discriminatedUnion("rewardType", [
 	}),
 ]);
 
+const shopRerolledEventSchema = z.object({
+	type: z.literal("SHOP_REROLLED"),
+	cost: z.number().int().min(0),
+});
+
 export const engineEventSchema = z.union([
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
@@ -85,6 +90,7 @@ export const engineEventSchema = z.union([
 	nextCombatReadyEventSchema,
 	levelUpCompletedEventSchema,
 	rewardSelectedEventSchema,
+	shopRerolledEventSchema,
 ]);
 
 export type EngineEvent = z.infer<typeof engineEventSchema>;

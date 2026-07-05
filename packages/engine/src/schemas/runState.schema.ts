@@ -18,6 +18,10 @@ export const townShopSlotSchema = z.object({
 export const townStateSchema = z.object({
 	shopSlots: z.array(townShopSlotSchema),
 	rerollCost: z.number().int().min(0),
+	restCost: z.number().int().min(0),
+	restockCount: z.number().int().min(0),
+	restCount: z.number().int().min(0),
+	shopLevel: z.number().int().min(1),
 });
 
 export const runStateSchema = z.object({

@@ -6,6 +6,7 @@ import { returnToTown } from "../systems/town/returnToTown";
 import { failureResult } from "../core/result";
 import { completeLevelUp } from "../systems/progression/levelUp/completeLevelUp";
 import { completeRewardChoice } from "../systems/progression/rewards/completeRewardChoice";
+import { rerollShop } from "../systems/town/rerollShop";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -28,6 +29,9 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "SELECT_REWARD":
 			return completeRewardChoice(state, action);
+
+		case "REROLL_SHOP":
+			return rerollShop(state);
 
 		default:
 			return failureResult(state, "INVALID_ACTION");

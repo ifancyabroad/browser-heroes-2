@@ -22,6 +22,8 @@ export const engineErrorCodeSchema = z.enum([
 	"REWARD_NOT_AVAILABLE",
 	"INVALID_REWARD_SELECTION",
 	"INVALID_EQUIPMENT_SLOT",
+	"TOWN_NOT_AVAILABLE",
+	"NOT_ENOUGH_GOLD",
 ]);
 
 export const engineSuccessResultSchema = z.object({

@@ -2,6 +2,7 @@ import type { EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
+import { createInitialTownState } from "../../state";
 
 export function returnToTown(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
@@ -21,6 +22,14 @@ export function returnToTown(state: RunState): EngineResult {
 	}
 
 	const battleNumber = state.battleNumber + 1;
+	const zoneNumber = getZoneNumberForBattle(battleNumber);
+
+	const town = createInitialTownState({
+		runId: state.id,
+		hero: state.hero,
+		battleNumber,
+		rngState: state.rngState,
+	});
 
 	return successResult(
 		{
@@ -28,9 +37,9 @@ export function returnToTown(state: RunState): EngineResult {
 			phase: "town",
 			combat: null,
 			battleNumber,
-			zoneNumber: getZoneNumberForBattle(battleNumber),
+			zoneNumber,
 			streak: 0,
-			town: createTownState(),
+			town: town.value,
 		},
 		[
 			{
@@ -38,11 +47,4 @@ export function returnToTown(state: RunState): EngineResult {
 			},
 		],
 	);
-}
-
-function createTownState(): RunState["town"] {
-	return {
-		shopSlots: [],
-		rerollCost: 5,
-	};
 }
