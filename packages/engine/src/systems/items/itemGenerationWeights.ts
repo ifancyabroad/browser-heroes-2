@@ -1,8 +1,6 @@
 import type { ArmourSlot, ItemRarity } from "@app/content";
 
-export const REWARD_GOLD_MULTIPLIER = 10;
-
-export type ItemRewardType = "weapon" | ArmourSlot;
+export type ItemGenerationType = "weapon" | ArmourSlot;
 
 export const ITEM_RARITY_WEIGHTS: readonly Record<ItemRarity, number>[] = [
 	{
@@ -77,7 +75,7 @@ export const ITEM_RARITY_WEIGHTS: readonly Record<ItemRarity, number>[] = [
 	},
 ];
 
-export const ITEM_TYPE_WEIGHTS: Record<ItemRewardType, number> = {
+export const ITEM_TYPE_WEIGHTS: Record<ItemGenerationType, number> = {
 	weapon: 0.2,
 	body: 0.1,
 	shield: 0.1,

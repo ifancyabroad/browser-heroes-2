@@ -1,8 +1,8 @@
 import type { HeroState } from "../../schemas";
 import { calculateAttributeModifier } from "../../core/attributes";
 
-export const BASE_RESTOCK_PRICE = 20;
-export const RESTOCK_MULTIPLIER = 1.5;
+export const BASE_REROLL_PRICE = 20;
+export const REROLL_MULTIPLIER = 1.5;
 
 export const BASE_REST_PRICE = 20;
 export const REST_MULTIPLIER = 1.25;
@@ -13,10 +13,10 @@ export function calculateTownDiscountMultiplier(hero: HeroState): number {
 	return Math.round((1 - charismaModifier / 15) * 100) / 100;
 }
 
-export function calculateRestockCost(hero: HeroState, restockCount: number): number {
+export function calculateRerollCost(hero: HeroState, rerollCount: number): number {
 	return Math.round(
-		BASE_RESTOCK_PRICE *
-			Math.pow(RESTOCK_MULTIPLIER, restockCount) *
+		BASE_REROLL_PRICE *
+			Math.pow(REROLL_MULTIPLIER, rerollCount) *
 			calculateTownDiscountMultiplier(hero),
 	);
 }

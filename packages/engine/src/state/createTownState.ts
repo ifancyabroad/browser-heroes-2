@@ -2,20 +2,20 @@ import { townStateSchema, type HeroState, type TownState } from "../schemas";
 import type { RngResult, RngState } from "../core/rng";
 import {
 	calculateRestCost,
-	calculateRestockCost,
+	calculateRerollCost,
 	calculateShopLevel,
 } from "../systems/town/townPricing";
 import { createTownShop } from "../systems/town/createTownShop";
 
-type CreateInitialTownStateInput = {
+type CreateTownStateInput = {
 	runId: string;
 	hero: HeroState;
 	battleNumber: number;
 	rngState: RngState;
 };
 
-export function createInitialTownState(input: CreateInitialTownStateInput): RngResult<TownState> {
-	const restockCount = 0;
+export function createTownState(input: CreateTownStateInput): RngResult<TownState> {
+	const rerollCount = 0;
 	const restCount = 0;
 	const shopLevel = calculateShopLevel(input.battleNumber);
 
@@ -28,10 +28,10 @@ export function createInitialTownState(input: CreateInitialTownStateInput): RngR
 
 	const town: TownState = {
 		shopSlots: shop.value,
-		restockCount,
+		rerollCount,
 		restCount,
 		shopLevel,
-		rerollCost: calculateRestockCost(input.hero, restockCount),
+		rerollCost: calculateRerollCost(input.hero, rerollCount),
 		restCost: calculateRestCost(input.hero, restCount),
 	};
 

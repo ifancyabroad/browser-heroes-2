@@ -7,18 +7,17 @@ import {
 	type ItemRarity,
 } from "@app/content";
 
-import type { HeroState } from "../../../schemas";
+import type { HeroState } from "../../schemas";
+import type { ItemGenerationType } from "./itemGenerationWeights";
 
-import type { ItemRewardType } from "./itemRewardWeights";
-
-type GetEligibleRewardItemsInput = {
+type GetEligibleEquipmentItemsInput = {
 	hero: HeroState;
-	itemType: ItemRewardType;
+	itemType: ItemGenerationType;
 	rarity: ItemRarity;
 	excludedItemIds?: ReadonlySet<ItemId>;
 };
 
-export function getEligibleRewardItems(input: GetEligibleRewardItemsInput): Item[] {
+export function getEligibleEquipmentItems(input: GetEligibleEquipmentItemsInput): Item[] {
 	const classDefinition = CLASSES_BY_ID[input.hero.classId];
 
 	const equippedItemIds = new Set(
@@ -28,7 +27,11 @@ export function getEligibleRewardItems(input: GetEligibleRewardItemsInput): Item
 	);
 
 	return items.filter((item) => {
-		if (equippedItemIds.has(item.id) || input.excludedItemIds?.has(item.id)) {
+		if (equippedItemIds.has(item.id)) {
+			return false;
+		}
+
+		if (input.excludedItemIds?.has(item.id)) {
 			return false;
 		}
 
@@ -36,7 +39,7 @@ export function getEligibleRewardItems(input: GetEligibleRewardItemsInput): Item
 			return false;
 		}
 
-		if (!matchesRewardType(item, input.itemType)) {
+		if (!matchesItemGenerationType(item, input.itemType)) {
 			return false;
 		}
 
@@ -44,7 +47,7 @@ export function getEligibleRewardItems(input: GetEligibleRewardItemsInput): Item
 	});
 }
 
-function matchesRewardType(item: Item, itemType: ItemRewardType): boolean {
+function matchesItemGenerationType(item: Item, itemType: ItemGenerationType): boolean {
 	if (itemType === "weapon") {
 		return item.type === "weapon";
 	}

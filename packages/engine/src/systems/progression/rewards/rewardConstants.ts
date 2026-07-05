@@ -1,0 +1,1 @@
+export const REWARD_GOLD_MULTIPLIER = 10;

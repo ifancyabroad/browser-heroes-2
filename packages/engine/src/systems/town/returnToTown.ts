@@ -2,7 +2,7 @@ import type { EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
-import { createInitialTownState } from "../../state";
+import { createTownState } from "../../state";
 
 export function returnToTown(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
@@ -24,7 +24,7 @@ export function returnToTown(state: RunState): EngineResult {
 	const battleNumber = state.battleNumber + 1;
 	const zoneNumber = getZoneNumberForBattle(battleNumber);
 
-	const town = createInitialTownState({
+	const town = createTownState({
 		runId: state.id,
 		hero: state.hero,
 		battleNumber,

@@ -2,7 +2,7 @@ import { runStateSchema, type RunState } from "../schemas";
 import { createInitialRngState } from "../core/rng";
 import { createRunLogId } from "../core/ids";
 import { createInitialHeroState } from "./createInitialHeroState";
-import { createInitialTownState } from "./createInitialTownState";
+import { createTownState } from "./createTownState";
 import { ClassId } from "@app/content";
 
 export type CreateInitialRunStateInput = {
@@ -16,7 +16,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 	const rngState = createInitialRngState(input.seed);
 	const hero = createInitialHeroState(input);
 
-	const town = createInitialTownState({
+	const town = createTownState({
 		runId: input.runId,
 		hero,
 		battleNumber: 1,

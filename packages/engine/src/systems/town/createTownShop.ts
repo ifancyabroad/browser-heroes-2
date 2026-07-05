@@ -1,20 +1,12 @@
 import type { Item, ItemId } from "@app/content";
 
-import { selectWeightedItem, type RngResult, type RngState } from "../../core/rng";
-import type { HeroState, TownShopSlot } from "../../schemas";
+import type { RngResult, RngState } from "../../core/rng";
 import { createTownShopSlotId } from "../../core/ids";
-import { getEligibleRewardItems } from "../progression/rewards/getEligibleRewardItems";
-import {
-	ITEM_RARITY_WEIGHTS,
-	ITEM_TYPE_WEIGHTS,
-	type ItemRewardType,
-} from "../progression/rewards/itemRewardWeights";
-import { armourSlots, itemRarities } from "@app/content";
+import type { HeroState, TownShopSlot } from "../../schemas";
+import { selectWeightedEquipmentItem } from "../items/selectWeightedEquipmentItem";
 import { calculateTownDiscountMultiplier } from "./townPricing";
 
 const TOWN_SHOP_SLOT_COUNT = 6;
-
-const ITEM_REWARD_TYPES = ["weapon", ...armourSlots] as const satisfies readonly ItemRewardType[];
 
 type CreateTownShopInput = {
 	runId: string;
@@ -29,13 +21,12 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 	let rngState = input.rngState;
 
 	while (selectedItems.length < TOWN_SHOP_SLOT_COUNT) {
-		const weightedItems = getWeightedShopItems({
+		const selected = selectWeightedEquipmentItem({
 			hero: input.hero,
-			shopLevel: input.shopLevel,
+			itemLevel: input.shopLevel,
 			excludedItemIds,
+			rngState,
 		});
-
-		const selected = selectWeightedItem(weightedItems, rngState);
 
 		if (!selected) {
 			break;
@@ -57,38 +48,4 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 		})),
 		rngState,
 	};
-}
-
-type GetWeightedShopItemsInput = {
-	hero: HeroState;
-	shopLevel: number;
-	excludedItemIds: ReadonlySet<ItemId>;
-};
-
-function getWeightedShopItems(
-	input: GetWeightedShopItemsInput,
-): Array<{ value: Item; weight: number }> {
-	const weightIndex = Math.min(Math.max(input.shopLevel - 1, 0), ITEM_RARITY_WEIGHTS.length - 1);
-
-	return itemRarities.flatMap((rarity) =>
-		ITEM_REWARD_TYPES.flatMap((itemType) => {
-			const weight = ITEM_RARITY_WEIGHTS[weightIndex][rarity] * ITEM_TYPE_WEIGHTS[itemType];
-
-			if (weight <= 0) {
-				return [];
-			}
-
-			const eligibleItems = getEligibleRewardItems({
-				hero: input.hero,
-				itemType,
-				rarity,
-				excludedItemIds: input.excludedItemIds,
-			});
-
-			return eligibleItems.map((item) => ({
-				value: item,
-				weight,
-			}));
-		}),
-	);
 }

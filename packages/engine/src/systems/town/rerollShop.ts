@@ -2,7 +2,7 @@ import type { EngineResult, RunState, TownState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { createTownShop } from "./createTownShop";
-import { calculateRestockCost } from "./townPricing";
+import { calculateRerollCost } from "./townPricing";
 
 export function rerollShop(state: RunState): EngineResult {
 	if (state.phase !== "town" || !state.town) {
@@ -15,7 +15,7 @@ export function rerollShop(state: RunState): EngineResult {
 		return failureResult(state, "NOT_ENOUGH_GOLD");
 	}
 
-	const restockCount = state.town.restockCount + 1;
+	const rerollCount = state.town.rerollCount + 1;
 
 	const shop = createTownShop({
 		runId: state.id,
@@ -27,8 +27,8 @@ export function rerollShop(state: RunState): EngineResult {
 	const town: TownState = {
 		...state.town,
 		shopSlots: shop.value,
-		restockCount,
-		rerollCost: calculateRestockCost(state.hero, restockCount),
+		rerollCount,
+		rerollCost: calculateRerollCost(state.hero, rerollCount),
 	};
 
 	return successResult(
