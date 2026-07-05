@@ -7,6 +7,7 @@ import { failureResult } from "../core/result";
 import { completeLevelUp } from "../systems/progression/levelUp/completeLevelUp";
 import { completeRewardChoice } from "../systems/progression/rewards/completeRewardChoice";
 import { rerollShop } from "../systems/town/rerollShop";
+import { restAtTown } from "../systems/town/restAtTown";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -32,6 +33,9 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "REROLL_SHOP":
 			return rerollShop(state);
+
+		case "REST_AT_TOWN":
+			return restAtTown(state);
 
 		default:
 			return failureResult(state, "INVALID_ACTION");

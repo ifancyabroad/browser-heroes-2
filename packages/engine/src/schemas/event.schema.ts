@@ -81,6 +81,12 @@ const shopRerolledEventSchema = z.object({
 	cost: z.number().int().min(0),
 });
 
+const restedAtTownEventSchema = z.object({
+	type: z.literal("RESTED_AT_TOWN"),
+	cost: z.number().int().min(0),
+	hpRestored: z.number().int().min(0),
+});
+
 export const engineEventSchema = z.union([
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
@@ -91,6 +97,7 @@ export const engineEventSchema = z.union([
 	levelUpCompletedEventSchema,
 	rewardSelectedEventSchema,
 	shopRerolledEventSchema,
+	restedAtTownEventSchema,
 ]);
 
 export type EngineEvent = z.infer<typeof engineEventSchema>;
