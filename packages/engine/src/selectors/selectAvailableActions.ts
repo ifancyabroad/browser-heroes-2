@@ -1,3 +1,4 @@
+import { ITEMS_BY_ID } from "@app/content";
 import type {
 	CompleteLevelUpAction,
 	EngineAction,
@@ -6,6 +7,7 @@ import type {
 	RunState,
 } from "../schemas";
 import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
+import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -17,17 +19,7 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 	}
 
 	if (state.phase === "town") {
-		return [
-			{
-				type: "ENTER_COMBAT",
-			},
-			{
-				type: "REROLL_SHOP",
-			},
-			{
-				type: "REST_AT_TOWN",
-			},
-		];
+		return getTownActions(state);
 	}
 
 	if (state.phase === "combat" && state.combat?.status === "active") {
@@ -123,6 +115,60 @@ function getRewardActions(state: RunState): EngineAction[] {
 		}
 
 		return [];
+	});
+}
+
+function getTownActions(state: RunState): EngineAction[] {
+	if (!state.town) {
+		return [];
+	}
+
+	return [
+		{
+			type: "ENTER_COMBAT",
+		},
+		{
+			type: "REROLL_SHOP",
+		},
+		{
+			type: "REST_AT_TOWN",
+		},
+		...getBuyItemActions(state),
+	];
+}
+
+function getBuyItemActions(state: RunState): EngineAction[] {
+	if (!state.town) {
+		return [];
+	}
+
+	return state.town.shopSlots.flatMap((slot): EngineAction[] => {
+		if (slot.purchased || state.gold < slot.price) {
+			return [];
+		}
+
+		const item = ITEMS_BY_ID[slot.itemId];
+
+		if (!item) {
+			return [];
+		}
+
+		const validEquipmentSlots = getValidEquipmentSlots(item);
+
+		if (validEquipmentSlots.length === 1) {
+			return [
+				{
+					type: "BUY_ITEM",
+					shopSlotId: slot.id,
+				},
+			];
+		}
+
+		return validEquipmentSlots.map((equipmentSlot) => ({
+			type: "BUY_ITEM",
+			shopSlotId: slot.id,
+			equipmentSlot,
+		}));
 	});
 }
 

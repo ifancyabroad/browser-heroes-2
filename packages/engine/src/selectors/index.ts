@@ -19,3 +19,7 @@ export type {
 	RewardChoiceView,
 	RewardItemDestinationView,
 } from "./selectRewardChoiceView";
+
+export { selectTownView } from "./selectTownView";
+
+export type { TownShopDestinationView, TownShopSlotView, TownView } from "./selectTownView";
