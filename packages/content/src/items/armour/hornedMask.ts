@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Horned Mask",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsZwQhyR_-cJSJ0PqP?alt=media&token=92e11d40-2f98-47b5-823a-3df601f64fe5",
 	price: 330,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

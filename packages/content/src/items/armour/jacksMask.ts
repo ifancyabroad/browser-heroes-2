@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Jack's Mask",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIMRCfAplYC4-tFtwlo?alt=media&token=f2df31fc-10ba-48fa-9549-e1b901281e63",
 	price: 1700,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

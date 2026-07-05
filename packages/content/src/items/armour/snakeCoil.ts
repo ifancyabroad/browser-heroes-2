@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "A ring adorned with a coiled serpent, imbued with stealth and cunning.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEh4OLfUakfi5pWjf2?alt=media&token=767354c1-2018-45a0-9e08-34c9f768575c",
 	price: 620,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "ring",
 	modifiers: [

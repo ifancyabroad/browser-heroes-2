@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "These gauntlets grant the power of giants, crushing foes with ease.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDWVyxvBUSN2fJhVNb?alt=media&token=19380ca9-003d-4319-a1ba-db40e083687e",
 	price: 1590,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

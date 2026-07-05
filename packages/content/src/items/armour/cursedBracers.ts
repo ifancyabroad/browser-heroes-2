@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "Bracers that carry a curse, bringing calamity upon the wearer.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDUyOXsz_CWrqQKtx3?alt=media&token=737405c6-b663-44bf-b747-b608006b35e6",
 	price: 680,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Warlock's Robe",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8IEe884qFB7RpSqQ2U?alt=media&token=b1401c6f-63f5-464a-b4e3-75013ebf7204",
 	price: 1620,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "body",
 	category: "cloth",

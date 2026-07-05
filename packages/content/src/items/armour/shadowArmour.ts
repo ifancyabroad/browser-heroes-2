@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Shadow Armour",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8DBv36AD0X67CEQK-t?alt=media&token=008c4fe4-745e-4df7-aeab-8b383d17b6fa",
 	price: 800,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "body",
 	category: "light",

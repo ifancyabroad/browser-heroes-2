@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Archer's Boots",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsWani7hbdIXmjGJ2u?alt=media&token=c5a3fe24-feb1-40d0-9cc2-ab6597213927",
 	price: 240,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

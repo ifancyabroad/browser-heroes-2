@@ -7,7 +7,7 @@ export default buildWeapon({
 		"Dragon's Breath is an ornate wand crafted from dark wood and adorned with dragon motifs. When wielded, it channels fiery magic to unleash powerful bursts of flame. Favored by elemental mages, this wand embodies the fierce spirit of dragons, allowing spellcasters to command fire with precision.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O887qHMJmHrl6p1Gm5h?alt=media&token=b6fc7281-b995-4f92-adc3-f2515db2d12f",
 	price: 1240,
-	rarity: "common",
+	rarity: "epic",
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",

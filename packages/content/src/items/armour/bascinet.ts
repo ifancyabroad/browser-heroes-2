@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Bascinet",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEJs3RCx4H78EqaGTc?alt=media&token=50f252da-83d7-4134-ac19-c32c1abb5950",
 	price: 300,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

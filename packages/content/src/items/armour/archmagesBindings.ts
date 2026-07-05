@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "Crafted for the master of magic, these bracers enhance spell weaving.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDX395Nb8ifGXD2c7F?alt=media&token=e5f9b427-ce7b-474c-9f90-2386275d5b43",
 	price: 1600,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

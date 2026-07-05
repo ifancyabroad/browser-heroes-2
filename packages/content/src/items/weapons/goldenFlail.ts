@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Golden Flail features a spiked, gleaming ball attached to a sturdy chain, all crafted from shimmering gold. Its unique design allows for powerful, unpredictable strikes, making it effective in combat. Favored by flamboyant warriors, this flail combines elegance with brutal effectiveness.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O86MaYcAzzh5_RPVCkD?alt=media&token=b79573c9-b849-4363-9634-4491cdf3f310",
 	price: 850,
-	rarity: "common",
+	rarity: "rare",
 	type: "weapon",
 	weaponType: "mace",
 	handedness: "oneHanded",

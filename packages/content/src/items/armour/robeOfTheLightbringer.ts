@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Robe of the Lightbringer",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OHy3_9b1f9VotGKVTvF?alt=media&token=d3fb5491-5e1e-4da5-95c8-3609e209a2eb",
 	price: 780,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "body",
 	category: "cloth",

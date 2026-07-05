@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Warchief's Breastplate",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8I4QK7JVSMY6p__i3L?alt=media&token=444ba759-2ff5-4f6c-bb78-df49c35f2a0b",
 	price: 550,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "body",
 	category: "heavy",

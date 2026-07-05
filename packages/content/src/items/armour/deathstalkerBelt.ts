@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Deathstalker Belt",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9ewWW6AAZOa6anIU5?alt=media&token=300d631c-e308-4df3-a835-76e731553119",
 	price: 1600,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "belt",
 	modifiers: [

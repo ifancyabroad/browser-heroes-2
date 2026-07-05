@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Voidpiercer is a sleek, obsidian dagger that seems to absorb light, with a blade that glimmers with otherworldly energy. Designed for swift, lethal strikes, it can bypass armor and defenses. Favored by shadowy assassins, this dagger embodies the essence of darkness and death.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O4aBRIJNPKNLTCixx0a?alt=media&token=23b9bf79-ac45-436b-b963-6117b98de865",
 	price: 1380,
-	rarity: "common",
+	rarity: "epic",
 	type: "weapon",
 	weaponType: "dagger",
 	handedness: "oneHanded",

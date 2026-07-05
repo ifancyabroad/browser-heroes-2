@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Gold Dagger features a gleaming golden blade with an ornate hilt, combining beauty and functionality. Its design allows for swift, precise strikes, making it a favored choice among nobles and skilled assassins who appreciate both luxury and lethality.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O86upm1evShQs6BJMoJ?alt=media&token=62166ff9-9d4b-418c-8035-783746af2961",
 	price: 580,
-	rarity: "common",
+	rarity: "rare",
 	type: "weapon",
 	weaponType: "dagger",
 	handedness: "oneHanded",

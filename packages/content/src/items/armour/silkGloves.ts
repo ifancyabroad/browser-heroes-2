@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Silk Gloves",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsYtmhF3Mc-4-848Du?alt=media&token=36cbd4e6-c3d8-466c-9fa3-26b040b1d179",
 	price: 290,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

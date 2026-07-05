@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Dragon Scale Ring",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD1MiTvdUnzhJdRDcyC?alt=media&token=e54a528f-eff4-4336-9261-b59826ee4b1a",
 	price: 1650,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "ring",
 	modifiers: [

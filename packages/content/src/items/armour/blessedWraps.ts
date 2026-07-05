@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Blessed Wraps",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OHy08l5Cz0vCld2qSHF?alt=media&token=a2641251-e904-47bb-bb42-736a39cb373e",
 	price: 800,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

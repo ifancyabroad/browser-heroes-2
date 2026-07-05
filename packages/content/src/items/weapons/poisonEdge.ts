@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Poison Edge is a sleek, dark blade with a subtle green hue, designed to deliver swift, deadly strikes. Coated in a potent toxin, each cut can inflict lingering damage on foes. Favored by assassins, this weapon combines elegance with a lethal touch, perfect for stealthy eliminations.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O4aAUt64OLYAgUJYhxR?alt=media&token=5bf2752f-d99f-452e-b948-af4ac666ad79",
 	price: 700,
-	rarity: "common",
+	rarity: "rare",
 	type: "weapon",
 	weaponType: "dagger",
 	handedness: "oneHanded",

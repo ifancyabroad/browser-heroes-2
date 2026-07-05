@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Nobleman's Garb",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8DA_DyFLruqd708ali?alt=media&token=93b91b0d-6e5e-41e1-80a9-7f021134777c",
 	price: 250,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "body",
 	category: "light",

@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Unholy Helm",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD61bPEClUCCVjF3_yK?alt=media&token=3bf2c6d6-f39d-4c9b-9181-87fe49ef7dd9",
 	price: 1700,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

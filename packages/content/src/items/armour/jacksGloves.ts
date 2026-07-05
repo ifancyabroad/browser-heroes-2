@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Jack's Gloves",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIMQrXX7Q4bITjIEdtR?alt=media&token=7d25fb0d-c791-46ce-919f-c3f9f235a595",
 	price: 1600,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

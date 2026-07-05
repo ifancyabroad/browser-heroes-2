@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Deathstalker Boots",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD1qgQRzqiWV8YTEeLZ?alt=media&token=509cf88b-b8a7-4c9b-b1e8-8630ae48c041",
 	price: 1600,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

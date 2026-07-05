@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "The Burning Amulet, channeling the essence of raging flames.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9Y9q53Z1Bfpt1UeVf?alt=media&token=6ebf052d-76d4-4bd0-8848-42209f28f097",
 	price: 600,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "amulet",
 	modifiers: [

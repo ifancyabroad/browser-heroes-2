@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Wanderer's Vest",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8I79hlYuXK4jMUcNxa?alt=media&token=5ceb328d-9036-4b73-ad10-181cb099c749",
 	price: 220,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "body",
 	category: "medium",

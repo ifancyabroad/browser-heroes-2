@@ -6,7 +6,7 @@ export default buildWeapon({
 	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OIMLXg0JszLaTsPa2ad?alt=media&token=9e75c817-b42b-4ddf-8dd1-fef681fd313e",
 	price: 620,
-	rarity: "common",
+	rarity: "rare",
 	type: "weapon",
 	weaponType: "staff",
 	handedness: "twoHanded",

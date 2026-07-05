@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Sacrificial Armour",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8DB8llPrfIqwDRaGca?alt=media&token=f0558ab9-d029-42a2-984f-f46c40e10257",
 	price: 1740,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "body",
 	category: "light",

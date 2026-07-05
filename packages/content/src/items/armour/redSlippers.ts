@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "Fire Boots that offer both defense and control over fiery environments.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDOAnwyIZqnaKvgDbO?alt=media&token=6af4b127-989a-4b95-9cda-79d6dd858438",
 	price: 700,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

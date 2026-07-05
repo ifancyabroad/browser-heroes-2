@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "Wanderer's Guise offering both protection and anonymity.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzENaEY9B6T05UFmdx3?alt=media&token=2d52238c-0bbd-46a7-8348-841c9b01bc12",
 	price: 750,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

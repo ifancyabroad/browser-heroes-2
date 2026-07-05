@@ -7,7 +7,7 @@ export default buildArmour({
 		"A small but sturdy buckler plated with gleaming gold, offering both defense and prestige.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEdBv-UWjlNRRjd8Gv?alt=media&token=748f3207-a3c5-4f77-9cc9-884376588f59",
 	price: 650,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "shield",
 	modifiers: [

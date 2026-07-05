@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Elementalist's Wand is a beautifully crafted rod adorned with symbols of fire, water, earth, and air. This wand allows the wielder to channel elemental magic, casting powerful spells of all four elements. Favored by versatile mages, it embodies the balance of nature’s forces in battle.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O888xxIucji-VaJ0gco?alt=media&token=6edaae9a-7dc8-440e-9c0c-859f2ee84de9",
 	price: 1060,
-	rarity: "common",
+	rarity: "epic",
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",

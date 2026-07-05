@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Acid Edge is a wickedly curved blade coated with a corrosive substance that glows faintly green. Designed for swift strikes, it can melt through armor and inflict lingering damage. Favored by assassins and alchemists, this weapon combines lethality with a sinister touch.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O4a7oqRZJo49hIlWxgw?alt=media&token=b72cdcdb-5f01-40aa-80fb-ba8375717454",
 	price: 1020,
-	rarity: "common",
+	rarity: "epic",
 	type: "weapon",
 	weaponType: "axe",
 	handedness: "oneHanded",

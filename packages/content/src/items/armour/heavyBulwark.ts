@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "A massive bulwark of reinforced steel, providing unparalleled defense in battle.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEeCnEpU0OsAmw_Ewj?alt=media&token=9f06009e-be49-49a3-a249-2c75a8a1e088",
 	price: 1280,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "shield",
 	modifiers: [

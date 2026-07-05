@@ -6,7 +6,7 @@ export default buildWeapon({
 	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OIMKS39Dm6hnYK35bOm?alt=media&token=12abcdfd-3282-4566-9fd3-e8e4da0dd9e1",
 	price: 160,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "weapon",
 	weaponType: "dagger",
 	handedness: "oneHanded",

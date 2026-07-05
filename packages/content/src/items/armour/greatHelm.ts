@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Great Helm",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD1_bCEqIAlG6OtkpQo?alt=media&token=3952bd8a-40eb-4a3e-9315-09688c596f1e",
 	price: 820,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

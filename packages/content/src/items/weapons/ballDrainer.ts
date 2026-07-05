@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Ball Drainer is a unique, spiked weapon designed for devastating impact. Its heavy head and jagged edges are made to crush and incapacitate foes, inflicting pain with each strike. Favored by ruthless fighters, this weapon emphasizes brute strength and intimidation on the battlefield.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O86Njh57GkQCRerPm6K?alt=media&token=712959e4-0a0c-4b77-9249-bf7fff983f1b",
 	price: 1380,
-	rarity: "common",
+	rarity: "epic",
 	type: "weapon",
 	weaponType: "mace",
 	handedness: "oneHanded",

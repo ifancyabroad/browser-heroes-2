@@ -6,7 +6,7 @@ export default buildWeapon({
 	description: "",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OAsdWReq3s0PRRvYZlL?alt=media&token=0fe9bb49-8d14-437d-965c-64a4aa44ae95",
 	price: 270,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "weapon",
 	weaponType: "crossbow",
 	handedness: "twoHanded",

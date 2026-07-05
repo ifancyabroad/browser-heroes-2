@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Centurion's Greaves",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGGef0ouMMSoDjGUdF?alt=media&token=d14ee9d5-b350-439b-9cad-1ce8c2e33fda",
 	price: 1600,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

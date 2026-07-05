@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "Mask shielding against disease, embodying the iconic plague doctor.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEKX0v1PxgPkrsuGkt?alt=media&token=208de36b-748f-4453-ac0a-1ed388d33540",
 	price: 240,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

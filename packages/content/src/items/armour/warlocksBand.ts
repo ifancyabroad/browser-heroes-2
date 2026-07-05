@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Warlock's Band",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsaZUhz3Xe2DxxPSB1?alt=media&token=64910295-e52c-4467-81ab-5be37aba514a",
 	price: 300,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "ring",
 	modifiers: [

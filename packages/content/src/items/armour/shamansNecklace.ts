@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "A shamanic necklace that aligns the wearer with elemental forces.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9T7n-ofuYXGZbdLuo?alt=media&token=72e6f662-055a-441a-bd37-385c7c2fdbff",
 	price: 320,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "amulet",
 	modifiers: [

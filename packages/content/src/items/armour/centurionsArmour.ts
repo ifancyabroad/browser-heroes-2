@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Centurion's Armour",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGH3utgFlqilEXTLrc?alt=media&token=c9230c28-423e-4a78-a6e9-82ae0570b1a3",
 	price: 1800,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "body",
 	category: "medium",

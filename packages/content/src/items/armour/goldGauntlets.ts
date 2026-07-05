@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Gold Gauntlets",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsY4zxPFBJQ1ZFVHE1?alt=media&token=fdd4b434-b6b5-4fc0-9c21-97f5f253b3ae",
 	price: 820,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

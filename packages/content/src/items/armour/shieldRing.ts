@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Shield Ring",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OAsIE3Q4T6mcVx7TslH?alt=media&token=8f167d60-0897-4ebd-a26f-7af404474b1e",
 	price: 350,
-	rarity: "common",
+	rarity: "uncommon",
 	type: "armour",
 	slot: "ring",
 	modifiers: [

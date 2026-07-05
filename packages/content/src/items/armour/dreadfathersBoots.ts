@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Dreadfather's Boots",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIG0CyLGHeCq5_-8P8o?alt=media&token=e61a228c-9a06-4619-aa21-edbe62bf0c52",
 	price: 1600,
-	rarity: "common",
+	rarity: "epic",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

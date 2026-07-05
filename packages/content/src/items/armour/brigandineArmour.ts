@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Brigandine Armour",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8Hu0onj7CWyDB2nP9R?alt=media&token=5bf34773-111f-4d1b-8f70-f64fa0104c6b",
 	price: 740,
-	rarity: "common",
+	rarity: "rare",
 	type: "armour",
 	slot: "body",
 	category: "medium",
