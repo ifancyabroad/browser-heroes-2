@@ -87,6 +87,13 @@ const restedAtTownEventSchema = z.object({
 	hpRestored: z.number().int().min(0),
 });
 
+const itemBoughtEventSchema = z.object({
+	type: z.literal("ITEM_BOUGHT"),
+	itemId: itemIdSchema,
+	equipmentSlot: equipmentSlotSchema,
+	price: z.number().int().min(0),
+});
+
 export const engineEventSchema = z.union([
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
@@ -98,6 +105,7 @@ export const engineEventSchema = z.union([
 	rewardSelectedEventSchema,
 	shopRerolledEventSchema,
 	restedAtTownEventSchema,
+	itemBoughtEventSchema,
 ]);
 
 export type EngineEvent = z.infer<typeof engineEventSchema>;

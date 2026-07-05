@@ -24,6 +24,9 @@ export const engineErrorCodeSchema = z.enum([
 	"INVALID_EQUIPMENT_SLOT",
 	"TOWN_NOT_AVAILABLE",
 	"NOT_ENOUGH_GOLD",
+	"SHOP_SLOT_NOT_FOUND",
+	"SHOP_SLOT_ALREADY_PURCHASED",
+	"ITEM_DEFINITION_NOT_FOUND",
 ]);
 
 export const engineSuccessResultSchema = z.object({

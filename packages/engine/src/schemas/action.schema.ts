@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { skillIdSchema } from "@app/content";
+import { equipmentSlotSchema, skillIdSchema } from "@app/content";
 import { levelUpSelectionSchema } from "./levelUp.schema";
 import { rewardSelectionSchema } from "./reward.schema";
 
@@ -32,6 +32,7 @@ export const returnToTownActionSchema = z.object({
 export const buyItemActionSchema = z.object({
 	type: z.literal("BUY_ITEM"),
 	shopSlotId: z.string(),
+	equipmentSlot: equipmentSlotSchema.optional(),
 });
 
 export const restAtTownActionSchema = z.object({
