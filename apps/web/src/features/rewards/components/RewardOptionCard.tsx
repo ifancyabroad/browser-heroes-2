@@ -6,7 +6,7 @@ import {
 	getItemRarityTextClassName,
 	ItemTooltipContent,
 } from "../../../components/tooltips/ItemTooltipContent";
-import { equipmentSlotLabels, itemRarityLabels } from "../../../game/displayLabels";
+import { equipmentSlotLabels } from "../../../game/displayLabels";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 
 type RewardOptionCardProps = {
@@ -45,7 +45,7 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 			</span>
 
 			<span className="grid min-w-0 gap-1 self-center">
-				<span className="flex flex-wrap items-baseline gap-x-2">
+				<span className="min-w-0">
 					{option.type === "item" ? (
 						<Tooltip
 							content={
@@ -68,11 +68,15 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 					) : (
 						<span className="text-text-bright">{content.name}</span>
 					)}
-					<span className="text-text-label">{content.typeLabel}</span>
 				</span>
-				{content.description && <span className="text-text">{content.description}</span>}
-				{content.replacementLabel && (
-					<span className="text-text-label">{content.replacementLabel}</span>
+				{content.detail && (
+					<span className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 text-text-label">
+						<BracketBadge>{content.detail}</BracketBadge>
+						{option.type === "item" && content.destination && (
+							<ReplacementDetail destination={content.destination} />
+						)}
+						{content.needsReplacementChoice && <span>Choose slot</span>}
+					</span>
 				)}
 			</span>
 		</button>
@@ -84,9 +88,9 @@ function getOptionContent(option: RewardChoiceOptionView) {
 		return {
 			icon: goldIcon,
 			name: `${option.amount} Gold`,
-			typeLabel: "Currency",
-			description: null,
-			replacementLabel: null,
+			detail: null,
+			destination: null,
+			needsReplacementChoice: false,
 			tooltipSlot: null,
 		};
 	}
@@ -101,27 +105,89 @@ function getOptionContent(option: RewardChoiceOptionView) {
 	return {
 		icon: option.item.icon,
 		name: option.item.name,
-		typeLabel: `${itemRarityLabels[option.item.rarity]} ${
-			option.item.type === "weapon" ? "Weapon" : "Armour"
-		}`,
-		description: slotLabel,
-		replacementLabel: destination
-			? getReplacementLabel(destination)
-			: "Choose replacement slot",
+		detail: slotLabel,
+		destination,
+		needsReplacementChoice: !destination,
 		tooltipSlot: destination?.equipmentSlot ?? option.destinations[0]?.equipmentSlot,
 	};
 }
 
-function getReplacementLabel(destination: RewardItemDestinationView) {
+function ReplacementDetail({ destination }: { destination: RewardItemDestinationView }) {
 	if (destination.replacedItems.length === 0) {
-		return `Equips to empty ${equipmentSlotLabels[destination.equipmentSlot]}`;
+		return <span>Empty</span>;
 	}
 
-	return `Replaces ${formatReplacementItems(destination.replacedItems)}`;
+	return (
+		<span className="flex min-w-0 flex-wrap items-baseline gap-x-1">
+			<span>Replaces</span>
+			<ReplacedItemsInline
+				replacedItems={destination.replacedItems}
+				fallbackSlot={destination.equipmentSlot}
+			/>
+		</span>
+	);
+}
+
+function BracketBadge({ children }: { children: string }) {
+	return (
+		<span className="text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
+			{children}
+		</span>
+	);
 }
 
 export function formatReplacementItems(replacedItems: RewardItemDestinationView["replacedItems"]) {
 	return replacedItems
 		.map((replacedItem) => ITEMS_BY_ID[replacedItem.itemId]?.name ?? "Unknown item")
 		.join(", ");
+}
+
+type ReplacedItemsInlineProps = {
+	replacedItems: RewardItemDestinationView["replacedItems"];
+	fallbackSlot: RewardItemDestinationView["equipmentSlot"];
+};
+
+export function ReplacedItemsInline({ replacedItems, fallbackSlot }: ReplacedItemsInlineProps) {
+	return (
+		<>
+			{replacedItems.map((replacedItem, index) => (
+				<ReplacedItemTooltip
+					key={replacedItem.instanceId}
+					replacedItem={replacedItem}
+					fallbackSlot={fallbackSlot}
+					prefix={index > 0 ? ", " : ""}
+				/>
+			))}
+		</>
+	);
+}
+
+type ReplacedItemTooltipProps = {
+	replacedItem: RewardItemDestinationView["replacedItems"][number];
+	fallbackSlot: RewardItemDestinationView["equipmentSlot"];
+	prefix: string;
+};
+
+function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedItemTooltipProps) {
+	const item = ITEMS_BY_ID[replacedItem.itemId];
+
+	if (!item) {
+		return <span>{prefix}Unknown item</span>;
+	}
+
+	return (
+		<span>
+			{prefix}
+			<Tooltip
+				content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
+				className={clsx(
+					"underline decoration-border underline-offset-4 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+					getItemRarityTextClassName(item.rarity),
+				)}
+				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+			>
+				{item.name}
+			</Tooltip>
+		</span>
+	);
 }
