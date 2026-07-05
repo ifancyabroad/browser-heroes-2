@@ -14,4 +14,8 @@ export type { HeroView } from "./selectHeroView";
 
 export { selectRewardChoiceView } from "./selectRewardChoiceView";
 
-export type { RewardChoiceView, RewardChoiceOptionView } from "./selectRewardChoiceView";
+export type {
+	RewardChoiceOptionView,
+	RewardChoiceView,
+	RewardItemDestinationView,
+} from "./selectRewardChoiceView";

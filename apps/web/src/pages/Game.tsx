@@ -4,6 +4,7 @@ import { TownView } from "../features/town";
 import { PageLoader } from "../components/PageLoader";
 import { CombatView } from "../features/combat";
 import { LevelUpModalController } from "../features/levelUp";
+import { RewardModalController } from "../features/rewards";
 
 export default function Game() {
 	const { data, isPending } = useCurrentRun();
@@ -41,6 +42,7 @@ export default function Game() {
 		<>
 			{view}
 			<LevelUpModalController run={run} />
+			<RewardModalController run={run} />
 		</>
 	);
 }

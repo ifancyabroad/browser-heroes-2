@@ -116,14 +116,7 @@ function getRewardActions(state: RunState): EngineAction[] {
 			];
 		}
 
-		return [
-			{
-				type: "SELECT_REWARD",
-				selection: {
-					optionIndex,
-				},
-			},
-		];
+		return [];
 	});
 }
 

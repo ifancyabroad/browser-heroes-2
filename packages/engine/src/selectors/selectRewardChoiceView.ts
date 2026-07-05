@@ -1,7 +1,14 @@
 import { ITEMS_BY_ID, type EquipmentSlot, type Item } from "@app/content";
 
-import type { RewardOption, RunState } from "../schemas";
+import type { EquippedItemState, RewardOption, RunState } from "../schemas";
+
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
+import { previewEquipItem } from "../systems/equipment/previewEquipItem";
+
+export type RewardItemDestinationView = {
+	equipmentSlot: EquipmentSlot;
+	replacedItems: readonly EquippedItemState[];
+};
 
 export type RewardChoiceOptionView =
 	| {
@@ -13,12 +20,12 @@ export type RewardChoiceOptionView =
 			type: "item";
 			optionIndex: number;
 			item: Item;
-			validEquipmentSlots: EquipmentSlot[];
+			destinations: readonly RewardItemDestinationView[];
 			requiresEquipmentSlotSelection: boolean;
 	  };
 
 export type RewardChoiceView = {
-	options: RewardChoiceOptionView[];
+	options: readonly RewardChoiceOptionView[];
 };
 
 export function selectRewardChoiceView(state: RunState): RewardChoiceView | null {
@@ -29,14 +36,14 @@ export function selectRewardChoiceView(state: RunState): RewardChoiceView | null
 	}
 
 	return {
-		options: pendingRewardChoice.options.flatMap(
-			(option, optionIndex): RewardChoiceOptionView[] =>
-				createRewardOptionView(option, optionIndex),
+		options: pendingRewardChoice.options.flatMap((option, optionIndex) =>
+			createRewardOptionView(state, option, optionIndex),
 		),
 	};
 }
 
 function createRewardOptionView(
+	state: RunState,
 	option: RewardOption,
 	optionIndex: number,
 ): RewardChoiceOptionView[] {
@@ -63,7 +70,24 @@ function createRewardOptionView(
 			type: "item",
 			optionIndex,
 			item,
-			validEquipmentSlots,
+			destinations: validEquipmentSlots.flatMap((equipmentSlot) => {
+				const preview = previewEquipItem({
+					hero: state.hero,
+					item,
+					requestedSlot: equipmentSlot,
+				});
+
+				if (!preview.ok) {
+					return [];
+				}
+
+				return [
+					{
+						equipmentSlot: preview.equipmentSlot,
+						replacedItems: preview.replacedItems,
+					},
+				];
+			}),
 			requiresEquipmentSlotSelection: validEquipmentSlots.length > 1,
 		},
 	];

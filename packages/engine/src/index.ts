@@ -39,6 +39,14 @@ export {
 	selectCombatView,
 	selectHeroProgression,
 	selectHeroView,
+	selectRewardChoiceView,
 } from "./selectors";
 
-export type { CombatViewState, HeroProgressionView, HeroView } from "./selectors";
+export type {
+	CombatViewState,
+	HeroProgressionView,
+	HeroView,
+	RewardChoiceOptionView,
+	RewardChoiceView,
+	RewardItemDestinationView,
+} from "./selectors";
