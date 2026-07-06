@@ -1,14 +1,9 @@
 import type { EngineResult, PlayerSkipTurnAction, RunState } from "../../../schemas";
 
-import { successResult } from "../../../core/result";
-
 import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
-import { resolveCombatStatus } from "../death/resolveCombatStatus";
-import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
-import { advanceTurn } from "./advanceTurn";
 import { getActiveEffectIds } from "../effects/advanceActiveEffects";
-import { advanceCombatantEffects } from "../effects/advanceCombatantEffects";
+import { finishPlayerActionRound } from "./finishPlayerActionRound";
 
 export function resolveSkippedPlayerRound(
 	state: RunState,
@@ -31,56 +26,10 @@ export function resolveSkippedPlayerRound(
 		eventType: "turn_skipped",
 	});
 
-	const playerEffects = advanceCombatantEffects({
-		combat: combatAfterPlayerSkip,
-		combatantSide: "player",
-		effectIds: playerEffectIds,
+	return finishPlayerActionRound({
+		state,
+		combatAfterPlayerAction: combatAfterPlayerSkip,
 		rngState: state.rngState,
+		playerEffectIds,
 	});
-
-	const enemyEffectIds = getActiveEffectIds(playerEffects.value.enemy);
-
-	const enemyTurn = resolveEnemyTurn({
-		combat: combatAfterPlayerSkip,
-		rngState: playerEffects.rngState,
-	});
-
-	const enemyEffects = advanceCombatantEffects({
-		combat: enemyTurn.value,
-		combatantSide: "enemy",
-		effectIds: enemyEffectIds,
-		rngState: enemyTurn.rngState,
-	});
-
-	const afterEnemyDeathCheck = resolveCombatStatus(enemyEffects.value);
-
-	if (afterEnemyDeathCheck.status === "enemy_won") {
-		return successResult(
-			{
-				...state,
-				rngState: enemyEffects.rngState,
-				phase: "dead",
-				combat: afterEnemyDeathCheck,
-			},
-			[
-				{
-					type: "COMBAT_ENDED",
-					outcome: "defeat",
-				},
-			],
-		);
-	}
-
-	return successResult(
-		{
-			...state,
-			rngState: enemyEffects.rngState,
-			combat: advanceTurn(afterEnemyDeathCheck),
-		},
-		[
-			{
-				type: "COMBAT_TURN_RESOLVED",
-			},
-		],
-	);
 }
