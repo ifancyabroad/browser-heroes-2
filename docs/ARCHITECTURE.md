@@ -32,7 +32,7 @@ The architecture avoids:
 
 The project is a pnpm workspace with apps and packages that have distinct responsibilities.
 
-- `packages/engine` owns deterministic run state, action validation/application, combat transitions, progression, town transitions, serialization, and selectors.
+- `packages/engine` owns deterministic run state, action validation/application, combat transitions, progression, reward choices, town transitions, town shop actions, consumables, serialization, and selectors.
 - `packages/content` owns declarative game definitions, content schemas/builders, generated IDs, generated registries, manifests, and content reference validation.
 - `packages/shared` owns contracts shared by the web app and API, such as request/response shapes and socket payload contracts that are not gameplay rules.
 - `apps/web` owns presentation, user interaction, client orchestration, query/socket integration, and rendering projected engine state.
@@ -51,7 +51,8 @@ It owns:
 - applying state transitions
 - resolving combat rounds
 - resolving player skill actions and active combat effects
-- applying rewards and level-ups
+- applying rewards, reward choices, and level-ups
+- resolving town actions such as shop purchases, rest, rerolls, and consumable purchases
 - managing town/combat/death/completion phases
 - serializing and deserializing run state
 - projecting state through selectors for callers
@@ -88,7 +89,7 @@ The web app currently:
 - displays town, combat, dead, and complete states
 - submits player intent to the backend
 - renders engine selectors and shared content
-- shows level-up choices and hero state
+- shows reward choices, level-up choices, town shop state, equipment replacement previews, and hero state
 
 The presentation layer may display simulation state and collect player intent. It must not calculate gameplay outcomes or directly mutate authoritative run state.
 
@@ -110,7 +111,7 @@ The entire run should always be representable as a snapshot. Save/load parity, r
 
 Selectors are the boundary between authoritative state and UI-friendly views.
 
-Selectors may derive hero stats, combat views, progression state, and available actions. UI code should prefer selectors and shared content lookups over recalculating gameplay logic.
+Selectors may derive hero stats, combat views, progression state, reward choice views, town views, equipment replacement previews, and available actions. UI code should prefer selectors and shared content lookups over recalculating gameplay logic.
 
 Projection code in the API may derive summaries for persistence and responses, but those summaries are not authoritative gameplay data.
 

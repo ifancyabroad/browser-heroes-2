@@ -28,8 +28,9 @@ The current web app includes:
 
 - a landing screen
 - character creation with class selection and hero naming
-- a town screen with hero inspection and combat entry
+- a town screen with hero inspection, shop inventory, equipment purchase/replacement flow, rest, reroll, and combat entry
 - a combat screen with combatants, stats, log/portrait view, and action controls
+- reward choice modal flow
 - level-up modal flow
 - dead and complete placeholders
 - shared error and loading states
@@ -87,7 +88,7 @@ Common player decisions should be easy to scan:
 
 Interactive elements should be obvious, keyboard-accessible where practical, and consistent in hover, focus, disabled, pending, and error states.
 
-Town should feel like a strategic checkpoint as planned systems are added. Combat should keep fast action readable even as active skills, consumables, and conditions are introduced.
+Town should feel like a strategic checkpoint with clear shop, recovery, reroll, equipment, and combat-entry decisions. Combat should keep fast action readable as active skills, consumables, and conditions are introduced.
 
 ## 8. Presentation Boundaries
 
@@ -99,6 +100,7 @@ The presentation layer should:
 - submit actions to the appropriate runtime path
 - show pending, success, and error states
 - use shared content for labels, icons, portraits, and item/skill details
+- use engine selectors for reward choices, town views, available actions, and replacement previews
 
 The presentation layer must not:
 

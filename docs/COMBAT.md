@@ -27,7 +27,7 @@ Current combat has:
 - player-initiated basic attack or skill rounds
 - deterministic enemy response during the same resolved round
 
-The player currently acts through basic attack, skill, or skip-turn actions. Consumables, enemy skill selection, richer enemy tactics, and status removal are planned or scaffolded and should not be treated as current playable behavior.
+The player-facing combat UI currently acts through basic attack, skill, or skip-turn actions. The engine also supports healing potion use as a player action. Enemy skill selection, richer enemy tactics, and status removal are planned or scaffolded and should not be treated as current playable behavior.
 
 ## 3. Combatants
 
@@ -43,6 +43,7 @@ Combat-relevant identity includes:
 - active skills
 - passive feat IDs
 - equipment-derived modifiers
+- healing potion count
 - active temporary effects
 - combat log state
 
@@ -94,18 +95,19 @@ This keeps the UI simple while preserving engine-owned combat resolution.
 
 ## 6. Valid Actions
 
-Current playable actions around combat include:
+Current engine-supported actions around combat include:
 
 - basic attack while combat is active
 - skill use while combat is active, the hero knows the skill, the skill has uses remaining if limited, and the hero is not silenced
+- healing potion use while combat is active, the hero can act, and at least one potion remains
 - skip turn while combat is active
 - continue to next combat after victory
 - return to town after victory
+- select a pending boss reward when required
 - complete pending level-up choices when required
 
 Planned or scaffolded action surfaces include:
 
-- consumable use
 - richer town actions that affect combat readiness
 
 If the hero is stunned, skip turn is the only available combat action. If the hero is silenced, basic attack and skip turn remain available, but skill actions are not.
@@ -132,11 +134,11 @@ Damage affinities include normal, resistant, immune, and vulnerable outcomes. Co
 
 ## 8. Skills and Consumables
 
-Skills are active combat abilities. Consumables are intended to provide limited-use recovery, combat, or utility effects.
+Skills are active combat abilities. Consumables provide limited-use recovery, combat, or utility effects.
 
-Current state: player skill actions are part of the playable combat loop. Skills can exist on combatants, can be gained or ranked through progression, can consume limited charges, and resolve through shared engine logic. Consumable actions are not yet part of the playable combat loop.
+Current state: player skill actions and healing potion use are part of engine combat resolution. Skills can exist on combatants, can be gained or ranked through progression, can consume limited charges, and resolve through shared engine logic. Healing potions restore a percentage of maximum HP adjusted by effective healing modifiers, consume one potion, write combat logs/events, and then complete the normal player action round.
 
-Skills and future consumables should have:
+Skills and consumables should have:
 
 - clear targets
 - readable outcomes
@@ -174,6 +176,7 @@ On enemy death:
 
 - combat enters a victory state
 - rewards are applied
+- a pending boss reward choice may be created
 - pending level-up may be created
 - the player may continue forward or return to town after required choices
 
@@ -188,7 +191,7 @@ The complete phase is reserved for the intended full victory condition.
 
 Combat logs are part of authoritative combat state.
 
-Logs should make outcomes understandable by recording important events such as combat start, attacks, misses, damage, skill use, effect application, effect triggers, effect expiration, victory, defeat, and rewards.
+Logs should make outcomes understandable by recording important events such as combat start, attacks, misses, damage, skill use, healing potion use, effect application, effect triggers, effect expiration, victory, defeat, and rewards.
 
 Logs should explain what happened without exposing fragile internal implementation detail.
 

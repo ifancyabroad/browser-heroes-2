@@ -28,14 +28,16 @@ The current implementation supports the core skeleton of a run:
 3. Enter town.
 4. Start combat from town.
 5. Resolve combat through basic attacks or available hero skills.
-6. Earn rewards after victory.
-7. Complete pending level-up choices when offered.
-8. Continue directly to the next combat or return to town.
-9. End the run on player death.
+6. Earn XP and gold after victory.
+7. Select a boss reward when offered.
+8. Complete pending level-up choices when offered.
+9. Continue directly to the next combat or return to town.
+10. Buy equipment, rest, reroll the shop, or inspect the hero in town.
+11. End the run on player death.
 
-Town currently acts as a run checkpoint and launch point. More town decisions are planned.
+Town currently acts as a run checkpoint, shop, recovery point, and launch point. The engine also supports healing potion purchase and combat use; potion UI is still an integration surface.
 
-Combat currently supports basic attack rounds, player skill use, readable combat logs, and active effects such as temporary modifiers, statuses, shields, damage over time, and healing over time. Consumables, enemy skill use, richer enemy behavior, and status removal are planned or scaffolded, but are not the primary playable surface yet.
+Combat currently exposes basic attack rounds, player skill use, readable combat logs, and active effects such as temporary modifiers, statuses, shields, damage over time, and healing over time. The engine also supports healing potion use from hero state. Enemy skill use, richer enemy behavior, and status removal are planned or scaffolded, but are not the primary playable surface yet.
 
 ## 3. Intended Full Loop
 
@@ -75,7 +77,7 @@ The intended combat feel is fast tactical RPG combat: basic attacks stay simple,
 
 ### 4.3 Progression System
 
-Players earn XP and gold from combat victories. Level-ups may offer a small curated set of skill or feat options.
+Players earn XP and gold from combat victories. Boss victories may offer a small reward choice between eligible equipment and gold. Level-ups may offer a small curated set of skill or feat options.
 
 Progression should reward continuing a run while making risk visible. Returning to town should be a meaningful pacing and safety decision rather than a purely cosmetic step.
 
@@ -87,9 +89,9 @@ Content should support variety and synergy without moving gameplay authority int
 
 ### 4.5 Town System
 
-Town is intended to be a strategic checkpoint between fights.
+Town is a strategic checkpoint between fights.
 
-Planned town responsibilities include shops, recovery, rerolls, consumable management, equipment decisions, and run continuation choices. The current implementation exposes a minimal town surface while this layer grows.
+Current town responsibilities include generated equipment shops, rest recovery, shop rerolls, equipment replacement decisions, hero inspection, and combat entry. The engine also models healing potion purchases in town. Future town work can deepen consumable management and other preparation choices without moving gameplay authority into the UI.
 
 ### 4.6 Meta Systems
 
