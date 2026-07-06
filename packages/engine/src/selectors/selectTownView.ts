@@ -4,6 +4,7 @@ import type { EquippedItemState, RunState, TownShopSlot } from "../schemas";
 
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { previewEquipItem } from "../systems/equipment/previewEquipItem";
+import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 
 export type TownShopDestinationView = {
 	equipmentSlot: EquipmentSlot;
@@ -32,6 +33,11 @@ export type TownView = {
 	isFullyHealed: boolean;
 
 	shopSlots: readonly TownShopSlotView[];
+
+	healingPotions: number;
+	maxHealingPotions: number;
+	healingPotionCost: number;
+	canBuyHealingPotion: boolean;
 };
 
 export function selectTownView(state: RunState): TownView | null {
@@ -51,6 +57,13 @@ export function selectTownView(state: RunState): TownView | null {
 		isFullyHealed: state.hero.currentHp >= state.hero.maxHp,
 
 		shopSlots: state.town.shopSlots.flatMap((slot) => createTownShopSlotView(state, slot)),
+
+		healingPotions: state.hero.healingPotions,
+		maxHealingPotions: MAX_HEALING_POTIONS,
+		healingPotionCost: state.town.healingPotionCost,
+		canBuyHealingPotion:
+			state.hero.healingPotions < MAX_HEALING_POTIONS &&
+			state.gold >= state.town.healingPotionCost,
 	};
 }
 

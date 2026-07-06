@@ -27,6 +27,10 @@ export const engineErrorCodeSchema = z.enum([
 	"SHOP_SLOT_NOT_FOUND",
 	"SHOP_SLOT_ALREADY_PURCHASED",
 	"ITEM_DEFINITION_NOT_FOUND",
+	"NO_HEALING_POTIONS_AVAILABLE",
+	"CONSUMABLE_NOT_USABLE",
+	"HEALING_POTIONS_FULL",
+	"CONSUMABLE_NOT_AVAILABLE",
 ]);
 
 export const engineSuccessResultSchema = z.object({

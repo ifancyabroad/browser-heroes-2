@@ -16,9 +16,16 @@ export const playerUseSkillActionSchema = z.object({
 	skillId: skillIdSchema,
 });
 
+export const consumableTypeSchema = z.enum(["healingPotion"]);
+
 export const playerUseConsumableActionSchema = z.object({
 	type: z.literal("PLAYER_USE_CONSUMABLE"),
-	itemInstanceId: z.string(),
+	consumableType: consumableTypeSchema,
+});
+
+export const buyConsumableActionSchema = z.object({
+	type: z.literal("BUY_CONSUMABLE"),
+	consumableType: consumableTypeSchema,
 });
 
 export const continueToNextCombatActionSchema = z.object({
@@ -65,6 +72,7 @@ export const engineActionSchema = z.discriminatedUnion("type", [
 	continueToNextCombatActionSchema,
 	returnToTownActionSchema,
 	buyItemActionSchema,
+	buyConsumableActionSchema,
 	restAtTownActionSchema,
 	rerollShopActionSchema,
 	completeLevelUpActionSchema,
@@ -79,6 +87,7 @@ export type PlayerUseConsumableAction = z.infer<typeof playerUseConsumableAction
 export type ContinueToNextCombatAction = z.infer<typeof continueToNextCombatActionSchema>;
 export type ReturnToTownAction = z.infer<typeof returnToTownActionSchema>;
 export type BuyItemAction = z.infer<typeof buyItemActionSchema>;
+export type BuyConsumableAction = z.infer<typeof buyConsumableActionSchema>;
 export type RestAtTownAction = z.infer<typeof restAtTownActionSchema>;
 export type RerollShopAction = z.infer<typeof rerollShopActionSchema>;
 export type CompleteLevelUpAction = z.infer<typeof completeLevelUpActionSchema>;

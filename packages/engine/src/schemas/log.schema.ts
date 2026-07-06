@@ -20,6 +20,7 @@ export const combatLogEntrySchema = z.object({
 			"combat_ended",
 			"turn_skipped",
 			"effect_triggered",
+			"healing_potion_used",
 		])
 		.optional(),
 });

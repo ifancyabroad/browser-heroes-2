@@ -22,6 +22,7 @@ export const townStateSchema = z.object({
 	rerollCount: z.number().int().min(0),
 	restCount: z.number().int().min(0),
 	shopLevel: z.number().int().min(1),
+	healingPotionCost: z.number().int().min(0),
 });
 
 export const runStateSchema = z.object({

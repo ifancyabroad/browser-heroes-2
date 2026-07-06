@@ -15,11 +15,12 @@ export type CreateInitialRunStateInput = {
 export function createInitialRunState(input: CreateInitialRunStateInput): RunState {
 	const rngState = createInitialRngState(input.seed);
 	const hero = createInitialHeroState(input);
+	const zoneNumber = 1;
 
 	const town = createTownState({
 		runId: input.runId,
 		hero,
-		battleNumber: 1,
+		zoneNumber,
 		rngState,
 	});
 
@@ -34,7 +35,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		phase: "town",
 
 		battleNumber: 1,
-		zoneNumber: 1,
+		zoneNumber,
 		endlessCycle: 0,
 
 		hero,

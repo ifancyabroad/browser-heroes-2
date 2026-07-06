@@ -9,6 +9,8 @@ import { completeRewardChoice } from "../systems/progression/rewards/completeRew
 import { rerollShop } from "../systems/town/rerollShop";
 import { restAtTown } from "../systems/town/restAtTown";
 import { buyItem } from "../systems/town/buyItem";
+import { useConsumable } from "../systems/consumables/useConsumable";
+import { buyConsumable } from "../systems/town/buyConsumable";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -40,6 +42,12 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "BUY_ITEM":
 			return buyItem(state, action);
+
+		case "PLAYER_USE_CONSUMABLE":
+			return useConsumable(state, action);
+
+		case "BUY_CONSUMABLE":
+			return buyConsumable(state, action);
 
 		default:
 			return failureResult(state, "INVALID_ACTION");

@@ -4,20 +4,21 @@ import {
 	calculateRestCost,
 	calculateRerollCost,
 	calculateShopLevel,
+	calculateHealingPotionCost,
 } from "../systems/town/townPricing";
 import { createTownShop } from "../systems/town/createTownShop";
 
 type CreateTownStateInput = {
 	runId: string;
 	hero: HeroState;
-	battleNumber: number;
+	zoneNumber: number;
 	rngState: RngState;
 };
 
 export function createTownState(input: CreateTownStateInput): RngResult<TownState> {
 	const rerollCount = 0;
 	const restCount = 0;
-	const shopLevel = calculateShopLevel(input.battleNumber);
+	const shopLevel = calculateShopLevel(input.zoneNumber);
 
 	const shop = createTownShop({
 		runId: input.runId,
@@ -33,6 +34,7 @@ export function createTownState(input: CreateTownStateInput): RngResult<TownStat
 		shopLevel,
 		rerollCost: calculateRerollCost(input.hero, rerollCount),
 		restCost: calculateRestCost(input.hero, restCount),
+		healingPotionCost: calculateHealingPotionCost(input.hero, input.zoneNumber),
 	};
 
 	return {

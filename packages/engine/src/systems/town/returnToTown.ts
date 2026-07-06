@@ -27,7 +27,7 @@ export function returnToTown(state: RunState): EngineResult {
 	const town = createTownState({
 		runId: state.id,
 		hero: state.hero,
-		battleNumber,
+		zoneNumber,
 		rngState: state.rngState,
 	});
 

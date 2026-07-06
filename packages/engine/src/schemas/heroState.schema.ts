@@ -8,6 +8,7 @@ import {
 	skillRankValueSchema,
 } from "@app/content";
 import { pendingLevelUpSchema } from "./levelUp.schema";
+import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 
 export const heroSkillStateSchema = z.object({
 	skillId: skillIdSchema,
@@ -48,6 +49,7 @@ export const heroStateSchema = z.object({
 	featIds: z.array(featIdSchema),
 	equipment: heroEquipmentStateSchema,
 	pendingLevelUp: pendingLevelUpSchema.nullable(),
+	healingPotions: z.number().int().min(0).max(MAX_HEALING_POTIONS),
 });
 
 export type EquippedItemState = z.infer<typeof equippedItemStateSchema>;

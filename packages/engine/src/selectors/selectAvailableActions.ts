@@ -8,6 +8,7 @@ import type {
 } from "../schemas";
 import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
+import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -41,6 +42,13 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 
 		if (!hasActiveStatus(player, "silenced")) {
 			actions.push(...getSkillActions(state));
+		}
+
+		if (state.hero.healingPotions > 0) {
+			actions.push({
+				type: "PLAYER_USE_CONSUMABLE",
+				consumableType: "healingPotion",
+			});
 		}
 
 		actions.push({
@@ -123,18 +131,37 @@ function getTownActions(state: RunState): EngineAction[] {
 		return [];
 	}
 
-	return [
+	const actions: EngineAction[] = [
 		{
 			type: "ENTER_COMBAT",
 		},
-		{
-			type: "REROLL_SHOP",
-		},
-		{
-			type: "REST_AT_TOWN",
-		},
-		...getBuyItemActions(state),
 	];
+
+	if (state.gold >= state.town.rerollCost) {
+		actions.push({
+			type: "REROLL_SHOP",
+		});
+	}
+
+	if (state.gold >= state.town.restCost) {
+		actions.push({
+			type: "REST_AT_TOWN",
+		});
+	}
+
+	if (
+		state.hero.healingPotions < MAX_HEALING_POTIONS &&
+		state.gold >= state.town.healingPotionCost
+	) {
+		actions.push({
+			type: "BUY_CONSUMABLE",
+			consumableType: "healingPotion",
+		});
+	}
+
+	actions.push(...getBuyItemActions(state));
+
+	return actions;
 }
 
 function getBuyItemActions(state: RunState): EngineAction[] {

@@ -13,6 +13,8 @@ import {
 } from "../schemas";
 import { createStartingItemInstanceId } from "../core/ids";
 import { calculateMaxHpForLevel } from "../systems/progression/health/calculateMaxHpForLevel";
+import { STARTING_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+
 export type CreateInitialHeroStateInput = {
 	runId: string;
 	heroName: string;
@@ -40,6 +42,7 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 		featIds: [],
 		equipment: createInitialEquipment(classDefinition, input.runId),
 		pendingLevelUp: null,
+		healingPotions: STARTING_HEALING_POTIONS,
 	};
 
 	return heroStateSchema.parse(hero);

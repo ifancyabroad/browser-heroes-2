@@ -21,6 +21,7 @@ export type {
 	RerollShopAction,
 	PlayerSkipTurnAction,
 	SelectRewardAction,
+	BuyConsumableAction,
 } from "./action.schema";
 
 export { engineEventSchema } from "./event.schema";

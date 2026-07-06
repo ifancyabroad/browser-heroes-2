@@ -1,0 +1,3 @@
+export const MAX_HEALING_POTIONS = 3;
+export const STARTING_HEALING_POTIONS = 3;
+export const HEALING_POTION_HEAL_PERCENT = 0.5;

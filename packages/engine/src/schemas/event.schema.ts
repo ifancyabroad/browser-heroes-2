@@ -94,6 +94,18 @@ const itemBoughtEventSchema = z.object({
 	price: z.number().int().min(0),
 });
 
+const healingPotionUsedEventSchema = z.object({
+	type: z.literal("HEALING_POTION_USED"),
+	amount: z.number().int().min(0),
+	remainingPotions: z.number().int().min(0),
+});
+
+const healingPotionBoughtEventSchema = z.object({
+	type: z.literal("HEALING_POTION_BOUGHT"),
+	cost: z.number().int().min(0),
+	remainingPotions: z.number().int().min(0),
+});
+
 export const engineEventSchema = z.union([
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
@@ -106,6 +118,8 @@ export const engineEventSchema = z.union([
 	shopRerolledEventSchema,
 	restedAtTownEventSchema,
 	itemBoughtEventSchema,
+	healingPotionUsedEventSchema,
+	healingPotionBoughtEventSchema,
 ]);
 
 export type EngineEvent = z.infer<typeof engineEventSchema>;
