@@ -2,6 +2,7 @@ import type { EngineResult, RunState, TownState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { calculateRestCost } from "./townPricing";
+import { restoreHeroSkillCharges } from "../hero/restoreHeroSkillCharges";
 
 export function restAtTown(state: RunState): EngineResult {
 	if (state.phase !== "town" || !state.town) {
@@ -30,6 +31,7 @@ export function restAtTown(state: RunState): EngineResult {
 			hero: {
 				...state.hero,
 				currentHp: state.hero.maxHp,
+				skills: restoreHeroSkillCharges(state.hero.skills),
 			},
 			town,
 		},
