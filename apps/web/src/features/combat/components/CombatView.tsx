@@ -8,7 +8,8 @@ import {
 } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { Button } from "../../../components/Button";
-import { Layout } from "../../../components/Layout";
+import { GameLayout } from "../../../components/GameLayout";
+import { GameMainPanel } from "../../../components/GameMainPanel";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { CombatActionBar } from "./CombatActionBar";
@@ -140,7 +141,7 @@ export function CombatView({ run }: CombatViewProps) {
 	}
 
 	return (
-		<Layout>
+		<GameLayout>
 			<div className="flex min-h-0 flex-1 overflow-hidden bg-bg-base text-base text-text">
 				<CombatSidebar
 					open={sidebarOpen}
@@ -159,34 +160,14 @@ export function CombatView({ run }: CombatViewProps) {
 					entries={combat.log}
 				/>
 
-				<section className="flex min-w-0 flex-1 flex-col">
-					<div className="px-4 py-3 md:hidden">
+				<GameMainPanel
+					mobileHeader={
 						<Button className="text-primary" type="button" onClick={handleOpenSidebar}>
 							Log
 						</Button>
-					</div>
-
-					<div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col gap-4 px-4 py-3 md:px-6 md:py-4">
-						<section className="grid gap-3 md:block" aria-label="Combatants">
-							<div className="md:hidden">
-								<CombatantPanel
-									combatant={combat.player}
-									identity={`${heroClass.name} ${combat.player.name}`}
-									ariaLabel="Hero"
-								/>
-							</div>
-							<CombatantPanel
-								combatant={combat.enemy}
-								identity={combat.enemy.name}
-								ariaLabel="Enemy"
-							/>
-						</section>
-
-						<Battlefield
-							enemyPortrait={enemyDefinition?.portrait ?? null}
-							enemyName={combat.enemy.name}
-						/>
-
+					}
+					contentClassName="flex flex-col gap-4"
+					actions={
 						<CombatActionBar
 							player={combat.player}
 							isPending={applyRunAction.isPending}
@@ -205,9 +186,29 @@ export function CombatView({ run }: CombatViewProps) {
 							onContinue={handleContinue}
 							onReturnToTown={handleReturnToTown}
 						/>
-					</div>
-				</section>
+					}
+				>
+					<section className="grid gap-3 md:block" aria-label="Combatants">
+						<div className="md:hidden">
+							<CombatantPanel
+								combatant={combat.player}
+								identity={`${heroClass.name} ${combat.player.name}`}
+								ariaLabel="Hero"
+							/>
+						</div>
+						<CombatantPanel
+							combatant={combat.enemy}
+							identity={combat.enemy.name}
+							ariaLabel="Enemy"
+						/>
+					</section>
+
+					<Battlefield
+						enemyPortrait={enemyDefinition?.portrait ?? null}
+						enemyName={combat.enemy.name}
+					/>
+				</GameMainPanel>
 			</div>
-		</Layout>
+		</GameLayout>
 	);
 }

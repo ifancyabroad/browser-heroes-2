@@ -9,7 +9,7 @@ type TownShopGridProps = {
 
 export function TownShopGrid({ shopSlots, isPending, onBuy }: TownShopGridProps) {
 	return (
-		<div className="grid min-h-0 gap-2 overflow-y-auto pr-1 md:grid-cols-2 md:gap-3">
+		<div className="grid gap-2 md:grid-cols-2 md:gap-3">
 			{shopSlots.map((slot) => (
 				<TownShopItemCard
 					key={slot.id}

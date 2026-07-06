@@ -8,7 +8,8 @@ import {
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
-import { Layout } from "../../../components/Layout";
+import { GameLayout } from "../../../components/GameLayout";
+import { GameMainPanel } from "../../../components/GameMainPanel";
 import { HeroSidebar } from "./HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
@@ -133,63 +134,48 @@ export function TownView({ run }: TownViewProps) {
 	}
 
 	return (
-		<Layout>
+		<GameLayout>
 			<div className="flex min-h-0 flex-1 overflow-hidden bg-bg-base text-base text-text">
 				<HeroSidebar run={run} open={sidebarOpen} onClose={handleCloseSidebar} />
 
-				<section className="flex min-w-0 flex-1 flex-col">
-					<header className="px-4 py-3 md:hidden">
+				<GameMainPanel
+					mobileHeader={
 						<Button className="text-primary" type="button" onClick={handleOpenSidebar}>
 							Hero
 						</Button>
-					</header>
-
-					<div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col gap-3 px-4 py-3 md:gap-4 md:px-6 md:py-4">
-						<header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-							<div className="grid gap-1">
-								<h1 className="text-base text-text-bright">Town Shop</h1>
-								<p className="text-text-label">Shop level {townView.shopLevel}</p>
-							</div>
-							<div className="flex items-baseline gap-2">
-								<span className="text-text-label">Gold</span>
-								<span className="text-text-bright">{townView.gold}</span>
-							</div>
-						</header>
-
-						<TownShopGrid
-							shopSlots={townView.shopSlots}
+					}
+					actions={
+						<TownActionBar
 							isPending={applyRunAction.isPending}
-							onBuy={handleBuy}
+							canRest={
+								availableActionTypes.has("REST_AT_TOWN") &&
+								townView.canAffordRest &&
+								!townView.isFullyHealed
+							}
+							canReroll={
+								availableActionTypes.has("REROLL_SHOP") && townView.canAffordReroll
+							}
+							canBuyHealingPotion={
+								availableActionTypes.has("BUY_CONSUMABLE") &&
+								townView.canBuyHealingPotion
+							}
+							canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
+							restCost={townView.restCost}
+							rerollCost={townView.rerollCost}
+							healingPotionCost={townView.healingPotionCost}
+							onRest={handleRest}
+							onReroll={handleReroll}
+							onBuyHealingPotion={handleBuyHealingPotion}
+							onEnterCombat={handleEnterCombat}
 						/>
-
-						<div className="mt-auto pt-3">
-							<TownActionBar
-								isPending={applyRunAction.isPending}
-								canRest={
-									availableActionTypes.has("REST_AT_TOWN") &&
-									townView.canAffordRest &&
-									!townView.isFullyHealed
-								}
-								canReroll={
-									availableActionTypes.has("REROLL_SHOP") &&
-									townView.canAffordReroll
-								}
-								canBuyHealingPotion={
-									availableActionTypes.has("BUY_CONSUMABLE") &&
-									townView.canBuyHealingPotion
-								}
-								canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-								restCost={townView.restCost}
-								rerollCost={townView.rerollCost}
-								healingPotionCost={townView.healingPotionCost}
-								onRest={handleRest}
-								onReroll={handleReroll}
-								onBuyHealingPotion={handleBuyHealingPotion}
-								onEnterCombat={handleEnterCombat}
-							/>
-						</div>
-					</div>
-				</section>
+					}
+				>
+					<TownShopGrid
+						shopSlots={townView.shopSlots}
+						isPending={applyRunAction.isPending}
+						onBuy={handleBuy}
+					/>
+				</GameMainPanel>
 
 				{replacementSlot && (
 					<TownReplacementModal
@@ -200,6 +186,6 @@ export function TownView({ run }: TownViewProps) {
 					/>
 				)}
 			</div>
-		</Layout>
+		</GameLayout>
 	);
 }

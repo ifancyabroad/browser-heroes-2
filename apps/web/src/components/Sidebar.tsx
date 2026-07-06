@@ -7,8 +7,11 @@ type SidebarProps = PropsWithChildren<{
 	title?: ReactNode;
 	className?: string;
 	contentClassName?: string;
+	widthClassName?: string;
 	"aria-label"?: string;
 }>;
+
+const DEFAULT_SIDEBAR_WIDTH_CLASS = "w-96";
 
 export function Sidebar({
 	open,
@@ -16,6 +19,7 @@ export function Sidebar({
 	title,
 	className,
 	contentClassName,
+	widthClassName = DEFAULT_SIDEBAR_WIDTH_CLASS,
 	children,
 	"aria-label": ariaLabel = "Sidebar",
 }: SidebarProps) {
@@ -26,13 +30,16 @@ export function Sidebar({
 				className={`fixed inset-0 z-40 bg-black/50 md:hidden ${open ? "block" : "hidden"}`}
 			/>
 
+			<div aria-hidden="true" className={clsx("hidden shrink-0 md:block", widthClassName)} />
+
 			<aside
 				aria-label={ariaLabel}
 				className={clsx(
-					"fixed md:static inset-y-0 left-0 z-50 md:z-0",
-					"h-dvh max-h-dvh w-96 max-w-full overflow-y-auto bg-bg-base",
+					"fixed inset-y-0 left-0 z-50",
+					"h-dvh max-h-dvh max-w-full overflow-y-auto bg-bg-base",
 					"transform transition-transform duration-200",
 					open ? "translate-x-0" : "-translate-x-full md:translate-x-0",
+					widthClassName,
 					className,
 				)}
 			>
