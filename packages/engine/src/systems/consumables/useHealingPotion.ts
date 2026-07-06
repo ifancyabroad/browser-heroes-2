@@ -1,4 +1,4 @@
-import type { EngineResult, RunState } from "../../schemas";
+import type { CombatantState, EngineResult, RunState } from "../../schemas";
 
 import { failureResult } from "../../core/result";
 import { getActiveEffectIds } from "../combat/effects/advanceActiveEffects";
@@ -33,7 +33,7 @@ export function useHealingPotion(state: RunState): EngineResult {
 
 	const playerEffectIds = getActiveEffectIds(state.combat.player);
 
-	const healingAmount = calculateHealingPotionAmount(state);
+	const healingAmount = calculateHealingPotionAmount(state.combat.player);
 
 	const healing = applyHealing(state.combat.player, healingAmount);
 
@@ -67,13 +67,10 @@ export function useHealingPotion(state: RunState): EngineResult {
 	});
 }
 
-function calculateHealingPotionAmount(state: RunState): number {
-	const baseHealing = Math.round(state.combat!.player.maxHp * HEALING_POTION_HEAL_PERCENT);
+function calculateHealingPotionAmount(player: CombatantState): number {
+	const baseHealing = Math.round(player.maxHp * HEALING_POTION_HEAL_PERCENT);
 
-	const healingMultiplier = getEffectiveCombatStatValue(
-		state.combat!.player,
-		"healingMultiplier",
-	);
+	const healingMultiplier = getEffectiveCombatStatValue(player, "healingMultiplier");
 
 	return Math.max(0, Math.floor(baseHealing * healingMultiplier));
 }
