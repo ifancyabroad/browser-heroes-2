@@ -3,6 +3,7 @@ import type { Zone } from "@app/content";
 
 import { getZoneForRun } from "../systems/encounters/zones/getZoneForRun";
 import { calculateGoldMultiplier } from "../systems/progression/rewards/calculateGoldMultiplier";
+import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 
 export type CombatViewState = {
 	combat: CombatState;
@@ -15,6 +16,8 @@ export type CombatViewState = {
 	xp: number;
 	streak: number;
 	goldMultiplier: number;
+	healingPotions: number;
+	maxHealingPotions: number;
 
 	isActive: boolean;
 	isVictory: boolean;
@@ -43,6 +46,8 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 		xp: state.hero.xp,
 		streak: state.streak,
 		goldMultiplier: calculateGoldMultiplier(state.streak),
+		healingPotions: state.hero.healingPotions,
+		maxHealingPotions: MAX_HEALING_POTIONS,
 
 		isActive: combat.status === "active",
 		isVictory: combat.status === "player_won",

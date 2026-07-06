@@ -2,16 +2,20 @@ import clsx from "clsx";
 import restIcon from "../../../assets/images/actions/Skill_Rest.png";
 import rerollIcon from "../../../assets/images/actions/Skill_Dice.png";
 import enterCombatIcon from "../../../assets/images/actions/Skill_Move.png";
+import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 
 type TownActionBarProps = {
 	isPending: boolean;
 	canRest: boolean;
 	canReroll: boolean;
+	canBuyHealingPotion: boolean;
 	canEnterCombat: boolean;
 	restCost: number;
 	rerollCost: number;
+	healingPotionCost: number;
 	onRest: () => void;
 	onReroll: () => void;
+	onBuyHealingPotion: () => void;
 	onEnterCombat: () => void;
 };
 
@@ -19,16 +23,19 @@ export function TownActionBar({
 	isPending,
 	canRest,
 	canReroll,
+	canBuyHealingPotion,
 	canEnterCombat,
 	restCost,
 	rerollCost,
+	healingPotionCost,
 	onRest,
 	onReroll,
+	onBuyHealingPotion,
 	onEnterCombat,
 }: TownActionBarProps) {
 	return (
 		<section aria-label="Town actions">
-			<div className="grid grid-cols-3 justify-items-center gap-1 sm:gap-2 md:flex md:justify-end">
+			<div className="grid grid-cols-4 justify-items-center gap-1 sm:gap-2 md:flex md:justify-end">
 				<IconActionSlot
 					ariaLabel={`Rest for ${restCost} gold`}
 					disabled={isPending || !canRest}
@@ -42,6 +49,13 @@ export function TownActionBar({
 					icon={rerollIcon}
 					label={`${rerollCost}g`}
 					onClick={onReroll}
+				/>
+				<IconActionSlot
+					ariaLabel={`Buy health potion for ${healingPotionCost} gold`}
+					disabled={isPending || !canBuyHealingPotion}
+					icon={healingPotionIcon}
+					label={`${healingPotionCost}g`}
+					onClick={onBuyHealingPotion}
 				/>
 				<IconActionSlot
 					ariaLabel="Enter combat"

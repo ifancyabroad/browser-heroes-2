@@ -105,6 +105,16 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
+	function handleBuyHealingPotion() {
+		submitAction(
+			{
+				type: "BUY_CONSUMABLE",
+				consumableType: "healingPotion",
+			},
+			"Unable to buy a health potion. Please try again.",
+		);
+	}
+
 	function handleEnterCombat() {
 		submitAction(
 			{
@@ -164,11 +174,17 @@ export function TownView({ run }: TownViewProps) {
 									availableActionTypes.has("REROLL_SHOP") &&
 									townView.canAffordReroll
 								}
+								canBuyHealingPotion={
+									availableActionTypes.has("BUY_CONSUMABLE") &&
+									townView.canBuyHealingPotion
+								}
 								canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
 								restCost={townView.restCost}
 								rerollCost={townView.rerollCost}
+								healingPotionCost={townView.healingPotionCost}
 								onRest={handleRest}
 								onReroll={handleReroll}
+								onBuyHealingPotion={handleBuyHealingPotion}
 								onEnterCombat={handleEnterCombat}
 							/>
 						</div>

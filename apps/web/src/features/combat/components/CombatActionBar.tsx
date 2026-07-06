@@ -7,6 +7,7 @@ import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import continueIcon from "../../../assets/images/actions/Skill_Move.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
 import skipTurnIcon from "../../../assets/images/icons/skill_3_stuned.png";
+import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 
 // TODO: Replace with engine-owned action slot capacity once action slots become gameplay state.
 const combatActionSlotCount = 8;
@@ -16,11 +17,15 @@ type CombatActionBarProps = {
 	isPending: boolean;
 	canBasicAttack: boolean;
 	canSkipTurn: boolean;
+	canUseHealingPotion: boolean;
 	availableSkillIds: ReadonlySet<SkillId>;
+	healingPotions: number;
+	maxHealingPotions: number;
 	canContinue: boolean;
 	canReturnToTown: boolean;
 	onBasicAttack: () => void;
 	onSkipTurn: () => void;
+	onUseHealingPotion: () => void;
 	onUseSkill: (skillId: SkillId) => void;
 	onContinue: () => void;
 	onReturnToTown: () => void;
@@ -31,16 +36,20 @@ export function CombatActionBar({
 	isPending,
 	canBasicAttack,
 	canSkipTurn,
+	canUseHealingPotion,
 	availableSkillIds,
+	healingPotions,
+	maxHealingPotions,
 	canContinue,
 	canReturnToTown,
 	onBasicAttack,
 	onSkipTurn,
+	onUseHealingPotion,
 	onUseSkill,
 	onContinue,
 	onReturnToTown,
 }: CombatActionBarProps) {
-	const usedSlotCount = 2 + player.skills.length;
+	const usedSlotCount = 3 + player.skills.length;
 	const emptySlotCount = Math.max(0, combatActionSlotCount - usedSlotCount);
 
 	return (
@@ -51,9 +60,13 @@ export function CombatActionBar({
 					isPending={isPending}
 					canBasicAttack={canBasicAttack}
 					canSkipTurn={canSkipTurn}
+					canUseHealingPotion={canUseHealingPotion}
 					availableSkillIds={availableSkillIds}
+					healingPotions={healingPotions}
+					maxHealingPotions={maxHealingPotions}
 					onBasicAttack={onBasicAttack}
 					onSkipTurn={onSkipTurn}
+					onUseHealingPotion={onUseHealingPotion}
 					onUseSkill={onUseSkill}
 				/>
 				<EmptyActionSlots count={emptySlotCount} />
@@ -73,9 +86,13 @@ export function CombatActionBar({
 						isPending={isPending}
 						canBasicAttack={canBasicAttack}
 						canSkipTurn={canSkipTurn}
+						canUseHealingPotion={canUseHealingPotion}
 						availableSkillIds={availableSkillIds}
+						healingPotions={healingPotions}
+						maxHealingPotions={maxHealingPotions}
 						onBasicAttack={onBasicAttack}
 						onSkipTurn={onSkipTurn}
+						onUseHealingPotion={onUseHealingPotion}
 						onUseSkill={onUseSkill}
 					/>
 					<EmptyActionSlots count={emptySlotCount} />
@@ -100,9 +117,13 @@ type CombatSlotsProps = {
 	isPending: boolean;
 	canBasicAttack: boolean;
 	canSkipTurn: boolean;
+	canUseHealingPotion: boolean;
 	availableSkillIds: ReadonlySet<SkillId>;
+	healingPotions: number;
+	maxHealingPotions: number;
 	onBasicAttack: () => void;
 	onSkipTurn: () => void;
+	onUseHealingPotion: () => void;
 	onUseSkill: (skillId: SkillId) => void;
 };
 
@@ -111,9 +132,13 @@ function CombatSlots({
 	isPending,
 	canBasicAttack,
 	canSkipTurn,
+	canUseHealingPotion,
 	availableSkillIds,
+	healingPotions,
+	maxHealingPotions,
 	onBasicAttack,
 	onSkipTurn,
+	onUseHealingPotion,
 	onUseSkill,
 }: CombatSlotsProps) {
 	return (
@@ -129,6 +154,13 @@ function CombatSlots({
 				disabled={isPending || !canSkipTurn}
 				icon={skipTurnIcon}
 				onClick={onSkipTurn}
+			/>
+			<IconActionSlot
+				ariaLabel="Use health potion"
+				disabled={isPending || !canUseHealingPotion}
+				icon={healingPotionIcon}
+				label={`${healingPotions}/${maxHealingPotions}`}
+				onClick={onUseHealingPotion}
 			/>
 			{player.skills.map((skill) => (
 				<SkillSlot
@@ -179,10 +211,11 @@ type IconActionSlotProps = {
 	ariaLabel: string;
 	disabled: boolean;
 	icon: string;
+	label?: string;
 	onClick: () => void;
 };
 
-function IconActionSlot({ ariaLabel, disabled, icon, onClick }: IconActionSlotProps) {
+function IconActionSlot({ ariaLabel, disabled, icon, label, onClick }: IconActionSlotProps) {
 	return (
 		<button
 			type="button"
@@ -192,6 +225,11 @@ function IconActionSlot({ ariaLabel, disabled, icon, onClick }: IconActionSlotPr
 			onClick={onClick}
 		>
 			<ActionSlotImage src={icon} />
+			{label && (
+				<span className="absolute bottom-1 right-1 bg-bg-base/80 px-1 text-primary">
+					{label}
+				</span>
+			)}
 		</button>
 	);
 }

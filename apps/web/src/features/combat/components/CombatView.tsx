@@ -51,6 +51,10 @@ export function CombatView({ run }: CombatViewProps) {
 			action.type === "PLAYER_USE_SKILL" ? [action.skillId] : [],
 		),
 	);
+	const canUseHealingPotion = availableActions.some(
+		(action) =>
+			action.type === "PLAYER_USE_CONSUMABLE" && action.consumableType === "healingPotion",
+	);
 
 	function submitAction(action: EngineAction, fallbackErrorMessage: string) {
 		applyRunAction.mutate(
@@ -117,6 +121,16 @@ export function CombatView({ run }: CombatViewProps) {
 		);
 	}
 
+	function handleUseHealingPotion() {
+		submitAction(
+			{
+				type: "PLAYER_USE_CONSUMABLE",
+				consumableType: "healingPotion",
+			},
+			"Unable to use a health potion. Please try again.",
+		);
+	}
+
 	function handleOpenSidebar() {
 		setSidebarOpen(true);
 	}
@@ -178,11 +192,15 @@ export function CombatView({ run }: CombatViewProps) {
 							isPending={applyRunAction.isPending}
 							canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
 							canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
+							canUseHealingPotion={canUseHealingPotion}
 							availableSkillIds={availableSkillIds}
+							healingPotions={combatView.healingPotions}
+							maxHealingPotions={combatView.maxHealingPotions}
 							canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
 							canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
 							onBasicAttack={handleBasicAttack}
 							onSkipTurn={handleSkipTurn}
+							onUseHealingPotion={handleUseHealingPotion}
 							onUseSkill={handleUseSkill}
 							onContinue={handleContinue}
 							onReturnToTown={handleReturnToTown}
