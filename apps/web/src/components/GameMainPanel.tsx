@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import clsx from "clsx";
 
 type GameMainPanelProps = {
 	children: ReactNode;
@@ -22,7 +21,7 @@ export function GameMainPanel({
 
 			<div className="min-h-0 flex-1 overflow-y-auto">
 				<div className="mx-auto flex min-h-full w-full max-w-6xl flex-col px-4 py-3 md:px-6 md:py-4">
-					<div className={clsx("flex-1", contentClassName)}>{children}</div>
+					<div className={contentClassName}>{children}</div>
 
 					<div className="sticky bottom-0 z-20 shrink-0 pt-3">{actions}</div>
 				</div>

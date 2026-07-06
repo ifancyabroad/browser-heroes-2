@@ -35,7 +35,7 @@ export function TownActionBar({
 }: TownActionBarProps) {
 	return (
 		<section aria-label="Town actions">
-			<div className="grid grid-cols-4 justify-items-center gap-1 sm:gap-2 md:flex md:justify-end">
+			<div className="flex flex-wrap justify-end gap-1 sm:gap-2">
 				<IconActionSlot
 					ariaLabel={`Rest for ${restCost} gold`}
 					disabled={isPending || !canRest}
@@ -106,7 +106,7 @@ function IconActionSlot({ ariaLabel, disabled, icon, label, onClick }: IconActio
 
 function getActionSlotClassName(disabled: boolean) {
 	return clsx(
-		"relative aspect-square w-full max-w-16 overflow-hidden bg-bg-elevated transition-colors sm:max-w-20 md:w-20 md:max-w-none",
+		"relative aspect-square w-16 overflow-hidden bg-bg-elevated transition-colors sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
 		disabled
 			? "cursor-not-allowed opacity-60"

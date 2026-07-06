@@ -9,9 +9,6 @@ import townIcon from "../../../assets/images/actions/Town_01.png";
 import skipTurnIcon from "../../../assets/images/icons/skill_3_stuned.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 
-// TODO: Replace with engine-owned action slot capacity once action slots become gameplay state.
-const combatActionSlotCount = 8;
-
 type CombatActionBarProps = {
 	player: CombatantState;
 	isPending: boolean;
@@ -49,38 +46,13 @@ export function CombatActionBar({
 	onContinue,
 	onReturnToTown,
 }: CombatActionBarProps) {
-	const usedSlotCount = 3 + player.skills.length;
-	const emptySlotCount = Math.max(0, combatActionSlotCount - usedSlotCount);
-
 	return (
 		<section aria-label="Command bar">
-			<div className="grid grid-cols-5 justify-items-center gap-1 sm:gap-2 md:hidden">
-				<CombatSlots
-					player={player}
-					isPending={isPending}
-					canBasicAttack={canBasicAttack}
-					canSkipTurn={canSkipTurn}
-					canUseHealingPotion={canUseHealingPotion}
-					availableSkillIds={availableSkillIds}
-					healingPotions={healingPotions}
-					maxHealingPotions={maxHealingPotions}
-					onBasicAttack={onBasicAttack}
-					onSkipTurn={onSkipTurn}
-					onUseHealingPotion={onUseHealingPotion}
-					onUseSkill={onUseSkill}
-				/>
-				<EmptyActionSlots count={emptySlotCount} />
-				<RunActionSlots
-					isPending={isPending}
-					canContinue={canContinue}
-					canReturnToTown={canReturnToTown}
-					onContinue={onContinue}
-					onReturnToTown={onReturnToTown}
-				/>
-			</div>
-
-			<div className="hidden md:flex md:items-start md:justify-between md:gap-2">
-				<div className="flex flex-wrap justify-start gap-2" aria-label="Combat actions">
+			<div className="flex flex-wrap items-start justify-end gap-1 sm:gap-2 md:justify-between">
+				<div
+					className="flex flex-wrap justify-end gap-1 sm:gap-2 md:justify-start"
+					aria-label="Combat actions"
+				>
 					<CombatSlots
 						player={player}
 						isPending={isPending}
@@ -95,10 +67,9 @@ export function CombatActionBar({
 						onUseHealingPotion={onUseHealingPotion}
 						onUseSkill={onUseSkill}
 					/>
-					<EmptyActionSlots count={emptySlotCount} />
 				</div>
 
-				<div className="flex flex-wrap justify-end gap-2" aria-label="Run actions">
+				<div className="flex flex-wrap justify-end gap-1 sm:gap-2" aria-label="Run actions">
 					<RunActionSlots
 						isPending={isPending}
 						canContinue={canContinue}
@@ -247,7 +218,7 @@ function SkillSlot({ skill, disabled, onUseSkill }: SkillSlotProps) {
 	return (
 		<Tooltip
 			content={<SkillTooltipContent skill={skill} definition={definition} />}
-			className="w-full max-w-16 sm:max-w-20 md:w-20 md:max-w-none"
+			className="w-16 sm:w-20"
 			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 		>
 			<button
@@ -271,18 +242,6 @@ function SkillSlot({ skill, disabled, onUseSkill }: SkillSlotProps) {
 	);
 }
 
-function EmptyActionSlot() {
-	return (
-		<div className="aspect-square w-full max-w-16 shrink-0 border-2 border-dashed border-border/70 sm:max-w-20 md:w-20 md:max-w-none" />
-	);
-}
-
-function EmptyActionSlots({ count }: { count: number }) {
-	return Array.from({ length: count }, (_, index) => (
-		<EmptyActionSlot key={`empty-action-${index}`} />
-	));
-}
-
 type ActionSlotImageProps = {
 	src: string;
 };
@@ -303,7 +262,7 @@ function ActionSlotImage({ src }: ActionSlotImageProps) {
 
 function getActionSlotClassName(disabled: boolean) {
 	return clsx(
-		"relative aspect-square w-full max-w-16 overflow-hidden bg-bg-elevated transition-colors sm:max-w-20 md:w-20 md:max-w-none",
+		"relative aspect-square w-16 overflow-hidden bg-bg-elevated transition-colors sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
 		disabled
 			? "cursor-not-allowed opacity-60"
