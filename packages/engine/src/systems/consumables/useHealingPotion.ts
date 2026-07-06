@@ -9,17 +9,21 @@ import { appendCombatLog } from "../combat/logs/appendCombatLog";
 import { HEALING_POTION_HEAL_PERCENT } from "./healingPotionConstants";
 import { getEffectiveCombatStatValue } from "../combat/effects/getEffectiveCombatStatValue";
 import { finishPlayerActionRound } from "../combat/rounds/finishPlayerActionRound";
+import { hasActiveStatus } from "../combat/effects/hasActiveStatus";
+import { validatePlayerAction } from "../combat/rounds/validatePlayerAction";
 
 export function useHealingPotion(state: RunState): EngineResult {
 	if (!state.combat) {
 		throw new Error("useHealingPotion requires active combat");
 	}
 
-	if (state.phase !== "combat" || state.combat.status !== "active") {
-		return failureResult(state, "COMBAT_NOT_ACTIVE");
+	const validation = validatePlayerAction(state.combat);
+
+	if (!validation.ok) {
+		return failureResult(state, validation.error);
 	}
 
-	if (state.combat.activeActor !== "player") {
+	if (hasActiveStatus(state.combat.player, "stunned")) {
 		return failureResult(state, "PLAYER_CANNOT_ACT");
 	}
 

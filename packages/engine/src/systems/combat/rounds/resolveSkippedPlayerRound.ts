@@ -4,6 +4,8 @@ import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
 import { getActiveEffectIds } from "../effects/advanceActiveEffects";
 import { finishPlayerActionRound } from "./finishPlayerActionRound";
+import { validatePlayerAction } from "./validatePlayerAction";
+import { failureResult } from "../../../core/result";
 
 export function resolveSkippedPlayerRound(
 	state: RunState,
@@ -11,6 +13,12 @@ export function resolveSkippedPlayerRound(
 ): EngineResult {
 	if (!state.combat) {
 		throw new Error("resolveSkippedPlayerRound requires active combat");
+	}
+
+	const validation = validatePlayerAction(state.combat);
+
+	if (!validation.ok) {
+		return failureResult(state, validation.error);
 	}
 
 	const playerEffectIds = getActiveEffectIds(state.combat.player);
