@@ -9,9 +9,10 @@ import {
 } from "../../../components/tooltips/ItemTooltipContent";
 import {
 	armourSlotLabels,
+	armourCategoryLabels,
 	damageTypeLabels,
 	equipmentSlotLabels,
-	itemRarityLabels,
+	weaponHandednessLabels,
 	weaponTypeLabels,
 } from "../../../game/displayLabels";
 import { formatItemModifier, getModifierTextClassName } from "../../../game/effectDisplay";
@@ -28,24 +29,23 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 	const primaryDestination = slot.destinations[0];
 	const disabled = isPending || slot.purchased || !slot.canAfford;
 	const slotLabel = getDestinationLabel(slot);
+	const primaryStatLabel = getPrimaryItemStatLabel(slot);
+	const tooltipSlot = primaryDestination?.equipmentSlot;
 
 	return (
 		<Card
 			className={clsx(
-				"grid grid-cols-[3.5rem_minmax(0,1fr)_3.5rem] gap-3 p-3 transition-opacity md:grid-cols-[4rem_minmax(0,1fr)_4rem]",
+				"grid grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 p-3 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)_4rem]",
+				!disabled && "hover:border-primary",
 				slot.purchased && "opacity-60",
 			)}
 		>
 			<Tooltip
-				content={
-					primaryDestination ? (
-						<ItemTooltipContent item={item} slot={primaryDestination.equipmentSlot} />
-					) : null
-				}
-				className="h-14 w-14 md:h-16 md:w-16"
+				content={tooltipSlot ? <ItemTooltipContent item={item} slot={tooltipSlot} /> : null}
+				className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16"
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 			>
-				<span className="block h-14 w-14 overflow-hidden border border-border bg-bg-base md:h-16 md:w-16">
+				<span className="block h-12 w-12 overflow-hidden border border-border bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
 					<img
 						src={item.icon}
 						alt=""
@@ -56,15 +56,12 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 				</span>
 			</Tooltip>
 
-			<div className="grid min-w-0 content-start gap-1">
-				<div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+			<div className="grid min-w-0 content-start gap-2">
+				<div className="min-w-0">
 					<Tooltip
 						content={
-							primaryDestination ? (
-								<ItemTooltipContent
-									item={item}
-									slot={primaryDestination.equipmentSlot}
-								/>
+							tooltipSlot ? (
+								<ItemTooltipContent item={item} slot={tooltipSlot} />
 							) : null
 						}
 						className={clsx(
@@ -75,51 +72,60 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 					>
 						{item.name}
 					</Tooltip>
-					<span className="text-text-label">{slot.price}g</span>
+					<span className="mx-2 text-text-muted">/</span>
+					<span className={clsx("whitespace-nowrap", getPriceClassName(slot))}>
+						{slot.price}g
+					</span>
 				</div>
 
-				<div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 text-text-label">
-					<BracketBadge>{slotLabel}</BracketBadge>
-					<span className="md:hidden">{getMobileItemSummary(slot)}</span>
-					{slot.purchased ? (
-						<span className="text-success">Purchased</span>
-					) : !slot.canAfford ? (
-						<span className="text-error">Need gold</span>
-					) : null}
-				</div>
-
-				<div className="hidden gap-1 md:grid">
-					<p className="text-text">{getDesktopItemSummary(slot)}</p>
-					{primaryDestination && <ReplacementDetail destination={primaryDestination} />}
-					{slot.requiresEquipmentSlotSelection && (
-						<p className="text-text-label">Choose slot when buying</p>
+				<div className="grid min-w-0 gap-1">
+					<DetailLine
+						label="Type"
+						value={getItemKindLabel(slot)}
+						className="hidden md:grid"
+					/>
+					<DetailLine label="Slot" value={slotLabel} className="hidden md:grid" />
+					{primaryStatLabel && (
+						<DetailLine
+							label="Value"
+							value={primaryStatLabel}
+							valueClassName="text-text-bright"
+							className="hidden md:grid"
+						/>
 					)}
-					<ItemModifierPreview slot={slot} />
+					{primaryDestination && <ReplacementDetail destination={primaryDestination} />}
+				</div>
+
+				<div className="hidden md:grid">
+					<BonusPreview slot={slot} />
 				</div>
 			</div>
 
-			<button
-				type="button"
-				className={clsx(
-					"relative aspect-square w-14 self-start overflow-hidden bg-bg-elevated transition-colors md:w-16",
-					"flex shrink-0 items-center justify-center border border-border",
-					disabled
-						? "cursor-not-allowed opacity-60"
-						: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
-				)}
-				disabled={disabled}
-				aria-label={getBuyLabel(slot)}
-				title={getBuyLabel(slot)}
-				onClick={onBuy}
-			>
-				<img
-					src={buyIcon}
-					alt=""
-					loading="lazy"
-					className="h-full w-full scale-110 object-cover"
-					aria-hidden
-				/>
-			</button>
+			<div className="grid content-start justify-items-end">
+				<button
+					type="button"
+					className={clsx(
+						"relative aspect-square w-12 overflow-hidden bg-bg-elevated transition-colors md:w-14",
+						"flex shrink-0 items-center justify-center border border-border",
+						disabled
+							? "cursor-not-allowed opacity-60"
+							: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+					)}
+					disabled={disabled}
+					aria-label={getBuyLabel(slot)}
+					title={getBuyLabel(slot)}
+					onClick={onBuy}
+				>
+					<img
+						src={buyIcon}
+						alt=""
+						loading="lazy"
+						className="h-full w-full scale-110 object-cover"
+						aria-hidden
+					/>
+				</button>
+				{slot.purchased && <span className="mt-1 text-right text-success">Purchased</span>}
+			</div>
 		</Card>
 	);
 }
@@ -134,40 +140,102 @@ function getDestinationLabel(slot: TownShopSlotView) {
 		.join(" / ");
 }
 
-function getMobileItemSummary(slot: TownShopSlotView) {
+function getItemKindLabel(slot: TownShopSlotView) {
 	if (slot.item.type === "weapon") {
-		return weaponTypeLabels[slot.item.weaponType];
+		return `${weaponHandednessLabels[slot.item.handedness]} ${weaponTypeLabels[slot.item.weaponType].toLowerCase()}`;
+	}
+
+	if (slot.item.slot === "body") {
+		return `${armourCategoryLabels[slot.item.category]} armour`;
 	}
 
 	return armourSlotLabels[slot.item.slot];
 }
 
-function getDesktopItemSummary(slot: TownShopSlotView) {
-	const rarity = itemRarityLabels[slot.item.rarity];
-
+function getPrimaryItemStatLabel(slot: TownShopSlotView) {
 	if (slot.item.type === "weapon") {
-		return `${rarity} ${weaponTypeLabels[slot.item.weaponType]} - ${slot.item.damage.dice} ${damageTypeLabels[slot.item.damage.type]}`;
+		return `${slot.item.damage.dice} ${damageTypeLabels[slot.item.damage.type]}`;
 	}
 
-	return `${rarity} ${armourSlotLabels[slot.item.slot]}`;
+	if (slot.item.slot === "body") {
+		return `AC ${slot.item.armourClass}`;
+	}
+
+	return null;
+}
+
+function getPriceClassName(slot: TownShopSlotView) {
+	if (slot.purchased) {
+		return "text-success";
+	}
+
+	if (!slot.canAfford) {
+		return "text-error";
+	}
+
+	return "text-primary";
+}
+
+function DetailLine({
+	label,
+	value,
+	valueClassName = "text-text",
+	className,
+}: {
+	label: string;
+	value: string;
+	valueClassName?: string;
+	className?: string;
+}) {
+	return (
+		<p className={clsx("min-w-0 grid-cols-[4rem_minmax(0,1fr)] gap-2", className ?? "grid")}>
+			<span className="text-text-label">{label}</span>
+			<span className={clsx("min-w-0 break-words", valueClassName)}>{value}</span>
+		</p>
+	);
+}
+
+function BonusPreview({ slot }: { slot: TownShopSlotView }) {
+	if (slot.item.modifiers.length === 0) {
+		return null;
+	}
+
+	return (
+		<div className="grid min-w-0 gap-1">
+			<p className="text-text-label">Bonuses</p>
+			<ul className="grid gap-1">
+				{slot.item.modifiers.map((modifier, index) => (
+					<li
+						key={`${modifier.type}-${index}`}
+						className={clsx("min-w-0 break-words", getModifierTextClassName(modifier))}
+					>
+						{formatItemModifier(modifier)}
+					</li>
+				))}
+			</ul>
+		</div>
+	);
 }
 
 function ReplacementDetail({ destination }: { destination: TownShopDestinationView }) {
 	if (destination.replacedItems.length === 0) {
 		return (
-			<p className="text-text-label">
-				Empty {equipmentSlotLabels[destination.equipmentSlot]}
+			<p className="grid min-w-0 grid-cols-[4rem_minmax(0,1fr)] gap-2">
+				<span className="text-text-label">Current</span>
+				<span className="text-text">Empty</span>
 			</p>
 		);
 	}
 
 	return (
-		<p className="flex min-w-0 flex-wrap items-baseline gap-x-1 text-text-label">
-			<span>Replaces</span>
-			<ReplacedItemsInline
-				replacedItems={destination.replacedItems}
-				fallbackSlot={destination.equipmentSlot}
-			/>
+		<p className="grid min-w-0 grid-cols-[4rem_minmax(0,1fr)] gap-2">
+			<span className="text-text-label">Current</span>
+			<span className="min-w-0 break-words text-text">
+				<ReplacedItemsInline
+					replacedItems={destination.replacedItems}
+					fallbackSlot={destination.equipmentSlot}
+				/>
+			</span>
 		</p>
 	);
 }
@@ -218,35 +286,6 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 			>
 				{item.name}
 			</Tooltip>
-		</span>
-	);
-}
-
-function ItemModifierPreview({ slot }: { slot: TownShopSlotView }) {
-	const previewModifiers = slot.item.modifiers.slice(0, 2);
-
-	if (previewModifiers.length === 0) {
-		return null;
-	}
-
-	return (
-		<ul className="grid gap-1">
-			{previewModifiers.map((modifier, index) => (
-				<li
-					key={`${modifier.type}-${index}`}
-					className={clsx("break-words", getModifierTextClassName(modifier))}
-				>
-					{formatItemModifier(modifier)}
-				</li>
-			))}
-		</ul>
-	);
-}
-
-function BracketBadge({ children }: { children: string }) {
-	return (
-		<span className="text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
-			{children}
 		</span>
 	);
 }

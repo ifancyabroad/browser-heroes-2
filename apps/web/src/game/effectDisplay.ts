@@ -199,7 +199,7 @@ function getNumericModifierTone(
 	operation: ModifierOperation,
 	value: number,
 ): "positive" | "negative" | "neutral" {
-	if (operation === "set" || value === 0 || value === 1) {
+	if (operation === "set" || value === 0 || (operation === "multiply" && value === 1)) {
 		return "neutral";
 	}
 
