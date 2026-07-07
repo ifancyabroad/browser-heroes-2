@@ -2,6 +2,7 @@ import type { HeroState, RunState } from "../../../schemas";
 
 import { getEnemyDefinition } from "../../encounters/getEnemyDefinition";
 import { syncHeroFromPlayerCombatant } from "../../combat/combatants/syncHeroFromCombatant";
+import { appendCombatLog } from "../../combat/logs/appendCombatLog";
 import { applyCombatReward } from "./applyCombatReward";
 import { calculateCombatReward, type CombatReward } from "./calculateCombatReward";
 import { calculateGoldMultiplier } from "./calculateGoldMultiplier";
@@ -32,9 +33,17 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 		goldMultiplier: calculateGoldMultiplier(state.streak),
 	});
 
+	const combatWithRewardLog = appendCombatLog(combat, {
+		turnNumber: combat.turnNumber,
+		actor: "player",
+		message: `You gained ${reward.xp} XP and ${reward.gold} gold.`,
+		eventType: "reward_gained",
+	});
+
 	const syncedState: RunState = {
 		...state,
-		hero: syncHeroFromPlayerCombatant(state.hero, combat.player),
+		combat: combatWithRewardLog,
+		hero: syncHeroFromPlayerCombatant(state.hero, combatWithRewardLog.player),
 	};
 
 	const rewardedState = applyCombatReward(syncedState, reward);
