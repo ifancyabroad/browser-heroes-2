@@ -37,6 +37,7 @@ export type TownView = {
 	healingPotions: number;
 	maxHealingPotions: number;
 	healingPotionCost: number;
+	canAffordHealingPotion: boolean;
 	canBuyHealingPotion: boolean;
 };
 
@@ -61,6 +62,7 @@ export function selectTownView(state: RunState): TownView | null {
 		healingPotions: state.hero.healingPotions,
 		maxHealingPotions: MAX_HEALING_POTIONS,
 		healingPotionCost: state.town.healingPotionCost,
+		canAffordHealingPotion: state.gold >= state.town.healingPotionCost,
 		canBuyHealingPotion:
 			state.hero.healingPotions < MAX_HEALING_POTIONS &&
 			state.gold >= state.town.healingPotionCost,

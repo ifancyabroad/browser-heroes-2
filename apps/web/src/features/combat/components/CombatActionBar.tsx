@@ -1,6 +1,6 @@
-import clsx from "clsx";
 import { SKILLS_BY_ID, type SkillId } from "@app/content";
 import type { CombatantSkillState, CombatantState } from "@app/engine";
+import { ActionBarGroup, ActionBarTray, ActionSlotButton } from "../../../components/ActionBar";
 import { Tooltip } from "../../../components/Tooltip";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
@@ -48,10 +48,10 @@ export function CombatActionBar({
 }: CombatActionBarProps) {
 	return (
 		<section aria-label="Command bar">
-			<div className="flex flex-wrap items-start justify-end gap-1 sm:gap-2 md:justify-between">
-				<div
-					className="flex flex-wrap justify-end gap-1 sm:gap-2 md:justify-start"
+			<ActionBarTray>
+				<ActionBarGroup
 					aria-label="Combat actions"
+					className="justify-end md:justify-start"
 				>
 					<CombatSlots
 						player={player}
@@ -67,9 +67,9 @@ export function CombatActionBar({
 						onUseHealingPotion={onUseHealingPotion}
 						onUseSkill={onUseSkill}
 					/>
-				</div>
+				</ActionBarGroup>
 
-				<div className="flex flex-wrap justify-end gap-1 sm:gap-2" aria-label="Run actions">
+				<ActionBarGroup aria-label="Run actions" className="justify-end">
 					<RunActionSlots
 						isPending={isPending}
 						canContinue={canContinue}
@@ -77,8 +77,8 @@ export function CombatActionBar({
 						onContinue={onContinue}
 						onReturnToTown={onReturnToTown}
 					/>
-				</div>
-			</div>
+				</ActionBarGroup>
+			</ActionBarTray>
 		</section>
 	);
 }
@@ -114,23 +114,24 @@ function CombatSlots({
 }: CombatSlotsProps) {
 	return (
 		<>
-			<IconActionSlot
+			<ActionSlotButton
 				ariaLabel={`Basic attack: ${player.basicAttack.name}`}
 				disabled={isPending || !canBasicAttack}
 				icon={attackIcon}
 				onClick={onBasicAttack}
 			/>
-			<IconActionSlot
+			<ActionSlotButton
 				ariaLabel="Skip turn"
 				disabled={isPending || !canSkipTurn}
 				icon={skipTurnIcon}
 				onClick={onSkipTurn}
 			/>
-			<IconActionSlot
+			<ActionSlotButton
 				ariaLabel="Use health potion"
 				disabled={isPending || !canUseHealingPotion}
 				icon={healingPotionIcon}
 				label={`${healingPotions}/${maxHealingPotions}`}
+				labelClassName="text-primary"
 				onClick={onUseHealingPotion}
 			/>
 			{player.skills.map((skill) => (
@@ -162,46 +163,19 @@ function RunActionSlots({
 }: RunActionSlotsProps) {
 	return (
 		<>
-			<IconActionSlot
+			<ActionSlotButton
 				ariaLabel="Continue to next battle"
 				disabled={isPending || !canContinue}
 				icon={continueIcon}
 				onClick={onContinue}
 			/>
-			<IconActionSlot
+			<ActionSlotButton
 				ariaLabel="Return to town"
 				disabled={isPending || !canReturnToTown}
 				icon={townIcon}
 				onClick={onReturnToTown}
 			/>
 		</>
-	);
-}
-
-type IconActionSlotProps = {
-	ariaLabel: string;
-	disabled: boolean;
-	icon: string;
-	label?: string;
-	onClick: () => void;
-};
-
-function IconActionSlot({ ariaLabel, disabled, icon, label, onClick }: IconActionSlotProps) {
-	return (
-		<button
-			type="button"
-			className={getActionSlotClassName(disabled)}
-			disabled={disabled}
-			aria-label={ariaLabel}
-			onClick={onClick}
-		>
-			<ActionSlotImage src={icon} />
-			{label && (
-				<span className="absolute bottom-1 right-1 bg-bg-base/80 px-1 text-primary">
-					{label}
-				</span>
-			)}
-		</button>
 	);
 }
 
@@ -221,52 +195,17 @@ function SkillSlot({ skill, disabled, onUseSkill }: SkillSlotProps) {
 			className="w-16 sm:w-20"
 			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 		>
-			<button
-				type="button"
-				className={getActionSlotClassName(disabled)}
+			<ActionSlotButton
 				disabled={disabled}
-				aria-label={disabled ? `${definition.name} unavailable` : `Use ${definition.name}`}
+				ariaLabel={disabled ? `${definition.name} unavailable` : `Use ${definition.name}`}
+				icon={definition.icon}
+				label={usesLabel ?? undefined}
+				labelClassName="text-primary"
 				onClick={() => onUseSkill(skill.skillId)}
-			>
-				<ActionSlotImage src={definition.icon} />
-				<span className="absolute left-1 top-1 bg-bg-base/80 px-1 text-text-bright">
-					R{skill.rank}
-				</span>
-				{usesLabel && (
-					<span className="absolute bottom-1 right-1 bg-bg-base/80 px-1 text-primary">
-						{usesLabel}
-					</span>
-				)}
-			</button>
-		</Tooltip>
-	);
-}
-
-type ActionSlotImageProps = {
-	src: string;
-};
-
-function ActionSlotImage({ src }: ActionSlotImageProps) {
-	return (
-		<span className="absolute inset-0 flex items-center justify-center">
-			<img
-				src={src}
-				alt=""
-				loading="lazy"
-				className="h-full w-full scale-110 object-cover"
-				aria-hidden
+				topLeftLabel={`R${skill.rank}`}
+				topLeftLabelClassName="text-text-bright"
 			/>
-		</span>
-	);
-}
-
-function getActionSlotClassName(disabled: boolean) {
-	return clsx(
-		"relative aspect-square w-16 overflow-hidden bg-bg-elevated transition-colors sm:w-20",
-		"flex shrink-0 items-center justify-center text-center",
-		disabled
-			? "cursor-not-allowed opacity-60"
-			: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+		</Tooltip>
 	);
 }
 
