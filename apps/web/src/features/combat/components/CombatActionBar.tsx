@@ -120,6 +120,14 @@ function CombatSlots({
 				icon={attackIcon}
 				onClick={onBasicAttack}
 			/>
+			{player.skills.map((skill) => (
+				<SkillSlot
+					key={skill.skillId}
+					skill={skill}
+					disabled={isPending || !availableSkillIds.has(skill.skillId)}
+					onUseSkill={onUseSkill}
+				/>
+			))}
 			<ActionSlotButton
 				ariaLabel="Skip turn"
 				disabled={isPending || !canSkipTurn}
@@ -134,14 +142,6 @@ function CombatSlots({
 				labelClassName="text-primary"
 				onClick={onUseHealingPotion}
 			/>
-			{player.skills.map((skill) => (
-				<SkillSlot
-					key={skill.skillId}
-					skill={skill}
-					disabled={isPending || !availableSkillIds.has(skill.skillId)}
-					onUseSkill={onUseSkill}
-				/>
-			))}
 		</>
 	);
 }
@@ -164,16 +164,16 @@ function RunActionSlots({
 	return (
 		<>
 			<ActionSlotButton
-				ariaLabel="Continue to next battle"
-				disabled={isPending || !canContinue}
-				icon={continueIcon}
-				onClick={onContinue}
-			/>
-			<ActionSlotButton
 				ariaLabel="Return to town"
 				disabled={isPending || !canReturnToTown}
 				icon={townIcon}
 				onClick={onReturnToTown}
+			/>
+			<ActionSlotButton
+				ariaLabel="Continue to next battle"
+				disabled={isPending || !canContinue}
+				icon={continueIcon}
+				onClick={onContinue}
 			/>
 		</>
 	);
