@@ -98,10 +98,19 @@ const runSchema = new Schema(
 	},
 );
 
-runSchema.index({ userId: 1, status: 1 });
 runSchema.index({ userId: 1, createdAt: -1 });
 runSchema.index({ status: 1, "summary.battleNumber": -1 });
 runSchema.index({ userId: 1, "summary.battleNumber": -1 });
+
+runSchema.index(
+	{ userId: 1 },
+	{
+		unique: true,
+		partialFilterExpression: {
+			status: "active",
+		},
+	},
+);
 
 export type RunDocument = InferSchemaType<typeof runSchema>;
 
