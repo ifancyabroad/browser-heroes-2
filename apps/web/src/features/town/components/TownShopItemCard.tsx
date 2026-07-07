@@ -29,7 +29,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 	const primaryDestination = slot.destinations[0];
 	const disabled = isPending || slot.purchased || !slot.canAfford;
 	const slotLabel = getDestinationLabel(slot);
-	const primaryStatLabel = getPrimaryItemStatLabel(slot);
+	const primaryStat = getPrimaryItemStat(slot);
 	const tooltipSlot = primaryDestination?.equipmentSlot;
 
 	return (
@@ -85,10 +85,10 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 						className="hidden md:grid"
 					/>
 					<DetailLine label="Slot" value={slotLabel} className="hidden md:grid" />
-					{primaryStatLabel && (
+					{primaryStat && (
 						<DetailLine
-							label="Value"
-							value={primaryStatLabel}
+							label={primaryStat.label}
+							value={primaryStat.value}
 							valueClassName="text-text-bright"
 							className="hidden md:grid"
 						/>
@@ -108,7 +108,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 						"relative aspect-square w-12 overflow-hidden bg-bg-elevated transition-colors md:w-14",
 						"flex shrink-0 items-center justify-center border border-border",
 						disabled
-							? "cursor-not-allowed opacity-60"
+							? "cursor-not-allowed grayscale"
 							: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
 					)}
 					disabled={disabled}
@@ -152,13 +152,19 @@ function getItemKindLabel(slot: TownShopSlotView) {
 	return armourSlotLabels[slot.item.slot];
 }
 
-function getPrimaryItemStatLabel(slot: TownShopSlotView) {
+function getPrimaryItemStat(slot: TownShopSlotView) {
 	if (slot.item.type === "weapon") {
-		return `${slot.item.damage.dice} ${damageTypeLabels[slot.item.damage.type]}`;
+		return {
+			label: "Damage",
+			value: `${slot.item.damage.dice} ${damageTypeLabels[slot.item.damage.type]}`,
+		};
 	}
 
 	if (slot.item.slot === "body") {
-		return `AC ${slot.item.armourClass}`;
+		return {
+			label: "AC",
+			value: String(slot.item.armourClass),
+		};
 	}
 
 	return null;
