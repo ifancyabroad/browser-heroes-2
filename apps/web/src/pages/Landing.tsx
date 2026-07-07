@@ -51,7 +51,7 @@ function CurrentRunSection({ run }: CurrentRunSectionProps) {
 		<>
 			<p>Continue your adventure!</p>
 			<div className="flex justify-between gap-4 p-4 border border-info w-full">
-				<p className="text-text-bright">{heroView.name}</p>
+				<p>{heroView.name}</p>
 
 				<p className="text-text">
 					Level {heroView.level} {heroClass.name}

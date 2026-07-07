@@ -11,10 +11,7 @@ type CombatantPanelProps = {
 export function CombatantPanel({ combatant, identity, ariaLabel }: CombatantPanelProps) {
 	return (
 		<section className="grid gap-2" aria-label={ariaLabel}>
-			<h2
-				className="truncate text-base text-text-bright"
-				title={`Level ${combatant.level} ${identity}`}
-			>
+			<h2 className="truncate text-base" title={`Level ${combatant.level} ${identity}`}>
 				Level {combatant.level} <span className="text-primary">{identity}</span>
 			</h2>
 			<ResourceBar

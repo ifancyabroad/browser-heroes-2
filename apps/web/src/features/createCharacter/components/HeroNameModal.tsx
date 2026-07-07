@@ -41,12 +41,7 @@ export function HeroNameModal({
 			closeOnBackdropClick={!isSubmitting}
 			footer={
 				<>
-					<Button
-						type="button"
-						onClick={onClose}
-						disabled={isSubmitting}
-						className="text-text-bright"
-					>
+					<Button type="button" onClick={onClose} disabled={isSubmitting}>
 						Cancel
 					</Button>
 
@@ -69,7 +64,7 @@ export function HeroNameModal({
 					onChange={handleChange}
 					disabled={isSubmitting}
 					autoComplete="off"
-					className="w-full border-2 border-border bg-bg-base px-3 py-2 text-text-bright caret-primary outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+					className="w-full border-2 border-border bg-bg-base px-3 py-2 caret-primary outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
 					autoFocus
 				/>
 			</form>

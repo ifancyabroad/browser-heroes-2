@@ -71,7 +71,7 @@ type ActiveEffectTooltipContentProps = {
 function ActiveEffectTooltipContent({ skillName, effects }: ActiveEffectTooltipContentProps) {
 	return (
 		<div className="grid gap-2">
-			<p className="break-words text-text-bright">{skillName}</p>
+			<p className="break-words">{skillName}</p>
 			<ul className="grid gap-2 border-t border-border pt-2">
 				{effects.map((effect) => (
 					<li key={effect.id} className="flex items-baseline justify-between gap-3">

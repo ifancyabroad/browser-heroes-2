@@ -63,7 +63,7 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 							{content.name}
 						</Tooltip>
 					) : (
-						<span className="text-text-bright">{content.name}</span>
+						<span>{content.name}</span>
 					)}
 				</span>
 				{content.detail && (

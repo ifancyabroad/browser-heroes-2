@@ -47,7 +47,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 				</div>
 			</header>
 
-			<TooltipDetailList rows={getItemDetailRows(item, slot)} valueClassName="text-text" />
+			<TooltipDetailList rows={getItemDetailRows(item, slot)} />
 
 			{item.modifiers.length > 0 && (
 				<TooltipSection title="Bonuses">
@@ -74,9 +74,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 				<TooltipSection title="Tags">
 					<ul className="flex flex-wrap gap-x-2 gap-y-1">
 						{item.tags.map((tag) => (
-							<li key={tag} className="text-text-bright">
-								{formatTitle(tag)}
-							</li>
+							<li key={tag}>{formatTitle(tag)}</li>
 						))}
 					</ul>
 				</TooltipSection>
@@ -114,10 +112,10 @@ function AttackRiderList({ riders }: { riders: readonly AttackRider[] }) {
 					<p className="text-primary">
 						{rider.timing === "onHit" ? "On hit" : "On crit"}
 					</p>
-					{rider.save && <p className="text-text">{formatSavingThrow(rider.save)}</p>}
+					{rider.save && <p>{formatSavingThrow(rider.save)}</p>}
 					<ul className="grid gap-1">
 						{rider.effects.map((effect, effectIndex) => (
-							<li key={`${effect.type}-${effectIndex}`} className="text-text-bright">
+							<li key={`${effect.type}-${effectIndex}`}>
 								{formatRiderEffect(effect)}
 							</li>
 						))}

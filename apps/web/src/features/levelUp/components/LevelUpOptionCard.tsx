@@ -47,7 +47,7 @@ export function LevelUpOptionCard({
 
 			<span className="grid min-w-0 gap-1 self-center">
 				<span className="flex flex-wrap items-baseline gap-x-2">
-					<span className="text-text-bright">{content.name}</span>
+					<span>{content.name}</span>
 					{content.typeLabel && (
 						<span className="text-text-label">{content.typeLabel}</span>
 					)}

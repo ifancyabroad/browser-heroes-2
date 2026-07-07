@@ -40,7 +40,7 @@ export function SkillTooltipContent({ skill, definition }: SkillTooltipContentPr
 				</span>
 
 				<div className="grid min-w-0 content-center gap-1">
-					<p className="break-words text-text-bright">{definition.name}</p>
+					<p className="break-words">{definition.name}</p>
 					<p className="text-text-label">
 						{skillCategoryLabels[definition.category]} /{" "}
 						{skillPoolLabels[definition.pool]}
@@ -63,10 +63,7 @@ export function SkillTooltipContent({ skill, definition }: SkillTooltipContentPr
 			<TooltipSection title="Effects">
 				<ul className="grid gap-1">
 					{rank.effects.map((effect, index) => (
-						<li
-							key={`${effect.type}-${index}`}
-							className="grid gap-1 break-words text-text-bright"
-						>
+						<li key={`${effect.type}-${index}`} className="grid gap-1 break-words">
 							<p>{formatSkillEffect(effect)}</p>
 							{effect.type === "attackDamage" && effect.attackRiders.length > 0 && (
 								<AttackRiderList riders={effect.attackRiders} />
@@ -107,7 +104,7 @@ function AttackRiderItem({ rider, index }: { rider: AttackRider; index: number }
 	const saveText = rider.save ? `${formatSavingThrow(rider.save)}; ` : "";
 
 	return (
-		<li key={`${rider.timing}-${index}`} className="break-words text-text-bright">
+		<li key={`${rider.timing}-${index}`} className="break-words">
 			<span className="text-text-muted">- </span>
 			<span className="text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
 				<span className="px-1">{trigger}</span>

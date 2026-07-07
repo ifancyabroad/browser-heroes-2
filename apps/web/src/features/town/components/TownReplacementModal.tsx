@@ -124,9 +124,7 @@ function ReplacementChoice({ destination, selected, disabled, onSelect }: Replac
 				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
 			)}
 		>
-			<span className="text-text-bright">
-				{getEquipmentSlotLabel(destination.equipmentSlot)}
-			</span>
+			<span>{getEquipmentSlotLabel(destination.equipmentSlot)}</span>
 			{destination.replacedItems.length === 0 ? (
 				<span className="text-text-label">Empty slot</span>
 			) : (

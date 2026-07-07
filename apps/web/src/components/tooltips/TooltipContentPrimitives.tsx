@@ -8,7 +8,7 @@ export type TooltipDetailRow = {
 
 export function TooltipDetailList({
 	rows,
-	valueClassName = "text-text-bright",
+	valueClassName = "",
 }: {
 	rows: readonly TooltipDetailRow[];
 	valueClassName?: string;

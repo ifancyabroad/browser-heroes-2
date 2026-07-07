@@ -130,7 +130,7 @@ function ReplacementChoice({ preview, selected, disabled, onSelect }: Replacemen
 				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
 			)}
 		>
-			<span className="text-text-bright">{getEquipmentSlotLabel(preview.equipmentSlot)}</span>
+			<span>{getEquipmentSlotLabel(preview.equipmentSlot)}</span>
 			{preview.replacedItems.length === 0 ? (
 				<span className="text-text-label">Empty slot</span>
 			) : (

@@ -42,7 +42,7 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 			title={
 				<div className="grid gap-2 text-base">
 					<h2
-						className="truncate text-base text-text-bright"
+						className="truncate text-base"
 						title={`Level ${heroView.level} ${heroClass.name} ${heroView.name}`}
 					>
 						Level {heroView.level}{" "}
@@ -111,7 +111,7 @@ function RunInfo({ gold, battleNumber, zoneNumber }: RunInfoProps) {
 				{runItems.map((item) => (
 					<div key={item.label} className="flex items-center gap-2">
 						<dt className="text-text-label">{item.label}</dt>
-						<dd className="text-text-bright">{item.value}</dd>
+						<dd>{item.value}</dd>
 					</div>
 				))}
 			</dl>

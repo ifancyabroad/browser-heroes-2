@@ -6,7 +6,7 @@ export default function NotFound() {
 		<Layout>
 			<div className="flex-1 flex items-center justify-center">
 				<div className="space-y-2 text-center">
-					<h1 className="text-text-bright">404 Page not found</h1>
+					<h1>404 Page not found</h1>
 					<p>The page you’re looking for doesn’t exist.</p>
 					<Link to="/" className="text-primary">
 						Go to Home

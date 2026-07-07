@@ -43,9 +43,7 @@ export function Modal({
 				)}
 			>
 				<header className="mb-4 flex items-center justify-between">
-					<h2 id="modal-title" className="text-text-bright">
-						{title}
-					</h2>
+					<h2 id="modal-title">{title}</h2>
 				</header>
 
 				<div>{children}</div>

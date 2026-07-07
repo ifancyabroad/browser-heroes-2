@@ -39,8 +39,9 @@ export function ResourceBar({ label, tone, value, fillPercent, className }: Reso
 					/>
 				)}
 			</div>
-			<p className="min-w-0 truncate text-left text-text-bright">
-				<span className="text-text-label">{label}</span> <span>{value}</span>
+			<p className="min-w-0 truncate text-left">
+				<span className="text-text-label">{label}</span>{" "}
+				<span className="text-text-bright">{value}</span>
 			</p>
 		</div>
 	);

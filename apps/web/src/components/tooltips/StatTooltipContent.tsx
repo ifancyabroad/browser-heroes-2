@@ -16,13 +16,17 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 	return (
 		<div className="grid gap-3">
 			<header className="grid gap-1">
-				<p className="break-words text-text-bright">{label}</p>
+				<p className="break-words">{label}</p>
 			</header>
 
 			<TooltipDetailList
 				rows={[
 					{ label: "Base", value: formatStatNumber(stat.baseValue, signed) },
-					{ label: "Current", value: formatStatNumber(stat.value, signed) },
+					{
+						label: "Current",
+						value: formatStatNumber(stat.value, signed),
+						valueClassName: "text-text-bright",
+					},
 				]}
 			/>
 

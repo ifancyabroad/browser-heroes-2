@@ -26,7 +26,7 @@ export function SidebarValueList({ values }: { values: readonly string[] }) {
 	return (
 		<ul className="flex flex-wrap gap-x-2 gap-y-1">
 			{values.map((value, index) => (
-				<li key={value} className="text-text-bright">
+				<li key={value}>
 					{index > 0 && <span className="mr-2 text-text-muted">/</span>}
 					<span>{value}</span>
 				</li>
