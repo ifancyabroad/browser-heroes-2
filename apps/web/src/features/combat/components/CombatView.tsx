@@ -166,7 +166,7 @@ export function CombatView({ run }: CombatViewProps) {
 							Log
 						</Button>
 					}
-					contentClassName="flex flex-col gap-4"
+					contentClassName="flex min-h-0 flex-1 flex-col gap-4"
 					actions={
 						<CombatActionBar
 							player={combat.player}
