@@ -5,11 +5,8 @@ import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { Tooltip } from "../../../components/Tooltip";
-import {
-	getItemRarityTextClassName,
-	ItemTooltipContent,
-} from "../../../components/tooltips/ItemTooltipContent";
-import { equipmentSlotLabels } from "../../../game/displayLabels";
+import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
+import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../game/itemDisplay";
 import { formatReplacementItems } from "./RewardOptionCard";
 
 type RewardSelection = Extract<EngineAction, { type: "SELECT_REWARD" }>["selection"];
@@ -133,7 +130,7 @@ function ReplacementChoice({ preview, selected, disabled, onSelect }: Replacemen
 				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
 			)}
 		>
-			<span className="text-text-bright">{equipmentSlotLabels[preview.equipmentSlot]}</span>
+			<span className="text-text-bright">{getEquipmentSlotLabel(preview.equipmentSlot)}</span>
 			{preview.replacedItems.length === 0 ? (
 				<span className="text-text-label">Empty slot</span>
 			) : (

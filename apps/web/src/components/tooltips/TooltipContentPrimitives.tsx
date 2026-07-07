@@ -3,15 +3,28 @@ import type { ReactNode } from "react";
 export type TooltipDetailRow = {
 	label: string;
 	value: string;
+	valueClassName?: string;
 };
 
-export function TooltipDetailList({ rows }: { rows: readonly TooltipDetailRow[] }) {
+export function TooltipDetailList({
+	rows,
+	valueClassName = "text-text-bright",
+}: {
+	rows: readonly TooltipDetailRow[];
+	valueClassName?: string;
+}) {
 	return (
 		<dl className="grid gap-1 border-t border-border pt-2">
 			{rows.map((row) => (
 				<div key={row.label} className="flex items-baseline justify-between gap-3">
 					<dt className="shrink-0 text-text-label">{row.label}</dt>
-					<dd className="min-w-0 break-words text-right text-text-bright">{row.value}</dd>
+					<dd
+						className={`min-w-0 break-words text-right ${
+							row.valueClassName ?? valueClassName
+						}`}
+					>
+						{row.value}
+					</dd>
 				</div>
 			))}
 		</dl>

@@ -6,11 +6,8 @@ import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { Tooltip } from "../../../components/Tooltip";
-import {
-	getItemRarityTextClassName,
-	ItemTooltipContent,
-} from "../../../components/tooltips/ItemTooltipContent";
-import { equipmentSlotLabels } from "../../../game/displayLabels";
+import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
+import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../game/itemDisplay";
 import { formatReplacementItems } from "../../rewards/components/RewardOptionCard";
 
 type TownReplacementModalProps = {
@@ -128,7 +125,7 @@ function ReplacementChoice({ destination, selected, disabled, onSelect }: Replac
 			)}
 		>
 			<span className="text-text-bright">
-				{equipmentSlotLabels[destination.equipmentSlot]}
+				{getEquipmentSlotLabel(destination.equipmentSlot)}
 			</span>
 			{destination.replacedItems.length === 0 ? (
 				<span className="text-text-label">Empty slot</span>

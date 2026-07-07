@@ -2,11 +2,8 @@ import type { RewardChoiceOptionView, RewardItemDestinationView } from "@app/eng
 import { ITEMS_BY_ID } from "@app/content";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
-import {
-	getItemRarityTextClassName,
-	ItemTooltipContent,
-} from "../../../components/tooltips/ItemTooltipContent";
-import { equipmentSlotLabels } from "../../../game/displayLabels";
+import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
+import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../game/itemDisplay";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 
 type RewardOptionCardProps = {
@@ -49,12 +46,12 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 					{option.type === "item" ? (
 						<Tooltip
 							content={
-								<ItemTooltipContent
-									item={option.item}
-									slot={
-										content.tooltipSlot ?? option.destinations[0]?.equipmentSlot
-									}
-								/>
+								content.tooltipSlot ? (
+									<ItemTooltipContent
+										item={option.item}
+										slot={content.tooltipSlot}
+									/>
+								) : null
 							}
 							placement="top"
 							className={clsx(
@@ -96,11 +93,12 @@ function getOptionContent(option: RewardChoiceOptionView) {
 	}
 
 	const destination = option.destinations.length === 1 ? option.destinations[0] : null;
+	const destinationSlots = option.destinations.map(
+		(destinationOption) => destinationOption.equipmentSlot,
+	);
 	const slotLabel = destination
-		? equipmentSlotLabels[destination.equipmentSlot]
-		: option.destinations
-				.map((destinationOption) => equipmentSlotLabels[destinationOption.equipmentSlot])
-				.join(" / ");
+		? getEquipmentSlotLabel(destination.equipmentSlot)
+		: getEquipmentSlotLabel(destinationSlots);
 
 	return {
 		icon: option.item.icon,
@@ -108,7 +106,7 @@ function getOptionContent(option: RewardChoiceOptionView) {
 		detail: slotLabel,
 		destination,
 		needsReplacementChoice: !destination,
-		tooltipSlot: destination?.equipmentSlot ?? option.destinations[0]?.equipmentSlot,
+		tooltipSlot: destinationSlots.length > 0 ? destinationSlots : null,
 	};
 }
 

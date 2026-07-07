@@ -3,19 +3,14 @@ import type { TownShopDestinationView, TownShopSlotView } from "@app/engine";
 import clsx from "clsx";
 import { Card } from "../../../components/Card";
 import { Tooltip } from "../../../components/Tooltip";
-import {
-	getItemRarityTextClassName,
-	ItemTooltipContent,
-} from "../../../components/tooltips/ItemTooltipContent";
-import {
-	armourSlotLabels,
-	armourCategoryLabels,
-	damageTypeLabels,
-	equipmentSlotLabels,
-	weaponHandednessLabels,
-	weaponTypeLabels,
-} from "../../../game/displayLabels";
+import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { formatItemModifier, getModifierTextClassName } from "../../../game/effectDisplay";
+import {
+	getEquipmentSlotLabel,
+	getItemKindLabel,
+	getItemRarityTextClassName,
+	getPrimaryItemStat,
+} from "../../../game/itemDisplay";
 import buyIcon from "../../../assets/images/actions/Skill_ABuy.png";
 
 type TownShopItemCardProps = {
@@ -28,9 +23,9 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 	const { item } = slot;
 	const primaryDestination = slot.destinations[0];
 	const disabled = isPending || slot.purchased || !slot.canAfford;
-	const slotLabel = getDestinationLabel(slot);
-	const primaryStat = getPrimaryItemStat(slot);
-	const tooltipSlot = primaryDestination?.equipmentSlot;
+	const tooltipSlots = slot.destinations.map((destination) => destination.equipmentSlot);
+	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
+	const primaryStat = getPrimaryItemStat(item);
 
 	return (
 		<Card
@@ -41,7 +36,11 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 			)}
 		>
 			<Tooltip
-				content={tooltipSlot ? <ItemTooltipContent item={item} slot={tooltipSlot} /> : null}
+				content={
+					tooltipSlots.length > 0 ? (
+						<ItemTooltipContent item={item} slot={tooltipSlots} />
+					) : null
+				}
 				className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16"
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 			>
@@ -60,8 +59,8 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 				<div className="min-w-0">
 					<Tooltip
 						content={
-							tooltipSlot ? (
-								<ItemTooltipContent item={item} slot={tooltipSlot} />
+							tooltipSlots.length > 0 ? (
+								<ItemTooltipContent item={item} slot={tooltipSlots} />
 							) : null
 						}
 						className={clsx(
@@ -81,7 +80,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 				<div className="grid min-w-0 gap-1">
 					<DetailLine
 						label="Type"
-						value={getItemKindLabel(slot)}
+						value={getItemKindLabel(item)}
 						className="hidden md:grid"
 					/>
 					<DetailLine label="Slot" value={slotLabel} className="hidden md:grid" />
@@ -128,46 +127,6 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 			</div>
 		</Card>
 	);
-}
-
-function getDestinationLabel(slot: TownShopSlotView) {
-	if (slot.destinations.length === 0) {
-		return "No slot";
-	}
-
-	return slot.destinations
-		.map((destination) => equipmentSlotLabels[destination.equipmentSlot])
-		.join(" / ");
-}
-
-function getItemKindLabel(slot: TownShopSlotView) {
-	if (slot.item.type === "weapon") {
-		return `${weaponHandednessLabels[slot.item.handedness]} ${weaponTypeLabels[slot.item.weaponType].toLowerCase()}`;
-	}
-
-	if (slot.item.slot === "body") {
-		return `${armourCategoryLabels[slot.item.category]} armour`;
-	}
-
-	return armourSlotLabels[slot.item.slot];
-}
-
-function getPrimaryItemStat(slot: TownShopSlotView) {
-	if (slot.item.type === "weapon") {
-		return {
-			label: "Damage",
-			value: `${slot.item.damage.dice} ${damageTypeLabels[slot.item.damage.type]}`,
-		};
-	}
-
-	if (slot.item.slot === "body") {
-		return {
-			label: "AC",
-			value: String(slot.item.armourClass),
-		};
-	}
-
-	return null;
 }
 
 function getPriceClassName(slot: TownShopSlotView) {

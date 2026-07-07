@@ -1,16 +1,6 @@
-import type { AttackRider, EquipmentSlot, Item, ItemRarity } from "@app/content";
+import type { AttackRider, EquipmentSlot, Item } from "@app/content";
 import clsx from "clsx";
-import {
-	armourCategoryLabels,
-	armourSlotLabels,
-	attributeShortLabels,
-	damageTypeLabels,
-	equipmentSlotLabels,
-	itemRarityLabels,
-	weaponHandednessLabels,
-	weaponRangeLabels,
-	weaponTypeLabels,
-} from "../../game/displayLabels";
+import { attributeShortLabels, itemRarityLabels } from "../../game/displayLabels";
 import {
 	formatItemModifier,
 	formatRiderEffect,
@@ -19,6 +9,12 @@ import {
 	getModifierTextClassName,
 } from "../../game/effectDisplay";
 import {
+	getEquipmentSlotLabel,
+	getItemKindLabel,
+	getItemRarityTextClassName,
+	getPrimaryItemStat,
+} from "../../game/itemDisplay";
+import {
 	TooltipDetailList,
 	type TooltipDetailRow,
 	TooltipSection,
@@ -26,7 +22,7 @@ import {
 
 type ItemTooltipContentProps = {
 	item: Item;
-	slot: EquipmentSlot;
+	slot: EquipmentSlot | readonly EquipmentSlot[];
 };
 
 export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
@@ -47,21 +43,14 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 					<p className={clsx("break-words", getItemRarityTextClassName(item.rarity))}>
 						{item.name}
 					</p>
-					<p className="text-text-label">
-						{itemRarityLabels[item.rarity]}{" "}
-						{item.type === "weapon" ? "Weapon" : "Armour"}
-					</p>
+					<p className="text-text">{itemRarityLabels[item.rarity]}</p>
 				</div>
 			</header>
 
-			{item.description && (
-				<p className="border-t border-border pt-2 text-text">{item.description}</p>
-			)}
-
-			<TooltipDetailList rows={getItemDetailRows(item, slot)} />
+			<TooltipDetailList rows={getItemDetailRows(item, slot)} valueClassName="text-text" />
 
 			{item.modifiers.length > 0 && (
-				<TooltipSection title="Modifiers">
+				<TooltipSection title="Bonuses">
 					<ul className="grid gap-1">
 						{item.modifiers.map((modifier, index) => (
 							<li
@@ -96,54 +85,25 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 	);
 }
 
-export function getItemRarityTextClassName(rarity: ItemRarity) {
-	switch (rarity) {
-		case "common":
-			return "text-common";
-		case "uncommon":
-			return "text-uncommon";
-		case "rare":
-			return "text-rare";
-		case "epic":
-			return "text-epic";
-		case "legendary":
-			return "text-legendary";
-	}
-}
-
-function getItemDetailRows(item: Item, slot: EquipmentSlot): TooltipDetailRow[] {
+function getItemDetailRows(
+	item: Item,
+	slot: EquipmentSlot | readonly EquipmentSlot[],
+): TooltipDetailRow[] {
 	const rows: TooltipDetailRow[] = [
-		{ label: "Equipped", value: equipmentSlotLabels[slot] },
-		{ label: "Price", value: `${item.price} gold` },
+		{ label: "Type", value: getItemKindLabel(item) },
+		{ label: "Slot", value: getEquipmentSlotLabel(slot) },
 	];
+	const primaryStat = getPrimaryItemStat(item);
 
 	if (item.type === "weapon") {
 		return [
 			...rows,
-			{ label: "Type", value: weaponTypeLabels[item.weaponType] },
-			{ label: "Hands", value: weaponHandednessLabels[item.handedness] },
-			{ label: "Range", value: weaponRangeLabels[item.range] },
-			{
-				label: "Damage",
-				value: `${item.damage.dice} ${damageTypeLabels[item.damage.type]}`,
-			},
+			...(primaryStat ? [{ ...primaryStat, valueClassName: "text-text-bright" }] : []),
 			{ label: "Attribute", value: attributeShortLabels[item.damage.attribute] },
 		];
 	}
 
-	const armourRows: TooltipDetailRow[] = [
-		...rows,
-		{ label: "Slot", value: armourSlotLabels[item.slot] },
-	];
-
-	if (item.slot === "body") {
-		armourRows.push(
-			{ label: "Category", value: armourCategoryLabels[item.category] },
-			{ label: "AC", value: String(item.armourClass) },
-		);
-	}
-
-	return armourRows;
+	return primaryStat ? [...rows, { ...primaryStat, valueClassName: "text-text-bright" }] : rows;
 }
 
 function AttackRiderList({ riders }: { riders: readonly AttackRider[] }) {
