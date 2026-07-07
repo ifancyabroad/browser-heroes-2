@@ -86,10 +86,10 @@ export function CombatSidebar({
 				zoneLabel={zoneLabel}
 			/>
 			<section
-				className="flex min-h-0 flex-1 flex-col gap-3 border-2 border-border bg-bg-elevated p-3"
+				className="flex min-h-0 flex-1 flex-col gap-3 border border-text-muted bg-bg-elevated p-3"
 				aria-label="Combat log"
 			>
-				<h2 className="border-b border-border pb-2 text-base text-text-bright">
+				<h2 className="border-b border-text-muted pb-2 text-base text-text-bright">
 					Combat Log
 				</h2>
 				<CombatLogPanel entries={entries} className="min-h-0 flex-1" />
