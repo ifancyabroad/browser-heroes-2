@@ -21,8 +21,9 @@ type TownShopItemCardProps = {
 
 export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardProps) {
 	const { item } = slot;
+	const isPurchased = slot.purchased;
 	const primaryDestination = slot.destinations[0];
-	const disabled = isPending || slot.purchased || !slot.canAfford;
+	const disabled = isPending || isPurchased || !slot.canAfford;
 	const tooltipSlots = slot.destinations.map((destination) => destination.equipmentSlot);
 	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
 	const primaryStat = getPrimaryItemStat(item);
@@ -30,110 +31,114 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 	return (
 		<Card
 			className={clsx(
-				"grid grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 p-3 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)_4rem]",
-				!disabled && "hover:border-primary",
-				slot.purchased && "opacity-60",
+				"relative grid grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 p-3 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)_4rem]",
+				isPurchased && "border-dashed bg-bg-base",
 			)}
 		>
-			<Tooltip
-				content={
-					tooltipSlots.length > 0 ? (
-						<ItemTooltipContent item={item} slot={tooltipSlots} />
-					) : null
-				}
-				className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16"
-				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-			>
-				<span className="block h-12 w-12 overflow-hidden border border-border bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
-					<img
-						src={item.icon}
-						alt=""
-						loading="lazy"
-						className="h-full w-full object-cover"
-						aria-hidden
-					/>
-				</span>
-			</Tooltip>
-
-			<div className="grid min-w-0 content-start gap-2">
-				<div className="min-w-0">
-					<Tooltip
-						content={
-							tooltipSlots.length > 0 ? (
-								<ItemTooltipContent item={item} slot={tooltipSlots} />
-							) : null
-						}
-						className={clsx(
-							"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-							getItemRarityTextClassName(item.rarity),
-						)}
-						contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-					>
-						{item.name}
-					</Tooltip>
-					<span className="mx-2 text-text-muted">/</span>
-					<span className={clsx("whitespace-nowrap", getPriceClassName(slot))}>
-						{slot.price}g
+			<div className={clsx("contents", isPurchased && "invisible")} aria-hidden={isPurchased}>
+				<Tooltip
+					content={
+						tooltipSlots.length > 0 ? (
+							<ItemTooltipContent item={item} slot={tooltipSlots} />
+						) : null
+					}
+					className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16"
+					contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+				>
+					<span className="block h-12 w-12 overflow-hidden border border-border bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
+						<img
+							src={item.icon}
+							alt=""
+							loading="lazy"
+							className="h-full w-full object-cover"
+							aria-hidden
+						/>
 					</span>
-				</div>
+				</Tooltip>
 
-				<div className="grid min-w-0 gap-1">
-					<DetailLine
-						label="Type"
-						value={getItemKindLabel(item)}
-						className="hidden md:grid"
-					/>
-					<DetailLine label="Slot" value={slotLabel} className="hidden md:grid" />
-					{primaryStat && (
+				<div className="grid min-w-0 content-start gap-2">
+					<div className="min-w-0">
+						<Tooltip
+							content={
+								tooltipSlots.length > 0 ? (
+									<ItemTooltipContent item={item} slot={tooltipSlots} />
+								) : null
+							}
+							className={clsx(
+								"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+								getItemRarityTextClassName(item.rarity),
+							)}
+							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+						>
+							{item.name}
+						</Tooltip>
+						<span className="mx-2 text-text-muted">/</span>
+						<span className={clsx("whitespace-nowrap", getPriceClassName(slot))}>
+							{slot.price}g
+						</span>
+					</div>
+
+					<div className="grid min-w-0 gap-1">
 						<DetailLine
-							label={primaryStat.label}
-							value={primaryStat.value}
-							valueClassName="text-text-bright"
+							label="Type"
+							value={getItemKindLabel(item)}
 							className="hidden md:grid"
 						/>
-					)}
-					{primaryDestination && <ReplacementDetail destination={primaryDestination} />}
+						<DetailLine label="Slot" value={slotLabel} className="hidden md:grid" />
+						{primaryStat && (
+							<DetailLine
+								label={primaryStat.label}
+								value={primaryStat.value}
+								valueClassName="text-text-bright"
+								className="hidden md:grid"
+							/>
+						)}
+						{primaryDestination && (
+							<ReplacementDetail destination={primaryDestination} />
+						)}
+					</div>
+
+					<div className="hidden md:grid">
+						<BonusPreview slot={slot} />
+					</div>
 				</div>
 
-				<div className="hidden md:grid">
-					<BonusPreview slot={slot} />
+				<div className="grid content-start justify-items-end">
+					<button
+						type="button"
+						className={clsx(
+							"relative aspect-square w-12 overflow-hidden bg-bg-elevated transition-colors md:w-14",
+							"flex shrink-0 items-center justify-center border border-border",
+							disabled
+								? "cursor-not-allowed grayscale"
+								: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+						)}
+						disabled={disabled}
+						aria-label={getBuyLabel(slot)}
+						title={getBuyLabel(slot)}
+						onClick={onBuy}
+					>
+						<img
+							src={buyIcon}
+							alt=""
+							loading="lazy"
+							className="h-full w-full scale-110 object-cover"
+							aria-hidden
+						/>
+					</button>
 				</div>
 			</div>
 
-			<div className="grid content-start justify-items-end">
-				<button
-					type="button"
-					className={clsx(
-						"relative aspect-square w-12 overflow-hidden bg-bg-elevated transition-colors md:w-14",
-						"flex shrink-0 items-center justify-center border border-border",
-						disabled
-							? "cursor-not-allowed grayscale"
-							: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
-					)}
-					disabled={disabled}
-					aria-label={getBuyLabel(slot)}
-					title={getBuyLabel(slot)}
-					onClick={onBuy}
-				>
-					<img
-						src={buyIcon}
-						alt=""
-						loading="lazy"
-						className="h-full w-full scale-110 object-cover"
-						aria-hidden
-					/>
-				</button>
-				{slot.purchased && <span className="mt-1 text-right text-success">Purchased</span>}
-			</div>
+			{isPurchased && (
+				<div className="pointer-events-none absolute inset-0 grid place-items-center">
+					<span className="font-semibold tracking-[0.25em] text-text-muted">SOLD</span>
+				</div>
+			)}
 		</Card>
 	);
 }
 
 function getPriceClassName(slot: TownShopSlotView) {
-	if (slot.purchased) {
-		return "text-success";
-	}
-
 	if (!slot.canAfford) {
 		return "text-error";
 	}
