@@ -41,6 +41,7 @@ export function CombatSidebar({
 }: CombatSidebarProps) {
 	const heroClass = CLASSES_BY_ID[heroClassId];
 	const xpResource = getXpResource(progression);
+	const heroTitle = `${heroName} the ${heroClass.name} / Level ${heroLevel}`;
 
 	return (
 		<Sidebar
@@ -50,14 +51,11 @@ export function CombatSidebar({
 			className="flex flex-col"
 			title={
 				<div className="grid gap-2 text-base">
-					<h2
-						className="truncate text-base"
-						title={`Level ${heroLevel} ${heroClass.name} ${heroName}`}
-					>
-						Level {heroLevel}{" "}
+					<h2 className="truncate text-base" title={heroTitle}>
 						<span className="text-primary">
-							{heroClass.name} {heroName}
-						</span>
+							{heroName} the {heroClass.name}
+						</span>{" "}
+						/ Level {heroLevel}
 					</h2>
 
 					<section className="grid gap-2" aria-label="Hero resources">

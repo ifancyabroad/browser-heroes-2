@@ -33,6 +33,7 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 	const progression = selectHeroProgression(state);
 	const xpResource = getXpResource(progression);
 	const { health } = heroView;
+	const heroTitle = `${heroView.name} the ${heroClass.name} / Level ${heroView.level}`;
 
 	return (
 		<Sidebar
@@ -41,14 +42,11 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 			aria-label="Hero details"
 			title={
 				<div className="grid gap-2 text-base">
-					<h2
-						className="truncate text-base"
-						title={`Level ${heroView.level} ${heroClass.name} ${heroView.name}`}
-					>
-						Level {heroView.level}{" "}
+					<h2 className="truncate text-base" title={heroTitle}>
 						<span className="text-primary">
-							{heroClass.name} {heroView.name}
-						</span>
+							{heroView.name} the {heroClass.name}
+						</span>{" "}
+						/ Level {heroView.level}
 					</h2>
 
 					<section className="grid gap-2" aria-label="Hero resources">

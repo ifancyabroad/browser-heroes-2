@@ -192,7 +192,7 @@ export function CombatView({ run }: CombatViewProps) {
 						<div className="md:hidden">
 							<CombatantPanel
 								combatant={combat.player}
-								identity={`${heroClass.name} ${combat.player.name}`}
+								identity={`${combat.player.name} the ${heroClass.name}`}
 								ariaLabel="Hero"
 							/>
 						</div>
