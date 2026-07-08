@@ -16,44 +16,42 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 	return (
 		<div className="min-h-7" aria-label={label}>
 			{effectGroups.length > 0 && (
-				<ul className="flex flex-wrap gap-1">
+				<div className="flex flex-wrap gap-1">
 					{effectGroups.map((group) => {
 						const sourceSkill = SKILLS_BY_ID[group.skillId];
 
 						return (
-							<li key={group.skillId}>
-								<Tooltip
-									content={
-										<ActiveEffectTooltipContent
-											skillName={sourceSkill.name}
-											effects={group.effects}
-										/>
-									}
-									className="block"
-									contentClassName="w-56 max-w-[calc(100vw-1rem)] sm:w-64"
+							<Tooltip
+								key={group.skillId}
+								content={
+									<ActiveEffectTooltipContent
+										skillName={sourceSkill.name}
+										effects={group.effects}
+									/>
+								}
+								contentClassName="w-56 max-w-[calc(100vw-1rem)] sm:w-64"
+							>
+								<span
+									className="relative block h-7 w-7 overflow-hidden border border-border bg-bg-elevated"
+									aria-label={`${sourceSkill.name} active effects`}
 								>
-									<span
-										className="relative block h-7 w-7 overflow-hidden border border-border bg-bg-elevated"
-										aria-label={`${sourceSkill.name} active effects`}
-									>
-										<img
-											src={sourceSkill.icon}
-											alt=""
-											loading="lazy"
-											className="block h-full w-full scale-110 object-cover"
-											aria-hidden
-										/>
-										{group.effects.length > 1 && (
-											<span className="absolute bottom-0 right-0 bg-bg-base/90 px-1 text-text-bright">
-												{group.effects.length}
-											</span>
-										)}
-									</span>
-								</Tooltip>
-							</li>
+									<img
+										src={sourceSkill.icon}
+										alt=""
+										loading="lazy"
+										className="h-full w-full scale-110 object-cover"
+										aria-hidden
+									/>
+									{group.effects.length > 1 && (
+										<span className="absolute bottom-0 right-0 bg-bg-base/90 px-1 text-text-bright">
+											{group.effects.length}
+										</span>
+									)}
+								</span>
+							</Tooltip>
 						);
 					})}
-				</ul>
+				</div>
 			)}
 		</div>
 	);
