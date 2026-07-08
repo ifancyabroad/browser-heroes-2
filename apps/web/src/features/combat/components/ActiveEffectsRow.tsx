@@ -29,6 +29,7 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 											effects={group.effects}
 										/>
 									}
+									className="block"
 									contentClassName="w-56 max-w-[calc(100vw-1rem)] sm:w-64"
 								>
 									<span
@@ -39,7 +40,7 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 											src={sourceSkill.icon}
 											alt=""
 											loading="lazy"
-											className="h-full w-full scale-110 object-cover"
+											className="block h-full w-full scale-110 object-cover"
 											aria-hidden
 										/>
 										{group.effects.length > 1 && (
