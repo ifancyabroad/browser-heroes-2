@@ -1,10 +1,11 @@
-import { ITEMS_BY_ID, type EquipmentSlot, type Item } from "@app/content";
+import { ITEMS_BY_ID, type EquipmentSlot, type Item, type Zone } from "@app/content";
 
 import type { EquippedItemState, RunState, TownShopSlot } from "../schemas";
 
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { previewEquipItem } from "../systems/equipment/previewEquipItem";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { getZoneForRun } from "../systems/encounters/zones/getZoneForRun";
 
 export type TownShopDestinationView = {
 	equipmentSlot: EquipmentSlot;
@@ -22,6 +23,10 @@ export type TownShopSlotView = {
 };
 
 export type TownView = {
+	battleNumber: number;
+	zoneNumber: number;
+	zone: Zone;
+	day: number;
 	shopLevel: number;
 	gold: number;
 
@@ -47,6 +52,10 @@ export function selectTownView(state: RunState): TownView | null {
 	}
 
 	return {
+		battleNumber: state.battleNumber,
+		zoneNumber: state.zoneNumber,
+		zone: getZoneForRun(state.zoneNumber),
+		day: state.town.restCount + 1,
 		shopLevel: state.town.shopLevel,
 		gold: state.gold,
 

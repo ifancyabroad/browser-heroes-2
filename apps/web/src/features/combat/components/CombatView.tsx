@@ -41,7 +41,7 @@ export function CombatView({ run }: CombatViewProps) {
 		return <p>Combat state is unavailable.</p>;
 	}
 
-	const { battleNumber, combat, goldMultiplier, zone } = combatView;
+	const { battleNumber, combat, gold, goldMultiplier, zone } = combatView;
 	const heroClass = CLASSES_BY_ID[hero.classId];
 	const heroProgression = selectHeroProgression(run.state);
 	const zoneLabel = formatTitle(zone);
@@ -154,8 +154,8 @@ export function CombatView({ run }: CombatViewProps) {
 					progression={heroProgression}
 					activeEffects={combat.player.activeEffects}
 					battleNumber={battleNumber}
+					gold={gold}
 					goldMultiplier={goldMultiplier}
-					turnNumber={combat.turnNumber}
 					zoneLabel={zoneLabel}
 					entries={combat.log}
 				/>

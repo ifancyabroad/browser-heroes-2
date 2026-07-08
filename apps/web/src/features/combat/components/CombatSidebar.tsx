@@ -16,9 +16,9 @@ type CombatSidebarProps = {
 	maxHp: number;
 	progression: HeroProgressionView;
 	activeEffects: ActiveCombatEffect[];
+	gold: number;
 	goldMultiplier: number;
 	battleNumber: number;
-	turnNumber: number;
 	zoneLabel: string;
 	entries: CombatLogEntry[];
 };
@@ -33,9 +33,9 @@ export function CombatSidebar({
 	maxHp,
 	progression,
 	activeEffects,
+	gold,
 	goldMultiplier,
 	battleNumber,
-	turnNumber,
 	zoneLabel,
 	entries,
 }: CombatSidebarProps) {
@@ -79,8 +79,8 @@ export function CombatSidebar({
 		>
 			<CombatRunInfo
 				battleNumber={battleNumber}
+				gold={gold}
 				goldMultiplier={goldMultiplier}
-				turnNumber={turnNumber}
 				zoneLabel={zoneLabel}
 			/>
 			<section
@@ -96,22 +96,17 @@ export function CombatSidebar({
 
 type CombatRunInfoProps = {
 	battleNumber: number;
+	gold: number;
 	goldMultiplier: number;
-	turnNumber: number;
 	zoneLabel: string;
 };
 
-function CombatRunInfo({
-	battleNumber,
-	goldMultiplier,
-	turnNumber,
-	zoneLabel,
-}: CombatRunInfoProps) {
+function CombatRunInfo({ battleNumber, gold, goldMultiplier, zoneLabel }: CombatRunInfoProps) {
 	const runItems = [
 		{ label: "Zone", value: zoneLabel },
 		{ label: "Battle", value: battleNumber },
-		{ label: "Turn", value: turnNumber },
-		{ label: "Gold", value: `${goldMultiplier}x` },
+		{ label: "Gold", value: gold },
+		{ label: "Multiplier", value: `${goldMultiplier}x` },
 	];
 
 	return (

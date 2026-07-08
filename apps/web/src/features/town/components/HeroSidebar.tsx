@@ -1,10 +1,11 @@
-import { CLASSES_BY_ID } from "@app/content";
+import { CLASSES_BY_ID, type Zone } from "@app/content";
 import { selectHeroProgression, selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
 import { getXpResource } from "../../../game/resourceDisplay";
+import { formatTitle } from "../../../game/effectDisplay";
 import { Tabs } from "../../../components/Tabs";
 import { HeroDetailsTab } from "./HeroDetailsTab";
 import { HeroEquipmentTab } from "./HeroEquipmentTab";
@@ -12,6 +13,10 @@ import { HeroSkillsTab } from "./HeroSkillsTab";
 
 type HeroSidebarProps = {
 	run: RunView;
+	battleNumber: number;
+	day: number;
+	gold: number;
+	zone: Zone;
 	open: boolean;
 	onClose: () => void;
 };
@@ -24,7 +29,15 @@ const heroSidebarTabs = [
 	{ label: "Skills", value: "skills" },
 ] as const;
 
-export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
+export function HeroSidebar({
+	run,
+	battleNumber,
+	day,
+	gold,
+	zone,
+	open,
+	onClose,
+}: HeroSidebarProps) {
 	const [activeTab, setActiveTab] = useState<HeroSidebarTab>("details");
 
 	const { state } = run;
@@ -68,9 +81,10 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 			contentClassName="grid content-start gap-4 pt-2"
 		>
 			<RunInfo
-				gold={state.gold}
-				battleNumber={state.battleNumber}
-				zoneNumber={state.zoneNumber}
+				battleNumber={battleNumber}
+				day={day}
+				gold={gold}
+				zoneLabel={formatTitle(zone)}
 			/>
 
 			<Tabs
@@ -93,14 +107,16 @@ export function HeroSidebar({ run, open, onClose }: HeroSidebarProps) {
 type RunInfoProps = {
 	gold: number;
 	battleNumber: number;
-	zoneNumber: number;
+	day: number;
+	zoneLabel: string;
 };
 
-function RunInfo({ gold, battleNumber, zoneNumber }: RunInfoProps) {
+function RunInfo({ gold, battleNumber, day, zoneLabel }: RunInfoProps) {
 	const runItems = [
-		{ label: "Gold", value: gold },
+		{ label: "Zone", value: zoneLabel },
 		{ label: "Battle", value: battleNumber },
-		{ label: "Zone", value: zoneNumber },
+		{ label: "Gold", value: gold },
+		{ label: "Day", value: day },
 	];
 
 	return (

@@ -136,7 +136,15 @@ export function TownView({ run }: TownViewProps) {
 	return (
 		<GameLayout>
 			<div className="flex min-h-0 flex-1 overflow-hidden bg-bg-base text-base text-text">
-				<HeroSidebar run={run} open={sidebarOpen} onClose={handleCloseSidebar} />
+				<HeroSidebar
+					run={run}
+					battleNumber={townView.battleNumber}
+					day={townView.day}
+					gold={townView.gold}
+					zone={townView.zone}
+					open={sidebarOpen}
+					onClose={handleCloseSidebar}
+				/>
 
 				<GameMainPanel
 					mobileHeader={
