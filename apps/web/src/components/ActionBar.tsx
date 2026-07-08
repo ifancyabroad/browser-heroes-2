@@ -156,10 +156,10 @@ function getDisplaySlotClassName() {
 
 function getActionSlotClassName(disabled: boolean) {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden bg-bg-elevated transition-colors sm:w-20",
+		"relative aspect-square w-16 overflow-hidden bg-bg-elevated sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
 		disabled
 			? "cursor-not-allowed"
-			: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+			: "cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
 	);
 }
