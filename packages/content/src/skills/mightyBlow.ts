@@ -8,39 +8,12 @@ export default buildSkill({
 	pool: "warrior",
 	category: "attack",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 3,
-					attackRiders: [],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 3.75,
-					attackRiders: [],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 4.5,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 3,
+			attackRiders: [],
 		},
 	],
 	tags: [],

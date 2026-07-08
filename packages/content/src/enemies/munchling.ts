@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skills: [
-			{
-				skillId: "go_for_the_eyes",
-				rank: 1,
-			},
-			{
-				skillId: "cold_bite",
-				rank: 1,
-			},
-		],
+		skillIds: ["go_for_the_eyes", "cold_bite"],
 		featIds: [],
 		tactic: "default",
 	},

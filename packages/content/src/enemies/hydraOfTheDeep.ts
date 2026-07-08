@@ -32,24 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "frost_breath",
-				rank: 3,
-			},
-			{
-				skillId: "deafening_roar",
-				rank: 3,
-			},
-			{
-				skillId: "dragon_focus",
-				rank: 3,
-			},
-			{
-				skillId: "multi_strike",
-				rank: 3,
-			},
-		],
+		skillIds: ["frost_breath", "deafening_roar", "dragon_focus", "multi_strike"],
 		featIds: [],
 		tactic: "default",
 	},

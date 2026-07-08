@@ -7,45 +7,14 @@ export default buildSkill({
 	pool: "unique",
 	category: "buff",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "self",
-					damageType: "fire",
-					operation: "add",
-					value: 40,
-					durationTurns: 4,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "self",
-					damageType: "fire",
-					operation: "add",
-					value: 60,
-					durationTurns: 5,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "self",
-					damageType: "fire",
-					operation: "add",
-					value: 80,
-					durationTurns: 6,
-				},
-			],
+			type: "modifyDamage",
+			target: "self",
+			damageType: "fire",
+			operation: "add",
+			value: 40,
+			durationTurns: 4,
 		},
 	],
 	tags: [],

@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skills: [
-			{
-				skillId: "poison_bite",
-				rank: 1,
-			},
-			{
-				skillId: "growth",
-				rank: 1,
-			},
-		],
+		skillIds: ["poison_bite", "growth"],
 		featIds: [],
 		tactic: "default",
 	},

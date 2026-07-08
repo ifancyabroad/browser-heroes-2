@@ -41,20 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "multi_shot",
-				rank: 2,
-			},
-			{
-				skillId: "drop_from_above",
-				rank: 2,
-			},
-			{
-				skillId: "hunterss_mark",
-				rank: 2,
-			},
-		],
+		skillIds: ["multi_shot", "drop_from_above", "hunterss_mark"],
 		featIds: [],
 		tactic: "default",
 	},

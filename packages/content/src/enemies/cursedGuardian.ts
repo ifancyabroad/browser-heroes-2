@@ -41,20 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "obliterate",
-				rank: 2,
-			},
-			{
-				skillId: "devour_soul",
-				rank: 2,
-			},
-			{
-				skillId: "double_strike",
-				rank: 2,
-			},
-		],
+		skillIds: ["obliterate", "devour_soul", "double_strike"],
 		featIds: [],
 		tactic: "default",
 	},

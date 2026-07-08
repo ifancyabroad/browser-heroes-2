@@ -9,42 +9,13 @@ export default buildSkill({
 	pool: "occultist",
 	category: "debuff",
 	maxUses: 8,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 6,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 7,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 8,
-				},
-			],
+			type: "modifyDamage",
+			target: "enemy",
+			operation: "multiply",
+			value: 0.75,
+			durationTurns: 6,
 		},
 	],
 	tags: [],

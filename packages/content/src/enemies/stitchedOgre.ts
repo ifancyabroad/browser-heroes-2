@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "flurry",
-				rank: 2,
-			},
-			{
-				skillId: "expose_weakness",
-				rank: 2,
-			},
-			{
-				skillId: "shadow_strike",
-				rank: 2,
-			},
-		],
+		skillIds: ["flurry", "expose_weakness", "shadow_strike"],
 		featIds: [],
 		tactic: "default",
 	},

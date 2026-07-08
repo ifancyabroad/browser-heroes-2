@@ -41,28 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "fire_breath",
-				rank: 3,
-			},
-			{
-				skillId: "tail_swipe",
-				rank: 3,
-			},
-			{
-				skillId: "double_strike",
-				rank: 3,
-			},
-			{
-				skillId: "summon_storm",
-				rank: 3,
-			},
-			{
-				skillId: "dragon_focus",
-				rank: 3,
-			},
-		],
+		skillIds: ["fire_breath", "tail_swipe", "double_strike", "summon_storm", "dragon_focus"],
 		featIds: [],
 		tactic: "default",
 	},

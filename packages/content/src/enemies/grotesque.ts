@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "into_the_grinder",
-				rank: 2,
-			},
-			{
-				skillId: "leap_attack",
-				rank: 2,
-			},
-		],
+		skillIds: ["into_the_grinder", "leap_attack"],
 		featIds: [],
 		tactic: "default",
 	},

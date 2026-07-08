@@ -7,63 +7,20 @@ export default buildSkill({
 	pool: "common",
 	category: "spell",
 	maxUses: 4,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d12+8",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "2d12+8",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "crushing",
+			dice: "2d12+8",
+			requiresAttackRoll: false,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "3d12+11",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "3d12+11",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "4d12+14",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "4d12+14",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "fire",
+			dice: "2d12+8",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

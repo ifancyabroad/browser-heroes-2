@@ -33,7 +33,7 @@ export const contentSpecs = [
 			"}",
 		].join("\n"),
 		referenceRules: [
-			{ path: "combat.skills[].skillId", targetType: "skill" },
+			{ path: "combat.skillIds[]", targetType: "skill" },
 			{ path: "combat.featIds[]", targetType: "feat" },
 		],
 	},
@@ -71,7 +71,7 @@ export const contentSpecs = [
 			"}",
 		].join("\n"),
 		referenceRules: [
-			{ path: "combat.skills[].skillId", targetType: "skill" },
+			{ path: "combat.skillIds[]", targetType: "skill" },
 			{ path: "combat.featIds[]", targetType: "feat" },
 			{ path: "startingEquipment.*", targetType: "item" },
 		],

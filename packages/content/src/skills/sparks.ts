@@ -8,45 +8,14 @@ export default buildSkill({
 	pool: "mage",
 	category: "spell",
 	maxUses: 12,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "1d8",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "2d8-2",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "2d8",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "lightning",
+			dice: "1d8",
+			attribute: "intelligence",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

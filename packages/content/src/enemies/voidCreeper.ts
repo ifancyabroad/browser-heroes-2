@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "cone_of_cold",
-				rank: 2,
-			},
-			{
-				skillId: "drain_life",
-				rank: 2,
-			},
-			{
-				skillId: "psionic_blast",
-				rank: 2,
-			},
-		],
+		skillIds: ["cone_of_cold", "drain_life", "psionic_blast"],
 		featIds: [],
 		tactic: "caster",
 	},

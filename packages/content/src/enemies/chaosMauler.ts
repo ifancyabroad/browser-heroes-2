@@ -41,20 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "tenderise",
-				rank: 2,
-			},
-			{
-				skillId: "mighty_blow",
-				rank: 2,
-			},
-			{
-				skillId: "overpower",
-				rank: 2,
-			},
-		],
+		skillIds: ["tenderise", "mighty_blow", "overpower"],
 		featIds: [],
 		tactic: "default",
 	},

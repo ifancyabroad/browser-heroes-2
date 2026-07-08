@@ -9,39 +9,12 @@ export default buildSkill({
 	pool: "cleric",
 	category: "heal",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "heal",
-					target: "self",
-					dice: "2d12+15",
-					attribute: "wisdom",
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "heal",
-					target: "self",
-					dice: "3d12+21",
-					attribute: "wisdom",
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "heal",
-					target: "self",
-					dice: "4d12+27",
-					attribute: "wisdom",
-				},
-			],
+			type: "heal",
+			target: "self",
+			dice: "2d12+15",
+			attribute: "wisdom",
 		},
 	],
 	tags: [],

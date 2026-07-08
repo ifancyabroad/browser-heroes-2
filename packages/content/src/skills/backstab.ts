@@ -8,39 +8,12 @@ export default buildSkill({
 	pool: "assassin",
 	category: "attack",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 2,
-					attackRiders: [],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 2.5,
-					attackRiders: [],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 3,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 2,
+			attackRiders: [],
 		},
 	],
 	tags: [],

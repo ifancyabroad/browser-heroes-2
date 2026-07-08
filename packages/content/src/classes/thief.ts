@@ -19,12 +19,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skills: [
-			{
-				skillId: "poison_bomb",
-				rank: 1,
-			},
-		],
+		skillIds: ["poison_bomb"],
 		featIds: [],
 		tactic: "default",
 	},

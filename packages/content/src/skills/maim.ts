@@ -8,95 +8,28 @@ export default buildSkill({
 	pool: "assassin",
 	category: "attack",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 2,
+			attackRiders: [
 				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 2,
-					attackRiders: [
+					timing: "onHit",
+					effects: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "modifyDamage",
-									target: "enemy",
-									operation: "multiply",
-									value: 0.75,
-									durationTurns: 3,
-								},
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "slashing",
-									dice: "1d4",
-									durationTurns: 3,
-								},
-							],
+							type: "modifyDamage",
+							target: "enemy",
+							operation: "multiply",
+							value: 0.75,
+							durationTurns: 3,
 						},
-					],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 2.5,
-					attackRiders: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "modifyDamage",
-									target: "enemy",
-									operation: "multiply",
-									value: 0.75,
-									durationTurns: 4,
-								},
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "slashing",
-									dice: "1d6",
-									durationTurns: 4,
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 3,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "modifyDamage",
-									target: "enemy",
-									operation: "multiply",
-									value: 0.75,
-									durationTurns: 5,
-								},
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "slashing",
-									dice: "1d8",
-									durationTurns: 5,
-								},
-							],
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "slashing",
+							dice: "1d4",
+							durationTurns: 3,
 						},
 					],
 				},

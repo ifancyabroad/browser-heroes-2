@@ -32,24 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "charge",
-				rank: 2,
-			},
-			{
-				skillId: "detect_blood",
-				rank: 2,
-			},
-			{
-				skillId: "cold_bite",
-				rank: 2,
-			},
-			{
-				skillId: "rend",
-				rank: 2,
-			},
-		],
+		skillIds: ["charge", "detect_blood", "cold_bite", "rend"],
 		featIds: [],
 		tactic: "default",
 	},

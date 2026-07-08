@@ -9,66 +9,21 @@ export default buildSkill({
 	pool: "cleric",
 	category: "spell",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "radiant",
-					dice: "2d12+8",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 4,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "radiant",
+			dice: "2d12+8",
+			attribute: "wisdom",
+			requiresAttackRoll: false,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "radiant",
-					dice: "3d12+11",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 5,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "radiant",
-					dice: "4d12+14",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 6,
-				},
-			],
+			type: "modifyDamage",
+			target: "enemy",
+			operation: "multiply",
+			value: 0.75,
+			durationTurns: 4,
 		},
 	],
 	tags: [],

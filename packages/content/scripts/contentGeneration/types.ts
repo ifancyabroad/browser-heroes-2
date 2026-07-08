@@ -1,6 +1,6 @@
 export type ContentType = "skill" | "enemy" | "item" | "class" | "feat";
 
-export type ReferencePath = "combat.skills[].skillId" | "combat.featIds[]" | "startingEquipment.*";
+export type ReferencePath = "combat.skillIds[]" | "combat.featIds[]" | "startingEquipment.*";
 
 export type ReferenceRule = {
 	path: ReferencePath;
@@ -24,7 +24,7 @@ export type ContentSpec = {
 export type ContentValue = {
 	id: string;
 	combat?: {
-		skills?: readonly { skillId: string }[];
+		skillIds?: readonly string[];
 		featIds?: readonly string[];
 	};
 	startingEquipment?: Record<string, string | undefined>;

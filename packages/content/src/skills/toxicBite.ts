@@ -7,92 +7,27 @@ export default buildSkill({
 	pool: "common",
 	category: "attack",
 	maxUses: 4,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [
 				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [
+					timing: "onHit",
+					effects: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d10+5",
-								},
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d6",
-									durationTurns: 6,
-								},
-							],
+							type: "damage",
+							target: "enemy",
+							damageType: "poison",
+							dice: "1d10+5",
 						},
-					],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "poison",
-									dice: "2d10+4",
-								},
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d8",
-									durationTurns: 7,
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "poison",
-									dice: "2d10+9",
-								},
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d10",
-									durationTurns: 8,
-								},
-							],
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "1d6",
+							durationTurns: 6,
 						},
 					],
 				},

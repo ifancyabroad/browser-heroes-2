@@ -64,7 +64,7 @@ function validateRule(
 	const targetIds = idsByType.get(rule.targetType) ?? new Set<string>();
 
 	switch (rule.path) {
-		case "combat.skills[].skillId":
+		case "combat.skillIds[]":
 			return validateSkillRefs(entry, targetIds, rootDir);
 		case "combat.featIds[]":
 			return validateStringRefs(
@@ -82,13 +82,13 @@ function validateRule(
 
 function validateSkillRefs(entry: LoadedContent, targetIds: ReadonlySet<string>, rootDir: string) {
 	const errors: string[] = [];
-	const skills = entry.value.combat?.skills ?? [];
+	const skillIds = entry.value.combat?.skillIds ?? [];
 
-	for (const [idx, ref] of skills.entries()) {
-		if (!targetIds.has(ref.skillId)) {
+	for (const [idx, ref] of skillIds.entries()) {
+		if (!targetIds.has(ref)) {
 			errors.push(
-				`${formatFile(entry.file, rootDir)} combat.skills[${idx}].skillId references missing skill ${JSON.stringify(
-					ref.skillId,
+				`${formatFile(entry.file, rootDir)} combat.skillIds[${idx}] references missing skill ${JSON.stringify(
+					ref,
 				)}`,
 			);
 		}

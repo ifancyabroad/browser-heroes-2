@@ -7,96 +7,31 @@ export default buildSkill({
 	pool: "common",
 	category: "spell",
 	maxUses: 5,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "1d12+8",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "strength",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 3,
-						},
-					},
+			type: "damage",
+			target: "enemy",
+			damageType: "crushing",
+			dice: "1d12+8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: {
+					base: 8,
+					attribute: "strength",
+					includeProficiency: true,
+					bonus: 3,
 				},
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -4,
-					durationTurns: 4,
-				},
-			],
+			},
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d12+7",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "strength",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 3,
-						},
-					},
-				},
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -6,
-					durationTurns: 5,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d12+14",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "strength",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 3,
-						},
-					},
-				},
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -8,
-					durationTurns: 6,
-				},
-			],
+			type: "modifyStat",
+			target: "enemy",
+			stat: "armourClass",
+			operation: "add",
+			value: -4,
+			durationTurns: 4,
 		},
 	],
 	tags: [],

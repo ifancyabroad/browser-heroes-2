@@ -8,92 +8,27 @@ export default buildSkill({
 	pool: "assassin",
 	category: "attack",
 	maxUses: 7,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [
 				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [
+					timing: "onHit",
+					effects: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d4",
-									durationTurns: 6,
-								},
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d8",
-								},
-							],
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "1d4",
+							durationTurns: 6,
 						},
-					],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d6",
-									durationTurns: 7,
-								},
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "poison",
-									dice: "2d8-2",
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "poison",
-									dice: "1d8",
-									durationTurns: 8,
-								},
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "poison",
-									dice: "2d8",
-								},
-							],
+							type: "damage",
+							target: "enemy",
+							damageType: "poison",
+							dice: "1d8",
 						},
 					],
 				},

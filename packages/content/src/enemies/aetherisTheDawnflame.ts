@@ -43,27 +43,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "dragon_focus",
-				rank: 3,
-			},
-			{
-				skillId: "multi_strike",
-				rank: 3,
-			},
-			{
-				skillId: "breath_of_the_dawnflame",
-				rank: 3,
-			},
-			{
-				skillId: "boon_of_the_dawnflame",
-				rank: 3,
-			},
-			{
-				skillId: "rebirth",
-				rank: 3,
-			},
+		skillIds: [
+			"dragon_focus",
+			"multi_strike",
+			"breath_of_the_dawnflame",
+			"boon_of_the_dawnflame",
+			"rebirth",
 		],
 		featIds: [],
 		tactic: "default",

@@ -41,20 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "armour_break",
-				rank: 2,
-			},
-			{
-				skillId: "disarm",
-				rank: 2,
-			},
-			{
-				skillId: "wind_strike",
-				rank: 2,
-			},
-		],
+		skillIds: ["armour_break", "disarm", "wind_strike"],
 		featIds: [],
 		tactic: "default",
 	},

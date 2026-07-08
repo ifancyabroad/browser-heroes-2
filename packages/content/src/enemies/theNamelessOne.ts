@@ -41,24 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "tentacle_wrap",
-				rank: 3,
-			},
-			{
-				skillId: "multi_strike",
-				rank: 3,
-			},
-			{
-				skillId: "horrifying_visage",
-				rank: 3,
-			},
-			{
-				skillId: "tentacle_crush",
-				rank: 3,
-			},
-		],
+		skillIds: ["tentacle_wrap", "multi_strike", "horrifying_visage", "tentacle_crush"],
 		featIds: [],
 		tactic: "default",
 	},

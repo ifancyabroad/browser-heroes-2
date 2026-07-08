@@ -1,4 +1,4 @@
-import { type AttackRider, type Skill, type SkillId, type SkillRankValue } from "@app/content";
+import { type AttackRider, type Skill, type SkillId } from "@app/content";
 import { skillCategoryLabels, skillPoolLabels } from "../../game/displayLabels";
 import { formatRiderEffect, formatSavingThrow, formatSkillEffect } from "../../game/effectDisplay";
 import {
@@ -10,17 +10,14 @@ import {
 type SkillTooltipContentProps = {
 	skill: {
 		skillId: SkillId;
-		rank: SkillRankValue;
 		chargesRemaining?: number;
 	};
 	definition: Skill;
 };
 
 export function SkillTooltipContent({ skill, definition }: SkillTooltipContentProps) {
-	const rank = definition.ranks[skill.rank - 1];
 	const usesLabel = getUsesLabel(skill, definition.maxUses);
 	const detailRows: TooltipDetailRow[] = [
-		{ label: "Rank", value: `R${skill.rank}` },
 		{ label: "Category", value: skillCategoryLabels[definition.category] },
 		{ label: "Pool", value: skillPoolLabels[definition.pool] },
 		...(usesLabel ? [{ label: "Uses", value: usesLabel }] : []),
@@ -54,15 +51,9 @@ export function SkillTooltipContent({ skill, definition }: SkillTooltipContentPr
 
 			<TooltipDetailList rows={detailRows} />
 
-			{rank.description && (
-				<TooltipSection title={`Rank ${rank.rank}`}>
-					<p className="text-text">{rank.description}</p>
-				</TooltipSection>
-			)}
-
 			<TooltipSection title="Effects">
 				<ul className="grid gap-1">
-					{rank.effects.map((effect, index) => (
+					{definition.effects.map((effect, index) => (
 						<li key={`${effect.type}-${index}`} className="grid gap-1 break-words">
 							<p>{formatSkillEffect(effect)}</p>
 							{effect.type === "attackDamage" && effect.attackRiders.length > 0 && (

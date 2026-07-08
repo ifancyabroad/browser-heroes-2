@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "leap_attack",
-				rank: 2,
-			},
-			{
-				skillId: "overpower",
-				rank: 2,
-			},
-			{
-				skillId: "toxic_bite",
-				rank: 2,
-			},
-		],
+		skillIds: ["leap_attack", "overpower", "toxic_bite"],
 		featIds: [],
 		tactic: "default",
 	},

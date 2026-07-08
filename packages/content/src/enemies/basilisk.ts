@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skills: [
-			{
-				skillId: "petrifying_gaze",
-				rank: 1,
-			},
-			{
-				skillId: "leap_attack",
-				rank: 1,
-			},
-			{
-				skillId: "toxic_bite",
-				rank: 1,
-			},
-		],
+		skillIds: ["petrifying_gaze", "leap_attack", "toxic_bite"],
 		featIds: [],
 		tactic: "default",
 	},

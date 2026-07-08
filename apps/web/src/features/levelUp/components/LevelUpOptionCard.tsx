@@ -72,7 +72,7 @@ function getOptionContent(option: LevelUpOption) {
 			icon: skill.icon,
 			name: skill.name,
 			typeLabel: null,
-			metaLabel: getSkillRankLabel(option),
+			metaLabel: "New skill",
 			description: `${formatLabel(skill.category)} - ${formatLabel(skill.pool)}`,
 		};
 	}
@@ -86,14 +86,6 @@ function getOptionContent(option: LevelUpOption) {
 		metaLabel: null,
 		description: formatLabel(feat.category),
 	};
-}
-
-function getSkillRankLabel(option: Extract<LevelUpOption, { type: "skill" }>) {
-	if (option.currentRank === null) {
-		return `New skill R${option.resultingRank}`;
-	}
-
-	return `R${option.currentRank} -> R${option.resultingRank}`;
 }
 
 function formatLabel(value: string) {

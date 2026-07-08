@@ -7,45 +7,14 @@ export default buildSkill({
 	pool: "common",
 	category: "buff",
 	maxUses: 3,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "self",
-					damageType: "poison",
-					operation: "add",
-					value: 75,
-					durationTurns: 6,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "self",
-					damageType: "poison",
-					operation: "add",
-					value: 113,
-					durationTurns: 7,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "self",
-					damageType: "poison",
-					operation: "add",
-					value: 150,
-					durationTurns: 8,
-				},
-			],
+			type: "modifyDamage",
+			target: "self",
+			damageType: "poison",
+			operation: "add",
+			value: 75,
+			durationTurns: 6,
 		},
 	],
 	tags: [],

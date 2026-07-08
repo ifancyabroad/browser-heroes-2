@@ -42,11 +42,7 @@ export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 											icon={definition.icon}
 											name={definition.name}
 											meta={`${skillCategoryLabels[definition.category]} / ${skillPoolLabels[definition.pool]}`}
-											badges={
-												usesLabel
-													? [`R${skill.rank}`, usesLabel]
-													: [`R${skill.rank}`]
-											}
+											badges={usesLabel ? [usesLabel] : []}
 										/>
 									</Tooltip>
 								</li>

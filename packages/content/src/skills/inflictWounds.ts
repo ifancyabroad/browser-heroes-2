@@ -9,66 +9,21 @@ export default buildSkill({
 	pool: "occultist",
 	category: "spell",
 	maxUses: 8,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "1d10",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damageOverTime",
-					target: "enemy",
-					damageType: "slashing",
-					dice: "1d4",
-					durationTurns: 4,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "necrotic",
+			dice: "1d10",
+			attribute: "wisdom",
+			requiresAttackRoll: false,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d10-3",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damageOverTime",
-					target: "enemy",
-					damageType: "slashing",
-					dice: "1d6",
-					durationTurns: 5,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d10-1",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damageOverTime",
-					target: "enemy",
-					damageType: "slashing",
-					dice: "1d8",
-					durationTurns: 6,
-				},
-			],
+			type: "damageOverTime",
+			target: "enemy",
+			damageType: "slashing",
+			dice: "1d4",
+			durationTurns: 4,
 		},
 	],
 	tags: [],

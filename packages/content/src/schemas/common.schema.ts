@@ -152,13 +152,6 @@ export const skillCategorySchema = z.enum(skillCategories);
 
 export const skillTargetSchema = z.enum(["self", "enemy"]);
 
-export const skillRankValueSchema = z.union([z.literal(1), z.literal(2), z.literal(3)]);
-
-export const skillRefSchema = z.object({
-	skillId: z.string().nonempty(),
-	rank: skillRankValueSchema.default(1),
-});
-
 export const armourTypes = ["cloth", "light", "medium", "heavy", "shield"] as const;
 
 export const armourTypeSchema = z.enum(armourTypes);
@@ -222,7 +215,6 @@ export type HitDie = z.infer<typeof hitDieSchema>;
 export type SkillPool = z.infer<typeof skillPoolSchema>;
 export type SkillCategory = z.infer<typeof skillCategorySchema>;
 export type SkillTarget = z.infer<typeof skillTargetSchema>;
-export type SkillRankValue = z.infer<typeof skillRankValueSchema>;
 export type ArmourType = z.infer<typeof armourTypeSchema>;
 export type WeaponType = z.infer<typeof weaponTypeSchema>;
 export type Zone = z.infer<typeof zoneSchema>;

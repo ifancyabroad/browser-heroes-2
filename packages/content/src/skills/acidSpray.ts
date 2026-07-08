@@ -7,96 +7,31 @@ export default buildSkill({
 	pool: "common",
 	category: "spell",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "acid",
-					dice: "1d10+5",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "dexterity",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "dexterity",
-							includeProficiency: true,
-							bonus: 1,
-						},
-					},
+			type: "damage",
+			target: "enemy",
+			damageType: "acid",
+			dice: "1d10+5",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "noEffect",
+				dc: {
+					base: 8,
+					attribute: "dexterity",
+					includeProficiency: true,
+					bonus: 1,
 				},
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -4,
-					durationTurns: 6,
-				},
-			],
+			},
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "acid",
-					dice: "2d10+4",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "dexterity",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "dexterity",
-							includeProficiency: true,
-							bonus: 1,
-						},
-					},
-				},
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -6,
-					durationTurns: 7,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "acid",
-					dice: "2d10+9",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "dexterity",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "dexterity",
-							includeProficiency: true,
-							bonus: 1,
-						},
-					},
-				},
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -8,
-					durationTurns: 8,
-				},
-			],
+			type: "modifyStat",
+			target: "enemy",
+			stat: "armourClass",
+			operation: "add",
+			value: -4,
+			durationTurns: 6,
 		},
 	],
 	tags: [],

@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "constrict",
-				rank: 2,
-			},
-			{
-				skillId: "flame_bite",
-				rank: 2,
-			},
-		],
+		skillIds: ["constrict", "flame_bite"],
 		featIds: [],
 		tactic: "default",
 	},

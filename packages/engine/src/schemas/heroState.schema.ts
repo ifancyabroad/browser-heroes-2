@@ -5,14 +5,12 @@ import {
 	featIdSchema,
 	itemIdSchema,
 	skillIdSchema,
-	skillRankValueSchema,
 } from "@app/content";
 import { pendingLevelUpSchema } from "./levelUp.schema";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 
 export const heroSkillStateSchema = z.object({
 	skillId: skillIdSchema,
-	rank: skillRankValueSchema.default(1),
 
 	// Optional because not every skill needs charges.
 	chargesRemaining: z.number().int().min(0).optional(),

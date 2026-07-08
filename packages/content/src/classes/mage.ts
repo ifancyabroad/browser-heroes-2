@@ -19,12 +19,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d6",
-		skills: [
-			{
-				skillId: "sparks",
-				rank: 1,
-			},
-		],
+		skillIds: ["sparks"],
 		featIds: [],
 		tactic: "caster",
 	},

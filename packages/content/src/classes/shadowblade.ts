@@ -19,12 +19,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skills: [
-			{
-				skillId: "inflict_wounds",
-				rank: 1,
-			},
-		],
+		skillIds: ["inflict_wounds"],
 		featIds: [],
 		tactic: "default",
 	},

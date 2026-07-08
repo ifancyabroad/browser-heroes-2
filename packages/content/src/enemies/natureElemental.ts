@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "constitution",
 			},
 		},
-		skills: [
-			{
-				skillId: "natures_blessing",
-				rank: 2,
-			},
-			{
-				skillId: "poison_cloud",
-				rank: 2,
-			},
-		],
+		skillIds: ["natures_blessing", "poison_cloud"],
 		featIds: [],
 		tactic: "default",
 	},

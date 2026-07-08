@@ -9,42 +9,13 @@ export default buildSkill({
 	pool: "rogue",
 	category: "debuff",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 4,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 5,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 6,
-				},
-			],
+			type: "modifyDamage",
+			target: "enemy",
+			operation: "multiply",
+			value: 0.75,
+			durationTurns: 4,
 		},
 	],
 	tags: [],

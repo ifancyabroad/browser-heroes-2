@@ -5,7 +5,6 @@ import {
 	basicAttackSchema,
 	damageAffinitiesSchema,
 	hitDieSchema,
-	skillRefSchema,
 	tacticSchema,
 	zoneSchema,
 } from "./common.schema";
@@ -25,7 +24,7 @@ export const enemyCombatSchema = z.object({
 		vulnerabilities: [],
 	}),
 	basicAttack: basicAttackSchema,
-	skills: z.array(skillRefSchema).default([]),
+	skillIds: z.array(z.string().nonempty()).default([]),
 	featIds: z.array(z.string().nonempty()).default([]),
 	tactic: tacticSchema.default("default"),
 });

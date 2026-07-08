@@ -7,45 +7,14 @@ export default buildSkill({
 	pool: "common",
 	category: "buff",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "self",
-					stat: "attackRollBonus",
-					operation: "add",
-					value: 2,
-					durationTurns: 6,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "self",
-					stat: "attackRollBonus",
-					operation: "add",
-					value: 3,
-					durationTurns: 7,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "self",
-					stat: "attackRollBonus",
-					operation: "add",
-					value: 4,
-					durationTurns: 8,
-				},
-			],
+			type: "modifyStat",
+			target: "self",
+			stat: "attackRollBonus",
+			operation: "add",
+			value: 2,
+			durationTurns: 6,
 		},
 	],
 	tags: [],

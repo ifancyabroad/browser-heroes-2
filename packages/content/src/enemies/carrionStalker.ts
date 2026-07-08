@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skills: [
-			{
-				skillId: "detect_blood",
-				rank: 2,
-			},
-			{
-				skillId: "leap_attack",
-				rank: 2,
-			},
-		],
+		skillIds: ["detect_blood", "leap_attack"],
 		featIds: [],
 		tactic: "default",
 	},

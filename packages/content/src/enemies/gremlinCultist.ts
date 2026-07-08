@@ -32,24 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "curse",
-				rank: 2,
-			},
-			{
-				skillId: "chosen_by_the_nameless",
-				rank: 2,
-			},
-			{
-				skillId: "drain_life",
-				rank: 2,
-			},
-			{
-				skillId: "power_word_confusion",
-				rank: 2,
-			},
-		],
+		skillIds: ["curse", "chosen_by_the_nameless", "drain_life", "power_word_confusion"],
 		featIds: [],
 		tactic: "caster",
 	},

@@ -41,16 +41,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skills: [
-			{
-				skillId: "nightmares",
-				rank: 2,
-			},
-			{
-				skillId: "creeping_darkness",
-				rank: 2,
-			},
-		],
+		skillIds: ["nightmares", "creeping_darkness"],
 		featIds: [],
 		tactic: "default",
 	},

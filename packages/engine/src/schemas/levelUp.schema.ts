@@ -1,11 +1,9 @@
 import { z } from "zod";
-import { featIdSchema, skillIdSchema, skillRankValueSchema } from "@app/content";
+import { featIdSchema, skillIdSchema } from "@app/content";
 
 export const skillLevelUpOptionSchema = z.object({
 	type: z.literal("skill"),
 	skillId: skillIdSchema,
-	currentRank: skillRankValueSchema.nullable(),
-	resultingRank: skillRankValueSchema,
 });
 
 export const featLevelUpOptionSchema = z.object({

@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "sparks",
-				rank: 2,
-			},
-			{
-				skillId: "frost_arrow",
-				rank: 2,
-			},
-			{
-				skillId: "flame_arrow",
-				rank: 2,
-			},
-		],
+		skillIds: ["sparks", "frost_arrow", "flame_arrow"],
 		featIds: ["armour"],
 		tactic: "caster",
 	},

@@ -9,45 +9,14 @@ export default buildSkill({
 	pool: "occultist",
 	category: "spell",
 	maxUses: 4,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "1d12+8",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "2d12+7",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "2d12+14",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "lightning",
+			dice: "1d12+8",
+			attribute: "wisdom",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

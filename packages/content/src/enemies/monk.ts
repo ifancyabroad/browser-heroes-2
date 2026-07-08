@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "cure_minor_wounds",
-				rank: 1,
-			},
-			{
-				skillId: "holy_bolt",
-				rank: 1,
-			},
-		],
+		skillIds: ["cure_minor_wounds", "holy_bolt"],
 		featIds: ["runic_ward"],
 		tactic: "caster",
 	},

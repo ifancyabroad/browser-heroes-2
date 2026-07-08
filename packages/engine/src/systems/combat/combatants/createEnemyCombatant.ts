@@ -55,7 +55,7 @@ export function createEnemyCombatant(
 			...enemy.combat.basicAttack,
 			proficient: true,
 		},
-		skills: enemy.combat.skills.map(createCombatantSkillFromEnemySkill),
+		skills: enemy.combat.skillIds.map(createCombatantSkillFromEnemySkill),
 		featIds,
 		activeEffects: [],
 	};

@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skills: [
-			{
-				skillId: "engulf",
-				rank: 2,
-			},
-			{
-				skillId: "fireball",
-				rank: 2,
-			},
-		],
+		skillIds: ["engulf", "fireball"],
 		featIds: ["arcane_penetration", "embrace_elements"],
 		tactic: "caster",
 	},

@@ -202,8 +202,6 @@ function SkillSlot({ skill, disabled, onUseSkill }: SkillSlotProps) {
 				label={usesLabel ?? undefined}
 				labelClassName="text-primary"
 				onClick={() => onUseSkill(skill.skillId)}
-				topLeftLabel={`R${skill.rank}`}
-				topLeftLabelClassName="text-text-bright"
 			/>
 		</Tooltip>
 	);

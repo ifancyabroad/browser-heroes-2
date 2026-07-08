@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "double_strike",
-				rank: 3,
-			},
-			{
-				skillId: "call_upon_rit_chi",
-				rank: 3,
-			},
-		],
+		skillIds: ["double_strike", "call_upon_rit_chi"],
 		featIds: ["siphoned_vigor"],
 		tactic: "default",
 	},

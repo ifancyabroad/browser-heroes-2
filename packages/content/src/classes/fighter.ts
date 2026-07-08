@@ -19,12 +19,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d10",
-		skills: [
-			{
-				skillId: "armour_break",
-				rank: 1,
-			},
-		],
+		skillIds: ["armour_break"],
 		featIds: [],
 		tactic: "default",
 	},

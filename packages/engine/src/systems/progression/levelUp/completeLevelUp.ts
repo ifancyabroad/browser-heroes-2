@@ -86,25 +86,9 @@ function applySkillOption(
 	hero: HeroState,
 	option: Extract<LevelUpOption, { type: "skill" }>,
 ): HeroState {
-	const existingSkillIndex = hero.skills.findIndex((skill) => skill.skillId === option.skillId);
-
-	if (existingSkillIndex === -1) {
-		return {
-			...hero,
-			skills: [...hero.skills, createNewSkillState(option.skillId)],
-		};
-	}
-
 	return {
 		...hero,
-		skills: hero.skills.map((skill, index) =>
-			index === existingSkillIndex
-				? {
-						...skill,
-						rank: option.resultingRank,
-					}
-				: skill,
-		),
+		skills: [...hero.skills, createNewSkillState(option.skillId)],
 	};
 }
 
@@ -113,7 +97,6 @@ function createNewSkillState(skillId: SkillId): HeroSkillState {
 
 	return {
 		skillId,
-		rank: 1,
 		...(skillDefinition.maxUses
 			? {
 					chargesRemaining: skillDefinition.maxUses,
@@ -162,7 +145,6 @@ function createCompletedSelection(option: LevelUpOption | null): CompletedLevelU
 		return {
 			type: "skill",
 			skillId: option.skillId,
-			resultingRank: option.resultingRank,
 		};
 	}
 

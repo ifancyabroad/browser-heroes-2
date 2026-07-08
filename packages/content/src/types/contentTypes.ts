@@ -3,20 +3,15 @@ export type WithGeneratedId<
 	TId extends string,
 > = TDefinition extends unknown ? Omit<TDefinition, "id"> & { id: TId } : never;
 
-export type WithSkillRefId<TSkillRef extends { skillId: string }, TSkillId extends string> = Omit<
-	TSkillRef,
-	"skillId"
-> & { skillId: TSkillId };
-
 export type WithCombatContentIds<
 	TCombat extends {
-		skills: readonly { skillId: string }[];
+		skillIds: readonly string[];
 		featIds: readonly string[];
 	},
 	TSkillId extends string,
 	TFeatId extends string,
-> = Omit<TCombat, "skills" | "featIds"> & {
-	skills: readonly WithSkillRefId<TCombat["skills"][number], TSkillId>[];
+> = Omit<TCombat, "skillIds" | "featIds"> & {
+	skillIds: readonly TSkillId[];
 	featIds: readonly TFeatId[];
 };
 

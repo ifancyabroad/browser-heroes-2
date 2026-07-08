@@ -7,71 +7,20 @@ export default buildSkill({
 	pool: "barbarian",
 	category: "attack",
 	maxUses: 7,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [
 				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [
+					timing: "onHit",
+					effects: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "crushing",
-									dice: "1d8+3",
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "crushing",
-									dice: "2d8+1",
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "crushing",
-									dice: "2d8+4",
-								},
-							],
+							type: "damage",
+							target: "enemy",
+							damageType: "crushing",
+							dice: "1d8+3",
 						},
 					],
 				},

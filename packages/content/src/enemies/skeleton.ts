@@ -32,7 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [],
+		skillIds: [],
 		featIds: [],
 		tactic: "default",
 	},

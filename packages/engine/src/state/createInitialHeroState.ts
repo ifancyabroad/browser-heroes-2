@@ -49,12 +49,11 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 }
 
 function createInitialSkills(classDefinition: Class): HeroSkillState[] {
-	return classDefinition.combat.skills.map((skill) => {
-		const skillDefinition = SKILLS_BY_ID[skill.skillId];
+	return classDefinition.combat.skillIds.map((skillId) => {
+		const skillDefinition = SKILLS_BY_ID[skillId];
 
 		const mappedSkill: HeroSkillState = {
-			skillId: skill.skillId,
-			rank: skill.rank,
+			skillId,
 		};
 
 		if (skillDefinition.maxUses) {

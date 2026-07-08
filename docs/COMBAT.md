@@ -136,7 +136,7 @@ Damage affinities include normal, resistant, immune, and vulnerable outcomes. Co
 
 Skills are active combat abilities. Consumables provide limited-use recovery, combat, or utility effects.
 
-Current state: player skill actions and healing potion use are part of engine combat resolution. Skills can exist on combatants, can be gained or ranked through progression, can consume limited charges, and resolve through shared engine logic. Healing potions restore a percentage of maximum HP adjusted by effective healing modifiers, consume one potion, write combat logs/events, and then complete the normal player action round.
+Current state: player skill actions and healing potion use are part of engine combat resolution. Skills can exist on combatants, can be gained through progression, can consume limited charges, and resolve through shared engine logic. Healing potions restore a percentage of maximum HP adjusted by effective healing modifiers, consume one potion, write combat logs/events, and then complete the normal player action round.
 
 Skills and consumables should have:
 

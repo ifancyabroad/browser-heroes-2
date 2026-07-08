@@ -7,42 +7,13 @@ export default buildSkill({
 	pool: "common",
 	category: "spell",
 	maxUses: 4,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "1d6",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d6-2",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d6",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "necrotic",
+			dice: "1d6",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

@@ -9,75 +9,24 @@ export default buildSkill({
 	pool: "barbarian",
 	category: "attack",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [],
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [],
 		},
 		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [],
 		},
 	],
 	tags: [],

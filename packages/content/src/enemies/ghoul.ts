@@ -32,12 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "ghoul_strike",
-				rank: 1,
-			},
-		],
+		skillIds: ["ghoul_strike"],
 		featIds: [],
 		tactic: "default",
 	},

@@ -7,71 +7,20 @@ export default buildSkill({
 	pool: "common",
 	category: "attack",
 	maxUses: 4,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [
 				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [
+					timing: "onHit",
+					effects: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "lightning",
-									dice: "1d12+8",
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "lightning",
-									dice: "2d12+7",
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "lightning",
-									dice: "2d12+14",
-								},
-							],
+							type: "damage",
+							target: "enemy",
+							damageType: "lightning",
+							dice: "1d12+8",
 						},
 					],
 				},

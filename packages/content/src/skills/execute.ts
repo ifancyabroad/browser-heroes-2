@@ -7,74 +7,21 @@ export default buildSkill({
 	pool: "unique",
 	category: "attack",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 2,
+			attackRiders: [
 				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 2,
-					attackRiders: [
+					timing: "onHit",
+					effects: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "slashing",
-									dice: "1d8",
-									durationTurns: 5,
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 2.5,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "slashing",
-									dice: "1d10",
-									durationTurns: 6,
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 3,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damageOverTime",
-									target: "enemy",
-									damageType: "slashing",
-									dice: "1d12",
-									durationTurns: 7,
-								},
-							],
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "slashing",
+							dice: "1d8",
+							durationTurns: 5,
 						},
 					],
 				},

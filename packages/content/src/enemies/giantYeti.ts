@@ -40,20 +40,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "double_strike",
-				rank: 2,
-			},
-			{
-				skillId: "deafening_roar",
-				rank: 2,
-			},
-			{
-				skillId: "tenderise",
-				rank: 2,
-			},
-		],
+		skillIds: ["double_strike", "deafening_roar", "tenderise"],
 		featIds: [],
 		tactic: "default",
 	},

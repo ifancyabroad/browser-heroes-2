@@ -9,42 +9,13 @@ export default buildSkill({
 	pool: "warlock",
 	category: "debuff",
 	maxUses: 8,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 8,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 9,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyDamage",
-					target: "enemy",
-					operation: "multiply",
-					value: 0.75,
-					durationTurns: 10,
-				},
-			],
+			type: "modifyDamage",
+			target: "enemy",
+			operation: "multiply",
+			value: 0.75,
+			durationTurns: 8,
 		},
 	],
 	tags: [],

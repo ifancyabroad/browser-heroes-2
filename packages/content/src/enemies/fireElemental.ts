@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skills: [
-			{
-				skillId: "double_strike",
-				rank: 2,
-			},
-			{
-				skillId: "burning_rampage",
-				rank: 2,
-			},
-		],
+		skillIds: ["double_strike", "burning_rampage"],
 		featIds: [],
 		tactic: "default",
 	},

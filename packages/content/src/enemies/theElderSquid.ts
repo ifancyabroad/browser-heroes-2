@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "tentacle_wrap",
-				rank: 3,
-			},
-			{
-				skillId: "psionic_blast",
-				rank: 3,
-			},
-			{
-				skillId: "drain_life",
-				rank: 3,
-			},
-		],
+		skillIds: ["tentacle_wrap", "psionic_blast", "drain_life"],
 		featIds: ["arcane_warding", "siphoned_vigor"],
 		tactic: "default",
 	},

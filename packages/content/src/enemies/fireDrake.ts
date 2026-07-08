@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "fire_breath",
-				rank: 2,
-			},
-			{
-				skillId: "drop_from_above",
-				rank: 2,
-			},
-		],
+		skillIds: ["fire_breath", "drop_from_above"],
 		featIds: [],
 		tactic: "default",
 	},

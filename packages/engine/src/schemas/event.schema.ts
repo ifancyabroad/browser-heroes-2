@@ -1,10 +1,4 @@
-import {
-	equipmentSlotSchema,
-	featIdSchema,
-	itemIdSchema,
-	skillIdSchema,
-	skillRankValueSchema,
-} from "@app/content";
+import { equipmentSlotSchema, featIdSchema, itemIdSchema, skillIdSchema } from "@app/content";
 import { z } from "zod";
 
 const combatStartedEventSchema = z.object({
@@ -41,7 +35,6 @@ const nextCombatReadyEventSchema = z.object({
 const skillLevelUpSelectionSchema = z.object({
 	type: z.literal("skill"),
 	skillId: skillIdSchema,
-	resultingRank: skillRankValueSchema,
 });
 
 const featLevelUpSelectionSchema = z.object({

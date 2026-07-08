@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "double_strike",
-				rank: 2,
-			},
-			{
-				skillId: "molten_overdrive",
-				rank: 2,
-			},
-			{
-				skillId: "flame_slam",
-				rank: 2,
-			},
-		],
+		skillIds: ["double_strike", "molten_overdrive", "flame_slam"],
 		featIds: [],
 		tactic: "default",
 	},

@@ -7,95 +7,28 @@ export default buildSkill({
 	pool: "unique",
 	category: "attack",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			attackRiders: [
 				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1,
-					attackRiders: [
+					timing: "onHit",
+					effects: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "cold",
-									dice: "1d10+5",
-								},
-								{
-									type: "modifyStat",
-									target: "enemy",
-									stat: "armourClass",
-									operation: "add",
-									value: -4,
-									durationTurns: 4,
-								},
-							],
+							type: "damage",
+							target: "enemy",
+							damageType: "cold",
+							dice: "1d10+5",
 						},
-					],
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.25,
-					attackRiders: [
 						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "cold",
-									dice: "2d10+4",
-								},
-								{
-									type: "modifyStat",
-									target: "enemy",
-									stat: "armourClass",
-									operation: "add",
-									value: -6,
-									durationTurns: 5,
-								},
-							],
-						},
-					],
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 1.5,
-					attackRiders: [
-						{
-							timing: "onHit",
-							effects: [
-								{
-									type: "damage",
-									target: "enemy",
-									damageType: "cold",
-									dice: "2d10+9",
-								},
-								{
-									type: "modifyStat",
-									target: "enemy",
-									stat: "armourClass",
-									operation: "add",
-									value: -8,
-									durationTurns: 6,
-								},
-							],
+							type: "modifyStat",
+							target: "enemy",
+							stat: "armourClass",
+							operation: "add",
+							value: -4,
+							durationTurns: 4,
 						},
 					],
 				},

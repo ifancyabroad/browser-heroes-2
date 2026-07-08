@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "constitution",
 			},
 		},
-		skills: [
-			{
-				skillId: "double_strike",
-				rank: 3,
-			},
-			{
-				skillId: "stoke_the_flames",
-				rank: 3,
-			},
-		],
+		skillIds: ["double_strike", "stoke_the_flames"],
 		featIds: ["focus_energy"],
 		tactic: "default",
 	},

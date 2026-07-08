@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "toxic_bite",
-				rank: 2,
-			},
-			{
-				skillId: "acid_spray",
-				rank: 2,
-			},
-		],
+		skillIds: ["toxic_bite", "acid_spray"],
 		featIds: [],
 		tactic: "default",
 	},

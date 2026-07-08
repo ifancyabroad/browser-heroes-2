@@ -19,12 +19,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skills: [
-			{
-				skillId: "flame_arrow",
-				rank: 1,
-			},
-		],
+		skillIds: ["flame_arrow"],
 		featIds: [],
 		tactic: "default",
 	},

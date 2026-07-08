@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "regeneration",
-				rank: 1,
-			},
-			{
-				skillId: "poison_bite",
-				rank: 1,
-			},
-		],
+		skillIds: ["regeneration", "poison_bite"],
 		featIds: [],
 		tactic: "default",
 	},

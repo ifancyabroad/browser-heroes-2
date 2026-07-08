@@ -41,24 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "armour_break",
-				rank: 2,
-			},
-			{
-				skillId: "deafening_roar",
-				rank: 2,
-			},
-			{
-				skillId: "leap_attack",
-				rank: 2,
-			},
-			{
-				skillId: "wind_strike",
-				rank: 2,
-			},
-		],
+		skillIds: ["armour_break", "deafening_roar", "leap_attack", "wind_strike"],
 		featIds: [],
 		tactic: "default",
 	},

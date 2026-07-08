@@ -32,12 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "stand_ground",
-				rank: 2,
-			},
-		],
+		skillIds: ["stand_ground"],
 		featIds: ["focus_energy"],
 		tactic: "default",
 	},

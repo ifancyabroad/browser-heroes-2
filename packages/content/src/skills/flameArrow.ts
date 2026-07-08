@@ -8,45 +8,14 @@ export default buildSkill({
 	pool: "warlock",
 	category: "spell",
 	maxUses: 12,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "1d10",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "2d10-3",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "2d10-1",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "fire",
+			dice: "1d10",
+			attribute: "intelligence",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

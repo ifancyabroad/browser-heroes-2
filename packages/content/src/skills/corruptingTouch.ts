@@ -7,96 +7,31 @@ export default buildSkill({
 	pool: "common",
 	category: "spell",
 	maxUses: 6,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "1d12+8",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "wisdom",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "wisdom",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
+			type: "damage",
+			target: "enemy",
+			damageType: "necrotic",
+			dice: "1d12+8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "wisdom",
+				onSuccess: "noEffect",
+				dc: {
+					base: 8,
+					attribute: "wisdom",
+					includeProficiency: true,
+					bonus: 0,
 				},
-				{
-					type: "modifyDamageAffinity",
-					target: "enemy",
-					affinity: "vulnerability",
-					operation: "add",
-					damageType: "necrotic",
-					durationTurns: 2,
-				},
-			],
+			},
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d12+7",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "wisdom",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "wisdom",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
-				},
-				{
-					type: "modifyDamageAffinity",
-					target: "enemy",
-					affinity: "vulnerability",
-					operation: "add",
-					damageType: "necrotic",
-					durationTurns: 3,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d12+14",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "wisdom",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "wisdom",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
-				},
-				{
-					type: "modifyDamageAffinity",
-					target: "enemy",
-					affinity: "vulnerability",
-					operation: "add",
-					damageType: "necrotic",
-					durationTurns: 4,
-				},
-			],
+			type: "modifyDamageAffinity",
+			target: "enemy",
+			affinity: "vulnerability",
+			operation: "add",
+			damageType: "necrotic",
+			durationTurns: 2,
 		},
 	],
 	tags: [],

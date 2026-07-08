@@ -32,12 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "cripple",
-				rank: 1,
-			},
-		],
+		skillIds: ["cripple"],
 		featIds: ["acrobatic_training"],
 		tactic: "default",
 	},

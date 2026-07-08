@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "knock_down",
-				rank: 2,
-			},
-			{
-				skillId: "double_strike",
-				rank: 2,
-			},
-			{
-				skillId: "powerful_blow",
-				rank: 2,
-			},
-		],
+		skillIds: ["knock_down", "double_strike", "powerful_blow"],
 		featIds: [],
 		tactic: "default",
 	},

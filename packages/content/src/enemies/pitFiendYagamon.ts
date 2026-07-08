@@ -41,24 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "double_strike",
-				rank: 3,
-			},
-			{
-				skillId: "fireball",
-				rank: 3,
-			},
-			{
-				skillId: "fire_strike",
-				rank: 3,
-			},
-			{
-				skillId: "yagamons_revenge",
-				rank: 3,
-			},
-		],
+		skillIds: ["double_strike", "fireball", "fire_strike", "yagamons_revenge"],
 		featIds: [],
 		tactic: "default",
 	},

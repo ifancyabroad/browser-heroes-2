@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "berserk",
-				rank: 2,
-			},
-			{
-				skillId: "heavy_strike",
-				rank: 2,
-			},
-		],
+		skillIds: ["berserk", "heavy_strike"],
 		featIds: [],
 		tactic: "default",
 	},

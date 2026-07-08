@@ -7,39 +7,12 @@ export default buildSkill({
 	pool: "common",
 	category: "debuff",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 2,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 3,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 4,
-				},
-			],
+			type: "applyStatus",
+			target: "enemy",
+			statusId: "stunned",
+			durationTurns: 2,
 		},
 	],
 	tags: [],

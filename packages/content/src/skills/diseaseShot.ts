@@ -7,93 +7,30 @@ export default buildSkill({
 	pool: "common",
 	category: "spell",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "poison",
-					dice: "1d12+8",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "constitution",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
+			type: "damage",
+			target: "enemy",
+			damageType: "poison",
+			dice: "1d12+8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: {
+					base: 8,
+					attribute: "constitution",
+					includeProficiency: true,
+					bonus: 0,
 				},
-				{
-					type: "damageOverTime",
-					target: "enemy",
-					damageType: "poison",
-					dice: "1d6",
-					durationTurns: 4,
-				},
-			],
+			},
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "poison",
-					dice: "2d12+7",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "constitution",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
-				},
-				{
-					type: "damageOverTime",
-					target: "enemy",
-					damageType: "poison",
-					dice: "1d8",
-					durationTurns: 5,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "poison",
-					dice: "2d12+14",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "constitution",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
-				},
-				{
-					type: "damageOverTime",
-					target: "enemy",
-					damageType: "poison",
-					dice: "1d10",
-					durationTurns: 6,
-				},
-			],
+			type: "damageOverTime",
+			target: "enemy",
+			damageType: "poison",
+			dice: "1d6",
+			durationTurns: 4,
 		},
 	],
 	tags: [],

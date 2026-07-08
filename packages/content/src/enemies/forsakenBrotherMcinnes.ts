@@ -41,27 +41,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "power_word_pain",
-				rank: 3,
-			},
-			{
-				skillId: "drain_life",
-				rank: 3,
-			},
-			{
-				skillId: "will_of_the_deceiver",
-				rank: 3,
-			},
-			{
-				skillId: "unwavering_lies",
-				rank: 3,
-			},
-			{
-				skillId: "cure_critical_wounds",
-				rank: 3,
-			},
+		skillIds: [
+			"power_word_pain",
+			"drain_life",
+			"will_of_the_deceiver",
+			"unwavering_lies",
+			"cure_critical_wounds",
 		],
 		featIds: [],
 		tactic: "caster",

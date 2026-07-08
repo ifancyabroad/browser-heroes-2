@@ -7,42 +7,13 @@ export default buildSkill({
 	pool: "unique",
 	category: "spell",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "4d12+19",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "6d12+26",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "lightning",
-					dice: "8d12+34",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "lightning",
+			dice: "4d12+19",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

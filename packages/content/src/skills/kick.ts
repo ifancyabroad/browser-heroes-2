@@ -9,90 +9,29 @@ export default buildSkill({
 	pool: "rogue",
 	category: "spell",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "1d6",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "constitution",
-							includeProficiency: true,
-							bonus: 1,
-						},
-					},
+			type: "damage",
+			target: "enemy",
+			damageType: "crushing",
+			dice: "1d6",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: {
+					base: 8,
+					attribute: "constitution",
+					includeProficiency: true,
+					bonus: 1,
 				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 2,
-				},
-			],
+			},
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d6-2",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "constitution",
-							includeProficiency: true,
-							bonus: 1,
-						},
-					},
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 3,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d6",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "constitution",
-							includeProficiency: true,
-							bonus: 1,
-						},
-					},
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 4,
-				},
-			],
+			type: "applyStatus",
+			target: "enemy",
+			statusId: "stunned",
+			durationTurns: 2,
 		},
 	],
 	tags: [],

@@ -32,12 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "fireball",
-				rank: 2,
-			},
-		],
+		skillIds: ["fireball"],
 		featIds: ["shadow_focus", "iron_skin", "embrace_shadows"],
 		tactic: "caster",
 	},

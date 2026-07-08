@@ -7,42 +7,13 @@ export default buildSkill({
 	pool: "unique",
 	category: "spell",
 	maxUses: 5,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "self",
-					damageType: "radiant",
-					dice: "5d6+3",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "self",
-					damageType: "radiant",
-					dice: "8d6+1",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "self",
-					damageType: "radiant",
-					dice: "10d6+3",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "self",
+			damageType: "radiant",
+			dice: "5d6+3",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

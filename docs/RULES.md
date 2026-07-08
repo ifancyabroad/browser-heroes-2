@@ -70,7 +70,7 @@ Level-up choices are intended to stay curated: the player should choose from a s
 
 Skills are active abilities owned by heroes, enemies, or other combatants.
 
-Current state: heroes can start with skills, gain or rank skills through level-up choices, and use available skills during active combat. Skill actions are engine-validated and are unavailable when the hero is silenced. A stunned hero cannot act and may only skip the turn.
+Current state: heroes can start with skills, gain new skills through level-up choices, and use available skills during active combat. Skill actions are engine-validated and are unavailable when the hero is silenced. A stunned hero cannot act and may only skip the turn.
 
 Implemented skill effects may:
 
@@ -78,7 +78,7 @@ Implemented skill effects may:
 - heal
 - apply temporary effects
 - impose conditions
-- use charges, ranks, or other limits
+- use charges or other explicit limits
 
 Supported active effects include temporary stat, damage, damage-taken, and damage-affinity modifiers; statuses; shields; damage over time; and healing over time. `removeStatus` exists in content schemas and display formatting, but its engine resolution is not implemented yet.
 

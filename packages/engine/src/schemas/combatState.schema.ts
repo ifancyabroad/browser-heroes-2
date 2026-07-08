@@ -7,7 +7,6 @@ import {
 	damageTypeSchema,
 	featIdSchema,
 	skillIdSchema,
-	skillRankValueSchema,
 	damageAffinityKindSchema,
 	damageAffinityOperationSchema,
 	modifiableStatSchema,
@@ -91,7 +90,6 @@ export const activeCombatEffectSchema = z.discriminatedUnion("type", [
 
 export const combatantSkillStateSchema = z.object({
 	skillId: skillIdSchema,
-	rank: skillRankValueSchema,
 	chargesRemaining: z.number().int().min(0).optional(),
 });
 

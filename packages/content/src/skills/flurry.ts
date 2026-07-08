@@ -8,93 +8,30 @@ export default buildSkill({
 	pool: "rogue",
 	category: "attack",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.5,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.5,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.5,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.5,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 0.5,
+			attackRiders: [],
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.63,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.63,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.63,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.63,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 0.5,
+			attackRiders: [],
 		},
 		{
-			rank: 3,
-			effects: [
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.75,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.75,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.75,
-					attackRiders: [],
-				},
-				{
-					type: "attackDamage",
-					target: "enemy",
-					multiplier: 0.75,
-					attackRiders: [],
-				},
-			],
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 0.5,
+			attackRiders: [],
+		},
+		{
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 0.5,
+			attackRiders: [],
 		},
 	],
 	tags: [],

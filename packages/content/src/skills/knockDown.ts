@@ -9,90 +9,29 @@ export default buildSkill({
 	pool: "common",
 	category: "spell",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 2,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "1d12+8",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
-				},
-			],
+			type: "applyStatus",
+			target: "enemy",
+			statusId: "stunned",
+			durationTurns: 2,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 3,
+			type: "damage",
+			target: "enemy",
+			damageType: "crushing",
+			dice: "1d12+8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: {
+					base: 8,
+					attribute: "strength",
+					includeProficiency: true,
+					bonus: 0,
 				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d12+7",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 4,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d12+14",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 0,
-						},
-					},
-				},
-			],
+			},
 		},
 	],
 	tags: [],

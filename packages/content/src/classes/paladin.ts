@@ -19,12 +19,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d10",
-		skills: [
-			{
-				skillId: "holy_strike",
-				rank: 1,
-			},
-		],
+		skillIds: ["holy_strike"],
 		featIds: [],
 		tactic: "default",
 	},

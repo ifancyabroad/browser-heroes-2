@@ -7,45 +7,14 @@ export default buildSkill({
 	pool: "common",
 	category: "debuff",
 	maxUses: 6,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -4,
-					durationTurns: 4,
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -6,
-					durationTurns: 5,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -8,
-					durationTurns: 6,
-				},
-			],
+			type: "modifyStat",
+			target: "enemy",
+			stat: "armourClass",
+			operation: "add",
+			value: -4,
+			durationTurns: 4,
 		},
 	],
 	tags: [],

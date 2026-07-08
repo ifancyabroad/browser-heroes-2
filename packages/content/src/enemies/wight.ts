@@ -32,12 +32,7 @@ export default buildEnemy({
 				attribute: "constitution",
 			},
 		},
-		skills: [
-			{
-				skillId: "corrupting_touch",
-				rank: 2,
-			},
-		],
+		skillIds: ["corrupting_touch"],
 		featIds: ["evasion"],
 		tactic: "default",
 	},

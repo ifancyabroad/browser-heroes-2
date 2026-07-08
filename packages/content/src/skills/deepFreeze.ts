@@ -9,63 +9,20 @@ export default buildSkill({
 	pool: "mage",
 	category: "spell",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "cold",
-					dice: "2d12+8",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 2,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "cold",
+			dice: "2d12+8",
+			attribute: "intelligence",
+			requiresAttackRoll: false,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "cold",
-					dice: "3d12+11",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 3,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "cold",
-					dice: "4d12+14",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 4,
-				},
-			],
+			type: "applyStatus",
+			target: "enemy",
+			statusId: "stunned",
+			durationTurns: 2,
 		},
 	],
 	tags: [],

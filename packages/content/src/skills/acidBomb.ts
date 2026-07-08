@@ -8,63 +8,20 @@ export default buildSkill({
 	pool: "rogue",
 	category: "spell",
 	maxUses: 4,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "2d10+3",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "acid",
-					dice: "2d10+3",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "fire",
+			dice: "2d10+3",
+			requiresAttackRoll: false,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "3d10+4",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "acid",
-					dice: "3d10+4",
-					requiresAttackRoll: false,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "fire",
-					dice: "4d10+5",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "acid",
-					dice: "4d10+5",
-					requiresAttackRoll: false,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "acid",
+			dice: "2d10+3",
+			requiresAttackRoll: false,
 		},
 	],
 	tags: [],

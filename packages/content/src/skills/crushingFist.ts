@@ -8,63 +8,20 @@ export default buildSkill({
 	pool: "warlock",
 	category: "spell",
 	maxUses: 4,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "1d12+8",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 1,
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "crushing",
+			dice: "1d12+8",
+			attribute: "intelligence",
+			requiresAttackRoll: false,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d12+7",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 2,
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d12+14",
-					attribute: "intelligence",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "applyStatus",
-					target: "enemy",
-					statusId: "stunned",
-					durationTurns: 3,
-				},
-			],
+			type: "applyStatus",
+			target: "enemy",
+			statusId: "stunned",
+			durationTurns: 1,
 		},
 	],
 	tags: [],

@@ -7,36 +7,11 @@ export default buildSkill({
 	pool: "common",
 	category: "heal",
 	maxUses: 1,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "heal",
-					target: "self",
-					dice: "3d12+16",
-				},
-			],
-		},
-		{
-			rank: 2,
-			effects: [
-				{
-					type: "heal",
-					target: "self",
-					dice: "5d12+18",
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "heal",
-					target: "self",
-					dice: "6d12+28",
-				},
-			],
+			type: "heal",
+			target: "self",
+			dice: "3d12+16",
 		},
 	],
 	tags: [],

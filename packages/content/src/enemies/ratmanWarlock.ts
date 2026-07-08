@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skills: [
-			{
-				skillId: "flame_arrow",
-				rank: 2,
-			},
-			{
-				skillId: "blind",
-				rank: 2,
-			},
-		],
+		skillIds: ["flame_arrow", "blind"],
 		featIds: ["embrace_shadows", "shadow_focus"],
 		tactic: "caster",
 	},

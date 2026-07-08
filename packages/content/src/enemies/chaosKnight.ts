@@ -41,16 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "disarm",
-				rank: 2,
-			},
-			{
-				skillId: "whirlwind_strike",
-				rank: 2,
-			},
-		],
+		skillIds: ["disarm", "whirlwind_strike"],
 		featIds: ["focus_energy"],
 		tactic: "default",
 	},

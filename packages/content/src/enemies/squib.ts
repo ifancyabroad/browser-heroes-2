@@ -32,12 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "doom_song",
-				rank: 1,
-			},
-		],
+		skillIds: ["doom_song"],
 		featIds: [],
 		tactic: "default",
 	},

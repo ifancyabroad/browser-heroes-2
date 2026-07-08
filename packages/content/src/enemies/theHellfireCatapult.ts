@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "disease_shot",
-				rank: 3,
-			},
-			{
-				skillId: "make_it_rain",
-				rank: 3,
-			},
-			{
-				skillId: "reposition",
-				rank: 3,
-			},
-		],
+		skillIds: ["disease_shot", "make_it_rain", "reposition"],
 		featIds: [],
 		tactic: "default",
 	},

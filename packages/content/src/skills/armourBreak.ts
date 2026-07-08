@@ -8,96 +8,31 @@ export default buildSkill({
 	pool: "warrior",
 	category: "spell",
 	maxUses: 8,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -4,
-					durationTurns: 4,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "1d8",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "strength",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 6,
-						},
-					},
-				},
-			],
+			type: "modifyStat",
+			target: "enemy",
+			stat: "armourClass",
+			operation: "add",
+			value: -4,
+			durationTurns: 4,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -6,
-					durationTurns: 5,
+			type: "damage",
+			target: "enemy",
+			damageType: "crushing",
+			dice: "1d8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: {
+					base: 8,
+					attribute: "strength",
+					includeProficiency: true,
+					bonus: 6,
 				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d8-2",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "strength",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 6,
-						},
-					},
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "modifyStat",
-					target: "enemy",
-					stat: "armourClass",
-					operation: "add",
-					value: -8,
-					durationTurns: 6,
-				},
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "crushing",
-					dice: "2d8",
-					requiresAttackRoll: false,
-					save: {
-						attribute: "strength",
-						onSuccess: "noEffect",
-						dc: {
-							base: 8,
-							attribute: "strength",
-							includeProficiency: true,
-							bonus: 6,
-						},
-					},
-				},
-			],
+			},
 		},
 	],
 	tags: [],

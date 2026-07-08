@@ -63,7 +63,6 @@ export type {
 	HeroEquipmentState,
 	EquippedItemState,
 } from "./heroState.schema";
-
 export {
 	combatStateSchema,
 	combatStatusSchema,

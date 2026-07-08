@@ -32,16 +32,7 @@ export default buildEnemy({
 				attribute: "charisma",
 			},
 		},
-		skills: [
-			{
-				skillId: "corrupting_touch",
-				rank: 3,
-			},
-			{
-				skillId: "wail",
-				rank: 3,
-			},
-		],
+		skillIds: ["corrupting_touch", "wail"],
 		featIds: ["cloak_of_shadows"],
 		tactic: "caster",
 	},

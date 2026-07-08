@@ -9,63 +9,20 @@ export default buildSkill({
 	pool: "occultist",
 	category: "heal",
 	maxUses: 2,
-	ranks: [
+	effects: [
 		{
-			rank: 1,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "1d10+5",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "heal",
-					target: "self",
-					dice: "1d10+5",
-					attribute: "wisdom",
-				},
-			],
+			type: "damage",
+			target: "enemy",
+			damageType: "necrotic",
+			dice: "1d10+5",
+			attribute: "wisdom",
+			requiresAttackRoll: false,
 		},
 		{
-			rank: 2,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d10+4",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "heal",
-					target: "self",
-					dice: "2d10+4",
-					attribute: "wisdom",
-				},
-			],
-		},
-		{
-			rank: 3,
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "necrotic",
-					dice: "2d10+9",
-					attribute: "wisdom",
-					requiresAttackRoll: false,
-				},
-				{
-					type: "heal",
-					target: "self",
-					dice: "2d10+9",
-					attribute: "wisdom",
-				},
-			],
+			type: "heal",
+			target: "self",
+			dice: "1d10+5",
+			attribute: "wisdom",
 		},
 	],
 	tags: [],

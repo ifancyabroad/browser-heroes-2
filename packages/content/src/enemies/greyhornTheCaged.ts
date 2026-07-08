@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "cleave",
-				rank: 3,
-			},
-			{
-				skillId: "minotaur_charge",
-				rank: 3,
-			},
-			{
-				skillId: "frenzy",
-				rank: 3,
-			},
-		],
+		skillIds: ["cleave", "minotaur_charge", "frenzy"],
 		featIds: [],
 		tactic: "default",
 	},

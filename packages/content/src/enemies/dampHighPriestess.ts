@@ -32,24 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "power_word_fortitude",
-				rank: 2,
-			},
-			{
-				skillId: "cure_major_wounds",
-				rank: 2,
-			},
-			{
-				skillId: "flamestrike",
-				rank: 2,
-			},
-			{
-				skillId: "holy_bolt",
-				rank: 2,
-			},
-		],
+		skillIds: ["power_word_fortitude", "cure_major_wounds", "flamestrike", "holy_bolt"],
 		featIds: [],
 		tactic: "default",
 	},

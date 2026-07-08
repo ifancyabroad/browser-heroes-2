@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "multi_shot",
-				rank: 3,
-			},
-			{
-				skillId: "reposition",
-				rank: 3,
-			},
-			{
-				skillId: "burning_shot",
-				rank: 3,
-			},
-		],
+		skillIds: ["multi_shot", "reposition", "burning_shot"],
 		featIds: [],
 		tactic: "default",
 	},

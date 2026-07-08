@@ -32,20 +32,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "charge",
-				rank: 3,
-			},
-			{
-				skillId: "holy_strike",
-				rank: 3,
-			},
-			{
-				skillId: "thou_hast_bested_me",
-				rank: 3,
-			},
-		],
+		skillIds: ["charge", "holy_strike", "thou_hast_bested_me"],
 		featIds: [],
 		tactic: "defensive",
 	},

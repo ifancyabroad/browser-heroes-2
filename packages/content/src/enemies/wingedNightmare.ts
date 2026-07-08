@@ -41,16 +41,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skills: [
-			{
-				skillId: "wind_strike",
-				rank: 2,
-			},
-			{
-				skillId: "drop_from_above",
-				rank: 2,
-			},
-		],
+		skillIds: ["wind_strike", "drop_from_above"],
 		featIds: ["evasion"],
 		tactic: "default",
 	},

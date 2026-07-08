@@ -94,9 +94,8 @@ export function validateCombatantSkillUse(
 	}
 
 	const skill = SKILLS_BY_ID[skillId];
-	const rank = skill.ranks[skillState.rank - 1];
 
-	const effects = getSupportedSkillEffects(rank.effects);
+	const effects = getSupportedSkillEffects(skill.effects);
 
 	if (!effects) {
 		return {
