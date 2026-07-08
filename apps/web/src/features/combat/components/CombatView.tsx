@@ -206,6 +206,7 @@ export function CombatView({ run }: CombatViewProps) {
 					<Battlefield
 						enemyPortrait={enemyDefinition?.portrait ?? null}
 						enemyName={combat.enemy.name}
+						zone={zone}
 					/>
 				</GameMainPanel>
 			</div>
