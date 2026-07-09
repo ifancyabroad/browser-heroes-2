@@ -1,0 +1,26 @@
+.portraitSlain {
+	filter: grayscale(1) brightness(0.34) contrast(0.9);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.portraitHit {
+		animation: enemy-hit 180ms ease-out both;
+	}
+}
+
+@keyframes enemy-hit {
+	0% {
+		filter: brightness(1.25) contrast(1.05);
+		transform: translateX(0) skewX(0);
+	}
+
+	45% {
+		filter: brightness(1.7) contrast(1.15);
+		transform: translateX(4px) skewX(-2deg);
+	}
+
+	100% {
+		filter: brightness(1) contrast(1);
+		transform: translateX(0) skewX(0);
+	}
+}

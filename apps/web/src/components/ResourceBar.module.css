@@ -1,0 +1,22 @@
+.damageChunk {
+	animation: damage-chunk 900ms ease-out forwards;
+	background: #7a1c1c;
+	width: var(--bh-resource-bar-chunk-old);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.damageChunk {
+		animation: none;
+	}
+}
+
+@keyframes damage-chunk {
+	0%,
+	38% {
+		width: var(--bh-resource-bar-chunk-old);
+	}
+
+	100% {
+		width: var(--bh-resource-bar-chunk-new);
+	}
+}

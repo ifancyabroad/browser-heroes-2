@@ -64,6 +64,7 @@ export function CombatSidebar({
 							value={`${currentHp}/${maxHp}`}
 							tone="hp"
 							fillPercent={(currentHp / maxHp) * 100}
+							animateChanges
 						/>
 						<ResourceBar
 							label="XP"

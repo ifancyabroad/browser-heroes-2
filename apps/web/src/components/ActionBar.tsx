@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import clsx from "clsx";
+import styles from "./ActionBar.module.css";
 
 type ActionBarGroupProps = {
 	"aria-label": string;
@@ -67,10 +68,41 @@ export function ActionSlotButton({
 	topLeftLabel,
 	topLeftLabelClassName,
 }: ActionSlotButtonProps) {
+	const previousDisabled = useRef(disabled);
+	const pulseTimeout = useRef<number | null>(null);
+	const [showAvailabilityPulse, setShowAvailabilityPulse] = useState(false);
+
+	useEffect(() => {
+		return () => {
+			if (pulseTimeout.current !== null) {
+				window.clearTimeout(pulseTimeout.current);
+			}
+		};
+	}, []);
+
+	useEffect(() => {
+		if (pulseTimeout.current !== null) {
+			window.clearTimeout(pulseTimeout.current);
+			pulseTimeout.current = null;
+		}
+
+		if (previousDisabled.current && !disabled) {
+			setShowAvailabilityPulse(true);
+			pulseTimeout.current = window.setTimeout(() => {
+				setShowAvailabilityPulse(false);
+				pulseTimeout.current = null;
+			}, 700);
+		} else {
+			setShowAvailabilityPulse(false);
+		}
+
+		previousDisabled.current = disabled;
+	}, [disabled]);
+
 	return (
 		<button
 			type="button"
-			className={getActionSlotClassName(disabled)}
+			className={getActionSlotClassName(disabled, showAvailabilityPulse)}
 			disabled={disabled}
 			aria-label={ariaLabel}
 			title={title ?? ariaLabel}
@@ -120,7 +152,12 @@ function ActionSlotImage({ src, grayscale = false }: ActionSlotImageProps) {
 				src={src}
 				alt=""
 				loading="lazy"
-				className={clsx("h-full w-full scale-110 object-cover", grayscale && "grayscale")}
+				className={clsx(
+					"h-full w-full scale-110 object-cover transition duration-150",
+					grayscale
+						? "grayscale brightness-[0.32] contrast-[0.85]"
+						: "brightness-110 group-hover:brightness-125",
+				)}
 				aria-hidden
 			/>
 		</span>
@@ -149,17 +186,19 @@ function ActionSlotLabel({ children, className, position = "bottom-right" }: Act
 
 function getDisplaySlotClassName() {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden bg-bg-elevated sm:w-20",
+		"relative aspect-square w-16 overflow-hidden border border-border bg-bg-elevated sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
 	);
 }
 
-function getActionSlotClassName(disabled: boolean) {
+function getActionSlotClassName(disabled: boolean, showAvailabilityPulse: boolean) {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden bg-bg-elevated sm:w-20",
+		"group relative aspect-square w-16 overflow-hidden border bg-bg-elevated sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
+		"transition-colors duration-150",
 		disabled
-			? "cursor-not-allowed"
-			: "cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+			? "cursor-not-allowed border-border/50"
+			: "cursor-pointer border-primary/80 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+		showAvailabilityPulse && styles.available,
 	);
 }

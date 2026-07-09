@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import clsx from "clsx";
+import styles from "./ResourceBar.module.css";
 
 type ResourceBarTone = "hp" | "xp";
 
@@ -7,6 +9,7 @@ type ResourceBarProps = {
 	tone: ResourceBarTone;
 	value: string;
 	fillPercent?: number;
+	animateChanges?: boolean;
 	className?: string;
 };
 
@@ -15,13 +18,28 @@ const fillClassByTone: Record<ResourceBarTone, string> = {
 	xp: "bg-xp",
 };
 
+type DamageChunkState = {
+	key: number;
+	oldFillPercent: number;
+	newFillPercent: number;
+};
+
 function clampPercent(value: number) {
 	return Math.max(0, Math.min(100, value));
 }
 
-export function ResourceBar({ label, tone, value, fillPercent, className }: ResourceBarProps) {
+export function ResourceBar({
+	label,
+	tone,
+	value,
+	fillPercent,
+	animateChanges,
+	className,
+}: ResourceBarProps) {
 	const clampedFillPercent = typeof fillPercent === "number" ? clampPercent(fillPercent) : null;
 	const accessibleLabel = `${label} ${value}`;
+
+	const damageChunk = useDamageChunk(clampedFillPercent, Boolean(animateChanges));
 
 	return (
 		<div
@@ -31,11 +49,32 @@ export function ResourceBar({ label, tone, value, fillPercent, className }: Reso
 			)}
 			title={accessibleLabel}
 		>
-			<div className="h-6 bg-text-muted/30" aria-label={accessibleLabel}>
+			<div
+				className="relative isolate h-6 overflow-hidden bg-text-muted/30"
+				aria-label={accessibleLabel}
+			>
+				{damageChunk && (
+					<div
+						key={damageChunk.key}
+						className={clsx(styles.damageChunk, "absolute inset-y-0 left-0")}
+						style={
+							{
+								"--bh-resource-bar-chunk-old": `${damageChunk.oldFillPercent}%`,
+								"--bh-resource-bar-chunk-new": `${damageChunk.newFillPercent}%`,
+								width: `${damageChunk.oldFillPercent}%`,
+								zIndex: 1,
+							} as CSSProperties
+						}
+					/>
+				)}
 				{clampedFillPercent !== null && (
 					<div
-						className={clsx("h-full", fillClassByTone[tone])}
-						style={{ width: `${clampedFillPercent}%` }}
+						className={clsx("absolute inset-y-0 left-0", fillClassByTone[tone])}
+						style={{
+							transition: "none",
+							width: `${clampedFillPercent}%`,
+							zIndex: 2,
+						}}
 					/>
 				)}
 			</div>
@@ -45,4 +84,81 @@ export function ResourceBar({ label, tone, value, fillPercent, className }: Reso
 			</p>
 		</div>
 	);
+}
+
+function useDamageChunk(fillPercent: number | null, animateChanges: boolean) {
+	const prefersReducedMotion = usePrefersReducedMotion();
+	const previousFillPercent = useRef<number | null>(fillPercent);
+	const chunkKey = useRef(0);
+	const timeoutIds = useRef<number[]>([]);
+	const [damageChunk, setDamageChunk] = useState<DamageChunkState | null>(null);
+
+	useEffect(() => {
+		return () => {
+			clearTimeouts(timeoutIds.current);
+		};
+	}, []);
+
+	useEffect(() => {
+		clearTimeouts(timeoutIds.current);
+		timeoutIds.current = [];
+
+		if (fillPercent === null) {
+			previousFillPercent.current = null;
+			setDamageChunk(null);
+			return;
+		}
+
+		const previous = previousFillPercent.current;
+		previousFillPercent.current = fillPercent;
+
+		const isDamage = previous !== null && fillPercent < previous;
+
+		if (!animateChanges || prefersReducedMotion || !isDamage || previous <= 0) {
+			setDamageChunk(null);
+			return;
+		}
+
+		chunkKey.current += 1;
+		setDamageChunk({
+			key: chunkKey.current,
+			oldFillPercent: previous,
+			newFillPercent: fillPercent,
+		});
+
+		timeoutIds.current = [
+			window.setTimeout(() => {
+				setDamageChunk(null);
+			}, 900),
+		];
+	}, [animateChanges, fillPercent, prefersReducedMotion]);
+
+	return damageChunk;
+}
+
+function clearTimeouts(timeoutIds: number[]) {
+	for (const timeoutId of timeoutIds) {
+		window.clearTimeout(timeoutId);
+	}
+}
+
+function usePrefersReducedMotion() {
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+		function handleChange() {
+			setPrefersReducedMotion(mediaQuery.matches);
+		}
+
+		handleChange();
+		mediaQuery.addEventListener("change", handleChange);
+
+		return () => {
+			mediaQuery.removeEventListener("change", handleChange);
+		};
+	}, []);
+
+	return prefersReducedMotion;
 }

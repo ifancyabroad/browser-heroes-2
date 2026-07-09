@@ -45,6 +45,7 @@ export function CombatView({ run }: CombatViewProps) {
 	const heroClass = CLASSES_BY_ID[hero.classId];
 	const heroProgression = selectHeroProgression(run.state);
 	const zoneLabel = formatTitle(zone);
+	const isEnemySlain = combat.status === "player_won";
 	const availableActions = selectAvailableActions(run.state);
 	const availableActionTypes = new Set(availableActions.map((action) => action.type));
 	const availableSkillIds = new Set(
@@ -197,15 +198,20 @@ export function CombatView({ run }: CombatViewProps) {
 							/>
 						</div>
 						<CombatantPanel
+							key={combat.enemy.id}
 							combatant={combat.enemy}
 							identity={combat.enemy.name}
 							ariaLabel="Enemy"
+							statusLabel={isEnemySlain ? "SLAIN" : undefined}
 						/>
 					</section>
 
 					<Battlefield
+						enemyId={combat.enemy.id}
+						enemyCurrentHp={combat.enemy.currentHp}
 						enemyPortrait={enemyDefinition?.portrait ?? null}
 						enemyName={combat.enemy.name}
+						isEnemySlain={isEnemySlain}
 						zone={zone}
 					/>
 				</GameMainPanel>

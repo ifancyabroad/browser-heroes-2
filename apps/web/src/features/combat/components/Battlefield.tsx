@@ -1,4 +1,7 @@
+import { useEffect, useRef, useState } from "react";
 import type { Zone } from "@app/content";
+import clsx from "clsx";
+import styles from "./Battlefield.module.css";
 
 import abyssBackground from "../../../assets/images/backgrounds/bg_41.png";
 import castleBackground from "../../../assets/images/backgrounds/bg_27.png";
@@ -25,12 +28,61 @@ const ZONE_BACKGROUNDS = {
 } satisfies Record<Zone, string>;
 
 type BattlefieldProps = {
+	enemyId: string;
+	enemyCurrentHp: number;
 	enemyPortrait: string | null;
 	enemyName: string;
+	isEnemySlain: boolean;
 	zone: Zone;
 };
 
-export function Battlefield({ enemyPortrait, enemyName, zone }: BattlefieldProps) {
+export function Battlefield({
+	enemyId,
+	enemyCurrentHp,
+	enemyPortrait,
+	enemyName,
+	isEnemySlain,
+	zone,
+}: BattlefieldProps) {
+	const previousEnemy = useRef({ id: enemyId, hp: enemyCurrentHp });
+	const hitTimeout = useRef<number | null>(null);
+	const [isHit, setIsHit] = useState(false);
+
+	useEffect(() => {
+		return () => {
+			if (hitTimeout.current !== null) {
+				window.clearTimeout(hitTimeout.current);
+			}
+		};
+	}, []);
+
+	useEffect(() => {
+		if (hitTimeout.current !== null) {
+			window.clearTimeout(hitTimeout.current);
+			hitTimeout.current = null;
+		}
+
+		const previous = previousEnemy.current;
+
+		if (previous.id !== enemyId) {
+			previousEnemy.current = { id: enemyId, hp: enemyCurrentHp };
+			setIsHit(false);
+			return;
+		}
+
+		if (enemyCurrentHp < previous.hp && enemyCurrentHp > 0) {
+			setIsHit(true);
+			hitTimeout.current = window.setTimeout(() => {
+				setIsHit(false);
+				hitTimeout.current = null;
+			}, 180);
+		} else {
+			setIsHit(false);
+		}
+
+		previousEnemy.current = { id: enemyId, hp: enemyCurrentHp };
+	}, [enemyCurrentHp, enemyId]);
+
 	return (
 		<section
 			className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-cover bg-bottom bg-no-repeat"
@@ -42,7 +94,11 @@ export function Battlefield({ enemyPortrait, enemyName, zone }: BattlefieldProps
 					src={enemyPortrait}
 					alt={enemyName}
 					loading="lazy"
-					className="relative h-full w-full object-contain"
+					className={clsx(
+						"relative h-full w-full object-contain",
+						isHit && styles.portraitHit,
+						isEnemySlain && styles.portraitSlain,
+					)}
 				/>
 			)}
 		</section>

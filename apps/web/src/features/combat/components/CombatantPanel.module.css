@@ -1,0 +1,15 @@
+@media (prefers-reduced-motion: no-preference) {
+	.statusLabel {
+		animation: status-label-appear 220ms ease-out both;
+	}
+}
+
+@keyframes status-label-appear {
+	from {
+		filter: brightness(1.7);
+	}
+
+	to {
+		filter: brightness(1);
+	}
+}

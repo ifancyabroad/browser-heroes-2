@@ -1,0 +1,23 @@
+.available {
+	animation: action-slot-available 700ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.available {
+		animation: none;
+	}
+}
+
+@keyframes action-slot-available {
+	0% {
+		box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 70%, transparent);
+	}
+
+	35% {
+		box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 42%, transparent);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 0%, transparent);
+	}
+}
