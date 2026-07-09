@@ -36,7 +36,8 @@
 	--color-info: #204a87;
 
 	/* Game-specific */
-	--color-hp: #992020;
+	--color-hp: #50c050;
+	--color-hp-damage: #b83232;
 	--color-xp: #8040c0;
 	--color-legendary: #ff7800;
 	--color-epic: #ff47da;

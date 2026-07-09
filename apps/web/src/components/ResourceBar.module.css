@@ -1,6 +1,6 @@
 .damageChunk {
 	animation: damage-chunk 900ms ease-out forwards;
-	background: #7a1c1c;
+	background: var(--color-hp-damage);
 	width: var(--bh-resource-bar-chunk-old);
 }
 

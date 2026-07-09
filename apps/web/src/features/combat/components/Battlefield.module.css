@@ -6,6 +6,10 @@
 	.portraitHit {
 		animation: enemy-hit 180ms ease-out both;
 	}
+
+	.portraitDeath {
+		animation: enemy-death 280ms ease-out both;
+	}
 }
 
 @keyframes enemy-hit {
@@ -22,5 +26,22 @@
 	100% {
 		filter: brightness(1) contrast(1);
 		transform: translateX(0) skewX(0);
+	}
+}
+
+@keyframes enemy-death {
+	0% {
+		filter: brightness(1.35) contrast(1.1);
+		transform: translateX(0) translateY(0) skewX(0);
+	}
+
+	35% {
+		filter: brightness(1.85) contrast(1.2);
+		transform: translateX(5px) translateY(0) skewX(-2deg);
+	}
+
+	100% {
+		filter: grayscale(1) brightness(0.34) contrast(0.9);
+		transform: translateX(0) translateY(2px) skewX(0);
 	}
 }

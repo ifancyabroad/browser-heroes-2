@@ -27,6 +27,9 @@ const ZONE_BACKGROUNDS = {
 	volcano: volcanoBackground,
 } satisfies Record<Zone, string>;
 
+const ENEMY_HIT_FEEDBACK_MS = 180;
+const ENEMY_DEATH_FEEDBACK_MS = 280;
+
 type BattlefieldProps = {
 	enemyId: string;
 	enemyCurrentHp: number;
@@ -45,21 +48,22 @@ export function Battlefield({
 	zone,
 }: BattlefieldProps) {
 	const previousEnemy = useRef({ id: enemyId, hp: enemyCurrentHp });
-	const hitTimeout = useRef<number | null>(null);
+	const feedbackTimeout = useRef<number | null>(null);
 	const [isHit, setIsHit] = useState(false);
+	const [isDying, setIsDying] = useState(false);
 
 	useEffect(() => {
 		return () => {
-			if (hitTimeout.current !== null) {
-				window.clearTimeout(hitTimeout.current);
+			if (feedbackTimeout.current !== null) {
+				window.clearTimeout(feedbackTimeout.current);
 			}
 		};
 	}, []);
 
 	useEffect(() => {
-		if (hitTimeout.current !== null) {
-			window.clearTimeout(hitTimeout.current);
-			hitTimeout.current = null;
+		if (feedbackTimeout.current !== null) {
+			window.clearTimeout(feedbackTimeout.current);
+			feedbackTimeout.current = null;
 		}
 
 		const previous = previousEnemy.current;
@@ -67,17 +71,30 @@ export function Battlefield({
 		if (previous.id !== enemyId) {
 			previousEnemy.current = { id: enemyId, hp: enemyCurrentHp };
 			setIsHit(false);
+			setIsDying(false);
 			return;
 		}
 
-		if (enemyCurrentHp < previous.hp && enemyCurrentHp > 0) {
+		const tookDamage = enemyCurrentHp < previous.hp;
+		const wasSlain = tookDamage && enemyCurrentHp <= 0;
+
+		if (wasSlain) {
+			setIsHit(false);
+			setIsDying(true);
+			feedbackTimeout.current = window.setTimeout(() => {
+				setIsDying(false);
+				feedbackTimeout.current = null;
+			}, ENEMY_DEATH_FEEDBACK_MS);
+		} else if (tookDamage) {
 			setIsHit(true);
-			hitTimeout.current = window.setTimeout(() => {
+			setIsDying(false);
+			feedbackTimeout.current = window.setTimeout(() => {
 				setIsHit(false);
-				hitTimeout.current = null;
-			}, 180);
+				feedbackTimeout.current = null;
+			}, ENEMY_HIT_FEEDBACK_MS);
 		} else {
 			setIsHit(false);
+			setIsDying(false);
 		}
 
 		previousEnemy.current = { id: enemyId, hp: enemyCurrentHp };
@@ -97,7 +114,8 @@ export function Battlefield({
 					className={clsx(
 						"relative h-full w-full object-contain",
 						isHit && styles.portraitHit,
-						isEnemySlain && styles.portraitSlain,
+						isDying && styles.portraitDeath,
+						isEnemySlain && !isDying && styles.portraitSlain,
 					)}
 				/>
 			)}
