@@ -3,10 +3,13 @@ import type {
 	Effect,
 	ItemModifier,
 	ModifierOperation,
+	PassiveModifier,
 	RiderEffect,
 	SavingThrow,
 } from "@app/content";
 import { attributeShortLabels, damageTypeLabels, modifiableStatLabels } from "./displayLabels";
+
+export type ModifierTone = "positive" | "negative" | "neutral";
 
 const damageAffinityLabels = {
 	resistance: "Resistance",
@@ -38,7 +41,7 @@ export function formatModifierValue(operation: ModifierOperation, value: number)
 	return value > 0 ? `+${value}` : String(value);
 }
 
-export function formatItemModifier(modifier: ItemModifier) {
+export function formatModifier(modifier: ItemModifier | PassiveModifier) {
 	switch (modifier.type) {
 		case "modifyStat":
 			if (modifier.operation === "set") {
@@ -55,11 +58,13 @@ export function formatItemModifier(modifier: ItemModifier) {
 	}
 }
 
-export function getModifierTextClassName(modifier: ItemModifier) {
+export function formatItemModifier(modifier: ItemModifier) {
+	return formatModifier(modifier);
+}
+
+export function getModifierTextClassName(modifier: ItemModifier | PassiveModifier) {
 	if (modifier.type === "modifyDamageAffinity") {
-		return getDamageAffinityTone(modifier.operation, modifier.affinity) === "positive"
-			? "text-success"
-			: "text-error";
+		return getToneTextClassName(getDamageAffinityTone(modifier.operation, modifier.affinity));
 	}
 
 	const tone = getNumericModifierTone(modifier.operation, modifier.value);
@@ -71,6 +76,17 @@ export function getModifierTextClassName(modifier: ItemModifier) {
 			return "text-error";
 		case "neutral":
 			return modifier.operation === "set" ? "text-primary" : "text-text-bright";
+	}
+}
+
+export function getToneTextClassName(tone: ModifierTone, neutralClassName = "text-text-bright") {
+	switch (tone) {
+		case "positive":
+			return "text-success";
+		case "negative":
+			return "text-error";
+		case "neutral":
+			return neutralClassName;
 	}
 }
 
@@ -184,10 +200,10 @@ function formatRemovedStatuses(effect: {
 	return statuses.join(", ");
 }
 
-function getDamageAffinityTone(
+export function getDamageAffinityTone(
 	operation: "add" | "remove",
 	affinity: "resistance" | "immunity" | "vulnerability",
-) {
+): ModifierTone {
 	const improvesDefense =
 		(operation === "add" && affinity !== "vulnerability") ||
 		(operation === "remove" && affinity === "vulnerability");
@@ -195,10 +211,7 @@ function getDamageAffinityTone(
 	return improvesDefense ? "positive" : "negative";
 }
 
-function getNumericModifierTone(
-	operation: ModifierOperation,
-	value: number,
-): "positive" | "negative" | "neutral" {
+export function getNumericModifierTone(operation: ModifierOperation, value: number): ModifierTone {
 	if (operation === "set" || value === 0 || (operation === "multiply" && value === 1)) {
 		return "neutral";
 	}
@@ -208,4 +221,16 @@ function getNumericModifierTone(
 	}
 
 	return value > 0 ? "positive" : "negative";
+}
+
+export function getNumberTone(value: number): ModifierTone {
+	if (value > 0) {
+		return "positive";
+	}
+
+	if (value < 0) {
+		return "negative";
+	}
+
+	return "neutral";
 }

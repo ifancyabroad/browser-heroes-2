@@ -3,7 +3,14 @@ import { SKILLS_BY_ID, type SkillId } from "@app/content";
 import type { ActiveCombatEffect } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
 import { damageTypeLabels, modifiableStatLabels } from "../../../game/displayLabels";
-import { formatModifierValue, formatTitle } from "../../../game/effectDisplay";
+import {
+	formatModifierValue,
+	formatTitle,
+	getDamageAffinityTone,
+	getNumericModifierTone,
+	getToneTextClassName,
+	type ModifierTone,
+} from "../../../game/effectDisplay";
 
 type ActiveEffectsRowProps = {
 	effects: ActiveCombatEffect[];
@@ -126,19 +133,10 @@ function formatActiveEffectDetail(effect: ActiveCombatEffect) {
 }
 
 function getActiveEffectTextClassName(effect: ActiveCombatEffect) {
-	const tone = getActiveEffectTone(effect);
-
-	switch (tone) {
-		case "positive":
-			return "text-success";
-		case "negative":
-			return "text-error";
-		case "neutral":
-			return "text-text";
-	}
+	return getToneTextClassName(getActiveEffectTone(effect), "text-text");
 }
 
-function getActiveEffectTone(effect: ActiveCombatEffect): "positive" | "negative" | "neutral" {
+function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 	switch (effect.type) {
 		case "status":
 			return "negative";
@@ -147,30 +145,10 @@ function getActiveEffectTone(effect: ActiveCombatEffect): "positive" | "negative
 		case "modifyDamage":
 			return getNumericModifierTone(effect.operation, effect.value);
 
-		case "modifyDamageAffinity": {
-			const improvesDefense =
-				(effect.operation === "add" && effect.affinity !== "vulnerability") ||
-				(effect.operation === "remove" && effect.affinity === "vulnerability");
-
-			return improvesDefense ? "positive" : "negative";
-		}
+		case "modifyDamageAffinity":
+			return getDamageAffinityTone(effect.operation, effect.affinity);
 
 		default:
 			return "neutral";
 	}
-}
-
-function getNumericModifierTone(
-	operation: "add" | "multiply" | "set",
-	value: number,
-): "positive" | "negative" | "neutral" {
-	if (operation === "set" || value === 0 || value === 1) {
-		return "neutral";
-	}
-
-	if (operation === "multiply") {
-		return value > 1 ? "positive" : "negative";
-	}
-
-	return value > 0 ? "positive" : "negative";
 }

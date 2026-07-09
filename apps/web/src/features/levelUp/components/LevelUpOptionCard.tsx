@@ -1,6 +1,9 @@
 import clsx from "clsx";
 import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { LevelUpOption } from "@app/engine";
+import { Tooltip } from "../../../components/Tooltip";
+import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
+import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 
 type LevelUpOptionCardProps = {
 	option: LevelUpOption;
@@ -16,51 +19,61 @@ export function LevelUpOptionCard({
 	onSelect,
 }: LevelUpOptionCardProps) {
 	const content = getOptionContent(option);
+	const tooltipContent = getOptionTooltipContent(option);
 
 	return (
-		<button
-			type="button"
-			role="radio"
-			aria-checked={selected}
-			disabled={disabled}
-			onClick={onSelect}
-			className={clsx(
-				"grid gap-3 border-2 bg-bg-elevated p-3 text-left text-base transition-colors",
-				content.metaLabel
-					? "grid-cols-[3rem_minmax(0,1fr)_auto]"
-					: "grid-cols-[3rem_minmax(0,1fr)]",
-				selected
-					? "border-primary"
-					: "border-border hover:border-primary focus-visible:border-primary",
-				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
-			)}
+		<Tooltip
+			content={tooltipContent}
+			placement="right"
+			className="!block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 		>
-			<span className="h-12 w-12 overflow-hidden border border-border bg-bg-base">
-				<img
-					src={content.icon}
-					alt=""
-					loading="lazy"
-					className="h-full w-full object-cover"
-					aria-hidden
-				/>
-			</span>
+			<button
+				type="button"
+				role="radio"
+				aria-checked={selected}
+				disabled={disabled}
+				onClick={onSelect}
+				className={clsx(
+					"grid w-full gap-3 border-2 bg-bg-elevated p-3 text-left text-base transition-colors",
+					content.metaLabel
+						? "grid-cols-[3rem_minmax(0,1fr)_auto]"
+						: "grid-cols-[3rem_minmax(0,1fr)]",
+					selected
+						? "border-primary"
+						: "border-border hover:border-primary focus-visible:border-primary",
+					disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
+				)}
+			>
+				<span className="h-12 w-12 overflow-hidden border border-border bg-bg-base">
+					<img
+						src={content.icon}
+						alt=""
+						loading="lazy"
+						className="h-full w-full object-cover"
+						aria-hidden
+					/>
+				</span>
 
-			<span className="grid min-w-0 gap-1 self-center">
-				<span className="flex flex-wrap items-baseline gap-x-2">
-					<span>{content.name}</span>
-					{content.typeLabel && (
-						<span className="text-text-label">{content.typeLabel}</span>
+				<span className="grid min-w-0 gap-1 self-center">
+					<span className="flex flex-wrap items-baseline gap-x-2">
+						<span>{content.name}</span>
+						{content.typeLabel && (
+							<span className="text-text-label">{content.typeLabel}</span>
+						)}
+					</span>
+					{content.description && (
+						<span className="text-text">{content.description}</span>
 					)}
 				</span>
-				{content.description && <span className="text-text">{content.description}</span>}
-			</span>
 
-			{content.metaLabel && (
-				<span className="self-start whitespace-nowrap text-primary">
-					{content.metaLabel}
-				</span>
-			)}
-		</button>
+				{content.metaLabel && (
+					<span className="self-start whitespace-nowrap text-primary">
+						{content.metaLabel}
+					</span>
+				)}
+			</button>
+		</Tooltip>
 	);
 }
 
@@ -86,6 +99,16 @@ function getOptionContent(option: LevelUpOption) {
 		metaLabel: null,
 		description: formatLabel(feat.category),
 	};
+}
+
+function getOptionTooltipContent(option: LevelUpOption) {
+	if (option.type === "skill") {
+		const skill = SKILLS_BY_ID[option.skillId];
+
+		return <SkillTooltipContent skill={{ skillId: option.skillId }} definition={skill} />;
+	}
+
+	return <FeatTooltipContent feat={FEATS_BY_ID[option.featId]} />;
 }
 
 function formatLabel(value: string) {

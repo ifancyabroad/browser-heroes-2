@@ -1,11 +1,12 @@
-import { type AttackRider, type Skill, type SkillId } from "@app/content";
+import { type Skill, type SkillId } from "@app/content";
 import { skillCategoryLabels, skillPoolLabels } from "../../game/displayLabels";
-import { formatRiderEffect, formatSavingThrow, formatSkillEffect } from "../../game/effectDisplay";
+import { formatSkillEffect } from "../../game/effectDisplay";
 import {
 	TooltipDetailList,
 	type TooltipDetailRow,
 	TooltipSection,
 } from "./TooltipContentPrimitives";
+import { AttackRiderTooltipList } from "./AttackRiderTooltipList";
 
 type SkillTooltipContentProps = {
 	skill: {
@@ -15,13 +16,12 @@ type SkillTooltipContentProps = {
 	definition: Skill;
 };
 
-export function SkillTooltipContent({ skill, definition }: SkillTooltipContentProps) {
-	const usesLabel = getUsesLabel(skill, definition.maxUses);
+export function SkillTooltipContent({ definition }: SkillTooltipContentProps) {
 	const detailRows: TooltipDetailRow[] = [
 		{ label: "Category", value: skillCategoryLabels[definition.category] },
 		{ label: "Pool", value: skillPoolLabels[definition.pool] },
-		...(usesLabel ? [{ label: "Uses", value: usesLabel }] : []),
 	];
+	const maxUsesLabel = getMaxUsesLabel(definition.maxUses);
 
 	return (
 		<div className="grid gap-3">
@@ -37,11 +37,8 @@ export function SkillTooltipContent({ skill, definition }: SkillTooltipContentPr
 				</span>
 
 				<div className="grid min-w-0 content-center gap-1">
-					<p className="break-words">{definition.name}</p>
-					<p className="text-text-label">
-						{skillCategoryLabels[definition.category]} /{" "}
-						{skillPoolLabels[definition.pool]}
-					</p>
+					<p className="break-words text-text-bright">{definition.name}</p>
+					<p className="text-text">{maxUsesLabel}</p>
 				</div>
 			</header>
 
@@ -57,7 +54,7 @@ export function SkillTooltipContent({ skill, definition }: SkillTooltipContentPr
 						<li key={`${effect.type}-${index}`} className="grid gap-1 break-words">
 							<p>{formatSkillEffect(effect)}</p>
 							{effect.type === "attackDamage" && effect.attackRiders.length > 0 && (
-								<AttackRiderList riders={effect.attackRiders} />
+								<AttackRiderTooltipList riders={effect.attackRiders} />
 							)}
 						</li>
 					))}
@@ -67,43 +64,10 @@ export function SkillTooltipContent({ skill, definition }: SkillTooltipContentPr
 	);
 }
 
-function getUsesLabel(skill: { chargesRemaining?: number }, maxUses: number | undefined) {
+function getMaxUsesLabel(maxUses: number | undefined) {
 	if (!maxUses) {
-		return null;
+		return "Unlimited uses";
 	}
 
-	return `${skill.chargesRemaining ?? maxUses}/${maxUses}`;
-}
-
-function AttackRiderList({ riders }: { riders: readonly AttackRider[] }) {
-	return (
-		<ul className="grid gap-1">
-			{riders.map((rider, riderIndex) => (
-				<AttackRiderItem
-					key={`${rider.timing}-${riderIndex}`}
-					rider={rider}
-					index={riderIndex}
-				/>
-			))}
-		</ul>
-	);
-}
-
-function AttackRiderItem({ rider, index }: { rider: AttackRider; index: number }) {
-	const trigger = rider.timing === "onHit" ? "On hit" : "On crit";
-	const effectText = rider.effects.map(formatRiderEffect).join("; ");
-	const saveText = rider.save ? `${formatSavingThrow(rider.save)}; ` : "";
-
-	return (
-		<li key={`${rider.timing}-${index}`} className="break-words">
-			<span className="text-text-muted">- </span>
-			<span className="text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
-				<span className="px-1">{trigger}</span>
-			</span>{" "}
-			<span>
-				{saveText}
-				{effectText}
-			</span>
-		</li>
-	);
+	return `Max uses: ${maxUses}`;
 }

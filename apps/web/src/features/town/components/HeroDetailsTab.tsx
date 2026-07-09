@@ -1,6 +1,5 @@
 import { attributes } from "@app/content";
 import type { HeroView } from "@app/engine";
-import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
 import { HeroSidebarSection, SidebarValueList } from "./HeroSidebarPrimitives";
@@ -13,7 +12,12 @@ import {
 	damageTypeLabels,
 	weaponTypeLabels,
 } from "../../../game/displayLabels";
-import { formatStatNumber, HeroStatValue, type HeroDerivedValue } from "./HeroStatValue";
+import {
+	formatModifierValue,
+	getNumericModifierTone,
+	getToneTextClassName,
+} from "../../../game/effectDisplay";
+import { HeroStatValue, type HeroDerivedValue } from "./HeroStatValue";
 
 type DamageModifier = HeroView["combatStats"]["damageModifiers"][number]["modifier"];
 
@@ -222,25 +226,9 @@ function DamageModifierList({ modifiers }: { modifiers: DamageModifier[] }) {
 }
 
 function formatDamageModifierValue(modifier: DamageModifier) {
-	if (modifier.operation === "multiply") {
-		return `x${modifier.value}`;
-	}
-
-	return formatStatNumber(modifier.value, true);
+	return formatModifierValue(modifier.operation, modifier.value);
 }
 
 function getDamageModifierClassName(modifier: DamageModifier) {
-	if (modifier.operation === "multiply") {
-		return clsx(
-			modifier.value > 1 && "text-success",
-			modifier.value < 1 && "text-error",
-			modifier.value === 1 && "text-text-bright",
-		);
-	}
-
-	return clsx(
-		modifier.value > 0 && "text-success",
-		modifier.value < 0 && "text-error",
-		modifier.value === 0 && "text-text-bright",
-	);
+	return getToneTextClassName(getNumericModifierTone(modifier.operation, modifier.value));
 }

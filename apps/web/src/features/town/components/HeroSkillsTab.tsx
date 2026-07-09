@@ -2,6 +2,7 @@ import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
+import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
 import {
@@ -62,12 +63,19 @@ export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 
 							return (
 								<li key={featId}>
-									<AbilityRow
-										icon={feat.icon}
-										name={feat.name}
-										meta={featCategoryLabels[feat.category]}
-										badges={[]}
-									/>
+									<Tooltip
+										content={<FeatTooltipContent feat={feat} />}
+										placement="right"
+										className="group !block w-full min-w-0 max-w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+										contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+									>
+										<AbilityRow
+											icon={feat.icon}
+											name={feat.name}
+											meta={featCategoryLabels[feat.category]}
+											badges={[]}
+										/>
+									</Tooltip>
 								</li>
 							);
 						})}

@@ -1,13 +1,7 @@
-import type { AttackRider, EquipmentSlot, Item } from "@app/content";
+import type { EquipmentSlot, Item } from "@app/content";
 import clsx from "clsx";
 import { attributeShortLabels, itemRarityLabels } from "../../game/displayLabels";
-import {
-	formatItemModifier,
-	formatRiderEffect,
-	formatSavingThrow,
-	formatTitle,
-	getModifierTextClassName,
-} from "../../game/effectDisplay";
+import { formatItemModifier, getModifierTextClassName } from "../../game/effectDisplay";
 import {
 	getEquipmentSlotLabel,
 	getItemKindLabel,
@@ -19,6 +13,7 @@ import {
 	type TooltipDetailRow,
 	TooltipSection,
 } from "./TooltipContentPrimitives";
+import { AttackRiderTooltipList } from "./AttackRiderTooltipList";
 
 type ItemTooltipContentProps = {
 	item: Item;
@@ -66,17 +61,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 
 			{item.type === "weapon" && item.attackRiders.length > 0 && (
 				<TooltipSection title="Attack Riders">
-					<AttackRiderList riders={item.attackRiders} />
-				</TooltipSection>
-			)}
-
-			{item.tags.length > 0 && (
-				<TooltipSection title="Tags">
-					<ul className="flex flex-wrap gap-x-2 gap-y-1">
-						{item.tags.map((tag) => (
-							<li key={tag}>{formatTitle(tag)}</li>
-						))}
-					</ul>
+					<AttackRiderTooltipList riders={item.attackRiders} />
 				</TooltipSection>
 			)}
 		</div>
@@ -102,26 +87,4 @@ function getItemDetailRows(
 	}
 
 	return primaryStat ? [...rows, { ...primaryStat, valueClassName: "text-text-bright" }] : rows;
-}
-
-function AttackRiderList({ riders }: { riders: readonly AttackRider[] }) {
-	return (
-		<ul className="grid gap-2">
-			{riders.map((rider, riderIndex) => (
-				<li key={`${rider.timing}-${riderIndex}`} className="grid gap-1">
-					<p className="text-primary">
-						{rider.timing === "onHit" ? "On hit" : "On crit"}
-					</p>
-					{rider.save && <p>{formatSavingThrow(rider.save)}</p>}
-					<ul className="grid gap-1">
-						{rider.effects.map((effect, effectIndex) => (
-							<li key={`${effect.type}-${effectIndex}`}>
-								{formatRiderEffect(effect)}
-							</li>
-						))}
-					</ul>
-				</li>
-			))}
-		</ul>
-	);
 }

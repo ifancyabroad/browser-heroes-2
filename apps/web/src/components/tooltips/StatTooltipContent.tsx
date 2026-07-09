@@ -2,6 +2,7 @@ import { CLASSES_BY_ID, FEATS_BY_ID, ITEMS_BY_ID, type Attribute } from "@app/co
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
 import { TooltipDetailList, TooltipSection } from "./TooltipContentPrimitives";
+import { formatModifierValue, getNumberTone, getToneTextClassName } from "../../game/effectDisplay";
 
 type StatValue = HeroView["attributes"][Attribute];
 type StatContribution = StatValue["contributions"][number];
@@ -30,8 +31,8 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 				]}
 			/>
 
-			<TooltipSection title="Modifiers">
-				{stat.contributions.length > 0 ? (
+			{stat.contributions.length > 0 && (
+				<TooltipSection title="Modifiers">
 					<ul className="grid gap-1">
 						{stat.contributions.map((contribution, index) => (
 							<li
@@ -47,15 +48,13 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 										getContributionClassName(contribution),
 									)}
 								>
-									{formatContribution(contribution, signed)}
+									{formatContribution(contribution)}
 								</span>
 							</li>
 						))}
 					</ul>
-				) : (
-					<p className="text-text-muted">No modifiers</p>
-				)}
-			</TooltipSection>
+				</TooltipSection>
+			)}
 		</div>
 	);
 }
@@ -71,35 +70,14 @@ function getContributionSourceLabel(source: StatContribution["source"]) {
 	}
 }
 
-function formatContribution(contribution: StatContribution, signed: boolean) {
-	const valueLabel =
-		contribution.operation === "multiply"
-			? `x${contribution.modifierValue}`
-			: formatStatNumber(
-					contribution.modifierValue,
-					signed || contribution.operation === "add",
-				);
-
-	return `${valueLabel} (${formatStatNumber(contribution.previousValue, signed)} -> ${formatStatNumber(
-		contribution.resultingValue,
-		signed,
-	)})`;
+function formatContribution(contribution: StatContribution) {
+	return formatModifierValue(contribution.operation, contribution.modifierValue);
 }
 
 function getContributionClassName(contribution: StatContribution) {
-	return getNumberClassName(contribution.resultingValue - contribution.previousValue);
-}
-
-function getNumberClassName(value: number) {
-	if (value > 0) {
-		return "text-success";
-	}
-
-	if (value < 0) {
-		return "text-error";
-	}
-
-	return "text-text-bright";
+	return getToneTextClassName(
+		getNumberTone(contribution.resultingValue - contribution.previousValue),
+	);
 }
 
 function formatStatNumber(value: number, signed = false) {
