@@ -81,7 +81,7 @@ function deriveRunStatus(state: RunState): "active" | "dead" | "victory" {
 		case "dead":
 			return "dead";
 
-		case "complete":
+		case "retired":
 			return "victory";
 
 		default:

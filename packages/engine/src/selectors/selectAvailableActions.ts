@@ -69,6 +69,17 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 		];
 	}
 
+	if (state.phase === "complete" && state.combat?.status === "player_won") {
+		return [
+			{
+				type: "CONTINUE_ENDLESS",
+			},
+			{
+				type: "RETIRE_RUN",
+			},
+		];
+	}
+
 	return [];
 }
 

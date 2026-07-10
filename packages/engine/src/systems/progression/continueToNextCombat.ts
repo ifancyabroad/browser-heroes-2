@@ -3,6 +3,7 @@ import type { EngineResult, RunState } from "../../schemas";
 import { failureResult, successResult } from "../../core/result";
 import { enterCombat } from "../combat/enterCombat";
 import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
+import { FINAL_BATTLE_NUMBER } from "../endless/endlessConstants";
 
 export function continueToNextCombat(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
@@ -19,6 +20,20 @@ export function continueToNextCombat(state: RunState): EngineResult {
 
 	if (state.pendingRewardChoice) {
 		return failureResult(state, "REWARD_SELECTION_REQUIRED");
+	}
+
+	if (state.battleNumber === FINAL_BATTLE_NUMBER && state.endlessCycle === 0) {
+		return successResult(
+			{
+				...state,
+				phase: "complete",
+			},
+			[
+				{
+					type: "RUN_COMPLETED",
+				},
+			],
+		);
 	}
 
 	const battleNumber = state.battleNumber + 1;

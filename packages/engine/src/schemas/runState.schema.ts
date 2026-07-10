@@ -6,7 +6,7 @@ import { runLogEntrySchema } from "./log.schema";
 import { rngStateSchema } from "./rng.schema";
 import { pendingRewardChoiceSchema } from "./reward.schema";
 
-export const runPhaseSchema = z.enum(["town", "combat", "dead", "complete"]);
+export const runPhaseSchema = z.enum(["town", "combat", "dead", "complete", "retired"]);
 
 export const townShopSlotSchema = z.object({
 	id: z.string(),

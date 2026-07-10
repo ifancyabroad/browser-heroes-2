@@ -8,11 +8,13 @@ import { deriveAttributes } from "../modifiers/deriveAttributes";
 import { deriveCombatStats, toCombatantCombatStats } from "../modifiers/deriveCombatStats";
 import { collectFeatModifiers } from "../modifiers/collectPassiveModifiers";
 import { createCombatantSkillFromEnemySkill } from "./combatantSkills";
+import { applyEndlessEnemyScaling } from "./applyEndlessEnemyScaling";
 
 export function createEnemyCombatant(
 	enemy: Enemy,
 	combatId: string,
 	level: number,
+	endlessCycle = 0,
 ): CombatantState {
 	const featIds = [...new Set(enemy.combat.featIds)];
 
@@ -40,7 +42,7 @@ export function createEnemyCombatant(
 
 	const maxHp = calculateMaxHpForLevel(enemy.combat.hitDie, attributes.constitution, level);
 
-	return {
+	const combatant: CombatantState = {
 		id: createCombatantId(combatId, "enemy"),
 		side: "enemy",
 		sourceId: enemy.id,
@@ -59,4 +61,6 @@ export function createEnemyCombatant(
 		featIds,
 		activeEffects: [],
 	};
+
+	return applyEndlessEnemyScaling(combatant, endlessCycle);
 }

@@ -11,6 +11,8 @@ import { restAtTown } from "../systems/town/restAtTown";
 import { buyItem } from "../systems/town/buyItem";
 import { useConsumable } from "../systems/consumables/useConsumable";
 import { buyConsumable } from "../systems/town/buyConsumable";
+import { continueEndless } from "../systems/endless/continueEndless";
+import { retireRun } from "../systems/endless/retireRun";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -48,6 +50,12 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "BUY_CONSUMABLE":
 			return buyConsumable(state, action);
+
+		case "CONTINUE_ENDLESS":
+			return continueEndless(state);
+
+		case "RETIRE_RUN":
+			return retireRun(state);
 
 		default:
 			return failureResult(state, "INVALID_ACTION");
