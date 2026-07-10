@@ -3,7 +3,7 @@ import { ITEMS_BY_ID } from "@app/content";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
-import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../game/itemDisplay";
+import { getItemRarityTextClassName } from "../../../game/itemDisplay";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 
 type RewardOptionCardProps = {
@@ -24,10 +24,10 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 			disabled={disabled}
 			onClick={onSelect}
 			className={clsx(
-				"grid grid-cols-[3rem_minmax(0,1fr)] gap-3 border-2 bg-bg-elevated p-3 text-left text-base transition-colors",
+				"grid grid-cols-[3rem_minmax(0,1fr)] gap-3 border bg-bg-elevated p-3 text-left text-base",
 				selected
-					? "border-primary"
-					: "border-border hover:border-primary focus-visible:border-primary",
+					? "border-info"
+					: "border-transparent hover:border-info focus-visible:border-info",
 				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
 			)}
 		>
@@ -55,7 +55,7 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 							}
 							placement="top"
 							className={clsx(
-								"min-w-0 break-words underline decoration-border underline-offset-4 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+								"min-w-0 break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 								getItemRarityTextClassName(option.item.rarity),
 							)}
 							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
@@ -66,14 +66,11 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 						<span>{content.name}</span>
 					)}
 				</span>
-				{content.detail && (
-					<span className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 text-text-label">
-						<BracketBadge>{content.detail}</BracketBadge>
-						{option.type === "item" && content.destination && (
-							<ReplacementDetail destination={content.destination} />
-						)}
-						{content.needsReplacementChoice && <span>Choose slot</span>}
-					</span>
+				{option.type === "item" && (
+					<CurrentlyEquippedDetail
+						destination={content.destination}
+						needsReplacementChoice={content.needsReplacementChoice}
+					/>
 				)}
 			</span>
 		</button>
@@ -85,51 +82,59 @@ function getOptionContent(option: RewardChoiceOptionView) {
 		return {
 			icon: goldIcon,
 			name: `${option.amount} Gold`,
-			detail: null,
 			destination: null,
 			needsReplacementChoice: false,
 			tooltipSlot: null,
 		};
 	}
 
-	const destination = option.destinations.length === 1 ? option.destinations[0] : null;
 	const destinationSlots = option.destinations.map(
 		(destinationOption) => destinationOption.equipmentSlot,
 	);
-	const slotLabel = destination
-		? getEquipmentSlotLabel(destination.equipmentSlot)
-		: getEquipmentSlotLabel(destinationSlots);
 
 	return {
 		icon: option.item.icon,
 		name: option.item.name,
-		detail: slotLabel,
-		destination,
-		needsReplacementChoice: !destination,
+		destination: option.destinations.length === 1 ? option.destinations[0] : null,
+		needsReplacementChoice: option.destinations.length !== 1,
 		tooltipSlot: destinationSlots.length > 0 ? destinationSlots : null,
 	};
 }
 
-function ReplacementDetail({ destination }: { destination: RewardItemDestinationView }) {
+function CurrentlyEquippedDetail({
+	destination,
+	needsReplacementChoice,
+}: {
+	destination: RewardItemDestinationView | null;
+	needsReplacementChoice: boolean;
+}) {
+	if (needsReplacementChoice || !destination) {
+		return (
+			<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+				<span className="text-text-label">Currently Equipped:</span>
+				<span className="text-text">Choose slot</span>
+			</span>
+		);
+	}
+
 	if (destination.replacedItems.length === 0) {
-		return <span>Empty</span>;
+		return (
+			<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+				<span className="text-text-label">Currently Equipped:</span>
+				<span className="text-text">Empty</span>
+			</span>
+		);
 	}
 
 	return (
-		<span className="flex min-w-0 flex-wrap items-baseline gap-x-1">
-			<span>Replaces</span>
-			<ReplacedItemsInline
-				replacedItems={destination.replacedItems}
-				fallbackSlot={destination.equipmentSlot}
-			/>
-		</span>
-	);
-}
-
-function BracketBadge({ children }: { children: string }) {
-	return (
-		<span className="text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
-			{children}
+		<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+			<span className="text-text-label">Currently Equipped:</span>
+			<span className="min-w-0 break-words text-text">
+				<ReplacedItemsInline
+					replacedItems={destination.replacedItems}
+					fallbackSlot={destination.equipmentSlot}
+				/>
+			</span>
 		</span>
 	);
 }
@@ -179,7 +184,7 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 			<Tooltip
 				content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
 				className={clsx(
-					"underline decoration-border underline-offset-4 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+					"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"

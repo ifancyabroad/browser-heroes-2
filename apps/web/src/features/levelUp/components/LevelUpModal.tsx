@@ -30,6 +30,7 @@ export function LevelUpModal({ pendingLevelUp, isPending, onConfirm }: LevelUpMo
 			onClose={() => undefined}
 			closeOnBackdropClick={false}
 			className="max-w-2xl"
+			titleClassName="text-text-bright"
 			footer={
 				<Button
 					type="button"
@@ -51,14 +52,31 @@ export function LevelUpModal({ pendingLevelUp, isPending, onConfirm }: LevelUpMo
 				</p>
 
 				{hasOptions && (
-					<LevelUpOptionList
-						options={pendingLevelUp.options}
-						selection={selection}
-						disabled={isPending}
-						onSelect={setSelection}
-					/>
+					<>
+						<p>{getSelectionInstruction(pendingLevelUp.options)}</p>
+						<LevelUpOptionList
+							options={pendingLevelUp.options}
+							selection={selection}
+							disabled={isPending}
+							onSelect={setSelection}
+						/>
+					</>
 				)}
 			</div>
 		</Modal>
 	);
+}
+
+function getSelectionInstruction(options: PendingLevelUp["options"]) {
+	const optionType = options[0]?.type;
+
+	if (optionType === "skill") {
+		return "Select a skill to learn before continuing.";
+	}
+
+	if (optionType === "feat") {
+		return "Select a feat before continuing.";
+	}
+
+	return "Select a level-up reward before continuing.";
 }

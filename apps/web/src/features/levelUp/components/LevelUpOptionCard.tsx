@@ -4,6 +4,7 @@ import type { LevelUpOption } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
+import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLabels";
 
 type LevelUpOptionCardProps = {
 	option: LevelUpOption;
@@ -35,13 +36,13 @@ export function LevelUpOptionCard({
 				disabled={disabled}
 				onClick={onSelect}
 				className={clsx(
-					"grid w-full gap-3 border-2 bg-bg-elevated p-3 text-left text-base transition-colors",
+					"grid w-full gap-3 border bg-bg-elevated p-3 text-left text-base",
 					content.metaLabel
 						? "grid-cols-[3rem_minmax(0,1fr)_auto]"
 						: "grid-cols-[3rem_minmax(0,1fr)]",
 					selected
-						? "border-primary"
-						: "border-border hover:border-primary focus-visible:border-primary",
+						? "border-info"
+						: "border-transparent hover:border-info focus-visible:border-info",
 					disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
 				)}
 			>
@@ -56,22 +57,11 @@ export function LevelUpOptionCard({
 				</span>
 
 				<span className="grid min-w-0 gap-1 self-center">
-					<span className="flex flex-wrap items-baseline gap-x-2">
-						<span>{content.name}</span>
-						{content.typeLabel && (
-							<span className="text-text-label">{content.typeLabel}</span>
-						)}
-					</span>
-					{content.description && (
-						<span className="text-text">{content.description}</span>
-					)}
+					<span className="break-words text-text-bright">{content.name}</span>
+					<span className="text-text-muted">{content.category}</span>
 				</span>
 
-				{content.metaLabel && (
-					<span className="self-start whitespace-nowrap text-primary">
-						{content.metaLabel}
-					</span>
-				)}
+				{content.metaLabel && <BracketBadge>{content.metaLabel}</BracketBadge>}
 			</button>
 		</Tooltip>
 	);
@@ -84,9 +74,8 @@ function getOptionContent(option: LevelUpOption) {
 		return {
 			icon: skill.icon,
 			name: skill.name,
-			typeLabel: null,
-			metaLabel: "New skill",
-			description: `${formatLabel(skill.category)} - ${formatLabel(skill.pool)}`,
+			category: skillCategoryLabels[skill.category],
+			metaLabel: getMaxUsesLabel(skill.maxUses),
 		};
 	}
 
@@ -95,9 +84,8 @@ function getOptionContent(option: LevelUpOption) {
 	return {
 		icon: feat.icon,
 		name: feat.name,
-		typeLabel: null,
+		category: featCategoryLabels[feat.category],
 		metaLabel: null,
-		description: formatLabel(feat.category),
 	};
 }
 
@@ -111,6 +99,18 @@ function getOptionTooltipContent(option: LevelUpOption) {
 	return <FeatTooltipContent feat={FEATS_BY_ID[option.featId]} />;
 }
 
-function formatLabel(value: string) {
-	return value.charAt(0).toUpperCase() + value.slice(1);
+function BracketBadge({ children }: { children: string }) {
+	return (
+		<span className="self-start whitespace-nowrap text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
+			<span className="px-1">{children}</span>
+		</span>
+	);
+}
+
+function getMaxUsesLabel(maxUses: number | undefined) {
+	if (!maxUses) {
+		return null;
+	}
+
+	return `${maxUses}/${maxUses}`;
 }

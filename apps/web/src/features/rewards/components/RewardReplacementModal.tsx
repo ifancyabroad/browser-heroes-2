@@ -46,6 +46,7 @@ export function RewardReplacementModal({
 			onClose={() => undefined}
 			closeOnBackdropClick={false}
 			className="max-w-2xl"
+			titleClassName="text-text-bright"
 			footer={
 				<>
 					<Button
@@ -81,7 +82,7 @@ export function RewardReplacementModal({
 							/>
 						}
 						className={clsx(
-							"underline decoration-border underline-offset-4 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+							"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 							getItemRarityTextClassName(option.item.rarity),
 						)}
 						contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
@@ -123,27 +124,32 @@ function ReplacementChoice({ preview, selected, disabled, onSelect }: Replacemen
 			disabled={disabled}
 			onClick={onSelect}
 			className={clsx(
-				"grid gap-2 border-2 bg-bg-elevated p-3 text-left text-base transition-colors",
+				"grid gap-2 border bg-bg-elevated p-3 text-left text-base",
 				selected
-					? "border-primary"
-					: "border-border hover:border-primary focus-visible:border-primary",
+					? "border-info"
+					: "border-transparent hover:border-info focus-visible:border-info",
 				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
 			)}
 		>
 			<span>{getEquipmentSlotLabel(preview.equipmentSlot)}</span>
 			{preview.replacedItems.length === 0 ? (
-				<span className="text-text-label">Empty slot</span>
+				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+					<span className="text-text-label">Currently Equipped:</span>
+					<span className="text-text">Empty</span>
+				</span>
 			) : (
-				<span className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-text-label">
-					<span>Replaces</span>
-					{preview.replacedItems.map((replacedItem, index) => (
-						<ReplacedItemTooltip
-							key={replacedItem.instanceId}
-							replacedItem={replacedItem}
-							fallbackSlot={preview.equipmentSlot}
-							prefix={index > 0 ? ", " : ""}
-						/>
-					))}
+				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+					<span className="text-text-label">Currently Equipped:</span>
+					<span className="min-w-0 break-words text-text">
+						{preview.replacedItems.map((replacedItem, index) => (
+							<ReplacedItemTooltip
+								key={replacedItem.instanceId}
+								replacedItem={replacedItem}
+								fallbackSlot={preview.equipmentSlot}
+								prefix={index > 0 ? ", " : ""}
+							/>
+						))}
+					</span>
 					<span className="sr-only">{formatReplacementItems(preview.replacedItems)}</span>
 				</span>
 			)}
@@ -170,7 +176,7 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 			<Tooltip
 				content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
 				className={clsx(
-					"underline decoration-border underline-offset-4 transition-colors hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+					"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"

@@ -9,6 +9,7 @@ type ModalProps = PropsWithChildren<{
 	footer?: ReactNode;
 	closeOnBackdropClick?: boolean;
 	className?: string;
+	titleClassName?: string;
 }>;
 
 export function Modal({
@@ -18,6 +19,7 @@ export function Modal({
 	footer,
 	closeOnBackdropClick = true,
 	className,
+	titleClassName,
 	children,
 }: ModalProps) {
 	if (!open) {
@@ -43,7 +45,9 @@ export function Modal({
 				)}
 			>
 				<header className="mb-4 flex items-center justify-between">
-					<h2 id="modal-title">{title}</h2>
+					<h2 id="modal-title" className={titleClassName}>
+						{title}
+					</h2>
 				</header>
 
 				<div>{children}</div>

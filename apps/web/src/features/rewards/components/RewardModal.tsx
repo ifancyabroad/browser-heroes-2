@@ -45,6 +45,7 @@ export function RewardModal({
 			onClose={() => undefined}
 			closeOnBackdropClick={false}
 			className="max-w-2xl"
+			titleClassName="text-text-bright"
 			footer={
 				<Button
 					type="button"
