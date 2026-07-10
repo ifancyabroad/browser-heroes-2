@@ -5,11 +5,7 @@ import { Tooltip } from "../../../components/Tooltip";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
-import {
-	featCategoryLabels,
-	skillCategoryLabels,
-	skillPoolLabels,
-} from "../../../game/displayLabels";
+import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLabels";
 
 type HeroSkillsTabProps = {
 	skills: HeroView["skills"];
@@ -42,7 +38,7 @@ export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 										<AbilityRow
 											icon={definition.icon}
 											name={definition.name}
-											meta={`${skillCategoryLabels[definition.category]} / ${skillPoolLabels[definition.pool]}`}
+											meta={skillCategoryLabels[definition.category]}
 											badges={usesLabel ? [usesLabel] : []}
 										/>
 									</Tooltip>
@@ -116,8 +112,8 @@ function AbilityRow({ icon, name, meta, badges }: AbilityRowProps) {
 			</span>
 
 			<span className="grid min-w-0 content-center gap-1">
-				<span className="break-words">{name}</span>
-				<span className="text-text-muted">{meta}</span>
+				<span className="break-words text-text-bright">{name}</span>
+				<span>{meta}</span>
 			</span>
 
 			{badges.length > 0 && (

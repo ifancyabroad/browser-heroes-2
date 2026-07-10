@@ -31,7 +31,7 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
 			)}
 		>
-			<span className="h-12 w-12 overflow-hidden border border-border bg-bg-base">
+			<span className="h-12 w-12 overflow-hidden">
 				<img
 					src={content.icon}
 					alt=""
