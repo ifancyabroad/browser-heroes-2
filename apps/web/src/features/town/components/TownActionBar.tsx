@@ -22,6 +22,8 @@ type TownActionBarProps = {
 	canEnterCombat: boolean;
 	restCost: number;
 	rerollCost: number;
+	healingPotions: number;
+	maxHealingPotions: number;
 	healingPotionCost: number;
 	onRest: () => void;
 	onReroll: () => void;
@@ -41,6 +43,8 @@ export function TownActionBar({
 	canEnterCombat,
 	restCost,
 	rerollCost,
+	healingPotions,
+	maxHealingPotions,
 	healingPotionCost,
 	onRest,
 	onReroll,
@@ -65,25 +69,27 @@ export function TownActionBar({
 						available={canReroll}
 						icon={rerollIcon}
 						label={`${rerollCost}g`}
-						labelClassName={canAffordReroll ? undefined : "text-error"}
+						labelClassName={canAffordReroll ? "text-text-bright" : "text-error"}
 						loading={isPending}
 						onClick={onReroll}
 					/>
 					<ActionSlotButton
-						ariaLabel={`Buy health potion for ${healingPotionCost} gold`}
+						ariaLabel={`Buy health potion for ${healingPotionCost} gold. ${healingPotions} of ${maxHealingPotions} carried`}
 						available={canBuyHealingPotion}
 						icon={healingPotionIcon}
 						label={`${healingPotionCost}g`}
-						labelClassName={canAffordHealingPotion ? undefined : "text-error"}
+						labelClassName={canAffordHealingPotion ? "text-text-bright" : "text-error"}
 						loading={isPending}
 						onClick={onBuyHealingPotion}
+						topLeftLabel={`${healingPotions}/${maxHealingPotions}`}
+						topLeftLabelClassName="text-primary"
 					/>
 					<ActionSlotButton
 						ariaLabel={`Rest for ${restCost} gold`}
 						available={canRest}
 						icon={restIcon}
 						label={`${restCost}g`}
-						labelClassName={canAffordRest ? undefined : "text-error"}
+						labelClassName={canAffordRest ? "text-text-bright" : "text-error"}
 						loading={isPending}
 						onClick={onRest}
 					/>

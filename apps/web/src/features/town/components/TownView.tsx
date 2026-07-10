@@ -174,6 +174,8 @@ export function TownView({ run }: TownViewProps) {
 							canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
 							restCost={townView.restCost}
 							rerollCost={townView.rerollCost}
+							healingPotions={townView.healingPotions}
+							maxHealingPotions={townView.maxHealingPotions}
 							healingPotionCost={townView.healingPotionCost}
 							onRest={handleRest}
 							onReroll={handleReroll}
