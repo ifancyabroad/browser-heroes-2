@@ -40,6 +40,7 @@ export function returnToTown(state: RunState): EngineResult {
 			zoneNumber,
 			streak: 0,
 			town: town.value,
+			rngState: town.rngState,
 		},
 		[
 			{
