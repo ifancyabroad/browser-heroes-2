@@ -47,10 +47,11 @@ export function ActionBarGroup({
 
 type ActionSlotButtonProps = {
 	ariaLabel: string;
-	disabled: boolean;
+	available: boolean;
 	icon: string;
 	label?: string;
 	labelClassName?: string;
+	loading: boolean;
 	onClick: () => void;
 	title?: string;
 	topLeftLabel?: string;
@@ -59,16 +60,18 @@ type ActionSlotButtonProps = {
 
 export function ActionSlotButton({
 	ariaLabel,
-	disabled,
+	available,
 	icon,
 	label,
 	labelClassName,
+	loading,
 	onClick,
 	title,
 	topLeftLabel,
 	topLeftLabelClassName,
 }: ActionSlotButtonProps) {
-	const previousDisabled = useRef(disabled);
+	const disabled = loading || !available;
+	const previousAvailable = useRef(available);
 	const pulseTimeout = useRef<number | null>(null);
 	const [showAvailabilityPulse, setShowAvailabilityPulse] = useState(false);
 
@@ -86,7 +89,7 @@ export function ActionSlotButton({
 			pulseTimeout.current = null;
 		}
 
-		if (previousDisabled.current && !disabled) {
+		if (!previousAvailable.current && available) {
 			setShowAvailabilityPulse(true);
 			pulseTimeout.current = window.setTimeout(() => {
 				setShowAvailabilityPulse(false);
@@ -96,8 +99,8 @@ export function ActionSlotButton({
 			setShowAvailabilityPulse(false);
 		}
 
-		previousDisabled.current = disabled;
-	}, [disabled]);
+		previousAvailable.current = available;
+	}, [available]);
 
 	return (
 		<button

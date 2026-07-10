@@ -62,32 +62,36 @@ export function TownActionBar({
 				<ActionBarGroup aria-label="Town action buttons" className="justify-end">
 					<ActionSlotButton
 						ariaLabel={`Reroll shop for ${rerollCost} gold`}
-						disabled={isPending || !canReroll}
+						available={canReroll}
 						icon={rerollIcon}
 						label={`${rerollCost}g`}
 						labelClassName={canAffordReroll ? undefined : "text-error"}
+						loading={isPending}
 						onClick={onReroll}
 					/>
 					<ActionSlotButton
 						ariaLabel={`Buy health potion for ${healingPotionCost} gold`}
-						disabled={isPending || !canBuyHealingPotion}
+						available={canBuyHealingPotion}
 						icon={healingPotionIcon}
 						label={`${healingPotionCost}g`}
 						labelClassName={canAffordHealingPotion ? undefined : "text-error"}
+						loading={isPending}
 						onClick={onBuyHealingPotion}
 					/>
 					<ActionSlotButton
 						ariaLabel={`Rest for ${restCost} gold`}
-						disabled={isPending || !canRest}
+						available={canRest}
 						icon={restIcon}
 						label={`${restCost}g`}
 						labelClassName={canAffordRest ? undefined : "text-error"}
+						loading={isPending}
 						onClick={onRest}
 					/>
 					<ActionSlotButton
 						ariaLabel="Enter combat"
-						disabled={isPending || !canEnterCombat}
+						available={canEnterCombat}
 						icon={enterCombatIcon}
+						loading={isPending}
 						onClick={onEnterCombat}
 					/>
 				</ActionBarGroup>

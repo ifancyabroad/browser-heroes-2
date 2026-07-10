@@ -116,30 +116,34 @@ function CombatSlots({
 		<>
 			<ActionSlotButton
 				ariaLabel={`Basic attack: ${player.basicAttack.name}`}
-				disabled={isPending || !canBasicAttack}
+				available={canBasicAttack}
 				icon={attackIcon}
+				loading={isPending}
 				onClick={onBasicAttack}
 			/>
 			{player.skills.map((skill) => (
 				<SkillSlot
 					key={skill.skillId}
 					skill={skill}
-					disabled={isPending || !availableSkillIds.has(skill.skillId)}
+					available={availableSkillIds.has(skill.skillId)}
+					loading={isPending}
 					onUseSkill={onUseSkill}
 				/>
 			))}
 			<ActionSlotButton
 				ariaLabel="Skip turn"
-				disabled={isPending || !canSkipTurn}
+				available={canSkipTurn}
 				icon={skipTurnIcon}
+				loading={isPending}
 				onClick={onSkipTurn}
 			/>
 			<ActionSlotButton
 				ariaLabel="Use health potion"
-				disabled={isPending || !canUseHealingPotion}
+				available={canUseHealingPotion}
 				icon={healingPotionIcon}
 				label={`${healingPotions}/${maxHealingPotions}`}
 				labelClassName="text-primary"
+				loading={isPending}
 				onClick={onUseHealingPotion}
 			/>
 		</>
@@ -165,14 +169,16 @@ function RunActionSlots({
 		<>
 			<ActionSlotButton
 				ariaLabel="Return to town"
-				disabled={isPending || !canReturnToTown}
+				available={canReturnToTown}
 				icon={townIcon}
+				loading={isPending}
 				onClick={onReturnToTown}
 			/>
 			<ActionSlotButton
 				ariaLabel="Continue to next battle"
-				disabled={isPending || !canContinue}
+				available={canContinue}
 				icon={continueIcon}
+				loading={isPending}
 				onClick={onContinue}
 			/>
 		</>
@@ -181,11 +187,12 @@ function RunActionSlots({
 
 type SkillSlotProps = {
 	skill: CombatantSkillState;
-	disabled: boolean;
+	available: boolean;
+	loading: boolean;
 	onUseSkill: (skillId: SkillId) => void;
 };
 
-function SkillSlot({ skill, disabled, onUseSkill }: SkillSlotProps) {
+function SkillSlot({ skill, available, loading, onUseSkill }: SkillSlotProps) {
 	const definition = SKILLS_BY_ID[skill.skillId];
 	const usesLabel = getUsesLabel(skill, definition.maxUses);
 
@@ -196,11 +203,12 @@ function SkillSlot({ skill, disabled, onUseSkill }: SkillSlotProps) {
 			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 		>
 			<ActionSlotButton
-				disabled={disabled}
-				ariaLabel={disabled ? `${definition.name} unavailable` : `Use ${definition.name}`}
+				available={available}
+				ariaLabel={available ? `Use ${definition.name}` : `${definition.name} unavailable`}
 				icon={definition.icon}
 				label={usesLabel ?? undefined}
 				labelClassName="text-primary"
+				loading={loading}
 				onClick={() => onUseSkill(skill.skillId)}
 			/>
 		</Tooltip>
