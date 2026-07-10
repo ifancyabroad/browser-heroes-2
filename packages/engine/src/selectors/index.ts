@@ -23,3 +23,7 @@ export type {
 export { selectTownView } from "./selectTownView";
 
 export type { TownShopDestinationView, TownShopSlotView, TownView } from "./selectTownView";
+
+export { selectRunSummaryView } from "./selectRunSummaryView";
+
+export type { RunSummaryView, RunSummaryOutcome } from "./selectRunSummaryView";
