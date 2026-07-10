@@ -158,7 +158,7 @@ function refreshCompletedCombatPlayer(
 	combat: RunState["combat"],
 	hero: HeroState,
 ): RunState["combat"] {
-	if (!combat || combat.status === "player_won") {
+	if (!combat || combat.status !== "player_won") {
 		return combat;
 	}
 
