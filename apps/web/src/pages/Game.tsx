@@ -5,6 +5,7 @@ import { PageLoader } from "../components/PageLoader";
 import { CombatView } from "../features/combat";
 import { LevelUpModalController } from "../features/levelUp";
 import { RewardModalController } from "../features/rewards";
+import { DeathScreen } from "../features/runSummary";
 
 export default function Game() {
 	const { data, isPending } = useCurrentRun();
@@ -30,7 +31,7 @@ export default function Game() {
 			break;
 
 		case "dead":
-			view = <p>Run over</p>;
+			view = <DeathScreen run={run} />;
 			break;
 
 		case "complete":

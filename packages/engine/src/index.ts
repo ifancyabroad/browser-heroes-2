@@ -40,6 +40,7 @@ export {
 	selectHeroProgression,
 	selectHeroView,
 	selectRewardChoiceView,
+	selectRunSummaryView,
 	selectTownView,
 } from "./selectors";
 
@@ -50,6 +51,9 @@ export type {
 	RewardChoiceOptionView,
 	RewardChoiceView,
 	RewardItemDestinationView,
+	RunSummaryFinalEnemyView,
+	RunSummaryOutcome,
+	RunSummaryView,
 	TownShopDestinationView,
 	TownShopSlotView,
 	TownView,

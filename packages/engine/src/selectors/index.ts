@@ -26,4 +26,8 @@ export type { TownShopDestinationView, TownShopSlotView, TownView } from "./sele
 
 export { selectRunSummaryView } from "./selectRunSummaryView";
 
-export type { RunSummaryView, RunSummaryOutcome } from "./selectRunSummaryView";
+export type {
+	RunSummaryFinalEnemyView,
+	RunSummaryOutcome,
+	RunSummaryView,
+} from "./selectRunSummaryView";
