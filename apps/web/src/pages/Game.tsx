@@ -5,7 +5,11 @@ import { PageLoader } from "../components/PageLoader";
 import { CombatView } from "../features/combat";
 import { LevelUpModalController } from "../features/levelUp";
 import { RewardModalController } from "../features/rewards";
-import { DeathScreen } from "../features/runSummary";
+import {
+	DeathScreen,
+	FinalBossVictoryModalController,
+	VictoryScreen,
+} from "../features/runSummary";
 
 export default function Game() {
 	const { data, isPending } = useGameRun();
@@ -35,7 +39,7 @@ export default function Game() {
 			break;
 
 		case "retired":
-			view = <p>Run retired</p>;
+			view = <VictoryScreen run={run} />;
 			break;
 	}
 
@@ -44,6 +48,7 @@ export default function Game() {
 			{view}
 			<LevelUpModalController run={run} />
 			<RewardModalController run={run} />
+			<FinalBossVictoryModalController run={run} />
 		</>
 	);
 }

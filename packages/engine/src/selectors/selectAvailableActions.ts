@@ -69,6 +69,9 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 				type: "CONTINUE_TO_NEXT_COMBAT",
 			},
 			{
+				type: "RETURN_TO_TOWN",
+			},
+			{
 				type: "RETIRE_RUN",
 			},
 		];

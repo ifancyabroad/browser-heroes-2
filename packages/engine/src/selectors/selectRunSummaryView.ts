@@ -9,44 +9,58 @@ export type RunSummaryFinalEnemyView = {
 export type RunSummaryHeroView = {
 	name: string;
 	classId: ClassId;
+	level: number;
 };
 
 export type RunSummaryView = {
+	status: "dead" | "retired";
 	hero: RunSummaryHeroView;
 	battleNumber: number;
+	zoneNumber: number;
+	gold: number;
+	streak: number;
 	finalEnemy: RunSummaryFinalEnemyView | null;
 	finalMomentLog: readonly CombatLogEntry[];
 };
 
 export function selectRunSummaryView(state: RunState): RunSummaryView | null {
-	if (state.phase !== "dead") {
+	if (state.phase !== "dead" && state.phase !== "retired") {
 		return null;
 	}
 
 	const combat = state.combat;
+	const finalMomentActor = state.phase === "dead" ? "enemy" : "player";
 
 	return {
+		status: state.phase,
 		hero: {
 			name: state.hero.name,
 			classId: state.hero.classId,
+			level: state.hero.level,
 		},
 		battleNumber: state.battleNumber,
+		zoneNumber: state.zoneNumber,
+		gold: state.gold,
+		streak: state.streak,
 		finalEnemy: combat
 			? {
 					name: combat.enemy.name,
 				}
 			: null,
-		finalMomentLog: combat ? getFinalMomentLog(combat.log) : [],
+		finalMomentLog: combat ? getFinalMomentLog(combat.log, finalMomentActor) : [],
 	};
 }
 
-function getFinalMomentLog(entries: readonly CombatLogEntry[]): CombatLogEntry[] {
+function getFinalMomentLog(
+	entries: readonly CombatLogEntry[],
+	finalMomentActor: CombatLogEntry["actor"],
+): CombatLogEntry[] {
 	let finalEntryIndex = -1;
 
 	for (let index = entries.length - 1; index >= 0; index -= 1) {
 		const entry = entries[index];
 
-		if (entry.eventType === "combatant_slain" && entry.actor === "enemy") {
+		if (entry.eventType === "combatant_slain" && entry.actor === finalMomentActor) {
 			finalEntryIndex = index;
 			break;
 		}
