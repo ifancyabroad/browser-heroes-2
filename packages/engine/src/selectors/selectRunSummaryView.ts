@@ -1,47 +1,36 @@
-import type { Zone } from "@app/content";
+import type { ClassId } from "@app/content";
 
 import type { CombatLogEntry, RunState } from "../schemas";
-import { getZoneForRun } from "../systems/encounters/zones/getZoneForRun";
-import { selectHeroView, type HeroView } from "./selectHeroView";
-
-export type RunSummaryOutcome = "dead" | "retired";
 
 export type RunSummaryFinalEnemyView = {
 	name: string;
 };
 
+export type RunSummaryHeroView = {
+	name: string;
+	classId: ClassId;
+};
+
 export type RunSummaryView = {
-	outcome: RunSummaryOutcome;
-
-	hero: HeroView;
-
+	hero: RunSummaryHeroView;
 	battleNumber: number;
-	zone: Zone;
-	gold: number;
-	xp: number;
-
 	finalEnemy: RunSummaryFinalEnemyView | null;
 	finalMomentLog: readonly CombatLogEntry[];
 };
 
 export function selectRunSummaryView(state: RunState): RunSummaryView | null {
-	if (state.phase !== "dead" && state.phase !== "retired") {
+	if (state.phase !== "dead") {
 		return null;
 	}
 
-	const hero = selectHeroView(state);
 	const combat = state.combat;
 
 	return {
-		outcome: state.phase,
-
-		hero,
-
+		hero: {
+			name: state.hero.name,
+			classId: state.hero.classId,
+		},
 		battleNumber: state.battleNumber,
-		zone: getZoneForRun(state.zoneNumber),
-		gold: state.gold,
-		xp: state.hero.xp,
-
 		finalEnemy: combat
 			? {
 					name: combat.enemy.name,

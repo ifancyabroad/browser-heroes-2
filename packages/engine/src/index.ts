@@ -52,7 +52,7 @@ export type {
 	RewardChoiceView,
 	RewardItemDestinationView,
 	RunSummaryFinalEnemyView,
-	RunSummaryOutcome,
+	RunSummaryHeroView,
 	RunSummaryView,
 	TownShopDestinationView,
 	TownShopSlotView,

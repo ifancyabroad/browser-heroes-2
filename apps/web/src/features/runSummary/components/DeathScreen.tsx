@@ -23,11 +23,14 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							The run has ended, and the road ahead belongs to another hero.
 						</p>
 						<div className="flex flex-wrap justify-center gap-4">
+							<Link className="text-text-bright underline hover:opacity-80" to="/">
+								Home
+							</Link>
 							<Link
-								className="text-text-bright underline hover:opacity-80"
+								className="text-primary underline hover:opacity-80"
 								to="/create-character"
 							>
-								Create Character
+								Try Again
 							</Link>
 						</div>
 					</section>
@@ -77,17 +80,14 @@ export function DeathScreen({ run }: DeathScreenProps) {
 					)}
 
 					<div className="flex flex-wrap justify-center gap-4">
-						<Link
-							className="text-text-bright underline hover:opacity-80"
-							to="/create-character"
-						>
-							Create Character
+						<Link className="text-text-bright underline hover:opacity-80" to="/">
+							Home
 						</Link>
 						<Link
 							className="text-primary underline hover:opacity-80"
-							to={`/runs/${run.id}/summary`}
+							to="/create-character"
 						>
-							View Run Summary
+							Try Again
 						</Link>
 					</div>
 				</section>

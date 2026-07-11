@@ -28,6 +28,6 @@ export { selectRunSummaryView } from "./selectRunSummaryView";
 
 export type {
 	RunSummaryFinalEnemyView,
-	RunSummaryOutcome,
+	RunSummaryHeroView,
 	RunSummaryView,
 } from "./selectRunSummaryView";
