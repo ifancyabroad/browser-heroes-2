@@ -40,7 +40,6 @@ export const runLogEntrySchema = z.object({
 			"level_up",
 			"item_acquired",
 			"item_purchased",
-			"run_completed",
 		])
 		.optional(),
 });

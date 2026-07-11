@@ -68,10 +68,6 @@ export const retireRunActionSchema = z.object({
 	type: z.literal("RETIRE_RUN"),
 });
 
-export const continueEndlessActionSchema = z.object({
-	type: z.literal("CONTINUE_ENDLESS"),
-});
-
 export const engineActionSchema = z.discriminatedUnion("type", [
 	enterCombatActionSchema,
 	playerBasicAttackActionSchema,
@@ -87,7 +83,6 @@ export const engineActionSchema = z.discriminatedUnion("type", [
 	playerSkipTurnActionSchema,
 	selectRewardActionSchema,
 	retireRunActionSchema,
-	continueEndlessActionSchema,
 ]);
 
 export type EnterCombatAction = z.infer<typeof enterCombatActionSchema>;
@@ -104,6 +99,5 @@ export type CompleteLevelUpAction = z.infer<typeof completeLevelUpActionSchema>;
 export type PlayerSkipTurnAction = z.infer<typeof playerSkipTurnActionSchema>;
 export type SelectRewardAction = z.infer<typeof selectRewardActionSchema>;
 export type RetireRunAction = z.infer<typeof retireRunActionSchema>;
-export type ContinueEndlessAction = z.infer<typeof continueEndlessActionSchema>;
 
 export type EngineAction = z.infer<typeof engineActionSchema>;

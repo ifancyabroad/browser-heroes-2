@@ -1,9 +1,14 @@
 import type { EngineResult, RunState } from "../../schemas";
-
 import { failureResult, successResult } from "../../core/result";
+import { isFinalBossVictory } from "../endless/endlessProgression";
 
 export function retireRun(state: RunState): EngineResult {
-	if (state.phase !== "complete") {
+	if (
+		state.phase !== "combat" ||
+		!state.combat ||
+		state.combat.status !== "player_won" ||
+		!isFinalBossVictory(state.battleNumber, state.endlessCycle)
+	) {
 		return failureResult(state, "INVALID_PHASE");
 	}
 
@@ -12,10 +17,6 @@ export function retireRun(state: RunState): EngineResult {
 			...state,
 			phase: "retired",
 		},
-		[
-			{
-				type: "RUN_RETIRED",
-			},
-		],
+		[{ type: "RUN_RETIRED" }],
 	);
 }

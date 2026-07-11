@@ -37,10 +37,6 @@ export default function Game() {
 		case "retired":
 			view = <p>Run retired</p>;
 			break;
-
-		case "complete":
-			view = <p>Run complete</p>;
-			break;
 	}
 
 	return (

@@ -99,14 +99,6 @@ const healingPotionBoughtEventSchema = z.object({
 	remainingPotions: z.number().int().min(0),
 });
 
-const runCompletedEventSchema = z.object({
-	type: z.literal("RUN_COMPLETED"),
-});
-
-const endlessContinuedEventSchema = z.object({
-	type: z.literal("ENDLESS_CONTINUED"),
-});
-
 const runRetiredEventSchema = z.object({
 	type: z.literal("RUN_RETIRED"),
 });
@@ -118,8 +110,6 @@ export const engineEventSchema = z.union([
 	combatDefeatEventSchema,
 	returnedToTownEventSchema,
 	nextCombatReadyEventSchema,
-	runCompletedEventSchema,
-	endlessContinuedEventSchema,
 	runRetiredEventSchema,
 	levelUpCompletedEventSchema,
 	rewardSelectedEventSchema,

@@ -9,6 +9,7 @@ import type {
 import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { isFinalBossVictory } from "../systems/endless/endlessProgression";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -58,6 +59,21 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 		return actions;
 	}
 
+	if (
+		state.phase === "combat" &&
+		state.combat?.status === "player_won" &&
+		isFinalBossVictory(state.battleNumber, state.endlessCycle)
+	) {
+		return [
+			{
+				type: "CONTINUE_TO_NEXT_COMBAT",
+			},
+			{
+				type: "RETIRE_RUN",
+			},
+		];
+	}
+
 	if (state.phase === "combat" && state.combat?.status === "player_won") {
 		return [
 			{
@@ -65,17 +81,6 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 			},
 			{
 				type: "RETURN_TO_TOWN",
-			},
-		];
-	}
-
-	if (state.phase === "complete" && state.combat?.status === "player_won") {
-		return [
-			{
-				type: "CONTINUE_ENDLESS",
-			},
-			{
-				type: "RETIRE_RUN",
 			},
 		];
 	}
