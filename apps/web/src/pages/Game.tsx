@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useCurrentRun } from "../features/runs";
+import { useGameRun } from "../features/runs";
 import { TownView } from "../features/town";
 import { PageLoader } from "../components/PageLoader";
 import { CombatView } from "../features/combat";
@@ -8,7 +8,7 @@ import { RewardModalController } from "../features/rewards";
 import { DeathScreen } from "../features/runSummary";
 
 export default function Game() {
-	const { data, isPending } = useCurrentRun();
+	const { data, isPending } = useGameRun();
 
 	if (isPending) {
 		return <PageLoader />;
@@ -32,6 +32,10 @@ export default function Game() {
 
 		case "dead":
 			view = <DeathScreen run={run} />;
+			break;
+
+		case "retired":
+			view = <p>Run retired</p>;
 			break;
 
 		case "complete":

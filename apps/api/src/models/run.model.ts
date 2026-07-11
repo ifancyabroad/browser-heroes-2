@@ -1,7 +1,7 @@
 import { Schema, model, type InferSchemaType } from "mongoose";
 import { classIds } from "@app/content";
 
-export const RUN_STATUSES = ["active", "dead", "victory", "abandoned"] as const;
+export const RUN_STATUSES = ["active", "dead", "retired", "abandoned"] as const;
 
 const runSummarySchema = new Schema(
 	{

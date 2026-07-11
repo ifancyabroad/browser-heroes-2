@@ -76,13 +76,13 @@ function deriveRunSummary(state: RunState) {
 	};
 }
 
-function deriveRunStatus(state: RunState): "active" | "dead" | "victory" {
+function deriveRunStatus(state: RunState): "active" | "dead" | "retired" {
 	switch (state.phase) {
 		case "dead":
 			return "dead";
 
 		case "retired":
-			return "victory";
+			return "retired";
 
 		default:
 			return "active";

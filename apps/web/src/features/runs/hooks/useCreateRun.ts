@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createRun } from "../api/createRun";
 import { runKeys } from "../api/runKeys";
+import type { CurrentRunResponse, GetRunResponse } from "@app/shared";
 
 export function useCreateRun() {
 	const queryClient = useQueryClient();
@@ -8,7 +9,13 @@ export function useCreateRun() {
 	return useMutation({
 		mutationFn: createRun,
 		onSuccess: (data) => {
-			queryClient.setQueryData(runKeys.current(), data);
+			const { run } = data;
+
+			queryClient.setQueryData<CurrentRunResponse>(runKeys.current(), data);
+
+			queryClient.setQueryData<CurrentRunResponse>(runKeys.game(), data);
+
+			queryClient.setQueryData<GetRunResponse>(runKeys.detail(run.id), data);
 		},
 	});
 }

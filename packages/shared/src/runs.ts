@@ -9,7 +9,7 @@ export const createRunBodySchema = z.object({
 
 export type CreateRunBody = z.infer<typeof createRunBodySchema>;
 
-export type RunStatus = "active" | "dead" | "victory" | "abandoned";
+export type RunStatus = "active" | "dead" | "retired" | "abandoned";
 
 export interface RunSummaryView {
 	heroName: string;
