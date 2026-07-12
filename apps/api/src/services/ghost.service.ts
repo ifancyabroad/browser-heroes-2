@@ -20,7 +20,6 @@ type GhostEncounterInput = {
 
 type SelectGhostEncounterInput = {
 	encounterLevel: number;
-	excludeUserId?: string;
 };
 
 type IncrementGhostEncounterInput = {
@@ -76,7 +75,6 @@ export async function selectGhostEncounterForLevel(
 
 	const ghosts = await GhostModel.find({
 		encounterLevel: input.encounterLevel,
-		...(input.excludeUserId ? { userId: { $ne: input.excludeUserId } } : {}),
 	})
 		.sort({ createdAt: -1 })
 		.lean();
