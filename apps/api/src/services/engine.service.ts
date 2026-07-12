@@ -1,8 +1,8 @@
 import {
 	applyAction,
 	engineResultSchema,
-	getEncounterTypeForBattle,
 	runStateSchema,
+	selectEncounterContext,
 	type EngineAction,
 	type RunState,
 } from "@app/engine";
@@ -148,18 +148,18 @@ async function prepareActionForEngine(input: {
 	}
 
 	const battleNumber = getBattleNumberForAction(input.state, input.action);
+	const encounterContext = selectEncounterContext(battleNumber);
 
 	if (battleNumber < FIRST_GHOST_ENCOUNTER_BATTLE) {
 		return input.action;
 	}
 
-	if (getEncounterTypeForBattle(battleNumber) !== "standard") {
+	if (encounterContext.encounterType !== "standard") {
 		return input.action;
 	}
 
 	const ghostEncounter = await selectGhostEncounterForLevel({
-		encounterLevel: getGhostEncounterLevelForRunState(input.state),
-		excludeUserId: input.userId,
+		encounterLevel: encounterContext.ghostEncounterLevel,
 	});
 
 	if (!ghostEncounter) {
@@ -170,14 +170,6 @@ async function prepareActionForEngine(input: {
 		...input.action,
 		ghostEncounter,
 	};
-}
-
-function getGhostEncounterLevelForRunState(state: RunState): number {
-	if (state.endlessCycle > 0) {
-		return 10;
-	}
-
-	return Math.min(state.zoneNumber, 10);
 }
 
 function getStartedGhostId(action: EngineAction, resultState: RunState): string | null {

@@ -37,6 +37,7 @@ export { getEncounterTypeForBattle, getZoneForRun } from "./systems/encounters";
 export {
 	selectAvailableActions,
 	selectCombatView,
+	selectEncounterContext,
 	selectHeroProgression,
 	selectHeroView,
 	selectRewardChoiceView,
@@ -46,6 +47,7 @@ export {
 
 export type {
 	CombatViewState,
+	EncounterContext,
 	HeroProgressionView,
 	HeroView,
 	RewardChoiceOptionView,

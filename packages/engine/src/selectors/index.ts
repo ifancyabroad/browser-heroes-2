@@ -31,3 +31,7 @@ export type {
 	RunSummaryHeroView,
 	RunSummaryView,
 } from "./selectRunSummaryView";
+
+export { selectEncounterContext } from "./selectEncounterContext";
+
+export type { EncounterContext } from "./selectEncounterContext";
