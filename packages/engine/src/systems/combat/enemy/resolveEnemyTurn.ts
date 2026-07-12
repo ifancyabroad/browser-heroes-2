@@ -9,7 +9,6 @@ import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
 
 import { selectEnemyAction } from "./selectEnemyAction";
-import { getEnemyDefinition } from "../../encounters/getEnemyDefinition";
 
 type ResolveEnemyTurnInput = {
 	combat: CombatState;
@@ -42,20 +41,10 @@ export function resolveEnemyTurn(input: ResolveEnemyTurnInput): RngResult<Combat
 		});
 	}
 
-	const enemyDefinition = getEnemyDefinition(combat.enemy.sourceId);
-
-	if (!enemyDefinition) {
-		return resolveBasicAttack({
-			combat,
-			attackerSide: "enemy",
-			rngState: input.rngState,
-		});
-	}
-
 	const selectedAction = selectEnemyAction({
 		enemy: combat.enemy,
 		player: combat.player,
-		tactic: enemyDefinition.combat.tactic,
+		tactic: combat.enemy.tactic,
 		rngState: input.rngState,
 	});
 

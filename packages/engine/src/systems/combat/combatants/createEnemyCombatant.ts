@@ -61,6 +61,7 @@ export function createEnemyCombatant(
 		skills: enemy.combat.skillIds.map(createCombatantSkillFromEnemySkill),
 		featIds,
 		activeEffects: [],
+		tactic: enemy.combat.tactic,
 	};
 
 	return applyEndlessEnemyScaling(combatant, endlessCycle);

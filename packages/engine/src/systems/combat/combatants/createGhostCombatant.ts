@@ -20,5 +20,6 @@ export function createGhostCombatant(
 		portrait: classDefinition.enemyPortrait,
 		currentHp: playerLikeCombatant.maxHp,
 		activeEffects: [],
+		tactic: classDefinition.combat.tactic,
 	};
 }

@@ -25,7 +25,7 @@ export function createPendingRewardChoice(
 		};
 	}
 
-	if (input.encounterType !== "boss") {
+	if (!grantsPendingRewardChoice(input.encounterType)) {
 		return {
 			value: null,
 			rngState: input.rngState,
@@ -53,4 +53,8 @@ export function createPendingRewardChoice(
 		},
 		rngState: itemOptions.rngState,
 	};
+}
+
+function grantsPendingRewardChoice(encounterType: CombatState["encounterType"]): boolean {
+	return encounterType === "boss" || encounterType === "ghost";
 }

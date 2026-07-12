@@ -7,10 +7,7 @@ import { createEncounterCombatant } from "./combatants/createEncounterCombatant"
 import { createPlayerCombatant } from "./combatants/createPlayerCombatant";
 import { createCombatLogEntry } from "./logs/createCombatLogEntry";
 
-export function enterCombat(
-	state: RunState,
-	action: EnterCombatAction = { type: "ENTER_COMBAT" },
-): EngineResult {
+export function enterCombat(state: RunState, action: EnterCombatAction): EngineResult {
 	if (state.phase !== "town") {
 		return failureResult(state, "INVALID_PHASE");
 	}

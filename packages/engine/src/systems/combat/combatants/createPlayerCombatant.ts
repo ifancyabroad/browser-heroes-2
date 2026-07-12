@@ -43,5 +43,6 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 		skills: hero.skills.map(createCombatantSkillFromHeroSkill),
 		featIds: derivedHeroStats.featIds,
 		activeEffects: [],
+		tactic: "default",
 	};
 }

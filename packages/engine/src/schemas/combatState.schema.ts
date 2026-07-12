@@ -13,6 +13,7 @@ import {
 	modifierOperationSchema,
 	statusEffectSchema,
 	diceFormulaSchema,
+	tacticSchema,
 } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
@@ -133,6 +134,7 @@ export const combatantStateSchema = z.object({
 	skills: z.array(combatantSkillStateSchema),
 	featIds: z.array(featIdSchema),
 	activeEffects: z.array(activeCombatEffectSchema),
+	tactic: tacticSchema,
 });
 
 export const combatStatusSchema = z.enum(["active", "player_won", "enemy_won"]);

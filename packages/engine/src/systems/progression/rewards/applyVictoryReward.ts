@@ -21,15 +21,15 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 		return null;
 	}
 
-	const enemyDefinition = getEnemyDefinition(combat.enemy.sourceId);
+	const enemyThreat = getCombatRewardThreat(state);
 
-	if (!enemyDefinition) {
+	if (enemyThreat === null) {
 		return null;
 	}
 
 	const reward = calculateCombatReward({
 		enemyLevel: combat.enemy.level,
-		enemyThreat: enemyDefinition.threat,
+		enemyThreat,
 		goldMultiplier: calculateGoldMultiplier(state.streak),
 	});
 
@@ -73,4 +73,24 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 		},
 		reward,
 	};
+}
+
+function getCombatRewardThreat(state: RunState): number | null {
+	const combat = state.combat;
+
+	if (!combat) {
+		return null;
+	}
+
+	if (combat.encounterType === "ghost") {
+		return calculateGhostThreat(combat.enemy.level);
+	}
+
+	const enemyDefinition = getEnemyDefinition(combat.enemy.sourceId);
+
+	return enemyDefinition?.threat ?? null;
+}
+
+function calculateGhostThreat(level: number): number {
+	return Math.min(30, Math.max(1, level * 3));
 }
