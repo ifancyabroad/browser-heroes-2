@@ -1,48 +1,42 @@
-import type { CombatState, EngineResult, RunState } from "../../schemas";
+import type { CombatState, EngineResult, EnterCombatAction, RunState } from "../../schemas";
 
 import { createCombatId } from "../../core/ids";
 import { failureResult, successResult } from "../../core/result";
 
-import { getEncounterTypeForBattle, selectEnemyForEncounter } from "../encounters";
-
-import { createEnemyCombatant } from "./combatants/createEnemyCombatant";
+import { createEncounterCombatant } from "./combatants/createEncounterCombatant";
 import { createPlayerCombatant } from "./combatants/createPlayerCombatant";
 import { createCombatLogEntry } from "./logs/createCombatLogEntry";
 
-export function enterCombat(state: RunState): EngineResult {
+export function enterCombat(
+	state: RunState,
+	action: EnterCombatAction = { type: "ENTER_COMBAT" },
+): EngineResult {
 	if (state.phase !== "town") {
 		return failureResult(state, "INVALID_PHASE");
 	}
 
-	const selectedEnemy = selectEnemyForEncounter(state);
+	const combatId = createCombatId(state.id, state.battleNumber);
 
-	if (!selectedEnemy) {
+	const encounter = createEncounterCombatant(state, action, combatId);
+
+	if (!encounter) {
 		return failureResult(state, "NO_ELIGIBLE_ENEMY");
 	}
 
-	const combatId = createCombatId(state.id, state.battleNumber);
-
 	const player = createPlayerCombatant(state.hero, combatId);
-
-	const enemy = createEnemyCombatant(
-		selectedEnemy.value,
-		combatId,
-		state.zoneNumber,
-		state.endlessCycle,
-	);
 
 	const combat: CombatState = {
 		id: combatId,
-		encounterType: getEncounterTypeForBattle(state.battleNumber),
+		encounterType: encounter.encounterType,
 		turnNumber: 1,
 		activeActor: "player",
 		player,
-		enemy,
+		enemy: encounter.enemy,
 		log: [
 			createCombatLogEntry(combatId, 1, {
 				turnNumber: 1,
 				actor: "system",
-				message: `Combat started: ${player.name} ` + `vs ${enemy.name}.`,
+				message: `Combat started: ${player.name} vs ${encounter.enemy.name}.`,
 				eventType: "combat_started",
 			}),
 		],
@@ -52,7 +46,7 @@ export function enterCombat(state: RunState): EngineResult {
 	return successResult(
 		{
 			...state,
-			rngState: selectedEnemy.rngState,
+			rngState: encounter.rngState,
 			phase: "combat",
 			combat,
 		},

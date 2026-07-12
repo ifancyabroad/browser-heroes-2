@@ -16,7 +16,7 @@ import { retireRun } from "../systems/endless/retireRun";
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
 		case "ENTER_COMBAT":
-			return enterCombat(state);
+			return enterCombat(state, action);
 
 		case "PLAYER_BASIC_ATTACK":
 		case "PLAYER_USE_SKILL":
@@ -24,7 +24,7 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 			return applyCombatAction(state, action);
 
 		case "CONTINUE_TO_NEXT_COMBAT":
-			return continueToNextCombat(state);
+			return continueToNextCombat(state, action);
 
 		case "RETURN_TO_TOWN":
 			return returnToTown(state);

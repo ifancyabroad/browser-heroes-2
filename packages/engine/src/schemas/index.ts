@@ -22,6 +22,7 @@ export type {
 	PlayerSkipTurnAction,
 	SelectRewardAction,
 	BuyConsumableAction,
+	GhostEncounter,
 } from "./action.schema";
 
 export { engineEventSchema } from "./event.schema";

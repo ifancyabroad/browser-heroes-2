@@ -1,11 +1,14 @@
-import type { EngineResult, RunState } from "../../schemas";
+import type { ContinueToNextCombatAction, EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { enterCombat } from "../combat/enterCombat";
 import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
 import { getEndlessCycleForBattle } from "../endless/endlessProgression";
 
-export function continueToNextCombat(state: RunState): EngineResult {
+export function continueToNextCombat(
+	state: RunState,
+	action: ContinueToNextCombatAction,
+): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
 		return failureResult(state, "INVALID_PHASE");
 	}
@@ -34,7 +37,10 @@ export function continueToNextCombat(state: RunState): EngineResult {
 		streak: state.streak + 1,
 	};
 
-	const enterResult = enterCombat(readyState);
+	const enterResult = enterCombat(readyState, {
+		type: "ENTER_COMBAT",
+		ghostEncounter: action.ghostEncounter,
+	});
 
 	if (!enterResult.ok) {
 		return enterResult;

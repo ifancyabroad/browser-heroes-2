@@ -8,6 +8,12 @@ import {
 import { RunActionModel } from "../models/runAction.model";
 import { RunModel, type RunDocument } from "../models/run.model";
 import mongoose from "mongoose";
+import {
+	createGhostFromRunIfEligible,
+	incrementGhostEncounters,
+	recordGhostCombatOutcome,
+	selectGhostEncounterForLevel,
+} from "./ghost.service";
 
 export type ApplyRunActionInput = {
 	userId: string;
@@ -29,7 +35,19 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 
 		const currentState = runStateSchema.parse(run.state);
 
-		const result = engineResultSchema.parse(applyAction(currentState, input.action));
+		const action = await prepareActionForEngine({
+			userId: input.userId,
+			state: currentState,
+			action: input.action,
+		});
+
+		const result = engineResultSchema.parse(applyAction(currentState, action));
+
+		const startedGhostId = result.ok ? getStartedGhostId(action, result.state) : null;
+
+		const resolvedGhostOutcome = result.ok
+			? getResolvedGhostOutcome(currentState, result.state)
+			: null;
 
 		const sequence = run.nextActionSequence;
 
@@ -38,13 +56,37 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 
 		await run.save({ session });
 
+		if (startedGhostId) {
+			await incrementGhostEncounters({
+				ghostId: startedGhostId,
+				session,
+			});
+		}
+
+		if (resolvedGhostOutcome) {
+			await recordGhostCombatOutcome({
+				ghostId: resolvedGhostOutcome.ghostId,
+				outcome: resolvedGhostOutcome.outcome,
+				session,
+			});
+		}
+
+		if (run.status === "dead") {
+			await createGhostFromRunIfEligible({
+				userId: input.userId,
+				runId: run._id,
+				state: result.state,
+				session,
+			});
+		}
+
 		await RunActionModel.create(
 			[
 				{
 					runId: run._id,
 					userId: input.userId,
 					sequence,
-					action: input.action,
+					action,
 					success: result.ok,
 					error: result.ok ? undefined : result.error,
 				},
@@ -87,4 +129,97 @@ function deriveRunStatus(state: RunState): "active" | "dead" | "retired" {
 		default:
 			return "active";
 	}
+}
+
+async function prepareActionForEngine(input: {
+	userId: string;
+	state: RunState;
+	action: EngineAction;
+}): Promise<EngineAction> {
+	if (input.action.type !== "ENTER_COMBAT" && input.action.type !== "CONTINUE_TO_NEXT_COMBAT") {
+		return input.action;
+	}
+
+	if (input.action.ghostEncounter) {
+		return input.action;
+	}
+
+	const ghostEncounter = await selectGhostEncounterForLevel({
+		encounterLevel: getGhostEncounterLevelForRunState(input.state),
+		excludeUserId: input.userId,
+	});
+
+	if (!ghostEncounter) {
+		return input.action;
+	}
+
+	return {
+		...input.action,
+		ghostEncounter,
+	};
+}
+
+function getGhostEncounterLevelForRunState(state: RunState): number {
+	if (state.endlessCycle > 0) {
+		return 10;
+	}
+
+	return Math.min(state.zoneNumber, 10);
+}
+
+function getStartedGhostId(action: EngineAction, resultState: RunState): string | null {
+	if (action.type !== "ENTER_COMBAT" && action.type !== "CONTINUE_TO_NEXT_COMBAT") {
+		return null;
+	}
+
+	if (!action.ghostEncounter) {
+		return null;
+	}
+
+	if (
+		resultState.phase !== "combat" ||
+		!resultState.combat ||
+		resultState.combat.encounterType !== "ghost"
+	) {
+		return null;
+	}
+
+	return action.ghostEncounter.ghostId;
+}
+
+function getResolvedGhostOutcome(
+	previousState: RunState,
+	resultState: RunState,
+): { ghostId: string; outcome: "ghost_won" | "ghost_lost" } | null {
+	const previousCombat = previousState.combat;
+	const resultCombat = resultState.combat;
+
+	if (
+		previousState.phase !== "combat" ||
+		!previousCombat ||
+		previousCombat.encounterType !== "ghost" ||
+		previousCombat.status !== "active"
+	) {
+		return null;
+	}
+
+	if (!resultCombat || resultCombat.id !== previousCombat.id) {
+		return null;
+	}
+
+	if (resultCombat.status === "enemy_won") {
+		return {
+			ghostId: previousCombat.enemy.sourceId,
+			outcome: "ghost_won",
+		};
+	}
+
+	if (resultCombat.status === "player_won") {
+		return {
+			ghostId: previousCombat.enemy.sourceId,
+			outcome: "ghost_lost",
+		};
+	}
+
+	return null;
 }
