@@ -1,6 +1,7 @@
 import {
 	applyAction,
 	engineResultSchema,
+	getEncounterTypeForBattle,
 	runStateSchema,
 	type EngineAction,
 	type RunState,
@@ -14,7 +15,6 @@ import {
 	recordGhostCombatOutcome,
 	selectGhostEncounterForLevel,
 } from "./ghost.service";
-import { getEncounterTypeForBattle } from "packages/engine/dist/systems/encounters/getEncounterTypeForBattle";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 

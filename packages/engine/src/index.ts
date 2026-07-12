@@ -32,7 +32,7 @@ export type {
 
 export { serializeRunState, deserializeRunState, deserializeRunStateJson } from "./serialization";
 
-export { getZoneForRun } from "./systems/encounters";
+export { getEncounterTypeForBattle, getZoneForRun } from "./systems/encounters";
 
 export {
 	selectAvailableActions,

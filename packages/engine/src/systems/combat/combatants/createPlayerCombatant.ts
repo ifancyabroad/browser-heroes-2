@@ -7,6 +7,7 @@ import { isHeroWeaponProficient } from "../equipment/weaponProficiency";
 import { toCombatantCombatStats } from "../modifiers/deriveCombatStats";
 import { createCombatantSkillFromHeroSkill } from "./combatantSkills";
 import { deriveHeroStats } from "../../hero/deriveHeroStats";
+import { CLASSES_BY_ID } from "@app/content";
 
 export function createPlayerCombatant(hero: HeroState, combatId: string): CombatantState {
 	const derivedHeroStats = deriveHeroStats(hero);
@@ -17,11 +18,14 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 
 	const weapon = getEquippedWeapon(hero.equipment.mainHand?.itemId);
 
+	const classDefinition = CLASSES_BY_ID[hero.classId];
+
 	return {
 		id: createCombatantId(combatId, "player"),
 		side: "player",
 		sourceId: hero.classId,
 		name: hero.name,
+		portrait: classDefinition.portrait,
 		level: hero.level,
 		maxHp: derivedHeroStats.health.maxHp,
 		currentHp: derivedHeroStats.health.currentHp,

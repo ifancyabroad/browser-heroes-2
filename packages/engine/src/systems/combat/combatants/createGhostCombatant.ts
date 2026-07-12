@@ -9,20 +9,16 @@ export function createGhostCombatant(
 	combatId: string,
 ): CombatantState {
 	const playerLikeCombatant = createPlayerCombatant(ghostEncounter.hero, combatId);
+	const classDefinition = CLASSES_BY_ID[ghostEncounter.hero.classId];
 
 	return {
 		...playerLikeCombatant,
 		id: createCombatantId(combatId, "enemy"),
 		side: "enemy",
 		sourceId: ghostEncounter.ghostId,
-		name: createGhostDisplayName(ghostEncounter),
+		name: `Fallen ${classDefinition.name} ${ghostEncounter.hero.name}`,
+		portrait: classDefinition.enemyPortrait,
 		currentHp: playerLikeCombatant.maxHp,
 		activeEffects: [],
 	};
-}
-
-function createGhostDisplayName(ghostEncounter: GhostEncounter): string {
-	const classDefinition = CLASSES_BY_ID[ghostEncounter.hero.classId];
-
-	return `Fallen ${classDefinition.name} ${ghostEncounter.hero.name}`;
 }

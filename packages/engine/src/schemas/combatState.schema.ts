@@ -122,6 +122,7 @@ export const combatantStateSchema = z.object({
 	side: combatantSideSchema,
 	sourceId: z.string(),
 	name: z.string(),
+	portrait: z.string(),
 	level: z.number().int().min(1),
 	maxHp: z.number().int().min(1),
 	currentHp: z.number().int().min(0),

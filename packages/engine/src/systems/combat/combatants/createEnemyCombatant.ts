@@ -47,6 +47,7 @@ export function createEnemyCombatant(
 		side: "enemy",
 		sourceId: enemy.id,
 		name: enemy.name,
+		portrait: enemy.portrait,
 		level,
 		maxHp,
 		currentHp: maxHp,

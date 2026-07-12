@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { CLASSES_BY_ID, type SkillId } from "@app/content";
 import {
 	selectAvailableActions,
@@ -16,7 +16,6 @@ import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
 import { CombatSidebar } from "./CombatSidebar";
 import { CombatantPanel } from "./CombatantPanel";
-import { getEnemyDefinition } from "../utils/combatDisplay";
 import { formatTitle } from "../../../game/effectDisplay";
 
 type CombatViewProps = {
@@ -30,12 +29,6 @@ export function CombatView({ run }: CombatViewProps) {
 
 	const { hero } = run.state;
 	const combatView = selectCombatView(run.state);
-	const enemySourceId = combatView?.combat.enemy.sourceId ?? null;
-
-	const enemyDefinition = useMemo(
-		() => (enemySourceId ? getEnemyDefinition(enemySourceId) : null),
-		[enemySourceId],
-	);
 
 	if (!combatView) {
 		return <p>Combat state is unavailable.</p>;
@@ -209,7 +202,7 @@ export function CombatView({ run }: CombatViewProps) {
 					<Battlefield
 						enemyId={combat.enemy.id}
 						enemyCurrentHp={combat.enemy.currentHp}
-						enemyPortrait={enemyDefinition?.portrait ?? null}
+						enemyPortrait={combat.enemy.portrait}
 						enemyName={combat.enemy.name}
 						isEnemySlain={isEnemySlain}
 						zone={zone}
