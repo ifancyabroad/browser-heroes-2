@@ -4,7 +4,7 @@ import { GhostModel } from "../models/ghost.model";
 
 const FIRST_BOSS_BATTLE_NUMBER = 10;
 const MAX_ENCOUNTER_LEVEL = 10;
-const GHOST_ENCOUNTER_CHANCE = 0.1;
+const GHOST_ENCOUNTER_CHANCE = 0.05;
 
 type CreateGhostFromRunInput = {
 	userId: string;
@@ -74,16 +74,18 @@ export async function selectGhostEncounterForLevel(
 		return null;
 	}
 
-	const ghost = await GhostModel.findOne({
+	const ghosts = await GhostModel.find({
 		encounterLevel: input.encounterLevel,
 		...(input.excludeUserId ? { userId: { $ne: input.excludeUserId } } : {}),
 	})
 		.sort({ createdAt: -1 })
 		.lean();
 
-	if (!ghost) {
+	if (ghosts.length === 0) {
 		return null;
 	}
+
+	const ghost = selectWeightedRecentGhost(ghosts);
 
 	return {
 		ghostId: String(ghost._id),
@@ -150,4 +152,25 @@ function createGhostSnapshot(state: RunState): { hero: HeroState; createdFrom: u
 			phase: state.phase,
 		},
 	};
+}
+
+function selectWeightedRecentGhost<T>(items: readonly T[]): T {
+	const weightedItems = items.map((item, index) => ({
+		item,
+		weight: items.length - index,
+	}));
+
+	const totalWeight = weightedItems.reduce((sum, entry) => sum + entry.weight, 0);
+
+	let roll = Math.random() * totalWeight;
+
+	for (const entry of weightedItems) {
+		roll -= entry.weight;
+
+		if (roll <= 0) {
+			return entry.item;
+		}
+	}
+
+	return weightedItems[weightedItems.length - 1].item;
 }

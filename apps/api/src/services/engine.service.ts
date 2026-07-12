@@ -14,6 +14,9 @@ import {
 	recordGhostCombatOutcome,
 	selectGhostEncounterForLevel,
 } from "./ghost.service";
+import { getEncounterTypeForBattle } from "packages/engine/dist/systems/encounters/getEncounterTypeForBattle";
+
+const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 
 export type ApplyRunActionInput = {
 	userId: string;
@@ -144,6 +147,16 @@ async function prepareActionForEngine(input: {
 		return input.action;
 	}
 
+	const battleNumber = getBattleNumberForAction(input.state, input.action);
+
+	if (battleNumber < FIRST_GHOST_ENCOUNTER_BATTLE) {
+		return input.action;
+	}
+
+	if (getEncounterTypeForBattle(battleNumber) !== "standard") {
+		return input.action;
+	}
+
 	const ghostEncounter = await selectGhostEncounterForLevel({
 		encounterLevel: getGhostEncounterLevelForRunState(input.state),
 		excludeUserId: input.userId,
@@ -222,4 +235,12 @@ function getResolvedGhostOutcome(
 	}
 
 	return null;
+}
+
+function getBattleNumberForAction(state: RunState, action: EngineAction): number {
+	if (action.type === "CONTINUE_TO_NEXT_COMBAT") {
+		return state.battleNumber + 1;
+	}
+
+	return state.battleNumber;
 }
