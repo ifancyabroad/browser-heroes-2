@@ -92,7 +92,7 @@ export function HeroSidebar({
 				items={heroSidebarTabs}
 				value={activeTab}
 				onChange={setActiveTab}
-				className="gap-x-3"
+				className="w-full justify-between"
 			/>
 
 			{activeTab === "details" && <HeroDetailsTab heroView={heroView} />}
