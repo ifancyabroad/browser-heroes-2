@@ -78,7 +78,7 @@ export function HeroSidebar({
 					</section>
 				</div>
 			}
-			contentClassName="grid content-start gap-4 pt-2"
+			contentClassName="grid content-start gap-4"
 		>
 			<RunInfo
 				battleNumber={battleNumber}
@@ -121,11 +121,11 @@ function RunInfo({ gold, battleNumber, day, zoneLabel }: RunInfoProps) {
 
 	return (
 		<section aria-label="Run">
-			<dl className="flex flex-wrap items-center gap-x-5 gap-y-1 text-base">
+			<dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-base">
 				{runItems.map((item) => (
-					<div key={item.label} className="flex items-center gap-2">
+					<div key={item.label} className="grid grid-cols-[4rem_minmax(0,1fr)] gap-2">
 						<dt className="text-text-label">{item.label}</dt>
-						<dd>{item.value}</dd>
+						<dd className="min-w-0 truncate text-text-bright">{item.value}</dd>
 					</div>
 				))}
 			</dl>

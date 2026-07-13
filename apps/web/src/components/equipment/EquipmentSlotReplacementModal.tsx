@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { Button } from "../Button";
 import { Modal } from "../Modal";
+import { getTerminalSelectionClassName } from "../TerminalPrimitives";
 import { Tooltip } from "../Tooltip";
 import { ItemTooltipContent } from "../tooltips/ItemTooltipContent";
 import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../game/itemDisplay";
@@ -121,14 +122,13 @@ function ReplacementChoice({ destination, selected, disabled, onSelect }: Replac
 			disabled={disabled}
 			onClick={onSelect}
 			className={clsx(
-				"grid gap-2 border bg-bg-elevated p-3 text-left text-base transition-colors",
-				selected
-					? "border-info"
-					: "border-transparent hover:border-info focus-visible:border-info",
-				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
+				"grid gap-2 border bg-bg-panel p-3 text-left text-base transition-colors",
+				getTerminalSelectionClassName({ selected, disabled }),
 			)}
 		>
-			<span>{getEquipmentSlotLabel(destination.equipmentSlot)}</span>
+			<span className="text-text-bright">
+				{getEquipmentSlotLabel(destination.equipmentSlot)}
+			</span>
 			{destination.replacedItems.length === 0 ? (
 				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
 					<span className="text-text-label">Currently Equipped:</span>

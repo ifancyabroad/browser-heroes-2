@@ -1,6 +1,7 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
+import { TerminalPanelTitle } from "./TerminalPrimitives";
 
 type ModalProps = PropsWithChildren<{
 	open: boolean;
@@ -9,7 +10,6 @@ type ModalProps = PropsWithChildren<{
 	footer?: ReactNode;
 	closeOnBackdropClick?: boolean;
 	className?: string;
-	titleClassName?: string;
 }>;
 
 export function Modal({
@@ -19,7 +19,6 @@ export function Modal({
 	footer,
 	closeOnBackdropClick = true,
 	className,
-	titleClassName,
 	children,
 }: ModalProps) {
 	if (!open) {
@@ -28,7 +27,7 @@ export function Modal({
 
 	return createPortal(
 		<div
-			className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-4"
+			className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-4"
 			onMouseDown={(event) => {
 				if (closeOnBackdropClick && event.target === event.currentTarget) {
 					onClose();
@@ -38,21 +37,23 @@ export function Modal({
 			<div
 				role="dialog"
 				aria-modal="true"
-				aria-labelledby="modal-title"
+				aria-label={title}
 				className={clsx(
-					"w-full max-w-md border-2 border-border bg-bg-elevated p-6",
+					"relative w-full max-w-md border-2 border-border bg-bg-elevated",
 					className,
 				)}
 			>
-				<header className="mb-4 flex items-center justify-between">
-					<h2 id="modal-title" className={clsx("text-text-bright", titleClassName)}>
-						{title}
-					</h2>
+				<header>
+					<TerminalPanelTitle title={title} />
 				</header>
 
-				<div>{children}</div>
+				<div className="p-4">{children}</div>
 
-				{footer && <footer className="mt-6 flex justify-end gap-4">{footer}</footer>}
+				{footer && (
+					<footer className="flex justify-end gap-4 border-t border-border px-4 py-3">
+						{footer}
+					</footer>
+				)}
 			</div>
 		</div>,
 		document.body,

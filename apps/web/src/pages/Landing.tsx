@@ -1,8 +1,6 @@
 import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { Card } from "../components/Card";
-import logo from "../assets/images/logos/browser_heroes.png";
 import { useCurrentUser } from "../features/auth";
 import { useCurrentRun } from "../features/runs";
 import { Link } from "../components/Link";
@@ -20,19 +18,20 @@ export default function Landing() {
 		<Layout>
 			{/* TODO: Add header */}
 
-			<div className="flex-1 flex items-center justify-center">
-				<div className="max-w-sm w-full">
-					<Card className="text-center flex flex-col items-center gap-4 p-4">
-						<img src={logo} alt="Browser Heroes" width="260" />
-						<p>Start a new adventure!</p>
-						<div className="flex justify-center gap-4">
-							<Link className="text-primary" to="/create-character">
-								PLAY NOW
-							</Link>
-						</div>
+			<div className="flex flex-1 items-center justify-center bg-bg-base px-4">
+				<div className="flex w-full max-w-sm flex-col items-center gap-4 text-center">
+					<h1 className="grid gap-1" aria-label="Browser Heroes">
+						<span className="text-[3rem] leading-none text-primary">BROWSER</span>
+						<span className="text-[3rem] leading-none text-primary">HEROES</span>
+					</h1>
+					<p className="text-secondary">A new road awaits</p>
+					<div className="flex justify-center gap-4">
+						<Link className="text-primary" to="/create-character">
+							PLAY NOW
+						</Link>
+					</div>
 
-						{run && <CurrentRunSection run={run} />}
-					</Card>
+					{run && <CurrentRunSection run={run} />}
 				</div>
 			</div>
 		</Layout>
@@ -49,13 +48,15 @@ function CurrentRunSection({ run }: CurrentRunSectionProps) {
 
 	return (
 		<>
-			<p>Continue your adventure!</p>
-			<div className="flex justify-between gap-4 p-4 border border-info w-full">
-				<p>{heroView.name}</p>
+			<p>Journey in progress</p>
+			<div className="grid w-full gap-2 border border-border-bright bg-bg-panel p-3 text-left sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+				<div className="min-w-0">
+					<p className="truncate text-text-bright">{heroView.name}</p>
 
-				<p className="text-text">
-					Level {heroView.level} {heroClass.name}
-				</p>
+					<p className="text-text">
+						Level {heroView.level} {heroClass.name}
+					</p>
+				</div>
 
 				<Link className="text-primary" to="/game">
 					CONTINUE

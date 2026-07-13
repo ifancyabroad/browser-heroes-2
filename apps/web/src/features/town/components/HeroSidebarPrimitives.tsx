@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { TerminalSectionHeading } from "../../../components/TerminalPrimitives";
 
 type HeroSidebarSectionProps = {
 	title: string;
@@ -8,7 +9,7 @@ type HeroSidebarSectionProps = {
 export function HeroSidebarSection({ title, children }: HeroSidebarSectionProps) {
 	return (
 		<section className="grid gap-2" aria-label={title}>
-			<h2 className="text-base text-info">{title}</h2>
+			<TerminalSectionHeading title={title} />
 			{children}
 		</section>
 	);

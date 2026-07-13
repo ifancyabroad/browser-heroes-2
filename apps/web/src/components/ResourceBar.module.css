@@ -1,22 +1,23 @@
-.damageChunk {
-	animation: damage-chunk 900ms ease-out forwards;
-	background: var(--color-hp-damage);
-	width: var(--bh-resource-bar-chunk-old);
+.damageFlash {
+	animation: damage-flash 900ms ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.damageChunk {
+	.damageFlash {
 		animation: none;
 	}
 }
 
-@keyframes damage-chunk {
-	0%,
+@keyframes damage-flash {
+	0% {
+		color: var(--color-hp-damage);
+	}
+
 	38% {
-		width: var(--bh-resource-bar-chunk-old);
+		color: var(--color-hp-damage);
 	}
 
 	100% {
-		width: var(--bh-resource-bar-chunk-new);
+		color: inherit;
 	}
 }

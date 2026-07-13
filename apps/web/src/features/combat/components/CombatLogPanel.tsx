@@ -40,10 +40,18 @@ export function CombatLogPanel({ entries, className }: CombatLogPanelProps) {
 					return (
 						<Fragment key={entry.id}>
 							{showTurnHeading && (
-								<p className="mt-3 text-info first:mt-0">Turn {entry.turnNumber}</p>
+								<p className="mt-2 text-info first:mt-0">
+									Round {entry.turnNumber}
+								</p>
 							)}
-							<p className={clsx("leading-6", logActorClass[entry.actor])}>
-								{entry.message}
+							<p
+								className={clsx(
+									"grid grid-cols-[1rem_minmax(0,1fr)] gap-2",
+									logActorClass[entry.actor],
+								)}
+							>
+								<span className="text-text-muted">&gt;</span>
+								<span>{entry.message}</span>
 							</p>
 						</Fragment>
 					);

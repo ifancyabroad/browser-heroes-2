@@ -11,29 +11,31 @@
 @theme {
 	/* Backgrounds */
 	--color-bg-base: #000000;
-	--color-bg-elevated: #040204;
+	--color-bg-elevated: #050302;
+	--color-bg-panel: #0a0704;
 
 	/* Primary accent */
 	--color-primary: #fce94f;
 	--color-primary-contrast: #000000;
 
 	/* Secondary accent */
-	--color-secondary: #50c050;
+	--color-secondary: #8fbc5a;
 	--color-secondary-contrast: #000000;
 
 	/* Text palette */
 	--color-text: #babdb6;
 	--color-text-bright: #fff;
-	--color-text-label: #8f5902;
+	--color-text-label: #b06b2a;
 	--color-text-muted: #707070;
 
 	/* Borders */
 	--color-border: #7d623c;
+	--color-border-bright: #b58a4a;
 
 	/* Semantic */
-	--color-error: #cc3333;
+	--color-error: #ff5f5f;
 	--color-success: #8ae234;
-	--color-info: #204a87;
+	--color-info: #4f80c8;
 
 	/* Game-specific */
 	--color-hp: #50c050;
@@ -79,6 +81,6 @@ body {
 	font-family: "IBM VGA", monospace;
 	color: var(--color-text);
 	font-size: 16px;
-	line-height: 1.5;
+	line-height: 1.375;
 	background-color: #000000;
 }

@@ -22,7 +22,28 @@ The UI should emphasize:
 
 The interface should support a text-forward game aesthetic without becoming noisy or hard to scan.
 
-## 3. Current UI Shape
+## 3. Fantasy Terminal Grammar
+
+Browser Heroes 2 should use terminal-inspired structure while still feeling like a fantasy RPG.
+The target is closer to an old roguelike, dungeon ledger, adventurer's journal, or DOS-era fantasy RPG than to a sci-fi terminal emulator.
+
+Use this grammar for new and revised UI:
+
+- palettes should start from black, charcoal, neutral grey body text, tarnished brass labels, old gold commands, moss green, blood red, and ember orange
+- shared primitives should carry the old RPG panel style whenever practical, especially cards, modals, tooltips, buttons, links, tabs, action trays, and resource bars
+- panels should feel like inventory ledgers or dungeon record windows, with simple square borders, compact padding, and bordered inset labels such as `Shop` or `Combat Log`; reserve stronger brass borders for outer panels and use muted borders for repeated inner items
+- player commands should read as RPG menu commands, using restrained bracketed affordances, clear hover/focus states, and clear disabled states
+- resource meters should prefer terminal-readable formats such as `HP [########----] 24/36` over generic web progress bars
+- logs should read like battle records, with compact round markers, simple prompts, and muted metadata
+- image-heavy areas such as the battlefield should remain visually rich but be framed like battle windows or dioramas, not monitors
+- use secondary and info accents sparingly where they create real hierarchy or state distinction; default text, labels, and primary actions should remain clearly separated
+- spacing should stay dense and scannable; preserve the 16px font size and use tighter rhythm instead of oversized headings
+- motion should be restrained, readable, and safe for reduced-motion users
+
+Avoid sci-fi terminal signals such as neon cyan defaults, CRT scanlines, boot/system copy, diagnostics language, machine-style log prefixes, glowing borders, or viewport HUD language.
+Also avoid decorative effects that make the UI feel like a general fantasy website rather than an in-game RPG interface.
+
+## 4. Current UI Shape
 
 The current web app includes:
 
@@ -37,7 +58,7 @@ The current web app includes:
 
 Town and combat should continue to feel like parts of the same game surface, not unrelated pages.
 
-## 4. Styling System
+## 5. Styling System
 
 Tailwind CSS is the styling system for the web app.
 
@@ -47,19 +68,23 @@ Avoid hard-coded colors, one-off arbitrary values, and local CSS unless a reusab
 
 When new visual tokens are needed, add them deliberately to the theme so future UI can reuse the same language.
 
-## 5. Typography
+## 6. Typography
 
 Font size should remain 16px throughout the UI to preserve the terminal-style text-based RPG feel.
 
 Prefer inherited text size or Tailwind's `text-base`. Avoid introducing smaller or larger text sizes for headings, labels, helper text, buttons, cards, or dialogs unless there is a specific accessibility or product reason.
 
+The home screen game title may use a larger fixed-size retro nameplate treatment because it is a title mark rather than an application heading pattern. It should spell the whole game name clearly in one consistent style, fit mobile without horizontal scrolling, avoid redundant surrounding labels or extra frame borders, and favor fantasy RPG framing over sci-fi ASCII block art.
+
 Use hierarchy through color, spacing, borders, grouping, and placement rather than font-size changes.
 
-## 6. Components
+## 7. Components
 
 Create and use reusable components instead of rebuilding the same UI patterns from scratch.
 
 Before adding new UI, check the existing component layer and feature-specific component folders. Prefer extending simple primitives such as buttons, cards, modals, sidebars, tabs, tooltips, resource bars, and stat displays when they fit the need.
+
+For terminal-specific presentation patterns, prefer `apps/web/src/components/TerminalPrimitives.tsx` before copying bracket labels, embedded panel titles, command focus styles, section headings, or selectable panel states.
 
 Reusable components should stay focused:
 
@@ -71,7 +96,7 @@ Reusable components should stay focused:
 
 If a pattern appears in multiple places, extract a small reusable component rather than copying markup and class strings.
 
-## 7. Layout and Interaction
+## 8. Layout and Interaction
 
 Screens should remain responsive, readable, and efficient.
 
@@ -90,7 +115,7 @@ Interactive elements should be obvious, keyboard-accessible where practical, and
 
 Town should feel like a strategic checkpoint with clear shop, recovery, reroll, equipment, and combat-entry decisions. Combat should keep fast action readable as active skills, consumables, and conditions are introduced.
 
-## 8. Presentation Boundaries
+## 9. Presentation Boundaries
 
 UI may present simulation state and collect player intent, but it must not calculate gameplay outcomes.
 
@@ -109,7 +134,7 @@ The presentation layer must not:
 - mutate authoritative run state directly
 - duplicate engine formulas
 
-## 9. Consistency
+## 10. Consistency
 
 Consistency is a core design requirement.
 
@@ -122,12 +147,13 @@ Use the established visual vocabulary:
 - bright text for primary values
 - muted text for secondary details
 - labeled stats and resources
-- simple borders instead of heavy decoration
+- simple panel borders instead of heavy decoration
+- bracketed labels and command affordances where they improve clarity
 - accent colors only where they communicate state, rarity, action, or emphasis
 
 Avoid decorative styles that pull the game away from its retro fantasy terminal identity.
 
-## 10. Non-Goals
+## 11. Non-Goals
 
 This document is not intended to define:
 

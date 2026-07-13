@@ -1,8 +1,10 @@
 import { selectRunSummaryView, type CombatLogEntry } from "@app/engine";
 import { CLASSES_BY_ID } from "@app/content";
 import type { RunView } from "@app/shared";
+import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
 import { Link } from "../../../components/Link";
+import { TerminalSectionHeading } from "../../../components/TerminalPrimitives";
 
 type DeathScreenProps = {
 	run: RunView;
@@ -15,10 +17,12 @@ export function DeathScreen({ run }: DeathScreenProps) {
 		return (
 			<GameLayout>
 				<div className="flex min-h-0 flex-1 items-center justify-center bg-bg-base px-4 text-base text-text">
-					<section className="grid w-full max-w-xl justify-items-center gap-6 text-center">
-						<h1 className="text-base uppercase tracking-widest text-error">
-							You were slain
-						</h1>
+					<Card
+						title="RUN TERMINATED"
+						className="w-full max-w-xl text-center"
+						contentClassName="grid justify-items-center gap-4 p-4"
+					>
+						<h1 className="text-base text-error">You were slain</h1>
 						<p className="text-text-muted">
 							The run has ended, and the road ahead belongs to another hero.
 						</p>
@@ -30,7 +34,7 @@ export function DeathScreen({ run }: DeathScreenProps) {
 								Try Again
 							</Link>
 						</div>
-					</section>
+					</Card>
 				</div>
 			</GameLayout>
 		);
@@ -43,9 +47,13 @@ export function DeathScreen({ run }: DeathScreenProps) {
 	return (
 		<GameLayout>
 			<div className="flex min-h-0 flex-1 items-center justify-center bg-bg-base px-4 py-6 text-base text-text">
-				<section className="grid w-full max-w-2xl justify-items-center gap-6 text-center">
+				<Card
+					title="RUN TERMINATED"
+					className="w-full max-w-2xl text-center"
+					contentClassName="grid justify-items-center gap-5 p-4"
+				>
 					<header className="grid justify-items-center gap-3">
-						<p className="uppercase tracking-widest text-error">You were slain</p>
+						<p className="text-error">You were slain</p>
 						<p className="max-w-xl text-text-muted">
 							The dungeon falls quiet. Your wounds are too deep, your pack too heavy,
 							and your story ends in the dark.
@@ -62,10 +70,10 @@ export function DeathScreen({ run }: DeathScreenProps) {
 
 					{finalMomentEntries.length > 0 && (
 						<section
-							className="grid max-w-xl gap-2 text-center"
+							className="grid w-full max-w-xl gap-2 border border-border bg-bg-panel p-3 text-left"
 							aria-label="Final moments"
 						>
-							<h2 className="text-base text-text-label">Final Moments</h2>
+							<TerminalSectionHeading title="Final Moments" />
 							<div className="grid gap-1">
 								{finalMomentEntries.map((entry) => (
 									<p key={entry.id} className={getLogEntryClassName(entry)}>
@@ -84,7 +92,7 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							Try Again
 						</Link>
 					</div>
-				</section>
+				</Card>
 			</div>
 		</GameLayout>
 	);

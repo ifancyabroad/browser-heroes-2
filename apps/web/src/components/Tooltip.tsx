@@ -79,7 +79,7 @@ export function Tooltip({
 						ref={refs.setFloating}
 						style={floatingStyles}
 						className={clsx(
-							"pointer-events-none z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text",
+							"pointer-events-none z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text shadow-[0_0_0_1px_var(--color-bg-base)]",
 							!contentClassName && "max-w-sm",
 							contentClassName,
 						)}

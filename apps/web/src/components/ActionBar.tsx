@@ -17,7 +17,7 @@ export function ActionBarTray({ children, className }: ActionBarTrayProps) {
 	return (
 		<div
 			className={clsx(
-				"mx-auto flex w-fit max-w-full flex-wrap justify-center gap-2 border-2 border-border bg-bg-base p-2 sm:gap-3",
+				"mx-auto flex w-fit max-w-full flex-wrap justify-center gap-2 border-2 border-border bg-bg-elevated p-2 sm:gap-3",
 				className,
 			)}
 		>
@@ -177,7 +177,7 @@ function ActionSlotLabel({ children, className, position = "bottom-right" }: Act
 	return (
 		<span
 			className={clsx(
-				"absolute bg-bg-base/80 px-1",
+				"absolute border border-border bg-bg-base/90 px-1",
 				position === "top-left" ? "left-1 top-1" : "bottom-1 right-1",
 				className,
 			)}
@@ -189,19 +189,19 @@ function ActionSlotLabel({ children, className, position = "bottom-right" }: Act
 
 function getDisplaySlotClassName() {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden border border-border bg-bg-elevated sm:w-20",
+		"relative aspect-square w-16 overflow-hidden border border-border bg-bg-panel sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
 	);
 }
 
 function getActionSlotClassName(disabled: boolean, showAvailabilityPulse: boolean) {
 	return clsx(
-		"group relative aspect-square w-16 overflow-hidden border bg-bg-elevated sm:w-20",
+		"group relative aspect-square w-16 overflow-hidden border bg-bg-panel sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
 		"transition-colors duration-150",
 		disabled
 			? "cursor-not-allowed border-border/50"
-			: "cursor-pointer border-primary/80 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+			: "cursor-pointer border-border-bright hover:border-primary hover:bg-bg-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
 		showAvailabilityPulse && styles.available,
 	);
 }

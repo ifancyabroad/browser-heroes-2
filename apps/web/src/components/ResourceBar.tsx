@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import styles from "./ResourceBar.module.css";
 
@@ -13,15 +13,15 @@ type ResourceBarProps = {
 	className?: string;
 };
 
-const fillClassByTone: Record<ResourceBarTone, string> = {
-	hp: "bg-hp",
-	xp: "bg-xp",
+const meterClassByTone: Record<ResourceBarTone, string> = {
+	hp: "text-hp",
+	xp: "text-xp",
 };
 
-type DamageChunkState = {
+const METER_SEGMENTS = 18;
+
+type DamageFlashState = {
 	key: number;
-	oldFillPercent: number;
-	newFillPercent: number;
 };
 
 function clampPercent(value: number) {
@@ -39,59 +39,53 @@ export function ResourceBar({
 	const clampedFillPercent = typeof fillPercent === "number" ? clampPercent(fillPercent) : null;
 	const accessibleLabel = `${label} ${value}`;
 
-	const damageChunk = useDamageChunk(clampedFillPercent, Boolean(animateChanges));
+	const damageFlash = useDamageFlash(clampedFillPercent, Boolean(animateChanges));
+	const filledSegments =
+		clampedFillPercent === null
+			? METER_SEGMENTS
+			: Math.round((clampedFillPercent / 100) * METER_SEGMENTS);
+	const meterFill = "#".repeat(filledSegments);
+	const meterEmpty = "-".repeat(METER_SEGMENTS - filledSegments);
 
 	return (
 		<div
 			className={clsx(
-				"grid grid-cols-[minmax(5rem,1fr)_7rem] items-center gap-3 text-base",
+				"flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-base",
 				className,
 			)}
 			title={accessibleLabel}
 		>
-			<div
-				className="relative isolate h-6 overflow-hidden bg-text-muted/30"
-				aria-label={accessibleLabel}
-			>
-				{damageChunk && (
-					<div
-						key={damageChunk.key}
-						className={clsx(styles.damageChunk, "absolute inset-y-0 left-0")}
-						style={
-							{
-								"--bh-resource-bar-chunk-old": `${damageChunk.oldFillPercent}%`,
-								"--bh-resource-bar-chunk-new": `${damageChunk.newFillPercent}%`,
-								width: `${damageChunk.oldFillPercent}%`,
-								zIndex: 1,
-							} as CSSProperties
-						}
-					/>
-				)}
-				{clampedFillPercent !== null && (
-					<div
-						className={clsx("absolute inset-y-0 left-0", fillClassByTone[tone])}
-						style={{
-							transition: "none",
-							width: `${clampedFillPercent}%`,
-							zIndex: 2,
-						}}
-					/>
-				)}
+			<span className="sr-only">{accessibleLabel}</span>
+			<span className="text-text-label" aria-hidden="true">
+				{label}
+			</span>
+			<div className="min-w-0 tabular-nums" aria-hidden="true">
+				<span className="text-text-muted">[</span>
+				<span
+					className={clsx(
+						"tabular-nums",
+						meterClassByTone[tone],
+						damageFlash && styles.damageFlash,
+					)}
+				>
+					{meterFill}
+				</span>
+				<span className="tabular-nums text-text-muted">{meterEmpty}</span>
+				<span className="text-text-muted">]</span>
 			</div>
-			<p className="min-w-0 truncate text-left">
-				<span className="text-text-label">{label}</span>{" "}
-				<span className="text-text-bright">{value}</span>
+			<p className="min-w-0 text-text-bright" aria-hidden="true">
+				{value}
 			</p>
 		</div>
 	);
 }
 
-function useDamageChunk(fillPercent: number | null, animateChanges: boolean) {
+function useDamageFlash(fillPercent: number | null, animateChanges: boolean) {
 	const prefersReducedMotion = usePrefersReducedMotion();
 	const previousFillPercent = useRef<number | null>(fillPercent);
-	const chunkKey = useRef(0);
+	const flashKey = useRef(0);
 	const timeoutIds = useRef<number[]>([]);
-	const [damageChunk, setDamageChunk] = useState<DamageChunkState | null>(null);
+	const [damageFlash, setDamageFlash] = useState<DamageFlashState | null>(null);
 
 	useEffect(() => {
 		return () => {
@@ -105,7 +99,7 @@ function useDamageChunk(fillPercent: number | null, animateChanges: boolean) {
 
 		if (fillPercent === null) {
 			previousFillPercent.current = null;
-			setDamageChunk(null);
+			setDamageFlash(null);
 			return;
 		}
 
@@ -115,25 +109,23 @@ function useDamageChunk(fillPercent: number | null, animateChanges: boolean) {
 		const isDamage = previous !== null && fillPercent < previous;
 
 		if (!animateChanges || prefersReducedMotion || !isDamage || previous <= 0) {
-			setDamageChunk(null);
+			setDamageFlash(null);
 			return;
 		}
 
-		chunkKey.current += 1;
-		setDamageChunk({
-			key: chunkKey.current,
-			oldFillPercent: previous,
-			newFillPercent: fillPercent,
+		flashKey.current += 1;
+		setDamageFlash({
+			key: flashKey.current,
 		});
 
 		timeoutIds.current = [
 			window.setTimeout(() => {
-				setDamageChunk(null);
+				setDamageFlash(null);
 			}, 900),
 		];
 	}, [animateChanges, fillPercent, prefersReducedMotion]);
 
-	return damageChunk;
+	return damageFlash;
 }
 
 function clearTimeouts(timeoutIds: number[]) {

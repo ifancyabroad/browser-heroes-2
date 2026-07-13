@@ -2,6 +2,7 @@ import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
+import { BracketBadge } from "../../../components/TerminalPrimitives";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
@@ -119,12 +120,7 @@ function AbilityRow({ icon, name, meta, badges }: AbilityRowProps) {
 			{badges.length > 0 && (
 				<span className="grid shrink-0 content-start justify-items-end gap-1">
 					{badges.map((badge) => (
-						<span
-							key={badge}
-							className="text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']"
-						>
-							<span className="px-1">{badge}</span>
-						</span>
+						<BracketBadge key={badge} label={badge} className="text-primary" />
 					))}
 				</span>
 			)}

@@ -54,7 +54,6 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 			onClose={() => undefined}
 			closeOnBackdropClick={false}
 			className="max-w-2xl"
-			titleClassName="text-primary"
 			footer={
 				<div className="flex flex-wrap justify-end gap-4" aria-label="Final boss choices">
 					<Button

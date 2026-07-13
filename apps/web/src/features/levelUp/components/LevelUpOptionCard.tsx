@@ -2,6 +2,10 @@ import clsx from "clsx";
 import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { LevelUpOption } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
+import {
+	BracketBadge,
+	getTerminalSelectionClassName,
+} from "../../../components/TerminalPrimitives";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLabels";
@@ -36,17 +40,14 @@ export function LevelUpOptionCard({
 				disabled={disabled}
 				onClick={onSelect}
 				className={clsx(
-					"grid w-full gap-3 border bg-bg-elevated p-3 text-left text-base",
+					"grid w-full gap-3 border bg-bg-panel p-3 text-left text-base transition-colors",
 					content.metaLabel
 						? "grid-cols-[3rem_minmax(0,1fr)_auto]"
 						: "grid-cols-[3rem_minmax(0,1fr)]",
-					selected
-						? "border-info"
-						: "border-transparent hover:border-info focus-visible:border-info",
-					disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
+					getTerminalSelectionClassName({ selected, disabled }),
 				)}
 			>
-				<span className="h-12 w-12 overflow-hidden">
+				<span className="h-12 w-12 overflow-hidden border border-text-muted/60 bg-bg-base">
 					<img
 						src={content.icon}
 						alt=""
@@ -61,7 +62,12 @@ export function LevelUpOptionCard({
 					<span>{content.category}</span>
 				</span>
 
-				{content.metaLabel && <BracketBadge>{content.metaLabel}</BracketBadge>}
+				{content.metaLabel && (
+					<BracketBadge
+						label={content.metaLabel}
+						className="self-start whitespace-nowrap text-primary"
+					/>
+				)}
 			</button>
 		</Tooltip>
 	);
@@ -97,14 +103,6 @@ function getOptionTooltipContent(option: LevelUpOption) {
 	}
 
 	return <FeatTooltipContent feat={FEATS_BY_ID[option.featId]} />;
-}
-
-function BracketBadge({ children }: { children: string }) {
-	return (
-		<span className="self-start whitespace-nowrap text-primary before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']">
-			<span className="px-1">{children}</span>
-		</span>
-	);
 }
 
 function getMaxUsesLabel(maxUses: number | undefined) {

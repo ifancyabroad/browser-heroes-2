@@ -1,6 +1,7 @@
 import type { CombatantState } from "@app/engine";
 import clsx from "clsx";
 import { ResourceBar } from "../../../components/ResourceBar";
+import { BracketBadge } from "../../../components/TerminalPrimitives";
 import { ActiveEffectsRow } from "./ActiveEffectsRow";
 import styles from "./CombatantPanel.module.css";
 
@@ -26,14 +27,10 @@ export function CombatantPanel({
 					<span className="text-primary">{identity}</span> / Level {combatant.level}
 				</span>
 				{statusLabel && (
-					<span
-						className={clsx(
-							"shrink-0 text-error before:text-text-muted before:content-['['] after:text-text-muted after:content-[']']",
-							styles.statusLabel,
-						)}
-					>
-						{statusLabel}
-					</span>
+					<BracketBadge
+						label={statusLabel}
+						className={clsx("shrink-0 text-error", styles.statusLabel)}
+					/>
 				)}
 			</h2>
 			<ResourceBar

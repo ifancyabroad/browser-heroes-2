@@ -1,5 +1,6 @@
 import type { FallbackProps } from "react-error-boundary";
 import { Button } from "./Button";
+import { Card } from "./Card";
 
 /**
  * Extract error message from unknown error type.
@@ -20,7 +21,7 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center bg-bg-base p-8 text-base text-text">
-			<div className="grid max-w-md gap-4 border-2 border-border bg-bg-elevated p-6 text-center">
+			<Card title="MISHAP" className="max-w-md text-center" contentClassName="grid gap-4 p-4">
 				<h1 className="text-base text-error">Something went wrong</h1>
 				<p className="text-text-muted">
 					An unexpected error occurred. Please try refreshing the page.
@@ -35,7 +36,7 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 				>
 					Try Again
 				</Button>
-			</div>
+			</Card>
 		</div>
 	);
 }

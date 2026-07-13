@@ -2,6 +2,7 @@ import type { RewardChoiceOptionView, RewardItemDestinationView } from "@app/eng
 import { ITEMS_BY_ID } from "@app/content";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
+import { getTerminalSelectionClassName } from "../../../components/TerminalPrimitives";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { getItemRarityTextClassName } from "../../../game/itemDisplay";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
@@ -24,14 +25,11 @@ export function RewardOptionCard({ option, selected, disabled, onSelect }: Rewar
 			disabled={disabled}
 			onClick={onSelect}
 			className={clsx(
-				"grid grid-cols-[3rem_minmax(0,1fr)] gap-3 border bg-bg-elevated p-3 text-left text-base",
-				selected
-					? "border-info"
-					: "border-transparent hover:border-info focus-visible:border-info",
-				disabled ? "cursor-not-allowed opacity-70" : "cursor-pointer",
+				"grid grid-cols-[3rem_minmax(0,1fr)] gap-3 border bg-bg-panel p-3 text-left text-base transition-colors",
+				getTerminalSelectionClassName({ selected, disabled }),
 			)}
 		>
-			<span className="h-12 w-12 overflow-hidden">
+			<span className="h-12 w-12 overflow-hidden border border-text-muted/60 bg-bg-base">
 				<img
 					src={content.icon}
 					alt=""

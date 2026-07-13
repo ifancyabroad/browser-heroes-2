@@ -84,7 +84,7 @@ export function HeroNameModal({
 						maxLength={HERO_NAME_MAX_LENGTH}
 						aria-invalid={Boolean(validationMessage)}
 						aria-describedby={validationMessage ? "hero-name-error" : undefined}
-						className="min-w-0 flex-1 border-2 border-border bg-bg-base px-3 py-2 caret-primary outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+						className="min-w-0 flex-1 border-2 border-border bg-bg-base px-3 py-2 text-text-bright caret-primary outline-none transition-colors placeholder:text-text-muted focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
 						autoFocus
 					/>
 

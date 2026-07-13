@@ -6,6 +6,7 @@ import { useCreateGuestSession, useCurrentUser } from "../features/auth";
 import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
 import { Layout } from "../components/Layout";
+import { Card } from "../components/Card";
 
 export default function CreateCharacter() {
 	const navigate = useNavigate();
@@ -46,18 +47,20 @@ export default function CreateCharacter() {
 
 	return (
 		<Layout>
-			<div className="flex-1 flex items-center justify-center">
+			<div className="flex flex-1 items-center justify-center bg-bg-base">
 				<div className="mx-auto w-full max-w-4xl px-4">
-					<h1 className="text-center mb-4">Select a class to begin</h1>
-					<div className="grid gap-4 md:grid-cols-2">
-						{classes.map((gameClass) => (
-							<ClassCard
-								key={gameClass.id}
-								gameClass={gameClass}
-								onSelect={handleSelect}
-							/>
-						))}
-					</div>
+					<Card title="CHOOSE YOUR CALLING" contentClassName="grid gap-3 p-3">
+						<p className="text-center text-text-label">Select a hero to begin</p>
+						<div className="grid gap-3 md:grid-cols-2">
+							{classes.map((gameClass) => (
+								<ClassCard
+									key={gameClass.id}
+									gameClass={gameClass}
+									onSelect={handleSelect}
+								/>
+							))}
+						</div>
+					</Card>
 
 					<HeroNameModal
 						open={Boolean(selectedClassId)}

@@ -3,6 +3,7 @@ import type { TownShopDestinationView, TownShopSlotView } from "@app/engine";
 import clsx from "clsx";
 import { Card } from "../../../components/Card";
 import { Tooltip } from "../../../components/Tooltip";
+import { BracketBadge } from "../../../components/TerminalPrimitives";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { formatItemModifier, getModifierTextClassName } from "../../../game/effectDisplay";
 import {
@@ -30,10 +31,8 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 
 	return (
 		<Card
-			className={clsx(
-				"relative grid grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 p-3 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)_4rem]",
-				isPurchased && "border-dashed bg-bg-base",
-			)}
+			className={clsx("relative bg-bg-panel", isPurchased && "border-dashed bg-bg-base")}
+			contentClassName="grid grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 p-3 transition-colors sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)_4rem]"
 		>
 			<div className={clsx("contents", isPurchased && "invisible")} aria-hidden={isPurchased}>
 				<Tooltip
@@ -45,7 +44,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 					className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16"
 					contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 				>
-					<span className="block h-12 w-12 overflow-hidden border border-border bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
+					<span className="block h-12 w-12 overflow-hidden border border-text-muted/60 bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
 						<img
 							src={item.icon}
 							alt=""
@@ -107,11 +106,11 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 					<button
 						type="button"
 						className={clsx(
-							"relative aspect-square w-12 overflow-hidden bg-bg-elevated transition-colors md:w-14",
-							"flex shrink-0 items-center justify-center border border-border",
+							"relative aspect-square w-12 overflow-hidden bg-bg-panel transition-colors md:w-14",
+							"flex shrink-0 items-center justify-center border border-text-muted/60",
 							disabled
 								? "cursor-not-allowed grayscale"
-								: "cursor-pointer hover:bg-border/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+								: "cursor-pointer hover:border-primary hover:bg-primary/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
 						)}
 						disabled={disabled}
 						aria-label={getBuyLabel(slot)}
@@ -131,7 +130,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 
 			{isPurchased && (
 				<div className="pointer-events-none absolute inset-0 grid place-items-center">
-					<span className="font-semibold tracking-[0.25em] text-text-muted">SOLD</span>
+					<BracketBadge label="SOLD" className="text-text-muted" />
 				</div>
 			)}
 		</Card>

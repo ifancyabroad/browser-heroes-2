@@ -13,17 +13,22 @@ export function ClassCard({ gameClass, onSelect }: ClassCardProps) {
 	}
 
 	return (
-		<Card className="flex items-center justify-between gap-2 p-2">
-			<div className="flex items-center gap-4">
-				<img src={gameClass.icon} alt={gameClass.name} width="40" />
-				<h5>{gameClass.name}</h5>
-			</div>
-			<div className="flex items-center gap-4">
-				<Button className="text-info">Details</Button>
+		<Card className="bg-bg-panel" contentClassName="grid gap-2 p-2">
+			<div className="flex items-center justify-between gap-3">
+				<div className="flex min-w-0 items-center gap-3">
+					<img
+						src={gameClass.icon}
+						alt={gameClass.name}
+						width="40"
+						className="border border-border bg-bg-base"
+					/>
+					<h5 className="truncate text-text-bright">{gameClass.name}</h5>
+				</div>
 				<Button className="text-primary" onClick={handleSelect}>
 					Select
 				</Button>
 			</div>
+			<Button className="w-fit text-info">Details</Button>
 		</Card>
 	);
 }

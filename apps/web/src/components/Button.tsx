@@ -1,15 +1,18 @@
 import { type ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
+import { terminalCommandFocusClassName, terminalCommandFrameClassName } from "./TerminalPrimitives";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	className?: string;
-}
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export function Button({ className, ...props }: ButtonProps) {
 	return (
 		<button
 			className={clsx(
-				"underline transition-opacity enabled:cursor-pointer enabled:hover:opacity-80 disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60",
+				"inline-flex items-center justify-center text-text-bright transition-colors",
+				terminalCommandFrameClassName,
+				"enabled:cursor-pointer enabled:hover:bg-primary enabled:hover:text-primary-contrast enabled:hover:before:text-primary-contrast enabled:hover:after:text-primary-contrast",
+				terminalCommandFocusClassName,
+				"disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60",
 				className,
 			)}
 			{...props}

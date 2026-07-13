@@ -2,6 +2,7 @@ import { CLASSES_BY_ID, type ClassId } from "@app/content";
 import type { ActiveCombatEffect, CombatLogEntry, HeroProgressionView } from "@app/engine";
 import { ResourceBar } from "../../../components/ResourceBar";
 import { Sidebar } from "../../../components/Sidebar";
+import { TerminalSectionHeading } from "../../../components/TerminalPrimitives";
 import { getXpResource } from "../../../game/resourceDisplay";
 import { CombatLogPanel } from "./CombatLogPanel";
 import { ActiveEffectsRow } from "./ActiveEffectsRow";
@@ -76,7 +77,7 @@ export function CombatSidebar({
 					</section>
 				</div>
 			}
-			contentClassName="flex min-h-0 flex-1 flex-col gap-4 pt-2"
+			contentClassName="flex min-h-0 flex-1 flex-col gap-4"
 		>
 			<CombatRunInfo
 				battleNumber={battleNumber}
@@ -85,10 +86,10 @@ export function CombatSidebar({
 				zoneLabel={zoneLabel}
 			/>
 			<section
-				className="flex min-h-0 flex-1 flex-col gap-3 border border-text-muted bg-bg-elevated p-3"
+				className="flex min-h-0 flex-1 flex-col gap-3 border border-text-muted/60 bg-bg-panel p-3"
 				aria-label="Combat log"
 			>
-				<h2 className="border-b border-text-muted pb-2 text-base">Combat Log</h2>
+				<TerminalSectionHeading title="Combat Log" />
 				<CombatLogPanel entries={entries} className="min-h-0 flex-1" />
 			</section>
 		</Sidebar>
@@ -112,11 +113,11 @@ function CombatRunInfo({ battleNumber, gold, goldMultiplier, zoneLabel }: Combat
 
 	return (
 		<section aria-label="Combat">
-			<dl className="flex flex-wrap items-center gap-x-5 gap-y-1 text-base">
+			<dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-base">
 				{runItems.map((item) => (
-					<div key={item.label} className="flex items-center gap-2">
+					<div key={item.label} className="grid grid-cols-[5rem_minmax(0,1fr)] gap-2">
 						<dt className="text-text-label">{item.label}</dt>
-						<dd>{item.value}</dd>
+						<dd className="min-w-0 truncate text-text-bright">{item.value}</dd>
 					</div>
 				))}
 			</dl>
