@@ -65,7 +65,7 @@ export function EquipmentSlotReplacementModal({
 					</Button>
 					<Button
 						type="button"
-						className="text-primary"
+						variant="primary"
 						disabled={!canConfirm}
 						onClick={handleConfirm}
 					>

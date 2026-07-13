@@ -58,7 +58,7 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 				<div className="flex flex-wrap justify-end gap-4" aria-label="Final boss choices">
 					<Button
 						type="button"
-						className="text-success"
+						variant="success"
 						disabled={applyRunAction.isPending || !canRetire}
 						onClick={() =>
 							submitAction(
@@ -71,7 +71,6 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 					</Button>
 					<Button
 						type="button"
-						className="text-text-bright"
 						disabled={applyRunAction.isPending || !canReturnToTown}
 						onClick={() =>
 							submitAction(
@@ -84,7 +83,7 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 					</Button>
 					<Button
 						type="button"
-						className="text-primary"
+						variant="primary"
 						disabled={applyRunAction.isPending || !canContinue}
 						onClick={() =>
 							submitAction(

@@ -48,7 +48,7 @@ export function RewardModal({
 			footer={
 				<Button
 					type="button"
-					className="text-primary"
+					variant="primary"
 					disabled={!canConfirm}
 					onClick={handleConfirm}
 				>

@@ -32,7 +32,8 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 				<Button
 					type="button"
 					onClick={resetErrorBoundary}
-					className="justify-self-center text-primary"
+					className="justify-self-center"
+					variant="primary"
 				>
 					Try Again
 				</Button>

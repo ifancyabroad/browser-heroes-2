@@ -148,7 +148,7 @@ export function TownView({ run }: TownViewProps) {
 
 				<GameMainPanel
 					mobileHeader={
-						<Button className="text-primary" type="button" onClick={handleOpenSidebar}>
+						<Button variant="primary" type="button" onClick={handleOpenSidebar}>
 							Hero
 						</Button>
 					}

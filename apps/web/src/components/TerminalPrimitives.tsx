@@ -6,6 +6,15 @@ export const terminalCommandFrameClassName =
 export const terminalCommandFocusClassName =
 	"focus-visible:bg-primary focus-visible:text-primary-contrast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
+export type TerminalCommandVariant = "default" | "primary" | "info" | "success";
+
+export const terminalCommandVariantClassNames: Record<TerminalCommandVariant, string> = {
+	default: "text-text-bright",
+	primary: "text-primary",
+	info: "text-info",
+	success: "text-success",
+};
+
 type TerminalTitleProps = {
 	title: string;
 };

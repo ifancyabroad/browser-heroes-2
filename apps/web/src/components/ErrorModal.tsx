@@ -12,7 +12,7 @@ export function ErrorModal() {
 			title="Something went wrong"
 			onClose={hideError}
 			footer={
-				<Button className="text-primary" type="button" onClick={hideError}>
+				<Button variant="primary" type="button" onClick={hideError}>
 					Close
 				</Button>
 			}

@@ -24,11 +24,13 @@ export function ClassCard({ gameClass, onSelect }: ClassCardProps) {
 					/>
 					<h5 className="truncate text-text-bright">{gameClass.name}</h5>
 				</div>
-				<Button className="text-primary" onClick={handleSelect}>
+				<Button variant="primary" onClick={handleSelect}>
 					Select
 				</Button>
 			</div>
-			<Button className="w-fit text-info">Details</Button>
+			<Button className="w-fit" variant="info">
+				Details
+			</Button>
 		</Card>
 	);
 }

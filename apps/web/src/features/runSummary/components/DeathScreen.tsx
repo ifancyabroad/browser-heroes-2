@@ -27,10 +27,8 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							The run has ended, and the road ahead belongs to another hero.
 						</p>
 						<div className="flex flex-wrap justify-center gap-4">
-							<Link className="text-text-bright" to="/">
-								Home
-							</Link>
-							<Link className="text-primary" to="/create-character">
+							<Link to="/">Home</Link>
+							<Link variant="primary" to="/create-character">
 								Try Again
 							</Link>
 						</div>
@@ -85,10 +83,8 @@ export function DeathScreen({ run }: DeathScreenProps) {
 					)}
 
 					<div className="flex flex-wrap justify-center gap-4">
-						<Link className="text-text-bright" to="/">
-							Home
-						</Link>
-						<Link className="text-primary" to="/create-character">
+						<Link to="/">Home</Link>
+						<Link variant="primary" to="/create-character">
 							Try Again
 						</Link>
 					</div>

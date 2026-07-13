@@ -65,7 +65,7 @@ export function HeroNameModal({
 						type="submit"
 						form="hero-name-form"
 						disabled={!isValidName || isSubmitting}
-						className="text-primary"
+						variant="primary"
 					>
 						{isSubmitting ? "Creating..." : "Start Game"}
 					</Button>

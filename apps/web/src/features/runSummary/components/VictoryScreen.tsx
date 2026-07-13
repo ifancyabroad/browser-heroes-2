@@ -27,10 +27,8 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 							The run has ended, and this hero's tale is complete.
 						</p>
 						<div className="flex flex-wrap justify-center gap-4">
-							<Link className="text-text-bright" to="/">
-								Home
-							</Link>
-							<Link className="text-primary" to="/create-character">
+							<Link to="/">Home</Link>
+							<Link variant="primary" to="/create-character">
 								New Hero
 							</Link>
 						</div>
@@ -92,10 +90,8 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 						)}
 
 						<nav className="flex flex-wrap justify-center gap-4" aria-label="Run links">
-							<Link className="text-text-bright" to="/">
-								Home
-							</Link>
-							<Link className="text-primary" to="/create-character">
+							<Link to="/">Home</Link>
+							<Link variant="primary" to="/create-character">
 								New Hero
 							</Link>
 						</nav>

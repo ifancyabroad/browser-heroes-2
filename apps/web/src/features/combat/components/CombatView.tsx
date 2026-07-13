@@ -156,7 +156,7 @@ export function CombatView({ run }: CombatViewProps) {
 
 				<GameMainPanel
 					mobileHeader={
-						<Button className="text-primary" type="button" onClick={handleOpenSidebar}>
+						<Button variant="primary" type="button" onClick={handleOpenSidebar}>
 							Log
 						</Button>
 					}
