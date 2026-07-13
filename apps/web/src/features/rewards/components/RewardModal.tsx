@@ -45,11 +45,10 @@ export function RewardModal({
 			onClose={() => undefined}
 			closeOnBackdropClick={false}
 			className="max-w-2xl"
-			titleClassName="text-text-bright"
 			footer={
 				<Button
 					type="button"
-					className="text-primary disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60"
+					className="text-primary"
 					disabled={!canConfirm}
 					onClick={handleConfirm}
 				>

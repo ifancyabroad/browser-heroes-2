@@ -6,10 +6,10 @@ import {
 } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useState } from "react";
+import { EquipmentSlotReplacementModal } from "../../../components/equipment/EquipmentSlotReplacementModal";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { RewardModal } from "./RewardModal";
-import { RewardReplacementModal } from "./RewardReplacementModal";
 
 type RewardSelection = Extract<EngineAction, { type: "SELECT_REWARD" }>["selection"];
 type ItemRewardOptionView = Extract<RewardChoiceOptionView, { type: "item" }>;
@@ -53,12 +53,18 @@ export function RewardModalController({ run }: RewardModalControllerProps) {
 
 	if (replacementOption) {
 		return (
-			<RewardReplacementModal
+			<EquipmentSlotReplacementModal
 				key={`replacement-${replacementOption.optionIndex}-${replacementOption.item.id}`}
-				option={replacementOption}
+				item={replacementOption.item}
+				destinations={replacementOption.destinations}
 				isPending={applyRunAction.isPending}
-				onBack={() => setReplacementOption(null)}
-				onConfirm={handleConfirm}
+				onCancel={() => setReplacementOption(null)}
+				onConfirm={(equipmentSlot) =>
+					handleConfirm({
+						optionIndex: replacementOption.optionIndex,
+						equipmentSlot,
+					})
+				}
 			/>
 		);
 	}

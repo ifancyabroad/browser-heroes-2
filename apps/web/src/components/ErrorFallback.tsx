@@ -1,4 +1,5 @@
 import type { FallbackProps } from "react-error-boundary";
+import { Button } from "./Button";
 
 /**
  * Extract error message from unknown error type.
@@ -18,21 +19,22 @@ export function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 	const errorMessage = getErrorMessage(error);
 
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center bg-neutral-950 p-8 text-white">
-			<div className="max-w-md text-center">
-				<h1 className="mb-4 text-2xl font-bold text-red-500">Something went wrong</h1>
-				<p className="mb-6 text-neutral-400">
+		<div className="flex min-h-screen flex-col items-center justify-center bg-bg-base p-8 text-base text-text">
+			<div className="grid max-w-md gap-4 border-2 border-border bg-bg-elevated p-6 text-center">
+				<h1 className="text-base text-error">Something went wrong</h1>
+				<p className="text-text-muted">
 					An unexpected error occurred. Please try refreshing the page.
 				</p>
-				<pre className="mb-6 overflow-auto rounded bg-neutral-900 p-4 text-left text-sm text-neutral-300">
+				<pre className="max-h-64 overflow-auto border border-border bg-bg-base p-3 text-left text-text">
 					{errorMessage}
 				</pre>
-				<button
+				<Button
+					type="button"
 					onClick={resetErrorBoundary}
-					className="rounded bg-primary px-6 py-2 font-medium text-white transition-colors hover:bg-primary/80"
+					className="justify-self-center text-primary"
 				>
 					Try Again
-				</button>
+				</Button>
 			</div>
 		</div>
 	);

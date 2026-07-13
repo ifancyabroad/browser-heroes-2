@@ -139,18 +139,12 @@ function CurrentlyEquippedDetail({
 	);
 }
 
-export function formatReplacementItems(replacedItems: RewardItemDestinationView["replacedItems"]) {
-	return replacedItems
-		.map((replacedItem) => ITEMS_BY_ID[replacedItem.itemId]?.name ?? "Unknown item")
-		.join(", ");
-}
-
 type ReplacedItemsInlineProps = {
 	replacedItems: RewardItemDestinationView["replacedItems"];
 	fallbackSlot: RewardItemDestinationView["equipmentSlot"];
 };
 
-export function ReplacedItemsInline({ replacedItems, fallbackSlot }: ReplacedItemsInlineProps) {
+function ReplacedItemsInline({ replacedItems, fallbackSlot }: ReplacedItemsInlineProps) {
 	return (
 		<>
 			{replacedItems.map((replacedItem, index) => (

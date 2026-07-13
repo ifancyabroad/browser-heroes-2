@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { selectRunSummaryView, type CombatLogEntry } from "@app/engine";
 import { CLASSES_BY_ID } from "@app/content";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
+import { Link } from "../../../components/Link";
 
 type DeathScreenProps = {
 	run: RunView;
@@ -23,13 +23,10 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							The run has ended, and the road ahead belongs to another hero.
 						</p>
 						<div className="flex flex-wrap justify-center gap-4">
-							<Link className="text-text-bright underline hover:opacity-80" to="/">
+							<Link className="text-text-bright" to="/">
 								Home
 							</Link>
-							<Link
-								className="text-primary underline hover:opacity-80"
-								to="/create-character"
-							>
+							<Link className="text-primary" to="/create-character">
 								Try Again
 							</Link>
 						</div>
@@ -80,13 +77,10 @@ export function DeathScreen({ run }: DeathScreenProps) {
 					)}
 
 					<div className="flex flex-wrap justify-center gap-4">
-						<Link className="text-text-bright underline hover:opacity-80" to="/">
+						<Link className="text-text-bright" to="/">
 							Home
 						</Link>
-						<Link
-							className="text-primary underline hover:opacity-80"
-							to="/create-character"
-						>
+						<Link className="text-primary" to="/create-character">
 							Try Again
 						</Link>
 					</div>

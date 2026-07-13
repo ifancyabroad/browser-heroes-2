@@ -8,13 +8,13 @@ import {
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
+import { EquipmentSlotReplacementModal } from "../../../components/equipment/EquipmentSlotReplacementModal";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { HeroSidebar } from "./HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownActionBar } from "./TownActionBar";
-import { TownReplacementModal } from "./TownReplacementModal";
 import { TownShopGrid } from "./TownShopGrid";
 
 type TownViewProps = {
@@ -192,10 +192,11 @@ export function TownView({ run }: TownViewProps) {
 				</GameMainPanel>
 
 				{replacementSlot && (
-					<TownReplacementModal
-						slot={replacementSlot}
+					<EquipmentSlotReplacementModal
+						item={replacementSlot.item}
+						destinations={replacementSlot.destinations}
 						isPending={applyRunAction.isPending}
-						onBack={() => setReplacementSlot(null)}
+						onCancel={() => setReplacementSlot(null)}
 						onConfirm={handleConfirmReplacement}
 					/>
 				)}

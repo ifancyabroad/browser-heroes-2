@@ -45,7 +45,7 @@ export function Modal({
 				)}
 			>
 				<header className="mb-4 flex items-center justify-between">
-					<h2 id="modal-title" className={titleClassName}>
+					<h2 id="modal-title" className={clsx("text-text-bright", titleClassName)}>
 						{title}
 					</h2>
 				</header>

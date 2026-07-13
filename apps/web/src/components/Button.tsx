@@ -9,7 +9,7 @@ export function Button({ className, ...props }: ButtonProps) {
 	return (
 		<button
 			className={clsx(
-				"underline hover:opacity-80 transition-opacity cursor-pointer",
+				"underline transition-opacity enabled:cursor-pointer enabled:hover:opacity-80 disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60",
 				className,
 			)}
 			{...props}
