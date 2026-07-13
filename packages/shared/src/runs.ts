@@ -1,9 +1,10 @@
 import { classIdSchema, type ClassId } from "@app/content";
 import { engineActionSchema, type EngineResult, type RunState } from "@app/engine";
 import { z } from "zod";
+import { HERO_NAME_MAX_LENGTH } from "./heroNames";
 
 export const createRunBodySchema = z.object({
-	heroName: z.string().trim().min(1).max(32),
+	heroName: z.string().trim().min(1).max(HERO_NAME_MAX_LENGTH),
 	classId: classIdSchema,
 });
 

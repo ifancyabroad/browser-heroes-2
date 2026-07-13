@@ -61,6 +61,7 @@ export default function CreateCharacter() {
 
 					<HeroNameModal
 						open={Boolean(selectedClassId)}
+						isSubmitting={createGuestSession.isPending || createRun.isPending}
 						onClose={handleClose}
 						onConfirm={handleConfirm}
 					/>

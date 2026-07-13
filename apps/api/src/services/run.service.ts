@@ -1,8 +1,52 @@
 import mongoose, { Types } from "mongoose";
-import type { CreateRunBody, RunSummaryView } from "@app/shared";
+import {
+	HERO_NAME_MAX_LENGTH,
+	HERO_NAME_PATTERN,
+	type CreateRunBody,
+	type RunSummaryView,
+} from "@app/shared";
 import { createInitialRunState, type RunState } from "@app/engine";
+import profanityFilter from "leo-profanity";
 import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
+
+function createHeroNameError(message: string): Error & { status: number } {
+	return Object.assign(new Error(message), { status: 400 });
+}
+
+function normalizeHeroName(heroName: string): string {
+	const trimmedName = heroName.trim();
+
+	if (!trimmedName) {
+		return "";
+	}
+
+	const lowerCaseName = trimmedName.toLowerCase();
+
+	return `${lowerCaseName.charAt(0).toUpperCase()}${lowerCaseName.slice(1)}`;
+}
+
+function normalizeAndValidateHeroName(heroName: string): string {
+	const normalizedName = normalizeHeroName(heroName);
+
+	if (!normalizedName) {
+		throw createHeroNameError("Hero name is required.");
+	}
+
+	if (normalizedName.length > HERO_NAME_MAX_LENGTH) {
+		throw createHeroNameError(`Hero name must be ${HERO_NAME_MAX_LENGTH} characters or fewer.`);
+	}
+
+	if (!HERO_NAME_PATTERN.test(normalizedName)) {
+		throw createHeroNameError("Hero name can only contain letters.");
+	}
+
+	if (profanityFilter.check(normalizedName)) {
+		throw createHeroNameError("Hero name is not allowed.");
+	}
+
+	return normalizedName;
+}
 
 export function deriveRunSummary(state: RunState): RunSummaryView {
 	return {
@@ -15,6 +59,8 @@ export function deriveRunSummary(state: RunState): RunSummaryView {
 }
 
 export async function createRun(params: { userId: string; body: CreateRunBody }) {
+	const heroName = normalizeAndValidateHeroName(params.body.heroName);
+
 	return mongoose.connection.transaction(async (session) => {
 		const now = new Date();
 
@@ -39,7 +85,7 @@ export async function createRun(params: { userId: string; body: CreateRunBody })
 		const state = createInitialRunState({
 			runId,
 			seed,
-			heroName: params.body.heroName,
+			heroName,
 			classId: params.body.classId,
 		});
 

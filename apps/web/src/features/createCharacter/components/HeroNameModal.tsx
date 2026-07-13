@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { Button } from "../../../components/Button";
+import { generateHeroName } from "../generateHeroName";
+import { HERO_NAME_MAX_LENGTH } from "@app/shared";
+import { isValidHeroNameShape } from "../heroName";
 
 type HeroNameModalProps = {
 	open: boolean;
@@ -18,15 +21,28 @@ export function HeroNameModal({
 	const [heroName, setHeroName] = useState("");
 
 	const trimmedName = heroName.trim();
+	const isValidName = isValidHeroNameShape(heroName);
+	const validationMessage =
+		heroName && !isValidName ? "Use letters only, with no spaces or symbols." : null;
+
+	useEffect(() => {
+		if (open) {
+			setHeroName(generateHeroName());
+		}
+	}, [open]);
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		setHeroName(event.target.value);
 	}
 
+	function handleReroll() {
+		setHeroName(generateHeroName());
+	}
+
 	function handleSubmit(event: React.FormEvent) {
 		event.preventDefault();
 
-		if (!trimmedName) {
+		if (!isValidName) {
 			return;
 		}
 
@@ -48,7 +64,7 @@ export function HeroNameModal({
 					<Button
 						type="submit"
 						form="hero-name-form"
-						disabled={!trimmedName || isSubmitting}
+						disabled={!isValidName || isSubmitting}
 						className="text-primary"
 					>
 						{isSubmitting ? "Creating..." : "Start Game"}
@@ -57,16 +73,31 @@ export function HeroNameModal({
 			}
 		>
 			<form id="hero-name-form" onSubmit={handleSubmit}>
-				<input
-					id="hero-name-input"
-					type="text"
-					value={heroName}
-					onChange={handleChange}
-					disabled={isSubmitting}
-					autoComplete="off"
-					className="w-full border-2 border-border bg-bg-base px-3 py-2 caret-primary outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
-					autoFocus
-				/>
+				<div className="flex gap-3">
+					<input
+						id="hero-name-input"
+						type="text"
+						value={heroName}
+						onChange={handleChange}
+						disabled={isSubmitting}
+						autoComplete="off"
+						maxLength={HERO_NAME_MAX_LENGTH}
+						aria-invalid={Boolean(validationMessage)}
+						aria-describedby={validationMessage ? "hero-name-error" : undefined}
+						className="min-w-0 flex-1 border-2 border-border bg-bg-base px-3 py-2 caret-primary outline-none transition-colors focus:border-primary disabled:cursor-not-allowed disabled:opacity-60"
+						autoFocus
+					/>
+
+					<Button type="button" onClick={handleReroll} disabled={isSubmitting}>
+						Reroll
+					</Button>
+				</div>
+
+				{validationMessage && (
+					<p id="hero-name-error" className="mt-2 text-error">
+						{validationMessage}
+					</p>
+				)}
 			</form>
 		</Modal>
 	);
