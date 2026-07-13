@@ -6,7 +6,7 @@ import {
 } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useState } from "react";
-import { EquipmentSlotReplacementModal } from "../../../components/equipment/EquipmentSlotReplacementModal";
+import { EquipmentSlotReplacementModal } from "../../../components/EquipmentSlotReplacementModal";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { RewardModal } from "./RewardModal";

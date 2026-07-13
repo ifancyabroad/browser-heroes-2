@@ -8,7 +8,7 @@ import {
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
-import { EquipmentSlotReplacementModal } from "../../../components/equipment/EquipmentSlotReplacementModal";
+import { EquipmentSlotReplacementModal } from "../../../components/EquipmentSlotReplacementModal";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { HeroSidebar } from "./HeroSidebar";

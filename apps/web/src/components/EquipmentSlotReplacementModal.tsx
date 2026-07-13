@@ -2,12 +2,12 @@ import type { EquipmentSlot, Item, ItemId } from "@app/content";
 import { ITEMS_BY_ID } from "@app/content";
 import clsx from "clsx";
 import { useState } from "react";
-import { Button } from "../Button";
-import { Modal } from "../Modal";
-import { getTerminalSelectionClassName } from "../TerminalPrimitives";
-import { Tooltip } from "../Tooltip";
-import { ItemTooltipContent } from "../tooltips/ItemTooltipContent";
-import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../game/itemDisplay";
+import { Button } from "./Button";
+import { Modal } from "./Modal";
+import { getTerminalSelectionClassName } from "./TerminalPrimitives";
+import { Tooltip } from "./Tooltip";
+import { ItemTooltipContent } from "./tooltips/ItemTooltipContent";
+import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../game/itemDisplay";
 
 type ReplacementItem = {
 	instanceId: string;
