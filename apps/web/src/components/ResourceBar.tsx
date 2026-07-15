@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import clsx from "clsx";
 import styles from "./ResourceBar.module.css";
 
@@ -13,15 +13,15 @@ type ResourceBarProps = {
 	className?: string;
 };
 
-const meterClassByTone: Record<ResourceBarTone, string> = {
-	hp: "text-hp",
-	xp: "text-xp",
+const fillClassByTone: Record<ResourceBarTone, string> = {
+	hp: "bg-hp",
+	xp: "bg-xp",
 };
 
-const METER_SEGMENTS = 18;
-
-type DamageFlashState = {
+type DamageChunkState = {
 	key: number;
+	oldFillPercent: number;
+	newFillPercent: number;
 };
 
 function clampPercent(value: number) {
@@ -39,67 +39,72 @@ export function ResourceBar({
 	const clampedFillPercent = typeof fillPercent === "number" ? clampPercent(fillPercent) : null;
 	const accessibleLabel = `${label} ${value}`;
 
-	const damageFlash = useDamageFlash(clampedFillPercent, Boolean(animateChanges));
-	const filledSegments =
-		clampedFillPercent === null
-			? METER_SEGMENTS
-			: Math.round((clampedFillPercent / 100) * METER_SEGMENTS);
-	const meterFill = "#".repeat(filledSegments);
-	const meterEmpty = "-".repeat(METER_SEGMENTS - filledSegments);
+	const damageChunk = useDamageChunk(clampedFillPercent, Boolean(animateChanges));
 
 	return (
 		<div
 			className={clsx(
-				"flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-base",
+				"grid grid-cols-[minmax(5rem,1fr)_7rem] items-center gap-3 text-base",
 				className,
 			)}
 			title={accessibleLabel}
 		>
-			<span className="sr-only">{accessibleLabel}</span>
-			<span className="text-text-label" aria-hidden="true">
-				{label}
-			</span>
-			<div className="min-w-0 tabular-nums" aria-hidden="true">
-				<span className="text-text-muted">[</span>
-				<span
-					className={clsx(
-						"tabular-nums",
-						meterClassByTone[tone],
-						damageFlash && styles.damageFlash,
-					)}
-				>
-					{meterFill}
-				</span>
-				<span className="tabular-nums text-text-muted">{meterEmpty}</span>
-				<span className="text-text-muted">]</span>
+			<div
+				className="relative isolate h-5 overflow-hidden bg-text-muted/30"
+				aria-label={accessibleLabel}
+			>
+				{damageChunk && (
+					<div
+						key={damageChunk.key}
+						className={clsx(styles.damageChunk, "absolute inset-y-0 left-0")}
+						style={
+							{
+								"--bh-resource-bar-chunk-old": `${damageChunk.oldFillPercent}%`,
+								"--bh-resource-bar-chunk-new": `${damageChunk.newFillPercent}%`,
+								zIndex: 1,
+							} as CSSProperties
+						}
+					/>
+				)}
+				{clampedFillPercent !== null && (
+					<div
+						className={clsx("absolute inset-y-0 left-0", fillClassByTone[tone])}
+						style={{ width: `${clampedFillPercent}%`, zIndex: 2 }}
+					/>
+				)}
 			</div>
-			<p className="min-w-0 text-text-bright" aria-hidden="true">
-				{value}
+			<p className="min-w-0 truncate text-left">
+				<span className="text-text-label">{label}</span>{" "}
+				<span className="text-text-bright">{value}</span>
 			</p>
 		</div>
 	);
 }
 
-function useDamageFlash(fillPercent: number | null, animateChanges: boolean) {
+function useDamageChunk(fillPercent: number | null, animateChanges: boolean) {
 	const prefersReducedMotion = usePrefersReducedMotion();
 	const previousFillPercent = useRef<number | null>(fillPercent);
-	const flashKey = useRef(0);
-	const timeoutIds = useRef<number[]>([]);
-	const [damageFlash, setDamageFlash] = useState<DamageFlashState | null>(null);
+	const chunkKey = useRef(0);
+	const timeoutId = useRef<number | null>(null);
+	const [damageChunk, setDamageChunk] = useState<DamageChunkState | null>(null);
 
 	useEffect(() => {
 		return () => {
-			clearTimeouts(timeoutIds.current);
+			if (timeoutId.current !== null) {
+				window.clearTimeout(timeoutId.current);
+			}
 		};
 	}, []);
 
 	useEffect(() => {
-		clearTimeouts(timeoutIds.current);
-		timeoutIds.current = [];
+		if (timeoutId.current !== null) {
+			window.clearTimeout(timeoutId.current);
+			timeoutId.current = null;
+		}
 
 		if (fillPercent === null) {
 			previousFillPercent.current = null;
-			setDamageFlash(null);
+			setDamageChunk(null);
 			return;
 		}
 
@@ -109,29 +114,24 @@ function useDamageFlash(fillPercent: number | null, animateChanges: boolean) {
 		const isDamage = previous !== null && fillPercent < previous;
 
 		if (!animateChanges || prefersReducedMotion || !isDamage || previous <= 0) {
-			setDamageFlash(null);
+			setDamageChunk(null);
 			return;
 		}
 
-		flashKey.current += 1;
-		setDamageFlash({
-			key: flashKey.current,
+		chunkKey.current += 1;
+		setDamageChunk({
+			key: chunkKey.current,
+			oldFillPercent: previous,
+			newFillPercent: fillPercent,
 		});
 
-		timeoutIds.current = [
-			window.setTimeout(() => {
-				setDamageFlash(null);
-			}, 900),
-		];
+		timeoutId.current = window.setTimeout(() => {
+			setDamageChunk(null);
+			timeoutId.current = null;
+		}, 900);
 	}, [animateChanges, fillPercent, prefersReducedMotion]);
 
-	return damageFlash;
-}
-
-function clearTimeouts(timeoutIds: number[]) {
-	for (const timeoutId of timeoutIds) {
-		window.clearTimeout(timeoutId);
-	}
+	return damageChunk;
 }
 
 function usePrefersReducedMotion() {

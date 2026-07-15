@@ -14,7 +14,7 @@ export function TooltipDetailList({
 	valueClassName?: string;
 }) {
 	return (
-		<dl className="grid gap-1 border-t border-border pt-2">
+		<dl className="grid gap-1 border-t-2 border-border/70 pt-2">
 			{rows.map((row) => (
 				<div key={row.label} className="flex items-baseline justify-between gap-3">
 					<dt className="shrink-0 text-text-label">{row.label}</dt>
@@ -33,7 +33,7 @@ export function TooltipDetailList({
 
 export function TooltipSection({ title, children }: { title: string; children: ReactNode }) {
 	return (
-		<section className="grid gap-1 border-t border-border pt-2" aria-label={title}>
+		<section className="grid gap-1 border-t-2 border-border/70 pt-2" aria-label={title}>
 			<p className="text-text-label">{title}</p>
 			{children}
 		</section>

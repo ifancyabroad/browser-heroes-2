@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { terminalCommandFrameClassName } from "./TerminalPrimitives";
 
 export type TabItem<TValue extends string> = {
 	label: string;
@@ -37,15 +36,14 @@ export function Tabs<TValue extends string>({
 						role="tab"
 						aria-selected={active}
 						className={clsx(
-							"transition-colors",
-							terminalCommandFrameClassName,
+							"border-b-2 px-1 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 							active
-								? "bg-primary text-primary-contrast before:text-primary-contrast after:text-primary-contrast"
-								: "text-text-muted hover:bg-bg-elevated hover:text-text-bright",
+								? "border-primary text-text-bright"
+								: "border-transparent text-text-muted hover:text-text-bright",
 						)}
 						onClick={() => onChange(item.value)}
 					>
-						<span className="px-1">{item.label}</span>
+						{item.label}
 					</button>
 				);
 			})}

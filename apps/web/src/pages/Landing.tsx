@@ -58,7 +58,7 @@ function CurrentRunSection({ run }: CurrentRunSectionProps) {
 	const heroClass = CLASSES_BY_ID[heroView.classId];
 
 	return (
-		<div className="flex w-full items-center justify-between gap-3 border border-border bg-bg-panel px-3 py-2 text-left">
+		<div className="flex w-full items-center justify-between gap-3 border-2 border-border bg-bg-panel px-3 py-2 text-left">
 			<div className="min-w-0">
 				<p className="truncate text-text-bright">{heroView.name}</p>
 

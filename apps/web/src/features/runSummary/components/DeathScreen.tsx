@@ -4,7 +4,7 @@ import type { RunView } from "@app/shared";
 import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
 import { Link } from "../../../components/Link";
-import { TerminalSectionHeading } from "../../../components/TerminalPrimitives";
+import { SectionHeading } from "../../../components/SectionHeading";
 
 type DeathScreenProps = {
 	run: RunView;
@@ -68,10 +68,10 @@ export function DeathScreen({ run }: DeathScreenProps) {
 
 					{finalMomentEntries.length > 0 && (
 						<section
-							className="grid w-full max-w-xl gap-2 border border-border bg-bg-panel p-3 text-left"
+							className="grid w-full max-w-xl gap-2 border-2 border-border bg-bg-panel p-3 text-left"
 							aria-label="Final moments"
 						>
-							<TerminalSectionHeading title="Final Moments" />
+							<SectionHeading title="Final Moments" />
 							<div className="grid gap-1">
 								{finalMomentEntries.map((entry) => (
 									<p key={entry.id} className={getLogEntryClassName(entry)}>

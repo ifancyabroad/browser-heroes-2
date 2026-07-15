@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
-import { getTerminalSelectionClassName } from "./TerminalPrimitives";
+import { getSelectionClassName } from "./ControlStyles";
 import { Tooltip } from "./Tooltip";
 import { ItemTooltipContent } from "./tooltips/ItemTooltipContent";
 import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../game/itemDisplay";
@@ -122,8 +122,8 @@ function ReplacementChoice({ destination, selected, disabled, onSelect }: Replac
 			disabled={disabled}
 			onClick={onSelect}
 			className={clsx(
-				"grid gap-2 border bg-bg-panel p-3 text-left text-base transition-colors",
-				getTerminalSelectionClassName({ selected, disabled }),
+				"grid gap-2 border-2 bg-bg-panel p-3 text-left text-base",
+				getSelectionClassName({ selected, disabled }),
 			)}
 		>
 			<span className="text-text-bright">

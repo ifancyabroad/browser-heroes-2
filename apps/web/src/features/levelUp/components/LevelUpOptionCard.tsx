@@ -2,10 +2,8 @@ import clsx from "clsx";
 import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { LevelUpOption } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
-import {
-	BracketBadge,
-	getTerminalSelectionClassName,
-} from "../../../components/TerminalPrimitives";
+import { Badge } from "../../../components/Badge";
+import { getSelectionClassName } from "../../../components/ControlStyles";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLabels";
@@ -40,14 +38,14 @@ export function LevelUpOptionCard({
 				disabled={disabled}
 				onClick={onSelect}
 				className={clsx(
-					"grid w-full gap-3 border bg-bg-panel p-3 text-left text-base transition-colors",
+					"grid w-full gap-3 border-2 bg-bg-panel p-3 text-left text-base",
 					content.metaLabel
 						? "grid-cols-[3rem_minmax(0,1fr)_auto]"
 						: "grid-cols-[3rem_minmax(0,1fr)]",
-					getTerminalSelectionClassName({ selected, disabled }),
+					getSelectionClassName({ selected, disabled }),
 				)}
 			>
-				<span className="h-12 w-12 overflow-hidden border border-text-muted/60 bg-bg-base">
+				<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
 					<img
 						src={content.icon}
 						alt=""
@@ -63,7 +61,7 @@ export function LevelUpOptionCard({
 				</span>
 
 				{content.metaLabel && (
-					<BracketBadge
+					<Badge
 						label={content.metaLabel}
 						className="self-start whitespace-nowrap text-primary"
 					/>

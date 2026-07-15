@@ -43,13 +43,13 @@ export function Sidebar({
 					className,
 				)}
 			>
-				<header className="border-b border-border bg-bg-base">
+				<header className="border-b-2 border-border bg-bg-base">
 					<div className="flex items-start justify-between gap-4 px-4 py-3 text-base">
 						<div className="min-w-0 flex-1">{title}</div>
 
 						<button
 							onClick={onClose}
-							className="border border-border bg-bg-elevated p-1 text-text-muted transition-colors hover:border-primary hover:text-text-bright md:hidden"
+							className="border-2 border-border bg-bg-elevated p-1 text-text-muted hover:border-primary hover:text-text-bright md:hidden"
 							aria-label="Close sidebar"
 							type="button"
 						>

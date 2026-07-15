@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import clsx from "clsx";
-import { TerminalPanelTitle } from "./TerminalPrimitives";
+import { PanelTitle } from "./PanelTitle";
 
 type CardProps = PropsWithChildren<{
 	className?: string;
@@ -11,7 +11,7 @@ type CardProps = PropsWithChildren<{
 export function Card({ children, className, contentClassName, title }: CardProps) {
 	return (
 		<div className={clsx("relative border-2 border-border bg-bg-elevated", className)}>
-			{title && <TerminalPanelTitle title={title} />}
+			{title && <PanelTitle title={title} />}
 			{contentClassName ? <div className={contentClassName}>{children}</div> : children}
 		</div>
 	);

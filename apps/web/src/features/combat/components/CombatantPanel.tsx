@@ -1,7 +1,7 @@
 import type { CombatantState } from "@app/engine";
 import clsx from "clsx";
 import { ResourceBar } from "../../../components/ResourceBar";
-import { BracketBadge } from "../../../components/TerminalPrimitives";
+import { Badge } from "../../../components/Badge";
 import { ActiveEffectsRow } from "./ActiveEffectsRow";
 import styles from "./CombatantPanel.module.css";
 
@@ -21,13 +21,13 @@ export function CombatantPanel({
 	const title = `${identity}${statusLabel ? ` ${statusLabel}` : ""} / Level ${combatant.level}`;
 
 	return (
-		<section className="grid gap-2" aria-label={ariaLabel}>
+		<section className="grid w-full max-w-[22rem] gap-2" aria-label={ariaLabel}>
 			<h2 className="flex min-w-0 items-center gap-2 text-base" title={title}>
 				<span className="min-w-0 truncate">
 					<span className="text-primary">{identity}</span> / Level {combatant.level}
 				</span>
 				{statusLabel && (
-					<BracketBadge
+					<Badge
 						label={statusLabel}
 						className={clsx("shrink-0 text-error", styles.statusLabel)}
 					/>

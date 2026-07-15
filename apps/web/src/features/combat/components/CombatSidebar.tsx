@@ -2,7 +2,7 @@ import { CLASSES_BY_ID, type ClassId } from "@app/content";
 import type { ActiveCombatEffect, CombatLogEntry, HeroProgressionView } from "@app/engine";
 import { ResourceBar } from "../../../components/ResourceBar";
 import { Sidebar } from "../../../components/Sidebar";
-import { TerminalSectionHeading } from "../../../components/TerminalPrimitives";
+import { SectionHeading } from "../../../components/SectionHeading";
 import { getXpResource } from "../../../game/resourceDisplay";
 import { CombatLogPanel } from "./CombatLogPanel";
 import { ActiveEffectsRow } from "./ActiveEffectsRow";
@@ -86,10 +86,10 @@ export function CombatSidebar({
 				zoneLabel={zoneLabel}
 			/>
 			<section
-				className="flex min-h-0 flex-1 flex-col gap-3 border border-text-muted/60 bg-bg-panel p-3"
+				className="flex min-h-0 flex-1 flex-col gap-3 border-2 border-border-secondary bg-bg-panel p-3"
 				aria-label="Combat log"
 			>
-				<TerminalSectionHeading title="Combat Log" />
+				<SectionHeading title="Combat Log" />
 				<CombatLogPanel entries={entries} className="min-h-0 flex-1" />
 			</section>
 		</Sidebar>

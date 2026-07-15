@@ -12,7 +12,7 @@ Browser Heroes 2 should feel like a retro, minimalist fantasy RPG.
 
 The UI should emphasize:
 
-- terminal-inspired readability
+- text-forward readability
 - compact RPG information hierarchy
 - sparse decoration
 - high contrast
@@ -22,25 +22,30 @@ The UI should emphasize:
 
 The interface should support a text-forward game aesthetic without becoming noisy or hard to scan.
 
-## 3. Fantasy Terminal Grammar
+## 3. Retro RPG Grammar
 
-Browser Heroes 2 should use terminal-inspired structure while still feeling like a fantasy RPG.
-The target is closer to an old roguelike, dungeon ledger, adventurer's journal, or DOS-era fantasy RPG than to a sci-fi terminal emulator.
+Browser Heroes 2 should feel like an old roguelike, dungeon ledger, adventurer's journal, or DOS-era fantasy RPG. Its visual language should be focused and consistent rather than combining separate terminal, arcade, and decorative fantasy treatments.
 
 Use this grammar for new and revised UI:
 
 - palettes should start from black, charcoal, neutral grey body text, tarnished brass labels, old gold commands, moss green, blood red, and ember orange
 - shared primitives should carry the old RPG panel style whenever practical, especially cards, modals, tooltips, buttons, links, tabs, action trays, and resource bars
-- panels should feel like inventory ledgers or dungeon record windows, with simple square borders, compact padding, and bordered inset labels such as `Shop` or `Combat Log`; reserve stronger brass borders for outer panels and use muted borders for repeated inner items
-- player commands should read as RPG menu commands, using restrained bracketed affordances, clear hover/focus states, and clear disabled states
-- resource meters should prefer terminal-readable formats such as `HP [########----] 24/36` over generic web progress bars
-- logs should read like battle records, with compact round markers, simple prompts, and muted metadata
+- panels should feel like inventory ledgers or dungeon record windows, with simple square borders, compact padding, and bordered inset labels such as `Shop` or `Combat Log`
+- use fewer but more deliberate borders: meaningful structural frames and controls should normally use solid 2px edges that agree with the pixel type; repeated rows should prefer spacing over complete boxes unless each frame communicates a real slot, as in shop inventory
+- reserve tarnished-brass borders for primary structure and controls; use the secondary warm-charcoal border for contained records and repeated inventory slots so every edge does not compete at the same visual level
+- player commands should use compact 2px square frames, dark backgrounds, restrained color, clear focus states, and clear disabled states
+- tabs should remain flatter than commands, using plain labels and a gold bottom border to mark the active section
+- resource meters should use borderless, flat graphical tracks with solid fills, dark empty space, and adjacent labels and values; avoid gradients, rounded ends, gloss, and ornamental segmentation
+- changing stats, prices, costs, and resource values should use tabular numerals so digits remain aligned and do not shift as values change
+- logs should read like battle records, with compact round markers and muted metadata rather than command prompts
 - image-heavy areas such as the battlefield should remain visually rich but be framed like battle windows or dioramas, not monitors
 - use secondary and info accents sparingly where they create real hierarchy or state distinction; default text, labels, and primary actions should remain clearly separated
 - spacing should stay dense and scannable; preserve the 16px font size and use tighter rhythm instead of oversized headings
 - motion should be restrained, readable, and safe for reduced-motion users
+- hover should clarify that an element is interactive through border, text, or underline changes; avoid routine fills, brightness effects, movement, and decorative animation
+- action slots should carry their own frames without an additional tray frame or group dividers, and action groups must wrap without increasing the page width on mobile
 
-Avoid sci-fi terminal signals such as neon cyan defaults, CRT scanlines, boot/system copy, diagnostics language, machine-style log prefixes, glowing borders, or viewport HUD language.
+Avoid terminal-emulator and sci-fi signals such as neon cyan defaults, CRT scanlines, boot/system copy, diagnostics language, machine-style log prefixes, command prompts, glowing borders, or viewport HUD language.
 Also avoid decorative effects that make the UI feel like a general fantasy website rather than an in-game RPG interface.
 
 ## 4. Current UI Shape
@@ -70,7 +75,9 @@ When new visual tokens are needed, add them deliberately to the theme so future 
 
 ## 6. Typography
 
-Font size should remain 16px throughout the UI to preserve the terminal-style text-based RPG feel.
+Font size should remain 16px throughout the UI to preserve the compact, text-based RPG feel.
+
+Use Pixelify Sans throughout the interface, including the text logo. Do not mix it with a separate display, terminal, or body face. `--font-ui` in `apps/web/src/index.css` is the single font token used by global text and Tailwind font utilities.
 
 Prefer inherited text size or Tailwind's `text-base`. Avoid introducing smaller or larger text sizes for headings, labels, helper text, buttons, cards, or dialogs unless there is a specific accessibility or product reason.
 
@@ -84,7 +91,7 @@ Create and use reusable components instead of rebuilding the same UI patterns fr
 
 Before adding new UI, check the existing component layer and feature-specific component folders. Prefer extending simple primitives such as buttons, cards, modals, sidebars, tabs, tooltips, resource bars, and stat displays when they fit the need.
 
-For terminal-specific presentation patterns, prefer `apps/web/src/components/TerminalPrimitives.tsx` before copying bracket labels, embedded panel titles, command focus styles, section headings, or selectable panel states.
+Use the focused shared components for `PanelTitle`, `SectionHeading`, and `Badge`. Reuse `ControlStyles.ts` for command frames, variants, focus treatment, and selectable panel states instead of copying those class strings.
 
 Reusable components should stay focused:
 
@@ -148,10 +155,10 @@ Use the established visual vocabulary:
 - muted text for secondary details
 - labeled stats and resources
 - simple panel borders instead of heavy decoration
-- bracketed labels and command affordances where they improve clarity
+- framed commands, underlined tabs, and square outlined badges
 - accent colors only where they communicate state, rarity, action, or emphasis
 
-Avoid decorative styles that pull the game away from its retro fantasy terminal identity.
+Avoid decorative styles that pull the game away from its focused retro fantasy RPG identity.
 
 ## 11. Non-Goals
 

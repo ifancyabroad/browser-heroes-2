@@ -2,26 +2,26 @@ import { type AnchorHTMLAttributes } from "react";
 import { Link as RouterLink, type LinkProps as RouterLinkProps } from "react-router-dom";
 import clsx from "clsx";
 import {
-	terminalCommandFocusClassName,
-	terminalCommandFrameClassName,
-	type TerminalCommandVariant,
-	terminalCommandVariantClassNames,
-} from "./TerminalPrimitives";
+	commandFocusClassName,
+	commandFrameClassName,
+	type CommandVariant,
+	commandVariantClassNames,
+} from "./ControlStyles";
 
 type LinkProps = RouterLinkProps &
 	AnchorHTMLAttributes<HTMLAnchorElement> & {
-		variant?: TerminalCommandVariant;
+		variant?: CommandVariant;
 	};
 
 export function Link({ className, variant = "default", ...props }: LinkProps) {
 	return (
 		<RouterLink
 			className={clsx(
-				"inline-flex cursor-pointer items-center justify-center transition-colors",
-				terminalCommandVariantClassNames[variant],
-				terminalCommandFrameClassName,
-				"hover:bg-primary hover:text-primary-contrast hover:before:text-primary-contrast hover:after:text-primary-contrast",
-				terminalCommandFocusClassName,
+				commandFrameClassName,
+				"cursor-pointer",
+				commandVariantClassNames[variant],
+				"hover:border-border-bright hover:text-text-bright",
+				commandFocusClassName,
 				className,
 			)}
 			{...props}

@@ -17,7 +17,7 @@ export function ActionBarTray({ children, className }: ActionBarTrayProps) {
 	return (
 		<div
 			className={clsx(
-				"mx-auto flex w-fit max-w-full flex-wrap justify-center gap-2 border-2 border-border bg-bg-elevated p-2 sm:gap-3",
+				"mx-auto flex w-full min-w-0 flex-wrap justify-center gap-2 bg-bg-elevated p-2 sm:w-fit sm:max-w-full sm:gap-3",
 				className,
 			)}
 		>
@@ -34,8 +34,7 @@ export function ActionBarGroup({
 	return (
 		<div
 			className={clsx(
-				"flex flex-wrap justify-center gap-1 sm:gap-2",
-				"[&+&]:border-l [&+&]:border-border [&+&]:pl-2 sm:[&+&]:pl-3",
+				"flex min-w-0 max-w-full flex-wrap justify-center gap-1 sm:gap-2",
 				className,
 			)}
 			aria-label={ariaLabel}
@@ -156,10 +155,8 @@ function ActionSlotImage({ src, grayscale = false }: ActionSlotImageProps) {
 				alt=""
 				loading="lazy"
 				className={clsx(
-					"h-full w-full scale-110 object-cover transition duration-150",
-					grayscale
-						? "grayscale brightness-[0.32] contrast-[0.85]"
-						: "brightness-110 group-hover:brightness-125",
+					"h-full w-full scale-110 object-cover",
+					grayscale ? "grayscale brightness-[0.32] contrast-[0.85]" : undefined,
 				)}
 				aria-hidden
 			/>
@@ -177,7 +174,7 @@ function ActionSlotLabel({ children, className, position = "bottom-right" }: Act
 	return (
 		<span
 			className={clsx(
-				"absolute border border-border bg-bg-base/90 px-1",
+				"absolute bg-bg-base/90 px-1",
 				position === "top-left" ? "left-1 top-1" : "bottom-1 right-1",
 				className,
 			)}
@@ -189,19 +186,18 @@ function ActionSlotLabel({ children, className, position = "bottom-right" }: Act
 
 function getDisplaySlotClassName() {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden border border-border bg-bg-panel sm:w-20",
+		"relative aspect-square w-16 overflow-hidden border-2 border-border bg-bg-panel sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
 	);
 }
 
 function getActionSlotClassName(disabled: boolean, showAvailabilityPulse: boolean) {
 	return clsx(
-		"group relative aspect-square w-16 overflow-hidden border bg-bg-panel sm:w-20",
+		"relative aspect-square w-16 overflow-hidden border-2 bg-bg-panel sm:w-20",
 		"flex shrink-0 items-center justify-center text-center",
-		"transition-colors duration-150",
 		disabled
 			? "cursor-not-allowed border-border/50"
-			: "cursor-pointer border-border-bright hover:border-primary hover:bg-bg-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
+			: "cursor-pointer border-border-bright hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary",
 		showAvailabilityPulse && styles.available,
 	);
 }

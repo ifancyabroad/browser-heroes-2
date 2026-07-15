@@ -1,5 +1,5 @@
 import type { AttackRider } from "@app/content";
-import { BracketBadge } from "../TerminalPrimitives";
+import { Badge } from "../Badge";
 import { formatRiderEffect, formatSavingThrow } from "../../game/effectDisplay";
 
 type AttackRiderTooltipListProps = {
@@ -28,7 +28,7 @@ function AttackRiderTooltipItem({ rider, index }: { rider: AttackRider; index: n
 	return (
 		<li key={`${rider.timing}-${index}`} className="break-words">
 			<span className="text-text-muted">- </span>
-			<BracketBadge label={trigger} className="text-primary" />{" "}
+			<Badge label={trigger} className="text-primary" />{" "}
 			<span>
 				{saveText}
 				{effectText}

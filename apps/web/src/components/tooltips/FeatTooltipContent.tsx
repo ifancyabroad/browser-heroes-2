@@ -13,7 +13,7 @@ export function FeatTooltipContent({ feat }: FeatTooltipContentProps) {
 	return (
 		<div className="grid gap-3">
 			<header className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-3">
-				<span className="h-14 w-14 overflow-hidden border border-border bg-bg-base">
+				<span className="h-14 w-14 overflow-hidden border-2 border-bg-elevated bg-bg-base">
 					<img
 						src={feat.icon}
 						alt=""
@@ -30,7 +30,7 @@ export function FeatTooltipContent({ feat }: FeatTooltipContentProps) {
 			</header>
 
 			{feat.description && (
-				<p className="border-t border-border pt-2 text-text">{feat.description}</p>
+				<p className="border-t-2 border-border/70 pt-2 text-text">{feat.description}</p>
 			)}
 
 			{feat.modifiers.length > 0 && (

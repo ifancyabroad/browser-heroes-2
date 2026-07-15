@@ -1,7 +1,7 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
-import { TerminalPanelTitle } from "./TerminalPrimitives";
+import { PanelTitle } from "./PanelTitle";
 
 type ModalProps = PropsWithChildren<{
 	open: boolean;
@@ -44,13 +44,13 @@ export function Modal({
 				)}
 			>
 				<header>
-					<TerminalPanelTitle title={title} />
+					<PanelTitle title={title} />
 				</header>
 
 				<div className="p-4">{children}</div>
 
 				{footer && (
-					<footer className="flex justify-end gap-4 border-t border-border px-4 py-3">
+					<footer className="flex justify-end gap-4 border-t-2 border-border px-4 py-3">
 						{footer}
 					</footer>
 				)}

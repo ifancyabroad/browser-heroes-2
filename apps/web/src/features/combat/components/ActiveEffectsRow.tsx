@@ -38,7 +38,7 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 								contentClassName="w-56 max-w-[calc(100vw-1rem)] sm:w-64"
 							>
 								<span
-									className="relative block h-7 w-7 overflow-hidden border border-border bg-bg-elevated"
+									className="relative block h-7 w-7 overflow-hidden border-2 border-bg-elevated bg-bg-elevated"
 									aria-label={`${group.sourceName} active effects`}
 								>
 									<img
@@ -79,7 +79,7 @@ function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltip
 	return (
 		<div className="grid gap-2">
 			<p className="break-words">{sourceName}</p>
-			<ul className="grid gap-2 border-t border-border pt-2">
+			<ul className="grid gap-2 border-t-2 border-border/70 pt-2">
 				{effects.map((effect) => (
 					<li key={effect.id} className="flex items-baseline justify-between gap-3">
 						<span

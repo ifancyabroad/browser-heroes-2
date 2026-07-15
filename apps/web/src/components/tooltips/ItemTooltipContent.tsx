@@ -24,7 +24,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 	return (
 		<div className="grid gap-3">
 			<header className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-3">
-				<span className="h-14 w-14 overflow-hidden border border-border bg-bg-base">
+				<span className="h-14 w-14 overflow-hidden border-2 border-bg-elevated bg-bg-base">
 					<img
 						src={item.icon}
 						alt=""

@@ -4,7 +4,7 @@ import type { RunView } from "@app/shared";
 import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
 import { Link } from "../../../components/Link";
-import { TerminalSectionHeading } from "../../../components/TerminalPrimitives";
+import { SectionHeading } from "../../../components/SectionHeading";
 
 type VictoryScreenProps = {
 	run: RunView;
@@ -48,7 +48,7 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 			<div className="min-h-0 flex-1 overflow-y-auto bg-bg-base px-4 py-6 text-base text-text">
 				<section className="mx-auto grid min-h-full w-full max-w-3xl content-center gap-6">
 					<Card title="RUN COMPLETE" contentClassName="grid gap-5 p-4">
-						<header className="grid gap-3 border-b border-border pb-4 text-center">
+						<header className="grid gap-3 border-b-2 border-border pb-4 text-center">
 							<p className="text-success">Victory</p>
 							<h1 className="text-base text-primary">The Ladder Is Broken</h1>
 							<p className="mx-auto max-w-2xl text-text-muted">
@@ -75,10 +75,10 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 
 						{finalMomentEntries.length > 0 && (
 							<section
-								className="grid gap-3 border border-border bg-bg-panel p-3"
+								className="grid gap-3 border-2 border-border bg-bg-panel p-3"
 								aria-label="Final moments"
 							>
-								<TerminalSectionHeading title="Final Moments" />
+								<SectionHeading title="Final Moments" />
 								<div className="grid gap-1">
 									{finalMomentEntries.map((entry) => (
 										<p key={entry.id} className={getLogEntryClassName(entry)}>
@@ -109,7 +109,7 @@ type SummaryStatProps = {
 
 function SummaryStat({ label, value }: SummaryStatProps) {
 	return (
-		<div className="grid gap-1 border border-border bg-bg-panel p-3 text-center">
+		<div className="grid gap-1 border-2 border-border bg-bg-panel p-3 text-center">
 			<span className="text-text-label">{label}</span>
 			<span className="text-text-bright">{value}</span>
 		</div>
