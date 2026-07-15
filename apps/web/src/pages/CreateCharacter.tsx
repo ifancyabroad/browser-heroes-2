@@ -1,12 +1,11 @@
-import { classes, type ClassId } from "@app/content";
+import { classes, CLASSES_BY_ID, type ClassId } from "@app/content";
 import { useState } from "react";
 import { ClassCard, HeroNameModal } from "../features/createCharacter";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useCreateGuestSession, useCurrentUser } from "../features/auth";
 import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
 import { Layout } from "../components/Layout";
-import { Card } from "../components/Card";
 
 export default function CreateCharacter() {
 	const navigate = useNavigate();
@@ -15,8 +14,9 @@ export default function CreateCharacter() {
 	const createGuestSession = useCreateGuestSession();
 	const createRun = useCreateRun();
 	const [selectedClassId, setSelectedClassId] = useState<ClassId | null>(null);
+	const selectedClass = selectedClassId ? CLASSES_BY_ID[selectedClassId] : null;
 
-	function handleSelect(classId: ClassId) {
+	function handleChoose(classId: ClassId) {
 		setSelectedClassId(classId);
 	}
 
@@ -47,27 +47,41 @@ export default function CreateCharacter() {
 
 	return (
 		<Layout>
-			<div className="flex flex-1 items-center justify-center bg-bg-base">
-				<div className="mx-auto w-full max-w-4xl px-4">
-					<Card title="CHOOSE YOUR CALLING" contentClassName="grid gap-3 p-3">
-						<p className="text-center text-text-label">Select a hero to begin</p>
-						<div className="grid gap-3 md:grid-cols-2">
-							{classes.map((gameClass) => (
-								<ClassCard
-									key={gameClass.id}
-									gameClass={gameClass}
-									onSelect={handleSelect}
-								/>
-							))}
-						</div>
-					</Card>
+			<div className="flex flex-1 bg-bg-base">
+				<div className="mx-auto w-full max-w-4xl px-4 py-6 sm:py-8">
+					<RouterLink
+						to="/"
+						className="mb-4 inline-flex text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+					>
+						← BACK
+					</RouterLink>
 
-					<HeroNameModal
-						open={Boolean(selectedClassId)}
-						isSubmitting={createGuestSession.isPending || createRun.isPending}
-						onClose={handleClose}
-						onConfirm={handleConfirm}
-					/>
+					<header className="mb-5 grid gap-2">
+						<h1 className="text-primary">CHOOSE YOUR CALLING</h1>
+						<p className="max-w-2xl text-text">
+							Your class determines your starting strengths, equipment, and skills.
+							Your build will evolve as the journey continues.
+						</p>
+					</header>
+
+					<div className="grid gap-3 md:grid-cols-2">
+						{classes.map((gameClass) => (
+							<ClassCard
+								key={gameClass.id}
+								gameClass={gameClass}
+								onChoose={handleChoose}
+							/>
+						))}
+					</div>
+
+					{selectedClass && (
+						<HeroNameModal
+							heroClassName={selectedClass.name}
+							isSubmitting={createGuestSession.isPending || createRun.isPending}
+							onClose={handleClose}
+							onConfirm={handleConfirm}
+						/>
+					)}
 				</div>
 			</div>
 		</Layout>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { Button } from "../../../components/Button";
 import { generateHeroName } from "../generateHeroName";
@@ -6,30 +6,24 @@ import { HERO_NAME_MAX_LENGTH } from "@app/shared";
 import { isValidHeroNameShape } from "../heroName";
 
 type HeroNameModalProps = {
-	open: boolean;
+	heroClassName: string;
 	isSubmitting?: boolean;
 	onClose: () => void;
 	onConfirm: (heroName: string) => void;
 };
 
 export function HeroNameModal({
-	open,
+	heroClassName,
 	isSubmitting = false,
 	onClose,
 	onConfirm,
 }: HeroNameModalProps) {
-	const [heroName, setHeroName] = useState("");
+	const [heroName, setHeroName] = useState(generateHeroName);
 
 	const trimmedName = heroName.trim();
 	const isValidName = isValidHeroNameShape(heroName);
 	const validationMessage =
 		heroName && !isValidName ? "Use letters only, with no spaces or symbols." : null;
-
-	useEffect(() => {
-		if (open) {
-			setHeroName(generateHeroName());
-		}
-	}, [open]);
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
 		setHeroName(event.target.value);
@@ -51,8 +45,8 @@ export function HeroNameModal({
 
 	return (
 		<Modal
-			open={open}
-			title="Name your hero"
+			open
+			title={`NAME YOUR ${heroClassName.toUpperCase()}`}
 			onClose={onClose}
 			closeOnBackdropClick={!isSubmitting}
 			footer={
@@ -67,12 +61,15 @@ export function HeroNameModal({
 						disabled={!isValidName || isSubmitting}
 						variant="primary"
 					>
-						{isSubmitting ? "Creating..." : "Start Game"}
+						{isSubmitting ? "Creating..." : "BEGIN JOURNEY"}
 					</Button>
 				</>
 			}
 		>
 			<form id="hero-name-form" onSubmit={handleSubmit}>
+				<label htmlFor="hero-name-input" className="mb-2 block text-text-label">
+					Hero name
+				</label>
 				<div className="flex gap-3">
 					<input
 						id="hero-name-input"
