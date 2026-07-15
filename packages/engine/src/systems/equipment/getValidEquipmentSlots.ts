@@ -2,7 +2,7 @@ import type { EquipmentSlot, Item } from "@app/content";
 
 export function getValidEquipmentSlots(item: Item): EquipmentSlot[] {
 	if (item.type === "weapon") {
-		return ["mainHand"];
+		return item.handedness === "oneHanded" ? ["mainHand", "offHand"] : ["mainHand"];
 	}
 
 	switch (item.slot) {

@@ -131,6 +131,7 @@ export const combatantStateSchema = z.object({
 	combatStats: combatantCombatStatsSchema,
 	savingThrowProficiencies: z.array(attributeSchema),
 	basicAttack: combatantBasicAttackSchema,
+	offHandBasicAttack: combatantBasicAttackSchema.nullable(),
 	skills: z.array(combatantSkillStateSchema),
 	featIds: z.array(featIdSchema),
 	activeEffects: z.array(activeCombatEffectSchema),

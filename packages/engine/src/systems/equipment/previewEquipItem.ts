@@ -33,6 +33,13 @@ export function previewEquipItem(input: PreviewEquipItemInput): PreviewEquipItem
 		};
 	}
 
+	if (equipmentSlot === "offHand" && hasTwoHandedMainHand(input.hero.equipment)) {
+		return {
+			ok: false,
+			error: "INVALID_EQUIPMENT_SLOT",
+		};
+	}
+
 	const replacedItems: EquippedItemState[] = [];
 
 	collectItemAtSlot(input.hero.equipment, equipmentSlot, replacedItems);
@@ -111,4 +118,10 @@ function getEquippedItemDefinition(itemId: ItemId | undefined): Item | null {
 	}
 
 	return ITEMS_BY_ID[itemId] ?? null;
+}
+
+function hasTwoHandedMainHand(equipment: HeroEquipmentState): boolean {
+	const mainHandItem = getEquippedItemDefinition(equipment.mainHand?.itemId);
+
+	return mainHandItem?.type === "weapon" && mainHandItem.handedness === "twoHanded";
 }

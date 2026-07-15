@@ -7,7 +7,7 @@ import { isHeroWeaponProficient } from "../equipment/weaponProficiency";
 import { toCombatantCombatStats } from "../modifiers/deriveCombatStats";
 import { createCombatantSkillFromHeroSkill } from "./combatantSkills";
 import { deriveHeroStats } from "../../hero/deriveHeroStats";
-import { CLASSES_BY_ID } from "@app/content";
+import { CLASSES_BY_ID, type Weapon } from "@app/content";
 
 export function createPlayerCombatant(hero: HeroState, combatId: string): CombatantState {
 	const derivedHeroStats = deriveHeroStats(hero);
@@ -16,7 +16,8 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 
 	const combatStats = toCombatantCombatStats(derivedHeroStats.combatStats);
 
-	const weapon = getEquippedWeapon(hero.equipment.mainHand?.itemId);
+	const mainHandWeapon = getEquippedWeapon(hero.equipment.mainHand?.itemId);
+	const offHandWeapon = getEquippedWeapon(hero.equipment.offHand?.itemId);
 
 	const classDefinition = CLASSES_BY_ID[hero.classId];
 
@@ -32,17 +33,23 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 		attributes,
 		combatStats,
 		savingThrowProficiencies: derivedHeroStats.proficiencies.savingThrows,
-		basicAttack: weapon
-			? {
-					name: weapon.name,
-					attackAttribute: weapon.damage.attribute,
-					proficient: isHeroWeaponProficient(hero, weapon),
-					damage: weapon.damage,
-				}
+		basicAttack: mainHandWeapon
+			? createWeaponBasicAttack(hero, mainHandWeapon)
 			: PLAYER_UNARMED_ATTACK,
+
+		offHandBasicAttack: offHandWeapon ? createWeaponBasicAttack(hero, offHandWeapon) : null,
 		skills: hero.skills.map(createCombatantSkillFromHeroSkill),
 		featIds: derivedHeroStats.featIds,
 		activeEffects: [],
 		tactic: "default",
+	};
+}
+
+function createWeaponBasicAttack(hero: HeroState, weapon: Weapon) {
+	return {
+		name: weapon.name,
+		attackAttribute: weapon.damage.attribute,
+		proficient: isHeroWeaponProficient(hero, weapon),
+		damage: weapon.damage,
 	};
 }

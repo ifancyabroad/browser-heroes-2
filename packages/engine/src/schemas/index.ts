@@ -73,6 +73,7 @@ export {
 	activeCombatEffectSchema,
 	combatantSkillStateSchema,
 	combatantCombatStatsSchema,
+	combatantBasicAttackSchema,
 } from "./combatState.schema";
 
 export type {
@@ -84,6 +85,7 @@ export type {
 	ActiveCombatEffect,
 	CombatantSkillState,
 	CombatantCombatStats,
+	CombatantBasicAttack,
 	ActiveDamageAffinityModifier,
 	ActiveDamageModifier,
 	ActiveDamageTakenModifier,

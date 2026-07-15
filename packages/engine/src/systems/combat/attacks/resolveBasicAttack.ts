@@ -1,6 +1,11 @@
 import type { Attribute } from "@app/content";
 
-import type { CombatantSide, CombatantState, CombatState } from "../../../schemas";
+import type {
+	CombatantBasicAttack,
+	CombatantSide,
+	CombatantState,
+	CombatState,
+} from "../../../schemas";
 
 import type { RngResult, RngState } from "../../../core/rng";
 
@@ -17,7 +22,72 @@ type ResolveBasicAttackInput = {
 	rngState: RngState;
 };
 
+type BasicAttackPart = {
+	attack: CombatantBasicAttack;
+	damageAttribute: Attribute | undefined;
+	messageVerb: string;
+};
+
+type ResolveBasicAttackPartInput = {
+	combat: CombatState;
+	attackerSide: CombatantSide;
+	attackPart: BasicAttackPart;
+	rngState: RngState;
+};
+
 export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<CombatState> {
+	const attacker = getCombatant(input.combat, input.attackerSide);
+
+	const attackParts = getBasicAttackParts(attacker);
+
+	let combat = input.combat;
+	let rngState = input.rngState;
+
+	for (const attackPart of attackParts) {
+		const result = resolveBasicAttackPart({
+			combat,
+			attackerSide: input.attackerSide,
+			attackPart,
+			rngState,
+		});
+
+		combat = result.value;
+		rngState = result.rngState;
+
+		const defender = getOpponent(combat, input.attackerSide);
+
+		if (defender.currentHp <= 0) {
+			break;
+		}
+	}
+
+	return {
+		value: combat,
+		rngState,
+	};
+}
+
+function getBasicAttackParts(attacker: CombatantState): BasicAttackPart[] {
+	const attackParts: BasicAttackPart[] = [
+		{
+			attack: attacker.basicAttack,
+			damageAttribute: attacker.basicAttack.damage.attribute,
+			messageVerb: "attacks",
+		},
+	];
+
+	if (attacker.offHandBasicAttack) {
+		attackParts.push({
+			attack: attacker.offHandBasicAttack,
+			damageAttribute: undefined,
+			messageVerb: "attacks with their off-hand weapon",
+		});
+	}
+
+	return attackParts;
+}
+
+function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<CombatState> {
 	const attacker = getCombatant(input.combat, input.attackerSide);
 
 	const defender = getOpponent(input.combat, input.attackerSide);
@@ -26,8 +96,8 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 		rngState: input.rngState,
 		attacker,
 		defender,
-		attribute: getBasicAttackAttribute(attacker.basicAttack),
-		proficient: attacker.basicAttack.proficient,
+		attribute: getBasicAttackAttribute(input.attackPart.attack),
+		proficient: input.attackPart.attack.proficient,
 	});
 
 	if (!attackRoll.value.hit) {
@@ -35,7 +105,9 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 			value: appendCombatLog(input.combat, {
 				turnNumber: input.combat.turnNumber,
 				actor: attacker.side,
-				message: `${attacker.name} attacks ` + `${defender.name} but misses.`,
+				message:
+					`${attacker.name} ${input.attackPart.messageVerb} ` +
+					`${defender.name} but misses.`,
 				eventType: "basic_attack",
 			}),
 			rngState: attackRoll.rngState,
@@ -46,24 +118,22 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 		rngState: attackRoll.rngState,
 		attacker,
 		defender,
-		dice: attacker.basicAttack.damage.dice,
-		damageType: attacker.basicAttack.damage.type,
-		attribute: attacker.basicAttack.damage.attribute,
+		dice: input.attackPart.attack.damage.dice,
+		damageType: input.attackPart.attack.damage.type,
+		attribute: input.attackPart.damageAttribute,
 		critical: attackRoll.value.critical,
 	});
 
 	const appliedDamage = applyDamage(defender, damage.value);
 
-	const updatedDefender = appliedDamage.combatant;
-
-	const nextCombat = replaceCombatant(input.combat, updatedDefender);
+	const nextCombat = replaceCombatant(input.combat, appliedDamage.combatant);
 
 	return {
 		value: appendCombatLog(nextCombat, {
 			turnNumber: input.combat.turnNumber,
 			actor: attacker.side,
 			message: getDamageMessage({
-				prefix: `${attacker.name} attacks ${defender.name}`,
+				prefix: `${attacker.name} ${input.attackPart.messageVerb} ` + `${defender.name}`,
 				hpDamage: appliedDamage.hpDamage,
 				absorbedDamage: appliedDamage.absorbedDamage,
 			}),
@@ -73,6 +143,6 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 	};
 }
 
-function getBasicAttackAttribute(basicAttack: CombatantState["basicAttack"]): Attribute {
+function getBasicAttackAttribute(basicAttack: CombatantBasicAttack): Attribute {
 	return basicAttack.attackAttribute ?? basicAttack.damage.attribute ?? "strength";
 }
