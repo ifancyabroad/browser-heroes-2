@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { SKILLS_BY_ID, type SkillId } from "@app/content";
+import { SKILLS_BY_ID } from "@app/content";
 import type { ActiveCombatEffect } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
 import { damageTypeLabels, modifiableStatLabels } from "../../../game/displayLabels";
@@ -11,6 +11,7 @@ import {
 	getToneTextClassName,
 	type ModifierTone,
 } from "../../../game/effectDisplay";
+import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 
 type ActiveEffectsRowProps = {
 	effects: ActiveCombatEffect[];
@@ -18,21 +19,19 @@ type ActiveEffectsRowProps = {
 };
 
 export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
-	const effectGroups = groupEffectsBySourceSkill(effects);
+	const effectGroups = groupEffectsBySource(effects);
 
 	return (
 		<div className="min-h-7" aria-label={label}>
 			{effectGroups.length > 0 && (
 				<div className="flex flex-wrap gap-1">
 					{effectGroups.map((group) => {
-						const sourceSkill = SKILLS_BY_ID[group.skillId];
-
 						return (
 							<Tooltip
-								key={group.skillId}
+								key={group.key}
 								content={
 									<ActiveEffectTooltipContent
-										skillName={sourceSkill.name}
+										sourceName={group.sourceName}
 										effects={group.effects}
 									/>
 								}
@@ -40,10 +39,10 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 							>
 								<span
 									className="relative block h-7 w-7 overflow-hidden border border-border bg-bg-elevated"
-									aria-label={`${sourceSkill.name} active effects`}
+									aria-label={`${group.sourceName} active effects`}
 								>
 									<img
-										src={sourceSkill.icon}
+										src={group.icon}
 										alt=""
 										loading="lazy"
 										className="h-full w-full scale-110 object-cover"
@@ -65,19 +64,21 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 }
 
 type ActiveEffectGroup = {
-	skillId: SkillId;
+	key: string;
+	sourceName: string;
+	icon: string;
 	effects: ActiveCombatEffect[];
 };
 
 type ActiveEffectTooltipContentProps = {
-	skillName: string;
+	sourceName: string;
 	effects: readonly ActiveCombatEffect[];
 };
 
-function ActiveEffectTooltipContent({ skillName, effects }: ActiveEffectTooltipContentProps) {
+function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltipContentProps) {
 	return (
 		<div className="grid gap-2">
-			<p className="break-words">{skillName}</p>
+			<p className="break-words">{sourceName}</p>
 			<ul className="grid gap-2 border-t border-border pt-2">
 				{effects.map((effect) => (
 					<li key={effect.id} className="flex items-baseline justify-between gap-3">
@@ -97,23 +98,44 @@ function ActiveEffectTooltipContent({ skillName, effects }: ActiveEffectTooltipC
 	);
 }
 
-function groupEffectsBySourceSkill(effects: readonly ActiveCombatEffect[]): ActiveEffectGroup[] {
-	const groups = new Map<SkillId, ActiveCombatEffect[]>();
+function groupEffectsBySource(effects: readonly ActiveCombatEffect[]): ActiveEffectGroup[] {
+	const groups = new Map<string, ActiveEffectGroup>();
 
 	for (const effect of effects) {
-		const existing = groups.get(effect.sourceSkillId);
+		const source = getActiveEffectDisplaySource(effect);
+		const existing = groups.get(source.key);
 
 		if (existing) {
-			existing.push(effect);
+			existing.effects.push(effect);
 		} else {
-			groups.set(effect.sourceSkillId, [effect]);
+			groups.set(source.key, {
+				...source,
+				effects: [effect],
+			});
 		}
 	}
 
-	return Array.from(groups, ([skillId, groupedEffects]) => ({
-		skillId,
-		effects: groupedEffects,
-	}));
+	return Array.from(groups.values());
+}
+
+function getActiveEffectDisplaySource(effect: ActiveCombatEffect) {
+	const sourceKeyPrefix = `${effect.sourceCombatantId}:${effect.source.type}`;
+
+	if (effect.source.type === "skill") {
+		const skill = SKILLS_BY_ID[effect.source.skillId];
+
+		return {
+			key: `${sourceKeyPrefix}:${effect.source.skillId}`,
+			sourceName: skill.name,
+			icon: skill.icon,
+		};
+	}
+
+	return {
+		key: `${sourceKeyPrefix}:${effect.source.sourceName}`,
+		sourceName: effect.source.sourceName,
+		icon: attackIcon,
+	};
 }
 
 function formatActiveEffectDetail(effect: ActiveCombatEffect) {
@@ -127,8 +149,20 @@ function formatActiveEffectDetail(effect: ActiveCombatEffect) {
 		case "modifyDamage":
 			return `${effect.damageType ? damageTypeLabels[effect.damageType] : "All"} damage ${formatModifierValue(effect.operation, effect.value)}`;
 
+		case "modifyDamageTaken":
+			return `${effect.damageType ? damageTypeLabels[effect.damageType] : "All"} damage taken ${formatModifierValue(effect.operation, effect.value)}`;
+
 		case "modifyDamageAffinity":
 			return `${effect.operation === "add" ? "Adds" : "Removes"} ${damageTypeLabels[effect.damageType]} ${formatTitle(effect.affinity)}`;
+
+		case "damageOverTime":
+			return `${effect.dice} ${damageTypeLabels[effect.damageType]} per turn`;
+
+		case "healOverTime":
+			return `${effect.dice} healing per turn`;
+
+		case "shield":
+			return `${effect.remainingAmount} shield`;
 	}
 }
 
@@ -143,10 +177,18 @@ function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 
 		case "modifyStat":
 		case "modifyDamage":
+		case "modifyDamageTaken":
 			return getNumericModifierTone(effect.operation, effect.value);
 
 		case "modifyDamageAffinity":
 			return getDamageAffinityTone(effect.operation, effect.affinity);
+
+		case "damageOverTime":
+			return "negative";
+
+		case "healOverTime":
+		case "shield":
+			return "positive";
 
 		default:
 			return "neutral";
