@@ -5,6 +5,7 @@ import { useCurrentUser } from "../features/auth";
 import { useCurrentRun } from "../features/runs";
 import { Link } from "../components/Link";
 import { Layout } from "../components/Layout";
+import { PageLoader } from "../components/PageLoader";
 
 export default function Landing() {
 	const { data } = useCurrentUser();
@@ -15,34 +16,41 @@ export default function Landing() {
 	const run = currentRun.data?.run ?? null;
 	const isCheckingRun = Boolean(data?.user) && currentRun.isLoading;
 
+	if (isCheckingRun) {
+		return <PageLoader />;
+	}
+
 	return (
 		<Layout>
 			<div className="flex flex-1 items-center justify-center bg-bg-base px-4">
-				<div className="flex w-full max-w-sm flex-col items-center gap-4 text-center">
-					<h1 className="grid gap-1" aria-label="Browser Heroes">
+				<div className="flex w-full max-w-sm flex-col items-center gap-5 text-center">
+					<h1
+						className="flex flex-col gap-1 sm:flex-row sm:gap-3"
+						aria-label="Browser Heroes"
+					>
 						<span className="text-[3rem] leading-none text-primary">BROWSER</span>
 						<span className="text-[3rem] leading-none text-primary">HEROES</span>
 					</h1>
-					<p className="text-secondary">A new road awaits</p>
+					<div className="grid gap-2">
+						<p className="text-secondary">A new road awaits</p>
+						<p>
+							Create a hero, master their skills, and survive a turn-based journey
+							through increasingly deadly encounters.
+						</p>
+					</div>
 
-					{isCheckingRun ? (
-						<p className="text-text-muted">Checking journey...</p>
-					) : (
-						<>
-							{run && <CurrentRunSection run={run} />}
+					{run && <CurrentRunSection run={run} />}
 
-							<div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
-								{run && (
-									<Link variant="primary" to="/game">
-										CONTINUE
-									</Link>
-								)}
-								<Link variant={run ? "default" : "primary"} to="/create-character">
-									{run ? "NEW HERO" : "PLAY NOW"}
-								</Link>
-							</div>
-						</>
-					)}
+					<div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+						{run && (
+							<Link variant="primary" to="/game">
+								CONTINUE
+							</Link>
+						)}
+						<Link variant={run ? "default" : "primary"} to="/create-character">
+							{run ? "NEW HERO" : "PLAY NOW"}
+						</Link>
+					</div>
 				</div>
 			</div>
 		</Layout>
