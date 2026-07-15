@@ -8,3 +8,4 @@ export * from "./class.schema";
 export * from "./modifier.schema";
 export * from "./feat.schema";
 export * from "./item.schema";
+export * from "./attack.schema";

@@ -1,4 +1,4 @@
-import type { CombatantState, HeroState } from "../../../schemas";
+import type { CombatantBasicAttack, CombatantState, HeroState } from "../../../schemas";
 
 import { createCombatantId } from "../../../core/ids";
 import { PLAYER_UNARMED_ATTACK } from "../constants/combatDefaults";
@@ -45,11 +45,12 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 	};
 }
 
-function createWeaponBasicAttack(hero: HeroState, weapon: Weapon) {
+function createWeaponBasicAttack(hero: HeroState, weapon: Weapon): CombatantBasicAttack {
 	return {
 		name: weapon.name,
 		attackAttribute: weapon.damage.attribute,
 		proficient: isHeroWeaponProficient(hero, weapon),
 		damage: weapon.damage,
+		attackRiders: weapon.attackRiders,
 	};
 }

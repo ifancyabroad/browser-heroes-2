@@ -2,12 +2,12 @@ import { z } from "zod";
 import {
 	attributeSchema,
 	attributesSchema,
-	basicAttackSchema,
 	damageAffinitiesSchema,
 	hitDieSchema,
 	tacticSchema,
 	zoneSchema,
 } from "./common.schema";
+import { basicAttackSchema } from "./attack.schema";
 
 export const enemyRankSchema = z.enum(["normal", "elite", "boss"]);
 

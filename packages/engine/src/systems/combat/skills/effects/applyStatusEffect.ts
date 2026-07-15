@@ -1,6 +1,11 @@
-import type { ApplyStatusEffect, SkillId } from "@app/content";
+import type { ApplyStatusEffect } from "@app/content";
 
-import type { ActiveStatusEffect, CombatantSide, CombatState } from "../../../../schemas";
+import type {
+	ActiveEffectSource,
+	ActiveStatusEffect,
+	CombatantSide,
+	CombatState,
+} from "../../../../schemas";
 
 import type { RngResult, RngState } from "../../../../core/rng";
 
@@ -15,9 +20,7 @@ type ApplyStatusEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
 	effect: ApplyStatusEffect;
-	sourceEffectKey: string;
-	skillId: SkillId;
-	skillName: string;
+	source: ActiveEffectSource;
 	rngState: RngState;
 };
 
@@ -44,7 +47,7 @@ export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<Comb
 				value: appendCombatLog(input.combat, {
 					turnNumber: input.combat.turnNumber,
 					actor: target.side,
-					message: `${target.name} resists ` + `${input.skillName}.`,
+					message: `${target.name} resists ` + `${input.source.sourceName}.`,
 					eventType: "skill_used",
 				}),
 				rngState,
@@ -57,12 +60,11 @@ export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<Comb
 			input.combat.id,
 			input.combat.turnNumber,
 			actor.id,
-			input.sourceEffectKey,
+			input.source.sourceEffectKey,
 		),
 		type: "status",
 		sourceCombatantId: actor.id,
-		sourceSkillId: input.skillId,
-		sourceEffectKey: input.sourceEffectKey,
+		source: input.source,
 		remainingTurns: input.effect.durationTurns,
 		statusId: input.effect.statusId,
 	};
@@ -76,7 +78,7 @@ export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<Comb
 			turnNumber: input.combat.turnNumber,
 			actor: actor.side,
 			message:
-				`${actor.name} uses ${input.skillName}, applying ` +
+				`${actor.name} uses ${input.source.sourceName}, applying ` +
 				`${input.effect.statusId} to ${target.name} for ` +
 				`${input.effect.durationTurns} turns.`,
 			eventType: "effect_applied",

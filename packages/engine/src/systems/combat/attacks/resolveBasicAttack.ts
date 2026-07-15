@@ -15,6 +15,8 @@ import { applyDamage } from "../damage/applyDamage";
 import { calculateDamage } from "../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../combatants/combatantSelectors";
 import { getDamageMessage } from "../damage/getDamageMessage";
+import { resolveAttackRiders } from "./resolveAttackRiders";
+import { getSupportedAttackRiders } from "./getSupportedAttackRiders";
 
 type ResolveBasicAttackInput = {
 	combat: CombatState;
@@ -26,6 +28,7 @@ type BasicAttackPart = {
 	attack: CombatantBasicAttack;
 	damageAttribute: Attribute | undefined;
 	messageVerb: string;
+	sourceKey: "mainHand" | "offHand";
 };
 
 type ResolveBasicAttackPartInput = {
@@ -73,6 +76,7 @@ function getBasicAttackParts(attacker: CombatantState): BasicAttackPart[] {
 			attack: attacker.basicAttack,
 			damageAttribute: attacker.basicAttack.damage.attribute,
 			messageVerb: "attacks",
+			sourceKey: "mainHand",
 		},
 	];
 
@@ -81,6 +85,7 @@ function getBasicAttackParts(attacker: CombatantState): BasicAttackPart[] {
 			attack: attacker.offHandBasicAttack,
 			damageAttribute: undefined,
 			messageVerb: "attacks with their off-hand weapon",
+			sourceKey: "offHand",
 		});
 	}
 
@@ -126,20 +131,59 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<C
 
 	const appliedDamage = applyDamage(defender, damage.value);
 
-	const nextCombat = replaceCombatant(input.combat, appliedDamage.combatant);
+	let resolvedCombat = replaceCombatant(input.combat, appliedDamage.combatant);
+
+	resolvedCombat = appendCombatLog(resolvedCombat, {
+		turnNumber: input.combat.turnNumber,
+		actor: attacker.side,
+		message: getDamageMessage({
+			prefix: `${attacker.name} ${input.attackPart.messageVerb} ` + `${defender.name}`,
+			hpDamage: appliedDamage.hpDamage,
+			absorbedDamage: appliedDamage.absorbedDamage,
+		}),
+		eventType: "basic_attack",
+	});
+
+	let rngState = damage.rngState;
+
+	const attackRiders = getSupportedAttackRiders(input.attackPart.attack.attackRiders);
+
+	if (!attackRiders) {
+		throw new Error(`${input.attackPart.attack.name} has unsupported attack riders`);
+	}
+
+	for (let riderIndex = 0; riderIndex < attackRiders.length; riderIndex += 1) {
+		const rider = attackRiders[riderIndex];
+
+		const shouldResolve =
+			rider.timing === "onHit" || (rider.timing === "onCrit" && attackRoll.value.critical);
+
+		if (!shouldResolve) {
+			continue;
+		}
+
+		const riderResult = resolveAttackRiders({
+			combat: resolvedCombat,
+			actorSide: input.attackerSide,
+			effects: rider.effects,
+			save: rider.save,
+			sourceContext: {
+				source: {
+					type: "basicAttack",
+					sourceName: input.attackPart.attack.name,
+				},
+				sourceEffectKeyPrefix: `basicAttack:${input.attackPart.sourceKey}:rider:${riderIndex}`,
+			},
+			rngState,
+		});
+
+		resolvedCombat = riderResult.value;
+		rngState = riderResult.rngState;
+	}
 
 	return {
-		value: appendCombatLog(nextCombat, {
-			turnNumber: input.combat.turnNumber,
-			actor: attacker.side,
-			message: getDamageMessage({
-				prefix: `${attacker.name} ${input.attackPart.messageVerb} ` + `${defender.name}`,
-				hpDamage: appliedDamage.hpDamage,
-				absorbedDamage: appliedDamage.absorbedDamage,
-			}),
-			eventType: "basic_attack",
-		}),
-		rngState: damage.rngState,
+		value: resolvedCombat,
+		rngState,
 	};
 }
 

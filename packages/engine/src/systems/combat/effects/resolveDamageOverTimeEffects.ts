@@ -1,5 +1,3 @@
-import { SKILLS_BY_ID } from "@app/content";
-
 import type { ActiveDamageOverTimeEffect, CombatantSide, CombatState } from "../../../schemas";
 
 import type { RngResult, RngState } from "../../../core/rng";
@@ -49,13 +47,11 @@ export function resolveDamageOverTimeEffects(
 
 		combat = replaceCombatant(combat, updatedTarget);
 
-		const skill = SKILLS_BY_ID[effect.sourceSkillId];
-
 		combat = appendCombatLog(combat, {
 			turnNumber: combat.turnNumber,
 			actor: target.side,
 			message: getDamageMessage({
-				prefix: `${skill.name} affects ${target.name}`,
+				prefix: `${effect.source.sourceName} affects ${target.name}`,
 				hpDamage: appliedDamage.hpDamage,
 				absorbedDamage: appliedDamage.absorbedDamage,
 			}),

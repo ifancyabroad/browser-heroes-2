@@ -74,6 +74,7 @@ export {
 	combatantSkillStateSchema,
 	combatantCombatStatsSchema,
 	combatantBasicAttackSchema,
+	activeEffectSourceSchema,
 } from "./combatState.schema";
 
 export type {
@@ -94,6 +95,7 @@ export type {
 	ActiveDamageOverTimeEffect,
 	ActiveHealOverTimeEffect,
 	ActiveShieldEffect,
+	ActiveEffectSource,
 } from "./combatState.schema";
 
 export { combatLogEntrySchema, runLogEntrySchema, logActorSchema } from "./log.schema";

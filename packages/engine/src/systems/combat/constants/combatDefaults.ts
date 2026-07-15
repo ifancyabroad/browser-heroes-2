@@ -15,4 +15,5 @@ export const PLAYER_UNARMED_ATTACK: CombatantState["basicAttack"] = {
 		type: "crushing",
 		attribute: "strength",
 	},
+	attackRiders: [],
 };

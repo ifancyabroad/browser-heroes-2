@@ -21,11 +21,24 @@ export const combatantSideSchema = z.enum(["player", "enemy"]);
 
 export const combatantIdSchema = z.string();
 
+export const activeEffectSourceSchema = z.discriminatedUnion("type", [
+	z.object({
+		type: z.literal("skill"),
+		skillId: skillIdSchema,
+		sourceName: z.string().nonempty(),
+		sourceEffectKey: z.string().nonempty(),
+	}),
+	z.object({
+		type: z.literal("basicAttack"),
+		sourceName: z.string().nonempty(),
+		sourceEffectKey: z.string().nonempty(),
+	}),
+]);
+
 const activeCombatEffectBaseSchema = z.object({
 	id: z.string(),
 	sourceCombatantId: combatantIdSchema,
-	sourceSkillId: skillIdSchema,
-	sourceEffectKey: z.string().min(1),
+	source: activeEffectSourceSchema,
 	remainingTurns: z.number().int().positive(),
 });
 
@@ -168,3 +181,4 @@ export type ActiveDamageOverTimeEffect = z.infer<typeof activeDamageOverTimeEffe
 export type ActiveHealOverTimeEffect = z.infer<typeof activeHealOverTimeEffectSchema>;
 export type ActiveShieldEffect = z.infer<typeof activeShieldEffectSchema>;
 export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;
+export type ActiveEffectSource = z.infer<typeof activeEffectSourceSchema>;

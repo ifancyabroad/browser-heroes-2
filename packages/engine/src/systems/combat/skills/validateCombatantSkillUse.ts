@@ -5,40 +5,22 @@ import {
 	type ShieldEffect,
 	SKILLS_BY_ID,
 	type AttackDamageEffect,
-	type AttackRider,
 	type DamageEffect,
 	type Effect,
 	type HealEffect,
 	type ModifyDamageAffinityEffect,
 	type ModifyDamageEffect,
 	type ModifyStatEffect,
-	type RiderEffect,
 	type Skill,
 	ModifyDamageTakenEffect,
 	SkillId,
 } from "@app/content";
 
 import type { CombatantSkillState, CombatantState, EngineErrorCode } from "../../../schemas";
-
-export type SupportedRiderEffect = Extract<
-	RiderEffect,
-	{
-		type:
-			| "damage"
-			| "heal"
-			| "applyStatus"
-			| "damageOverTime"
-			| "healOverTime"
-			| "shield"
-			| "modifyStat"
-			| "modifyDamage"
-			| "modifyDamageTaken";
-	}
->;
-
-export type SupportedAttackRider = Omit<AttackRider, "effects"> & {
-	effects: SupportedRiderEffect[];
-};
+import {
+	getSupportedAttackRiders,
+	type SupportedAttackRider,
+} from "../attacks/getSupportedAttackRiders";
 
 export type SupportedAttackDamageEffect = Omit<AttackDamageEffect, "attackRiders"> & {
 	attackRiders: SupportedAttackRider[];
@@ -153,39 +135,4 @@ function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | n
 	}
 
 	return supportedEffects;
-}
-
-function getSupportedAttackRiders(riders: AttackRider[]): SupportedAttackRider[] | null {
-	const supportedRiders: SupportedAttackRider[] = [];
-
-	for (const rider of riders) {
-		if (!rider.effects.every(isSupportedRiderEffect)) {
-			return null;
-		}
-
-		supportedRiders.push({
-			...rider,
-			effects: rider.effects,
-		});
-	}
-
-	return supportedRiders;
-}
-
-function isSupportedRiderEffect(effect: RiderEffect): effect is SupportedRiderEffect {
-	switch (effect.type) {
-		case "damage":
-		case "heal":
-		case "applyStatus":
-		case "damageOverTime":
-		case "healOverTime":
-		case "shield":
-		case "modifyStat":
-		case "modifyDamage":
-		case "modifyDamageTaken":
-			return true;
-
-		default:
-			return false;
-	}
 }

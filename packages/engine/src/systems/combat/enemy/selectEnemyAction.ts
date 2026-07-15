@@ -4,6 +4,7 @@ import type { CombatantState } from "../../../schemas";
 import { randomFloat, type RngResult, type RngState } from "../../../core/rng";
 
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
+import { isActiveEffectFromSkill } from "../effects/activeEffectSource";
 
 export type EnemyAction =
 	| {
@@ -98,8 +99,8 @@ function hasActiveEffectFromSkill(
 	player: CombatantState,
 	skillId: SkillId,
 ): boolean {
-	return [...enemy.activeEffects, ...player.activeEffects].some(
-		(effect) => effect.sourceCombatantId === enemy.id && effect.sourceSkillId === skillId,
+	return [...enemy.activeEffects, ...player.activeEffects].some((effect) =>
+		isActiveEffectFromSkill(effect, enemy.id, skillId),
 	);
 }
 

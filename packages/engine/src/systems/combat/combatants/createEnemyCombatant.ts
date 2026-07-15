@@ -57,6 +57,7 @@ export function createEnemyCombatant(
 		basicAttack: {
 			...enemy.combat.basicAttack,
 			proficient: true,
+			attackRiders: enemy.combat.basicAttack.attackRiders,
 		},
 		offHandBasicAttack: null,
 		skills: enemy.combat.skillIds.map(createCombatantSkillFromEnemySkill),

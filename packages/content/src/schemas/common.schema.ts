@@ -191,16 +191,6 @@ export const tactics = ["default", "aggressive", "defensive", "caster", "random"
 
 export const tacticSchema = z.enum(tactics);
 
-export const basicAttackSchema = z.object({
-	name: z.string().nonempty(),
-	attackAttribute: attributeSchema.optional(),
-	damage: z.object({
-		dice: diceFormulaSchema,
-		type: damageTypeSchema,
-		attribute: attributeSchema.optional(),
-	}),
-});
-
 export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
 export type DamageType = z.infer<typeof damageTypeSchema>;
 export type DamageAffinities = z.infer<typeof damageAffinitiesSchema>;
@@ -219,4 +209,3 @@ export type ArmourType = z.infer<typeof armourTypeSchema>;
 export type WeaponType = z.infer<typeof weaponTypeSchema>;
 export type Zone = z.infer<typeof zoneSchema>;
 export type Tactic = z.infer<typeof tacticSchema>;
-export type BasicAttack = z.infer<typeof basicAttackSchema>;

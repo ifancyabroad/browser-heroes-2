@@ -79,9 +79,12 @@ function resolveSkillEffect(
 				combat: input.combat,
 				actorSide: input.actorSide,
 				effect: input.effect,
-				sourceEffectKey: `effect:${input.effectIndex}`,
-				skillId: input.skillId,
-				skillName: input.skillName,
+				source: {
+					type: "skill",
+					skillId: input.skillId,
+					sourceName: input.skillName,
+					sourceEffectKey: `effect:${input.effectIndex}`,
+				},
 				rngState: input.rngState,
 			});
 
@@ -94,9 +97,12 @@ function resolveSkillEffect(
 					combat: input.combat,
 					actorSide: input.actorSide,
 					effect: input.effect,
-					sourceEffectKey: `effect:${input.effectIndex}`,
-					skillId: input.skillId,
-					skillName: input.skillName,
+					source: {
+						type: "skill",
+						skillId: input.skillId,
+						sourceName: input.skillName,
+						sourceEffectKey: `effect:${input.effectIndex}`,
+					},
 				}),
 				rngState: input.rngState,
 			};
@@ -108,9 +114,12 @@ function resolveSkillEffect(
 				combat: input.combat,
 				actorSide: input.actorSide,
 				effect: input.effect,
-				sourceEffectKey: `effect:${input.effectIndex}`,
-				skillId: input.skillId,
-				skillName: input.skillName,
+				source: {
+					type: "skill",
+					skillId: input.skillId,
+					sourceName: input.skillName,
+					sourceEffectKey: `effect:${input.effectIndex}`,
+				},
 				rngState: input.rngState,
 			});
 	}

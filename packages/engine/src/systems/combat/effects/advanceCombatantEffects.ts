@@ -1,5 +1,3 @@
-import { SKILLS_BY_ID } from "@app/content";
-
 import type { ActiveCombatEffect, CombatantSide, CombatState } from "../../../schemas";
 
 import { advanceActiveEffects } from "./advanceActiveEffects";
@@ -8,6 +6,7 @@ import { appendCombatLog } from "../logs/appendCombatLog";
 import { RngResult, RngState } from "../../../core/rng";
 import { resolveDamageOverTimeEffects } from "./resolveDamageOverTimeEffects";
 import { resolveHealOverTimeEffects } from "./resolveHealOverTimeEffects";
+import { isSameActiveEffectSource } from "./activeEffectSource";
 
 type AdvanceCombatantEffectsInput = {
 	combat: CombatState;
@@ -43,23 +42,19 @@ export function advanceCombatantEffects(
 
 	let combat = replaceCombatant(currentResult.value, result.combatant);
 
-	for (const expiredEffect of getUniqueExpiredSkillEffects(result.expiredEffects)) {
-		const stillActive = result.combatant.activeEffects.some(
-			(activeEffect) =>
-				activeEffect.sourceCombatantId === expiredEffect.sourceCombatantId &&
-				activeEffect.sourceSkillId === expiredEffect.sourceSkillId,
+	for (const expiredEffect of getUniqueExpiredEffectSources(result.expiredEffects)) {
+		const stillActive = result.combatant.activeEffects.some((activeEffect) =>
+			isSameActiveEffectSource(activeEffect, expiredEffect),
 		);
 
 		if (stillActive) {
 			continue;
 		}
 
-		const skill = SKILLS_BY_ID[expiredEffect.sourceSkillId];
-
 		combat = appendCombatLog(combat, {
 			turnNumber: input.combat.turnNumber,
 			actor: input.combatantSide,
-			message: `${skill.name} expires on ` + `${result.combatant.name}.`,
+			message: `${expiredEffect.source.sourceName} expires on ` + `${result.combatant.name}.`,
 			eventType: "effect_expired",
 		});
 	}
@@ -70,13 +65,9 @@ export function advanceCombatantEffects(
 	};
 }
 
-function getUniqueExpiredSkillEffects(effects: ActiveCombatEffect[]): ActiveCombatEffect[] {
+function getUniqueExpiredEffectSources(effects: ActiveCombatEffect[]): ActiveCombatEffect[] {
 	return effects.filter(
 		(effect, index) =>
-			effects.findIndex(
-				(candidate) =>
-					candidate.sourceCombatantId === effect.sourceCombatantId &&
-					candidate.sourceSkillId === effect.sourceSkillId,
-			) === index,
+			effects.findIndex((candidate) => isSameActiveEffectSource(candidate, effect)) === index,
 	);
 }

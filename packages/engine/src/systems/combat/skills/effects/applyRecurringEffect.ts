@@ -1,6 +1,11 @@
-import type { DamageOverTimeEffect, HealOverTimeEffect, ShieldEffect, SkillId } from "@app/content";
+import type { DamageOverTimeEffect, HealOverTimeEffect, ShieldEffect } from "@app/content";
 
-import type { ActiveCombatEffect, CombatantSide, CombatState } from "../../../../schemas";
+import type {
+	ActiveCombatEffect,
+	ActiveEffectSource,
+	CombatantSide,
+	CombatState,
+} from "../../../../schemas";
 
 import { createEffectInstanceId } from "../../../../core/ids";
 
@@ -16,9 +21,7 @@ type ApplyRecurringEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
 	effect: RecurringEffect;
-	sourceEffectKey: string;
-	skillId: SkillId;
-	skillName: string;
+	source: ActiveEffectSource;
 	rngState: RngState;
 };
 
@@ -45,7 +48,7 @@ export function applyRecurringEffect(input: ApplyRecurringEffectInput): RngResul
 				value: appendCombatLog(input.combat, {
 					turnNumber: input.combat.turnNumber,
 					actor: target.side,
-					message: `${target.name} resists ` + `${input.skillName}.`,
+					message: `${target.name} resists ` + `${input.source.sourceName}.`,
 					eventType: "skill_used",
 				}),
 				rngState,
@@ -57,8 +60,7 @@ export function applyRecurringEffect(input: ApplyRecurringEffectInput): RngResul
 		combat: input.combat,
 		actorId: actor.id,
 		effect: input.effect,
-		sourceEffectKey: input.sourceEffectKey,
-		skillId: input.skillId,
+		source: input.source,
 	});
 
 	const updatedTarget = upsertActiveCombatEffect(target, activeEffect);
@@ -70,7 +72,7 @@ export function applyRecurringEffect(input: ApplyRecurringEffectInput): RngResul
 			turnNumber: input.combat.turnNumber,
 			actor: actor.side,
 			message:
-				`${actor.name} uses ${input.skillName}, ` +
+				`${actor.name} uses ${input.source.sourceName}, ` +
 				`applying an effect to ${target.name} ` +
 				`for ${activeEffect.remainingTurns} turns.`,
 			eventType: "effect_applied",
@@ -83,19 +85,17 @@ function createActiveRecurringEffect(input: {
 	combat: CombatState;
 	actorId: string;
 	effect: RecurringEffect;
-	sourceEffectKey: string;
-	skillId: SkillId;
+	source: ActiveEffectSource;
 }): ActiveCombatEffect {
 	const base = {
 		id: createEffectInstanceId(
 			input.combat.id,
 			input.combat.turnNumber,
 			input.actorId,
-			input.sourceEffectKey,
+			input.source.sourceEffectKey,
 		),
 		sourceCombatantId: input.actorId,
-		sourceSkillId: input.skillId,
-		sourceEffectKey: input.sourceEffectKey,
+		source: input.source,
 		remainingTurns: input.effect.durationTurns,
 	};
 

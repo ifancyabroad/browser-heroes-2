@@ -1,14 +1,13 @@
 import type { ActiveCombatEffect, CombatantState } from "../../../schemas";
 
+import { isSameActiveEffectSource } from "./activeEffectSource";
+
 export function upsertActiveCombatEffect(
 	combatant: CombatantState,
 	effect: ActiveCombatEffect,
 ): CombatantState {
-	const existingEffectIndex = combatant.activeEffects.findIndex(
-		(activeEffect) =>
-			activeEffect.sourceCombatantId === effect.sourceCombatantId &&
-			activeEffect.sourceSkillId === effect.sourceSkillId &&
-			activeEffect.sourceEffectKey === effect.sourceEffectKey,
+	const existingEffectIndex = combatant.activeEffects.findIndex((activeEffect) =>
+		isSameActiveEffectSource(activeEffect, effect),
 	);
 
 	if (existingEffectIndex === -1) {

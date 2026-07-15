@@ -11,7 +11,7 @@ import { applyDamage } from "../../damage/applyDamage";
 import { calculateDamage } from "../../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { appendCombatLog } from "../../logs/appendCombatLog";
-import { resolveAttackRiderEffects } from "../resolveAttackRiderEffects";
+import { resolveAttackRiders } from "../../attacks/resolveAttackRiders";
 import { getDamageMessage } from "../../damage/getDamageMessage";
 
 type ResolveAttackDamageEffectInput = {
@@ -117,15 +117,19 @@ export function resolveAttackDamageEffect(
 			continue;
 		}
 
-		const riderResult = resolveAttackRiderEffects({
+		const riderResult = resolveAttackRiders({
 			combat: resolvedCombat,
 			actorSide: input.actorSide,
 			effects: rider.effects,
 			save: rider.save,
-			skillId: input.skillId,
-			skillName: input.skillName,
-			parentEffectIndex: input.effectIndex,
-			riderIndex,
+			sourceContext: {
+				source: {
+					type: "skill",
+					skillId: input.skillId,
+					sourceName: input.skillName,
+				},
+				sourceEffectKeyPrefix: `effect:${input.effectIndex}:rider:${riderIndex}`,
+			},
 			rngState,
 		});
 
