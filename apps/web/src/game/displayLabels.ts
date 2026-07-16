@@ -75,6 +75,24 @@ export const modifiableStatLabels: Record<ModifiableStat, string> = {
 	charisma: attributeShortLabels.charisma,
 };
 
+export const modifiableStatFullLabels: Record<ModifiableStat, string> = {
+	armourClass: combatStatLabels.armourClass,
+	damageReduction: combatStatLabels.damageReduction,
+	proficiencyBonus: combatStatLabels.proficiencyBonus,
+	attackRollBonus: combatStatLabels.attackRollBonus,
+	savingThrowBonus: combatStatLabels.savingThrowBonus,
+	saveDcBonus: combatStatLabels.saveDcBonus,
+	critChance: combatStatLabels.critChance,
+	critMultiplier: combatStatLabels.critMultiplier,
+	healingMultiplier: combatStatLabels.healingMultiplier,
+	strength: attributeLabels.strength,
+	dexterity: attributeLabels.dexterity,
+	constitution: attributeLabels.constitution,
+	intelligence: attributeLabels.intelligence,
+	wisdom: attributeLabels.wisdom,
+	charisma: attributeLabels.charisma,
+};
+
 export const equipmentSlotLabels: Record<EquipmentSlot, string> = {
 	head: "Head",
 	neck: "Neck",
@@ -99,14 +117,14 @@ export const itemRarityLabels: Record<ItemRarity, string> = {
 export const damageTypeLabels: Record<DamageType, string> = {
 	acid: "Acid",
 	cold: "Cold",
-	crushing: "Crush",
+	crushing: "Crushing",
 	fire: "Fire",
 	lightning: "Lightning",
 	necrotic: "Necrotic",
-	piercing: "Pierce",
+	piercing: "Piercing",
 	poison: "Poison",
 	radiant: "Radiant",
-	slashing: "Slash",
+	slashing: "Slashing",
 };
 
 export const armourSlotLabels: Record<ArmourSlot, string> = {

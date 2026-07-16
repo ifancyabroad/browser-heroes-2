@@ -5,6 +5,7 @@ import { Badge } from "../../../components/Badge";
 import { Button } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
+import { attributeLabels } from "../../../game/displayLabels";
 import { formatItemModifier, getModifierTextClassName } from "../../../game/effectDisplay";
 import {
 	getEquipmentSlotLabel,
@@ -106,6 +107,13 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 								className="hidden md:grid"
 							/>
 						)}
+						{item.type === "weapon" && (
+							<DetailLine
+								label="Attribute"
+								value={attributeLabels[item.damage.attribute]}
+								className="hidden md:grid"
+							/>
+						)}
 						<ReplacementDetails destinations={slot.destinations} />
 					</div>
 
@@ -144,8 +152,8 @@ function DetailLine({
 	className?: string;
 }) {
 	return (
-		<p className={clsx("min-w-0 grid-cols-[4rem_minmax(0,1fr)] gap-2", className ?? "grid")}>
-			<span className="text-text-label">{label}</span>
+		<p className={clsx("min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-2", className ?? "grid")}>
+			<span className="whitespace-nowrap text-text-label">{label}</span>
 			<span className={clsx("min-w-0 break-words", valueClassName)}>{value}</span>
 		</p>
 	);
@@ -180,7 +188,7 @@ function ReplacementDetails({
 	}
 
 	return (
-		<p className="grid min-w-0 grid-cols-[4rem_minmax(0,1fr)] gap-2">
+		<p className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-2">
 			<span className="text-text-label">Current</span>
 			<span className="min-w-0 break-words text-text">
 				<CombinedDestinationItems destinations={destinations} />

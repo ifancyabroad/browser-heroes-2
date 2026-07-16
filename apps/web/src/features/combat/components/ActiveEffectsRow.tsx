@@ -2,14 +2,10 @@ import clsx from "clsx";
 import { SKILLS_BY_ID } from "@app/content";
 import type { ActiveCombatEffect } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
-import { damageTypeLabels, modifiableStatLabels } from "../../../game/displayLabels";
 import {
-	formatModifierValue,
-	formatTitle,
-	getDamageAffinityTone,
-	getNumericModifierTone,
+	formatActiveEffectDetail,
+	getActiveEffectTone,
 	getToneTextClassName,
-	type ModifierTone,
 } from "../../../game/effectDisplay";
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 
@@ -138,59 +134,6 @@ function getActiveEffectDisplaySource(effect: ActiveCombatEffect) {
 	};
 }
 
-function formatActiveEffectDetail(effect: ActiveCombatEffect) {
-	switch (effect.type) {
-		case "status":
-			return formatTitle(effect.statusId);
-
-		case "modifyStat":
-			return `${modifiableStatLabels[effect.stat]} ${formatModifierValue(effect.operation, effect.value)}`;
-
-		case "modifyDamage":
-			return `${effect.damageType ? damageTypeLabels[effect.damageType] : "All"} damage ${formatModifierValue(effect.operation, effect.value)}`;
-
-		case "modifyDamageTaken":
-			return `${effect.damageType ? damageTypeLabels[effect.damageType] : "All"} damage taken ${formatModifierValue(effect.operation, effect.value)}`;
-
-		case "modifyDamageAffinity":
-			return `${effect.operation === "add" ? "Adds" : "Removes"} ${damageTypeLabels[effect.damageType]} ${formatTitle(effect.affinity)}`;
-
-		case "damageOverTime":
-			return `${effect.dice} ${damageTypeLabels[effect.damageType]} per turn`;
-
-		case "healOverTime":
-			return `${effect.dice} healing per turn`;
-
-		case "shield":
-			return `${effect.remainingAmount} shield`;
-	}
-}
-
 function getActiveEffectTextClassName(effect: ActiveCombatEffect) {
 	return getToneTextClassName(getActiveEffectTone(effect), "text-text");
-}
-
-function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
-	switch (effect.type) {
-		case "status":
-			return "negative";
-
-		case "modifyStat":
-		case "modifyDamage":
-		case "modifyDamageTaken":
-			return getNumericModifierTone(effect.operation, effect.value);
-
-		case "modifyDamageAffinity":
-			return getDamageAffinityTone(effect.operation, effect.affinity);
-
-		case "damageOverTime":
-			return "negative";
-
-		case "healOverTime":
-		case "shield":
-			return "positive";
-
-		default:
-			return "neutral";
-	}
 }

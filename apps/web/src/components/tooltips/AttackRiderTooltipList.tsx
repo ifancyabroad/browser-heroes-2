@@ -22,8 +22,8 @@ export function AttackRiderTooltipList({ riders }: AttackRiderTooltipListProps) 
 
 function AttackRiderTooltipItem({ rider, index }: { rider: AttackRider; index: number }) {
 	const trigger = rider.timing === "onHit" ? "On hit" : "On crit";
-	const effectText = rider.effects.map(formatRiderEffect).join("; ");
-	const saveText = rider.save ? `${formatSavingThrow(rider.save)}; ` : "";
+	const effectText = rider.effects.map(formatRiderEffect).join(" ");
+	const saveText = rider.save ? `${formatSavingThrow(rider.save)}. ` : "";
 
 	return (
 		<li key={`${rider.timing}-${index}`} className="break-words">

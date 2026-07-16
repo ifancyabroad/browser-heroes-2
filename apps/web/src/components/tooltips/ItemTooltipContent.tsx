@@ -1,6 +1,6 @@
 import type { EquipmentSlot, Item } from "@app/content";
 import clsx from "clsx";
-import { attributeShortLabels, itemRarityLabels } from "../../game/displayLabels";
+import { attributeLabels, itemRarityLabels } from "../../game/displayLabels";
 import { formatItemModifier, getModifierTextClassName } from "../../game/effectDisplay";
 import {
 	getEquipmentSlotLabel,
@@ -82,7 +82,7 @@ function getItemDetailRows(
 		return [
 			...rows,
 			...(primaryStat ? [{ ...primaryStat, valueClassName: "text-text-bright" }] : []),
-			{ label: "Attribute", value: attributeShortLabels[item.damage.attribute] },
+			{ label: "Attribute", value: attributeLabels[item.damage.attribute] },
 		];
 	}
 
