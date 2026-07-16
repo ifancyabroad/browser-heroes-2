@@ -1,10 +1,9 @@
+import { useEffect, useRef } from "react";
 import { selectRunSummaryView, type CombatLogEntry } from "@app/engine";
 import { CLASSES_BY_ID } from "@app/content";
 import type { RunView } from "@app/shared";
-import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
 import { Link } from "../../../components/Link";
-import { SectionHeading } from "../../../components/SectionHeading";
 
 type DeathScreenProps = {
 	run: RunView;
@@ -12,17 +11,24 @@ type DeathScreenProps = {
 
 export function DeathScreen({ run }: DeathScreenProps) {
 	const summary = selectRunSummaryView(run.state);
+	const headingRef = useRef<HTMLHeadingElement>(null);
+
+	useEffect(() => {
+		headingRef.current?.focus();
+	}, []);
 
 	if (!summary) {
 		return (
 			<GameLayout>
-				<div className="flex min-h-0 flex-1 items-center justify-center bg-bg-base px-4 text-base text-text">
-					<Card
-						title="RUN TERMINATED"
-						className="w-full max-w-xl text-center"
-						contentClassName="grid justify-items-center gap-4 p-4"
-					>
-						<h1 className="text-base text-error">You were slain</h1>
+				<div className="min-h-0 flex-1 overflow-y-auto bg-bg-base px-4 py-6 text-base text-text">
+					<section className={getContentClassName("max-w-xl")}>
+						<h1
+							ref={headingRef}
+							tabIndex={-1}
+							className="text-base text-error outline-none"
+						>
+							YOU WERE SLAIN
+						</h1>
 						<p className="text-text-muted">
 							The run has ended, and the road ahead belongs to another hero.
 						</p>
@@ -32,7 +38,7 @@ export function DeathScreen({ run }: DeathScreenProps) {
 								Try Again
 							</Link>
 						</div>
-					</Card>
+					</section>
 				</div>
 			</GameLayout>
 		);
@@ -44,17 +50,19 @@ export function DeathScreen({ run }: DeathScreenProps) {
 
 	return (
 		<GameLayout>
-			<div className="flex min-h-0 flex-1 items-center justify-center bg-bg-base px-4 py-6 text-base text-text">
-				<Card
-					title="RUN TERMINATED"
-					className="w-full max-w-2xl text-center"
-					contentClassName="grid justify-items-center gap-5 p-4"
-				>
+			<div className="min-h-0 flex-1 overflow-y-auto bg-bg-base px-4 py-6 text-base text-text">
+				<section className={getContentClassName("max-w-2xl")}>
 					<header className="grid justify-items-center gap-3">
-						<p className="text-error">You were slain</p>
+						<h1
+							ref={headingRef}
+							tabIndex={-1}
+							className="text-base text-error outline-none"
+						>
+							YOU WERE SLAIN
+						</h1>
 						<p className="max-w-xl text-text-muted">
-							The dungeon falls quiet. Your wounds are too deep, your pack too heavy,
-							and your story ends in the dark.
+							The dungeon falls quiet. Your wounds are too deep, and your story ends
+							in the dark.
 						</p>
 					</header>
 
@@ -71,7 +79,7 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							className="grid w-full max-w-xl gap-2 border-2 border-border bg-bg-panel p-3 text-left"
 							aria-label="Final moments"
 						>
-							<SectionHeading title="Final Moments" />
+							<h2 className="text-base text-info">Final Moments</h2>
 							<div className="grid gap-1">
 								{finalMomentEntries.map((entry) => (
 									<p key={entry.id} className={getLogEntryClassName(entry)}>
@@ -88,10 +96,14 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							Try Again
 						</Link>
 					</div>
-				</Card>
+				</section>
 			</div>
 		</GameLayout>
 	);
+}
+
+function getContentClassName(maxWidth: string): string {
+	return `mx-auto grid min-h-full w-full ${maxWidth} content-center justify-items-center gap-5 text-center`;
 }
 
 function getLogEntryClassName(entry: CombatLogEntry): string {

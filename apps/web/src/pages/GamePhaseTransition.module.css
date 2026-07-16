@@ -1,0 +1,35 @@
+.transitionFrame {
+	height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.transitionFrame {
+		animation: game-phase-exit 750ms ease-in both;
+	}
+
+	.entrance {
+		height: 100%;
+		animation: game-phase-entrance 250ms ease-out both;
+	}
+}
+
+@keyframes game-phase-exit {
+	0%,
+	66.666% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes game-phase-entrance {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}

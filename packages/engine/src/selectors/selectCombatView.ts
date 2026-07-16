@@ -29,7 +29,8 @@ export type CombatViewState = {
 };
 
 export function selectCombatView(state: RunState): CombatViewState | null {
-	if (state.phase !== "combat" || !state.combat) {
+	// Dead runs retain their resolved combat so the UI can present the authoritative final frame.
+	if ((state.phase !== "combat" && state.phase !== "dead") || !state.combat) {
 		return null;
 	}
 

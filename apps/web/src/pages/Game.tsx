@@ -10,6 +10,7 @@ import {
 	FinalBossVictoryModalController,
 	VictoryScreen,
 } from "../features/runSummary";
+import { GamePhaseTransition } from "./GamePhaseTransition";
 
 export default function Game() {
 	const { data, isPending } = useGameRun();
@@ -45,7 +46,7 @@ export default function Game() {
 
 	return (
 		<>
-			{view}
+			<GamePhaseTransition run={run}>{view}</GamePhaseTransition>
 			<LevelUpModalController run={run} />
 			<RewardModalController run={run} />
 			<FinalBossVictoryModalController run={run} />
