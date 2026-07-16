@@ -6,7 +6,7 @@ import {
 } from "../../../components/ActionBar";
 import restIcon from "../../../assets/images/actions/Skill_Rest.png";
 import rerollIcon from "../../../assets/images/actions/Skill_Dice.png";
-import enterCombatIcon from "../../../assets/images/actions/Skill_Move.png";
+import enterCombatIcon from "../../../assets/images/actions/Skill_Swords.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 import {
