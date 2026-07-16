@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import { createPortal } from "react-dom";
+import { Dialog } from "radix-ui";
 import clsx from "clsx";
 import { PanelTitle } from "./PanelTitle";
 
@@ -8,7 +8,7 @@ type ModalProps = PropsWithChildren<{
 	title: string;
 	onClose: () => void;
 	footer?: ReactNode;
-	closeOnBackdropClick?: boolean;
+	dismissible?: boolean;
 	className?: string;
 }>;
 
@@ -17,45 +17,50 @@ export function Modal({
 	title,
 	onClose,
 	footer,
-	closeOnBackdropClick = true,
+	dismissible = true,
 	className,
 	children,
 }: ModalProps) {
-	if (!open) {
-		return null;
+	function preventDismiss(event: Event) {
+		if (!dismissible) {
+			event.preventDefault();
+		}
 	}
 
-	return createPortal(
-		<div
-			className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-4"
-			onMouseDown={(event) => {
-				if (closeOnBackdropClick && event.target === event.currentTarget) {
+	return (
+		<Dialog.Root
+			open={open}
+			onOpenChange={(nextOpen) => {
+				if (!nextOpen) {
 					onClose();
 				}
 			}}
 		>
-			<div
-				role="dialog"
-				aria-modal="true"
-				aria-label={title}
-				className={clsx(
-					"relative w-full max-w-md border-2 border-border bg-bg-elevated",
-					className,
-				)}
-			>
-				<header>
-					<PanelTitle title={title} />
-				</header>
+			<Dialog.Portal>
+				<Dialog.Overlay className="fixed inset-0 z-50 bg-black/70" />
+				<Dialog.Content
+					onEscapeKeyDown={preventDismiss}
+					onPointerDownOutside={preventDismiss}
+					className={clsx(
+						"fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 flex-col border-2 border-border bg-bg-elevated outline-none",
+						className,
+					)}
+				>
+					<header>
+						<Dialog.Title asChild>
+							<PanelTitle title={title} align="center" />
+						</Dialog.Title>
+					</header>
 
-				<div className="p-4">{children}</div>
+					<div className="min-h-0 overflow-y-auto px-4 pb-4 pt-6">{children}</div>
 
-				{footer && (
-					<footer className="flex justify-end gap-4 border-t-2 border-border px-4 py-3">
-						{footer}
-					</footer>
-				)}
-			</div>
-		</div>,
-		document.body,
+					{footer && (
+						<footer className="flex shrink-0 flex-wrap justify-end gap-4 px-4 pb-4">
+							{footer}
+						</footer>
+					)}
+				</Dialog.Content>
+			</Dialog.Portal>
+		</Dialog.Root>
 	);
 }

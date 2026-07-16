@@ -56,7 +56,7 @@ export function EquipmentSlotReplacementModal({
 			open
 			title="Choose Slot"
 			onClose={onCancel}
-			closeOnBackdropClick={!isPending}
+			dismissible={!isPending}
 			className="max-w-2xl"
 			footer={
 				<>

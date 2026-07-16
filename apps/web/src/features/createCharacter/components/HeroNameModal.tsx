@@ -48,7 +48,7 @@ export function HeroNameModal({
 			open
 			title={`NAME YOUR ${heroClassName.toUpperCase()}`}
 			onClose={onClose}
-			closeOnBackdropClick={!isSubmitting}
+			dismissible={!isSubmitting}
 			footer={
 				<>
 					<Button type="button" onClick={onClose} disabled={isSubmitting}>

@@ -43,7 +43,7 @@ export function RewardModal({
 			open
 			title="Choose Reward"
 			onClose={() => undefined}
-			closeOnBackdropClick={false}
+			dismissible={false}
 			className="max-w-2xl"
 			footer={
 				<Button
