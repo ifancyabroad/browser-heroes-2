@@ -125,6 +125,15 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
+	function handleSwapWeapons() {
+		submitAction(
+			{
+				type: "SWAP_HAND_WEAPONS",
+			},
+			"Unable to swap weapons. Please try again.",
+		);
+	}
+
 	function handleOpenSidebar() {
 		setSidebarOpen(true);
 	}
@@ -143,7 +152,10 @@ export function TownView({ run }: TownViewProps) {
 					gold={townView.gold}
 					zone={townView.zone}
 					open={sidebarOpen}
+					canSwapWeapons={availableActionTypes.has("SWAP_HAND_WEAPONS")}
+					isPending={applyRunAction.isPending}
 					onClose={handleCloseSidebar}
+					onSwapWeapons={handleSwapWeapons}
 				/>
 
 				<GameMainPanel

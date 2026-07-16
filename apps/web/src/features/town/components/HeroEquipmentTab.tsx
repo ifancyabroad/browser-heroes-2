@@ -1,15 +1,19 @@
 import { equipmentSlots, ITEMS_BY_ID } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
+import { Button } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../game/itemDisplay";
 
 type HeroEquipmentTabProps = {
 	equipment: HeroView["equipment"];
+	canSwap: boolean;
+	isPending: boolean;
+	onSwap: () => void;
 };
 
-export function HeroEquipmentTab({ equipment }: HeroEquipmentTabProps) {
+export function HeroEquipmentTab({ equipment, canSwap, isPending, onSwap }: HeroEquipmentTabProps) {
 	return (
 		<div className="grid gap-2">
 			{equipmentSlots.map((slot) => {
@@ -40,6 +44,10 @@ export function HeroEquipmentTab({ equipment }: HeroEquipmentTabProps) {
 					</div>
 				);
 			})}
+
+			<Button type="button" disabled={!canSwap || isPending} onClick={onSwap}>
+				Swap Weapons
+			</Button>
 		</div>
 	);
 }

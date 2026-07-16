@@ -18,7 +18,10 @@ type HeroSidebarProps = {
 	gold: number;
 	zone: Zone;
 	open: boolean;
+	canSwapWeapons: boolean;
+	isPending: boolean;
 	onClose: () => void;
+	onSwapWeapons: () => void;
 };
 
 type HeroSidebarTab = "details" | "equipment" | "skills";
@@ -36,7 +39,10 @@ export function HeroSidebar({
 	gold,
 	zone,
 	open,
+	canSwapWeapons,
+	isPending,
 	onClose,
+	onSwapWeapons,
 }: HeroSidebarProps) {
 	const [activeTab, setActiveTab] = useState<HeroSidebarTab>("details");
 
@@ -103,7 +109,14 @@ export function HeroSidebar({
 				tabIndex={0}
 			>
 				{activeTab === "details" && <HeroDetailsTab heroView={heroView} />}
-				{activeTab === "equipment" && <HeroEquipmentTab equipment={heroView.equipment} />}
+				{activeTab === "equipment" && (
+					<HeroEquipmentTab
+						equipment={heroView.equipment}
+						canSwap={canSwapWeapons}
+						isPending={isPending}
+						onSwap={onSwapWeapons}
+					/>
+				)}
 				{activeTab === "skills" && (
 					<HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />
 				)}
