@@ -42,7 +42,10 @@ export function RewardModalController({ run }: RewardModalControllerProps) {
 				onSuccess: ({ result }) => {
 					if (!result.ok) {
 						showError(getEngineErrorMessage(result.error));
+						return;
 					}
+
+					setReplacementOption(null);
 				},
 				onError: () => {
 					showError("Unable to select the reward. Please try again.");
