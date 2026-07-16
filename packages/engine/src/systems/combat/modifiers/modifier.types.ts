@@ -4,6 +4,7 @@ import type {
 	FeatId,
 	ItemId,
 	ModifierOperation,
+	PassiveDamageModifier,
 	PassiveModifier,
 } from "@app/content";
 
@@ -61,4 +62,16 @@ export type DerivedDamageAffinities = {
 	resistances: DerivedDamageAffinity[];
 	immunities: DerivedDamageAffinity[];
 	vulnerabilities: DerivedDamageAffinity[];
+};
+
+export type DerivedDamageModifierContribution = {
+	source: ModifierSource;
+	modifierValue: number;
+};
+
+export type DerivedDamageModifier = {
+	damageType?: DamageType;
+	operation: PassiveDamageModifier["operation"];
+	value: number;
+	contributions: DerivedDamageModifierContribution[];
 };

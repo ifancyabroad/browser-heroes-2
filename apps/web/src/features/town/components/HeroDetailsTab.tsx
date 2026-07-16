@@ -2,8 +2,12 @@ import { attributes } from "@app/content";
 import type { HeroView } from "@app/engine";
 import { Badge } from "../../../components/Badge";
 import { Tooltip } from "../../../components/Tooltip";
+import {
+	DamageAffinityTooltipContent,
+	DamageModifierTooltipContent,
+} from "../../../components/tooltips/DamageTooltipContent";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
-import { EmptySidebarText, HeroSidebarSection, SidebarValueList } from "./HeroSidebarPrimitives";
+import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
 import {
 	armourTypeLabels,
 	attributeLabels,
@@ -13,14 +17,8 @@ import {
 	damageTypeLabels,
 	weaponTypeLabels,
 } from "../../../game/displayLabels";
-import {
-	formatModifierValue,
-	getNumericModifierTone,
-	getToneTextClassName,
-} from "../../../game/effectDisplay";
+import { formatModifierValue } from "../../../game/effectDisplay";
 import { HeroStatValue, type HeroDerivedValue } from "./HeroStatValue";
-
-type DamageModifier = HeroView["combatStats"]["damageModifiers"][number]["modifier"];
 
 type StatGridItem = {
 	label: string;
@@ -87,20 +85,16 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			value: heroView.combatStats.healingMultiplier,
 		},
 	];
-	const resistanceValues = getActiveAffinityLabels(
-		heroView.combatStats.damageAffinities.resistances,
-	);
-	const immunityValues = getActiveAffinityLabels(
-		heroView.combatStats.damageAffinities.immunities,
-	);
-	const vulnerabilityValues = getActiveAffinityLabels(
+	const resistances = getActiveAffinities(heroView.combatStats.damageAffinities.resistances);
+	const immunities = getActiveAffinities(heroView.combatStats.damageAffinities.immunities);
+	const vulnerabilities = getActiveAffinities(
 		heroView.combatStats.damageAffinities.vulnerabilities,
 	);
-	const damageModifiers = heroView.combatStats.damageModifiers.map(({ modifier }) => modifier);
+	const damageModifiers = heroView.combatStats.damageModifiers;
 	const hasDamageDetails =
-		resistanceValues.length > 0 ||
-		immunityValues.length > 0 ||
-		vulnerabilityValues.length > 0 ||
+		resistances.length > 0 ||
+		immunities.length > 0 ||
+		vulnerabilities.length > 0 ||
 		damageModifiers.length > 0;
 
 	return (
@@ -115,15 +109,27 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 
 			{hasDamageDetails && (
 				<HeroSidebarSection title="Damage">
-					<div className="grid gap-3">
-						{resistanceValues.length > 0 && (
-							<ValueGroup label="Resist" values={resistanceValues} />
+					<div className="grid gap-2">
+						{resistances.length > 0 && (
+							<DamageAffinityGroup
+								label="Resist"
+								affinityLabel="Resistance"
+								affinities={resistances}
+							/>
 						)}
-						{immunityValues.length > 0 && (
-							<ValueGroup label="Immune" values={immunityValues} />
+						{immunities.length > 0 && (
+							<DamageAffinityGroup
+								label="Immune"
+								affinityLabel="Immunity"
+								affinities={immunities}
+							/>
 						)}
-						{vulnerabilityValues.length > 0 && (
-							<ValueGroup label="Weak" values={vulnerabilityValues} />
+						{vulnerabilities.length > 0 && (
+							<DamageAffinityGroup
+								label="Weak"
+								affinityLabel="Vulnerability"
+								affinities={vulnerabilities}
+							/>
 						)}
 						{damageModifiers.length > 0 && (
 							<DamageModifierList modifiers={damageModifiers} />
@@ -189,18 +195,45 @@ function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 }
 
 type AffinityCollection = HeroView["combatStats"]["damageAffinities"]["resistances"];
+type DamageAffinity = AffinityCollection[number];
+type DamageModifierGroup = HeroView["combatStats"]["damageModifiers"][number];
 
-function getActiveAffinityLabels(affinities: AffinityCollection) {
-	return affinities
-		.filter((affinity) => affinity.value)
-		.map((affinity) => damageTypeLabels[affinity.damageType]);
+function getActiveAffinities(affinities: AffinityCollection) {
+	return affinities.filter((affinity) => affinity.value);
 }
 
-function ValueGroup({ label, values }: { label: string; values: readonly string[] }) {
+type DamageAffinityGroupProps = {
+	label: string;
+	affinityLabel: string;
+	affinities: readonly DamageAffinity[];
+};
+
+function DamageAffinityGroup({ label, affinityLabel, affinities }: DamageAffinityGroupProps) {
 	return (
-		<div className="grid grid-cols-[7rem_minmax(0,1fr)] items-start gap-3">
-			<p className="text-text-label">{label}</p>
-			<SidebarValueList values={values} />
+		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3">
+			<p className="py-0.5 text-text-label">{label}</p>
+			<ul className="flex flex-wrap gap-1">
+				{affinities.map((affinity) => (
+					<li key={affinity.damageType} className="flex">
+						<Tooltip
+							content={
+								<DamageAffinityTooltipContent
+									affinity={affinity}
+									affinityLabel={affinityLabel}
+								/>
+							}
+							contentClassName="w-64 max-w-[calc(100vw-1rem)]"
+							className="!flex focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						>
+							<Badge
+								label={damageTypeLabels[affinity.damageType]}
+								variant="muted"
+								textTone="bright"
+							/>
+						</Tooltip>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
@@ -213,7 +246,7 @@ function ProficiencyGroup({ label, values }: { label: string; values: readonly s
 				<ul className="flex flex-wrap gap-1">
 					{values.map((value) => (
 						<li key={value} className="flex">
-							<Badge label={value} variant="muted" />
+							<Badge label={value} variant="muted" textTone="bright" />
 						</li>
 					))}
 				</ul>
@@ -224,33 +257,38 @@ function ProficiencyGroup({ label, values }: { label: string; values: readonly s
 	);
 }
 
-function DamageModifierList({ modifiers }: { modifiers: DamageModifier[] }) {
+function DamageModifierList({ modifiers }: { modifiers: readonly DamageModifierGroup[] }) {
 	return (
-		<div className="grid gap-1">
-			<p className="text-text-label">Modifiers</p>
-			<ul className="grid gap-1">
-				{modifiers.map((modifier, index) => (
-					<li
-						key={`${modifier.damageType ?? "all"}-${modifier.operation}-${modifier.value}-${index}`}
-						className="flex items-center justify-between gap-3"
-					>
-						<span>
-							{modifier.damageType ? damageTypeLabels[modifier.damageType] : "All"}
-						</span>
-						<span className={getDamageModifierClassName(modifier)}>
-							{formatDamageModifierValue(modifier)}
-						</span>
-					</li>
-				))}
+		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3">
+			<p className="py-0.5 text-text-label">Bonus</p>
+			<ul className="flex flex-wrap gap-1">
+				{modifiers.map((modifierGroup) => {
+					const damageTypeLabel = modifierGroup.damageType
+						? damageTypeLabels[modifierGroup.damageType]
+						: "All";
+					const badgeLabel = `${formatModifierValue(
+						modifierGroup.operation,
+						modifierGroup.value,
+					)} ${damageTypeLabel}`;
+
+					return (
+						<li
+							key={`${modifierGroup.damageType ?? "all"}-${modifierGroup.operation}`}
+							className="flex"
+						>
+							<Tooltip
+								content={
+									<DamageModifierTooltipContent modifierGroup={modifierGroup} />
+								}
+								contentClassName="w-64 max-w-[calc(100vw-1rem)]"
+								className="!flex focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+							>
+								<Badge label={badgeLabel} variant="muted" textTone="bright" />
+							</Tooltip>
+						</li>
+					);
+				})}
 			</ul>
 		</div>
 	);
-}
-
-function formatDamageModifierValue(modifier: DamageModifier) {
-	return formatModifierValue(modifier.operation, modifier.value);
-}
-
-function getDamageModifierClassName(modifier: DamageModifier) {
-	return getToneTextClassName(getNumericModifierTone(modifier.operation, modifier.value));
 }

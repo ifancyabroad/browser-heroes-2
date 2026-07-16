@@ -1,5 +1,6 @@
 import type { DamageType } from "@app/content";
 import type { CombatantState } from "../../../schemas";
+import { combineModifierValues } from "../modifiers/modifierOperations";
 
 type ApplyDamageModifiersInput = {
 	baseAmount: number;
@@ -12,11 +13,17 @@ export function applyDamageModifiers(input: ApplyDamageModifiersInput): number {
 		(modifier) => !modifier.damageType || modifier.damageType === input.damageType,
 	);
 
-	const afterAdditions = applicableModifiers
-		.filter((modifier) => modifier.operation === "add")
-		.reduce((amount, modifier) => amount + modifier.value, input.baseAmount);
+	const afterAdditions = combineModifierValues("add", [
+		input.baseAmount,
+		...applicableModifiers
+			.filter((modifier) => modifier.operation === "add")
+			.map((modifier) => modifier.value),
+	]);
 
-	return applicableModifiers
-		.filter((modifier) => modifier.operation === "multiply")
-		.reduce((amount, modifier) => amount * modifier.value, afterAdditions);
+	return combineModifierValues("multiply", [
+		afterAdditions,
+		...applicableModifiers
+			.filter((modifier) => modifier.operation === "multiply")
+			.map((modifier) => modifier.value),
+	]);
 }

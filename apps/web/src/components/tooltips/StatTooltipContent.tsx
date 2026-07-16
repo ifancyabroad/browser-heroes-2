@@ -1,7 +1,8 @@
-import { CLASSES_BY_ID, FEATS_BY_ID, ITEMS_BY_ID, type Attribute } from "@app/content";
+import type { Attribute } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
 import { formatModifierValue, getNumberTone, getToneTextClassName } from "../../game/effectDisplay";
+import { getModifierSourceLabel } from "../../game/modifierSourceDisplay";
 
 type StatValue = HeroView["attributes"][Attribute];
 type StatContribution = StatValue["contributions"][number];
@@ -28,7 +29,7 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 							className="flex items-baseline justify-between gap-3"
 						>
 							<span className="min-w-0 break-words">
-								{getContributionSourceLabel(contribution.source)}
+								{getModifierSourceLabel(contribution.source)}
 							</span>
 							<span
 								className={clsx(
@@ -44,17 +45,6 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 			)}
 		</div>
 	);
-}
-
-function getContributionSourceLabel(source: StatContribution["source"]) {
-	switch (source.type) {
-		case "item":
-			return ITEMS_BY_ID[source.itemId].name;
-		case "feat":
-			return FEATS_BY_ID[source.featId].name;
-		case "class":
-			return CLASSES_BY_ID[source.classId].name;
-	}
 }
 
 function formatContribution(contribution: StatContribution) {

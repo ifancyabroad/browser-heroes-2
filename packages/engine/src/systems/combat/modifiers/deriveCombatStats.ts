@@ -1,14 +1,16 @@
-import type { DamageAffinities, PassiveDamageModifier } from "@app/content";
+import type { DamageAffinities } from "@app/content";
 
 import type { CombatantCombatStats } from "../../../schemas";
 
 import { deriveDamageAffinities, toDamageAffinities } from "./deriveDamageAffinities";
-import type { DerivedDamageAffinities, DerivedValue, ResolvedModifier } from "./modifier.types";
+import { deriveDamageModifiers, toDamageModifiers } from "./deriveDamageModifiers";
+import type {
+	DerivedDamageAffinities,
+	DerivedDamageModifier,
+	DerivedValue,
+	ResolvedModifier,
+} from "./modifier.types";
 import { resolveModifiedStat } from "./resolveModifiedStat";
-
-export type ResolvedDamageModifier = ResolvedModifier & {
-	modifier: PassiveDamageModifier;
-};
 
 export type DerivedCombatStats = {
 	armourClass: DerivedValue;
@@ -21,7 +23,7 @@ export type DerivedCombatStats = {
 	damageReduction: DerivedValue;
 	healingMultiplier: DerivedValue;
 	damageAffinities: DerivedDamageAffinities;
-	damageModifiers: ResolvedDamageModifier[];
+	damageModifiers: DerivedDamageModifier[];
 };
 
 type DeriveCombatStatsInput = {
@@ -59,7 +61,7 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 
 		damageAffinities: deriveDamageAffinities(input.baseDamageAffinities, modifiers),
 
-		damageModifiers: modifiers.filter(isResolvedDamageModifier),
+		damageModifiers: deriveDamageModifiers(modifiers),
 	};
 }
 
@@ -76,12 +78,6 @@ function resolveNonNegativeIntegerStat(
 	};
 }
 
-function isResolvedDamageModifier(
-	resolvedModifier: ResolvedModifier,
-): resolvedModifier is ResolvedDamageModifier {
-	return resolvedModifier.modifier.type === "modifyDamage";
-}
-
 export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCombatStats {
 	return {
 		armourClass: derived.armourClass.value,
@@ -94,6 +90,6 @@ export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCo
 		damageReduction: derived.damageReduction.value,
 		healingMultiplier: derived.healingMultiplier.value,
 		damageAffinities: toDamageAffinities(derived.damageAffinities),
-		damageModifiers: derived.damageModifiers.map(({ modifier }) => modifier),
+		damageModifiers: toDamageModifiers(derived.damageModifiers),
 	};
 }
