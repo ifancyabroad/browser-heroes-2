@@ -18,7 +18,7 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 	const effectGroups = groupEffectsBySource(effects);
 
 	return (
-		<div className="min-h-7" aria-label={label}>
+		<div className="min-h-8" aria-label={label}>
 			{effectGroups.length > 0 && (
 				<div className="flex flex-wrap gap-1">
 					{effectGroups.map((group) => {
@@ -31,10 +31,9 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 										effects={group.effects}
 									/>
 								}
-								contentClassName="w-56 max-w-[calc(100vw-1rem)] sm:w-64"
 							>
 								<span
-									className="relative block h-7 w-7 overflow-hidden border-2 border-bg-elevated bg-bg-elevated"
+									className="block h-8 w-8 overflow-hidden border-2 border-bg-elevated bg-bg-elevated"
 									aria-label={`${group.sourceName} active effects`}
 								>
 									<img
@@ -44,11 +43,6 @@ export function ActiveEffectsRow({ effects, label }: ActiveEffectsRowProps) {
 										className="h-full w-full scale-110 object-cover"
 										aria-hidden
 									/>
-									{group.effects.length > 1 && (
-										<span className="absolute bottom-0 right-0 bg-bg-base/90 px-1 text-text-bright">
-											{group.effects.length}
-										</span>
-									)}
 								</span>
 							</Tooltip>
 						);
@@ -73,9 +67,9 @@ type ActiveEffectTooltipContentProps = {
 
 function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltipContentProps) {
 	return (
-		<div className="grid gap-2">
-			<p className="break-words">{sourceName}</p>
-			<ul className="grid gap-2 border-t-2 border-border/70 pt-2">
+		<div className="grid gap-1">
+			<p className="break-words text-text-bright">{sourceName}</p>
+			<ul className="grid gap-1">
 				{effects.map((effect) => (
 					<li key={effect.id} className="flex items-baseline justify-between gap-3">
 						<span
