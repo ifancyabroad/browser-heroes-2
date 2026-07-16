@@ -67,6 +67,7 @@ export type DerivedDamageAffinities = {
 export type DerivedDamageModifierContribution = {
 	source: ModifierSource;
 	modifierValue: number;
+	order: number;
 };
 
 export type DerivedDamageModifier = {
