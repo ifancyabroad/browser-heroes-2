@@ -76,6 +76,10 @@ export const retireRunActionSchema = z.object({
 	type: z.literal("RETIRE_RUN"),
 });
 
+export const swapHandWeaponsActionSchema = z.object({
+	type: z.literal("SWAP_HAND_WEAPONS"),
+});
+
 export const engineActionSchema = z.discriminatedUnion("type", [
 	enterCombatActionSchema,
 	playerBasicAttackActionSchema,
@@ -91,6 +95,7 @@ export const engineActionSchema = z.discriminatedUnion("type", [
 	playerSkipTurnActionSchema,
 	selectRewardActionSchema,
 	retireRunActionSchema,
+	swapHandWeaponsActionSchema,
 ]);
 
 export type GhostEncounter = z.infer<typeof ghostEncounterSchema>;
@@ -108,5 +113,6 @@ export type CompleteLevelUpAction = z.infer<typeof completeLevelUpActionSchema>;
 export type PlayerSkipTurnAction = z.infer<typeof playerSkipTurnActionSchema>;
 export type SelectRewardAction = z.infer<typeof selectRewardActionSchema>;
 export type RetireRunAction = z.infer<typeof retireRunActionSchema>;
+export type SwapHandWeaponsAction = z.infer<typeof swapHandWeaponsActionSchema>;
 
 export type EngineAction = z.infer<typeof engineActionSchema>;

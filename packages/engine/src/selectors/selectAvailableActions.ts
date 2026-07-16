@@ -10,6 +10,7 @@ import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import { isFinalBossVictory } from "../systems/endless/endlessProgression";
+import { canSwapHandWeapons } from "../systems/equipment/canSwapHandWeapons";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -175,6 +176,12 @@ function getTownActions(state: RunState): EngineAction[] {
 		actions.push({
 			type: "BUY_CONSUMABLE",
 			consumableType: "healingPotion",
+		});
+	}
+
+	if (canSwapHandWeapons(state)) {
+		actions.push({
+			type: "SWAP_HAND_WEAPONS",
 		});
 	}
 

@@ -12,6 +12,7 @@ import { buyItem } from "../systems/town/buyItem";
 import { useConsumable } from "../systems/consumables/useConsumable";
 import { buyConsumable } from "../systems/town/buyConsumable";
 import { retireRun } from "../systems/endless/retireRun";
+import { swapHandWeapons } from "../systems/equipment/swapHandWeapons";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -52,6 +53,9 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "RETIRE_RUN":
 			return retireRun(state);
+
+		case "SWAP_HAND_WEAPONS":
+			return swapHandWeapons(state);
 
 		default:
 			return failureResult(state, "INVALID_ACTION");
