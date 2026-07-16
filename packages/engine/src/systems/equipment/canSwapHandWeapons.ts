@@ -1,5 +1,5 @@
 import type { RunState } from "../../schemas";
-import { getEquippedWeapon } from "../combat/equipment/getEquippedWeapon";
+import { getEquippedWeapon } from "./getEquippedWeapon";
 
 export function canSwapHandWeapons(state: RunState): boolean {
 	if (state.phase !== "town") {

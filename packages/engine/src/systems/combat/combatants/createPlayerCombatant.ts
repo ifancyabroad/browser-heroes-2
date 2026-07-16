@@ -2,7 +2,7 @@ import type { CombatantBasicAttack, CombatantState, HeroState } from "../../../s
 
 import { createCombatantId } from "../../../core/ids";
 import { PLAYER_UNARMED_ATTACK } from "../constants/combatDefaults";
-import { getEquippedWeapon } from "../equipment/getEquippedWeapon";
+import { getEquippedWeapon } from "../../equipment/getEquippedWeapon";
 import { isHeroWeaponProficient } from "../equipment/weaponProficiency";
 import { toCombatantCombatStats } from "../modifiers/deriveCombatStats";
 import { createCombatantSkillFromHeroSkill } from "./combatantSkills";

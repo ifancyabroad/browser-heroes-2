@@ -1,6 +1,6 @@
 import type { HeroEquipmentState } from "../../../schemas";
 import { calculateAttributeModifier } from "../../../core/attributes";
-import { getEquippedBodyArmour, type BodyArmour } from "./getEquippedBodyArmour";
+import { getEquippedBodyArmour, type BodyArmour } from "../../equipment/getEquippedBodyArmour";
 
 export function calculateBaseArmourClass(
 	equipment: HeroEquipmentState,
