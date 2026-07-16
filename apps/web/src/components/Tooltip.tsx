@@ -1,28 +1,12 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import { useState } from "react";
-import {
-	autoUpdate,
-	flip,
-	FloatingDelayGroup,
-	FloatingPortal,
-	offset,
-	shift,
-	useDelayGroup,
-	useDismiss,
-	useFloating,
-	useFocus,
-	useHover,
-	useInteractions,
-	useRole,
-	type Placement,
-} from "@floating-ui/react";
+import { Tooltip as TooltipPrimitive } from "radix-ui";
 import clsx from "clsx";
 
 type TooltipProviderProps = PropsWithChildren;
 
 type TooltipProps = PropsWithChildren<{
 	content: ReactNode;
-	placement?: Placement;
+	placement?: "top" | "right" | "bottom" | "left";
 	disabled?: boolean;
 	className?: string;
 	contentClassName?: string;
@@ -31,9 +15,13 @@ type TooltipProps = PropsWithChildren<{
 
 export function TooltipProvider({ children }: TooltipProviderProps) {
 	return (
-		<FloatingDelayGroup delay={{ open: 350, close: 100 }} timeoutMs={500}>
+		<TooltipPrimitive.Provider
+			delayDuration={350}
+			skipDelayDuration={500}
+			disableHoverableContent
+		>
 			{children}
-		</FloatingDelayGroup>
+		</TooltipPrimitive.Provider>
 	);
 }
 
@@ -46,53 +34,38 @@ export function Tooltip({
 	referenceTabIndex = 0,
 	children,
 }: TooltipProps) {
-	const [open, setOpen] = useState(false);
 	const enabled = !disabled && content !== null && content !== undefined;
 
-	const { refs, floatingStyles, context } = useFloating({
-		open: enabled ? open : false,
-		onOpenChange: setOpen,
-		placement,
-		strategy: "fixed",
-		middleware: [offset(8), flip(), shift({ padding: 8, crossAxis: true })],
-		whileElementsMounted: autoUpdate,
-	});
+	const trigger = (
+		<span
+			className={clsx("inline-block", enabled && "cursor-help", className)}
+			tabIndex={enabled ? (referenceTabIndex ?? undefined) : undefined}
+		>
+			{children}
+		</span>
+	);
 
-	const { delay } = useDelayGroup(context);
-	const hover = useHover(context, { delay, enabled, move: false });
-	const focus = useFocus(context, { enabled });
-	const dismiss = useDismiss(context, { enabled });
-	const role = useRole(context, { enabled, role: "tooltip" });
-	const { getReferenceProps, getFloatingProps } = useInteractions([hover, focus, dismiss, role]);
+	if (!enabled) {
+		return trigger;
+	}
 
 	return (
-		<>
-			<span
-				ref={refs.setReference}
-				className={clsx("inline-block", enabled && "cursor-help", className)}
-				{...getReferenceProps({
-					tabIndex: enabled ? (referenceTabIndex ?? undefined) : undefined,
-				})}
-			>
-				{children}
-			</span>
-
-			{enabled && open && (
-				<FloatingPortal>
-					<div
-						ref={refs.setFloating}
-						style={floatingStyles}
-						className={clsx(
-							"pointer-events-none z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text",
-							!contentClassName && "max-w-sm",
-							contentClassName,
-						)}
-						{...getFloatingProps()}
-					>
-						{content}
-					</div>
-				</FloatingPortal>
-			)}
-		</>
+		<TooltipPrimitive.Root>
+			<TooltipPrimitive.Trigger asChild>{trigger}</TooltipPrimitive.Trigger>
+			<TooltipPrimitive.Portal>
+				<TooltipPrimitive.Content
+					side={placement}
+					sideOffset={8}
+					collisionPadding={8}
+					className={clsx(
+						"pointer-events-none z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text",
+						!contentClassName && "max-w-sm",
+						contentClassName,
+					)}
+				>
+					{content}
+				</TooltipPrimitive.Content>
+			</TooltipPrimitive.Portal>
+		</TooltipPrimitive.Root>
 	);
 }

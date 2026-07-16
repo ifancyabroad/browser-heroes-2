@@ -1,4 +1,5 @@
 import type { LevelUpOption, LevelUpSelection } from "@app/engine";
+import { RadioGroup } from "radix-ui";
 import { LevelUpOptionCard } from "./LevelUpOptionCard";
 
 type LevelUpOptionListProps = {
@@ -14,23 +15,40 @@ export function LevelUpOptionList({
 	disabled,
 	onSelect,
 }: LevelUpOptionListProps) {
+	function handleValueChange(value: string) {
+		const option = options.find((candidate) => getOptionKey(candidate) === value);
+		if (option) {
+			onSelect(toSelection(option));
+		}
+	}
+
 	return (
-		<div className="grid gap-2" role="radiogroup" aria-label="Level-up choices">
+		<RadioGroup.Root
+			value={selection ? getSelectionKey(selection) : ""}
+			onValueChange={handleValueChange}
+			disabled={disabled}
+			className="grid gap-2"
+			aria-label="Level-up choices"
+		>
 			{options.map((option) => (
 				<LevelUpOptionCard
 					key={getOptionKey(option)}
 					option={option}
+					value={getOptionKey(option)}
 					selected={isSelectedOption(option, selection)}
 					disabled={disabled}
-					onSelect={() => onSelect(toSelection(option))}
 				/>
 			))}
-		</div>
+		</RadioGroup.Root>
 	);
 }
 
 function getOptionKey(option: LevelUpOption) {
 	return option.type === "skill" ? `skill-${option.skillId}` : `feat-${option.featId}`;
+}
+
+function getSelectionKey(selection: LevelUpSelection) {
+	return selection.type === "skill" ? `skill-${selection.skillId}` : `feat-${selection.featId}`;
 }
 
 function isSelectedOption(option: LevelUpOption, selection: LevelUpSelection | null) {

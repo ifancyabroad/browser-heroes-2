@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { LevelUpOption } from "@app/engine";
+import { RadioGroup } from "radix-ui";
 import { Tooltip } from "../../../components/Tooltip";
 import { Badge } from "../../../components/Badge";
 import { getSelectionClassName } from "../../../components/ControlStyles";
@@ -10,17 +11,12 @@ import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLa
 
 type LevelUpOptionCardProps = {
 	option: LevelUpOption;
+	value: string;
 	selected: boolean;
 	disabled: boolean;
-	onSelect: () => void;
 };
 
-export function LevelUpOptionCard({
-	option,
-	selected,
-	disabled,
-	onSelect,
-}: LevelUpOptionCardProps) {
+export function LevelUpOptionCard({ option, value, selected, disabled }: LevelUpOptionCardProps) {
 	const content = getOptionContent(option);
 	const tooltipContent = getOptionTooltipContent(option);
 
@@ -30,43 +26,42 @@ export function LevelUpOptionCard({
 			placement="right"
 			className="!block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+			referenceTabIndex={null}
 		>
-			<button
-				type="button"
-				role="radio"
-				aria-checked={selected}
-				disabled={disabled}
-				onClick={onSelect}
-				className={clsx(
-					"grid w-full gap-3 border-2 bg-bg-panel p-3 text-left text-base",
-					content.metaLabel
-						? "grid-cols-[3rem_minmax(0,1fr)_auto]"
-						: "grid-cols-[3rem_minmax(0,1fr)]",
-					getSelectionClassName({ selected, disabled }),
-				)}
-			>
-				<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
-					<img
-						src={content.icon}
-						alt=""
-						loading="lazy"
-						className="h-full w-full object-cover"
-						aria-hidden
-					/>
-				</span>
+			<RadioGroup.Item value={value} disabled={disabled} asChild>
+				<button
+					type="button"
+					className={clsx(
+						"grid w-full gap-3 border-2 bg-bg-panel p-3 text-left text-base",
+						content.metaLabel
+							? "grid-cols-[3rem_minmax(0,1fr)_auto]"
+							: "grid-cols-[3rem_minmax(0,1fr)]",
+						getSelectionClassName({ selected, disabled }),
+					)}
+				>
+					<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
+						<img
+							src={content.icon}
+							alt=""
+							loading="lazy"
+							className="h-full w-full object-cover"
+							aria-hidden
+						/>
+					</span>
 
-				<span className="grid min-w-0 gap-1 self-center">
-					<span className="break-words text-text-bright">{content.name}</span>
-					<span>{content.category}</span>
-				</span>
+					<span className="grid min-w-0 gap-1 self-center">
+						<span className="break-words text-text-bright">{content.name}</span>
+						<span>{content.category}</span>
+					</span>
 
-				{content.metaLabel && (
-					<Badge
-						label={content.metaLabel}
-						className="self-start whitespace-nowrap text-primary"
-					/>
-				)}
-			</button>
+					{content.metaLabel && (
+						<Badge
+							label={content.metaLabel}
+							className="self-start whitespace-nowrap text-primary"
+						/>
+					)}
+				</button>
+			</RadioGroup.Item>
 		</Tooltip>
 	);
 }

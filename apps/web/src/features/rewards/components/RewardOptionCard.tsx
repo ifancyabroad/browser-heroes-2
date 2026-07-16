@@ -1,5 +1,6 @@
 import type { RewardChoiceOptionView, RewardItemDestinationView } from "@app/engine";
 import { ITEMS_BY_ID } from "@app/content";
+import { RadioGroup } from "radix-ui";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
 import { getSelectionClassName } from "../../../components/ControlStyles";
@@ -9,69 +10,68 @@ import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 
 type RewardOptionCardProps = {
 	option: RewardChoiceOptionView;
+	value: string;
 	selected: boolean;
 	disabled: boolean;
-	onSelect: () => void;
 };
 
-export function RewardOptionCard({ option, selected, disabled, onSelect }: RewardOptionCardProps) {
+export function RewardOptionCard({ option, value, selected, disabled }: RewardOptionCardProps) {
 	const content = getOptionContent(option);
 
 	return (
-		<button
-			type="button"
-			role="radio"
-			aria-checked={selected}
-			disabled={disabled}
-			onClick={onSelect}
-			className={clsx(
-				"grid grid-cols-[3rem_minmax(0,1fr)] gap-3 border-2 bg-bg-panel p-3 text-left text-base",
-				getSelectionClassName({ selected, disabled }),
-			)}
-		>
-			<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
-				<img
-					src={content.icon}
-					alt=""
-					loading="lazy"
-					className="h-full w-full object-cover"
-					aria-hidden
-				/>
-			</span>
+		<RadioGroup.Item value={value} disabled={disabled} asChild>
+			<button
+				type="button"
+				className={clsx(
+					"grid grid-cols-[3rem_minmax(0,1fr)] gap-3 border-2 bg-bg-panel p-3 text-left text-base",
+					getSelectionClassName({ selected, disabled }),
+				)}
+			>
+				<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
+					<img
+						src={content.icon}
+						alt=""
+						loading="lazy"
+						className="h-full w-full object-cover"
+						aria-hidden
+					/>
+				</span>
 
-			<span className="grid min-w-0 gap-1 self-center">
-				<span className="min-w-0">
-					{option.type === "item" ? (
-						<Tooltip
-							content={
-								content.tooltipSlot ? (
-									<ItemTooltipContent
-										item={option.item}
-										slot={content.tooltipSlot}
-									/>
-								) : null
-							}
-							placement="top"
-							className={clsx(
-								"min-w-0 break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-								getItemRarityTextClassName(option.item.rarity),
-							)}
-							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-						>
-							{content.name}
-						</Tooltip>
-					) : (
-						<span>{content.name}</span>
+				<span className="grid min-w-0 gap-1 self-center">
+					<span className="min-w-0">
+						{option.type === "item" ? (
+							<Tooltip
+								content={
+									content.tooltipSlot ? (
+										<ItemTooltipContent
+											item={option.item}
+											slot={content.tooltipSlot}
+										/>
+									) : null
+								}
+								placement="top"
+								className={clsx(
+									"min-w-0 break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+									getItemRarityTextClassName(option.item.rarity),
+								)}
+								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+								referenceTabIndex={null}
+							>
+								{content.name}
+							</Tooltip>
+						) : (
+							<span>{content.name}</span>
+						)}
+					</span>
+					{option.type === "item" && (
+						<CurrentlyEquippedDetail
+							destination={content.destination}
+							needsReplacementChoice={content.needsReplacementChoice}
+						/>
 					)}
 				</span>
-				{option.type === "item" && (
-					<CurrentlyEquippedDetail
-						destination={content.destination}
-						needsReplacementChoice={content.needsReplacementChoice}
-					/>
-				)}
-			</span>
-		</button>
+			</button>
+		</RadioGroup.Item>
 	);
 }
 
@@ -180,6 +180,7 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+				referenceTabIndex={null}
 			>
 				{item.name}
 			</Tooltip>

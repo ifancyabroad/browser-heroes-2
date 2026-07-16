@@ -6,7 +6,7 @@ import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
 import { getXpResource } from "../../../game/resourceDisplay";
 import { formatTitle } from "../../../game/effectDisplay";
-import { getTabId, Tabs } from "../../../components/Tabs";
+import { Tabs } from "../../../components/Tabs";
 import { HeroDetailsTab } from "./HeroDetailsTab";
 import { HeroEquipmentTab } from "./HeroEquipmentTab";
 import { HeroSkillsTab } from "./HeroSkillsTab";
@@ -99,28 +99,25 @@ export function HeroSidebar({
 				value={activeTab}
 				onChange={setActiveTab}
 				className="w-full"
-				panelId="hero-sidebar-panel"
-			/>
+				renderPanel={(tab) => {
+					if (tab === "details") {
+						return <HeroDetailsTab heroView={heroView} />;
+					}
 
-			<div
-				id="hero-sidebar-panel"
-				role="tabpanel"
-				aria-labelledby={getTabId("hero-sidebar-panel", activeTab)}
-				tabIndex={0}
-			>
-				{activeTab === "details" && <HeroDetailsTab heroView={heroView} />}
-				{activeTab === "equipment" && (
-					<HeroEquipmentTab
-						equipment={heroView.equipment}
-						canSwap={canSwapWeapons}
-						isPending={isPending}
-						onSwap={onSwapWeapons}
-					/>
-				)}
-				{activeTab === "skills" && (
-					<HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />
-				)}
-			</div>
+					if (tab === "equipment") {
+						return (
+							<HeroEquipmentTab
+								equipment={heroView.equipment}
+								canSwap={canSwapWeapons}
+								isPending={isPending}
+								onSwap={onSwapWeapons}
+							/>
+						);
+					}
+
+					return <HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />;
+				}}
+			/>
 		</Sidebar>
 	);
 }

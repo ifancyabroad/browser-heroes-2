@@ -2,6 +2,7 @@ import type { EquipmentSlot, Item, ItemId } from "@app/content";
 import { ITEMS_BY_ID } from "@app/content";
 import clsx from "clsx";
 import { useState } from "react";
+import { RadioGroup } from "radix-ui";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
 import { getSelectionClassName } from "./ControlStyles";
@@ -90,17 +91,29 @@ export function EquipmentSlotReplacementModal({
 					.
 				</p>
 
-				<div className="grid gap-2" role="radiogroup" aria-label="Equipment slot choices">
+				<RadioGroup.Root
+					value={selection?.equipmentSlot ?? ""}
+					onValueChange={(equipmentSlot) => {
+						const destination = destinations.find(
+							(candidate) => candidate.equipmentSlot === equipmentSlot,
+						);
+						if (destination) {
+							setSelection(destination);
+						}
+					}}
+					disabled={isPending}
+					className="grid gap-2"
+					aria-label="Equipment slot choices"
+				>
 					{destinations.map((destination) => (
 						<ReplacementChoice
 							key={destination.equipmentSlot}
 							destination={destination}
 							selected={selection?.equipmentSlot === destination.equipmentSlot}
 							disabled={isPending}
-							onSelect={() => setSelection(destination)}
 						/>
 					))}
-				</div>
+				</RadioGroup.Root>
 			</div>
 		</Modal>
 	);
@@ -110,46 +123,43 @@ type ReplacementChoiceProps = {
 	destination: EquipmentSlotReplacementDestination;
 	selected: boolean;
 	disabled: boolean;
-	onSelect: () => void;
 };
 
-function ReplacementChoice({ destination, selected, disabled, onSelect }: ReplacementChoiceProps) {
+function ReplacementChoice({ destination, selected, disabled }: ReplacementChoiceProps) {
 	return (
-		<button
-			type="button"
-			role="radio"
-			aria-checked={selected}
-			disabled={disabled}
-			onClick={onSelect}
-			className={clsx(
-				"grid gap-2 border-2 bg-bg-panel p-3 text-left text-base",
-				getSelectionClassName({ selected, disabled }),
-			)}
-		>
-			<span className="text-text-bright">
-				{getEquipmentSlotLabel(destination.equipmentSlot)}
-			</span>
-			{destination.replacedItems.length === 0 ? (
-				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-					<span className="text-text-label">Currently Equipped:</span>
-					<span className="text-text">Empty</span>
+		<RadioGroup.Item value={destination.equipmentSlot} disabled={disabled} asChild>
+			<button
+				type="button"
+				className={clsx(
+					"grid gap-2 border-2 bg-bg-panel p-3 text-left text-base",
+					getSelectionClassName({ selected, disabled }),
+				)}
+			>
+				<span className="text-text-bright">
+					{getEquipmentSlotLabel(destination.equipmentSlot)}
 				</span>
-			) : (
-				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-					<span className="text-text-label">Currently Equipped:</span>
-					<span className="min-w-0 break-words text-text">
-						{destination.replacedItems.map((replacedItem, index) => (
-							<ReplacedItemTooltip
-								key={replacedItem.instanceId}
-								replacedItem={replacedItem}
-								fallbackSlot={destination.equipmentSlot}
-								prefix={index > 0 ? ", " : ""}
-							/>
-						))}
+				{destination.replacedItems.length === 0 ? (
+					<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+						<span className="text-text-label">Currently Equipped:</span>
+						<span className="text-text">Empty</span>
 					</span>
-				</span>
-			)}
-		</button>
+				) : (
+					<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+						<span className="text-text-label">Currently Equipped:</span>
+						<span className="min-w-0 break-words text-text">
+							{destination.replacedItems.map((replacedItem, index) => (
+								<ReplacedItemTooltip
+									key={replacedItem.instanceId}
+									replacedItem={replacedItem}
+									fallbackSlot={destination.equipmentSlot}
+									prefix={index > 0 ? ", " : ""}
+								/>
+							))}
+						</span>
+					</span>
+				)}
+			</button>
+		</RadioGroup.Item>
 	);
 }
 
@@ -176,6 +186,7 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName={itemTooltipContentClassName}
+				referenceTabIndex={null}
 			>
 				{item.name}
 			</Tooltip>
