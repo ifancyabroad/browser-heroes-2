@@ -173,6 +173,7 @@ export function CombatView({ run }: CombatViewProps) {
 							maxHealingPotions={combatView.maxHealingPotions}
 							canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
 							canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
+							isEnemySlain={isEnemySlain}
 							onBasicAttack={handleBasicAttack}
 							onSkipTurn={handleSkipTurn}
 							onUseHealingPotion={handleUseHealingPotion}
@@ -182,7 +183,7 @@ export function CombatView({ run }: CombatViewProps) {
 						/>
 					}
 				>
-					<section className="grid gap-3 md:block" aria-label="Combatants">
+					<section className="grid gap-3 md:-mt-1 md:block" aria-label="Combatants">
 						<div className="md:hidden">
 							<CombatantPanel
 								combatant={combat.player}

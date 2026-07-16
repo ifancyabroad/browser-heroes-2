@@ -9,8 +9,10 @@ import rerollIcon from "../../../assets/images/actions/Skill_Dice.png";
 import enterCombatIcon from "../../../assets/images/actions/Skill_Move.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
-
-const ACTION_PENDING_DETAIL = "Another action is in progress.";
+import {
+	ACTION_PENDING_DETAIL,
+	ActionTooltipContent,
+} from "../../../components/tooltips/ActionTooltipContent";
 
 type TownActionBarProps = {
 	isPending: boolean;
@@ -76,7 +78,7 @@ export function TownActionBar({
 						labelClassName={canAffordReroll ? "text-text-bright" : "text-error"}
 						loading={isPending}
 						tooltip={
-							<ActionTooltip
+							<ActionTooltipContent
 								title="Reroll shop"
 								detail={getRerollTooltipDetail({
 									isPending,
@@ -95,7 +97,7 @@ export function TownActionBar({
 						labelClassName={canAffordHealingPotion ? "text-text-bright" : "text-error"}
 						loading={isPending}
 						tooltip={
-							<ActionTooltip
+							<ActionTooltipContent
 								title="Buy health potion"
 								detail={getPotionTooltipDetail({
 									isPending,
@@ -118,7 +120,7 @@ export function TownActionBar({
 						labelClassName={canAffordRest ? "text-text-bright" : "text-error"}
 						loading={isPending}
 						tooltip={
-							<ActionTooltip
+							<ActionTooltipContent
 								title="Rest"
 								detail={getRestTooltipDetail({
 									isPending,
@@ -136,7 +138,7 @@ export function TownActionBar({
 						icon={enterCombatIcon}
 						loading={isPending}
 						tooltip={
-							<ActionTooltip
+							<ActionTooltipContent
 								title="Enter combat"
 								detail={
 									isPending ? ACTION_PENDING_DETAIL : "Begin the next battle."
@@ -148,15 +150,6 @@ export function TownActionBar({
 				</ActionBarGroup>
 			</ActionBarTray>
 		</section>
-	);
-}
-
-function ActionTooltip({ title, detail }: { title: string; detail: string }) {
-	return (
-		<div className="grid gap-1">
-			<p className="text-text-bright">{title}</p>
-			<p className="text-text-muted">{detail}</p>
-		</div>
 	);
 }
 

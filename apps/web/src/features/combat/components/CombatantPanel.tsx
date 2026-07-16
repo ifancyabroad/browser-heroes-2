@@ -29,7 +29,7 @@ export function CombatantPanel({
 				{statusLabel && (
 					<Badge
 						label={statusLabel}
-						className={clsx("shrink-0 text-error", styles.statusLabel)}
+						className={clsx("shrink-0 leading-5 text-error", styles.statusLabel)}
 					/>
 				)}
 			</h2>
