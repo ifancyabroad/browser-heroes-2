@@ -33,7 +33,7 @@ export function enterCombat(state: RunState, action: EnterCombatAction): EngineR
 			createCombatLogEntry(combatId, 1, {
 				turnNumber: 1,
 				actor: "system",
-				message: `Combat started: ${player.name} vs ${encounter.enemy.name}.`,
+				message: `Combat begins between ${player.name} and ${encounter.enemy.name}.`,
 				eventType: "combat_started",
 			}),
 		],

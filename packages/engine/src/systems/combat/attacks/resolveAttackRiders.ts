@@ -9,10 +9,10 @@ import { resolveHealEffect } from "../skills/effects/resolveHealEffect";
 import type { SavingThrow, SkillId } from "@app/content";
 import { getCombatant, getOpponent } from "../combatants/combatantSelectors";
 import { resolveSavingThrow } from "../checks/resolveSavingThrow";
-import { appendCombatLog } from "../logs/appendCombatLog";
 import { applyRecurringEffect } from "../skills/effects/applyRecurringEffect";
 import { applyStatusEffect } from "../skills/effects/applyStatusEffect";
 import { applyTemporaryModifierEffect } from "../skills/effects/applyTemporaryModifierEffect";
+import type { ActionResolution } from "../logs/actionOutcome";
 
 type AttackRiderSourceContext =
 	| {
@@ -40,9 +40,10 @@ type ResolveAttackRidersInput = {
 	rngState: RngState;
 };
 
-export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<CombatState> {
+export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<ActionResolution> {
 	let combat = input.combat;
 	let rngState = input.rngState;
+	const outcomes: ActionResolution["outcomes"] = [];
 
 	if (input.save) {
 		const actor = getCombatant(combat, input.actorSide);
@@ -60,12 +61,16 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 
 		if (savingThrow.value.success) {
 			return {
-				value: appendCombatLog(combat, {
-					turnNumber: combat.turnNumber,
-					actor: target.side,
-					message: `${target.name} resists the additional effects of ${input.sourceContext.source.sourceName}.`,
-					eventType: "skill_used",
-				}),
+				value: {
+					combat,
+					outcomes: [
+						{
+							type: "resisted",
+							targetName: target.name,
+							subject: `the additional effects of ${input.sourceContext.source.sourceName}`,
+						},
+					],
+				},
 				rngState,
 			};
 		}
@@ -87,12 +92,11 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 					combat,
 					actorSide: input.actorSide,
 					effect,
-					skillName: input.sourceContext.source.sourceName,
-					logContext: "rider",
 					rngState,
 				});
 
-				combat = result.value;
+				combat = result.value.combat;
+				outcomes.push(...result.value.outcomes);
 				rngState = result.rngState;
 				break;
 			}
@@ -102,12 +106,11 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 					combat,
 					actorSide: input.actorSide,
 					effect,
-					skillName: input.sourceContext.source.sourceName,
-					logContext: "rider",
 					rngState,
 				});
 
-				combat = result.value;
+				combat = result.value.combat;
+				outcomes.push(...result.value.outcomes);
 				rngState = result.rngState;
 				break;
 			}
@@ -121,7 +124,8 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 					rngState,
 				});
 
-				combat = result.value;
+				combat = result.value.combat;
+				outcomes.push(...result.value.outcomes);
 				rngState = result.rngState;
 				break;
 			}
@@ -136,7 +140,8 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 					source,
 				});
 
-				combat = result;
+				combat = result.combat;
+				outcomes.push(...result.outcomes);
 				break;
 			}
 
@@ -151,7 +156,8 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 					rngState,
 				});
 
-				combat = result.value;
+				combat = result.value.combat;
+				outcomes.push(...result.value.outcomes);
 				rngState = result.rngState;
 				break;
 			}
@@ -159,7 +165,7 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 	}
 
 	return {
-		value: combat,
+		value: { combat, outcomes },
 		rngState,
 	};
 }

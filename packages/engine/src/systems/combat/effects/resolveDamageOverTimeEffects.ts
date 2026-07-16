@@ -6,7 +6,6 @@ import { getCombatant, getCombatantById, replaceCombatant } from "../combatants/
 import { applyDamage } from "../damage/applyDamage";
 import { calculateDamage } from "../damage/calculateDamage";
 import { appendCombatLog } from "../logs/appendCombatLog";
-import { getDamageMessage } from "../damage/getDamageMessage";
 
 type ResolveDamageOverTimeEffectsInput = {
 	combat: CombatState;
@@ -50,11 +49,12 @@ export function resolveDamageOverTimeEffects(
 		combat = appendCombatLog(combat, {
 			turnNumber: combat.turnNumber,
 			actor: target.side,
-			message: getDamageMessage({
-				prefix: `${effect.source.sourceName} affects ${target.name}`,
-				hpDamage: appliedDamage.hpDamage,
-				absorbedDamage: appliedDamage.absorbedDamage,
-			}),
+			message:
+				damage.value.affinity === "immune"
+					? `${target.name} is immune to ${effect.source.sourceName}'s ${effect.damageType} damage.`
+					: appliedDamage.hpDamage === 0 && appliedDamage.absorbedDamage > 0
+						? `${target.name}'s shield absorbs all ${appliedDamage.absorbedDamage} ${effect.damageType} damage from ${effect.source.sourceName}.`
+						: `${target.name} takes ${appliedDamage.hpDamage} ${effect.damageType} damage from ${effect.source.sourceName}${appliedDamage.absorbedDamage > 0 ? ` after a shield absorbs ${appliedDamage.absorbedDamage}` : ""}.`,
 			eventType: "effect_triggered",
 		});
 	}

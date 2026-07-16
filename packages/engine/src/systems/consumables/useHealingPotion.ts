@@ -42,7 +42,10 @@ export function useHealingPotion(state: RunState): EngineResult {
 	const combatAfterPotion = appendCombatLog(replaceCombatant(state.combat, healing.combatant), {
 		turnNumber: state.combat.turnNumber,
 		actor: "player",
-		message: `${state.combat.player.name} uses a healing potion and restores ${healing.actualHealing} HP.`,
+		message:
+			healing.actualHealing === 0
+				? `${state.combat.player.name} drinks a healing potion but is already at full health.`
+				: `${state.combat.player.name} drinks a healing potion, restoring ${healing.actualHealing} health.`,
 		eventType: "healing_potion_used",
 	});
 

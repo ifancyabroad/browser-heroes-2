@@ -54,7 +54,7 @@ export function advanceCombatantEffects(
 		combat = appendCombatLog(combat, {
 			turnNumber: input.combat.turnNumber,
 			actor: input.combatantSide,
-			message: `${expiredEffect.source.sourceName} expires on ` + `${result.combatant.name}.`,
+			message: `${expiredEffect.source.sourceName} ends on ${result.combatant.name}.`,
 			eventType: "effect_expired",
 		});
 	}

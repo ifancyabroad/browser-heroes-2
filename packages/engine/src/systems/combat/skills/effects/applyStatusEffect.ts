@@ -14,7 +14,8 @@ import { createEffectInstanceId } from "../../../../core/ids";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
-import { appendCombatLog } from "../../logs/appendCombatLog";
+import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
+import type { ActionResolution } from "../../logs/actionOutcome";
 
 type ApplyStatusEffectInput = {
 	combat: CombatState;
@@ -24,7 +25,7 @@ type ApplyStatusEffectInput = {
 	rngState: RngState;
 };
 
-export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<CombatState> {
+export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<ActionResolution> {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
@@ -44,12 +45,19 @@ export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<Comb
 
 		if (savingThrow.value.success) {
 			return {
-				value: appendCombatLog(input.combat, {
-					turnNumber: input.combat.turnNumber,
-					actor: target.side,
-					message: `${target.name} resists ` + `${input.source.sourceName}.`,
-					eventType: "skill_used",
-				}),
+				value: {
+					combat: input.combat,
+					outcomes: [
+						{
+							type: "resisted",
+							targetName: target.name,
+							subject:
+								input.effect.statusId === "stunned"
+									? "being stunned"
+									: "being silenced",
+						},
+					],
+				},
 				rngState,
 			};
 		}
@@ -69,20 +77,20 @@ export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<Comb
 		statusId: input.effect.statusId,
 	};
 
+	const refreshed = target.activeEffects.some((effect) =>
+		isSameActiveEffectSource(effect, activeEffect),
+	);
 	const updatedTarget = upsertActiveCombatEffect(target, activeEffect);
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
 	return {
-		value: appendCombatLog(updatedCombat, {
-			turnNumber: input.combat.turnNumber,
-			actor: actor.side,
-			message:
-				`${actor.name} uses ${input.source.sourceName}, applying ` +
-				`${input.effect.statusId} to ${target.name} for ` +
-				`${input.effect.durationTurns} turns.`,
-			eventType: "effect_applied",
-		}),
+		value: {
+			combat: updatedCombat,
+			outcomes: [
+				{ type: "status", targetName: target.name, effect: input.effect, refreshed },
+			],
+		},
 		rngState,
 	};
 }

@@ -4,23 +4,20 @@ import type { CombatantSide, CombatState } from "../../../../schemas";
 import type { RngResult, RngState } from "../../../../core/rng";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
-import { appendCombatLog } from "../../logs/appendCombatLog";
 import { applyDamage } from "../../damage/applyDamage";
 import { calculateDamage } from "../../damage/calculateDamage";
 import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
-import { getDamageMessage } from "../../damage/getDamageMessage";
+import type { ActionResolution } from "../../logs/actionOutcome";
 
 type ResolveDamageEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
 	effect: DamageEffect;
-	skillName: string;
-	logContext?: "skill" | "rider";
 	rngState: RngState;
 };
 
-export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<CombatState> {
+export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<ActionResolution> {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
@@ -44,13 +41,10 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 
 		if (!attackRoll.value.hit) {
 			return {
-				value: appendCombatLog(input.combat, {
-					turnNumber: input.combat.turnNumber,
-					actor: actor.side,
-					message:
-						`${actor.name} uses ${input.skillName} on ` + `${target.name} but misses.`,
-					eventType: "skill_used",
-				}),
+				value: {
+					combat: input.combat,
+					outcomes: [{ type: "miss", targetName: target.name }],
+				},
 				rngState,
 			};
 		}
@@ -69,12 +63,16 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 
 		if (successfulSave && input.effect.save.onSuccess === "noEffect") {
 			return {
-				value: appendCombatLog(input.combat, {
-					turnNumber: input.combat.turnNumber,
-					actor: actor.side,
-					message: `${target.name} resists ${actor.name}'s ` + `${input.skillName}.`,
-					eventType: "skill_used",
-				}),
+				value: {
+					combat: input.combat,
+					outcomes: [
+						{
+							type: "resisted",
+							targetName: target.name,
+							subject: `${input.effect.damageType} damage`,
+						},
+					],
+				},
 				rngState,
 			};
 		}
@@ -105,16 +103,21 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
 	return {
-		value: appendCombatLog(updatedCombat, {
-			turnNumber: input.combat.turnNumber,
-			actor: actor.side,
-			message: getDamageMessage({
-				prefix: `${actor.name} uses ${input.skillName} on ` + `${target.name}`,
-				hpDamage: appliedDamage.hpDamage,
-				absorbedDamage: appliedDamage.absorbedDamage,
-			}),
-			eventType: input.logContext === "rider" ? "effect_applied" : "damage_dealt",
-		}),
+		value: {
+			combat: updatedCombat,
+			outcomes: [
+				{
+					type: "damage",
+					targetName: target.name,
+					damageType: input.effect.damageType,
+					hpDamage: appliedDamage.hpDamage,
+					absorbedDamage: appliedDamage.absorbedDamage,
+					affinity: resolvedDamage.affinity,
+					critical,
+					halfDamageSave: successfulSave && input.effect.save?.onSuccess === "halfDamage",
+				},
+			],
+		},
 		rngState: damage.rngState,
 	};
 }

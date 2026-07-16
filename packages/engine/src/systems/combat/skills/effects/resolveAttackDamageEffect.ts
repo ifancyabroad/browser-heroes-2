@@ -10,9 +10,8 @@ import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { applyDamage } from "../../damage/applyDamage";
 import { calculateDamage } from "../../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
-import { appendCombatLog } from "../../logs/appendCombatLog";
 import { resolveAttackRiders } from "../../attacks/resolveAttackRiders";
-import { getDamageMessage } from "../../damage/getDamageMessage";
+import type { ActionResolution } from "../../logs/actionOutcome";
 
 type ResolveAttackDamageEffectInput = {
 	combat: CombatState;
@@ -26,7 +25,7 @@ type ResolveAttackDamageEffectInput = {
 
 export function resolveAttackDamageEffect(
 	input: ResolveAttackDamageEffectInput,
-): RngResult<CombatState> {
+): RngResult<ActionResolution> {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target = getOpponent(input.combat, input.actorSide);
@@ -44,12 +43,7 @@ export function resolveAttackDamageEffect(
 
 	if (!attackRoll.value.hit) {
 		return {
-			value: appendCombatLog(input.combat, {
-				turnNumber: input.combat.turnNumber,
-				actor: actor.side,
-				message: `${actor.name} uses ${input.skillName} on ` + `${target.name} but misses.`,
-				eventType: "skill_used",
-			}),
+			value: { combat: input.combat, outcomes: [{ type: "miss", targetName: target.name }] },
 			rngState: attackRoll.rngState,
 		};
 	}
@@ -72,8 +66,18 @@ export function resolveAttackDamageEffect(
 	const appliedMainDamage = applyDamage(target, mainDamage.value);
 
 	let updatedTarget = appliedMainDamage.combatant;
-	let totalHpDamage = appliedMainDamage.hpDamage;
-	let totalAbsorbedDamage = appliedMainDamage.absorbedDamage;
+	const outcomes: ActionResolution["outcomes"] = [
+		{
+			type: "damage",
+			targetName: target.name,
+			damageType,
+			hpDamage: appliedMainDamage.hpDamage,
+			absorbedDamage: appliedMainDamage.absorbedDamage,
+			affinity: mainDamage.value.affinity,
+			critical: attackRoll.value.critical,
+			halfDamageSave: false,
+		},
+	];
 
 	if (input.effect.extraDice) {
 		const extraDamage = calculateDamage({
@@ -90,22 +94,19 @@ export function resolveAttackDamageEffect(
 		const appliedExtraDamage = applyDamage(updatedTarget, extraDamage.value);
 
 		updatedTarget = appliedExtraDamage.combatant;
-		totalHpDamage += appliedExtraDamage.hpDamage;
-		totalAbsorbedDamage += appliedExtraDamage.absorbedDamage;
+		outcomes.push({
+			type: "damage",
+			targetName: target.name,
+			damageType: extraDamage.value.damageType,
+			hpDamage: appliedExtraDamage.hpDamage,
+			absorbedDamage: appliedExtraDamage.absorbedDamage,
+			affinity: extraDamage.value.affinity,
+			critical: attackRoll.value.critical,
+			halfDamageSave: false,
+		});
 	}
 
 	let resolvedCombat = replaceCombatant(input.combat, updatedTarget);
-
-	resolvedCombat = appendCombatLog(resolvedCombat, {
-		turnNumber: input.combat.turnNumber,
-		actor: actor.side,
-		message: getDamageMessage({
-			prefix: `${actor.name} uses ${input.skillName} on ` + `${target.name}`,
-			hpDamage: totalHpDamage,
-			absorbedDamage: totalAbsorbedDamage,
-		}),
-		eventType: "skill_used",
-	});
 
 	for (let riderIndex = 0; riderIndex < input.effect.attackRiders.length; riderIndex += 1) {
 		const rider = input.effect.attackRiders[riderIndex];
@@ -133,12 +134,13 @@ export function resolveAttackDamageEffect(
 			rngState,
 		});
 
-		resolvedCombat = riderResult.value;
+		resolvedCombat = riderResult.value.combat;
+		outcomes.push(...riderResult.value.outcomes);
 		rngState = riderResult.rngState;
 	}
 
 	return {
-		value: resolvedCombat,
+		value: { combat: resolvedCombat, outcomes },
 		rngState,
 	};
 }

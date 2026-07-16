@@ -15,8 +15,9 @@ import type {
 import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
-import { appendCombatLog } from "../../logs/appendCombatLog";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
+import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
+import type { ActionResolution } from "../../logs/actionOutcome";
 
 type TemporaryModifierEffect =
 	| ModifyStatEffect
@@ -33,7 +34,7 @@ type ApplyTemporaryModifierEffectInput = {
 
 export function applyTemporaryModifierEffect(
 	input: ApplyTemporaryModifierEffectInput,
-): CombatState {
+): ActionResolution {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
@@ -46,18 +47,17 @@ export function applyTemporaryModifierEffect(
 		source: input.source,
 	});
 
+	const refreshed = target.activeEffects.some((effect) =>
+		isSameActiveEffectSource(effect, activeEffect),
+	);
 	const updatedTarget = upsertActiveCombatEffect(target, activeEffect);
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
-	return appendCombatLog(updatedCombat, {
-		turnNumber: input.combat.turnNumber,
-		actor: actor.side,
-		message:
-			`${actor.name} uses ${input.source.sourceName}, applying an effect ` +
-			`to ${target.name} for ${activeEffect.remainingTurns} turns.`,
-		eventType: "effect_applied",
-	});
+	return {
+		combat: updatedCombat,
+		outcomes: [{ type: "modifier", targetName: target.name, effect: input.effect, refreshed }],
+	};
 }
 
 function createActiveCombatEffect(input: {

@@ -4,20 +4,18 @@ import type { CombatantSide, CombatState } from "../../../../schemas";
 import type { RngResult, RngState } from "../../../../core/rng";
 
 import { getCombatant, replaceCombatant } from "../../combatants/combatantSelectors";
-import { appendCombatLog } from "../../logs/appendCombatLog";
 import { calculateHealing } from "../../healing/calculateHealing";
 import { applyHealing } from "../../healing/applyHealing";
+import type { ActionResolution } from "../../logs/actionOutcome";
 
 type ResolveHealEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
 	effect: HealEffect;
-	skillName: string;
-	logContext?: "skill" | "rider";
 	rngState: RngState;
 };
 
-export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<CombatState> {
+export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<ActionResolution> {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target = actor;
@@ -36,18 +34,11 @@ export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<Comb
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
-	const message =
-		input.logContext === "rider"
-			? `${input.skillName} restores an additional ${actualHealing} health to ${target.name}.`
-			: `${actor.name} uses ${input.skillName} and restores ${actualHealing} health.`;
-
 	return {
-		value: appendCombatLog(updatedCombat, {
-			turnNumber: input.combat.turnNumber,
-			actor: actor.side,
-			message,
-			eventType: input.logContext === "rider" ? "effect_applied" : "healing_done",
-		}),
+		value: {
+			combat: updatedCombat,
+			outcomes: [{ type: "healing", targetName: target.name, amount: actualHealing }],
+		},
 		rngState: healing.rngState,
 	};
 }

@@ -9,14 +9,15 @@ import type {
 
 import type { RngResult, RngState } from "../../../core/rng";
 
-import { appendCombatLog } from "../logs/appendCombatLog";
 import { resolveAttackRoll } from "../checks/resolveAttackRoll";
 import { applyDamage } from "../damage/applyDamage";
 import { calculateDamage } from "../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../combatants/combatantSelectors";
-import { getDamageMessage } from "../damage/getDamageMessage";
 import { resolveAttackRiders } from "./resolveAttackRiders";
 import { getSupportedAttackRiders } from "./getSupportedAttackRiders";
+import type { ActionResolution } from "../logs/actionOutcome";
+import { formatBasicAttackHeading } from "../logs/formatActionLog";
+import { appendActionLog } from "../logs/appendActionLog";
 
 type ResolveBasicAttackInput = {
 	combat: CombatState;
@@ -27,7 +28,6 @@ type ResolveBasicAttackInput = {
 type BasicAttackPart = {
 	attack: CombatantBasicAttack;
 	damageAttribute: Attribute | undefined;
-	messageVerb: string;
 	sourceKey: "mainHand" | "offHand";
 };
 
@@ -45,6 +45,8 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 
 	let combat = input.combat;
 	let rngState = input.rngState;
+	const outcomes: ActionResolution["outcomes"] = [];
+	const initialDefender = getOpponent(input.combat, input.attackerSide);
 
 	for (const attackPart of attackParts) {
 		const result = resolveBasicAttackPart({
@@ -54,7 +56,8 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 			rngState,
 		});
 
-		combat = result.value;
+		combat = result.value.combat;
+		outcomes.push(...result.value.outcomes);
 		rngState = result.rngState;
 
 		const defender = getOpponent(combat, input.attackerSide);
@@ -65,7 +68,13 @@ export function resolveBasicAttack(input: ResolveBasicAttackInput): RngResult<Co
 	}
 
 	return {
-		value: combat,
+		value: appendActionLog({
+			combat,
+			actor: attacker.side,
+			heading: formatBasicAttackHeading(attacker.name, initialDefender.name),
+			eventType: "basic_attack",
+			outcomes,
+		}),
 		rngState,
 	};
 }
@@ -75,7 +84,6 @@ function getBasicAttackParts(attacker: CombatantState): BasicAttackPart[] {
 		{
 			attack: attacker.basicAttack,
 			damageAttribute: attacker.basicAttack.damage.attribute,
-			messageVerb: "attacks",
 			sourceKey: "mainHand",
 		},
 	];
@@ -84,7 +92,6 @@ function getBasicAttackParts(attacker: CombatantState): BasicAttackPart[] {
 		attackParts.push({
 			attack: attacker.offHandBasicAttack,
 			damageAttribute: undefined,
-			messageVerb: "attacks with their off-hand weapon",
 			sourceKey: "offHand",
 		});
 	}
@@ -92,7 +99,7 @@ function getBasicAttackParts(attacker: CombatantState): BasicAttackPart[] {
 	return attackParts;
 }
 
-function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<CombatState> {
+function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<ActionResolution> {
 	const attacker = getCombatant(input.combat, input.attackerSide);
 
 	const defender = getOpponent(input.combat, input.attackerSide);
@@ -107,14 +114,10 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<C
 
 	if (!attackRoll.value.hit) {
 		return {
-			value: appendCombatLog(input.combat, {
-				turnNumber: input.combat.turnNumber,
-				actor: attacker.side,
-				message:
-					`${attacker.name} ${input.attackPart.messageVerb} ` +
-					`${defender.name} but misses.`,
-				eventType: "basic_attack",
-			}),
+			value: {
+				combat: input.combat,
+				outcomes: [{ type: "miss", targetName: defender.name }],
+			},
 			rngState: attackRoll.rngState,
 		};
 	}
@@ -132,17 +135,18 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<C
 	const appliedDamage = applyDamage(defender, damage.value);
 
 	let resolvedCombat = replaceCombatant(input.combat, appliedDamage.combatant);
-
-	resolvedCombat = appendCombatLog(resolvedCombat, {
-		turnNumber: input.combat.turnNumber,
-		actor: attacker.side,
-		message: getDamageMessage({
-			prefix: `${attacker.name} ${input.attackPart.messageVerb} ` + `${defender.name}`,
+	const outcomes: ActionResolution["outcomes"] = [
+		{
+			type: "damage",
+			targetName: defender.name,
+			damageType: damage.value.damageType,
 			hpDamage: appliedDamage.hpDamage,
 			absorbedDamage: appliedDamage.absorbedDamage,
-		}),
-		eventType: "basic_attack",
-	});
+			affinity: damage.value.affinity,
+			critical: attackRoll.value.critical,
+			halfDamageSave: false,
+		},
+	];
 
 	let rngState = damage.rngState;
 
@@ -177,12 +181,13 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<C
 			rngState,
 		});
 
-		resolvedCombat = riderResult.value;
+		resolvedCombat = riderResult.value.combat;
+		outcomes.push(...riderResult.value.outcomes);
 		rngState = riderResult.rngState;
 	}
 
 	return {
-		value: resolvedCombat,
+		value: { combat: resolvedCombat, outcomes },
 		rngState,
 	};
 }

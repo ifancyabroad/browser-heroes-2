@@ -12,6 +12,10 @@ import { resolveHealEffect } from "./effects/resolveHealEffect";
 import { applyTemporaryModifierEffect } from "./effects/applyTemporaryModifierEffect";
 import { applyRecurringEffect } from "./effects/applyRecurringEffect";
 import { applyStatusEffect } from "./effects/applyStatusEffect";
+import type { ActionResolution } from "../logs/actionOutcome";
+import { formatSkillHeading } from "../logs/formatActionLog";
+import { getCombatant } from "../combatants/combatantSelectors";
+import { appendActionLog } from "../logs/appendActionLog";
 
 type ResolveSkillEffectsInput = {
 	combat: CombatState;
@@ -25,6 +29,7 @@ type ResolveSkillEffectsInput = {
 export function resolveSkillEffects(input: ResolveSkillEffectsInput): RngResult<CombatState> {
 	let combat = input.combat;
 	let rngState = input.rngState;
+	const outcomes: ActionResolution["outcomes"] = [];
 
 	for (let effectIndex = 0; effectIndex < input.effects.length; effectIndex += 1) {
 		const effect = input.effects[effectIndex];
@@ -39,12 +44,20 @@ export function resolveSkillEffects(input: ResolveSkillEffectsInput): RngResult<
 			rngState,
 		});
 
-		combat = result.value;
+		combat = result.value.combat;
+		outcomes.push(...result.value.outcomes);
 		rngState = result.rngState;
 	}
 
+	const actor = getCombatant(combat, input.actorSide);
 	return {
-		value: combat,
+		value: appendActionLog({
+			combat,
+			actor: actor.side,
+			heading: formatSkillHeading(actor.name, input.skillName, outcomes),
+			eventType: "skill_used",
+			outcomes,
+		}),
 		rngState,
 	};
 }
@@ -54,7 +67,7 @@ function resolveSkillEffect(
 		effect: SupportedSkillEffect;
 		effectIndex: number;
 	},
-): RngResult<CombatState> {
+): RngResult<ActionResolution> {
 	switch (input.effect.type) {
 		case "damage":
 			return resolveDamageEffect({

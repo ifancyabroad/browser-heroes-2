@@ -11,9 +11,10 @@ import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
-import { appendCombatLog } from "../../logs/appendCombatLog";
 import type { RngResult, RngState } from "../../../../core/rng";
 import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
+import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
+import type { ActionResolution } from "../../logs/actionOutcome";
 
 type RecurringEffect = DamageOverTimeEffect | HealOverTimeEffect | ShieldEffect;
 
@@ -25,7 +26,9 @@ type ApplyRecurringEffectInput = {
 	rngState: RngState;
 };
 
-export function applyRecurringEffect(input: ApplyRecurringEffectInput): RngResult<CombatState> {
+export function applyRecurringEffect(
+	input: ApplyRecurringEffectInput,
+): RngResult<ActionResolution> {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
@@ -45,12 +48,16 @@ export function applyRecurringEffect(input: ApplyRecurringEffectInput): RngResul
 
 		if (savingThrow.value.success) {
 			return {
-				value: appendCombatLog(input.combat, {
-					turnNumber: input.combat.turnNumber,
-					actor: target.side,
-					message: `${target.name} resists ` + `${input.source.sourceName}.`,
-					eventType: "skill_used",
-				}),
+				value: {
+					combat: input.combat,
+					outcomes: [
+						{
+							type: "resisted",
+							targetName: target.name,
+							subject: `${input.effect.damageType} damage`,
+						},
+					],
+				},
 				rngState,
 			};
 		}
@@ -63,20 +70,20 @@ export function applyRecurringEffect(input: ApplyRecurringEffectInput): RngResul
 		source: input.source,
 	});
 
+	const refreshed = target.activeEffects.some((effect) =>
+		isSameActiveEffectSource(effect, activeEffect),
+	);
 	const updatedTarget = upsertActiveCombatEffect(target, activeEffect);
 
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
 	return {
-		value: appendCombatLog(updatedCombat, {
-			turnNumber: input.combat.turnNumber,
-			actor: actor.side,
-			message:
-				`${actor.name} uses ${input.source.sourceName}, ` +
-				`applying an effect to ${target.name} ` +
-				`for ${activeEffect.remainingTurns} turns.`,
-			eventType: "effect_applied",
-		}),
+		value: {
+			combat: updatedCombat,
+			outcomes: [
+				{ type: "recurring", targetName: target.name, effect: input.effect, refreshed },
+			],
+		},
 		rngState,
 	};
 }

@@ -12,8 +12,10 @@ export const combatLogEntrySchema = z.object({
 		.enum([
 			"combat_started",
 			"basic_attack",
+			"attack_missed",
 			"skill_used",
 			"effect_applied",
+			"effect_resisted",
 			"effect_expired",
 			"damage_dealt",
 			"healing_done",
