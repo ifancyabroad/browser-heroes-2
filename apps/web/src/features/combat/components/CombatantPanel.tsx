@@ -9,6 +9,7 @@ type CombatantPanelProps = {
 	combatant: CombatantState;
 	identity: string;
 	ariaLabel: string;
+	isBoss?: boolean;
 	statusLabel?: string;
 };
 
@@ -16,15 +17,22 @@ export function CombatantPanel({
 	combatant,
 	identity,
 	ariaLabel,
+	isBoss = false,
 	statusLabel,
 }: CombatantPanelProps) {
-	const title = `${identity}${statusLabel ? ` ${statusLabel}` : ""} / Level ${combatant.level}`;
+	const title = `${identity} / Level ${combatant.level}${isBoss ? " / Boss" : ""}${statusLabel ? ` ${statusLabel}` : ""}`;
 
 	return (
 		<section className="grid w-full max-w-[22rem] gap-2" aria-label={ariaLabel}>
 			<h2 className="flex min-w-0 items-center gap-2 text-base" title={title}>
 				<span className="min-w-0 truncate">
 					<span className="text-primary">{identity}</span> / Level {combatant.level}
+					{isBoss && (
+						<>
+							{" / "}
+							<span className="text-secondary">Boss</span>
+						</>
+					)}
 				</span>
 				{statusLabel && (
 					<Badge
