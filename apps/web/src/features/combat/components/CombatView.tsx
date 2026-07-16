@@ -3,6 +3,7 @@ import { CLASSES_BY_ID, type SkillId } from "@app/content";
 import {
 	selectAvailableActions,
 	selectCombatView,
+	selectEncounterContext,
 	selectHeroProgression,
 	type EngineAction,
 } from "@app/engine";
@@ -37,6 +38,7 @@ export function CombatView({ run }: CombatViewProps) {
 	const { battleNumber, combat, gold, goldMultiplier, zone } = combatView;
 	const heroClass = CLASSES_BY_ID[hero.classId];
 	const heroProgression = selectHeroProgression(run.state);
+	const nextZone = selectEncounterContext(battleNumber + 10).zone;
 	const zoneLabel = formatTitle(zone);
 	const isEnemySlain = combat.status === "player_won";
 	const availableActions = selectAvailableActions(run.state);
@@ -206,6 +208,7 @@ export function CombatView({ run }: CombatViewProps) {
 						enemyPortrait={combat.enemy.portrait}
 						enemyName={combat.enemy.name}
 						isEnemySlain={isEnemySlain}
+						nextZone={nextZone}
 						zone={zone}
 					/>
 				</GameMainPanel>

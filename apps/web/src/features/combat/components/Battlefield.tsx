@@ -36,6 +36,7 @@ type BattlefieldProps = {
 	enemyPortrait: string | null;
 	enemyName: string;
 	isEnemySlain: boolean;
+	nextZone: Zone;
 	zone: Zone;
 };
 
@@ -45,12 +46,15 @@ export function Battlefield({
 	enemyPortrait,
 	enemyName,
 	isEnemySlain,
+	nextZone,
 	zone,
 }: BattlefieldProps) {
 	const previousEnemy = useRef({ id: enemyId, hp: enemyCurrentHp });
 	const feedbackTimeout = useRef<number | null>(null);
 	const [isHit, setIsHit] = useState(false);
 	const [isDying, setIsDying] = useState(false);
+	const [loadedPortraitEnemyId, setLoadedPortraitEnemyId] = useState<string | null>(null);
+	const isPortraitLoaded = loadedPortraitEnemyId === enemyId;
 
 	useEffect(() => {
 		return () => {
@@ -59,6 +63,22 @@ export function Battlefield({
 			}
 		};
 	}, []);
+
+	useEffect(() => {
+		if (nextZone === zone) {
+			return;
+		}
+
+		const preloadTimeout = window.setTimeout(() => {
+			const image = new Image();
+			image.fetchPriority = "low";
+			image.src = ZONE_BACKGROUNDS[nextZone];
+		}, 1_000);
+
+		return () => {
+			window.clearTimeout(preloadTimeout);
+		};
+	}, [nextZone, zone]);
 
 	useEffect(() => {
 		if (feedbackTimeout.current !== null) {
@@ -108,11 +128,16 @@ export function Battlefield({
 		>
 			{enemyPortrait && (
 				<img
+					key={enemyId}
 					src={enemyPortrait}
 					alt={enemyName}
-					loading="lazy"
+					loading="eager"
+					fetchPriority="high"
+					decoding="async"
+					onLoad={() => setLoadedPortraitEnemyId(enemyId)}
 					className={clsx(
-						"relative h-full w-full object-contain",
+						"relative h-full w-full object-contain opacity-0 motion-safe:transition-opacity motion-safe:duration-150",
+						isPortraitLoaded && "opacity-100",
 						isHit && styles.portraitHit,
 						isDying && styles.portraitDeath,
 						isEnemySlain && !isDying && styles.portraitSlain,
