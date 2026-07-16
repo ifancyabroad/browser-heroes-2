@@ -10,11 +10,14 @@ import enterCombatIcon from "../../../assets/images/actions/Skill_Move.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 
+const ACTION_PENDING_DETAIL = "Another action is in progress.";
+
 type TownActionBarProps = {
 	isPending: boolean;
 	gold: number;
 	canAffordRest: boolean;
 	canRest: boolean;
+	isFullyHealed: boolean;
 	canAffordReroll: boolean;
 	canReroll: boolean;
 	canAffordHealingPotion: boolean;
@@ -36,6 +39,7 @@ export function TownActionBar({
 	gold,
 	canAffordRest,
 	canRest,
+	isFullyHealed,
 	canAffordReroll,
 	canReroll,
 	canAffordHealingPotion,
@@ -71,6 +75,16 @@ export function TownActionBar({
 						label={`${rerollCost}g`}
 						labelClassName={canAffordReroll ? "text-text-bright" : "text-error"}
 						loading={isPending}
+						tooltip={
+							<ActionTooltip
+								title="Reroll shop"
+								detail={getRerollTooltipDetail({
+									isPending,
+									canAffordReroll,
+									rerollCost,
+								})}
+							/>
+						}
 						onClick={onReroll}
 					/>
 					<ActionSlotButton
@@ -80,6 +94,18 @@ export function TownActionBar({
 						label={`${healingPotionCost}g`}
 						labelClassName={canAffordHealingPotion ? "text-text-bright" : "text-error"}
 						loading={isPending}
+						tooltip={
+							<ActionTooltip
+								title="Buy health potion"
+								detail={getPotionTooltipDetail({
+									isPending,
+									canAffordHealingPotion,
+									healingPotions,
+									maxHealingPotions,
+									healingPotionCost,
+								})}
+							/>
+						}
 						onClick={onBuyHealingPotion}
 						topLeftLabel={`${healingPotions}/${maxHealingPotions}`}
 						topLeftLabelClassName="text-primary"
@@ -91,6 +117,17 @@ export function TownActionBar({
 						label={`${restCost}g`}
 						labelClassName={canAffordRest ? "text-text-bright" : "text-error"}
 						loading={isPending}
+						tooltip={
+							<ActionTooltip
+								title="Rest"
+								detail={getRestTooltipDetail({
+									isPending,
+									isFullyHealed,
+									canAffordRest,
+									restCost,
+								})}
+							/>
+						}
 						onClick={onRest}
 					/>
 					<ActionSlotButton
@@ -98,10 +135,77 @@ export function TownActionBar({
 						available={canEnterCombat}
 						icon={enterCombatIcon}
 						loading={isPending}
+						tooltip={
+							<ActionTooltip
+								title="Enter combat"
+								detail={
+									isPending ? ACTION_PENDING_DETAIL : "Begin the next battle."
+								}
+							/>
+						}
 						onClick={onEnterCombat}
 					/>
 				</ActionBarGroup>
 			</ActionBarTray>
 		</section>
 	);
+}
+
+function ActionTooltip({ title, detail }: { title: string; detail: string }) {
+	return (
+		<div className="grid gap-1">
+			<p className="text-text-bright">{title}</p>
+			<p className="text-text-muted">{detail}</p>
+		</div>
+	);
+}
+
+function getRerollTooltipDetail({
+	isPending,
+	canAffordReroll,
+	rerollCost,
+}: {
+	isPending: boolean;
+	canAffordReroll: boolean;
+	rerollCost: number;
+}) {
+	if (isPending) return ACTION_PENDING_DETAIL;
+	if (!canAffordReroll) return `Requires ${rerollCost} gold.`;
+	return `Refresh the shop inventory for ${rerollCost} gold.`;
+}
+
+function getPotionTooltipDetail({
+	isPending,
+	canAffordHealingPotion,
+	healingPotions,
+	maxHealingPotions,
+	healingPotionCost,
+}: {
+	isPending: boolean;
+	canAffordHealingPotion: boolean;
+	healingPotions: number;
+	maxHealingPotions: number;
+	healingPotionCost: number;
+}) {
+	if (isPending) return ACTION_PENDING_DETAIL;
+	if (healingPotions >= maxHealingPotions) return "Potion capacity reached.";
+	if (!canAffordHealingPotion) return `Requires ${healingPotionCost} gold.`;
+	return `Add one health potion for ${healingPotionCost} gold.`;
+}
+
+function getRestTooltipDetail({
+	isPending,
+	isFullyHealed,
+	canAffordRest,
+	restCost,
+}: {
+	isPending: boolean;
+	isFullyHealed: boolean;
+	canAffordRest: boolean;
+	restCost: number;
+}) {
+	if (isPending) return ACTION_PENDING_DETAIL;
+	if (isFullyHealed) return "Already at full health.";
+	if (!canAffordRest) return `Requires ${restCost} gold.`;
+	return `Restore all health for ${restCost} gold.`;
 }

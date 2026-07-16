@@ -1,6 +1,7 @@
 # dependencies
 node_modules/
 .pnpm-debug.log*
+.pnpm-store/
 
 # build outputs
 **/dist/
@@ -25,3 +26,6 @@ node_modules/
 .idea/
 .DS_Store
 Thumbs.db
+
+# local browser review artifacts
+.playwright-mcp/

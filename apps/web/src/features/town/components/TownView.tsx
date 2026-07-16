@@ -162,6 +162,7 @@ export function TownView({ run }: TownViewProps) {
 								townView.canAffordRest &&
 								!townView.isFullyHealed
 							}
+							isFullyHealed={townView.isFullyHealed}
 							canAffordReroll={townView.canAffordReroll}
 							canReroll={
 								availableActionTypes.has("REROLL_SHOP") && townView.canAffordReroll

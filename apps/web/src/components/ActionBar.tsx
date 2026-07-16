@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import clsx from "clsx";
 import styles from "./ActionBar.module.css";
+import { Tooltip } from "./Tooltip";
 
 type ActionBarGroupProps = {
 	"aria-label": string;
@@ -53,6 +54,7 @@ type ActionSlotButtonProps = {
 	loading: boolean;
 	onClick: () => void;
 	title?: string;
+	tooltip?: ReactNode;
 	topLeftLabel?: string;
 	topLeftLabelClassName?: string;
 };
@@ -66,10 +68,12 @@ export function ActionSlotButton({
 	loading,
 	onClick,
 	title,
+	tooltip,
 	topLeftLabel,
 	topLeftLabelClassName,
 }: ActionSlotButtonProps) {
 	const disabled = loading || !available;
+	const useNativeDisabled = disabled && !tooltip;
 	const previousAvailable = useRef(available);
 	const pulseTimeout = useRef<number | null>(null);
 	const [showAvailabilityPulse, setShowAvailabilityPulse] = useState(false);
@@ -101,14 +105,15 @@ export function ActionSlotButton({
 		previousAvailable.current = available;
 	}, [available]);
 
-	return (
+	const button = (
 		<button
 			type="button"
 			className={getActionSlotClassName(disabled, showAvailabilityPulse)}
-			disabled={disabled}
+			disabled={useNativeDisabled}
+			aria-disabled={disabled || undefined}
 			aria-label={ariaLabel}
-			title={title ?? ariaLabel}
-			onClick={onClick}
+			title={tooltip ? undefined : (title ?? ariaLabel)}
+			onClick={disabled ? undefined : onClick}
 		>
 			<ActionSlotImage src={icon} grayscale={disabled} />
 			{topLeftLabel && (
@@ -118,6 +123,21 @@ export function ActionSlotButton({
 			)}
 			{label && <ActionSlotLabel className={labelClassName}>{label}</ActionSlotLabel>}
 		</button>
+	);
+
+	if (!tooltip) {
+		return button;
+	}
+
+	return (
+		<Tooltip
+			content={tooltip}
+			className="h-16 w-16 sm:h-20 sm:w-20"
+			contentClassName="w-64 max-w-[calc(100vw-1rem)]"
+			referenceTabIndex={null}
+		>
+			{button}
+		</Tooltip>
 	);
 }
 

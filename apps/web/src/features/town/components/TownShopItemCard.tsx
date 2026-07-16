@@ -22,7 +22,6 @@ type TownShopItemCardProps = {
 export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardProps) {
 	const { item } = slot;
 	const isPurchased = slot.purchased;
-	const primaryDestination = slot.destinations[0];
 	const disabled = isPending || isPurchased || !slot.canAfford;
 	const tooltipSlots = slot.destinations.map((destination) => destination.equipmentSlot);
 	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
@@ -31,7 +30,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 	return (
 		<article
 			className={clsx(
-				"relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)_4rem]",
+				"relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)] md:grid-cols-[4rem_minmax(0,1fr)]",
 				isPurchased && "border-dashed bg-bg-base",
 			)}
 		>
@@ -57,25 +56,39 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 				</Tooltip>
 
 				<div className="grid min-w-0 content-start gap-2">
-					<div className="min-w-0">
-						<Tooltip
-							content={
-								tooltipSlots.length > 0 ? (
-									<ItemTooltipContent item={item} slot={tooltipSlots} />
-								) : null
-							}
-							className={clsx(
-								"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-								getItemRarityTextClassName(item.rarity),
-							)}
-							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+					<div className="grid min-w-0 grid-cols-[minmax(0,1fr)_3.5rem] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_3.75rem] md:grid-cols-[minmax(0,1fr)_4rem]">
+						<div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+							<Tooltip
+								content={
+									tooltipSlots.length > 0 ? (
+										<ItemTooltipContent item={item} slot={tooltipSlots} />
+									) : null
+								}
+								className={clsx(
+									"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+									getItemRarityTextClassName(item.rarity),
+								)}
+								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+							>
+								{item.name}
+							</Tooltip>
+							<span className="whitespace-nowrap">
+								<span className="mr-2 text-text-muted">/</span>
+								<span className={getPriceClassName(slot)}>{slot.price}g</span>
+							</span>
+						</div>
+
+						<Button
+							type="button"
+							variant="primary"
+							className="justify-self-end border-border-secondary px-2"
+							disabled={disabled}
+							aria-label={getBuyLabel(slot)}
+							title={getBuyLabel(slot)}
+							onClick={onBuy}
 						>
-							{item.name}
-						</Tooltip>
-						<span className="mx-2 text-text-muted">/</span>
-						<span className={clsx("whitespace-nowrap", getPriceClassName(slot))}>
-							{slot.price}g
-						</span>
+							Buy
+						</Button>
 					</div>
 
 					<div className="grid min-w-0 gap-1">
@@ -93,28 +106,12 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 								className="hidden md:grid"
 							/>
 						)}
-						{primaryDestination && (
-							<ReplacementDetail destination={primaryDestination} />
-						)}
+						<ReplacementDetails destinations={slot.destinations} />
 					</div>
 
-					<div className="hidden md:grid">
-						<BonusPreview slot={slot} />
+					<div className="hidden md:block">
+						<ModifierPreview slot={slot} />
 					</div>
-				</div>
-
-				<div className="grid content-start justify-items-end">
-					<Button
-						type="button"
-						variant="primary"
-						className="border-border-secondary px-2"
-						disabled={disabled}
-						aria-label={getBuyLabel(slot)}
-						title={getBuyLabel(slot)}
-						onClick={onBuy}
-					>
-						Buy
-					</Button>
 				</div>
 			</div>
 
@@ -154,66 +151,83 @@ function DetailLine({
 	);
 }
 
-function BonusPreview({ slot }: { slot: TownShopSlotView }) {
+function ModifierPreview({ slot }: { slot: TownShopSlotView }) {
 	if (slot.item.modifiers.length === 0) {
 		return null;
 	}
 
 	return (
-		<div className="grid min-w-0 gap-1">
-			<p className="text-text-label">Bonuses</p>
-			<ul className="grid gap-1">
-				{slot.item.modifiers.map((modifier, index) => (
-					<li
-						key={`${modifier.type}-${index}`}
-						className={clsx("min-w-0 break-words", getModifierTextClassName(modifier))}
-					>
-						{formatItemModifier(modifier)}
-					</li>
-				))}
-			</ul>
-		</div>
+		<ul className="grid min-w-0 gap-1">
+			{slot.item.modifiers.map((modifier, index) => (
+				<li
+					key={`${modifier.type}-${index}`}
+					className={clsx("min-w-0 break-words", getModifierTextClassName(modifier))}
+				>
+					{formatItemModifier(modifier)}
+				</li>
+			))}
+		</ul>
 	);
 }
 
-function ReplacementDetail({ destination }: { destination: TownShopDestinationView }) {
-	if (destination.replacedItems.length === 0) {
-		return (
-			<p className="grid min-w-0 grid-cols-[4rem_minmax(0,1fr)] gap-2">
-				<span className="text-text-label">Current</span>
-				<span className="text-text">Empty</span>
-			</p>
-		);
+function ReplacementDetails({
+	destinations,
+}: {
+	destinations: readonly TownShopDestinationView[];
+}) {
+	if (destinations.length === 0) {
+		return null;
 	}
 
 	return (
 		<p className="grid min-w-0 grid-cols-[4rem_minmax(0,1fr)] gap-2">
 			<span className="text-text-label">Current</span>
 			<span className="min-w-0 break-words text-text">
-				<ReplacedItemsInline
-					replacedItems={destination.replacedItems}
-					fallbackSlot={destination.equipmentSlot}
-				/>
+				<CombinedDestinationItems destinations={destinations} />
 			</span>
 		</p>
 	);
 }
 
-type ReplacedItemsInlineProps = {
-	replacedItems: TownShopDestinationView["replacedItems"];
-	fallbackSlot: TownShopDestinationView["equipmentSlot"];
-};
+function CombinedDestinationItems({
+	destinations,
+}: {
+	destinations: readonly TownShopDestinationView[];
+}) {
+	const replacedItems = destinations.flatMap((destination) =>
+		destination.replacedItems.map((replacedItem) => ({
+			replacedItem,
+			fallbackSlot: destination.equipmentSlot,
+		})),
+	);
+	const uniqueReplacedItems = replacedItems.filter(
+		(entry, index) =>
+			replacedItems.findIndex(
+				(candidate) => candidate.replacedItem.instanceId === entry.replacedItem.instanceId,
+			) === index,
+	);
+	const includesEmpty = destinations.some(
+		(destination) => destination.replacedItems.length === 0,
+	);
+	const values = [
+		...uniqueReplacedItems.map((entry) => ({ type: "item" as const, ...entry })),
+		...(includesEmpty ? [{ type: "empty" as const }] : []),
+	];
 
-function ReplacedItemsInline({ replacedItems, fallbackSlot }: ReplacedItemsInlineProps) {
 	return (
 		<>
-			{replacedItems.map((replacedItem, index) => (
-				<ReplacedItemTooltip
-					key={replacedItem.instanceId}
-					replacedItem={replacedItem}
-					fallbackSlot={fallbackSlot}
-					prefix={index > 0 ? ", " : ""}
-				/>
+			{values.map((value, index) => (
+				<span key={value.type === "item" ? value.replacedItem.instanceId : "empty"}>
+					{index > 0 && ", "}
+					{value.type === "item" ? (
+						<ReplacedItemTooltip
+							replacedItem={value.replacedItem}
+							fallbackSlot={value.fallbackSlot}
+						/>
+					) : (
+						"Empty"
+					)}
+				</span>
 			))}
 		</>
 	);
@@ -222,30 +236,26 @@ function ReplacedItemsInline({ replacedItems, fallbackSlot }: ReplacedItemsInlin
 type ReplacedItemTooltipProps = {
 	replacedItem: TownShopDestinationView["replacedItems"][number];
 	fallbackSlot: TownShopDestinationView["equipmentSlot"];
-	prefix: string;
 };
 
-function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedItemTooltipProps) {
+function ReplacedItemTooltip({ replacedItem, fallbackSlot }: ReplacedItemTooltipProps) {
 	const item = ITEMS_BY_ID[replacedItem.itemId];
 
 	if (!item) {
-		return <span>{prefix}Unknown item</span>;
+		return <span>Unknown item</span>;
 	}
 
 	return (
-		<span>
-			{prefix}
-			<Tooltip
-				content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
-				className={clsx(
-					"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-					getItemRarityTextClassName(item.rarity),
-				)}
-				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-			>
-				{item.name}
-			</Tooltip>
-		</span>
+		<Tooltip
+			content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
+			className={clsx(
+				"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+				getItemRarityTextClassName(item.rarity),
+			)}
+			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+		>
+			{item.name}
+		</Tooltip>
 	);
 }
 

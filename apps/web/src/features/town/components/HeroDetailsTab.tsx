@@ -1,8 +1,9 @@
 import { attributes } from "@app/content";
 import type { HeroView } from "@app/engine";
+import { Badge } from "../../../components/Badge";
 import { Tooltip } from "../../../components/Tooltip";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
-import { HeroSidebarSection, SidebarValueList } from "./HeroSidebarPrimitives";
+import { EmptySidebarText, HeroSidebarSection, SidebarValueList } from "./HeroSidebarPrimitives";
 import {
 	armourTypeLabels,
 	attributeLabels,
@@ -103,7 +104,7 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 		damageModifiers.length > 0;
 
 	return (
-		<div className="grid gap-4">
+		<div className="grid gap-3">
 			<HeroSidebarSection title="Attributes">
 				<StatGrid items={attributeItems} />
 			</HeroSidebarSection>
@@ -132,21 +133,21 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			)}
 
 			<HeroSidebarSection title="Proficiencies">
-				<div className="grid gap-3">
-					<ValueGroup
+				<div className="grid gap-2">
+					<ProficiencyGroup
 						label="Armour"
 						values={heroView.proficiencies.armourTypes.map(
 							(armourType) => armourTypeLabels[armourType],
 						)}
 					/>
-					<ValueGroup
+					<ProficiencyGroup
 						label="Weapons"
 						values={heroView.proficiencies.weaponTypes.map(
 							(weaponType) => weaponTypeLabels[weaponType],
 						)}
 					/>
-					<ValueGroup
-						label="Saving Throws"
+					<ProficiencyGroup
+						label="Saves"
 						values={heroView.proficiencies.savingThrows.map(
 							(attribute) => attributeShortLabels[attribute],
 						)}
@@ -159,29 +160,31 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 
 function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 	return (
-		<dl className="grid grid-cols-3 gap-x-4 gap-y-2">
+		<ul className="grid grid-cols-3 gap-x-4 gap-y-2">
 			{items.map((item) => (
-				<div key={item.label} className="flex items-baseline justify-between gap-2">
-					<dt className="text-text-label">{item.label}</dt>
-					<dd className="text-right">
-						<Tooltip
-							content={
-								<StatTooltipContent
-									label={item.fullLabel}
-									stat={item.value}
-									signed={item.signed}
-								/>
-							}
-							placement="right"
-							className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-							contentClassName="w-72 max-w-[calc(100vw-1rem)] sm:w-80"
-						>
-							<HeroStatValue stat={item.value} signed={item.signed} />
-						</Tooltip>
-					</dd>
-				</div>
+				<li key={item.label}>
+					<Tooltip
+						content={
+							<StatTooltipContent
+								label={item.fullLabel}
+								stat={item.value}
+								signed={item.signed}
+							/>
+						}
+						placement="top"
+						className="w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						contentClassName="w-56 max-w-[calc(100vw-1rem)]"
+					>
+						<span className="flex items-baseline justify-between gap-2">
+							<span className="text-text-label">{item.label}</span>
+							<span className="text-right">
+								<HeroStatValue stat={item.value} signed={item.signed} />
+							</span>
+						</span>
+					</Tooltip>
+				</li>
 			))}
-		</dl>
+		</ul>
 	);
 }
 
@@ -195,9 +198,28 @@ function getActiveAffinityLabels(affinities: AffinityCollection) {
 
 function ValueGroup({ label, values }: { label: string; values: readonly string[] }) {
 	return (
-		<div className="grid gap-1">
+		<div className="grid grid-cols-[7rem_minmax(0,1fr)] items-start gap-3">
 			<p className="text-text-label">{label}</p>
 			<SidebarValueList values={values} />
+		</div>
+	);
+}
+
+function ProficiencyGroup({ label, values }: { label: string; values: readonly string[] }) {
+	return (
+		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3">
+			<p className="py-0.5 text-text-label">{label}</p>
+			{values.length > 0 ? (
+				<ul className="flex flex-wrap gap-1">
+					{values.map((value) => (
+						<li key={value} className="flex">
+							<Badge label={value} variant="muted" />
+						</li>
+					))}
+				</ul>
+			) : (
+				<EmptySidebarText>None</EmptySidebarText>
+			)}
 		</div>
 	);
 }

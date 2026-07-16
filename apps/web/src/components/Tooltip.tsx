@@ -26,6 +26,7 @@ type TooltipProps = PropsWithChildren<{
 	disabled?: boolean;
 	className?: string;
 	contentClassName?: string;
+	referenceTabIndex?: number | null;
 }>;
 
 export function TooltipProvider({ children }: TooltipProviderProps) {
@@ -42,6 +43,7 @@ export function Tooltip({
 	disabled = false,
 	className,
 	contentClassName,
+	referenceTabIndex = 0,
 	children,
 }: TooltipProps) {
 	const [open, setOpen] = useState(false);
@@ -52,7 +54,7 @@ export function Tooltip({
 		onOpenChange: setOpen,
 		placement,
 		strategy: "fixed",
-		middleware: [offset(8), flip(), shift({ padding: 8 })],
+		middleware: [offset(8), flip(), shift({ padding: 8, crossAxis: true })],
 		whileElementsMounted: autoUpdate,
 	});
 
@@ -68,7 +70,9 @@ export function Tooltip({
 			<span
 				ref={refs.setReference}
 				className={clsx("inline-block", enabled && "cursor-help", className)}
-				{...getReferenceProps({ tabIndex: enabled ? 0 : undefined })}
+				{...getReferenceProps({
+					tabIndex: enabled ? (referenceTabIndex ?? undefined) : undefined,
+				})}
 			>
 				{children}
 			</span>

@@ -6,7 +6,7 @@ import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
 import { getXpResource } from "../../../game/resourceDisplay";
 import { formatTitle } from "../../../game/effectDisplay";
-import { Tabs } from "../../../components/Tabs";
+import { getTabId, Tabs } from "../../../components/Tabs";
 import { HeroDetailsTab } from "./HeroDetailsTab";
 import { HeroEquipmentTab } from "./HeroEquipmentTab";
 import { HeroSkillsTab } from "./HeroSkillsTab";
@@ -24,7 +24,7 @@ type HeroSidebarProps = {
 type HeroSidebarTab = "details" | "equipment" | "skills";
 
 const heroSidebarTabs = [
-	{ label: "Details", value: "details" },
+	{ label: "Stats", value: "details" },
 	{ label: "Equipment", value: "equipment" },
 	{ label: "Skills", value: "skills" },
 ] as const;
@@ -78,7 +78,7 @@ export function HeroSidebar({
 					</section>
 				</div>
 			}
-			contentClassName="grid content-start gap-4"
+			contentClassName="grid content-start gap-3"
 		>
 			<RunInfo
 				battleNumber={battleNumber}
@@ -92,14 +92,22 @@ export function HeroSidebar({
 				items={heroSidebarTabs}
 				value={activeTab}
 				onChange={setActiveTab}
-				className="w-full justify-between"
+				className="w-full"
+				panelId="hero-sidebar-panel"
 			/>
 
-			{activeTab === "details" && <HeroDetailsTab heroView={heroView} />}
-			{activeTab === "equipment" && <HeroEquipmentTab equipment={heroView.equipment} />}
-			{activeTab === "skills" && (
-				<HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />
-			)}
+			<div
+				id="hero-sidebar-panel"
+				role="tabpanel"
+				aria-labelledby={getTabId("hero-sidebar-panel", activeTab)}
+				tabIndex={0}
+			>
+				{activeTab === "details" && <HeroDetailsTab heroView={heroView} />}
+				{activeTab === "equipment" && <HeroEquipmentTab equipment={heroView.equipment} />}
+				{activeTab === "skills" && (
+					<HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />
+				)}
+			</div>
 		</Sidebar>
 	);
 }

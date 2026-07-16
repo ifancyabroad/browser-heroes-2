@@ -1,7 +1,6 @@
 import { CLASSES_BY_ID, FEATS_BY_ID, ITEMS_BY_ID, type Attribute } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
-import { TooltipDetailList, TooltipSection } from "./TooltipContentPrimitives";
 import { formatModifierValue, getNumberTone, getToneTextClassName } from "../../game/effectDisplay";
 
 type StatValue = HeroView["attributes"][Attribute];
@@ -15,45 +14,33 @@ type StatTooltipContentProps = {
 
 export function StatTooltipContent({ label, stat, signed = false }: StatTooltipContentProps) {
 	return (
-		<div className="grid gap-3">
-			<header className="grid gap-1">
-				<p className="break-words">{label}</p>
-			</header>
-
-			<TooltipDetailList
-				rows={[
-					{ label: "Base", value: formatStatNumber(stat.baseValue, signed) },
-					{
-						label: "Current",
-						value: formatStatNumber(stat.value, signed),
-						valueClassName: "text-text-bright",
-					},
-				]}
-			/>
+		<div className="grid gap-2">
+			<div className="flex items-baseline justify-between gap-3">
+				<p className="min-w-0 break-words text-text-label">{label}</p>
+				<p className="shrink-0 text-text-bright">{formatStatNumber(stat.value, signed)}</p>
+			</div>
 
 			{stat.contributions.length > 0 && (
-				<TooltipSection title="Modifiers">
-					<ul className="grid gap-1">
-						{stat.contributions.map((contribution, index) => (
-							<li
-								key={`${contribution.source.type}-${index}`}
-								className="flex items-baseline justify-between gap-3"
+				<ul className="grid gap-1">
+					{stat.contributions.map((contribution, index) => (
+						<li
+							key={`${contribution.source.type}-${index}`}
+							className="flex items-baseline justify-between gap-3"
+						>
+							<span className="min-w-0 break-words">
+								{getContributionSourceLabel(contribution.source)}
+							</span>
+							<span
+								className={clsx(
+									"shrink-0 text-right",
+									getContributionClassName(contribution),
+								)}
 							>
-								<span className="min-w-0 break-words">
-									{getContributionSourceLabel(contribution.source)}
-								</span>
-								<span
-									className={clsx(
-										"shrink-0 text-right",
-										getContributionClassName(contribution),
-									)}
-								>
-									{formatContribution(contribution)}
-								</span>
-							</li>
-						))}
-					</ul>
-				</TooltipSection>
+								{formatContribution(contribution)}
+							</span>
+						</li>
+					))}
+				</ul>
 			)}
 		</div>
 	);
