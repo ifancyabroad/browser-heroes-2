@@ -22,17 +22,25 @@ export function AttackRiderTooltipList({ riders }: AttackRiderTooltipListProps) 
 
 function AttackRiderTooltipItem({ rider, index }: { rider: AttackRider; index: number }) {
 	const trigger = rider.timing === "onHit" ? "On hit" : "On crit";
-	const effectText = rider.effects.map(formatRiderEffect).join(" ");
-	const saveText = rider.save ? `${formatSavingThrow(rider.save)}. ` : "";
+	const effects = rider.effects.map(formatRiderEffect).join(" ");
+	const effectText = formatSavedRiderEffects(rider, effects);
 
 	return (
 		<li key={`${rider.timing}-${index}`} className="break-words">
 			<span className="text-text-muted">- </span>
-			<Badge label={trigger} className="text-primary" />{" "}
-			<span>
-				{saveText}
-				{effectText}
-			</span>
+			<Badge label={trigger} className="text-primary" /> <span>{effectText}</span>
 		</li>
 	);
+}
+
+function formatSavedRiderEffects(rider: AttackRider, effects: string) {
+	if (!rider.save) {
+		return effects;
+	}
+
+	if (rider.save.onSuccess === "noEffect") {
+		return `${formatSavingThrow(rider.save)}. On Failure: ${effects}`;
+	}
+
+	return `${formatSavingThrow(rider.save)}. On Success: Half damage. ${effects}`;
 }

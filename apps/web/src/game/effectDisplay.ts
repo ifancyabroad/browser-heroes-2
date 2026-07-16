@@ -23,11 +23,6 @@ const damageAffinityLabels = {
 	vulnerability: "Vulnerability",
 } as const;
 
-const saveOutcomeLabels = {
-	noEffect: "no effect",
-	halfDamage: "half damage",
-} as const;
-
 export function formatTitle(value: string) {
 	return value
 		.split("_")
@@ -225,8 +220,8 @@ export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 export function formatSavingThrow(save: SavingThrow) {
 	const dcParts = [
 		String(save.dc.base),
-		attributeShortLabels[save.dc.attribute],
-		save.dc.includeProficiency ? "Prof" : null,
+		`your ${attributeShortLabels[save.dc.attribute]} modifier`,
+		save.dc.includeProficiency ? "your proficiency bonus" : null,
 	].filter(Boolean);
 	const bonus =
 		save.dc.bonus > 0
@@ -235,7 +230,7 @@ export function formatSavingThrow(save: SavingThrow) {
 				? ` - ${Math.abs(save.dc.bonus)}`
 				: "";
 
-	return `${attributeShortLabels[save.attribute]} save vs DC ${dcParts.join(" + ")}${bonus}; ${saveOutcomeLabels[save.onSuccess]} on success`;
+	return `${attributeShortLabels[save.attribute]} save vs DC ${dcParts.join(" + ")}${bonus}`;
 }
 
 export function formatTurns(turns: number) {
@@ -313,7 +308,15 @@ function formatOptionalDuration(durationTurns: number | undefined) {
 }
 
 function formatOptionalSave(save: SavingThrow | undefined) {
-	return save ? ` (${formatSavingThrow(save)})` : "";
+	if (!save) {
+		return "";
+	}
+
+	if (save.onSuccess === "noEffect") {
+		return ` (on a failed ${formatSavingThrow(save)})`;
+	}
+
+	return ` (${formatSavingThrow(save)}; half damage on success)`;
 }
 
 function formatTargetSubject(target: "self" | "enemy") {
