@@ -8,9 +8,9 @@ import {
 } from "../../../components/tooltips/ActionTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
-import continueIcon from "../../../assets/images/actions/Skill_Move.png";
+import continueIcon from "../../../assets/images/actions/Skill_Swords.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
-import skipTurnIcon from "../../../assets/images/icons/skill_3_stuned.png";
+import skipTurnIcon from "../../../assets/images/actions/Quest_20_flag.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 
 type CombatActionBarProps = {
