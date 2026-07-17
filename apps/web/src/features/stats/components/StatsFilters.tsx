@@ -24,7 +24,7 @@ export function StatsFilters({
 				value={searchInput}
 				maxLength={64}
 				placeholder={`Search ${entryType}`}
-				className="min-w-48 flex-1"
+				className="w-full sm:w-80"
 				onChange={onSearchInputChange}
 			/>
 			<ClassSelect value={classId} onChange={onClassChange} />
