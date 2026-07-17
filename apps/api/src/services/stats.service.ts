@@ -6,6 +6,7 @@ import type {
 } from "@app/shared";
 import { RunModel } from "../models/run.model";
 import { GhostModel } from "../models/ghost.model";
+import { Types } from "mongoose";
 
 const COMPLETED_RUN_STATUSES = ["dead", "retired"] as const;
 
@@ -166,6 +167,8 @@ export async function getGhostStats(params: { userId: string; query: GetGhostSta
 }
 
 export async function getUserStatsSummary(userId: string) {
+	const userObjectId = new Types.ObjectId(userId);
+
 	const [runStats, ghostStats] = await Promise.all([
 		RunModel.aggregate<{
 			total: number;
@@ -179,7 +182,7 @@ export async function getUserStatsSummary(userId: string) {
 		}>([
 			{
 				$match: {
-					userId,
+					userId: userObjectId,
 					status: {
 						$in: COMPLETED_RUN_STATUSES,
 					},
@@ -219,7 +222,7 @@ export async function getUserStatsSummary(userId: string) {
 		}>([
 			{
 				$match: {
-					userId,
+					userId: userObjectId,
 				},
 			},
 			{

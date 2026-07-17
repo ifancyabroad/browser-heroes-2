@@ -19,3 +19,11 @@ export function formatDailyDate(date: string) {
 		timeZone: "UTC",
 	}).format(new Date(`${date}T00:00:00.000Z`));
 }
+
+export function formatDisplayDate(value: string) {
+	return new Intl.DateTimeFormat(undefined, {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	}).format(new Date(value));
+}

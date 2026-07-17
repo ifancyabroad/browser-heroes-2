@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 const navigationItems = [
 	{ label: "HOME", to: "/", end: true },
 	{ label: "LEADERBOARDS", to: "/leaderboard", end: false },
+	{ label: "STATS", to: "/stats", end: false },
 ] as const;
 
 export function Header() {

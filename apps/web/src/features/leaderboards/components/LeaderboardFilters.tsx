@@ -1,7 +1,8 @@
-import { classes, type ClassId } from "@app/content";
+import type { ClassId } from "@app/content";
 import type { LeaderboardScope } from "@app/shared";
 import { Button } from "../../../components/Button";
-import { addUtcDays, formatDailyDate, getTodayUtc } from "../utils/date";
+import { ClassSelect } from "../../../components/ClassSelect";
+import { addUtcDays, formatDailyDate, getTodayUtc } from "../../../utils/date";
 
 type LeaderboardFiltersProps = {
 	classId: ClassId | "all";
@@ -33,21 +34,7 @@ export function LeaderboardFilters({
 	return (
 		<div className="grid gap-3 border-b-2 border-border-secondary bg-bg-panel p-3">
 			<div className="flex flex-wrap items-end gap-3">
-				<label className="grid gap-1 text-text-label">
-					CLASS
-					<select
-						value={classId}
-						onChange={(event) => onClassChange(event.target.value as ClassId | "all")}
-						className="min-w-40 border-2 border-border bg-bg-panel px-3 py-1 text-text-bright focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-					>
-						<option value="all">All classes</option>
-						{classes.map((gameClass) => (
-							<option key={gameClass.id} value={gameClass.id}>
-								{gameClass.name}
-							</option>
-						))}
-					</select>
-				</label>
+				<ClassSelect value={classId} onChange={onClassChange} />
 
 				{showUserOnly && (
 					<div className="grid gap-1">

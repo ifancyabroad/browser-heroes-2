@@ -15,6 +15,7 @@ type TabsProps<TValue extends string> = {
 	renderPanel: (value: TValue) => ReactNode;
 	className?: string;
 	panelClassName?: string;
+	keepMounted?: boolean;
 };
 
 export function Tabs<TValue extends string>({
@@ -25,6 +26,7 @@ export function Tabs<TValue extends string>({
 	renderPanel,
 	className,
 	panelClassName,
+	keepMounted = false,
 }: TabsProps<TValue>) {
 	return (
 		<TabsPrimitive.Root
@@ -59,8 +61,9 @@ export function Tabs<TValue extends string>({
 				<TabsPrimitive.Content
 					key={item.value}
 					value={item.value}
+					forceMount={keepMounted ? true : undefined}
 					tabIndex={0}
-					className={panelClassName}
+					className={clsx(panelClassName, keepMounted && "data-[state=inactive]:hidden")}
 				>
 					{renderPanel(item.value)}
 				</TabsPrimitive.Content>

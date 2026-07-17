@@ -10,14 +10,14 @@ import { Card } from "../components/Card";
 import { Layout } from "../components/Layout";
 import { Header } from "../components/Header";
 import { Tabs } from "../components/Tabs";
+import { TablePagination } from "../components/TablePagination";
 import { useCurrentUser } from "../features/auth";
 import { LeaderboardFilters } from "../features/leaderboards/components/LeaderboardFilters";
-import { LeaderboardPagination } from "../features/leaderboards/components/LeaderboardPagination";
 import {
 	GhostLeaderboardTable,
 	RunLeaderboardTable,
 } from "../features/leaderboards/components/LeaderboardTables";
-import { getTodayUtc } from "../features/leaderboards/utils/date";
+import { getTodayUtc } from "../utils/date";
 import { useGhostLeaderboard } from "../features/leaderboards/hooks/useGhostLeaderboard";
 import { useRunLeaderboard } from "../features/leaderboards/hooks/useRunLeaderboard";
 
@@ -135,7 +135,7 @@ export default function Leaderboard() {
 											<RunLeaderboardTable entries={runs.data.entries} />
 										)}
 										{runs.data && !runs.isError && (
-											<LeaderboardPagination
+											<TablePagination
 												page={page}
 												total={runs.data.total}
 												totalPages={runs.data.totalPages}
@@ -167,7 +167,7 @@ export default function Leaderboard() {
 											<GhostLeaderboardTable entries={ghosts.data.entries} />
 										)}
 										{ghosts.data && !ghosts.isError && (
-											<LeaderboardPagination
+											<TablePagination
 												page={page}
 												total={ghosts.data.total}
 												totalPages={ghosts.data.totalPages}

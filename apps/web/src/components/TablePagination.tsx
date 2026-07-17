@@ -1,6 +1,6 @@
-import { Button } from "../../../components/Button";
+import { Button } from "./Button";
 
-type LeaderboardPaginationProps = {
+type TablePaginationProps = {
 	page: number;
 	total: number;
 	totalPages: number;
@@ -8,13 +8,13 @@ type LeaderboardPaginationProps = {
 	onPageChange: (page: number) => void;
 };
 
-export function LeaderboardPagination({
+export function TablePagination({
 	page,
 	total,
 	totalPages,
 	isFetching,
 	onPageChange,
-}: LeaderboardPaginationProps) {
+}: TablePaginationProps) {
 	const displayedTotalPages = Math.max(totalPages, 1);
 
 	return (

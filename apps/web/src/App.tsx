@@ -4,6 +4,7 @@ import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
 import CreateCharacter from "./pages/CreateCharacter";
 import Leaderboard from "./pages/Leaderboard";
+import Stats from "./pages/Stats";
 
 export default function App() {
 	return (
@@ -12,6 +13,7 @@ export default function App() {
 			<Route path="/create-character" element={<CreateCharacter />} />
 			<Route path="/game" element={<Game />} />
 			<Route path="/leaderboard" element={<Leaderboard />} />
+			<Route path="/stats" element={<Stats />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
