@@ -33,7 +33,6 @@ const ghostSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: "User",
 			required: true,
-			index: true,
 		},
 
 		sourceRunId: {
@@ -41,7 +40,6 @@ const ghostSchema = new Schema(
 			ref: "Run",
 			required: true,
 			unique: true,
-			index: true,
 		},
 
 		name: {
@@ -54,14 +52,12 @@ const ghostSchema = new Schema(
 			type: String,
 			enum: classIds,
 			required: true,
-			index: true,
 		},
 
 		heroLevel: {
 			type: Number,
 			required: true,
 			min: 1,
-			index: true,
 		},
 
 		/**
@@ -75,7 +71,6 @@ const ghostSchema = new Schema(
 			required: true,
 			min: 1,
 			max: 10,
-			index: true,
 		},
 
 		/**
@@ -101,9 +96,20 @@ const ghostSchema = new Schema(
 	},
 );
 
+ghostSchema.index({ sourceRunId: 1 }, { unique: true });
+
 ghostSchema.index({ encounterLevel: 1, createdAt: -1 });
-ghostSchema.index({ "stats.kills": -1, "stats.deaths": 1 });
+
+ghostSchema.index({
+	"stats.kills": -1,
+	"stats.deaths": 1,
+	"stats.encounters": -1,
+	createdAt: 1,
+});
+
 ghostSchema.index({ userId: 1, createdAt: -1 });
+
+ghostSchema.index({ classId: 1, "stats.kills": -1 });
 
 export type GhostDocument = InferSchemaType<typeof ghostSchema>;
 
