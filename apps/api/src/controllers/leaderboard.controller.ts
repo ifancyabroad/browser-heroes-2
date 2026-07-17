@@ -44,7 +44,7 @@ export async function getGhostLeaderboardController(
 	}
 
 	const response = await getGhostLeaderboard({
-		userId: req.session.userId!,
+		userId: req.session.userId,
 		query,
 	});
 

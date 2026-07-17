@@ -6,6 +6,7 @@ import { useCurrentRun } from "../features/runs";
 import { Link } from "../components/Link";
 import { Layout } from "../components/Layout";
 import { PageLoader } from "../components/PageLoader";
+import { Header } from "../components/Header";
 
 export default function Landing() {
 	const { data } = useCurrentUser();
@@ -22,6 +23,7 @@ export default function Landing() {
 
 	return (
 		<Layout>
+			<Header />
 			<div className="flex flex-1 items-center justify-center bg-bg-base px-4">
 				<div className="flex w-full max-w-sm flex-col items-center gap-5 text-center">
 					<h1
