@@ -14,7 +14,6 @@ const runSummarySchema = new Schema(
 			type: String,
 			enum: classIds,
 			required: true,
-			index: true,
 		},
 		level: {
 			type: Number,
@@ -27,14 +26,12 @@ const runSummarySchema = new Schema(
 			required: true,
 			default: 1,
 			min: 1,
-			index: true,
 		},
 		zoneNumber: {
 			type: Number,
 			required: true,
 			default: 1,
 			min: 1,
-			index: true,
 		},
 		endlessCycle: {
 			type: Number,
@@ -73,7 +70,6 @@ const runSchema = new Schema(
 			enum: RUN_STATUSES,
 			required: true,
 			default: "active",
-			index: true,
 		},
 
 		nextActionSequence: {
@@ -116,6 +112,14 @@ const runSchema = new Schema(
 );
 
 runSchema.index({ userId: 1, createdAt: -1 });
+
+runSchema.index({
+	userId: 1,
+	status: 1,
+	completedAt: -1,
+	_id: 1,
+});
+
 runSchema.index({
 	status: 1,
 	"summary.kills": -1,
@@ -123,8 +127,19 @@ runSchema.index({
 	completedAt: 1,
 	_id: 1,
 });
+
 runSchema.index({
 	userId: 1,
+	status: 1,
+	"summary.kills": -1,
+	"summary.day": 1,
+	completedAt: 1,
+	_id: 1,
+});
+
+runSchema.index({
+	status: 1,
+	"summary.classId": 1,
 	"summary.kills": -1,
 	"summary.day": 1,
 	completedAt: 1,

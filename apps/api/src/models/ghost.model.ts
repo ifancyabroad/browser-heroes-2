@@ -39,7 +39,6 @@ const ghostSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: "Run",
 			required: true,
-			unique: true,
 		},
 
 		name: {
