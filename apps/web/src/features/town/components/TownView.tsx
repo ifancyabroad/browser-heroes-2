@@ -7,10 +7,12 @@ import {
 } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { Button } from "../../../components/Button";
 import { EquipmentSlotReplacementModal } from "../../../components/EquipmentSlotReplacementModal";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
+import { Link } from "../../../components/Link";
 import { HeroSidebar } from "./HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
@@ -160,9 +162,13 @@ export function TownView({ run }: TownViewProps) {
 
 				<GameMainPanel
 					mobileHeader={
-						<Button variant="primary" type="button" onClick={handleOpenSidebar}>
-							Hero
-						</Button>
+						<div className="flex items-center justify-between">
+							<Button variant="primary" type="button" onClick={handleOpenSidebar}>
+								Hero
+							</Button>
+
+							<Link to="/">Home</Link>
+						</div>
 					}
 					actions={
 						<TownActionBar
@@ -197,6 +203,13 @@ export function TownView({ run }: TownViewProps) {
 						/>
 					}
 				>
+					<RouterLink
+						to="/"
+						className="mb-4 hidden text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:inline-flex"
+					>
+						← BACK
+					</RouterLink>
+
 					<TownShopGrid
 						shopSlots={townView.shopSlots}
 						isPending={applyRunAction.isPending}
