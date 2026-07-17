@@ -18,7 +18,10 @@ function getDailyDateRange(date: string) {
 	return { start, end };
 }
 
-export async function getRunLeaderboard(params: { userId: string; query: GetRunLeaderboardQuery }) {
+export async function getRunLeaderboard(params: {
+	userId?: string;
+	query: GetRunLeaderboardQuery;
+}) {
 	const { query } = params;
 
 	const filter: Record<string, unknown> = {
@@ -48,6 +51,10 @@ export async function getRunLeaderboard(params: { userId: string; query: GetRunL
 	}
 
 	if (query.userOnly === "true") {
+		if (!params.userId) {
+			throw new Error("UNAUTHENTICATED");
+		}
+
 		filter.userId = params.userId;
 	}
 
@@ -90,7 +97,7 @@ export async function getRunLeaderboard(params: { userId: string; query: GetRunL
 }
 
 export async function getGhostLeaderboard(params: {
-	userId: string;
+	userId?: string;
 	query: GetGhostLeaderboardQuery;
 }) {
 	const { query } = params;
@@ -102,6 +109,10 @@ export async function getGhostLeaderboard(params: {
 	}
 
 	if (query.userOnly === "true") {
+		if (!params.userId) {
+			throw new Error("UNAUTHENTICATED");
+		}
+
 		filter.userId = params.userId;
 	}
 
