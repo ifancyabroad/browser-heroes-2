@@ -20,7 +20,6 @@ export const townStateSchema = z.object({
 	rerollCost: z.number().int().min(0),
 	restCost: z.number().int().min(0),
 	rerollCount: z.number().int().min(0),
-	restCount: z.number().int().min(0),
 	shopLevel: z.number().int().min(1),
 	healingPotionCost: z.number().int().min(0),
 });
@@ -34,6 +33,8 @@ export const runStateSchema = z.object({
 	battleNumber: z.number().int().min(1),
 	zoneNumber: z.number().int().min(1),
 	endlessCycle: z.number().int().min(0),
+	day: z.number().int().min(1),
+	kills: z.number().int().min(0),
 	hero: heroStateSchema,
 	combat: combatStateSchema.nullable(),
 	town: townStateSchema.nullable(),

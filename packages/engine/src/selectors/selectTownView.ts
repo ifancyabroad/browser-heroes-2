@@ -55,7 +55,7 @@ export function selectTownView(state: RunState): TownView | null {
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,
 		zone: getZoneForRun(state.zoneNumber),
-		day: state.town.restCount + 1,
+		day: state.day,
 		shopLevel: state.town.shopLevel,
 		gold: state.gold,
 

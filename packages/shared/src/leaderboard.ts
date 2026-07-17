@@ -29,6 +29,9 @@ export interface RunLeaderboardEntryView {
 	level: number;
 	battleNumber: number;
 	zoneNumber: number;
+	endlessCycle: number;
+	day: number;
+	kills: number;
 	status: "dead" | "retired";
 	completedAt: string;
 	isCurrentUser: boolean;

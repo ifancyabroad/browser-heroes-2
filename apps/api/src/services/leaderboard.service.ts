@@ -63,7 +63,8 @@ export async function getRunLeaderboard(params: {
 	const [runs, total] = await Promise.all([
 		RunModel.find(filter)
 			.sort({
-				"summary.battleNumber": -1,
+				"summary.kills": -1,
+				"summary.day": 1,
 				completedAt: 1,
 				_id: 1,
 			})
@@ -82,6 +83,9 @@ export async function getRunLeaderboard(params: {
 		level: run.summary.level,
 		battleNumber: run.summary.battleNumber,
 		zoneNumber: run.summary.zoneNumber,
+		endlessCycle: run.summary.endlessCycle,
+		day: run.summary.day,
+		kills: run.summary.kills,
 		status: run.status as "dead" | "retired",
 		completedAt: run.completedAt?.toISOString() ?? "",
 		isCurrentUser: String(run.userId) === params.userId,

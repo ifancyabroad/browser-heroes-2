@@ -1,14 +1,10 @@
 import mongoose, { Types } from "mongoose";
-import {
-	HERO_NAME_MAX_LENGTH,
-	HERO_NAME_PATTERN,
-	type CreateRunBody,
-	type RunSummaryView,
-} from "@app/shared";
-import { createInitialRunState, type RunState } from "@app/engine";
+import { HERO_NAME_MAX_LENGTH, HERO_NAME_PATTERN, type CreateRunBody } from "@app/shared";
+import { createInitialRunState } from "@app/engine";
 import profanityFilter from "leo-profanity";
 import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
+import { toRunSummary } from "./projection.service";
 
 function createHeroNameError(message: string): Error & { status: number } {
 	return Object.assign(new Error(message), { status: 400 });
@@ -46,16 +42,6 @@ function normalizeAndValidateHeroName(heroName: string): string {
 	}
 
 	return normalizedName;
-}
-
-export function deriveRunSummary(state: RunState): RunSummaryView {
-	return {
-		heroName: state.hero.name,
-		classId: state.hero.classId,
-		level: state.hero.level,
-		battleNumber: state.battleNumber,
-		zoneNumber: state.zoneNumber,
-	};
 }
 
 export async function createRun(params: { userId: string; body: CreateRunBody }) {
@@ -96,7 +82,7 @@ export async function createRun(params: { userId: string; body: CreateRunBody })
 					userId: params.userId,
 					status: "active",
 					state,
-					summary: deriveRunSummary(state),
+					summary: toRunSummary(state),
 				},
 			],
 			{ session },

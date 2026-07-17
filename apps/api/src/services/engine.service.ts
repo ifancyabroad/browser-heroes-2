@@ -15,6 +15,7 @@ import {
 	recordGhostCombatOutcome,
 	selectGhostEncounterForLevel,
 } from "./ghost.service";
+import { toRunSummary } from "./projection.service";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 
@@ -103,22 +104,12 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 
 function applyStateToRun(run: RunDocument, state: RunState): void {
 	run.state = state;
-	run.summary = deriveRunSummary(state);
+	run.summary = toRunSummary(state);
 	run.status = deriveRunStatus(state);
 
 	if (run.status !== "active" && !run.completedAt) {
 		run.completedAt = new Date();
 	}
-}
-
-function deriveRunSummary(state: RunState) {
-	return {
-		heroName: state.hero.name,
-		classId: state.hero.classId,
-		level: state.hero.level,
-		battleNumber: state.battleNumber,
-		zoneNumber: state.zoneNumber,
-	};
 }
 
 function deriveRunStatus(state: RunState): "active" | "dead" | "retired" {

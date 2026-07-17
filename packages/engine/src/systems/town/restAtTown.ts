@@ -16,17 +16,17 @@ export function restAtTown(state: RunState): EngineResult {
 	}
 
 	const hpRestored = Math.max(0, state.hero.maxHp - state.hero.currentHp);
-	const restCount = state.town.restCount + 1;
+	const day = state.day + 1;
 
 	const town: TownState = {
 		...state.town,
-		restCount,
-		restCost: calculateRestCost(state.hero, restCount),
+		restCost: calculateRestCost(state.hero, day),
 	};
 
 	return successResult(
 		{
 			...state,
+			day,
 			gold: state.gold - cost,
 			hero: {
 				...state.hero,

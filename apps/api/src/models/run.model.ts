@@ -36,6 +36,24 @@ const runSummarySchema = new Schema(
 			min: 1,
 			index: true,
 		},
+		endlessCycle: {
+			type: Number,
+			required: true,
+			default: 0,
+			min: 0,
+		},
+		day: {
+			type: Number,
+			required: true,
+			default: 1,
+			min: 1,
+		},
+		kills: {
+			type: Number,
+			required: true,
+			default: 0,
+			min: 0,
+		},
 	},
 	{
 		_id: false,
@@ -98,8 +116,20 @@ const runSchema = new Schema(
 );
 
 runSchema.index({ userId: 1, createdAt: -1 });
-runSchema.index({ status: 1, "summary.battleNumber": -1 });
-runSchema.index({ userId: 1, "summary.battleNumber": -1 });
+runSchema.index({
+	status: 1,
+	"summary.kills": -1,
+	"summary.day": 1,
+	completedAt: 1,
+	_id: 1,
+});
+runSchema.index({
+	userId: 1,
+	"summary.kills": -1,
+	"summary.day": 1,
+	completedAt: 1,
+	_id: 1,
+});
 
 runSchema.index(
 	{ userId: 1 },

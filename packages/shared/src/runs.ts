@@ -18,6 +18,9 @@ export interface RunSummaryView {
 	level: number;
 	battleNumber: number;
 	zoneNumber: number;
+	endlessCycle: number;
+	day: number;
+	kills: number;
 }
 
 export interface RunView {

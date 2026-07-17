@@ -30,6 +30,7 @@ export function returnToTown(state: RunState): EngineResult {
 		runId: state.id,
 		hero: state.hero,
 		zoneNumber,
+		day: state.day,
 		rngState: state.rngState,
 	});
 

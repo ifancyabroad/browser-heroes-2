@@ -17,6 +17,9 @@ export type RunSummaryView = {
 	hero: RunSummaryHeroView;
 	battleNumber: number;
 	zoneNumber: number;
+	endlessCycle: number;
+	day: number;
+	kills: number;
 	gold: number;
 	streak: number;
 	finalEnemy: RunSummaryFinalEnemyView | null;
@@ -40,6 +43,9 @@ export function selectRunSummaryView(state: RunState): RunSummaryView | null {
 		},
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,
+		endlessCycle: state.endlessCycle,
+		day: state.day,
+		kills: state.kills,
 		gold: state.gold,
 		streak: state.streak,
 		finalEnemy: combat

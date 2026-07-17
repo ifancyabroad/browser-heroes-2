@@ -12,12 +12,12 @@ type CreateTownStateInput = {
 	runId: string;
 	hero: HeroState;
 	zoneNumber: number;
+	day: number;
 	rngState: RngState;
 };
 
 export function createTownState(input: CreateTownStateInput): RngResult<TownState> {
 	const rerollCount = 0;
-	const restCount = 0;
 	const shopLevel = calculateShopLevel(input.zoneNumber);
 
 	const shop = createTownShop({
@@ -30,10 +30,9 @@ export function createTownState(input: CreateTownStateInput): RngResult<TownStat
 	const town: TownState = {
 		shopSlots: shop.value,
 		rerollCount,
-		restCount,
 		shopLevel,
 		rerollCost: calculateRerollCost(input.hero, rerollCount),
-		restCost: calculateRestCost(input.hero, restCount),
+		restCost: calculateRestCost(input.hero, input.day),
 		healingPotionCost: calculateHealingPotionCost(input.hero, input.zoneNumber),
 	};
 

@@ -1,9 +1,22 @@
-import type { ApplyRunActionResponse, RunView } from "@app/shared";
+import type { EngineResult, RunState } from "@app/engine";
+import type { ApplyRunActionResponse, RunSummaryView, RunView } from "@app/shared";
 import type { RunDocument } from "../models/run.model";
-import type { EngineResult } from "@app/engine";
 
 function toIsoString(value: Date): string {
 	return value.toISOString();
+}
+
+export function toRunSummary(state: RunState): RunSummaryView {
+	return {
+		heroName: state.hero.name,
+		classId: state.hero.classId,
+		level: state.hero.level,
+		battleNumber: state.battleNumber,
+		zoneNumber: state.zoneNumber,
+		endlessCycle: state.endlessCycle,
+		day: state.day,
+		kills: state.kills,
+	};
 }
 
 export function toRunView(run: RunDocument & { _id: unknown }): RunView {

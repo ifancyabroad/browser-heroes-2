@@ -4,6 +4,8 @@
 
 A run is a self-contained sequence of combat encounters connected by town visits and progression choices.
 
+A run begins on day 1. Each successful rest advances the run by one day. Day progression and rest-price escalation are cumulative for the full run and do not reset when the hero returns to town.
+
 The current run flow supports town, combat, victory rewards, boss reward choices, level-up choices, continuing to the next combat, returning to town, and death.
 
 The intended full run is a 100-battle ladder. Every 10th battle is a boss encounter. Defeating the final boss at battle 100 is the intended victory condition. Optional endless progression is planned after victory.
@@ -135,9 +137,9 @@ Town state includes:
 - reroll cost and reroll count
 - healing potion cost for engine-supported consumable purchases
 
-Town pricing is engine-owned. Current costs are affected by the hero's charisma modifier through a town discount multiplier. Rest and reroll costs increase with repeated use during the same town visit.
+Town pricing is engine-owned. Current costs are affected by the hero's charisma modifier through a town discount multiplier. Rest costs increase with each rest across the full run. Reroll costs increase with repeated use during the current town visit.
 
-Returning to town after a victory creates fresh town state for the current run position and resets the active streak. Continuing directly to the next combat preserves momentum and increases the streak.
+Returning to town after a victory creates fresh town state for the current run position and resets the active streak and town-local reroll count. It does not reset the current day or rest-price escalation. Continuing directly to the next combat preserves momentum and increases the streak.
 
 Town should not contain combat encounters. It may prepare, recover, or redirect the run, but combat outcomes remain engine-owned.
 

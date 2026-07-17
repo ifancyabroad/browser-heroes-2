@@ -34,6 +34,7 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 			...input.state,
 			rngState: playerEffects.rngState,
 			combat: afterPlayerDeathCheck,
+			kills: input.state.kills + 1,
 		};
 
 		const victoryResult = applyVictoryReward(completedState);

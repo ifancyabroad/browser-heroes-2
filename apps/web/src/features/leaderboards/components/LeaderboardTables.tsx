@@ -69,7 +69,7 @@ function formatCompletedAt(completedAt: string) {
 export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryView[] }) {
 	return (
 		<div className="overflow-x-auto">
-			<table className="w-full table-fixed border-collapse sm:min-w-200 sm:table-auto">
+			<table className="w-full table-fixed border-collapse sm:min-w-225 sm:table-auto">
 				<thead>
 					<tr className="bg-bg-elevated">
 						<th scope="col" className={rankHeadingClassName}>
@@ -79,7 +79,13 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 							HERO
 						</th>
 						<th scope="col" className={primaryMetricHeadingClassName}>
-							BATTLE
+							KILLS
+						</th>
+						<th scope="col" className={hiddenNumericHeadingClassName}>
+							DAY
+						</th>
+						<th scope="col" className={hiddenNumericHeadingClassName}>
+							CYCLE
 						</th>
 						<th scope="col" className={hiddenNumericHeadingClassName}>
 							LEVEL
@@ -103,7 +109,9 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 									isCurrentUser={entry.isCurrentUser}
 								/>
 							</td>
-							<td className={primaryMetricCellClassName}>{entry.battleNumber}</td>
+							<td className={primaryMetricCellClassName}>{entry.kills}</td>
+							<td className={hiddenNumericCellClassName}>{entry.day}</td>
+							<td className={hiddenNumericCellClassName}>{entry.endlessCycle}</td>
 							<td className={hiddenNumericCellClassName}>{entry.level}</td>
 							<td className={hiddenCellClassName}>
 								{formatTitle(getZoneForRun(entry.zoneNumber))}

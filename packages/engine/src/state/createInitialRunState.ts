@@ -21,6 +21,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		runId: input.runId,
 		hero,
 		zoneNumber,
+		day: 1,
 		rngState,
 	});
 
@@ -37,6 +38,8 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		battleNumber: 1,
 		zoneNumber,
 		endlessCycle: 0,
+		day: 1,
+		kills: 0,
 
 		hero,
 

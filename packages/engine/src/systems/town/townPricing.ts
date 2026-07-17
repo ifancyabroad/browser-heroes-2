@@ -23,11 +23,9 @@ export function calculateRerollCost(hero: HeroState, rerollCount: number): numbe
 	);
 }
 
-export function calculateRestCost(hero: HeroState, restCount: number): number {
+export function calculateRestCost(hero: HeroState, day: number): number {
 	return Math.round(
-		BASE_REST_COST *
-			Math.pow(REST_MULTIPLIER, restCount) *
-			calculateTownDiscountMultiplier(hero),
+		BASE_REST_COST * Math.pow(REST_MULTIPLIER, day - 1) * calculateTownDiscountMultiplier(hero),
 	);
 }
 
