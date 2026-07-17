@@ -1,5 +1,4 @@
 import type { GetGhostStatsQuery, GetRunStatsQuery, UserStatsSummaryView } from "@app/shared";
-import { Card } from "../../../components/Card";
 import { TablePagination } from "../../../components/TablePagination";
 import { useGhostStats } from "../hooks/useGhostStats";
 import { useRunStats } from "../hooks/useRunStats";
@@ -47,54 +46,50 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 	const runs = useRunStats(query, props.hasSession && props.isActive);
 
 	return (
-		<div className="grid gap-5">
+		<>
 			<SummarySection tab="heroes" {...props} />
-			<Card title="RUN HISTORY" className="min-w-0">
-				<div className="pt-3">
-					<StatsFilters
-						entryType="heroes"
-						classId={classId}
-						searchInput={searchInput}
-						onClassChange={handleClassChange}
-						onSearchInputChange={handleSearchInputChange}
-					/>
-					{runs.isPending && props.hasSession ? (
-						<StatsDataState message="Loading hero stats..." />
-					) : runs.isError && props.hasSession ? (
-						<StatsDataState
-							message="Unable to load hero stats."
-							tone="error"
-							onRetry={() => void runs.refetch()}
-						/>
-					) : (runs.data?.entries.length ?? 0) === 0 ? (
-						<StatsDataState
-							message={
-								search || classId !== "all"
-									? "No heroes match these filters."
-									: "No completed heroes yet."
-							}
-						/>
-					) : (
-						<RunStatsTable
-							entries={runs.data?.entries ?? []}
-							sort={sort}
-							direction={direction}
-							onSort={handleSort}
-						/>
-					)}
-					{props.hasSession && runs.data && !runs.isError && (
-						<TablePagination
-							page={page}
-							total={runs.data.total}
-							totalPages={runs.data.totalPages}
-							isFetching={runs.isFetching}
-							onPageChange={setPage}
-						/>
-					)}
-					{runs.isFetching && !runs.isPending && <UpdatingMessage />}
-				</div>
-			</Card>
-		</div>
+			<StatsFilters
+				entryType="heroes"
+				classId={classId}
+				searchInput={searchInput}
+				onClassChange={handleClassChange}
+				onSearchInputChange={handleSearchInputChange}
+			/>
+			{runs.isPending && props.hasSession ? (
+				<StatsDataState message="Loading hero stats..." />
+			) : runs.isError && props.hasSession ? (
+				<StatsDataState
+					message="Unable to load hero stats."
+					tone="error"
+					onRetry={() => void runs.refetch()}
+				/>
+			) : (runs.data?.entries.length ?? 0) === 0 ? (
+				<StatsDataState
+					message={
+						search || classId !== "all"
+							? "No heroes match these filters."
+							: "No completed heroes yet."
+					}
+				/>
+			) : (
+				<RunStatsTable
+					entries={runs.data?.entries ?? []}
+					sort={sort}
+					direction={direction}
+					onSort={handleSort}
+				/>
+			)}
+			{props.hasSession && runs.data && !runs.isError && (
+				<TablePagination
+					page={page}
+					total={runs.data.total}
+					totalPages={runs.data.totalPages}
+					isFetching={runs.isFetching}
+					onPageChange={setPage}
+				/>
+			)}
+			{runs.isFetching && !runs.isPending && <UpdatingMessage />}
+		</>
 	);
 }
 
@@ -125,54 +120,50 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 	const ghosts = useGhostStats(query, props.hasSession && props.isActive);
 
 	return (
-		<div className="grid gap-5">
+		<>
 			<SummarySection tab="ghosts" {...props} />
-			<Card title="GHOST ACTIVITY" className="min-w-0">
-				<div className="pt-3">
-					<StatsFilters
-						entryType="ghosts"
-						classId={classId}
-						searchInput={searchInput}
-						onClassChange={handleClassChange}
-						onSearchInputChange={handleSearchInputChange}
-					/>
-					{ghosts.isPending && props.hasSession ? (
-						<StatsDataState message="Loading ghost stats..." />
-					) : ghosts.isError && props.hasSession ? (
-						<StatsDataState
-							message="Unable to load ghost stats."
-							tone="error"
-							onRetry={() => void ghosts.refetch()}
-						/>
-					) : (ghosts.data?.entries.length ?? 0) === 0 ? (
-						<StatsDataState
-							message={
-								search || classId !== "all"
-									? "No ghosts match these filters."
-									: "No ghosts yet."
-							}
-						/>
-					) : (
-						<GhostStatsTable
-							entries={ghosts.data?.entries ?? []}
-							sort={sort}
-							direction={direction}
-							onSort={handleSort}
-						/>
-					)}
-					{props.hasSession && ghosts.data && !ghosts.isError && (
-						<TablePagination
-							page={page}
-							total={ghosts.data.total}
-							totalPages={ghosts.data.totalPages}
-							isFetching={ghosts.isFetching}
-							onPageChange={setPage}
-						/>
-					)}
-					{ghosts.isFetching && !ghosts.isPending && <UpdatingMessage />}
-				</div>
-			</Card>
-		</div>
+			<StatsFilters
+				entryType="ghosts"
+				classId={classId}
+				searchInput={searchInput}
+				onClassChange={handleClassChange}
+				onSearchInputChange={handleSearchInputChange}
+			/>
+			{ghosts.isPending && props.hasSession ? (
+				<StatsDataState message="Loading ghost stats..." />
+			) : ghosts.isError && props.hasSession ? (
+				<StatsDataState
+					message="Unable to load ghost stats."
+					tone="error"
+					onRetry={() => void ghosts.refetch()}
+				/>
+			) : (ghosts.data?.entries.length ?? 0) === 0 ? (
+				<StatsDataState
+					message={
+						search || classId !== "all"
+							? "No ghosts match these filters."
+							: "No ghosts yet."
+					}
+				/>
+			) : (
+				<GhostStatsTable
+					entries={ghosts.data?.entries ?? []}
+					sort={sort}
+					direction={direction}
+					onSort={handleSort}
+				/>
+			)}
+			{props.hasSession && ghosts.data && !ghosts.isError && (
+				<TablePagination
+					page={page}
+					total={ghosts.data.total}
+					totalPages={ghosts.data.totalPages}
+					isFetching={ghosts.isFetching}
+					onPageChange={setPage}
+				/>
+			)}
+			{ghosts.isFetching && !ghosts.isPending && <UpdatingMessage />}
+		</>
 	);
 }
 
@@ -185,22 +176,16 @@ function SummarySection({
 	onSummaryRetry,
 }: CommonPanelProps & { tab: "heroes" | "ghosts" }) {
 	if (summaryPending && hasSession) {
-		return (
-			<Card title={tab === "heroes" ? "HERO RECORD" : "GHOST RECORD"}>
-				<StatsDataState message="Loading overall stats..." spacing="compact" />
-			</Card>
-		);
+		return <StatsDataState message="Loading overall stats..." spacing="compact" />;
 	}
 	if (summaryError && hasSession) {
 		return (
-			<Card title={tab === "heroes" ? "HERO RECORD" : "GHOST RECORD"}>
-				<StatsDataState
-					message="Unable to load overall stats."
-					tone="error"
-					onRetry={onSummaryRetry}
-					spacing="compact"
-				/>
-			</Card>
+			<StatsDataState
+				message="Unable to load overall stats."
+				tone="error"
+				onRetry={onSummaryRetry}
+				spacing="compact"
+			/>
 		);
 	}
 	return <StatsSummary tab={tab} summary={summary} />;

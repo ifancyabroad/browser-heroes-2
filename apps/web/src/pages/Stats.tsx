@@ -1,5 +1,6 @@
 import type { UserStatsSummaryView } from "@app/shared";
 import { useState } from "react";
+import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
 import { Tabs } from "../components/Tabs";
@@ -58,25 +59,29 @@ export default function Stats() {
 						</p>
 					</header>
 
-					<Tabs
-						aria-label="Stats type"
-						items={tabs}
-						value={activeTab}
-						onChange={setActiveTab}
-						keepMounted
-						className="mb-5"
-						panelClassName="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-						renderPanel={(tab) =>
-							tab === "heroes" ? (
-								<HeroStatsPanel {...panelProps} isActive={activeTab === "heroes"} />
-							) : (
-								<GhostStatsPanel
-									{...panelProps}
-									isActive={activeTab === "ghosts"}
-								/>
-							)
-						}
-					/>
+					<Card className="min-w-0">
+						<Tabs
+							aria-label="Stats type"
+							items={tabs}
+							value={activeTab}
+							onChange={setActiveTab}
+							keepMounted
+							panelClassName="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+							renderPanel={(tab) =>
+								tab === "heroes" ? (
+									<HeroStatsPanel
+										{...panelProps}
+										isActive={activeTab === "heroes"}
+									/>
+								) : (
+									<GhostStatsPanel
+										{...panelProps}
+										isActive={activeTab === "ghosts"}
+									/>
+								)
+							}
+						/>
+					</Card>
 				</div>
 			</div>
 		</Layout>

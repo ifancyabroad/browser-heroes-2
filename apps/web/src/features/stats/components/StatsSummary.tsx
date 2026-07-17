@@ -1,5 +1,4 @@
 import type { UserStatsSummaryView } from "@app/shared";
-import { Card } from "../../../components/Card";
 
 type SummaryItem = {
 	label: string;
@@ -29,15 +28,13 @@ export function StatsSummary({
 				];
 
 	return (
-		<Card title={tab === "heroes" ? "HERO RECORD" : "GHOST RECORD"} contentClassName="p-4 pt-5">
-			<dl className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
-				{items.map((item) => (
-					<div key={item.label} className="grid gap-1">
-						<dt className="text-text-label">{item.label}</dt>
-						<dd className="text-text-bright">{item.value}</dd>
-					</div>
-				))}
-			</dl>
-		</Card>
+		<dl className="grid grid-cols-2 gap-x-6 gap-y-3 px-3 py-4 sm:grid-cols-4">
+			{items.map((item) => (
+				<div key={item.label} className="flex items-baseline gap-2">
+					<dt className="text-text-label">{item.label}</dt>
+					<dd className="text-text-bright">{item.value}</dd>
+				</div>
+			))}
+		</dl>
 	);
 }
