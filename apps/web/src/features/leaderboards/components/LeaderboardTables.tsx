@@ -6,10 +6,18 @@ import { Badge } from "../../../components/Badge";
 import { formatTitle } from "../../../game/effectDisplay";
 
 const headingClassName =
-	"whitespace-nowrap border-b-2 border-border-secondary px-3 py-2 text-left font-normal text-text-label";
+	"whitespace-nowrap border-b-2 border-border-secondary px-2 py-2 text-left font-normal text-text-label sm:px-3";
 const numericHeadingClassName = `${headingClassName} text-right`;
-const cellClassName = "whitespace-nowrap px-3 py-2";
+const hiddenHeadingClassName = `${headingClassName} hidden sm:table-cell`;
+const hiddenNumericHeadingClassName = `${numericHeadingClassName} hidden sm:table-cell`;
+const cellClassName = "whitespace-nowrap px-2 py-2 sm:px-3";
 const numericCellClassName = `${cellClassName} text-right text-text-bright`;
+const hiddenCellClassName = `${cellClassName} hidden sm:table-cell`;
+const hiddenNumericCellClassName = `${numericCellClassName} hidden sm:table-cell`;
+const primaryMetricHeadingClassName = `${numericHeadingClassName} w-18 sm:w-auto`;
+const primaryMetricCellClassName = `${numericCellClassName} w-18 sm:w-auto`;
+const rankHeadingClassName = `${numericHeadingClassName} w-12 sm:w-auto`;
+const rankCellClassName = `${numericCellClassName} w-12 sm:w-auto`;
 
 function HeroIdentity({
 	name,
@@ -23,7 +31,7 @@ function HeroIdentity({
 	const heroClass = CLASSES_BY_ID[classId];
 
 	return (
-		<div className="flex min-w-52 items-center gap-2">
+		<div className="flex min-w-0 items-center gap-2 sm:min-w-52">
 			<img
 				src={heroClass.icon}
 				alt=""
@@ -61,25 +69,25 @@ function formatCompletedAt(completedAt: string) {
 export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryView[] }) {
 	return (
 		<div className="overflow-x-auto">
-			<table className="w-full min-w-200 border-collapse">
+			<table className="w-full table-fixed border-collapse sm:min-w-200 sm:table-auto">
 				<thead>
 					<tr className="bg-bg-elevated">
-						<th scope="col" className={numericHeadingClassName}>
+						<th scope="col" className={rankHeadingClassName}>
 							RANK
 						</th>
 						<th scope="col" className={headingClassName}>
 							HERO
 						</th>
-						<th scope="col" className={numericHeadingClassName}>
-							LEVEL
-						</th>
-						<th scope="col" className={numericHeadingClassName}>
+						<th scope="col" className={primaryMetricHeadingClassName}>
 							BATTLE
 						</th>
-						<th scope="col" className={headingClassName}>
+						<th scope="col" className={hiddenNumericHeadingClassName}>
+							LEVEL
+						</th>
+						<th scope="col" className={hiddenHeadingClassName}>
 							ZONE
 						</th>
-						<th scope="col" className={headingClassName}>
+						<th scope="col" className={hiddenHeadingClassName}>
 							COMPLETED
 						</th>
 					</tr>
@@ -87,7 +95,7 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 				<tbody>
 					{entries.map((entry) => (
 						<tr key={entry.runId} className={rowClassName(entry.isCurrentUser)}>
-							<td className={numericCellClassName}>{entry.rank}</td>
+							<td className={rankCellClassName}>{entry.rank}</td>
 							<td className={cellClassName}>
 								<HeroIdentity
 									name={entry.heroName}
@@ -95,12 +103,12 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 									isCurrentUser={entry.isCurrentUser}
 								/>
 							</td>
-							<td className={numericCellClassName}>{entry.level}</td>
-							<td className={numericCellClassName}>{entry.battleNumber}</td>
-							<td className={cellClassName}>
+							<td className={primaryMetricCellClassName}>{entry.battleNumber}</td>
+							<td className={hiddenNumericCellClassName}>{entry.level}</td>
+							<td className={hiddenCellClassName}>
 								{formatTitle(getZoneForRun(entry.zoneNumber))}
 							</td>
-							<td className={cellClassName}>
+							<td className={hiddenCellClassName}>
 								{formatCompletedAt(entry.completedAt)}
 							</td>
 						</tr>
@@ -114,28 +122,28 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 export function GhostLeaderboardTable({ entries }: { entries: GhostLeaderboardEntryView[] }) {
 	return (
 		<div className="overflow-x-auto">
-			<table className="w-full min-w-225 border-collapse">
+			<table className="w-full table-fixed border-collapse sm:min-w-225 sm:table-auto">
 				<thead>
 					<tr className="bg-bg-elevated">
-						<th scope="col" className={numericHeadingClassName}>
+						<th scope="col" className={rankHeadingClassName}>
 							RANK
 						</th>
 						<th scope="col" className={headingClassName}>
 							GHOST
 						</th>
-						<th scope="col" className={numericHeadingClassName}>
-							LEVEL
-						</th>
-						<th scope="col" className={numericHeadingClassName}>
+						<th scope="col" className={primaryMetricHeadingClassName}>
 							KILLS
 						</th>
-						<th scope="col" className={numericHeadingClassName}>
+						<th scope="col" className={hiddenNumericHeadingClassName}>
+							LEVEL
+						</th>
+						<th scope="col" className={hiddenNumericHeadingClassName}>
 							DEATHS
 						</th>
-						<th scope="col" className={numericHeadingClassName}>
+						<th scope="col" className={hiddenNumericHeadingClassName}>
 							ENCOUNTERS
 						</th>
-						<th scope="col" className={numericHeadingClassName}>
+						<th scope="col" className={hiddenNumericHeadingClassName}>
 							WIN RATE
 						</th>
 					</tr>
@@ -143,7 +151,7 @@ export function GhostLeaderboardTable({ entries }: { entries: GhostLeaderboardEn
 				<tbody>
 					{entries.map((entry) => (
 						<tr key={entry.ghostId} className={rowClassName(entry.isCurrentUser)}>
-							<td className={numericCellClassName}>{entry.rank}</td>
+							<td className={rankCellClassName}>{entry.rank}</td>
 							<td className={cellClassName}>
 								<HeroIdentity
 									name={entry.name}
@@ -151,11 +159,11 @@ export function GhostLeaderboardTable({ entries }: { entries: GhostLeaderboardEn
 									isCurrentUser={entry.isCurrentUser}
 								/>
 							</td>
-							<td className={numericCellClassName}>{entry.heroLevel}</td>
-							<td className={numericCellClassName}>{entry.kills}</td>
-							<td className={numericCellClassName}>{entry.deaths}</td>
-							<td className={numericCellClassName}>{entry.encounters}</td>
-							<td className={numericCellClassName}>
+							<td className={primaryMetricCellClassName}>{entry.kills}</td>
+							<td className={hiddenNumericCellClassName}>{entry.heroLevel}</td>
+							<td className={hiddenNumericCellClassName}>{entry.deaths}</td>
+							<td className={hiddenNumericCellClassName}>{entry.encounters}</td>
+							<td className={hiddenNumericCellClassName}>
 								{Math.round(entry.winRate * 100)}%
 							</td>
 						</tr>
