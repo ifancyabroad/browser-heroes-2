@@ -12,6 +12,7 @@ type CreateTownStateInput = {
 	runId: string;
 	hero: HeroState;
 	zoneNumber: number;
+	battleNumber: number;
 	day: number;
 	rngState: RngState;
 };
@@ -24,6 +25,8 @@ export function createTownState(input: CreateTownStateInput): RngResult<TownStat
 		runId: input.runId,
 		hero: input.hero,
 		shopLevel,
+		battleNumber: input.battleNumber,
+		rerollCount,
 		rngState: input.rngState,
 	});
 

@@ -30,22 +30,23 @@ export function createEffectInstanceId(
 	return `${combatId}:turn:${turnNumber}:source:${sourceCombatantId}:effect:${sourceEffectKey}`;
 }
 
-export function createRewardItemInstanceId(
-	runId: string,
-	battleNumber: number,
-	itemId: string,
-): string {
-	return `${runId}:item:reward:${battleNumber}:${itemId}`;
-}
-
 export function createTownShopSlotId(runId: string, index: number): string {
 	return `${runId}:town:shop:${index}`;
 }
 
 export function createShopItemInstanceId(
 	runId: string,
+	battleNumber: number,
+	rerollCount: number,
 	shopSlotId: string,
-	itemId: string,
 ): string {
-	return `${runId}:item:shop:${shopSlotId}:${itemId}`;
+	return `${runId}:item:shop:${battleNumber}:${rerollCount}:${shopSlotId}`;
+}
+
+export function createRewardItemOptionInstanceId(
+	runId: string,
+	battleNumber: number,
+	optionIndex: number,
+): string {
+	return `${runId}:item:reward:${battleNumber}:${optionIndex}`;
 }

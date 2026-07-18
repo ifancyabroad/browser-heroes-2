@@ -1,0 +1,19 @@
+import type { Class, Item, ItemBase } from "@app/content";
+
+type EquippableLike = Item | ItemBase;
+
+export function canEquipItemLike(classDefinition: Class, item: EquippableLike): boolean {
+	if (item.type === "weapon") {
+		return classDefinition.proficiencies.weaponTypes.includes(item.weaponType);
+	}
+
+	if (item.slot === "body") {
+		return classDefinition.proficiencies.armourTypes.includes(item.category);
+	}
+
+	if (item.slot === "shield") {
+		return classDefinition.proficiencies.armourTypes.includes("shield");
+	}
+
+	return true;
+}

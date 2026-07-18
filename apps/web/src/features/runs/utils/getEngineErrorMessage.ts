@@ -29,6 +29,7 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	CONSUMABLE_NOT_USABLE: "That consumable cannot be used right now.",
 	HEALING_POTIONS_FULL: "You cannot carry any more health potions.",
 	CONSUMABLE_NOT_AVAILABLE: "That consumable is not available.",
+	NO_ELIGIBLE_ITEM_BASE: "No eligible item base.",
 };
 
 export function getEngineErrorMessage(error: EngineErrorCode): string {

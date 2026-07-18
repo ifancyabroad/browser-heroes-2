@@ -143,6 +143,7 @@ export {
 export type {
 	ItemInstance,
 	GeneratedItemDefinition,
+	GeneratedItemInstance,
 	StaticItemInstance,
 } from "./itemInstance.schema";
 

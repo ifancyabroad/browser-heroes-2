@@ -1,9 +1,10 @@
-import type { Item, ItemId } from "@app/content";
+import type { ItemId } from "@app/content";
 
-import type { RngResult, RngState } from "../../core/rng";
 import { createShopItemInstanceId, createTownShopSlotId } from "../../core/ids";
+import type { RngResult, RngState } from "../../core/rng";
 import type { HeroState, TownShopSlot } from "../../schemas";
-import { selectWeightedEquipmentItem } from "../items/selectWeightedEquipmentItem";
+import { createRandomItemInstance } from "../items/createRandomItemInstance";
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 import { calculateTownDiscountMultiplier } from "./townPricing";
 
 const TOWN_SHOP_SLOT_COUNT = 6;
@@ -12,48 +13,60 @@ type CreateTownShopInput = {
 	runId: string;
 	hero: HeroState;
 	shopLevel: number;
+	battleNumber: number;
+	rerollCount: number;
 	rngState: RngState;
 };
 
 export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSlot[]> {
-	const selectedItems: Item[] = [];
-	const excludedItemIds = new Set<ItemId>();
+	const shopSlots: TownShopSlot[] = [];
+	const excludedStaticItemIds = new Set<ItemId>();
+	const discountMultiplier = calculateTownDiscountMultiplier(input.hero);
+
 	let rngState = input.rngState;
 
-	while (selectedItems.length < TOWN_SHOP_SLOT_COUNT) {
-		const selected = selectWeightedEquipmentItem({
+	while (shopSlots.length < TOWN_SHOP_SLOT_COUNT) {
+		const shopSlotId = createTownShopSlotId(input.runId, shopSlots.length + 1);
+
+		const itemResult = createRandomItemInstance({
 			hero: input.hero,
+			instanceId: createShopItemInstanceId(
+				input.runId,
+				input.battleNumber,
+				input.rerollCount,
+				shopSlotId,
+			),
 			itemLevel: input.shopLevel,
-			excludedItemIds,
+			excludedStaticItemIds,
 			rngState,
 		});
 
-		if (!selected) {
+		if (!itemResult) {
 			break;
 		}
 
-		selectedItems.push(selected.value);
-		excludedItemIds.add(selected.value.id);
-		rngState = selected.rngState;
+		const itemDefinition = getItemInstanceDefinition(itemResult.value.item);
+
+		if (!itemDefinition) {
+			break;
+		}
+
+		shopSlots.push({
+			id: shopSlotId,
+			item: itemResult.value.item,
+			price: Math.round(itemDefinition.price * discountMultiplier),
+			purchased: false,
+		});
+
+		if (itemResult.value.staticItemId) {
+			excludedStaticItemIds.add(itemResult.value.staticItemId);
+		}
+
+		rngState = itemResult.rngState;
 	}
 
-	const discountMultiplier = calculateTownDiscountMultiplier(input.hero);
-
 	return {
-		value: selectedItems.map((item, index) => {
-			const shopSlotId = createTownShopSlotId(input.runId, index + 1);
-
-			return {
-				id: shopSlotId,
-				item: {
-					instanceId: createShopItemInstanceId(input.runId, shopSlotId, item.id),
-					type: "static",
-					itemId: item.id,
-				},
-				price: Math.round(item.price * discountMultiplier),
-				purchased: false,
-			};
-		}),
+		value: shopSlots,
 		rngState,
 	};
 }

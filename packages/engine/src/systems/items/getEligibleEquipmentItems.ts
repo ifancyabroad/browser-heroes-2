@@ -1,14 +1,8 @@
-import {
-	type Class,
-	CLASSES_BY_ID,
-	items,
-	type Item,
-	type ItemId,
-	type ItemRarity,
-} from "@app/content";
+import { CLASSES_BY_ID, items, type Item, type ItemId, type ItemRarity } from "@app/content";
 
 import type { HeroState } from "../../schemas";
 import type { ItemGenerationType } from "./itemGenerationWeights";
+import { canEquipItemLike } from "./canEquipItemLike";
 
 type GetEligibleEquipmentItemsInput = {
 	hero: HeroState;
@@ -47,7 +41,7 @@ export function getEligibleEquipmentItems(input: GetEligibleEquipmentItemsInput)
 			return false;
 		}
 
-		return canEquipItem(classDefinition, item);
+		return canEquipItemLike(classDefinition, item);
 	});
 }
 
@@ -57,20 +51,4 @@ function matchesItemGenerationType(item: Item, itemType: ItemGenerationType): bo
 	}
 
 	return item.type === "armour" && item.slot === itemType;
-}
-
-function canEquipItem(classDefinition: Class, item: Item): boolean {
-	if (item.type === "weapon") {
-		return classDefinition.proficiencies.weaponTypes.includes(item.weaponType);
-	}
-
-	if (item.slot === "body") {
-		return classDefinition.proficiencies.armourTypes.includes(item.category);
-	}
-
-	if (item.slot === "shield") {
-		return classDefinition.proficiencies.armourTypes.includes("shield");
-	}
-
-	return true;
 }

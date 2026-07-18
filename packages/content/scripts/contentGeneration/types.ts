@@ -1,4 +1,4 @@
-export type ContentType = "skill" | "enemy" | "item" | "class" | "feat";
+export type ContentType = "skill" | "enemy" | "item" | "itemBase" | "class" | "feat";
 
 export type ReferencePath = "combat.skillIds[]" | "combat.featIds[]" | "startingEquipment.*";
 

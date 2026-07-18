@@ -31,6 +31,7 @@ export const engineErrorCodeSchema = z.enum([
 	"CONSUMABLE_NOT_USABLE",
 	"HEALING_POTIONS_FULL",
 	"CONSUMABLE_NOT_AVAILABLE",
+	"NO_ELIGIBLE_ITEM_BASE",
 ]);
 
 export type EngineErrorCode = z.infer<typeof engineErrorCodeSchema>;

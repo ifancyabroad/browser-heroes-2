@@ -21,6 +21,8 @@ export function rerollShop(state: RunState): EngineResult {
 		runId: state.id,
 		hero: state.hero,
 		shopLevel: state.town.shopLevel,
+		battleNumber: state.battleNumber,
+		rerollCount: rerollCount,
 		rngState: state.rngState,
 	});
 

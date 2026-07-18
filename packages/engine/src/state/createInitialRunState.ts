@@ -21,6 +21,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		runId: input.runId,
 		hero,
 		zoneNumber,
+		battleNumber: 1,
 		day: 1,
 		rngState,
 	});
