@@ -100,14 +100,29 @@ function applyAffixesToGeneratedItem(
 ): GeneratedItemDefinition {
 	const name = [affixes.prefix?.name, item.name, affixes.suffix?.name].filter(Boolean).join(" ");
 
+	const modifiers = [
+		...item.modifiers,
+		...(affixes.prefix?.modifiers ?? []),
+		...(affixes.suffix?.modifiers ?? []),
+	];
+
+	if (item.type === "weapon") {
+		return {
+			...item,
+			name,
+			modifiers,
+			attackRiders: [
+				...item.attackRiders,
+				...(affixes.prefix?.attackRiders ?? []),
+				...(affixes.suffix?.attackRiders ?? []),
+			],
+		};
+	}
+
 	return {
 		...item,
 		name,
-		modifiers: [
-			...item.modifiers,
-			...(affixes.prefix?.modifiers ?? []),
-			...(affixes.suffix?.modifiers ?? []),
-		],
+		modifiers,
 	};
 }
 
