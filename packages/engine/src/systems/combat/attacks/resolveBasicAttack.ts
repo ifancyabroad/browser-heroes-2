@@ -14,7 +14,6 @@ import { applyDamage } from "../damage/applyDamage";
 import { calculateDamage } from "../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../combatants/combatantSelectors";
 import { resolveAttackRiders } from "./resolveAttackRiders";
-import { getSupportedAttackRiders } from "./getSupportedAttackRiders";
 import type { ActionResolution } from "../logs/actionOutcome";
 import { formatBasicAttackHeading } from "../logs/formatActionLog";
 import { appendActionLog } from "../logs/appendActionLog";
@@ -150,11 +149,7 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 
 	let rngState = damage.rngState;
 
-	const attackRiders = getSupportedAttackRiders(input.attackPart.attack.attackRiders);
-
-	if (!attackRiders) {
-		throw new Error(`${input.attackPart.attack.name} has unsupported attack riders`);
-	}
+	const attackRiders = input.attackPart.attack.attackRiders;
 
 	for (let riderIndex = 0; riderIndex < attackRiders.length; riderIndex += 1) {
 		const rider = attackRiders[riderIndex];

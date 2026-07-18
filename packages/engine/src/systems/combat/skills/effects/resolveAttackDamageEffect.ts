@@ -1,10 +1,8 @@
-import type { DamageType, SkillId } from "@app/content";
+import type { AttackDamageEffect, DamageType, SkillId } from "@app/content";
 
 import type { CombatantSide, CombatState } from "../../../../schemas";
 
 import type { RngResult, RngState } from "../../../../core/rng";
-
-import type { SupportedAttackDamageEffect } from "../validateCombatantSkillUse";
 
 import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { applyDamage } from "../../damage/applyDamage";
@@ -16,7 +14,7 @@ import type { ActionResolution } from "../../logs/actionOutcome";
 type ResolveAttackDamageEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
-	effect: SupportedAttackDamageEffect;
+	effect: AttackDamageEffect;
 	effectIndex: number;
 	skillId: SkillId;
 	skillName: string;

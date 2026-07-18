@@ -4,7 +4,6 @@ import {
 	type HealOverTimeEffect,
 	type ShieldEffect,
 	SKILLS_BY_ID,
-	type AttackDamageEffect,
 	type DamageEffect,
 	type Effect,
 	type HealEffect,
@@ -12,24 +11,17 @@ import {
 	type ModifyDamageEffect,
 	type ModifyStatEffect,
 	type Skill,
-	ModifyDamageTakenEffect,
-	SkillId,
+	type ModifyDamageTakenEffect,
+	type SkillId,
+	type AttackDamageEffect,
 } from "@app/content";
 
 import type { CombatantSkillState, CombatantState, EngineErrorCode } from "../../../schemas";
-import {
-	getSupportedAttackRiders,
-	type SupportedAttackRider,
-} from "../attacks/getSupportedAttackRiders";
-
-export type SupportedAttackDamageEffect = Omit<AttackDamageEffect, "attackRiders"> & {
-	attackRiders: SupportedAttackRider[];
-};
 
 export type SupportedSkillEffect =
 	| DamageEffect
 	| HealEffect
-	| SupportedAttackDamageEffect
+	| AttackDamageEffect
 	| ApplyStatusEffect
 	| ModifyStatEffect
 	| ModifyDamageEffect
@@ -111,23 +103,9 @@ function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | n
 			case "damageOverTime":
 			case "healOverTime":
 			case "shield":
+			case "attackDamage":
 				supportedEffects.push(effect);
 				break;
-
-			case "attackDamage": {
-				const attackRiders = getSupportedAttackRiders(effect.attackRiders);
-
-				if (!attackRiders) {
-					return null;
-				}
-
-				supportedEffects.push({
-					...effect,
-					attackRiders,
-				});
-
-				break;
-			}
 
 			default:
 				return null;

@@ -115,7 +115,7 @@ export function formatSkillEffect(effect: Effect): string {
 				effect.durationTurns,
 			);
 		case "modifyDamageAffinity":
-			return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatTurns(effect.durationTurns)}.`;
+			return formatDamageAffinityEffect(effect);
 		case "damageOverTime":
 			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
 		case "healOverTime":
@@ -135,8 +135,6 @@ export function formatRiderEffect(effect: RiderEffect): string {
 			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
 			return `Apply ${formatTitle(effect.statusId)} to ${formatTargetObject(effect.target)} for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
-		case "removeStatus":
-			return `Remove ${formatRemovedStatuses(effect)} from ${formatTargetObject(effect.target)}.`;
 		case "modifyStat":
 			return formatTemporaryModifier(
 				effect.target,
@@ -161,6 +159,8 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				effect.value,
 				effect.durationTurns,
 			);
+		case "modifyDamageAffinity":
+			return formatDamageAffinityEffect(effect);
 		case "damageOverTime":
 			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn${formatOptionalDuration(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
 		case "healOverTime":
@@ -275,6 +275,12 @@ export function getNumberTone(value: number): ModifierTone {
 
 function formatDamageEffect(effect: Extract<Effect | RiderEffect, { type: "damage" }>) {
 	return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${formatDiceFormula(effect.dice, effect.attribute)} ${damageTypeLabels[effect.damageType]} damage${effect.requiresAttackRoll ? " with an attack roll" : ""}${formatOptionalSave(effect.save)}.`;
+}
+
+function formatDamageAffinityEffect(
+	effect: Extract<Effect | RiderEffect, { type: "modifyDamageAffinity" }>,
+) {
+	return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatTurns(effect.durationTurns)}.`;
 }
 
 function formatTemporaryModifier(

@@ -2,11 +2,9 @@ import type { ActiveEffectSource, CombatantSide, CombatState } from "../../../sc
 
 import type { RngResult, RngState } from "../../../core/rng";
 
-import type { SupportedRiderEffect } from "./getSupportedAttackRiders";
-
 import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
 import { resolveHealEffect } from "../skills/effects/resolveHealEffect";
-import type { SavingThrow, SkillId } from "@app/content";
+import type { RiderEffect, SavingThrow, SkillId } from "@app/content";
 import { getCombatant, getOpponent } from "../combatants/combatantSelectors";
 import { resolveSavingThrow } from "../checks/resolveSavingThrow";
 import { applyRecurringEffect } from "../skills/effects/applyRecurringEffect";
@@ -34,7 +32,7 @@ type AttackRiderSourceContext =
 type ResolveAttackRidersInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
-	effects: SupportedRiderEffect[];
+	effects: RiderEffect[];
 	save?: SavingThrow;
 	sourceContext: AttackRiderSourceContext;
 	rngState: RngState;
@@ -132,7 +130,8 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 
 			case "modifyStat":
 			case "modifyDamage":
-			case "modifyDamageTaken": {
+			case "modifyDamageTaken":
+			case "modifyDamageAffinity": {
 				const result = applyTemporaryModifierEffect({
 					combat,
 					actorSide: input.actorSide,
