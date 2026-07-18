@@ -1,7 +1,9 @@
-import type { ItemBase } from "@app/content";
+import type { ItemBase, ItemRarity } from "@app/content";
 
 import type { GeneratedItemDefinition } from "../../schemas";
-import { randomInt, type RngState } from "../../core/rng";
+import { randomInt, type RngState, type RngResult } from "../../core/rng";
+import { SelectedItemAffixes, selectItemAffixes } from "./selectItemAffixes";
+import { selectGeneratedItemRarity } from "./selectGeneratedItemRarity";
 
 type CreateGeneratedItemDefinitionInput = {
 	base: ItemBase;
@@ -9,63 +11,103 @@ type CreateGeneratedItemDefinitionInput = {
 	rngState: RngState;
 };
 
-type CreateGeneratedItemDefinitionResult = {
-	value: GeneratedItemDefinition;
-	rngState: RngState;
-};
-
 export function createGeneratedItemDefinition(
 	input: CreateGeneratedItemDefinitionInput,
-): CreateGeneratedItemDefinitionResult {
+): RngResult<GeneratedItemDefinition> {
 	const iconRoll = randomInt(input.rngState, 0, input.base.iconPool.length - 1);
 	const icon = input.base.iconPool[iconRoll.value];
 
-	const common = {
+	const rarityResult = selectGeneratedItemRarity({
+		itemLevel: input.level,
+		rngState: iconRoll.rngState,
+	});
+
+	const rarity = rarityResult.value;
+
+	const common: GeneratedItemCommon = {
 		id: createGeneratedItemId(input.base.id, input.level),
 		name: input.base.name,
 		description: undefined,
 		icon,
-		price: calculateGeneratedItemPrice(input.level),
-		rarity: "common" as const,
+		price: calculateGeneratedItemPrice(input.level, rarity),
+		rarity,
 		modifiers: [],
 		tags: input.base.tags,
 	};
 
-	if (input.base.type === "weapon") {
+	const plainItem = createPlainGeneratedItem(input.base, common);
+
+	const affixResult = selectItemAffixes({
+		item: plainItem,
+		itemLevel: input.level,
+		rarity,
+		rngState: rarityResult.rngState,
+	});
+
+	return {
+		value: applyAffixesToGeneratedItem(plainItem, affixResult.value),
+		rngState: affixResult.rngState,
+	};
+}
+
+type GeneratedItemCommon = {
+	id: string;
+	name: string;
+	description: string | undefined;
+	icon: string;
+	price: number;
+	rarity: ItemRarity;
+	modifiers: [];
+	tags: string[];
+};
+
+function createPlainGeneratedItem(
+	base: ItemBase,
+	common: GeneratedItemCommon,
+): GeneratedItemDefinition {
+	if (base.type === "weapon") {
 		return {
-			value: {
-				...common,
-				type: "weapon",
-				weaponType: input.base.weaponType,
-				handedness: input.base.handedness,
-				range: input.base.range,
-				damage: input.base.damage,
-				attackRiders: [],
-			},
-			rngState: iconRoll.rngState,
+			...common,
+			type: "weapon",
+			weaponType: base.weaponType,
+			handedness: base.handedness,
+			range: base.range,
+			damage: base.damage,
+			attackRiders: [],
 		};
 	}
 
-	if (input.base.slot === "body") {
+	if (base.slot === "body") {
 		return {
-			value: {
-				...common,
-				type: "armour",
-				slot: "body",
-				category: input.base.category,
-				armourClass: input.base.armourClass,
-			},
-			rngState: iconRoll.rngState,
+			...common,
+			type: "armour",
+			slot: "body",
+			category: base.category,
+			armourClass: base.armourClass,
 		};
 	}
 
 	return {
-		value: {
-			...common,
-			type: "armour",
-			slot: input.base.slot,
-		},
-		rngState: iconRoll.rngState,
+		...common,
+		type: "armour",
+		slot: base.slot,
+	};
+}
+
+function applyAffixesToGeneratedItem(
+	item: GeneratedItemDefinition,
+	affixes: SelectedItemAffixes,
+): GeneratedItemDefinition {
+	const name = [affixes.prefix?.name, item.name, affixes.suffix?.name].filter(Boolean).join(" ");
+
+	return {
+		...item,
+		name,
+		modifiers: [
+			...item.modifiers,
+			...(affixes.prefix?.modifiers ?? []),
+			...(affixes.suffix?.modifiers ?? []),
+		],
 	};
 }
 
@@ -73,6 +115,14 @@ function createGeneratedItemId(baseId: string, level: number) {
 	return `${baseId}_level_${level}`;
 }
 
-function calculateGeneratedItemPrice(level: number) {
-	return Math.max(1, level * 10);
+function calculateGeneratedItemPrice(level: number, rarity: ItemRarity) {
+	const rarityMultiplier: Record<ItemRarity, number> = {
+		common: 1,
+		uncommon: 1.5,
+		rare: 2.5,
+		epic: 4,
+		legendary: 8,
+	};
+
+	return Math.max(1, Math.round(level * 10 * rarityMultiplier[rarity]));
 }

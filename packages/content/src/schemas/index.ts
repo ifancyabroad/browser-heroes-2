@@ -10,3 +10,4 @@ export * from "./feat.schema";
 export * from "./item.schema";
 export * from "./attack.schema";
 export * from "./itemBase.schema";
+export * from "./itemAffix.schema";
