@@ -1,13 +1,12 @@
-import { ITEMS_BY_ID, type Item, type ItemId } from "@app/content";
+import type { EquippedItemState, RuntimeItem } from "../../schemas";
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 
-export type BodyArmour = Extract<Item, { type: "armour"; slot: "body" }>;
+export type BodyArmour = Extract<RuntimeItem, { type: "armour"; slot: "body" }>;
 
-export function getEquippedBodyArmour(itemId: ItemId | undefined): BodyArmour | null {
-	if (!itemId) {
-		return null;
-	}
-
-	const item = ITEMS_BY_ID[itemId];
+export function getEquippedBodyArmour(
+	equippedItem: EquippedItemState | null | undefined,
+): BodyArmour | null {
+	const item = getItemInstanceDefinition(equippedItem);
 
 	return item?.type === "armour" && item.slot === "body" ? item : null;
 }

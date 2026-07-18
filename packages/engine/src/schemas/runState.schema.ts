@@ -1,16 +1,16 @@
 import { z } from "zod";
-import { itemIdSchema } from "@app/content";
 import { heroStateSchema } from "./heroState.schema";
 import { combatStateSchema } from "./combatState.schema";
 import { runLogEntrySchema } from "./log.schema";
 import { rngStateSchema } from "./rng.schema";
 import { pendingRewardChoiceSchema } from "./reward.schema";
+import { itemInstanceSchema } from "./itemInstance.schema";
 
 export const runPhaseSchema = z.enum(["town", "combat", "dead", "retired"]);
 
 export const townShopSlotSchema = z.object({
 	id: z.string(),
-	itemId: itemIdSchema,
+	item: itemInstanceSchema,
 	price: z.number().int().min(0),
 	purchased: z.boolean(),
 });

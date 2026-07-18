@@ -1,11 +1,12 @@
-import { ITEMS_BY_ID, type ItemId, type Weapon } from "@app/content";
+import type { Weapon } from "@app/content";
 
-export function getEquippedWeapon(itemId: ItemId | undefined): Weapon | null {
-	if (!itemId) {
-		return null;
-	}
+import type { EquippedItemState } from "../../schemas";
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 
-	const item = ITEMS_BY_ID[itemId];
+export function getEquippedWeapon(
+	equippedItem: EquippedItemState | null | undefined,
+): Weapon | null {
+	const item = getItemInstanceDefinition(equippedItem);
 
 	return item?.type === "weapon" ? item : null;
 }

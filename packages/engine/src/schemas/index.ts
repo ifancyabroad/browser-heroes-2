@@ -133,3 +133,17 @@ export {
 } from "./reward.schema";
 
 export type { RewardOption, PendingRewardChoice, RewardSelection } from "./reward.schema";
+
+export {
+	itemInstanceSchema,
+	generatedItemDefinitionSchema,
+	staticItemInstanceSchema,
+} from "./itemInstance.schema";
+
+export type {
+	ItemInstance,
+	GeneratedItemDefinition,
+	StaticItemInstance,
+} from "./itemInstance.schema";
+
+export type { RuntimeItem } from "./runtimeItem.schema";

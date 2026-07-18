@@ -6,8 +6,8 @@ export function canSwapHandWeapons(state: RunState): boolean {
 		return false;
 	}
 
-	const mainHandWeapon = getEquippedWeapon(state.hero.equipment.mainHand?.itemId);
-	const offHandWeapon = getEquippedWeapon(state.hero.equipment.offHand?.itemId);
+	const mainHandWeapon = getEquippedWeapon(state.hero.equipment.mainHand);
+	const offHandWeapon = getEquippedWeapon(state.hero.equipment.offHand);
 
 	return mainHandWeapon?.handedness === "oneHanded" && offHandWeapon?.handedness === "oneHanded";
 }

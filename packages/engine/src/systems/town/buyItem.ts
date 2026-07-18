@@ -1,10 +1,8 @@
-import { ITEMS_BY_ID } from "@app/content";
-
 import type { BuyItemAction, EngineResult, RunState, TownState } from "../../schemas";
 
-import { createShopItemInstanceId } from "../../core/ids";
 import { failureResult, successResult } from "../../core/result";
 import { equipItem } from "../equipment/equipItem";
+import { createItemEventPayload } from "../items/createItemEventPayload";
 
 export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 	if (state.phase !== "town" || !state.town) {
@@ -25,16 +23,15 @@ export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 		return failureResult(state, "NOT_ENOUGH_GOLD");
 	}
 
-	const item = ITEMS_BY_ID[shopSlot.itemId];
+	const eventItem = createItemEventPayload(shopSlot.item);
 
-	if (!item) {
+	if (!eventItem) {
 		return failureResult(state, "ITEM_DEFINITION_NOT_FOUND");
 	}
 
 	const equipResult = equipItem({
 		hero: state.hero,
-		item,
-		instanceId: createShopItemInstanceId(state.id, shopSlot.id, item.id),
+		item: shopSlot.item,
 		requestedSlot: action.equipmentSlot,
 	});
 
@@ -64,7 +61,7 @@ export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 		[
 			{
 				type: "ITEM_BOUGHT",
-				itemId: item.id,
+				item: eventItem,
 				equipmentSlot: equipResult.equipmentSlot,
 				price: shopSlot.price,
 			},

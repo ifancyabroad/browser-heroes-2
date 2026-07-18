@@ -1,10 +1,8 @@
-import { ITEMS_BY_ID } from "@app/content";
+import type { EngineResult, RunState, SelectRewardAction } from "../../../schemas";
 
-import type { EngineResult, SelectRewardAction, RunState } from "../../../schemas";
-
-import { createRewardItemInstanceId } from "../../../core/ids";
 import { failureResult, successResult } from "../../../core/result";
 import { equipItem } from "../../equipment/equipItem";
+import { createItemEventPayload } from "../../items/createItemEventPayload";
 
 export function completeRewardChoice(state: RunState, action: SelectRewardAction): EngineResult {
 	const pendingRewardChoice = state.pendingRewardChoice;
@@ -40,16 +38,15 @@ export function completeRewardChoice(state: RunState, action: SelectRewardAction
 		);
 	}
 
-	const item = ITEMS_BY_ID[option.itemId];
+	const eventItem = createItemEventPayload(option.item);
 
-	if (!item) {
+	if (!eventItem) {
 		return failureResult(state, "INVALID_REWARD_SELECTION");
 	}
 
 	const equipResult = equipItem({
 		hero: state.hero,
-		item,
-		instanceId: createRewardItemInstanceId(state.id, state.battleNumber, item.id),
+		item: option.item,
 		requestedSlot: action.selection.equipmentSlot,
 	});
 
@@ -67,7 +64,7 @@ export function completeRewardChoice(state: RunState, action: SelectRewardAction
 			{
 				type: "REWARD_SELECTED",
 				rewardType: "item",
-				itemId: item.id,
+				item: eventItem,
 				equipmentSlot: equipResult.equipmentSlot,
 			},
 		],

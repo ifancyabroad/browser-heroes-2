@@ -1,5 +1,10 @@
 import { classIdSchema, type ClassId } from "@app/content";
-import { engineActionSchema, type EngineResult, type RunState } from "@app/engine";
+import {
+	engineActionSchema,
+	type EngineAction,
+	type EngineResult,
+	type RunState,
+} from "@app/engine";
 import { z } from "zod";
 import { HERO_NAME_MAX_LENGTH } from "./heroNames";
 
@@ -51,23 +56,28 @@ export interface ApiErrorResponse {
 	details?: unknown;
 }
 
-export const applyRunActionBodySchema = z.object({
+export type ApplyRunActionBody = {
+	action: EngineAction;
+};
+
+export const applyRunActionBodySchema: z.ZodType<ApplyRunActionBody> = z.object({
 	action: engineActionSchema,
 });
-
-export type ApplyRunActionBody = z.infer<typeof applyRunActionBodySchema>;
 
 export interface ApplyRunActionResponse {
 	run: RunView;
 	result: EngineResult;
 }
 
-export const runActionPayloadSchema = z.object({
+export type RunActionPayload = {
+	runId: string;
+	action: EngineAction;
+};
+
+export const runActionPayloadSchema: z.ZodType<RunActionPayload> = z.object({
 	runId: z.string().nonempty(),
 	action: engineActionSchema,
 });
-
-export type RunActionPayload = z.infer<typeof runActionPayloadSchema>;
 
 export type SocketResponse<T> =
 	| {

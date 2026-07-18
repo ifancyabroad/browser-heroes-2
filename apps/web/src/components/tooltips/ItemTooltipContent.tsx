@@ -1,4 +1,4 @@
-import type { EquipmentSlot, Item } from "@app/content";
+import type { EquipmentSlot } from "@app/content";
 import clsx from "clsx";
 import { attributeLabels, itemRarityLabels } from "../../game/displayLabels";
 import { formatItemModifier, getModifierTextClassName } from "../../game/effectDisplay";
@@ -14,9 +14,10 @@ import {
 	TooltipSection,
 } from "./TooltipContentPrimitives";
 import { AttackRiderTooltipList } from "./AttackRiderTooltipList";
+import type { RuntimeItem } from "@app/engine";
 
 type ItemTooltipContentProps = {
-	item: Item;
+	item: RuntimeItem;
 	slot: EquipmentSlot | readonly EquipmentSlot[];
 };
 
@@ -69,7 +70,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 }
 
 function getItemDetailRows(
-	item: Item,
+	item: RuntimeItem,
 	slot: EquipmentSlot | readonly EquipmentSlot[],
 ): TooltipDetailRow[] {
 	const rows: TooltipDetailRow[] = [

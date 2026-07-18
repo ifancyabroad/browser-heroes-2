@@ -11,16 +11,19 @@ import type {
 export type ModifierSource =
 	| {
 			type: "item";
-			itemId: ItemId;
 			instanceId: string;
+			sourceName: string;
+			staticItemId?: ItemId;
 	  }
 	| {
 			type: "feat";
 			featId: FeatId;
+			sourceName: string;
 	  }
 	| {
 			type: "class";
 			classId: ClassId;
+			sourceName: string;
 	  };
 
 export type ResolvedModifier = {

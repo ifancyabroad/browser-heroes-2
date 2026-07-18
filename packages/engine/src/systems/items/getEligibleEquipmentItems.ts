@@ -20,14 +20,18 @@ type GetEligibleEquipmentItemsInput = {
 export function getEligibleEquipmentItems(input: GetEligibleEquipmentItemsInput): Item[] {
 	const classDefinition = CLASSES_BY_ID[input.hero.classId];
 
-	const equippedItemIds = new Set(
-		Object.values(input.hero.equipment)
-			.filter((item) => item !== null)
-			.map((item) => item.itemId),
+	const equippedStaticItemIds = new Set(
+		Object.values(input.hero.equipment).flatMap((item) => {
+			if (!item || item.type !== "static") {
+				return [];
+			}
+
+			return [item.itemId];
+		}),
 	);
 
 	return items.filter((item) => {
-		if (equippedItemIds.has(item.id)) {
+		if (equippedStaticItemIds.has(item.id)) {
 			return false;
 		}
 

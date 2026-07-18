@@ -1,10 +1,11 @@
 import { z } from "zod";
-import { equipmentSlotSchema, itemIdSchema } from "@app/content";
+import { equipmentSlotSchema } from "@app/content";
+import { itemInstanceSchema } from "./itemInstance.schema";
 
 export const rewardOptionSchema = z.discriminatedUnion("type", [
 	z.object({
 		type: z.literal("item"),
-		itemId: itemIdSchema,
+		item: itemInstanceSchema,
 	}),
 	z.object({
 		type: z.literal("gold"),

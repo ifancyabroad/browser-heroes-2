@@ -1,12 +1,14 @@
-import { ITEMS_BY_ID, type EquipmentSlot, type Item, type ItemId } from "@app/content";
+import type { EquipmentSlot } from "@app/content";
 
-import type { EquippedItemState, HeroEquipmentState, HeroState } from "../../schemas";
+import type { EquippedItemState, HeroEquipmentState, HeroState, RuntimeItem } from "../../schemas";
 
 import { getValidEquipmentSlots } from "./getValidEquipmentSlots";
 
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
+
 type PreviewEquipItemInput = {
 	hero: HeroState;
-	item: Item;
+	item: RuntimeItem;
 	requestedSlot?: EquipmentSlot;
 };
 
@@ -53,7 +55,7 @@ export function previewEquipItem(input: PreviewEquipItemInput): PreviewEquipItem
 }
 
 function getSelectedEquipmentSlot(
-	item: Item,
+	item: RuntimeItem,
 	requestedSlot: EquipmentSlot | undefined,
 ): EquipmentSlot | null {
 	const validSlots = getValidEquipmentSlots(item);
@@ -77,7 +79,7 @@ function getSelectedEquipmentSlot(
 
 function collectHandConflicts(
 	equipment: HeroEquipmentState,
-	item: Item,
+	item: RuntimeItem,
 	replacedItems: EquippedItemState[],
 ): void {
 	if (item.type === "weapon" && item.handedness === "twoHanded") {
@@ -89,7 +91,7 @@ function collectHandConflicts(
 		return;
 	}
 
-	const mainHandItem = getEquippedItemDefinition(equipment.mainHand?.itemId);
+	const mainHandItem = getItemInstanceDefinition(equipment.mainHand);
 
 	if (mainHandItem?.type === "weapon" && mainHandItem.handedness === "twoHanded") {
 		collectItemAtSlot(equipment, "mainHand", replacedItems);
@@ -112,16 +114,8 @@ function collectItemAtSlot(
 	}
 }
 
-function getEquippedItemDefinition(itemId: ItemId | undefined): Item | null {
-	if (!itemId) {
-		return null;
-	}
-
-	return ITEMS_BY_ID[itemId] ?? null;
-}
-
 function hasTwoHandedMainHand(equipment: HeroEquipmentState): boolean {
-	const mainHandItem = getEquippedItemDefinition(equipment.mainHand?.itemId);
+	const mainHandItem = getItemInstanceDefinition(equipment.mainHand);
 
 	return mainHandItem?.type === "weapon" && mainHandItem.handedness === "twoHanded";
 }

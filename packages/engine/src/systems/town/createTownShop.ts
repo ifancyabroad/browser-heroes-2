@@ -1,7 +1,7 @@
 import type { Item, ItemId } from "@app/content";
 
 import type { RngResult, RngState } from "../../core/rng";
-import { createTownShopSlotId } from "../../core/ids";
+import { createShopItemInstanceId, createTownShopSlotId } from "../../core/ids";
 import type { HeroState, TownShopSlot } from "../../schemas";
 import { selectWeightedEquipmentItem } from "../items/selectWeightedEquipmentItem";
 import { calculateTownDiscountMultiplier } from "./townPricing";
@@ -40,12 +40,20 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 	const discountMultiplier = calculateTownDiscountMultiplier(input.hero);
 
 	return {
-		value: selectedItems.map((item, index) => ({
-			id: createTownShopSlotId(input.runId, index + 1),
-			itemId: item.id,
-			price: Math.round(item.price * discountMultiplier),
-			purchased: false,
-		})),
+		value: selectedItems.map((item, index) => {
+			const shopSlotId = createTownShopSlotId(input.runId, index + 1);
+
+			return {
+				id: shopSlotId,
+				item: {
+					instanceId: createShopItemInstanceId(input.runId, shopSlotId, item.id),
+					type: "static",
+					itemId: item.id,
+				},
+				price: Math.round(item.price * discountMultiplier),
+				purchased: false,
+			};
+		}),
 		rngState,
 	};
 }

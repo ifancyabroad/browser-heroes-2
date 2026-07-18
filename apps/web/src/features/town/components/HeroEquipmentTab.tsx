@@ -1,5 +1,5 @@
-import { equipmentSlots, ITEMS_BY_ID } from "@app/content";
-import type { HeroView } from "@app/engine";
+import { equipmentSlots } from "@app/content";
+import { selectItemDefinition, type HeroView } from "@app/engine";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
@@ -18,7 +18,7 @@ export function HeroEquipmentTab({ equipment, canSwap, isPending, onSwap }: Hero
 		<div className="grid gap-2">
 			{equipmentSlots.map((slot) => {
 				const equippedItem = equipment[slot];
-				const item = equippedItem ? ITEMS_BY_ID[equippedItem.itemId] : null;
+				const item = equippedItem ? selectItemDefinition(equippedItem) : null;
 
 				return (
 					<div

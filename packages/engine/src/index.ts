@@ -28,6 +28,8 @@ export type {
 	PendingLevelUp,
 	LevelUpOption,
 	LevelUpSelection,
+	EquippedItemState,
+	RuntimeItem,
 } from "./schemas";
 
 export { serializeRunState, deserializeRunState, deserializeRunStateJson } from "./serialization";
@@ -40,6 +42,7 @@ export {
 	selectEncounterContext,
 	selectHeroProgression,
 	selectHeroView,
+	selectItemDefinition,
 	selectRewardChoiceView,
 	selectRunSummaryView,
 	selectTownView,

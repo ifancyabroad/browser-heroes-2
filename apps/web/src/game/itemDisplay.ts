@@ -1,4 +1,4 @@
-import type { EquipmentSlot, Item, ItemRarity } from "@app/content";
+import type { EquipmentSlot, ItemRarity } from "@app/content";
 import {
 	armourCategoryLabels,
 	armourSlotLabels,
@@ -7,6 +7,7 @@ import {
 	weaponHandednessLabels,
 	weaponTypeLabels,
 } from "./displayLabels";
+import type { RuntimeItem } from "@app/engine";
 
 export type PrimaryItemStat = {
 	label: string;
@@ -28,7 +29,7 @@ export function getItemRarityTextClassName(rarity: ItemRarity) {
 	}
 }
 
-export function getItemKindLabel(item: Item) {
+export function getItemKindLabel(item: RuntimeItem) {
 	if (item.type === "weapon") {
 		return `${weaponHandednessLabels[item.handedness]} ${weaponTypeLabels[item.weaponType].toLowerCase()}`;
 	}
@@ -52,7 +53,7 @@ export function getEquipmentSlotLabel(slot: EquipmentSlot | readonly EquipmentSl
 	return slot.map((equipmentSlot) => equipmentSlotLabels[equipmentSlot]).join(" / ");
 }
 
-export function getPrimaryItemStat(item: Item): PrimaryItemStat | null {
+export function getPrimaryItemStat(item: RuntimeItem): PrimaryItemStat | null {
 	if (item.type === "weapon") {
 		return {
 			label: "Damage",

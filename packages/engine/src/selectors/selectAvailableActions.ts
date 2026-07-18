@@ -1,4 +1,3 @@
-import { ITEMS_BY_ID } from "@app/content";
 import type {
 	CompleteLevelUpAction,
 	EngineAction,
@@ -11,6 +10,7 @@ import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSl
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import { isFinalBossVictory } from "../systems/endless/endlessProgression";
 import { canSwapHandWeapons } from "../systems/equipment/canSwapHandWeapons";
+import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -200,7 +200,7 @@ function getBuyItemActions(state: RunState): EngineAction[] {
 			return [];
 		}
 
-		const item = ITEMS_BY_ID[slot.itemId];
+		const item = getItemInstanceDefinition(slot.item);
 
 		if (!item) {
 			return [];

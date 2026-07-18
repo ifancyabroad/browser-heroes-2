@@ -56,6 +56,7 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 	};
 
 	const pendingRewardResult = createPendingRewardChoice({
+		runId: rewardedState.id,
 		hero,
 		zoneNumber: rewardedState.zoneNumber,
 		battleNumber: rewardedState.battleNumber,

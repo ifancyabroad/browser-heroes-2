@@ -1,13 +1,15 @@
-import type { EquipmentSlot, Item } from "@app/content";
+import type { EquipmentSlot } from "@app/content";
 
 import type { EquippedItemState, HeroEquipmentState, HeroState } from "../../schemas";
 
 import { previewEquipItem } from "./previewEquipItem";
 
+import type { ItemInstance } from "../../schemas";
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
+
 type EquipItemInput = {
 	hero: HeroState;
-	item: Item;
-	instanceId: string;
+	item: ItemInstance;
 	requestedSlot?: EquipmentSlot;
 };
 
@@ -26,9 +28,18 @@ export type EquipItemFailure = {
 export type EquipItemResult = EquipItemSuccess | EquipItemFailure;
 
 export function equipItem(input: EquipItemInput): EquipItemResult {
+	const itemDefinition = getItemInstanceDefinition(input.item);
+
+	if (!itemDefinition) {
+		return {
+			ok: false,
+			error: "INVALID_EQUIPMENT_SLOT",
+		};
+	}
+
 	const preview = previewEquipItem({
 		hero: input.hero,
-		item: input.item,
+		item: itemDefinition,
 		requestedSlot: input.requestedSlot,
 	});
 
@@ -44,10 +55,7 @@ export function equipItem(input: EquipItemInput): EquipItemResult {
 		removeItemByInstanceId(equipment, replacedItem.instanceId);
 	}
 
-	equipment[preview.equipmentSlot] = {
-		instanceId: input.instanceId,
-		itemId: input.item.id,
-	};
+	equipment[preview.equipmentSlot] = input.item;
 
 	return {
 		ok: true,

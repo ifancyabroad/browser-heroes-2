@@ -16,8 +16,8 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 
 	const combatStats = toCombatantCombatStats(derivedHeroStats.combatStats);
 
-	const mainHandWeapon = getEquippedWeapon(hero.equipment.mainHand?.itemId);
-	const offHandWeapon = getEquippedWeapon(hero.equipment.offHand?.itemId);
+	const mainHandWeapon = getEquippedWeapon(hero.equipment.mainHand);
+	const offHandWeapon = getEquippedWeapon(hero.equipment.offHand);
 
 	const classDefinition = CLASSES_BY_ID[hero.classId];
 

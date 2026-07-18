@@ -1,5 +1,4 @@
-import type { EquipmentSlot, Item, ItemId } from "@app/content";
-import { ITEMS_BY_ID } from "@app/content";
+import type { EquipmentSlot } from "@app/content";
 import clsx from "clsx";
 import { useState } from "react";
 import { RadioGroup } from "radix-ui";
@@ -9,19 +8,15 @@ import { getSelectionClassName } from "./ControlStyles";
 import { Tooltip } from "./Tooltip";
 import { ItemTooltipContent } from "./tooltips/ItemTooltipContent";
 import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../game/itemDisplay";
-
-type ReplacementItem = {
-	instanceId: string;
-	itemId: ItemId;
-};
+import { selectItemDefinition, type EquippedItemState, type RuntimeItem } from "@app/engine";
 
 type EquipmentSlotReplacementDestination = {
 	equipmentSlot: EquipmentSlot;
-	replacedItems: readonly ReplacementItem[];
+	replacedItems: readonly EquippedItemState[];
 };
 
 type EquipmentSlotReplacementModalProps = {
-	item: Item;
+	item: RuntimeItem;
 	destinations: readonly EquipmentSlotReplacementDestination[];
 	isPending: boolean;
 	onCancel: () => void;
@@ -164,13 +159,13 @@ function ReplacementChoice({ destination, selected, disabled }: ReplacementChoic
 }
 
 type ReplacedItemTooltipProps = {
-	replacedItem: ReplacementItem;
+	replacedItem: EquippedItemState;
 	fallbackSlot: EquipmentSlot;
 	prefix: string;
 };
 
 function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedItemTooltipProps) {
-	const item = ITEMS_BY_ID[replacedItem.itemId];
+	const item = selectItemDefinition(replacedItem);
 
 	if (!item) {
 		return <span>{prefix}Unknown item</span>;

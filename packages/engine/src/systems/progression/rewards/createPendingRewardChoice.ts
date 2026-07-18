@@ -4,9 +4,12 @@ import type { RngResult, RngState } from "../../../core/rng";
 
 import { createItemRewardOptions } from "./createItemRewardOptions";
 
+import { createRewardItemInstanceId } from "../../../core/ids";
+
 const REWARD_GOLD_MULTIPLIER = 10;
 
 type CreatePendingRewardChoiceInput = {
+	runId: string;
 	hero: HeroState;
 	zoneNumber: number;
 	battleNumber: number;
@@ -39,11 +42,27 @@ export function createPendingRewardChoice(
 			options: [
 				{
 					type: "item",
-					itemId: itemOptions.value[0].id,
+					item: {
+						instanceId: createRewardItemInstanceId(
+							input.runId,
+							input.battleNumber,
+							itemOptions.value[0].id,
+						),
+						type: "static",
+						itemId: itemOptions.value[0].id,
+					},
 				},
 				{
 					type: "item",
-					itemId: itemOptions.value[1].id,
+					item: {
+						instanceId: createRewardItemInstanceId(
+							input.runId,
+							input.battleNumber,
+							itemOptions.value[1].id,
+						),
+						type: "static",
+						itemId: itemOptions.value[1].id,
+					},
 				},
 				{
 					type: "gold",

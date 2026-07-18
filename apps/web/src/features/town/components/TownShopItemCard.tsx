@@ -1,5 +1,8 @@
-import { ITEMS_BY_ID } from "@app/content";
-import type { TownShopDestinationView, TownShopSlotView } from "@app/engine";
+import {
+	selectItemDefinition,
+	type TownShopDestinationView,
+	type TownShopSlotView,
+} from "@app/engine";
 import clsx from "clsx";
 import { Badge } from "../../../components/Badge";
 import { Button } from "../../../components/Button";
@@ -249,7 +252,7 @@ type ReplacedItemTooltipProps = {
 };
 
 function ReplacedItemTooltip({ replacedItem, fallbackSlot }: ReplacedItemTooltipProps) {
-	const item = ITEMS_BY_ID[replacedItem.itemId];
+	const item = selectItemDefinition(replacedItem);
 
 	if (!item) {
 		return <span>Unknown item</span>;

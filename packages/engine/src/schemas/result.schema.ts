@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { runStateSchema } from "./runState.schema";
-import { engineEventSchema } from "./event.schema";
+import { engineEventSchema, type EngineEvent } from "./event.schema";
+import { runStateSchema, type RunState } from "./runState.schema";
 
 export const engineErrorCodeSchema = z.enum([
 	"INVALID_PHASE",
@@ -33,25 +33,37 @@ export const engineErrorCodeSchema = z.enum([
 	"CONSUMABLE_NOT_AVAILABLE",
 ]);
 
-export const engineSuccessResultSchema = z.object({
+export type EngineErrorCode = z.infer<typeof engineErrorCodeSchema>;
+
+export type EngineSuccessResult = {
+	ok: true;
+	state: RunState;
+	events: EngineEvent[];
+};
+
+export type EngineFailureResult = {
+	ok: false;
+	state: RunState;
+	events: EngineEvent[];
+	error: EngineErrorCode;
+};
+
+export type EngineResult = EngineSuccessResult | EngineFailureResult;
+
+export const engineSuccessResultSchema: z.ZodType<EngineSuccessResult> = z.object({
 	ok: z.literal(true),
 	state: runStateSchema,
 	events: z.array(engineEventSchema),
 });
 
-export const engineFailureResultSchema = z.object({
+export const engineFailureResultSchema: z.ZodType<EngineFailureResult> = z.object({
 	ok: z.literal(false),
 	state: runStateSchema,
 	events: z.array(engineEventSchema),
 	error: engineErrorCodeSchema,
 });
 
-export const engineResultSchema = z.discriminatedUnion("ok", [
+export const engineResultSchema: z.ZodType<EngineResult> = z.union([
 	engineSuccessResultSchema,
 	engineFailureResultSchema,
 ]);
-
-export type EngineErrorCode = z.infer<typeof engineErrorCodeSchema>;
-export type EngineSuccessResult = z.infer<typeof engineSuccessResultSchema>;
-export type EngineFailureResult = z.infer<typeof engineFailureResultSchema>;
-export type EngineResult = z.infer<typeof engineResultSchema>;

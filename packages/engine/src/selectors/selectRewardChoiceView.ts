@@ -1,9 +1,10 @@
-import { ITEMS_BY_ID, type EquipmentSlot, type Item } from "@app/content";
+import { type EquipmentSlot } from "@app/content";
 
-import type { EquippedItemState, RewardOption, RunState } from "../schemas";
+import type { EquippedItemState, RewardOption, RunState, RuntimeItem } from "../schemas";
 
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { previewEquipItem } from "../systems/equipment/previewEquipItem";
+import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
 
 export type RewardItemDestinationView = {
 	equipmentSlot: EquipmentSlot;
@@ -19,7 +20,7 @@ export type RewardChoiceOptionView =
 	| {
 			type: "item";
 			optionIndex: number;
-			item: Item;
+			item: RuntimeItem;
 			destinations: readonly RewardItemDestinationView[];
 			requiresEquipmentSlotSelection: boolean;
 	  };
@@ -57,7 +58,7 @@ function createRewardOptionView(
 		];
 	}
 
-	const item = ITEMS_BY_ID[option.itemId];
+	const item = getItemInstanceDefinition(option.item);
 
 	if (!item) {
 		return [];

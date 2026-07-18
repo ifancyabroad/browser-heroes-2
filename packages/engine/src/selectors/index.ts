@@ -35,3 +35,5 @@ export type {
 export { selectEncounterContext } from "./selectEncounterContext";
 
 export type { EncounterContext } from "./selectEncounterContext";
+
+export { selectItemDefinition } from "./selectItemDefinition";

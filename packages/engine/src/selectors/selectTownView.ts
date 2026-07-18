@@ -1,11 +1,12 @@
-import { ITEMS_BY_ID, type EquipmentSlot, type Item, type Zone } from "@app/content";
+import { type EquipmentSlot, type Zone } from "@app/content";
 
-import type { EquippedItemState, RunState, TownShopSlot } from "../schemas";
+import type { EquippedItemState, RunState, RuntimeItem, TownShopSlot } from "../schemas";
 
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { previewEquipItem } from "../systems/equipment/previewEquipItem";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import { getZoneForRun } from "../systems/encounters/zones/getZoneForRun";
+import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
 
 export type TownShopDestinationView = {
 	equipmentSlot: EquipmentSlot;
@@ -14,7 +15,7 @@ export type TownShopDestinationView = {
 
 export type TownShopSlotView = {
 	id: string;
-	item: Item;
+	item: RuntimeItem;
 	price: number;
 	purchased: boolean;
 	canAfford: boolean;
@@ -79,7 +80,7 @@ export function selectTownView(state: RunState): TownView | null {
 }
 
 function createTownShopSlotView(state: RunState, slot: TownShopSlot): TownShopSlotView[] {
-	const item = ITEMS_BY_ID[slot.itemId];
+	const item = getItemInstanceDefinition(slot.item);
 
 	if (!item) {
 		return [];

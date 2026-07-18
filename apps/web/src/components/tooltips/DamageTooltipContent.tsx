@@ -6,7 +6,6 @@ import {
 	getNumericModifierTone,
 	getToneTextClassName,
 } from "../../game/effectDisplay";
-import { getModifierSourceLabel } from "../../game/modifierSourceDisplay";
 
 type DamageAffinity = HeroView["combatStats"]["damageAffinities"]["resistances"][number];
 type DamageModifierGroup = HeroView["combatStats"]["damageModifiers"][number];
@@ -40,7 +39,7 @@ export function DamageAffinityTooltipContent({
 							className="flex items-baseline justify-between gap-3"
 						>
 							<span className="min-w-0 break-words">
-								{getModifierSourceLabel(contribution.source)}
+								{contribution.source.sourceName}
 							</span>
 							<span
 								className={clsx(
@@ -78,9 +77,7 @@ export function DamageModifierTooltipContent({
 						key={`${source.type}-${index}`}
 						className="flex items-baseline justify-between gap-3"
 					>
-						<span className="min-w-0 break-words">
-							{getModifierSourceLabel(source)}
-						</span>
+						<span className="min-w-0 break-words">{source.sourceName}</span>
 						<span
 							className={clsx(
 								"shrink-0 text-right",

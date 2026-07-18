@@ -2,7 +2,6 @@ import type { Attribute } from "@app/content";
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
 import { formatModifierValue, getNumberTone, getToneTextClassName } from "../../game/effectDisplay";
-import { getModifierSourceLabel } from "../../game/modifierSourceDisplay";
 
 type StatValue = HeroView["attributes"][Attribute];
 type StatContribution = StatValue["contributions"][number];
@@ -29,7 +28,7 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 							className="flex items-baseline justify-between gap-3"
 						>
 							<span className="min-w-0 break-words">
-								{getModifierSourceLabel(contribution.source)}
+								{contribution.source.sourceName}
 							</span>
 							<span
 								className={clsx(

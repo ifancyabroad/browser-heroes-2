@@ -1,6 +1,12 @@
 import { equipmentSlotSchema, featIdSchema, itemIdSchema, skillIdSchema } from "@app/content";
 import { z } from "zod";
 
+const itemEventPayloadSchema = z.object({
+	itemInstanceId: z.string().nonempty(),
+	itemName: z.string().nonempty(),
+	staticItemId: itemIdSchema.optional(),
+});
+
 const combatStartedEventSchema = z.object({
 	type: z.literal("COMBAT_STARTED"),
 	combatId: z.string(),
@@ -64,7 +70,7 @@ const rewardSelectedEventSchema = z.discriminatedUnion("rewardType", [
 	z.object({
 		type: z.literal("REWARD_SELECTED"),
 		rewardType: z.literal("item"),
-		itemId: itemIdSchema,
+		item: itemEventPayloadSchema,
 		equipmentSlot: equipmentSlotSchema,
 	}),
 ]);
@@ -82,7 +88,7 @@ const restedAtTownEventSchema = z.object({
 
 const itemBoughtEventSchema = z.object({
 	type: z.literal("ITEM_BOUGHT"),
-	itemId: itemIdSchema,
+	item: itemEventPayloadSchema,
 	equipmentSlot: equipmentSlotSchema,
 	price: z.number().int().min(0),
 });

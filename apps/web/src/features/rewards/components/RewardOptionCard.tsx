@@ -1,5 +1,8 @@
-import type { RewardChoiceOptionView, RewardItemDestinationView } from "@app/engine";
-import { ITEMS_BY_ID } from "@app/content";
+import {
+	selectItemDefinition,
+	type RewardChoiceOptionView,
+	type RewardItemDestinationView,
+} from "@app/engine";
 import { RadioGroup } from "radix-ui";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
@@ -164,7 +167,7 @@ type ReplacedItemTooltipProps = {
 };
 
 function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedItemTooltipProps) {
-	const item = ITEMS_BY_ID[replacedItem.itemId];
+	const item = selectItemDefinition(replacedItem);
 
 	if (!item) {
 		return <span>{prefix}Unknown item</span>;

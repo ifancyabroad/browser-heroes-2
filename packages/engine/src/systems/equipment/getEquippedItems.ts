@@ -1,14 +1,9 @@
-import { ITEMS_BY_ID, type Item } from "@app/content";
+import type { HeroEquipmentState, RuntimeItem } from "../../schemas";
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 
-import type { HeroEquipmentState } from "../../schemas";
-
-export function getEquippedItems(equipment: HeroEquipmentState): Item[] {
+export function getEquippedItems(equipment: HeroEquipmentState): RuntimeItem[] {
 	return Object.values(equipment).flatMap((equipmentItem) => {
-		if (!equipmentItem) {
-			return [];
-		}
-
-		const item = ITEMS_BY_ID[equipmentItem.itemId];
+		const item = getItemInstanceDefinition(equipmentItem);
 
 		return item ? [item] : [];
 	});

@@ -6,7 +6,7 @@ export function calculateBaseArmourClass(
 	equipment: HeroEquipmentState,
 	dexterityScore: number,
 ): number {
-	const bodyArmour = getEquippedBodyArmour(equipment.body?.itemId);
+	const bodyArmour = getEquippedBodyArmour(equipment.body);
 
 	const dexterityModifier = calculateAttributeModifier(dexterityScore);
 

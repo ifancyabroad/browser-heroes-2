@@ -91,6 +91,7 @@ function createInitialEquipment(classDefinition: Class, runId: string): HeroEqui
 
 		equipment[slot] = {
 			instanceId: createStartingItemInstanceId(runId, slot),
+			type: "static",
 			itemId,
 		};
 	}
