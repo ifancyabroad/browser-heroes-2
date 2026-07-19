@@ -6,9 +6,9 @@ A run is a self-contained sequence of combat encounters connected by town visits
 
 A run begins on day 1. Each successful rest advances the run by one day. Day progression and rest-price escalation are cumulative for the full run and do not reset when the hero returns to town.
 
-The current run flow supports town, combat, victory rewards, boss reward choices, level-up choices, continuing to the next combat, returning to town, and death.
+The run flow supports town, combat, victory rewards, boss reward choices, level-up choices, continuing to the next combat, returning to town, death, and victorious retirement.
 
-The intended full run is a 100-battle ladder. Every 10th battle is a boss encounter. Defeating the final boss at battle 100 is the intended victory condition. Optional endless progression is planned after victory.
+The main run is a 100-battle ladder. Every 10th battle is a boss encounter. Defeating the final boss at battle 100 unlocks the choice to retire victorious or continue into endless progression.
 
 ## 2. Primary Game States
 
@@ -17,7 +17,7 @@ The game currently operates through explicit run phases:
 - Town: the between-combat checkpoint for shopping, resting, rerolling shop inventory, inspecting the hero, and entering combat.
 - Combat: a turn-based encounter between the hero and one enemy.
 - Dead: the run has ended after player defeat.
-- Complete: reserved for run victory.
+- Retired: the hero ended the run after defeating the final boss.
 
 State transitions are explicit and engine-owned:
 
@@ -25,7 +25,7 @@ State transitions are explicit and engine-owned:
 - Combat -> Combat
 - Combat -> Town
 - Combat -> Dead
-- Combat -> Complete, when victory conditions are implemented
+- Combat -> Retired
 
 After a victorious combat, the player may continue directly to the next combat or return to town. Continuing preserves and increases run momentum through the active streak. Returning to town resets that streak.
 
@@ -54,7 +54,9 @@ Combat encounters select enemies from the current zone and encounter type.
 
 Every 10th battle is a boss encounter. Non-boss battles are standard encounters.
 
-Zones define broad enemy pools, run pacing, and difficulty identity. The intended full game progresses through a fixed zone ladder toward battle 100. Endless progression should reuse or extend this structure at higher pressure once implemented.
+Zones define broad enemy pools, run pacing, and difficulty identity. Endless progression repeats the zone ladder in successive cycles with stronger enemy damage.
+
+Eligible standard encounters after the first boss may be replaced by ghosts created from other heroes who died beyond that point. Boss encounters are never replaced by ghosts.
 
 ## 5. Progression and Rewards
 
@@ -82,10 +84,6 @@ Implemented skill effects may:
 - impose conditions
 - use charges or other explicit limits
 
-Supported active effects include temporary stat, damage, damage-taken, and damage-affinity modifiers; statuses; shields; damage over time; and healing over time. `removeStatus` exists in content schemas and display formatting, but its engine resolution is not implemented yet.
-
-Enemy skill ownership exists in content/state, but enemy combat behavior currently uses deterministic basic attacks rather than enemy skill selection.
-
 Detailed skill resolution belongs in `COMBAT.md`.
 
 ## 7. Feats
@@ -107,9 +105,9 @@ Feats are not selected as combat actions. Their impact should appear through der
 
 Items modify hero capabilities during a run.
 
-Current state: equipment can be part of hero state and can affect derived combat values. Starting equipment, shop equipment, and boss reward equipment are available through shared content and engine-owned selection/equip logic.
+Equipment may be a fixed authored item or a generated item assembled from an eligible base, rarity, and affixes. Both forms can affect derived combat values and persist as distinct item instances within the run.
 
-Items can be acquired from town shops and boss reward choices. When an item can occupy multiple valid slots, the selected equipment slot is explicit. Equipment replacement is handled by the engine and projected to the UI for preview.
+Items can be acquired from town shops and boss reward choices. Their selection and generation consume the run's seeded randomness. When an item can occupy multiple valid slots, the selected equipment slot is explicit and replacement can be previewed before confirmation.
 
 Items may:
 
@@ -117,25 +115,24 @@ Items may:
 - modify stats
 - affect damage or mitigation
 - interact with skills or feats
-- provide consumable effects
 
 Items persist during a run but do not carry between runs unless a future meta system explicitly allows it.
 
-Healing potions are represented in hero state. The engine supports using healing potions during combat and buying them in town up to the configured maximum; the town purchase UI may lag behind the engine surface while that flow is completed.
+Healing potions can be bought in town up to the carrying limit and used during combat. Swappable one-handed weapons can also exchange their equipped hands while in town.
 
 ## 9. Town Rules
 
 Town is a strategic checkpoint between encounters.
 
-Current state: town allows the player to inspect the hero, enter combat, buy generated shop equipment, rest to full HP, and reroll the shop.
+Town allows the player to inspect the hero, enter combat, buy equipment and healing potions, swap eligible hand weapons, rest to full HP, and reroll the shop.
 
 Town state includes:
 
-- generated shop slots with item IDs, prices, and purchased state
+- shop slots with item instances, prices, and purchased state
 - shop level derived from the current zone
 - rest cost and rest count
 - reroll cost and reroll count
-- healing potion cost for engine-supported consumable purchases
+- healing potion cost
 
 Town pricing is engine-owned. Current costs are affected by the hero's charisma modifier through a town discount multiplier. Rest costs increase with each rest across the full run. Reroll costs increase with repeated use during the current town visit.
 
@@ -147,17 +144,15 @@ Town should not contain combat encounters. It may prepare, recover, or redirect 
 
 Player death immediately ends the run.
 
-The intended victory condition is defeating the final boss at battle 100. The complete run phase exists for this direction, but the surrounding victory and endless systems should be treated as planned until implemented.
+Defeating the final boss at battle 100 is the victory condition. After resolving pending rewards and level-ups, the player may retire the hero to end the run, return to town, or continue directly into endless progression.
 
-Endless progression should continue after victory at higher pressure while preserving deterministic run rules.
+Continuing beyond battle 100 starts a new endless cycle. The zone ladder repeats, enemies gain additional damage each cycle, and the run continues under the same deterministic rules until death.
 
-## 11. Meta Systems
+## 11. Ghosts
 
-Ghost encounters, leaderboards, run history, hero inspection, and world activity are planned later systems.
+A hero who dies after progressing beyond the first boss leaves a ghost snapshot at full health without a pending level-up. Each eligible run creates at most one ghost.
 
-These systems should support replayability and asynchronous social presence. They must not alter deterministic run behavior unless their effects are represented explicitly in run state.
-
-Ghost encounters should use the same combat rules as standard encounters when implemented. Boss encounters should not be replaced by ghosts unless a future rule explicitly changes that.
+Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Their encounters and outcomes contribute to ghost records outside the active run without changing its gameplay rules.
 
 ## 12. Scope Boundaries
 

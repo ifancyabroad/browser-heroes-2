@@ -17,45 +17,34 @@ The product emphasizes:
 - strategic town checkpoints
 - deterministic outcomes from seeded randomness
 - readable failure and victory states
-- long-term replayability through content variety and later meta systems
+- long-term replayability through content variety and asynchronous meta systems
 
 ## 2. Current Playable Loop
 
-The current implementation supports the core skeleton of a run:
+The current implementation supports the complete run loop:
 
 1. Start a guest session.
 2. Create a hero by choosing a class and name.
 3. Enter town.
 4. Start combat from town.
-5. Resolve combat through basic attacks or available hero skills.
+5. Resolve combat through attacks, skills, consumables, and readable active effects.
 6. Earn XP and gold after victory.
 7. Select a boss reward when offered.
 8. Complete pending level-up choices when offered.
 9. Continue directly to the next combat or return to town.
-10. Buy equipment, rest, reroll the shop, or inspect the hero in town.
-11. End the run on player death.
+10. Buy equipment or healing potions, rest, reroll the shop, swap equipped weapons, or inspect the hero in town.
+11. Defeat the final boss and either retire victorious or continue into endless progression.
+12. End the run through victorious retirement or player death.
 
-Town currently acts as a run checkpoint, shop, recovery point, and launch point. The engine also supports healing potion purchase and combat use; potion UI is still an integration surface.
+Town acts as a run checkpoint, shop, recovery point, and launch point.
 
-Combat currently exposes basic attack rounds, player skill use, readable combat logs, and active effects such as temporary modifiers, statuses, shields, damage over time, and healing over time. The engine also supports healing potion use from hero state. Enemy skill use, richer enemy behavior, and status removal are planned or scaffolded, but are not the primary playable surface yet.
+Combat exposes basic attacks, player and enemy skill use, healing potions, readable combat logs, and active effects. Status removal remains represented in content but is not resolved by the engine.
 
-## 3. Intended Full Loop
+## 3. Run Structure
 
-The intended full run remains a 100-battle ladder across zones, with a boss encounter every 10 battles.
+The run is a 100-battle ladder across zones, with a boss encounter every 10 battles. Players develop their build through rewards, equipment, skills, and feats as the encounters become more dangerous.
 
-The long-term loop is:
-
-1. Create a hero.
-2. Prepare in town.
-3. Enter combat.
-4. Defeat sequential enemies.
-5. Face a boss every 10th battle.
-6. Unlock or advance through zone pressure after boss milestones.
-7. Develop a build through rewards, equipment, skills, and feats.
-8. Defeat the final boss at battle 100.
-9. Continue into optional endless progression or end the run.
-
-Endless progression is part of the product vision, but should not be treated as current playable behavior until implemented.
+After defeating the final boss at battle 100, the player may retire victorious or repeat the ladder at increased pressure through endless progression.
 
 ## 4. Core Systems
 
@@ -91,11 +80,11 @@ Content should support variety and synergy without moving gameplay authority int
 
 Town is a strategic checkpoint between fights.
 
-Current town responsibilities include generated equipment shops, rest recovery, shop rerolls, equipment replacement decisions, hero inspection, and combat entry. The engine also models healing potion purchases in town. Future town work can deepen consumable management and other preparation choices without moving gameplay authority into the UI.
+Current town responsibilities include equipment shops, rest recovery, healing potion purchases, shop rerolls, equipment decisions, hero inspection, and combat entry. Future town work can deepen preparation choices without moving gameplay authority into the UI.
 
 ### 4.6 Meta Systems
 
-Ghosts, leaderboards, run history, hero inspection, and world activity are important later systems. They should support replayability and asynchronous social presence, but they are secondary to the core run and combat loop today.
+Ghost encounters, hero and ghost leaderboards, and personal run statistics currently add asynchronous competition and history around the core run. Broader world activity remains future direction.
 
 Meta systems must not override deterministic run rules unless their effects are represented explicitly in run state.
 

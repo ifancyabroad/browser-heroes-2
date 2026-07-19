@@ -24,10 +24,10 @@ Current combat has:
 - no positioning system
 - no movement system
 - no simultaneous action selection
-- player-initiated basic attack or skill rounds
+- player-initiated action rounds
 - deterministic enemy response during the same resolved round
 
-The player-facing combat UI currently acts through basic attack, skill, or skip-turn actions. The engine also supports healing potion use as a player action. Enemy skill selection, richer enemy tactics, and status removal are planned or scaffolded and should not be treated as current playable behavior.
+The player acts through basic attacks, skills, healing potions, or skipped turns. Surviving enemies respond with a basic attack or an available skill selected according to their tactic. Status removal remains represented in content but is not resolved by the engine.
 
 ## 3. Combatants
 
@@ -80,13 +80,13 @@ This document intentionally avoids exact formulas and tuning values.
 
 Current player combat resolution is round-based from the player's perspective:
 
-1. The player submits a basic attack, skill, or skip-turn action.
+1. The player submits a basic attack, skill, healing potion, or skip-turn action.
 2. The engine validates that combat is active.
 3. The player action resolves.
 4. The player's active effects advance.
 5. Combat status is checked.
 6. If the enemy dies, victory rewards are applied.
-7. If the enemy survives, the enemy basic attack resolves.
+7. If the enemy survives, its tactic selects and resolves a valid attack or skill.
 8. The enemy's active effects advance.
 9. Combat status is checked again.
 10. The run either advances the combat turn, ends in defeat, or waits at victory.
@@ -105,10 +105,6 @@ Current engine-supported actions around combat include:
 - return to town after victory
 - select a pending boss reward when required
 - complete pending level-up choices when required
-
-Planned or scaffolded action surfaces include:
-
-- richer town actions that affect combat readiness
 
 If the hero is stunned, skip turn is the only available combat action. If the hero is silenced, basic attack and skip turn remain available, but skill actions are not.
 
@@ -146,9 +142,9 @@ Skills and consumables should have:
 - deterministic resolution
 - log entries that explain what happened
 
-Currently supported player skill effect types include direct damage, weapon attack damage, healing, status application, temporary stat modifiers, temporary outgoing damage modifiers, temporary incoming damage modifiers, temporary damage affinity modifiers, damage over time, healing over time, and shields.
+Supported skill effect types include direct damage, weapon attack damage, healing, status application, temporary stat modifiers, temporary outgoing damage modifiers, temporary incoming damage modifiers, temporary damage affinity modifiers, damage over time, healing over time, and shields.
 
-`removeStatus` exists in the content schema and UI formatting, but player skill resolution does not support it yet. Skills containing unsupported effects are rejected by engine validation rather than partially resolved.
+`removeStatus` exists in the content schema and UI formatting, but skill resolution does not support it yet. Skills containing unsupported effects are rejected by engine validation rather than partially resolved.
 
 ## 9. Feats and Passive Modifiers
 
@@ -166,7 +162,7 @@ Effects define duration and expiration through explicit combat state. Reapplying
 
 Current timing advances effects after the affected combatant's action or skipped turn. Damage-over-time and healing-over-time effects trigger during that advancement before durations are decremented and expired effects are logged.
 
-Current statuses are `stunned` and `silenced`. Stun prevents the affected combatant from acting. Silence prevents player skill use. Statuses and other active effects should remain understandable through visible state and combat logs.
+Current statuses are `stunned` and `silenced`. Stun prevents the affected combatant from acting. Silence prevents skill use, so a silenced enemy falls back to its basic attack. Statuses and other active effects should remain understandable through visible state and combat logs.
 
 ## 11. Death and Combat End
 
@@ -179,13 +175,12 @@ On enemy death:
 - a pending boss reward choice may be created
 - pending level-up may be created
 - the player may continue forward or return to town after required choices
+- final-boss victory also allows victorious retirement
 
 On player death:
 
 - combat ends in defeat
 - the run moves to the dead phase
-
-The complete phase is reserved for the intended full victory condition.
 
 ## 12. Combat Logging
 
@@ -197,9 +192,13 @@ Logs should explain what happened without exposing fragile internal implementati
 
 ## 13. Enemy Behavior
 
-Current enemy behavior is simple and deterministic: after a surviving player action, the enemy responds through its basic attack unless stunned.
+Enemies select between basic attacks and usable skills. Their tactic can favor offensive skills, favor defensive skills while wounded, prioritize skills, or choose from all valid actions.
 
-Future enemy behavior may use skills and simple tactical rules. Enemy decisions should be learnable, deterministic, and strategically exploitable.
+Stunned enemies skip their action, while silenced enemies use their basic attack. Skill charges and active effects constrain which skills are valid.
+
+Ghosts enter combat as enemy-side snapshots of fallen heroes. They use the same combatant derivation, equipment, skills, effects, and class tactic as other combatants, so the normal round and logging rules apply.
+
+Enemy decisions should remain learnable, deterministic, and strategically exploitable.
 
 Avoid opaque exceptions and arbitrary outcomes.
 

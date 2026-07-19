@@ -33,10 +33,10 @@ The architecture avoids:
 The project is a pnpm workspace with apps and packages that have distinct responsibilities.
 
 - `packages/engine` owns deterministic run state, action validation/application, combat transitions, progression, reward choices, town transitions, town shop actions, consumables, serialization, and selectors.
-- `packages/content` owns declarative game definitions, content schemas/builders, generated IDs, generated registries, manifests, and content reference validation.
+- `packages/content` owns declarative game definitions, item bases and affixes, content schemas/builders, generated IDs, generated registries, manifests, and content reference validation.
 - `packages/shared` owns contracts shared by the web app and API, such as request/response shapes and socket payload contracts that are not gameplay rules.
 - `apps/web` owns presentation, user interaction, client orchestration, query/socket integration, and rendering projected engine state.
-- `apps/api` owns sessions, persistence, backend orchestration, action submission, validation, and run/action storage.
+- `apps/api` owns sessions, persistence, backend orchestration, action submission, validation, run/action storage, and external encounter selection.
 
 Cross-package dependencies should remain deliberate and acyclic. Gameplay authority belongs in the engine and content packages, not in app-specific code.
 
@@ -53,7 +53,7 @@ It owns:
 - resolving player skill actions and active combat effects
 - applying rewards, reward choices, and level-ups
 - resolving town actions such as shop purchases, rest, rerolls, and consumable purchases
-- managing town/combat/death/completion phases
+- managing town, combat, death, and retirement phases
 - serializing and deserializing run state
 - projecting state through selectors for callers
 
@@ -63,7 +63,9 @@ The simulation layer must remain framework-agnostic. It must not depend on React
 
 The content layer owns authored game definitions and generated lookup surfaces.
 
-It includes classes, enemies, items, skills, feats, and supporting content types. Authored content is validated through builders and schemas, then collected into generated IDs, registries, and manifests.
+It includes classes, enemies, fixed items, item bases, item affixes, skills, feats, and supporting content types. Authored content is validated through builders and schemas, then collected into generated IDs, registries, and manifests.
+
+The engine owns runtime item instances. An instance either references a fixed item or carries a generated definition assembled from content-owned bases and affixes through seeded engine rules. This keeps authored data reusable while preserving the exact equipment acquired during a run.
 
 Generated registries support lookup, type safety, and stable content imports. Documentation should describe this workflow, not duplicate generated contents.
 
@@ -79,6 +81,7 @@ The API currently:
 - stores full engine-owned run snapshots
 - records submitted actions in sequence
 - applies actions through the shared engine
+- resolves external encounter candidates into explicit engine inputs
 - derives lightweight summaries for querying and display
 - exposes REST and socket-based action submission paths
 
@@ -86,7 +89,7 @@ The web app currently:
 
 - creates guest sessions when needed
 - creates heroes and runs
-- displays town, combat, dead, and complete states
+- displays town, combat, dead, and retired states
 - submits player intent to the backend
 - renders engine selectors and shared content
 - shows reward choices, level-up choices, town shop state, equipment replacement previews, and hero state
@@ -100,7 +103,8 @@ Game state is explicit serializable data.
 The following rules must hold:
 
 - identical state plus identical input produces identical outcome
-- randomness derives from seeded run RNG
+- engine randomness derives from seeded run RNG
+- externally selected data is passed into the engine as explicit input and recorded with the action
 - runtime timing does not affect gameplay results
 - no hidden global state influences simulation outcomes
 - state transitions remain traceable

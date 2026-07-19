@@ -101,7 +101,6 @@ Persistence should support:
 - action history
 - debugging and historical analysis
 - future replay validation
-- future ghost and leaderboard systems
 
 ## 7. Networking Model
 
@@ -113,10 +112,8 @@ Networking exists primarily for:
 
 - submitting player intent
 - keeping persisted run state current
-- future ghost synchronization
-- future leaderboard updates
-- future world activity broadcasting
-- future account persistence upgrades
+- retrieving persisted and derived application data
+- lightweight event delivery where useful
 
 The networking model should avoid:
 
@@ -168,15 +165,7 @@ Infrastructure and engine design should preserve the ability to:
 
 The simulation engine should not require persistent server connectivity, even when the current web flow uses backend persistence.
 
-## 11. Planned Meta Infrastructure
-
-Ghost encounters, leaderboards, run history, hero inspection, and world activity are planned later systems.
-
-Infrastructure for these systems should build on engine snapshots, action history, deterministic replay, and derived summaries rather than introducing separate gameplay rules.
-
-Socket.IO should primarily support lightweight event delivery and social/world activity broadcasting. It should not become a real-time combat authority.
-
-## 12. CI/CD and Operations
+## 11. CI/CD and Operations
 
 CI/CD should prioritize simplicity, repeatability, reliability, and fast feedback loops.
 
@@ -189,6 +178,6 @@ The pipeline should:
 
 Operational systems should be added incrementally based on real needs.
 
-## 13. Guiding Principle
+## 12. Guiding Principle
 
 Infrastructure should make the game easier to run, deploy, observe, and maintain. If an infrastructure choice adds operational burden without a clear need, prefer the simpler option.
