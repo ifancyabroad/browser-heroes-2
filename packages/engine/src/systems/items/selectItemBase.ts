@@ -2,14 +2,14 @@ import { CLASSES_BY_ID, itemBases, type ItemBase } from "@app/content";
 
 import type { HeroState } from "../../schemas";
 import type { RngState } from "../../core/rng";
-import { randomInt } from "../../core/rng";
+import { selectWeightedItem } from "../../core/rng";
 import { canEquipItemLike } from "./canEquipItemLike";
+import { getTypeWeightedItemCandidates } from "./getTypeWeightedItemCandidates";
 
 type SelectItemBaseInput = {
 	hero: HeroState;
 	level: number;
 	rngState: RngState;
-	type?: ItemBase["type"];
 };
 
 type SelectItemBaseResult =
@@ -28,10 +28,6 @@ export function selectItemBase(input: SelectItemBaseInput): SelectItemBaseResult
 	const classDefinition = CLASSES_BY_ID[input.hero.classId];
 
 	const eligibleBases = itemBases.filter((base) => {
-		if (input.type && base.type !== input.type) {
-			return false;
-		}
-
 		if (base.minLevel > input.level) {
 			return false;
 		}
@@ -55,11 +51,18 @@ export function selectItemBase(input: SelectItemBaseInput): SelectItemBaseResult
 		};
 	}
 
-	const selected = randomInt(input.rngState, 0, eligibleBases.length - 1);
+	const selected = selectWeightedItem(
+		getTypeWeightedItemCandidates(eligibleBases),
+		input.rngState,
+	);
+
+	if (!selected) {
+		throw new Error("Unable to select from eligible item bases");
+	}
 
 	return {
 		ok: true,
-		value: eligibleBases[selected.value],
+		value: selected.value,
 		rngState: selected.rngState,
 	};
 }

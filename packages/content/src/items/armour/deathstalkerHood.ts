@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Deathstalker Hood",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD1bqrUJTE8odQKcULI?alt=media&token=ed8d231a-7b4d-4747-b162-1db8262f9e03",
 	price: 1700,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

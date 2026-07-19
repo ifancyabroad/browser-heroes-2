@@ -29,9 +29,5 @@ export default buildClass({
 		savingThrows: ["strength", "constitution"],
 	},
 	skillPoolIds: ["warrior", "barbarian"],
-	startingEquipment: {
-		body: "hide_armour",
-		mainHand: "longsword",
-	},
 	tags: [],
 });

@@ -29,9 +29,5 @@ export default buildClass({
 		savingThrows: ["intelligence", "wisdom"],
 	},
 	skillPoolIds: ["mage", "warlock"],
-	startingEquipment: {
-		body: "knaves_robe",
-		mainHand: "quarterstaff",
-	},
 	tags: [],
 });

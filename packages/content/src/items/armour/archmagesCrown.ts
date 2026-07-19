@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Archmage's Crown",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEMdeX59k0__7Q0g8z?alt=media&token=5d04bbc8-1219-448c-ab7a-d04b0041cdc5",
 	price: 1700,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

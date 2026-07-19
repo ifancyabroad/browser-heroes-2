@@ -6,7 +6,8 @@ import {
 	weaponTypeSchema,
 } from "./common.schema";
 import { attackRiderSchema } from "./effect.schema";
-import { itemModifierSchema, itemRaritySchema } from "./armour.schema";
+import { itemModifierSchema } from "./armour.schema";
+import { generatedItemRaritySchema, itemRaritySchema } from "./itemRarity.schema";
 
 export const weaponHandednessSchema = z.enum(["oneHanded", "twoHanded"]);
 
@@ -34,6 +35,20 @@ export const weaponSchema = z.object({
 	attackRiders: z.array(attackRiderSchema).default([]),
 	tags: z.array(z.string().nonempty()).default([]),
 });
+
+export const generatedWeaponSchema = weaponSchema.extend({
+	rarity: generatedItemRaritySchema,
+});
+
+export const legendaryWeaponSchema = weaponSchema.extend({
+	rarity: z.literal("legendary"),
+});
+
+export type LegendaryWeapon = z.infer<typeof legendaryWeaponSchema>;
+
+export type LegendaryWeaponInput = z.input<typeof legendaryWeaponSchema>;
+
+export type GeneratedWeapon = z.infer<typeof generatedWeaponSchema>;
 
 export type WeaponHandedness = z.infer<typeof weaponHandednessSchema>;
 export type WeaponRange = z.infer<typeof weaponRangeSchema>;

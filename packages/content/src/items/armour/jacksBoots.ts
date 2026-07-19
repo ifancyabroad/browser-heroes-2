@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Jack's Boots",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIMQ4tZ-LSwGofSsawh?alt=media&token=1fd9924c-f582-4dc3-9635-3dafb46d51d1",
 	price: 1600,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "A shield crafted with golden wings, symbolizing protection and swift defense.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEgcZaaw2oFUsF7NBm?alt=media&token=798a61fe-2673-44dc-87e0-2a53737e8493",
 	price: 1420,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "shield",
 	modifiers: [

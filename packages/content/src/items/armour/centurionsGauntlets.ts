@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Centurion's Gauntlets",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGGrPdsWdsGO48_7m6?alt=media&token=64aeb067-5f6e-462c-80fb-522f077cc3fa",
 	price: 1600,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

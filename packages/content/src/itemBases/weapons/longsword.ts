@@ -8,10 +8,12 @@ export default buildItemBase({
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {
-		dice: "1d8",
+		dice: "1d6",
 		type: "slashing",
 		attribute: "strength",
 	},
-	iconPool: ["sword_01", "sword_02", "sword_03"],
+	iconPool: [
+		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-NMmvhpTgBUrely_XRJ7?alt=media&token=566098e0-cf7d-4431-a066-928fbe833c0f",
+	],
 	tags: [],
 });

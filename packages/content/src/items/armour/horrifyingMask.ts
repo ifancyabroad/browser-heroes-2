@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Horrifying Mask",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OHy2JrV38T0OjNW-WBV?alt=media&token=2e3812ea-efd7-4a3a-80b3-456a6fda7425",
 	price: 1450,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

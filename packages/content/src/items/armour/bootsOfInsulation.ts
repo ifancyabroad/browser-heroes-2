@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "Insulated boots that provide warmth in freezing climates.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDP9ajYLLxtvR7c6Qf?alt=media&token=83d1f308-ed45-43ec-898c-110f3ec38625",
 	price: 1550,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

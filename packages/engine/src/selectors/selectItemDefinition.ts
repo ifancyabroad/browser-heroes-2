@@ -4,5 +4,9 @@ import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefin
 export function selectItemDefinition(
 	instance: ItemInstance | null | undefined,
 ): RuntimeItem | null {
+	if (!instance) {
+		return null;
+	}
+
 	return getItemInstanceDefinition(instance);
 }

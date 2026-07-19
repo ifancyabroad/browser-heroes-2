@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Knight's Mail",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8HsoUz7NkxyEkUN6c2?alt=media&token=ad65bca3-b84d-4219-9486-4f2f3e6b5e84",
 	price: 1560,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "body",
 	category: "medium",

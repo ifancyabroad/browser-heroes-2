@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Archmage's Robe",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8IE8osJo-rek1NyPIc?alt=media&token=bb9d2d96-5877-440f-a01c-c36766f60c21",
 	price: 1800,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "body",
 	category: "cloth",

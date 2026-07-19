@@ -1,4 +1,4 @@
-import type { ItemBase } from "@app/content";
+import type { GeneratedItemRarity, ItemBase } from "@app/content";
 
 import type { GeneratedItemInstance } from "../../schemas";
 import { createGeneratedItemDefinition } from "./createGeneratedItemDefinition";
@@ -8,6 +8,7 @@ type CreateGeneratedItemInstanceInput = {
 	instanceId: string;
 	base: ItemBase;
 	level: number;
+	rarity: GeneratedItemRarity;
 	rngState: RngState;
 };
 
@@ -22,6 +23,7 @@ export function createGeneratedItemInstance(
 	const itemResult = createGeneratedItemDefinition({
 		base: input.base,
 		level: input.level,
+		rarity: input.rarity,
 		rngState: input.rngState,
 	});
 

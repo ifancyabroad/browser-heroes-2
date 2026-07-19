@@ -4,7 +4,7 @@ import type { EquippedItemState, HeroEquipmentState, HeroState, RuntimeItem } fr
 
 import { getValidEquipmentSlots } from "./getValidEquipmentSlots";
 
-import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
+import { getEquippedWeapon } from "./getEquippedWeapon";
 
 type PreviewEquipItemInput = {
 	hero: HeroState;
@@ -91,9 +91,9 @@ function collectHandConflicts(
 		return;
 	}
 
-	const mainHandItem = getItemInstanceDefinition(equipment.mainHand);
+	const mainHandWeapon = getEquippedWeapon(equipment.mainHand);
 
-	if (mainHandItem?.type === "weapon" && mainHandItem.handedness === "twoHanded") {
+	if (mainHandWeapon?.handedness === "twoHanded") {
 		collectItemAtSlot(equipment, "mainHand", replacedItems);
 	}
 }
@@ -115,7 +115,5 @@ function collectItemAtSlot(
 }
 
 function hasTwoHandedMainHand(equipment: HeroEquipmentState): boolean {
-	const mainHandItem = getItemInstanceDefinition(equipment.mainHand);
-
-	return mainHandItem?.type === "weapon" && mainHandItem.handedness === "twoHanded";
+	return getEquippedWeapon(equipment.mainHand)?.handedness === "twoHanded";
 }

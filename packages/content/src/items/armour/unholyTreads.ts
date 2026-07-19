@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Unholy Treads",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD683rsaEy2yBxeo8Fw?alt=media&token=c33fc687-7c41-41f7-8523-718a76267dee",
 	price: 1600,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "boots",
 	modifiers: [

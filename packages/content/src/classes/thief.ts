@@ -29,9 +29,5 @@ export default buildClass({
 		savingThrows: ["dexterity", "charisma"],
 	},
 	skillPoolIds: ["rogue", "assassin"],
-	startingEquipment: {
-		body: "padded_armour",
-		mainHand: "dagger",
-	},
 	tags: [],
 });

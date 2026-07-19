@@ -1,28 +1,26 @@
-import { itemAffixes, type ItemAffix, type ItemRarity } from "@app/content";
+import { itemAffixes, type GeneratedItemRarity, type ItemAffix } from "@app/content";
 
 import type { GeneratedItemDefinition } from "../../schemas";
 import { type RngState, selectWeightedItem, type RngResult } from "../../core/rng";
 
-const GENERATED_ITEM_AFFIX_COUNTS: Record<ItemRarity, number> = {
+const GENERATED_ITEM_AFFIX_COUNTS: Record<GeneratedItemRarity, number> = {
 	common: 0,
 	uncommon: 1,
 	rare: 2,
 	epic: 2,
-	legendary: 2,
 };
 
-const ITEM_RARITY_RANK: Record<ItemRarity, number> = {
+const ITEM_RARITY_RANK: Record<GeneratedItemRarity, number> = {
 	common: 0,
 	uncommon: 1,
 	rare: 2,
 	epic: 3,
-	legendary: 4,
 };
 
 type SelectItemAffixesInput = {
 	item: GeneratedItemDefinition;
 	itemLevel: number;
-	rarity: ItemRarity;
+	rarity: GeneratedItemRarity;
 	rngState: RngState;
 };
 

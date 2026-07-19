@@ -38,7 +38,7 @@ export function createPendingRewardChoice(
 	}
 
 	const itemOptions: PendingRewardItemOption[] = [];
-	const excludedStaticItemIds = new Set<ItemId>();
+	const excludedLegendaryItemIds = new Set<ItemId>();
 	let rngState = input.rngState;
 
 	while (itemOptions.length < ITEM_REWARD_COUNT) {
@@ -50,7 +50,7 @@ export function createPendingRewardChoice(
 				itemOptions.length,
 			),
 			itemLevel: input.zoneNumber,
-			excludedStaticItemIds,
+			excludedLegendaryItemIds,
 			rngState,
 		});
 
@@ -60,11 +60,11 @@ export function createPendingRewardChoice(
 
 		itemOptions.push({
 			type: "item",
-			item: itemResult.value.item,
+			item: itemResult.value,
 		});
 
-		if (itemResult.value.staticItemId) {
-			excludedStaticItemIds.add(itemResult.value.staticItemId);
+		if (itemResult.value.type === "static") {
+			excludedLegendaryItemIds.add(itemResult.value.itemId);
 		}
 
 		rngState = itemResult.rngState;

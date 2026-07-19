@@ -1,7 +1,10 @@
 import { z } from "zod";
-import { itemIdSchema, itemSchema } from "@app/content";
+import {
+	generatedItemDefinitionSchema as contentGeneratedItemDefinitionSchema,
+	itemIdSchema,
+} from "@app/content";
 
-export const generatedItemDefinitionSchema = itemSchema;
+export const generatedItemDefinitionSchema = contentGeneratedItemDefinitionSchema;
 
 export const staticItemInstanceSchema = z.object({
 	instanceId: z.string().nonempty(),

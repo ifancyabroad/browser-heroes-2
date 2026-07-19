@@ -7,7 +7,7 @@ export default buildWeapon({
 		"The Archmage's Wand is a finely crafted, elegantly carved rod imbued with immense magical power. Adorned with shimmering gemstones, it enhances spellcasting abilities, allowing for the manipulation of potent spells. This wand is a symbol of mastery, favored by the most skilled and learned mages.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O88A4_A04Uf9jAxmv0B?alt=media&token=ff802545-0918-4034-ab58-3562525309eb",
 	price: 1650,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",

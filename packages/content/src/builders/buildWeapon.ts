@@ -1,9 +1,11 @@
-import type { Weapon, WeaponInput } from "../schemas/weapon.schema";
-import { weaponSchema } from "../schemas/weapon.schema";
+import {
+	legendaryWeaponSchema,
+	type LegendaryWeapon,
+	type LegendaryWeaponInput,
+} from "../schemas/weapon.schema";
 
-export const buildWeapon = (weapon: WeaponInput): Weapon => {
-	const parsed = weaponSchema.parse(weapon);
-	return parsed;
+export const buildWeapon = (weapon: LegendaryWeaponInput): LegendaryWeapon => {
+	return legendaryWeaponSchema.parse(weapon);
 };
 
 export default buildWeapon;

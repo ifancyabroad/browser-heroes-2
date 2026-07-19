@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Barbarian's Tunic",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8I5jiV3i13ZaPW46M9?alt=media&token=830c05d6-af02-464e-9fec-d309bf2f4557",
 	price: 1400,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "body",
 	category: "medium",

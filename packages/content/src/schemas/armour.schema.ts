@@ -6,10 +6,7 @@ import {
 	modifiableStatSchema,
 	modifierOperationSchema,
 } from "./modifier.schema";
-
-export const itemRarities = ["common", "uncommon", "rare", "epic", "legendary"] as const;
-
-export const itemRaritySchema = z.enum(itemRarities);
+import { generatedItemRaritySchema, itemRaritySchema } from "./itemRarity.schema";
 
 export const armourSlots = [
 	"body",
@@ -83,7 +80,36 @@ export const accessoryArmourSchema = armourBaseSchema.extend({
 
 export const armourSchema = z.union([bodyArmourSchema, shieldArmourSchema, accessoryArmourSchema]);
 
-export type ItemRarity = z.infer<typeof itemRaritySchema>;
+export const generatedArmourSchema = z.union([
+	bodyArmourSchema.extend({
+		rarity: generatedItemRaritySchema,
+	}),
+	shieldArmourSchema.extend({
+		rarity: generatedItemRaritySchema,
+	}),
+	accessoryArmourSchema.extend({
+		rarity: generatedItemRaritySchema,
+	}),
+]);
+
+export const legendaryArmourSchema = z.union([
+	bodyArmourSchema.extend({
+		rarity: z.literal("legendary"),
+	}),
+	shieldArmourSchema.extend({
+		rarity: z.literal("legendary"),
+	}),
+	accessoryArmourSchema.extend({
+		rarity: z.literal("legendary"),
+	}),
+]);
+
+export type LegendaryArmour = z.infer<typeof legendaryArmourSchema>;
+
+export type LegendaryArmourInput = z.input<typeof legendaryArmourSchema>;
+
+export type GeneratedArmour = z.infer<typeof generatedArmourSchema>;
+
 export type ArmourSlot = z.infer<typeof armourSlotSchema>;
 export type BodyArmourCategory = z.infer<typeof bodyArmourCategorySchema>;
 

@@ -1,13 +1,13 @@
-import type { ItemBase, ItemRarity } from "@app/content";
+import type { GeneratedItemRarity, ItemBase } from "@app/content";
 
 import type { GeneratedItemDefinition } from "../../schemas";
 import { randomInt, type RngState, type RngResult } from "../../core/rng";
 import { SelectedItemAffixes, selectItemAffixes } from "./selectItemAffixes";
-import { selectGeneratedItemRarity } from "./selectGeneratedItemRarity";
 
 type CreateGeneratedItemDefinitionInput = {
 	base: ItemBase;
 	level: number;
+	rarity: GeneratedItemRarity;
 	rngState: RngState;
 };
 
@@ -17,20 +17,13 @@ export function createGeneratedItemDefinition(
 	const iconRoll = randomInt(input.rngState, 0, input.base.iconPool.length - 1);
 	const icon = input.base.iconPool[iconRoll.value];
 
-	const rarityResult = selectGeneratedItemRarity({
-		itemLevel: input.level,
-		rngState: iconRoll.rngState,
-	});
-
-	const rarity = rarityResult.value;
-
 	const common: GeneratedItemCommon = {
 		id: createGeneratedItemId(input.base.id, input.level),
 		name: input.base.name,
 		description: undefined,
 		icon,
-		price: calculateGeneratedItemPrice(input.level, rarity),
-		rarity,
+		price: calculateGeneratedItemPrice(input.level, input.rarity),
+		rarity: input.rarity,
 		modifiers: [],
 		tags: input.base.tags,
 	};
@@ -40,8 +33,8 @@ export function createGeneratedItemDefinition(
 	const affixResult = selectItemAffixes({
 		item: plainItem,
 		itemLevel: input.level,
-		rarity,
-		rngState: rarityResult.rngState,
+		rarity: input.rarity,
+		rngState: iconRoll.rngState,
 	});
 
 	return {
@@ -56,7 +49,7 @@ type GeneratedItemCommon = {
 	description: string | undefined;
 	icon: string;
 	price: number;
-	rarity: ItemRarity;
+	rarity: GeneratedItemRarity;
 	modifiers: [];
 	tags: string[];
 };
@@ -130,13 +123,12 @@ function createGeneratedItemId(baseId: string, level: number) {
 	return `${baseId}_level_${level}`;
 }
 
-function calculateGeneratedItemPrice(level: number, rarity: ItemRarity) {
-	const rarityMultiplier: Record<ItemRarity, number> = {
+function calculateGeneratedItemPrice(level: number, rarity: GeneratedItemRarity) {
+	const rarityMultiplier: Record<GeneratedItemRarity, number> = {
 		common: 1,
 		uncommon: 1.5,
 		rare: 2.5,
 		epic: 4,
-		legendary: 8,
 	};
 
 	return Math.max(1, Math.round(level * 10 * rarityMultiplier[rarity]));

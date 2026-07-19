@@ -1,81 +1,75 @@
 import type { ItemId } from "@app/content";
 
-import type { ItemInstance } from "../../schemas";
-import { randomFloat, type RngState, type RngResult } from "../../core/rng";
+import type { HeroState, ItemInstance } from "../../schemas";
+import { selectWeightedItem, type RngResult, type RngState } from "../../core/rng";
 import { createGeneratedItemInstance } from "./createGeneratedItemInstance";
+import { getEligibleLegendaryItems } from "./getEligibleLegendaryItems";
 import { selectItemBase } from "./selectItemBase";
-import { selectWeightedEquipmentItem } from "./selectWeightedEquipmentItem";
-import type { HeroState } from "../../schemas";
-
-const DEFAULT_GENERATED_ITEM_CHANCE = 0.7;
+import { selectItemRarity } from "./selectItemRarity";
+import { getTypeWeightedItemCandidates } from "./getTypeWeightedItemCandidates";
 
 type CreateRandomItemInstanceInput = {
 	hero: HeroState;
 	instanceId: string;
 	itemLevel: number;
 	rngState: RngState;
-	excludedStaticItemIds: ReadonlySet<ItemId>;
-	generatedItemChance?: number;
-};
-
-type CreateRandomItemInstanceValue = {
-	item: ItemInstance;
-	staticItemId: ItemId | null;
+	excludedLegendaryItemIds: ReadonlySet<ItemId>;
 };
 
 export function createRandomItemInstance(
 	input: CreateRandomItemInstanceInput,
-): RngResult<CreateRandomItemInstanceValue> | null {
-	const generatedItemChance = input.generatedItemChance ?? DEFAULT_GENERATED_ITEM_CHANCE;
-	const sourceRoll = randomFloat(input.rngState);
+): RngResult<ItemInstance> | null {
+	const eligibleLegendaryItems = getEligibleLegendaryItems({
+		hero: input.hero,
+		excludedItemIds: input.excludedLegendaryItemIds,
+	});
 
-	if (sourceRoll.value < generatedItemChance) {
-		const baseResult = selectItemBase({
-			hero: input.hero,
-			level: input.itemLevel,
-			rngState: sourceRoll.rngState,
-		});
+	const rarityResult = selectItemRarity({
+		itemLevel: input.itemLevel,
+		includeLegendary: eligibleLegendaryItems.length > 0,
+		rngState: input.rngState,
+	});
 
-		if (!baseResult.ok) {
-			return null;
+	if (rarityResult.value === "legendary") {
+		const legendaryResult = selectWeightedItem(
+			getTypeWeightedItemCandidates(eligibleLegendaryItems),
+			rarityResult.rngState,
+		);
+
+		if (!legendaryResult) {
+			throw new Error("Unable to select an eligible legendary item");
 		}
-
-		const generatedItemResult = createGeneratedItemInstance({
-			instanceId: input.instanceId,
-			base: baseResult.value,
-			level: input.itemLevel,
-			rngState: baseResult.rngState,
-		});
 
 		return {
 			value: {
-				item: generatedItemResult.value,
-				staticItemId: null,
+				instanceId: input.instanceId,
+				type: "static",
+				itemId: legendaryResult.value.id,
 			},
-			rngState: generatedItemResult.rngState,
+			rngState: legendaryResult.rngState,
 		};
 	}
 
-	const staticItemResult = selectWeightedEquipmentItem({
+	const baseResult = selectItemBase({
 		hero: input.hero,
-		itemLevel: input.itemLevel,
-		excludedItemIds: input.excludedStaticItemIds,
-		rngState: sourceRoll.rngState,
+		level: input.itemLevel,
+		rngState: rarityResult.rngState,
 	});
 
-	if (!staticItemResult) {
+	if (!baseResult.ok) {
 		return null;
 	}
 
+	const generatedResult = createGeneratedItemInstance({
+		instanceId: input.instanceId,
+		base: baseResult.value,
+		level: input.itemLevel,
+		rarity: rarityResult.value,
+		rngState: baseResult.rngState,
+	});
+
 	return {
-		value: {
-			item: {
-				instanceId: input.instanceId,
-				type: "static",
-				itemId: staticItemResult.value.id,
-			},
-			staticItemId: staticItemResult.value.id,
-		},
-		rngState: staticItemResult.rngState,
+		value: generatedResult.value,
+		rngState: generatedResult.rngState,
 	};
 }

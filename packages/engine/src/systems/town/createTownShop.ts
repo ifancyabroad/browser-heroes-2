@@ -20,7 +20,7 @@ type CreateTownShopInput = {
 
 export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSlot[]> {
 	const shopSlots: TownShopSlot[] = [];
-	const excludedStaticItemIds = new Set<ItemId>();
+	const excludedLegendaryItemIds = new Set<ItemId>();
 	const discountMultiplier = calculateTownDiscountMultiplier(input.hero);
 
 	let rngState = input.rngState;
@@ -37,7 +37,7 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 				shopSlotId,
 			),
 			itemLevel: input.shopLevel,
-			excludedStaticItemIds,
+			excludedLegendaryItemIds,
 			rngState,
 		});
 
@@ -45,7 +45,7 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 			break;
 		}
 
-		const itemDefinition = getItemInstanceDefinition(itemResult.value.item);
+		const itemDefinition = getItemInstanceDefinition(itemResult.value);
 
 		if (!itemDefinition) {
 			break;
@@ -53,13 +53,13 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 
 		shopSlots.push({
 			id: shopSlotId,
-			item: itemResult.value.item,
+			item: itemResult.value,
 			price: Math.round(itemDefinition.price * discountMultiplier),
 			purchased: false,
 		});
 
-		if (itemResult.value.staticItemId) {
-			excludedStaticItemIds.add(itemResult.value.staticItemId);
+		if (itemResult.value.type === "static") {
+			excludedLegendaryItemIds.add(itemResult.value.itemId);
 		}
 
 		rngState = itemResult.rngState;

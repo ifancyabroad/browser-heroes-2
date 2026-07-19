@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Unholy Girdle",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD66llU12DgMI5qRhS2?alt=media&token=6a24f3b5-7c3b-498e-9cb9-410b212cf9ed",
 	price: 1600,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "belt",
 	modifiers: [

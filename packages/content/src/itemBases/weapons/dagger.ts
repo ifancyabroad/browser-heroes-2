@@ -9,9 +9,11 @@ export default buildItemBase({
 	range: "melee",
 	damage: {
 		dice: "1d4",
-		type: "piercing",
+		type: "slashing",
 		attribute: "dexterity",
 	},
-	iconPool: ["dagger_01", "dagger_02", "dagger_03"],
+	iconPool: [
+		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-NNwMy0q-XKUT-EUvxFF?alt=media&token=a9fdd8a5-341c-423a-8ef5-a92726e15605",
+	],
 	tags: [],
 });

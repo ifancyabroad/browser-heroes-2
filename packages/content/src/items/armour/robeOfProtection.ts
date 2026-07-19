@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Robe of Protection",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OHy42jVE0Jqj3DYOJCU?alt=media&token=5dc705ba-abfc-47bd-a3f7-758ddb165a32",
 	price: 1700,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "body",
 	category: "cloth",

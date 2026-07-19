@@ -1,7 +1,9 @@
-import type { Armour, ArmourInput } from "../schemas/armour.schema";
-import { armourSchema } from "../schemas/armour.schema";
+import {
+	legendaryArmourSchema,
+	type LegendaryArmour,
+	type LegendaryArmourInput,
+} from "../schemas/armour.schema";
 
-export const buildArmour = (armour: ArmourInput): Armour => {
-	const parsed = armourSchema.parse(armour);
-	return parsed;
+export const buildArmour = (armour: LegendaryArmourInput): LegendaryArmour => {
+	return legendaryArmourSchema.parse(armour);
 };

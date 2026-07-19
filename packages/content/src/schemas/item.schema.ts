@@ -1,8 +1,16 @@
 import { z } from "zod";
-import { armourSchema, type Armour, type ArmourInput } from "./armour.schema";
-import { weaponSchema, type Weapon, type WeaponInput } from "./weapon.schema";
 
-export const itemSchema = z.union([armourSchema, weaponSchema]);
+import { generatedArmourSchema, legendaryArmourSchema } from "./armour.schema";
+import { generatedWeaponSchema, legendaryWeaponSchema } from "./weapon.schema";
 
-export type ItemDefinition = Armour | Weapon;
-export type ItemDefinitionInput = ArmourInput | WeaponInput;
+export const itemSchema = z.union([legendaryArmourSchema, legendaryWeaponSchema]);
+
+export const generatedItemDefinitionSchema = z.union([
+	generatedArmourSchema,
+	generatedWeaponSchema,
+]);
+
+export type ItemDefinition = z.infer<typeof itemSchema>;
+export type ItemDefinitionInput = z.input<typeof itemSchema>;
+
+export type GeneratedItemDefinition = z.infer<typeof generatedItemDefinitionSchema>;

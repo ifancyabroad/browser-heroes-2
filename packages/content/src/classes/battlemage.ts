@@ -29,9 +29,5 @@ export default buildClass({
 		savingThrows: ["constitution", "intelligence"],
 	},
 	skillPoolIds: ["barbarian", "warlock"],
-	startingEquipment: {
-		body: "hide_armour",
-		mainHand: "quarterstaff",
-	},
 	tags: [],
 });

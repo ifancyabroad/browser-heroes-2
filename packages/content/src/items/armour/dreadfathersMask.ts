@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Dreadfather's Mask",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIG-CccF8VTd7BELo99?alt=media&token=8c3323c4-e2a4-487d-a68f-e99fad2ebb2f",
 	price: 1700,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

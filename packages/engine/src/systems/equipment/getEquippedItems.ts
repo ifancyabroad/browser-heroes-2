@@ -3,8 +3,10 @@ import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 
 export function getEquippedItems(equipment: HeroEquipmentState): RuntimeItem[] {
 	return Object.values(equipment).flatMap((equipmentItem) => {
-		const item = getItemInstanceDefinition(equipmentItem);
+		if (!equipmentItem) {
+			return [];
+		}
 
-		return item ? [item] : [];
+		return [getItemInstanceDefinition(equipmentItem)];
 	});
 }

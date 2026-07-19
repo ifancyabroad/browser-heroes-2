@@ -6,7 +6,7 @@ export default buildArmour({
 	description: "Gilded in enchantments, this gold-plated armor radiates magical protection.",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NZN-pDbqOJ2N6bjuW-2?alt=media&token=65f41764-04fb-45e4-b574-b4c9dde99b5c",
 	price: 1760,
-	rarity: "epic",
+	rarity: "legendary",
 	type: "armour",
 	slot: "body",
 	category: "heavy",

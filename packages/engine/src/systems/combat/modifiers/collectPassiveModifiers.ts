@@ -6,11 +6,11 @@ import { getItemInstanceDefinition } from "../../items/getItemInstanceDefinition
 
 export function collectEquipmentModifiers(equipment: HeroEquipmentState): ResolvedModifier[] {
 	return Object.values(equipment).flatMap((equippedItem): ResolvedModifier[] => {
-		const itemDefinition = getItemInstanceDefinition(equippedItem);
-
-		if (!equippedItem || !itemDefinition) {
+		if (!equippedItem) {
 			return [];
 		}
+
+		const itemDefinition = getItemInstanceDefinition(equippedItem);
 
 		return itemDefinition.modifiers.map((modifier) => ({
 			modifier,
