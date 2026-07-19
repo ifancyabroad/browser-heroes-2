@@ -1,0 +1,4 @@
+interface:
+    display_name: "Refresh Project Docs"
+    short_description: "Audit code and keep project docs concise"
+    default_prompt: "Use $refresh-project-docs to audit the current codebase and update its documentation without duplication."
