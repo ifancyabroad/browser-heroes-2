@@ -1,19 +1,12 @@
-import { itemAffixes, type GeneratedItemRarity, type ItemAffix, type ItemBase } from "@app/content";
+import { itemAffixes, type ItemAffix, type ItemAffixRarity, type ItemBase } from "@app/content";
 
 import type { GeneratedItemDefinition } from "../../schemas";
 
 type AffixableItem = ItemBase | GeneratedItemDefinition;
 
-const ITEM_RARITY_RANK: Record<GeneratedItemRarity, number> = {
-	common: 0,
-	uncommon: 1,
-	rare: 2,
-	epic: 3,
-};
-
 type GetEligibleItemAffixesInput = {
 	item: AffixableItem;
-	rarity: GeneratedItemRarity;
+	rarity: ItemAffixRarity;
 	position: ItemAffix["position"];
 };
 
@@ -23,7 +16,7 @@ export function getEligibleItemAffixes(input: GetEligibleItemAffixesInput): Item
 			return false;
 		}
 
-		if (ITEM_RARITY_RANK[affix.rarity] > ITEM_RARITY_RANK[input.rarity]) {
+		if (affix.rarity !== input.rarity) {
 			return false;
 		}
 
