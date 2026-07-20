@@ -61,7 +61,7 @@ export function getPrimaryItemStat(item: RuntimeItem): PrimaryItemStat | null {
 		};
 	}
 
-	if (item.slot === "body") {
+	if (item.slot === "body" || item.slot === "shield") {
 		return {
 			label: "AC",
 			value: String(item.armourClass),
