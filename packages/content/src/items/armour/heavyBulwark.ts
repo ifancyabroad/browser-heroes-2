@@ -9,13 +9,8 @@ export default buildArmour({
 	rarity: "legendary",
 	type: "armour",
 	slot: "shield",
+	armourClass: 4,
 	modifiers: [
-		{
-			type: "modifyStat",
-			stat: "armourClass",
-			operation: "add",
-			value: 4,
-		},
 		{
 			type: "modifyStat",
 			stat: "dexterity",

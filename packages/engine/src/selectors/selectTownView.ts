@@ -82,10 +82,6 @@ export function selectTownView(state: RunState): TownView | null {
 function createTownShopSlotView(state: RunState, slot: TownShopSlot): TownShopSlotView[] {
 	const item = getItemInstanceDefinition(slot.item);
 
-	if (!item) {
-		return [];
-	}
-
 	const validEquipmentSlots = getValidEquipmentSlots(item);
 
 	return [

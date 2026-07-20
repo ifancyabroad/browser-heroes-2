@@ -60,10 +60,6 @@ function createRewardOptionView(
 
 	const item = getItemInstanceDefinition(option.item);
 
-	if (!item) {
-		return [];
-	}
-
 	const validEquipmentSlots = getValidEquipmentSlots(item);
 
 	return [

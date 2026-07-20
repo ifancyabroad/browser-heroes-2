@@ -12,10 +12,6 @@ export type ItemEventPayload = {
 export function createItemEventPayload(instance: ItemInstance): ItemEventPayload | null {
 	const item = getItemInstanceDefinition(instance);
 
-	if (!item) {
-		return null;
-	}
-
 	return {
 		itemInstanceId: instance.instanceId,
 		itemName: item.name,

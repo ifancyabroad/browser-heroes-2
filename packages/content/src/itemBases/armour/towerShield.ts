@@ -4,6 +4,7 @@ export default buildItemBase({
 	id: "base_tower_shield",
 	name: "Tower Shield",
 	basePrice: 90,
+	armourClass: 3,
 	type: "armour",
 	slot: "shield",
 	iconPool: [

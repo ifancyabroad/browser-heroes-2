@@ -30,13 +30,6 @@ export type EquipItemResult = EquipItemSuccess | EquipItemFailure;
 export function equipItem(input: EquipItemInput): EquipItemResult {
 	const itemDefinition = getItemInstanceDefinition(input.item);
 
-	if (!itemDefinition) {
-		return {
-			ok: false,
-			error: "INVALID_EQUIPMENT_SLOT",
-		};
-	}
-
 	const preview = previewEquipItem({
 		hero: input.hero,
 		item: itemDefinition,

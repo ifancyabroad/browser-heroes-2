@@ -5,7 +5,7 @@ import { ITEM_RARITY_WEIGHTS_BY_LOOT_TIER } from "./itemGenerationWeights";
 
 type SelectItemRarityInput = {
 	lootTier: number;
-	includeLegendary: boolean;
+	availableRarities: ReadonlySet<ItemRarity>;
 	rngState: RngState;
 };
 
@@ -16,7 +16,7 @@ export function selectItemRarity(input: SelectItemRarityInput): RngResult<ItemRa
 	);
 
 	const weightedRarities = itemRarities.flatMap((rarity) => {
-		if (rarity === "legendary" && !input.includeLegendary) {
+		if (!input.availableRarities.has(rarity)) {
 			return [];
 		}
 

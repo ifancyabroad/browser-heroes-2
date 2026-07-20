@@ -72,6 +72,7 @@ export const bodyArmourSchema = armourBaseSchema.extend({
 
 export const shieldArmourSchema = armourBaseSchema.extend({
 	slot: z.literal("shield"),
+	armourClass: z.number().int().positive(),
 });
 
 export const accessoryArmourSchema = armourBaseSchema.extend({

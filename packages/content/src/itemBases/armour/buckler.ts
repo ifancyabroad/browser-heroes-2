@@ -4,6 +4,7 @@ export default buildItemBase({
 	id: "base_buckler",
 	name: "Buckler",
 	basePrice: 10,
+	armourClass: 1,
 	type: "armour",
 	slot: "shield",
 	iconPool: [

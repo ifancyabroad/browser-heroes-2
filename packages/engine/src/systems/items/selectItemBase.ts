@@ -1,46 +1,20 @@
-import { CLASSES_BY_ID, itemBases, type ItemBase } from "@app/content";
+import { CLASSES_BY_ID, type GeneratedItemRarity, itemBases, type ItemBase } from "@app/content";
 
 import type { HeroState } from "../../schemas";
-import type { RngState } from "../../core/rng";
+import type { RngResult, RngState } from "../../core/rng";
 import { selectWeightedItem } from "../../core/rng";
 import { canEquipItemLike } from "./canEquipItemLike";
 import { getTypeWeightedItemCandidates } from "./getTypeWeightedItemCandidates";
+import { isItemBaseEligibleForRarity } from "./isItemBaseEligibleForRarity";
 
 type SelectItemBaseInput = {
 	hero: HeroState;
+	rarity: GeneratedItemRarity;
 	rngState: RngState;
 };
 
-type SelectItemBaseResult =
-	| {
-			ok: true;
-			value: ItemBase;
-			rngState: RngState;
-	  }
-	| {
-			ok: false;
-			error: "NO_ELIGIBLE_ITEM_BASE";
-			rngState: RngState;
-	  };
-
-export function selectItemBase(input: SelectItemBaseInput): SelectItemBaseResult {
-	const classDefinition = CLASSES_BY_ID[input.hero.classId];
-
-	const eligibleBases = itemBases.filter((base) => {
-		if (!canEquipItemLike(classDefinition, base)) {
-			return false;
-		}
-
-		return true;
-	});
-
-	if (eligibleBases.length === 0) {
-		return {
-			ok: false,
-			error: "NO_ELIGIBLE_ITEM_BASE",
-			rngState: input.rngState,
-		};
-	}
+export function selectItemBase(input: SelectItemBaseInput): RngResult<ItemBase> {
+	const eligibleBases = getEligibleItemBases(input);
 
 	const selected = selectWeightedItem(
 		getTypeWeightedItemCandidates(eligibleBases),
@@ -48,12 +22,27 @@ export function selectItemBase(input: SelectItemBaseInput): SelectItemBaseResult
 	);
 
 	if (!selected) {
-		throw new Error("Unable to select from eligible item bases");
+		throw new Error(
+			`No eligible ${input.rarity} item base exists for class ${input.hero.classId}`,
+		);
 	}
 
-	return {
-		ok: true,
-		value: selected.value,
-		rngState: selected.rngState,
-	};
+	return selected;
+}
+
+type GetEligibleItemBasesInput = {
+	hero: HeroState;
+	rarity: GeneratedItemRarity;
+};
+
+export function getEligibleItemBases(input: GetEligibleItemBasesInput): ItemBase[] {
+	const classDefinition = CLASSES_BY_ID[input.hero.classId];
+
+	return itemBases.filter((base) => {
+		if (!isItemBaseEligibleForRarity(base, input.rarity)) {
+			return false;
+		}
+
+		return canEquipItemLike(classDefinition, base);
+	});
 }

@@ -1,10 +1,10 @@
-import type { ItemId } from "@app/content";
+import { generatedItemRarities, type ItemId, type ItemRarity } from "@app/content";
 
 import type { HeroState, ItemInstance } from "../../schemas";
 import { selectWeightedItem, type RngResult, type RngState } from "../../core/rng";
 import { createGeneratedItemInstance } from "./createGeneratedItemInstance";
 import { getEligibleLegendaryItems } from "./getEligibleLegendaryItems";
-import { selectItemBase } from "./selectItemBase";
+import { getEligibleItemBases, selectItemBase } from "./selectItemBase";
 import { selectItemRarity } from "./selectItemRarity";
 import { getTypeWeightedItemCandidates } from "./getTypeWeightedItemCandidates";
 
@@ -18,15 +18,32 @@ type CreateRandomItemInstanceInput = {
 
 export function createRandomItemInstance(
 	input: CreateRandomItemInstanceInput,
-): RngResult<ItemInstance> | null {
+): RngResult<ItemInstance> {
 	const eligibleLegendaryItems = getEligibleLegendaryItems({
 		hero: input.hero,
 		excludedItemIds: input.excludedLegendaryItemIds,
 	});
 
+	const availableRarities = new Set<ItemRarity>();
+
+	for (const rarity of generatedItemRarities) {
+		const eligibleBases = getEligibleItemBases({
+			hero: input.hero,
+			rarity,
+		});
+
+		if (eligibleBases.length > 0) {
+			availableRarities.add(rarity);
+		}
+	}
+
+	if (eligibleLegendaryItems.length > 0) {
+		availableRarities.add("legendary");
+	}
+
 	const rarityResult = selectItemRarity({
 		lootTier: input.lootTier,
-		includeLegendary: eligibleLegendaryItems.length > 0,
+		availableRarities,
 		rngState: input.rngState,
 	});
 
@@ -52,12 +69,9 @@ export function createRandomItemInstance(
 
 	const baseResult = selectItemBase({
 		hero: input.hero,
+		rarity: rarityResult.value,
 		rngState: rarityResult.rngState,
 	});
-
-	if (!baseResult.ok) {
-		return null;
-	}
 
 	const generatedResult = createGeneratedItemInstance({
 		instanceId: input.instanceId,

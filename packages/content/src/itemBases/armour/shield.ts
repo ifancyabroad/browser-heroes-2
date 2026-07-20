@@ -4,6 +4,7 @@ export default buildItemBase({
 	id: "base_shield",
 	name: "Shield",
 	basePrice: 30,
+	armourClass: 2,
 	type: "armour",
 	slot: "shield",
 	iconPool: [

@@ -202,10 +202,6 @@ function getBuyItemActions(state: RunState): EngineAction[] {
 
 		const item = getItemInstanceDefinition(slot.item);
 
-		if (!item) {
-			return [];
-		}
-
 		const validEquipmentSlots = getValidEquipmentSlots(item);
 
 		if (validEquipmentSlots.length === 1) {

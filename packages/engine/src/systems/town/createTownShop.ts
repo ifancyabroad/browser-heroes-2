@@ -41,15 +41,7 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 			rngState,
 		});
 
-		if (!itemResult) {
-			break;
-		}
-
 		const itemDefinition = getItemInstanceDefinition(itemResult.value);
-
-		if (!itemDefinition) {
-			break;
-		}
 
 		shopSlots.push({
 			id: shopSlotId,

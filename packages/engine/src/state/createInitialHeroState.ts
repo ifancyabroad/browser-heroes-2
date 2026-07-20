@@ -19,6 +19,7 @@ import type { RngResult, RngState } from "../core/rng";
 import { createGeneratedItemInstance } from "../systems/items/createGeneratedItemInstance";
 import { canEquipItemLike } from "../systems/items/canEquipItemLike";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
+import { isItemBaseEligibleForRarity } from "../systems/items/isItemBaseEligibleForRarity";
 
 export type CreateInitialHeroStateInput = {
 	runId: string;
@@ -120,6 +121,12 @@ function createInitialEquipment(
 		}
 
 		const base = ITEMBASES_BY_ID[itemBaseId];
+
+		if (!isItemBaseEligibleForRarity(base, "common")) {
+			throw new Error(
+				`Starting item base ${itemBaseId} cannot be generated at common rarity`,
+			);
+		}
 
 		if (!canEquipItemLike(classDefinition, base)) {
 			throw new Error(

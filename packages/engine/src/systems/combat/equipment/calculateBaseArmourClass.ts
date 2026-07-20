@@ -1,20 +1,23 @@
 import type { HeroEquipmentState } from "../../../schemas";
 import { calculateAttributeModifier } from "../../../core/attributes";
 import { getEquippedBodyArmour, type BodyArmour } from "../../equipment/getEquippedBodyArmour";
+import { getEquippedShield } from "../../equipment/getEquippedShield";
 
 export function calculateBaseArmourClass(
 	equipment: HeroEquipmentState,
 	dexterityScore: number,
 ): number {
 	const bodyArmour = getEquippedBodyArmour(equipment.body);
+	const shield = getEquippedShield(equipment.offHand);
+	const shieldBonus = shield?.armourClass ?? 0;
 
 	const dexterityModifier = calculateAttributeModifier(dexterityScore);
 
 	if (!bodyArmour) {
-		return 10 + dexterityModifier;
+		return 10 + dexterityModifier + shieldBonus;
 	}
 
-	return calculateBodyArmourClass(bodyArmour, dexterityModifier);
+	return calculateBodyArmourClass(bodyArmour, dexterityModifier) + shieldBonus;
 }
 
 function calculateBodyArmourClass(armour: BodyArmour, dexterityModifier: number): number {

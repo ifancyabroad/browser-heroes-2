@@ -54,10 +54,6 @@ export function createPendingRewardChoice(
 			rngState,
 		});
 
-		if (!itemResult) {
-			throw new Error("Unable to generate item reward option");
-		}
-
 		itemOptions.push({
 			type: "item",
 			item: itemResult.value,

@@ -39,6 +39,7 @@ export const bodyArmourItemBaseSchema = itemBaseCommonSchema.extend({
 export const shieldItemBaseSchema = itemBaseCommonSchema.extend({
 	type: z.literal("armour"),
 	slot: z.literal("shield"),
+	armourClass: z.number().int().positive(),
 });
 
 export const accessoryItemBaseSchema = itemBaseCommonSchema.extend({

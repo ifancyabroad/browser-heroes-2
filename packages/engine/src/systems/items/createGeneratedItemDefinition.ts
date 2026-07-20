@@ -78,6 +78,15 @@ function createPlainGeneratedItem(
 		};
 	}
 
+	if (base.slot === "shield") {
+		return {
+			...common,
+			type: "armour",
+			slot: "shield",
+			armourClass: base.armourClass,
+		};
+	}
+
 	return {
 		...common,
 		type: "armour",
