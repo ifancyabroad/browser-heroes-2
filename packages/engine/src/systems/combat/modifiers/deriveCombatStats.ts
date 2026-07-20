@@ -3,7 +3,11 @@ import type { DamageAffinities } from "@app/content";
 import type { CombatantCombatStats } from "../../../schemas";
 
 import { deriveDamageAffinities, toDamageAffinities } from "./deriveDamageAffinities";
-import { deriveDamageModifiers, toDamageModifiers } from "./deriveDamageModifiers";
+import {
+	deriveDamageModifiers,
+	deriveDamageTakenModifiers,
+	toCombatantDamageModifiers,
+} from "./deriveDamageModifiers";
 import type {
 	DerivedDamageAffinities,
 	DerivedDamageModifier,
@@ -20,10 +24,10 @@ export type DerivedCombatStats = {
 	saveDcBonus: DerivedValue;
 	critChance: DerivedValue;
 	critMultiplier: DerivedValue;
-	damageReduction: DerivedValue;
 	healingMultiplier: DerivedValue;
 	damageAffinities: DerivedDamageAffinities;
 	damageModifiers: DerivedDamageModifier[];
+	damageTakenModifiers: DerivedDamageModifier[];
 };
 
 type DeriveCombatStatsInput = {
@@ -55,13 +59,13 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 
 		critMultiplier: resolveModifiedStat("critMultiplier", 2, modifiers),
 
-		damageReduction: resolveModifiedStat("damageReduction", 0, modifiers),
-
 		healingMultiplier: resolveModifiedStat("healingMultiplier", 1, modifiers),
 
 		damageAffinities: deriveDamageAffinities(input.baseDamageAffinities, modifiers),
 
 		damageModifiers: deriveDamageModifiers(modifiers),
+
+		damageTakenModifiers: deriveDamageTakenModifiers(modifiers),
 	};
 }
 
@@ -87,9 +91,9 @@ export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCo
 		saveDcBonus: derived.saveDcBonus.value,
 		critChance: derived.critChance.value,
 		critMultiplier: derived.critMultiplier.value,
-		damageReduction: derived.damageReduction.value,
 		healingMultiplier: derived.healingMultiplier.value,
 		damageAffinities: toDamageAffinities(derived.damageAffinities),
-		damageModifiers: toDamageModifiers(derived.damageModifiers),
+		damageModifiers: toCombatantDamageModifiers(derived.damageModifiers),
+		damageTakenModifiers: toCombatantDamageModifiers(derived.damageTakenModifiers),
 	};
 }

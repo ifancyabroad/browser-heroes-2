@@ -2,8 +2,8 @@ import type { ActiveDamageTakenModifier, CombatantState } from "../../../schemas
 
 export function getEffectiveDamageTakenModifiers(
 	combatant: CombatantState,
-): CombatantState["combatStats"]["damageModifiers"] {
-	return combatant.activeEffects
+): CombatantState["combatStats"]["damageTakenModifiers"] {
+	const temporaryModifiers = combatant.activeEffects
 		.filter(
 			(effect): effect is ActiveDamageTakenModifier => effect.type === "modifyDamageTaken",
 		)
@@ -12,4 +12,6 @@ export function getEffectiveDamageTakenModifiers(
 			operation: effect.operation,
 			value: effect.value,
 		}));
+
+	return [...combatant.combatStats.damageTakenModifiers, ...temporaryModifiers];
 }

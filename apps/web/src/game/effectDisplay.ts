@@ -50,6 +50,8 @@ export function formatModifier(modifier: ItemModifier | PassiveModifier) {
 				: `${formatModifierValue(modifier.operation, modifier.value)} ${modifiableStatFullLabels[modifier.stat]}`;
 		case "modifyDamage":
 			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageSubject(modifier.damageType)}`;
+		case "modifyDamageTaken":
+			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageTakenSubject(modifier.damageType)}`;
 		case "modifyDamageAffinity":
 			return `${modifier.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[modifier.damageType]} ${damageAffinityLabels[modifier.affinity]}`;
 		default:
@@ -64,6 +66,9 @@ export function formatItemModifier(modifier: ItemModifier) {
 export function getModifierTextClassName(modifier: ItemModifier | PassiveModifier) {
 	if (modifier.type === "modifyDamageAffinity") {
 		return getToneTextClassName(getDamageAffinityTone(modifier.operation, modifier.affinity));
+	}
+	if (modifier.type === "modifyDamageTaken") {
+		return getToneTextClassName(getDamageTakenModifierTone(modifier.operation, modifier.value));
 	}
 
 	const tone = getNumericModifierTone(modifier.operation, modifier.value);

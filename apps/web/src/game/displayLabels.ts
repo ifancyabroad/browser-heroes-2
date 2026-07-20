@@ -41,7 +41,6 @@ export const combatStatShortLabels = {
 	saveDcBonus: "Save DC",
 	critChance: "Crit",
 	critMultiplier: "Crit x",
-	damageReduction: "DR",
 	healingMultiplier: "Healing",
 } as const;
 
@@ -53,13 +52,11 @@ export const combatStatLabels = {
 	saveDcBonus: "Save DC Bonus",
 	critChance: "Critical Chance",
 	critMultiplier: "Critical Multiplier",
-	damageReduction: "Damage Reduction",
 	healingMultiplier: "Healing Multiplier",
 } as const;
 
 export const modifiableStatLabels: Record<ModifiableStat, string> = {
 	armourClass: combatStatShortLabels.armourClass,
-	damageReduction: combatStatShortLabels.damageReduction,
 	proficiencyBonus: combatStatShortLabels.proficiencyBonus,
 	attackRollBonus: combatStatShortLabels.attackRollBonus,
 	savingThrowBonus: combatStatShortLabels.savingThrowBonus,
@@ -77,7 +74,6 @@ export const modifiableStatLabels: Record<ModifiableStat, string> = {
 
 export const modifiableStatFullLabels: Record<ModifiableStat, string> = {
 	armourClass: combatStatLabels.armourClass,
-	damageReduction: combatStatLabels.damageReduction,
 	proficiencyBonus: combatStatLabels.proficiencyBonus,
 	attackRollBonus: combatStatLabels.attackRollBonus,
 	savingThrowBonus: combatStatLabels.savingThrowBonus,

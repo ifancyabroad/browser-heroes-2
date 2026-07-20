@@ -14,6 +14,7 @@ import {
 	statusEffectSchema,
 	diceFormulaSchema,
 	tacticSchema,
+	damageModifierOperationSchema,
 } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
@@ -52,14 +53,14 @@ export const activeStatModifierSchema = activeCombatEffectBaseSchema.extend({
 export const activeDamageModifierSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("modifyDamage"),
 	damageType: damageTypeSchema.optional(),
-	operation: z.enum(["add", "multiply"]),
+	operation: damageModifierOperationSchema,
 	value: z.number(),
 });
 
 export const activeDamageTakenModifierSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("modifyDamageTaken"),
 	damageType: damageTypeSchema.optional(),
-	operation: z.enum(["add", "multiply"]),
+	operation: damageModifierOperationSchema,
 	value: z.number(),
 });
 
@@ -113,7 +114,7 @@ export const combatantBasicAttackSchema = basicAttackSchema.extend({
 
 export const combatantDamageModifierSchema = z.object({
 	damageType: damageTypeSchema.optional(),
-	operation: z.enum(["add", "multiply"]),
+	operation: damageModifierOperationSchema,
 	value: z.number(),
 });
 
@@ -125,10 +126,10 @@ export const combatantCombatStatsSchema = z.object({
 	saveDcBonus: z.number(),
 	critChance: z.number(),
 	critMultiplier: z.number(),
-	damageReduction: z.number(),
 	healingMultiplier: z.number(),
 	damageAffinities: damageAffinitiesSchema,
 	damageModifiers: z.array(combatantDamageModifierSchema),
+	damageTakenModifiers: z.array(combatantDamageModifierSchema),
 });
 
 export const combatantStateSchema = z.object({

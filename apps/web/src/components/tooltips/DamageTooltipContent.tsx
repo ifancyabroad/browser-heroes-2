@@ -3,12 +3,14 @@ import clsx from "clsx";
 import { damageTypeLabels } from "../../game/displayLabels";
 import {
 	formatModifierValue,
+	getDamageTakenModifierTone,
 	getNumericModifierTone,
 	getToneTextClassName,
 } from "../../game/effectDisplay";
 
 type DamageAffinity = HeroView["combatStats"]["damageAffinities"]["resistances"][number];
 type DamageModifierGroup = HeroView["combatStats"]["damageModifiers"][number];
+export type DamageModifierKind = "damageBonus" | "damageReduction";
 
 type DamageAffinityTooltipContentProps = {
 	affinity: DamageAffinity;
@@ -61,8 +63,10 @@ export function DamageAffinityTooltipContent({
 
 export function DamageModifierTooltipContent({
 	modifierGroup,
+	kind,
 }: {
 	modifierGroup: DamageModifierGroup;
+	kind: DamageModifierKind;
 }) {
 	const damageType = modifierGroup.damageType
 		? damageTypeLabels[modifierGroup.damageType]
@@ -70,7 +74,9 @@ export function DamageModifierTooltipContent({
 
 	return (
 		<div className="grid gap-2">
-			<p className="break-words text-text-label">{damageType} Damage</p>
+			<p className="break-words text-text-label">
+				{damageType} Damage {kind === "damageReduction" ? "Reduction" : "Bonus"}
+			</p>
 			<ul className="grid gap-1">
 				{modifierGroup.contributions.map(({ source, modifierValue }, index) => (
 					<li
@@ -82,7 +88,15 @@ export function DamageModifierTooltipContent({
 							className={clsx(
 								"shrink-0 text-right",
 								getToneTextClassName(
-									getNumericModifierTone(modifierGroup.operation, modifierValue),
+									kind === "damageReduction"
+										? getDamageTakenModifierTone(
+												modifierGroup.operation,
+												modifierValue,
+											)
+										: getNumericModifierTone(
+												modifierGroup.operation,
+												modifierValue,
+											),
 								),
 							)}
 						>

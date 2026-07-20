@@ -8,6 +8,7 @@ import {
 import {
 	damageAffinityKindSchema,
 	damageAffinityOperationSchema,
+	damageModifierOperationSchema,
 	modifiableStatSchema,
 	modifierOperationSchema,
 } from "./modifier.schema";
@@ -89,7 +90,7 @@ export const modifyDamageEffectSchema = z.object({
 	type: z.literal("modifyDamage"),
 	target: skillTargetSchema.default("self"),
 	damageType: damageTypeSchema.optional(),
-	operation: z.enum(["add", "multiply"]),
+	operation: damageModifierOperationSchema,
 	value: z.number(),
 	durationTurns: z.number().int().positive(),
 });
@@ -98,7 +99,7 @@ export const modifyDamageTakenEffectSchema = z.object({
 	type: z.literal("modifyDamageTaken"),
 	target: skillTargetSchema,
 	damageType: damageTypeSchema.optional(),
-	operation: z.enum(["add", "multiply"]),
+	operation: damageModifierOperationSchema,
 	value: z.number(),
 	durationTurns: z.number().int().positive(),
 });

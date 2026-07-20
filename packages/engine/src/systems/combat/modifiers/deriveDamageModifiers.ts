@@ -1,4 +1,4 @@
-import type { PassiveDamageModifier } from "@app/content";
+import type { PassiveDamageModifier, PassiveDamageTakenModifier } from "@app/content";
 
 import type { DerivedDamageModifier, ResolvedModifier } from "./modifier.types";
 import { combineModifierValues } from "./modifierOperations";
@@ -7,21 +7,45 @@ type ResolvedDamageModifier = ResolvedModifier & {
 	modifier: PassiveDamageModifier;
 };
 
-type OrderedResolvedDamageModifier = ResolvedDamageModifier & {
+type ResolvedDamageTakenModifier = ResolvedModifier & {
+	modifier: PassiveDamageTakenModifier;
+};
+
+type ResolvedDamageAdjustment = ResolvedDamageModifier | ResolvedDamageTakenModifier;
+
+type OrderedResolvedDamageAdjustment = ResolvedDamageAdjustment & {
 	order: number;
 };
+
+type CombatantDamageModifier = Omit<PassiveDamageModifier, "type">;
 
 export function deriveDamageModifiers(
 	modifiers: readonly ResolvedModifier[],
 ): DerivedDamageModifier[] {
-	const groups = new Map<string, OrderedResolvedDamageModifier[]>();
-	const damageModifiers = modifiers.filter(isResolvedDamageModifier);
+	return deriveDamageAdjustments(modifiers.filter(isResolvedDamageModifier));
+}
 
-	for (const [order, resolvedModifier] of damageModifiers.entries()) {
+export function deriveDamageTakenModifiers(
+	modifiers: readonly ResolvedModifier[],
+): DerivedDamageModifier[] {
+	return deriveDamageAdjustments(modifiers.filter(isResolvedDamageTakenModifier));
+}
+
+function deriveDamageAdjustments(
+	modifiers: readonly ResolvedDamageAdjustment[],
+): DerivedDamageModifier[] {
+	const groups = new Map<string, OrderedResolvedDamageAdjustment[]>();
+
+	for (const [order, resolvedModifier] of modifiers.entries()) {
 		const { modifier } = resolvedModifier;
 		const key = `${modifier.damageType ?? "all"}-${modifier.operation}`;
+
+		const orderedModifier = {
+			...resolvedModifier,
+			order,
+		};
+
 		const group = groups.get(key);
-		const orderedModifier = { ...resolvedModifier, order };
 
 		if (group) {
 			group.push(orderedModifier);
@@ -49,21 +73,14 @@ export function deriveDamageModifiers(
 	});
 }
 
-function isResolvedDamageModifier(
-	resolvedModifier: ResolvedModifier,
-): resolvedModifier is ResolvedDamageModifier {
-	return resolvedModifier.modifier.type === "modifyDamage";
-}
-
-export function toDamageModifiers(
+export function toCombatantDamageModifiers(
 	derivedModifiers: readonly DerivedDamageModifier[],
-): PassiveDamageModifier[] {
+): CombatantDamageModifier[] {
 	return derivedModifiers
 		.flatMap(({ damageType, operation, contributions }) =>
 			contributions.map(({ modifierValue, order }) => ({
 				order,
 				modifier: {
-					type: "modifyDamage" as const,
 					damageType,
 					operation,
 					value: modifierValue,
@@ -72,4 +89,16 @@ export function toDamageModifiers(
 		)
 		.sort((left, right) => left.order - right.order)
 		.map(({ modifier }) => modifier);
+}
+
+function isResolvedDamageModifier(
+	resolvedModifier: ResolvedModifier,
+): resolvedModifier is ResolvedDamageModifier {
+	return resolvedModifier.modifier.type === "modifyDamage";
+}
+
+function isResolvedDamageTakenModifier(
+	resolvedModifier: ResolvedModifier,
+): resolvedModifier is ResolvedDamageTakenModifier {
+	return resolvedModifier.modifier.type === "modifyDamageTaken";
 }

@@ -5,6 +5,7 @@ import { Tooltip } from "../../../components/Tooltip";
 import {
 	DamageAffinityTooltipContent,
 	DamageModifierTooltipContent,
+	type DamageModifierKind,
 } from "../../../components/tooltips/DamageTooltipContent";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
 import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
@@ -80,11 +81,6 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			stat: getStatPresentation(heroView.combatStats.critMultiplier),
 		},
 		{
-			label: combatStatShortLabels.damageReduction,
-			fullLabel: combatStatLabels.damageReduction,
-			stat: getStatPresentation(heroView.combatStats.damageReduction),
-		},
-		{
 			label: combatStatShortLabels.healingMultiplier,
 			fullLabel: combatStatLabels.healingMultiplier,
 			stat: getStatPresentation(heroView.combatStats.healingMultiplier),
@@ -96,11 +92,13 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 		heroView.combatStats.damageAffinities.vulnerabilities,
 	);
 	const damageModifiers = heroView.combatStats.damageModifiers;
+	const damageTakenModifiers = heroView.combatStats.damageTakenModifiers;
 	const hasDamageDetails =
 		resistances.length > 0 ||
 		immunities.length > 0 ||
 		vulnerabilities.length > 0 ||
-		damageModifiers.length > 0;
+		damageModifiers.length > 0 ||
+		damageTakenModifiers.length > 0;
 
 	return (
 		<div className="grid gap-3">
@@ -137,7 +135,13 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 							/>
 						)}
 						{damageModifiers.length > 0 && (
-							<DamageModifierList modifiers={damageModifiers} />
+							<DamageModifierList kind="damageBonus" modifiers={damageModifiers} />
+						)}
+						{damageTakenModifiers.length > 0 && (
+							<DamageModifierList
+								kind="damageReduction"
+								modifiers={damageTakenModifiers}
+							/>
 						)}
 					</div>
 				</HeroSidebarSection>
@@ -262,10 +266,18 @@ function ProficiencyGroup({ label, values }: { label: string; values: readonly s
 	);
 }
 
-function DamageModifierList({ modifiers }: { modifiers: readonly DamageModifierGroup[] }) {
+function DamageModifierList({
+	kind,
+	modifiers,
+}: {
+	kind: DamageModifierKind;
+	modifiers: readonly DamageModifierGroup[];
+}) {
+	const label = kind === "damageReduction" ? "Reduction" : "Bonus";
+
 	return (
 		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3">
-			<p className="py-0.5 text-text-label">Bonus</p>
+			<p className="py-0.5 text-text-label">{label}</p>
 			<ul className="flex flex-wrap gap-1">
 				{modifiers.map((modifierGroup) => {
 					const damageTypeLabel = modifierGroup.damageType
@@ -283,7 +295,10 @@ function DamageModifierList({ modifiers }: { modifiers: readonly DamageModifierG
 						>
 							<Tooltip
 								content={
-									<DamageModifierTooltipContent modifierGroup={modifierGroup} />
+									<DamageModifierTooltipContent
+										modifierGroup={modifierGroup}
+										kind={kind}
+									/>
 								}
 								contentClassName="w-64 max-w-[calc(100vw-1rem)]"
 								className="!flex focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"

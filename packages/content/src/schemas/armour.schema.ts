@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { damageTypeSchema } from "./common.schema";
 import {
-	damageAffinityKindSchema,
-	damageAffinityOperationSchema,
-	modifiableStatSchema,
-	modifierOperationSchema,
+	passiveDamageAffinityModifierSchema,
+	passiveDamageModifierSchema,
+	passiveDamageTakenModifierSchema,
+	passiveModifierSchema,
+	passiveStatModifierSchema,
 } from "./modifier.schema";
 import { generatedItemRaritySchema, itemRaritySchema } from "./itemRarity.schema";
 
@@ -25,32 +25,15 @@ export const bodyArmourCategories = ["cloth", "light", "medium", "heavy"] as con
 
 export const bodyArmourCategorySchema = z.enum(bodyArmourCategories);
 
-export const itemStatModifierSchema = z.object({
-	type: z.literal("modifyStat"),
-	stat: modifiableStatSchema,
-	operation: modifierOperationSchema,
-	value: z.number(),
-});
+export const itemStatModifierSchema = passiveStatModifierSchema;
 
-export const itemDamageModifierSchema = z.object({
-	type: z.literal("modifyDamage"),
-	damageType: damageTypeSchema.optional(),
-	operation: z.enum(["add", "multiply"]),
-	value: z.number(),
-});
+export const itemDamageModifierSchema = passiveDamageModifierSchema;
 
-export const itemDamageAffinityModifierSchema = z.object({
-	type: z.literal("modifyDamageAffinity"),
-	affinity: damageAffinityKindSchema,
-	operation: damageAffinityOperationSchema,
-	damageType: damageTypeSchema,
-});
+export const itemDamageTakenModifierSchema = passiveDamageTakenModifierSchema;
 
-export const itemModifierSchema = z.discriminatedUnion("type", [
-	itemStatModifierSchema,
-	itemDamageModifierSchema,
-	itemDamageAffinityModifierSchema,
-]);
+export const itemDamageAffinityModifierSchema = passiveDamageAffinityModifierSchema;
+
+export const itemModifierSchema = passiveModifierSchema;
 
 const armourBaseSchema = z.object({
 	type: z.literal("armour"),
@@ -116,6 +99,7 @@ export type BodyArmourCategory = z.infer<typeof bodyArmourCategorySchema>;
 
 export type ItemStatModifier = z.infer<typeof itemStatModifierSchema>;
 export type ItemDamageModifier = z.infer<typeof itemDamageModifierSchema>;
+export type ItemDamageTakenModifier = z.infer<typeof itemDamageTakenModifierSchema>;
 export type ItemDamageAffinityModifier = z.infer<typeof itemDamageAffinityModifierSchema>;
 export type ItemModifier = z.infer<typeof itemModifierSchema>;
 
