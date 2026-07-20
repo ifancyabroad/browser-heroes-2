@@ -15,6 +15,7 @@ import {
 } from "./TooltipContentPrimitives";
 import { AttackRiderTooltipList } from "./AttackRiderTooltipList";
 import type { RuntimeItem } from "@app/engine";
+import { resolveImageUrl } from "../../utils/image";
 
 type ItemTooltipContentProps = {
 	item: RuntimeItem;
@@ -27,7 +28,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 			<header className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-3">
 				<span className="h-14 w-14 overflow-hidden border-2 border-bg-elevated bg-bg-base">
 					<img
-						src={item.icon}
+						src={resolveImageUrl(item.icon)}
 						alt=""
 						loading="lazy"
 						className="h-full w-full object-cover"

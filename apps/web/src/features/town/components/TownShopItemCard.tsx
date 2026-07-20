@@ -16,6 +16,7 @@ import {
 	getItemRarityTextClassName,
 	getPrimaryItemStat,
 } from "../../../game/itemDisplay";
+import { resolveImageUrl } from "apps/web/src/utils/image";
 
 type TownShopItemCardProps = {
 	slot: TownShopSlotView;
@@ -51,7 +52,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 					<span className="block h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
 						<img
 							key={item.id}
-							src={item.icon}
+							src={resolveImageUrl(item.icon)}
 							alt=""
 							loading="eager"
 							decoding="async"

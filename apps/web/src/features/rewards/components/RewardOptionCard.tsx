@@ -10,6 +10,7 @@ import { getSelectionClassName } from "../../../components/ControlStyles";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { getItemRarityTextClassName } from "../../../game/itemDisplay";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
+import { resolveImageUrl } from "apps/web/src/utils/image";
 
 type RewardOptionCardProps = {
 	option: RewardChoiceOptionView;
@@ -94,7 +95,7 @@ function getOptionContent(option: RewardChoiceOptionView) {
 	);
 
 	return {
-		icon: option.item.icon,
+		icon: resolveImageUrl(option.item.icon),
 		name: option.item.name,
 		destination: option.destinations.length === 1 ? option.destinations[0] : null,
 		needsReplacementChoice: option.destinations.length !== 1,
