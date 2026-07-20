@@ -29,5 +29,9 @@ export default buildClass({
 		savingThrows: ["wisdom", "charisma"],
 	},
 	skillPoolIds: ["cleric", "occultist"],
+	startingEquipment: {
+		body: "base_robe",
+		mainHand: "base_mace",
+	},
 	tags: [],
 });

@@ -13,8 +13,16 @@ export type CreateInitialRunStateInput = {
 };
 
 export function createInitialRunState(input: CreateInitialRunStateInput): RunState {
-	const rngState = createInitialRngState(input.seed);
-	const hero = createInitialHeroState(input);
+	const initialRngState = createInitialRngState(input.seed);
+
+	const heroResult = createInitialHeroState({
+		runId: input.runId,
+		heroName: input.heroName,
+		classId: input.classId,
+		rngState: initialRngState,
+	});
+
+	const hero = heroResult.value;
 	const zoneNumber = 1;
 
 	const town = createTownState({
@@ -23,7 +31,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		zoneNumber,
 		battleNumber: 1,
 		day: 1,
-		rngState,
+		rngState: heroResult.rngState,
 	});
 
 	const state: RunState = {
@@ -32,7 +40,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		id: input.runId,
 
 		seed: input.seed,
-		rngState: createInitialRngState(input.seed),
+		rngState: town.rngState,
 
 		phase: "town",
 

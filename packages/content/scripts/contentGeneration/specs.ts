@@ -86,20 +86,20 @@ export const contentSpecs = [
 		definitionImportPath: "../schemas",
 		typeImportLines: [
 			"import type { FeatId } from './featIds';",
-			"import type { ItemId } from './itemIds';",
+			"import type { ItemBaseId } from './itemBaseIds';",
 			"import type { SkillId } from './skillIds';",
 		],
-		helperTypeNames: ["WithCombatContentIds", "WithEquipmentItemIds", "WithGeneratedId"],
+		helperTypeNames: ["WithCombatContentIds", "WithEquipmentIds", "WithGeneratedId"],
 		typeExpression: [
 			"Omit<WithGeneratedId<ClassDefinition, ClassId>, 'combat' | 'startingEquipment'> & {",
 			"  combat: WithCombatContentIds<ClassDefinition['combat'], SkillId, FeatId>;",
-			"  startingEquipment?: WithEquipmentItemIds<NonNullable<ClassDefinition['startingEquipment']>, ItemId>;",
+			"  startingEquipment?: WithEquipmentIds<NonNullable<ClassDefinition['startingEquipment']>, ItemBaseId>;",
 			"}",
 		].join("\n"),
 		referenceRules: [
 			{ path: "combat.skillIds[]", targetType: "skill" },
 			{ path: "combat.featIds[]", targetType: "feat" },
-			{ path: "startingEquipment.*", targetType: "item" },
+			{ path: "startingEquipment.*", targetType: "itemBase" },
 		],
 	},
 	{

@@ -1,7 +1,9 @@
-import type { EquipmentSlot } from "@app/content";
+import type { EquipmentSlot, ItemBase } from "@app/content";
 import { RuntimeItem } from "../../schemas";
 
-export function getValidEquipmentSlots(item: RuntimeItem): EquipmentSlot[] {
+type EquippableItem = RuntimeItem | ItemBase;
+
+export function getValidEquipmentSlots(item: EquippableItem): EquipmentSlot[] {
 	if (item.type === "weapon") {
 		return item.handedness === "oneHanded" ? ["mainHand", "offHand"] : ["mainHand"];
 	}

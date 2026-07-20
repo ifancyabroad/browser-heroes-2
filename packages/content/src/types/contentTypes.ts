@@ -15,10 +15,10 @@ export type WithCombatContentIds<
 	featIds: readonly TFeatId[];
 };
 
-export type WithEquipmentItemIds<TEquipment, TItemId extends string> = TEquipment extends object
+export type WithEquipmentIds<TEquipment, TId extends string> = TEquipment extends object
 	? {
 			[TSlot in keyof TEquipment]: TEquipment[TSlot] extends string | undefined
-				? TItemId | undefined
+				? TId | undefined
 				: TEquipment[TSlot];
 		}
 	: TEquipment;

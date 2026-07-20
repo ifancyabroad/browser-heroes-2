@@ -3,9 +3,9 @@
 import type { ClassDefinition } from '../schemas';
 import type { ClassId } from './classIds';
 import type { FeatId } from './featIds';
-import type { ItemId } from './itemIds';
+import type { ItemBaseId } from './itemBaseIds';
 import type { SkillId } from './skillIds';
-import type { WithCombatContentIds, WithEquipmentItemIds, WithGeneratedId } from '../types/contentTypes';
+import type { WithCombatContentIds, WithEquipmentIds, WithGeneratedId } from '../types/contentTypes';
 import { classIdSchema, classIds } from './classIds';
 
 import cla_battlemage_0 from '../classes/battlemage';
@@ -21,7 +21,7 @@ export type { ClassId } from './classIds';
 
 export type Class = Omit<WithGeneratedId<ClassDefinition, ClassId>, 'combat' | 'startingEquipment'> & {
   combat: WithCombatContentIds<ClassDefinition['combat'], SkillId, FeatId>;
-  startingEquipment?: WithEquipmentItemIds<NonNullable<ClassDefinition['startingEquipment']>, ItemId>;
+  startingEquipment?: WithEquipmentIds<NonNullable<ClassDefinition['startingEquipment']>, ItemBaseId>;
 };
 
 const rawClasses = [cla_battlemage_0, cla_fighter_1, cla_mage_2, cla_paladin_3, cla_priest_4, cla_shadowblade_5, cla_thief_6] satisfies readonly ClassDefinition[];

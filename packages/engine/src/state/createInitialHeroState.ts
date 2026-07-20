@@ -1,6 +1,7 @@
 import {
 	CLASSES_BY_ID,
 	equipmentSlots,
+	ITEMBASES_BY_ID,
 	SKILLS_BY_ID,
 	type Class,
 	type ClassId,
@@ -14,20 +15,27 @@ import {
 import { createStartingItemInstanceId } from "../core/ids";
 import { calculateMaxHpForLevel } from "../systems/progression/health/calculateMaxHpForLevel";
 import { STARTING_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import type { RngResult, RngState } from "../core/rng";
+import { createGeneratedItemInstance } from "../systems/items/createGeneratedItemInstance";
+import { canEquipItemLike } from "../systems/items/canEquipItemLike";
+import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 
 export type CreateInitialHeroStateInput = {
 	runId: string;
 	heroName: string;
 	classId: ClassId;
+	rngState: RngState;
 };
 
-export function createInitialHeroState(input: CreateInitialHeroStateInput): HeroState {
+export function createInitialHeroState(input: CreateInitialHeroStateInput): RngResult<HeroState> {
 	const classDefinition = CLASSES_BY_ID[input.classId];
 	const maxHp = calculateMaxHpForLevel(
 		classDefinition.combat.hitDie,
 		classDefinition.attributes.constitution,
 		1,
 	);
+
+	const equipmentResult = createInitialEquipment(classDefinition, input.runId, input.rngState);
 
 	const hero: HeroState = {
 		id: "player",
@@ -40,12 +48,15 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 		attributes: classDefinition.attributes,
 		skills: createInitialSkills(classDefinition),
 		featIds: [],
-		equipment: createInitialEquipment(classDefinition, input.runId),
+		equipment: equipmentResult.value,
 		pendingLevelUp: null,
 		healingPotions: STARTING_HEALING_POTIONS,
 	};
 
-	return heroStateSchema.parse(hero);
+	return {
+		value: heroStateSchema.parse(hero),
+		rngState: equipmentResult.rngState,
+	};
 }
 
 function createInitialSkills(classDefinition: Class): HeroSkillState[] {
@@ -77,24 +88,63 @@ const EMPTY_EQUIPMENT: HeroEquipmentState = {
 	offHand: null,
 };
 
-function createInitialEquipment(classDefinition: Class, runId: string): HeroEquipmentState {
+function createInitialEquipment(
+	classDefinition: Class,
+	runId: string,
+	initialRngState: RngState,
+): RngResult<HeroEquipmentState> {
 	const equipment: HeroEquipmentState = {
 		...EMPTY_EQUIPMENT,
 	};
 
-	for (const slot of equipmentSlots) {
-		const itemId = classDefinition.startingEquipment?.[slot];
+	let rngState = initialRngState;
 
-		if (!itemId) {
+	const mainHandBaseId = classDefinition.startingEquipment?.mainHand;
+	const offHandBaseId = classDefinition.startingEquipment?.offHand;
+
+	if (mainHandBaseId && offHandBaseId) {
+		const mainHandBase = ITEMBASES_BY_ID[mainHandBaseId];
+
+		if (mainHandBase.type === "weapon" && mainHandBase.handedness === "twoHanded") {
+			throw new Error(
+				`Class ${classDefinition.id} cannot start with an off-hand item while using two-handed base ${mainHandBaseId}`,
+			);
+		}
+	}
+
+	for (const slot of equipmentSlots) {
+		const itemBaseId = classDefinition.startingEquipment?.[slot];
+
+		if (!itemBaseId) {
 			continue;
 		}
 
-		equipment[slot] = {
+		const base = ITEMBASES_BY_ID[itemBaseId];
+
+		if (!canEquipItemLike(classDefinition, base)) {
+			throw new Error(
+				`Class ${classDefinition.id} cannot equip starting item base ${itemBaseId}`,
+			);
+		}
+
+		if (!getValidEquipmentSlots(base).includes(slot)) {
+			throw new Error(`Starting item base ${itemBaseId} cannot occupy slot ${slot}`);
+		}
+
+		const itemResult = createGeneratedItemInstance({
 			instanceId: createStartingItemInstanceId(runId, slot),
-			type: "static",
-			itemId,
-		};
+			base,
+			level: 1,
+			rarity: "common",
+			rngState,
+		});
+
+		equipment[slot] = itemResult.value;
+		rngState = itemResult.rngState;
 	}
 
-	return equipment;
+	return {
+		value: equipment,
+		rngState,
+	};
 }
