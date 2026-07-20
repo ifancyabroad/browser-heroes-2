@@ -24,7 +24,7 @@ export default buildClass({
 		tactic: "default",
 	},
 	proficiencies: {
-		armourTypes: ["heavy", "medium"],
+		armourTypes: ["heavy", "medium", "shield"],
 		weaponTypes: ["sword", "axe", "club", "hammer", "mace", "spear"],
 		savingThrows: ["strength", "constitution"],
 	},

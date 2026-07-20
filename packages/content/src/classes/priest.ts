@@ -24,7 +24,7 @@ export default buildClass({
 		tactic: "default",
 	},
 	proficiencies: {
-		armourTypes: ["cloth"],
+		armourTypes: ["cloth", "shield"],
 		weaponTypes: ["mace", "hammer", "club", "staff"],
 		savingThrows: ["wisdom", "charisma"],
 	},
