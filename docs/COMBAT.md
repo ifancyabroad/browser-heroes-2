@@ -117,14 +117,14 @@ Damage follows this conceptual flow:
 ```text
 Base roll or value
 -> offensive modifiers
+-> incoming damage modifiers
 -> defender affinity
--> damage reduction
 -> final outcome
 ```
 
 Damage may derive from weapons, skills, attributes, proficiencies, feats, items, and temporary effects.
 
-Mitigation may derive from armour, attributes, damage affinities, damage reduction, feats, items, saving throws, and temporary effects.
+Incoming damage modifiers and affinities may increase, reduce, or prevent damage. They may derive from attributes, feats, items, saving throws, and temporary effects. Armour class instead affects whether attacks hit.
 
 Damage affinities include normal, resistant, immune, and vulnerable outcomes. Combat logs should make important outcomes understandable.
 

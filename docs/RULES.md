@@ -105,7 +105,7 @@ Feats are not selected as combat actions. Their impact should appear through der
 
 Items modify hero capabilities during a run.
 
-Equipment may be a fixed authored item or a generated item assembled from an eligible base, rarity, and affixes. Both forms can affect derived combat values and persist as distinct item instances within the run.
+Equipment may be an authored legendary item or a generated common, uncommon, rare, or epic item. Generated items combine an eligible base with rarity-matched affixes, while common generated items use the base without affixes. Both forms can affect derived combat values and persist as distinct item instances within the run.
 
 Items can be acquired from town shops and boss reward choices. Their selection and generation consume the run's seeded randomness. When an item can occupy multiple valid slots, the selected equipment slot is explicit and replacement can be previewed before confirmation.
 
