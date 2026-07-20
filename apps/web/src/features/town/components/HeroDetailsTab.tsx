@@ -18,12 +18,17 @@ import {
 	weaponTypeLabels,
 } from "../../../game/displayLabels";
 import { formatModifierValue } from "../../../game/effectDisplay";
-import { HeroStatValue, type HeroDerivedValue } from "./HeroStatValue";
+import {
+	getArmourClassStatPresentation,
+	getStatPresentation,
+	type StatPresentation,
+} from "../../../game/statDisplay";
+import { HeroStatValue } from "./HeroStatValue";
 
 type StatGridItem = {
 	label: string;
 	fullLabel: string;
-	value: HeroDerivedValue;
+	stat: StatPresentation;
 	signed?: boolean;
 };
 
@@ -31,58 +36,58 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 	const attributeItems: StatGridItem[] = attributes.map((attribute) => ({
 		label: attributeShortLabels[attribute],
 		fullLabel: attributeLabels[attribute],
-		value: heroView.attributes[attribute],
+		stat: getStatPresentation(heroView.attributes[attribute]),
 	}));
 
 	const combatItems: StatGridItem[] = [
 		{
 			label: combatStatShortLabels.armourClass,
 			fullLabel: combatStatLabels.armourClass,
-			value: heroView.combatStats.armourClass,
+			stat: getArmourClassStatPresentation(heroView.armourClassBreakdown),
 		},
 		{
 			label: combatStatShortLabels.proficiencyBonus,
 			fullLabel: combatStatLabels.proficiencyBonus,
-			value: heroView.combatStats.proficiencyBonus,
+			stat: getStatPresentation(heroView.combatStats.proficiencyBonus),
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.attackRollBonus,
 			fullLabel: combatStatLabels.attackRollBonus,
-			value: heroView.combatStats.attackRollBonus,
+			stat: getStatPresentation(heroView.combatStats.attackRollBonus),
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.savingThrowBonus,
 			fullLabel: combatStatLabels.savingThrowBonus,
-			value: heroView.combatStats.savingThrowBonus,
+			stat: getStatPresentation(heroView.combatStats.savingThrowBonus),
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.saveDcBonus,
 			fullLabel: combatStatLabels.saveDcBonus,
-			value: heroView.combatStats.saveDcBonus,
+			stat: getStatPresentation(heroView.combatStats.saveDcBonus),
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.critChance,
 			fullLabel: combatStatLabels.critChance,
-			value: heroView.combatStats.critChance,
+			stat: getStatPresentation(heroView.combatStats.critChance),
 		},
 		{
 			label: combatStatShortLabels.critMultiplier,
 			fullLabel: combatStatLabels.critMultiplier,
-			value: heroView.combatStats.critMultiplier,
+			stat: getStatPresentation(heroView.combatStats.critMultiplier),
 		},
 		{
 			label: combatStatShortLabels.damageReduction,
 			fullLabel: combatStatLabels.damageReduction,
-			value: heroView.combatStats.damageReduction,
+			stat: getStatPresentation(heroView.combatStats.damageReduction),
 		},
 		{
 			label: combatStatShortLabels.healingMultiplier,
 			fullLabel: combatStatLabels.healingMultiplier,
-			value: heroView.combatStats.healingMultiplier,
+			stat: getStatPresentation(heroView.combatStats.healingMultiplier),
 		},
 	];
 	const resistances = getActiveAffinities(heroView.combatStats.damageAffinities.resistances);
@@ -173,7 +178,7 @@ function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 						content={
 							<StatTooltipContent
 								label={item.fullLabel}
-								stat={item.value}
+								stat={item.stat}
 								signed={item.signed}
 							/>
 						}
@@ -184,7 +189,7 @@ function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 						<span className="flex items-baseline justify-between gap-2">
 							<span className="text-text-label">{item.label}</span>
 							<span className="text-right">
-								<HeroStatValue stat={item.value} signed={item.signed} />
+								<HeroStatValue stat={item.stat} signed={item.signed} />
 							</span>
 						</span>
 					</Tooltip>

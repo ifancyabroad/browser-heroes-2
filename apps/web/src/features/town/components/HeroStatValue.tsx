@@ -1,10 +1,7 @@
-import type { Attribute } from "@app/content";
-import type { HeroView } from "@app/engine";
-
-export type HeroDerivedValue = HeroView["attributes"][Attribute];
+import type { StatPresentation } from "../../../game/statDisplay";
 
 type HeroStatValueProps = {
-	stat: HeroDerivedValue;
+	stat: StatPresentation;
 	signed?: boolean;
 };
 
@@ -24,12 +21,12 @@ export function formatStatNumber(value: number, signed = false) {
 	return `+${value}`;
 }
 
-function getDerivedValueClassName(stat: HeroDerivedValue) {
-	if (stat.value > stat.baseValue) {
+function getDerivedValueClassName(stat: StatPresentation) {
+	if (stat.value > stat.referenceValue) {
 		return "text-success";
 	}
 
-	if (stat.value < stat.baseValue) {
+	if (stat.value < stat.referenceValue) {
 		return "text-error";
 	}
 

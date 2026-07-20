@@ -13,6 +13,7 @@ export type HeroView = {
 
 	attributes: DerivedHeroStats["attributes"];
 	combatStats: DerivedHeroStats["combatStats"];
+	armourClassBreakdown: DerivedHeroStats["armourClassBreakdown"];
 
 	skills: readonly HeroSkillState[];
 	featIds: readonly FeatId[];
@@ -36,6 +37,7 @@ export function selectHeroView(state: RunState): HeroView {
 
 		attributes: derivedStats.attributes,
 		combatStats: derivedStats.combatStats,
+		armourClassBreakdown: derivedStats.armourClassBreakdown,
 
 		skills: hero.skills,
 		featIds: derivedStats.featIds,

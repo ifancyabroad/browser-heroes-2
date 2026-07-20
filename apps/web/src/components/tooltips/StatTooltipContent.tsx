@@ -1,14 +1,10 @@
-import type { Attribute } from "@app/content";
-import type { HeroView } from "@app/engine";
 import clsx from "clsx";
-import { formatModifierValue, getNumberTone, getToneTextClassName } from "../../game/effectDisplay";
-
-type StatValue = HeroView["attributes"][Attribute];
-type StatContribution = StatValue["contributions"][number];
+import { getNumberTone, getToneTextClassName } from "../../game/effectDisplay";
+import type { StatPresentation } from "../../game/statDisplay";
 
 type StatTooltipContentProps = {
 	label: string;
-	stat: StatValue;
+	stat: StatPresentation;
 	signed?: boolean;
 };
 
@@ -22,37 +18,25 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 
 			{stat.contributions.length > 0 && (
 				<ul className="grid gap-1">
-					{stat.contributions.map((contribution, index) => (
+					{stat.contributions.map((contribution) => (
 						<li
-							key={`${contribution.source.type}-${index}`}
+							key={contribution.key}
 							className="flex items-baseline justify-between gap-3"
 						>
-							<span className="min-w-0 break-words">
-								{contribution.source.sourceName}
-							</span>
+							<span className="min-w-0 break-words">{contribution.label}</span>
 							<span
 								className={clsx(
 									"shrink-0 text-right",
-									getContributionClassName(contribution),
+									getToneTextClassName(getNumberTone(contribution.delta)),
 								)}
 							>
-								{formatContribution(contribution)}
+								{contribution.displayValue}
 							</span>
 						</li>
 					))}
 				</ul>
 			)}
 		</div>
-	);
-}
-
-function formatContribution(contribution: StatContribution) {
-	return formatModifierValue(contribution.operation, contribution.modifierValue);
-}
-
-function getContributionClassName(contribution: StatContribution) {
-	return getToneTextClassName(
-		getNumberTone(contribution.resultingValue - contribution.previousValue),
 	);
 }
 

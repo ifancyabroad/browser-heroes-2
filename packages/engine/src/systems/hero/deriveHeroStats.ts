@@ -2,7 +2,10 @@ import { CLASSES_BY_ID, type Attributes, type Class, type FeatId } from "@app/co
 
 import type { HeroState } from "../../schemas";
 import { EMPTY_DAMAGE_AFFINITIES } from "../combat/constants/combatDefaults";
-import { calculateBaseArmourClass } from "../combat/equipment/calculateBaseArmourClass";
+import {
+	type BaseArmourClassBreakdown,
+	deriveBaseArmourClass,
+} from "../combat/equipment/deriveBaseArmourClass";
 import {
 	collectEquipmentModifiers,
 	collectFeatModifiers,
@@ -17,10 +20,14 @@ export type DerivedHeroHealth = {
 	currentHp: number;
 };
 
+export type DerivedArmourClassBreakdown = BaseArmourClassBreakdown &
+	Pick<DerivedCombatStats["armourClass"], "value" | "contributions">;
+
 export type DerivedHeroStats = {
 	attributes: DerivedAttributes;
 	effectiveAttributes: Attributes;
 	combatStats: DerivedCombatStats;
+	armourClassBreakdown: DerivedArmourClassBreakdown;
 	health: DerivedHeroHealth;
 	featIds: FeatId[];
 	proficiencies: Class["proficiencies"];
@@ -47,12 +54,20 @@ export function deriveHeroStats(hero: HeroState): DerivedHeroStats {
 		charisma: attributes.charisma.value,
 	};
 
+	const baseArmourClass = deriveBaseArmourClass(hero.equipment, effectiveAttributes.dexterity);
+
 	const combatStats = deriveCombatStats({
-		baseArmourClass: calculateBaseArmourClass(hero.equipment, effectiveAttributes.dexterity),
+		baseArmourClass: baseArmourClass.baseValue,
 		baseProficiencyBonus: calculateBaseProficiencyBonus(hero.level),
 		baseDamageAffinities: EMPTY_DAMAGE_AFFINITIES,
 		modifiers,
 	});
+
+	const armourClassBreakdown: DerivedArmourClassBreakdown = {
+		...baseArmourClass,
+		value: combatStats.armourClass.value,
+		contributions: combatStats.armourClass.contributions,
+	};
 
 	const health = deriveHeroHealth({
 		baseConstitution: hero.attributes.constitution,
@@ -66,6 +81,7 @@ export function deriveHeroStats(hero: HeroState): DerivedHeroStats {
 		attributes,
 		effectiveAttributes,
 		combatStats,
+		armourClassBreakdown,
 		health,
 		featIds,
 		proficiencies: classDefinition.proficiencies,
