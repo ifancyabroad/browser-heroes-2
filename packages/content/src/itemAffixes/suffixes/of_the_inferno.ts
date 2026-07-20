@@ -1,21 +1,20 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "of_fortitude",
-	name: "of Fortitude",
+	id: "of_the_inferno",
+	name: "of the Inferno",
 	position: "suffix",
-	rarity: "uncommon",
-	weight: 1,
+	rarity: "epic",
+	weight: 0.5,
 	appliesTo: {
 		itemTypes: ["armour"],
 	},
 	modifiers: [
 		{
-			type: "modifyStat",
-			stat: "constitution",
+			type: "modifyDamageAffinity",
+			affinity: "immunity",
 			operation: "add",
-			value: 1,
+			damageType: "fire",
 		},
 	],
-	tags: [],
 });

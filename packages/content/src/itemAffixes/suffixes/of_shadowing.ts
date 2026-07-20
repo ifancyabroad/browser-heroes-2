@@ -1,21 +1,19 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "of_fortitude",
-	name: "of Fortitude",
+	id: "of_shadowing",
+	name: "of Shadowing",
 	position: "suffix",
-	rarity: "uncommon",
-	weight: 1,
+	rarity: "rare",
 	appliesTo: {
 		itemTypes: ["armour"],
 	},
 	modifiers: [
 		{
-			type: "modifyStat",
-			stat: "constitution",
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
 			operation: "add",
-			value: 1,
+			damageType: "radiant",
 		},
 	],
-	tags: [],
 });

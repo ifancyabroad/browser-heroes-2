@@ -1,21 +1,20 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "accurate",
-	name: "Accurate",
+	id: "focused",
+	name: "Focused",
 	position: "prefix",
 	rarity: "uncommon",
 	weight: 1,
 	appliesTo: {
-		itemTypes: ["weapon"],
+		itemTypes: ["weapon", "armour"],
 	},
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "attackRollBonus",
+			stat: "saveDcBonus",
 			operation: "add",
 			value: 1,
 		},
 	],
-	tags: [],
 });

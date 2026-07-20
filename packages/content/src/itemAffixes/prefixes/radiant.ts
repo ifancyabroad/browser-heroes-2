@@ -1,21 +1,24 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "accurate",
-	name: "Accurate",
+	id: "radiant",
+	name: "Radiant",
 	position: "prefix",
 	rarity: "uncommon",
-	weight: 1,
 	appliesTo: {
 		itemTypes: ["weapon"],
 	},
-	modifiers: [
+	attackRiders: [
 		{
-			type: "modifyStat",
-			stat: "attackRollBonus",
-			operation: "add",
-			value: 1,
+			timing: "onHit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "1d4",
+				},
+			],
 		},
 	],
-	tags: [],
 });

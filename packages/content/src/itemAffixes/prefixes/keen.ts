@@ -1,10 +1,10 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "accurate",
-	name: "Accurate",
+	id: "keen",
+	name: "Keen",
 	position: "prefix",
-	rarity: "uncommon",
+	rarity: "rare",
 	weight: 1,
 	appliesTo: {
 		itemTypes: ["weapon"],
@@ -12,10 +12,9 @@ export default buildItemAffix({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "attackRollBonus",
+			stat: "critChance",
 			operation: "add",
-			value: 1,
+			value: 2,
 		},
 	],
-	tags: [],
 });

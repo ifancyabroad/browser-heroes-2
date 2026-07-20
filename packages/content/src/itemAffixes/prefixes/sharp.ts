@@ -4,7 +4,7 @@ export default buildItemAffix({
 	id: "sharp",
 	name: "Sharp",
 	position: "prefix",
-	rarity: "common",
+	rarity: "uncommon",
 	weight: 1,
 	appliesTo: {
 		weaponTypes: ["sword", "dagger", "axe", "spear"],
@@ -14,7 +14,7 @@ export default buildItemAffix({
 			type: "modifyDamage",
 			damageType: "slashing",
 			operation: "add",
-			value: 2,
+			value: 1,
 		},
 	],
 	tags: [],

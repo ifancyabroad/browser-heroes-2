@@ -4,7 +4,7 @@ export default buildItemAffix({
 	id: "of_blocking",
 	name: "of Blocking",
 	position: "suffix",
-	rarity: "common",
+	rarity: "uncommon",
 	weight: 1,
 	appliesTo: {
 		armourSlots: ["shield"],

@@ -1,21 +1,20 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "accurate",
-	name: "Accurate",
-	position: "prefix",
-	rarity: "uncommon",
+	id: "of_invincibility",
+	name: "of Invincibility",
+	position: "suffix",
+	rarity: "epic",
 	weight: 1,
 	appliesTo: {
-		itemTypes: ["weapon"],
+		itemTypes: ["weapon", "armour"],
 	},
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "attackRollBonus",
+			stat: "savingThrowBonus",
 			operation: "add",
-			value: 1,
+			value: 4,
 		},
 	],
-	tags: [],
 });

@@ -1,21 +1,19 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "accurate",
-	name: "Accurate",
+	id: "deathly",
+	name: "Deathly",
 	position: "prefix",
 	rarity: "uncommon",
-	weight: 1,
 	appliesTo: {
-		itemTypes: ["weapon"],
+		itemTypes: ["weapon", "armour"],
 	},
 	modifiers: [
 		{
-			type: "modifyStat",
-			stat: "attackRollBonus",
+			type: "modifyDamage",
+			damageType: "necrotic",
 			operation: "add",
 			value: 1,
 		},
 	],
-	tags: [],
 });
