@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_padded_armour",
 	name: "Padded Armour",
+	basePrice: 40,
 	type: "armour",
 	slot: "body",
 	category: "light",

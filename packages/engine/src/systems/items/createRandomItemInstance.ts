@@ -11,7 +11,7 @@ import { getTypeWeightedItemCandidates } from "./getTypeWeightedItemCandidates";
 type CreateRandomItemInstanceInput = {
 	hero: HeroState;
 	instanceId: string;
-	itemLevel: number;
+	lootTier: number;
 	rngState: RngState;
 	excludedLegendaryItemIds: ReadonlySet<ItemId>;
 };
@@ -25,7 +25,7 @@ export function createRandomItemInstance(
 	});
 
 	const rarityResult = selectItemRarity({
-		itemLevel: input.itemLevel,
+		lootTier: input.lootTier,
 		includeLegendary: eligibleLegendaryItems.length > 0,
 		rngState: input.rngState,
 	});
@@ -52,7 +52,6 @@ export function createRandomItemInstance(
 
 	const baseResult = selectItemBase({
 		hero: input.hero,
-		level: input.itemLevel,
 		rngState: rarityResult.rngState,
 	});
 
@@ -63,7 +62,6 @@ export function createRandomItemInstance(
 	const generatedResult = createGeneratedItemInstance({
 		instanceId: input.instanceId,
 		base: baseResult.value,
-		level: input.itemLevel,
 		rarity: rarityResult.value,
 		rngState: baseResult.rngState,
 	});

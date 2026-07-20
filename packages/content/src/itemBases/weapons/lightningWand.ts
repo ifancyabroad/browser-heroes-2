@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_lightning_wand",
 	name: "Lightning Wand",
+	basePrice: 60,
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",

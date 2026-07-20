@@ -36,7 +36,7 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 				input.rerollCount,
 				shopSlotId,
 			),
-			itemLevel: input.shopLevel,
+			lootTier: input.shopLevel,
 			excludedLegendaryItemIds,
 			rngState,
 		});

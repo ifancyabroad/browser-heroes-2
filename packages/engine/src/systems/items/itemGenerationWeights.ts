@@ -2,7 +2,7 @@ import type { ArmourSlot, ItemRarity } from "@app/content";
 
 export type ItemGenerationType = "weapon" | ArmourSlot;
 
-export const ITEM_RARITY_WEIGHTS: readonly Record<ItemRarity, number>[] = [
+export const ITEM_RARITY_WEIGHTS_BY_LOOT_TIER: readonly Record<ItemRarity, number>[] = [
 	{
 		common: 0.59,
 		uncommon: 0.3,

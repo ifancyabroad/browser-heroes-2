@@ -5,7 +5,6 @@ export default buildItemAffix({
 	name: "of Fortitude",
 	position: "suffix",
 	rarity: "common",
-	minLevel: 1,
 	weight: 1,
 	appliesTo: {
 		itemTypes: ["armour"],

@@ -5,7 +5,6 @@ export default buildItemAffix({
 	name: "Accurate",
 	position: "prefix",
 	rarity: "common",
-	minLevel: 1,
 	weight: 1,
 	appliesTo: {
 		itemTypes: ["weapon"],

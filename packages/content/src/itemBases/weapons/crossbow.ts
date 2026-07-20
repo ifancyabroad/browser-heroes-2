@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_crossbow",
 	name: "Crossbow",
+	basePrice: 80,
 	type: "weapon",
 	weaponType: "crossbow",
 	handedness: "twoHanded",

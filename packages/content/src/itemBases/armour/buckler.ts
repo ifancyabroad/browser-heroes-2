@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_buckler",
 	name: "Buckler",
+	basePrice: 10,
 	type: "armour",
 	slot: "shield",
 	iconPool: [

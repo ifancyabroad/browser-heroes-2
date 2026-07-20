@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_cold_wand",
 	name: "Cold Wand",
+	basePrice: 60,
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",

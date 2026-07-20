@@ -5,7 +5,6 @@ export default buildItemAffix({
 	name: "Flaming",
 	position: "prefix",
 	rarity: "uncommon",
-	minLevel: 1,
 	weight: 1,
 	appliesTo: {
 		itemTypes: ["weapon"],

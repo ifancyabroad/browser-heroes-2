@@ -8,7 +8,6 @@ import { getTypeWeightedItemCandidates } from "./getTypeWeightedItemCandidates";
 
 type SelectItemBaseInput = {
 	hero: HeroState;
-	level: number;
 	rngState: RngState;
 };
 
@@ -28,14 +27,6 @@ export function selectItemBase(input: SelectItemBaseInput): SelectItemBaseResult
 	const classDefinition = CLASSES_BY_ID[input.hero.classId];
 
 	const eligibleBases = itemBases.filter((base) => {
-		if (base.minLevel > input.level) {
-			return false;
-		}
-
-		if (base.maxLevel !== undefined && base.maxLevel < input.level) {
-			return false;
-		}
-
 		if (!canEquipItemLike(classDefinition, base)) {
 			return false;
 		}

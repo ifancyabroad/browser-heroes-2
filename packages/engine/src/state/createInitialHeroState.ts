@@ -134,7 +134,6 @@ function createInitialEquipment(
 		const itemResult = createGeneratedItemInstance({
 			instanceId: createStartingItemInstanceId(runId, slot),
 			base,
-			level: 1,
 			rarity: "common",
 			rngState,
 		});

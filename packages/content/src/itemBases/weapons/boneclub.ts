@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_boneclub",
 	name: "Boneclub",
+	basePrice: 40,
 	type: "weapon",
 	weaponType: "club",
 	handedness: "oneHanded",

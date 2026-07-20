@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_half_plate",
 	name: "Half Plate",
+	basePrice: 510,
 	type: "armour",
 	slot: "body",
 	category: "heavy",

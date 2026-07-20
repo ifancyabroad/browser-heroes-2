@@ -49,7 +49,7 @@ export function createPendingRewardChoice(
 				input.battleNumber,
 				itemOptions.length,
 			),
-			itemLevel: input.zoneNumber,
+			lootTier: input.zoneNumber,
 			excludedLegendaryItemIds,
 			rngState,
 		});

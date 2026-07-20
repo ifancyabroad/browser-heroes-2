@@ -5,7 +5,6 @@ export default buildItemAffix({
 	name: "Sharp",
 	position: "prefix",
 	rarity: "common",
-	minLevel: 1,
 	weight: 1,
 	appliesTo: {
 		weaponTypes: ["sword", "dagger", "axe", "spear"],

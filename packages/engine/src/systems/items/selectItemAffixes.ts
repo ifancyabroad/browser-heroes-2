@@ -19,7 +19,6 @@ const ITEM_RARITY_RANK: Record<GeneratedItemRarity, number> = {
 
 type SelectItemAffixesInput = {
 	item: GeneratedItemDefinition;
-	itemLevel: number;
 	rarity: GeneratedItemRarity;
 	rngState: RngState;
 };
@@ -84,14 +83,6 @@ function getEligibleAffixesByPosition(input: EligibleAffixInput): ItemAffix[] {
 		}
 
 		if (ITEM_RARITY_RANK[affix.rarity] > ITEM_RARITY_RANK[input.rarity]) {
-			return false;
-		}
-
-		if (affix.minLevel > input.itemLevel) {
-			return false;
-		}
-
-		if (affix.maxLevel !== undefined && affix.maxLevel < input.itemLevel) {
 			return false;
 		}
 

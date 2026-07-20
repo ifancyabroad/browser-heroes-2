@@ -1,23 +1,26 @@
 import { itemRarities, type ItemRarity } from "@app/content";
 
 import { selectWeightedItem, type RngResult, type RngState } from "../../core/rng";
-import { ITEM_RARITY_WEIGHTS } from "./itemGenerationWeights";
+import { ITEM_RARITY_WEIGHTS_BY_LOOT_TIER } from "./itemGenerationWeights";
 
 type SelectItemRarityInput = {
-	itemLevel: number;
+	lootTier: number;
 	includeLegendary: boolean;
 	rngState: RngState;
 };
 
 export function selectItemRarity(input: SelectItemRarityInput): RngResult<ItemRarity> {
-	const weightIndex = Math.min(Math.max(input.itemLevel - 1, 0), ITEM_RARITY_WEIGHTS.length - 1);
+	const weightIndex = Math.min(
+		Math.max(input.lootTier - 1, 0),
+		ITEM_RARITY_WEIGHTS_BY_LOOT_TIER.length - 1,
+	);
 
 	const weightedRarities = itemRarities.flatMap((rarity) => {
 		if (rarity === "legendary" && !input.includeLegendary) {
 			return [];
 		}
 
-		const weight = ITEM_RARITY_WEIGHTS[weightIndex][rarity];
+		const weight = ITEM_RARITY_WEIGHTS_BY_LOOT_TIER[weightIndex][rarity];
 
 		return weight > 0 ? [{ value: rarity, weight }] : [];
 	});

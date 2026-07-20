@@ -3,6 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_shield",
 	name: "Shield",
+	basePrice: 30,
 	type: "armour",
 	slot: "shield",
 	iconPool: [

@@ -23,8 +23,6 @@ export const itemAffixSchema = z
 		name: z.string().nonempty(),
 		position: itemAffixPositionSchema,
 		rarity: generatedItemRaritySchema,
-		minLevel: z.number().int().min(1).default(1),
-		maxLevel: z.number().int().min(1).optional(),
 		weight: z.number().positive().default(1),
 		appliesTo: itemAffixApplicabilitySchema.default({}),
 		modifiers: z.array(itemModifierSchema).default([]),

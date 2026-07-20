@@ -13,8 +13,7 @@ const itemBaseCommonSchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
 	iconPool: z.array(z.string().nonempty()).min(1),
-	minLevel: z.number().int().min(1).default(1),
-	maxLevel: z.number().int().min(1).optional(),
+	basePrice: z.number().int().positive(),
 	tags: z.array(z.string().nonempty()).default([]),
 });
 

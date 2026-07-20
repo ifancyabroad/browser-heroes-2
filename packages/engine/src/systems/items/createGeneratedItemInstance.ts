@@ -7,7 +7,6 @@ import { type RngState } from "../../core/rng";
 type CreateGeneratedItemInstanceInput = {
 	instanceId: string;
 	base: ItemBase;
-	level: number;
 	rarity: GeneratedItemRarity;
 	rngState: RngState;
 };
@@ -22,7 +21,6 @@ export function createGeneratedItemInstance(
 ): CreateGeneratedItemInstanceResult {
 	const itemResult = createGeneratedItemDefinition({
 		base: input.base,
-		level: input.level,
 		rarity: input.rarity,
 		rngState: input.rngState,
 	});
