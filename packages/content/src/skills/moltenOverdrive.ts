@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "molten_overdrive",
 	name: "Molten Overdrive",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCK1lVEhQnzlaTAST3j?alt=media&token=7979c186-71db-4fd9-9147-1b0bf2479ca7",
+	icon: "skills/unique/molten_overdrive.png",
 	pool: "unique",
 	category: "buff",
 	maxUses: 1,

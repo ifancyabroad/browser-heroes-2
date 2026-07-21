@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "doom_song",
 	name: "Doom Song",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9enw-PYC96nmN7s5Sh?alt=media&token=9b911c40-20eb-47f8-b556-dacaadec84e7",
+	icon: "skills/unique/doom_song.png",
 	pool: "unique",
 	category: "debuff",
 	maxUses: 1,

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "hunterss_mark",
 	name: "Hunters's Mark",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCyGQhU_sx4-m68ZoQs?alt=media&token=28c9604f-8d09-4c21-afe1-ebc6b258c750",
+	icon: "skills/common/hunterss_mark.png",
 	pool: "common",
 	category: "debuff",
 	maxUses: 2,

@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Drain Life",
 	description:
 		"Unleash necrotic energy to damage your enemy while siphoning their life force to restore your own health.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTbEHpokQy-0H5xsHh?alt=media&token=e978b5e3-acb5-417a-b99d-377658894756",
+	icon: "skills/occultist/drain_life.png",
 	pool: "occultist",
 	category: "heal",
 	maxUses: 2,

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "reconstruct",
 	name: "Reconstruct",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eRbMQ_TW85fhd_iC_?alt=media&token=37961e33-b999-4f09-82e2-f6fa760630a8",
+	icon: "skills/unique/reconstruct.png",
 	pool: "unique",
 	category: "heal",
 	maxUses: 1,

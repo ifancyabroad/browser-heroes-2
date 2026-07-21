@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Cursing Bolt",
 	description:
 		"Fire a bolt of necrotic energy that deals damage and may curse your enemy, forcing them to fail any saving throws.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI67rREICWMb5bjvOvp?alt=media&token=eded7969-71c0-4b48-b823-6be559332758",
+	icon: "skills/warlock/cursing_bolt.png",
 	pool: "warlock",
 	category: "spell",
 	maxUses: 4,

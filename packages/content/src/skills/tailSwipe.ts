@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tail_swipe",
 	name: "Tail Swipe",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTlKRQQ38mTQ-94KcL?alt=media&token=d8d65416-95b7-49f8-af11-e087261f419b",
+	icon: "skills/common/tail_swipe.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 7,

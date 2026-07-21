@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "stand_ground",
 	name: "Stand Ground",
 	description: "Stand your ground to greatly increase defenses but reduce mobility.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NJPxBkEam2oJZtHIBgY?alt=media&token=b7cdb6a8-bff3-4b1a-bac6-5ef4d8717f27",
+	icon: "skills/warrior/stand_ground.png",
 	pool: "warrior",
 	category: "buff",
 	maxUses: 6,

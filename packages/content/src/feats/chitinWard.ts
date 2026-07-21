@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "chitin_ward",
 	name: "Chitin Ward",
 	description: "A hardened occult ward improves armor and piercing damage.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OHmFdmEfDy-KwSu7E7r?alt=media&token=daa6345a-26b7-446a-b518-0ae67fd60830",
+	icon: "skills/feats/chitin_ward.png",
 	category: "utility",
 	modifiers: [
 		{

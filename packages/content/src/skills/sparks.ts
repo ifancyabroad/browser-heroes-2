@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "sparks",
 	name: "Sparks",
 	description: "Shoot lightning from your fingers.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh50tlZXmwsJcskPE8?alt=media&token=f0c44bf4-c4c5-4cf2-b8d5-30203a07ecc6",
+	icon: "skills/mage/sparks.png",
 	pool: "mage",
 	category: "spell",
 	maxUses: 12,

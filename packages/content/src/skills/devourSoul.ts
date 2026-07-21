@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "devour_soul",
 	name: "Devour Soul",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC0IqVe3gyJes08fYye?alt=media&token=db556fe6-0ff7-44b9-9d74-d19d08057a0f",
+	icon: "skills/common/devour_soul.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 2,

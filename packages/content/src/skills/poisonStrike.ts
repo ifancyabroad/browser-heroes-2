@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "poison_strike",
 	name: "Poison Strike",
 	description: "Coat your weapon with venom, delivering a toxic blow that poisons your target.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhgyxj9aTH40MK_MCPF?alt=media&token=ed4f5378-03ef-4011-9a54-01da6bb758f3",
+	icon: "skills/assassin/poison_strike.png",
 	pool: "assassin",
 	category: "attack",
 	maxUses: 7,

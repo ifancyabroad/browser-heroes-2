@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "will_of_the_deceiver",
 	name: "WIll of the Deceiver",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC8YYxJjpDUyJWCV-HR?alt=media&token=c5c03231-3bea-416e-8360-4a096d032e89",
+	icon: "skills/unique/will_of_the_deceiver.png",
 	pool: "unique",
 	category: "debuff",
 	maxUses: 2,

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "flurry",
 	name: "Flurry",
 	description: "Unleash a rapid series of strikes, overwhelming your enemy with speed and force.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqcxgP5ITgFn-T8xj6?alt=media&token=2ccf3d59-a4f4-41ce-ba9b-7e9fccac6a6d",
+	icon: "skills/rogue/flurry.png",
 	pool: "rogue",
 	category: "attack",
 	maxUses: 2,

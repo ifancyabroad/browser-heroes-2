@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Curse",
 	description:
 		"Inflict a debilitating curse that forces the enemy to fail all saving throws, leaving them vulnerable.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkGRRiaTZa0Q2JeWOd?alt=media&token=3cc333c5-9195-4969-9a08-eb4ab974bc34",
+	icon: "skills/occultist/curse.png",
 	pool: "occultist",
 	category: "debuff",
 	maxUses: 8,

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "head_shot",
 	name: "Head Shot",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC-oBijY_YCkiGfM-gy?alt=media&token=a1746dee-7220-407d-9024-e8ec49f9121f",
+	icon: "skills/common/head_shot.png",
 	pool: "common",
 	category: "attack",
 	maxUses: 1,

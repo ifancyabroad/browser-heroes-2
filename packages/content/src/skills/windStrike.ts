@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "wind_strike",
 	name: "Wind Strike",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4aGSePG9PEzPMvMY-?alt=media&token=f04e8fec-7606-46c7-ad08-2c97af064b3e",
+	icon: "skills/common/wind_strike.png",
 	pool: "common",
 	category: "attack",
 	maxUses: 4,

@@ -4,6 +4,7 @@ import { featCategoryLabels } from "../../game/displayLabels";
 import { formatModifier, getModifierTextClassName } from "../../game/effectDisplay";
 import { AttackRiderTooltipList } from "./AttackRiderTooltipList";
 import { TooltipSection } from "./TooltipContentPrimitives";
+import { resolveImageUrl } from "../../utils/image";
 
 type FeatTooltipContentProps = {
 	feat: Feat;
@@ -15,7 +16,7 @@ export function FeatTooltipContent({ feat }: FeatTooltipContentProps) {
 			<header className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-3">
 				<span className="h-14 w-14 overflow-hidden border-2 border-bg-elevated bg-bg-base">
 					<img
-						src={feat.icon}
+						src={resolveImageUrl(feat.icon)}
 						alt=""
 						loading="lazy"
 						className="h-full w-full object-cover"

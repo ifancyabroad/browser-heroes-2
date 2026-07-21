@@ -7,6 +7,7 @@ import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipCont
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
 import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLabels";
+import { resolveImageUrl } from "../../../utils/image";
 
 type HeroSkillsTabProps = {
 	skills: HeroView["skills"];
@@ -104,7 +105,7 @@ function AbilityRow({ icon, name, meta, badges }: AbilityRowProps) {
 		>
 			<span className="h-12 w-12 overflow-hidden">
 				<img
-					src={icon}
+					src={resolveImageUrl(icon)}
 					alt=""
 					loading="lazy"
 					className="h-full w-full object-cover"

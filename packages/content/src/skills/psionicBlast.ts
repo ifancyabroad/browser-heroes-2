@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "psionic_blast",
 	name: "Psionic Blast",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC3JZltm890qLBu0MtB?alt=media&token=004fdcea-3a31-425c-9f87-c9050ac4cb2b",
+	icon: "skills/common/psionic_blast.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 2,

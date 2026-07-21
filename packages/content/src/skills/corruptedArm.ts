@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "corrupted_arm",
 	name: "Corrupted Arm",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OAbsKzhDKZyqRhK5IJZ?alt=media&token=5c3048c0-b15a-4e5e-9179-723d025c206f",
+	icon: "skills/unique/corrupted_arm.png",
 	pool: "unique",
 	category: "spell",
 	maxUses: 2,

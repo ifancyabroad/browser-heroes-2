@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Finger of Death",
 	description:
 		"Unleashes a deathly beam of necrotic power that corrupts the target's soul, causing immense pain and destruction.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc40XqHNv0vjMrSUhRM?alt=media&token=dabb826c-2381-4766-92e9-36c52dcda625",
+	icon: "skills/warlock/finger_of_death.png",
 	pool: "warlock",
 	category: "spell",
 	maxUses: 4,

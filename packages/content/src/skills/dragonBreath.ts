@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "dragon_breath",
 	name: "Dragon Breath",
 	description: "Unleash a cone of fiery devastation, scorching everything in its path.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc41TbX58HmCh6nednT?alt=media&token=a93e95c5-514e-4268-b3b2-db3268545b35",
+	icon: "skills/warlock/dragon_breath.png",
 	pool: "warlock",
 	category: "spell",
 	maxUses: 3,

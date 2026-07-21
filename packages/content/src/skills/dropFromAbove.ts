@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "drop_from_above",
 	name: "Drop from Above",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4o-B22zajLRPINRfV?alt=media&token=35e3da97-d73c-4b4f-982c-30174dabdb12",
+	icon: "skills/common/drop_from_above.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 1,

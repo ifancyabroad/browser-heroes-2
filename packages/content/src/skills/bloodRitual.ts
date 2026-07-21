@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Blood Ritual",
 	description:
 		"Sacrifice your own vitality, causing you to bleed and take minor slashing damage, while dealing a powerful burst of necrotic damage to your foe.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6B_gQDrYyGkqVIUeX?alt=media&token=8414323d-ecd8-4fd7-909a-f2e1950bc0f8",
+	icon: "skills/warlock/blood_ritual.png",
 	pool: "warlock",
 	category: "spell",
 	maxUses: 1,

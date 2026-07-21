@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "cone_of_cold",
 	name: "Cone of Cold",
 	description: "Emit a frigid blast, freezing enemies in a wide cone.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh5vG7znDT-6DBan2F?alt=media&token=4bfc216a-ef3b-4f89-a987-74741a2f1d2c",
+	icon: "skills/mage/cone_of_cold.png",
 	pool: "mage",
 	category: "spell",
 	maxUses: 4,

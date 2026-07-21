@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Power Word: Confusion",
 	description:
 		"Speak a disorienting word that has a chance to charm or blind the enemy, leaving them confused and vulnerable.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6P21THAWT0E0VgnjP?alt=media&token=f59fa068-f3d0-47ed-91af-92b438cb3825",
+	icon: "skills/occultist/power_word_confusion.png",
 	pool: "occultist",
 	category: "debuff",
 	maxUses: 2,

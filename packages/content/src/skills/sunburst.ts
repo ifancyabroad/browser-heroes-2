@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Sunburst",
 	description:
 		"Unleash a blinding burst of radiant energy, dealing significant damage with a chance to blind your enemies.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhkT3OrPY0IOvzISeE0?alt=media&token=6642aefd-0e9d-4f0e-8b7e-d647a3873692",
+	icon: "skills/cleric/sunburst.png",
 	pool: "cleric",
 	category: "spell",
 	maxUses: 2,

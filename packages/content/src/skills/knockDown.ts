@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Knock Down",
 	description:
 		"Topple adversaries with the forceful Knock Down skill, sending enemies crashing to the ground in a stunning display of power.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NhgrvvBiejH010EI8ME?alt=media&token=562118d9-90e1-4dc3-91fc-3a3ca57c6ea5",
+	icon: "skills/common/knock_down.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 1,

@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Inflict Wounds",
 	description:
 		"Channel dark energy to deal necrotic damage with a chance to cause ongoing bleeding.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6NWgjfh9IAA7mMhg-?alt=media&token=51a6d406-36c1-4a37-8e4c-249db8aaed00",
+	icon: "skills/occultist/inflict_wounds.png",
 	pool: "occultist",
 	category: "spell",
 	maxUses: 8,

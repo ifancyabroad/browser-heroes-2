@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "blessing_of_the_old_gods",
 	name: "Blessing of the Old Gods",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC-vWqkvavpvmdVpJ3W?alt=media&token=d94590dc-7adb-4cbf-af97-3b0825499b18",
+	icon: "skills/unique/blessing_of_the_old_gods.png",
 	pool: "unique",
 	category: "buff",
 	maxUses: 1,

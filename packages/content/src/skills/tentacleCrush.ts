@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tentacle_crush",
 	name: "Tentacle Crush",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCJ9MXut2odMwmv0r95?alt=media&token=560f5896-0d54-4197-a3af-8db72115b0f9",
+	icon: "skills/common/tentacle_crush.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 4,

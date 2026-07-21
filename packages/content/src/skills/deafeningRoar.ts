@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "deafening_roar",
 	name: "Deafening Roar",
 	description: "Unleash a crippling roar that weakens and disorients nearby enemies.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhgy1Vmh0FTTPCWBory?alt=media&token=9f2b03e8-b95d-403d-86e0-acd4e362468e",
+	icon: "skills/common/deafening_roar.png",
 	pool: "common",
 	category: "debuff",
 	maxUses: 6,

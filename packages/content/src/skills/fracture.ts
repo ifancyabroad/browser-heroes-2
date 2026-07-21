@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Fracture",
 	description:
 		"Deliver a precise and devastating strike that disrupts the enemy's defenses, reducing their resistance to physical attacks.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NKt5eqAEIJYZFNbvK8f?alt=media&token=ec2639b6-7611-42a2-b954-f6bd5a35962c",
+	icon: "skills/assassin/fracture.png",
 	pool: "assassin",
 	category: "spell",
 	maxUses: 3,

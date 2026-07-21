@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "obliterate",
 	name: "Obliterate",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4ec48-KD77fXEGDx8?alt=media&token=10218c46-11e1-4597-ae2d-545151ea8879",
+	icon: "skills/common/obliterate.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 2,

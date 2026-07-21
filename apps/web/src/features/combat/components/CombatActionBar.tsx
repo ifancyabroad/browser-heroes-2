@@ -12,6 +12,7 @@ import continueIcon from "../../../assets/images/actions/Skill_Swords.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
 import skipTurnIcon from "../../../assets/images/actions/Quest_20_flag.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
+import { resolveImageUrl } from "../../../utils/image";
 
 type CombatActionBarProps = {
 	player: CombatantState;
@@ -269,7 +270,7 @@ function SkillSlot({ skill, available, loading, onUseSkill }: SkillSlotProps) {
 			<ActionSlotButton
 				available={available}
 				ariaLabel={available ? `Use ${definition.name}` : `${definition.name} unavailable`}
-				icon={definition.icon}
+				icon={resolveImageUrl(definition.icon)}
 				label={usesLabel ?? undefined}
 				labelClassName="text-primary"
 				loading={loading}

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "poison_bomb",
 	name: "Poison Bomb",
 	description: "Throw a poisoned explosive at the enemy with a chance to poison them.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqbgWmfMqnnjnXn-Hp?alt=media&token=7b653a63-5cb5-41f1-aafe-45beb0b53579",
+	icon: "skills/assassin/poison_bomb.png",
 	pool: "assassin",
 	category: "spell",
 	maxUses: 6,

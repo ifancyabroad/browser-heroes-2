@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Last Stand",
 	description:
 		"Summon your remaining strength to recover health and temporarily bolster your physical resilience.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OHm6ropyvvjWSACK2Gc?alt=media&token=19ebde6c-7a8f-45b6-b288-102706f7ffaf",
+	icon: "skills/warrior/last_stand.png",
 	pool: "warrior",
 	category: "heal",
 	maxUses: 1,

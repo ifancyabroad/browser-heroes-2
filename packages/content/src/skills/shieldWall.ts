@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Shield Wall",
 	description:
 		"Stand resolute with Shield Wall, shielding yourself from harm and repelling enemy assaults with unwavering defense.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhgx8gnKSMnxB7h9F60?alt=media&token=eb3b73bb-3dd1-4891-9ce8-94920b18ee74",
+	icon: "skills/common/shield_wall.png",
 	pool: "common",
 	category: "buff",
 	maxUses: 5,

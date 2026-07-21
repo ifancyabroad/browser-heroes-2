@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "acid_burn",
 	name: "Acid Burn",
 	description: "Fling acid at the enemy to corrode their defense.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqaJ9QZYIpe6P1iDYy?alt=media&token=a61f4af5-9abf-4e8c-b41c-2cabd76120a1",
+	icon: "skills/rogue/acid_burn.png",
 	pool: "rogue",
 	category: "spell",
 	maxUses: 6,

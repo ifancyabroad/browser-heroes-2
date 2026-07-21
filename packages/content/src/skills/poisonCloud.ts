@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "poison_cloud",
 	name: "Poison Cloud",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCJmYRSklNylLGbF7-N?alt=media&token=65d2ecf0-8545-44fd-8796-f1d728430e2b",
+	icon: "skills/common/poison_cloud.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 4,

@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Shadow Strike",
 	description:
 		"Deliver a swift strike imbued with shadowy energy, dealing necrotic damage to your target.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCUEy6k5HuRL-oXw1-y?alt=media&token=9d7cfcff-a684-443c-9009-3765ec600d9e",
+	icon: "skills/assassin/shadow_strike.png",
 	pool: "assassin",
 	category: "attack",
 	maxUses: 7,

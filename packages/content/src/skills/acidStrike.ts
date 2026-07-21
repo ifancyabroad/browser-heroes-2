@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "acid_strike",
 	name: "Acid Strike",
 	description: "Infuse your attack with corrosive acid, eating away at flesh.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh0aZeozWw6_HWDH23?alt=media&token=7b30ca2b-4a56-43db-a5b2-ce88c87c7fa2",
+	icon: "skills/rogue/acid_strike.png",
 	pool: "rogue",
 	category: "attack",
 	maxUses: 7,

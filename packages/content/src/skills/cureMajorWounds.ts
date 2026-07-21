@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "cure_major_wounds",
 	name: "Cure Major Wounds",
 	description: "Restore a significant amount of health, healing even the most grievous injuries.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTUQdooGB1fZa6Q-pv?alt=media&token=98005b9d-49d9-4a20-a366-91a1d99852c5",
+	icon: "skills/cleric/cure_major_wounds.png",
 	pool: "cleric",
 	category: "heal",
 	maxUses: 2,

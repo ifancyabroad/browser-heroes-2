@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "nightmares",
 	name: "Nightmares",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCJnc4CZuCdQbrJEZKt?alt=media&token=5c261baf-e530-4851-872c-883aa686cee5",
+	icon: "skills/common/nightmares.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 2,

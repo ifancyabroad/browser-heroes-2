@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "holy_bolt",
 	name: "Holy Bolt",
 	description: "Fire a burst of radiant energy that sears enemies with divine power.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTRbewhOgSp1zw1Uu7?alt=media&token=dca7c698-b44a-4c75-932c-b2291934e4cf",
+	icon: "skills/cleric/holy_bolt.png",
 	pool: "cleric",
 	category: "spell",
 	maxUses: 12,

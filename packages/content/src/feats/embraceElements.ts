@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "embrace_elements",
 	name: "Elemental Affinity",
 	description: "Elemental study adds a modest charge to fire, cold, and lightning damage.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh3D7-ihgBpi0AbfB5?alt=media&token=7a3eb5c6-1571-4e5d-8945-9efb3875f991",
+	icon: "skills/feats/embrace_elements.png",
 	category: "elemental",
 	modifiers: [
 		{

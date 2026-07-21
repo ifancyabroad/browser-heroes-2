@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "shadow_focus",
 	name: "Shadow Focus",
 	description: "Shadow practice sharpens your aim with spells and weapons alike.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh3v9mXEeAJhlsZfwB?alt=media&token=3ac3e157-3f26-4716-b546-4ce5f00ef032",
+	icon: "skills/feats/shadow_focus.png",
 	category: "utility",
 	modifiers: [
 		{

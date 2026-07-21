@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "overpower",
 	name: "Overpower",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC0BnBNFGwHwz1CugLe?alt=media&token=814a1aa1-3f7b-4bcc-bd73-eec753a24932",
+	icon: "skills/common/overpower.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 1,

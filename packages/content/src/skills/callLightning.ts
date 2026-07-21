@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Call Lightning",
 	description:
 		"Summon a bolt of lightning from the heavens to strike your target with electrifying force.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OI6F5twLiJIL3ZO7bdu?alt=media&token=c2458ca7-b772-4e17-bbdc-ee5b2c56413c",
+	icon: "skills/occultist/call_lightning.png",
 	pool: "occultist",
 	category: "spell",
 	maxUses: 4,

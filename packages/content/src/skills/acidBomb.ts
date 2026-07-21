@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "acid_bomb",
 	name: "Acid Bomb",
 	description: "Throw a bomb of corrosive acid at the enemy.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqc6Kl781JP6QdXB-m?alt=media&token=f946c220-9eb8-446a-be8b-62798aec2e29",
+	icon: "skills/rogue/acid_bomb.png",
 	pool: "rogue",
 	category: "spell",
 	maxUses: 4,

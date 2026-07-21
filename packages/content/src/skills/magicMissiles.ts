@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "magic_missiles",
 	name: "Magic Missiles",
 	description: "Summon three piercing projectiles to launch at the enemy.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3yZ_5d4QQI4y90Inu?alt=media&token=494feabb-a251-4b55-afb0-0194a5b4000a",
+	icon: "skills/mage/magic_missiles.png",
 	pool: "mage",
 	category: "spell",
 	maxUses: 7,

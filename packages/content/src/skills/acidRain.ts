@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "acid_rain",
 	name: "Acid Rain",
 	description: "Summon corrosive acid from the skies.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nc3z5D4In6VQLtKZxrV?alt=media&token=88adbc86-f012-43b3-b304-45ba2281e9fe",
+	icon: "skills/mage/acid_rain.png",
 	pool: "mage",
 	category: "spell",
 	maxUses: 12,

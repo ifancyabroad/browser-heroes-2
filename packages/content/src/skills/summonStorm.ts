@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "summon_storm",
 	name: "Summon Storm",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OC4v4pMGZ1Llq1EBU66?alt=media&token=f7c02506-ce17-4908-8ef2-6f850ff7c328",
+	icon: "skills/unique/summon_storm.png",
 	pool: "unique",
 	category: "spell",
 	maxUses: 1,

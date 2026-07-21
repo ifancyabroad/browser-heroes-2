@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "evasion",
 	name: "Evasion",
 	description: "Constant footwork training makes you harder to hit.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh-SuuVlmZIYSG87sp?alt=media&token=50aaef62-ac5c-4a23-8360-e7e26095a333",
+	icon: "skills/feats/evasion.png",
 	category: "defensive",
 	modifiers: [
 		{

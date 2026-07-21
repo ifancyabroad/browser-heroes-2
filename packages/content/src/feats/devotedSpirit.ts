@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "devoted_spirit",
 	name: "Devoted Spirit",
 	description: "Deep faith improves saving throws and radiant power.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NgTUH0cjt_Ek0BEIgUh?alt=media&token=ac5bf6ce-f097-45f5-b974-ee6bb37de865",
+	icon: "skills/feats/devoted_spirit.png",
 	category: "utility",
 	modifiers: [
 		{

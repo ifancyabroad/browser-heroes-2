@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Burning Rampage",
 	description:
 		"Unleash the flames within and ignite your enemies with this powerful fire attack.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZMJ9LGQM22pDRl_EYc?alt=media&token=4ea45e0b-68b0-4d8c-aaa2-c40d339d7682",
+	icon: "skills/barbarian/burning_rampage.png",
 	pool: "barbarian",
 	category: "spell",
 	maxUses: 5,

@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "dancers_grace",
 	name: "Dancer's Grace",
 	description: "Measured movement improves defense without sacrificing precision.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqWi-RbH2vwtAawttY?alt=media&token=b906457e-c916-43b2-957d-036855d70eb9",
+	icon: "skills/feats/dancers_grace.png",
 	category: "utility",
 	modifiers: [
 		{

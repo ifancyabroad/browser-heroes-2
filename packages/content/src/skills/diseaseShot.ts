@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "disease_shot",
 	name: "Disease Shot",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9_dP0Qn57Vq0CTiSVO?alt=media&token=586dc311-85ef-4c5d-88b3-93a36aaf845b",
+	icon: "skills/common/disease_shot.png",
 	pool: "common",
 	category: "spell",
 	maxUses: 2,

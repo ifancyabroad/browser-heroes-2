@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "into_the_grinder",
 	name: "Into the Grinder",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OAc58blrXjj8BuSCn6r?alt=media&token=4bcc1ca7-a2a9-4b6c-ad2c-17cd91337f6d",
+	icon: "skills/unique/into_the_grinder.png",
 	pool: "unique",
 	category: "spell",
 	maxUses: 2,

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "maim",
 	name: "Maim",
 	description: "Strike with brutal force, causing bleeding and a chance to disarm your opponent.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh1jOIoeiE7yvBATmT?alt=media&token=dc543036-974a-4187-9dd1-c2a6fced5ef0",
+	icon: "skills/assassin/maim.png",
 	pool: "assassin",
 	category: "attack",
 	maxUses: 2,

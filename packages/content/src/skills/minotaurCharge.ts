@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "minotaur_charge",
 	name: "Minotaur Charge",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-O9eSRJIY86RZLdUWrd8?alt=media&token=dd7c5e27-3d52-4755-b538-5c7c5b4bb164",
+	icon: "skills/unique/minotaur_charge.png",
 	pool: "unique",
 	category: "spell",
 	maxUses: 1,

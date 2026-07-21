@@ -8,6 +8,7 @@ import { getSelectionClassName } from "../../../components/ControlStyles";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLabels";
+import { resolveImageUrl } from "../../../utils/image";
 
 type LevelUpOptionCardProps = {
 	option: LevelUpOption;
@@ -41,7 +42,7 @@ export function LevelUpOptionCard({ option, value, selected, disabled }: LevelUp
 				>
 					<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
 						<img
-							src={content.icon}
+							src={resolveImageUrl(content.icon)}
 							alt=""
 							loading="lazy"
 							className="h-full w-full object-cover"

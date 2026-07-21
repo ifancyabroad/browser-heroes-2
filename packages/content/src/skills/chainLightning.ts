@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "chain_lightning",
 	name: "Chain Lightning",
 	description: "Summon cascading thunder, chaining electrical strikes across enemies.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-Nhh6cp8cTNG_6h4WvSN?alt=media&token=f9448ffc-e20a-4c5b-8ccc-a19020ea2999",
+	icon: "skills/mage/chain_lightning.png",
 	pool: "mage",
 	category: "spell",
 	maxUses: 3,

@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Whirlwind Strike",
 	description:
 		"Unleash a flurry of attacks in a spinning motion, hitting your foe three times in quick succession.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqUWZDeys5x3n8eLNA?alt=media&token=74ce578b-3e45-44d2-8565-ccd0187437d0",
+	icon: "skills/barbarian/whirlwind_strike.png",
 	pool: "barbarian",
 	category: "attack",
 	maxUses: 2,

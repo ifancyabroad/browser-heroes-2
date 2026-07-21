@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "binkus_deathray",
 	name: "Binkus' Deathray",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-OCIAJrIHwRDdKdzqtlj?alt=media&token=36a41337-d39d-4b6e-8b0f-c67a945b2cf9",
+	icon: "skills/unique/binkus_deathray.png",
 	pool: "unique",
 	category: "spell",
 	maxUses: 1,

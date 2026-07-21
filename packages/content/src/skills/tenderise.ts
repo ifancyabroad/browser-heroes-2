@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "tenderise",
 	name: "Tenderise",
 	description: "Beat the enemy into submission with a chance to lower physical resistances.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fskills%2F-NZqXb0gVgqwcQmz5Kty?alt=media&token=888faf17-25f3-4981-b1d4-34a7017ebade",
+	icon: "skills/barbarian/tenderise.png",
 	pool: "barbarian",
 	category: "debuff",
 	maxUses: 4,
