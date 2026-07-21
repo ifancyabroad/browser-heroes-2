@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "deathstalker_gloves",
 	name: "Deathstalker Gloves",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD696zVnfid6RFE48E-?alt=media&token=212967f9-cca1-4cf6-abd6-3b2a82d87e56",
+	icon: "items/armour/sets/leather/Leather13_gloves.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

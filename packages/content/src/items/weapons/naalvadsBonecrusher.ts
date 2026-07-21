@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "naalvads_bonecrusher",
 	name: "Naalvad's Bonecrusher",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OCjclL2ykXga6TDYLQX?alt=media&token=63e7045d-ac70-42a6-a88d-93c96a13975d",
+	icon: "items/weapons/hammers/Hammer_v2_20.png",
 	price: 2540,
 	rarity: "legendary",
 	type: "weapon",

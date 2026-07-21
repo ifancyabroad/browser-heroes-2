@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "sunforged_plate",
 	name: "Sunforged Plate",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGCEij6UUx69e-sTfO?alt=media&token=7fa124fa-c6ca-4e70-b2e4-ecaccc24e7cb",
+	icon: "items/armour/sets/mail/Mail13_Chest.png",
 	price: 1800,
 	rarity: "legendary",
 	type: "armour",

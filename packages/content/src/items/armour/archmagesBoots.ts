@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "archmages_boots",
 	name: "Archmage's Boots",
 	description: "Boots infused with arcane energy, enhancing spellcasting prowess.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDNmAFnZcDHdtAbyd1?alt=media&token=d5274bd0-43ff-4b7d-979a-65d5137075cf",
+	icon: "items/armour/sets/cloth/Cloth17_Boots.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

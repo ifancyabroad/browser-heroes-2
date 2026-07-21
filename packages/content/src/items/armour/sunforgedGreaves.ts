@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "sunforged_greaves",
 	name: "Sunforged Greaves",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGAnTlbkzA3DMLPVrC?alt=media&token=02d97c5c-db82-428f-819b-4f678f41b5f8",
+	icon: "items/armour/sets/mail/Mail13_Boots.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

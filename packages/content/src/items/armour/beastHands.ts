@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "beast_hands",
 	name: "Beast Hands",
 	description: "Gloves imbued with the untamed fury of beasts, enhancing combat prowess.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDVvTxuDLvTj0HU7Fq?alt=media&token=7a842ba9-5ecc-4a43-8965-c6a0890a8643",
+	icon: "items/armour/gloves/HandsS2.png",
 	price: 1550,
 	rarity: "legendary",
 	type: "armour",

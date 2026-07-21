@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "archmages_belt",
 	name: "Archmage's Belt",
 	description: "This belt augments spellcasting abilities, a mark of the master mage.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9dpRJB6wpOfSUAF24?alt=media&token=c6a46ff1-0009-408f-a13f-abf9b9f98e6c",
+	icon: "items/armour/sets/cloth/Cloth17_belt.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

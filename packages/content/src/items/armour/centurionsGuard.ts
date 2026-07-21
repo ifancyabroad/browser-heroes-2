@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "centurions_guard",
 	name: "Centurion's Guard",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGHDP7d83u1taoV6xy?alt=media&token=0a842cf4-44a2-45d5-ad6f-2328253fc135",
+	icon: "items/armour/sets/mail/Mail17_head.png",
 	price: 1700,
 	rarity: "legendary",
 	type: "armour",

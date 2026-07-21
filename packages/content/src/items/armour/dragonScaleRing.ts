@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "dragon_scale_ring",
 	name: "Dragon Scale Ring",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OD1MiTvdUnzhJdRDcyC?alt=media&token=e54a528f-eff4-4336-9261-b59826ee4b1a",
+	icon: "items/armour/ring/Ring_50_dragon.png",
 	price: 1650,
 	rarity: "legendary",
 	type: "armour",

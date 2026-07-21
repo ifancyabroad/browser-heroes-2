@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "vorshaks_embrace",
 	name: "Vorshak's Embrace",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OCjb2zwjZOd3F8wf8Xa?alt=media&token=760f02f1-a8fd-456c-8903-aad88daba274",
+	icon: "items/weapons/claws/BrassKnuckles_v2_11.png",
 	price: 2250,
 	rarity: "legendary",
 	type: "weapon",

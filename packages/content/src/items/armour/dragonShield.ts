@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "dragon_shield",
 	name: "Dragon Shield",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEewgzTHrzKERJX1Mj?alt=media&token=981ffb08-96e7-4603-8d48-bb2f2c1eece0",
+	icon: "items/armour/shields/shield_47.png",
 	price: 1440,
 	rarity: "legendary",
 	type: "armour",

@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "natures_fury",
 	name: "Nature's Fury",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OEnxXfaHmNcWzFN8xR3?alt=media&token=ae4077c1-93e1-4fff-8454-71d8151be4f6",
+	icon: "items/weapons/bows/Bow_v2_08.png",
 	price: 2600,
 	rarity: "legendary",
 	type: "weapon",

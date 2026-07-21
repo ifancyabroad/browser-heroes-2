@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "gladiators_visor",
 	name: "Gladiator's Visor",
 	description: "Gladiator's Visor crafted to withstand the fiercest battles.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEQK4lqKJ7YcxpVgbR?alt=media&token=d7f24651-2e98-4d79-8a6c-3f3c6aab152e",
+	icon: "items/armour/helms/Helm_25_gladiator.png",
 	price: 1620,
 	rarity: "legendary",
 	type: "armour",

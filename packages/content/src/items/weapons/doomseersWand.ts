@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "doomseers_wand",
 	name: "Doomseer's Wand",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OEo-XG3BE5eugi3o0Zf?alt=media&token=bbaae2fb-3863-4f95-8eae-8c5db89fa48c",
+	icon: "items/weapons/wands/Wand_v2_42.png",
 	price: 2220,
 	rarity: "legendary",
 	type: "weapon",

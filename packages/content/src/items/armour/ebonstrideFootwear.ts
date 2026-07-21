@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "ebonstride_footwear",
 	name: "Ebonstride Footwear",
 	description: "These black plated boots imbue the wearer with the essence of darkness.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzDQAibdQUg6f9NfaKV?alt=media&token=eb229903-4717-40af-a219-52ec6570c1f3",
+	icon: "items/armour/boots/Boots_12.png",
 	price: 1480,
 	rarity: "legendary",
 	type: "armour",

@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "robe_of_protection",
 	name: "Robe of Protection",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OHy42jVE0Jqj3DYOJCU?alt=media&token=5dc705ba-abfc-47bd-a3f7-758ddb165a32",
+	icon: "items/armour/sets/cloth/Cloth5_Chest.png",
 	price: 1700,
 	rarity: "legendary",
 	type: "armour",

@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "archmages_robe",
 	name: "Archmage's Robe",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-O8IE8osJo-rek1NyPIc?alt=media&token=bb9d2d96-5877-440f-a01c-c36766f60c21",
+	icon: "items/armour/sets/cloth/Cloth17_Chest.png",
 	price: 1800,
 	rarity: "legendary",
 	type: "armour",

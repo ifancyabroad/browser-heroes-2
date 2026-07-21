@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "umbral_tunic",
 	name: "Umbral Tunic",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGEyvrhJmIyWrInYHL?alt=media&token=f9a7b1ce-41dc-426c-9e9f-a3d957cc8ecd",
+	icon: "items/armour/sets/leather/Leather8_Chest.png",
 	price: 1800,
 	rarity: "legendary",
 	type: "armour",

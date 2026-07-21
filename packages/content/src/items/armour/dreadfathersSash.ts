@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "dreadfathers_sash",
 	name: "Dreadfather's Sash",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIG02ZTMZxJPtP127s3?alt=media&token=d4f8efb3-96a0-4d1d-9fa4-30ca08729528",
+	icon: "items/armour/sets/cloth/Cloth7_belt.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

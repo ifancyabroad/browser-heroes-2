@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "divine_candle",
 	name: "Divine Candle",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OI6WPS67ruK5CEZybAn?alt=media&token=d882c531-920d-4cde-8657-5574b841233c",
+	icon: "items/weapons/staves/Staff_v2_35.png",
 	price: 1460,
 	rarity: "legendary",
 	type: "weapon",

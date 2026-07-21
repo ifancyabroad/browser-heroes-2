@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "rat_gods_decapitator",
 	name: "Rat God's Decapitator",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OCn-7fbuTczpdGL51Ob?alt=media&token=3215d999-1642-442d-8739-aaad4b503759",
+	icon: "items/weapons/axes/Axe_v2_51.png",
 	price: 2600,
 	rarity: "legendary",
 	type: "weapon",

@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "will_of_galorin",
 	name: "Will of Galorin",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OCje5NY8tvXxytEERmn?alt=media&token=e349508a-e35a-4b0b-bc67-697db8e39ed9",
+	icon: "items/weapons/staves/Staff_v2_52.png",
 	price: 2500,
 	rarity: "legendary",
 	type: "weapon",

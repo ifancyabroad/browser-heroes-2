@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "dreadfathers_ribcage",
 	name: "Dreadfather's Ribcage",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIG0b1_0Qv-JCbVeksA?alt=media&token=9fabee45-ff66-433b-ae89-7721da41500b",
+	icon: "items/armour/sets/cloth/Cloth7_Chest.png",
 	price: 1800,
 	rarity: "legendary",
 	type: "armour",

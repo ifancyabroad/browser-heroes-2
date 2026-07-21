@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "staff_of_protection",
 	name: "Staff of Protection",
 	description: "",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-OIMXPphDGKT4i3csv4K?alt=media&token=ef2cae9e-db75-4cf7-84db-b423337b8d40",
+	icon: "items/weapons/staves/Staff_v2_21.png",
 	price: 1360,
 	rarity: "legendary",
 	type: "weapon",

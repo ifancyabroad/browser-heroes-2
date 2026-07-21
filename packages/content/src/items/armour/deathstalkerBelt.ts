@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "deathstalker_belt",
 	name: "Deathstalker Belt",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9ewWW6AAZOa6anIU5?alt=media&token=300d631c-e308-4df3-a835-76e731553119",
+	icon: "items/armour/sets/leather/Leather13_belt.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

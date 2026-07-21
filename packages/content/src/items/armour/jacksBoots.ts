@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "jacks_boots",
 	name: "Jack's Boots",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIMQ4tZ-LSwGofSsawh?alt=media&token=1fd9924c-f582-4dc3-9635-3dafb46d51d1",
+	icon: "items/armour/sets/leather/Leather9_boots.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

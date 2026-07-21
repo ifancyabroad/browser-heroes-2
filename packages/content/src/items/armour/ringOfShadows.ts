@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Ring of Shadows",
 	description:
 		"A ring cloaked in darkness, granting its wearer the ability to blend into shadows.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NzEj39PbQX8tVy6BGOU?alt=media&token=3e03031d-7e39-4865-b30c-4f4eace7e766",
+	icon: "items/armour/ring/Ring_47.png",
 	price: 1700,
 	rarity: "legendary",
 	type: "armour",

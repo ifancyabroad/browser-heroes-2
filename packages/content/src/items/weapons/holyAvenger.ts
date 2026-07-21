@@ -5,7 +5,7 @@ export default buildWeapon({
 	name: "Holy Avenger",
 	description:
 		"The Holy Avenger is an ornate mace featuring a radiant head and intricate engravings of celestial symbols. Infused with divine energy, it delivers powerful strikes that smite evil and bolster allies. Favored by paladins, this mace embodies righteousness and the relentless fight against darkness.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O86LPbrpdPf46hvIISe?alt=media&token=3a9f2df0-5a06-4ee6-bb33-2b058db69425",
+	icon: "items/weapons/clubs/Club_v2_14.png",
 	price: 1280,
 	rarity: "legendary",
 	type: "weapon",

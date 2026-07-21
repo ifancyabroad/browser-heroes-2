@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "umbral_boots",
 	name: "Umbral Boots",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-OIGE1M-NztOpxLhP65m?alt=media&token=e1a3d7b8-9758-43e7-b227-292728cbae49",
+	icon: "items/armour/sets/leather/Leather8_boots.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",

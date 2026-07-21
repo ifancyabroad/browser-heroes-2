@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "jacks_belt",
 	name: "Jack's Belt",
 	description: "Worn by versatile adventurers, this belt aids in mastering various skills.",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9dCPBfsmrmF7finXd?alt=media&token=0ea47614-f283-40b1-a072-0d1c54a7e361",
+	icon: "items/armour/sets/leather/Leather9_belt.png",
 	price: 1600,
 	rarity: "legendary",
 	type: "armour",
