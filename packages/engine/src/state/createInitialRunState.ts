@@ -2,7 +2,7 @@ import { runStateSchema, type RunState } from "../schemas";
 import { createInitialRngState } from "../core/rng";
 import { createRunLogId } from "../core/ids";
 import { createInitialHeroState } from "./createInitialHeroState";
-import { createTownState } from "./createTownState";
+import { createCombat } from "../systems/combat/createCombat";
 import { ClassId } from "@app/content";
 
 export type CreateInitialRunStateInput = {
@@ -24,15 +24,21 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 
 	const hero = heroResult.value;
 	const zoneNumber = 1;
+	const battleNumber = 1;
+	const endlessCycle = 0;
 
-	const town = createTownState({
+	const combatResult = createCombat({
 		runId: input.runId,
 		hero,
+		battleNumber,
 		zoneNumber,
-		battleNumber: 1,
-		day: 1,
+		endlessCycle,
 		rngState: heroResult.rngState,
 	});
+
+	if (!combatResult) {
+		throw new Error("Unable to create initial combat: NO_ELIGIBLE_ENEMY");
+	}
 
 	const state: RunState = {
 		version: 1,
@@ -40,21 +46,21 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		id: input.runId,
 
 		seed: input.seed,
-		rngState: town.rngState,
+		rngState: combatResult.rngState,
 
-		phase: "town",
+		phase: "combat",
 
-		battleNumber: 1,
+		battleNumber,
 		zoneNumber,
-		endlessCycle: 0,
+		endlessCycle,
 		day: 1,
 		kills: 0,
 
 		hero,
 
-		combat: null,
+		combat: combatResult.value,
 
-		town: town.value,
+		town: null,
 
 		gold: 0,
 		streak: 0,

@@ -1,19 +1,24 @@
 import type { Enemy } from "@app/content";
 
-import type { RunState } from "../../../schemas";
-import type { RngResult } from "../../../core/rng";
+import type { RngResult, RngState } from "../../../core/rng";
 
 import { getEncounterTypeForBattle } from "../getEncounterTypeForBattle";
 import { getZoneForRun } from "../zones/getZoneForRun";
 import { getEncounterCandidates } from "./getEncounterCandidates";
 import { selectWeightedEnemy } from "./selectWeightedEnemy";
 
-export function selectEnemyForEncounter(state: RunState): RngResult<Enemy> | null {
-	const zone = getZoneForRun(state.zoneNumber);
+type SelectEnemyForEncounterInput = {
+	battleNumber: number;
+	zoneNumber: number;
+	rngState: RngState;
+};
 
-	const encounterType = getEncounterTypeForBattle(state.battleNumber);
+export function selectEnemyForEncounter(
+	input: SelectEnemyForEncounterInput,
+): RngResult<Enemy> | null {
+	const zone = getZoneForRun(input.zoneNumber);
+	const encounterType = getEncounterTypeForBattle(input.battleNumber);
+	const candidates = getEncounterCandidates(zone, input.battleNumber, encounterType);
 
-	const candidates = getEncounterCandidates(zone, state.battleNumber, encounterType);
-
-	return selectWeightedEnemy(state.rngState, candidates);
+	return selectWeightedEnemy(input.rngState, candidates);
 }

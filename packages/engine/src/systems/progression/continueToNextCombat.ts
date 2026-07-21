@@ -1,7 +1,7 @@
 import type { ContinueToNextCombatAction, EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
-import { enterCombat } from "../combat/enterCombat";
+import { createCombat } from "../combat/createCombat";
 import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
 import { getEndlessCycleForBattle } from "../endless/endlessProgression";
 
@@ -27,29 +27,43 @@ export function continueToNextCombat(
 
 	const battleNumber = state.battleNumber + 1;
 
-	const readyState: RunState = {
-		...state,
-		phase: "town",
-		combat: null,
-		battleNumber,
-		zoneNumber: getZoneNumberForBattle(battleNumber),
-		endlessCycle: getEndlessCycleForBattle(battleNumber),
-		streak: state.streak + 1,
-	};
+	const zoneNumber = getZoneNumberForBattle(battleNumber);
+	const endlessCycle = getEndlessCycleForBattle(battleNumber);
 
-	const enterResult = enterCombat(readyState, {
-		type: "ENTER_COMBAT",
+	const combatResult = createCombat({
+		runId: state.id,
+		hero: state.hero,
+		battleNumber,
+		zoneNumber,
+		endlessCycle,
+		rngState: state.rngState,
 		ghostEncounter: action.ghostEncounter,
 	});
 
-	if (!enterResult.ok) {
-		return enterResult;
+	if (!combatResult) {
+		return failureResult(state, "NO_ELIGIBLE_ENEMY");
 	}
 
-	return successResult(enterResult.state, [
+	return successResult(
 		{
-			type: "NEXT_COMBAT_READY",
+			...state,
+			rngState: combatResult.rngState,
+			phase: "combat",
+			combat: combatResult.value,
+			town: null,
+			battleNumber,
+			zoneNumber,
+			endlessCycle,
+			streak: state.streak + 1,
 		},
-		...enterResult.events,
-	]);
+		[
+			{
+				type: "NEXT_COMBAT_READY",
+			},
+			{
+				type: "COMBAT_STARTED",
+				combatId: combatResult.value.id,
+			},
+		],
+	);
 }

@@ -1,56 +1,39 @@
-import type { CombatState, EngineResult, EnterCombatAction, RunState } from "../../schemas";
+import type { EngineResult, EnterCombatAction, RunState } from "../../schemas";
 
-import { createCombatId } from "../../core/ids";
 import { failureResult, successResult } from "../../core/result";
-
-import { createEncounterCombatant } from "./combatants/createEncounterCombatant";
-import { createPlayerCombatant } from "./combatants/createPlayerCombatant";
-import { createCombatLogEntry } from "./logs/createCombatLogEntry";
+import { createCombat } from "./createCombat";
 
 export function enterCombat(state: RunState, action: EnterCombatAction): EngineResult {
 	if (state.phase !== "town") {
 		return failureResult(state, "INVALID_PHASE");
 	}
 
-	const combatId = createCombatId(state.id, state.battleNumber);
+	const combatResult = createCombat({
+		runId: state.id,
+		hero: state.hero,
+		battleNumber: state.battleNumber,
+		zoneNumber: state.zoneNumber,
+		endlessCycle: state.endlessCycle,
+		rngState: state.rngState,
+		ghostEncounter: action.ghostEncounter,
+	});
 
-	const encounter = createEncounterCombatant(state, action, combatId);
-
-	if (!encounter) {
+	if (!combatResult) {
 		return failureResult(state, "NO_ELIGIBLE_ENEMY");
 	}
-
-	const player = createPlayerCombatant(state.hero, combatId);
-
-	const combat: CombatState = {
-		id: combatId,
-		encounterType: encounter.encounterType,
-		turnNumber: 1,
-		activeActor: "player",
-		player,
-		enemy: encounter.enemy,
-		log: [
-			createCombatLogEntry(combatId, 1, {
-				turnNumber: 1,
-				actor: "system",
-				message: `Combat begins between ${player.name} and ${encounter.enemy.name}.`,
-				eventType: "combat_started",
-			}),
-		],
-		status: "active",
-	};
 
 	return successResult(
 		{
 			...state,
-			rngState: encounter.rngState,
+			rngState: combatResult.rngState,
 			phase: "combat",
-			combat,
+			combat: combatResult.value,
+			town: null,
 		},
 		[
 			{
 				type: "COMBAT_STARTED",
-				combatId,
+				combatId: combatResult.value.id,
 			},
 		],
 	);

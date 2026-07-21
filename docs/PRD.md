@@ -25,18 +25,17 @@ The current implementation supports the complete run loop:
 
 1. Start a guest session.
 2. Create a hero by choosing a class and name.
-3. Enter town.
-4. Start combat from town.
-5. Resolve combat through attacks, skills, consumables, and readable active effects.
-6. Earn XP and gold after victory.
-7. Select a boss reward when offered.
-8. Complete pending level-up choices when offered.
-9. Continue directly to the next combat or return to town.
-10. Buy equipment or healing potions, rest, reroll the shop, swap equipped weapons, or inspect the hero in town.
-11. Defeat the final boss and either retire victorious or continue into endless progression.
-12. End the run through victorious retirement or player death.
+3. Start battle 1 combat.
+4. Resolve combat through attacks, skills, consumables, and readable active effects.
+5. Earn XP and gold after victory.
+6. Select a boss reward when offered.
+7. Complete pending level-up choices when offered.
+8. Continue directly to the next combat or return to town.
+9. Buy equipment or healing potions, rest, reroll the shop, swap equipped weapons, or inspect the hero in town.
+10. Defeat the final boss and either retire victorious or continue into endless progression.
+11. End the run through victorious retirement or player death.
 
-Town acts as a run checkpoint, shop, recovery point, and launch point.
+After victories, town acts as an optional run checkpoint, shop, recovery point, and launch point for the next combat.
 
 Combat exposes basic attacks, player and enemy skill use, healing potions, readable combat logs, and active effects. Status removal remains represented in content but is not resolved by the engine.
 

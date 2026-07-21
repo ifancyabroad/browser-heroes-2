@@ -2,11 +2,11 @@
 
 ## 1. Run Structure
 
-A run is a self-contained sequence of combat encounters connected by town visits and progression choices.
+A run is a self-contained sequence of combat encounters connected by optional town visits and progression choices. A newly created run begins directly in battle 1 combat; town first becomes available as a checkpoint after a victory.
 
 A run begins on day 1. Each successful rest advances the run by one day. Day progression and rest-price escalation are cumulative for the full run and do not reset when the hero returns to town.
 
-The run flow supports town, combat, victory rewards, boss reward choices, level-up choices, continuing to the next combat, returning to town, death, and victorious retirement.
+The run flow supports combat, victory rewards, boss reward choices, level-up choices, continuing to the next combat, returning to town, death, and victorious retirement.
 
 The main run is a 100-battle ladder. Every 10th battle is a boss encounter. Defeating the final boss at battle 100 unlocks the choice to retire victorious or continue into endless progression.
 
@@ -14,7 +14,7 @@ The main run is a 100-battle ladder. Every 10th battle is a boss encounter. Defe
 
 The game currently operates through explicit run phases:
 
-- Town: the between-combat checkpoint for shopping, resting, rerolling shop inventory, inspecting the hero, and entering combat.
+- Town: an optional between-combat checkpoint after victory for shopping, resting, rerolling shop inventory, inspecting the hero, and entering combat.
 - Combat: a turn-based encounter between the hero and one enemy.
 - Dead: the run has ended after player defeat.
 - Retired: the hero ended the run after defeating the final boss.
