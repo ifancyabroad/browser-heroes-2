@@ -3,6 +3,7 @@ import type { GeneratedItemRarity, ItemBase } from "@app/content";
 import type { GeneratedItemDefinition } from "../../schemas";
 import { randomInt, type RngState, type RngResult } from "../../core/rng";
 import { SelectedItemAffixes, selectItemAffixes } from "./selectItemAffixes";
+import { addDiceFormulaModifier } from "../../core/dice";
 
 type CreateGeneratedItemDefinitionInput = {
 	base: ItemBase;
@@ -56,6 +57,8 @@ function createPlainGeneratedItem(
 	base: ItemBase,
 	common: GeneratedItemCommon,
 ): GeneratedItemDefinition {
+	const rarityBonus = getGeneratedEquipmentRarityBonus(common.rarity);
+
 	if (base.type === "weapon") {
 		return {
 			...common,
@@ -63,7 +66,10 @@ function createPlainGeneratedItem(
 			weaponType: base.weaponType,
 			handedness: base.handedness,
 			range: base.range,
-			damage: base.damage,
+			damage: {
+				...base.damage,
+				dice: addDiceFormulaModifier(base.damage.dice, rarityBonus),
+			},
 			attackRiders: [],
 		};
 	}
@@ -74,7 +80,7 @@ function createPlainGeneratedItem(
 			type: "armour",
 			slot: "body",
 			category: base.category,
-			armourClass: base.armourClass,
+			armourClass: base.armourClass + rarityBonus,
 		};
 	}
 
@@ -139,4 +145,15 @@ function calculateGeneratedItemPrice(basePrice: number, rarity: GeneratedItemRar
 	};
 
 	return Math.max(1, Math.round(basePrice * rarityMultiplier[rarity]));
+}
+
+const generatedEquipmentRarityBonuses: Record<GeneratedItemRarity, number> = {
+	common: 0,
+	uncommon: 1,
+	rare: 2,
+	epic: 3,
+};
+
+function getGeneratedEquipmentRarityBonus(rarity: GeneratedItemRarity): number {
+	return generatedEquipmentRarityBonuses[rarity];
 }

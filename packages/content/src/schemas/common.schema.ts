@@ -117,7 +117,7 @@ export const diceSchema = z.enum(dice);
 export const diceFormulaSchema = z
 	.string()
 	.regex(
-		/^\d+d(4|6|8|10|12|20|100)([+-]\d+)?$/,
+		/^[1-9]\d*d(4|6|8|10|12|20|100)([+-]\d+)?$/,
 		"Expected a valid dice formula such as 1d6, 2d8+3, or 1d20-1",
 	);
 

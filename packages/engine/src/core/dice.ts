@@ -52,6 +52,28 @@ export function parseDiceFormula(formula: DiceFormula): ParsedDiceFormula {
 	};
 }
 
+export function addDiceFormulaModifier(formula: DiceFormula, modifier: number): DiceFormula {
+	if (!Number.isInteger(modifier)) {
+		throw new Error(`Dice formula modifier must be an integer: ${modifier}`);
+	}
+
+	if (modifier === 0) {
+		return formula;
+	}
+
+	const parsed = parseDiceFormula(formula);
+	const combinedModifier = parsed.modifier + modifier;
+
+	const modifierSuffix =
+		combinedModifier === 0
+			? ""
+			: combinedModifier > 0
+				? `+${combinedModifier}`
+				: `${combinedModifier}`;
+
+	return `${parsed.count}d${parsed.sides}${modifierSuffix}`;
+}
+
 export function rollDie(rngState: RngState, sides: DieSides): RngResult<DieRoll> {
 	const result = randomInt(rngState, 1, sides);
 
