@@ -13,8 +13,6 @@ export default buildItemBase({
 		type: "crushing",
 		attribute: "strength",
 	},
-	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O838EeKMsy_Xw7WPyND?alt=media&token=12b74f85-8519-4eb3-b78f-ad018ae687eb",
-	],
+	iconPool: ["items/weapons/clubs/Club_v2_01.png"],
 	tags: [],
 });

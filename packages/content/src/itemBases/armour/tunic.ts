@@ -9,7 +9,15 @@ export default buildItemBase({
 	category: "cloth",
 	armourClass: 10,
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nm2GvWJKAW8lLaCcu7n?alt=media&token=bd8faa1f-a72b-47ae-a12d-f7c7f6cc5202",
+		"items/armour/chest/Chest_22.png",
+		"items/armour/chest/Chest_30_trader.png",
+		"items/armour/chest/Chest_73.png",
+		"items/armour/chest/Chest_74.png",
+		"items/armour/chest/Chest_75.png",
+		"items/armour/chest/Chest_76.png",
+		"items/armour/chest/Chest_78.png",
+		"items/armour/chest/Chest_79_adventure.png",
+		"items/armour/chest/Chest_80.png",
 	],
 	tags: [],
 });

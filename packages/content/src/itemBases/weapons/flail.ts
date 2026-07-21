@@ -14,7 +14,11 @@ export default buildItemBase({
 		attribute: "strength",
 	},
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O86LrSuGHIRtQuAJJAq?alt=media&token=910719f5-7fc8-4fbd-aa17-761da5c9ed1b",
+		"items/weapons/clubs/Club_v2_15.png",
+		"items/weapons/clubs/Club_v2_16.png",
+		"items/weapons/clubs/Club_v2_17.png",
+		"items/weapons/clubs/Club_v2_18.png",
+		"items/weapons/clubs/Club_v2_19.png",
 	],
 	tags: [],
 });

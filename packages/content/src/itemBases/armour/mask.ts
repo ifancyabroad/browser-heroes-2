@@ -7,7 +7,11 @@ export default buildItemBase({
 	type: "armour",
 	slot: "helmet",
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NgJyJCDG-1UEccRymvT?alt=media&token=d41ffc74-1619-449d-b7a6-227b3cb71835",
+		"items/armour/helms/Helm_17.png",
+		"items/armour/helms/Helm_33.png",
+		"items/armour/helms/Helm_34_Mask.png",
+		"items/armour/helms/Helm_35_mask.png",
+		"items/armour/helms/Helm_36_mask.png",
 	],
 	tags: [],
 });

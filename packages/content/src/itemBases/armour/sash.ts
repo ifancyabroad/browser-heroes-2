@@ -7,7 +7,12 @@ export default buildItemBase({
 	type: "armour",
 	slot: "belt",
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nz9_mMbYto-jb_Yxxmx?alt=media&token=45c7eab4-6c56-4db3-883f-f05eb9400c8e",
+		"items/armour/belts/Belt_07.png",
+		"items/armour/belts/Belt_08.png",
+		"items/armour/belts/Belt_09.png",
+		"items/armour/belts/Belt_10.png",
+		"items/armour/belts/Belt_25.png",
+		"items/armour/belts/Belt_26.png",
 	],
 	tags: [],
 });

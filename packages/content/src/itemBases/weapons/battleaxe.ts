@@ -14,7 +14,13 @@ export default buildItemBase({
 		attribute: "strength",
 	},
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-NgK-mAaFXHeapzVbWAb?alt=media&token=9844fb54-3d24-47d6-be21-4a488771e2f1",
+		"items/weapons/axes/Axe_01.png",
+		"items/weapons/axes/Axe_02.png",
+		"items/weapons/axes/Axe_05.png",
+		"items/weapons/axes/Axe_06.png",
+		"items/weapons/axes/Axe_09.png",
+		"items/weapons/axes/Axe_10.png",
+		"items/weapons/axes/Axe_11.png",
 	],
 	tags: [],
 });

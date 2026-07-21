@@ -8,7 +8,17 @@ export default buildItemBase({
 	type: "armour",
 	slot: "shield",
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NgJzNDx7O2sLwCLS8rd?alt=media&token=5896ce43-f035-4706-b700-1b59b1b2cdc9",
+		"items/armour/shields/shield_01.png",
+		"items/armour/shields/shield_02.png",
+		"items/armour/shields/shield_03.png",
+		"items/armour/shields/shield_4.png",
+		"items/armour/shields/shield_05.png",
+		"items/armour/shields/shield_06.png",
+		"items/armour/shields/shield_07.png",
+		"items/armour/shields/shield_08.png",
+		"items/armour/shields/Shield_v2_15.png",
+		"items/armour/shields/Shield_v2_28.png",
+		"items/armour/shields/Shield_v2_29.png",
 	],
 	tags: [],
 });

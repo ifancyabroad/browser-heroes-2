@@ -14,7 +14,16 @@ export default buildItemBase({
 		attribute: "dexterity",
 	},
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-NgNzkZJ0nG0Iep0uzOb?alt=media&token=0e1a7fc6-e4c8-4bf9-aed3-12d65deccbd4",
+		"items/weapons/crossbows/Crossbow_01.png",
+		"items/weapons/crossbows/Crossbow_02.png",
+		"items/weapons/crossbows/Crossbow_03.png",
+		"items/weapons/crossbows/Crossbow_04.png",
+		"items/weapons/crossbows/Crossbow_05.png",
+		"items/weapons/crossbows/Crossbow_06.png",
+		"items/weapons/crossbows/Crossbow_07.png",
+		"items/weapons/crossbows/Crossbow_v2_01.png",
+		"items/weapons/crossbows/Crossbow_v2_02.png",
+		"items/weapons/crossbows/Crossbow_v2_03.png",
 	],
 	tags: [],
 });

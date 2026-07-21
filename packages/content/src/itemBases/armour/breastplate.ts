@@ -9,7 +9,12 @@ export default buildItemBase({
 	category: "heavy",
 	armourClass: 16,
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-Nm2Cd-d46R6iuL4782x?alt=media&token=d8ea0126-e3f3-4aaa-a78e-01edf588b702",
+		"items/armour/chest/Chest_12.png",
+		"items/armour/chest/Chest_13.png",
+		"items/armour/chest/Chest_14_milita.png",
+		"items/armour/chest/Chest_15.png",
+		"items/armour/chest/Chest_16.png",
+		"items/armour/chest/Chest_66.png",
 	],
 	tags: [],
 });

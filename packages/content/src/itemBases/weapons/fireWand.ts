@@ -14,7 +14,9 @@ export default buildItemBase({
 		attribute: "intelligence",
 	},
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-O8858iCEuFLCYHw_B8r?alt=media&token=c4b6372c-c137-4609-a2e1-1fbedf1c903a",
+		"items/weapons/wands/Wand_v2_23.png",
+		"items/weapons/wands/Wand_v2_24.png",
+		"items/weapons/wands/Wand_v2_37.png",
 	],
 	tags: [],
 });

@@ -7,7 +7,12 @@ export default buildItemBase({
 	type: "armour",
 	slot: "gloves",
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Farmours%2F-NNvLkVyFUS4L9Zio2lO?alt=media&token=a7399be8-2084-424e-ba6c-c90cafd7b831",
+		"items/armour/gloves/Gloves_07.png",
+		"items/armour/gloves/Gloves_10.png",
+		"items/armour/gloves/Gloves_11.png",
+		"items/armour/gloves/Gloves_12.png",
+		"items/armour/gloves/Gloves_23.png",
+		"items/armour/gloves/Gloves_24.png",
 	],
 	tags: [],
 });

@@ -14,7 +14,13 @@ export default buildItemBase({
 		attribute: "strength",
 	},
 	iconPool: [
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fweapons%2F-Nc46CPWJz2atC_uII9i?alt=media&token=3bbe8a10-42ee-4987-8c65-aa9bd79730fa",
+		"items/weapons/staves/Staff_v2_01.png",
+		"items/weapons/staves/Staff_v2_02.png",
+		"items/weapons/staves/Staff_v2_03.png",
+		"items/weapons/staves/Staff_v2_04.png",
+		"items/weapons/staves/Staff_v2_05.png",
+		"items/weapons/staves/Staff_v2_06.png",
+		"items/weapons/staves/Staff_v2_07.png",
 	],
 	tags: [],
 });
