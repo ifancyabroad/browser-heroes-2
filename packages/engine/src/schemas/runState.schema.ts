@@ -11,17 +11,13 @@ export const runPhaseSchema = z.enum(["town", "combat", "dead", "retired"]);
 export const townShopSlotSchema = z.object({
 	id: z.string(),
 	item: itemInstanceSchema,
-	price: z.number().int().min(0),
 	purchased: z.boolean(),
 });
 
 export const townStateSchema = z.object({
 	shopSlots: z.array(townShopSlotSchema),
-	rerollCost: z.number().int().min(0),
-	restCost: z.number().int().min(0),
 	rerollCount: z.number().int().min(0),
 	shopLevel: z.number().int().min(1),
-	healingPotionCost: z.number().int().min(0),
 });
 
 export const runStateSchema = z.object({

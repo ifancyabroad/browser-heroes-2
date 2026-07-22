@@ -1,15 +1,18 @@
-import type { EngineResult, RunState, TownState } from "../../schemas";
+import type { EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { calculateRestCost } from "./townPricing";
 import { restoreHeroSkillCharges } from "../hero/restoreHeroSkillCharges";
+import { deriveHeroStats } from "../hero/deriveHeroStats";
 
 export function restAtTown(state: RunState): EngineResult {
 	if (state.phase !== "town" || !state.town) {
 		return failureResult(state, "TOWN_NOT_AVAILABLE");
 	}
 
-	const cost = state.town.restCost;
+	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+
+	const cost = calculateRestCost(effectiveCharisma, state.day);
 
 	if (state.gold < cost) {
 		return failureResult(state, "NOT_ENOUGH_GOLD");
@@ -17,11 +20,6 @@ export function restAtTown(state: RunState): EngineResult {
 
 	const hpRestored = Math.max(0, state.hero.maxHp - state.hero.currentHp);
 	const day = state.day + 1;
-
-	const town: TownState = {
-		...state.town,
-		restCost: calculateRestCost(state.hero, day),
-	};
 
 	return successResult(
 		{
@@ -33,7 +31,6 @@ export function restAtTown(state: RunState): EngineResult {
 				currentHp: state.hero.maxHp,
 				skills: restoreHeroSkillCharges(state.hero.skills),
 			},
-			town,
 		},
 		[
 			{

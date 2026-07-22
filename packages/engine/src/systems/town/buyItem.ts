@@ -3,6 +3,9 @@ import type { BuyItemAction, EngineResult, RunState, TownState } from "../../sch
 import { failureResult, successResult } from "../../core/result";
 import { equipItem } from "../equipment/equipItem";
 import { createItemEventPayload } from "../items/createItemEventPayload";
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
+import { deriveHeroStats } from "../hero/deriveHeroStats";
+import { calculateTownItemPrice } from "./townPricing";
 
 export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 	if (state.phase !== "town" || !state.town) {
@@ -19,7 +22,13 @@ export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 		return failureResult(state, "SHOP_SLOT_ALREADY_PURCHASED");
 	}
 
-	if (state.gold < shopSlot.price) {
+	const itemDefinition = getItemInstanceDefinition(shopSlot.item);
+
+	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+
+	const price = calculateTownItemPrice(itemDefinition.price, effectiveCharisma);
+
+	if (state.gold < price) {
 		return failureResult(state, "NOT_ENOUGH_GOLD");
 	}
 
@@ -54,7 +63,7 @@ export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 	return successResult(
 		{
 			...state,
-			gold: state.gold - shopSlot.price,
+			gold: state.gold - price,
 			hero: equipResult.hero,
 			town,
 		},
@@ -63,7 +72,7 @@ export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 				type: "ITEM_BOUGHT",
 				item: eventItem,
 				equipmentSlot: equipResult.equipmentSlot,
-				price: shopSlot.price,
+				price,
 			},
 		],
 	);

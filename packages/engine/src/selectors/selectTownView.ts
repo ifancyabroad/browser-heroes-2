@@ -7,6 +7,13 @@ import { previewEquipItem } from "../systems/equipment/previewEquipItem";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import { getZoneForRun } from "../systems/encounters/zones/getZoneForRun";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
+import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
+import {
+	calculateHealingPotionCost,
+	calculateRerollCost,
+	calculateRestCost,
+	calculateTownItemPrice,
+} from "../systems/town/townPricing";
 
 export type TownShopDestinationView = {
 	equipmentSlot: EquipmentSlot;
@@ -52,6 +59,14 @@ export function selectTownView(state: RunState): TownView | null {
 		return null;
 	}
 
+	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+
+	const rerollCost = calculateRerollCost(effectiveCharisma, state.town.rerollCount);
+
+	const restCost = calculateRestCost(effectiveCharisma, state.day);
+
+	const healingPotionCost = calculateHealingPotionCost(effectiveCharisma, state.zoneNumber);
+
 	return {
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,
@@ -60,27 +75,33 @@ export function selectTownView(state: RunState): TownView | null {
 		shopLevel: state.town.shopLevel,
 		gold: state.gold,
 
-		rerollCost: state.town.rerollCost,
-		canAffordReroll: state.gold >= state.town.rerollCost,
+		rerollCost,
+		canAffordReroll: state.gold >= rerollCost,
 
-		restCost: state.town.restCost,
-		canAffordRest: state.gold >= state.town.restCost,
+		restCost,
+		canAffordRest: state.gold >= restCost,
 		isFullyHealed: state.hero.currentHp >= state.hero.maxHp,
 
-		shopSlots: state.town.shopSlots.flatMap((slot) => createTownShopSlotView(state, slot)),
+		shopSlots: state.town.shopSlots.flatMap((slot) =>
+			createTownShopSlotView(state, slot, effectiveCharisma),
+		),
 
 		healingPotions: state.hero.healingPotions,
 		maxHealingPotions: MAX_HEALING_POTIONS,
-		healingPotionCost: state.town.healingPotionCost,
-		canAffordHealingPotion: state.gold >= state.town.healingPotionCost,
+		healingPotionCost,
+		canAffordHealingPotion: state.gold >= healingPotionCost,
 		canBuyHealingPotion:
-			state.hero.healingPotions < MAX_HEALING_POTIONS &&
-			state.gold >= state.town.healingPotionCost,
+			state.hero.healingPotions < MAX_HEALING_POTIONS && state.gold >= healingPotionCost,
 	};
 }
 
-function createTownShopSlotView(state: RunState, slot: TownShopSlot): TownShopSlotView[] {
+function createTownShopSlotView(
+	state: RunState,
+	slot: TownShopSlot,
+	effectiveCharisma: number,
+): TownShopSlotView[] {
 	const item = getItemInstanceDefinition(slot.item);
+	const price = calculateTownItemPrice(item.price, effectiveCharisma);
 
 	const validEquipmentSlots = getValidEquipmentSlots(item);
 
@@ -88,9 +109,9 @@ function createTownShopSlotView(state: RunState, slot: TownShopSlot): TownShopSl
 		{
 			id: slot.id,
 			item,
-			price: slot.price,
+			price,
 			purchased: slot.purchased,
-			canAfford: !slot.purchased && state.gold >= slot.price,
+			canAfford: !slot.purchased && state.gold >= price,
 			destinations: validEquipmentSlots.flatMap((equipmentSlot) => {
 				const preview = previewEquipItem({
 					hero: state.hero,

@@ -2,6 +2,8 @@ import type { EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { MAX_HEALING_POTIONS } from "../consumables/healingPotionConstants";
+import { deriveHeroStats } from "../hero/deriveHeroStats";
+import { calculateHealingPotionCost } from "./townPricing";
 
 export function buyHealingPotion(state: RunState): EngineResult {
 	if (state.phase !== "town" || !state.town) {
@@ -12,7 +14,9 @@ export function buyHealingPotion(state: RunState): EngineResult {
 		return failureResult(state, "HEALING_POTIONS_FULL");
 	}
 
-	const cost = state.town.healingPotionCost;
+	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+
+	const cost = calculateHealingPotionCost(effectiveCharisma, state.zoneNumber);
 
 	if (state.gold < cost) {
 		return failureResult(state, "NOT_ENOUGH_GOLD");

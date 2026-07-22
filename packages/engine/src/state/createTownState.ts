@@ -1,11 +1,6 @@
 import { townStateSchema, type HeroState, type TownState } from "../schemas";
 import type { RngResult, RngState } from "../core/rng";
-import {
-	calculateRestCost,
-	calculateRerollCost,
-	calculateShopLevel,
-	calculateHealingPotionCost,
-} from "../systems/town/townPricing";
+import { calculateShopLevel } from "../systems/town/townPricing";
 import { createTownShop } from "../systems/town/createTownShop";
 
 type CreateTownStateInput = {
@@ -13,7 +8,6 @@ type CreateTownStateInput = {
 	hero: HeroState;
 	zoneNumber: number;
 	battleNumber: number;
-	day: number;
 	rngState: RngState;
 };
 
@@ -34,9 +28,6 @@ export function createTownState(input: CreateTownStateInput): RngResult<TownStat
 		shopSlots: shop.value,
 		rerollCount,
 		shopLevel,
-		rerollCost: calculateRerollCost(input.hero, rerollCount),
-		restCost: calculateRestCost(input.hero, input.day),
-		healingPotionCost: calculateHealingPotionCost(input.hero, input.zoneNumber),
 	};
 
 	return {

@@ -3,13 +3,16 @@ import type { EngineResult, RunState, TownState } from "../../schemas";
 import { failureResult, successResult } from "../../core/result";
 import { createTownShop } from "./createTownShop";
 import { calculateRerollCost } from "./townPricing";
+import { deriveHeroStats } from "../hero/deriveHeroStats";
 
 export function rerollShop(state: RunState): EngineResult {
 	if (state.phase !== "town" || !state.town) {
 		return failureResult(state, "TOWN_NOT_AVAILABLE");
 	}
 
-	const cost = state.town.rerollCost;
+	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+
+	const cost = calculateRerollCost(effectiveCharisma, state.town.rerollCount);
 
 	if (state.gold < cost) {
 		return failureResult(state, "NOT_ENOUGH_GOLD");
@@ -30,7 +33,6 @@ export function rerollShop(state: RunState): EngineResult {
 		...state.town,
 		shopSlots: shop.value,
 		rerollCount,
-		rerollCost: calculateRerollCost(state.hero, rerollCount),
 	};
 
 	return successResult(

@@ -4,8 +4,6 @@ import { createShopItemInstanceId, createTownShopSlotId } from "../../core/ids";
 import type { RngResult, RngState } from "../../core/rng";
 import type { HeroState, TownShopSlot } from "../../schemas";
 import { createRandomItemInstance } from "../items/createRandomItemInstance";
-import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
-import { calculateTownDiscountMultiplier } from "./townPricing";
 
 const TOWN_SHOP_SLOT_COUNT = 6;
 
@@ -21,7 +19,6 @@ type CreateTownShopInput = {
 export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSlot[]> {
 	const shopSlots: TownShopSlot[] = [];
 	const excludedLegendaryItemIds = new Set<ItemId>();
-	const discountMultiplier = calculateTownDiscountMultiplier(input.hero);
 
 	let rngState = input.rngState;
 
@@ -41,12 +38,9 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 			rngState,
 		});
 
-		const itemDefinition = getItemInstanceDefinition(itemResult.value);
-
 		shopSlots.push({
 			id: shopSlotId,
 			item: itemResult.value,
-			price: Math.round(itemDefinition.price * discountMultiplier),
 			purchased: false,
 		});
 

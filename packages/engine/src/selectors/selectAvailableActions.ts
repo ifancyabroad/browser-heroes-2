@@ -11,6 +11,13 @@ import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstan
 import { isFinalBossVictory } from "../systems/endless/endlessProgression";
 import { canSwapHandWeapons } from "../systems/equipment/canSwapHandWeapons";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
+import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
+import {
+	calculateHealingPotionCost,
+	calculateRerollCost,
+	calculateRestCost,
+	calculateTownItemPrice,
+} from "../systems/town/townPricing";
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
@@ -151,28 +158,33 @@ function getTownActions(state: RunState): EngineAction[] {
 		return [];
 	}
 
+	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+
+	const rerollCost = calculateRerollCost(effectiveCharisma, state.town.rerollCount);
+
+	const restCost = calculateRestCost(effectiveCharisma, state.day);
+
+	const healingPotionCost = calculateHealingPotionCost(effectiveCharisma, state.zoneNumber);
+
 	const actions: EngineAction[] = [
 		{
 			type: "ENTER_COMBAT",
 		},
 	];
 
-	if (state.gold >= state.town.rerollCost) {
+	if (state.gold >= rerollCost) {
 		actions.push({
 			type: "REROLL_SHOP",
 		});
 	}
 
-	if (state.gold >= state.town.restCost) {
+	if (state.gold >= restCost) {
 		actions.push({
 			type: "REST_AT_TOWN",
 		});
 	}
 
-	if (
-		state.hero.healingPotions < MAX_HEALING_POTIONS &&
-		state.gold >= state.town.healingPotionCost
-	) {
+	if (state.hero.healingPotions < MAX_HEALING_POTIONS && state.gold >= healingPotionCost) {
 		actions.push({
 			type: "BUY_CONSUMABLE",
 			consumableType: "healingPotion",
@@ -185,22 +197,27 @@ function getTownActions(state: RunState): EngineAction[] {
 		});
 	}
 
-	actions.push(...getBuyItemActions(state));
+	actions.push(...getBuyItemActions(state, effectiveCharisma));
 
 	return actions;
 }
 
-function getBuyItemActions(state: RunState): EngineAction[] {
+function getBuyItemActions(state: RunState, effectiveCharisma: number): EngineAction[] {
 	if (!state.town) {
 		return [];
 	}
 
 	return state.town.shopSlots.flatMap((slot): EngineAction[] => {
-		if (slot.purchased || state.gold < slot.price) {
+		if (slot.purchased) {
 			return [];
 		}
 
 		const item = getItemInstanceDefinition(slot.item);
+		const price = calculateTownItemPrice(item.price, effectiveCharisma);
+
+		if (state.gold < price) {
+			return [];
+		}
 
 		const validEquipmentSlots = getValidEquipmentSlots(item);
 
