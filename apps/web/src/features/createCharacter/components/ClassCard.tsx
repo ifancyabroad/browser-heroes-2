@@ -1,4 +1,5 @@
 import { SKILLS_BY_ID, type Class, type ClassId } from "@app/content";
+import { resolveImageUrl } from "../../../utils/image";
 
 type ClassCardProps = {
 	gameClass: Class;
@@ -22,7 +23,7 @@ export function ClassCard({ gameClass, onChoose }: ClassCardProps) {
 		>
 			<span className="flex min-w-0 items-start gap-3">
 				<img
-					src={gameClass.icon}
+					src={resolveImageUrl(gameClass.icon)}
 					alt=""
 					width="56"
 					height="56"

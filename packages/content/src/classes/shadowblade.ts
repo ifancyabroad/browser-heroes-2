@@ -4,10 +4,9 @@ export default buildClass({
 	id: "shadowblade",
 	name: "Shadowblade",
 	description: "Assassin forged in darkness, blending magic and steel to silence foes.",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI76C9UljPe-6hnDUcP%2Fportrait?alt=media&token=983dc552-318e-4a5c-802b-29681430c044",
-	enemyPortrait: "classes/enemy_portrait/shadowblade.png",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI76C9UljPe-6hnDUcP%2Ficon?alt=media&token=79b84c2f-6204-49ef-87e4-99eb50cc736b",
+	portrait: "classes/portraits/shadowblade.png",
+	enemyPortrait: "classes/enemy_portraits/shadowblade.png",
+	icon: "classes/icons/shadowblade.png",
 	attributes: {
 		charisma: 10,
 		constitution: 14,

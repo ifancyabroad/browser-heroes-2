@@ -16,7 +16,7 @@ import {
 	getItemRarityTextClassName,
 	getPrimaryItemStat,
 } from "../../../game/itemDisplay";
-import { resolveImageUrl } from "apps/web/src/utils/image";
+import { resolveImageUrl } from "../../../utils/image";
 
 type TownShopItemCardProps = {
 	slot: TownShopSlotView;

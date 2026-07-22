@@ -4,10 +4,9 @@ export default buildClass({
 	id: "priest",
 	name: "Priest",
 	description: "Dedicated to the Gods, wielding both shadow and holy energy.",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2Fportrait?alt=media&token=5706e514-d9c2-4b14-b6cc-7c4ba2098b66",
-	enemyPortrait: "classes/enemy_portrait/priest.png",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2Ficon?alt=media&token=5a190297-3ee0-4e43-afb7-f59c86c339c8",
+	portrait: "classes/portraits/priest.png",
+	enemyPortrait: "classes/enemy_portraits/priest.png",
+	icon: "classes/icons/priest.png",
 	attributes: {
 		charisma: 10,
 		constitution: 14,

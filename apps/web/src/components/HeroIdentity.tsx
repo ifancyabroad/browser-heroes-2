@@ -1,5 +1,6 @@
 import { CLASSES_BY_ID, type ClassId } from "@app/content";
 import { Badge } from "./Badge";
+import { resolveImageUrl } from "../utils/image";
 
 export function HeroIdentity({
 	name,
@@ -15,7 +16,7 @@ export function HeroIdentity({
 	return (
 		<div className="flex min-w-0 items-center gap-2 sm:min-w-52">
 			<img
-				src={heroClass.icon}
+				src={resolveImageUrl(heroClass.icon)}
 				alt=""
 				width="40"
 				height="40"

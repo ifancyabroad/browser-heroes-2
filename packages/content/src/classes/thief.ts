@@ -4,10 +4,9 @@ export default buildClass({
 	id: "thief",
 	name: "Thief",
 	description: "Unscrupulous and underhanded, strikes from the shadows.",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-N_OzueqvUwAUNXnlWpb%2Fportrait?alt=media&token=de94ca09-ad4c-475c-90e1-4a366208dcfd",
-	enemyPortrait: "classes/enemy_portrait/thief.png",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-N_OzueqvUwAUNXnlWpb%2Ficon?alt=media&token=17a65949-4a70-4c8a-9c6a-398da73a2806",
+	portrait: "classes/portraits/thief.png",
+	enemyPortrait: "classes/enemy_portraits/thief.png",
+	icon: "classes/icons/thief.png",
 	attributes: {
 		charisma: 14,
 		constitution: 14,

@@ -4,10 +4,9 @@ export default buildClass({
 	id: "battlemage",
 	name: "Battlemage",
 	description: "Proficient in both the arcane arts and melee combat.",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI74eayTZduv3tnmUwr%2Fportrait?alt=media&token=ee81b607-5af5-4126-9c1e-2ab9d8eb56ea",
-	enemyPortrait: "classes/enemy_portrait/battlemage.png",
-	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI74eayTZduv3tnmUwr%2Ficon?alt=media&token=3447cdc1-06c8-4157-80e4-29eee998492c",
+	portrait: "classes/portraits/battlemage.png",
+	enemyPortrait: "classes/enemy_portraits/battlemage.png",
+	icon: "classes/icons/battlemage.png",
 	attributes: {
 		charisma: 10,
 		constitution: 14,
