@@ -39,8 +39,8 @@ export const combatStatShortLabels = {
 	attackRollBonus: "Attack",
 	savingThrowBonus: "Save",
 	saveDcBonus: "Save DC",
-	critChance: "Crit",
-	critMultiplier: "Crit x",
+	criticalRangeBonus: "Crit Range",
+	criticalDiceMultiplierBonus: "Crit Dice",
 	healingMultiplier: "Healing",
 } as const;
 
@@ -50,8 +50,8 @@ export const combatStatLabels = {
 	attackRollBonus: "Attack Roll Bonus",
 	savingThrowBonus: "Saving Throw Bonus",
 	saveDcBonus: "Save DC Bonus",
-	critChance: "Critical Chance",
-	critMultiplier: "Critical Multiplier",
+	criticalRangeBonus: "Critical Range Bonus",
+	criticalDiceMultiplierBonus: "Critical Dice Multiplier Bonus",
 	healingMultiplier: "Healing Multiplier",
 } as const;
 
@@ -61,8 +61,8 @@ export const modifiableStatLabels: Record<ModifiableStat, string> = {
 	attackRollBonus: combatStatShortLabels.attackRollBonus,
 	savingThrowBonus: combatStatShortLabels.savingThrowBonus,
 	saveDcBonus: combatStatShortLabels.saveDcBonus,
-	critChance: combatStatShortLabels.critChance,
-	critMultiplier: combatStatShortLabels.critMultiplier,
+	criticalRangeBonus: combatStatShortLabels.criticalRangeBonus,
+	criticalDiceMultiplierBonus: combatStatShortLabels.criticalDiceMultiplierBonus,
 	healingMultiplier: combatStatShortLabels.healingMultiplier,
 	strength: attributeShortLabels.strength,
 	dexterity: attributeShortLabels.dexterity,
@@ -78,8 +78,8 @@ export const modifiableStatFullLabels: Record<ModifiableStat, string> = {
 	attackRollBonus: combatStatLabels.attackRollBonus,
 	savingThrowBonus: combatStatLabels.savingThrowBonus,
 	saveDcBonus: combatStatLabels.saveDcBonus,
-	critChance: combatStatLabels.critChance,
-	critMultiplier: combatStatLabels.critMultiplier,
+	criticalRangeBonus: combatStatLabels.criticalRangeBonus,
+	criticalDiceMultiplierBonus: combatStatLabels.criticalDiceMultiplierBonus,
 	healingMultiplier: combatStatLabels.healingMultiplier,
 	strength: attributeLabels.strength,
 	dexterity: attributeLabels.dexterity,

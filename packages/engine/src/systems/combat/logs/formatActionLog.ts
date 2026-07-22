@@ -16,8 +16,8 @@ const statLabels: Record<ModifiableStat, string> = {
 	attackRollBonus: "attack rolls",
 	savingThrowBonus: "saving throws",
 	saveDcBonus: "save DC",
-	critChance: "critical-hit chance",
-	critMultiplier: "critical damage",
+	criticalRangeBonus: "critical range",
+	criticalDiceMultiplierBonus: "critical damage dice multiplier",
 	healingMultiplier: "healing",
 	proficiencyBonus: "proficiency bonus",
 };

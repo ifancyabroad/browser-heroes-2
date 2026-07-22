@@ -9,7 +9,7 @@ export default buildFeat({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "critChance",
+			stat: "criticalRangeBonus",
 			operation: "add",
 			value: 3,
 		},

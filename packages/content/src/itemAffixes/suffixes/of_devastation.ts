@@ -12,9 +12,9 @@ export default buildItemAffix({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "critMultiplier",
+			stat: "criticalDiceMultiplierBonus",
 			operation: "add",
-			value: 0.5,
+			value: 2,
 		},
 	],
 });

@@ -11,6 +11,7 @@ import { rollDamageDice, type DamageRollSummary } from "./rollDamageDice";
 import { applyDamageModifiers } from "./applyDamageModifiers";
 import { getEffectiveDamageModifiers } from "../effects/getEffectiveDamageModifiers";
 import { getEffectiveDamageTakenModifiers } from "../effects/getEffectiveDamageTakenModifiers";
+import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
 
 export type DamageResult = {
 	amount: number;
@@ -33,10 +34,15 @@ type CalculateDamageInput = {
 };
 
 export function calculateDamage(input: CalculateDamageInput): RngResult<DamageResult> {
+	const criticalDiceMultiplierBonus = input.critical
+		? getEffectiveCombatStatValue(input.attacker, "criticalDiceMultiplierBonus")
+		: 0;
+
 	const roll = rollDamageDice({
 		rngState: input.rngState,
 		formula: input.dice,
 		critical: input.critical,
+		criticalDiceMultiplierBonus,
 	});
 
 	const abilityModifier = input.attribute

@@ -15,7 +15,7 @@ export default buildFeat({
 		},
 		{
 			type: "modifyStat",
-			stat: "critChance",
+			stat: "criticalRangeBonus",
 			operation: "add",
 			value: 1,
 		},

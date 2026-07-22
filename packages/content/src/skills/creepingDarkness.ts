@@ -19,7 +19,7 @@ export default buildSkill({
 		{
 			type: "modifyStat",
 			target: "enemy",
-			stat: "critChance",
+			stat: "criticalRangeBonus",
 			operation: "add",
 			value: -5,
 			durationTurns: 4,

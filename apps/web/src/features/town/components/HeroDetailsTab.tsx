@@ -71,14 +71,14 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			signed: true,
 		},
 		{
-			label: combatStatShortLabels.critChance,
-			fullLabel: combatStatLabels.critChance,
-			stat: getStatPresentation(heroView.combatStats.critChance),
+			label: combatStatShortLabels.criticalRangeBonus,
+			fullLabel: combatStatLabels.criticalRangeBonus,
+			stat: getStatPresentation(heroView.combatStats.criticalRangeBonus),
 		},
 		{
-			label: combatStatShortLabels.critMultiplier,
-			fullLabel: combatStatLabels.critMultiplier,
-			stat: getStatPresentation(heroView.combatStats.critMultiplier),
+			label: combatStatShortLabels.criticalDiceMultiplierBonus,
+			fullLabel: combatStatLabels.criticalDiceMultiplierBonus,
+			stat: getStatPresentation(heroView.combatStats.criticalDiceMultiplierBonus),
 		},
 		{
 			label: combatStatShortLabels.healingMultiplier,

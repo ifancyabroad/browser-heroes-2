@@ -44,7 +44,11 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 
 	const targetArmourClass = getEffectiveCombatStatValue(input.defender, "armourClass");
 
-	const critical = roll.value.isNaturalTwenty;
+	const criticalRangeBonus = getEffectiveCombatStatValue(input.attacker, "criticalRangeBonus");
+	const criticalThreshold = 20 - criticalRangeBonus;
+	const critical =
+		roll.value.isNaturalTwenty ||
+		(!roll.value.isNaturalOne && roll.value.roll >= criticalThreshold);
 
 	const hit = critical || (!roll.value.isNaturalOne && total >= targetArmourClass);
 

@@ -17,7 +17,7 @@ export default buildArmour({
 		},
 		{
 			type: "modifyStat",
-			stat: "critChance",
+			stat: "criticalRangeBonus",
 			operation: "add",
 			value: 2,
 		},

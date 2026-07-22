@@ -17,13 +17,16 @@ type RollDamageDiceInput = {
 	rngState: RngState;
 	formula: DiceFormula;
 	critical?: boolean;
+	criticalDiceMultiplierBonus?: number;
 };
 
 export function rollDamageDice(input: RollDamageDiceInput): RngResult<DamageRollSummary> {
 	const critical = input.critical ?? false;
 	const parsed = parseDiceFormula(input.formula);
 
-	const rollCount = critical ? parsed.count * 2 : parsed.count;
+	const diceMultiplier = critical ? 2 + (input.criticalDiceMultiplierBonus ?? 0) : 1;
+
+	const rollCount = parsed.count * diceMultiplier;
 
 	let nextRngState = input.rngState;
 	const rolls: number[] = [];

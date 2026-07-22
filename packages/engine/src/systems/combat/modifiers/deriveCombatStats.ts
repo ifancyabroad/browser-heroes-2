@@ -22,8 +22,8 @@ export type DerivedCombatStats = {
 	attackRollBonus: DerivedValue;
 	savingThrowBonus: DerivedValue;
 	saveDcBonus: DerivedValue;
-	critChance: DerivedValue;
-	critMultiplier: DerivedValue;
+	criticalRangeBonus: DerivedValue;
+	criticalDiceMultiplierBonus: DerivedValue;
 	healingMultiplier: DerivedValue;
 	damageAffinities: DerivedDamageAffinities;
 	damageModifiers: DerivedDamageModifier[];
@@ -55,9 +55,13 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 
 		saveDcBonus: resolveModifiedStat("saveDcBonus", 0, modifiers),
 
-		critChance: resolveModifiedStat("critChance", 0, modifiers),
+		criticalRangeBonus: resolveNonNegativeIntegerStat("criticalRangeBonus", 0, modifiers),
 
-		critMultiplier: resolveModifiedStat("critMultiplier", 2, modifiers),
+		criticalDiceMultiplierBonus: resolveNonNegativeIntegerStat(
+			"criticalDiceMultiplierBonus",
+			0,
+			modifiers,
+		),
 
 		healingMultiplier: resolveModifiedStat("healingMultiplier", 1, modifiers),
 
@@ -70,7 +74,7 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 }
 
 function resolveNonNegativeIntegerStat(
-	stat: "armourClass" | "proficiencyBonus",
+	stat: "armourClass" | "proficiencyBonus" | "criticalRangeBonus" | "criticalDiceMultiplierBonus",
 	baseValue: number,
 	modifiers: readonly ResolvedModifier[],
 ): DerivedValue {
@@ -89,8 +93,8 @@ export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCo
 		attackRollBonus: derived.attackRollBonus.value,
 		savingThrowBonus: derived.savingThrowBonus.value,
 		saveDcBonus: derived.saveDcBonus.value,
-		critChance: derived.critChance.value,
-		critMultiplier: derived.critMultiplier.value,
+		criticalRangeBonus: derived.criticalRangeBonus.value,
+		criticalDiceMultiplierBonus: derived.criticalDiceMultiplierBonus.value,
 		healingMultiplier: derived.healingMultiplier.value,
 		damageAffinities: toDamageAffinities(derived.damageAffinities),
 		damageModifiers: toCombatantDamageModifiers(derived.damageModifiers),
