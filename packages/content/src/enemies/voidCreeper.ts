@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "void_creeper",
 	name: "Void Creeper",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O9dNPoAEQhZpCpSnOye?alt=media&token=3aef2883-32c4-48ac-9eeb-b27138ccb665",
+	portrait: "enemies/ocean/void_creeper.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

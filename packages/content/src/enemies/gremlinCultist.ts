@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "gremlin_cultist",
 	name: "Gremlin Cultist",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9PwVr22rd-Chw1ykw?alt=media&token=1812558e-0bdc-49e0-8074-1ad8680833b4",
+	portrait: "enemies/dungeon/gremlin_cultist.png",
 	rank: "normal",
 	threat: 14,
 	attributes: {

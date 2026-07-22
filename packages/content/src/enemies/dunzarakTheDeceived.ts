@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dunzarak_the_deceived",
 	name: "Dunzarak the Deceived",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC4s3cRf4Z7obD_VqTQ?alt=media&token=f96721a3-ca4e-40a7-b67c-7039a7f1cee9",
+	portrait: "enemies/abyss/dunzarak_the_deceived.png",
 	rank: "boss",
 	threat: 24,
 	attributes: {

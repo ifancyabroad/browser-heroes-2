@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "cursed_guardian",
 	name: "Cursed Guardian",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC4gpGHT8virE-rpPW4?alt=media&token=4dcf99f3-4ca3-4f9d-9535-b32dd956908c",
+	portrait: "enemies/abyss/cursed_guardian.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

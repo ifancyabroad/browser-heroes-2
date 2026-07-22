@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "winged_nightmare",
 	name: "Winged Nightmare",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC4ktfHDKaMkQPE_pHx?alt=media&token=5fcad994-cc82-4111-b9b4-57009dd40514",
+	portrait: "enemies/abyss/winged_nightmare.png",
 	rank: "normal",
 	threat: 19,
 	attributes: {

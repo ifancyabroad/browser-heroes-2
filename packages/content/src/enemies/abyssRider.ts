@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abyss_rider",
 	name: "Abyss Rider",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC4WTNNAtwspArSOQjX?alt=media&token=488c44be-c89e-4501-bd74-6e1f9132ea10",
+	portrait: "enemies/abyss/abyss_rider.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

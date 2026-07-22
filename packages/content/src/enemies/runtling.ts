@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "runtling",
 	name: "Runtling",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NKsyKI9WEI82s5dZFJ_?alt=media&token=45711dab-2627-4d69-9314-5ebe9d443818",
+	portrait: "enemies/forest/runtling.png",
 	rank: "normal",
 	threat: 4,
 	attributes: {

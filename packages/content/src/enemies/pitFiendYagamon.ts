@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "pit_fiend_yagamon",
 	name: "Pit Fiend Yagamon",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O1g5UbnObhA-7IMjEhj?alt=media&token=607165fd-970a-42c7-909c-0c366825351e",
+	portrait: "enemies/volcano/pit_fiend_yagamon.png",
 	rank: "boss",
 	threat: 22,
 	attributes: {

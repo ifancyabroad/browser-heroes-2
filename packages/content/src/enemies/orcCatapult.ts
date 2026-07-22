@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_catapult",
 	name: "Orc Catapult",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC-nWLztbFpJO85EUGY?alt=media&token=f1fb0a85-0153-424f-98b5-cfcacb9173da",
+	portrait: "enemies/plains/orc_catapult.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

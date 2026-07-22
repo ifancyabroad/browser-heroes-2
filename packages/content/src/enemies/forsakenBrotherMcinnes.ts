@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "forsaken_brother_mcinnes",
 	name: "Forsaken Brother McInnes",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC7opH8h6jHe_KfFoND?alt=media&token=011f1cb2-db44-4353-a6b5-1ac6de62e142",
+	portrait: "enemies/abyss/forsaken_brother_mcinnes.png",
 	rank: "boss",
 	threat: 23,
 	attributes: {

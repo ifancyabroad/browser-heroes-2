@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_engineer",
 	name: "Goblin Engineer",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC4PtHUmQIZX6B7gfXs?alt=media&token=e4fbcd11-2c14-4df7-a6e1-c2c65f497abf",
+	portrait: "enemies/abyss/goblin_engineer.png",
 	rank: "normal",
 	threat: 12,
 	attributes: {

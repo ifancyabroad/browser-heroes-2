@@ -4,8 +4,7 @@ export default buildEnemy({
 	id: "drakus_the_awakened",
 	name: "Drakus the Awakened",
 	description: "A dragon.",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NNvOKycvGLGjgkXhAwj?alt=media&token=c2519452-b55a-4e83-8e7f-cc06ec866d16",
+	portrait: "enemies/volcano/drakus_the_awakened.png",
 	rank: "boss",
 	threat: 23,
 	attributes: {

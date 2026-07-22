@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "basilisk",
 	name: "Basilisk",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NgTPWvUSrJHK-FcH_R1?alt=media&token=922dafba-7a03-44fe-99c6-68631296b765",
+	portrait: "enemies/volcano/basilisk.png",
 	rank: "normal",
 	threat: 11,
 	attributes: {

@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_drake",
 	name: "Fire Drake",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NhkeXYbGnQ67kC7gWyw?alt=media&token=e1a3bff8-36b5-4df4-abef-870060c3b0aa",
+	portrait: "enemies/volcano/fire_drake.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

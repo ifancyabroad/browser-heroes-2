@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ratman_shaman",
 	name: "Ratman Shaman",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O9_V4rlMkRjOWIDQarx?alt=media&token=c97fd8ce-bd9c-4f2a-9778-aa3567bfb6d1",
+	portrait: "enemies/desert/ratman_shaman.png",
 	rank: "normal",
 	threat: 11,
 	attributes: {

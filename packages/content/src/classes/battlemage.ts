@@ -6,8 +6,7 @@ export default buildClass({
 	description: "Proficient in both the arcane arts and melee combat.",
 	portrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI74eayTZduv3tnmUwr%2Fportrait?alt=media&token=ee81b607-5af5-4126-9c1e-2ab9d8eb56ea",
-	enemyPortrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI74eayTZduv3tnmUwr%2FfallenImage?alt=media&token=2514440c-0b14-4e9d-9e10-6efaed9b208d",
+	enemyPortrait: "classes/enemy_portrait/battlemage.png",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI74eayTZduv3tnmUwr%2Ficon?alt=media&token=3447cdc1-06c8-4157-80e4-29eee998492c",
 	attributes: {
 		charisma: 10,

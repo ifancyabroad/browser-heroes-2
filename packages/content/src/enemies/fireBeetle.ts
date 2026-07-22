@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_beetle",
 	name: "Fire Beetle",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NgTnsfQ_nzEzn_ochM3?alt=media&token=fd6e145d-18ef-4869-88b7-d35fd0d9d1bb",
+	portrait: "enemies/volcano/fire_beetle.png",
 	rank: "normal",
 	threat: 12,
 	attributes: {

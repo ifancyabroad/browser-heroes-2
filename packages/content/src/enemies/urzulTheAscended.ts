@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "urzul_the_ascended",
 	name: "Urzul the Ascended",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC-scXzx5GqPoZZcDX_?alt=media&token=2b04abb9-87ce-492a-89f9-ef0e87361574",
+	portrait: "enemies/plains/urzul_the_ascended.png",
 	rank: "boss",
 	threat: 19,
 	attributes: {

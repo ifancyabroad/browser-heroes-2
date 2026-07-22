@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "living_mold",
 	name: "Living Mold",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NhkbQX-i_HQ7Gt2qHgm?alt=media&token=a269a32a-249f-494f-9674-f0eddcdaa190",
+	portrait: "enemies/forest/living_mold.png",
 	rank: "normal",
 	threat: 8,
 	attributes: {

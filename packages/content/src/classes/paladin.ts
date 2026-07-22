@@ -6,8 +6,7 @@ export default buildClass({
 	description: "A noble warrior bound by divine oath, wielding both sword and faith.",
 	portrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI71oq4C31il2XnXrif%2Fportrait?alt=media&token=2f757f8a-34b2-4be3-b9f6-dcc695c1ba64",
-	enemyPortrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI71oq4C31il2XnXrif%2FfallenImage?alt=media&token=2d3ad26c-8564-4cef-b624-dbd846dd096c",
+	enemyPortrait: "classes/enemy_portrait/paladin.png",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OI71oq4C31il2XnXrif%2Ficon?alt=media&token=e85e8965-f963-4c09-bff5-5185c0982692",
 	attributes: {
 		charisma: 12,

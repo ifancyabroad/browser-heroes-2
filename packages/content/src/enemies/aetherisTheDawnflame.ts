@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "aetheris_the_dawnflame",
 	name: "Aetheris the Dawnflame",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OCK8vFseTxxM0LU2Ok7?alt=media&token=e0099aa3-ac12-46b8-95cd-9aaa4cf0a2ee",
+	portrait: "enemies/tower/aetheris_the_dawnflame.png",
 	rank: "boss",
 	threat: 30,
 	attributes: {

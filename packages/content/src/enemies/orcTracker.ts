@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_tracker",
 	name: "Orc Tracker",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC-hCT0lQo-TZeq1pL2?alt=media&token=3000f79b-487e-473b-90a0-9cf3606dd08d",
+	portrait: "enemies/plains/orc_tracker.png",
 	rank: "normal",
 	threat: 14,
 	attributes: {

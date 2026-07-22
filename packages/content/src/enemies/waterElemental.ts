@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "water_elemental",
 	name: "Water Elemental",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9R4bc-LU3XAlwo921?alt=media&token=ec97df23-e33f-4e06-9aca-46dd9da7495b",
+	portrait: "enemies/tower/water_elemental.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

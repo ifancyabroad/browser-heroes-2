@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ratman_warlock",
 	name: "Ratman Warlock",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O9_YM1vo2Mdr-Q-wHc3?alt=media&token=ff71c971-06c5-44ea-a248-d741781dc108",
+	portrait: "enemies/desert/ratman_warlock.png",
 	rank: "normal",
 	threat: 13,
 	attributes: {

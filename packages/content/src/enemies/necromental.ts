@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "necromental",
 	name: "Necromental",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9SIL6W0nRljBdyt11?alt=media&token=5dd8e3eb-aa6d-447d-9617-ed0acccbe512",
+	portrait: "enemies/tower/necromental.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

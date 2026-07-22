@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_forest_guardian",
 	name: "The Forest Guardian",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NhkcIl5L0eB39i3HIeJ?alt=media&token=7d74ca0b-c140-4b1e-a79f-aa7b639d0b86",
+	portrait: "enemies/forest/the_forest_guardian.png",
 	rank: "boss",
 	threat: 13,
 	attributes: {

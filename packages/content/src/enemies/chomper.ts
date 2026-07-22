@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "chomper",
 	name: "Chomper",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NgTNbCiHpz6PPDP3_Qm?alt=media&token=779abe20-411d-4a21-820f-7692aa8dfceb",
+	portrait: "enemies/forest/chomper.png",
 	rank: "normal",
 	threat: 7,
 	attributes: {

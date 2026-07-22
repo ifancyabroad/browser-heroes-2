@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "rat_ogre",
 	name: "Rat Ogre",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O9_aLIP0OdTe0rGO9QY?alt=media&token=b126fffb-7453-47d4-9f1a-1459344c8036",
+	portrait: "enemies/desert/rat_ogre.png",
 	rank: "normal",
 	threat: 14,
 	attributes: {

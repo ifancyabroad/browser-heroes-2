@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abomination",
 	name: "Abomination",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NKt3ujmy2tXghwqSM9o?alt=media&token=523b97cb-dd08-4c3c-a1dd-e44f82e0fc54",
+	portrait: "enemies/hills/abomination.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

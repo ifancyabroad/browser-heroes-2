@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "sir_michael_the_conceder",
 	name: "Sir Michael the Conceder",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC-aHa_lmK0ULBAQ4z3?alt=media&token=83dc0e92-a720-44e0-a04c-405badd818f2",
+	portrait: "enemies/castle/sir_michael_the_conceder.png",
 	rank: "boss",
 	threat: 14,
 	attributes: {

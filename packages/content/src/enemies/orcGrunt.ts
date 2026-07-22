@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_grunt",
 	name: "Orc Grunt",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC-gF7y0QsH82eTrh7n?alt=media&token=3b725386-b016-4347-bdfe-64f4f64d8b21",
+	portrait: "enemies/plains/orc_grunt.png",
 	rank: "normal",
 	threat: 11,
 	attributes: {

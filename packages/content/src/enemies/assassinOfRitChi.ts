@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "assassin_of_rit_chi",
 	name: "Assassin of Rit Chi",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O9_R3NOnT3i1DLiEKnd?alt=media&token=f15f0ecf-a296-4c06-a5db-5035e7701b32",
+	portrait: "enemies/desert/assassin_of_rit_chi.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

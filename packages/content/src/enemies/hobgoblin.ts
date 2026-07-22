@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "hobgoblin",
 	name: "Hobgoblin",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NgTNI7tNRD7gPFbOyq-?alt=media&token=4b588556-067e-4192-919e-3f097f498307",
+	portrait: "enemies/forest/hobgoblin.png",
 	rank: "normal",
 	threat: 9,
 	attributes: {

@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "cyclops",
 	name: "Cyclops",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC4XNLlQk-tb-D9BMAJ?alt=media&token=e1e9e459-1a43-4c74-8c41-57c817289468",
+	portrait: "enemies/abyss/cyclops.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "binkus_the_all_knowing",
 	name: "Binkus the All Knowing",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC8tx6bQo9WPm4r_qrW?alt=media&token=dd7d49ee-c291-4f2f-a4b0-ea21397b3b1c",
+	portrait: "enemies/dungeon/binkus_the_all_knowing.png",
 	rank: "boss",
 	threat: 25,
 	attributes: {

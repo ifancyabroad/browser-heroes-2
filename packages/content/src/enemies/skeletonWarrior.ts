@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "skeleton_warrior",
 	name: "Skeleton Warrior",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-NKt0uevyBhRIvkURXy4?alt=media&token=0bfa0d86-13d7-40b7-abae-50214d4ed2ee",
+	portrait: "enemies/hills/skeleton_warrior.png",
 	rank: "normal",
 	threat: 9,
 	attributes: {

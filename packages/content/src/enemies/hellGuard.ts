@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "hell_guard",
 	name: "Hell Guard",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9OdqzOPN2-Z14tnxO?alt=media&token=37d332a9-9861-4c88-85ca-6c9ff2a0796c",
+	portrait: "enemies/dungeon/hell_guard.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

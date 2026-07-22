@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "magma_elemental",
 	name: "Magma Elemental",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9T0NsJFrfYHqxt1nI?alt=media&token=4218dd9a-94df-4def-a67c-fc3378c273f9",
+	portrait: "enemies/tower/magma_elemental.png",
 	rank: "normal",
 	threat: 19,
 	attributes: {

@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_nameless_one",
 	name: "The Nameless One",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9QhTULKTqA4_qMU3E?alt=media&token=e08c09f2-dc55-4058-bf13-7c9badedfc7c",
+	portrait: "enemies/dungeon/the_nameless_one.png",
 	rank: "boss",
 	threat: 26,
 	attributes: {

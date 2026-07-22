@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dracolich",
 	name: "Dracolich",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9OF2HqGp-rpiUO0C6?alt=media&token=9049c523-27b1-440e-9787-d1b62f46a859",
+	portrait: "enemies/dungeon/dracolich.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

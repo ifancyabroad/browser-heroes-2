@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ice_elemental",
 	name: "Ice Elemental",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC9RSTcdzO5pmuTfjSM?alt=media&token=e7f747be-4aeb-4e67-ba18-2cbde44ffdb5",
+	portrait: "enemies/tower/ice_elemental.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

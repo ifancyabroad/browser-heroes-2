@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "lurker",
 	name: "Lurker",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC4d8dm_1E4j77WgLI5?alt=media&token=5172fe78-33df-4243-81cb-5f2697d2a3a7",
+	portrait: "enemies/abyss/lurker.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

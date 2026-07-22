@@ -18,6 +18,7 @@ import { Battlefield } from "./Battlefield";
 import { CombatSidebar } from "./CombatSidebar";
 import { CombatantPanel } from "./CombatantPanel";
 import { formatTitle } from "../../../game/effectDisplay";
+import { resolveImageUrl } from "../../../utils/image";
 
 type CombatViewProps = {
 	run: RunView;
@@ -206,7 +207,7 @@ export function CombatView({ run }: CombatViewProps) {
 					<Battlefield
 						enemyId={combat.enemy.id}
 						enemyCurrentHp={combat.enemy.currentHp}
-						enemyPortrait={combat.enemy.portrait}
+						enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
 						enemyName={combat.enemy.name}
 						isEnemySlain={isEnemySlain}
 						nextZone={nextZone}

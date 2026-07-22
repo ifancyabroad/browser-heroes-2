@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "chaos_knight",
 	name: "Chaos Knight",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC8tNczeWUPU9bCX5o4?alt=media&token=49c6b657-5da0-4639-931b-12b9dd50d725",
+	portrait: "enemies/dungeon/chaos_knight.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

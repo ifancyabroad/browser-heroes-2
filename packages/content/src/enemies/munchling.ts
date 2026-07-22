@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "munchling",
 	name: "Munchling",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O9dLuxaOA1hXh3U7Mnv?alt=media&token=96b4d19f-9b3b-47ca-8f58-a654fea15e5f",
+	portrait: "enemies/ocean/munchling.png",
 	rank: "normal",
 	threat: 11,
 	attributes: {

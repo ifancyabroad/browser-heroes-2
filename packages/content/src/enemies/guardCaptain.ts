@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "guard_captain",
 	name: "Guard Captain",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC-KDRuLZZFywpQQzVs?alt=media&token=9e410478-e066-4f14-9d0c-5ead734171d5",
+	portrait: "enemies/castle/guard_captain.png",
 	rank: "normal",
 	threat: 12,
 	attributes: {

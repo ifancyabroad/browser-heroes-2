@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_royal_ballista",
 	name: "The Royal Ballista",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-OC-V5qou-xrOAQnh3Qm?alt=media&token=bbf8f1c8-9e5a-4df0-aa9f-71dba245b771",
+	portrait: "enemies/castle/the_royal_ballista.png",
 	rank: "boss",
 	threat: 15,
 	attributes: {

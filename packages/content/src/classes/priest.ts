@@ -6,8 +6,7 @@ export default buildClass({
 	description: "Dedicated to the Gods, wielding both shadow and holy energy.",
 	portrait:
 		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2Fportrait?alt=media&token=5706e514-d9c2-4b14-b6cc-7c4ba2098b66",
-	enemyPortrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2FfallenImage?alt=media&token=e9a18220-283a-4c0f-837f-20607ecd2e17",
+	enemyPortrait: "classes/enemy_portrait/priest.png",
 	icon: "https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fclasses%2F-OHcffU4_J4vJV5nPD1l%2Ficon?alt=media&token=5a190297-3ee0-4e43-afb7-f59c86c339c8",
 	attributes: {
 		charisma: 10,

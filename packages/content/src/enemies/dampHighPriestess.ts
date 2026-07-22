@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "damp_high_priestess",
 	name: "Damp High Priestess",
-	portrait:
-		"https://firebasestorage.googleapis.com/v0/b/monster-manual.appspot.com/o/images%2Fmonsters%2F-O9dQ6Mfco5z_8Yt4o-t?alt=media&token=37e454c3-4137-43e9-b96a-ebffe5d12d31",
+	portrait: "enemies/ocean/damp_high_priestess.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {
