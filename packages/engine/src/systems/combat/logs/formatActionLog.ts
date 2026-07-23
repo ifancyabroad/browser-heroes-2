@@ -19,7 +19,6 @@ const statLabels: Record<ModifiableStat, string> = {
 	criticalRangeBonus: "critical range",
 	criticalDiceMultiplierBonus: "critical damage dice multiplier",
 	healingMultiplier: "healing",
-	proficiencyBonus: "proficiency bonus",
 };
 
 export function formatSkillHeading(

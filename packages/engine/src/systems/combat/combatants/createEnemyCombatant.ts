@@ -2,7 +2,6 @@ import type { Enemy } from "@app/content";
 import type { CombatantState } from "../../../schemas";
 
 import { calculateMaxHpForLevel } from "../../progression/health/calculateMaxHpForLevel";
-import { calculateBaseProficiencyBonus } from "../../combat/rules/calculateBaseProficiencyBonus";
 import { createCombatantId } from "../../../core/ids";
 import { deriveAttributes } from "../modifiers/deriveAttributes";
 import { deriveCombatStats, toCombatantCombatStats } from "../modifiers/deriveCombatStats";
@@ -33,7 +32,6 @@ export function createEnemyCombatant(
 
 	const derivedCombatStats = deriveCombatStats({
 		baseArmourClass: enemy.combat.armourClass,
-		baseProficiencyBonus: calculateBaseProficiencyBonus(level),
 		baseDamageAffinities: enemy.combat.damageAffinities,
 		modifiers: passiveModifiers,
 	});

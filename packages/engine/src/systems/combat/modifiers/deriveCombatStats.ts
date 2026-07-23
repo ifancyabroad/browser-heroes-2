@@ -18,7 +18,6 @@ import { resolveModifiedStat } from "./resolveModifiedStat";
 
 export type DerivedCombatStats = {
 	armourClass: DerivedValue;
-	proficiencyBonus: DerivedValue;
 	attackRollBonus: DerivedValue;
 	savingThrowBonus: DerivedValue;
 	saveDcBonus: DerivedValue;
@@ -32,7 +31,6 @@ export type DerivedCombatStats = {
 
 type DeriveCombatStatsInput = {
 	baseArmourClass: number;
-	baseProficiencyBonus: number;
 	baseDamageAffinities: DamageAffinities;
 	modifiers: readonly ResolvedModifier[];
 };
@@ -42,12 +40,6 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 
 	return {
 		armourClass: resolveNonNegativeIntegerStat("armourClass", input.baseArmourClass, modifiers),
-
-		proficiencyBonus: resolveNonNegativeIntegerStat(
-			"proficiencyBonus",
-			input.baseProficiencyBonus,
-			modifiers,
-		),
 
 		attackRollBonus: resolveModifiedStat("attackRollBonus", 0, modifiers),
 
@@ -74,7 +66,7 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 }
 
 function resolveNonNegativeIntegerStat(
-	stat: "armourClass" | "proficiencyBonus" | "criticalRangeBonus" | "criticalDiceMultiplierBonus",
+	stat: "armourClass" | "criticalRangeBonus" | "criticalDiceMultiplierBonus",
 	baseValue: number,
 	modifiers: readonly ResolvedModifier[],
 ): DerivedValue {
@@ -89,7 +81,6 @@ function resolveNonNegativeIntegerStat(
 export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCombatStats {
 	return {
 		armourClass: derived.armourClass.value,
-		proficiencyBonus: derived.proficiencyBonus.value,
 		attackRollBonus: derived.attackRollBonus.value,
 		savingThrowBonus: derived.savingThrowBonus.value,
 		saveDcBonus: derived.saveDcBonus.value,

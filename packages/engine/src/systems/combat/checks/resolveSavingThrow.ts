@@ -6,6 +6,7 @@ import type { RngResult, RngState } from "../../../core/rng";
 import { rollD20, type D20Roll } from "../../../core/dice";
 import { getAttributeModifier } from "./getAttributeModifier";
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type SavingThrowResult = {
 	roll: D20Roll;
@@ -31,9 +32,7 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 
 	const proficient = input.defender.savingThrowProficiencies.includes(input.save.attribute);
 
-	const proficiencyBonus = proficient
-		? getEffectiveCombatStatValue(input.defender, "proficiencyBonus")
-		: 0;
+	const proficiencyBonus = proficient ? calculateBaseProficiencyBonus(input.defender.level) : 0;
 
 	const savingThrowBonus = getEffectiveCombatStatValue(input.defender, "savingThrowBonus");
 
@@ -43,7 +42,7 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 		input.save.dc.base +
 		getAttributeModifier(input.attacker, input.save.dc.attribute) +
 		(input.save.dc.includeProficiency
-			? getEffectiveCombatStatValue(input.attacker, "proficiencyBonus")
+			? calculateBaseProficiencyBonus(input.attacker.level)
 			: 0) +
 		getEffectiveCombatStatValue(input.attacker, "saveDcBonus") +
 		input.save.dc.bonus;

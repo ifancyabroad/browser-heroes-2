@@ -8,6 +8,7 @@ import { rollD20, type D20Roll } from "../../../core/dice";
 import { getAttributeModifier } from "./getAttributeModifier";
 
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type AttackRollResult = {
 	roll: D20Roll;
@@ -35,7 +36,7 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 	const attributeModifier = getAttributeModifier(input.attacker, input.attribute);
 
 	const proficiencyBonus = input.proficient
-		? getEffectiveCombatStatValue(input.attacker, "proficiencyBonus")
+		? calculateBaseProficiencyBonus(input.attacker.level)
 		: 0;
 
 	const attackRollBonus = getEffectiveCombatStatValue(input.attacker, "attackRollBonus");

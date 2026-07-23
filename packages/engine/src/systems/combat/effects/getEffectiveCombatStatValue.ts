@@ -1,13 +1,8 @@
-import type { Attribute, ModifiableStat } from "@app/content";
+import type { CombatStat } from "@app/content";
 
 import type { ActiveStatModifier, CombatantState } from "../../../schemas";
 
-type CombatStatKey = Exclude<ModifiableStat, Attribute>;
-
-export function getEffectiveCombatStatValue(
-	combatant: CombatantState,
-	stat: CombatStatKey,
-): number {
+export function getEffectiveCombatStatValue(combatant: CombatantState, stat: CombatStat): number {
 	const modifiers = combatant.activeEffects.filter(
 		(effect): effect is ActiveStatModifier =>
 			effect.type === "modifyStat" && effect.stat === stat,

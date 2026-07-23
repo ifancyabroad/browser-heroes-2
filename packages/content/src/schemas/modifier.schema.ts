@@ -1,22 +1,21 @@
 import { z } from "zod";
-import { damageTypeSchema } from "./common.schema";
+import { attributes, damageTypeSchema } from "./common.schema";
 
-export const modifiableStatSchema = z.enum([
+export const combatStats = [
 	"armourClass",
-	"proficiencyBonus",
 	"attackRollBonus",
 	"savingThrowBonus",
 	"saveDcBonus",
 	"criticalRangeBonus",
 	"criticalDiceMultiplierBonus",
 	"healingMultiplier",
-	"strength",
-	"dexterity",
-	"constitution",
-	"intelligence",
-	"wisdom",
-	"charisma",
-]);
+] as const;
+
+export const combatStatSchema = z.enum(combatStats);
+
+export const modifiableStats = [...combatStats, ...attributes] as const;
+
+export const modifiableStatSchema = z.enum(modifiableStats);
 
 export const modifierOperationSchema = z.enum(["add", "multiply", "set"]);
 
@@ -61,6 +60,7 @@ export const passiveModifierSchema = z.discriminatedUnion("type", [
 	passiveDamageAffinityModifierSchema,
 ]);
 
+export type CombatStat = z.infer<typeof combatStatSchema>;
 export type ModifiableStat = z.infer<typeof modifiableStatSchema>;
 export type ModifierOperation = z.infer<typeof modifierOperationSchema>;
 export type DamageAffinityKind = z.infer<typeof damageAffinityKindSchema>;

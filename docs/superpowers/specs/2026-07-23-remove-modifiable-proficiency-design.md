@@ -2,7 +2,8 @@
 
 ## Purpose
 
-Remove proficiency bonus from the modifier system while retaining it as a level-derived combat value.
+Remove proficiency bonus from the modifier and combat-stat systems while retaining it as a
+level-derived character value.
 
 Proficiency represents general level-based competence. Allowing equipment, feats, or temporary effects to modify it also changes proficient attack rolls, proficient saving throws, and save DCs that include proficiency. This is broader and less readable than the existing specialised modifiers for those outcomes.
 
@@ -11,7 +12,8 @@ Proficiency represents general level-based competence. Allowing equipment, feats
 This change will:
 
 - remove `proficiencyBonus` from `modifiableStatSchema`;
-- retain proficiency bonus in combatant combat stats and derive it from level;
+- remove proficiency bonus from combatant combat stats;
+- calculate proficiency directly from character or combatant level where needed;
 - delete the `Skilled` rare prefix and `Masterful` epic prefix;
 - update exhaustive labels, log formatting, schemas, generated content, and tests affected by the narrower modifiable-stat type;
 - verify that no skill, feat, item, affix, or temporary effect modifies proficiency bonus.
@@ -43,7 +45,8 @@ Generated item instances carry their generated definitions in run state, so exis
 
 ## Technical Design
 
-`proficiencyBonus` remains part of the combat stat schema because combat resolution needs the derived value. It is removed only from the union accepted by `modifyStat`.
+`proficiencyBonus` is removed from both the modifiable-stat and combat-stat schemas. Combatants
+already store level, so retaining a cached proficiency value would duplicate its authoritative input.
 
 The narrower type must propagate through:
 
@@ -55,7 +58,9 @@ The narrower type must propagate through:
 - combat log modifier labels;
 - tests and fixtures that exhaustively enumerate modifiable stats.
 
-The derived proficiency value continues to be created from combatant level and read by attack and saving-throw resolution. Those paths should require no behavioural changes.
+Attack rolls, saving throws, and save DCs calculate proficiency directly from combatant level.
+Proficiency is not included in derived hero stats or frontend stat presentation because no
+non-combat consumer currently requires it.
 
 The two affix source files will be removed, followed by the repository's normal content-generation workflow so generated IDs, registries, and manifests remain authoritative.
 
@@ -67,6 +72,7 @@ Verification should demonstrate that:
 - no content source contains a proficiency modifier;
 - content, engine, and web type checks pass;
 - modifier schema tests reject `proficiencyBonus`;
+- combat stat schema tests reject `proficiencyBonus`;
 - attack rolls still add proficiency when an attacker is proficient;
 - saving throws still add proficiency when the defender is proficient;
 - save DCs still add proficiency when configured to do so;

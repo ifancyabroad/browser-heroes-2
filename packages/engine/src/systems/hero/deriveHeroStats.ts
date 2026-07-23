@@ -12,7 +12,6 @@ import {
 } from "../combat/modifiers/collectPassiveModifiers";
 import { deriveAttributes, type DerivedAttributes } from "../combat/modifiers/deriveAttributes";
 import { deriveCombatStats, type DerivedCombatStats } from "../combat/modifiers/deriveCombatStats";
-import { calculateBaseProficiencyBonus } from "../combat/rules/calculateBaseProficiencyBonus";
 import { deriveHeroHealth } from "./deriveHeroHealth";
 
 export type DerivedHeroHealth = {
@@ -58,7 +57,6 @@ export function deriveHeroStats(hero: HeroState): DerivedHeroStats {
 
 	const combatStats = deriveCombatStats({
 		baseArmourClass: baseArmourClass.baseValue,
-		baseProficiencyBonus: calculateBaseProficiencyBonus(hero.level),
 		baseDamageAffinities: EMPTY_DAMAGE_AFFINITIES,
 		modifiers,
 	});

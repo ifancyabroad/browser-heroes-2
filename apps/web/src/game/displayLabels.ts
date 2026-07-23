@@ -35,7 +35,6 @@ export const attributeLabels: Record<Attribute, string> = {
 
 export const combatStatShortLabels = {
 	armourClass: "AC",
-	proficiencyBonus: "Prof",
 	attackRollBonus: "Attack",
 	savingThrowBonus: "Save",
 	saveDcBonus: "Save DC",
@@ -46,7 +45,6 @@ export const combatStatShortLabels = {
 
 export const combatStatLabels = {
 	armourClass: "Armour Class",
-	proficiencyBonus: "Proficiency Bonus",
 	attackRollBonus: "Attack Roll Bonus",
 	savingThrowBonus: "Saving Throw Bonus",
 	saveDcBonus: "Save DC Bonus",
@@ -57,7 +55,6 @@ export const combatStatLabels = {
 
 export const modifiableStatLabels: Record<ModifiableStat, string> = {
 	armourClass: combatStatShortLabels.armourClass,
-	proficiencyBonus: combatStatShortLabels.proficiencyBonus,
 	attackRollBonus: combatStatShortLabels.attackRollBonus,
 	savingThrowBonus: combatStatShortLabels.savingThrowBonus,
 	saveDcBonus: combatStatShortLabels.saveDcBonus,
@@ -74,7 +71,6 @@ export const modifiableStatLabels: Record<ModifiableStat, string> = {
 
 export const modifiableStatFullLabels: Record<ModifiableStat, string> = {
 	armourClass: combatStatLabels.armourClass,
-	proficiencyBonus: combatStatLabels.proficiencyBonus,
 	attackRollBonus: combatStatLabels.attackRollBonus,
 	savingThrowBonus: combatStatLabels.savingThrowBonus,
 	saveDcBonus: combatStatLabels.saveDcBonus,
