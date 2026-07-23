@@ -1,6 +1,7 @@
 import type { ActiveCombatEffect, CombatantState } from "../../../schemas";
 
 import { isSameActiveEffectSource } from "./activeEffectSource";
+import { replaceCombatantActiveEffects } from "./replaceCombatantActiveEffects";
 
 export function upsertActiveCombatEffect(
 	combatant: CombatantState,
@@ -11,15 +12,12 @@ export function upsertActiveCombatEffect(
 	);
 
 	if (existingEffectIndex === -1) {
-		return {
-			...combatant,
-			activeEffects: [...combatant.activeEffects, effect],
-		};
+		return replaceCombatantActiveEffects(combatant, [...combatant.activeEffects, effect]);
 	}
 
-	return {
-		...combatant,
-		activeEffects: combatant.activeEffects.map((activeEffect, index) => {
+	return replaceCombatantActiveEffects(
+		combatant,
+		combatant.activeEffects.map((activeEffect, index) => {
 			if (index !== existingEffectIndex) {
 				return activeEffect;
 			}
@@ -29,5 +27,5 @@ export function upsertActiveCombatEffect(
 				id: activeEffect.id,
 			};
 		}),
-	};
+	);
 }

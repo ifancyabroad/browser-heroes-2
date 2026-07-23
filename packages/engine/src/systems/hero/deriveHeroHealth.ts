@@ -11,6 +11,7 @@ type DeriveHeroHealthInput = {
 	level: number;
 	currentHp: number;
 	maxHp: number;
+	maxHpBonus: number;
 };
 
 export function deriveHeroHealth(input: DeriveHeroHealthInput): DerivedHeroHealth {
@@ -20,7 +21,7 @@ export function deriveHeroHealth(input: DeriveHeroHealthInput): DerivedHeroHealt
 
 	const constitutionHpBonus = (effectiveModifier - baseModifier) * input.level;
 
-	const maxHp = Math.max(1, input.maxHp + constitutionHpBonus);
+	const maxHp = Math.max(1, input.maxHp + constitutionHpBonus + input.maxHpBonus);
 
 	return {
 		maxHp,

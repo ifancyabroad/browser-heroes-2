@@ -1,4 +1,5 @@
 import type { ActiveCombatEffect, CombatantState } from "../../../schemas";
+import { replaceCombatantActiveEffects } from "./replaceCombatantActiveEffects";
 
 export type AdvanceActiveEffectsResult = {
 	combatant: CombatantState;
@@ -32,10 +33,7 @@ export function advanceActiveEffects(
 	}
 
 	return {
-		combatant: {
-			...combatant,
-			activeEffects,
-		},
+		combatant: replaceCombatantActiveEffects(combatant, activeEffects),
 		expiredEffects,
 	};
 }

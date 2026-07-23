@@ -41,6 +41,7 @@ export const combatStatShortLabels = {
 	criticalRangeBonus: "Crit Range",
 	criticalDiceMultiplierBonus: "Crit Dice",
 	healingMultiplier: "Healing",
+	maxHpBonus: "Max HP",
 } as const;
 
 export const combatStatLabels = {
@@ -51,6 +52,7 @@ export const combatStatLabels = {
 	criticalRangeBonus: "Critical Range Bonus",
 	criticalDiceMultiplierBonus: "Critical Dice Multiplier Bonus",
 	healingMultiplier: "Healing Multiplier",
+	maxHpBonus: "Maximum HP Bonus",
 } as const;
 
 export const modifiableStatLabels: Record<ModifiableStat, string> = {
@@ -61,6 +63,7 @@ export const modifiableStatLabels: Record<ModifiableStat, string> = {
 	criticalRangeBonus: combatStatShortLabels.criticalRangeBonus,
 	criticalDiceMultiplierBonus: combatStatShortLabels.criticalDiceMultiplierBonus,
 	healingMultiplier: combatStatShortLabels.healingMultiplier,
+	maxHpBonus: combatStatShortLabels.maxHpBonus,
 	strength: attributeShortLabels.strength,
 	dexterity: attributeShortLabels.dexterity,
 	constitution: attributeShortLabels.constitution,
@@ -77,6 +80,7 @@ export const modifiableStatFullLabels: Record<ModifiableStat, string> = {
 	criticalRangeBonus: combatStatLabels.criticalRangeBonus,
 	criticalDiceMultiplierBonus: combatStatLabels.criticalDiceMultiplierBonus,
 	healingMultiplier: combatStatLabels.healingMultiplier,
+	maxHpBonus: combatStatLabels.maxHpBonus,
 	strength: attributeLabels.strength,
 	dexterity: attributeLabels.dexterity,
 	constitution: attributeLabels.constitution,

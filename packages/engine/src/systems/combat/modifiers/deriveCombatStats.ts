@@ -24,6 +24,7 @@ export type DerivedCombatStats = {
 	criticalRangeBonus: DerivedValue;
 	criticalDiceMultiplierBonus: DerivedValue;
 	healingMultiplier: DerivedValue;
+	maxHpBonus: DerivedValue;
 	damageAffinities: DerivedDamageAffinities;
 	damageModifiers: DerivedDamageModifier[];
 	damageTakenModifiers: DerivedDamageModifier[];
@@ -56,6 +57,7 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 		),
 
 		healingMultiplier: resolveModifiedStat("healingMultiplier", 1, modifiers),
+		maxHpBonus: resolveModifiedStat("maxHpBonus", 0, modifiers),
 
 		damageAffinities: deriveDamageAffinities(input.baseDamageAffinities, modifiers),
 
@@ -87,6 +89,7 @@ export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCo
 		criticalRangeBonus: derived.criticalRangeBonus.value,
 		criticalDiceMultiplierBonus: derived.criticalDiceMultiplierBonus.value,
 		healingMultiplier: derived.healingMultiplier.value,
+		maxHpBonus: derived.maxHpBonus.value,
 		damageAffinities: toDamageAffinities(derived.damageAffinities),
 		damageModifiers: toCombatantDamageModifiers(derived.damageModifiers),
 		damageTakenModifiers: toCombatantDamageModifiers(derived.damageTakenModifiers),

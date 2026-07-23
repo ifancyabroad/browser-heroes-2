@@ -6,6 +6,8 @@ import { previewEquipItem } from "./previewEquipItem";
 
 import type { ItemInstance } from "../../schemas";
 import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
+import { deriveHeroStats } from "../hero/deriveHeroStats";
+import { adjustCurrentHpForMaxHpChange } from "../health/adjustCurrentHpForMaxHpChange";
 
 type EquipItemInput = {
 	hero: HeroState;
@@ -50,11 +52,21 @@ export function equipItem(input: EquipItemInput): EquipItemResult {
 
 	equipment[preview.equipmentSlot] = input.item;
 
+	const heroWithEquipment: HeroState = {
+		...input.hero,
+		equipment,
+	};
+	const previousMaxHp = deriveHeroStats(input.hero).health.maxHp;
+	const nextMaxHp = deriveHeroStats(heroWithEquipment).health.maxHp;
+
 	return {
 		ok: true,
 		hero: {
-			...input.hero,
-			equipment,
+			...heroWithEquipment,
+			currentHp: adjustCurrentHpForMaxHpChange(
+				input.hero.currentHp,
+				nextMaxHp - previousMaxHp,
+			),
 		},
 		equipmentSlot: preview.equipmentSlot,
 		replacedItems: preview.replacedItems,

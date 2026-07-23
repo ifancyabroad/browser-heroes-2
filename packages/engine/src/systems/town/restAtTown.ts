@@ -10,7 +10,8 @@ export function restAtTown(state: RunState): EngineResult {
 		return failureResult(state, "TOWN_NOT_AVAILABLE");
 	}
 
-	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+	const derivedHeroStats = deriveHeroStats(state.hero);
+	const effectiveCharisma = derivedHeroStats.effectiveAttributes.charisma;
 
 	const cost = calculateRestCost(effectiveCharisma, state.day);
 
@@ -18,7 +19,7 @@ export function restAtTown(state: RunState): EngineResult {
 		return failureResult(state, "NOT_ENOUGH_GOLD");
 	}
 
-	const hpRestored = Math.max(0, state.hero.maxHp - state.hero.currentHp);
+	const hpRestored = Math.max(0, derivedHeroStats.health.maxHp - state.hero.currentHp);
 	const day = state.day + 1;
 
 	return successResult(
@@ -28,7 +29,7 @@ export function restAtTown(state: RunState): EngineResult {
 			gold: state.gold - cost,
 			hero: {
 				...state.hero,
-				currentHp: state.hero.maxHp,
+				currentHp: derivedHeroStats.health.maxHp,
 				skills: restoreHeroSkillCharges(state.hero.skills),
 			},
 		},

@@ -13,6 +13,7 @@ import type {
 } from "../../../schemas";
 import { createPendingLevelUp } from "./createPendingLevelUp";
 import { createPlayerCombatant } from "../../combat/combatants/createPlayerCombatant";
+import { deriveHeroStats } from "../../hero/deriveHeroStats";
 
 export function completeLevelUp(state: RunState, action: CompleteLevelUpAction): EngineResult {
 	const pendingLevelUp = state.hero.pendingLevelUp;
@@ -31,7 +32,11 @@ export function completeLevelUp(state: RunState, action: CompleteLevelUpAction):
 		return failureResult(state, "INVALID_LEVEL_UP_SELECTION");
 	}
 
-	const updatedHero = applyLevelUpToHero(state.hero, pendingLevelUp, selectedOption);
+	const levelledHero = applyLevelUpToHero(state.hero, pendingLevelUp, selectedOption);
+	const updatedHero: HeroState = {
+		...levelledHero,
+		currentHp: deriveHeroStats(levelledHero).health.maxHp,
+	};
 
 	const nextPendingLevelUp = createPendingLevelUp(updatedHero, state.rngState);
 
@@ -52,7 +57,7 @@ export function completeLevelUp(state: RunState, action: CompleteLevelUpAction):
 				type: "LEVEL_UP_COMPLETED",
 				level: pendingLevelUp.level,
 				hpGain: pendingLevelUp.hpGain,
-				newMaxHp: finalHero.maxHp,
+				newMaxHp: deriveHeroStats(finalHero).health.maxHp,
 				selection: createCompletedSelection(selectedOption),
 			},
 		],

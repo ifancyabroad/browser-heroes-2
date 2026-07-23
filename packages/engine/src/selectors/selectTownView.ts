@@ -59,7 +59,8 @@ export function selectTownView(state: RunState): TownView | null {
 		return null;
 	}
 
-	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+	const derivedHeroStats = deriveHeroStats(state.hero);
+	const effectiveCharisma = derivedHeroStats.effectiveAttributes.charisma;
 
 	const rerollCost = calculateRerollCost(effectiveCharisma, state.town.rerollCount);
 
@@ -80,7 +81,7 @@ export function selectTownView(state: RunState): TownView | null {
 
 		restCost,
 		canAffordRest: state.gold >= restCost,
-		isFullyHealed: state.hero.currentHp >= state.hero.maxHp,
+		isFullyHealed: state.hero.currentHp >= derivedHeroStats.health.maxHp,
 
 		shopSlots: state.town.shopSlots.flatMap((slot) =>
 			createTownShopSlotView(state, slot, effectiveCharisma),

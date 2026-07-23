@@ -20,6 +20,7 @@ import { createGeneratedItemInstance } from "../systems/items/createGeneratedIte
 import { canEquipItemLike } from "../systems/items/canEquipItemLike";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { isItemBaseEligibleForRarity } from "../systems/items/isItemBaseEligibleForRarity";
+import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
 
 export type CreateInitialHeroStateInput = {
 	runId: string;
@@ -55,7 +56,10 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): RngR
 	};
 
 	return {
-		value: heroStateSchema.parse(hero),
+		value: heroStateSchema.parse({
+			...hero,
+			currentHp: deriveHeroStats(hero).health.maxHp,
+		}),
 		rngState: equipmentResult.rngState,
 	};
 }

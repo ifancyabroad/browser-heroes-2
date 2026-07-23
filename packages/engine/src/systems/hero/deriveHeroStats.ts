@@ -73,6 +73,7 @@ export function deriveHeroStats(hero: HeroState): DerivedHeroStats {
 		level: hero.level,
 		currentHp: hero.currentHp,
 		maxHp: hero.maxHp,
+		maxHpBonus: combatStats.maxHpBonus.value,
 	});
 
 	return {

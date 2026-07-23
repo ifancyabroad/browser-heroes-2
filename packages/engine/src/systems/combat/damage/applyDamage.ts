@@ -1,6 +1,7 @@
 import type { CombatantState } from "../../../schemas";
 
 import type { DamageResult } from "./calculateDamage";
+import { replaceCombatantActiveEffects } from "../effects/replaceCombatantActiveEffects";
 
 export type ApplyDamageResult = {
 	combatant: CombatantState;
@@ -32,11 +33,15 @@ export function applyDamage(combatant: CombatantState, damage: DamageResult): Ap
 		(effect) => effect.type !== "shield" || effect.remainingAmount > 0,
 	);
 
+	const combatantWithRemainingEffects = replaceCombatantActiveEffects(
+		combatant,
+		remainingActiveEffects,
+	);
+
 	return {
 		combatant: {
-			...combatant,
+			...combatantWithRemainingEffects,
 			currentHp: Math.max(0, combatant.currentHp - remainingDamage),
-			activeEffects: remainingActiveEffects,
 		},
 		hpDamage: remainingDamage,
 		absorbedDamage,

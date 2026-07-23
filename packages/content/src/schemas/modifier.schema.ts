@@ -9,6 +9,7 @@ export const combatStats = [
 	"criticalRangeBonus",
 	"criticalDiceMultiplierBonus",
 	"healingMultiplier",
+	"maxHpBonus",
 ] as const;
 
 export const combatStatSchema = z.enum(combatStats);

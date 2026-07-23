@@ -4,6 +4,7 @@ import { MAX_HERO_LEVEL } from "../systems/progression/constants/levelProgressio
 import { getLevelForXp } from "../systems/progression/level/getLevelForXp";
 import { getLevelProgression } from "../systems/progression/level/getLevelProgression";
 import { getNextLevelXp } from "../systems/progression/level/getNextLevelXp";
+import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
 
 export type HeroProgressionView = {
 	level: number;
@@ -20,6 +21,7 @@ export type HeroProgressionView = {
 export function selectHeroProgression(state: RunState): HeroProgressionView {
 	const { hero } = state;
 	const { pendingLevelUp } = hero;
+	const effectiveMaxHp = deriveHeroStats(hero).health.maxHp;
 
 	return {
 		level: hero.level,
@@ -30,6 +32,6 @@ export function selectHeroProgression(state: RunState): HeroProgressionView {
 		availableLevel: getLevelForXp(hero.xp),
 		canLevelUp: pendingLevelUp !== null,
 		pendingLevelUp,
-		resultingMaxHp: pendingLevelUp ? hero.maxHp + pendingLevelUp.hpGain : null,
+		resultingMaxHp: pendingLevelUp ? effectiveMaxHp + pendingLevelUp.hpGain : null,
 	};
 }

@@ -126,6 +126,7 @@ export const combatantCombatStatsSchema = z.object({
 	criticalRangeBonus: z.number().int().min(0),
 	criticalDiceMultiplierBonus: z.number().int().min(0),
 	healingMultiplier: z.number(),
+	maxHpBonus: z.number(),
 	damageAffinities: damageAffinitiesSchema,
 	damageModifiers: z.array(combatantDamageModifierSchema),
 	damageTakenModifiers: z.array(combatantDamageModifierSchema),

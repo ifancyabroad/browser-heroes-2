@@ -79,6 +79,12 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			fullLabel: combatStatLabels.healingMultiplier,
 			stat: getStatPresentation(heroView.combatStats.healingMultiplier),
 		},
+		{
+			label: combatStatShortLabels.maxHpBonus,
+			fullLabel: combatStatLabels.maxHpBonus,
+			stat: getStatPresentation(heroView.combatStats.maxHpBonus),
+			signed: true,
+		},
 	];
 	const resistances = getActiveAffinities(heroView.combatStats.damageAffinities.resistances);
 	const immunities = getActiveAffinities(heroView.combatStats.damageAffinities.immunities);
