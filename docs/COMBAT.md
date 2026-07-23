@@ -142,7 +142,7 @@ Skills and consumables should have:
 - deterministic resolution
 - log entries that explain what happened
 
-Supported skill effect types include direct damage, weapon attack damage, healing, status application, temporary stat modifiers, temporary outgoing damage modifiers, temporary incoming damage modifiers, temporary damage affinity modifiers, damage over time, healing over time, and shields.
+Supported skill effect types include direct damage, weapon attack damage, healing, status application, temporary stat modifiers, temporary roll modifiers, temporary outgoing damage modifiers, temporary incoming damage modifiers, temporary damage affinity modifiers, damage over time, healing over time, and shields.
 
 `removeStatus` exists in the content schema and UI formatting, but skill resolution does not support it yet. Skills containing unsupported effects are rejected by engine validation rather than partially resolved.
 
@@ -163,6 +163,8 @@ Effects define duration and expiration through explicit combat state. Reapplying
 Current timing advances effects after the affected combatant's action or skipped turn. Damage-over-time and healing-over-time effects trigger during that advancement before durations are decremented and expired effects are logged.
 
 Current statuses are `stunned` and `silenced`. Stun prevents the affected combatant from acting. Silence prevents skill use, so a silenced enemy falls back to its basic attack. Statuses and other active effects should remain understandable through visible state and combat logs.
+
+Temporary roll modifiers can grant advantage or disadvantage on the affected combatant's own attack rolls or saving throws. Saving-throw modifiers may be limited to one attribute. Advantage rolls two D20s and uses the higher result, disadvantage uses the lower result, and having both resolves as a normal single roll regardless of how many sources provide either mode.
 
 ## 11. Death and Combat End
 

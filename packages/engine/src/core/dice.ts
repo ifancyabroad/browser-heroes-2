@@ -28,6 +28,14 @@ export type D20Roll = {
 	isNaturalTwenty: boolean;
 };
 
+export type D20RollMode = "normal" | "advantage" | "disadvantage";
+
+export type D20RollSelection = {
+	roll: D20Roll;
+	rolls: D20Roll[];
+	mode: D20RollMode;
+};
+
 const supportedDieSides = new Set<number>(dice.map((die) => Number(die.slice(1))));
 
 export function parseDiceFormula(formula: DiceFormula): ParsedDiceFormula {
@@ -128,6 +136,39 @@ export function rollD20(rngState: RngState): RngResult<D20Roll> {
 			isNaturalTwenty: result.value.value === 20,
 		},
 		rngState: result.rngState,
+	};
+}
+
+export function rollD20WithMode(
+	rngState: RngState,
+	mode: D20RollMode,
+): RngResult<D20RollSelection> {
+	const firstRoll = rollD20(rngState);
+
+	if (mode === "normal") {
+		return {
+			value: {
+				roll: firstRoll.value,
+				rolls: [firstRoll.value],
+				mode,
+			},
+			rngState: firstRoll.rngState,
+		};
+	}
+
+	const secondRoll = rollD20(firstRoll.rngState);
+	const selectFirst =
+		mode === "advantage"
+			? firstRoll.value.roll >= secondRoll.value.roll
+			: firstRoll.value.roll <= secondRoll.value.roll;
+
+	return {
+		value: {
+			roll: selectFirst ? firstRoll.value : secondRoll.value,
+			rolls: [firstRoll.value, secondRoll.value],
+			mode,
+		},
+		rngState: secondRoll.rngState,
 	};
 }
 

@@ -91,6 +91,7 @@ export type {
 	ActiveDamageModifier,
 	ActiveDamageTakenModifier,
 	ActiveStatModifier,
+	ActiveRollModifier,
 	ActiveStatusEffect,
 	ActiveDamageOverTimeEffect,
 	ActiveHealOverTimeEffect,

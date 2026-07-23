@@ -121,6 +121,8 @@ export function formatSkillEffect(effect: Effect): string {
 			);
 		case "modifyDamageAffinity":
 			return formatDamageAffinityEffect(effect);
+		case "modifyRoll":
+			return formatRollEffect(effect);
 		case "damageOverTime":
 			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
 		case "healOverTime":
@@ -166,6 +168,8 @@ export function formatRiderEffect(effect: RiderEffect): string {
 			);
 		case "modifyDamageAffinity":
 			return formatDamageAffinityEffect(effect);
+		case "modifyRoll":
+			return formatRollEffect(effect);
 		case "damageOverTime":
 			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn${formatOptionalDuration(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
 		case "healOverTime":
@@ -191,6 +195,8 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageTakenSubject(effect.damageType, true)}`;
 		case "modifyDamageAffinity":
 			return `${effect.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]}`;
+		case "modifyRoll":
+			return `${formatTitle(effect.mode)} on ${formatRollSubject(effect.roll, effect.attribute)}`;
 		case "damageOverTime":
 			return `${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn`;
 		case "healOverTime":
@@ -214,6 +220,8 @@ export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 			return getDamageTakenModifierTone(effect.operation, effect.value);
 		case "modifyDamageAffinity":
 			return getDamageAffinityTone(effect.operation, effect.affinity);
+		case "modifyRoll":
+			return effect.mode === "advantage" ? "positive" : "negative";
 		case "healOverTime":
 		case "shield":
 			return "positive";
@@ -286,6 +294,19 @@ function formatDamageAffinityEffect(
 	effect: Extract<Effect | RiderEffect, { type: "modifyDamageAffinity" }>,
 ) {
 	return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatTurns(effect.durationTurns)}.`;
+}
+
+function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyRoll" }>) {
+	const target = effect.target === "self" ? "your" : "the enemy's";
+	return `Grant ${effect.mode} on ${target} ${formatRollSubject(effect.roll, effect.attribute)} for ${formatTurns(effect.durationTurns)}.`;
+}
+
+function formatRollSubject(roll: "attack" | "savingThrow", attribute: Attribute | undefined) {
+	if (roll === "attack") {
+		return "attack rolls";
+	}
+
+	return attribute ? `${attributeShortLabels[attribute]} saving throws` : "saving throws";
 }
 
 function formatTemporaryModifier(

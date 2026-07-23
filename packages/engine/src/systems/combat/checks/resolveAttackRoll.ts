@@ -3,15 +3,18 @@ import type { Attribute } from "@app/content";
 import type { CombatantState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
 
-import { rollD20, type D20Roll } from "../../../core/dice";
+import { rollD20WithMode, type D20Roll, type D20RollMode } from "../../../core/dice";
 
 import { getAttributeModifier } from "./getAttributeModifier";
 
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveRollMode } from "../effects/getEffectiveRollMode";
 import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type AttackRollResult = {
 	roll: D20Roll;
+	rolls: D20Roll[];
+	rollMode: D20RollMode;
 	attribute: Attribute;
 	attributeModifier: number;
 	proficiencyBonus: number;
@@ -31,7 +34,9 @@ type ResolveAttackRollInput = {
 };
 
 export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<AttackRollResult> {
-	const roll = rollD20(input.rngState);
+	const rollMode = getEffectiveRollMode(input.attacker, "attack");
+	const rollResult = rollD20WithMode(input.rngState, rollMode);
+	const roll = rollResult.value.roll;
 
 	const attributeModifier = getAttributeModifier(input.attacker, input.attribute);
 
@@ -41,21 +46,21 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 
 	const attackRollBonus = getEffectiveCombatStatValue(input.attacker, "attackRollBonus");
 
-	const total = roll.value.roll + attributeModifier + proficiencyBonus + attackRollBonus;
+	const total = roll.roll + attributeModifier + proficiencyBonus + attackRollBonus;
 
 	const targetArmourClass = getEffectiveCombatStatValue(input.defender, "armourClass");
 
 	const criticalRangeBonus = getEffectiveCombatStatValue(input.attacker, "criticalRangeBonus");
 	const criticalThreshold = 20 - criticalRangeBonus;
-	const critical =
-		roll.value.isNaturalTwenty ||
-		(!roll.value.isNaturalOne && roll.value.roll >= criticalThreshold);
+	const critical = roll.isNaturalTwenty || (!roll.isNaturalOne && roll.roll >= criticalThreshold);
 
-	const hit = critical || (!roll.value.isNaturalOne && total >= targetArmourClass);
+	const hit = critical || (!roll.isNaturalOne && total >= targetArmourClass);
 
 	return {
 		value: {
-			roll: roll.value,
+			roll,
+			rolls: rollResult.value.rolls,
+			rollMode,
 			attribute: input.attribute,
 			attributeModifier,
 			proficiencyBonus,
@@ -65,6 +70,6 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 			hit,
 			critical,
 		},
-		rngState: roll.rngState,
+		rngState: rollResult.rngState,
 	};
 }

@@ -12,6 +12,7 @@ import {
 	type ModifyStatEffect,
 	type Skill,
 	type ModifyDamageTakenEffect,
+	type ModifyRollEffect,
 	type SkillId,
 	type AttackDamageEffect,
 } from "@app/content";
@@ -27,6 +28,7 @@ export type SupportedSkillEffect =
 	| ModifyDamageEffect
 	| ModifyDamageTakenEffect
 	| ModifyDamageAffinityEffect
+	| ModifyRollEffect
 	| DamageOverTimeEffect
 	| HealOverTimeEffect
 	| ShieldEffect;
@@ -100,6 +102,7 @@ function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | n
 			case "modifyDamage":
 			case "modifyDamageTaken":
 			case "modifyDamageAffinity":
+			case "modifyRoll":
 			case "damageOverTime":
 			case "healOverTime":
 			case "shield":

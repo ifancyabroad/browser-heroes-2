@@ -113,6 +113,19 @@ export const modifyDamageAffinityEffectSchema = z.object({
 	durationTurns: z.number().int().positive(),
 });
 
+export const rollTypeSchema = z.enum(["attack", "savingThrow"]);
+
+export const rollModeSchema = z.enum(["advantage", "disadvantage"]);
+
+export const modifyRollEffectSchema = z.object({
+	type: z.literal("modifyRoll"),
+	target: skillTargetSchema,
+	roll: rollTypeSchema,
+	mode: rollModeSchema,
+	attribute: attributeSchema.optional(),
+	durationTurns: z.number().int().positive(),
+});
+
 export const damageOverTimeEffectSchema = z.object({
 	type: z.literal("damageOverTime"),
 	target: skillTargetSchema,
@@ -144,6 +157,7 @@ export const riderEffectSchema = z.discriminatedUnion("type", [
 	modifyDamageEffectSchema,
 	modifyDamageTakenEffectSchema,
 	modifyDamageAffinityEffectSchema,
+	modifyRollEffectSchema,
 	damageOverTimeEffectSchema,
 	healOverTimeEffectSchema,
 	shieldEffectSchema,
@@ -182,6 +196,7 @@ export const effectSchema = z.discriminatedUnion("type", [
 	modifyDamageEffectSchema,
 	modifyDamageTakenEffectSchema,
 	modifyDamageAffinityEffectSchema,
+	modifyRollEffectSchema,
 	damageOverTimeEffectSchema,
 	healOverTimeEffectSchema,
 	shieldEffectSchema,
@@ -191,6 +206,8 @@ export type StatusEffect = z.infer<typeof statusEffectSchema>;
 
 export type SaveOutcome = z.infer<typeof saveOutcomeSchema>;
 export type SavingThrow = z.infer<typeof savingThrowSchema>;
+export type RollType = z.infer<typeof rollTypeSchema>;
+export type RollMode = z.infer<typeof rollModeSchema>;
 
 export type RiderEffect = z.infer<typeof riderEffectSchema>;
 export type AttackRiderTiming = z.infer<typeof attackRiderTimingSchema>;
@@ -207,6 +224,7 @@ export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
 export type ModifyDamageEffect = z.infer<typeof modifyDamageEffectSchema>;
 export type ModifyDamageTakenEffect = z.infer<typeof modifyDamageTakenEffectSchema>;
 export type ModifyDamageAffinityEffect = z.infer<typeof modifyDamageAffinityEffectSchema>;
+export type ModifyRollEffect = z.infer<typeof modifyRollEffectSchema>;
 export type DamageOverTimeEffect = z.infer<typeof damageOverTimeEffectSchema>;
 export type HealOverTimeEffect = z.infer<typeof healOverTimeEffectSchema>;
 export type ShieldEffect = z.infer<typeof shieldEffectSchema>;

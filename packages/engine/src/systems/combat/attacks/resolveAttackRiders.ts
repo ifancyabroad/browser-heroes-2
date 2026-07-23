@@ -131,7 +131,8 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 			case "modifyStat":
 			case "modifyDamage":
 			case "modifyDamageTaken":
-			case "modifyDamageAffinity": {
+			case "modifyDamageAffinity":
+			case "modifyRoll": {
 				const result = applyTemporaryModifierEffect({
 					combat,
 					actorSide: input.actorSide,

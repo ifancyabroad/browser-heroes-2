@@ -3,13 +3,16 @@ import type { SavingThrow } from "@app/content";
 import type { CombatantState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
 
-import { rollD20, type D20Roll } from "../../../core/dice";
+import { rollD20WithMode, type D20Roll, type D20RollMode } from "../../../core/dice";
 import { getAttributeModifier } from "./getAttributeModifier";
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveRollMode } from "../effects/getEffectiveRollMode";
 import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type SavingThrowResult = {
 	roll: D20Roll;
+	rolls: D20Roll[];
+	rollMode: D20RollMode;
 	attributeModifier: number;
 	proficiencyBonus: number;
 	savingThrowBonus: number;
@@ -26,7 +29,9 @@ type ResolveSavingThrowInput = {
 };
 
 export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<SavingThrowResult> {
-	const roll = rollD20(input.rngState);
+	const rollMode = getEffectiveRollMode(input.defender, "savingThrow", input.save.attribute);
+	const rollResult = rollD20WithMode(input.rngState, rollMode);
+	const roll = rollResult.value.roll;
 
 	const attributeModifier = getAttributeModifier(input.defender, input.save.attribute);
 
@@ -36,7 +41,7 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 
 	const savingThrowBonus = getEffectiveCombatStatValue(input.defender, "savingThrowBonus");
 
-	const total = roll.value.roll + attributeModifier + proficiencyBonus + savingThrowBonus;
+	const total = roll.roll + attributeModifier + proficiencyBonus + savingThrowBonus;
 
 	const dc =
 		input.save.dc.base +
@@ -49,7 +54,9 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 
 	return {
 		value: {
-			roll: roll.value,
+			roll,
+			rolls: rollResult.value.rolls,
+			rollMode,
 			attributeModifier,
 			proficiencyBonus,
 			savingThrowBonus,
@@ -57,6 +64,6 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 			dc,
 			success: total >= dc,
 		},
-		rngState: roll.rngState,
+		rngState: rollResult.rngState,
 	};
 }

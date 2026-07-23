@@ -2,6 +2,7 @@ import type {
 	ModifyDamageAffinityEffect,
 	ModifyDamageEffect,
 	ModifyDamageTakenEffect,
+	ModifyRollEffect,
 	ModifyStatEffect,
 } from "@app/content";
 
@@ -23,7 +24,8 @@ type TemporaryModifierEffect =
 	| ModifyStatEffect
 	| ModifyDamageEffect
 	| ModifyDamageTakenEffect
-	| ModifyDamageAffinityEffect;
+	| ModifyDamageAffinityEffect
+	| ModifyRollEffect;
 
 type ApplyTemporaryModifierEffectInput = {
 	combat: CombatState;
@@ -113,6 +115,15 @@ function createActiveCombatEffect(input: {
 				affinity: input.effect.affinity,
 				operation: input.effect.operation,
 				damageType: input.effect.damageType,
+			};
+
+		case "modifyRoll":
+			return {
+				...base,
+				type: "modifyRoll",
+				roll: input.effect.roll,
+				mode: input.effect.mode,
+				attribute: input.effect.attribute,
 			};
 	}
 }

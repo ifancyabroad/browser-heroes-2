@@ -6,6 +6,7 @@ import type {
 	ModifyDamageAffinityEffect,
 	ModifyDamageEffect,
 	ModifyDamageTakenEffect,
+	ModifyRollEffect,
 	ModifyStatEffect,
 	ShieldEffect,
 } from "@app/content";
@@ -34,7 +35,8 @@ export type ActionOutcome =
 				| ModifyStatEffect
 				| ModifyDamageEffect
 				| ModifyDamageTakenEffect
-				| ModifyDamageAffinityEffect;
+				| ModifyDamageAffinityEffect
+				| ModifyRollEffect;
 			refreshed: boolean;
 	  }
 	| {

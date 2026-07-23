@@ -155,6 +155,18 @@ function formatModifierOutcome(outcome: Extract<ActionOutcome, { type: "modifier
 			return effect.operation === "add"
 				? `${targetName} gains ${effect.affinity} to ${effect.damageType} damage for ${duration}.`
 				: `${targetName} loses ${effect.affinity} to ${effect.damageType} damage for ${duration}.`;
+
+		case "modifyRoll": {
+			const subject =
+				effect.roll === "attack"
+					? "attack rolls"
+					: effect.attribute
+						? `${statLabels[effect.attribute]} saving throws`
+						: "saving throws";
+			return refreshed
+				? `${targetName}'s ${effect.mode} on ${subject} is refreshed for ${duration}.`
+				: `${targetName} gains ${effect.mode} on ${subject} for ${duration}.`;
+		}
 	}
 }
 

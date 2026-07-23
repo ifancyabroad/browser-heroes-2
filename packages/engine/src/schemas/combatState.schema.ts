@@ -15,6 +15,8 @@ import {
 	diceFormulaSchema,
 	tacticSchema,
 	damageModifierOperationSchema,
+	rollModeSchema,
+	rollTypeSchema,
 } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
 
@@ -71,6 +73,13 @@ export const activeDamageAffinityModifierSchema = activeCombatEffectBaseSchema.e
 	damageType: damageTypeSchema,
 });
 
+export const activeRollModifierSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("modifyRoll"),
+	roll: rollTypeSchema,
+	mode: rollModeSchema,
+	attribute: attributeSchema.optional(),
+});
+
 export const activeStatusEffectSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("status"),
 	statusId: statusEffectSchema,
@@ -97,6 +106,7 @@ export const activeCombatEffectSchema = z.discriminatedUnion("type", [
 	activeDamageModifierSchema,
 	activeDamageTakenModifierSchema,
 	activeDamageAffinityModifierSchema,
+	activeRollModifierSchema,
 	activeStatusEffectSchema,
 	activeDamageOverTimeEffectSchema,
 	activeHealOverTimeEffectSchema,
@@ -177,6 +187,7 @@ export type ActiveStatModifier = z.infer<typeof activeStatModifierSchema>;
 export type ActiveDamageModifier = z.infer<typeof activeDamageModifierSchema>;
 export type ActiveDamageTakenModifier = z.infer<typeof activeDamageTakenModifierSchema>;
 export type ActiveDamageAffinityModifier = z.infer<typeof activeDamageAffinityModifierSchema>;
+export type ActiveRollModifier = z.infer<typeof activeRollModifierSchema>;
 export type ActiveStatusEffect = z.infer<typeof activeStatusEffectSchema>;
 export type ActiveDamageOverTimeEffect = z.infer<typeof activeDamageOverTimeEffectSchema>;
 export type ActiveHealOverTimeEffect = z.infer<typeof activeHealOverTimeEffectSchema>;

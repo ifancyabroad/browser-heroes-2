@@ -105,6 +105,7 @@ function resolveSkillEffect(
 		case "modifyDamage":
 		case "modifyDamageTaken":
 		case "modifyDamageAffinity":
+		case "modifyRoll":
 			return {
 				value: applyTemporaryModifierEffect({
 					combat: input.combat,
