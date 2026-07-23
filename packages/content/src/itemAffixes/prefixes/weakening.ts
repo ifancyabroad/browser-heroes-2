@@ -23,11 +23,10 @@ export default buildItemAffix({
 			},
 			effects: [
 				{
-					type: "modifyStat",
+					type: "modifyDamage",
 					target: "enemy",
-					stat: "strength",
 					operation: "add",
-					value: -2,
+					value: -1,
 					durationTurns: 2,
 				},
 			],

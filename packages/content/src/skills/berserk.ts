@@ -3,18 +3,17 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "berserk",
 	name: "Berserk",
-	description: "Become enraged, greatly increasing strength but lowering defenses.",
+	description: "Become enraged, greatly increasing offensive power but lowering defenses.",
 	icon: "skills/common/berserk.png",
 	pool: "common",
 	category: "buff",
 	maxUses: 4,
 	effects: [
 		{
-			type: "modifyStat",
+			type: "modifyDamage",
 			target: "self",
-			stat: "strength",
 			operation: "add",
-			value: 8,
+			value: 4,
 			durationTurns: 4,
 		},
 		{

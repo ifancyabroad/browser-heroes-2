@@ -9,7 +9,7 @@ import {
 	damageAffinityKindSchema,
 	damageAffinityOperationSchema,
 	damageModifierOperationSchema,
-	modifiableStatSchema,
+	combatStatSchema,
 	modifierOperationSchema,
 } from "./modifier.schema";
 
@@ -80,7 +80,7 @@ export const removeStatusEffectSchema = z
 export const modifyStatEffectSchema = z.object({
 	type: z.literal("modifyStat"),
 	target: skillTargetSchema,
-	stat: modifiableStatSchema,
+	stat: combatStatSchema,
 	operation: modifierOperationSchema,
 	value: z.number(),
 	durationTurns: z.number().int().positive(),

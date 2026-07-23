@@ -9,7 +9,7 @@ import {
 	skillIdSchema,
 	damageAffinityKindSchema,
 	damageAffinityOperationSchema,
-	modifiableStatSchema,
+	combatStatSchema,
 	modifierOperationSchema,
 	statusEffectSchema,
 	diceFormulaSchema,
@@ -45,7 +45,7 @@ const activeCombatEffectBaseSchema = z.object({
 
 export const activeStatModifierSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("modifyStat"),
-	stat: modifiableStatSchema,
+	stat: combatStatSchema,
 	operation: modifierOperationSchema,
 	value: z.number(),
 });

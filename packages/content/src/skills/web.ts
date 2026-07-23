@@ -11,9 +11,9 @@ export default buildSkill({
 		{
 			type: "modifyStat",
 			target: "enemy",
-			stat: "dexterity",
+			stat: "attackRollBonus",
 			operation: "add",
-			value: -8,
+			value: -4,
 			durationTurns: 4,
 		},
 	],

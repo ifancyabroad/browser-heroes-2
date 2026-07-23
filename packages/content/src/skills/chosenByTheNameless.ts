@@ -11,15 +11,15 @@ export default buildSkill({
 		{
 			type: "modifyStat",
 			target: "self",
-			stat: "wisdom",
+			stat: "savingThrowBonus",
 			operation: "add",
-			value: 8,
+			value: 4,
 			durationTurns: 6,
 		},
 		{
 			type: "modifyStat",
 			target: "self",
-			stat: "constitution",
+			stat: "maxHpBonus",
 			operation: "add",
 			value: 8,
 			durationTurns: 6,

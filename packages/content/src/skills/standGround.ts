@@ -36,9 +36,9 @@ export default buildSkill({
 		{
 			type: "modifyStat",
 			target: "self",
-			stat: "dexterity",
+			stat: "attackRollBonus",
 			operation: "add",
-			value: -2,
+			value: -1,
 			durationTurns: 8,
 		},
 	],
