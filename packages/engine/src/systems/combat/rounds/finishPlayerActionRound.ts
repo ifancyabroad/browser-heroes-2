@@ -101,6 +101,7 @@ function finishVictory(
 	const completedState: RunState = {
 		...state,
 		rngState,
+		hero: syncHeroFromPlayerCombatant(state.hero, combat.player),
 		combat,
 		kills: state.kills + 1,
 	};

@@ -1,7 +1,6 @@
 import type { HeroState, RunState } from "../../../schemas";
 
 import { getEnemyDefinition } from "../../encounters/getEnemyDefinition";
-import { syncHeroFromPlayerCombatant } from "../../combat/combatants/syncHeroFromCombatant";
 import { appendCombatLog } from "../../combat/logs/appendCombatLog";
 import { applyCombatReward } from "./applyCombatReward";
 import { calculateCombatReward, type CombatReward } from "./calculateCombatReward";
@@ -40,13 +39,12 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 		eventType: "reward_gained",
 	});
 
-	const syncedState: RunState = {
+	const stateWithRewardLog: RunState = {
 		...state,
 		combat: combatWithRewardLog,
-		hero: syncHeroFromPlayerCombatant(state.hero, combatWithRewardLog.player),
 	};
 
-	const rewardedState = applyCombatReward(syncedState, reward);
+	const rewardedState = applyCombatReward(stateWithRewardLog, reward);
 
 	const pendingLevelUpResult = createPendingLevelUp(rewardedState.hero, rewardedState.rngState);
 
