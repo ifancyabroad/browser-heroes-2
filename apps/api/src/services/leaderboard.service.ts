@@ -87,6 +87,7 @@ export async function getRunLeaderboard(params: {
 		day: run.summary.day,
 		kills: run.summary.kills,
 		status: run.status as "dead" | "retired",
+		slainBy: run.summary.slainBy ?? null,
 		completedAt: run.completedAt?.toISOString() ?? "",
 		isCurrentUser: String(run.userId) === params.userId,
 	}));

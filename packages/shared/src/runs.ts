@@ -18,6 +18,12 @@ export type CreateRunBody = z.infer<typeof createRunBodySchema>;
 
 export type RunStatus = "active" | "dead" | "retired" | "abandoned";
 
+export interface RunSlainByView {
+	sourceId: string;
+	name: string;
+	encounterType: "standard" | "boss" | "ghost";
+}
+
 export interface RunSummaryView {
 	heroName: string;
 	classId: ClassId;
@@ -28,6 +34,7 @@ export interface RunSummaryView {
 	day: number;
 	kills: number;
 	hasDefeatedFinalBoss: boolean;
+	slainBy: RunSlainByView | null;
 }
 
 export interface RunView {
@@ -64,6 +71,7 @@ export interface RunHeroView {
 		gold: number;
 		streak: number;
 		hasDefeatedFinalBoss: boolean;
+		slainBy: RunSlainByView | null;
 	};
 }
 

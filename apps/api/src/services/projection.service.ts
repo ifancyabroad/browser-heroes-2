@@ -1,9 +1,27 @@
 import type { EngineResult, RunState } from "@app/engine";
-import type { ApplyRunActionResponse, RunHeroView, RunSummaryView, RunView } from "@app/shared";
+import type {
+	ApplyRunActionResponse,
+	RunHeroView,
+	RunSlainByView,
+	RunSummaryView,
+	RunView,
+} from "@app/shared";
 import type { RunDocument } from "../models/run.model";
 
 function toIsoString(value: Date): string {
 	return value.toISOString();
+}
+
+export function toRunSlainBy(state: RunState): RunSlainByView | null {
+	if (state.phase !== "dead" || !state.combat) {
+		return null;
+	}
+
+	return {
+		sourceId: state.combat.enemy.sourceId,
+		name: state.combat.enemy.name,
+		encounterType: state.combat.encounterType,
+	};
 }
 
 export function toRunSummary(state: RunState): RunSummaryView {
@@ -17,6 +35,7 @@ export function toRunSummary(state: RunState): RunSummaryView {
 		day: state.day,
 		kills: state.kills,
 		hasDefeatedFinalBoss: state.hasDefeatedFinalBoss,
+		slainBy: toRunSlainBy(state),
 	};
 }
 
@@ -24,7 +43,7 @@ export function toRunView(run: RunDocument & { _id: unknown }): RunView {
 	return {
 		id: String(run._id),
 		status: run.status,
-		summary: run.summary,
+		summary: toRunSummary(run.state),
 		state: run.state,
 		createdAt: toIsoString(run.createdAt),
 		updatedAt: toIsoString(run.updatedAt),
@@ -49,6 +68,7 @@ export function toRunHeroView(state: RunState): RunHeroView | null {
 			gold: state.gold,
 			streak: state.streak,
 			hasDefeatedFinalBoss: state.hasDefeatedFinalBoss,
+			slainBy: toRunSlainBy(state),
 		},
 	};
 }

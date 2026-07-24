@@ -1,5 +1,6 @@
 import { classIdSchema, type ClassId } from "@app/content";
 import { z } from "zod";
+import type { RunSlainByView } from "./runs";
 
 export const leaderboardScopeSchema = z.enum(["overall", "daily"]);
 
@@ -33,6 +34,7 @@ export interface RunLeaderboardEntryView {
 	day: number;
 	kills: number;
 	status: "dead" | "retired";
+	slainBy: RunSlainByView | null;
 	completedAt: string;
 	isCurrentUser: boolean;
 }

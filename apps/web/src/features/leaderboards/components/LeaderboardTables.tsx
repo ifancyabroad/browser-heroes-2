@@ -32,6 +32,7 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 					LEVEL
 				</DataTableHeading>
 				<DataTableHeading hideOnMobile>ZONE</DataTableHeading>
+				<DataTableHeading hideOnMobile>SLAIN BY</DataTableHeading>
 				<DataTableHeading hideOnMobile>COMPLETED</DataTableHeading>
 			</DataTableHeader>
 			<tbody>
@@ -62,6 +63,7 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 						<DataTableCell hideOnMobile>
 							{formatTitle(getZoneForRun(entry.zoneNumber))}
 						</DataTableCell>
+						<DataTableCell hideOnMobile>{entry.slainBy?.name ?? "—"}</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatDisplayDate(entry.completedAt)}
 						</DataTableCell>

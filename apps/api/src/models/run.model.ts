@@ -3,6 +3,27 @@ import { classIds } from "@app/content";
 
 export const RUN_STATUSES = ["active", "dead", "retired", "abandoned"] as const;
 
+const runSlainBySchema = new Schema(
+	{
+		sourceId: {
+			type: String,
+			required: true,
+		},
+		name: {
+			type: String,
+			required: true,
+		},
+		encounterType: {
+			type: String,
+			enum: ["standard", "boss", "ghost"],
+			required: true,
+		},
+	},
+	{
+		_id: false,
+	},
+);
+
 const runSummarySchema = new Schema(
 	{
 		heroName: {
@@ -55,6 +76,10 @@ const runSummarySchema = new Schema(
 			type: Boolean,
 			required: true,
 			default: false,
+		},
+		slainBy: {
+			type: runSlainBySchema,
+			default: null,
 		},
 	},
 	{
