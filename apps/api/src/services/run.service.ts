@@ -106,6 +106,22 @@ export async function getRunForUser(params: { userId: string; runId: string }) {
 	});
 }
 
+export async function getRunForHero(runId: string) {
+	if (!Types.ObjectId.isValid(runId)) {
+		return null;
+	}
+
+	return RunModel.findOne({
+		_id: runId,
+		status: {
+			$in: ["dead", "retired"],
+		},
+		completedAt: {
+			$ne: null,
+		},
+	});
+}
+
 export async function getRunActions(input: { userId: string; runId: string }) {
 	const runExists = await RunModel.exists({
 		_id: input.runId,

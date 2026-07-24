@@ -4,6 +4,7 @@ import {
 	applyRunActionController,
 	createRunController,
 	getCurrentRunController,
+	getRunHeroController,
 	getRunActionsController,
 	getRunController,
 } from "../controllers/run.controller";
@@ -11,6 +12,8 @@ import { requireUserSession } from "../middlewares/auth";
 import { validateBody } from "../middlewares/validate";
 
 export const runRoutes = Router();
+
+runRoutes.get("/:runId/hero", getRunHeroController);
 
 runRoutes.use(requireUserSession);
 

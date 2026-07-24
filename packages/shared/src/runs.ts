@@ -3,6 +3,7 @@ import {
 	engineActionSchema,
 	type EngineAction,
 	type EngineResult,
+	type HeroState,
 	type RunState,
 } from "@app/engine";
 import { z } from "zod";
@@ -50,6 +51,23 @@ export interface CurrentRunResponse {
 export interface GetRunResponse {
 	run: RunView;
 }
+
+export interface RunHeroView {
+	hero: HeroState;
+	run: {
+		status: "dead" | "retired";
+		battleNumber: number;
+		zoneNumber: number;
+		endlessCycle: number;
+		day: number;
+		kills: number;
+		gold: number;
+		streak: number;
+		hasDefeatedFinalBoss: boolean;
+	};
+}
+
+export type GetRunHeroResponse = RunHeroView;
 
 export interface ApiErrorResponse {
 	error: string;

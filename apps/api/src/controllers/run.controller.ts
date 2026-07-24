@@ -6,15 +6,17 @@ import type {
 	CreateRunBody,
 	CreateRunResponse,
 	CurrentRunResponse,
+	GetRunHeroResponse,
 	GetRunResponse,
 } from "@app/shared";
 import {
 	createRun,
 	getCurrentRunForUser,
+	getRunForHero,
 	getRunActions,
 	getRunForUser,
 } from "../services/run.service";
-import { toApplyRunActionResponse, toRunView } from "../services/projection.service";
+import { toApplyRunActionResponse, toRunHeroView, toRunView } from "../services/projection.service";
 import { applyRunAction } from "../services/engine.service";
 
 export async function createRunController(
@@ -42,6 +44,24 @@ export async function getCurrentRunController(req: Request, res: Response<Curren
 type GetRunParams = {
 	runId: string;
 };
+
+export async function getRunHeroController(
+	req: Request<GetRunParams>,
+	res: Response<GetRunHeroResponse | ApiErrorResponse>,
+) {
+	const run = await getRunForHero(req.params.runId);
+	const view = run ? toRunHeroView(run.state) : null;
+
+	if (!view) {
+		res.status(404).json({
+			error: "RUN_NOT_FOUND",
+			message: "Completed run not found.",
+		});
+		return;
+	}
+
+	res.status(200).json(view);
+}
 
 export async function getRunController(
 	req: Request<GetRunParams>,
