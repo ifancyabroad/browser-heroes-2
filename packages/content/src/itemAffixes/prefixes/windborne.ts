@@ -13,7 +13,6 @@ export default buildItemAffix({
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			operation: "add",
 			value: 4,
 		},
 	],

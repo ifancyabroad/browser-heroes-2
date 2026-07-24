@@ -8,7 +8,6 @@ export const combatStats = [
 	"saveDcBonus",
 	"criticalRangeBonus",
 	"criticalDiceMultiplierBonus",
-	"healingMultiplier",
 	"maxHpBonus",
 ] as const;
 
@@ -18,8 +17,6 @@ export const modifiableStats = [...combatStats, ...attributes] as const;
 
 export const modifiableStatSchema = z.enum(modifiableStats);
 
-export const modifierOperationSchema = z.enum(["add", "multiply", "set"]);
-
 export const damageAffinityKindSchema = z.enum(["resistance", "immunity", "vulnerability"]);
 
 export const damageAffinityOperationSchema = z.enum(["add", "remove"]);
@@ -27,8 +24,12 @@ export const damageAffinityOperationSchema = z.enum(["add", "remove"]);
 export const passiveStatModifierSchema = z.object({
 	type: z.literal("modifyStat"),
 	stat: modifiableStatSchema,
-	operation: modifierOperationSchema,
 	value: z.number(),
+});
+
+export const passiveHealingModifierSchema = z.object({
+	type: z.literal("modifyHealing"),
+	multiplier: z.number().nonnegative(),
 });
 
 export const damageModifierOperationSchema = z.enum(["add", "multiply"]);
@@ -56,6 +57,7 @@ export const passiveDamageAffinityModifierSchema = z.object({
 
 export const passiveModifierSchema = z.discriminatedUnion("type", [
 	passiveStatModifierSchema,
+	passiveHealingModifierSchema,
 	passiveDamageModifierSchema,
 	passiveDamageTakenModifierSchema,
 	passiveDamageAffinityModifierSchema,
@@ -63,11 +65,11 @@ export const passiveModifierSchema = z.discriminatedUnion("type", [
 
 export type CombatStat = z.infer<typeof combatStatSchema>;
 export type ModifiableStat = z.infer<typeof modifiableStatSchema>;
-export type ModifierOperation = z.infer<typeof modifierOperationSchema>;
 export type DamageAffinityKind = z.infer<typeof damageAffinityKindSchema>;
 export type DamageAffinityOperation = z.infer<typeof damageAffinityOperationSchema>;
 export type DamageModifierOperation = z.infer<typeof damageModifierOperationSchema>;
 export type PassiveStatModifier = z.infer<typeof passiveStatModifierSchema>;
+export type PassiveHealingModifier = z.infer<typeof passiveHealingModifierSchema>;
 export type PassiveDamageModifier = z.infer<typeof passiveDamageModifierSchema>;
 export type PassiveDamageTakenModifier = z.infer<typeof passiveDamageTakenModifierSchema>;
 export type PassiveDamageAffinityModifier = z.infer<typeof passiveDamageAffinityModifierSchema>;

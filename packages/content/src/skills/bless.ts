@@ -14,7 +14,6 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "savingThrowBonus",
-			operation: "add",
 			value: 5,
 			durationTurns: 8,
 		},

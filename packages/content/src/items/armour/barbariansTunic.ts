@@ -14,13 +14,11 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "strength",
-			operation: "add",
 			value: 5,
 		},
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			operation: "add",
 			value: 5,
 		},
 	],

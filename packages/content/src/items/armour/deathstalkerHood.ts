@@ -12,7 +12,6 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "charisma",
-			operation: "add",
 			value: -4,
 		},
 		{
@@ -30,13 +29,11 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "criticalRangeBonus",
-			operation: "add",
 			value: 2,
 		},
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			operation: "add",
 			value: 2,
 		},
 	],

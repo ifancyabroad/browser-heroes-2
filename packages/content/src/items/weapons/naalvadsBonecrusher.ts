@@ -20,7 +20,6 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "strength",
-			operation: "add",
 			value: 4,
 		},
 	],
@@ -42,7 +41,6 @@ export default buildWeapon({
 					type: "modifyStat",
 					target: "enemy",
 					stat: "armourClass",
-					operation: "add",
 					value: -6,
 					durationTurns: 2,
 				},

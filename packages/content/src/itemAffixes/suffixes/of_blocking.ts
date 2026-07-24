@@ -13,7 +13,6 @@ export default buildItemAffix({
 		{
 			type: "modifyStat",
 			stat: "armourClass",
-			operation: "add",
 			value: 1,
 		},
 	],

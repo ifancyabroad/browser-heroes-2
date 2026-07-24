@@ -18,7 +18,6 @@ const statLabels: Record<ModifiableStat, string> = {
 	saveDcBonus: "save DC",
 	criticalRangeBonus: "critical range",
 	criticalDiceMultiplierBonus: "critical damage dice multiplier",
-	healingMultiplier: "healing",
 	maxHpBonus: "maximum HP",
 };
 
@@ -116,20 +115,17 @@ function formatModifierOutcome(outcome: Extract<ActionOutcome, { type: "modifier
 
 	switch (effect.type) {
 		case "modifyStat":
-			if (effect.operation === "set") {
-				return refreshed
-					? `${targetName}'s ${statLabels[effect.stat]} value of ${effect.value} is refreshed for ${duration}.`
-					: `${targetName}'s ${statLabels[effect.stat]} is set to ${effect.value} for ${duration}.`;
-			}
-			if (effect.operation === "multiply") {
-				return refreshed
-					? `${targetName}'s ${statLabels[effect.stat]} multiplier of ${effect.value} is refreshed for ${duration}.`
-					: `${targetName}'s ${statLabels[effect.stat]} is multiplied by ${effect.value} for ${duration}.`;
-			}
 			if (refreshed) {
 				return `${targetName}'s ${statLabels[effect.stat]} ${effect.value < 0 ? "reduction" : "increase"} of ${Math.abs(effect.value)} is refreshed for ${duration}.`;
 			}
 			return `${targetName}'s ${statLabels[effect.stat]} is ${effect.value < 0 ? "reduced" : "increased"} by ${Math.abs(effect.value)} for ${duration}.`;
+
+		case "modifyHealing": {
+			const percent = Math.round(Math.abs(1 - effect.multiplier) * 100);
+			return refreshed
+				? `${targetName}'s ${percent}% healing ${effect.multiplier < 1 ? "reduction" : "increase"} is refreshed for ${duration}.`
+				: `${targetName}'s healing is ${effect.multiplier < 1 ? "reduced" : "increased"} by ${percent}% for ${duration}.`;
+		}
 
 		case "modifyDamage":
 		case "modifyDamageTaken": {

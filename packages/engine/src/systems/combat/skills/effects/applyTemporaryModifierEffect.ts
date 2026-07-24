@@ -2,6 +2,7 @@ import type {
 	ModifyDamageAffinityEffect,
 	ModifyDamageEffect,
 	ModifyDamageTakenEffect,
+	ModifyHealingEffect,
 	ModifyRollEffect,
 	ModifyStatEffect,
 } from "@app/content";
@@ -22,6 +23,7 @@ import type { ActionResolution } from "../../logs/actionOutcome";
 
 type TemporaryModifierEffect =
 	| ModifyStatEffect
+	| ModifyHealingEffect
 	| ModifyDamageEffect
 	| ModifyDamageTakenEffect
 	| ModifyDamageAffinityEffect
@@ -86,8 +88,14 @@ function createActiveCombatEffect(input: {
 				...base,
 				type: "modifyStat",
 				stat: input.effect.stat,
-				operation: input.effect.operation,
 				value: input.effect.value,
+			};
+
+		case "modifyHealing":
+			return {
+				...base,
+				type: "modifyHealing",
+				multiplier: input.effect.multiplier,
 			};
 
 		case "modifyDamage":

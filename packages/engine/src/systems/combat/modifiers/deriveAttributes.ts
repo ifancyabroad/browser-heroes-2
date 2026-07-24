@@ -1,7 +1,7 @@
 import type { Attribute, Attributes } from "@app/content";
 
 import type { DerivedValue, ResolvedModifier } from "./modifier.types";
-import { resolveModifiedStat } from "./resolveModifiedStat";
+import { resolveAdditiveStat } from "./resolveAdditiveStat";
 
 export type DerivedAttributes = Record<Attribute, DerivedValue>;
 
@@ -24,7 +24,7 @@ function resolveAttribute(
 	baseValue: number,
 	modifiers: readonly ResolvedModifier[],
 ): DerivedValue {
-	const derivedValue = resolveModifiedStat(attribute, baseValue, modifiers);
+	const derivedValue = resolveAdditiveStat(attribute, baseValue, modifiers);
 
 	return {
 		...derivedValue,

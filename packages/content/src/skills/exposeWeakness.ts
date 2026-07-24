@@ -13,7 +13,6 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "enemy",
 			stat: "armourClass",
-			operation: "add",
 			value: -8,
 			durationTurns: 6,
 		},

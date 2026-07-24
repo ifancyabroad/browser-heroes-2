@@ -12,6 +12,7 @@ import {
 	type ModifyStatEffect,
 	type Skill,
 	type ModifyDamageTakenEffect,
+	type ModifyHealingEffect,
 	type ModifyRollEffect,
 	type SkillId,
 	type AttackDamageEffect,
@@ -25,6 +26,7 @@ export type SupportedSkillEffect =
 	| AttackDamageEffect
 	| ApplyStatusEffect
 	| ModifyStatEffect
+	| ModifyHealingEffect
 	| ModifyDamageEffect
 	| ModifyDamageTakenEffect
 	| ModifyDamageAffinityEffect
@@ -99,6 +101,7 @@ function getSupportedSkillEffects(effects: Effect[]): SupportedSkillEffect[] | n
 			case "heal":
 			case "applyStatus":
 			case "modifyStat":
+			case "modifyHealing":
 			case "modifyDamage":
 			case "modifyDamageTaken":
 			case "modifyDamageAffinity":

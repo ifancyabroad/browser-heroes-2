@@ -10,7 +10,6 @@ export default buildFeat({
 		{
 			type: "modifyStat",
 			stat: "armourClass",
-			operation: "add",
 			value: 1,
 		},
 	],

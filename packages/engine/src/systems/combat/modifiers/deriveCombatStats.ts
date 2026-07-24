@@ -14,7 +14,8 @@ import type {
 	DerivedValue,
 	ResolvedModifier,
 } from "./modifier.types";
-import { resolveModifiedStat } from "./resolveModifiedStat";
+import { resolveAdditiveStat } from "./resolveAdditiveStat";
+import { resolveHealingMultiplier } from "./resolveHealingMultiplier";
 
 export type DerivedCombatStats = {
 	armourClass: DerivedValue;
@@ -42,11 +43,11 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 	return {
 		armourClass: resolveNonNegativeIntegerStat("armourClass", input.baseArmourClass, modifiers),
 
-		attackRollBonus: resolveModifiedStat("attackRollBonus", 0, modifiers),
+		attackRollBonus: resolveAdditiveStat("attackRollBonus", 0, modifiers),
 
-		savingThrowBonus: resolveModifiedStat("savingThrowBonus", 0, modifiers),
+		savingThrowBonus: resolveAdditiveStat("savingThrowBonus", 0, modifiers),
 
-		saveDcBonus: resolveModifiedStat("saveDcBonus", 0, modifiers),
+		saveDcBonus: resolveAdditiveStat("saveDcBonus", 0, modifiers),
 
 		criticalRangeBonus: resolveNonNegativeIntegerStat("criticalRangeBonus", 0, modifiers),
 
@@ -56,8 +57,8 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 			modifiers,
 		),
 
-		healingMultiplier: resolveModifiedStat("healingMultiplier", 1, modifiers),
-		maxHpBonus: resolveModifiedStat("maxHpBonus", 0, modifiers),
+		healingMultiplier: resolveHealingMultiplier(modifiers),
+		maxHpBonus: resolveAdditiveStat("maxHpBonus", 0, modifiers),
 
 		damageAffinities: deriveDamageAffinities(input.baseDamageAffinities, modifiers),
 
@@ -72,7 +73,7 @@ function resolveNonNegativeIntegerStat(
 	baseValue: number,
 	modifiers: readonly ResolvedModifier[],
 ): DerivedValue {
-	const derivedValue = resolveModifiedStat(stat, baseValue, modifiers);
+	const derivedValue = resolveAdditiveStat(stat, baseValue, modifiers);
 
 	return {
 		...derivedValue,

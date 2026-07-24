@@ -10,13 +10,11 @@ export default buildFeat({
 		{
 			type: "modifyStat",
 			stat: "armourClass",
-			operation: "add",
 			value: 1,
 		},
 		{
 			type: "modifyStat",
 			stat: "criticalRangeBonus",
-			operation: "add",
 			value: 1,
 		},
 	],

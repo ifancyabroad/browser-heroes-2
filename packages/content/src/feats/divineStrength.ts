@@ -10,7 +10,6 @@ export default buildFeat({
 		{
 			type: "modifyStat",
 			stat: "strength",
-			operation: "add",
 			value: 2,
 		},
 	],

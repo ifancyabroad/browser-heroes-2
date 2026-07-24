@@ -20,7 +20,6 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "criticalRangeBonus",
-			operation: "add",
 			value: 4,
 		},
 	],

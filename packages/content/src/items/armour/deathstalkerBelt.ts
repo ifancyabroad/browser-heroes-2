@@ -24,7 +24,6 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "attackRollBonus",
-			operation: "add",
 			value: 2,
 		},
 	],

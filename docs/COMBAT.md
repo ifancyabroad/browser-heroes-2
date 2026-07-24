@@ -142,7 +142,7 @@ Skills and consumables should have:
 - deterministic resolution
 - log entries that explain what happened
 
-Supported skill effect types include direct damage, weapon attack damage, healing, status application, temporary stat modifiers, temporary roll modifiers, temporary outgoing damage modifiers, temporary incoming damage modifiers, temporary damage affinity modifiers, damage over time, healing over time, and shields.
+Supported skill effect types include direct damage, weapon attack damage, healing, status application, temporary stat modifiers, temporary healing multipliers, temporary roll modifiers, temporary outgoing damage modifiers, temporary incoming damage modifiers, temporary damage affinity modifiers, damage over time, healing over time, and shields.
 
 `removeStatus` exists in the content schema and UI formatting, but skill resolution does not support it yet. Skills containing unsupported effects are rejected by engine validation rather than partially resolved.
 

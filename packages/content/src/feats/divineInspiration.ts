@@ -10,13 +10,11 @@ export default buildFeat({
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			operation: "add",
 			value: 1,
 		},
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			operation: "add",
 			value: 1,
 		},
 	],

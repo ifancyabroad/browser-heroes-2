@@ -14,13 +14,11 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			operation: "add",
 			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			operation: "add",
 			value: 4,
 		},
 	],

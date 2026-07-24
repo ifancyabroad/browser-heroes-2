@@ -1,9 +1,8 @@
 import type { ModifiableStat, PassiveStatModifier } from "@app/content";
 
-import { applyModifierOperation } from "./modifierOperations";
 import type { DerivedValue, ResolvedModifier } from "./modifier.types";
 
-export function resolveModifiedStat(
+export function resolveAdditiveStat(
 	stat: ModifiableStat,
 	baseValue: number,
 	modifiers: readonly ResolvedModifier[],
@@ -17,11 +16,7 @@ export function resolveModifiedStat(
 			}
 
 			const previousValue = result.value;
-			const resultingValue = applyModifierOperation(
-				previousValue,
-				modifier.operation,
-				modifier.value,
-			);
+			const resultingValue = previousValue + modifier.value;
 
 			return {
 				...result,
@@ -48,7 +43,7 @@ function createContribution(
 ): DerivedValue["contributions"][number] {
 	return {
 		source,
-		operation: modifier.operation,
+		operation: "add",
 		modifierValue: modifier.value,
 		previousValue,
 		resultingValue,

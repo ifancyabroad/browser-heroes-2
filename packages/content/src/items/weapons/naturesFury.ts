@@ -20,7 +20,6 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "attackRollBonus",
-			operation: "add",
 			value: 4,
 		},
 	],

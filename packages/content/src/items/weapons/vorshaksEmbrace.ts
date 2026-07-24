@@ -20,7 +20,6 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			operation: "add",
 			value: 2,
 		},
 	],

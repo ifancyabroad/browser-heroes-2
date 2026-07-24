@@ -13,37 +13,31 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "strength",
-			operation: "add",
 			value: 2,
 		},
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			operation: "add",
 			value: 2,
 		},
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			operation: "add",
 			value: 2,
 		},
 		{
 			type: "modifyStat",
 			stat: "intelligence",
-			operation: "add",
 			value: 2,
 		},
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			operation: "add",
 			value: 2,
 		},
 		{
 			type: "modifyStat",
 			stat: "charisma",
-			operation: "add",
 			value: 2,
 		},
 	],

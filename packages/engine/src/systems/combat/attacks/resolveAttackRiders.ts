@@ -129,6 +129,7 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 			}
 
 			case "modifyStat":
+			case "modifyHealing":
 			case "modifyDamage":
 			case "modifyDamageTaken":
 			case "modifyDamageAffinity":

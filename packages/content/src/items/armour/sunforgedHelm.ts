@@ -24,7 +24,6 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "armourClass",
-			operation: "add",
 			value: 2,
 		},
 	],

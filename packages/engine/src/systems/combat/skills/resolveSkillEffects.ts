@@ -102,6 +102,7 @@ function resolveSkillEffect(
 			});
 
 		case "modifyStat":
+		case "modifyHealing":
 		case "modifyDamage":
 		case "modifyDamageTaken":
 		case "modifyDamageAffinity":

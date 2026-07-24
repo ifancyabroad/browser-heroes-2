@@ -10,7 +10,6 @@ export default buildFeat({
 		{
 			type: "modifyStat",
 			stat: "saveDcBonus",
-			operation: "add",
 			value: 1,
 		},
 		{

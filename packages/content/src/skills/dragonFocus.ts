@@ -12,7 +12,6 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "attackRollBonus",
-			operation: "add",
 			value: 2,
 			durationTurns: 6,
 		},

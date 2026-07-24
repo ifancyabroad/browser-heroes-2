@@ -3,7 +3,6 @@ import type {
 	DamageType,
 	FeatId,
 	ItemId,
-	ModifierOperation,
 	PassiveDamageModifier,
 	PassiveModifier,
 } from "@app/content";
@@ -33,7 +32,7 @@ export type ResolvedModifier = {
 
 export type ModifierContribution = {
 	source: ModifierSource;
-	operation: ModifierOperation;
+	operation: "add" | "multiply";
 	modifierValue: number;
 	previousValue: number;
 	resultingValue: number;

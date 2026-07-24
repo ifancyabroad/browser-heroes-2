@@ -64,7 +64,6 @@ export default buildWeapon({
 					type: "modifyStat",
 					target: "enemy",
 					stat: "attackRollBonus",
-					operation: "add",
 					value: -4,
 					durationTurns: 4,
 				},

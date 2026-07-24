@@ -7,7 +7,7 @@ import { replaceCombatant } from "../combat/combatants/combatantSelectors";
 import { appendCombatLog } from "../combat/logs/appendCombatLog";
 
 import { HEALING_POTION_HEAL_PERCENT } from "./healingPotionConstants";
-import { getEffectiveCombatStatValue } from "../combat/effects/getEffectiveCombatStatValue";
+import { getEffectiveHealingMultiplier } from "../combat/effects/getEffectiveHealingMultiplier";
 import { finishPlayerActionRound } from "../combat/rounds/finishPlayerActionRound";
 import { hasActiveStatus } from "../combat/effects/hasActiveStatus";
 import { validatePlayerAction } from "../combat/rounds/validatePlayerAction";
@@ -73,7 +73,7 @@ export function useHealingPotion(state: RunState): EngineResult {
 function calculateHealingPotionAmount(player: CombatantState): number {
 	const baseHealing = Math.round(player.maxHp * HEALING_POTION_HEAL_PERCENT);
 
-	const healingMultiplier = getEffectiveCombatStatValue(player, "healingMultiplier");
+	const healingMultiplier = getEffectiveHealingMultiplier(player);
 
 	return Math.max(0, Math.floor(baseHealing * healingMultiplier));
 }

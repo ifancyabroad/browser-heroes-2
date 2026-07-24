@@ -20,13 +20,11 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "intelligence",
-			operation: "add",
 			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			operation: "add",
 			value: 4,
 		},
 		{

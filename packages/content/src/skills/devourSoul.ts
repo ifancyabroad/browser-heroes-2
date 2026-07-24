@@ -29,7 +29,6 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "enemy",
 			stat: "maxHpBonus",
-			operation: "add",
 			value: -5,
 			durationTurns: 6,
 		},

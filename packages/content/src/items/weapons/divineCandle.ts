@@ -32,7 +32,6 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			operation: "add",
 			value: 2,
 		},
 	],

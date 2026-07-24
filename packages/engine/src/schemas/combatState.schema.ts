@@ -10,7 +10,6 @@ import {
 	damageAffinityKindSchema,
 	damageAffinityOperationSchema,
 	combatStatSchema,
-	modifierOperationSchema,
 	statusEffectSchema,
 	diceFormulaSchema,
 	tacticSchema,
@@ -48,8 +47,12 @@ const activeCombatEffectBaseSchema = z.object({
 export const activeStatModifierSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("modifyStat"),
 	stat: combatStatSchema,
-	operation: modifierOperationSchema,
 	value: z.number(),
+});
+
+export const activeHealingModifierSchema = activeCombatEffectBaseSchema.extend({
+	type: z.literal("modifyHealing"),
+	multiplier: z.number().nonnegative(),
 });
 
 export const activeDamageModifierSchema = activeCombatEffectBaseSchema.extend({
@@ -103,6 +106,7 @@ export const activeShieldEffectSchema = activeCombatEffectBaseSchema.extend({
 
 export const activeCombatEffectSchema = z.discriminatedUnion("type", [
 	activeStatModifierSchema,
+	activeHealingModifierSchema,
 	activeDamageModifierSchema,
 	activeDamageTakenModifierSchema,
 	activeDamageAffinityModifierSchema,
@@ -184,6 +188,7 @@ export type CombatantState = z.infer<typeof combatantStateSchema>;
 export type CombatStatus = z.infer<typeof combatStatusSchema>;
 export type CombatState = z.infer<typeof combatStateSchema>;
 export type ActiveStatModifier = z.infer<typeof activeStatModifierSchema>;
+export type ActiveHealingModifier = z.infer<typeof activeHealingModifierSchema>;
 export type ActiveDamageModifier = z.infer<typeof activeDamageModifierSchema>;
 export type ActiveDamageTakenModifier = z.infer<typeof activeDamageTakenModifierSchema>;
 export type ActiveDamageAffinityModifier = z.infer<typeof activeDamageAffinityModifierSchema>;

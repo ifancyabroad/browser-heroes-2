@@ -12,7 +12,6 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			operation: "add",
 			value: 2,
 		},
 		{

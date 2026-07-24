@@ -3,6 +3,7 @@ import {
 	passiveDamageAffinityModifierSchema,
 	passiveDamageModifierSchema,
 	passiveDamageTakenModifierSchema,
+	passiveHealingModifierSchema,
 	passiveModifierSchema,
 	passiveStatModifierSchema,
 } from "./modifier.schema";
@@ -26,6 +27,8 @@ export const bodyArmourCategories = ["cloth", "light", "medium", "heavy"] as con
 export const bodyArmourCategorySchema = z.enum(bodyArmourCategories);
 
 export const itemStatModifierSchema = passiveStatModifierSchema;
+
+export const itemHealingModifierSchema = passiveHealingModifierSchema;
 
 export const itemDamageModifierSchema = passiveDamageModifierSchema;
 
@@ -98,6 +101,7 @@ export type ArmourSlot = z.infer<typeof armourSlotSchema>;
 export type BodyArmourCategory = z.infer<typeof bodyArmourCategorySchema>;
 
 export type ItemStatModifier = z.infer<typeof itemStatModifierSchema>;
+export type ItemHealingModifier = z.infer<typeof itemHealingModifierSchema>;
 export type ItemDamageModifier = z.infer<typeof itemDamageModifierSchema>;
 export type ItemDamageTakenModifier = z.infer<typeof itemDamageTakenModifierSchema>;
 export type ItemDamageAffinityModifier = z.infer<typeof itemDamageAffinityModifierSchema>;

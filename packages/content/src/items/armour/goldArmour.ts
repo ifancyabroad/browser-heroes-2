@@ -33,7 +33,6 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			operation: "add",
 			value: 2,
 		},
 	],

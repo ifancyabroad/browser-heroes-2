@@ -13,7 +13,6 @@ export default buildItemAffix({
 		{
 			type: "modifyStat",
 			stat: "savingThrowBonus",
-			operation: "add",
 			value: 4,
 		},
 	],

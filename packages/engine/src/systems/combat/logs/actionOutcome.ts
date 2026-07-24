@@ -6,6 +6,7 @@ import type {
 	ModifyDamageAffinityEffect,
 	ModifyDamageEffect,
 	ModifyDamageTakenEffect,
+	ModifyHealingEffect,
 	ModifyRollEffect,
 	ModifyStatEffect,
 	ShieldEffect,
@@ -33,6 +34,7 @@ export type ActionOutcome =
 			targetName: string;
 			effect:
 				| ModifyStatEffect
+				| ModifyHealingEffect
 				| ModifyDamageEffect
 				| ModifyDamageTakenEffect
 				| ModifyDamageAffinityEffect

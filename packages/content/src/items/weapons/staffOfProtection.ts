@@ -20,7 +20,6 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "armourClass",
-			operation: "add",
 			value: 6,
 		},
 	],

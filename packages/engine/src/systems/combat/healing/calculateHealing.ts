@@ -4,7 +4,7 @@ import type { CombatantState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
 
 import { getAttributeModifier } from "../checks/getAttributeModifier";
-import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveHealingMultiplier } from "../effects/getEffectiveHealingMultiplier";
 import { rollDamageDice } from "../damage/rollDamageDice";
 
 export type HealingResult = {
@@ -34,7 +34,7 @@ export function calculateHealing(input: CalculateHealingInput): RngResult<Healin
 
 	const baseAmount = Math.max(0, roll.value.total + attributeModifier);
 
-	const healingMultiplier = getEffectiveCombatStatValue(input.healer, "healingMultiplier");
+	const healingMultiplier = getEffectiveHealingMultiplier(input.healer);
 
 	const amount = Math.max(0, Math.floor(baseAmount * healingMultiplier));
 

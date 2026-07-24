@@ -10,7 +10,6 @@ export default buildFeat({
 		{
 			type: "modifyStat",
 			stat: "attackRollBonus",
-			operation: "add",
 			value: 1,
 		},
 		{

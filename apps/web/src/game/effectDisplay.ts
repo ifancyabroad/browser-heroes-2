@@ -2,7 +2,7 @@ import type {
 	Attribute,
 	Effect,
 	ItemModifier,
-	ModifierOperation,
+	DamageModifierOperation,
 	PassiveModifier,
 	RiderEffect,
 	SavingThrow,
@@ -30,13 +30,9 @@ export function formatTitle(value: string) {
 		.replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
-export function formatModifierValue(operation: ModifierOperation, value: number) {
+export function formatModifierValue(operation: DamageModifierOperation, value: number) {
 	if (operation === "multiply") {
 		return formatSignedValue(getPercentageChange(value), "%");
-	}
-
-	if (operation === "set") {
-		return `= ${value}`;
 	}
 
 	return formatSignedValue(value);
@@ -45,9 +41,9 @@ export function formatModifierValue(operation: ModifierOperation, value: number)
 export function formatModifier(modifier: ItemModifier | PassiveModifier) {
 	switch (modifier.type) {
 		case "modifyStat":
-			return modifier.operation === "set"
-				? `${modifiableStatFullLabels[modifier.stat]} = ${modifier.value}`
-				: `${formatModifierValue(modifier.operation, modifier.value)} ${modifiableStatFullLabels[modifier.stat]}`;
+			return `${formatModifierValue("add", modifier.value)} ${modifiableStatFullLabels[modifier.stat]}`;
+		case "modifyHealing":
+			return `${formatModifierValue("multiply", modifier.multiplier)} healing`;
 		case "modifyDamage":
 			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageSubject(modifier.damageType)}`;
 		case "modifyDamageTaken":
@@ -70,11 +66,17 @@ export function getModifierTextClassName(modifier: ItemModifier | PassiveModifie
 	if (modifier.type === "modifyDamageTaken") {
 		return getToneTextClassName(getDamageTakenModifierTone(modifier.operation, modifier.value));
 	}
+	if (modifier.type === "modifyHealing") {
+		return getToneTextClassName(getNumericModifierTone("multiply", modifier.multiplier));
+	}
 
-	const tone = getNumericModifierTone(modifier.operation, modifier.value);
+	const tone =
+		modifier.type === "modifyStat"
+			? getNumericModifierTone("add", modifier.value)
+			: getNumericModifierTone(modifier.operation, modifier.value);
 	if (tone === "positive") return "text-success";
 	if (tone === "negative") return "text-error";
-	return modifier.operation === "set" ? "text-primary" : "text-text-bright";
+	return "text-text-bright";
 }
 
 export function getToneTextClassName(tone: ModifierTone, neutralClassName = "text-text-bright") {
@@ -99,8 +101,16 @@ export function formatSkillEffect(effect: Effect): string {
 			return formatTemporaryModifier(
 				effect.target,
 				modifiableStatFullLabels[effect.stat],
-				effect.operation,
+				"add",
 				effect.value,
+				effect.durationTurns,
+			);
+		case "modifyHealing":
+			return formatTemporaryModifier(
+				effect.target,
+				"healing",
+				"multiply",
+				effect.multiplier,
 				effect.durationTurns,
 			);
 		case "modifyDamage":
@@ -146,8 +156,16 @@ export function formatRiderEffect(effect: RiderEffect): string {
 			return formatTemporaryModifier(
 				effect.target,
 				modifiableStatFullLabels[effect.stat],
-				effect.operation,
+				"add",
 				effect.value,
+				effect.durationTurns,
+			);
+		case "modifyHealing":
+			return formatTemporaryModifier(
+				effect.target,
+				"healing",
+				"multiply",
+				effect.multiplier,
 				effect.durationTurns,
 			);
 		case "modifyDamage":
@@ -186,9 +204,9 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 		case "status":
 			return formatTitle(effect.statusId);
 		case "modifyStat":
-			return effect.operation === "set"
-				? `${modifiableStatLabels[effect.stat]} = ${effect.value}`
-				: `${formatModifierValue(effect.operation, effect.value)} ${modifiableStatLabels[effect.stat]}`;
+			return `${formatModifierValue("add", effect.value)} ${modifiableStatLabels[effect.stat]}`;
+		case "modifyHealing":
+			return `${formatModifierValue("multiply", effect.multiplier)} healing`;
 		case "modifyDamage":
 			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageSubject(effect.damageType)}`;
 		case "modifyDamageTaken":
@@ -214,6 +232,9 @@ export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 		case "damageOverTime":
 			return "negative";
 		case "modifyStat":
+			return getNumericModifierTone("add", effect.value);
+		case "modifyHealing":
+			return getNumericModifierTone("multiply", effect.multiplier);
 		case "modifyDamage":
 			return getNumericModifierTone(effect.operation, effect.value);
 		case "modifyDamageTaken":
@@ -260,13 +281,15 @@ export function getDamageAffinityTone(
 	return improvesDefense ? "positive" : "negative";
 }
 
-export function getNumericModifierTone(operation: ModifierOperation, value: number): ModifierTone {
-	if (operation === "set" || value === 0 || (operation === "multiply" && value === 1)) {
-		return "neutral";
-	}
+export function getNumericModifierTone(
+	operation: DamageModifierOperation,
+	value: number,
+): ModifierTone {
 	if (operation === "multiply") {
+		if (value === 1) return "neutral";
 		return value > 1 ? "positive" : "negative";
 	}
+	if (value === 0) return "neutral";
 	return value > 0 ? "positive" : "negative";
 }
 
@@ -312,16 +335,12 @@ function formatRollSubject(roll: "attack" | "savingThrow", attribute: Attribute 
 function formatTemporaryModifier(
 	target: "self" | "enemy",
 	subject: string,
-	operation: ModifierOperation,
+	operation: DamageModifierOperation,
 	value: number,
 	durationTurns: number | undefined,
 ) {
 	const duration = formatOptionalDuration(durationTurns);
 	const possessiveTarget = target === "self" ? "your" : "the enemy's";
-
-	if (operation === "set") {
-		return `Set ${possessiveTarget} ${subject} to ${value}${duration}.`;
-	}
 
 	const change = operation === "multiply" ? getPercentageChange(value) : value;
 	if (change === 0) {

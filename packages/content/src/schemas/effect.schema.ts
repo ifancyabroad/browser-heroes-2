@@ -10,7 +10,6 @@ import {
 	damageAffinityOperationSchema,
 	damageModifierOperationSchema,
 	combatStatSchema,
-	modifierOperationSchema,
 } from "./modifier.schema";
 
 export const saveOutcomeSchema = z.enum(["noEffect", "halfDamage"]);
@@ -81,8 +80,14 @@ export const modifyStatEffectSchema = z.object({
 	type: z.literal("modifyStat"),
 	target: skillTargetSchema,
 	stat: combatStatSchema,
-	operation: modifierOperationSchema,
 	value: z.number(),
+	durationTurns: z.number().int().positive(),
+});
+
+export const modifyHealingEffectSchema = z.object({
+	type: z.literal("modifyHealing"),
+	target: skillTargetSchema,
+	multiplier: z.number().nonnegative(),
 	durationTurns: z.number().int().positive(),
 });
 
@@ -154,6 +159,7 @@ export const riderEffectSchema = z.discriminatedUnion("type", [
 	healEffectSchema,
 	applyStatusEffectSchema,
 	modifyStatEffectSchema,
+	modifyHealingEffectSchema,
 	modifyDamageEffectSchema,
 	modifyDamageTakenEffectSchema,
 	modifyDamageAffinityEffectSchema,
@@ -193,6 +199,7 @@ export const effectSchema = z.discriminatedUnion("type", [
 	applyStatusEffectSchema,
 	removeStatusEffectSchema,
 	modifyStatEffectSchema,
+	modifyHealingEffectSchema,
 	modifyDamageEffectSchema,
 	modifyDamageTakenEffectSchema,
 	modifyDamageAffinityEffectSchema,
@@ -221,6 +228,7 @@ export type HealEffect = z.infer<typeof healEffectSchema>;
 export type ApplyStatusEffect = z.infer<typeof applyStatusEffectSchema>;
 export type RemoveStatusEffect = z.infer<typeof removeStatusEffectSchema>;
 export type ModifyStatEffect = z.infer<typeof modifyStatEffectSchema>;
+export type ModifyHealingEffect = z.infer<typeof modifyHealingEffectSchema>;
 export type ModifyDamageEffect = z.infer<typeof modifyDamageEffectSchema>;
 export type ModifyDamageTakenEffect = z.infer<typeof modifyDamageTakenEffectSchema>;
 export type ModifyDamageAffinityEffect = z.infer<typeof modifyDamageAffinityEffectSchema>;

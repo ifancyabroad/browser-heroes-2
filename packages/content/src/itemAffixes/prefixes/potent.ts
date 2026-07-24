@@ -13,7 +13,6 @@ export default buildItemAffix({
 		{
 			type: "modifyStat",
 			stat: "saveDcBonus",
-			operation: "add",
 			value: 2,
 		},
 	],

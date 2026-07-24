@@ -11,10 +11,8 @@ export default buildItemAffix({
 	},
 	modifiers: [
 		{
-			type: "modifyStat",
-			stat: "healingMultiplier",
-			operation: "multiply",
-			value: 1.3,
+			type: "modifyHealing",
+			multiplier: 1.3,
 		},
 	],
 });
