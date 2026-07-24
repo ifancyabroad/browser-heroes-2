@@ -1,10 +1,5 @@
-import { beforeAll, describe, expect, it, vi } from "vitest";
-import type { RequestHandler } from "express";
+import { beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
-
-vi.mock("./config/session", () => ({
-	sessionMiddleware: ((_req, _res, next) => next()) satisfies RequestHandler,
-}));
 
 describe("buildApp", () => {
 	let buildApp: typeof import("./app").buildApp;

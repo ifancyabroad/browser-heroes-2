@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { createInitialRunState, runStateSchema } from "@app/engine";
-import type { RunDocument } from "../models/run.model";
+import {
+	createDeadTestRunState,
+	createTestRunDocument,
+	createTestRunState,
+} from "../test/createTestRun";
 import {
 	toApplyRunActionResponse,
 	toRunHeroView,
@@ -11,7 +14,7 @@ import {
 
 describe("projection.service", () => {
 	it("projects a run summary from authoritative state", () => {
-		const state = createTestState();
+		const state = createTestRunState();
 
 		expect(toRunSummary(state)).toEqual({
 			heroName: "Test Hero",
@@ -28,7 +31,7 @@ describe("projection.service", () => {
 	});
 
 	it("projects the enemy that killed a dead hero", () => {
-		const state = createDeadState();
+		const state = createDeadTestRunState();
 
 		expect(toRunSlainBy(state)).toEqual({
 			sourceId: state.combat!.enemy.sourceId,
@@ -38,9 +41,9 @@ describe("projection.service", () => {
 	});
 
 	it("only exposes completed heroes for dead or retired runs", () => {
-		expect(toRunHeroView(createTestState())).toBeNull();
+		expect(toRunHeroView(createTestRunState())).toBeNull();
 
-		const dead = createDeadState();
+		const dead = createDeadTestRunState();
 		expect(toRunHeroView(dead)).toMatchObject({
 			hero: dead.hero,
 			run: {
@@ -78,35 +81,3 @@ describe("projection.service", () => {
 		});
 	});
 });
-
-function createTestState() {
-	return createInitialRunState({
-		runId: "test-run",
-		seed: "test-seed",
-		heroName: "Test Hero",
-		classId: "fighter",
-	});
-}
-
-function createDeadState() {
-	const state = structuredClone(createTestState());
-	state.phase = "dead";
-	state.combat!.status = "enemy_won";
-	state.combat!.player.currentHp = 0;
-	state.hero.currentHp = 0;
-	return runStateSchema.parse(state);
-}
-
-function createTestRunDocument(): RunDocument & { _id: unknown } {
-	return {
-		_id: "run-document-id",
-		userId: "user-id",
-		status: "active",
-		state: createTestState(),
-		summary: {},
-		nextActionSequence: 1,
-		createdAt: new Date("2026-01-01T00:00:00.000Z"),
-		updatedAt: new Date("2026-01-02T00:00:00.000Z"),
-		completedAt: null,
-	} as unknown as RunDocument & { _id: unknown };
-}
