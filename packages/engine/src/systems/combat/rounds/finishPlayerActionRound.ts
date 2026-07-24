@@ -30,27 +30,21 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 	const afterPlayerDeathCheck = resolveCombatStatus(playerEffects.value);
 
 	if (afterPlayerDeathCheck.status === "player_won") {
-		const completedState: RunState = {
-			...input.state,
-			rngState: playerEffects.rngState,
-			combat: afterPlayerDeathCheck,
-			kills: input.state.kills + 1,
-		};
+		return finishVictory(
+			input.state,
+			afterPlayerDeathCheck,
+			playerEffects.rngState,
+			input.events,
+		);
+	}
 
-		const victoryResult = applyVictoryReward(completedState);
-
-		if (!victoryResult) {
-			return failureResult(completedState, "ENEMY_DEFINITION_NOT_FOUND");
-		}
-
-		return successResult(victoryResult.state, [
-			...(input.events ?? []),
-			{
-				type: "COMBAT_ENDED",
-				outcome: "victory",
-				reward: victoryResult.reward,
-			},
-		]);
+	if (afterPlayerDeathCheck.status === "enemy_won") {
+		return finishDefeat(
+			input.state,
+			afterPlayerDeathCheck,
+			playerEffects.rngState,
+			input.events,
+		);
 	}
 
 	const enemyEffectIds = getActiveEffectIds(afterPlayerDeathCheck.enemy);
@@ -69,23 +63,17 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 
 	const afterEnemyDeathCheck = resolveCombatStatus(enemyEffects.value);
 
-	if (afterEnemyDeathCheck.status === "enemy_won") {
-		return successResult(
-			{
-				...input.state,
-				rngState: enemyEffects.rngState,
-				phase: "dead",
-				hero: syncHeroFromPlayerCombatant(input.state.hero, afterEnemyDeathCheck.player),
-				combat: afterEnemyDeathCheck,
-			},
-			[
-				...(input.events ?? []),
-				{
-					type: "COMBAT_ENDED",
-					outcome: "defeat",
-				},
-			],
+	if (afterEnemyDeathCheck.status === "player_won") {
+		return finishVictory(
+			input.state,
+			afterEnemyDeathCheck,
+			enemyEffects.rngState,
+			input.events,
 		);
+	}
+
+	if (afterEnemyDeathCheck.status === "enemy_won") {
+		return finishDefeat(input.state, afterEnemyDeathCheck, enemyEffects.rngState, input.events);
 	}
 
 	return successResult(
@@ -99,6 +87,59 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 			...(input.events ?? []),
 			{
 				type: "COMBAT_TURN_RESOLVED",
+			},
+		],
+	);
+}
+
+function finishVictory(
+	state: RunState,
+	combat: CombatState,
+	rngState: RngState,
+	events?: EngineEvent[],
+): EngineResult {
+	const completedState: RunState = {
+		...state,
+		rngState,
+		combat,
+		kills: state.kills + 1,
+	};
+
+	const victoryResult = applyVictoryReward(completedState);
+
+	if (!victoryResult) {
+		return failureResult(completedState, "ENEMY_DEFINITION_NOT_FOUND");
+	}
+
+	return successResult(victoryResult.state, [
+		...(events ?? []),
+		{
+			type: "COMBAT_ENDED",
+			outcome: "victory",
+			reward: victoryResult.reward,
+		},
+	]);
+}
+
+function finishDefeat(
+	state: RunState,
+	combat: CombatState,
+	rngState: RngState,
+	events?: EngineEvent[],
+): EngineResult {
+	return successResult(
+		{
+			...state,
+			rngState,
+			phase: "dead",
+			hero: syncHeroFromPlayerCombatant(state.hero, combat.player),
+			combat,
+		},
+		[
+			...(events ?? []),
+			{
+				type: "COMBAT_ENDED",
+				outcome: "defeat",
 			},
 		],
 	);
