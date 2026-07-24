@@ -3,5 +3,9 @@
 	"compilerOptions": {
 		"noEmit": false
 	},
-	"include": ["src"]
+	"include": ["src"],
+	"references": [
+		{ "path": "../content/tsconfig.build.json" },
+		{ "path": "../engine/tsconfig.build.json" }
+	]
 }

@@ -23,8 +23,8 @@
 		"dev": "pnpm run generate:content && concurrently \"pnpm run dev:types\" \"pnpm run watch:content\"",
 		"dev:types": "tsc -w -p tsconfig.build.json",
 		"prebuild": "pnpm run generate:content",
-		"build": "tsc -p tsconfig.build.json",
-		"typecheck": "tsc -p tsconfig.build.json --noEmit && tsc -p tsconfig.scripts.json --noEmit",
+		"build": "tsc -b tsconfig.build.json",
+		"typecheck": "tsc -b tsconfig.build.json && tsc -p tsconfig.scripts.json --noEmit",
 		"lint": "eslint .",
 		"generate:content": "tsx scripts/generateContent.ts",
 		"watch:content": "chokidar \"src/**/*.ts\" \"scripts/**/*.ts\" -i \"src/generated/**\" -c \"pnpm run generate:content\""
