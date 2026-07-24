@@ -4,5 +4,6 @@
 		"noEmit": false
 	},
 	"include": ["src"],
+	"exclude": ["src/**/*.test.ts", "src/test/**"],
 	"references": [{ "path": "../content/tsconfig.build.json" }]
 }
