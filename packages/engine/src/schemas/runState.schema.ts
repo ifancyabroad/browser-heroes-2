@@ -31,6 +31,7 @@ export const runStateSchema = z.object({
 	endlessCycle: z.number().int().min(0),
 	day: z.number().int().min(1),
 	kills: z.number().int().min(0),
+	hasDefeatedFinalBoss: z.boolean(),
 	hero: heroStateSchema,
 	combat: combatStateSchema.nullable(),
 	town: townStateSchema.nullable(),

@@ -19,6 +19,7 @@ const emptySummary: UserStatsSummaryView = {
 		total: 0,
 		dead: 0,
 		retired: 0,
+		wins: 0,
 		bestBattleNumber: 0,
 		bestZoneNumber: 0,
 		bestEndlessCycle: 0,

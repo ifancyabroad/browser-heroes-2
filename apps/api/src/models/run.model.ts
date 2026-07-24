@@ -51,6 +51,11 @@ const runSummarySchema = new Schema(
 			default: 0,
 			min: 0,
 		},
+		hasDefeatedFinalBoss: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
 	},
 	{
 		_id: false,

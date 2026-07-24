@@ -26,6 +26,7 @@ export interface RunSummaryView {
 	endlessCycle: number;
 	day: number;
 	kills: number;
+	hasDefeatedFinalBoss: boolean;
 }
 
 export interface RunView {

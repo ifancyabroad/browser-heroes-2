@@ -10,6 +10,7 @@ import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward
 import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
 import { advanceTurn } from "./advanceTurn";
 import { syncHeroFromPlayerCombatant } from "../combatants/syncHeroFromCombatant";
+import { isFinalBossVictory } from "../../endless/endlessProgression";
 
 type FinishPlayerActionRoundInput = {
 	state: RunState;
@@ -98,12 +99,16 @@ function finishVictory(
 	rngState: RngState,
 	events?: EngineEvent[],
 ): EngineResult {
+	const hasDefeatedFinalBoss =
+		state.hasDefeatedFinalBoss || isFinalBossVictory(state.battleNumber, state.endlessCycle);
+
 	const completedState: RunState = {
 		...state,
 		rngState,
 		hero: syncHeroFromPlayerCombatant(state.hero, combat.player),
 		combat,
 		kills: state.kills + 1,
+		hasDefeatedFinalBoss,
 	};
 
 	const victoryResult = applyVictoryReward(completedState);

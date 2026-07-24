@@ -15,7 +15,7 @@ export function StatsSummary({
 	const items: SummaryItem[] =
 		tab === "heroes"
 			? [
-					{ label: "WINS", value: summary.runs.retired },
+					{ label: "WINS", value: summary.runs.wins },
 					{ label: "KILLS", value: summary.runs.totalKills },
 					{ label: "DEATHS", value: summary.runs.dead },
 					{ label: "RECORD", value: `Battle ${summary.runs.bestBattleNumber}` },

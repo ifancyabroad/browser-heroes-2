@@ -16,6 +16,7 @@ export function toRunSummary(state: RunState): RunSummaryView {
 		endlessCycle: state.endlessCycle,
 		day: state.day,
 		kills: state.kills,
+		hasDefeatedFinalBoss: state.hasDefeatedFinalBoss,
 	};
 }
 

@@ -169,7 +169,7 @@ export async function getGhostStats(params: { userId: string; query: GetGhostSta
 export async function getUserStatsSummary(userId: string) {
 	const userObjectId = new Types.ObjectId(userId);
 
-	const [runStats, ghostStats] = await Promise.all([
+	const [runStats, wins, ghostStats] = await Promise.all([
 		RunModel.aggregate<{
 			total: number;
 			dead: number;
@@ -214,6 +214,11 @@ export async function getUserStatsSummary(userId: string) {
 			},
 		]),
 
+		RunModel.countDocuments({
+			userId: userObjectId,
+			"summary.hasDefeatedFinalBoss": true,
+		}),
+
 		GhostModel.aggregate<{
 			total: number;
 			kills: number;
@@ -250,6 +255,7 @@ export async function getUserStatsSummary(userId: string) {
 				total: runs?.total ?? 0,
 				dead: runs?.dead ?? 0,
 				retired: runs?.retired ?? 0,
+				wins,
 				bestBattleNumber: runs?.bestBattleNumber ?? 0,
 				bestZoneNumber: runs?.bestZoneNumber ?? 0,
 				bestEndlessCycle: runs?.bestEndlessCycle ?? 0,

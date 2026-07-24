@@ -55,6 +55,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		endlessCycle,
 		day: 1,
 		kills: 0,
+		hasDefeatedFinalBoss: false,
 
 		hero,
 

@@ -98,6 +98,7 @@ export interface UserStatsSummaryView {
 		total: number;
 		dead: number;
 		retired: number;
+		wins: number;
 		bestBattleNumber: number;
 		bestZoneNumber: number;
 		bestEndlessCycle: number;
