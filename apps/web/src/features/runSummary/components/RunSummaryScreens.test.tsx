@@ -1,0 +1,90 @@
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import type { RunView } from "@app/shared";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+const selectRunSummaryView = vi.hoisted(() => vi.fn());
+
+vi.mock("@app/engine", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@app/engine")>()),
+	selectRunSummaryView,
+}));
+vi.mock("../../../components/GameLayout", () => ({
+	GameLayout: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+import { DeathScreen } from "./DeathScreen";
+import { VictoryScreen } from "./VictoryScreen";
+
+const run = { state: {} } as RunView;
+const summary = {
+	status: "dead",
+	hero: { name: "Test Hero", classId: "fighter", level: 7 },
+	finalEnemy: { name: "Dragon" },
+	battleNumber: 20,
+	gold: 100,
+	streak: 5,
+	finalMomentLog: [
+		{ id: "one", actor: "enemy", message: "Dragon attacks." },
+		{ id: "two", actor: "system", message: "The run ends." },
+	],
+};
+
+function renderScreen(component: React.ReactNode) {
+	return render(<MemoryRouter>{component}</MemoryRouter>);
+}
+
+describe("completed run screens", () => {
+	beforeEach(() => {
+		vi.clearAllMocks();
+		selectRunSummaryView.mockReturnValue(summary);
+	});
+
+	it("renders a safe death fallback when summary selection fails", () => {
+		selectRunSummaryView.mockReturnValue(null);
+
+		renderScreen(<DeathScreen run={run} />);
+
+		expect(screen.getByRole("heading", { name: "YOU WERE SLAIN" })).toHaveFocus();
+		expect(screen.getByRole("link", { name: "Try Again" })).toHaveAttribute(
+			"href",
+			"/create-character",
+		);
+	});
+
+	it("renders death identity, enemy, battle, and final moments", () => {
+		renderScreen(<DeathScreen run={run} />);
+
+		expect(screen.getByText(/Test Hero the Fighter/)).toBeInTheDocument();
+		expect(screen.getByText("Dragon")).toBeInTheDocument();
+		expect(screen.getByText("20")).toBeInTheDocument();
+		expect(screen.getByRole("region", { name: "Final moments" })).toHaveTextContent(
+			"Dragon attacks.",
+		);
+	});
+
+	it("renders a safe victory fallback for non-retired summaries", () => {
+		renderScreen(<VictoryScreen run={run} />);
+
+		expect(
+			screen.getByText("The run has ended, and this hero's tale is complete."),
+		).toBeInTheDocument();
+		expect(screen.getByRole("link", { name: "New Hero" })).toHaveAttribute(
+			"href",
+			"/create-character",
+		);
+	});
+
+	it("renders retired victory details and final moments", () => {
+		selectRunSummaryView.mockReturnValue({ ...summary, status: "retired" });
+
+		renderScreen(<VictoryScreen run={run} />);
+
+		expect(screen.getByRole("heading", { name: "The Ladder Is Broken" })).toBeInTheDocument();
+		expect(screen.getByText(/retired victorious after defeating/)).toBeInTheDocument();
+		expect(screen.getByText("100")).toBeInTheDocument();
+		expect(screen.getByRole("region", { name: "Final moments" })).toHaveTextContent(
+			"The run ends.",
+		);
+	});
+});
