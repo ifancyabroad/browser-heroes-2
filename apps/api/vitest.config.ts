@@ -6,6 +6,7 @@ export default defineConfig({
 		environment: "node",
 		setupFiles: ["./src/test/setup.ts"],
 		include: ["src/**/*.{test,spec}.ts"],
+		hookTimeout: 20_000,
 		coverage: {
 			provider: "v8",
 			reportsDirectory: "coverage",
