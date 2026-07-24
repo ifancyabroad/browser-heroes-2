@@ -16,6 +16,26 @@ describe("applyAction", () => {
 		expect(state).toEqual(original);
 	});
 
+	it("resolves both actors and advances the combat turn", () => {
+		const state = createTestRunState();
+
+		const result = applyAction(state, { type: "PLAYER_SKIP_TURN" });
+
+		expect(result.ok).toBe(true);
+		expect(result.state.combat).toMatchObject({
+			turnNumber: state.combat!.turnNumber + 1,
+			activeActor: "player",
+			status: "active",
+		});
+		expect(result.events).toContainEqual({ type: "COMBAT_TURN_RESOLVED" });
+		expect(result.state.combat!.log).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ actor: "player", eventType: "turn_skipped" }),
+				expect.objectContaining({ actor: "enemy" }),
+			]),
+		);
+	});
+
 	it("rejects combat actions when combat is unavailable and preserves state", () => {
 		const state = modifyTestRunState(createTestRunState(), (draft) => {
 			draft.phase = "town";
