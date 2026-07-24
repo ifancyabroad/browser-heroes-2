@@ -6,6 +6,7 @@ node_modules/
 # build outputs
 **/dist/
 **/build/
+**/coverage/
 
 # vite (rare outside node_modules, but safe to ignore)
 **/.vite/

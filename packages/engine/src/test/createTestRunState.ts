@@ -1,4 +1,4 @@
-import { createInitialRunState, runStateSchema, type RunState } from "../index";
+import { applyAction, createInitialRunState, runStateSchema, type RunState } from "../index";
 
 const TEST_RUN_INPUT = {
 	runId: "test-run",
@@ -9,6 +9,27 @@ const TEST_RUN_INPUT = {
 
 export function createTestRunState(): RunState {
 	return createInitialRunState(TEST_RUN_INPUT);
+}
+
+export function createTestVictoryState(): RunState {
+	return modifyTestRunState(createTestRunState(), (draft) => {
+		if (!draft.combat) {
+			throw new Error("Expected test run to have combat");
+		}
+
+		draft.combat.status = "player_won";
+		draft.combat.enemy.currentHp = 0;
+	});
+}
+
+export function createTestTownState(): RunState {
+	const result = applyAction(createTestVictoryState(), { type: "RETURN_TO_TOWN" });
+
+	if (!result.ok) {
+		throw new Error(`Unable to create test town state: ${result.error}`);
+	}
+
+	return result.state;
 }
 
 export function modifyTestRunState(state: RunState, modify: (draft: RunState) => void): RunState {
