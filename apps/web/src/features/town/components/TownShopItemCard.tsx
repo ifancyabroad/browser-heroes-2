@@ -35,7 +35,7 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 	return (
 		<article
 			className={clsx(
-				"relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)] md:grid-cols-[4rem_minmax(0,1fr)]",
+				"relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)]",
 				isPurchased && "border-dashed bg-bg-base",
 			)}
 		>
@@ -62,40 +62,22 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 					</span>
 				</Tooltip>
 
-				<div className="grid min-w-0 content-start gap-2">
-					<div className="grid min-w-0 grid-cols-[minmax(0,1fr)_3.5rem] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_3.75rem] md:grid-cols-[minmax(0,1fr)_4rem]">
-						<div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
-							<Tooltip
-								content={
-									tooltipSlots.length > 0 ? (
-										<ItemTooltipContent item={item} slot={tooltipSlots} />
-									) : null
-								}
-								className={clsx(
-									"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-									getItemRarityTextClassName(item.rarity),
-								)}
-								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-							>
-								{item.name}
-							</Tooltip>
-							<span className="whitespace-nowrap">
-								<span className="mr-2 text-text-muted">/</span>
-								<span className={getPriceClassName(slot)}>{slot.price}g</span>
-							</span>
-						</div>
+				<div className="grid min-w-0 content-start gap-1 md:hidden">
+					<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
+					<ReplacementDetails destinations={slot.destinations} compact />
+				</div>
 
-						<Button
-							type="button"
-							variant="primary"
-							className="justify-self-end border-border-secondary px-2"
-							disabled={disabled}
-							aria-label={getBuyLabel(slot)}
-							title={getBuyLabel(slot)}
-							onClick={onBuy}
-						>
-							Buy
-						</Button>
+				<BuyButton
+					slot={slot}
+					disabled={disabled}
+					onBuy={onBuy}
+					className="self-start justify-self-end md:hidden"
+				/>
+
+				<div className="hidden min-w-0 content-start gap-2 md:grid">
+					<div className="grid min-w-0 grid-cols-[minmax(0,1fr)_3.5rem] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_3.75rem] md:grid-cols-[minmax(0,1fr)_4rem]">
+						<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
+						<BuyButton slot={slot} disabled={disabled} onBuy={onBuy} />
 					</div>
 
 					<div className="grid min-w-0 gap-1">
@@ -135,6 +117,65 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 				</div>
 			)}
 		</article>
+	);
+}
+
+function ItemHeading({
+	slot,
+	tooltipSlots,
+}: {
+	slot: TownShopSlotView;
+	tooltipSlots: readonly TownShopDestinationView["equipmentSlot"][];
+}) {
+	const { item } = slot;
+
+	return (
+		<div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+			<Tooltip
+				content={
+					tooltipSlots.length > 0 ? (
+						<ItemTooltipContent item={item} slot={tooltipSlots} />
+					) : null
+				}
+				className={clsx(
+					"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+					getItemRarityTextClassName(item.rarity),
+				)}
+				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+			>
+				{item.name}
+			</Tooltip>
+			<span className="whitespace-nowrap">
+				<span className="mr-2 text-text-muted">/</span>
+				<span className={getPriceClassName(slot)}>{slot.price}g</span>
+			</span>
+		</div>
+	);
+}
+
+function BuyButton({
+	slot,
+	disabled,
+	onBuy,
+	className,
+}: {
+	slot: TownShopSlotView;
+	disabled: boolean;
+	onBuy: () => void;
+	className?: string;
+}) {
+	return (
+		<Button
+			type="button"
+			variant="primary"
+			className={clsx("justify-self-end border-border-secondary px-2", className)}
+			disabled={disabled}
+			aria-label={getBuyLabel(slot)}
+			title={getBuyLabel(slot)}
+			onClick={onBuy}
+		>
+			Buy
+		</Button>
 	);
 }
 
@@ -186,15 +227,24 @@ function ModifierPreview({ slot }: { slot: TownShopSlotView }) {
 
 function ReplacementDetails({
 	destinations,
+	compact = false,
 }: {
 	destinations: readonly TownShopDestinationView[];
+	compact?: boolean;
 }) {
 	if (destinations.length === 0) {
 		return null;
 	}
 
 	return (
-		<p className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-2">
+		<p
+			className={clsx(
+				"grid min-w-0",
+				compact
+					? "grid-cols-[max-content_minmax(0,1fr)] gap-1"
+					: "grid-cols-[5rem_minmax(0,1fr)] gap-2",
+			)}
+		>
 			<span className="text-text-label">Current</span>
 			<span className="min-w-0 break-words text-text">
 				<CombinedDestinationItems destinations={destinations} />
