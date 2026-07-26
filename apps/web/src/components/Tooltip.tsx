@@ -1,5 +1,5 @@
-import type { PropsWithChildren, ReactNode } from "react";
-import { Tooltip as TooltipPrimitive } from "radix-ui";
+import { useEffect, useState, type PropsWithChildren, type ReactNode } from "react";
+import { Popover as PopoverPrimitive, Tooltip as TooltipPrimitive } from "radix-ui";
 import clsx from "clsx";
 
 type TooltipProviderProps = PropsWithChildren;
@@ -11,6 +11,7 @@ type TooltipProps = PropsWithChildren<{
 	className?: string;
 	contentClassName?: string;
 	referenceTabIndex?: number | null;
+	mobileBehavior?: "popover" | "disabled";
 }>;
 
 export function TooltipProvider({ children }: TooltipProviderProps) {
@@ -32,9 +33,11 @@ export function Tooltip({
 	className,
 	contentClassName,
 	referenceTabIndex = 0,
+	mobileBehavior = "popover",
 	children,
 }: TooltipProps) {
 	const enabled = !disabled && content !== null && content !== undefined;
+	const usesTouchInteraction = useCoarsePointer();
 
 	const trigger = (
 		<span
@@ -45,8 +48,31 @@ export function Tooltip({
 		</span>
 	);
 
-	if (!enabled) {
+	if (!enabled || (usesTouchInteraction && mobileBehavior === "disabled")) {
 		return trigger;
+	}
+
+	if (usesTouchInteraction) {
+		const touchPlacement = placement === "left" || placement === "right" ? "bottom" : placement;
+
+		return (
+			<PopoverPrimitive.Root>
+				<PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>
+				<PopoverPrimitive.Portal>
+					<PopoverPrimitive.Content
+						side={touchPlacement}
+						sideOffset={8}
+						collisionPadding={8}
+						className={clsx(
+							getContentClassName(contentClassName),
+							"max-h-[calc(100dvh-1rem)] overflow-y-auto overscroll-contain",
+						)}
+					>
+						{content}
+					</PopoverPrimitive.Content>
+				</PopoverPrimitive.Portal>
+			</PopoverPrimitive.Root>
+		);
 	}
 
 	return (
@@ -57,15 +83,37 @@ export function Tooltip({
 					side={placement}
 					sideOffset={8}
 					collisionPadding={8}
-					className={clsx(
-						"pointer-events-none z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text",
-						!contentClassName && "max-w-sm",
-						contentClassName,
-					)}
+					className={getContentClassName(contentClassName, true)}
 				>
 					{content}
 				</TooltipPrimitive.Content>
 			</TooltipPrimitive.Portal>
 		</TooltipPrimitive.Root>
+	);
+}
+
+function useCoarsePointer() {
+	const [matches, setMatches] = useState(
+		() => typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches,
+	);
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia("(pointer: coarse)");
+		const handleChange = () => setMatches(mediaQuery.matches);
+
+		handleChange();
+		mediaQuery.addEventListener("change", handleChange);
+		return () => mediaQuery.removeEventListener("change", handleChange);
+	}, []);
+
+	return matches;
+}
+
+function getContentClassName(contentClassName?: string, pointerEventsNone = false) {
+	return clsx(
+		"z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text",
+		pointerEventsNone && "pointer-events-none",
+		!contentClassName && "max-w-sm",
+		contentClassName,
 	);
 }

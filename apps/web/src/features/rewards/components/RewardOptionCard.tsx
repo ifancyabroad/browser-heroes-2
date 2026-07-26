@@ -60,6 +60,7 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 								)}
 								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 								referenceTabIndex={null}
+								mobileBehavior="disabled"
 							>
 								{content.name}
 							</Tooltip>
@@ -185,6 +186,7 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 				referenceTabIndex={null}
+				mobileBehavior="disabled"
 			>
 				{item.name}
 			</Tooltip>

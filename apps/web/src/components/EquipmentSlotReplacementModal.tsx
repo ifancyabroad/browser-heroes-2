@@ -182,6 +182,7 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 				)}
 				contentClassName={itemTooltipContentClassName}
 				referenceTabIndex={null}
+				mobileBehavior="disabled"
 			>
 				{item.name}
 			</Tooltip>

@@ -266,6 +266,7 @@ function SkillSlot({ skill, available, loading, onUseSkill }: SkillSlotProps) {
 			className="w-16 sm:w-20"
 			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 			referenceTabIndex={available && !loading ? null : 0}
+			mobileBehavior="disabled"
 		>
 			<ActionSlotButton
 				available={available}
