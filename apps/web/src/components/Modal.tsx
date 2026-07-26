@@ -1,4 +1,4 @@
-import type { PropsWithChildren, ReactNode } from "react";
+import { useRef, type PropsWithChildren, type ReactNode } from "react";
 import { Dialog } from "radix-ui";
 import clsx from "clsx";
 import { PanelTitle } from "./PanelTitle";
@@ -30,6 +30,8 @@ export function Modal({
 	className,
 	children,
 }: ModalProps) {
+	const contentRef = useRef<HTMLDivElement>(null);
+
 	function preventDismiss(event: Event) {
 		if (!dismissible) {
 			event.preventDefault();
@@ -48,6 +50,12 @@ export function Modal({
 			<Dialog.Portal>
 				<Dialog.Overlay className="fixed inset-0 z-50 bg-black/70" />
 				<Dialog.Content
+					ref={contentRef}
+					tabIndex={-1}
+					onOpenAutoFocus={(event) => {
+						event.preventDefault();
+						contentRef.current?.focus();
+					}}
 					onEscapeKeyDown={preventDismiss}
 					onPointerDownOutside={preventDismiss}
 					className={clsx(

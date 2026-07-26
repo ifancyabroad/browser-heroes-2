@@ -24,4 +24,16 @@ describe("Modal", () => {
 		expect(dialog).toHaveClass("max-w-5xl");
 		expect(dialog).not.toHaveClass("max-w-md");
 	});
+
+	it("focuses the dialog instead of its first interactive child when opened", () => {
+		render(
+			<Modal open title="Focus modal" onClose={() => undefined}>
+				<button type="button">First action</button>
+			</Modal>,
+		);
+
+		const dialog = screen.getByRole("dialog");
+		expect(dialog).toHaveFocus();
+		expect(screen.getByRole("button", { name: "First action" })).not.toHaveFocus();
+	});
 });
