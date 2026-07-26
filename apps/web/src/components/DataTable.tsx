@@ -160,7 +160,7 @@ export function DataTableRowAction({
 				event.stopPropagation();
 				onSelect();
 			}}
-			className="text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+			className="cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 		>
 			{children}
 		</button>

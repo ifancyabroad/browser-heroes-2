@@ -168,7 +168,9 @@ function DossierEntryCard({
 				className="h-12 w-12 object-cover"
 			/>
 			<span className="grid min-w-0 gap-1">
-				<span className={clsx("break-words text-text-bright", nameClassName)}>{name}</span>
+				<span className={clsx("break-words", nameClassName ?? "text-text-bright")}>
+					{name}
+				</span>
 				<span className="text-text-muted">{subtitle}</span>
 			</span>
 			{badge && <Badge label={badge} className="text-primary" />}

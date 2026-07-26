@@ -12,7 +12,7 @@ export function HeroDossier({ view }: { view: RunHeroView }) {
 		<article className="grid gap-5">
 			<HeroHeader view={view} hero={hero} className={heroClass.name} />
 			<div className="grid items-start gap-5 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.15fr)_minmax(0,1.15fr)]">
-				<div className="grid gap-5">
+				<div className="grid items-start gap-5 bg-bg-panel px-4 py-4">
 					<AttributesSection hero={hero} />
 					<CombatSection hero={hero} />
 				</div>

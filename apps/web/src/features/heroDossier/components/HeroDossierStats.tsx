@@ -16,7 +16,7 @@ const statRowClassName =
 
 export function AttributesSection({ hero }: { hero: HeroView }) {
 	return (
-		<section className="grid gap-3 bg-bg-panel px-4 py-4" aria-label="Attributes">
+		<section className="grid gap-3" aria-label="Attributes">
 			<SectionHeading title="Attributes" />
 			<ul className="grid gap-y-2">
 				{attributes.map((attribute) => {
@@ -60,7 +60,7 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 	];
 
 	return (
-		<section className="grid gap-3 bg-bg-panel px-4 py-4" aria-label="Combat">
+		<section className="grid gap-3" aria-label="Combat">
 			<SectionHeading title="Combat" />
 			<ul className="grid gap-y-2">
 				<li className="grid grid-cols-[1fr_auto] items-baseline gap-4 px-1">
