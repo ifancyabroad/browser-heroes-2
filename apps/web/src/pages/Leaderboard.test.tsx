@@ -14,7 +14,7 @@ vi.mock("../features/leaderboards/hooks/useRunLeaderboard", () => ({
 vi.mock("../features/leaderboards/hooks/useGhostLeaderboard", () => ({
 	useGhostLeaderboard: hooks.useGhostLeaderboard,
 }));
-vi.mock("../features/runs", () => ({
+vi.mock("../features/heroDossier", () => ({
 	HeroDossierModal: () => null,
 }));
 vi.mock("../components/Layout", () => ({

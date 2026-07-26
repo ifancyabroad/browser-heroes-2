@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const useRunHero = vi.hoisted(() => vi.fn());
 
-vi.mock("../hooks/useRunHero", () => ({ useRunHero }));
+vi.mock("../../runs", () => ({ useRunHero }));
 vi.mock("../../../components/Modal", () => ({
 	Modal: ({
 		open,

@@ -12,6 +12,7 @@ import { Header } from "../components/Header";
 import { Tabs } from "../components/Tabs";
 import { TablePagination } from "../components/TablePagination";
 import { useCurrentUser } from "../features/auth";
+import { HeroDossierModal } from "../features/heroDossier";
 import { LeaderboardFilters } from "../features/leaderboards/components/LeaderboardFilters";
 import {
 	GhostLeaderboardTable,
@@ -20,7 +21,6 @@ import {
 import { getTodayUtc } from "../utils/date";
 import { useGhostLeaderboard } from "../features/leaderboards/hooks/useGhostLeaderboard";
 import { useRunLeaderboard } from "../features/leaderboards/hooks/useRunLeaderboard";
-import { HeroDossierModal } from "../features/runs";
 
 const PAGE_SIZE = 20;
 const tabs = [

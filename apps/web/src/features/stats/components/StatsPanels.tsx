@@ -1,7 +1,7 @@
 import type { GetGhostStatsQuery, GetRunStatsQuery, UserStatsSummaryView } from "@app/shared";
 import { useState } from "react";
 import { TablePagination } from "../../../components/TablePagination";
-import { HeroDossierModal } from "../../runs";
+import { HeroDossierModal } from "../../heroDossier";
 import { useGhostStats } from "../hooks/useGhostStats";
 import { useRunStats } from "../hooks/useRunStats";
 import { useStatsTableControls } from "../hooks/useStatsTableControls";

@@ -1,6 +1,6 @@
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
-import { useRunHero } from "../hooks/useRunHero";
+import { useRunHero } from "../../runs";
 import { HeroDossier } from "./HeroDossier";
 
 type HeroDossierModalProps = {
