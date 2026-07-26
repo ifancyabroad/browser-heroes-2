@@ -1,5 +1,7 @@
 import type { GetGhostStatsQuery, GetRunStatsQuery, UserStatsSummaryView } from "@app/shared";
+import { useState } from "react";
 import { TablePagination } from "../../../components/TablePagination";
+import { HeroDossierModal } from "../../runs";
 import { useGhostStats } from "../hooks/useGhostStats";
 import { useRunStats } from "../hooks/useRunStats";
 import { useStatsTableControls } from "../hooks/useStatsTableControls";
@@ -20,6 +22,7 @@ type CommonPanelProps = {
 };
 
 export function HeroStatsPanel(props: CommonPanelProps) {
+	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 	const {
 		classId,
 		searchInput,
@@ -77,6 +80,7 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 					sort={sort}
 					direction={direction}
 					onSort={handleSort}
+					onSelectRun={setSelectedRunId}
 				/>
 			)}
 			{props.hasSession && runs.data && !runs.isError && (
@@ -89,6 +93,7 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 				/>
 			)}
 			{runs.isFetching && !runs.isPending && <UpdatingMessage />}
+			<HeroDossierModal runId={selectedRunId} onClose={() => setSelectedRunId(null)} />
 		</>
 	);
 }

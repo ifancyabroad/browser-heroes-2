@@ -14,6 +14,9 @@ vi.mock("../features/leaderboards/hooks/useRunLeaderboard", () => ({
 vi.mock("../features/leaderboards/hooks/useGhostLeaderboard", () => ({
 	useGhostLeaderboard: hooks.useGhostLeaderboard,
 }));
+vi.mock("../features/runs", () => ({
+	HeroDossierModal: () => null,
+}));
 vi.mock("../components/Layout", () => ({
 	Layout: ({ children }: { children: React.ReactNode }) => children,
 }));

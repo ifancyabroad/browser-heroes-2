@@ -47,7 +47,7 @@ export function HeroSidebar({
 	const [activeTab, setActiveTab] = useState<HeroSidebarTab>("details");
 
 	const { state } = run;
-	const heroView = selectHeroView(state);
+	const heroView = selectHeroView(state.hero);
 	const heroClass = CLASSES_BY_ID[heroView.classId];
 	const progression = selectHeroProgression(state);
 	const xpResource = getXpResource(progression);

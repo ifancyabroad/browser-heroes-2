@@ -20,6 +20,7 @@ import {
 import { getTodayUtc } from "../utils/date";
 import { useGhostLeaderboard } from "../features/leaderboards/hooks/useGhostLeaderboard";
 import { useRunLeaderboard } from "../features/leaderboards/hooks/useRunLeaderboard";
+import { HeroDossierModal } from "../features/runs";
 
 const PAGE_SIZE = 20;
 const tabs = [
@@ -38,6 +39,7 @@ export default function Leaderboard() {
 	const [scope, setScope] = useState<LeaderboardScope>("overall");
 	const [dailyDate, setDailyDate] = useState(getTodayUtc);
 	const [page, setPage] = useState(1);
+	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (!hasSession && userOnly) {
@@ -132,7 +134,10 @@ export default function Leaderboard() {
 										) : runs.data.entries.length === 0 ? (
 											<LeaderboardMessage message="No heroes match these filters." />
 										) : (
-											<RunLeaderboardTable entries={runs.data.entries} />
+											<RunLeaderboardTable
+												entries={runs.data.entries}
+												onSelectRun={setSelectedRunId}
+											/>
 										)}
 										{runs.data && !runs.isError && (
 											<TablePagination
@@ -185,6 +190,7 @@ export default function Leaderboard() {
 					</Card>
 				</div>
 			</div>
+			<HeroDossierModal runId={selectedRunId} onClose={() => setSelectedRunId(null)} />
 		</Layout>
 	);
 }

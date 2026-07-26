@@ -6,12 +6,19 @@ import {
 	DataTableHeader,
 	DataTableHeading,
 	DataTableRow,
+	DataTableRowAction,
 } from "../../../components/DataTable";
 import { HeroIdentity } from "../../../components/HeroIdentity";
 import { formatTitle } from "../../../game/effectDisplay";
 import { formatDisplayDate } from "../../../utils/date";
 
-export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryView[] }) {
+export function RunLeaderboardTable({
+	entries,
+	onSelectRun,
+}: {
+	entries: RunLeaderboardEntryView[];
+	onSelectRun: (runId: string) => void;
+}) {
 	return (
 		<DataTable tableClassName="sm:min-w-225">
 			<DataTableHeader>
@@ -37,16 +44,25 @@ export function RunLeaderboardTable({ entries }: { entries: RunLeaderboardEntryV
 			</DataTableHeader>
 			<tbody>
 				{entries.map((entry) => (
-					<DataTableRow key={entry.runId} highlighted={entry.isCurrentUser}>
+					<DataTableRow
+						key={entry.runId}
+						highlighted={entry.isCurrentUser}
+						onSelect={() => onSelectRun(entry.runId)}
+					>
 						<DataTableCell numeric className="w-12 sm:w-auto">
 							{entry.rank}
 						</DataTableCell>
 						<DataTableCell>
-							<HeroIdentity
-								name={entry.heroName}
-								classId={entry.classId}
-								isCurrentUser={entry.isCurrentUser}
-							/>
+							<DataTableRowAction
+								label={`Inspect hero ${entry.heroName}`}
+								onSelect={() => onSelectRun(entry.runId)}
+							>
+								<HeroIdentity
+									name={entry.heroName}
+									classId={entry.classId}
+									isCurrentUser={entry.isCurrentUser}
+								/>
+							</DataTableRowAction>
 						</DataTableCell>
 						<DataTableCell numeric className="w-18 sm:w-auto">
 							{entry.kills}

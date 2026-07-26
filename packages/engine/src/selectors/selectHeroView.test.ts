@@ -5,7 +5,7 @@ import { selectHeroView } from "./selectHeroView";
 describe("selectHeroView", () => {
 	it("projects identity, derived stats, equipment, and consumable limits", () => {
 		const state = createTestRunState();
-		const view = selectHeroView(state);
+		const view = selectHeroView(state.hero);
 
 		expect(view).toMatchObject({
 			name: "Test Hero",

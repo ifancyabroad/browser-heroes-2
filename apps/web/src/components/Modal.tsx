@@ -9,8 +9,16 @@ type ModalProps = PropsWithChildren<{
 	onClose: () => void;
 	footer?: ReactNode;
 	dismissible?: boolean;
+	size?: "sm" | "md" | "lg" | "xl";
 	className?: string;
 }>;
+
+const modalSizeClassNames = {
+	sm: "max-w-sm",
+	md: "max-w-md",
+	lg: "max-w-3xl",
+	xl: "max-w-5xl",
+} as const;
 
 export function Modal({
 	open,
@@ -18,6 +26,7 @@ export function Modal({
 	onClose,
 	footer,
 	dismissible = true,
+	size = "md",
 	className,
 	children,
 }: ModalProps) {
@@ -42,7 +51,8 @@ export function Modal({
 					onEscapeKeyDown={preventDismiss}
 					onPointerDownOutside={preventDismiss}
 					className={clsx(
-						"fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 flex-col border-2 border-border bg-bg-elevated outline-none",
+						"fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col border-2 border-border bg-bg-elevated outline-none",
+						modalSizeClassNames[size],
 						className,
 					)}
 				>

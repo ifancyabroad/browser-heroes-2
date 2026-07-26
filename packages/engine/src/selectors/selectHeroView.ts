@@ -1,6 +1,6 @@
 import type { ClassId, FeatId } from "@app/content";
 
-import type { HeroEquipmentState, HeroSkillState, RunState } from "../schemas";
+import type { HeroEquipmentState, HeroSkillState, HeroState } from "../schemas";
 import { deriveHeroStats, type DerivedHeroStats } from "../systems/hero/deriveHeroStats";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 
@@ -24,8 +24,7 @@ export type HeroView = {
 	maxHealingPotions: number;
 };
 
-export function selectHeroView(state: RunState): HeroView {
-	const { hero } = state;
+export function selectHeroView(hero: HeroState): HeroView {
 	const derivedStats = deriveHeroStats(hero);
 
 	return {

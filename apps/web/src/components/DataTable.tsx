@@ -125,15 +125,44 @@ export function DataTableCell({
 export function DataTableRow({
 	children,
 	highlighted = false,
-}: PropsWithChildren<{ highlighted?: boolean }>) {
+	onSelect,
+}: PropsWithChildren<{
+	highlighted?: boolean;
+	onSelect?: () => void;
+}>) {
 	return (
 		<tr
+			onClick={onSelect}
 			className={clsx(
 				"border-b border-border-secondary last:border-b-0",
 				highlighted && "bg-bg-panel text-primary",
+				onSelect && "cursor-pointer hover:bg-bg-elevated focus-within:bg-bg-elevated",
 			)}
 		>
 			{children}
 		</tr>
+	);
+}
+
+export function DataTableRowAction({
+	children,
+	label,
+	onSelect,
+}: PropsWithChildren<{
+	label: string;
+	onSelect: () => void;
+}>) {
+	return (
+		<button
+			type="button"
+			aria-label={label}
+			onClick={(event) => {
+				event.stopPropagation();
+				onSelect();
+			}}
+			className="text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+		>
+			{children}
+		</button>
 	);
 }

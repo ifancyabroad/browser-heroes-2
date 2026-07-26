@@ -1,4 +1,4 @@
-import type { StatPresentation } from "../../../game/statDisplay";
+import type { StatPresentation } from "../game/statDisplay";
 
 type HeroStatValueProps = {
 	stat: StatPresentation;

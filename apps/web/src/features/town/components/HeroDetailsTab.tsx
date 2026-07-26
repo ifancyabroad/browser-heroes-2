@@ -1,6 +1,7 @@
 import { attributes } from "@app/content";
 import type { HeroView } from "@app/engine";
 import { Badge } from "../../../components/Badge";
+import { HeroStatValue } from "../../../components/HeroStatValue";
 import { Tooltip } from "../../../components/Tooltip";
 import {
 	DamageAffinityTooltipContent,
@@ -24,7 +25,6 @@ import {
 	getStatPresentation,
 	type StatPresentation,
 } from "../../../game/statDisplay";
-import { HeroStatValue } from "./HeroStatValue";
 
 type StatGridItem = {
 	label: string;

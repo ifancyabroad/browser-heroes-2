@@ -64,7 +64,7 @@ type CurrentRunSectionProps = {
 };
 
 function CurrentRunSection({ run }: CurrentRunSectionProps) {
-	const heroView = selectHeroView(run.state);
+	const heroView = selectHeroView(run.state.hero);
 	const heroClass = CLASSES_BY_ID[heroView.classId];
 
 	return (

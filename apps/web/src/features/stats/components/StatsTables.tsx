@@ -11,6 +11,7 @@ import {
 	DataTableHeader,
 	DataTableHeading,
 	DataTableRow,
+	DataTableRowAction,
 	SortableDataTableHeading,
 } from "../../../components/DataTable";
 import { HeroIdentity } from "../../../components/HeroIdentity";
@@ -28,7 +29,11 @@ export function RunStatsTable({
 	sort,
 	direction,
 	onSort,
-}: { entries: RunStatsEntryView[] } & SortProps<GetRunStatsQuery["sort"]>) {
+	onSelectRun,
+}: {
+	entries: RunStatsEntryView[];
+	onSelectRun: (runId: string) => void;
+} & SortProps<GetRunStatsQuery["sort"]>) {
 	return (
 		<DataTable tableClassName="sm:min-w-275">
 			<DataTableHeader>
@@ -96,9 +101,14 @@ export function RunStatsTable({
 			</DataTableHeader>
 			<tbody>
 				{entries.map((entry) => (
-					<DataTableRow key={entry.runId}>
+					<DataTableRow key={entry.runId} onSelect={() => onSelectRun(entry.runId)}>
 						<DataTableCell>
-							<HeroIdentity name={entry.heroName} classId={entry.classId} />
+							<DataTableRowAction
+								label={`Inspect hero ${entry.heroName}`}
+								onSelect={() => onSelectRun(entry.runId)}
+							>
+								<HeroIdentity name={entry.heroName} classId={entry.classId} />
+							</DataTableRowAction>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
