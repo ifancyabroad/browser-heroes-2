@@ -7,7 +7,7 @@ import { registerRunSocket } from "./run.socket";
 export function createSocketServer(httpServer: HttpServer) {
 	const io = new Server(httpServer, {
 		cors: {
-			origin: env.CLIENT_URL,
+			origin: env.APP_URL,
 			credentials: true,
 		},
 	});

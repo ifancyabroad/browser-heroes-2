@@ -7,6 +7,7 @@ export const sessionMiddleware = session({
 	secret: env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: false,
+	rolling: true,
 	store: MongoStore.create({
 		mongoUrl: env.MONGO_URI,
 		collectionName: "sessions",
@@ -15,6 +16,6 @@ export const sessionMiddleware = session({
 		httpOnly: true,
 		sameSite: env.NODE_ENV === "production" ? "none" : "lax",
 		secure: env.NODE_ENV === "production",
-		maxAge: 1000 * 60 * 60 * 24 * 30,
+		maxAge: 1000 * 60 * 60 * 24 * 90,
 	},
 });

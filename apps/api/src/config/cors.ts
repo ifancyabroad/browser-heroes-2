@@ -1,11 +1,8 @@
 import cors, { CorsOptions } from "cors";
-
-const DEV = process.env.NODE_ENV !== "production";
-const viteOrigin = "http://localhost:5173";
-const prodOrigin = process.env.WEB_ORIGIN;
+import { env } from "./env";
 
 const corsOptions: CorsOptions = {
-	origin: DEV ? viteOrigin : prodOrigin || false,
+	origin: env.APP_URL,
 	credentials: true,
 };
 

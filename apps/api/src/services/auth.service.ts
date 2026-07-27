@@ -1,16 +1,25 @@
 import type { AuthUserType, AuthUserView } from "@app/shared";
 import { UserModel } from "../models/user.model";
 
-export async function createGuestUser() {
-	const user = await UserModel.create({
-		type: "guest",
-	});
+const ACTIVITY_THROTTLE_MS = 24 * 60 * 60 * 1000;
 
-	return user;
+export async function createGuestUser() {
+	return UserModel.create({ type: "guest" });
 }
 
 export async function getUserById(userId: string) {
 	return UserModel.findById(userId);
+}
+
+export async function touchGuestActivity(userId: string) {
+	await UserModel.updateOne(
+		{
+			_id: userId,
+			type: "guest",
+			lastActiveAt: { $lt: new Date(Date.now() - ACTIVITY_THROTTLE_MS) },
+		},
+		{ $set: { lastActiveAt: new Date() } },
+	);
 }
 
 export function toAuthUserView(user: {

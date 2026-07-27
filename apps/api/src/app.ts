@@ -5,9 +5,14 @@ import { corsMiddleware } from "./config/cors";
 import { sessionMiddleware } from "./config/session";
 import { routes } from "./routes";
 import { errorHandler, notFoundHandler } from "./middlewares/error";
+import { env } from "./config/env";
 
 export function buildApp() {
 	const app = express();
+
+	if (env.TRUST_PROXY_HOPS > 0) {
+		app.set("trust proxy", env.TRUST_PROXY_HOPS);
+	}
 
 	// Basic security headers
 	app.use(helmet());

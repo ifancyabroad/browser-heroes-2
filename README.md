@@ -29,8 +29,20 @@ The API expects MongoDB configuration in `apps/api/.env`:
 ```env
 PORT=4000
 MONGO_URI=mongodb://127.0.0.1:27017/browser_heroes_2
-# WEB_ORIGIN=https://your-site.example
+SESSION_SECRET=replace-with-a-long-random-value
+APP_URL=http://localhost:5173
+TRUST_PROXY_HOPS=0
+AWS_REGION=eu-west-2
+SES_FROM_EMAIL=info@browserheroes.com
+EMAIL_DELIVERY=log
 ```
+
+Set `EMAIL_DELIVERY=ses` in production and provide AWS credentials through the
+default AWS credential chain or the deployed service role.
+
+`TRUST_PROXY_HOPS` is `0` for direct local connections. Before deployment behind
+CloudFront or a load balancer, set it to the verified number of trusted proxy hops
+so secure cookies and IP-based rate limits use the original request correctly.
 
 The web app may optionally set `VITE_API_BASE_URL` in `apps/web/.env`.
 

@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
+import { env } from "./config/env";
 
 describe("buildApp", () => {
 	let buildApp: typeof import("./app").buildApp;
@@ -13,6 +14,21 @@ describe("buildApp", () => {
 
 		expect(response.body).toEqual({ ok: true, service: "browser-heroes-api" });
 		expect(response.headers["x-content-type-options"]).toBe("nosniff");
+	});
+
+	it("does not trust forwarded addresses without configured proxy hops", () => {
+		expect(buildApp().get("trust proxy")).toBe(false);
+	});
+
+	it("trusts the configured number of proxy hops", () => {
+		const originalHops = env.TRUST_PROXY_HOPS;
+		env.TRUST_PROXY_HOPS = 2;
+
+		try {
+			expect(buildApp().get("trust proxy")).toBe(2);
+		} finally {
+			env.TRUST_PROXY_HOPS = originalHops;
+		}
 	});
 
 	it("returns the standard JSON response for unknown routes", async () => {

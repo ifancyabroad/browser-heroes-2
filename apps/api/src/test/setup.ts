@@ -6,7 +6,10 @@ vi.mock("../config/session", () => ({
 		const userId = req.header("x-test-user-id");
 		req.session = {
 			userId: userId || undefined,
-		} as typeof req.session;
+			regenerate: (callback: (error: unknown) => void) => callback(null),
+			save: (callback?: (error: unknown) => void) => callback?.(null),
+			destroy: (callback: (error: unknown) => void) => callback(null),
+		} as unknown as typeof req.session;
 		next();
 	}) satisfies RequestHandler,
 }));

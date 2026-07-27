@@ -71,7 +71,7 @@ Current backend stack:
 - Socket.IO
 - Express sessions backed by MongoDB
 
-The backend currently supports guest-first sessions, run creation, current run lookup, run retrieval, action submission, action history, health checks, and socket-based run actions.
+The backend currently supports guest-first sessions, optional accounts and recovery, run creation, current run lookup, run retrieval, action submission, action history, health checks, and socket-based run actions.
 
 Backend responsibilities include:
 
@@ -123,18 +123,19 @@ The networking model should avoid:
 
 ## 8. Authentication and Sessions
 
-The current authentication model is guest-first.
+The authentication model is guest-first with optional email/password accounts.
 
-Players can begin without account creation. Guest sessions are stored through server-side sessions and associated with persisted users and runs.
+Players can begin without account creation. Guest sessions are stored through server-side sessions and associated with persisted users and runs. A guest can register later, upgrading the same user record so existing runs, ghosts, and statistics remain attached.
 
-The intended direction is:
+Registered accounts support login and password recovery. Signing into an existing account switches the browser to that account without transferring history from the previous guest session. Registration instead upgrades the current guest user in place, so its heroes and history remain attached automatically. Passwords are stored as Argon2id hashes. Recovery uses expiring, single-use opaque tokens whose hashes are persisted.
 
-- anonymous guest-first accounts
-- optional account creation later
-- progression persistence upgrades where useful
-- low onboarding friction
+Sessions use secure HTTP-only cookies backed by MongoDB. Authentication transitions regenerate the session, and identity-changing requests accept only the configured web origin. Amazon SES delivers password-reset messages; local development logs these links by default.
+
+Direct connections use zero trusted proxy hops. Deployments behind CloudFront or a load balancer must configure the verified proxy-hop count so Express derives HTTPS and client IP information from the intended forwarding chain.
 
 Gameplay should remain accessible without mandatory account creation.
+
+Guest retention is separate from public game history. Empty guests may be removed after a short retention period and abandoned active guest runs after extended inactivity. Completed runs and published ghosts remain available to keep leaderboards stable, along with the minimal guest record required by their ownership references. Cleanup scheduling is future operational work.
 
 ## 9. Deployment Direction
 

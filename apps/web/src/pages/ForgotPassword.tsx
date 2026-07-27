@@ -1,0 +1,62 @@
+import { Button } from "../components/Button";
+import { Header } from "../components/Header";
+import { Layout } from "../components/Layout";
+import { useRequestPasswordReset } from "../features/auth";
+import { AuthField } from "../features/auth/components/AuthField";
+
+export default function ForgotPassword() {
+	const requestPasswordReset = useRequestPasswordReset();
+
+	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const form = new FormData(event.currentTarget);
+
+		requestPasswordReset.mutate({ email: String(form.get("email")) });
+	}
+
+	return (
+		<Layout>
+			<Header />
+
+			<div className="flex flex-1 items-center justify-center bg-bg-base p-4">
+				<form
+					className="grid w-full max-w-md gap-4 border-2 border-border bg-bg-panel p-4"
+					onSubmit={handleSubmit}
+				>
+					<h1 className="text-primary">RESET PASSWORD</h1>
+
+					<p>Enter your account email. If it exists, we will send a reset link.</p>
+
+					<AuthField
+						id="forgot-password-email"
+						label="Email"
+						name="email"
+						type="email"
+						autoComplete="email"
+						required
+						disabled={requestPasswordReset.isPending}
+						autoFocus
+					/>
+
+					<Button
+						type="submit"
+						variant="primary"
+						disabled={requestPasswordReset.isPending}
+					>
+						{requestPasswordReset.isPending ? "Sending..." : "SEND RESET EMAIL"}
+					</Button>
+
+					{requestPasswordReset.data && (
+						<p className="text-info">{requestPasswordReset.data.message}</p>
+					)}
+
+					{requestPasswordReset.isError && (
+						<p role="alert" className="text-error">
+							Unable to request a reset email. Please try again.
+						</p>
+					)}
+				</form>
+			</div>
+		</Layout>
+	);
+}
