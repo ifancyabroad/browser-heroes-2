@@ -2,11 +2,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const hooks = vi.hoisted(() => ({
-	useCurrentUser: vi.fn(),
+	useAuth: vi.fn(),
 	useStatsSummary: vi.fn(),
 }));
 
-vi.mock("../features/auth", () => ({ useCurrentUser: hooks.useCurrentUser }));
+vi.mock("../features/auth", () => ({ useAuth: hooks.useAuth }));
 vi.mock("../features/stats/hooks/useStatsSummary", () => ({
 	useStatsSummary: hooks.useStatsSummary,
 }));
@@ -51,7 +51,7 @@ import Stats from "./Stats";
 describe("Stats", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
-		hooks.useCurrentUser.mockReturnValue({ data: { user: { id: "user-id" } } });
+		hooks.useAuth.mockReturnValue({ hasSession: true });
 		hooks.useStatsSummary.mockReturnValue({
 			data: undefined,
 			isPending: true,
@@ -68,7 +68,7 @@ describe("Stats", () => {
 	});
 
 	it("uses the empty summary path without a session", () => {
-		hooks.useCurrentUser.mockReturnValue({ data: { user: null } });
+		hooks.useAuth.mockReturnValue({ hasSession: false });
 
 		render(<Stats />);
 

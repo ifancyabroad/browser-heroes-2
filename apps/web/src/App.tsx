@@ -8,6 +8,7 @@ import Stats from "./pages/Stats";
 import Account from "./pages/Account";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { PrivateRoute } from "./features/auth";
 
 export default function App() {
 	return (
@@ -17,7 +18,9 @@ export default function App() {
 			<Route path="/game" element={<Game />} />
 			<Route path="/leaderboard" element={<Leaderboard />} />
 			<Route path="/stats" element={<Stats />} />
-			<Route path="/account" element={<Account />} />
+			<Route element={<PrivateRoute />}>
+				<Route path="/account" element={<Account />} />
+			</Route>
 			<Route path="/forgot-password" element={<ForgotPassword />} />
 			<Route path="/reset-password" element={<ResetPassword />} />
 			<Route path="*" element={<NotFound />} />

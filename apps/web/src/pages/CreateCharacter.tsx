@@ -2,7 +2,7 @@ import { classes, CLASSES_BY_ID, type ClassId } from "@app/content";
 import { useState } from "react";
 import { ClassCard, HeroNameModal } from "../features/createCharacter";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { useCreateGuestSession, useCurrentUser } from "../features/auth";
+import { useAuth, useCreateGuestSession } from "../features/auth";
 import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
 import { Layout } from "../components/Layout";
@@ -10,7 +10,7 @@ import { Layout } from "../components/Layout";
 export default function CreateCharacter() {
 	const navigate = useNavigate();
 	const showError = useErrorModalStore((state) => state.showError);
-	const { data: currentUser } = useCurrentUser();
+	const { hasSession } = useAuth();
 	const createGuestSession = useCreateGuestSession();
 	const createRun = useCreateRun();
 	const [selectedClassId, setSelectedClassId] = useState<ClassId | null>(null);
@@ -30,7 +30,7 @@ export default function CreateCharacter() {
 		}
 
 		try {
-			if (!currentUser?.user) {
+			if (!hasSession) {
 				await createGuestSession.mutateAsync();
 			}
 

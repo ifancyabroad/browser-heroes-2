@@ -2,12 +2,12 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const hooks = vi.hoisted(() => ({
-	useCurrentUser: vi.fn(),
+	useAuth: vi.fn(),
 	useRunLeaderboard: vi.fn(),
 	useGhostLeaderboard: vi.fn(),
 }));
 
-vi.mock("../features/auth", () => ({ useCurrentUser: hooks.useCurrentUser }));
+vi.mock("../features/auth", () => ({ useAuth: hooks.useAuth }));
 vi.mock("../features/leaderboards/hooks/useRunLeaderboard", () => ({
 	useRunLeaderboard: hooks.useRunLeaderboard,
 }));
@@ -72,7 +72,7 @@ function queryState(overrides = {}) {
 describe("Leaderboard", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
-		hooks.useCurrentUser.mockReturnValue({ data: { user: { id: "user-id" } } });
+		hooks.useAuth.mockReturnValue({ hasSession: true });
 		hooks.useRunLeaderboard.mockReturnValue(queryState());
 		hooks.useGhostLeaderboard.mockReturnValue(queryState());
 	});

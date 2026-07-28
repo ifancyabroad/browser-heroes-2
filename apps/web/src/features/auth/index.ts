@@ -1,4 +1,6 @@
 export { SessionGate } from "./components/SessionGate";
+export { PrivateRoute } from "./components/PrivateRoute";
+export { useAuth } from "./hooks/useAuth";
 export { useCreateGuestSession } from "./hooks/useCreateGuestSession";
 export { useCurrentUser } from "./hooks/useCurrentUser";
 export { useLogin } from "./hooks/useLogin";

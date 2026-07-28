@@ -1,21 +1,25 @@
 import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { useCurrentUser } from "../features/auth";
+import { useAuth } from "../features/auth";
 import { useCurrentRun } from "../features/runs";
 import { Link } from "../components/Link";
 import { Layout } from "../components/Layout";
 import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
+import { useState } from "react";
+import { Button } from "../components/Button";
+import { RegisterModal } from "../features/auth/components/RegisterModal";
 
 export default function Landing() {
-	const { data } = useCurrentUser();
+	const { user, hasSession, isRegistered } = useAuth();
+	const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 	const currentRun = useCurrentRun({
-		enabled: Boolean(data?.user),
+		enabled: hasSession,
 	});
 
 	const run = currentRun.data?.run ?? null;
-	const isCheckingRun = Boolean(data?.user) && currentRun.isLoading;
+	const isCheckingRun = hasSession && currentRun.isLoading;
 
 	if (isCheckingRun) {
 		return <PageLoader />;
@@ -26,15 +30,20 @@ export default function Landing() {
 			<Header />
 			<div className="flex flex-1 items-center justify-center bg-bg-base px-4">
 				<div className="flex w-full max-w-sm flex-col items-center gap-5 text-center">
-					<h1
-						className="flex flex-col gap-1 sm:flex-row sm:gap-3"
-						aria-label="Browser Heroes"
-					>
-						<span className="text-[3rem] leading-none text-primary">BROWSER</span>
-						<span className="text-[3rem] leading-none text-primary">HEROES</span>
-					</h1>
 					<div className="grid gap-2">
+						<h1
+							className="flex flex-col gap-1 sm:flex-row sm:gap-3"
+							aria-label="Browser Heroes"
+						>
+							<span className="text-[3rem] leading-none text-primary">BROWSER</span>
+							<span className="text-[3rem] leading-none text-primary">HEROES</span>
+						</h1>
 						<p className="text-secondary">A new road awaits</p>
+					</div>
+					<div className="grid gap-2">
+						{isRegistered && (
+							<p className="text-text-bright">Welcome back, {user?.displayName}.</p>
+						)}
 						<p>
 							Create a hero, master their skills, and survive a turn-based journey
 							through increasingly deadly encounters.
@@ -53,8 +62,18 @@ export default function Landing() {
 							{run ? "NEW HERO" : "PLAY NOW"}
 						</Link>
 					</div>
+
+					{!isRegistered && (
+						<div className="grid w-full justify-items-center gap-3 border-t-2 border-border-secondary pt-4">
+							<p>Keep your heroes across browsers and devices.</p>
+							<Button type="button" onClick={() => setIsRegisterOpen(true)}>
+								CREATE ACCOUNT
+							</Button>
+						</div>
+					)}
 				</div>
 			</div>
+			<RegisterModal open={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
 		</Layout>
 	);
 }

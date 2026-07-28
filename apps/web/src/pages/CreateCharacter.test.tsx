@@ -3,7 +3,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const auth = vi.hoisted(() => ({
-	useCurrentUser: vi.fn(),
+	useAuth: vi.fn(),
 	useCreateGuestSession: vi.fn(),
 }));
 const runs = vi.hoisted(() => ({
@@ -67,7 +67,7 @@ describe("CreateCharacter", () => {
 
 	beforeEach(() => {
 		vi.clearAllMocks();
-		auth.useCurrentUser.mockReturnValue({ data: { user: null } });
+		auth.useAuth.mockReturnValue({ hasSession: false });
 		auth.useCreateGuestSession.mockReturnValue(createGuestSession);
 		runs.useCreateRun.mockReturnValue(createRun);
 		createGuestSession.mutateAsync.mockResolvedValue({});
@@ -106,7 +106,7 @@ describe("CreateCharacter", () => {
 	});
 
 	it("does not create another guest session for an existing user", async () => {
-		auth.useCurrentUser.mockReturnValue({ data: { user: { id: "user-id" } } });
+		auth.useAuth.mockReturnValue({ hasSession: true });
 		renderPage();
 
 		fireEvent.click(screen.getByRole("button", { name: "Fighter" }));

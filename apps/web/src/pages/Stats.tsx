@@ -4,7 +4,7 @@ import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
 import { Tabs } from "../components/Tabs";
-import { useCurrentUser } from "../features/auth";
+import { useAuth } from "../features/auth";
 import { GhostStatsPanel, HeroStatsPanel } from "../features/stats/components/StatsPanels";
 import { useStatsSummary } from "../features/stats/hooks/useStatsSummary";
 
@@ -36,8 +36,7 @@ const emptySummary: UserStatsSummaryView = {
 };
 
 export default function Stats() {
-	const { data: currentUser } = useCurrentUser();
-	const hasSession = Boolean(currentUser?.user);
+	const { hasSession } = useAuth();
 	const [activeTab, setActiveTab] = useState<StatsTab>("heroes");
 	const summary = useStatsSummary(hasSession);
 	const panelProps = {

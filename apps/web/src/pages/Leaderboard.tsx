@@ -11,7 +11,7 @@ import { Layout } from "../components/Layout";
 import { Header } from "../components/Header";
 import { Tabs } from "../components/Tabs";
 import { TablePagination } from "../components/TablePagination";
-import { useCurrentUser } from "../features/auth";
+import { useAuth } from "../features/auth";
 import { HeroDossierModal } from "../features/heroDossier";
 import { LeaderboardFilters } from "../features/leaderboards/components/LeaderboardFilters";
 import {
@@ -31,8 +31,7 @@ const tabs = [
 type LeaderboardTab = (typeof tabs)[number]["value"];
 
 export default function Leaderboard() {
-	const { data: currentUser } = useCurrentUser();
-	const hasSession = Boolean(currentUser?.user);
+	const { hasSession } = useAuth();
 	const [activeTab, setActiveTab] = useState<LeaderboardTab>("heroes");
 	const [classId, setClassId] = useState<ClassId | "all">("all");
 	const [userOnly, setUserOnly] = useState(false);

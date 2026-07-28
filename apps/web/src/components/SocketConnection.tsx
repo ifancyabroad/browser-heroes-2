@@ -1,10 +1,10 @@
-import { useCurrentUser } from "../features/auth";
+import { useAuth } from "../features/auth";
 import { useSocketConnection } from "../hooks/useSocketConnection";
 
 export function SocketConnection() {
-	const { data } = useCurrentUser();
+	const { user } = useAuth();
 
-	useSocketConnection(data?.user?.id);
+	useSocketConnection(user?.id);
 
 	return null;
 }
