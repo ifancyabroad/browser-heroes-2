@@ -47,8 +47,8 @@ vi.mock("./RewardModal", () => ({
 		</div>
 	),
 }));
-vi.mock("../../../components/EquipmentSlotReplacementModal", () => ({
-	EquipmentSlotReplacementModal: ({
+vi.mock("../../../components/EquipmentSlotModal", () => ({
+	EquipmentSlotModal: ({
 		onCancel,
 		onConfirm,
 	}: {

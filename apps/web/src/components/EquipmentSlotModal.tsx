@@ -15,7 +15,7 @@ type EquipmentSlotReplacementDestination = {
 	replacedItems: readonly EquippedItemState[];
 };
 
-type EquipmentSlotReplacementModalProps = {
+type EquipmentSlotModalProps = {
 	item: RuntimeItem;
 	destinations: readonly EquipmentSlotReplacementDestination[];
 	isPending: boolean;
@@ -27,13 +27,13 @@ const itemTooltipTriggerClassName =
 	"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 const itemTooltipContentClassName = "w-80 max-w-[calc(100vw-1rem)] sm:w-96";
 
-export function EquipmentSlotReplacementModal({
+export function EquipmentSlotModal({
 	item,
 	destinations,
 	isPending,
 	onCancel,
 	onConfirm,
-}: EquipmentSlotReplacementModalProps) {
+}: EquipmentSlotModalProps) {
 	const [selection, setSelection] = useState<EquipmentSlotReplacementDestination | null>(null);
 	const canConfirm = !isPending && selection !== null;
 	const tooltipSlot =

@@ -9,7 +9,7 @@ import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Button } from "../../../components/Button";
-import { EquipmentSlotReplacementModal } from "../../../components/EquipmentSlotReplacementModal";
+import { EquipmentSlotModal } from "../../../components/EquipmentSlotModal";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { ButtonLink } from "../../../components/Button";
@@ -218,7 +218,7 @@ export function TownView({ run }: TownViewProps) {
 				</GameMainPanel>
 
 				{replacementSlot && (
-					<EquipmentSlotReplacementModal
+					<EquipmentSlotModal
 						item={replacementSlot.item}
 						destinations={replacementSlot.destinations}
 						isPending={applyRunAction.isPending}

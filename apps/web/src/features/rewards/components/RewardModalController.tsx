@@ -6,7 +6,7 @@ import {
 } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useState } from "react";
-import { EquipmentSlotReplacementModal } from "../../../components/EquipmentSlotReplacementModal";
+import { EquipmentSlotModal } from "../../../components/EquipmentSlotModal";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { RewardModal } from "./RewardModal";
@@ -56,7 +56,7 @@ export function RewardModalController({ run }: RewardModalControllerProps) {
 
 	if (replacementOption) {
 		return (
-			<EquipmentSlotReplacementModal
+			<EquipmentSlotModal
 				key={`replacement-${replacementOption.optionIndex}-${replacementOption.item.id}`}
 				item={replacementOption.item}
 				destinations={replacementOption.destinations}
