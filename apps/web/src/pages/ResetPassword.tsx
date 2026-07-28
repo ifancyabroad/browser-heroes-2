@@ -3,7 +3,7 @@ import { ACCOUNT_PASSWORD_MAX_LENGTH, ACCOUNT_PASSWORD_MIN_LENGTH } from "@app/s
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
-import { Layout } from "../components/Layout";
+import { PageLayout } from "../components/PageLayout";
 import { useResetPassword } from "../features/auth";
 import { AuthField } from "../features/auth/components/AuthField";
 
@@ -22,7 +22,7 @@ export default function ResetPassword() {
 	}
 
 	return (
-		<Layout>
+		<PageLayout>
 			<Header />
 
 			<Container className="flex items-center justify-center">
@@ -65,6 +65,6 @@ export default function ResetPassword() {
 					</form>
 				)}
 			</Container>
-		</Layout>
+		</PageLayout>
 	);
 }

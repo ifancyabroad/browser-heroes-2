@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
-import { Layout } from "../components/Layout";
+import { PageLayout } from "../components/PageLayout";
 import { Tabs } from "../components/Tabs";
 import { useAuth } from "../features/auth";
 import { GhostStatsPanel, HeroStatsPanel } from "../features/stats/components/StatsPanels";
@@ -49,7 +49,7 @@ export default function Stats() {
 	};
 
 	return (
-		<Layout>
+		<PageLayout>
 			<Header />
 			<Container>
 				<header className="mb-5 grid gap-2">
@@ -80,6 +80,6 @@ export default function Stats() {
 					/>
 				</Card>
 			</Container>
-		</Layout>
+		</PageLayout>
 	);
 }

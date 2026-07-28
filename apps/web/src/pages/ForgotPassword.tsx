@@ -1,7 +1,7 @@
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
-import { Layout } from "../components/Layout";
+import { PageLayout } from "../components/PageLayout";
 import { useRequestPasswordReset } from "../features/auth";
 import { AuthField } from "../features/auth/components/AuthField";
 
@@ -16,7 +16,7 @@ export default function ForgotPassword() {
 	}
 
 	return (
-		<Layout>
+		<PageLayout>
 			<Header />
 
 			<Container className="flex items-center justify-center">
@@ -58,6 +58,6 @@ export default function ForgotPassword() {
 					)}
 				</form>
 			</Container>
-		</Layout>
+		</PageLayout>
 	);
 }

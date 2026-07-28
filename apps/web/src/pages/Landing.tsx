@@ -4,7 +4,7 @@ import type { RunView } from "@app/shared";
 import { useAuth } from "../features/auth";
 import { useCurrentRun } from "../features/runs";
 import { Button, ButtonLink } from "../components/Button";
-import { Layout } from "../components/Layout";
+import { PageLayout } from "../components/PageLayout";
 import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
 import { useState } from "react";
@@ -26,7 +26,7 @@ export default function Landing() {
 	}
 
 	return (
-		<Layout>
+		<PageLayout>
 			<Header />
 			<Container className="flex items-center justify-center">
 				<div className="flex w-full max-w-sm flex-col items-center gap-5 text-center">
@@ -74,7 +74,7 @@ export default function Landing() {
 				</div>
 			</Container>
 			<RegisterModal open={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
-		</Layout>
+		</PageLayout>
 	);
 }
 

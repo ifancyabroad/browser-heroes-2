@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { Container } from "../components/Container";
-import { Layout } from "../components/Layout";
+import { PageLayout } from "../components/PageLayout";
 import { Header } from "../components/Header";
 import { Tabs } from "../components/Tabs";
 import { TablePagination } from "../components/TablePagination";
@@ -93,7 +93,7 @@ export default function Leaderboard() {
 	}
 
 	return (
-		<Layout>
+		<PageLayout>
 			<Header />
 			<Container>
 				<header className="mb-5 grid gap-2">
@@ -185,7 +185,7 @@ export default function Leaderboard() {
 				</Card>
 			</Container>
 			<HeroDossierModal runId={selectedRunId} onClose={() => setSelectedRunId(null)} />
-		</Layout>
+		</PageLayout>
 	);
 }
 

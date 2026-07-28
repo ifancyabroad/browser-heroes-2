@@ -139,82 +139,80 @@ export function CombatView({ run }: CombatViewProps) {
 
 	return (
 		<GameLayout>
-			<div className="flex min-h-0 flex-1 overflow-hidden bg-bg-base text-base text-text">
-				<CombatSidebar
-					open={sidebarOpen}
-					onClose={handleCloseSidebar}
-					heroName={combat.player.name}
-					heroClassId={hero.classId}
-					heroLevel={combat.player.level}
-					currentHp={combat.player.currentHp}
-					maxHp={combat.player.maxHp}
-					progression={heroProgression}
-					activeEffects={combat.player.activeEffects}
-					battleNumber={battleNumber}
-					gold={gold}
-					goldMultiplier={goldMultiplier}
-					zoneLabel={zoneLabel}
-					entries={combat.log}
-				/>
+			<CombatSidebar
+				open={sidebarOpen}
+				onClose={handleCloseSidebar}
+				heroName={combat.player.name}
+				heroClassId={hero.classId}
+				heroLevel={combat.player.level}
+				currentHp={combat.player.currentHp}
+				maxHp={combat.player.maxHp}
+				progression={heroProgression}
+				activeEffects={combat.player.activeEffects}
+				battleNumber={battleNumber}
+				gold={gold}
+				goldMultiplier={goldMultiplier}
+				zoneLabel={zoneLabel}
+				entries={combat.log}
+			/>
 
-				<GameMainPanel
-					mobileHeader={
-						<Button variant="primary" type="button" onClick={handleOpenSidebar}>
-							Log
-						</Button>
-					}
-					contentClassName="flex min-h-0 flex-1 flex-col gap-4"
-					actions={
-						<CombatActionBar
-							player={combat.player}
-							isPending={applyRunAction.isPending}
-							canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
-							canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
-							canUseHealingPotion={canUseHealingPotion}
-							availableSkillIds={availableSkillIds}
-							healingPotions={combatView.healingPotions}
-							maxHealingPotions={combatView.maxHealingPotions}
-							canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
-							canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
-							isEnemySlain={isEnemySlain}
-							onBasicAttack={handleBasicAttack}
-							onSkipTurn={handleSkipTurn}
-							onUseHealingPotion={handleUseHealingPotion}
-							onUseSkill={handleUseSkill}
-							onContinue={handleContinue}
-							onReturnToTown={handleReturnToTown}
-						/>
-					}
-				>
-					<section className="grid gap-3 md:-mt-1 md:block" aria-label="Combatants">
-						<div className="md:hidden">
-							<CombatantPanel
-								combatant={combat.player}
-								identity={`${combat.player.name} the ${heroClass.name}`}
-								ariaLabel="Hero"
-							/>
-						</div>
-						<CombatantPanel
-							key={combat.enemy.id}
-							combatant={combat.enemy}
-							identity={combat.enemy.name}
-							ariaLabel="Enemy"
-							isBoss={combat.encounterType === "boss"}
-							statusLabel={isEnemySlain ? "SLAIN" : undefined}
-						/>
-					</section>
-
-					<Battlefield
-						enemyId={combat.enemy.id}
-						enemyCurrentHp={combat.enemy.currentHp}
-						enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
-						enemyName={combat.enemy.name}
+			<GameMainPanel
+				mobileHeader={
+					<Button variant="primary" type="button" onClick={handleOpenSidebar}>
+						Log
+					</Button>
+				}
+				contentClassName="flex min-h-0 flex-1 flex-col gap-4"
+				actions={
+					<CombatActionBar
+						player={combat.player}
+						isPending={applyRunAction.isPending}
+						canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
+						canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
+						canUseHealingPotion={canUseHealingPotion}
+						availableSkillIds={availableSkillIds}
+						healingPotions={combatView.healingPotions}
+						maxHealingPotions={combatView.maxHealingPotions}
+						canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
+						canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
 						isEnemySlain={isEnemySlain}
-						nextZone={nextZone}
-						zone={zone}
+						onBasicAttack={handleBasicAttack}
+						onSkipTurn={handleSkipTurn}
+						onUseHealingPotion={handleUseHealingPotion}
+						onUseSkill={handleUseSkill}
+						onContinue={handleContinue}
+						onReturnToTown={handleReturnToTown}
 					/>
-				</GameMainPanel>
-			</div>
+				}
+			>
+				<section className="grid gap-3 md:-mt-1 md:block" aria-label="Combatants">
+					<div className="md:hidden">
+						<CombatantPanel
+							combatant={combat.player}
+							identity={`${combat.player.name} the ${heroClass.name}`}
+							ariaLabel="Hero"
+						/>
+					</div>
+					<CombatantPanel
+						key={combat.enemy.id}
+						combatant={combat.enemy}
+						identity={combat.enemy.name}
+						ariaLabel="Enemy"
+						isBoss={combat.encounterType === "boss"}
+						statusLabel={isEnemySlain ? "SLAIN" : undefined}
+					/>
+				</section>
+
+				<Battlefield
+					enemyId={combat.enemy.id}
+					enemyCurrentHp={combat.enemy.currentHp}
+					enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
+					enemyName={combat.enemy.name}
+					isEnemySlain={isEnemySlain}
+					nextZone={nextZone}
+					zone={zone}
+				/>
+			</GameMainPanel>
 		</GameLayout>
 	);
 }

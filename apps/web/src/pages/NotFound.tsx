@@ -1,9 +1,9 @@
-import { Layout } from "../components/Layout";
+import { PageLayout } from "../components/PageLayout";
 import { ButtonLink } from "../components/Button";
 
 export default function NotFound() {
 	return (
-		<Layout>
+		<PageLayout>
 			<div className="flex-1 flex items-center justify-center">
 				<div className="space-y-2 text-center">
 					<h1>404 Page not found</h1>
@@ -13,6 +13,6 @@ export default function NotFound() {
 					</ButtonLink>
 				</div>
 			</div>
-		</Layout>
+		</PageLayout>
 	);
 }

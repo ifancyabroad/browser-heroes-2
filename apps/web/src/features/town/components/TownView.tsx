@@ -146,87 +146,85 @@ export function TownView({ run }: TownViewProps) {
 
 	return (
 		<GameLayout>
-			<div className="flex min-h-0 flex-1 overflow-hidden bg-bg-base text-base text-text">
-				<HeroSidebar
-					run={run}
-					battleNumber={townView.battleNumber}
-					day={townView.day}
-					gold={townView.gold}
-					zone={townView.zone}
-					open={sidebarOpen}
-					canSwapWeapons={availableActionTypes.has("SWAP_HAND_WEAPONS")}
-					isPending={applyRunAction.isPending}
-					onClose={handleCloseSidebar}
-					onSwapWeapons={handleSwapWeapons}
-				/>
+			<HeroSidebar
+				run={run}
+				battleNumber={townView.battleNumber}
+				day={townView.day}
+				gold={townView.gold}
+				zone={townView.zone}
+				open={sidebarOpen}
+				canSwapWeapons={availableActionTypes.has("SWAP_HAND_WEAPONS")}
+				isPending={applyRunAction.isPending}
+				onClose={handleCloseSidebar}
+				onSwapWeapons={handleSwapWeapons}
+			/>
 
-				<GameMainPanel
-					mobileHeader={
-						<div className="flex items-center justify-between">
-							<Button variant="primary" type="button" onClick={handleOpenSidebar}>
-								Hero
-							</Button>
+			<GameMainPanel
+				mobileHeader={
+					<div className="flex items-center justify-between">
+						<Button variant="primary" type="button" onClick={handleOpenSidebar}>
+							Hero
+						</Button>
 
-							<ButtonLink to="/">Home</ButtonLink>
-						</div>
-					}
-					actions={
-						<TownActionBar
-							isPending={applyRunAction.isPending}
-							gold={townView.gold}
-							canAffordRest={townView.canAffordRest}
-							canRest={
-								availableActionTypes.has("REST_AT_TOWN") &&
-								townView.canAffordRest &&
-								!townView.isFullyHealed
-							}
-							isFullyHealed={townView.isFullyHealed}
-							canAffordReroll={townView.canAffordReroll}
-							canReroll={
-								availableActionTypes.has("REROLL_SHOP") && townView.canAffordReroll
-							}
-							canAffordHealingPotion={townView.canAffordHealingPotion}
-							canBuyHealingPotion={
-								availableActionTypes.has("BUY_CONSUMABLE") &&
-								townView.canBuyHealingPotion
-							}
-							canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-							restCost={townView.restCost}
-							rerollCost={townView.rerollCost}
-							healingPotions={townView.healingPotions}
-							maxHealingPotions={townView.maxHealingPotions}
-							healingPotionCost={townView.healingPotionCost}
-							onRest={handleRest}
-							onReroll={handleReroll}
-							onBuyHealingPotion={handleBuyHealingPotion}
-							onEnterCombat={handleEnterCombat}
-						/>
-					}
+						<ButtonLink to="/">Home</ButtonLink>
+					</div>
+				}
+				actions={
+					<TownActionBar
+						isPending={applyRunAction.isPending}
+						gold={townView.gold}
+						canAffordRest={townView.canAffordRest}
+						canRest={
+							availableActionTypes.has("REST_AT_TOWN") &&
+							townView.canAffordRest &&
+							!townView.isFullyHealed
+						}
+						isFullyHealed={townView.isFullyHealed}
+						canAffordReroll={townView.canAffordReroll}
+						canReroll={
+							availableActionTypes.has("REROLL_SHOP") && townView.canAffordReroll
+						}
+						canAffordHealingPotion={townView.canAffordHealingPotion}
+						canBuyHealingPotion={
+							availableActionTypes.has("BUY_CONSUMABLE") &&
+							townView.canBuyHealingPotion
+						}
+						canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
+						restCost={townView.restCost}
+						rerollCost={townView.rerollCost}
+						healingPotions={townView.healingPotions}
+						maxHealingPotions={townView.maxHealingPotions}
+						healingPotionCost={townView.healingPotionCost}
+						onRest={handleRest}
+						onReroll={handleReroll}
+						onBuyHealingPotion={handleBuyHealingPotion}
+						onEnterCombat={handleEnterCombat}
+					/>
+				}
+			>
+				<RouterLink
+					to="/"
+					className="mb-4 hidden text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:inline-flex"
 				>
-					<RouterLink
-						to="/"
-						className="mb-4 hidden text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:inline-flex"
-					>
-						← BACK
-					</RouterLink>
+					← BACK
+				</RouterLink>
 
-					<TownShopGrid
-						shopSlots={townView.shopSlots}
-						isPending={applyRunAction.isPending}
-						onBuy={handleBuy}
-					/>
-				</GameMainPanel>
+				<TownShopGrid
+					shopSlots={townView.shopSlots}
+					isPending={applyRunAction.isPending}
+					onBuy={handleBuy}
+				/>
+			</GameMainPanel>
 
-				{replacementSlot && (
-					<EquipmentSlotModal
-						item={replacementSlot.item}
-						destinations={replacementSlot.destinations}
-						isPending={applyRunAction.isPending}
-						onCancel={() => setReplacementSlot(null)}
-						onConfirm={handleConfirmReplacement}
-					/>
-				)}
-			</div>
+			{replacementSlot && (
+				<EquipmentSlotModal
+					item={replacementSlot.item}
+					destinations={replacementSlot.destinations}
+					isPending={applyRunAction.isPending}
+					onCancel={() => setReplacementSlot(null)}
+					onConfirm={handleConfirmReplacement}
+				/>
+			)}
 		</GameLayout>
 	);
 }

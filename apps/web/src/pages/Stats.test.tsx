@@ -10,8 +10,8 @@ vi.mock("../features/auth", () => ({ useAuth: hooks.useAuth }));
 vi.mock("../features/stats/hooks/useStatsSummary", () => ({
 	useStatsSummary: hooks.useStatsSummary,
 }));
-vi.mock("../components/Layout", () => ({
-	Layout: ({ children }: { children: React.ReactNode }) => children,
+vi.mock("../components/PageLayout", () => ({
+	PageLayout: ({ children }: { children: React.ReactNode }) => children,
 }));
 vi.mock("../components/Header", () => ({ Header: () => null }));
 vi.mock("../components/Card", () => ({

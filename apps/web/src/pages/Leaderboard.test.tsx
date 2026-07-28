@@ -17,8 +17,8 @@ vi.mock("../features/leaderboards/hooks/useGhostLeaderboard", () => ({
 vi.mock("../features/heroDossier", () => ({
 	HeroDossierModal: () => null,
 }));
-vi.mock("../components/Layout", () => ({
-	Layout: ({ children }: { children: React.ReactNode }) => children,
+vi.mock("../components/PageLayout", () => ({
+	PageLayout: ({ children }: { children: React.ReactNode }) => children,
 }));
 vi.mock("../components/Header", () => ({ Header: () => null }));
 vi.mock("../components/Card", () => ({

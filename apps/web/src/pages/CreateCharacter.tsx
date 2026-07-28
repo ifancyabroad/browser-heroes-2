@@ -5,7 +5,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useAuth, useCreateGuestSession } from "../features/auth";
 import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
-import { Layout } from "../components/Layout";
+import { PageLayout } from "../components/PageLayout";
 import { Container } from "../components/Container";
 
 export default function CreateCharacter() {
@@ -47,7 +47,7 @@ export default function CreateCharacter() {
 	}
 
 	return (
-		<Layout>
+		<PageLayout>
 			<Container>
 				<div className="mx-auto w-full max-w-4xl">
 					<RouterLink
@@ -85,6 +85,6 @@ export default function CreateCharacter() {
 					)}
 				</div>
 			</Container>
-		</Layout>
+		</PageLayout>
 	);
 }

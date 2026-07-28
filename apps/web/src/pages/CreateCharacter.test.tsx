@@ -44,8 +44,8 @@ vi.mock("../features/createCharacter", () => ({
 		</div>
 	),
 }));
-vi.mock("../components/Layout", () => ({
-	Layout: ({ children }: { children: React.ReactNode }) => children,
+vi.mock("../components/PageLayout", () => ({
+	PageLayout: ({ children }: { children: React.ReactNode }) => children,
 }));
 
 import CreateCharacter from "./CreateCharacter";
