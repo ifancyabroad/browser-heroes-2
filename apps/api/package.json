@@ -12,6 +12,7 @@
 		"dev": "tsx watch ./src/server.ts",
 		"build": "tsc -p tsconfig.build.json",
 		"start": "node dist/server.js",
+		"cleanup:guests": "tsx ./src/scripts/cleanupGuests.ts",
 		"typecheck": "tsc -p tsconfig.json --noEmit",
 		"lint": "eslint .",
 		"test": "vitest run",

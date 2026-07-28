@@ -137,6 +137,20 @@ Gameplay should remain accessible without mandatory account creation.
 
 Guest retention is separate from public game history. Empty guests may be removed after a short retention period and abandoned active guest runs after extended inactivity. Completed runs and published ghosts remain available to keep leaderboards stable, along with the minimal guest record required by their ownership references. Cleanup scheduling is future operational work.
 
+The guest cleanup command defaults to a read-only report:
+
+```bash
+pnpm --filter @app/api cleanup:guests
+```
+
+Passing `--execute` deletes empty guests inactive for seven days and active or abandoned runs owned by guests inactive for twelve months:
+
+```bash
+pnpm --filter @app/api cleanup:guests -- --execute
+```
+
+The command processes bounded batches, rechecks eligibility in MongoDB transactions, preserves dead and retired runs and their actions, and preserves ghosts and their source runs. It requires only `MONGO_URI`. Production execution remains manual until the retention behavior has been validated against live dry-run reports.
+
 ## 9. Deployment Direction
 
 Current docs should treat deployment as direction unless deployment automation is present in the codebase.
