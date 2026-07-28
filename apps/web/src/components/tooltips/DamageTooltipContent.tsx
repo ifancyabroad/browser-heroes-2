@@ -1,12 +1,12 @@
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
-import { damageTypeLabels } from "../../game/displayLabels";
+import { damageTypeLabels } from "../../presentation/labels";
 import {
 	formatModifierValue,
 	getDamageTakenModifierTone,
 	getNumericModifierTone,
 	getToneTextClassName,
-} from "../../game/effectDisplay";
+} from "../../presentation/effects";
 
 type DamageAffinity = HeroView["combatStats"]["damageAffinities"]["resistances"][number];
 type DamageModifierGroup = HeroView["combatStats"]["damageModifiers"][number];

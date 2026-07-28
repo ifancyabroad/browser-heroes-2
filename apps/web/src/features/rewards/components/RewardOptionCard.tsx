@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
 import { RadioCard } from "../../../components/RadioCard";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
-import { getItemRarityTextClassName } from "../../../game/itemDisplay";
+import { getItemRarityTextClassName } from "../../../presentation/items";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 import { resolveImageUrl } from "../../../utils/image";
 

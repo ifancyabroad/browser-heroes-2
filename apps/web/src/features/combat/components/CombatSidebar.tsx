@@ -3,7 +3,7 @@ import type { ActiveCombatEffect, CombatLogEntry, HeroProgressionView } from "@a
 import { ResourceBar } from "../../../components/ResourceBar";
 import { Sidebar } from "../../../components/Sidebar";
 import { SectionHeading } from "../../../components/SectionHeading";
-import { getXpResource } from "../../../game/resourceDisplay";
+import { getXpResource } from "../../../presentation/resources";
 import { CombatLogPanel } from "./CombatLogPanel";
 import { ActiveEffectsRow } from "./ActiveEffectsRow";
 

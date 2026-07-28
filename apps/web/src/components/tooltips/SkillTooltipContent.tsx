@@ -1,6 +1,6 @@
 import { type Skill, type SkillId } from "@app/content";
-import { skillCategoryLabels, skillPoolLabels } from "../../game/displayLabels";
-import { formatSkillEffect } from "../../game/effectDisplay";
+import { skillCategoryLabels, skillPoolLabels } from "../../presentation/labels";
+import { formatSkillEffect } from "../../presentation/effects";
 import {
 	TooltipDetailList,
 	type TooltipDetailRow,

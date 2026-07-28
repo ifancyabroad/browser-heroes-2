@@ -15,7 +15,7 @@ import {
 	SortableDataTableHeading,
 } from "../../../components/DataTable";
 import { HeroIdentity } from "../../../components/HeroIdentity";
-import { formatTitle } from "../../../game/effectDisplay";
+import { formatTitle } from "../../../presentation/effects";
 import { formatDisplayDate } from "../../../utils/date";
 
 type SortProps<TSort extends string> = {

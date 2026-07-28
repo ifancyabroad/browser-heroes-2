@@ -6,7 +6,7 @@ import {
 	equipmentSlotLabels,
 	weaponHandednessLabels,
 	weaponTypeLabels,
-} from "./displayLabels";
+} from "./labels";
 import type { RuntimeItem } from "@app/engine";
 
 export type PrimaryItemStat = {

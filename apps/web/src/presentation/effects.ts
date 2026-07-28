@@ -13,7 +13,7 @@ import {
 	damageTypeLabels,
 	modifiableStatFullLabels,
 	modifiableStatLabels,
-} from "./displayLabels";
+} from "./labels";
 
 export type ModifierTone = "positive" | "negative" | "neutral";
 

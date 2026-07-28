@@ -1,4 +1,4 @@
-import type { StatPresentation } from "../game/statDisplay";
+import { formatStatValue, type StatPresentation } from "../presentation/stats";
 
 type HeroStatValueProps = {
 	stat: StatPresentation;
@@ -8,17 +8,9 @@ type HeroStatValueProps = {
 export function HeroStatValue({ stat, signed = false }: HeroStatValueProps) {
 	return (
 		<span className={getDerivedValueClassName(stat)}>
-			{formatStatNumber(stat.value, signed)}
+			{formatStatValue(stat.value, signed)}
 		</span>
 	);
-}
-
-export function formatStatNumber(value: number, signed = false) {
-	if (!signed || value < 0) {
-		return String(value);
-	}
-
-	return `+${value}`;
 }
 
 function getDerivedValueClassName(stat: StatPresentation) {

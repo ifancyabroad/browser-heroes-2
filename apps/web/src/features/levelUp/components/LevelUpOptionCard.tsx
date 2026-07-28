@@ -6,7 +6,7 @@ import { Badge } from "../../../components/Badge";
 import { RadioCard } from "../../../components/RadioCard";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
-import { featCategoryLabels, skillCategoryLabels } from "../../../game/displayLabels";
+import { featCategoryLabels, skillCategoryLabels } from "../../../presentation/labels";
 import { resolveImageUrl } from "../../../utils/image";
 
 type LevelUpOptionCardProps = {

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
-import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../game/itemDisplay";
+import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../presentation/items";
 
 type HeroEquipmentTabProps = {
 	equipment: HeroView["equipment"];

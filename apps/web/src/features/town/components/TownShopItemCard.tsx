@@ -8,14 +8,14 @@ import { Badge } from "../../../components/Badge";
 import { Button } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
-import { attributeLabels } from "../../../game/displayLabels";
-import { formatItemModifier, getModifierTextClassName } from "../../../game/effectDisplay";
+import { attributeLabels } from "../../../presentation/labels";
+import { formatItemModifier, getModifierTextClassName } from "../../../presentation/effects";
 import {
 	getEquipmentSlotLabel,
 	getItemKindLabel,
 	getItemRarityTextClassName,
 	getPrimaryItemStat,
-} from "../../../game/itemDisplay";
+} from "../../../presentation/items";
 import { resolveImageUrl } from "../../../utils/image";
 
 type TownShopItemCardProps = {

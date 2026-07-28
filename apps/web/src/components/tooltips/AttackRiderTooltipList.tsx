@@ -1,6 +1,6 @@
 import type { AttackRider } from "@app/content";
 import { Badge } from "../Badge";
-import { formatRiderEffect, formatSavingThrow } from "../../game/effectDisplay";
+import { formatRiderEffect, formatSavingThrow } from "../../presentation/effects";
 
 type AttackRiderTooltipListProps = {
 	riders: readonly AttackRider[];

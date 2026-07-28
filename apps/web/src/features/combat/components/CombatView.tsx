@@ -17,7 +17,7 @@ import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
 import { CombatSidebar } from "./CombatSidebar";
 import { CombatantPanel } from "./CombatantPanel";
-import { formatTitle } from "../../../game/effectDisplay";
+import { formatTitle } from "../../../presentation/effects";
 import { resolveImageUrl } from "../../../utils/image";
 
 type CombatViewProps = {

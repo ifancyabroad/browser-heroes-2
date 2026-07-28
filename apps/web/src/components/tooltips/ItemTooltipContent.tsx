@@ -1,13 +1,13 @@
 import type { EquipmentSlot } from "@app/content";
 import clsx from "clsx";
-import { attributeLabels, itemRarityLabels } from "../../game/displayLabels";
-import { formatItemModifier, getModifierTextClassName } from "../../game/effectDisplay";
+import { attributeLabels, itemRarityLabels } from "../../presentation/labels";
+import { formatItemModifier, getModifierTextClassName } from "../../presentation/effects";
 import {
 	getEquipmentSlotLabel,
 	getItemKindLabel,
 	getItemRarityTextClassName,
 	getPrimaryItemStat,
-} from "../../game/itemDisplay";
+} from "../../presentation/items";
 import {
 	TooltipDetailList,
 	type TooltipDetailRow,

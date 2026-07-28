@@ -11,8 +11,8 @@ import {
 	equipmentSlotLabels,
 	featCategoryLabels,
 	skillCategoryLabels,
-} from "../../../game/displayLabels";
-import { getItemRarityTextClassName } from "../../../game/itemDisplay";
+} from "../../../presentation/labels";
+import { getItemRarityTextClassName } from "../../../presentation/items";
 import { resolveImageUrl } from "../../../utils/image";
 
 export function EquipmentSection({ hero }: { hero: HeroView }) {

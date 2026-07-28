@@ -6,7 +6,7 @@ import {
 	formatActiveEffectDetail,
 	getActiveEffectTone,
 	getToneTextClassName,
-} from "../../../game/effectDisplay";
+} from "../../../presentation/effects";
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import { resolveImageUrl } from "../../../utils/image";
 

@@ -1,7 +1,7 @@
 import type { Feat } from "@app/content";
 import clsx from "clsx";
-import { featCategoryLabels } from "../../game/displayLabels";
-import { formatModifier, getModifierTextClassName } from "../../game/effectDisplay";
+import { featCategoryLabels } from "../../presentation/labels";
+import { formatModifier, getModifierTextClassName } from "../../presentation/effects";
 import { AttackRiderTooltipList } from "./AttackRiderTooltipList";
 import { TooltipSection } from "./TooltipContentPrimitives";
 import { resolveImageUrl } from "../../utils/image";

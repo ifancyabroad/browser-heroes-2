@@ -18,13 +18,13 @@ import {
 	combatStatShortLabels,
 	damageTypeLabels,
 	weaponTypeLabels,
-} from "../../../game/displayLabels";
-import { formatModifierValue } from "../../../game/effectDisplay";
+} from "../../../presentation/labels";
+import { formatModifierValue } from "../../../presentation/effects";
 import {
 	getArmourClassStatPresentation,
 	getStatPresentation,
 	type StatPresentation,
-} from "../../../game/statDisplay";
+} from "../../../presentation/stats";
 
 type StatGridItem = {
 	label: string;

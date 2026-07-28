@@ -1,6 +1,6 @@
 import type { Attribute } from "@app/content";
 import type { HeroView } from "@app/engine";
-import { formatModifierValue } from "./effectDisplay";
+import { formatModifierValue } from "./effects";
 
 type DerivedStat = HeroView["attributes"][Attribute];
 type ModifierContribution = DerivedStat["contributions"][number];
@@ -17,6 +17,14 @@ export type StatPresentation = {
 	referenceValue: number;
 	contributions: StatDisplayContribution[];
 };
+
+export function formatStatValue(value: number, signed = false) {
+	if (!signed || value < 0) {
+		return String(value);
+	}
+
+	return `+${value}`;
+}
 
 export function getStatPresentation(stat: DerivedStat): StatPresentation {
 	return {

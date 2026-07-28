@@ -4,12 +4,12 @@ import { HeroStatValue } from "../../../components/HeroStatValue";
 import { SectionHeading } from "../../../components/SectionHeading";
 import { Tooltip } from "../../../components/Tooltip";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
-import { attributeLabels, combatStatLabels } from "../../../game/displayLabels";
+import { attributeLabels, combatStatLabels } from "../../../presentation/labels";
 import {
 	getArmourClassStatPresentation,
 	getStatPresentation,
 	type StatPresentation,
-} from "../../../game/statDisplay";
+} from "../../../presentation/stats";
 
 const statRowClassName =
 	"!grid w-full cursor-help grid-cols-[1fr_auto] items-baseline gap-4 px-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";

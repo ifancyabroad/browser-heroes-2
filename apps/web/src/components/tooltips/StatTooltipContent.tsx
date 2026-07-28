@@ -1,6 +1,6 @@
 import clsx from "clsx";
-import { getNumberTone, getToneTextClassName } from "../../game/effectDisplay";
-import type { StatPresentation } from "../../game/statDisplay";
+import { getNumberTone, getToneTextClassName } from "../../presentation/effects";
+import { formatStatValue, type StatPresentation } from "../../presentation/stats";
 
 type StatTooltipContentProps = {
 	label: string;
@@ -13,7 +13,7 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 		<div className="grid gap-2">
 			<div className="flex items-baseline justify-between gap-3">
 				<p className="min-w-0 break-words text-text-label">{label}</p>
-				<p className="shrink-0 text-text-bright">{formatStatNumber(stat.value, signed)}</p>
+				<p className="shrink-0 text-text-bright">{formatStatValue(stat.value, signed)}</p>
 			</div>
 
 			{stat.contributions.length > 0 && (
@@ -38,12 +38,4 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 			)}
 		</div>
 	);
-}
-
-function formatStatNumber(value: number, signed = false) {
-	if (!signed || value < 0) {
-		return String(value);
-	}
-
-	return `+${value}`;
 }

@@ -7,7 +7,7 @@ import { Modal } from "./Modal";
 import { RadioCard } from "./RadioCard";
 import { Tooltip } from "./Tooltip";
 import { ItemTooltipContent } from "./tooltips/ItemTooltipContent";
-import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../game/itemDisplay";
+import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../presentation/items";
 import { selectItemDefinition, type EquippedItemState, type RuntimeItem } from "@app/engine";
 
 type EquipmentSlotReplacementDestination = {
