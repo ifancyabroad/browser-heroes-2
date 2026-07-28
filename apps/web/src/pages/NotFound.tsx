@@ -1,5 +1,5 @@
 import { Layout } from "../components/Layout";
-import { Link } from "../components/Link";
+import { ButtonLink } from "../components/Button";
 
 export default function NotFound() {
 	return (
@@ -8,9 +8,9 @@ export default function NotFound() {
 				<div className="space-y-2 text-center">
 					<h1>404 Page not found</h1>
 					<p>The page you’re looking for doesn’t exist.</p>
-					<Link to="/" variant="primary">
+					<ButtonLink to="/" variant="primary">
 						Go to Home
-					</Link>
+					</ButtonLink>
 				</div>
 			</div>
 		</Layout>

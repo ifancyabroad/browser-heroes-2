@@ -3,12 +3,11 @@ import { selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useAuth } from "../features/auth";
 import { useCurrentRun } from "../features/runs";
-import { Link } from "../components/Link";
+import { Button, ButtonLink } from "../components/Button";
 import { Layout } from "../components/Layout";
 import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
 import { useState } from "react";
-import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { RegisterModal } from "../features/auth/components/RegisterModal";
 
@@ -55,13 +54,13 @@ export default function Landing() {
 
 					<div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
 						{run && (
-							<Link variant="primary" to="/game">
+							<ButtonLink variant="primary" to="/game">
 								CONTINUE
-							</Link>
+							</ButtonLink>
 						)}
-						<Link variant={run ? "default" : "primary"} to="/create-character">
+						<ButtonLink variant={run ? "default" : "primary"} to="/create-character">
 							{run ? "NEW HERO" : "PLAY NOW"}
-						</Link>
+						</ButtonLink>
 					</div>
 
 					{!isRegistered && (

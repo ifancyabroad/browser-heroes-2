@@ -3,7 +3,7 @@ import { selectRunSummaryView, type CombatLogEntry } from "@app/engine";
 import { CLASSES_BY_ID } from "@app/content";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
-import { Link } from "../../../components/Link";
+import { ButtonLink } from "../../../components/Button";
 
 type DeathScreenProps = {
 	run: RunView;
@@ -33,10 +33,10 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							The run has ended, and the road ahead belongs to another hero.
 						</p>
 						<div className="flex flex-wrap justify-center gap-4">
-							<Link to="/">Home</Link>
-							<Link variant="primary" to="/create-character">
+							<ButtonLink to="/">Home</ButtonLink>
+							<ButtonLink variant="primary" to="/create-character">
 								Try Again
-							</Link>
+							</ButtonLink>
 						</div>
 					</section>
 				</div>
@@ -91,10 +91,10 @@ export function DeathScreen({ run }: DeathScreenProps) {
 					)}
 
 					<div className="flex flex-wrap justify-center gap-4">
-						<Link to="/">Home</Link>
-						<Link variant="primary" to="/create-character">
+						<ButtonLink to="/">Home</ButtonLink>
+						<ButtonLink variant="primary" to="/create-character">
 							Try Again
-						</Link>
+						</ButtonLink>
 					</div>
 				</section>
 			</div>

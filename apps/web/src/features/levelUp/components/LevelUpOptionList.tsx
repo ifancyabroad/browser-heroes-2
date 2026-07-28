@@ -35,7 +35,6 @@ export function LevelUpOptionList({
 					key={getOptionKey(option)}
 					option={option}
 					value={getOptionKey(option)}
-					selected={isSelectedOption(option, selection)}
 					disabled={disabled}
 				/>
 			))}
@@ -49,22 +48,6 @@ function getOptionKey(option: LevelUpOption) {
 
 function getSelectionKey(selection: LevelUpSelection) {
 	return selection.type === "skill" ? `skill-${selection.skillId}` : `feat-${selection.featId}`;
-}
-
-function isSelectedOption(option: LevelUpOption, selection: LevelUpSelection | null) {
-	if (!selection || option.type !== selection.type) {
-		return false;
-	}
-
-	if (option.type === "skill" && selection.type === "skill") {
-		return option.skillId === selection.skillId;
-	}
-
-	if (option.type === "feat" && selection.type === "feat") {
-		return option.featId === selection.featId;
-	}
-
-	return false;
 }
 
 function toSelection(option: LevelUpOption): LevelUpSelection {

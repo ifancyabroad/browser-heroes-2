@@ -12,7 +12,7 @@ import { Button } from "../../../components/Button";
 import { EquipmentSlotReplacementModal } from "../../../components/EquipmentSlotReplacementModal";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
-import { Link } from "../../../components/Link";
+import { ButtonLink } from "../../../components/Button";
 import { HeroSidebar } from "./HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
@@ -167,7 +167,7 @@ export function TownView({ run }: TownViewProps) {
 								Hero
 							</Button>
 
-							<Link to="/">Home</Link>
+							<ButtonLink to="/">Home</ButtonLink>
 						</div>
 					}
 					actions={

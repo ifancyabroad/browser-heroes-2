@@ -4,7 +4,7 @@ import { useState } from "react";
 import { RadioGroup } from "radix-ui";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
-import { getSelectionClassName } from "./ControlStyles";
+import { RadioCard } from "./RadioCard";
 import { Tooltip } from "./Tooltip";
 import { ItemTooltipContent } from "./tooltips/ItemTooltipContent";
 import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../game/itemDisplay";
@@ -104,7 +104,6 @@ export function EquipmentSlotReplacementModal({
 						<ReplacementChoice
 							key={destination.equipmentSlot}
 							destination={destination}
-							selected={selection?.equipmentSlot === destination.equipmentSlot}
 							disabled={isPending}
 						/>
 					))}
@@ -116,45 +115,36 @@ export function EquipmentSlotReplacementModal({
 
 type ReplacementChoiceProps = {
 	destination: EquipmentSlotReplacementDestination;
-	selected: boolean;
 	disabled: boolean;
 };
 
-function ReplacementChoice({ destination, selected, disabled }: ReplacementChoiceProps) {
+function ReplacementChoice({ destination, disabled }: ReplacementChoiceProps) {
 	return (
-		<RadioGroup.Item value={destination.equipmentSlot} disabled={disabled} asChild>
-			<button
-				type="button"
-				className={clsx(
-					"grid gap-2 border-2 bg-bg-panel p-3 text-left text-base",
-					getSelectionClassName({ selected, disabled }),
-				)}
-			>
-				<span className="text-text-bright">
-					{getEquipmentSlotLabel(destination.equipmentSlot)}
+		<RadioCard value={destination.equipmentSlot} disabled={disabled} className="gap-2">
+			<span className="text-text-bright">
+				{getEquipmentSlotLabel(destination.equipmentSlot)}
+			</span>
+			{destination.replacedItems.length === 0 ? (
+				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+					<span className="text-text-label">Currently Equipped:</span>
+					<span className="text-text">Empty</span>
 				</span>
-				{destination.replacedItems.length === 0 ? (
-					<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-						<span className="text-text-label">Currently Equipped:</span>
-						<span className="text-text">Empty</span>
+			) : (
+				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
+					<span className="text-text-label">Currently Equipped:</span>
+					<span className="min-w-0 break-words text-text">
+						{destination.replacedItems.map((replacedItem, index) => (
+							<ReplacedItemTooltip
+								key={replacedItem.instanceId}
+								replacedItem={replacedItem}
+								fallbackSlot={destination.equipmentSlot}
+								prefix={index > 0 ? ", " : ""}
+							/>
+						))}
 					</span>
-				) : (
-					<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-						<span className="text-text-label">Currently Equipped:</span>
-						<span className="min-w-0 break-words text-text">
-							{destination.replacedItems.map((replacedItem, index) => (
-								<ReplacedItemTooltip
-									key={replacedItem.instanceId}
-									replacedItem={replacedItem}
-									fallbackSlot={destination.equipmentSlot}
-									prefix={index > 0 ? ", " : ""}
-								/>
-							))}
-						</span>
-					</span>
-				)}
-			</button>
-		</RadioGroup.Item>
+				</span>
+			)}
+		</RadioCard>
 	);
 }
 

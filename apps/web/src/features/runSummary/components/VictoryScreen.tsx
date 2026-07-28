@@ -3,7 +3,7 @@ import { selectRunSummaryView, type CombatLogEntry } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
-import { Link } from "../../../components/Link";
+import { ButtonLink } from "../../../components/Button";
 import { SectionHeading } from "../../../components/SectionHeading";
 
 type VictoryScreenProps = {
@@ -27,10 +27,10 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 							The run has ended, and this hero's tale is complete.
 						</p>
 						<div className="flex flex-wrap justify-center gap-4">
-							<Link to="/">Home</Link>
-							<Link variant="primary" to="/create-character">
+							<ButtonLink to="/">Home</ButtonLink>
+							<ButtonLink variant="primary" to="/create-character">
 								New Hero
-							</Link>
+							</ButtonLink>
 						</div>
 					</Card>
 				</div>
@@ -90,10 +90,10 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 						)}
 
 						<nav className="flex flex-wrap justify-center gap-4" aria-label="Run links">
-							<Link to="/">Home</Link>
-							<Link variant="primary" to="/create-character">
+							<ButtonLink to="/">Home</ButtonLink>
+							<ButtonLink variant="primary" to="/create-character">
 								New Hero
-							</Link>
+							</ButtonLink>
 						</nav>
 					</Card>
 				</section>

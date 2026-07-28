@@ -3,10 +3,9 @@ import {
 	type RewardChoiceOptionView,
 	type RewardItemDestinationView,
 } from "@app/engine";
-import { RadioGroup } from "radix-ui";
 import clsx from "clsx";
 import { Tooltip } from "../../../components/Tooltip";
-import { getSelectionClassName } from "../../../components/ControlStyles";
+import { RadioCard } from "../../../components/RadioCard";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { getItemRarityTextClassName } from "../../../game/itemDisplay";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
@@ -15,68 +14,63 @@ import { resolveImageUrl } from "../../../utils/image";
 type RewardOptionCardProps = {
 	option: RewardChoiceOptionView;
 	value: string;
-	selected: boolean;
 	disabled: boolean;
 };
 
-export function RewardOptionCard({ option, value, selected, disabled }: RewardOptionCardProps) {
+export function RewardOptionCard({ option, value, disabled }: RewardOptionCardProps) {
 	const content = getOptionContent(option);
 
 	return (
-		<RadioGroup.Item value={value} disabled={disabled} asChild>
-			<button
-				type="button"
-				className={clsx(
-					"grid grid-cols-[3rem_minmax(0,1fr)] gap-3 border-2 bg-bg-panel p-3 text-left text-base",
-					getSelectionClassName({ selected, disabled }),
-				)}
-			>
-				<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
-					<img
-						src={content.icon}
-						alt=""
-						loading="lazy"
-						className="h-full w-full object-cover"
-						aria-hidden
-					/>
-				</span>
+		<RadioCard
+			value={value}
+			disabled={disabled}
+			className="grid-cols-[3rem_minmax(0,1fr)] gap-3"
+		>
+			<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
+				<img
+					src={content.icon}
+					alt=""
+					loading="lazy"
+					className="h-full w-full object-cover"
+					aria-hidden
+				/>
+			</span>
 
-				<span className="grid min-w-0 gap-1 self-center">
-					<span className="min-w-0">
-						{option.type === "item" ? (
-							<Tooltip
-								content={
-									content.tooltipSlot ? (
-										<ItemTooltipContent
-											item={option.item}
-											slot={content.tooltipSlot}
-										/>
-									) : null
-								}
-								placement="top"
-								className={clsx(
-									"min-w-0 break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-									getItemRarityTextClassName(option.item.rarity),
-								)}
-								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-								referenceTabIndex={null}
-								mobileBehavior="disabled"
-							>
-								{content.name}
-							</Tooltip>
-						) : (
-							<span>{content.name}</span>
-						)}
-					</span>
-					{option.type === "item" && (
-						<CurrentlyEquippedDetail
-							destination={content.destination}
-							needsReplacementChoice={content.needsReplacementChoice}
-						/>
+			<span className="grid min-w-0 gap-1 self-center">
+				<span className="min-w-0">
+					{option.type === "item" ? (
+						<Tooltip
+							content={
+								content.tooltipSlot ? (
+									<ItemTooltipContent
+										item={option.item}
+										slot={content.tooltipSlot}
+									/>
+								) : null
+							}
+							placement="top"
+							className={clsx(
+								"min-w-0 break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+								getItemRarityTextClassName(option.item.rarity),
+							)}
+							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+							referenceTabIndex={null}
+							mobileBehavior="disabled"
+						>
+							{content.name}
+						</Tooltip>
+					) : (
+						<span>{content.name}</span>
 					)}
 				</span>
-			</button>
-		</RadioGroup.Item>
+				{option.type === "item" && (
+					<CurrentlyEquippedDetail
+						destination={content.destination}
+						needsReplacementChoice={content.needsReplacementChoice}
+					/>
+				)}
+			</span>
+		</RadioCard>
 	);
 }
 

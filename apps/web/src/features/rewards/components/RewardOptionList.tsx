@@ -35,7 +35,6 @@ export function RewardOptionList({
 					key={`${option.type}-${option.optionIndex}`}
 					option={option}
 					value={option.optionIndex.toString()}
-					selected={selection?.optionIndex === option.optionIndex}
 					disabled={disabled}
 				/>
 			))}
