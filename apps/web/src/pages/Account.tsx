@@ -1,5 +1,6 @@
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
+import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
 import { useAuth, useLogout } from "../features/auth";
@@ -12,7 +13,7 @@ export default function Account() {
 		<Layout>
 			<Header />
 
-			<div className="flex flex-1 items-center justify-center bg-bg-base p-4">
+			<Container className="flex items-center justify-center">
 				<Card
 					title="ACCOUNT"
 					titleAlign="center"
@@ -37,7 +38,7 @@ export default function Account() {
 						{logout.isPending ? "Signing out..." : "SIGN OUT"}
 					</Button>
 				</Card>
-			</div>
+			</Container>
 		</Layout>
 	);
 }

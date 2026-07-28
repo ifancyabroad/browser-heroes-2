@@ -9,6 +9,7 @@ import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
 import { useState } from "react";
 import { Button } from "../components/Button";
+import { Container } from "../components/Container";
 import { RegisterModal } from "../features/auth/components/RegisterModal";
 
 export default function Landing() {
@@ -28,7 +29,7 @@ export default function Landing() {
 	return (
 		<Layout>
 			<Header />
-			<div className="flex flex-1 items-center justify-center bg-bg-base px-4">
+			<Container className="flex items-center justify-center">
 				<div className="flex w-full max-w-sm flex-col items-center gap-5 text-center">
 					<div className="grid gap-2">
 						<h1
@@ -72,7 +73,7 @@ export default function Landing() {
 						</div>
 					)}
 				</div>
-			</div>
+			</Container>
 			<RegisterModal open={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
 		</Layout>
 	);

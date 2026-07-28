@@ -1,4 +1,5 @@
 import { Button } from "../components/Button";
+import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
 import { useRequestPasswordReset } from "../features/auth";
@@ -18,7 +19,7 @@ export default function ForgotPassword() {
 		<Layout>
 			<Header />
 
-			<div className="flex flex-1 items-center justify-center bg-bg-base p-4">
+			<Container className="flex items-center justify-center">
 				<form
 					className="grid w-full max-w-md gap-4 border-2 border-border bg-bg-panel p-4"
 					onSubmit={handleSubmit}
@@ -56,7 +57,7 @@ export default function ForgotPassword() {
 						</p>
 					)}
 				</form>
-			</div>
+			</Container>
 		</Layout>
 	);
 }

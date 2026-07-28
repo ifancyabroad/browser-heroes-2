@@ -6,6 +6,7 @@ import { useAuth, useCreateGuestSession } from "../features/auth";
 import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
 import { Layout } from "../components/Layout";
+import { Container } from "../components/Container";
 
 export default function CreateCharacter() {
 	const navigate = useNavigate();
@@ -47,8 +48,8 @@ export default function CreateCharacter() {
 
 	return (
 		<Layout>
-			<div className="flex flex-1 bg-bg-base">
-				<div className="mx-auto w-full max-w-4xl px-4 py-6 sm:py-8">
+			<Container>
+				<div className="mx-auto w-full max-w-4xl">
 					<RouterLink
 						to="/"
 						className="mb-4 inline-flex text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -83,7 +84,7 @@ export default function CreateCharacter() {
 						/>
 					)}
 				</div>
-			</div>
+			</Container>
 		</Layout>
 	);
 }

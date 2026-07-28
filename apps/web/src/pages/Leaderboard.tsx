@@ -7,6 +7,7 @@ import type {
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
+import { Container } from "../components/Container";
 import { Layout } from "../components/Layout";
 import { Header } from "../components/Header";
 import { Tabs } from "../components/Tabs";
@@ -94,101 +95,95 @@ export default function Leaderboard() {
 	return (
 		<Layout>
 			<Header />
-			<div className="flex flex-1 bg-bg-base">
-				<div className="mx-auto w-full max-w-6xl px-4 py-6 sm:py-8">
-					<header className="mb-5 grid gap-2">
-						<h1 className="text-primary">LEADERBOARDS</h1>
-						<p className="max-w-3xl text-text">
-							Honour the heroes who ventured deepest and the ghosts who still haunt
-							the road.
-						</p>
-					</header>
+			<Container>
+				<header className="mb-5 grid gap-2">
+					<h1 className="text-primary">LEADERBOARDS</h1>
+					<p className="max-w-3xl text-text">
+						Honour the heroes who ventured deepest and the ghosts who still haunt the
+						road.
+					</p>
+				</header>
 
-					<Card className="min-w-0">
-						<Tabs
-							aria-label="Leaderboard type"
-							items={tabs}
-							value={activeTab}
-							onChange={handleTabChange}
-							panelClassName="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-							renderPanel={(tab) =>
-								tab === "heroes" ? (
-									<>
-										<LeaderboardFilters
-											classId={classId}
-											onClassChange={handleClassChange}
-											showUserOnly={hasSession}
-											entryType="heroes"
-											userOnly={userOnly}
-											onUserOnlyChange={handleUserOnlyChange}
-											scope={scope}
-											onScopeChange={handleScopeChange}
-											dailyDate={dailyDate}
-											onDailyDateChange={handleDailyDateChange}
+				<Card className="min-w-0">
+					<Tabs
+						aria-label="Leaderboard type"
+						items={tabs}
+						value={activeTab}
+						onChange={handleTabChange}
+						panelClassName="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						renderPanel={(tab) =>
+							tab === "heroes" ? (
+								<>
+									<LeaderboardFilters
+										classId={classId}
+										onClassChange={handleClassChange}
+										showUserOnly={hasSession}
+										entryType="heroes"
+										userOnly={userOnly}
+										onUserOnlyChange={handleUserOnlyChange}
+										scope={scope}
+										onScopeChange={handleScopeChange}
+										dailyDate={dailyDate}
+										onDailyDateChange={handleDailyDateChange}
+									/>
+									{runs.isPending ? (
+										<LeaderboardMessage message="Loading hero rankings..." />
+									) : runs.isError ? (
+										<LeaderboardError onRetry={() => void runs.refetch()} />
+									) : runs.data.entries.length === 0 ? (
+										<LeaderboardMessage message="No heroes match these filters." />
+									) : (
+										<RunLeaderboardTable
+											entries={runs.data.entries}
+											onSelectRun={setSelectedRunId}
 										/>
-										{runs.isPending ? (
-											<LeaderboardMessage message="Loading hero rankings..." />
-										) : runs.isError ? (
-											<LeaderboardError onRetry={() => void runs.refetch()} />
-										) : runs.data.entries.length === 0 ? (
-											<LeaderboardMessage message="No heroes match these filters." />
-										) : (
-											<RunLeaderboardTable
-												entries={runs.data.entries}
-												onSelectRun={setSelectedRunId}
-											/>
-										)}
-										{runs.data && !runs.isError && (
-											<TablePagination
-												page={page}
-												total={runs.data.total}
-												totalPages={runs.data.totalPages}
-												isFetching={runs.isFetching}
-												onPageChange={setPage}
-											/>
-										)}
-										{runs.isFetching && !runs.isPending && <UpdatingMessage />}
-									</>
-								) : (
-									<>
-										<LeaderboardFilters
-											classId={classId}
-											onClassChange={handleClassChange}
-											showUserOnly={hasSession}
-											entryType="ghosts"
-											userOnly={userOnly}
-											onUserOnlyChange={handleUserOnlyChange}
+									)}
+									{runs.data && !runs.isError && (
+										<TablePagination
+											page={page}
+											total={runs.data.total}
+											totalPages={runs.data.totalPages}
+											isFetching={runs.isFetching}
+											onPageChange={setPage}
 										/>
-										{ghosts.isPending ? (
-											<LeaderboardMessage message="Loading ghost rankings..." />
-										) : ghosts.isError ? (
-											<LeaderboardError
-												onRetry={() => void ghosts.refetch()}
-											/>
-										) : ghosts.data.entries.length === 0 ? (
-											<LeaderboardMessage message="No ghosts match these filters." />
-										) : (
-											<GhostLeaderboardTable entries={ghosts.data.entries} />
-										)}
-										{ghosts.data && !ghosts.isError && (
-											<TablePagination
-												page={page}
-												total={ghosts.data.total}
-												totalPages={ghosts.data.totalPages}
-												isFetching={ghosts.isFetching}
-												onPageChange={setPage}
-											/>
-										)}
-										{ghosts.isFetching && !ghosts.isPending && (
-											<UpdatingMessage />
-										)}
-									</>
-								)
-							}
-						/>
-					</Card>
-				</div>
-			</div>
+									)}
+									{runs.isFetching && !runs.isPending && <UpdatingMessage />}
+								</>
+							) : (
+								<>
+									<LeaderboardFilters
+										classId={classId}
+										onClassChange={handleClassChange}
+										showUserOnly={hasSession}
+										entryType="ghosts"
+										userOnly={userOnly}
+										onUserOnlyChange={handleUserOnlyChange}
+									/>
+									{ghosts.isPending ? (
+										<LeaderboardMessage message="Loading ghost rankings..." />
+									) : ghosts.isError ? (
+										<LeaderboardError onRetry={() => void ghosts.refetch()} />
+									) : ghosts.data.entries.length === 0 ? (
+										<LeaderboardMessage message="No ghosts match these filters." />
+									) : (
+										<GhostLeaderboardTable entries={ghosts.data.entries} />
+									)}
+									{ghosts.data && !ghosts.isError && (
+										<TablePagination
+											page={page}
+											total={ghosts.data.total}
+											totalPages={ghosts.data.totalPages}
+											isFetching={ghosts.isFetching}
+											onPageChange={setPage}
+										/>
+									)}
+									{ghosts.isFetching && !ghosts.isPending && <UpdatingMessage />}
+								</>
+							)
+						}
+					/>
+				</Card>
+			</Container>
 			<HeroDossierModal runId={selectedRunId} onClose={() => setSelectedRunId(null)} />
 		</Layout>
 	);

@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { ACCOUNT_PASSWORD_MAX_LENGTH, ACCOUNT_PASSWORD_MIN_LENGTH } from "@app/shared";
 import { Button } from "../components/Button";
+import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
 import { useResetPassword } from "../features/auth";
@@ -24,7 +25,7 @@ export default function ResetPassword() {
 		<Layout>
 			<Header />
 
-			<div className="flex flex-1 items-center justify-center bg-bg-base p-4">
+			<Container className="flex items-center justify-center">
 				{resetPassword.isSuccess ? (
 					<section className="grid w-full max-w-md gap-4 border-2 border-border bg-bg-panel p-4">
 						<h1 className="text-success">PASSWORD RESET</h1>
@@ -63,7 +64,7 @@ export default function ResetPassword() {
 						)}
 					</form>
 				)}
-			</div>
+			</Container>
 		</Layout>
 	);
 }
