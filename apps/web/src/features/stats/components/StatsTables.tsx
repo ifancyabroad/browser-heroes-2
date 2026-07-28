@@ -79,15 +79,6 @@ export function RunStatsTable({
 					numeric
 					hideOnMobile
 				/>
-				<SortableDataTableHeading
-					label="BATTLE"
-					sortKey="battleNumber"
-					activeSort={sort}
-					direction={direction}
-					onSort={onSort}
-					numeric
-					hideOnMobile
-				/>
 				<DataTableHeading hideOnMobile>ZONE</DataTableHeading>
 				<DataTableHeading hideOnMobile>STATUS</DataTableHeading>
 				<SortableDataTableHeading
@@ -119,9 +110,6 @@ export function RunStatsTable({
 						</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{entry.level}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.battleNumber}
 						</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatTitle(getZoneForRun(entry.zoneNumber))}
@@ -162,17 +150,8 @@ export function GhostStatsTable({
 					numeric
 				/>
 				<SortableDataTableHeading
-					label="HERO LEVEL"
+					label="LEVEL"
 					sortKey="heroLevel"
-					activeSort={sort}
-					direction={direction}
-					onSort={onSort}
-					numeric
-					hideOnMobile
-				/>
-				<SortableDataTableHeading
-					label="ENCOUNTER LEVEL"
-					sortKey="encounterLevel"
 					activeSort={sort}
 					direction={direction}
 					onSort={onSort}
@@ -218,9 +197,6 @@ export function GhostStatsTable({
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{entry.heroLevel}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.encounterLevel}
 						</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{entry.deaths}
