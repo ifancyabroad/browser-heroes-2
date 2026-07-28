@@ -181,7 +181,7 @@ function SummarySection({
 	onSummaryRetry,
 }: CommonPanelProps & { tab: "heroes" | "ghosts" }) {
 	if (summaryPending && hasSession) {
-		return <StatsDataState message="Loading overall stats..." spacing="compact" />;
+		return <StatsSummaryLoading tab={tab} summary={summary} />;
 	}
 	if (summaryError && hasSession) {
 		return (
@@ -194,6 +194,25 @@ function SummarySection({
 		);
 	}
 	return <StatsSummary tab={tab} summary={summary} />;
+}
+
+function StatsSummaryLoading({
+	tab,
+	summary,
+}: {
+	tab: "heroes" | "ghosts";
+	summary: UserStatsSummaryView;
+}) {
+	return (
+		<div className="relative" aria-busy="true">
+			<div className="invisible" aria-hidden="true">
+				<StatsSummary tab={tab} summary={summary} />
+			</div>
+			<p className="absolute inset-0 grid place-items-center text-text-muted">
+				Loading overall stats...
+			</p>
+		</div>
+	);
 }
 
 function UpdatingMessage() {
