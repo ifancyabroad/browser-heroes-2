@@ -8,6 +8,9 @@ const auth = vi.hoisted(() => ({
 	useLogin: vi.fn(() => ({ mutate: vi.fn(), reset: vi.fn(), isPending: false })),
 	useLogout: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
 	useRegisterAccount: vi.fn(() => ({ mutate: vi.fn(), isPending: false })),
+	useAuthModalStore: vi.fn((selector: (state: { openLogin: () => void }) => unknown) =>
+		selector({ openLogin: vi.fn() }),
+	),
 }));
 
 vi.mock("../features/auth", () => auth);

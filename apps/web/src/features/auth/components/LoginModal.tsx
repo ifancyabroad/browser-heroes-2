@@ -1,30 +1,26 @@
 import { useState } from "react";
-import type { AuthUserResponse } from "@app/shared";
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { useLogin } from "../hooks/useLogin";
+import { useAuthModalStore } from "../stores/authModalStore";
 import { AuthField } from "./AuthField";
 
-type LoginModalProps = {
-	open: boolean;
-	onClose: () => void;
-	onSuccess: (response: AuthUserResponse) => void;
-};
-
-export function LoginModal({ open, onClose, onSuccess }: LoginModalProps) {
+export function LoginModal() {
 	const login = useLogin();
 	const [error, setError] = useState<string | null>(null);
+	const open = useAuthModalStore((state) => state.modal === "login");
+	const close = useAuthModalStore((state) => state.close);
 
 	function handleClose() {
 		login.reset();
 		setError(null);
-		onClose();
+		close();
 	}
 
-	function handleSuccess(response: AuthUserResponse) {
+	function handleSuccess() {
 		login.reset();
-		onSuccess(response);
+		close();
 	}
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -90,7 +86,11 @@ export function LoginModal({ open, onClose, onSuccess }: LoginModalProps) {
 					disabled={login.isPending}
 				/>
 
-				<Link className="text-info hover:text-text-bright" to="/forgot-password">
+				<Link
+					className="text-info hover:text-text-bright"
+					to="/forgot-password"
+					onClick={handleClose}
+				>
 					Forgot password?
 				</Link>
 

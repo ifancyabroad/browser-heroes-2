@@ -1,8 +1,6 @@
 import clsx from "clsx";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../features/auth";
-import { LoginModal } from "../features/auth/components/LoginModal";
+import { useAuth, useAuthModalStore } from "../features/auth";
 
 const navigationItems = [
 	{ label: "HOME", to: "/", end: true },
@@ -12,7 +10,7 @@ const navigationItems = [
 
 export function Header() {
 	const { isRegistered } = useAuth();
-	const [isLoginOpen, setIsLoginOpen] = useState(false);
+	const openLogin = useAuthModalStore((state) => state.openLogin);
 
 	return (
 		<header className="bg-bg-elevated">
@@ -51,17 +49,12 @@ export function Header() {
 					<button
 						type="button"
 						className="cursor-pointer border-b-2 border-transparent py-1 hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-						onClick={() => setIsLoginOpen(true)}
+						onClick={openLogin}
 					>
 						SIGN IN
 					</button>
 				)}
 			</nav>
-			<LoginModal
-				open={isLoginOpen}
-				onClose={() => setIsLoginOpen(false)}
-				onSuccess={() => setIsLoginOpen(false)}
-			/>
 		</header>
 	);
 }

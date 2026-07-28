@@ -8,21 +8,19 @@ import {
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { useRegisterAccount } from "../hooks/useRegisterAccount";
+import { useAuthModalStore } from "../stores/authModalStore";
 import { AuthField } from "./AuthField";
 
-type RegisterModalProps = {
-	open: boolean;
-	onClose: () => void;
-};
-
-export function RegisterModal({ open, onClose }: RegisterModalProps) {
+export function RegisterModal() {
 	const registerAccount = useRegisterAccount();
 	const [error, setError] = useState<string | null>(null);
+	const open = useAuthModalStore((state) => state.modal === "register");
+	const close = useAuthModalStore((state) => state.close);
 
 	function handleClose() {
 		registerAccount.reset();
 		setError(null);
-		onClose();
+		close();
 	}
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

@@ -17,6 +17,7 @@ vi.mock("../features/runs", () => ({
 }));
 
 import Landing from "./Landing";
+import { useAuthModalStore } from "../features/auth";
 
 function renderLanding() {
 	return render(
@@ -31,6 +32,7 @@ function renderLanding() {
 describe("Landing", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		useAuthModalStore.getState().close();
 		hooks.useCurrentRun.mockReturnValue({
 			data: { run: null },
 			isLoading: false,
@@ -63,6 +65,6 @@ describe("Landing", () => {
 			screen.getByText("Keep your heroes across browsers and devices."),
 		).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "CREATE ACCOUNT" }));
-		expect(screen.getByRole("dialog")).toHaveTextContent("CREATE ACCOUNT");
+		expect(useAuthModalStore.getState().modal).toBe("register");
 	});
 });

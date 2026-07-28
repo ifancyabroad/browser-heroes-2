@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./components/ErrorFallback";
-import { SessionGate } from "./features/auth";
+import { LoginModal, RegisterModal, SessionGate } from "./features/auth";
 import { ErrorModal } from "./components/ErrorModal.tsx";
 import { SocketConnection } from "./components/SocketConnection.tsx";
 import { TooltipProvider } from "./components/Tooltip.tsx";
@@ -27,6 +27,8 @@ createRoot(document.getElementById("root")!).render(
 						<SessionGate>
 							<SocketConnection />
 							<App />
+							<LoginModal />
+							<RegisterModal />
 							<ErrorModal />
 						</SessionGate>
 					</TooltipProvider>

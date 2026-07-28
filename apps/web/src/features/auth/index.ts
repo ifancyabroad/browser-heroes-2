@@ -1,5 +1,7 @@
 export { SessionGate } from "./components/SessionGate";
 export { PrivateRoute } from "./components/PrivateRoute";
+export { LoginModal } from "./components/LoginModal";
+export { RegisterModal } from "./components/RegisterModal";
 export { useAuth } from "./hooks/useAuth";
 export { useCreateGuestSession } from "./hooks/useCreateGuestSession";
 export { useCurrentUser } from "./hooks/useCurrentUser";
@@ -8,3 +10,4 @@ export { useLogout } from "./hooks/useLogout";
 export { useRegisterAccount } from "./hooks/useRegisterAccount";
 export { useRequestPasswordReset } from "./hooks/useRequestPasswordReset";
 export { useResetPassword } from "./hooks/useResetPassword";
+export { useAuthModalStore } from "./stores/authModalStore";

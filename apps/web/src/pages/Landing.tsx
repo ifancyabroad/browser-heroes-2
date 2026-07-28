@@ -1,19 +1,17 @@
 import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { useAuth } from "../features/auth";
+import { useAuth, useAuthModalStore } from "../features/auth";
 import { useCurrentRun } from "../features/runs";
 import { Button, ButtonLink } from "../components/Button";
 import { PageLayout } from "../components/PageLayout";
 import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
-import { useState } from "react";
 import { Container } from "../components/Container";
-import { RegisterModal } from "../features/auth/components/RegisterModal";
 
 export default function Landing() {
 	const { user, hasSession, isRegistered } = useAuth();
-	const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+	const openRegister = useAuthModalStore((state) => state.openRegister);
 	const currentRun = useCurrentRun({
 		enabled: hasSession,
 	});
@@ -66,14 +64,13 @@ export default function Landing() {
 					{!isRegistered && (
 						<div className="grid w-full justify-items-center gap-3 border-t-2 border-border-secondary pt-4">
 							<p>Keep your heroes across browsers and devices.</p>
-							<Button type="button" onClick={() => setIsRegisterOpen(true)}>
+							<Button type="button" onClick={openRegister}>
 								CREATE ACCOUNT
 							</Button>
 						</div>
 					)}
 				</div>
 			</Container>
-			<RegisterModal open={isRegisterOpen} onClose={() => setIsRegisterOpen(false)} />
 		</PageLayout>
 	);
 }

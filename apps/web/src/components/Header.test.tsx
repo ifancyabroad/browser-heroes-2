@@ -13,6 +13,7 @@ vi.mock("../features/auth", async (importOriginal) => ({
 }));
 
 import { Header } from "./Header";
+import { useAuthModalStore } from "../features/auth";
 
 function renderHeader() {
 	return render(
@@ -25,16 +26,19 @@ function renderHeader() {
 }
 
 describe("Header", () => {
-	beforeEach(() => vi.clearAllMocks());
+	beforeEach(() => {
+		vi.clearAllMocks();
+		useAuthModalStore.getState().close();
+	});
 
-	it("shows sign in and opens the login modal for users without a registered account", () => {
+	it("shows sign in and requests the global login modal for unregistered users", () => {
 		auth.useAuth.mockReturnValue({ isRegistered: false });
 
 		renderHeader();
 
 		expect(screen.queryByRole("link", { name: "ACCOUNT" })).not.toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "SIGN IN" }));
-		expect(screen.getByRole("dialog")).toHaveTextContent("SIGN IN");
+		expect(useAuthModalStore.getState().modal).toBe("login");
 	});
 
 	it("shows account instead of sign in for registered users", () => {
