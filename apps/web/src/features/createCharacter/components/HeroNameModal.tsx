@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { Button } from "../../../components/Button";
-import { generateHeroName } from "../generateHeroName";
+import { generateHeroName } from "../utils/generateHeroName";
 import { HERO_NAME_MAX_LENGTH } from "@app/shared";
-import { isValidHeroNameShape } from "../heroName";
+import { isValidHeroNameShape } from "../utils/heroName";
 
 type HeroNameModalProps = {
 	heroClassName: string;
