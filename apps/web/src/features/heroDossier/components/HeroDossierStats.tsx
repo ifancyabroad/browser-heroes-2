@@ -1,7 +1,6 @@
 import { attributes } from "@app/content";
 import type { HeroView } from "@app/engine";
 import { HeroStatValue } from "../../../components/HeroStatValue";
-import { SectionHeading } from "../../../components/SectionHeading";
 import { Tooltip } from "../../../components/Tooltip";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
 import { attributeLabels, combatStatLabels } from "../../../presentation/labels";
@@ -17,7 +16,7 @@ const statRowClassName =
 export function AttributesSection({ hero }: { hero: HeroView }) {
 	return (
 		<section className="grid gap-3" aria-label="Attributes">
-			<SectionHeading title="Attributes" />
+			<h2 className="text-text-bright">Attributes</h2>
 			<ul className="grid gap-y-2">
 				{attributes.map((attribute) => {
 					const stat = getStatPresentation(hero.attributes[attribute]);
@@ -61,7 +60,7 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 
 	return (
 		<section className="grid gap-3" aria-label="Combat">
-			<SectionHeading title="Combat" />
+			<h2 className="text-text-bright">Combat</h2>
 			<ul className="grid gap-y-2">
 				<li className="grid grid-cols-[1fr_auto] items-baseline gap-4 px-1">
 					<span className="text-text-label">Maximum Health</span>

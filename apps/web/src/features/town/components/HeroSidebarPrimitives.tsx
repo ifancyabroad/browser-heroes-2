@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { SectionHeading } from "../../../components/SectionHeading";
 
 type HeroSidebarSectionProps = {
 	title: string;
@@ -9,7 +8,7 @@ type HeroSidebarSectionProps = {
 export function HeroSidebarSection({ title, children }: HeroSidebarSectionProps) {
 	return (
 		<section className="grid gap-2" aria-label={title}>
-			<SectionHeading title={title} />
+			<h2 className="text-text-bright">{title}</h2>
 			{children}
 		</section>
 	);

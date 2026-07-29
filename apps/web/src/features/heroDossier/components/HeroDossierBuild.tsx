@@ -2,7 +2,6 @@ import { equipmentSlots, FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import { selectItemDefinition, type HeroView } from "@app/engine";
 import clsx from "clsx";
 import { Badge } from "../../../components/Badge";
-import { SectionHeading } from "../../../components/SectionHeading";
 import { Tooltip } from "../../../components/Tooltip";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
@@ -30,7 +29,7 @@ export function EquipmentSection({ hero }: { hero: HeroView }) {
 
 	return (
 		<section className="grid gap-3 bg-bg-panel px-4 py-4" aria-label="Equipment">
-			<SectionHeading title="Equipment" />
+			<h2 className="text-text-bright">Equipment</h2>
 			{equippedItems.length > 0 ? (
 				<ul className="grid gap-1">
 					{equippedItems.map(({ slot, item }) => (
@@ -70,7 +69,7 @@ export function AbilitiesSection({ hero }: { hero: HeroView }) {
 function SkillsSection({ hero }: { hero: HeroView }) {
 	return (
 		<section className="grid gap-3" aria-label="Skills">
-			<SectionHeading title="Skills" />
+			<h2 className="text-text-bright">Skills</h2>
 			{hero.skills.length > 0 ? (
 				<ul className="grid gap-1">
 					{hero.skills.map((skill) => {
@@ -114,7 +113,7 @@ function SkillsSection({ hero }: { hero: HeroView }) {
 function FeatsSection({ hero }: { hero: HeroView }) {
 	return (
 		<section className="grid gap-3" aria-label="Feats">
-			<SectionHeading title="Feats" />
+			<h2 className="text-text-bright">Feats</h2>
 			{hero.featIds.length > 0 ? (
 				<ul className="grid gap-1">
 					{hero.featIds.map((featId) => {

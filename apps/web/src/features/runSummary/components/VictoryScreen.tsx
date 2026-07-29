@@ -4,7 +4,6 @@ import type { RunView } from "@app/shared";
 import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
 import { ButtonLink } from "../../../components/Button";
-import { SectionHeading } from "../../../components/SectionHeading";
 
 type VictoryScreenProps = {
 	run: RunView;
@@ -78,7 +77,7 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 								className="grid gap-3 border-2 border-border bg-bg-panel p-3"
 								aria-label="Final moments"
 							>
-								<SectionHeading title="Final Moments" />
+								<h2 className="text-text-bright">Final Moments</h2>
 								<div className="grid gap-1">
 									{finalMomentEntries.map((entry) => (
 										<p key={entry.id} className={getLogEntryClassName(entry)}>
