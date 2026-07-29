@@ -6,8 +6,7 @@ import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
 import { Tabs } from "../components/Tabs";
 import { useAuth } from "../features/auth";
-import { GhostStatsPanel, HeroStatsPanel } from "../features/stats/components/StatsPanels";
-import { useStatsSummary } from "../features/stats/hooks/useStatsSummary";
+import { GhostStatsPanel, HeroStatsPanel, useStatsSummary } from "../features/stats";
 
 const tabs = [
 	{ label: "HEROES", value: "heroes" },

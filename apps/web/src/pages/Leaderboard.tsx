@@ -14,14 +14,14 @@ import { Tabs } from "../components/Tabs";
 import { TablePagination } from "../components/TablePagination";
 import { useAuth } from "../features/auth";
 import { HeroDossierModal } from "../features/heroDossier";
-import { LeaderboardFilters } from "../features/leaderboards/components/LeaderboardFilters";
 import {
 	GhostLeaderboardTable,
+	LeaderboardFilters,
 	RunLeaderboardTable,
-} from "../features/leaderboards/components/LeaderboardTables";
+	useGhostLeaderboard,
+	useRunLeaderboard,
+} from "../features/leaderboards";
 import { getTodayUtc } from "../utils/date";
-import { useGhostLeaderboard } from "../features/leaderboards/hooks/useGhostLeaderboard";
-import { useRunLeaderboard } from "../features/leaderboards/hooks/useRunLeaderboard";
 
 const PAGE_SIZE = 20;
 const tabs = [

@@ -2,8 +2,7 @@ import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
-import { useRequestPasswordReset } from "../features/auth";
-import { AuthField } from "../features/auth/components/AuthField";
+import { AuthField, useRequestPasswordReset } from "../features/auth";
 
 export default function ForgotPassword() {
 	const requestPasswordReset = useRequestPasswordReset();

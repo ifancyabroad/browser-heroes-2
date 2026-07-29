@@ -4,8 +4,7 @@ import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
-import { useResetPassword } from "../features/auth";
-import { AuthField } from "../features/auth/components/AuthField";
+import { AuthField, useResetPassword } from "../features/auth";
 
 export default function ResetPassword() {
 	const [params] = useSearchParams();
