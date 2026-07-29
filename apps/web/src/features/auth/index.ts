@@ -2,7 +2,6 @@ export { SessionGate } from "./components/SessionGate";
 export { PrivateRoute } from "./components/PrivateRoute";
 export { LoginModal } from "./components/LoginModal";
 export { RegisterModal } from "./components/RegisterModal";
-export { AuthField } from "./components/AuthField";
 export { useAuth } from "./hooks/useAuth";
 export { useCreateGuestSession } from "./hooks/useCreateGuestSession";
 export { useCurrentUser } from "./hooks/useCurrentUser";

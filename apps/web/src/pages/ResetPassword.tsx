@@ -2,9 +2,10 @@ import { Link, useSearchParams } from "react-router-dom";
 import { ACCOUNT_PASSWORD_MAX_LENGTH, ACCOUNT_PASSWORD_MIN_LENGTH } from "@app/shared";
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
+import { InputField } from "../components/FormFields";
 import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
-import { AuthField, useResetPassword } from "../features/auth";
+import { useResetPassword } from "../features/auth";
 
 export default function ResetPassword() {
 	const [params] = useSearchParams();
@@ -39,7 +40,7 @@ export default function ResetPassword() {
 					>
 						<h1 className="text-primary">CHOOSE A NEW PASSWORD</h1>
 
-						<AuthField
+						<InputField
 							id="reset-password"
 							label="New password"
 							name="password"

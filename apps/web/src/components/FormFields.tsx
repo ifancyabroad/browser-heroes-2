@@ -1,37 +1,36 @@
 import clsx from "clsx";
 
 const fieldControlClassName =
-	"w-full border-2 border-border bg-bg-panel px-3 py-1 text-text-bright focus-visible:border-primary focus-visible:outline-none";
+	"w-full border-2 border-border bg-bg-base px-3 py-2 text-text-bright outline-none focus:border-primary disabled:cursor-not-allowed disabled:opacity-60";
 
-type SearchFieldProps = {
+type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "className" | "id"> & {
+	id: string;
 	label: string;
-	value: string;
-	placeholder?: string;
-	maxLength?: number;
+	error?: string | null;
 	className?: string;
-	onChange: (value: string) => void;
 };
 
-export function SearchField({
-	label,
-	value,
-	placeholder,
-	maxLength,
-	className,
-	onChange,
-}: SearchFieldProps) {
+export function InputField({ label, error, className, ...props }: InputFieldProps) {
+	const errorId = error ? `${props.id}-error` : undefined;
+
 	return (
-		<label className={clsx("grid gap-1 text-text-label", className)}>
-			{label}
+		<div className={clsx("grid gap-1", className)}>
+			<label htmlFor={props.id} className="text-text-label">
+				{label}
+			</label>
 			<input
-				type="search"
-				value={value}
-				placeholder={placeholder}
-				maxLength={maxLength}
-				onChange={(event) => onChange(event.target.value)}
-				className={clsx(fieldControlClassName, "placeholder:text-text-muted")}
+				{...props}
+				aria-invalid={error ? true : props["aria-invalid"]}
+				aria-describedby={errorId ?? props["aria-describedby"]}
+				className={clsx(fieldControlClassName, "caret-primary placeholder:text-text-muted")}
 			/>
-		</label>
+
+			{error && (
+				<p id={errorId} className="text-error">
+					{error}
+				</p>
+			)}
+		</div>
 	);
 }
 
@@ -56,8 +55,8 @@ export function SelectField<TValue extends string>({
 	onChange,
 }: SelectFieldProps<TValue>) {
 	return (
-		<label className={clsx("grid gap-1 text-text-label", className)}>
-			{label}
+		<label className={clsx("grid gap-1", className)}>
+			<span className="text-text-label">{label}</span>
 			<select
 				value={value}
 				onChange={(event) => onChange(event.target.value as TValue)}

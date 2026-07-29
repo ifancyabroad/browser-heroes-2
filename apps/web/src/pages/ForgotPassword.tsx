@@ -1,8 +1,9 @@
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
+import { InputField } from "../components/FormFields";
 import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
-import { AuthField, useRequestPasswordReset } from "../features/auth";
+import { useRequestPasswordReset } from "../features/auth";
 
 export default function ForgotPassword() {
 	const requestPasswordReset = useRequestPasswordReset();
@@ -27,7 +28,7 @@ export default function ForgotPassword() {
 
 					<p>Enter your account email. If it exists, we will send a reset link.</p>
 
-					<AuthField
+					<InputField
 						id="forgot-password-email"
 						label="Email"
 						name="email"

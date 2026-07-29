@@ -6,10 +6,10 @@ import {
 	DISPLAY_NAME_MIN_LENGTH,
 } from "@app/shared";
 import { Button } from "../../../components/Button";
+import { InputField } from "../../../components/FormFields";
 import { Modal } from "../../../components/Modal";
 import { useRegisterAccount } from "../hooks/useRegisterAccount";
 import { useAuthModalStore } from "../stores/authModalStore";
-import { AuthField } from "./AuthField";
 
 export function RegisterModal() {
 	const registerAccount = useRegisterAccount();
@@ -73,7 +73,7 @@ export function RegisterModal() {
 			<form id="register-account-form" className="grid gap-4" onSubmit={handleSubmit}>
 				<p>Your existing heroes will stay with this account.</p>
 
-				<AuthField
+				<InputField
 					id="register-display-name"
 					label="Display name"
 					name="displayName"
@@ -85,7 +85,7 @@ export function RegisterModal() {
 					autoFocus
 				/>
 
-				<AuthField
+				<InputField
 					id="register-email"
 					label="Email"
 					name="email"
@@ -95,7 +95,7 @@ export function RegisterModal() {
 					disabled={registerAccount.isPending}
 				/>
 
-				<AuthField
+				<InputField
 					id="register-password"
 					label="Password"
 					name="password"

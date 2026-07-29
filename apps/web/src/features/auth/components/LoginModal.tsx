@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/Button";
+import { InputField } from "../../../components/FormFields";
 import { Modal } from "../../../components/Modal";
 import { useLogin } from "../hooks/useLogin";
 import { useAuthModalStore } from "../stores/authModalStore";
-import { AuthField } from "./AuthField";
 
 export function LoginModal() {
 	const login = useLogin();
@@ -65,7 +65,7 @@ export function LoginModal() {
 			}
 		>
 			<form id="login-form" className="grid gap-4" onSubmit={handleSubmit}>
-				<AuthField
+				<InputField
 					id="login-email"
 					label="Email"
 					name="email"
@@ -76,7 +76,7 @@ export function LoginModal() {
 					autoFocus
 				/>
 
-				<AuthField
+				<InputField
 					id="login-password"
 					label="Password"
 					name="password"
