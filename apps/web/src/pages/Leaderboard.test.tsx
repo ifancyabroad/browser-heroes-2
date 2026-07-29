@@ -84,7 +84,12 @@ describe("Leaderboard", () => {
 
 		expect(screen.getByText("Loading hero rankings...")).toBeInTheDocument();
 		expect(hooks.useRunLeaderboard).toHaveBeenCalledWith(
-			expect.objectContaining({ scope: "overall", page: 1, limit: 20 }),
+			expect.objectContaining({
+				scope: "daily",
+				date: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+				page: 1,
+				limit: 20,
+			}),
 			true,
 		);
 		expect(hooks.useGhostLeaderboard).toHaveBeenCalledWith(

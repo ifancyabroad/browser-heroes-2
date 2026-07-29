@@ -36,7 +36,7 @@ export default function Leaderboard() {
 	const [activeTab, setActiveTab] = useState<LeaderboardTab>("heroes");
 	const [classId, setClassId] = useState<ClassId | "all">("all");
 	const [userOnly, setUserOnly] = useState(false);
-	const [scope, setScope] = useState<LeaderboardScope>("overall");
+	const [scope, setScope] = useState<LeaderboardScope>("daily");
 	const [dailyDate, setDailyDate] = useState(getTodayUtc);
 	const [page, setPage] = useState(1);
 	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);

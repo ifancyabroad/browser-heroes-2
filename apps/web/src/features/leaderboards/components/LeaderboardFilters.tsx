@@ -32,7 +32,7 @@ export function LeaderboardFilters({
 	const isToday = dailyDate === getTodayUtc();
 
 	return (
-		<div className="grid gap-3 border-b-2 border-border-secondary bg-bg-panel p-3">
+		<div className="border-b-2 border-border-secondary bg-bg-panel p-3">
 			<div className="flex flex-wrap items-end gap-3">
 				<ClassSelect value={classId} onChange={onClassChange} />
 
@@ -66,57 +66,60 @@ export function LeaderboardFilters({
 						<div className="flex gap-2">
 							<Button
 								type="button"
-								variant={scope === "overall" ? "primary" : "default"}
-								aria-pressed={scope === "overall"}
-								onClick={() => onScopeChange("overall")}
-							>
-								OVERALL
-							</Button>
-							<Button
-								type="button"
 								variant={scope === "daily" ? "primary" : "default"}
 								aria-pressed={scope === "daily"}
 								onClick={() => onScopeChange("daily")}
 							>
 								DAILY
 							</Button>
+							<Button
+								type="button"
+								variant={scope === "overall" ? "primary" : "default"}
+								aria-pressed={scope === "overall"}
+								onClick={() => onScopeChange("overall")}
+							>
+								OVERALL
+							</Button>
 						</div>
 					</div>
 				)}
-			</div>
 
-			{scope === "daily" && dailyDate && onDailyDateChange && (
-				<div className="flex items-center gap-2" aria-label="Daily leaderboard date">
-					<div className="flex min-w-0 flex-1 items-center gap-2 sm:flex-none">
+				{scope === "daily" && dailyDate && onDailyDateChange && (
+					<div
+						className="flex basis-full items-center gap-2 md:basis-auto"
+						aria-label="Daily leaderboard date"
+					>
+						<div className="flex min-w-0 flex-1 items-center gap-2 md:flex-none">
+							<Button
+								type="button"
+								aria-label="Previous day"
+								onClick={() => onDailyDateChange(addUtcDays(dailyDate, -1))}
+							>
+								&larr;
+							</Button>
+							<p className="min-w-0 flex-1 whitespace-nowrap text-center text-text-bright md:min-w-52">
+								{formatDailyDate(dailyDate)}
+							</p>
+							<Button
+								type="button"
+								aria-label="Next day"
+								disabled={isToday}
+								onClick={() => onDailyDateChange(addUtcDays(dailyDate, 1))}
+							>
+								&rarr;
+							</Button>
+						</div>
 						<Button
 							type="button"
-							aria-label="Previous day"
-							onClick={() => onDailyDateChange(addUtcDays(dailyDate, -1))}
-						>
-							←<span className="ml-1 hidden sm:inline">PREVIOUS</span>
-						</Button>
-						<p className="min-w-0 flex-1 whitespace-nowrap text-center text-text-bright sm:min-w-52">
-							{formatDailyDate(dailyDate)}
-						</p>
-						<Button
-							type="button"
-							aria-label="Next day"
+							variant="primary"
 							disabled={isToday}
-							onClick={() => onDailyDateChange(addUtcDays(dailyDate, 1))}
+							onClick={() => onDailyDateChange(getTodayUtc())}
 						>
-							<span className="mr-1 hidden sm:inline">NEXT</span>→
+							TODAY
 						</Button>
 					</div>
-					<Button
-						type="button"
-						variant="primary"
-						disabled={isToday}
-						onClick={() => onDailyDateChange(getTodayUtc())}
-					>
-						TODAY
-					</Button>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 }
