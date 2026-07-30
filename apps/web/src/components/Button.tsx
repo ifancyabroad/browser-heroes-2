@@ -3,7 +3,7 @@ import { Link as RouterLink, type LinkProps as RouterLinkProps } from "react-rou
 import clsx from "clsx";
 
 const commandFrameClassName =
-	"inline-flex items-center justify-center border-2 border-border bg-bg-panel px-3 py-1";
+	"inline-flex min-h-9 items-center justify-center border-2 border-border bg-bg-panel px-3 py-1";
 
 const commandFocusClassName =
 	"focus-visible:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
