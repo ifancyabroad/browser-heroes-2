@@ -57,10 +57,7 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 					<span>{content.name}</span>
 				)}
 				{option.type === "item" && (
-					<CurrentlyEquippedDetail
-						destination={content.destination}
-						needsReplacementChoice={content.needsReplacementChoice}
-					/>
+					<CurrentEquipmentDetail destinations={option.destinations} />
 				)}
 			</span>
 		</RadioCard>
@@ -72,8 +69,6 @@ function getOptionContent(option: RewardChoiceOptionView) {
 		return {
 			icon: goldIcon,
 			name: `${option.amount} Gold`,
-			destination: null,
-			needsReplacementChoice: false,
 			tooltipSlot: null,
 		};
 	}
@@ -85,67 +80,52 @@ function getOptionContent(option: RewardChoiceOptionView) {
 	return {
 		icon: resolveImageUrl(option.item.icon),
 		name: option.item.name,
-		destination: option.destinations.length === 1 ? option.destinations[0] : null,
-		needsReplacementChoice: option.destinations.length !== 1,
 		tooltipSlot: destinationSlots.length > 0 ? destinationSlots : null,
 	};
 }
 
-function CurrentlyEquippedDetail({
-	destination,
-	needsReplacementChoice,
+function CurrentEquipmentDetail({
+	destinations,
 }: {
-	destination: RewardItemDestinationView | null;
-	needsReplacementChoice: boolean;
+	destinations: readonly RewardItemDestinationView[];
 }) {
-	if (needsReplacementChoice || !destination) {
-		return (
-			<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-				<span className="text-text-label">Currently Equipped:</span>
-				<span className="text-text">Choose slot</span>
-			</span>
-		);
+	if (destinations.length === 0) {
+		return null;
 	}
 
-	if (destination.replacedItems.length === 0) {
-		return (
-			<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-				<span className="text-text-label">Currently Equipped:</span>
-				<span className="text-text">Empty</span>
-			</span>
-		);
-	}
+	const replacedItems = destinations.flatMap((destination) =>
+		destination.replacedItems.map((replacedItem) => ({
+			replacedItem,
+			fallbackSlot: destination.equipmentSlot,
+		})),
+	);
+	const uniqueReplacedItems = replacedItems.filter(
+		(entry, index) =>
+			replacedItems.findIndex(
+				(candidate) => candidate.replacedItem.instanceId === entry.replacedItem.instanceId,
+			) === index,
+	);
+	const includesEmpty = destinations.some(
+		(destination) => destination.replacedItems.length === 0,
+	);
 
 	return (
 		<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-			<span className="text-text-label">Currently Equipped:</span>
+			<span className="text-text-label">Current</span>
 			<span className="min-w-0 break-words text-text">
-				<ReplacedItemsInline
-					replacedItems={destination.replacedItems}
-					fallbackSlot={destination.equipmentSlot}
-				/>
+				{uniqueReplacedItems.map((entry, index) => (
+					<ReplacedItemTooltip
+						key={entry.replacedItem.instanceId}
+						replacedItem={entry.replacedItem}
+						fallbackSlot={entry.fallbackSlot}
+						prefix={index > 0 ? ", " : ""}
+					/>
+				))}
+				{includesEmpty && (
+					<span>{uniqueReplacedItems.length > 0 ? ", Empty" : "Empty"}</span>
+				)}
 			</span>
 		</span>
-	);
-}
-
-type ReplacedItemsInlineProps = {
-	replacedItems: RewardItemDestinationView["replacedItems"];
-	fallbackSlot: RewardItemDestinationView["equipmentSlot"];
-};
-
-function ReplacedItemsInline({ replacedItems, fallbackSlot }: ReplacedItemsInlineProps) {
-	return (
-		<>
-			{replacedItems.map((replacedItem, index) => (
-				<ReplacedItemTooltip
-					key={replacedItem.instanceId}
-					replacedItem={replacedItem}
-					fallbackSlot={fallbackSlot}
-					prefix={index > 0 ? ", " : ""}
-				/>
-			))}
-		</>
 	);
 }
 

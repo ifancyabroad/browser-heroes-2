@@ -133,12 +133,12 @@ function ReplacementChoice({ destination, selected, disabled }: ReplacementChoic
 			</span>
 			{destination.replacedItems.length === 0 ? (
 				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-					<span className="text-text-label">Currently Equipped:</span>
+					<span className="text-text-label">Current</span>
 					<span className="text-text">Empty</span>
 				</span>
 			) : (
 				<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-					<span className="text-text-label">Currently Equipped:</span>
+					<span className="text-text-label">Current</span>
 					<span className="min-w-0 break-words text-text">
 						{destination.replacedItems.map((replacedItem, index) => (
 							<ReplacedItemTooltip
