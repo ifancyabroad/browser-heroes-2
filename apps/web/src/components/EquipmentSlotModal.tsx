@@ -53,7 +53,7 @@ export function EquipmentSlotModal({
 			title="Choose Slot"
 			onClose={onCancel}
 			dismissible={!isPending}
-			className="max-w-2xl"
+			size="2xl"
 			footer={
 				<>
 					<Button type="button" disabled={isPending} onClick={onCancel}>

@@ -53,7 +53,7 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 			title="The Final Boss Falls"
 			onClose={() => undefined}
 			dismissible={false}
-			className="max-w-2xl"
+			size="2xl"
 			footer={
 				<div className="flex flex-wrap justify-end gap-4" aria-label="Final boss choices">
 					<Button

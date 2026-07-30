@@ -33,7 +33,7 @@ export function HowToPlayModal() {
 		<Modal
 			open={isOpen}
 			title="HOW TO PLAY"
-			size="md"
+			size="xl"
 			onClose={close}
 			footer={
 				<Button variant="primary" type="button" onClick={close}>

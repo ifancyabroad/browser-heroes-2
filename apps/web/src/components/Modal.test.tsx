@@ -13,15 +13,15 @@ describe("Modal", () => {
 		expect(screen.getByRole("dialog")).toHaveClass("max-w-md");
 	});
 
-	it("selects one explicit width class for larger modals", () => {
+	it("maps size names directly to their Tailwind width classes", () => {
 		render(
-			<Modal open title="Large modal" size="xl" onClose={() => undefined}>
+			<Modal open title="Large modal" size="2xl" onClose={() => undefined}>
 				Content
 			</Modal>,
 		);
 
 		const dialog = screen.getByRole("dialog");
-		expect(dialog).toHaveClass("max-w-5xl");
+		expect(dialog).toHaveClass("max-w-2xl");
 		expect(dialog).not.toHaveClass("max-w-md");
 	});
 

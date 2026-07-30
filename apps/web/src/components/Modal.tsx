@@ -9,15 +9,19 @@ type ModalProps = PropsWithChildren<{
 	onClose: () => void;
 	footer?: ReactNode;
 	dismissible?: boolean;
-	size?: "sm" | "md" | "lg" | "xl";
+	size?: keyof typeof modalSizeClassNames;
 	className?: string;
 }>;
 
 const modalSizeClassNames = {
 	sm: "max-w-sm",
 	md: "max-w-md",
-	lg: "max-w-3xl",
-	xl: "max-w-5xl",
+	lg: "max-w-lg",
+	xl: "max-w-xl",
+	"2xl": "max-w-2xl",
+	"3xl": "max-w-3xl",
+	"4xl": "max-w-4xl",
+	"5xl": "max-w-5xl",
 } as const;
 
 export function Modal({
@@ -73,7 +77,7 @@ export function Modal({
 					<div className="min-h-0 overflow-y-auto px-4 pb-4 pt-6">{children}</div>
 
 					{footer && (
-						<footer className="flex shrink-0 flex-wrap justify-end gap-4 px-4 pb-4">
+						<footer className="flex shrink-0 flex-wrap justify-end gap-4 px-4 pb-4 pt-2">
 							{footer}
 						</footer>
 					)}
