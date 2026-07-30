@@ -27,7 +27,7 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							tabIndex={-1}
 							className="text-base text-error outline-none"
 						>
-							YOU WERE SLAIN
+							HERO SLAIN
 						</h1>
 						<p className="text-text-muted">
 							The run has ended, and the road ahead belongs to another hero.
@@ -58,11 +58,11 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							tabIndex={-1}
 							className="text-base text-error outline-none"
 						>
-							YOU WERE SLAIN
+							{summary.hero.name.toUpperCase()} WAS SLAIN
 						</h1>
 						<p className="max-w-xl text-text-muted">
-							The dungeon falls quiet. Your wounds are too deep, and your story ends
-							in the dark.
+							The dungeon falls quiet. {summary.hero.name}'s wounds are too deep, and
+							their story ends in the dark.
 						</p>
 					</header>
 

@@ -102,8 +102,8 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 					The last tyrant of the hundredth battle lies defeated.
 				</p>
 				<p className="text-text">
-					Your hero may retire with their life and victory secured, or continue beyond the
-					victory ladder in pursuit of rarer renown.
+					{run.state.hero.name} may retire with their life and victory secured, or
+					continue beyond the victory ladder in pursuit of rarer renown.
 				</p>
 				<p className="text-text-muted">
 					Preparing in town and marching straight on both continue the run; town is only a

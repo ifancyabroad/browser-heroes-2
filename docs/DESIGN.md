@@ -48,13 +48,20 @@ Use strong borders for primary panels and controls, quieter separation for repea
 
 Keep the information needed for the current decision easy to find: combatants and actions during combat, recovery and purchases in town, and clear choices in modal flows.
 
-## 6. Presentation Boundary
+## 6. Copy and Voice
+
+Use the hero's name and third person for in-world events, combat logs, and completed-run
+narration. Use second person for instructions, choices, tooltips, and actionable errors. Use
+"your hero" in account-level or general explanations when distinguishing the player from the
+run character is useful. Avoid user-facing implementation terms such as "the player."
+
+## 7. Presentation Boundary
 
 The UI renders engine state, selector output, and shared content, then submits player intent through the runtime application flow.
 
 It must not calculate damage, rewards, progression, enemy selection, action validity, or other gameplay outcomes. It must not mutate authoritative run state or duplicate engine formulas.
 
-## 7. Non-Goals
+## 8. Non-Goals
 
 This document does not define exact page layouts, component APIs, gameplay rules, content schemas, or marketing art direction.
 

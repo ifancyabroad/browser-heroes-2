@@ -19,8 +19,17 @@ vi.mock("../../../stores/errorModalStore", () => ({
 		selector({ showError }),
 }));
 vi.mock("../../../components/Modal", () => ({
-	Modal: ({ title, footer }: { title: string; footer: React.ReactNode }) => (
+	Modal: ({
+		title,
+		children,
+		footer,
+	}: {
+		title: string;
+		children: React.ReactNode;
+		footer: React.ReactNode;
+	}) => (
 		<div role="dialog" aria-label={title}>
+			{children}
 			{footer}
 		</div>
 	),
@@ -29,7 +38,7 @@ vi.mock("../../../components/Modal", () => ({
 import { FinalBossVictoryModalController } from "./FinalBossVictoryModalController";
 
 function createRun(phase: "combat" | "town" = "combat") {
-	return { id: "run-id", state: { phase } } as RunView;
+	return { id: "run-id", state: { phase, hero: { name: "Test Hero" } } } as RunView;
 }
 
 describe("FinalBossVictoryModalController", () => {
@@ -70,6 +79,12 @@ describe("FinalBossVictoryModalController", () => {
 
 		expect(screen.getByRole("button", { name: "Prepare in Town" })).toBeDisabled();
 		expect(screen.getByRole("button", { name: "March Onward" })).toBeDisabled();
+	});
+
+	it("names the hero in the retirement choice", () => {
+		render(<FinalBossVictoryModalController run={createRun()} />);
+
+		expect(screen.getByText(/Test Hero may retire with their life/)).toBeInTheDocument();
 	});
 
 	it("shows translated engine failures", () => {

@@ -45,7 +45,7 @@ describe("completed run screens", () => {
 
 		renderScreen(<DeathScreen run={run} />);
 
-		expect(screen.getByRole("heading", { name: "YOU WERE SLAIN" })).toHaveFocus();
+		expect(screen.getByRole("heading", { name: "HERO SLAIN" })).toHaveFocus();
 		expect(screen.getByRole("link", { name: "Try Again" })).toHaveAttribute(
 			"href",
 			"/create-character",
@@ -55,6 +55,12 @@ describe("completed run screens", () => {
 	it("renders death identity, enemy, battle, and final moments", () => {
 		renderScreen(<DeathScreen run={run} />);
 
+		expect(screen.getByRole("heading", { name: "TEST HERO WAS SLAIN" })).toBeInTheDocument();
+		expect(
+			screen.getByText(
+				"The dungeon falls quiet. Test Hero's wounds are too deep, and their story ends in the dark.",
+			),
+		).toBeInTheDocument();
 		expect(screen.getByText(/Test Hero the Fighter/)).toBeInTheDocument();
 		expect(screen.getByText("Dragon")).toBeInTheDocument();
 		expect(screen.getByText("20")).toBeInTheDocument();
@@ -67,7 +73,7 @@ describe("completed run screens", () => {
 		renderScreen(<VictoryScreen run={run} />);
 
 		expect(
-			screen.getByText("The run has ended, and this hero's tale is complete."),
+			screen.getByText("The run has ended, and its tale is complete."),
 		).toBeInTheDocument();
 		expect(screen.getByRole("link", { name: "New Hero" })).toHaveAttribute(
 			"href",
@@ -81,6 +87,7 @@ describe("completed run screens", () => {
 		renderScreen(<VictoryScreen run={run} />);
 
 		expect(screen.getByRole("heading", { name: "The Ladder Is Broken" })).toBeInTheDocument();
+		expect(screen.getByText(/Test Hero has earned their rest/)).toBeInTheDocument();
 		expect(screen.getByText(/retired victorious after defeating/)).toBeInTheDocument();
 		expect(screen.getByText("100")).toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "Final moments" })).toHaveTextContent(

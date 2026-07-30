@@ -35,7 +35,7 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 	const combatWithRewardLog = appendCombatLog(combat, {
 		turnNumber: combat.turnNumber,
 		actor: "player",
-		message: `You gained ${reward.xp} XP and ${reward.gold} gold.`,
+		message: `${combat.player.name} gains ${reward.xp} XP and ${reward.gold} gold.`,
 		eventType: "reward_gained",
 	});
 

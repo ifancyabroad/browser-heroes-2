@@ -23,7 +23,7 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 					>
 						<h1 className="text-base text-success">Victory</h1>
 						<p className="text-text-muted">
-							The run has ended, and this hero's tale is complete.
+							The run has ended, and its tale is complete.
 						</p>
 						<div className="flex flex-wrap justify-center gap-4">
 							<ButtonLink to="/">Home</ButtonLink>
@@ -51,8 +51,8 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 							<p className="text-success">Victory</p>
 							<h1 className="text-base text-primary">The Ladder Is Broken</h1>
 							<p className="mx-auto max-w-2xl text-text-muted">
-								The final foe has fallen. The world beyond battle 100 waits, but
-								this hero has earned their rest.
+								The final foe has fallen. The world beyond battle 100 waits, but{" "}
+								{summary.hero.name} has earned their rest.
 							</p>
 						</header>
 

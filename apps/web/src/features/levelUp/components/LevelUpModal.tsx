@@ -42,16 +42,18 @@ export function LevelUpModal({ pendingLevelUp, isPending, onConfirm }: LevelUpMo
 		>
 			<div className="grid gap-4 text-base">
 				<p>
-					Congratulations you have reached{" "}
-					<span className="text-primary">level {pendingLevelUp.level}</span>!
+					Congratulations, you have reached{" "}
+					<span className="text-success">level {pendingLevelUp.level}</span>!
 					<br />
 					Max HP increased by{" "}
-					<span className="text-primary">{pendingLevelUp.hpGain}</span>.
+					<span className="text-success">{pendingLevelUp.hpGain}</span>.
 				</p>
 
 				{hasOptions && (
 					<>
-						<p>{getSelectionInstruction(pendingLevelUp.options)}</p>
+						<p className="text-text-bright">
+							{getSelectionInstruction(pendingLevelUp.options)}
+						</p>
 						<LevelUpOptionList
 							options={pendingLevelUp.options}
 							selection={selection}
