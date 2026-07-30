@@ -44,7 +44,6 @@ export function RewardModal({
 			title="Choose Reward"
 			onClose={() => undefined}
 			dismissible={false}
-			size="2xl"
 			footer={
 				<Button
 					type="button"

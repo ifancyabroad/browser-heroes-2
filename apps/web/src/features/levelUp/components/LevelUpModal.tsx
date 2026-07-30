@@ -29,7 +29,6 @@ export function LevelUpModal({ pendingLevelUp, isPending, onConfirm }: LevelUpMo
 			title="Level Up"
 			onClose={() => undefined}
 			dismissible={false}
-			size="2xl"
 			footer={
 				<Button
 					type="button"
