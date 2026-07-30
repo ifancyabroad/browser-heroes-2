@@ -13,7 +13,6 @@ function createProps(overrides = {}) {
 		gold: 50,
 		canAffordRest: true,
 		canRest: true,
-		isFullyHealed: false,
 		canAffordReroll: true,
 		canReroll: true,
 		canAffordHealingPotion: true,

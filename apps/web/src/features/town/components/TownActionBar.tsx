@@ -19,7 +19,6 @@ type TownActionBarProps = {
 	gold: number;
 	canAffordRest: boolean;
 	canRest: boolean;
-	isFullyHealed: boolean;
 	canAffordReroll: boolean;
 	canReroll: boolean;
 	canAffordHealingPotion: boolean;
@@ -41,7 +40,6 @@ export function TownActionBar({
 	gold,
 	canAffordRest,
 	canRest,
-	isFullyHealed,
 	canAffordReroll,
 	canReroll,
 	canAffordHealingPotion,
@@ -124,7 +122,6 @@ export function TownActionBar({
 								title="Rest"
 								detail={getRestTooltipDetail({
 									isPending,
-									isFullyHealed,
 									canAffordRest,
 									restCost,
 								})}
@@ -188,17 +185,14 @@ function getPotionTooltipDetail({
 
 function getRestTooltipDetail({
 	isPending,
-	isFullyHealed,
 	canAffordRest,
 	restCost,
 }: {
 	isPending: boolean;
-	isFullyHealed: boolean;
 	canAffordRest: boolean;
 	restCost: number;
 }) {
 	if (isPending) return ACTION_PENDING_DETAIL;
-	if (isFullyHealed) return "Already at full health.";
 	if (!canAffordRest) return `Requires ${restCost} gold.`;
-	return `Restore all health for ${restCost} gold.`;
+	return `Restore all health and skill uses for ${restCost} gold.`;
 }

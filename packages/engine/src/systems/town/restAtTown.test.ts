@@ -26,6 +26,23 @@ describe("restAtTown", () => {
 		);
 	});
 
+	it("allows resting at full health to restore skill charges", () => {
+		const state = modifyTestRunState(createTestTownState(), (draft) => {
+			draft.gold = 100;
+			draft.hero.skills[0].chargesRemaining = 0;
+		});
+		const currentHp = state.hero.currentHp;
+
+		const result = applyAction(state, { type: "REST_AT_TOWN" });
+
+		expect(result.ok).toBe(true);
+		expect(result.state.hero.currentHp).toBe(currentHp);
+		expect(result.state.hero.skills[0].chargesRemaining).toBeGreaterThan(0);
+		expect(result.events).toContainEqual(
+			expect.objectContaining({ type: "RESTED_AT_TOWN", hpRestored: 0 }),
+		);
+	});
+
 	it("rejects resting without enough gold", () => {
 		const state = modifyTestRunState(createTestTownState(), (draft) => {
 			draft.gold = 0;

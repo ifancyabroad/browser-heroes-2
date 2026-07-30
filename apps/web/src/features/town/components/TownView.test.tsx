@@ -175,7 +175,18 @@ describe("TownView", () => {
 		expect(screen.getByText("Town state is unavailable.")).toBeInTheDocument();
 	});
 
-	it("combines engine availability with affordability and health", () => {
+	it("combines engine availability with affordability", () => {
+		renderView();
+
+		expect(screen.getByText("availability:true,true,true,true")).toBeInTheDocument();
+	});
+
+	it("allows resting at full health so skill uses can be restored", () => {
+		selectors.selectTownView.mockReturnValue({
+			...createTownView(),
+			isFullyHealed: true,
+		});
+
 		renderView();
 
 		expect(screen.getByText("availability:true,true,true,true")).toBeInTheDocument();

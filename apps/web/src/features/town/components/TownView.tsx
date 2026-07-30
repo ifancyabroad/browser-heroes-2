@@ -182,12 +182,7 @@ export function TownView({ run }: TownViewProps) {
 						isPending={applyRunAction.isPending}
 						gold={townView.gold}
 						canAffordRest={townView.canAffordRest}
-						canRest={
-							availableActionTypes.has("REST_AT_TOWN") &&
-							townView.canAffordRest &&
-							!townView.isFullyHealed
-						}
-						isFullyHealed={townView.isFullyHealed}
+						canRest={availableActionTypes.has("REST_AT_TOWN") && townView.canAffordRest}
 						canAffordReroll={townView.canAffordReroll}
 						canReroll={
 							availableActionTypes.has("REROLL_SHOP") && townView.canAffordReroll
