@@ -32,7 +32,7 @@ MONGO_URI=mongodb://127.0.0.1:27017/browser_heroes_2
 SESSION_SECRET=replace-with-a-long-random-value
 APP_URL=http://localhost:5173
 TRUST_PROXY_HOPS=0
-AWS_REGION=eu-west-2
+AWS_REGION=eu-west-1
 SES_FROM_EMAIL=info@browserheroes.com
 EMAIL_DELIVERY=log
 ```
