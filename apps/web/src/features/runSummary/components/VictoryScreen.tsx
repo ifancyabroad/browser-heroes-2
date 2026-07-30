@@ -19,7 +19,7 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 					<Card
 						title="RUN COMPLETE"
 						className="w-full max-w-xl text-center"
-						contentClassName="grid justify-items-center gap-4 p-4"
+						contentClassName="grid justify-items-center gap-4 px-4 pb-4 pt-6"
 					>
 						<h1 className="text-base text-success">Victory</h1>
 						<p className="text-text-muted">
@@ -46,7 +46,7 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 		<GameLayout>
 			<div className="min-h-0 flex-1 overflow-y-auto bg-bg-base px-4 py-6 text-base text-text">
 				<section className="mx-auto grid min-h-full w-full max-w-3xl content-center gap-6">
-					<Card title="RUN COMPLETE" contentClassName="grid gap-5 p-4">
+					<Card title="RUN COMPLETE" contentClassName="grid gap-5 px-4 pb-4 pt-6">
 						<header className="grid gap-3 border-b-2 border-border pb-4 text-center">
 							<p className="text-success">Victory</p>
 							<h1 className="text-base text-primary">The Ladder Is Broken</h1>

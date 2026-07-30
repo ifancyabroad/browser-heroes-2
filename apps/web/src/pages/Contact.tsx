@@ -29,7 +29,11 @@ export default function Contact() {
 			<Header />
 			<Container className="flex items-center justify-center">
 				<form className="w-full max-w-xl" onSubmit={handleSubmit}>
-					<Card title="CONTACT" titleAlign="center" contentClassName="grid gap-4 p-4">
+					<Card
+						title="CONTACT"
+						titleAlign="center"
+						contentClassName="grid gap-4 px-4 pb-4 pt-6"
+					>
 						<p>Send a message to the Browser Heroes team.</p>
 
 						<InputField

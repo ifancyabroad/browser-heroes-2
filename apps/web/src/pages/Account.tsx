@@ -18,7 +18,7 @@ export default function Account() {
 					title="ACCOUNT"
 					titleAlign="center"
 					className="w-full max-w-md"
-					contentClassName="grid gap-4 p-4"
+					contentClassName="grid gap-4 px-4 pb-4 pt-6"
 				>
 					<div>
 						<p className="text-text-label">Display name</p>
