@@ -69,7 +69,7 @@ export function TownActionBar({
 					/>
 				</ActionBarGroup>
 
-				<ActionBarGroup aria-label="Town action buttons" className="justify-end">
+				<ActionBarGroup aria-label="Town action buttons">
 					<ActionSlotButton
 						ariaLabel={`Reroll shop for ${rerollCost} gold`}
 						available={canReroll}

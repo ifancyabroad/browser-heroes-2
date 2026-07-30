@@ -56,10 +56,7 @@ export function CombatActionBar({
 	return (
 		<section aria-label="Command bar">
 			<ActionBarTray>
-				<ActionBarGroup
-					aria-label="Combat actions"
-					className="justify-end md:justify-start"
-				>
+				<ActionBarGroup aria-label="Combat actions">
 					<CombatSlots
 						player={player}
 						isPending={isPending}
@@ -76,7 +73,7 @@ export function CombatActionBar({
 					/>
 				</ActionBarGroup>
 
-				<ActionBarGroup aria-label="Run actions" className="justify-end">
+				<ActionBarGroup aria-label="Run actions">
 					<RunActionSlots
 						isPending={isPending}
 						canContinue={canContinue}

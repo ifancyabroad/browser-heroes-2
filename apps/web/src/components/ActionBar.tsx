@@ -6,7 +6,6 @@ import { Tooltip } from "./Tooltip";
 type ActionBarGroupProps = {
 	"aria-label": string;
 	children: ReactNode;
-	className?: string;
 };
 
 type ActionBarTrayProps = {
@@ -18,7 +17,7 @@ export function ActionBarTray({ children, className }: ActionBarTrayProps) {
 	return (
 		<div
 			className={clsx(
-				"mx-auto flex w-full min-w-0 flex-wrap justify-center gap-2 bg-bg-elevated p-2 sm:w-fit sm:max-w-full sm:gap-3",
+				"mx-auto flex w-full min-w-0 flex-wrap justify-center gap-1 sm:gap-2",
 				className,
 			)}
 		>
@@ -27,19 +26,9 @@ export function ActionBarTray({ children, className }: ActionBarTrayProps) {
 	);
 }
 
-export function ActionBarGroup({
-	"aria-label": ariaLabel,
-	children,
-	className,
-}: ActionBarGroupProps) {
+export function ActionBarGroup({ "aria-label": ariaLabel, children }: ActionBarGroupProps) {
 	return (
-		<div
-			className={clsx(
-				"flex min-w-0 max-w-full flex-wrap justify-center gap-1 sm:gap-2",
-				className,
-			)}
-			aria-label={ariaLabel}
-		>
+		<div className="contents" role="group" aria-label={ariaLabel}>
 			{children}
 		</div>
 	);
@@ -207,14 +196,14 @@ function ActionSlotLabel({ children, className, position = "bottom-right" }: Act
 
 function getDisplaySlotClassName() {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden border-2 border-border bg-bg-panel sm:w-20",
+		"relative aspect-square w-16 overflow-hidden border-2 border-border bg-bg-panel outline outline-2 outline-bg-base sm:w-20 sm:outline-4",
 		"flex shrink-0 items-center justify-center text-center",
 	);
 }
 
 function getActionSlotClassName(disabled: boolean, showAvailabilityPulse: boolean) {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden border-2 bg-bg-panel sm:w-20",
+		"relative aspect-square w-16 overflow-hidden border-2 bg-bg-panel outline outline-2 outline-bg-base sm:w-20 sm:outline-4",
 		"flex shrink-0 items-center justify-center text-center",
 		disabled
 			? "cursor-not-allowed border-border/50"
