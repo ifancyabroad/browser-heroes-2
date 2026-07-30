@@ -34,3 +34,4 @@ export const registrationLimit = createIpLimit(5);
 export const loginLimits = [createIpLimit(20, true), createEmailLimit(10, true)];
 export const passwordResetRequestLimits = [createIpLimit(10), createEmailLimit(3)];
 export const passwordResetCompletionLimit = createIpLimit(10);
+export const contactSubmissionLimit = createIpLimit(5);

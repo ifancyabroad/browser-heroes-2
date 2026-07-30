@@ -36,6 +36,7 @@ describe("Header", () => {
 
 		renderHeader();
 
+		expect(screen.getByRole("link", { name: "CONTACT" })).toHaveAttribute("href", "/contact");
 		expect(screen.queryByRole("link", { name: "ACCOUNT" })).not.toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "SIGN IN" }));
 		expect(useAuthModalStore.getState().modal).toBe("login");

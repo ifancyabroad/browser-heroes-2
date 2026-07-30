@@ -2,6 +2,7 @@ import clsx from "clsx";
 
 const fieldControlClassName =
 	"h-9 w-full border-2 border-border bg-bg-base px-3 text-text-bright outline-none focus:border-primary disabled:cursor-not-allowed disabled:opacity-60";
+const fieldTextClassName = "caret-primary placeholder:text-text-muted";
 
 type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "className" | "id"> & {
 	id: string;
@@ -24,9 +25,48 @@ export function InputField({ label, error, className, ...props }: InputFieldProp
 				{...props}
 				aria-invalid={error ? true : props["aria-invalid"]}
 				aria-describedby={errorId ?? props["aria-describedby"]}
-				className={clsx(fieldControlClassName, "caret-primary placeholder:text-text-muted")}
+				className={clsx(fieldControlClassName, fieldTextClassName)}
 			/>
 
+			{error && (
+				<p id={errorId} className="text-error">
+					{error}
+				</p>
+			)}
+		</div>
+	);
+}
+
+type TextareaFieldProps = Omit<
+	React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+	"className" | "id"
+> & {
+	id: string;
+	label?: string;
+	error?: string | null;
+	className?: string;
+};
+
+export function TextareaField({ label, error, className, ...props }: TextareaFieldProps) {
+	const errorId = error ? `${props.id}-error` : undefined;
+
+	return (
+		<div className={clsx("grid gap-1", className)}>
+			{label && (
+				<label htmlFor={props.id} className="text-text-label">
+					{label}
+				</label>
+			)}
+			<textarea
+				{...props}
+				aria-invalid={error ? true : props["aria-invalid"]}
+				aria-describedby={errorId ?? props["aria-describedby"]}
+				className={clsx(
+					fieldControlClassName,
+					fieldTextClassName,
+					"min-h-36 resize-y py-2",
+				)}
+			/>
 			{error && (
 				<p id={errorId} className="text-error">
 					{error}
