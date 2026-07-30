@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { useHowToPlayModalStore } from "../../howToPlay";
 
 const selectors = vi.hoisted(() => ({
 	selectTownView: vi.fn(),
@@ -155,6 +156,7 @@ function renderView() {
 describe("TownView", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+		useHowToPlayModalStore.setState({ isOpen: false });
 		selectors.selectTownView.mockReturnValue(createTownView());
 		selectors.selectAvailableActions.mockReturnValue([
 			{ type: "REST_AT_TOWN" },
@@ -177,6 +179,15 @@ describe("TownView", () => {
 		renderView();
 
 		expect(screen.getByText("availability:true,true,true,true")).toBeInTheDocument();
+	});
+
+	it("opens the how-to-play guide from above the shop", () => {
+		renderView();
+
+		const triggers = screen.getAllByRole("button", { name: /how to play/i });
+		fireEvent.click(triggers[0]);
+
+		expect(useHowToPlayModalStore.getState().isOpen).toBe(true);
 	});
 
 	it.each([

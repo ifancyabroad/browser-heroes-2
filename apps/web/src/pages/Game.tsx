@@ -11,6 +11,7 @@ import {
 	VictoryScreen,
 } from "../features/runSummary";
 import { GamePhaseTransition } from "./GamePhaseTransition";
+import { HowToPlayModal } from "../features/howToPlay";
 
 export default function Game() {
 	const { data, isPending } = useGameRun();
@@ -50,6 +51,7 @@ export default function Game() {
 			<LevelUpModalController run={run} />
 			<RewardModalController run={run} />
 			<FinalBossVictoryModalController run={run} />
+			<HowToPlayModal />
 		</>
 	);
 }

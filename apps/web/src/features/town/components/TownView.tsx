@@ -18,6 +18,7 @@ import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownActionBar } from "./TownActionBar";
 import { TownShopGrid } from "./TownShopGrid";
+import { useHowToPlayModalStore } from "../../howToPlay";
 
 type TownViewProps = {
 	run: RunView;
@@ -28,6 +29,7 @@ export function TownView({ run }: TownViewProps) {
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
+	const openHowToPlay = useHowToPlayModalStore((state) => state.open);
 	const townView = selectTownView(run.state);
 	const availableActions = selectAvailableActions(run.state);
 	const availableActionTypes = new Set(availableActions.map((action) => action.type));
@@ -161,12 +163,18 @@ export function TownView({ run }: TownViewProps) {
 
 			<GameMainPanel
 				mobileHeader={
-					<div className="flex items-center justify-between">
+					<div className="flex items-center justify-between gap-2">
 						<Button variant="primary" type="button" onClick={handleOpenSidebar}>
 							Hero
 						</Button>
 
-						<ButtonLink to="/">Home</ButtonLink>
+						<div className="flex items-center gap-2">
+							<Button type="button" onClick={openHowToPlay}>
+								How to play
+							</Button>
+
+							<ButtonLink to="/">Home</ButtonLink>
+						</div>
 					</div>
 				}
 				actions={
@@ -202,12 +210,25 @@ export function TownView({ run }: TownViewProps) {
 					/>
 				}
 			>
-				<RouterLink
-					to="/"
-					className="mb-4 hidden text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:inline-flex"
+				<nav
+					aria-label="Town navigation"
+					className="mb-4 hidden items-center justify-between md:flex"
 				>
-					← BACK
-				</RouterLink>
+					<RouterLink
+						to="/"
+						className="text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+					>
+						← BACK
+					</RouterLink>
+
+					<button
+						type="button"
+						className="cursor-pointer text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						onClick={openHowToPlay}
+					>
+						HOW TO PLAY
+					</button>
+				</nav>
 
 				<TownShopGrid
 					shopSlots={townView.shopSlots}

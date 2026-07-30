@@ -19,6 +19,9 @@ vi.mock("../features/levelUp", () => ({
 vi.mock("../features/rewards", () => ({
 	RewardModalController: () => <div>Reward controller</div>,
 }));
+vi.mock("../features/howToPlay", () => ({
+	HowToPlayModal: () => <div>How to play modal</div>,
+}));
 vi.mock("./GamePhaseTransition", () => ({
 	GamePhaseTransition: ({ children }: { children: React.ReactNode }) => children,
 }));
@@ -96,5 +99,14 @@ describe("Game", () => {
 		expect(screen.getByText("Level-up controller")).toBeInTheDocument();
 		expect(screen.getByText("Reward controller")).toBeInTheDocument();
 		expect(screen.getByText("Final boss controller")).toBeInTheDocument();
+		expect(screen.getByText("How to play modal")).toBeInTheDocument();
+	});
+
+	it("does not mount the how-to-play modal without a loaded run", () => {
+		useGameRun.mockReturnValue({ data: undefined, isPending: true });
+
+		renderGame();
+
+		expect(screen.queryByText("How to play modal")).not.toBeInTheDocument();
 	});
 });
