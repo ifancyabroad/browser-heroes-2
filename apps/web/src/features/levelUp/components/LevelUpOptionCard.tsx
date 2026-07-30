@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { LevelUpOption } from "@app/engine";
-import { Tooltip } from "../../../components/Tooltip";
 import { Badge } from "../../../components/Badge";
 import { RadioCard } from "../../../components/RadioCard";
+import { Tooltip } from "../../../components/Tooltip";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
 import { featCategoryLabels, skillCategoryLabels } from "../../../presentation/labels";
@@ -12,55 +12,55 @@ import { resolveImageUrl } from "../../../utils/image";
 type LevelUpOptionCardProps = {
 	option: LevelUpOption;
 	value: string;
+	selected: boolean;
 	disabled: boolean;
 };
 
-export function LevelUpOptionCard({ option, value, disabled }: LevelUpOptionCardProps) {
+export function LevelUpOptionCard({ option, value, selected, disabled }: LevelUpOptionCardProps) {
 	const content = getOptionContent(option);
 	const tooltipContent = getOptionTooltipContent(option);
 
 	return (
-		<Tooltip
-			content={tooltipContent}
-			placement="right"
-			className="!block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-			referenceTabIndex={null}
-			mobileBehavior="disabled"
+		<RadioCard
+			value={value}
+			selected={selected}
+			selectionLabel={`Select ${content.name}`}
+			disabled={disabled}
+			className={clsx(
+				"w-full gap-3",
+				content.metaLabel
+					? "grid-cols-[3rem_minmax(0,1fr)_auto]"
+					: "grid-cols-[3rem_minmax(0,1fr)]",
+			)}
 		>
-			<RadioCard
-				value={value}
-				disabled={disabled}
-				className={clsx(
-					"w-full gap-3",
-					content.metaLabel
-						? "grid-cols-[3rem_minmax(0,1fr)_auto]"
-						: "grid-cols-[3rem_minmax(0,1fr)]",
-				)}
-			>
-				<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
-					<img
-						src={resolveImageUrl(content.icon)}
-						alt=""
-						loading="lazy"
-						className="h-full w-full object-cover"
-						aria-hidden
-					/>
-				</span>
+			<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
+				<img
+					src={resolveImageUrl(content.icon)}
+					alt=""
+					loading="lazy"
+					className="h-full w-full object-cover"
+					aria-hidden
+				/>
+			</span>
 
-				<span className="grid min-w-0 gap-1 self-center">
-					<span className="break-words text-text-bright">{content.name}</span>
-					<span>{content.category}</span>
-				</span>
+			<span className="grid min-w-0 gap-1 self-center">
+				<Tooltip
+					content={tooltipContent}
+					contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+					className="w-fit max-w-full break-words text-text-bright underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+				>
+					{content.name}
+				</Tooltip>
+				<span>{content.category}</span>
+			</span>
 
-				{content.metaLabel && (
-					<Badge
-						label={content.metaLabel}
-						className="self-start whitespace-nowrap text-primary"
-					/>
-				)}
-			</RadioCard>
-		</Tooltip>
+			{content.metaLabel && (
+				<Badge
+					label={content.metaLabel}
+					className="self-start whitespace-nowrap text-primary"
+				/>
+			)}
+		</RadioCard>
 	);
 }
 

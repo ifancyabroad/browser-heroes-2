@@ -35,6 +35,9 @@ export function LevelUpOptionList({
 					key={getOptionKey(option)}
 					option={option}
 					value={getOptionKey(option)}
+					selected={
+						selection ? getSelectionKey(selection) === getOptionKey(option) : false
+					}
 					disabled={disabled}
 				/>
 			))}

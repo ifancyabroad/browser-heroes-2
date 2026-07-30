@@ -103,6 +103,7 @@ export function EquipmentSlotModal({
 						<ReplacementChoice
 							key={destination.equipmentSlot}
 							destination={destination}
+							selected={selection?.equipmentSlot === destination.equipmentSlot}
 							disabled={isPending}
 						/>
 					))}
@@ -114,12 +115,19 @@ export function EquipmentSlotModal({
 
 type ReplacementChoiceProps = {
 	destination: EquipmentSlotReplacementDestination;
+	selected: boolean;
 	disabled: boolean;
 };
 
-function ReplacementChoice({ destination, disabled }: ReplacementChoiceProps) {
+function ReplacementChoice({ destination, selected, disabled }: ReplacementChoiceProps) {
 	return (
-		<RadioCard value={destination.equipmentSlot} disabled={disabled} className="gap-2">
+		<RadioCard
+			value={destination.equipmentSlot}
+			selected={selected}
+			selectionLabel={`Select ${getEquipmentSlotLabel(destination.equipmentSlot)}`}
+			disabled={disabled}
+			className="gap-2"
+		>
 			<span className="text-text-bright">
 				{getEquipmentSlotLabel(destination.equipmentSlot)}
 			</span>
@@ -170,8 +178,6 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName={itemTooltipContentClassName}
-				referenceTabIndex={null}
-				mobileBehavior="disabled"
 			>
 				{item.name}
 			</Tooltip>

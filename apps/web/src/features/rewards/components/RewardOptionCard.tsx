@@ -4,8 +4,8 @@ import {
 	type RewardItemDestinationView,
 } from "@app/engine";
 import clsx from "clsx";
-import { Tooltip } from "../../../components/Tooltip";
 import { RadioCard } from "../../../components/RadioCard";
+import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { getItemRarityTextClassName } from "../../../presentation/items";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
@@ -14,15 +14,18 @@ import { resolveImageUrl } from "../../../utils/image";
 type RewardOptionCardProps = {
 	option: RewardChoiceOptionView;
 	value: string;
+	selected: boolean;
 	disabled: boolean;
 };
 
-export function RewardOptionCard({ option, value, disabled }: RewardOptionCardProps) {
+export function RewardOptionCard({ option, value, selected, disabled }: RewardOptionCardProps) {
 	const content = getOptionContent(option);
 
 	return (
 		<RadioCard
 			value={value}
+			selected={selected}
+			selectionLabel={`Select ${content.name}`}
 			disabled={disabled}
 			className="grid-cols-[3rem_minmax(0,1fr)] gap-3"
 		>
@@ -37,32 +40,22 @@ export function RewardOptionCard({ option, value, disabled }: RewardOptionCardPr
 			</span>
 
 			<span className="grid min-w-0 gap-1 self-center">
-				<span className="min-w-0">
-					{option.type === "item" ? (
-						<Tooltip
-							content={
-								content.tooltipSlot ? (
-									<ItemTooltipContent
-										item={option.item}
-										slot={content.tooltipSlot}
-									/>
-								) : null
-							}
-							placement="top"
-							className={clsx(
-								"min-w-0 break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-								getItemRarityTextClassName(option.item.rarity),
-							)}
-							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-							referenceTabIndex={null}
-							mobileBehavior="disabled"
-						>
-							{content.name}
-						</Tooltip>
-					) : (
-						<span>{content.name}</span>
-					)}
-				</span>
+				{option.type === "item" && content.tooltipSlot ? (
+					<Tooltip
+						content={
+							<ItemTooltipContent item={option.item} slot={content.tooltipSlot} />
+						}
+						className={clsx(
+							"w-fit min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+							getItemRarityTextClassName(option.item.rarity),
+						)}
+						contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+					>
+						{content.name}
+					</Tooltip>
+				) : (
+					<span>{content.name}</span>
+				)}
 				{option.type === "item" && (
 					<CurrentlyEquippedDetail
 						destination={content.destination}
@@ -179,8 +172,6 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-				referenceTabIndex={null}
-				mobileBehavior="disabled"
 			>
 				{item.name}
 			</Tooltip>
