@@ -71,7 +71,7 @@ export function HeroNameModal({
 				<InputField
 					id="hero-name-input"
 					type="text"
-					label="Hero name"
+					aria-label="Hero name"
 					className="min-w-0 flex-1"
 					value={heroName}
 					onChange={handleChange}
@@ -82,12 +82,7 @@ export function HeroNameModal({
 					autoFocus
 				/>
 
-				<Button
-					type="button"
-					className="mt-7"
-					onClick={handleReroll}
-					disabled={isSubmitting}
-				>
+				<Button type="button" onClick={handleReroll} disabled={isSubmitting}>
 					Reroll
 				</Button>
 			</form>

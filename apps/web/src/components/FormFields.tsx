@@ -5,7 +5,7 @@ const fieldControlClassName =
 
 type InputFieldProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "className" | "id"> & {
 	id: string;
-	label: string;
+	label?: string;
 	error?: string | null;
 	className?: string;
 };
@@ -15,9 +15,11 @@ export function InputField({ label, error, className, ...props }: InputFieldProp
 
 	return (
 		<div className={clsx("grid gap-1", className)}>
-			<label htmlFor={props.id} className="text-text-label">
-				{label}
-			</label>
+			{label && (
+				<label htmlFor={props.id} className="text-text-label">
+					{label}
+				</label>
+			)}
 			<input
 				{...props}
 				aria-invalid={error ? true : props["aria-invalid"]}
@@ -39,8 +41,11 @@ type SelectOption<TValue extends string> = {
 	value: TValue;
 };
 
-type SelectFieldProps<TValue extends string> = {
-	label: string;
+type SelectFieldProps<TValue extends string> = Omit<
+	React.SelectHTMLAttributes<HTMLSelectElement>,
+	"className" | "onChange" | "value"
+> & {
+	label?: string;
 	value: TValue;
 	options: readonly SelectOption<TValue>[];
 	className?: string;
@@ -53,11 +58,13 @@ export function SelectField<TValue extends string>({
 	options,
 	className,
 	onChange,
+	...props
 }: SelectFieldProps<TValue>) {
 	return (
 		<label className={clsx("grid gap-1", className)}>
-			<span className="text-text-label">{label}</span>
+			{label && <span className="text-text-label">{label}</span>}
 			<select
+				{...props}
 				value={value}
 				onChange={(event) => onChange(event.target.value as TValue)}
 				className={fieldControlClassName}
