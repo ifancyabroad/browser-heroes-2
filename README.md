@@ -33,7 +33,7 @@ SESSION_SECRET=replace-with-a-long-random-value
 APP_URL=http://localhost:5173
 TRUST_PROXY_HOPS=0
 AWS_REGION=eu-west-1
-SES_FROM_EMAIL=info@browserheroes.com
+SES_FROM_EMAIL=noreply@browserheroes.com
 EMAIL_DELIVERY=log
 ```
 

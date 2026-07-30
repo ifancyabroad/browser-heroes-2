@@ -9,7 +9,7 @@ const envSchema = z.object({
 	APP_URL: z.url().default("http://localhost:5173"),
 	TRUST_PROXY_HOPS: z.coerce.number().int().min(0).default(0),
 	AWS_REGION: z.string().default("eu-west-1"),
-	SES_FROM_EMAIL: z.email().default("info@browserheroes.com"),
+	SES_FROM_EMAIL: z.email().default("noreply@browserheroes.com"),
 	EMAIL_DELIVERY: z.enum(["ses", "log"]).default("log"),
 });
 
