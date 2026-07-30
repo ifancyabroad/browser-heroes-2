@@ -57,7 +57,7 @@ export function LevelUpOptionCard({ option, value, selected, disabled }: LevelUp
 			{content.metaLabel && (
 				<Badge
 					label={content.metaLabel}
-					className="self-start whitespace-nowrap text-primary"
+					className="self-center whitespace-nowrap text-primary"
 				/>
 			)}
 		</RadioCard>
