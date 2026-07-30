@@ -1,5 +1,5 @@
 import type { CombatantState } from "../../../schemas";
-import { ENDLESS_DAMAGE_BONUS_PER_CYCLE } from "../../endless/endlessConstants";
+import { ENDLESS_DAMAGE_SCALING_PER_CYCLE } from "../../endless/endlessConstants";
 
 export function applyEndlessEnemyScaling(
 	enemy: CombatantState,
@@ -9,7 +9,8 @@ export function applyEndlessEnemyScaling(
 		return enemy;
 	}
 
-	const endlessPressure = 1 + endlessCycle * ENDLESS_DAMAGE_BONUS_PER_CYCLE;
+	const damageDealtMultiplier = 1 + endlessCycle * ENDLESS_DAMAGE_SCALING_PER_CYCLE;
+	const damageTakenMultiplier = (1 - ENDLESS_DAMAGE_SCALING_PER_CYCLE) ** endlessCycle;
 
 	return {
 		...enemy,
@@ -19,7 +20,14 @@ export function applyEndlessEnemyScaling(
 				...enemy.combatStats.damageModifiers,
 				{
 					operation: "multiply",
-					value: endlessPressure,
+					value: damageDealtMultiplier,
+				},
+			],
+			damageTakenModifiers: [
+				...enemy.combatStats.damageTakenModifiers,
+				{
+					operation: "multiply",
+					value: damageTakenMultiplier,
 				},
 			],
 		},
