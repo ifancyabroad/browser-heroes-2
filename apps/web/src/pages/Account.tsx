@@ -14,30 +14,35 @@ export default function Account() {
 			<Header />
 
 			<Container className="flex items-center justify-center">
-				<Card
-					title="ACCOUNT"
-					titleAlign="center"
-					className="w-full max-w-md"
-					contentClassName="grid gap-4 px-4 pb-4 pt-6"
-				>
-					<div>
-						<p className="text-text-label">Display name</p>
-						<p className="text-text-bright">{user?.displayName ?? ""}</p>
-					</div>
+				<section className="w-full max-w-sm">
+					<header className="mb-5 grid gap-2">
+						<h1 className="text-base text-primary">ACCOUNT</h1>
+						<p className="text-text">View and manage your Browser Heroes account.</p>
+					</header>
 
-					<div>
-						<p className="text-text-label">Email</p>
-						<p className="break-all text-text-bright">{user?.email ?? ""}</p>
-					</div>
+					<Card contentClassName="grid gap-4 p-4">
+						<dl className="grid gap-4">
+							<div>
+								<dt className="text-text-label">Display name</dt>
+								<dd className="text-text-bright">{user?.displayName ?? ""}</dd>
+							</div>
+
+							<div>
+								<dt className="text-text-label">Email</dt>
+								<dd className="break-all text-text-bright">{user?.email ?? ""}</dd>
+							</div>
+						</dl>
+					</Card>
 
 					<Button
 						type="button"
 						onClick={() => logout.mutate()}
 						disabled={logout.isPending}
+						className="mt-4"
 					>
 						{logout.isPending ? "Signing out..." : "SIGN OUT"}
 					</Button>
-				</Card>
+				</section>
 			</Container>
 		</PageLayout>
 	);

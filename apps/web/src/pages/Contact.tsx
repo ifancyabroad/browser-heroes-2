@@ -1,5 +1,4 @@
 import { Button } from "../components/Button";
-import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { InputField, TextareaField } from "../components/FormFields";
 import { Header } from "../components/Header";
@@ -28,53 +27,50 @@ export default function Contact() {
 		<PageLayout>
 			<Header />
 			<Container className="flex items-center justify-center">
-				<form className="w-full max-w-xl" onSubmit={handleSubmit}>
-					<Card
-						title="CONTACT"
-						titleAlign="center"
-						contentClassName="grid gap-4 px-4 pb-4 pt-6"
-					>
-						<p>Send a message to the Browser Heroes team.</p>
+				<form className="grid w-full max-w-lg gap-4" onSubmit={handleSubmit}>
+					<header className="grid gap-2">
+						<h1 className="text-base text-primary">CONTACT</h1>
+						<p className="text-text">Send a message to the Browser Heroes team.</p>
+					</header>
 
-						<InputField
-							id="contact-email"
-							label="Email address"
-							name="email"
-							type="email"
-							autoComplete="email"
-							required
-							disabled={contact.isPending}
-							autoFocus
-						/>
-						<InputField
-							id="contact-subject"
-							label="Subject"
-							name="subject"
-							type="text"
-							maxLength={120}
-							required
-							disabled={contact.isPending}
-						/>
-						<TextareaField
-							id="contact-message"
-							label="Message"
-							name="message"
-							maxLength={5000}
-							required
-							disabled={contact.isPending}
-						/>
+					<InputField
+						id="contact-email"
+						label="Email address"
+						name="email"
+						type="email"
+						autoComplete="email"
+						required
+						disabled={contact.isPending}
+						autoFocus
+					/>
+					<InputField
+						id="contact-subject"
+						label="Subject"
+						name="subject"
+						type="text"
+						maxLength={120}
+						required
+						disabled={contact.isPending}
+					/>
+					<TextareaField
+						id="contact-message"
+						label="Message"
+						name="message"
+						maxLength={5000}
+						required
+						disabled={contact.isPending}
+					/>
 
-						<Button type="submit" variant="primary" disabled={contact.isPending}>
-							{contact.isPending ? "Sending..." : "SEND MESSAGE"}
-						</Button>
+					<Button type="submit" variant="primary" disabled={contact.isPending}>
+						{contact.isPending ? "Sending..." : "SEND MESSAGE"}
+					</Button>
 
-						{contact.data && <p className="text-success">{contact.data.message}</p>}
-						{contact.isError && (
-							<p role="alert" className="text-error">
-								Unable to send your message. Please try again.
-							</p>
-						)}
-					</Card>
+					{contact.data && <p className="text-success">{contact.data.message}</p>}
+					{contact.isError && (
+						<p role="alert" className="text-error">
+							Unable to send your message. Please try again.
+						</p>
+					)}
 				</form>
 			</Container>
 		</PageLayout>
