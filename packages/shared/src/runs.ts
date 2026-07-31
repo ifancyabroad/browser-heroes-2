@@ -8,6 +8,7 @@ import {
 } from "@app/engine";
 import { z } from "zod";
 import { HERO_NAME_MAX_LENGTH } from "./heroNames";
+import type { AchievementUnlockView } from "./achievements";
 
 export const createRunBodySchema = z.object({
 	heroName: z.string().trim().min(1).max(HERO_NAME_MAX_LENGTH),
@@ -94,6 +95,7 @@ export const applyRunActionBodySchema: z.ZodType<ApplyRunActionBody> = z.object(
 export interface ApplyRunActionResponse {
 	run: RunView;
 	result: EngineResult;
+	unlockedAchievements: AchievementUnlockView[];
 }
 
 export type RunActionPayload = {

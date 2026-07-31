@@ -5,6 +5,7 @@ import { runRoutes } from "./run.routes";
 import { leaderboardRoutes } from "./leaderboard.routes";
 import { statsRoutes } from "./stats.routes";
 import { contactRoutes } from "./contact.routes";
+import { achievementRoutes } from "./achievement.routes";
 
 export const routes = Router();
 
@@ -14,3 +15,4 @@ routes.use("/runs", runRoutes);
 routes.use("/leaderboard", leaderboardRoutes);
 routes.use("/stats", statsRoutes);
 routes.use("/contact", contactRoutes);
+routes.use("/achievements", achievementRoutes);

@@ -115,4 +115,17 @@ export const contentSpecs = [
 		typeExpression: "WithGeneratedId<FeatDefinition, FeatId>",
 		referenceRules: [],
 	},
+	{
+		type: "achievement",
+		typeName: "Achievement",
+		plural: "achievements",
+		dirName: "achievements",
+		importPrefix: "ach",
+		definitionType: "AchievementDefinition",
+		definitionImportPath: "../schemas",
+		typeImportLines: [],
+		helperTypeNames: ["WithGeneratedId"],
+		typeExpression: "WithGeneratedId<AchievementDefinition, AchievementId>",
+		referenceRules: [],
+	},
 ] as const satisfies readonly ContentSpec[];

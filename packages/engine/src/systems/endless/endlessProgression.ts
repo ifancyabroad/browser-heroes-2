@@ -11,3 +11,7 @@ export function hasDefeatedFinalBoss(battleNumber: number): boolean {
 export function isFinalBossVictory(battleNumber: number, endlessCycle: number): boolean {
 	return battleNumber === BATTLES_PER_ENDLESS_CYCLE && endlessCycle === 0;
 }
+
+export function isEndlessCycleVictory(battleNumber: number, endlessCycle: number): boolean {
+	return endlessCycle > 0 && battleNumber % BATTLES_PER_ENDLESS_CYCLE === 0;
+}

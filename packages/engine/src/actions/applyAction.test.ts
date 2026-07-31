@@ -88,6 +88,7 @@ describe("applyAction", () => {
 				throw new Error("Expected test run to have combat");
 			}
 
+			draft.combat.enemy.maxHp = 1;
 			draft.combat.enemy.currentHp = 1;
 			draft.combat.enemy.combatStats.armourClass = 0;
 			draft.combat.enemy.combatStats.damageAffinities = {
@@ -107,6 +108,12 @@ describe("applyAction", () => {
 			expect.objectContaining({
 				type: "COMBAT_ENDED",
 				outcome: "victory",
+				defeatedFinalBoss: false,
+				completedEndlessCycle: false,
+				finishingPlayerAction: {
+					type: "basic_attack",
+					targetStartedAtFullHp: true,
+				},
 				reward: expect.any(Object),
 			}),
 		);
@@ -134,9 +141,66 @@ describe("applyAction", () => {
 		expect(result.ok).toBe(true);
 		expect(result.state.phase).toBe("dead");
 		expect(result.state.combat?.status).toBe("enemy_won");
-		expect(result.events).toContainEqual({
-			type: "COMBAT_ENDED",
-			outcome: "defeat",
+		expect(result.events).toContainEqual(
+			expect.objectContaining({
+				type: "COMBAT_ENDED",
+				outcome: "defeat",
+			}),
+		);
+	});
+
+	it("records a lethal skill as the finishing player action", () => {
+		const state = modifyTestRunState(createTestRunState(), (draft) => {
+			if (!draft.combat) {
+				throw new Error("Expected test run to have combat");
+			}
+
+			draft.combat.enemy.maxHp = 1;
+			draft.combat.enemy.currentHp = 1;
+			draft.combat.enemy.attributes.strength = 1;
+			draft.combat.enemy.savingThrowProficiencies = [];
 		});
+
+		const result = applyAction(state, {
+			type: "PLAYER_USE_SKILL",
+			skillId: "armour_break",
+		});
+
+		expect(result.events).toContainEqual(
+			expect.objectContaining({
+				type: "COMBAT_ENDED",
+				outcome: "victory",
+				finishingPlayerAction: {
+					type: "skill",
+					targetStartedAtFullHp: true,
+				},
+			}),
+		);
+	});
+
+	it("records when a finishing action started against a damaged enemy", () => {
+		const state = modifyTestRunState(createTestRunState(), (draft) => {
+			if (!draft.combat) {
+				throw new Error("Expected test run to have combat");
+			}
+
+			draft.combat.enemy.maxHp = 2;
+			draft.combat.enemy.currentHp = 1;
+			draft.combat.enemy.combatStats.armourClass = 0;
+			draft.combat.player.combatStats.attackRollBonus = 100;
+		});
+
+		const result = applyAction(state, { type: "PLAYER_BASIC_ATTACK" });
+
+		expect(result.events).toContainEqual(
+			expect.objectContaining({
+				type: "COMBAT_ENDED",
+				outcome: "victory",
+				finishingPlayerAction: {
+					type: "basic_attack",
+					targetStartedAtFullHp: false,
+				},
+			}),
+		);
 	});
 });

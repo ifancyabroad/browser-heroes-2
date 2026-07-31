@@ -95,7 +95,9 @@ export async function applyRunActionController(
 		action: req.body.action,
 	});
 
-	res.status(200).json(toApplyRunActionResponse(response.run, response.result));
+	res.status(200).json(
+		toApplyRunActionResponse(response.run, response.result, response.unlockedAchievements),
+	);
 }
 
 export async function getRunActionsController(req: Request<{ runId: string }>, res: Response) {

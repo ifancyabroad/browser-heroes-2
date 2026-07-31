@@ -39,5 +39,6 @@ export function resolveSkippedPlayerRound(
 		combatAfterPlayerAction: combatAfterPlayerSkip,
 		rngState: state.rngState,
 		playerEffectIds,
+		playerActionContext: null,
 	});
 }

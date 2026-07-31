@@ -46,6 +46,8 @@ Hero and build state includes:
 
 Classes set the hero's starting direction. Skills, feats, and equipment should let each run branch into flexible builds.
 
+Effective attributes include equipment and feat modifiers and are capped at 30. Base attributes remain part of the hero's stored build state.
+
 Heroes currently persist for the duration of a run. Long-term account or meta progression must be introduced explicitly and must not be hidden inside run rules.
 
 ## 4. Encounters and Zones
@@ -154,7 +156,13 @@ A hero who dies after progressing beyond the first boss leaves a ghost snapshot 
 
 Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Their encounters and outcomes contribute to ghost records outside the active run without changing its gameplay rules.
 
-## 12. Scope Boundaries
+## 12. Achievements
+
+Achievements are permanent account-level goals shared across a user's heroes. Guests earn achievements against their guest user record, and those unlocks remain attached when the guest registers.
+
+Achievement definitions are shared game content. Unlocks are awarded from authoritative gameplay outcomes and retain the date and time first earned. Locked achievements remain visible so players can pursue their requirements.
+
+## 13. Scope Boundaries
 
 This document does not define:
 

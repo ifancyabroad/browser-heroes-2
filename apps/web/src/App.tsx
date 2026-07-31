@@ -9,6 +9,7 @@ import Account from "./pages/Account";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Contact from "./pages/Contact";
+import Progress from "./pages/Progress";
 import { PrivateRoute } from "./features/auth";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
 			<Route path="/game" element={<Game />} />
 			<Route path="/leaderboard" element={<Leaderboard />} />
 			<Route path="/stats" element={<Stats />} />
+			<Route path="/progress" element={<Progress />} />
 			<Route path="/contact" element={<Contact />} />
 			<Route element={<PrivateRoute />}>
 				<Route path="/account" element={<Account />} />

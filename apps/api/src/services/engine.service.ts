@@ -16,6 +16,7 @@ import {
 	selectGhostEncounterForLevel,
 } from "./ghost.service";
 import { toRunSummary } from "./projection.service";
+import { processRunActionAchievements } from "./achievement.service";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 
@@ -67,13 +68,33 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			});
 		}
 
+		let resolvedGhostOwnerId: string | null = null;
+
 		if (resolvedGhostOutcome) {
-			await recordGhostCombatOutcome({
+			const resolvedGhost = await recordGhostCombatOutcome({
 				ghostId: resolvedGhostOutcome.ghostId,
 				outcome: resolvedGhostOutcome.outcome,
 				session,
 			});
+			resolvedGhostOwnerId = resolvedGhost ? String(resolvedGhost.userId) : null;
 		}
+
+		const achievementSource = {
+			runId: String(run._id),
+			combatId: currentState.combat?.id,
+			ghostId: resolvedGhostOutcome?.ghostId,
+		};
+
+		const unlockedAchievements = await processRunActionAchievements({
+			actingUserId: input.userId,
+			previousState: currentState,
+			nextState: result.state,
+			events: result.ok ? result.events : [],
+			ghostOutcome: resolvedGhostOutcome?.outcome ?? null,
+			ghostOwnerId: resolvedGhostOwnerId,
+			source: achievementSource,
+			session,
+		});
 
 		if (run.status === "dead") {
 			await createGhostFromRunIfEligible({
@@ -98,7 +119,7 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			{ session },
 		);
 
-		return { run, result };
+		return { run, result, unlockedAchievements };
 	});
 }
 

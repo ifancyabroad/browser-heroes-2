@@ -10,7 +10,12 @@ import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward
 import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
 import { advanceTurn } from "./advanceTurn";
 import { syncHeroFromPlayerCombatant } from "../combatants/syncHeroFromCombatant";
-import { isFinalBossVictory } from "../../endless/endlessProgression";
+import { isEndlessCycleVictory, isFinalBossVictory } from "../../endless/endlessProgression";
+
+export type PlayerActionContext = {
+	type: "basic_attack" | "skill";
+	targetStartedAtFullHp: boolean;
+};
 
 type FinishPlayerActionRoundInput = {
 	state: RunState;
@@ -18,6 +23,7 @@ type FinishPlayerActionRoundInput = {
 	rngState: RngState;
 	playerEffectIds: ReadonlySet<string>;
 	events?: EngineEvent[];
+	playerActionContext: PlayerActionContext | null;
 };
 
 export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): EngineResult {
@@ -31,12 +37,13 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 	const afterPlayerDeathCheck = resolveCombatStatus(playerEffects.value);
 
 	if (afterPlayerDeathCheck.status === "player_won") {
-		return finishVictory(
-			input.state,
-			afterPlayerDeathCheck,
-			playerEffects.rngState,
-			input.events,
-		);
+		return finishVictory({
+			state: input.state,
+			combat: afterPlayerDeathCheck,
+			rngState: playerEffects.rngState,
+			events: input.events,
+			finishingPlayerAction: input.playerActionContext,
+		});
 	}
 
 	if (afterPlayerDeathCheck.status === "enemy_won") {
@@ -65,12 +72,13 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 	const afterEnemyDeathCheck = resolveCombatStatus(enemyEffects.value);
 
 	if (afterEnemyDeathCheck.status === "player_won") {
-		return finishVictory(
-			input.state,
-			afterEnemyDeathCheck,
-			enemyEffects.rngState,
-			input.events,
-		);
+		return finishVictory({
+			state: input.state,
+			combat: afterEnemyDeathCheck,
+			rngState: enemyEffects.rngState,
+			events: input.events,
+			finishingPlayerAction: null,
+		});
 	}
 
 	if (afterEnemyDeathCheck.status === "enemy_won") {
@@ -93,12 +101,16 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 	);
 }
 
-function finishVictory(
-	state: RunState,
-	combat: CombatState,
-	rngState: RngState,
-	events?: EngineEvent[],
-): EngineResult {
+type FinishVictoryInput = {
+	state: RunState;
+	combat: CombatState;
+	rngState: RngState;
+	events?: EngineEvent[];
+	finishingPlayerAction: PlayerActionContext | null;
+};
+
+function finishVictory(input: FinishVictoryInput): EngineResult {
+	const { state, combat, rngState, events, finishingPlayerAction } = input;
 	const hasDefeatedFinalBoss =
 		state.hasDefeatedFinalBoss || isFinalBossVictory(state.battleNumber, state.endlessCycle);
 
@@ -122,6 +134,11 @@ function finishVictory(
 		{
 			type: "COMBAT_ENDED",
 			outcome: "victory",
+			battleNumber: state.battleNumber,
+			encounterType: combat.encounterType,
+			defeatedFinalBoss: isFinalBossVictory(state.battleNumber, state.endlessCycle),
+			completedEndlessCycle: isEndlessCycleVictory(state.battleNumber, state.endlessCycle),
+			finishingPlayerAction,
 			reward: victoryResult.reward,
 		},
 	]);
@@ -146,6 +163,8 @@ function finishDefeat(
 			{
 				type: "COMBAT_ENDED",
 				outcome: "defeat",
+				battleNumber: state.battleNumber,
+				encounterType: combat.encounterType,
 			},
 		],
 	);

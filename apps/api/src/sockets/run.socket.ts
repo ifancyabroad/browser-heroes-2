@@ -28,7 +28,11 @@ export function registerRunSocket(socket: Socket) {
 
 				respond({
 					ok: true,
-					data: toApplyRunActionResponse(response.run, response.result),
+					data: toApplyRunActionResponse(
+						response.run,
+						response.result,
+						response.unlockedAchievements,
+					),
 				});
 			} catch (error) {
 				respond({

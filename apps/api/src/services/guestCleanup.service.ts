@@ -3,6 +3,7 @@ import { GhostModel } from "../models/ghost.model";
 import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
 import { UserModel } from "../models/user.model";
+import { AchievementUnlockModel } from "../models/achievementUnlock.model";
 
 export const EMPTY_GUEST_RETENTION_DAYS = 7;
 export const INACTIVE_RUN_RETENTION_MONTHS = 12;
@@ -19,6 +20,7 @@ type GuestCleanupPlanInput = {
 	retainedRunUserIds: string[];
 	retainedActionUserIds: string[];
 	ghostUserIds: string[];
+	achievementUserIds?: string[];
 };
 
 export type GuestCleanupPlan = {
@@ -58,16 +60,21 @@ export function planGuestCleanup(input: GuestCleanupPlanInput): GuestCleanupPlan
 	const retainedRunUsers = new Set(input.retainedRunUserIds);
 	const retainedActionUsers = new Set(input.retainedActionUserIds);
 	const ghostUsers = new Set(input.ghostUserIds);
+	const achievementUsers = new Set(input.achievementUserIds ?? []);
 
 	const emptyGuestIds = input.userIds.filter(
 		(userId) =>
-			!allRunUsers.has(userId) && !allActionUsers.has(userId) && !ghostUsers.has(userId),
+			!allRunUsers.has(userId) &&
+			!allActionUsers.has(userId) &&
+			!ghostUsers.has(userId) &&
+			!achievementUsers.has(userId),
 	);
 	const deletableGuestIds = input.userIds.filter(
 		(userId) =>
 			!retainedRunUsers.has(userId) &&
 			!retainedActionUsers.has(userId) &&
-			!ghostUsers.has(userId),
+			!ghostUsers.has(userId) &&
+			!achievementUsers.has(userId),
 	);
 
 	return {
@@ -96,6 +103,9 @@ async function inspectGuestBatch(
 		{ userId: 1, sourceRunId: 1 },
 		{ session },
 	).lean();
+	const achievementUserIds = await AchievementUnlockModel.distinct("userId", {
+		userId: { $in: userIds },
+	}).session(session ?? null);
 	const protectedRunIds = ghosts.map((ghost) => ghost.sourceRunId);
 	const eligibleRuns = await RunModel.find(
 		{
@@ -147,6 +157,7 @@ async function inspectGuestBatch(
 		retainedRunUserIds: asStrings(retainedRunUserIds),
 		retainedActionUserIds: asStrings(retainedActionUserIds),
 		ghostUserIds: ghosts.map((ghost) => String(ghost.userId)),
+		achievementUserIds: asStrings(achievementUserIds),
 	});
 }
 

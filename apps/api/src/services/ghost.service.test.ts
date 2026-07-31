@@ -182,10 +182,10 @@ describe("ghost.service", () => {
 			session: session as never,
 		});
 
-		expect(ghostModel.updateOne).toHaveBeenCalledWith(
+		expect(ghostModel.findOneAndUpdate).toHaveBeenCalledWith(
 			{ _id: "ghost-id" },
 			{ $inc: { [field]: 1 } },
-			{ session },
+			{ new: true, session },
 		);
 	});
 });

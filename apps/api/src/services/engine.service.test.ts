@@ -121,7 +121,11 @@ describe("engine.service", () => {
 			],
 			{ session },
 		);
-		expect(response).toEqual({ run, result: { ok: true, state: nextState, events: [] } });
+		expect(response).toEqual({
+			run,
+			result: { ok: true, state: nextState, events: [] },
+			unlockedAchievements: [],
+		});
 	});
 
 	it("persists failed engine attempts with their error code", async () => {

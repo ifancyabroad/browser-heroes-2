@@ -95,6 +95,8 @@ The database may store derived summaries for lookup, display, and indexing. Thes
 
 Run actions are recorded in sequence for debugging, replay investigation, and future audit/reconstruction workflows.
 
+Achievement unlocks are stored separately from run snapshots with one permanent unlock per user and achievement. They are created transactionally while authoritative actions and ghost outcomes are processed. Achievement-bearing guests are retained by guest cleanup.
+
 Persistence should support:
 
 - flexible run storage

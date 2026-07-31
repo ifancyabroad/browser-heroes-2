@@ -108,7 +108,7 @@ export async function incrementGhostEncounters(input: IncrementGhostEncounterInp
 }
 
 export async function recordGhostCombatOutcome(input: RecordGhostCombatOutcomeInput) {
-	await GhostModel.updateOne(
+	return GhostModel.findOneAndUpdate(
 		{
 			_id: input.ghostId,
 		},
@@ -123,6 +123,7 @@ export async function recordGhostCombatOutcome(input: RecordGhostCombatOutcomeIn
 						},
 		},
 		{
+			new: true,
 			session: input.session,
 		},
 	);

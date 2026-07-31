@@ -35,5 +35,9 @@ export function resolveBasicAttackRound(state: RunState): EngineResult {
 		combatAfterPlayerAction: playerAttack.value,
 		rngState: playerAttack.rngState,
 		playerEffectIds,
+		playerActionContext: {
+			type: "basic_attack",
+			targetStartedAtFullHp: state.combat.enemy.currentHp === state.combat.enemy.maxHp,
+		},
 	});
 }

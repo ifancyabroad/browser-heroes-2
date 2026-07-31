@@ -1,5 +1,6 @@
 import type { Attribute, Attributes } from "@app/content";
 
+import { MAX_ATTRIBUTE_SCORE } from "../../../core/attributes";
 import type { DerivedValue, ResolvedModifier } from "./modifier.types";
 import { resolveAdditiveStat } from "./resolveAdditiveStat";
 
@@ -28,6 +29,6 @@ function resolveAttribute(
 
 	return {
 		...derivedValue,
-		value: Math.floor(derivedValue.value),
+		value: Math.min(MAX_ATTRIBUTE_SCORE, Math.floor(derivedValue.value)),
 	};
 }

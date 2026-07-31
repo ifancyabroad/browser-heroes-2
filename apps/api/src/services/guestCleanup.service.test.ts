@@ -14,6 +14,7 @@ const baseInput = {
 	retainedRunUserIds: [] as string[],
 	retainedActionUserIds: [] as string[],
 	ghostUserIds: [] as string[],
+	achievementUserIds: [] as string[],
 };
 
 describe("planGuestCleanup", () => {
@@ -101,5 +102,17 @@ describe("planGuestCleanup", () => {
 
 		expect(plan.emptyGuestIds).toEqual([]);
 		expect(plan.deletableGuestIds).toEqual([]);
+	});
+
+	it("retains a guest with achievement progress", () => {
+		const plan = planGuestCleanup({
+			...baseInput,
+			userIds: ["achievement-owner"],
+			achievementUserIds: ["achievement-owner"],
+		});
+
+		expect(plan.emptyGuestIds).toEqual([]);
+		expect(plan.deletableGuestIds).toEqual([]);
+		expect(plan.retainedGuests).toBe(1);
 	});
 });

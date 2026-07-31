@@ -1,10 +1,27 @@
-import { equipmentSlotSchema, featIdSchema, itemIdSchema, skillIdSchema } from "@app/content";
+import {
+	equipmentSlotSchema,
+	featIdSchema,
+	itemIdSchema,
+	itemRaritySchema,
+	skillIdSchema,
+} from "@app/content";
 import { z } from "zod";
 
 const itemEventPayloadSchema = z.object({
 	itemInstanceId: z.string().nonempty(),
 	itemName: z.string().nonempty(),
+	rarity: itemRaritySchema,
 	staticItemId: itemIdSchema.optional(),
+});
+
+const combatContextSchema = z.object({
+	battleNumber: z.number().int().min(1),
+	encounterType: z.enum(["standard", "boss", "ghost"]),
+});
+
+const finishingPlayerActionSchema = z.object({
+	type: z.enum(["basic_attack", "skill"]),
+	targetStartedAtFullHp: z.boolean(),
 });
 
 const combatStartedEventSchema = z.object({
@@ -16,16 +33,19 @@ const combatTurnResolvedEventSchema = z.object({
 	type: z.literal("COMBAT_TURN_RESOLVED"),
 });
 
-const combatVictoryEventSchema = z.object({
+const combatVictoryEventSchema = combatContextSchema.extend({
 	type: z.literal("COMBAT_ENDED"),
 	outcome: z.literal("victory"),
+	defeatedFinalBoss: z.boolean(),
+	completedEndlessCycle: z.boolean(),
+	finishingPlayerAction: finishingPlayerActionSchema.nullable(),
 	reward: z.object({
 		gold: z.number().int().min(0),
 		xp: z.number().int().min(0),
 	}),
 });
 
-const combatDefeatEventSchema = z.object({
+const combatDefeatEventSchema = combatContextSchema.extend({
 	type: z.literal("COMBAT_ENDED"),
 	outcome: z.literal("defeat"),
 });

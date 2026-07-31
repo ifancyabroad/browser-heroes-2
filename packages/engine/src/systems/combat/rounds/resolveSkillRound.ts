@@ -52,5 +52,9 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		combatAfterPlayerAction: playerSkill.value,
 		rngState: playerSkill.rngState,
 		playerEffectIds,
+		playerActionContext: {
+			type: "skill",
+			targetStartedAtFullHp: state.combat.enemy.currentHp === state.combat.enemy.maxHp,
+		},
 	});
 }

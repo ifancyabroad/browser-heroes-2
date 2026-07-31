@@ -78,6 +78,7 @@ describe("projection.service", () => {
 		expect(toApplyRunActionResponse(run, result)).toEqual({
 			run: toRunView(run),
 			result,
+			unlockedAchievements: [],
 		});
 	});
 });

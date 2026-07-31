@@ -5,6 +5,7 @@ import type {
 	RunSlainByView,
 	RunSummaryView,
 	RunView,
+	AchievementUnlockView,
 } from "@app/shared";
 import type { RunDocument } from "../models/run.model";
 
@@ -76,9 +77,11 @@ export function toRunHeroView(state: RunState): RunHeroView | null {
 export function toApplyRunActionResponse(
 	run: RunDocument & { _id: unknown },
 	result: EngineResult,
+	unlockedAchievements: AchievementUnlockView[] = [],
 ): ApplyRunActionResponse {
 	return {
 		run: toRunView(run),
 		result,
+		unlockedAchievements,
 	};
 }

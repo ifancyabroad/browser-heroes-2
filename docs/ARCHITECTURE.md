@@ -83,6 +83,7 @@ The API currently:
 - applies actions through the shared engine
 - resolves external encounter candidates into explicit engine inputs
 - derives lightweight summaries for querying and display
+- evaluates account achievements from engine state transitions and structured events
 - exposes REST and socket-based action submission paths
 
 The web app currently:
@@ -93,6 +94,7 @@ The web app currently:
 - submits player intent to the backend
 - renders engine selectors and shared content
 - shows reward choices, level-up choices, town shop state, equipment replacement previews, and hero state
+- displays account achievement progress from shared content definitions and persisted unlocks
 
 The presentation layer may display simulation state and collect player intent. It must not calculate gameplay outcomes or directly mutate authoritative run state.
 

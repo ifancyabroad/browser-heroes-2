@@ -60,6 +60,7 @@ export function useHealingPotion(state: RunState): EngineResult {
 		combatAfterPlayerAction: combatAfterPotion,
 		rngState: state.rngState,
 		playerEffectIds,
+		playerActionContext: null,
 		events: [
 			{
 				type: "HEALING_POTION_USED",
