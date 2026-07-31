@@ -1,0 +1,62 @@
+.panel[data-state="open"] {
+	animation: mobile-navigation-in 200ms ease-out;
+}
+
+.panel[data-state="closed"] {
+	animation: mobile-navigation-out 200ms ease-in;
+}
+
+.overlay[data-state="open"] {
+	animation: mobile-navigation-overlay-in 200ms ease-out;
+}
+
+.overlay[data-state="closed"] {
+	animation: mobile-navigation-overlay-out 200ms ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.panel[data-state],
+	.overlay[data-state] {
+		animation: none;
+	}
+}
+
+@keyframes mobile-navigation-in {
+	from {
+		transform: translateX(-100%);
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes mobile-navigation-out {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes mobile-navigation-overlay-in {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes mobile-navigation-overlay-out {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
