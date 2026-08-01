@@ -106,7 +106,7 @@ export const optionsByField: Record<string, readonly string[]> = {
 		"wand",
 	],
 	rank: ["normal", "elite", "boss"],
-	tactic: ["default", "aggressive", "defensive", "caster", "random"],
+	tactic: ["default", "aggressive", "defensive", "caster", "random", "conceder"],
 	damageType: [
 		"acid",
 		"cold",

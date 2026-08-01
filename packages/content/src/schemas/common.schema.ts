@@ -187,7 +187,14 @@ export const zones = [
 
 export const zoneSchema = z.enum(zones);
 
-export const tactics = ["default", "aggressive", "defensive", "caster", "random"] as const;
+export const tactics = [
+	"default",
+	"aggressive",
+	"defensive",
+	"caster",
+	"random",
+	"conceder",
+] as const;
 
 export const tacticSchema = z.enum(tactics);
 

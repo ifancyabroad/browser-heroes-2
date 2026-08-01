@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["charge", "holy_strike", "thou_hast_bested_me"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "conceder",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "dexterity"],

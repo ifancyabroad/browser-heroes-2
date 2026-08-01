@@ -194,7 +194,9 @@ Logs should explain what happened without exposing fragile internal implementati
 
 ## 13. Enemy Behavior
 
-Enemies select between basic attacks and usable skills. Their tactic can favor offensive skills, favor defensive skills while wounded, prioritize skills, or choose from all valid actions.
+Enemies select between basic attacks and useful skills. Mechanical validation first excludes skills that cannot resolve, then effect-aware checks avoid actions such as healing at full health, reapplying an existing effect without another useful outcome, or dealing only immune damage. Mixed-effect skills remain available when at least one outcome is useful.
+
+Tactics weight the remaining actions while preserving seeded deterministic selection. Aggressive enemies favor offensive effects, defensive enemies increasingly favor recovery and protection while wounded, casters strongly favor skills, and random enemies choose uniformly from useful actions. The Conceder boss uses his signature self-damaging skill repeatedly at or below half health while charges remain; intentional self-harm is otherwise not treated as useful general behavior.
 
 Stunned enemies skip their action, while silenced enemies use their basic attack. Skill charges and active effects constrain which skills are valid.
 
