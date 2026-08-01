@@ -23,7 +23,9 @@ import {
 function regenerateSession(req: { session: Request["session"] }, userId: string) {
 	return new Promise<void>((resolve, reject) => {
 		req.session.regenerate((error) => {
-			if (error) return reject(error);
+			if (error) {
+				return reject(error);
+			}
 			req.session.userId = userId;
 			req.session.save((saveError) => (saveError ? reject(saveError) : resolve()));
 		});
@@ -46,7 +48,9 @@ export async function createGuestSession(req: Request, res: Response<AuthUserRes
 }
 
 export async function getCurrentUser(req: Request, res: Response<AuthUserResponse>) {
-	if (!req.session.userId) return void res.status(200).json({ user: null });
+	if (!req.session.userId) {
+		return void res.status(200).json({ user: null });
+	}
 	const user = await getUserById(req.session.userId);
 	if (!user) {
 		req.session.userId = undefined;
@@ -60,8 +64,9 @@ export async function register(
 	req: Request<unknown, unknown, RegisterBody>,
 	res: Response<AuthUserResponse>,
 ) {
-	if (!req.session.userId)
+	if (!req.session.userId) {
 		throw Object.assign(new Error("A guest session is required."), { status: 401 });
+	}
 	const user = await registerGuest({ userId: req.session.userId, ...req.body });
 	await regenerateSession(req, String(user._id));
 	res.status(201).json({ user: toAuthUserView(user) });

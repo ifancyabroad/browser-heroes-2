@@ -17,7 +17,9 @@ function createSocket(userId?: string) {
 	const socket = {
 		request: { session: { userId } },
 		on: vi.fn((event: string, registeredHandler: RunActionHandler) => {
-			if (event === "run:action") handler = registeredHandler;
+			if (event === "run:action") {
+				handler = registeredHandler;
+			}
 		}),
 	} as unknown as Socket;
 

@@ -129,7 +129,9 @@ function validateStartingEquipment(
 	const errors: string[] = [];
 	const equipment = entry.value.startingEquipment;
 
-	if (!equipment) return errors;
+	if (!equipment) {
+		return errors;
+	}
 
 	for (const [slot, id] of Object.entries(equipment)) {
 		if (id !== undefined && !targetIds.has(id)) {

@@ -74,14 +74,22 @@ export function getModifierTextClassName(modifier: ItemModifier | PassiveModifie
 		modifier.type === "modifyStat"
 			? getNumericModifierTone("add", modifier.value)
 			: getNumericModifierTone(modifier.operation, modifier.value);
-	if (tone === "positive") return "text-success";
-	if (tone === "negative") return "text-error";
+	if (tone === "positive") {
+		return "text-success";
+	}
+	if (tone === "negative") {
+		return "text-error";
+	}
 	return "text-text-bright";
 }
 
 export function getToneTextClassName(tone: ModifierTone, neutralClassName = "text-text-bright") {
-	if (tone === "positive") return "text-success";
-	if (tone === "negative") return "text-error";
+	if (tone === "positive") {
+		return "text-success";
+	}
+	if (tone === "negative") {
+		return "text-error";
+	}
 	return neutralClassName;
 }
 
@@ -286,10 +294,14 @@ export function getNumericModifierTone(
 	value: number,
 ): ModifierTone {
 	if (operation === "multiply") {
-		if (value === 1) return "neutral";
+		if (value === 1) {
+			return "neutral";
+		}
 		return value > 1 ? "positive" : "negative";
 	}
-	if (value === 0) return "neutral";
+	if (value === 0) {
+		return "neutral";
+	}
 	return value > 0 ? "positive" : "negative";
 }
 
@@ -298,14 +310,22 @@ export function getDamageTakenModifierTone(
 	value: number,
 ): ModifierTone {
 	const tone = getNumericModifierTone(operation, value);
-	if (tone === "positive") return "negative";
-	if (tone === "negative") return "positive";
+	if (tone === "positive") {
+		return "negative";
+	}
+	if (tone === "negative") {
+		return "positive";
+	}
 	return "neutral";
 }
 
 export function getNumberTone(value: number): ModifierTone {
-	if (value > 0) return "positive";
-	if (value < 0) return "negative";
+	if (value > 0) {
+		return "positive";
+	}
+	if (value < 0) {
+		return "negative";
+	}
 	return "neutral";
 }
 

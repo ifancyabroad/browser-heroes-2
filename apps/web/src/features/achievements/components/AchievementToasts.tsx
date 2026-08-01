@@ -45,7 +45,9 @@ function AchievementToastItem({
 	const achievement = ACHIEVEMENTS_BY_ID[unlock.achievementId];
 
 	useEffect(() => {
-		if (open) return;
+		if (open) {
+			return;
+		}
 
 		const timeoutId = window.setTimeout(() => onExited(id), TOAST_EXIT_FALLBACK_MS);
 		return () => window.clearTimeout(timeoutId);
@@ -56,7 +58,9 @@ function AchievementToastItem({
 			open={open}
 			onOpenChange={setOpen}
 			onAnimationEnd={(event) => {
-				if (!open && event.target === event.currentTarget) onExited(id);
+				if (!open && event.target === event.currentTarget) {
+					onExited(id);
+				}
 			}}
 			type="background"
 			className={styles.toast}

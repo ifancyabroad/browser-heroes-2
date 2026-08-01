@@ -6,7 +6,9 @@ type WithStatus = { status?: number };
 const getStatus = (err: unknown): number => {
 	if (typeof err === "object" && err !== null) {
 		const rec = err as Record<string, unknown>;
-		if (typeof rec.status === "number") return rec.status;
+		if (typeof rec.status === "number") {
+			return rec.status;
+		}
 	}
 	return 500;
 };
@@ -27,6 +29,8 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
 
 	const status = getStatus(err);
 	const message = getMessage(err);
-	if (status >= 500) console.error(err);
+	if (status >= 500) {
+		console.error(err);
+	}
 	res.status(status).json({ error: message });
 };

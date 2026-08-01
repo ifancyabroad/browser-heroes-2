@@ -79,7 +79,9 @@ describe("TownActionBar", () => {
 		});
 		render(<TownActionBar {...props} />);
 
-		for (const button of screen.getAllByRole("button")) fireEvent.click(button);
+		for (const button of screen.getAllByRole("button")) {
+			fireEvent.click(button);
+		}
 
 		expect(props.onReroll).not.toHaveBeenCalled();
 		expect(props.onBuyHealingPotion).not.toHaveBeenCalled();

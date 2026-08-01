@@ -311,8 +311,12 @@ function getCombatActionTooltipDetail({
 	available: boolean;
 	availableDetail: string;
 }) {
-	if (isPending) return ACTION_PENDING_DETAIL;
-	if (!available) return "Unavailable after combat ends.";
+	if (isPending) {
+		return ACTION_PENDING_DETAIL;
+	}
+	if (!available) {
+		return "Unavailable after combat ends.";
+	}
 	return availableDetail;
 }
 
@@ -329,10 +333,18 @@ function getPotionTooltipDetail({
 	maxHp: number;
 	healingPotions: number;
 }) {
-	if (isPending) return ACTION_PENDING_DETAIL;
-	if (healingPotions <= 0) return "No health potions remaining.";
-	if (currentHp >= maxHp) return "Already at full health.";
-	if (!available) return "Unavailable after combat ends.";
+	if (isPending) {
+		return ACTION_PENDING_DETAIL;
+	}
+	if (healingPotions <= 0) {
+		return "No health potions remaining.";
+	}
+	if (currentHp >= maxHp) {
+		return "Already at full health.";
+	}
+	if (!available) {
+		return "Unavailable after combat ends.";
+	}
 	return "Restore health using one potion.";
 }
 
@@ -347,8 +359,14 @@ function getRunActionTooltipDetail({
 	isEnemySlain: boolean;
 	availableDetail: string;
 }) {
-	if (isPending) return ACTION_PENDING_DETAIL;
-	if (available) return availableDetail;
-	if (isEnemySlain) return "Resolve the current reward or level-up choice first.";
+	if (isPending) {
+		return ACTION_PENDING_DETAIL;
+	}
+	if (available) {
+		return availableDetail;
+	}
+	if (isEnemySlain) {
+		return "Resolve the current reward or level-up choice first.";
+	}
 	return "Available after winning the battle.";
 }

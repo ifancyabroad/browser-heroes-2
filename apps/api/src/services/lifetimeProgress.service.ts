@@ -158,8 +158,12 @@ export function deriveLifetimeStatsDelta(
 			increment(delta, "kills", 1);
 			increment(delta, "goldEarned", event.reward.gold);
 
-			if (event.encounterType === "boss") increment(delta, "bossesDefeated", 1);
-			if (event.encounterType === "ghost") increment(delta, "ghostsDefeated", 1);
+			if (event.encounterType === "boss") {
+				increment(delta, "bossesDefeated", 1);
+			}
+			if (event.encounterType === "ghost") {
+				increment(delta, "ghostsDefeated", 1);
+			}
 			if (event.defeatedFinalBoss) {
 				increment(delta, "gamesCompleted", 1);
 				delta.completedGameClassId = classId;

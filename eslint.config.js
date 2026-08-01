@@ -45,4 +45,15 @@ export default [
 
 	// Let Prettier handle formatting
 	prettier,
+
+	// Keep control flow explicit and easy to scan
+	{
+		files: ["**/*.{js,jsx,ts,tsx}"],
+		rules: {
+			curly: ["error", "all"],
+			eqeqeq: ["error", "always"],
+			"no-else-return": ["error", { allowElseIf: false }],
+			"no-lonely-if": "error",
+		},
+	},
 ];

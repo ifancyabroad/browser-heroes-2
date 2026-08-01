@@ -159,8 +159,12 @@ function getRerollTooltipDetail({
 	canAffordReroll: boolean;
 	rerollCost: number;
 }) {
-	if (isPending) return ACTION_PENDING_DETAIL;
-	if (!canAffordReroll) return `Requires ${rerollCost} gold.`;
+	if (isPending) {
+		return ACTION_PENDING_DETAIL;
+	}
+	if (!canAffordReroll) {
+		return `Requires ${rerollCost} gold.`;
+	}
 	return `Refresh the shop inventory for ${rerollCost} gold.`;
 }
 
@@ -177,9 +181,15 @@ function getPotionTooltipDetail({
 	maxHealingPotions: number;
 	healingPotionCost: number;
 }) {
-	if (isPending) return ACTION_PENDING_DETAIL;
-	if (healingPotions >= maxHealingPotions) return "Potion capacity reached.";
-	if (!canAffordHealingPotion) return `Requires ${healingPotionCost} gold.`;
+	if (isPending) {
+		return ACTION_PENDING_DETAIL;
+	}
+	if (healingPotions >= maxHealingPotions) {
+		return "Potion capacity reached.";
+	}
+	if (!canAffordHealingPotion) {
+		return `Requires ${healingPotionCost} gold.`;
+	}
 	return `Add one health potion for ${healingPotionCost} gold.`;
 }
 
@@ -192,7 +202,11 @@ function getRestTooltipDetail({
 	canAffordRest: boolean;
 	restCost: number;
 }) {
-	if (isPending) return ACTION_PENDING_DETAIL;
-	if (!canAffordRest) return `Requires ${restCost} gold.`;
+	if (isPending) {
+		return ACTION_PENDING_DETAIL;
+	}
+	if (!canAffordRest) {
+		return `Requires ${restCost} gold.`;
+	}
 	return `Restore all health and skill uses for ${restCost} gold.`;
 }

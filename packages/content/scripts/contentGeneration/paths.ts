@@ -6,7 +6,9 @@ export function ensureDir(path: string) {
 }
 
 export function walkTypeScriptFiles(dir: string): string[] {
-	if (!existsSync(dir)) return [];
+	if (!existsSync(dir)) {
+		return [];
+	}
 
 	const entries = readdirSync(dir, { withFileTypes: true });
 	const files: string[] = [];
@@ -43,7 +45,9 @@ export function writeFileIfChanged(path: string, content: string) {
 
 export function toImportPath(from: string, to: string) {
 	let rel = relative(dirname(from), to);
-	if (!rel.startsWith(".")) rel = `./${rel}`;
+	if (!rel.startsWith(".")) {
+		rel = `./${rel}`;
+	}
 	return toPosixPath(rel).replace(/\.ts$/, "");
 }
 
