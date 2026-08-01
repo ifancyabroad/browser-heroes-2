@@ -19,6 +19,7 @@ import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownActionBar } from "./TownActionBar";
 import { TownShopGrid } from "./TownShopGrid";
 import { useHowToPlayModalStore } from "../../howToPlay";
+import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
 
 type TownViewProps = {
 	run: RunView;
@@ -211,9 +212,10 @@ export function TownView({ run }: TownViewProps) {
 				>
 					<RouterLink
 						to="/"
-						className="text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						className="inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 					>
-						← BACK
+						<ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+						BACK
 					</RouterLink>
 
 					<button

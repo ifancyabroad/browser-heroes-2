@@ -1,5 +1,6 @@
 import { SKILLS_BY_ID, type Class, type ClassId } from "@app/content";
 import { resolveImageUrl } from "../../../utils/image";
+import { ArrowRight } from "pixelarticons/react/ArrowRight";
 
 type ClassCardProps = {
 	gameClass: Class;
@@ -33,7 +34,10 @@ export function ClassCard({ gameClass, onChoose }: ClassCardProps) {
 				<span className="grid min-w-0 gap-1">
 					<span className="flex min-w-0 items-center justify-between gap-3">
 						<span className="truncate text-text-bright">{gameClass.name}</span>
-						<span className="shrink-0 text-primary">CHOOSE →</span>
+						<span className="inline-flex shrink-0 items-center text-primary">
+							CHOOSE
+							<ArrowRight aria-hidden="true" className="ml-1 h-4 w-4" />
+						</span>
 					</span>
 					{gameClass.description && (
 						<span className="line-clamp-2 text-text">

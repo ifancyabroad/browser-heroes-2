@@ -1,5 +1,7 @@
 import clsx from "clsx";
 import type { PropsWithChildren, TdHTMLAttributes, ThHTMLAttributes } from "react";
+import { ArrowDown } from "pixelarticons/react/ArrowDown";
+import { ArrowUp } from "pixelarticons/react/ArrowUp";
 
 type DataTableProps = PropsWithChildren<{
 	tableClassName?: string;
@@ -89,7 +91,12 @@ export function SortableDataTableHeading<TSort extends string>({
 				)}
 			>
 				<span>{label}</span>
-				{isActive && <span aria-hidden="true">{direction === "asc" ? "↑" : "↓"}</span>}
+				{isActive &&
+					(direction === "asc" ? (
+						<ArrowUp aria-hidden="true" className="h-4 w-4" />
+					) : (
+						<ArrowDown aria-hidden="true" className="h-4 w-4" />
+					))}
 			</button>
 		</DataTableHeading>
 	);

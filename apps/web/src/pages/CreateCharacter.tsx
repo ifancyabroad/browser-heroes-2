@@ -7,6 +7,7 @@ import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
 import { PageLayout } from "../components/PageLayout";
 import { Container } from "../components/Container";
+import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
 
 export default function CreateCharacter() {
 	const navigate = useNavigate();
@@ -52,9 +53,10 @@ export default function CreateCharacter() {
 				<div className="mx-auto w-full max-w-4xl">
 					<RouterLink
 						to="/"
-						className="mb-4 inline-flex text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						className="mb-4 inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 					>
-						← BACK
+						<ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+						BACK
 					</RouterLink>
 
 					<header className="mb-5 grid gap-2">

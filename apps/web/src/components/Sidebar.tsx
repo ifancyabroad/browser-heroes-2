@@ -1,5 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import clsx from "clsx";
+import { Close } from "pixelarticons/react/Close";
 
 type SidebarProps = PropsWithChildren<{
 	open: boolean;
@@ -53,20 +54,7 @@ export function Sidebar({
 							aria-label="Close sidebar"
 							type="button"
 						>
-							<svg
-								className="h-4 w-4"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M6 18L18 6M6 6l12 12"
-								/>
-							</svg>
+							<Close aria-hidden="true" className="h-4 w-4" />
 						</button>
 					</div>
 				</header>

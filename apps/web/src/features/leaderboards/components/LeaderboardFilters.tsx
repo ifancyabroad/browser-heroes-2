@@ -3,6 +3,8 @@ import type { LeaderboardScope } from "@app/shared";
 import { Button } from "../../../components/Button";
 import { ClassSelect } from "../../../components/ClassSelect";
 import { addUtcDays, formatDailyDate, getTodayUtc } from "../../../utils/date";
+import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
+import { ArrowRight } from "pixelarticons/react/ArrowRight";
 
 type LeaderboardFiltersProps = {
 	classId: ClassId | "all";
@@ -95,7 +97,7 @@ export function LeaderboardFilters({
 								aria-label="Previous day"
 								onClick={() => onDailyDateChange(addUtcDays(dailyDate, -1))}
 							>
-								&larr;
+								<ArrowLeft aria-hidden="true" className="h-4 w-4" />
 							</Button>
 							<p className="min-w-0 flex-1 whitespace-nowrap text-center text-text-bright md:min-w-52">
 								{formatDailyDate(dailyDate)}
@@ -106,7 +108,7 @@ export function LeaderboardFilters({
 								disabled={isToday}
 								onClick={() => onDailyDateChange(addUtcDays(dailyDate, 1))}
 							>
-								&rarr;
+								<ArrowRight aria-hidden="true" className="h-4 w-4" />
 							</Button>
 						</div>
 						<Button

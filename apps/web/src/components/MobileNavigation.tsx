@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Dialog } from "radix-ui";
+import { Close } from "pixelarticons/react/Close";
+import { Menu } from "pixelarticons/react/Menu";
 import { navigationItems } from "../config/navigation";
 import { useAuth, useAuthModalStore } from "../features/auth";
 import { NavigationLink } from "./NavigationLink";
@@ -41,8 +43,9 @@ export function MobileNavigation() {
 				<Dialog.Trigger asChild>
 					<button
 						type="button"
-						className="cursor-pointer border-2 border-border bg-bg-panel px-3 py-1 text-text-bright hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						className="inline-flex cursor-pointer items-center border-2 border-border bg-bg-panel px-3 py-1 text-text-bright hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 					>
+						<Menu aria-hidden="true" className="mr-2 h-4 w-4" />
 						MENU
 					</button>
 				</Dialog.Trigger>
@@ -62,20 +65,7 @@ export function MobileNavigation() {
 									className="border-2 border-border bg-bg-panel p-1 text-text-muted hover:border-primary hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 									aria-label="Close menu"
 								>
-									<svg
-										className="h-4 w-4"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-										aria-hidden="true"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M6 18L18 6M6 6l12 12"
-										/>
-									</svg>
+									<Close aria-hidden="true" className="h-4 w-4" />
 								</button>
 							</Dialog.Close>
 						</header>
