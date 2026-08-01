@@ -16,6 +16,17 @@ describe("content studio routes", () => {
 		expect(screen.getByText("fireball")).toBeInTheDocument();
 	});
 
+	it("reports the visible page range rather than implying all entries are displayed", () => {
+		render(
+			<MemoryRouter initialEntries={["/skills"]}>
+				<App />
+			</MemoryRouter>,
+		);
+		expect(screen.getByText("Showing 1–30 of 156 entries")).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: "Next" }));
+		expect(screen.getByText("Showing 31–60 of 156 entries")).toBeInTheDocument();
+	});
+
 	it("renders details, complete artwork paths, and references", () => {
 		render(
 			<MemoryRouter initialEntries={["/enemies/wretch"]}>

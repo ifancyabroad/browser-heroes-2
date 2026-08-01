@@ -22,7 +22,10 @@ export function CatalogPage() {
 	const detailState = { catalogSearch: location.search };
 	const pages = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
 	const page = Math.min(query.page, pages);
-	const visible = results.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+	const firstVisibleIndex = (page - 1) * PAGE_SIZE;
+	const visible = results.slice(firstVisibleIndex, page * PAGE_SIZE);
+	const firstVisibleNumber = results.length === 0 ? 0 : firstVisibleIndex + 1;
+	const lastVisibleNumber = firstVisibleIndex + visible.length;
 
 	function update(changes: Partial<CatalogQuery>) {
 		setParams(writeCatalogQuery({ ...query, ...changes }), { replace: true });
@@ -45,7 +48,10 @@ export function CatalogPage() {
 					<span className="eyebrow">Content registry</span>
 					<h2>{catalog.label}</h2>
 					<p>
-						{results.length} of {catalog.entries.length} entries
+						Showing {firstVisibleNumber}–{lastVisibleNumber} of {results.length}{" "}
+						{results.length === catalog.entries.length ? "entries" : "matching entries"}
+						{results.length !== catalog.entries.length &&
+							` (${catalog.entries.length} total)`}
 					</p>
 				</div>
 				{catalog.hasImages && (
