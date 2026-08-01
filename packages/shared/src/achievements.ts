@@ -5,6 +5,13 @@ export interface AchievementUnlockView {
 	unlockedAt: string;
 }
 
+export interface AchievementProgressView {
+	achievementId: AchievementId;
+	current: number;
+	target: number;
+}
+
 export interface GetAchievementsResponse {
 	unlocks: AchievementUnlockView[];
+	progress: AchievementProgressView[];
 }

@@ -221,6 +221,7 @@ describe("achievement.service", () => {
 			events: [],
 			ghostOutcome: "ghost_won",
 			ghostOwnerId: "user",
+			lifetimeProgress: null,
 			source: { ghostId: "ghost" },
 			session: { id: "session" } as never,
 		});
@@ -239,6 +240,7 @@ describe("achievement.service", () => {
 			events: [],
 			ghostOutcome: "ghost_won",
 			ghostOwnerId: "ghost-owner",
+			lifetimeProgress: null,
 			source: { ghostId: "ghost" },
 			session: { id: "session" } as never,
 		});

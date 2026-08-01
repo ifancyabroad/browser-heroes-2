@@ -1,5 +1,5 @@
 import { achievements, type Achievement } from "@app/content";
-import type { AchievementUnlockView } from "@app/shared";
+import type { AchievementProgressView, AchievementUnlockView } from "@app/shared";
 import clsx from "clsx";
 import { LockSharp } from "pixelarticons/react/LockSharp";
 import { Tooltip } from "../../../components/Tooltip";
@@ -7,10 +7,12 @@ import { resolveImageUrl } from "../../../utils/image";
 
 type AchievementGridProps = {
 	unlocks: AchievementUnlockView[];
+	progress: AchievementProgressView[];
 };
 
-export function AchievementGrid({ unlocks }: AchievementGridProps) {
+export function AchievementGrid({ unlocks, progress }: AchievementGridProps) {
 	const unlocksById = new Map(unlocks.map((unlock) => [unlock.achievementId, unlock]));
+	const progressById = new Map(progress.map((entry) => [entry.achievementId, entry]));
 
 	return (
 		<ul
@@ -19,6 +21,7 @@ export function AchievementGrid({ unlocks }: AchievementGridProps) {
 		>
 			{achievements.map((achievement) => {
 				const unlock = unlocksById.get(achievement.id);
+				const achievementProgress = progressById.get(achievement.id);
 
 				return (
 					<li key={achievement.id} className="min-w-0">
@@ -28,6 +31,7 @@ export function AchievementGrid({ unlocks }: AchievementGridProps) {
 								<AchievementTooltipContent
 									achievement={achievement}
 									unlockedAt={unlock?.unlockedAt}
+									progress={achievementProgress}
 								/>
 							}
 							placement="bottom"
@@ -67,19 +71,31 @@ export function AchievementGrid({ unlocks }: AchievementGridProps) {
 function AchievementTooltipContent({
 	achievement,
 	unlockedAt,
+	progress,
 }: {
 	achievement: Achievement;
 	unlockedAt?: string;
+	progress?: AchievementProgressView;
 }) {
 	return (
 		<div className="grid gap-2">
 			<p className="text-primary">{achievement.name}</p>
 			<p className="text-text">{achievement.description}</p>
+			{!unlockedAt && progress && (
+				<p className="text-text-muted tabular-nums">
+					Progress: {formatProgressValue(progress.current)} /{" "}
+					{formatProgressValue(progress.target)}
+				</p>
+			)}
 			<p className={unlockedAt ? "text-success" : "text-text-muted"}>
 				{unlockedAt ? `Unlocked ${formatUnlockDate(unlockedAt)}` : "Locked"}
 			</p>
 		</div>
 	);
+}
+
+function formatProgressValue(value: number) {
+	return new Intl.NumberFormat().format(value);
 }
 
 function formatUnlockDate(value: string) {

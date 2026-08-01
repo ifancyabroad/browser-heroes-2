@@ -8,8 +8,10 @@ vi.mock("../components/Header", () => ({ Header: () => <div>Header</div> }));
 vi.mock("../features/auth", () => ({ useAuth }));
 vi.mock("../features/achievements", () => ({
 	useAchievements,
-	AchievementGrid: ({ unlocks }: { unlocks: unknown[] }) => (
-		<div>Grid with {unlocks.length} unlocks</div>
+	AchievementGrid: ({ unlocks, progress }: { unlocks: unknown[]; progress: unknown[] }) => (
+		<div>
+			Grid with {unlocks.length} unlocks and {progress.length} progress entries
+		</div>
 	),
 }));
 
@@ -26,6 +28,7 @@ describe("Progress", () => {
 						unlockedAt: "2026-07-31T12:00:00.000Z",
 					},
 				],
+				progress: [{ achievementId: "lifetime_kills_100", current: 42, target: 100 }],
 			},
 			isPending: false,
 			isError: false,
@@ -33,8 +36,8 @@ describe("Progress", () => {
 
 		render(<Progress />);
 
-		expect(screen.getByText("1 / 30 UNLOCKED")).toBeInTheDocument();
-		expect(screen.getByText("Grid with 1 unlocks")).toBeInTheDocument();
+		expect(screen.getByText("1 / 40 UNLOCKED")).toBeInTheDocument();
+		expect(screen.getByText("Grid with 1 unlocks and 1 progress entries")).toBeInTheDocument();
 		expect(useAchievements).toHaveBeenCalledWith(true);
 	});
 

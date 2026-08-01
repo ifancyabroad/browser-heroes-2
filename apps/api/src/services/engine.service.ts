@@ -17,6 +17,7 @@ import {
 } from "./ghost.service";
 import { toRunSummary } from "./projection.service";
 import { processRunActionAchievements } from "./achievement.service";
+import { recordLifetimeProgress } from "./lifetimeProgress.service";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 
@@ -47,6 +48,7 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 		});
 
 		const result = engineResultSchema.parse(applyAction(currentState, action));
+		const events = result.ok ? result.events : [];
 
 		const startedGhostId = result.ok ? getStartedGhostId(action, result.state) : null;
 
@@ -85,13 +87,21 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			ghostId: resolvedGhostOutcome?.ghostId,
 		};
 
+		const lifetimeProgress = await recordLifetimeProgress({
+			userId: input.userId,
+			classId: result.state.hero.classId,
+			events,
+			session,
+		});
+
 		const unlockedAchievements = await processRunActionAchievements({
 			actingUserId: input.userId,
 			previousState: currentState,
 			nextState: result.state,
-			events: result.ok ? result.events : [],
+			events,
 			ghostOutcome: resolvedGhostOutcome?.outcome ?? null,
 			ghostOwnerId: resolvedGhostOwnerId,
+			lifetimeProgress,
 			source: achievementSource,
 			session,
 		});

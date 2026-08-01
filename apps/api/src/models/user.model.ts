@@ -1,4 +1,19 @@
+import { classIds } from "@app/content";
 import { Schema, model, type InferSchemaType } from "mongoose";
+
+const lifetimeStatsSchema = new Schema(
+	{
+		kills: { type: Number, required: true, default: 0, min: 0 },
+		bossesDefeated: { type: Number, required: true, default: 0, min: 0 },
+		ghostsDefeated: { type: Number, required: true, default: 0, min: 0 },
+		goldEarned: { type: Number, required: true, default: 0, min: 0 },
+		legendaryItemsAcquired: { type: Number, required: true, default: 0, min: 0 },
+		gamesCompleted: { type: Number, required: true, default: 0, min: 0 },
+		healingPotionsUsed: { type: Number, required: true, default: 0, min: 0 },
+		completedGameClassIds: [{ type: String, enum: classIds }],
+	},
+	{ _id: false },
+);
 
 const userSchema = new Schema(
 	{
@@ -26,6 +41,11 @@ const userSchema = new Schema(
 			type: Date,
 			required: true,
 			default: Date.now,
+		},
+		lifetimeStats: {
+			type: lifetimeStatsSchema,
+			required: true,
+			default: () => ({}),
 		},
 	},
 	{

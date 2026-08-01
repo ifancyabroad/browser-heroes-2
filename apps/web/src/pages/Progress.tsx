@@ -10,6 +10,7 @@ export default function Progress() {
 	const { hasSession } = useAuth();
 	const achievementQuery = useAchievements(hasSession);
 	const unlocks = achievementQuery.data?.unlocks ?? [];
+	const progress = achievementQuery.data?.progress ?? [];
 
 	return (
 		<PageLayout>
@@ -42,7 +43,7 @@ export default function Progress() {
 							<p className="text-text-muted tabular-nums">
 								{unlocks.length} / {achievements.length} UNLOCKED
 							</p>
-							<AchievementGrid unlocks={unlocks} />
+							<AchievementGrid unlocks={unlocks} progress={progress} />
 						</div>
 					)}
 				</section>

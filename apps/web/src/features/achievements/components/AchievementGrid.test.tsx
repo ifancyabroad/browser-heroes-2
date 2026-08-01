@@ -23,12 +23,14 @@ describe("AchievementGrid", () => {
 						unlockedAt: "2026-07-31T12:00:00.000Z",
 					},
 				]}
+				progress={[{ achievementId: "lifetime_kills_100", current: 42, target: 100 }]}
 			/>,
 		);
 
-		expect(screen.getAllByRole("listitem")).toHaveLength(30);
+		expect(screen.getAllByRole("listitem")).toHaveLength(40);
 		expect(screen.getByText("Boss Breaker: Unlocked")).toBeInTheDocument();
 		expect(screen.getByText("Against All Odds: Locked")).toBeInTheDocument();
 		expect(screen.getAllByText(/Unlocked/)).toHaveLength(2);
+		expect(screen.getByText("Progress: 42 / 100")).toBeInTheDocument();
 	});
 });

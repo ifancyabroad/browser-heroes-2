@@ -2,7 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import request from "supertest";
 
 const achievementService = vi.hoisted(() => ({
-	getAchievementUnlocks: vi.fn(),
+	getAchievements: vi.fn(),
 }));
 
 vi.mock("../services/achievement.service", () => achievementService);
@@ -16,7 +16,7 @@ describe("achievement routes", () => {
 
 	beforeEach(() => {
 		vi.clearAllMocks();
-		achievementService.getAchievementUnlocks.mockResolvedValue([]);
+		achievementService.getAchievements.mockResolvedValue({ unlocks: [], progress: [] });
 	});
 
 	it("requires a user session", async () => {
@@ -29,7 +29,7 @@ describe("achievement routes", () => {
 			.set("x-test-user-id", "user-id")
 			.expect(200);
 
-		expect(achievementService.getAchievementUnlocks).toHaveBeenCalledWith("user-id");
-		expect(response.body).toEqual({ unlocks: [] });
+		expect(achievementService.getAchievements).toHaveBeenCalledWith("user-id");
+		expect(response.body).toEqual({ unlocks: [], progress: [] });
 	});
 });

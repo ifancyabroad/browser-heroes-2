@@ -6,9 +6,14 @@ import {
 	type EngineEvent,
 	type RunState,
 } from "@app/engine";
-import type { AchievementUnlockView } from "@app/shared";
+import type { AchievementUnlockView, GetAchievementsResponse } from "@app/shared";
 import type { ClientSession } from "mongoose";
 import { AchievementUnlockModel } from "../models/achievementUnlock.model";
+import {
+	evaluateLifetimeAchievementProgress,
+	getLifetimeAchievementProgress,
+	type LifetimeProgressTransition,
+} from "./lifetimeProgress.service";
 
 const CLASS_VICTORY_ACHIEVEMENTS: Record<ClassId, AchievementId> = {
 	battlemage: "complete_game_battlemage",
@@ -58,6 +63,14 @@ export async function getAchievementUnlocks(userId: string): Promise<Achievement
 	}));
 }
 
+export async function getAchievements(userId: string): Promise<GetAchievementsResponse> {
+	const [unlocks, progress] = await Promise.all([
+		getAchievementUnlocks(userId),
+		getLifetimeAchievementProgress(userId),
+	]);
+	return { unlocks, progress };
+}
+
 export async function unlockAchievements(input: {
 	userId: string;
 	achievementIds: readonly AchievementId[];
@@ -99,6 +112,7 @@ export async function processRunActionAchievements(input: {
 	events: readonly EngineEvent[];
 	ghostOutcome: "ghost_won" | "ghost_lost" | null;
 	ghostOwnerId: string | null;
+	lifetimeProgress: LifetimeProgressTransition | null;
 	source: AchievementSource;
 	session: ClientSession;
 }): Promise<AchievementUnlockView[]> {
@@ -107,6 +121,7 @@ export async function processRunActionAchievements(input: {
 		nextState: input.nextState,
 		events: input.events,
 	});
+	actingUserAchievementIds.push(...evaluateLifetimeAchievementProgress(input.lifetimeProgress));
 
 	if (input.ghostOutcome === "ghost_won" && input.ghostOwnerId === input.actingUserId) {
 		actingUserAchievementIds.push("die_to_own_ghost");
