@@ -47,6 +47,9 @@ export function DetailPage() {
 					<code>{entry.id}</code>
 					{entry.description && <p>{entry.description}</p>}
 				</div>
+				<Link className="edit-link" to={`/${category}/${entry.id}/edit`}>
+					Edit
+				</Link>
 				{entry.images[0] && (
 					<ContentImage path={entry.images[0]} label={entry.name} size="detail" />
 				)}
