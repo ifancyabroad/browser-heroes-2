@@ -71,17 +71,7 @@ Current backend stack:
 - Socket.IO
 - Express sessions backed by MongoDB
 
-The backend currently supports guest-first sessions, optional accounts and recovery, run creation, current run lookup, run retrieval, action submission, action history, health checks, and socket-based run actions.
-
-Backend responsibilities include:
-
-- session management
-- persistence
-- applying actions through the shared engine
-- validating request bodies and engine results
-- storing run snapshots
-- recording action history
-- deriving non-authoritative summaries for querying and responses
+The backend supports guest-first identity, optional accounts and recovery, persisted gameplay and meta-game data, health checks, and both HTTP and socket-based run actions. Its application responsibilities and authority boundaries are defined in `ARCHITECTURE.md`.
 
 The backend should remain lightweight, operationally simple, and stateless where practical outside session and database storage.
 
