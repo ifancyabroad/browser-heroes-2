@@ -10,6 +10,8 @@ type AchievementGridProps = {
 	progress: AchievementProgressView[];
 };
 
+const orderedAchievements = [...achievements].sort((a, b) => a.order - b.order);
+
 export function AchievementGrid({ unlocks, progress }: AchievementGridProps) {
 	const unlocksById = new Map(unlocks.map((unlock) => [unlock.achievementId, unlock]));
 	const progressById = new Map(progress.map((entry) => [entry.achievementId, entry]));
@@ -19,7 +21,7 @@ export function AchievementGrid({ unlocks, progress }: AchievementGridProps) {
 			className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12"
 			aria-label="Achievements"
 		>
-			{achievements.map((achievement) => {
+			{orderedAchievements.map((achievement) => {
 				const unlock = unlocksById.get(achievement.id);
 				const achievementProgress = progressById.get(achievement.id);
 

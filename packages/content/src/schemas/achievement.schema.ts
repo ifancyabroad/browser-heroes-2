@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const achievementSchema = z.object({
 	id: z.string().nonempty(),
+	order: z.number().int().positive(),
 	name: z.string().nonempty(),
 	description: z.string().nonempty(),
 	icon: z.string().nonempty(),

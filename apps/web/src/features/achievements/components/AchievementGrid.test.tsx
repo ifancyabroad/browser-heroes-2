@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { PropsWithChildren, ReactNode } from "react";
 
@@ -27,7 +27,12 @@ describe("AchievementGrid", () => {
 			/>,
 		);
 
-		expect(screen.getAllByRole("listitem")).toHaveLength(40);
+		const achievementTiles = screen.getAllByRole("listitem");
+		expect(achievementTiles).toHaveLength(40);
+		expect(within(achievementTiles[0]).getByText("Boss Breaker: Unlocked")).toBeInTheDocument();
+		expect(
+			within(achievementTiles[39]).getByText("Proven Champion: Locked"),
+		).toBeInTheDocument();
 		expect(screen.getByText("Boss Breaker: Unlocked")).toBeInTheDocument();
 		expect(screen.getByText("Against All Odds: Locked")).toBeInTheDocument();
 		expect(screen.getAllByText(/Unlocked/)).toHaveLength(2);
