@@ -52,8 +52,66 @@ describe("achievement.service", () => {
 				"defeat_full_health_boss",
 				"complete_game",
 				"complete_game_fighter",
+				"complete_game_by_day_5",
+				"complete_game_without_resting",
 			]),
 		);
+	});
+
+	it("evaluates a ghost victory", () => {
+		const state = createTestRunState();
+
+		expect(
+			evaluateRunActionAchievements({
+				previousState: state,
+				nextState: state,
+				events: [
+					{
+						type: "COMBAT_ENDED",
+						outcome: "victory",
+						battleNumber: 12,
+						encounterType: "ghost",
+						defeatedFinalBoss: false,
+						completedEndlessCycle: false,
+						finishingPlayerAction: null,
+						reward: { gold: 1, xp: 1 },
+					},
+				],
+			}),
+		).toContain("defeat_ghost");
+	});
+
+	it("applies the day-five final-boss boundary", () => {
+		const previousState = createTestRunState();
+		const victoryEvent = {
+			type: "COMBAT_ENDED" as const,
+			outcome: "victory" as const,
+			battleNumber: 100,
+			encounterType: "boss" as const,
+			defeatedFinalBoss: true,
+			completedEndlessCycle: false,
+			finishingPlayerAction: null,
+			reward: { gold: 1, xp: 1 },
+		};
+		const dayFiveState = structuredClone(previousState);
+		dayFiveState.day = 5;
+		const daySixState = structuredClone(previousState);
+		daySixState.day = 6;
+
+		expect(
+			evaluateRunActionAchievements({
+				previousState,
+				nextState: dayFiveState,
+				events: [victoryEvent],
+			}),
+		).toContain("complete_game_by_day_5");
+		expect(
+			evaluateRunActionAchievements({
+				previousState,
+				nextState: daySixState,
+				events: [victoryEvent],
+			}),
+		).not.toContain("complete_game_by_day_5");
 	});
 
 	it("evaluates endless, legendary, and attribute achievements from facts", () => {
@@ -94,6 +152,46 @@ describe("achievement.service", () => {
 				"acquire_legendary_item",
 				"complete_endless_cycle",
 				"max_strength",
+			]),
+		);
+	});
+
+	it("evaluates effective health and armour class thresholds", () => {
+		const previousState = createTestRunState();
+		previousState.hero.maxHp = 99;
+		previousState.hero.currentHp = 99;
+		previousState.hero.equipment.body = null;
+		previousState.hero.attributes.dexterity = 28;
+		previousState.hero.featIds = ["runic_ward", "unyielding_guard", "duelist_training"];
+
+		const nextState = structuredClone(previousState);
+		nextState.hero.maxHp = 100;
+		nextState.hero.currentHp = 100;
+		nextState.hero.attributes.dexterity = 30;
+
+		expect(evaluateRunActionAchievements({ previousState, nextState, events: [] })).toEqual(
+			expect.arrayContaining(["reach_100_max_hp", "reach_25_armour_class"]),
+		);
+	});
+
+	it("evaluates level, gold, and every crossed streak threshold", () => {
+		const previousState = createTestRunState();
+		previousState.hero.level = 9;
+		previousState.gold = 9_999;
+		previousState.streak = 9;
+
+		const nextState = structuredClone(previousState);
+		nextState.hero.level = 10;
+		nextState.gold = 10_000;
+		nextState.streak = 50;
+
+		expect(evaluateRunActionAchievements({ previousState, nextState, events: [] })).toEqual(
+			expect.arrayContaining([
+				"reach_level_10",
+				"hold_10000_gold",
+				"reach_streak_10",
+				"reach_streak_25",
+				"reach_streak_50",
 			]),
 		);
 	});

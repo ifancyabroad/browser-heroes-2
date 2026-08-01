@@ -26,7 +26,7 @@ describe("AchievementGrid", () => {
 			/>,
 		);
 
-		expect(screen.getAllByRole("listitem")).toHaveLength(20);
+		expect(screen.getAllByRole("listitem")).toHaveLength(30);
 		expect(screen.getByText("Boss Breaker: Unlocked")).toBeInTheDocument();
 		expect(screen.getByText("Against All Odds: Locked")).toBeInTheDocument();
 		expect(screen.getAllByText(/Unlocked/)).toHaveLength(2);

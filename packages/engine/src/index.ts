@@ -34,7 +34,11 @@ export type {
 
 export { serializeRunState, deserializeRunState, deserializeRunStateJson } from "./serialization";
 
-export { hasReachedMaximumAttribute } from "./systems/hero/hasReachedMaximumAttribute";
+export {
+	hasReachedArmourClassThreshold,
+	hasReachedMaximumAttribute,
+	hasReachedMaxHpThreshold,
+} from "./systems/hero/hasReachedHeroStatThreshold";
 
 export { getEncounterTypeForBattle, getZoneForRun } from "./systems/encounters";
 

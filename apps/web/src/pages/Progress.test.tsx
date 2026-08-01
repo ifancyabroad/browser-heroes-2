@@ -33,7 +33,7 @@ describe("Progress", () => {
 
 		render(<Progress />);
 
-		expect(screen.getByText("1 / 20 UNLOCKED")).toBeInTheDocument();
+		expect(screen.getByText("1 / 30 UNLOCKED")).toBeInTheDocument();
 		expect(screen.getByText("Grid with 1 unlocks")).toBeInTheDocument();
 		expect(useAchievements).toHaveBeenCalledWith(true);
 	});

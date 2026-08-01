@@ -1,5 +1,11 @@
 import { achievementIds, type AchievementId, type Attribute, type ClassId } from "@app/content";
-import { hasReachedMaximumAttribute, type EngineEvent, type RunState } from "@app/engine";
+import {
+	hasReachedArmourClassThreshold,
+	hasReachedMaximumAttribute,
+	hasReachedMaxHpThreshold,
+	type EngineEvent,
+	type RunState,
+} from "@app/engine";
 import type { AchievementUnlockView } from "@app/shared";
 import type { ClientSession } from "mongoose";
 import { AchievementUnlockModel } from "../models/achievementUnlock.model";
@@ -22,6 +28,18 @@ const ATTRIBUTE_ACHIEVEMENTS: Record<Attribute, AchievementId> = {
 	wisdom: "max_wisdom",
 	charisma: "max_charisma",
 };
+
+const MAX_HP_ACHIEVEMENT_THRESHOLD = 100;
+const ARMOUR_CLASS_ACHIEVEMENT_THRESHOLD = 25;
+const LEVEL_ACHIEVEMENT_THRESHOLD = 10;
+const GOLD_ACHIEVEMENT_THRESHOLD = 10_000;
+const FAST_GAME_DAY_THRESHOLD = 5;
+
+const STREAK_ACHIEVEMENTS = [
+	{ threshold: 10, achievementId: "reach_streak_10" },
+	{ threshold: 25, achievementId: "reach_streak_25" },
+	{ threshold: 50, achievementId: "reach_streak_50" },
+] as const satisfies readonly { threshold: number; achievementId: AchievementId }[];
 
 type AchievementSource = {
 	runId?: string;
@@ -130,9 +148,21 @@ export function evaluateRunActionAchievements(input: {
 				unlocked.add("defeat_boss");
 			}
 
+			if (event.encounterType === "ghost") {
+				unlocked.add("defeat_ghost");
+			}
+
 			if (event.defeatedFinalBoss) {
 				unlocked.add("complete_game");
 				unlocked.add(CLASS_VICTORY_ACHIEVEMENTS[input.nextState.hero.classId]);
+
+				if (input.nextState.day <= FAST_GAME_DAY_THRESHOLD) {
+					unlocked.add("complete_game_by_day_5");
+				}
+
+				if (input.nextState.day === 1) {
+					unlocked.add("complete_game_without_resting");
+				}
 			}
 
 			if (event.completedEndlessCycle) {
@@ -165,5 +195,54 @@ export function evaluateRunActionAchievements(input: {
 		}
 	}
 
+	if (
+		!hasReachedMaxHpThreshold(input.previousState.hero, MAX_HP_ACHIEVEMENT_THRESHOLD) &&
+		hasReachedMaxHpThreshold(input.nextState.hero, MAX_HP_ACHIEVEMENT_THRESHOLD)
+	) {
+		unlocked.add("reach_100_max_hp");
+	}
+
+	if (
+		!hasReachedArmourClassThreshold(
+			input.previousState.hero,
+			ARMOUR_CLASS_ACHIEVEMENT_THRESHOLD,
+		) &&
+		hasReachedArmourClassThreshold(input.nextState.hero, ARMOUR_CLASS_ACHIEVEMENT_THRESHOLD)
+	) {
+		unlocked.add("reach_25_armour_class");
+	}
+
+	if (
+		crossedThreshold(
+			input.previousState.hero.level,
+			input.nextState.hero.level,
+			LEVEL_ACHIEVEMENT_THRESHOLD,
+		)
+	) {
+		unlocked.add("reach_level_10");
+	}
+
+	if (
+		crossedThreshold(input.previousState.gold, input.nextState.gold, GOLD_ACHIEVEMENT_THRESHOLD)
+	) {
+		unlocked.add("hold_10000_gold");
+	}
+
+	for (const streakAchievement of STREAK_ACHIEVEMENTS) {
+		if (
+			crossedThreshold(
+				input.previousState.streak,
+				input.nextState.streak,
+				streakAchievement.threshold,
+			)
+		) {
+			unlocked.add(streakAchievement.achievementId);
+		}
+	}
+
 	return achievementIds.filter((achievementId) => unlocked.has(achievementId));
+}
+
+function crossedThreshold(previous: number, next: number, threshold: number): boolean {
+	return previous < threshold && next >= threshold;
 }
