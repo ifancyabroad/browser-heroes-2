@@ -10,7 +10,8 @@
 		"node": ">=18.18"
 	},
 	"scripts": {
-		"dev": "pnpm -r --parallel run dev",
+		"dev": "pnpm --filter=!@app/content-studio -r --parallel run dev",
+		"studio": "pnpm --parallel --filter @app/content --filter @app/content-studio run dev",
 		"build": "pnpm -r run build",
 		"typecheck": "pnpm -r run typecheck",
 		"lint": "pnpm -r run lint",

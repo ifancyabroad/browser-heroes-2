@@ -1,0 +1,34 @@
+{
+	"name": "@app/content-studio",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Local read-only browser for Browser Heroes 2 content.",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --port 5174",
+		"build": "tsc -b --pretty false && vite build",
+		"typecheck": "tsc -b --pretty false",
+		"lint": "eslint .",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@app/content": "workspace:*",
+		"react": "^19.2.3",
+		"react-dom": "^19.2.3",
+		"react-router-dom": "^7.13.0"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.1.18",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@types/node": "^25.0.10",
+		"@types/react": "^19.2.9",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^5.1.2",
+		"jsdom": "^27.4.0",
+		"tailwindcss": "^4.1.18",
+		"typescript": "~5.9.3",
+		"vite": "^7.3.1",
+		"vitest": "^4.0.18"
+	}
+}

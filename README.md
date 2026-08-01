@@ -28,6 +28,17 @@ Default local services:
 - Web: `http://localhost:5173`
 - API: `http://localhost:4000`
 
+## Content Studio
+
+Run the local, read-only content browser separately from the game development stack:
+
+```bash
+pnpm studio
+```
+
+The studio is available at `http://localhost:5174`. It reads the generated registries from
+`@app/content` and serves artwork from `apps/web/public/assets/images`.
+
 The web app may optionally set `VITE_API_BASE_URL` in `apps/web/.env`. See
 [Infrastructure](docs/INFRASTRUCTURE.md) for runtime and deployment configuration.
 
