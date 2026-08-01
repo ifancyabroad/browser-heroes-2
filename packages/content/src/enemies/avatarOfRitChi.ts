@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["double_strike", "call_upon_rit_chi"],
 		featIds: ["siphoned_vigor"],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["constitution", "strength", "dexterity"],

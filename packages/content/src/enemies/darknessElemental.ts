@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["nightmares", "creeping_darkness"],
 		featIds: [],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

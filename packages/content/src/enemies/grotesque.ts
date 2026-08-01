@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["into_the_grinder", "leap_attack"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

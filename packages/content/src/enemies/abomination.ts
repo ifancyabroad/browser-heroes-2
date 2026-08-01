@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["double_strike", "corrupted_arm", "skull_bash"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

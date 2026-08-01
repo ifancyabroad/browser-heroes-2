@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["stand_ground", "armour_break", "holy_strike"],
 		featIds: [],
-		tactic: "default",
+		tactic: "defensive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "dexterity"],

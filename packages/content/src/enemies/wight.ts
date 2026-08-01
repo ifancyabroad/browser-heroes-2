@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["corrupting_touch"],
 		featIds: ["evasion"],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["constitution", "strength"],

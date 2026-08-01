@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["fire_breath", "drop_from_above"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "charisma"],

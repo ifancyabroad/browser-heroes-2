@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["deafening_screech"],
 		featIds: ["evasion"],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "dexterity"],

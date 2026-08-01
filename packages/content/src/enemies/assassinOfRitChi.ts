@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["backstab"],
 		featIds: ["acrobatic_training", "evasion"],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

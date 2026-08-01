@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["tentacle_wrap", "multi_strike", "horrifying_visage", "tentacle_crush"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "dexterity"],

@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["tentacle_wrap", "psionic_blast", "drain_life"],
 		featIds: ["arcane_warding", "siphoned_vigor"],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["intelligence", "wisdom", "strength"],

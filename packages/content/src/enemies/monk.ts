@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["cure_minor_wounds", "holy_bolt"],
 		featIds: ["runic_ward"],
-		tactic: "caster",
+		tactic: "defensive",
 	},
 	proficiencies: {
 		savingThrows: ["wisdom", "constitution"],

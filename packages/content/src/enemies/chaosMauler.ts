@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["tenderise", "mighty_blow", "overpower"],
 		featIds: [],
-		tactic: "default",
+		tactic: "random",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

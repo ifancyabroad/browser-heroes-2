@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["doom_song"],
 		featIds: [],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

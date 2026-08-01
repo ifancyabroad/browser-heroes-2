@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["acid_bite"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

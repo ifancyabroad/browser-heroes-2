@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["acid_bomb", "poison_bomb"],
 		featIds: ["corrosive_craft"],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

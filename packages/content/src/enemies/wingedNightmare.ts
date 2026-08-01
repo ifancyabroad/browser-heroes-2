@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["wind_strike", "drop_from_above"],
 		featIds: ["evasion"],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "strength"],

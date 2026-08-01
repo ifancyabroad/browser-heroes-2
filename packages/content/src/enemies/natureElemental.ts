@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["natures_blessing", "poison_cloud"],
 		featIds: [],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["constitution", "strength"],

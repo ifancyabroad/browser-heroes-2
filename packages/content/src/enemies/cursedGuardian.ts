@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["obliterate", "devour_soul", "double_strike"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["cleave", "minotaur_charge", "frenzy"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "wisdom"],

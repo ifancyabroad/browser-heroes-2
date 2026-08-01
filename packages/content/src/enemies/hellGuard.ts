@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["multi_shot", "drop_from_above", "hunterss_mark"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

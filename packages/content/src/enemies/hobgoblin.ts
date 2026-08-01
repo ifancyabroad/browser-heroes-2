@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["cripple"],
 		featIds: ["acrobatic_training"],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "dexterity"],

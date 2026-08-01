@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["berserk", "heavy_strike"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

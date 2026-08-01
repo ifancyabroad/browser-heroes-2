@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["cold_bite", "detect_blood"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "dexterity"],

@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["armour_break", "deafening_roar", "leap_attack", "wind_strike"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "charisma"],

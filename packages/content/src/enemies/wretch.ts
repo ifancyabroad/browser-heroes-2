@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["leap_attack"],
 		featIds: ["evasion"],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "strength"],

@@ -33,7 +33,7 @@ export default buildEnemy({
 		},
 		skillIds: ["petrifying_gaze", "leap_attack", "toxic_bite"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "strength"],

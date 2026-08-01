@@ -42,7 +42,7 @@ export default buildEnemy({
 		},
 		skillIds: ["disarm", "whirlwind_strike"],
 		featIds: ["focus_energy"],
-		tactic: "default",
+		tactic: "random",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],
