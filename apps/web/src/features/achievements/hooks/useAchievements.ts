@@ -7,5 +7,6 @@ export function useAchievements(enabled: boolean) {
 		queryKey: achievementKeys.unlocks(),
 		queryFn: ({ signal }) => getAchievements(signal),
 		enabled,
+		meta: { errorMessage: "Unable to load achievements. Please try again later." },
 	});
 }

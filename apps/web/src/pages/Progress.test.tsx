@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const useAuth = vi.hoisted(() => vi.fn());
 const useAchievements = vi.hoisted(() => vi.fn());
@@ -18,6 +18,7 @@ vi.mock("../features/achievements", () => ({
 import Progress from "./Progress";
 
 describe("Progress", () => {
+	beforeEach(() => vi.clearAllMocks());
 	it("shows account progress for a session user", () => {
 		useAuth.mockReturnValue({ hasSession: true });
 		useAchievements.mockReturnValue({
@@ -50,5 +51,14 @@ describe("Progress", () => {
 		expect(screen.getByText("0 / 40 UNLOCKED")).toBeInTheDocument();
 		expect(screen.getByText("Grid with 0 unlocks and 0 progress entries")).toBeInTheDocument();
 		expect(useAchievements).toHaveBeenCalledWith(false);
+	});
+
+	it("does not render an inline account progress error", () => {
+		useAuth.mockReturnValue({ hasSession: true });
+		useAchievements.mockReturnValue({ isPending: false, isError: true });
+
+		render(<Progress />);
+
+		expect(screen.queryByRole("button", { name: "RETRY" })).not.toBeInTheDocument();
 	});
 });

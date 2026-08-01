@@ -9,5 +9,6 @@ export function useRunLeaderboard(query: GetRunLeaderboardQuery, enabled = true)
 		queryFn: ({ signal }) => getRunLeaderboard(query, signal),
 		placeholderData: keepPreviousData,
 		enabled,
+		meta: { errorMessage: "Unable to load the leaderboard. Please try again later." },
 	});
 }

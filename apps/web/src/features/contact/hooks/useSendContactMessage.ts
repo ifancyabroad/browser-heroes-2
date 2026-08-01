@@ -2,5 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { sendContactMessage } from "../api/sendContactMessage";
 
 export function useSendContactMessage() {
-	return useMutation({ mutationFn: sendContactMessage });
+	return useMutation({
+		mutationFn: sendContactMessage,
+		meta: { errorMessage: "Unable to send your message. Please try again later." },
+	});
 }

@@ -5,7 +5,6 @@ import type {
 	LeaderboardScope,
 } from "@app/shared";
 import { useEffect, useState } from "react";
-import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { PageLayout } from "../components/PageLayout";
@@ -66,7 +65,6 @@ export default function Leaderboard() {
 
 	const runs = useRunLeaderboard(runQuery, activeTab === "heroes");
 	const ghosts = useGhostLeaderboard(ghostQuery, activeTab === "ghosts");
-
 	function handleTabChange(tab: LeaderboardTab) {
 		setActiveTab(tab);
 		setPage(1);
@@ -128,9 +126,7 @@ export default function Leaderboard() {
 									/>
 									{runs.isPending ? (
 										<LeaderboardMessage message="Loading hero rankings..." />
-									) : runs.isError ? (
-										<LeaderboardError onRetry={() => void runs.refetch()} />
-									) : runs.data.entries.length === 0 ? (
+									) : runs.isError ? null : runs.data.entries.length === 0 ? (
 										<LeaderboardMessage message="No heroes match these filters." />
 									) : (
 										<RunLeaderboardTable
@@ -161,9 +157,7 @@ export default function Leaderboard() {
 									/>
 									{ghosts.isPending ? (
 										<LeaderboardMessage message="Loading ghost rankings..." />
-									) : ghosts.isError ? (
-										<LeaderboardError onRetry={() => void ghosts.refetch()} />
-									) : ghosts.data.entries.length === 0 ? (
+									) : ghosts.isError ? null : ghosts.data.entries.length === 0 ? (
 										<LeaderboardMessage message="No ghosts match these filters." />
 									) : (
 										<GhostLeaderboardTable entries={ghosts.data.entries} />
@@ -191,17 +185,6 @@ export default function Leaderboard() {
 
 function LeaderboardMessage({ message }: { message: string }) {
 	return <p className="px-4 py-12 text-center text-text-muted">{message}</p>;
-}
-
-function LeaderboardError({ onRetry }: { onRetry: () => void }) {
-	return (
-		<div className="grid justify-items-center gap-3 px-4 py-12 text-center">
-			<p className="text-error">Unable to load the leaderboard.</p>
-			<Button type="button" onClick={onRetry}>
-				RETRY
-			</Button>
-		</div>
-	);
 }
 
 function UpdatingMessage() {

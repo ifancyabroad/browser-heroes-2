@@ -44,7 +44,6 @@ export default function Stats() {
 		summary: summary.data?.summary ?? emptySummary,
 		summaryPending: summary.isPending,
 		summaryError: summary.isError,
-		onSummaryRetry: () => void summary.refetch(),
 	};
 
 	return (

@@ -9,5 +9,6 @@ export function useRunStats(query: GetRunStatsQuery, enabled: boolean) {
 		queryFn: ({ signal }) => getRunStats(query, signal),
 		placeholderData: keepPreviousData,
 		enabled,
+		meta: { errorMessage: "Unable to load hero stats. Please try again later." },
 	});
 }

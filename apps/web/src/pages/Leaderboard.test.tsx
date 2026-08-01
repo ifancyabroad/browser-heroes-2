@@ -110,14 +110,11 @@ describe("Leaderboard", () => {
 		expect(screen.getByText("Page 1, total 21")).toBeInTheDocument();
 	});
 
-	it("retries failed hero rankings", () => {
-		const refetch = vi.fn();
-		hooks.useRunLeaderboard.mockReturnValue(queryState({ isError: true, refetch }));
+	it("does not render failed hero rankings inline", () => {
+		hooks.useRunLeaderboard.mockReturnValue(queryState({ isError: true }));
 		render(<Leaderboard />);
 
-		fireEvent.click(screen.getByRole("button", { name: "RETRY" }));
-
-		expect(refetch).toHaveBeenCalledOnce();
+		expect(screen.queryByRole("button", { name: "RETRY" })).not.toBeInTheDocument();
 	});
 
 	it("switches to and enables ghost rankings", () => {

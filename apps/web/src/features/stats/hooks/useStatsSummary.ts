@@ -7,5 +7,6 @@ export function useStatsSummary(enabled: boolean) {
 		queryKey: statsKeys.summary(),
 		queryFn: ({ signal }) => getStatsSummary(signal),
 		enabled,
+		meta: { errorMessage: "Unable to load overall stats. Please try again later." },
 	});
 }

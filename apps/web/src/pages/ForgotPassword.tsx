@@ -50,12 +50,6 @@ export default function ForgotPassword() {
 					{requestPasswordReset.data && (
 						<p className="text-info">{requestPasswordReset.data.message}</p>
 					)}
-
-					{requestPasswordReset.isError && (
-						<p role="alert" className="text-error">
-							Unable to request a reset email. Please try again.
-						</p>
-					)}
 				</form>
 			</Container>
 		</PageLayout>

@@ -1,6 +1,14 @@
-import { QueryClient } from "@tanstack/react-query";
+import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
+import { useErrorModalStore } from "../stores/errorModalStore";
 
 export const queryClient = new QueryClient({
+	queryCache: new QueryCache({
+		onError: (_error, query) => showConfiguredError(query.meta),
+	}),
+	mutationCache: new MutationCache({
+		onError: (_error, _variables, _onMutateResult, mutation) =>
+			showConfiguredError(mutation.meta),
+	}),
 	defaultOptions: {
 		queries: {
 			retry: 1,
@@ -10,3 +18,9 @@ export const queryClient = new QueryClient({
 		},
 	},
 });
+
+function showConfiguredError(meta: Record<string, unknown> | undefined): void {
+	if (typeof meta?.errorMessage === "string") {
+		useErrorModalStore.getState().showError(meta.errorMessage);
+	}
+}

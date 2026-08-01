@@ -7,5 +7,6 @@ export function useRunHero(runId: string | null) {
 		queryKey: runKeys.hero(runId),
 		queryFn: ({ signal }) => getRunHero(runId!, signal),
 		enabled: Boolean(runId),
+		meta: { errorMessage: "Unable to retrieve this hero. Please try again later." },
 	});
 }

@@ -18,7 +18,6 @@ type CommonPanelProps = {
 	summary: UserStatsSummaryView;
 	summaryPending: boolean;
 	summaryError: boolean;
-	onSummaryRetry: () => void;
 };
 
 export function HeroStatsPanel(props: CommonPanelProps) {
@@ -47,7 +46,6 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 		...(search ? { search } : {}),
 	};
 	const runs = useRunStats(query, props.hasSession && props.isActive);
-
 	return (
 		<>
 			<SummarySection tab="heroes" {...props} />
@@ -60,13 +58,7 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 			/>
 			{runs.isPending && props.hasSession ? (
 				<StatsDataState message="Loading hero stats..." />
-			) : runs.isError && props.hasSession ? (
-				<StatsDataState
-					message="Unable to load hero stats."
-					tone="error"
-					onRetry={() => void runs.refetch()}
-				/>
-			) : (runs.data?.entries.length ?? 0) === 0 ? (
+			) : runs.isError && props.hasSession ? null : (runs.data?.entries.length ?? 0) === 0 ? (
 				<StatsDataState
 					message={
 						search || classId !== "all"
@@ -123,7 +115,6 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 		...(search ? { search } : {}),
 	};
 	const ghosts = useGhostStats(query, props.hasSession && props.isActive);
-
 	return (
 		<>
 			<SummarySection tab="ghosts" {...props} />
@@ -136,13 +127,8 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 			/>
 			{ghosts.isPending && props.hasSession ? (
 				<StatsDataState message="Loading ghost stats..." />
-			) : ghosts.isError && props.hasSession ? (
-				<StatsDataState
-					message="Unable to load ghost stats."
-					tone="error"
-					onRetry={() => void ghosts.refetch()}
-				/>
-			) : (ghosts.data?.entries.length ?? 0) === 0 ? (
+			) : ghosts.isError && props.hasSession ? null : (ghosts.data?.entries.length ?? 0) ===
+			  0 ? (
 				<StatsDataState
 					message={
 						search || classId !== "all"
@@ -178,20 +164,12 @@ function SummarySection({
 	summaryPending,
 	summaryError,
 	hasSession,
-	onSummaryRetry,
 }: CommonPanelProps & { tab: "heroes" | "ghosts" }) {
 	if (summaryPending && hasSession) {
 		return <StatsSummaryLoading tab={tab} summary={summary} />;
 	}
 	if (summaryError && hasSession) {
-		return (
-			<StatsDataState
-				message="Unable to load overall stats."
-				tone="error"
-				onRetry={onSummaryRetry}
-				spacing="compact"
-			/>
-		);
+		return null;
 	}
 	return <StatsSummary tab={tab} summary={summary} />;
 }

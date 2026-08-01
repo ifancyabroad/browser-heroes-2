@@ -57,16 +57,14 @@ describe("HeroDossierModal", () => {
 		vi.clearAllMocks();
 	});
 
-	it("shows loading and retry states inside the open modal", () => {
+	it("shows loading without rendering retrieval failures inline", () => {
 		useRunHero.mockReturnValue(queryState({ isPending: true }));
 		const { rerender } = render(<HeroDossierModal runId="run-1" onClose={vi.fn()} />);
 		expect(screen.getByText("Retrieving hero record...")).toBeInTheDocument();
 
-		const refetch = vi.fn();
-		useRunHero.mockReturnValue(queryState({ isError: true, refetch }));
+		useRunHero.mockReturnValue(queryState({ isError: true }));
 		rerender(<HeroDossierModal runId="run-1" onClose={vi.fn()} />);
-		fireEvent.click(screen.getByRole("button", { name: "RETRY" }));
-		expect(refetch).toHaveBeenCalledOnce();
+		expect(screen.queryByRole("button", { name: "RETRY" })).not.toBeInTheDocument();
 	});
 
 	it("renders a concise build dossier and omits low-value run resources", () => {

@@ -19,7 +19,9 @@ export default function Contact() {
 				subject: String(form.get("subject")),
 				message: String(form.get("message")),
 			},
-			{ onSuccess: () => formElement.reset() },
+			{
+				onSuccess: () => formElement.reset(),
+			},
 		);
 	}
 
@@ -66,11 +68,6 @@ export default function Contact() {
 					</Button>
 
 					{contact.data && <p className="text-success">{contact.data.message}</p>}
-					{contact.isError && (
-						<p role="alert" className="text-error">
-							Unable to send your message. Please try again.
-						</p>
-					)}
 				</form>
 			</Container>
 		</PageLayout>

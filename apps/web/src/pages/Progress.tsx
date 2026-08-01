@@ -1,5 +1,4 @@
 import { achievements } from "@app/content";
-import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
@@ -27,13 +26,6 @@ export default function Progress() {
 				<section aria-label="Achievement progress">
 					{hasSession && achievementQuery.isPending ? (
 						<p className="py-8 text-center text-text-muted">Loading achievements...</p>
-					) : hasSession && achievementQuery.isError ? (
-						<div className="grid justify-items-center gap-3 py-8 text-center">
-							<p className="text-error">Unable to load achievements.</p>
-							<Button type="button" onClick={() => void achievementQuery.refetch()}>
-								RETRY
-							</Button>
-						</div>
 					) : (
 						<div className="grid gap-4">
 							<p className="text-text-muted tabular-nums">

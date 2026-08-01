@@ -60,7 +60,7 @@ describe("Contact", () => {
 		expect(await screen.findByText("Thanks — your message has been sent.")).toBeInTheDocument();
 	});
 
-	it("shows a useful error when submission fails", async () => {
+	it("does not render submission failures inline", async () => {
 		post.mockReturnValue({ json: () => Promise.reject(new Error("Unavailable")) });
 		renderContact();
 
@@ -73,7 +73,7 @@ describe("Contact", () => {
 		});
 		fireEvent.click(screen.getByRole("button", { name: "SEND MESSAGE" }));
 
-		const alert = await screen.findByRole("alert");
-		expect(alert).toHaveTextContent("Unable to send your message. Please try again.");
+		await waitFor(() => expect(post).toHaveBeenCalledOnce());
+		expect(screen.queryByRole("alert")).not.toBeInTheDocument();
 	});
 });

@@ -9,5 +9,6 @@ export function useGhostStats(query: GetGhostStatsQuery, enabled: boolean) {
 		queryFn: ({ signal }) => getGhostStats(query, signal),
 		placeholderData: keepPreviousData,
 		enabled,
+		meta: { errorMessage: "Unable to load ghost stats. Please try again later." },
 	});
 }
