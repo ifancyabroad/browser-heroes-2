@@ -1,23 +1,20 @@
-import { Types } from "mongoose";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const models = vi.hoisted(() => ({
 	run: {
 		find: vi.fn(),
 		countDocuments: vi.fn(),
-		aggregate: vi.fn(),
 	},
 	ghost: {
 		find: vi.fn(),
 		countDocuments: vi.fn(),
-		aggregate: vi.fn(),
 	},
 }));
 
 vi.mock("../models/run.model", () => ({ RunModel: models.run }));
 vi.mock("../models/ghost.model", () => ({ GhostModel: models.ghost }));
 
-import { getGhostStats, getRunStats, getUserStatsSummary } from "./stats.service";
+import { getGhostHistory, getRunHistory } from "./history.service";
 
 function arrangeQuery(find: ReturnType<typeof vi.fn>, rows: unknown[]) {
 	const lean = vi.fn().mockResolvedValue(rows);
@@ -28,13 +25,11 @@ function arrangeQuery(find: ReturnType<typeof vi.fn>, rows: unknown[]) {
 	return { sort, skip, limit };
 }
 
-describe("stats.service", () => {
+describe("history.service", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 		models.run.countDocuments.mockResolvedValue(0);
 		models.ghost.countDocuments.mockResolvedValue(0);
-		models.run.aggregate.mockResolvedValue([]);
-		models.ghost.aggregate.mockResolvedValue([]);
 		arrangeQuery(models.run.find, []);
 		arrangeQuery(models.ghost.find, []);
 	});
@@ -42,7 +37,7 @@ describe("stats.service", () => {
 	it("queries only the user's completed runs", async () => {
 		const query = arrangeQuery(models.run.find, []);
 
-		await getRunStats({
+		await getRunHistory({
 			userId: "user-id",
 			query: {
 				page: 2,
@@ -65,7 +60,7 @@ describe("stats.service", () => {
 	});
 
 	it("applies class and escaped case-insensitive hero search filters", async () => {
-		await getRunStats({
+		await getRunHistory({
 			userId: "user-id",
 			query: {
 				page: 1,
@@ -95,7 +90,7 @@ describe("stats.service", () => {
 	] as const)("maps run sort %s to %s", async (sort, field) => {
 		const query = arrangeQuery(models.run.find, []);
 
-		await getRunStats({
+		await getRunHistory({
 			userId: "user-id",
 			query: { page: 1, limit: 20, sort, direction: "asc" },
 		});
@@ -124,7 +119,7 @@ describe("stats.service", () => {
 		]);
 		models.run.countDocuments.mockResolvedValue(21);
 
-		const result = await getRunStats({
+		const result = await getRunHistory({
 			userId: "user-id",
 			query: { page: 2, limit: 10, sort: "day", direction: "desc" },
 		});
@@ -156,7 +151,7 @@ describe("stats.service", () => {
 	it("queries user ghosts with filters and mapped sorting", async () => {
 		const query = arrangeQuery(models.ghost.find, []);
 
-		await getGhostStats({
+		await getGhostHistory({
 			userId: "user-id",
 			query: {
 				page: 2,
@@ -188,7 +183,7 @@ describe("stats.service", () => {
 	] as const)("maps ghost sort %s to %s", async (sort, field) => {
 		const query = arrangeQuery(models.ghost.find, []);
 
-		await getGhostStats({
+		await getGhostHistory({
 			userId: "user-id",
 			query: { page: 1, limit: 20, sort, direction: "asc" },
 		});
@@ -211,7 +206,7 @@ describe("stats.service", () => {
 			},
 		]);
 
-		const result = await getGhostStats({
+		const result = await getGhostHistory({
 			userId: "user-id",
 			query: { page: 1, limit: 20, sort: "createdAt", direction: "desc" },
 		});
@@ -247,85 +242,11 @@ describe("stats.service", () => {
 			},
 		]);
 
-		const result = await getGhostStats({
+		const result = await getGhostHistory({
 			userId: "user-id",
 			query: { page: 1, limit: 20, sort: "createdAt", direction: "desc" },
 		});
 
 		expect(result.entries[0].winRate).toBe(0);
-	});
-
-	it("combines run, win, and ghost aggregates into a summary", async () => {
-		const userId = "507f1f77bcf86cd799439011";
-		models.run.aggregate.mockResolvedValue([
-			{
-				total: 5,
-				dead: 3,
-				retired: 2,
-				bestBattleNumber: 40,
-				bestZoneNumber: 5,
-				bestEndlessCycle: 3,
-				bestDay: 9,
-				totalKills: 50,
-			},
-		]);
-		models.run.countDocuments.mockResolvedValue(2);
-		models.ghost.aggregate.mockResolvedValue([
-			{ total: 3, kills: 6, deaths: 2, encounters: 10 },
-		]);
-
-		const result = await getUserStatsSummary(userId);
-
-		expect(result.summary).toEqual({
-			runs: {
-				total: 5,
-				dead: 3,
-				retired: 2,
-				wins: 2,
-				bestBattleNumber: 40,
-				bestZoneNumber: 5,
-				bestEndlessCycle: 3,
-				bestDay: 9,
-				totalKills: 50,
-			},
-			ghosts: {
-				total: 3,
-				kills: 6,
-				deaths: 2,
-				encounters: 10,
-				winRate: 0.75,
-			},
-		});
-		expect(models.run.countDocuments).toHaveBeenCalledWith({
-			userId: new Types.ObjectId(userId),
-			"summary.hasDefeatedFinalBoss": true,
-		});
-	});
-
-	it("returns zeroed summaries when no aggregate rows exist", async () => {
-		models.run.countDocuments.mockResolvedValue(0);
-
-		const result = await getUserStatsSummary("507f1f77bcf86cd799439011");
-
-		expect(result.summary).toEqual({
-			runs: {
-				total: 0,
-				dead: 0,
-				retired: 0,
-				wins: 0,
-				bestBattleNumber: 0,
-				bestZoneNumber: 0,
-				bestEndlessCycle: 0,
-				bestDay: 0,
-				totalKills: 0,
-			},
-			ghosts: {
-				total: 0,
-				kills: 0,
-				deaths: 0,
-				encounters: 0,
-				winRate: 0,
-			},
-		});
 	});
 });

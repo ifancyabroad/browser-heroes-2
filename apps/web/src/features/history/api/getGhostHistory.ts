@@ -1,9 +1,9 @@
-import type { GetRunStatsQuery, GetRunStatsResponse } from "@app/shared";
+import type { GetGhostHistoryQuery, GetGhostHistoryResponse } from "@app/shared";
 import { api } from "../../../lib/api";
 
-export function getRunStats(query: GetRunStatsQuery, signal?: AbortSignal) {
+export function getGhostHistory(query: GetGhostHistoryQuery, signal?: AbortSignal) {
 	return api
-		.get("stats/runs", {
+		.get("history/ghosts", {
 			signal,
 			searchParams: {
 				page: query.page,
@@ -14,5 +14,5 @@ export function getRunStats(query: GetRunStatsQuery, signal?: AbortSignal) {
 				direction: query.direction,
 			},
 		})
-		.json<GetRunStatsResponse>();
+		.json<GetGhostHistoryResponse>();
 }

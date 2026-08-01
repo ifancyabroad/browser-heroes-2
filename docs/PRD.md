@@ -83,7 +83,7 @@ Current town responsibilities include equipment shops, rest recovery, healing po
 
 ### 4.6 Meta Systems
 
-Ghost encounters, achievements, hero and ghost leaderboards, and personal run statistics currently add asynchronous competition, goals, and history around the core run. Achievement progress belongs to the user across heroes and is available to guests as well as registered accounts. Broader world activity remains future direction.
+Ghost encounters, achievements, hero and ghost leaderboards, and personal hero and ghost history currently add asynchronous competition and goals around the core run. Achievement progress belongs to the user across heroes and is available to guests as well as registered accounts. Broader world activity remains future direction.
 
 Meta systems must not override deterministic run rules unless their effects are represented explicitly in run state.
 

@@ -4,5 +4,5 @@ export * from "./heroNames";
 export * from "./health";
 export * from "./runs";
 export * from "./leaderboard";
-export * from "./stats";
+export * from "./history";
 export * from "./achievements";

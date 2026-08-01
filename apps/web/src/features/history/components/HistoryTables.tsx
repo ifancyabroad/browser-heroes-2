@@ -1,9 +1,9 @@
 import { getZoneForRun } from "@app/engine";
 import type {
-	GetGhostStatsQuery,
-	GetRunStatsQuery,
-	GhostStatsEntryView,
-	RunStatsEntryView,
+	GetGhostHistoryQuery,
+	GetRunHistoryQuery,
+	GhostHistoryEntryView,
+	RunHistoryEntryView,
 } from "@app/shared";
 import {
 	DataTable,
@@ -24,16 +24,16 @@ type SortProps<TSort extends string> = {
 	onSort: (sort: TSort) => void;
 };
 
-export function RunStatsTable({
+export function RunHistoryTable({
 	entries,
 	sort,
 	direction,
 	onSort,
 	onSelectRun,
 }: {
-	entries: RunStatsEntryView[];
+	entries: RunHistoryEntryView[];
 	onSelectRun: (runId: string) => void;
-} & SortProps<GetRunStatsQuery["sort"]>) {
+} & SortProps<GetRunHistoryQuery["sort"]>) {
 	return (
 		<DataTable tableClassName="sm:min-w-275">
 			<DataTableHeader>
@@ -125,12 +125,12 @@ export function RunStatsTable({
 	);
 }
 
-export function GhostStatsTable({
+export function GhostHistoryTable({
 	entries,
 	sort,
 	direction,
 	onSort,
-}: { entries: GhostStatsEntryView[] } & SortProps<GetGhostStatsQuery["sort"]>) {
+}: { entries: GhostHistoryEntryView[] } & SortProps<GetGhostHistoryQuery["sort"]>) {
 	return (
 		<DataTable tableClassName="sm:min-w-250">
 			<DataTableHeader>

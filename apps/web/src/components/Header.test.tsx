@@ -89,9 +89,9 @@ describe("Header", () => {
 		expect(
 			within(mobileNavigation).getByRole("link", { name: "LEADERBOARDS" }),
 		).toHaveAttribute("href", "/leaderboard");
-		expect(within(mobileNavigation).getByRole("link", { name: "STATS" })).toHaveAttribute(
+		expect(within(mobileNavigation).getByRole("link", { name: "HISTORY" })).toHaveAttribute(
 			"href",
-			"/stats",
+			"/history",
 		);
 		expect(within(mobileNavigation).getByRole("link", { name: "CONTACT" })).toHaveAttribute(
 			"href",

@@ -1,26 +1,22 @@
-import type { GetGhostStatsQuery, GetRunStatsQuery, UserStatsSummaryView } from "@app/shared";
+import type { GetGhostHistoryQuery, GetRunHistoryQuery } from "@app/shared";
 import { useState } from "react";
 import { TablePagination } from "../../../components/TablePagination";
 import { HeroDossierModal } from "../../heroDossier";
-import { useGhostStats } from "../hooks/useGhostStats";
-import { useRunStats } from "../hooks/useRunStats";
-import { useStatsTableControls } from "../hooks/useStatsTableControls";
-import { StatsDataState } from "./StatsDataState";
-import { StatsFilters } from "./StatsFilters";
-import { StatsSummary } from "./StatsSummary";
-import { GhostStatsTable, RunStatsTable } from "./StatsTables";
+import { useGhostHistory } from "../hooks/useGhostHistory";
+import { useRunHistory } from "../hooks/useRunHistory";
+import { useHistoryTableControls } from "../hooks/useHistoryTableControls";
+import { HistoryDataState } from "./HistoryDataState";
+import { HistoryFilters } from "./HistoryFilters";
+import { GhostHistoryTable, RunHistoryTable } from "./HistoryTables";
 
 const PAGE_SIZE = 20;
 
 type CommonPanelProps = {
 	hasSession: boolean;
 	isActive: boolean;
-	summary: UserStatsSummaryView;
-	summaryPending: boolean;
-	summaryError: boolean;
 };
 
-export function HeroStatsPanel(props: CommonPanelProps) {
+export function HeroHistoryPanel(props: CommonPanelProps) {
 	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 	const {
 		classId,
@@ -33,11 +29,11 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 		handleClassChange,
 		handleSearchInputChange,
 		handleSort,
-	} = useStatsTableControls<GetRunStatsQuery["sort"]>({
+	} = useHistoryTableControls<GetRunHistoryQuery["sort"]>({
 		defaultSort: "completedAt",
 		nameSort: "heroName",
 	});
-	const query: GetRunStatsQuery = {
+	const query: GetRunHistoryQuery = {
 		page,
 		limit: PAGE_SIZE,
 		sort,
@@ -45,11 +41,10 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 		...(classId !== "all" ? { classId } : {}),
 		...(search ? { search } : {}),
 	};
-	const runs = useRunStats(query, props.hasSession && props.isActive);
+	const runs = useRunHistory(query, props.hasSession && props.isActive);
 	return (
 		<>
-			<SummarySection tab="heroes" {...props} />
-			<StatsFilters
+			<HistoryFilters
 				entryType="heroes"
 				classId={classId}
 				searchInput={searchInput}
@@ -57,9 +52,9 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 				onSearchInputChange={handleSearchInputChange}
 			/>
 			{runs.isPending && props.hasSession ? (
-				<StatsDataState message="Loading hero stats..." />
+				<HistoryDataState message="Loading hero history..." />
 			) : runs.isError && props.hasSession ? null : (runs.data?.entries.length ?? 0) === 0 ? (
-				<StatsDataState
+				<HistoryDataState
 					message={
 						search || classId !== "all"
 							? "No heroes match these filters."
@@ -67,7 +62,7 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 					}
 				/>
 			) : (
-				<RunStatsTable
+				<RunHistoryTable
 					entries={runs.data?.entries ?? []}
 					sort={sort}
 					direction={direction}
@@ -90,7 +85,7 @@ export function HeroStatsPanel(props: CommonPanelProps) {
 	);
 }
 
-export function GhostStatsPanel(props: CommonPanelProps) {
+export function GhostHistoryPanel(props: CommonPanelProps) {
 	const {
 		classId,
 		searchInput,
@@ -102,11 +97,11 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 		handleClassChange,
 		handleSearchInputChange,
 		handleSort,
-	} = useStatsTableControls<GetGhostStatsQuery["sort"]>({
+	} = useHistoryTableControls<GetGhostHistoryQuery["sort"]>({
 		defaultSort: "updatedAt",
 		nameSort: "name",
 	});
-	const query: GetGhostStatsQuery = {
+	const query: GetGhostHistoryQuery = {
 		page,
 		limit: PAGE_SIZE,
 		sort,
@@ -114,11 +109,10 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 		...(classId !== "all" ? { classId } : {}),
 		...(search ? { search } : {}),
 	};
-	const ghosts = useGhostStats(query, props.hasSession && props.isActive);
+	const ghosts = useGhostHistory(query, props.hasSession && props.isActive);
 	return (
 		<>
-			<SummarySection tab="ghosts" {...props} />
-			<StatsFilters
+			<HistoryFilters
 				entryType="ghosts"
 				classId={classId}
 				searchInput={searchInput}
@@ -126,10 +120,10 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 				onSearchInputChange={handleSearchInputChange}
 			/>
 			{ghosts.isPending && props.hasSession ? (
-				<StatsDataState message="Loading ghost stats..." />
+				<HistoryDataState message="Loading ghost history..." />
 			) : ghosts.isError && props.hasSession ? null : (ghosts.data?.entries.length ?? 0) ===
 			  0 ? (
-				<StatsDataState
+				<HistoryDataState
 					message={
 						search || classId !== "all"
 							? "No ghosts match these filters."
@@ -137,7 +131,7 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 					}
 				/>
 			) : (
-				<GhostStatsTable
+				<GhostHistoryTable
 					entries={ghosts.data?.entries ?? []}
 					sort={sort}
 					direction={direction}
@@ -158,45 +152,10 @@ export function GhostStatsPanel(props: CommonPanelProps) {
 	);
 }
 
-function SummarySection({
-	tab,
-	summary,
-	summaryPending,
-	summaryError,
-	hasSession,
-}: CommonPanelProps & { tab: "heroes" | "ghosts" }) {
-	if (summaryPending && hasSession) {
-		return <StatsSummaryLoading tab={tab} summary={summary} />;
-	}
-	if (summaryError && hasSession) {
-		return null;
-	}
-	return <StatsSummary tab={tab} summary={summary} />;
-}
-
-function StatsSummaryLoading({
-	tab,
-	summary,
-}: {
-	tab: "heroes" | "ghosts";
-	summary: UserStatsSummaryView;
-}) {
-	return (
-		<div className="relative" aria-busy="true">
-			<div className="invisible" aria-hidden="true">
-				<StatsSummary tab={tab} summary={summary} />
-			</div>
-			<p className="absolute inset-0 grid place-items-center text-text-muted">
-				Loading overall stats...
-			</p>
-		</div>
-	);
-}
-
 function UpdatingMessage() {
 	return (
 		<p className="sr-only" aria-live="polite">
-			Updating stats...
+			Updating history...
 		</p>
 	);
 }

@@ -1,9 +1,9 @@
 import { classIdSchema, type ClassId } from "@app/content";
 import { z } from "zod";
 
-export const statsSortDirectionSchema = z.enum(["asc", "desc"]);
+export const historySortDirectionSchema = z.enum(["asc", "desc"]);
 
-export const runStatsSortSchema = z.enum([
+export const runHistorySortSchema = z.enum([
 	"completedAt",
 	"createdAt",
 	"battleNumber",
@@ -14,18 +14,18 @@ export const runStatsSortSchema = z.enum([
 	"heroName",
 ]);
 
-export const getRunStatsQuerySchema = z.object({
+export const getRunHistoryQuerySchema = z.object({
 	page: z.coerce.number().int().min(1).default(1),
 	limit: z.coerce.number().int().min(1).max(100).default(20),
 	classId: classIdSchema.optional(),
 	search: z.string().trim().min(1).max(64).optional(),
-	sort: runStatsSortSchema.default("completedAt"),
-	direction: statsSortDirectionSchema.default("desc"),
+	sort: runHistorySortSchema.default("completedAt"),
+	direction: historySortDirectionSchema.default("desc"),
 });
 
-export type GetRunStatsQuery = z.infer<typeof getRunStatsQuerySchema>;
+export type GetRunHistoryQuery = z.infer<typeof getRunHistoryQuerySchema>;
 
-export interface RunStatsEntryView {
+export interface RunHistoryEntryView {
 	runId: string;
 	heroName: string;
 	classId: ClassId;
@@ -40,15 +40,15 @@ export interface RunStatsEntryView {
 	completedAt: string;
 }
 
-export interface GetRunStatsResponse {
-	entries: RunStatsEntryView[];
+export interface GetRunHistoryResponse {
+	entries: RunHistoryEntryView[];
 	page: number;
 	limit: number;
 	total: number;
 	totalPages: number;
 }
 
-export const ghostStatsSortSchema = z.enum([
+export const ghostHistorySortSchema = z.enum([
 	"createdAt",
 	"updatedAt",
 	"kills",
@@ -59,18 +59,18 @@ export const ghostStatsSortSchema = z.enum([
 	"name",
 ]);
 
-export const getGhostStatsQuerySchema = z.object({
+export const getGhostHistoryQuerySchema = z.object({
 	page: z.coerce.number().int().min(1).default(1),
 	limit: z.coerce.number().int().min(1).max(100).default(20),
 	classId: classIdSchema.optional(),
 	search: z.string().trim().min(1).max(64).optional(),
-	sort: ghostStatsSortSchema.default("createdAt"),
-	direction: statsSortDirectionSchema.default("desc"),
+	sort: ghostHistorySortSchema.default("createdAt"),
+	direction: historySortDirectionSchema.default("desc"),
 });
 
-export type GetGhostStatsQuery = z.infer<typeof getGhostStatsQuerySchema>;
+export type GetGhostHistoryQuery = z.infer<typeof getGhostHistoryQuerySchema>;
 
-export interface GhostStatsEntryView {
+export interface GhostHistoryEntryView {
 	ghostId: string;
 	sourceRunId: string;
 	name: string;
@@ -85,36 +85,10 @@ export interface GhostStatsEntryView {
 	updatedAt: string;
 }
 
-export interface GetGhostStatsResponse {
-	entries: GhostStatsEntryView[];
+export interface GetGhostHistoryResponse {
+	entries: GhostHistoryEntryView[];
 	page: number;
 	limit: number;
 	total: number;
 	totalPages: number;
-}
-
-export interface UserStatsSummaryView {
-	runs: {
-		total: number;
-		dead: number;
-		retired: number;
-		wins: number;
-		bestBattleNumber: number;
-		bestZoneNumber: number;
-		bestEndlessCycle: number;
-		bestDay: number;
-		totalKills: number;
-	};
-
-	ghosts: {
-		total: number;
-		kills: number;
-		deaths: number;
-		encounters: number;
-		winRate: number;
-	};
-}
-
-export interface GetUserStatsSummaryResponse {
-	summary: UserStatsSummaryView;
 }

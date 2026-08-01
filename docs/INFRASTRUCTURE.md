@@ -127,7 +127,7 @@ The networking model should avoid:
 
 The authentication model is guest-first with optional email/password accounts.
 
-Players can begin without account creation. Guest sessions are stored through server-side sessions and associated with persisted users and runs. A guest can register later, upgrading the same user record so existing runs, ghosts, and statistics remain attached.
+Players can begin without account creation. Guest sessions are stored through server-side sessions and associated with persisted users and runs. A guest can register later, upgrading the same user record so existing runs, ghosts, history, and achievement progress remain attached.
 
 Registered accounts support login and password recovery. Signing into an existing account switches the browser to that account without transferring history from the previous guest session. Registration instead upgrades the current guest user in place, so its heroes and history remain attached automatically. Passwords are stored as Argon2id hashes. Recovery uses expiring, single-use opaque tokens whose hashes are persisted.
 

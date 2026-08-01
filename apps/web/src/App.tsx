@@ -4,7 +4,7 @@ import NotFound from "./pages/NotFound";
 import Landing from "./pages/Landing";
 import CreateCharacter from "./pages/CreateCharacter";
 import Leaderboard from "./pages/Leaderboard";
-import Stats from "./pages/Stats";
+import History from "./pages/History";
 import Account from "./pages/Account";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -19,7 +19,7 @@ export default function App() {
 			<Route path="/create-character" element={<CreateCharacter />} />
 			<Route path="/game" element={<Game />} />
 			<Route path="/leaderboard" element={<Leaderboard />} />
-			<Route path="/stats" element={<Stats />} />
+			<Route path="/history" element={<History />} />
 			<Route path="/progress" element={<Progress />} />
 			<Route path="/contact" element={<Contact />} />
 			<Route element={<PrivateRoute />}>

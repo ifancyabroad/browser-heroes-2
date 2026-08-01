@@ -2,7 +2,7 @@ import type { ClassId } from "@app/content";
 import { useState } from "react";
 import { useDebouncedValue } from "../../../hooks/useDebouncedValue";
 
-export function useStatsTableControls<TSort extends string>({
+export function useHistoryTableControls<TSort extends string>({
 	defaultSort,
 	nameSort,
 }: {

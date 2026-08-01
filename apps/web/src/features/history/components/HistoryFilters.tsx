@@ -2,7 +2,7 @@ import type { ClassId } from "@app/content";
 import { ClassSelect } from "../../../components/ClassSelect";
 import { InputField } from "../../../components/FormFields";
 
-type StatsFiltersProps = {
+type HistoryFiltersProps = {
 	entryType: "heroes" | "ghosts";
 	classId: ClassId | "all";
 	searchInput: string;
@@ -10,17 +10,17 @@ type StatsFiltersProps = {
 	onSearchInputChange: (value: string) => void;
 };
 
-export function StatsFilters({
+export function HistoryFilters({
 	entryType,
 	classId,
 	searchInput,
 	onClassChange,
 	onSearchInputChange,
-}: StatsFiltersProps) {
+}: HistoryFiltersProps) {
 	return (
 		<div className="flex flex-wrap items-end gap-3 border-y-2 border-border-secondary bg-bg-panel p-3">
 			<InputField
-				id="stats-search"
+				id="history-search"
 				type="search"
 				label="SEARCH"
 				value={searchInput}

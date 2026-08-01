@@ -1,16 +1,15 @@
 import type {
-	GetGhostStatsQuery,
-	GetRunStatsQuery,
-	GhostStatsEntryView,
-	RunStatsEntryView,
+	GetGhostHistoryQuery,
+	GetRunHistoryQuery,
+	GhostHistoryEntryView,
+	RunHistoryEntryView,
 } from "@app/shared";
 import { RunModel } from "../models/run.model";
 import { GhostModel } from "../models/ghost.model";
-import { Types } from "mongoose";
 
 const COMPLETED_RUN_STATUSES = ["dead", "retired"] as const;
 
-const runStatsSortMap = {
+const runHistorySortMap = {
 	completedAt: "completedAt",
 	createdAt: "createdAt",
 	battleNumber: "summary.battleNumber",
@@ -19,9 +18,9 @@ const runStatsSortMap = {
 	kills: "summary.kills",
 	level: "summary.level",
 	heroName: "summary.heroName",
-} satisfies Record<GetRunStatsQuery["sort"], string>;
+} satisfies Record<GetRunHistoryQuery["sort"], string>;
 
-const ghostStatsSortMap = {
+const ghostHistorySortMap = {
 	createdAt: "createdAt",
 	updatedAt: "updatedAt",
 	kills: "stats.kills",
@@ -30,13 +29,13 @@ const ghostStatsSortMap = {
 	heroLevel: "heroLevel",
 	encounterLevel: "encounterLevel",
 	name: "name",
-} satisfies Record<GetGhostStatsQuery["sort"], string>;
+} satisfies Record<GetGhostHistoryQuery["sort"], string>;
 
 function escapeRegex(value: string): string {
 	return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-export async function getRunStats(params: { userId: string; query: GetRunStatsQuery }) {
+export async function getRunHistory(params: { userId: string; query: GetRunHistoryQuery }) {
 	const { query } = params;
 
 	const filter: Record<string, unknown> = {
@@ -61,7 +60,7 @@ export async function getRunStats(params: { userId: string; query: GetRunStatsQu
 	}
 
 	const skip = (query.page - 1) * query.limit;
-	const sortField = runStatsSortMap[query.sort];
+	const sortField = runHistorySortMap[query.sort];
 	const sortDirection = query.direction === "asc" ? 1 : -1;
 
 	const [runs, total] = await Promise.all([
@@ -77,7 +76,7 @@ export async function getRunStats(params: { userId: string; query: GetRunStatsQu
 		RunModel.countDocuments(filter),
 	]);
 
-	const entries: RunStatsEntryView[] = runs.map((run) => ({
+	const entries: RunHistoryEntryView[] = runs.map((run) => ({
 		runId: String(run._id),
 		heroName: run.summary.heroName,
 		classId: run.summary.classId,
@@ -101,7 +100,7 @@ export async function getRunStats(params: { userId: string; query: GetRunStatsQu
 	};
 }
 
-export async function getGhostStats(params: { userId: string; query: GetGhostStatsQuery }) {
+export async function getGhostHistory(params: { userId: string; query: GetGhostHistoryQuery }) {
 	const { query } = params;
 
 	const filter: Record<string, unknown> = {
@@ -120,7 +119,7 @@ export async function getGhostStats(params: { userId: string; query: GetGhostSta
 	}
 
 	const skip = (query.page - 1) * query.limit;
-	const sortField = ghostStatsSortMap[query.sort];
+	const sortField = ghostHistorySortMap[query.sort];
 	const sortDirection = query.direction === "asc" ? 1 : -1;
 
 	const [ghosts, total] = await Promise.all([
@@ -136,7 +135,7 @@ export async function getGhostStats(params: { userId: string; query: GetGhostSta
 		GhostModel.countDocuments(filter),
 	]);
 
-	const entries: GhostStatsEntryView[] = ghosts.map((ghost) => {
+	const entries: GhostHistoryEntryView[] = ghosts.map((ghost) => {
 		const kills = ghost.stats.kills;
 		const deaths = ghost.stats.deaths;
 		const completedCombats = kills + deaths;
@@ -163,112 +162,5 @@ export async function getGhostStats(params: { userId: string; query: GetGhostSta
 		limit: query.limit,
 		total,
 		totalPages: Math.ceil(total / query.limit),
-	};
-}
-
-export async function getUserStatsSummary(userId: string) {
-	const userObjectId = new Types.ObjectId(userId);
-
-	const [runStats, wins, ghostStats] = await Promise.all([
-		RunModel.aggregate<{
-			total: number;
-			dead: number;
-			retired: number;
-			bestBattleNumber: number;
-			bestZoneNumber: number;
-			bestEndlessCycle: number;
-			bestDay: number;
-			totalKills: number;
-		}>([
-			{
-				$match: {
-					userId: userObjectId,
-					status: {
-						$in: COMPLETED_RUN_STATUSES,
-					},
-					completedAt: {
-						$ne: null,
-					},
-				},
-			},
-			{
-				$group: {
-					_id: null,
-					total: { $sum: 1 },
-					dead: {
-						$sum: {
-							$cond: [{ $eq: ["$status", "dead"] }, 1, 0],
-						},
-					},
-					retired: {
-						$sum: {
-							$cond: [{ $eq: ["$status", "retired"] }, 1, 0],
-						},
-					},
-					bestBattleNumber: { $max: "$summary.battleNumber" },
-					bestZoneNumber: { $max: "$summary.zoneNumber" },
-					bestEndlessCycle: { $max: "$summary.endlessCycle" },
-					bestDay: { $max: "$summary.day" },
-					totalKills: { $sum: "$summary.kills" },
-				},
-			},
-		]),
-
-		RunModel.countDocuments({
-			userId: userObjectId,
-			"summary.hasDefeatedFinalBoss": true,
-		}),
-
-		GhostModel.aggregate<{
-			total: number;
-			kills: number;
-			deaths: number;
-			encounters: number;
-		}>([
-			{
-				$match: {
-					userId: userObjectId,
-				},
-			},
-			{
-				$group: {
-					_id: null,
-					total: { $sum: 1 },
-					kills: { $sum: "$stats.kills" },
-					deaths: { $sum: "$stats.deaths" },
-					encounters: { $sum: "$stats.encounters" },
-				},
-			},
-		]),
-	]);
-
-	const runs = runStats[0];
-	const ghosts = ghostStats[0];
-
-	const ghostKills = ghosts?.kills ?? 0;
-	const ghostDeaths = ghosts?.deaths ?? 0;
-	const ghostCompletedCombats = ghostKills + ghostDeaths;
-
-	return {
-		summary: {
-			runs: {
-				total: runs?.total ?? 0,
-				dead: runs?.dead ?? 0,
-				retired: runs?.retired ?? 0,
-				wins,
-				bestBattleNumber: runs?.bestBattleNumber ?? 0,
-				bestZoneNumber: runs?.bestZoneNumber ?? 0,
-				bestEndlessCycle: runs?.bestEndlessCycle ?? 0,
-				bestDay: runs?.bestDay ?? 0,
-				totalKills: runs?.totalKills ?? 0,
-			},
-			ghosts: {
-				total: ghosts?.total ?? 0,
-				kills: ghostKills,
-				deaths: ghostDeaths,
-				encounters: ghosts?.encounters ?? 0,
-				winRate: ghostCompletedCombats > 0 ? ghostKills / ghostCompletedCombats : 0,
-			},
-		},
 	};
 }
