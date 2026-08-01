@@ -41,13 +41,14 @@ describe("Progress", () => {
 		expect(useAchievements).toHaveBeenCalledWith(true);
 	});
 
-	it("does not request achievements without a user session", () => {
+	it("shows locked achievements without requesting account progress when there is no session", () => {
 		useAuth.mockReturnValue({ hasSession: false });
 		useAchievements.mockReturnValue({ isPending: false, isError: false });
 
 		render(<Progress />);
 
-		expect(screen.getByText(/Start a hero/)).toBeInTheDocument();
+		expect(screen.getByText("0 / 40 UNLOCKED")).toBeInTheDocument();
+		expect(screen.getByText("Grid with 0 unlocks and 0 progress entries")).toBeInTheDocument();
 		expect(useAchievements).toHaveBeenCalledWith(false);
 	});
 });

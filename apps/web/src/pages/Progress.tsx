@@ -25,13 +25,9 @@ export default function Progress() {
 				</header>
 
 				<section aria-label="Achievement progress">
-					{!hasSession ? (
-						<p className="py-8 text-center text-text-muted">
-							Start a hero to begin tracking achievements.
-						</p>
-					) : achievementQuery.isPending ? (
+					{hasSession && achievementQuery.isPending ? (
 						<p className="py-8 text-center text-text-muted">Loading achievements...</p>
-					) : achievementQuery.isError ? (
+					) : hasSession && achievementQuery.isError ? (
 						<div className="grid justify-items-center gap-3 py-8 text-center">
 							<p className="text-error">Unable to load achievements.</p>
 							<Button type="button" onClick={() => void achievementQuery.refetch()}>
