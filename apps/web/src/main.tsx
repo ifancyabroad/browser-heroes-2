@@ -12,6 +12,7 @@ import { LoginModal, RegisterModal, SessionGate } from "./features/auth";
 import { ErrorModal } from "./components/ErrorModal.tsx";
 import { SocketConnection } from "./components/SocketConnection.tsx";
 import { TooltipProvider } from "./components/Tooltip.tsx";
+import { AchievementToasts } from "./features/achievements";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -30,6 +31,7 @@ createRoot(document.getElementById("root")!).render(
 							<LoginModal />
 							<RegisterModal />
 							<ErrorModal />
+							<AchievementToasts />
 						</SessionGate>
 					</TooltipProvider>
 				</BrowserRouter>

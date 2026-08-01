@@ -1,0 +1,52 @@
+.toast {
+	animation: achievement-toast-in 160ms ease-out;
+}
+
+.toast[data-state="closed"] {
+	animation: achievement-toast-out 120ms ease-in;
+}
+
+.toast[data-swipe="move"] {
+	transform: translateX(var(--radix-toast-swipe-move-x));
+}
+
+.toast[data-swipe="cancel"] {
+	transform: translateX(0);
+	transition: transform 120ms ease-out;
+}
+
+.toast[data-swipe="end"] {
+	animation: achievement-toast-swipe-out 120ms ease-out;
+}
+
+@keyframes achievement-toast-in {
+	from {
+		opacity: 0;
+		transform: translateX(1rem);
+	}
+}
+
+@keyframes achievement-toast-out {
+	to {
+		opacity: 0;
+		transform: translateX(1rem);
+	}
+}
+
+@keyframes achievement-toast-swipe-out {
+	to {
+		transform: translateX(calc(100% + 1rem));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.toast,
+	.toast[data-state="closed"],
+	.toast[data-swipe="end"] {
+		animation: none;
+	}
+
+	.toast[data-swipe="cancel"] {
+		transition: none;
+	}
+}

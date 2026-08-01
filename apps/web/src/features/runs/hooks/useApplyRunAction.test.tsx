@@ -6,8 +6,13 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { runKeys } from "../api/runKeys";
 
 const applyRunAction = vi.hoisted(() => vi.fn());
+const showAchievementUnlocks = vi.hoisted(() => vi.fn());
 
 vi.mock("../api/applyRunAction", () => ({ applyRunAction }));
+vi.mock("../../achievements/stores/achievementToastStore", () => ({
+	useAchievementToastStore: (selector: (state: unknown) => unknown) =>
+		selector({ showAchievementUnlocks }),
+}));
 
 import { useApplyRunAction } from "./useApplyRunAction";
 
@@ -80,6 +85,53 @@ describe("useApplyRunAction", () => {
 		expect(queryClient.getQueryData(runKeys.current())).toEqual({ run });
 	});
 
+	it("publishes new achievement unlocks and invalidates achievement queries", async () => {
+		const run = createRun("combat");
+		const unlockedAchievements = [
+			{ achievementId: "defeat_boss" as const, unlockedAt: "2026-01-01T00:00:00.000Z" },
+		];
+		applyRunAction.mockResolvedValue({
+			run,
+			result: { ok: true, state: run.state, events: [] },
+			unlockedAchievements,
+		});
+		const { queryClient, wrapper } = createHarness();
+		const invalidateQueries = vi.spyOn(queryClient, "invalidateQueries");
+		const { result } = renderHook(() => useApplyRunAction(), { wrapper });
+
+		await act(() =>
+			result.current.mutateAsync({
+				runId: "run-id",
+				action: { type: "PLAYER_SKIP_TURN" },
+			}),
+		);
+
+		expect(showAchievementUnlocks).toHaveBeenCalledWith(unlockedAchievements);
+		expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: ["achievements"] });
+	});
+
+	it("does not publish or invalidate achievements when none were unlocked", async () => {
+		const run = createRun("combat");
+		applyRunAction.mockResolvedValue({
+			run,
+			result: { ok: true, state: run.state, events: [] },
+			unlockedAchievements: [],
+		});
+		const { queryClient, wrapper } = createHarness();
+		const invalidateQueries = vi.spyOn(queryClient, "invalidateQueries");
+		const { result } = renderHook(() => useApplyRunAction(), { wrapper });
+
+		await act(() =>
+			result.current.mutateAsync({
+				runId: "run-id",
+				action: { type: "PLAYER_SKIP_TURN" },
+			}),
+		);
+
+		expect(showAchievementUnlocks).not.toHaveBeenCalled();
+		expect(invalidateQueries).not.toHaveBeenCalled();
+	});
+
 	it.each(["dead", "retired"] as const)(
 		"removes %s runs from the playable current-run cache",
 		async (phase) => {
@@ -120,5 +172,6 @@ describe("useApplyRunAction", () => {
 
 		expect(queryClient.getQueryData(runKeys.game())).toEqual({ run: existingRun });
 		expect(queryClient.getQueryData(runKeys.detail("run-id"))).toBeUndefined();
+		expect(showAchievementUnlocks).not.toHaveBeenCalled();
 	});
 });

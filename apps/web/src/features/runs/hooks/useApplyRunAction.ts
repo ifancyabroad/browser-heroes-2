@@ -4,9 +4,13 @@ import { applyRunAction } from "../api/applyRunAction";
 import { runKeys } from "../api/runKeys";
 import { isPlayableRunState } from "../utils/isPlayableRunState";
 import { achievementKeys } from "../../achievements/api/achievementKeys";
+import { useAchievementToastStore } from "../../achievements/stores/achievementToastStore";
 
 export function useApplyRunAction() {
 	const queryClient = useQueryClient();
+	const showAchievementUnlocks = useAchievementToastStore(
+		(state) => state.showAchievementUnlocks,
+	);
 
 	return useMutation({
 		mutationFn: (payload: RunActionPayload) => applyRunAction(payload),
@@ -22,6 +26,7 @@ export function useApplyRunAction() {
 			);
 
 			if (unlockedAchievements?.length > 0) {
+				showAchievementUnlocks(unlockedAchievements);
 				void queryClient.invalidateQueries({ queryKey: achievementKeys.all });
 			}
 		},
