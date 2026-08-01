@@ -1,6 +1,7 @@
 import { achievements, type Achievement } from "@app/content";
 import type { AchievementUnlockView } from "@app/shared";
 import clsx from "clsx";
+import { LockSharp } from "pixelarticons/react/LockSharp";
 import { Tooltip } from "../../../components/Tooltip";
 import { resolveImageUrl } from "../../../utils/image";
 
@@ -13,7 +14,7 @@ export function AchievementGrid({ unlocks }: AchievementGridProps) {
 
 	return (
 		<ul
-			className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
+			className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12"
 			aria-label="Achievements"
 		>
 			{achievements.map((achievement) => {
@@ -33,7 +34,7 @@ export function AchievementGrid({ unlocks }: AchievementGridProps) {
 						>
 							<span
 								className={clsx(
-									"relative grid aspect-square w-full place-items-center overflow-hidden border-2 bg-bg-base p-2",
+									"relative grid aspect-square w-full place-items-center overflow-hidden border-2 bg-bg-base p-1.5 sm:p-2",
 									unlock ? "border-primary" : "border-border",
 								)}
 							>
@@ -46,12 +47,10 @@ export function AchievementGrid({ unlocks }: AchievementGridProps) {
 									)}
 								/>
 								{!unlock && (
-									<span
+									<LockSharp
 										aria-hidden="true"
-										className="absolute inset-x-1 bottom-1 border border-border bg-bg-elevated/95 px-1 text-center text-text-muted"
-									>
-										LOCKED
-									</span>
+										className="absolute h-6 w-6 text-text-muted drop-shadow-[2px_2px_0_var(--color-bg-base)] sm:h-8 sm:w-8"
+									/>
 								)}
 								<span className="sr-only">
 									{achievement.name}: {unlock ? "Unlocked" : "Locked"}

@@ -1,6 +1,5 @@
 import { achievements } from "@app/content";
 import { Button } from "../components/Button";
-import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
@@ -24,7 +23,7 @@ export default function Progress() {
 					</p>
 				</header>
 
-				<Card className="p-4 sm:p-5">
+				<section aria-label="Achievement progress">
 					{!hasSession ? (
 						<p className="py-8 text-center text-text-muted">
 							Start a hero to begin tracking achievements.
@@ -46,7 +45,7 @@ export default function Progress() {
 							<AchievementGrid unlocks={unlocks} />
 						</div>
 					)}
-				</Card>
+				</section>
 			</Container>
 		</PageLayout>
 	);
