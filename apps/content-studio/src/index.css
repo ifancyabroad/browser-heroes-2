@@ -563,8 +563,13 @@ td a {
 .asset-header h2 {
 	margin: 0;
 }
-.asset-filters input {
+.editor-field .asset-filters input {
 	flex: 1;
+	width: auto;
+	min-width: 220px;
+}
+.editor-field .asset-filters select {
+	width: min(360px, 40%);
 }
 .asset-grid {
 	overflow: auto;
