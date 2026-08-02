@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Infuse yourself with divine might, bolstering physical prowess.",
 	icon: "skills/cleric/divine_strength.png",
 	pool: "cleric",
+	kind: "prayer",
 	category: "buff",
 	maxUses: 6,
 	effects: [

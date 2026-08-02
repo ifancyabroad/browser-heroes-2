@@ -7,7 +7,8 @@ export default buildSkill({
 		"Unleash a swarm of biting insects that deal piercing damage and erode enemy defenses.",
 	icon: "skills/occultist/insect_plague.png",
 	pool: "occultist",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

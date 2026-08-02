@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Spook",
 	icon: "skills/common/spook.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

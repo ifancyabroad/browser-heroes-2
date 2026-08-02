@@ -7,6 +7,7 @@ export default buildSkill({
 		"Call upon divine favor to boost radiant damage and to provide protection from harmful effects.",
 	icon: "skills/cleric/prayer.png",
 	pool: "cleric",
+	kind: "prayer",
 	category: "buff",
 	maxUses: 8,
 	effects: [

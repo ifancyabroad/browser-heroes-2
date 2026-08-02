@@ -7,7 +7,8 @@ export default buildSkill({
 		"Unleashes a deathly beam of necrotic power that corrupts the target's soul, causing immense pain and destruction.",
 	icon: "skills/warlock/finger_of_death.png",
 	pool: "warlock",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

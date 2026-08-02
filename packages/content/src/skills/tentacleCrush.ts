@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Tentacle Crush",
 	icon: "skills/common/tentacle_crush.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Ice Punch",
 	icon: "skills/common/ice_punch.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 6,
 	effects: [
 		{

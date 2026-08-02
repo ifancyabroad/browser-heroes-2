@@ -7,6 +7,7 @@ export default buildSkill({
 		"Receive a surge of divine power, greatly enhancing strength, dexterity, and constitution to improve your combat abilities.",
 	icon: "skills/cleric/divine_inspiration.png",
 	pool: "cleric",
+	kind: "prayer",
 	category: "buff",
 	maxUses: 6,
 	effects: [

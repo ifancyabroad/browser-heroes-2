@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Skull Bash",
 	icon: "skills/common/skull_bash.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 5,
 	effects: [
 		{

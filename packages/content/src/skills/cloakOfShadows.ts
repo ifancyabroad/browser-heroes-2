@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Shroud yourself in dark energy, enhancing resistance to elemental attacks.",
 	icon: "skills/assassin/cloak_of_shadows.png",
 	pool: "assassin",
-	category: "buff",
+	kind: "technique",
+	category: "defensive",
 	maxUses: 3,
 	effects: [
 		{

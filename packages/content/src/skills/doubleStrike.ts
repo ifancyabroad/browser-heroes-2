@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Execute two rapid attacks in quick succession against a single target.",
 	icon: "skills/warrior/double_strike.png",
 	pool: "warrior",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 3,
 	effects: [
 		{

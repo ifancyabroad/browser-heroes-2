@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Toxic Bite",
 	icon: "skills/common/toxic_bite.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

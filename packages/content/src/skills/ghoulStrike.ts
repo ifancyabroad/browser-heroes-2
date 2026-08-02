@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Ghoul Strike",
 	icon: "skills/unique/ghoul_strike.png",
 	pool: "unique",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 3,
 	effects: [
 		{

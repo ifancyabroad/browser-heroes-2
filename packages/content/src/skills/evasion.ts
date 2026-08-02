@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Swiftly dodge incoming attacks, greatly reducing the chance of being hit.",
 	icon: "skills/rogue/evasion.png",
 	pool: "rogue",
-	category: "buff",
+	kind: "technique",
+	category: "defensive",
 	maxUses: 3,
 	effects: [
 		{

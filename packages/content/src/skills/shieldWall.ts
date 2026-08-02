@@ -7,7 +7,8 @@ export default buildSkill({
 		"Stand resolute with Shield Wall, shielding yourself from harm and repelling enemy assaults with unwavering defense.",
 	icon: "skills/common/shield_wall.png",
 	pool: "common",
-	category: "buff",
+	kind: "technique",
+	category: "defensive",
 	maxUses: 5,
 	effects: [
 		{

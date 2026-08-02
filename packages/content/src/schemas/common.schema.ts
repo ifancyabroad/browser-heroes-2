@@ -138,9 +138,12 @@ export const skillPools = [
 
 export const skillPoolSchema = z.enum(skillPools);
 
+export const skillKinds = ["weaponAttack", "spellAttack", "spell", "technique", "prayer"] as const;
+
+export const skillKindSchema = z.enum(skillKinds);
+
 export const skillCategories = [
-	"attack",
-	"spell",
+	"damage",
 	"heal",
 	"buff",
 	"debuff",
@@ -210,6 +213,7 @@ export type Dice = z.infer<typeof diceSchema>;
 export type DiceFormula = z.infer<typeof diceFormulaSchema>;
 export type HitDie = z.infer<typeof hitDieSchema>;
 export type SkillPool = z.infer<typeof skillPoolSchema>;
+export type SkillKind = z.infer<typeof skillKindSchema>;
 export type SkillCategory = z.infer<typeof skillCategorySchema>;
 export type SkillTarget = z.infer<typeof skillTargetSchema>;
 export type ArmourType = z.infer<typeof armourTypeSchema>;

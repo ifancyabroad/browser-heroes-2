@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Necro Breath",
 	icon: "skills/common/necro_breath.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

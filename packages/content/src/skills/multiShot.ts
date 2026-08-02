@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Multi Shot",
 	icon: "skills/common/multi_shot.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

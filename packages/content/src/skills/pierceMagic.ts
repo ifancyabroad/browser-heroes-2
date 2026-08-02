@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Reduce the opponents magic resistance.",
 	icon: "skills/mage/pierce_magic.png",
 	pool: "mage",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 4,
 	effects: [

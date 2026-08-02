@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Corrupted Arm",
 	icon: "skills/unique/corrupted_arm.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

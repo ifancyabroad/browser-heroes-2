@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Poison Cloud",
 	icon: "skills/common/poison_cloud.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

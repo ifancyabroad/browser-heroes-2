@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Poison Claw",
 	icon: "skills/common/poison_claw.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 6,
 	effects: [
 		{

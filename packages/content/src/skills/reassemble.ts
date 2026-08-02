@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Reassemble",
 	icon: "skills/common/reassemble.png",
 	pool: "common",
+	kind: "technique",
 	category: "heal",
 	maxUses: 1,
 	effects: [

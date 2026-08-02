@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Make it Rain",
 	icon: "skills/unique/make_it_rain.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

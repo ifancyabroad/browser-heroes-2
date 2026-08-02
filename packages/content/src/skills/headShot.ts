@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Head Shot",
 	icon: "skills/common/head_shot.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

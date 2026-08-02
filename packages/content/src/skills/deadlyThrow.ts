@@ -7,7 +7,8 @@ export default buildSkill({
 		"Hurl a precise projectile that strikes three times, dealing consecutive piercing damage.",
 	icon: "skills/assassin/deadly_throw.png",
 	pool: "assassin",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

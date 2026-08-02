@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Petrifying Gaze",
 	icon: "skills/common/petrifying_gaze.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 1,
 	effects: [

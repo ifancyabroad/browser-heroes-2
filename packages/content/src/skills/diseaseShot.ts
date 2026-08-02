@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Disease Shot",
 	icon: "skills/common/disease_shot.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

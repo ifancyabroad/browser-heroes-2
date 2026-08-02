@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Leap Attack",
 	icon: "skills/common/leap_attack.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Harden the skin to greatly increase physical resistance.",
 	icon: "skills/warlock/iron_skin.png",
 	pool: "warlock",
-	category: "buff",
+	kind: "spell",
+	category: "defensive",
 	maxUses: 4,
 	effects: [
 		{

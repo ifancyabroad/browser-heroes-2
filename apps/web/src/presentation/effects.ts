@@ -98,7 +98,7 @@ export function formatSkillEffect(effect: Effect): string {
 		case "damage":
 			return formatDamageEffect(effect);
 		case "attackDamage":
-			return `Deal ${effect.multiplier}x weapon damage${effect.damageTypeOverride ? ` as ${damageTypeLabels[effect.damageTypeOverride]} damage` : ""}${effect.extraDice ? ` plus ${effect.extraDice}${effect.extraDamageType ? ` ${damageTypeLabels[effect.extraDamageType]}` : ""} damage` : ""} to the enemy.`;
+			return `Deal ${effect.multiplier}x weapon damage${effect.damageTypeOverride ? ` as ${damageTypeLabels[effect.damageTypeOverride]} damage` : ""}${effect.extraDice ? ` plus ${effect.extraDice}${effect.extraDamageType ? ` ${damageTypeLabels[effect.extraDamageType]}` : ""} damage` : ""} to the enemy${effect.rollMode ? ` with ${effect.rollMode}` : ""}.`;
 		case "heal":
 			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
@@ -112,6 +112,7 @@ export function formatSkillEffect(effect: Effect): string {
 				"add",
 				effect.value,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyHealing":
 			return formatTemporaryModifier(
@@ -120,6 +121,7 @@ export function formatSkillEffect(effect: Effect): string {
 				"multiply",
 				effect.multiplier,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyDamage":
 			return formatTemporaryModifier(
@@ -128,6 +130,7 @@ export function formatSkillEffect(effect: Effect): string {
 				effect.operation,
 				effect.value,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyDamageTaken":
 			return formatTemporaryModifier(
@@ -136,6 +139,7 @@ export function formatSkillEffect(effect: Effect): string {
 				effect.operation,
 				effect.value,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyDamageAffinity":
 			return formatDamageAffinityEffect(effect);
@@ -167,6 +171,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				"add",
 				effect.value,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyHealing":
 			return formatTemporaryModifier(
@@ -175,6 +180,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				"multiply",
 				effect.multiplier,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyDamage":
 			return formatTemporaryModifier(
@@ -183,6 +189,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				effect.operation,
 				effect.value,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyDamageTaken":
 			return formatTemporaryModifier(
@@ -191,6 +198,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				effect.operation,
 				effect.value,
 				effect.durationTurns,
+				effect.save,
 			);
 		case "modifyDamageAffinity":
 			return formatDamageAffinityEffect(effect);
@@ -336,12 +344,12 @@ function formatDamageEffect(effect: Extract<Effect | RiderEffect, { type: "damag
 function formatDamageAffinityEffect(
 	effect: Extract<Effect | RiderEffect, { type: "modifyDamageAffinity" }>,
 ) {
-	return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatTurns(effect.durationTurns)}.`;
+	return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
 }
 
 function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyRoll" }>) {
 	const target = effect.target === "self" ? "your" : "the enemy's";
-	return `Grant ${effect.mode} on ${target} ${formatRollSubject(effect.roll, effect.attribute)} for ${formatTurns(effect.durationTurns)}.`;
+	return `Grant ${effect.mode} on ${target} ${formatRollSubject(effect.roll, effect.attribute)} for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
 }
 
 function formatRollSubject(roll: "attack" | "savingThrow", attribute: Attribute | undefined) {
@@ -358,16 +366,18 @@ function formatTemporaryModifier(
 	operation: DamageModifierOperation,
 	value: number,
 	durationTurns: number | undefined,
+	save: SavingThrow | undefined,
 ) {
 	const duration = formatOptionalDuration(durationTurns);
+	const savingThrow = formatOptionalSave(save);
 	const possessiveTarget = target === "self" ? "your" : "the enemy's";
 
 	const change = operation === "multiply" ? getPercentageChange(value) : value;
 	if (change === 0) {
-		return `${target === "self" ? "Your" : "The enemy's"} ${subject} is unchanged${duration}.`;
+		return `${target === "self" ? "Your" : "The enemy's"} ${subject} is unchanged${duration}${savingThrow}.`;
 	}
 
-	return `${change > 0 ? "Increase" : "Reduce"} ${possessiveTarget} ${subject} by ${Math.abs(change)}${operation === "multiply" ? "%" : ""}${duration}.`;
+	return `${change > 0 ? "Increase" : "Reduce"} ${possessiveTarget} ${subject} by ${Math.abs(change)}${operation === "multiply" ? "%" : ""}${duration}${savingThrow}.`;
 }
 
 function formatDiceFormula(dice: string, attribute: Attribute | undefined) {

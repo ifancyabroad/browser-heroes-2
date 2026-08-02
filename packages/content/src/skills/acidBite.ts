@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Acid Bite",
 	icon: "skills/common/acid_bite.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 6,
 	effects: [
 		{

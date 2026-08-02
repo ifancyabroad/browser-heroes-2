@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Strike with brutal force, causing bleeding and a chance to disarm your opponent.",
 	icon: "skills/assassin/maim.png",
 	pool: "assassin",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

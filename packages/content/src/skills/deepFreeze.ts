@@ -7,7 +7,8 @@ export default buildSkill({
 		"A concentrated frost spell that encases the target in solid ice, dealing damage and rendering them unable to act.",
 	icon: "skills/mage/deep_freeze.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

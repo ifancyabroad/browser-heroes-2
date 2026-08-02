@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Acquire Target",
 	icon: "skills/unique/acquire_target.png",
 	pool: "unique",
+	kind: "technique",
 	category: "buff",
 	maxUses: 6,
 	effects: [

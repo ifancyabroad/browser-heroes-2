@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Drop from Above",
 	icon: "skills/common/drop_from_above.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

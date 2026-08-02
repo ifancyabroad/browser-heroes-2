@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Conjure a thin layer of physical protection.",
 	icon: "skills/mage/armour.png",
 	pool: "mage",
-	category: "buff",
+	kind: "spell",
+	category: "defensive",
 	maxUses: 8,
 	effects: [
 		{

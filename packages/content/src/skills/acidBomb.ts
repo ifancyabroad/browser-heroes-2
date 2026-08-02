@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Throw a bomb of corrosive acid at the enemy.",
 	icon: "skills/rogue/acid_bomb.png",
 	pool: "rogue",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

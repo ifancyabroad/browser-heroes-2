@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Frenzy",
 	icon: "skills/common/frenzy.png",
 	pool: "common",
+	kind: "technique",
 	category: "buff",
 	maxUses: 1,
 	effects: [

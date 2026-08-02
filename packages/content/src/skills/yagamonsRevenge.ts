@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Yagamon's Revenge",
 	icon: "skills/unique/yagamons_revenge.png",
 	pool: "unique",
+	kind: "spell",
 	category: "buff",
 	maxUses: 1,
 	effects: [

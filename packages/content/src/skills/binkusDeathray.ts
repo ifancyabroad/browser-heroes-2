@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Binkus' Deathray",
 	icon: "skills/unique/binkus_deathray.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Fuse with elements, amplifying prowess in elemental warfare.",
 	icon: "skills/mage/embrace_elements.png",
 	pool: "mage",
+	kind: "spell",
 	category: "buff",
 	maxUses: 4,
 	effects: [

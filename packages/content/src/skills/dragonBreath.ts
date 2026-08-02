@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Unleash a cone of fiery devastation, scorching everything in its path.",
 	icon: "skills/warlock/dragon_breath.png",
 	pool: "warlock",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 3,
 	effects: [
 		{

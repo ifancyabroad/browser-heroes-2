@@ -7,7 +7,8 @@ export default buildSkill({
 		"Topple adversaries with the forceful Knock Down skill, sending enemies crashing to the ground in a stunning display of power.",
 	icon: "skills/common/knock_down.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

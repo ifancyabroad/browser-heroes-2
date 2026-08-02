@@ -7,14 +7,15 @@ export default buildSkill({
 		"Greatly increases defense and chance for a critical strike with rhythmic movement.",
 	icon: "skills/warrior/dancing_defense.png",
 	pool: "warrior",
+	kind: "technique",
 	category: "buff",
 	maxUses: 4,
 	effects: [
 		{
-			type: "modifyStat",
+			type: "modifyRoll",
 			target: "self",
-			stat: "attackRollBonus",
-			value: 2,
+			roll: "attack",
+			mode: "advantage",
 			durationTurns: 3,
 		},
 		{
@@ -28,7 +29,7 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "armourClass",
-			value: 4,
+			value: 3,
 			durationTurns: 3,
 		},
 	],

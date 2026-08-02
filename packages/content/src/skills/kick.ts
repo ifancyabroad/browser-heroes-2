@@ -7,7 +7,8 @@ export default buildSkill({
 		"Deliver a swift kick with a chance to knock your opponent off balance and stun them.",
 	icon: "skills/rogue/kick.png",
 	pool: "rogue",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

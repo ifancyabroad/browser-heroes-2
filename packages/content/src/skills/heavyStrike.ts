@@ -6,8 +6,9 @@ export default buildSkill({
 	description: "Deliver a powerful blow designed to deal significant damage to a single target.",
 	icon: "skills/warrior/heavy_strike.png",
 	pool: "warrior",
-	category: "attack",
-	maxUses: 4,
+	kind: "weaponAttack",
+	category: "damage",
+	maxUses: 6,
 	effects: [
 		{
 			type: "attackDamage",

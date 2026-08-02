@@ -7,7 +7,8 @@ export default buildSkill({
 		"Call down a powerful strike of both fire and radiant energy, burning and searing enemies in its path.",
 	icon: "skills/cleric/flamestrike.png",
 	pool: "cleric",
-	category: "spell",
+	kind: "prayer",
+	category: "damage",
 	maxUses: 3,
 	effects: [
 		{

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Thou Hast Bested Me",
 	icon: "skills/unique/thou_hast_bested_me.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 5,
 	effects: [
 		{

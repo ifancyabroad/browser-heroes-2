@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Nightmares",
 	icon: "skills/common/nightmares.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Prepare to attack with great speed, increasing critical strike chance.",
 	icon: "skills/rogue/quick_fingers.png",
 	pool: "rogue",
+	kind: "technique",
 	category: "buff",
 	maxUses: 8,
 	effects: [

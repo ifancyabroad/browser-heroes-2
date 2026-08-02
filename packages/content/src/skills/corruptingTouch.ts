@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Corrupting Touch",
 	icon: "skills/common/corrupting_touch.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 6,
 	effects: [
 		{

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Tail Swipe",
 	icon: "skills/common/tail_swipe.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

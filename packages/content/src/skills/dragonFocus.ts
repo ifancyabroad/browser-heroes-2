@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Dragon Focus",
 	icon: "skills/common/dragon_focus.png",
 	pool: "common",
+	kind: "technique",
 	category: "buff",
 	maxUses: 2,
 	effects: [

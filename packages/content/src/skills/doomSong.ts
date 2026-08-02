@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Doom Song",
 	icon: "skills/unique/doom_song.png",
 	pool: "unique",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 1,
 	effects: [

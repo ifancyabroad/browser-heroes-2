@@ -36,6 +36,17 @@ export type D20RollSelection = {
 	mode: D20RollMode;
 };
 
+export function combineD20RollModes(modes: readonly D20RollMode[]): D20RollMode {
+	const hasAdvantage = modes.includes("advantage");
+	const hasDisadvantage = modes.includes("disadvantage");
+
+	if (hasAdvantage === hasDisadvantage) {
+		return "normal";
+	}
+
+	return hasAdvantage ? "advantage" : "disadvantage";
+}
+
 const supportedDieSides = new Set<number>(dice.map((die) => Number(die.slice(1))));
 
 export function parseDiceFormula(formula: DiceFormula): ParsedDiceFormula {

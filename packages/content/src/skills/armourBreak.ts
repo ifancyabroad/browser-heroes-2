@@ -6,32 +6,33 @@ export default buildSkill({
 	description: "A powerful blow that weakens an enemy's defenses.",
 	icon: "skills/warrior/armour_break.png",
 	pool: "warrior",
-	category: "spell",
-	maxUses: 8,
+	kind: "weaponAttack",
+	category: "debuff",
+	maxUses: 5,
 	effects: [
 		{
-			type: "modifyStat",
+			type: "attackDamage",
 			target: "enemy",
-			stat: "armourClass",
-			value: -4,
-			durationTurns: 4,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "crushing",
-			dice: "1d8",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "strength",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "strength",
-					includeProficiency: true,
-					bonus: 6,
+			multiplier: 1,
+			attackRiders: [
+				{
+					timing: "onHit",
+					save: {
+						attribute: "strength",
+						onSuccess: "noEffect",
+						dc: { attribute: "strength" },
+					},
+					effects: [
+						{
+							type: "modifyStat",
+							target: "enemy",
+							stat: "armourClass",
+							value: -4,
+							durationTurns: 3,
+						},
+					],
 				},
-			},
+			],
 		},
 	],
 	tags: [],

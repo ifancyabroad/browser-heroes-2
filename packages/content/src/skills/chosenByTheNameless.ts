@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Chosen by the Nameless",
 	icon: "skills/unique/chosen_by_the_nameless.png",
 	pool: "unique",
+	kind: "spell",
 	category: "buff",
 	maxUses: 1,
 	effects: [

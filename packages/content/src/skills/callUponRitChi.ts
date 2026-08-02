@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Call Upon Rit Chi",
 	icon: "skills/unique/call_upon_rit_chi.png",
 	pool: "unique",
+	kind: "prayer",
 	category: "buff",
 	maxUses: 1,
 	effects: [

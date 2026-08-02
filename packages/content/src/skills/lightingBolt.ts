@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Conjure a lightning bolt.",
 	icon: "skills/mage/lighting_bolt.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

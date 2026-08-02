@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Coat your weapon in corrosive acid to increase acid type damage.",
 	icon: "skills/rogue/acid_coating.png",
 	pool: "rogue",
+	kind: "technique",
 	category: "buff",
 	maxUses: 6,
 	effects: [

@@ -7,8 +7,9 @@ export default buildSkill({
 		"Summon a protective barrier infused with elemental energy to guard against attacks.",
 	icon: "skills/warrior/elemental_shield.png",
 	pool: "warrior",
-	category: "buff",
-	maxUses: 4,
+	kind: "technique",
+	category: "defensive",
+	maxUses: 3,
 	effects: [
 		{
 			type: "modifyDamageAffinity",
@@ -16,7 +17,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "fire",
-			durationTurns: 8,
+			durationTurns: 4,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -24,7 +25,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "cold",
-			durationTurns: 8,
+			durationTurns: 4,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -32,7 +33,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "lightning",
-			durationTurns: 8,
+			durationTurns: 4,
 		},
 	],
 	tags: [],

@@ -3,10 +3,12 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "crushing_blow",
 	name: "Crushing Blow",
+	description: "Land a concussive strike that can leave the enemy's attacks unsteady.",
 	icon: "skills/barbarian/crushing_blow.png",
 	pool: "barbarian",
-	category: "attack",
-	maxUses: 7,
+	kind: "weaponAttack",
+	category: "damage",
+	maxUses: 5,
 	effects: [
 		{
 			type: "attackDamage",
@@ -15,12 +17,18 @@ export default buildSkill({
 			attackRiders: [
 				{
 					timing: "onHit",
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: { attribute: "strength" },
+					},
 					effects: [
 						{
-							type: "damage",
+							type: "modifyStat",
 							target: "enemy",
-							damageType: "crushing",
-							dice: "2d6",
+							stat: "attackRollBonus",
+							value: -3,
+							durationTurns: 2,
 						},
 					],
 				},

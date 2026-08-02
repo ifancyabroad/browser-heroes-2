@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Fire a burst of radiant energy that sears enemies with divine power.",
 	icon: "skills/cleric/holy_bolt.png",
 	pool: "cleric",
-	category: "spell",
+	kind: "prayer",
+	category: "damage",
 	maxUses: 12,
 	effects: [
 		{

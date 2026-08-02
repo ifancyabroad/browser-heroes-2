@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Regeneration",
 	icon: "skills/common/regeneration.png",
 	pool: "common",
+	kind: "technique",
 	category: "heal",
 	maxUses: 2,
 	effects: [

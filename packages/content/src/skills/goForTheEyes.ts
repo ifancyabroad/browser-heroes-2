@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Aim for the opponents eyes with a chance to temporarily blind them.",
 	icon: "skills/rogue/go_for_the_eyes.png",
 	pool: "rogue",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

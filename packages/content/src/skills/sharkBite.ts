@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Shark Bite",
 	icon: "skills/unique/shark_bite.png",
 	pool: "unique",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 5,
 	effects: [
 		{

@@ -6,8 +6,9 @@ export default buildSkill({
 	description: "A powerful weapon swing that deals additional slashing damage.",
 	icon: "skills/barbarian/cleave.png",
 	pool: "barbarian",
-	category: "attack",
-	maxUses: 7,
+	kind: "weaponAttack",
+	category: "damage",
+	maxUses: 6,
 	effects: [
 		{
 			type: "attackDamage",
@@ -21,7 +22,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "slashing",
-							dice: "1d8",
+							dice: "2d8",
 						},
 					],
 				},

@@ -7,6 +7,7 @@ export default buildSkill({
 		"Utter a commanding word that has a chance to stun your enemy, leaving them momentarily helpless.",
 	icon: "skills/occultist/power_word_stun.png",
 	pool: "occultist",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 2,
 	effects: [

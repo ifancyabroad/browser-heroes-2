@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Inflict a debilitating curse that hinders the enemy's saving throws.",
 	icon: "skills/occultist/curse.png",
 	pool: "occultist",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 8,
 	effects: [

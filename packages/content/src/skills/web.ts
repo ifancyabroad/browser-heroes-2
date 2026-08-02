@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Web",
 	icon: "skills/common/web.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 4,
 	effects: [

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Overpower",
 	icon: "skills/common/overpower.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

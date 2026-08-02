@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Restore a significant amount of health, healing even the most grievous injuries.",
 	icon: "skills/cleric/cure_major_wounds.png",
 	pool: "cleric",
+	kind: "prayer",
 	category: "heal",
 	maxUses: 2,
 	effects: [

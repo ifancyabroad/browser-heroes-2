@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Unwavering Lies",
 	icon: "skills/unique/unwavering_lies.png",
 	pool: "unique",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 2,
 	effects: [

@@ -27,6 +27,10 @@ export const savingThrowSchema = z.object({
 	onSuccess: saveOutcomeSchema.default("noEffect"),
 });
 
+export const negatingSavingThrowSchema = savingThrowSchema.extend({
+	onSuccess: z.literal("noEffect").default("noEffect"),
+});
+
 export const damageEffectSchema = z
 	.object({
 		type: z.literal("damage"),
@@ -60,7 +64,7 @@ export const applyStatusEffectSchema = z.object({
 	target: skillTargetSchema,
 	statusId: statusEffectSchema,
 	durationTurns: z.number().int().positive(),
-	save: savingThrowSchema.optional(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const removeStatusEffectSchema = z
@@ -82,6 +86,7 @@ export const modifyStatEffectSchema = z.object({
 	stat: combatStatSchema,
 	value: z.number(),
 	durationTurns: z.number().int().positive(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const modifyHealingEffectSchema = z.object({
@@ -89,6 +94,7 @@ export const modifyHealingEffectSchema = z.object({
 	target: skillTargetSchema,
 	multiplier: z.number().nonnegative(),
 	durationTurns: z.number().int().positive(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const modifyDamageEffectSchema = z.object({
@@ -98,6 +104,7 @@ export const modifyDamageEffectSchema = z.object({
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 	durationTurns: z.number().int().positive(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const modifyDamageTakenEffectSchema = z.object({
@@ -107,6 +114,7 @@ export const modifyDamageTakenEffectSchema = z.object({
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 	durationTurns: z.number().int().positive(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const modifyDamageAffinityEffectSchema = z.object({
@@ -116,6 +124,7 @@ export const modifyDamageAffinityEffectSchema = z.object({
 	operation: damageAffinityOperationSchema,
 	damageType: damageTypeSchema,
 	durationTurns: z.number().int().positive(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const rollTypeSchema = z.enum(["attack", "savingThrow"]);
@@ -129,6 +138,7 @@ export const modifyRollEffectSchema = z.object({
 	mode: rollModeSchema,
 	attribute: attributeSchema.optional(),
 	durationTurns: z.number().int().positive(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const damageOverTimeEffectSchema = z.object({
@@ -137,7 +147,7 @@ export const damageOverTimeEffectSchema = z.object({
 	damageType: damageTypeSchema,
 	dice: diceFormulaSchema,
 	durationTurns: z.number().int().positive(),
-	save: savingThrowSchema.optional(),
+	save: negatingSavingThrowSchema.optional(),
 });
 
 export const healOverTimeEffectSchema = z.object({
@@ -173,7 +183,7 @@ export const attackRiderTimingSchema = z.enum(["onHit", "onCrit"]);
 
 export const attackRiderSchema = z.object({
 	timing: attackRiderTimingSchema,
-	save: savingThrowSchema.optional(),
+	save: negatingSavingThrowSchema.optional(),
 	effects: z.array(riderEffectSchema).min(1),
 });
 
@@ -185,6 +195,7 @@ export const attackDamageEffectSchema = z
 		damageTypeOverride: damageTypeSchema.optional(),
 		extraDice: diceFormulaSchema.optional(),
 		extraDamageType: damageTypeSchema.optional(),
+		rollMode: rollModeSchema.optional(),
 		attackRiders: z.array(attackRiderSchema).default([]),
 	})
 	.refine((effect) => effect.extraDamageType === undefined || effect.extraDice !== undefined, {

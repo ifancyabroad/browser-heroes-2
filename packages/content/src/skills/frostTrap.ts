@@ -7,7 +7,8 @@ export default buildSkill({
 		"Set a hidden trap that delivers piercing and cold damage, with a chance to cripple the target.",
 	icon: "skills/rogue/frost_trap.png",
 	pool: "rogue",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

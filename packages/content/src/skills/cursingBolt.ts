@@ -7,7 +7,8 @@ export default buildSkill({
 		"Fire a bolt of necrotic energy that deals damage and hinders the enemy's saving throws.",
 	icon: "skills/warlock/cursing_bolt.png",
 	pool: "warlock",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

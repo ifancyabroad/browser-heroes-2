@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Acid Spray",
 	icon: "skills/common/acid_spray.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

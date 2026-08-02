@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Imbue yourself with necrotic energy to improve spell power.",
 	icon: "skills/warlock/embrace_shadows.png",
 	pool: "warlock",
+	kind: "spell",
 	category: "buff",
 	maxUses: 4,
 	effects: [

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Minotaur Charge",
 	icon: "skills/unique/minotaur_charge.png",
 	pool: "unique",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

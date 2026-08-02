@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Summon cascading thunder, chaining electrical strikes across enemies.",
 	icon: "skills/mage/chain_lightning.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 3,
 	effects: [
 		{

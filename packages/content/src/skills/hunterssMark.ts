@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Hunters's Mark",
 	icon: "skills/common/hunterss_mark.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 2,
 	effects: [

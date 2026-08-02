@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Molten Overdrive",
 	icon: "skills/unique/molten_overdrive.png",
 	pool: "unique",
+	kind: "technique",
 	category: "buff",
 	maxUses: 1,
 	effects: [

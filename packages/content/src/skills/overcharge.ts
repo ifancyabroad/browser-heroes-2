@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Overcharge",
 	icon: "skills/unique/overcharge.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

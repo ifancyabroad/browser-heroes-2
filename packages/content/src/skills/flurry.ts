@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Unleash a rapid series of strikes, overwhelming your enemy with speed and force.",
 	icon: "skills/rogue/flurry.png",
 	pool: "rogue",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

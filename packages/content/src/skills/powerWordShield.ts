@@ -7,7 +7,8 @@ export default buildSkill({
 		"Enchant yourself with a powerful shield, significantly increasing your armor class.",
 	icon: "skills/occultist/power_word_shield.png",
 	pool: "occultist",
-	category: "buff",
+	kind: "spell",
+	category: "defensive",
 	maxUses: 8,
 	effects: [
 		{

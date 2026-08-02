@@ -7,7 +7,8 @@ export default buildSkill({
 		"Deliver a precise and devastating strike that disrupts the enemy's defenses, reducing their resistance to physical attacks.",
 	icon: "skills/assassin/fracture.png",
 	pool: "assassin",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 3,
 	effects: [
 		{

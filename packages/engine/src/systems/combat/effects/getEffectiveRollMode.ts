@@ -1,7 +1,7 @@
 import type { Attribute, RollType } from "@app/content";
 
 import type { ActiveRollModifier, CombatantState } from "../../../schemas";
-import type { D20RollMode } from "../../../core/dice";
+import { combineD20RollModes, type D20RollMode } from "../../../core/dice";
 
 export function getEffectiveRollMode(
 	combatant: CombatantState,
@@ -15,12 +15,5 @@ export function getEffectiveRollMode(
 			(effect.attribute === undefined || effect.attribute === attribute),
 	);
 
-	const hasAdvantage = modifiers.some((modifier) => modifier.mode === "advantage");
-	const hasDisadvantage = modifiers.some((modifier) => modifier.mode === "disadvantage");
-
-	if (hasAdvantage === hasDisadvantage) {
-		return "normal";
-	}
-
-	return hasAdvantage ? "advantage" : "disadvantage";
+	return combineD20RollModes(modifiers.map((modifier) => modifier.mode));
 }

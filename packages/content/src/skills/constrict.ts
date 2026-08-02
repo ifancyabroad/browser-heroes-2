@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Constrict",
 	icon: "skills/common/constrict.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 5,
 	effects: [
 		{

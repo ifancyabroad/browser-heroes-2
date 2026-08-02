@@ -1,9 +1,14 @@
-import type { Attribute } from "@app/content";
+import type { Attribute, RollMode } from "@app/content";
 
 import type { CombatantState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
 
-import { rollD20WithMode, type D20Roll, type D20RollMode } from "../../../core/dice";
+import {
+	combineD20RollModes,
+	rollD20WithMode,
+	type D20Roll,
+	type D20RollMode,
+} from "../../../core/dice";
 
 import { getAttributeModifier } from "./getAttributeModifier";
 
@@ -31,10 +36,14 @@ type ResolveAttackRollInput = {
 	defender: CombatantState;
 	attribute: Attribute;
 	proficient: boolean;
+	rollMode?: RollMode;
 };
 
 export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<AttackRollResult> {
-	const rollMode = getEffectiveRollMode(input.attacker, "attack");
+	const rollMode = combineD20RollModes([
+		getEffectiveRollMode(input.attacker, "attack"),
+		input.rollMode ?? "normal",
+	]);
 	const rollResult = rollD20WithMode(input.rngState, rollMode);
 	const roll = rollResult.value.roll;
 

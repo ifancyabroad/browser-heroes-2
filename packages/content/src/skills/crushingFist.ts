@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Unleash a mighty fist, pulverizing enemies with ethereal power.",
 	icon: "skills/warlock/crushing_fist.png",
 	pool: "warlock",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

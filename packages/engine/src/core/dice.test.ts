@@ -1,11 +1,25 @@
 import { describe, expect, it } from "vitest";
 import {
+	combineD20RollModes,
 	addDiceFormulaModifier,
 	getMaximumDiceValue,
 	parseDiceFormula,
 	rollD20WithMode,
 	rollDice,
 } from "./dice";
+
+describe("combineD20RollModes", () => {
+	it.each([
+		[[], "normal"],
+		[["normal"], "normal"],
+		[["advantage"], "advantage"],
+		[["disadvantage"], "disadvantage"],
+		[["advantage", "disadvantage"], "normal"],
+		[["advantage", "advantage", "disadvantage"], "normal"],
+	] as const)("combines %j as %s", (modes, expected) => {
+		expect(combineD20RollModes(modes)).toBe(expected);
+	});
+});
 
 describe("dice formulas", () => {
 	it.each([

@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Strike the enemy from above as you leap over them in an attempt to get behind.",
 	icon: "skills/assassin/acrobatic_strike.png",
 	pool: "assassin",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Engulf",
 	icon: "skills/unique/engulf.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

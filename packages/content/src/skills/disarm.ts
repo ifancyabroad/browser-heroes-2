@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Attempt to disarm the enemy.",
 	icon: "skills/common/disarm.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 3,
 	effects: [

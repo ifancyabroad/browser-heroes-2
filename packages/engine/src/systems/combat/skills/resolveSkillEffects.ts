@@ -107,20 +107,18 @@ function resolveSkillEffect(
 		case "modifyDamageTaken":
 		case "modifyDamageAffinity":
 		case "modifyRoll":
-			return {
-				value: applyTemporaryModifierEffect({
-					combat: input.combat,
-					actorSide: input.actorSide,
-					effect: input.effect,
-					source: {
-						type: "skill",
-						skillId: input.skillId,
-						sourceName: input.skillName,
-						sourceEffectKey: `effect:${input.effectIndex}`,
-					},
-				}),
+			return applyTemporaryModifierEffect({
+				combat: input.combat,
+				actorSide: input.actorSide,
+				effect: input.effect,
+				source: {
+					type: "skill",
+					skillId: input.skillId,
+					sourceName: input.skillName,
+					sourceEffectKey: `effect:${input.effectIndex}`,
+				},
 				rngState: input.rngState,
-			};
+			});
 
 		case "damageOverTime":
 		case "healOverTime":

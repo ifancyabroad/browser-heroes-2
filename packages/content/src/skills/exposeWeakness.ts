@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Exploit armour weaknesses to maximize the impact of attacks.",
 	icon: "skills/assassin/expose_weakness.png",
 	pool: "assassin",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 4,
 	effects: [

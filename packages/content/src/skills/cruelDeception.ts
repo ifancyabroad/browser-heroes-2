@@ -7,6 +7,7 @@ export default buildSkill({
 		"Manipulate your foe with deceptive tactics, charming them into possibly turning their attacks on themselves.",
 	icon: "skills/rogue/cruel_deception.png",
 	pool: "rogue",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 2,
 	effects: [

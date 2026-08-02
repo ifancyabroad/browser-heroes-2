@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Strike the enemy to pierce the skin and cause them to bleed.",
 	icon: "skills/warrior/rend.png",
 	pool: "warrior",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{
@@ -16,6 +17,11 @@ export default buildSkill({
 			attackRiders: [
 				{
 					timing: "onHit",
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: { attribute: "strength" },
+					},
 					effects: [
 						{
 							type: "damageOverTime",

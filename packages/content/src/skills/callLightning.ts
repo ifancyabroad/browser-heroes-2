@@ -7,7 +7,8 @@ export default buildSkill({
 		"Summon a bolt of lightning from the heavens to strike your target with electrifying force.",
 	icon: "skills/occultist/call_lightning.png",
 	pool: "occultist",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

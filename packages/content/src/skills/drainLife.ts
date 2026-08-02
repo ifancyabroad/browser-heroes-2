@@ -7,6 +7,7 @@ export default buildSkill({
 		"Unleash necrotic energy to damage your enemy while siphoning their life force to restore your own health.",
 	icon: "skills/occultist/drain_life.png",
 	pool: "occultist",
+	kind: "spell",
 	category: "heal",
 	maxUses: 2,
 	effects: [

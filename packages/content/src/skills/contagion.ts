@@ -7,6 +7,7 @@ export default buildSkill({
 		"Infect the enemy with a virulent poison, significantly increasing the damage over time as it spreads through their system.",
 	icon: "skills/occultist/contagion.png",
 	pool: "occultist",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 2,
 	effects: [

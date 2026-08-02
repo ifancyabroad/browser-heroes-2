@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Sneak behind the enemy to strike them in the back.",
 	icon: "skills/assassin/backstab.png",
 	pool: "assassin",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

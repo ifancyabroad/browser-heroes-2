@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Eye Ray",
 	icon: "skills/unique/eye_ray.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 12,
 	effects: [
 		{

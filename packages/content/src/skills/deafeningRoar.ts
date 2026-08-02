@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Unleash a crippling roar that weakens and disorients nearby enemies.",
 	icon: "skills/common/deafening_roar.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 6,
 	effects: [

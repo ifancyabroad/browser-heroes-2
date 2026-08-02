@@ -7,6 +7,7 @@ export default buildSkill({
 		"Invoke a sacred boon that grants the blessed effect, ensuring all saving throws succeed.",
 	icon: "skills/common/bless.png",
 	pool: "common",
+	kind: "prayer",
 	category: "buff",
 	maxUses: 8,
 	effects: [

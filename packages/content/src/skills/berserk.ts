@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Become enraged, greatly increasing offensive power but lowering defenses.",
 	icon: "skills/common/berserk.png",
 	pool: "common",
+	kind: "technique",
 	category: "buff",
 	maxUses: 4,
 	effects: [

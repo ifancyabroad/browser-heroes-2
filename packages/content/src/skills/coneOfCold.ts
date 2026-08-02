@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Emit a frigid blast, freezing enemies in a wide cone.",
 	icon: "skills/mage/cone_of_cold.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

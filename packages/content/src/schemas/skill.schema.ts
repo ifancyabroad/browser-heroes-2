@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { effectSchema } from "./effect.schema";
-import { skillCategorySchema, skillPoolSchema } from "./common.schema";
+import { skillCategorySchema, skillKindSchema, skillPoolSchema } from "./common.schema";
 
 export const skillSchema = z.object({
 	id: z.string().nonempty(),
@@ -8,6 +8,7 @@ export const skillSchema = z.object({
 	description: z.string().optional(),
 	icon: z.string().nonempty(),
 	pool: skillPoolSchema,
+	kind: skillKindSchema,
 	category: skillCategorySchema,
 	maxUses: z.number().int().positive().optional(),
 	effects: z.array(effectSchema).min(1),

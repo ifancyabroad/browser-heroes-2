@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Growth",
 	icon: "skills/common/growth.png",
 	pool: "common",
+	kind: "technique",
 	category: "buff",
 	maxUses: 4,
 	effects: [

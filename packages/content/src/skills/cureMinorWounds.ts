@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Restore a small amount of health to aid in recovery from minor injuries.",
 	icon: "skills/cleric/cure_minor_wounds.png",
 	pool: "cleric",
+	kind: "prayer",
 	category: "heal",
 	maxUses: 2,
 	effects: [

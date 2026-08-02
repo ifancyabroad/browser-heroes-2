@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Hurl a bolt of shadow energy at your target.",
 	icon: "skills/warlock/shadow_bolt.png",
 	pool: "warlock",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 12,
 	effects: [
 		{

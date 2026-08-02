@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Execute",
 	icon: "skills/unique/execute.png",
 	pool: "unique",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

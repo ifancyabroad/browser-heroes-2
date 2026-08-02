@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Unleash divine retribution, smiting foes with holy power.",
 	icon: "skills/cleric/holy_strike.png",
 	pool: "cleric",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

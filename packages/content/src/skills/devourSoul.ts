@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Devour Soul",
 	icon: "skills/common/devour_soul.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

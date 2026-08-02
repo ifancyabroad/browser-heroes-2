@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Flame Slam",
 	icon: "skills/common/flame_slam.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

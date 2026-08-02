@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Shoot lightning from your fingers.",
 	icon: "skills/mage/sparks.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 12,
 	effects: [
 		{

@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Summon three piercing projectiles to launch at the enemy.",
 	icon: "skills/mage/magic_missiles.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

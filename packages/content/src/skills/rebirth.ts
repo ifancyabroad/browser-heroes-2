@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Rebirth",
 	icon: "skills/unique/rebirth.png",
 	pool: "unique",
+	kind: "spell",
 	category: "heal",
 	maxUses: 1,
 	effects: [

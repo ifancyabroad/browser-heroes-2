@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Creeping Darkness",
 	icon: "skills/common/creeping_darkness.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 3,
 	effects: [

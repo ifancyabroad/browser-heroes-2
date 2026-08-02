@@ -7,7 +7,8 @@ export default buildSkill({
 		"Speak a word of torment that inflicts intense necrotic damage, draining the life from your foe.",
 	icon: "skills/occultist/power_word_pain.png",
 	pool: "occultist",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 3,
 	effects: [
 		{

@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Conjure a ball of fire.",
 	icon: "skills/warlock/fireball.png",
 	pool: "warlock",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Fling acid at the enemy to corrode their defense.",
 	icon: "skills/rogue/acid_burn.png",
 	pool: "rogue",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 6,
 	effects: [
 		{

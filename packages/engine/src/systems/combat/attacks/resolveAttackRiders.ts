@@ -139,10 +139,12 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 					actorSide: input.actorSide,
 					effect,
 					source,
+					rngState,
 				});
 
-				combat = result.combat;
-				outcomes.push(...result.outcomes);
+				combat = result.value.combat;
+				outcomes.push(...result.value.outcomes);
+				rngState = result.rngState;
 				break;
 			}
 

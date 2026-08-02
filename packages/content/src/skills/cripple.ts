@@ -7,6 +7,7 @@ export default buildSkill({
 		"Inflict debilitating injury with Cripple, weakening enemies and hindering their movements in the throes of battle.",
 	icon: "skills/common/cripple.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 6,
 	effects: [

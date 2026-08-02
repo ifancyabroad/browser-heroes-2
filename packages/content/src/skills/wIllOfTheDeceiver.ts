@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "WIll of the Deceiver",
 	icon: "skills/unique/will_of_the_deceiver.png",
 	pool: "unique",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 2,
 	effects: [

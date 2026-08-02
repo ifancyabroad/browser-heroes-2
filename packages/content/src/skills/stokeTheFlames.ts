@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Stoke the Flames",
 	icon: "skills/unique/stoke_the_flames.png",
 	pool: "unique",
+	kind: "spell",
 	category: "buff",
 	maxUses: 1,
 	effects: [

@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Conjure a frost arrow.",
 	icon: "skills/mage/frost_arrow.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 12,
 	effects: [
 		{

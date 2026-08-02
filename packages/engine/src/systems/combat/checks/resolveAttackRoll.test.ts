@@ -77,4 +77,56 @@ describe("resolveAttackRoll", () => {
 		expect(result.value.attackRollBonus).toBe(2);
 		expect(result.value.total).toBe(result.value.roll.roll + 9);
 	});
+
+	it("applies an intrinsic attack roll mode to only that attack", () => {
+		const state = createTestRunState();
+
+		const result = resolveAttackRoll({
+			rngState: { value: 0 },
+			attacker: state.combat!.player,
+			defender: state.combat!.enemy,
+			attribute: "strength",
+			proficient: true,
+			rollMode: "advantage",
+		});
+
+		expect(result.value.rollMode).toBe("advantage");
+		expect(result.value.rolls).toHaveLength(2);
+		expect(state.combat!.player.activeEffects).toEqual([]);
+	});
+
+	it("cancels intrinsic advantage with active disadvantage", () => {
+		const state = createTestRunState();
+		const attacker = {
+			...state.combat!.player,
+			activeEffects: [
+				{
+					id: "test-disadvantage",
+					type: "modifyRoll" as const,
+					sourceCombatantId: state.combat!.enemy.id,
+					source: {
+						type: "skill" as const,
+						skillId: "intimidating_shout" as const,
+						sourceName: "Intimidating Shout",
+						sourceEffectKey: "effect:0",
+					},
+					remainingTurns: 1,
+					roll: "attack" as const,
+					mode: "disadvantage" as const,
+				},
+			],
+		};
+
+		const result = resolveAttackRoll({
+			rngState: { value: 0 },
+			attacker,
+			defender: state.combat!.enemy,
+			attribute: "strength",
+			proficient: true,
+			rollMode: "advantage",
+		});
+
+		expect(result.value.rollMode).toBe("normal");
+		expect(result.value.rolls).toHaveLength(1);
+	});
 });

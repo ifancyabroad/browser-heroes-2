@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Infuse your attack with corrosive acid, eating away at flesh.",
 	icon: "skills/rogue/acid_strike.png",
 	pool: "rogue",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

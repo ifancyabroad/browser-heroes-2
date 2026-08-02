@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Trap your enemy to incapacitate them and reduce their defenses.",
 	icon: "skills/rogue/acid_trap.png",
 	pool: "rogue",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 3,
 	effects: [

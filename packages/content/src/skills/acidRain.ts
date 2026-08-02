@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Summon corrosive acid from the skies.",
 	icon: "skills/mage/acid_rain.png",
 	pool: "mage",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 12,
 	effects: [
 		{

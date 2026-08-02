@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Power Word: Fortitude",
 	icon: "skills/common/power_word_fortitude.png",
 	pool: "common",
+	kind: "spell",
 	category: "buff",
 	maxUses: 8,
 	effects: [

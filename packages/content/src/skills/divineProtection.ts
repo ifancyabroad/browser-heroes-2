@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Invoke celestial safeguard, shielding yourself from harm and dark forces.",
 	icon: "skills/cleric/divine_protection.png",
 	pool: "cleric",
-	category: "buff",
+	kind: "prayer",
+	category: "defensive",
 	maxUses: 6,
 	effects: [
 		{

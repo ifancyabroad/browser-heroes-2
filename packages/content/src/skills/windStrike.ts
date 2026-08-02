@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Wind Strike",
 	icon: "skills/common/wind_strike.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

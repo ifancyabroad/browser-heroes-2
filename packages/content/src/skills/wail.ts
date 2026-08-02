@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Wail",
 	icon: "skills/unique/wail.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

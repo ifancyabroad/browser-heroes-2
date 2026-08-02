@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Burning Shot",
 	icon: "skills/common/burning_shot.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

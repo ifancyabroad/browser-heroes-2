@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Fire Breath",
 	icon: "skills/common/fire_breath.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

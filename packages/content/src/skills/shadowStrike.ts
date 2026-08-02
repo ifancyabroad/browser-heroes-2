@@ -7,7 +7,8 @@ export default buildSkill({
 		"Deliver a swift strike imbued with shadowy energy, dealing necrotic damage to your target.",
 	icon: "skills/assassin/shadow_strike.png",
 	pool: "assassin",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

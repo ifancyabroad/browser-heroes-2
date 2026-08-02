@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Powerful Blow",
 	icon: "skills/common/powerful_blow.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

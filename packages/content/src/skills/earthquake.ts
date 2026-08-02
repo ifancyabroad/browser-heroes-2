@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Earthquake",
 	icon: "skills/common/earthquake.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

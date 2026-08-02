@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Overheat and erupt into flames burning all those around you.",
 	icon: "skills/unique/combust.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Crab Hammer",
 	icon: "skills/unique/crab_hammer.png",
 	pool: "unique",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

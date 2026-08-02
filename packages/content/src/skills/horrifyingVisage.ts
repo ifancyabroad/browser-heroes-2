@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Horrifying Visage",
 	icon: "skills/common/horrifying_visage.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 1,
 	effects: [

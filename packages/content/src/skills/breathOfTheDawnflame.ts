@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Breath of the Dawnflame",
 	icon: "skills/unique/breath_of_the_dawnflame.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 5,
 	effects: [
 		{

@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Blend into the shadows to enhance your armor class and sharpen your accuracy.",
 	icon: "skills/assassin/shadowmeld.png",
 	pool: "assassin",
+	kind: "technique",
 	category: "buff",
 	maxUses: 8,
 	effects: [

@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Take Aim",
 	icon: "skills/common/take_aim.png",
 	pool: "common",
+	kind: "technique",
 	category: "buff",
 	maxUses: 8,
 	effects: [

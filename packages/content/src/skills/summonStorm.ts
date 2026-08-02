@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Summon Storm",
 	icon: "skills/unique/summon_storm.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

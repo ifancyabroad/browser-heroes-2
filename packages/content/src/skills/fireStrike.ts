@@ -6,8 +6,9 @@ export default buildSkill({
 	description: "Infuse your attack with searing flames to scorch your target.",
 	icon: "skills/barbarian/fire_strike.png",
 	pool: "barbarian",
-	category: "attack",
-	maxUses: 7,
+	kind: "weaponAttack",
+	category: "damage",
+	maxUses: 5,
 	effects: [
 		{
 			type: "attackDamage",
@@ -21,7 +22,14 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "fire",
-							dice: "1d10+5",
+							dice: "2d6",
+						},
+						{
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "fire",
+							dice: "1d6",
+							durationTurns: 2,
 						},
 					],
 				},

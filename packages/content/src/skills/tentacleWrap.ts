@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Tentacle Wrap",
 	icon: "skills/common/tentacle_wrap.png",
 	pool: "common",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

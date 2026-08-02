@@ -37,6 +37,7 @@ export function resolveAttackDamageEffect(
 		defender: target,
 		attribute: attackAttribute,
 		proficient: actor.basicAttack.proficient,
+		rollMode: input.effect.rollMode,
 	});
 
 	if (!attackRoll.value.hit) {

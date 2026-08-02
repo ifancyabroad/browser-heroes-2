@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Into the Grinder",
 	icon: "skills/unique/into_the_grinder.png",
 	pool: "unique",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

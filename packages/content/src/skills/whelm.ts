@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Whelm",
 	icon: "skills/unique/whelm.png",
 	pool: "unique",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 1,
 	effects: [
 		{

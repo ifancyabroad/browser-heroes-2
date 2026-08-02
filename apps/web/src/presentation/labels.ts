@@ -9,6 +9,7 @@ import type {
 	ItemRarity,
 	ModifiableStat,
 	SkillCategory,
+	SkillKind,
 	SkillPool,
 	WeaponHandedness,
 	WeaponRange,
@@ -172,13 +173,20 @@ export const weaponRangeLabels: Record<WeaponRange, string> = {
 };
 
 export const skillCategoryLabels: Record<SkillCategory, string> = {
-	attack: "Attack",
-	spell: "Spell",
+	damage: "Damage",
 	heal: "Heal",
 	buff: "Buff",
 	debuff: "Debuff",
 	defensive: "Defensive",
 	utility: "Utility",
+};
+
+export const skillKindLabels: Record<SkillKind, string> = {
+	weaponAttack: "Weapon Attack",
+	spellAttack: "Spell Attack",
+	spell: "Spell",
+	technique: "Technique",
+	prayer: "Prayer",
 };
 
 export const skillPoolLabels: Record<SkillPool, string> = {

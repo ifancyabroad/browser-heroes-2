@@ -7,6 +7,7 @@ export default buildSkill({
 		"Amplify the potency of your poison, causing it to inflict greater, lingering damage.",
 	icon: "skills/assassin/enhance_poison.png",
 	pool: "assassin",
+	kind: "technique",
 	category: "buff",
 	maxUses: 6,
 	effects: [

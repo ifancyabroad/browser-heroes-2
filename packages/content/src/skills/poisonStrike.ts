@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Coat your weapon with venom, delivering a toxic blow that poisons your target.",
 	icon: "skills/assassin/poison_strike.png",
 	pool: "assassin",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{

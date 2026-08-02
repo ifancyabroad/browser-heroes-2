@@ -13,6 +13,7 @@ import type {
 	CombatantSide,
 	CombatState,
 } from "../../../../schemas";
+import type { RngResult, RngState } from "../../../../core/rng";
 
 import { createEffectInstanceId } from "../../../../core/ids";
 
@@ -20,6 +21,7 @@ import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/co
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
 import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
+import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
 
 type TemporaryModifierEffect =
 	| ModifyStatEffect
@@ -34,15 +36,44 @@ type ApplyTemporaryModifierEffectInput = {
 	actorSide: CombatantSide;
 	effect: TemporaryModifierEffect;
 	source: ActiveEffectSource;
+	rngState: RngState;
 };
 
 export function applyTemporaryModifierEffect(
 	input: ApplyTemporaryModifierEffectInput,
-): ActionResolution {
+): RngResult<ActionResolution> {
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
 		input.effect.target === "self" ? actor : getOpponent(input.combat, input.actorSide);
+	let rngState = input.rngState;
+
+	if (input.effect.save) {
+		const savingThrow = resolveSavingThrow({
+			rngState,
+			attacker: actor,
+			defender: target,
+			save: input.effect.save,
+		});
+
+		rngState = savingThrow.rngState;
+
+		if (savingThrow.value.success) {
+			return {
+				value: {
+					combat: input.combat,
+					outcomes: [
+						{
+							type: "resisted",
+							targetName: target.name,
+							subject: `${input.source.sourceName}'s effect`,
+						},
+					],
+				},
+				rngState,
+			};
+		}
+	}
 
 	const activeEffect = createActiveCombatEffect({
 		combat: input.combat,
@@ -59,8 +90,13 @@ export function applyTemporaryModifierEffect(
 	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
 
 	return {
-		combat: updatedCombat,
-		outcomes: [{ type: "modifier", targetName: target.name, effect: input.effect, refreshed }],
+		value: {
+			combat: updatedCombat,
+			outcomes: [
+				{ type: "modifier", targetName: target.name, effect: input.effect, refreshed },
+			],
+		},
+		rngState,
 	};
 }
 

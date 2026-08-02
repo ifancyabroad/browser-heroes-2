@@ -6,8 +6,9 @@ export default buildSkill({
 	description: "Sprint towards the enemy catching them off guard with a chance to stun.",
 	icon: "skills/barbarian/charge.png",
 	pool: "barbarian",
-	category: "attack",
-	maxUses: 1,
+	kind: "weaponAttack",
+	category: "damage",
+	maxUses: 2,
 	effects: [
 		{
 			type: "attackDamage",
@@ -16,6 +17,11 @@ export default buildSkill({
 			attackRiders: [
 				{
 					timing: "onHit",
+					save: {
+						attribute: "strength",
+						onSuccess: "noEffect",
+						dc: { attribute: "strength" },
+					},
 					effects: [
 						{
 							type: "applyStatus",

@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Nature's Blessing",
 	icon: "skills/common/natures_blessing.png",
 	pool: "common",
+	kind: "prayer",
 	category: "buff",
 	maxUses: 3,
 	effects: [

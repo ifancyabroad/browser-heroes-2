@@ -7,7 +7,8 @@ export default buildSkill({
 		"Channel dark energy to deal necrotic damage with a chance to cause ongoing bleeding.",
 	icon: "skills/occultist/inflict_wounds.png",
 	pool: "occultist",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 8,
 	effects: [
 		{

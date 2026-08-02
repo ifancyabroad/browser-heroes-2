@@ -6,13 +6,14 @@ export default buildSkill({
 	description: "A devastating strike that delivers heavy damage with overwhelming force.",
 	icon: "skills/warrior/mighty_blow.png",
 	pool: "warrior",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 3,
+			multiplier: 2.5,
 			attackRiders: [],
 		},
 	],

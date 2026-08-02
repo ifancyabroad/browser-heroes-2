@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Conjure a flame arrow.",
 	icon: "skills/warlock/flame_arrow.png",
 	pool: "warlock",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 12,
 	effects: [
 		{

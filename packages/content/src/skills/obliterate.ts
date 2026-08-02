@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Obliterate",
 	icon: "skills/common/obliterate.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

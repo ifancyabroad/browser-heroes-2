@@ -7,6 +7,7 @@ export default buildSkill({
 		"Speak a disorienting word that has a chance to charm or blind the enemy, leaving them confused and vulnerable.",
 	icon: "skills/occultist/power_word_confusion.png",
 	pool: "occultist",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 2,
 	effects: [

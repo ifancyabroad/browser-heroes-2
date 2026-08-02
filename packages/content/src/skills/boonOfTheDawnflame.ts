@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Boon of the Dawnflame",
 	icon: "skills/unique/boon_of_the_dawnflame.png",
 	pool: "unique",
+	kind: "spell",
 	category: "buff",
 	maxUses: 1,
 	effects: [

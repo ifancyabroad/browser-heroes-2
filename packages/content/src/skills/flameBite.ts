@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Flame Bite",
 	icon: "skills/common/flame_bite.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

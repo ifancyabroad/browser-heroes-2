@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Detect Blood",
 	icon: "skills/common/detect_blood.png",
 	pool: "common",
+	kind: "technique",
 	category: "buff",
 	maxUses: 1,
 	effects: [

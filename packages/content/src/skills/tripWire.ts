@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Trip Wire",
 	icon: "skills/common/trip_wire.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 1,
 	effects: [

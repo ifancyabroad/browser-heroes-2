@@ -6,7 +6,8 @@ export default buildSkill({
 	description: "Throw a poisoned explosive at the enemy with a chance to poison them.",
 	icon: "skills/assassin/poison_bomb.png",
 	pool: "assassin",
-	category: "spell",
+	kind: "technique",
+	category: "damage",
 	maxUses: 6,
 	effects: [
 		{

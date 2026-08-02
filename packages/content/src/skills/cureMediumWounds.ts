@@ -6,6 +6,7 @@ export default buildSkill({
 	description: "Heal a moderate amount of health, mending more serious injuries.",
 	icon: "skills/cleric/cure_medium_wounds.png",
 	pool: "cleric",
+	kind: "prayer",
 	category: "heal",
 	maxUses: 2,
 	effects: [

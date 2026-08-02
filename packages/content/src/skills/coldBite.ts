@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Cold Bite",
 	icon: "skills/common/cold_bite.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

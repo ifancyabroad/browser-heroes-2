@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Deafening Screech",
 	icon: "skills/common/deafening_screech.png",
 	pool: "common",
+	kind: "technique",
 	category: "debuff",
 	maxUses: 6,
 	effects: [

@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Blessing of the Old Gods",
 	icon: "skills/unique/blessing_of_the_old_gods.png",
 	pool: "unique",
+	kind: "spell",
 	category: "buff",
 	maxUses: 1,
 	effects: [

@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Poison Shot",
 	icon: "skills/common/poison_shot.png",
 	pool: "common",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 4,
 	effects: [
 		{

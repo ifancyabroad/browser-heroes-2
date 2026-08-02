@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Psionic Blast",
 	icon: "skills/common/psionic_blast.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Reposition",
 	icon: "skills/common/reposition.png",
 	pool: "common",
+	kind: "technique",
 	category: "buff",
 	maxUses: 4,
 	effects: [

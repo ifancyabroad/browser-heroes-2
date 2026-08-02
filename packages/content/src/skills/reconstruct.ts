@@ -5,6 +5,7 @@ export default buildSkill({
 	name: "Reconstruct",
 	icon: "skills/unique/reconstruct.png",
 	pool: "unique",
+	kind: "technique",
 	category: "heal",
 	maxUses: 1,
 	effects: [

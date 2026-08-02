@@ -5,7 +5,8 @@ export default buildSkill({
 	name: "Cyclone",
 	icon: "skills/common/cyclone.png",
 	pool: "common",
-	category: "spell",
+	kind: "spell",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{

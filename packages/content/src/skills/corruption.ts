@@ -7,6 +7,7 @@ export default buildSkill({
 		"Unleash a vile energy that has a chance to cripple the enemy and lower their resistance to necrotic damage.",
 	icon: "skills/warlock/corruption.png",
 	pool: "warlock",
+	kind: "spell",
 	category: "debuff",
 	maxUses: 4,
 	effects: [

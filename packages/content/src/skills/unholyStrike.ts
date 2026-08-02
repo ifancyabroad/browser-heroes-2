@@ -7,7 +7,8 @@ export default buildSkill({
 		"Deliver a powerful blow infused with dark energy, dealing weapon and necrotic damage to your foe.",
 	icon: "skills/occultist/unholy_strike.png",
 	pool: "occultist",
-	category: "attack",
+	kind: "weaponAttack",
+	category: "damage",
 	maxUses: 7,
 	effects: [
 		{
