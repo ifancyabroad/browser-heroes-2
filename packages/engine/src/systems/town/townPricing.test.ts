@@ -11,15 +11,16 @@ import {
 describe("town pricing", () => {
 	it.each([
 		[10, 1],
-		[12, 0.93],
-		[18, 0.73],
-		[8, 1.07],
+		[12, 0.92],
+		[18, 0.67],
+		[30, 0.17],
+		[8, 1.08],
 	] as const)("calculates charisma %i discount multiplier", (charisma, expected) => {
 		expect(calculateTownDiscountMultiplier(charisma)).toBe(expected);
 	});
 
 	it("applies and rounds item discounts", () => {
-		expect(calculateTownItemPrice(99, 18)).toBe(72);
+		expect(calculateTownItemPrice(99, 18)).toBe(66);
 		expect(calculateTownItemPrice(99, 10)).toBe(99);
 	});
 
@@ -47,6 +48,6 @@ describe("town pricing", () => {
 	it("scales healing potion cost by zone and charisma", () => {
 		expect(calculateHealingPotionCost(10, 1)).toBe(20);
 		expect(calculateHealingPotionCost(10, 3)).toBe(60);
-		expect(calculateHealingPotionCost(18, 3)).toBe(44);
+		expect(calculateHealingPotionCost(18, 3)).toBe(40);
 	});
 });

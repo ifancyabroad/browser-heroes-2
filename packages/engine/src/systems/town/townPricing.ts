@@ -1,5 +1,7 @@
 import { calculateAttributeModifier } from "../../core/attributes";
 
+const CHARISMA_DISCOUNT_DIVISOR = 12;
+
 const BASE_REROLL_COST = 20;
 const REROLL_MULTIPLIER = 1.5;
 
@@ -11,7 +13,7 @@ const BASE_HEALING_POTION_COST = 20;
 export function calculateTownDiscountMultiplier(effectiveCharisma: number): number {
 	const charismaModifier = calculateAttributeModifier(effectiveCharisma);
 
-	return Math.round((1 - charismaModifier / 15) * 100) / 100;
+	return Math.round((1 - charismaModifier / CHARISMA_DISCOUNT_DIVISOR) * 100) / 100;
 }
 
 export function calculateTownItemPrice(basePrice: number, effectiveCharisma: number): number {
