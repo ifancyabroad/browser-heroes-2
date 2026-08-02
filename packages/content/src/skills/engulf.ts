@@ -13,7 +13,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
-			dice: "1d12+8",
+			dice: "4d6",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",

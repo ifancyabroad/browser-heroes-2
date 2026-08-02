@@ -21,7 +21,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
-			dice: "4d12+19",
+			dice: "10d8",
 			requiresAttackRoll: false,
 		},
 	],

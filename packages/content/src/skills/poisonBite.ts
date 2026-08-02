@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "poison_bite",
 	name: "Poison Bite",
+	description: "Sink poisoned fangs into the enemy and infect them with a lingering toxin.",
 	icon: "skills/common/poison_bite.png",
 	pool: "common",
 	kind: "weaponAttack",
@@ -23,6 +24,11 @@ export default buildSkill({
 							damageType: "poison",
 							dice: "1d4",
 							durationTurns: 4,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
 						},
 					],
 				},

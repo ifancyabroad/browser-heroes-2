@@ -3,34 +3,35 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tail_swipe",
 	name: "Tail Swipe",
+	description: "Sweep the enemy aside with a heavy tail strike that may knock them senseless.",
 	icon: "skills/common/tail_swipe.png",
 	pool: "common",
-	kind: "technique",
+	kind: "weaponAttack",
 	category: "damage",
 	maxUses: 7,
 	effects: [
 		{
-			type: "damage",
+			type: "attackDamage",
 			target: "enemy",
-			damageType: "crushing",
-			dice: "2d12+8",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "dexterity",
-					includeProficiency: true,
-					bonus: 0,
+			multiplier: 1.5,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "applyStatus",
+							target: "enemy",
+							statusId: "stunned",
+							durationTurns: 1,
+							save: {
+								attribute: "dexterity",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
 				},
-			},
-		},
-		{
-			type: "applyStatus",
-			target: "enemy",
-			statusId: "stunned",
-			durationTurns: 1,
+			],
 		},
 	],
 	tags: [],

@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "toxic_bite",
 	name: "Toxic Bite",
+	description:
+		"Deliver a powerful venomous bite that poisons immediately and continues to ravage the target.",
 	icon: "skills/common/toxic_bite.png",
 	pool: "common",
 	kind: "weaponAttack",
@@ -21,14 +23,24 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "poison",
-							dice: "1d10+5",
+							dice: "2d6",
+							save: {
+								attribute: "constitution",
+								onSuccess: "halfDamage",
+								dc: { attribute: "constitution" },
+							},
 						},
 						{
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "poison",
 							dice: "1d6",
-							durationTurns: 6,
+							durationTurns: 4,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
 						},
 					],
 				},

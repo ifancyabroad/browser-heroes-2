@@ -9,7 +9,7 @@ import { selectEnemyAction } from "./selectEnemyAction";
 describe("enemy skill usefulness", () => {
 	it("excludes healing at full health and preserves the rng state when no skill is useful", () => {
 		const { enemy, player } = createCombatants();
-		const healer = withSkills(enemy, [{ skillId: "regeneration", chargesRemaining: 2 }]);
+		const healer = withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]);
 		const rngState = { value: 123 };
 
 		expect(getUsefulEnemySkillIds(healer, player)).toEqual([]);
@@ -21,20 +21,20 @@ describe("enemy skill usefulness", () => {
 
 	it("uses a heal only when enough of its expected value will not be wasted", () => {
 		const { enemy, player } = createCombatants();
-		const healer = withSkills(enemy, [{ skillId: "regeneration", chargesRemaining: 2 }]);
+		const healer = withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]);
 
 		expect(getUsefulEnemySkillIds({ ...healer, currentHp: healer.maxHp - 1 }, player)).toEqual(
 			[],
 		);
 		expect(getUsefulEnemySkillIds({ ...healer, currentHp: healer.maxHp - 4 }, player)).toEqual([
-			"regeneration",
+			"cure_minor_wounds",
 		]);
 	});
 
 	it("accounts for active healing modifiers when judging expected healing", () => {
 		const { enemy, player } = createCombatants();
 		const healer = {
-			...withSkills(enemy, [{ skillId: "regeneration", chargesRemaining: 2 }]),
+			...withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]),
 			currentHp: enemy.maxHp - 1,
 			activeEffects: [
 				...enemy.activeEffects,
@@ -54,7 +54,7 @@ describe("enemy skill usefulness", () => {
 			],
 		};
 
-		expect(getUsefulEnemySkillIds(healer, player)).toEqual(["regeneration"]);
+		expect(getUsefulEnemySkillIds(healer, player)).toEqual(["cure_minor_wounds"]);
 	});
 
 	it("keeps a mixed damage and healing skill useful at full health", () => {

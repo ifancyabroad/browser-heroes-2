@@ -8,21 +8,19 @@ export default buildSkill({
 	pool: "common",
 	kind: "technique",
 	category: "debuff",
-	maxUses: 6,
+	maxUses: 3,
 	effects: [
 		{
-			type: "modifyStat",
+			type: "modifyRoll",
 			target: "enemy",
-			stat: "attackRollBonus",
-			value: -3,
+			roll: "attack",
+			mode: "disadvantage",
 			durationTurns: 4,
-		},
-		{
-			type: "modifyDamage",
-			target: "enemy",
-			operation: "add",
-			value: -3,
-			durationTurns: 4,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 		{
 			type: "modifyStat",
@@ -30,6 +28,11 @@ export default buildSkill({
 			stat: "saveDcBonus",
 			value: -3,
 			durationTurns: 4,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 	],
 	tags: [],

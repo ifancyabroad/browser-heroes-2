@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "regeneration",
 	name: "Regeneration",
+	description: "Begin regenerating damaged tissue steadily over several turns.",
 	icon: "skills/common/regeneration.png",
 	pool: "common",
 	kind: "technique",
@@ -10,9 +11,10 @@ export default buildSkill({
 	maxUses: 2,
 	effects: [
 		{
-			type: "heal",
+			type: "healOverTime",
 			target: "self",
-			dice: "2d6",
+			dice: "1d8",
+			durationTurns: 4,
 		},
 	],
 	tags: [],

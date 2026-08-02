@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "constrict",
 	name: "Constrict",
+	description: "Coil around the enemy, crushing them and restricting their ability to attack.",
 	icon: "skills/common/constrict.png",
 	pool: "common",
 	kind: "technique",
@@ -13,11 +14,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "1d12+8",
+			dice: "2d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
-				onSuccess: "noEffect",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "strength",
@@ -27,11 +28,16 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyStat",
+			type: "modifyRoll",
 			target: "enemy",
-			stat: "armourClass",
-			value: -4,
-			durationTurns: 4,
+			roll: "attack",
+			mode: "disadvantage",
+			durationTurns: 3,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 	],
 	tags: [],

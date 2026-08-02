@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tentacle_wrap",
 	name: "Tentacle Wrap",
+	description:
+		"Wrap the enemy in a powerful tentacle, crushing and potentially immobilising them.",
 	icon: "skills/common/tentacle_wrap.png",
 	pool: "common",
 	kind: "technique",
@@ -13,11 +15,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "2d12+8",
+			dice: "2d8",
 			requiresAttackRoll: false,
 			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
+				attribute: "strength",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "strength",
@@ -30,7 +32,12 @@ export default buildSkill({
 			type: "applyStatus",
 			target: "enemy",
 			statusId: "stunned",
-			durationTurns: 1,
+			durationTurns: 2,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 	],
 	tags: [],

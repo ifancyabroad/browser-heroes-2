@@ -21,7 +21,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "cold",
-							dice: "1d12+8",
+							dice: "4d6",
 						},
 						{
 							type: "damageOverTime",

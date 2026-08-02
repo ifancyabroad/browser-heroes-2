@@ -21,7 +21,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "cold",
-							dice: "1d10+5",
+							dice: "3d6",
 						},
 						{
 							type: "modifyStat",

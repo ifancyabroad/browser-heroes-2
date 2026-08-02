@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tentacle_crush",
 	name: "Tentacle Crush",
+	description: "Crush the enemy in a massive tentacle, damaging and weakening them.",
 	icon: "skills/common/tentacle_crush.png",
 	pool: "common",
 	kind: "technique",
@@ -13,11 +14,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "2d12+15",
+			dice: "3d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
-				onSuccess: "noEffect",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "strength",
@@ -27,11 +28,16 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyStat",
+			type: "modifyDamage",
 			target: "enemy",
-			stat: "armourClass",
-			value: -4,
-			durationTurns: 4,
+			operation: "multiply",
+			value: 0.75,
+			durationTurns: 3,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 	],
 	tags: [],

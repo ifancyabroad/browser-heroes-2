@@ -3,25 +3,30 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "flame_slam",
 	name: "Flame Slam",
+	description: "Slam into the enemy with crushing force wreathed in elemental fire.",
 	icon: "skills/common/flame_slam.png",
 	pool: "common",
-	kind: "technique",
+	kind: "weaponAttack",
 	category: "damage",
 	maxUses: 4,
 	effects: [
 		{
-			type: "damage",
+			type: "attackDamage",
 			target: "enemy",
-			damageType: "crushing",
-			dice: "2d12+8",
-			requiresAttackRoll: false,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "fire",
-			dice: "2d12+8",
-			requiresAttackRoll: false,
+			multiplier: 1.5,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "fire",
+							dice: "2d8",
+						},
+					],
+				},
+			],
 		},
 	],
 	tags: [],

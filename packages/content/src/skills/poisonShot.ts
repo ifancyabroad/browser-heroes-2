@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "poison_shot",
 	name: "Poison Shot",
+	description: "Fire a poisoned projectile that delivers a persistent toxin on impact.",
 	icon: "skills/common/poison_shot.png",
 	pool: "common",
 	kind: "weaponAttack",
@@ -18,17 +19,16 @@ export default buildSkill({
 					timing: "onHit",
 					effects: [
 						{
-							type: "damage",
-							target: "enemy",
-							damageType: "poison",
-							dice: "1d4",
-						},
-						{
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "poison",
-							dice: "1d4",
-							durationTurns: 3,
+							dice: "1d6",
+							durationTurns: 4,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "dexterity" },
+							},
 						},
 					],
 				},

@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "nightmares",
 	name: "Nightmares",
+	description: "Invade the enemy's mind with waking nightmares that damage and terrorise them.",
 	icon: "skills/common/nightmares.png",
 	pool: "common",
 	kind: "spell",
@@ -13,11 +14,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "2d12+15",
+			dice: "3d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "wisdom",
-				onSuccess: "noEffect",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "wisdom",
@@ -27,12 +28,16 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyDamageAffinity",
+			type: "modifyRoll",
 			target: "enemy",
-			affinity: "vulnerability",
-			operation: "add",
-			damageType: "necrotic",
-			durationTurns: 2,
+			roll: "attack",
+			mode: "disadvantage",
+			durationTurns: 4,
+			save: {
+				attribute: "wisdom",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

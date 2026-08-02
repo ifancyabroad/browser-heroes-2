@@ -3,18 +3,25 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "spook",
 	name: "Spook",
+	description:
+		"Terrify the enemy with a sudden supernatural manifestation that may sap their resolve.",
 	icon: "skills/common/spook.png",
 	pool: "common",
 	kind: "spell",
-	category: "damage",
+	category: "debuff",
 	maxUses: 4,
 	effects: [
 		{
-			type: "damage",
+			type: "modifyDamage",
 			target: "enemy",
-			damageType: "necrotic",
-			dice: "1d6",
-			requiresAttackRoll: false,
+			operation: "multiply",
+			value: 0.5,
+			durationTurns: 3,
+			save: {
+				attribute: "wisdom",
+				onSuccess: "noEffect",
+				dc: { attribute: "charisma" },
+			},
 		},
 	],
 	tags: [],

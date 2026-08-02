@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "corrupting_touch",
 	name: "Corrupting Touch",
+	description:
+		"Flood the enemy with necrotic corruption that may leave them vulnerable to deathly power.",
 	icon: "skills/common/corrupting_touch.png",
 	pool: "common",
 	kind: "spell",
@@ -13,11 +15,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "1d12+8",
+			dice: "4d6",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "wisdom",
-				onSuccess: "noEffect",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "wisdom",
@@ -32,7 +34,12 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "necrotic",
-			durationTurns: 2,
+			durationTurns: 3,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

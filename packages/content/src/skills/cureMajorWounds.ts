@@ -13,7 +13,7 @@ export default buildSkill({
 		{
 			type: "heal",
 			target: "self",
-			dice: "3d10+8",
+			dice: "7d6",
 			attribute: "wisdom",
 		},
 	],

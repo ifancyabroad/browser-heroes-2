@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "poison_cloud",
 	name: "Poison Cloud",
+	description:
+		"Envelop the enemy in toxic vapour that poisons immediately and lingers in their lungs.",
 	icon: "skills/common/poison_cloud.png",
 	pool: "common",
 	kind: "spell",
@@ -13,11 +15,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "poison",
-			dice: "2d12+8",
+			dice: "3d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",
-				onSuccess: "noEffect",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "dexterity",
@@ -31,7 +33,12 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "poison",
 			dice: "1d8",
-			durationTurns: 6,
+			durationTurns: 4,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "dexterity" },
+			},
 		},
 	],
 	tags: [],

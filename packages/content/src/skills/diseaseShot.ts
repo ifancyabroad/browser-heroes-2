@@ -3,35 +3,36 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "disease_shot",
 	name: "Disease Shot",
+	description: "Fire a diseased projectile that infects its target with lingering poison.",
 	icon: "skills/common/disease_shot.png",
 	pool: "common",
-	kind: "technique",
+	kind: "weaponAttack",
 	category: "damage",
 	maxUses: 2,
 	effects: [
 		{
-			type: "damage",
+			type: "attackDamage",
 			target: "enemy",
-			damageType: "poison",
-			dice: "1d12+8",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "constitution",
-					includeProficiency: true,
-					bonus: 0,
+			multiplier: 1,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "2d6",
+							durationTurns: 4,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "dexterity" },
+							},
+						},
+					],
 				},
-			},
-		},
-		{
-			type: "damageOverTime",
-			target: "enemy",
-			damageType: "poison",
-			dice: "1d6",
-			durationTurns: 4,
+			],
 		},
 	],
 	tags: [],

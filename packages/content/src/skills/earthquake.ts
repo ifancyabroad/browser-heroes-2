@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "earthquake",
 	name: "Earthquake",
+	description: "Rupture the ground beneath the enemy, crushing and potentially toppling them.",
 	icon: "skills/common/earthquake.png",
 	pool: "common",
 	kind: "spell",
@@ -13,11 +14,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "2d12+15",
+			dice: "4d10",
 			requiresAttackRoll: false,
 			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "dexterity",
@@ -31,6 +32,11 @@ export default buildSkill({
 			target: "enemy",
 			statusId: "stunned",
 			durationTurns: 2,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "constitution" },
+			},
 		},
 	],
 	tags: [],

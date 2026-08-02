@@ -3,20 +3,19 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "bless",
 	name: "Bless",
-	description:
-		"Invoke a sacred boon that grants the blessed effect, ensuring all saving throws succeed.",
+	description: "Invoke a sacred boon that grants divine favour against harmful effects.",
 	icon: "skills/common/bless.png",
 	pool: "common",
 	kind: "prayer",
 	category: "buff",
-	maxUses: 8,
+	maxUses: 4,
 	effects: [
 		{
-			type: "modifyStat",
+			type: "modifyRoll",
 			target: "self",
-			stat: "savingThrowBonus",
-			value: 5,
-			durationTurns: 8,
+			roll: "savingThrow",
+			mode: "advantage",
+			durationTurns: 6,
 		},
 	],
 	tags: [],

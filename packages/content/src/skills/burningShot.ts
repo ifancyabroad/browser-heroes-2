@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "burning_shot",
 	name: "Burning Shot",
+	description: "Loose an incendiary projectile that ignites its target on impact.",
 	icon: "skills/common/burning_shot.png",
 	pool: "common",
 	kind: "weaponAttack",
@@ -18,10 +19,11 @@ export default buildSkill({
 					timing: "onHit",
 					effects: [
 						{
-							type: "damage",
+							type: "damageOverTime",
 							target: "enemy",
 							damageType: "fire",
-							dice: "2d6",
+							dice: "1d6",
+							durationTurns: 3,
 						},
 					],
 				},

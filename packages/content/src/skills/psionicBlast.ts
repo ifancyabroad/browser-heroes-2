@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "psionic_blast",
 	name: "Psionic Blast",
+	description:
+		"Assault the enemy's mind with psychic force that may leave them briefly incapacitated.",
 	icon: "skills/common/psionic_blast.png",
 	pool: "common",
 	kind: "spell",
@@ -13,11 +15,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "2d12+8",
+			dice: "6d6",
 			requiresAttackRoll: false,
 			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
+				attribute: "wisdom",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "wisdom",
@@ -30,7 +32,12 @@ export default buildSkill({
 			type: "applyStatus",
 			target: "enemy",
 			statusId: "stunned",
-			durationTurns: 1,
+			durationTurns: 2,
+			save: {
+				attribute: "wisdom",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

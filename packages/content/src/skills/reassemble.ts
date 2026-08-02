@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "reassemble",
 	name: "Reassemble",
+	description: "Pull a shattered form back together and restore a large amount of health.",
 	icon: "skills/common/reassemble.png",
 	pool: "common",
 	kind: "technique",
@@ -12,7 +13,7 @@ export default buildSkill({
 		{
 			type: "heal",
 			target: "self",
-			dice: "3d12+16",
+			dice: "10d6",
 		},
 	],
 	tags: [],

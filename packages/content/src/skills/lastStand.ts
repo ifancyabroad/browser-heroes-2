@@ -14,7 +14,7 @@ export default buildSkill({
 		{
 			type: "heal",
 			target: "self",
-			dice: "8d8+16",
+			dice: "8d12",
 			attribute: "constitution",
 		},
 		{

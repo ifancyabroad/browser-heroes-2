@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "1d10+5",
+			dice: "3d6",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
 			save: {
@@ -27,7 +27,7 @@ export default buildSkill({
 		{
 			type: "heal",
 			target: "self",
-			dice: "1d10+5",
+			dice: "3d6",
 			attribute: "wisdom",
 		},
 	],

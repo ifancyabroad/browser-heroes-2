@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "devour_soul",
 	name: "Devour Soul",
+	description:
+		"Tear at the enemy's soul, dealing necrotic damage and diminishing their capacity for life.",
 	icon: "skills/common/devour_soul.png",
 	pool: "common",
 	kind: "spell",
@@ -13,11 +15,11 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "2d12+8",
+			dice: "6d6",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "wisdom",
-				onSuccess: "noEffect",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "wisdom",
@@ -30,8 +32,13 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "enemy",
 			stat: "maxHpBonus",
-			value: -5,
+			value: -15,
 			durationTurns: 6,
+			save: {
+				attribute: "wisdom",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

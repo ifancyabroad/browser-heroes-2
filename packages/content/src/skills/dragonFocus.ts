@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "dragon_focus",
 	name: "Dragon Focus",
+	description:
+		"Gather draconic power, making breath and supernatural abilities harder to resist.",
 	icon: "skills/common/dragon_focus.png",
 	pool: "common",
 	kind: "technique",
@@ -12,8 +14,8 @@ export default buildSkill({
 		{
 			type: "modifyStat",
 			target: "self",
-			stat: "attackRollBonus",
-			value: 2,
+			stat: "saveDcBonus",
+			value: 3,
 			durationTurns: 6,
 		},
 	],

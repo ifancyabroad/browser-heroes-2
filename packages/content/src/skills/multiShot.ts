@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "multi_shot",
 	name: "Multi Shot",
+	description: "Loose three rapid projectiles, each dealing reduced weapon damage.",
 	icon: "skills/common/multi_shot.png",
 	pool: "common",
 	kind: "weaponAttack",

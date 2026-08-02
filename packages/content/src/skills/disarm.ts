@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "disarm",
 	name: "Disarm",
-	description: "Attempt to disarm the enemy.",
+	description: "Attempt to knock the enemy's weapon aside and sharply reduce their damage.",
 	icon: "skills/common/disarm.png",
 	pool: "common",
 	kind: "technique",
@@ -14,8 +14,13 @@ export default buildSkill({
 			type: "modifyDamage",
 			target: "enemy",
 			operation: "multiply",
-			value: 0.75,
+			value: 0.5,
 			durationTurns: 3,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 	],
 	tags: [],

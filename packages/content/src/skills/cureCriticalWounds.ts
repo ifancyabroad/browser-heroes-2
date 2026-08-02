@@ -14,7 +14,7 @@ export default buildSkill({
 		{
 			type: "heal",
 			target: "self",
-			dice: "5d10+15",
+			dice: "8d10",
 			attribute: "wisdom",
 		},
 	],

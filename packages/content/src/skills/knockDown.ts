@@ -3,36 +3,35 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "knock_down",
 	name: "Knock Down",
-	description:
-		"Topple adversaries with the forceful Knock Down skill, sending enemies crashing to the ground in a stunning display of power.",
+	description: "Deliver a forceful blow that may topple the enemy and deny their response.",
 	icon: "skills/common/knock_down.png",
 	pool: "common",
-	kind: "technique",
+	kind: "weaponAttack",
 	category: "damage",
 	maxUses: 1,
 	effects: [
 		{
-			type: "applyStatus",
+			type: "attackDamage",
 			target: "enemy",
-			statusId: "stunned",
-			durationTurns: 2,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "crushing",
-			dice: "1d12+8",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "strength",
-					includeProficiency: true,
-					bonus: 0,
+			multiplier: 1,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "applyStatus",
+							target: "enemy",
+							statusId: "stunned",
+							durationTurns: 2,
+							save: {
+								attribute: "strength",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
 				},
-			},
+			],
 		},
 	],
 	tags: [],

@@ -13,8 +13,8 @@ export default buildSkill({
 		{
 			type: "modifyDamage",
 			target: "self",
-			operation: "add",
-			value: 4,
+			operation: "multiply",
+			value: 1.5,
 			durationTurns: 4,
 		},
 		{

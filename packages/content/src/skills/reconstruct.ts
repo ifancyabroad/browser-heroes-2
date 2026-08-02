@@ -12,7 +12,7 @@ export default buildSkill({
 		{
 			type: "heal",
 			target: "self",
-			dice: "1d12+8",
+			dice: "4d6",
 		},
 		{
 			type: "modifyDamageAffinity",
