@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { SKILLS_BY_ID } from "@app/content";
+import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { ActiveCombatEffect } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
 import {
@@ -119,6 +119,16 @@ function getActiveEffectDisplaySource(effect: ActiveCombatEffect) {
 			key: `${sourceKeyPrefix}:${effect.source.skillId}`,
 			sourceName: skill.name,
 			icon: resolveImageUrl(skill.icon),
+		};
+	}
+
+	if (effect.source.type === "feat") {
+		const feat = FEATS_BY_ID[effect.source.featId];
+
+		return {
+			key: `${sourceKeyPrefix}:${effect.source.featId}`,
+			sourceName: feat.name,
+			icon: resolveImageUrl(feat.icon),
 		};
 	}
 

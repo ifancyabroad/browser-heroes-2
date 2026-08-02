@@ -35,6 +35,12 @@ export const activeEffectSourceSchema = z.discriminatedUnion("type", [
 		sourceName: z.string().nonempty(),
 		sourceEffectKey: z.string().nonempty(),
 	}),
+	z.object({
+		type: z.literal("feat"),
+		featId: featIdSchema,
+		sourceName: z.string().nonempty(),
+		sourceEffectKey: z.string().nonempty(),
+	}),
 ]);
 
 const activeCombatEffectBaseSchema = z.object({

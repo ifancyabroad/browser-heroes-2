@@ -4,7 +4,7 @@ import type { RngResult, RngState } from "../../../core/rng";
 
 import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
 import { resolveHealEffect } from "../skills/effects/resolveHealEffect";
-import type { RiderEffect, SavingThrow, SkillId } from "@app/content";
+import type { FeatId, RiderEffect, SavingThrow, SkillId } from "@app/content";
 import { getCombatant, getOpponent } from "../combatants/combatantSelectors";
 import { resolveSavingThrow } from "../checks/resolveSavingThrow";
 import { applyRecurringEffect } from "../skills/effects/applyRecurringEffect";
@@ -24,6 +24,14 @@ type AttackRiderSourceContext =
 	| {
 			source: {
 				type: "basicAttack";
+				sourceName: string;
+			};
+			sourceEffectKeyPrefix: string;
+	  }
+	| {
+			source: {
+				type: "feat";
+				featId: FeatId;
 				sourceName: string;
 			};
 			sourceEffectKeyPrefix: string;

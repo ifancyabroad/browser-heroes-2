@@ -10,6 +10,7 @@ import { calculateDamage } from "../../damage/calculateDamage";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { resolveAttackRiders } from "../../attacks/resolveAttackRiders";
 import type { ActionResolution } from "../../logs/actionOutcome";
+import { collectFeatAttackRiders } from "../../attacks/collectFeatAttackRiders";
 
 type ResolveAttackDamageEffectInput = {
 	combat: CombatState;
@@ -129,6 +130,37 @@ export function resolveAttackDamageEffect(
 					sourceName: input.skillName,
 				},
 				sourceEffectKeyPrefix: `effect:${input.effectIndex}:rider:${riderIndex}`,
+			},
+			rngState,
+		});
+
+		resolvedCombat = riderResult.value.combat;
+		outcomes.push(...riderResult.value.outcomes);
+		rngState = riderResult.rngState;
+	}
+
+	const featAttackRiders = collectFeatAttackRiders(actor.featIds);
+
+	for (const { featId, featName, riderIndex, rider } of featAttackRiders) {
+		const shouldResolve =
+			rider.timing === "onHit" || (rider.timing === "onCrit" && attackRoll.value.critical);
+
+		if (!shouldResolve) {
+			continue;
+		}
+
+		const riderResult = resolveAttackRiders({
+			combat: resolvedCombat,
+			actorSide: input.actorSide,
+			effects: rider.effects,
+			save: rider.save,
+			sourceContext: {
+				source: {
+					type: "feat",
+					featId,
+					sourceName: featName,
+				},
+				sourceEffectKeyPrefix: `feat:${featId}:rider:${riderIndex}`,
 			},
 			rngState,
 		});
