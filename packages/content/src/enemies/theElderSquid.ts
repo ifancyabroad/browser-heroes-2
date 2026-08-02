@@ -23,7 +23,7 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Tentacle",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",

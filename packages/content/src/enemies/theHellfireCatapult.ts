@@ -23,7 +23,7 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Hellfire Shot",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d8",

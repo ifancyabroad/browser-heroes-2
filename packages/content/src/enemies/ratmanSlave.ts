@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Claw",
-			attackAttribute: "strength",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d4",
 				type: "slashing",
-				attribute: "strength",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["poison_bomb"],

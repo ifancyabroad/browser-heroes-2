@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Tendril Strike",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d4",
 				type: "crushing",
-				attribute: "strength",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["cone_of_cold", "drain_life", "psionic_blast"],

@@ -23,7 +23,7 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
-			name: "Bite",
+			name: "Ballista Bolt",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",

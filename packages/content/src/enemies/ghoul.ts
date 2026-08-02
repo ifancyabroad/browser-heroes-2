@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Feral Strike",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d6",
 				type: "crushing",
-				attribute: "strength",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["ghoul_strike"],

@@ -32,7 +32,7 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Unholy Strike",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d4",

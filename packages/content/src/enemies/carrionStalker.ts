@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Bite",
-			attackAttribute: "strength",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d6",
 				type: "piercing",
-				attribute: "strength",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["detect_blood", "leap_attack"],

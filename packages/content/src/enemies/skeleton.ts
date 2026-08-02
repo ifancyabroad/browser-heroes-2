@@ -23,7 +23,7 @@ export default buildEnemy({
 			vulnerabilities: ["crushing", "radiant"],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Bony Fist",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d4",

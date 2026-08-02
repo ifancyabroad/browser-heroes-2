@@ -23,7 +23,7 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Catapult Shot",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d8",
