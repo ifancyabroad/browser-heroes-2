@@ -25,22 +25,23 @@ import fea_keenIntellect_16 from '../feats/keenIntellect';
 import fea_lightningMastery_17 from '../feats/lightningMastery';
 import fea_necroticMastery_18 from '../feats/necroticMastery';
 import fea_piercingMastery_19 from '../feats/piercingMastery';
-import fea_poisonMastery_20 from '../feats/poisonMastery';
-import fea_potentCasting_21 from '../feats/potentCasting';
-import fea_radiantMastery_22 from '../feats/radiantMastery';
-import fea_sagesWisdom_23 from '../feats/sagesWisdom';
-import fea_savageCritical_24 from '../feats/savageCritical';
-import fea_slashingMastery_25 from '../feats/slashingMastery';
-import fea_toughness_26 from '../feats/toughness';
-import fea_unbreakableWill_27 from '../feats/unbreakableWill';
-import fea_wintersHeart_28 from '../feats/wintersHeart';
+import fea_plagueborn_20 from '../feats/plagueborn';
+import fea_poisonMastery_21 from '../feats/poisonMastery';
+import fea_potentCasting_22 from '../feats/potentCasting';
+import fea_radiantMastery_23 from '../feats/radiantMastery';
+import fea_sagesWisdom_24 from '../feats/sagesWisdom';
+import fea_savageCritical_25 from '../feats/savageCritical';
+import fea_slashingMastery_26 from '../feats/slashingMastery';
+import fea_toughness_27 from '../feats/toughness';
+import fea_unbreakableWill_28 from '../feats/unbreakableWill';
+import fea_wintersHeart_29 from '../feats/wintersHeart';
 
 export { featIdSchema, featIds };
 export type { FeatId } from './featIds';
 
 export type Feat = WithGeneratedId<FeatDefinition, FeatId>;
 
-const rawFeats = [fea_acidMastery_0, fea_armourTraining_1, fea_brawler_2, fea_catlikeGrace_3, fea_coldMastery_4, fea_combatDiscipline_5, fea_commandingPresence_6, fea_crushingMastery_7, fea_dawnBlessed_8, fea_deadlyPrecision_9, fea_deathTouched_10, fea_fireMastery_11, fea_flameborn_12, fea_giftedHealer_13, fea_herculeanStrength_14, fea_ironConstitution_15, fea_keenIntellect_16, fea_lightningMastery_17, fea_necroticMastery_18, fea_piercingMastery_19, fea_poisonMastery_20, fea_potentCasting_21, fea_radiantMastery_22, fea_sagesWisdom_23, fea_savageCritical_24, fea_slashingMastery_25, fea_toughness_26, fea_unbreakableWill_27, fea_wintersHeart_28] satisfies readonly FeatDefinition[];
+const rawFeats = [fea_acidMastery_0, fea_armourTraining_1, fea_brawler_2, fea_catlikeGrace_3, fea_coldMastery_4, fea_combatDiscipline_5, fea_commandingPresence_6, fea_crushingMastery_7, fea_dawnBlessed_8, fea_deadlyPrecision_9, fea_deathTouched_10, fea_fireMastery_11, fea_flameborn_12, fea_giftedHealer_13, fea_herculeanStrength_14, fea_ironConstitution_15, fea_keenIntellect_16, fea_lightningMastery_17, fea_necroticMastery_18, fea_piercingMastery_19, fea_plagueborn_20, fea_poisonMastery_21, fea_potentCasting_22, fea_radiantMastery_23, fea_sagesWisdom_24, fea_savageCritical_25, fea_slashingMastery_26, fea_toughness_27, fea_unbreakableWill_28, fea_wintersHeart_29] satisfies readonly FeatDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const feats = rawFeats as readonly Feat[];
@@ -66,15 +67,16 @@ const rawFeatsById = {
   "lightning_mastery": fea_lightningMastery_17,
   "necrotic_mastery": fea_necroticMastery_18,
   "piercing_mastery": fea_piercingMastery_19,
-  "poison_mastery": fea_poisonMastery_20,
-  "potent_casting": fea_potentCasting_21,
-  "radiant_mastery": fea_radiantMastery_22,
-  "sages_wisdom": fea_sagesWisdom_23,
-  "savage_critical": fea_savageCritical_24,
-  "slashing_mastery": fea_slashingMastery_25,
-  "toughness": fea_toughness_26,
-  "unbreakable_will": fea_unbreakableWill_27,
-  "winters_heart": fea_wintersHeart_28,
+  "plagueborn": fea_plagueborn_20,
+  "poison_mastery": fea_poisonMastery_21,
+  "potent_casting": fea_potentCasting_22,
+  "radiant_mastery": fea_radiantMastery_23,
+  "sages_wisdom": fea_sagesWisdom_24,
+  "savage_critical": fea_savageCritical_25,
+  "slashing_mastery": fea_slashingMastery_26,
+  "toughness": fea_toughness_27,
+  "unbreakable_will": fea_unbreakableWill_28,
+  "winters_heart": fea_wintersHeart_29,
 } satisfies Record<FeatId, FeatDefinition>;
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
