@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["fireball"],
-		featIds: ["shadow_focus", "iron_skin", "embrace_shadows"],
+		skillIds: ["shadow_bolt", "fireball", "iron_skin", "embrace_shadows"],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

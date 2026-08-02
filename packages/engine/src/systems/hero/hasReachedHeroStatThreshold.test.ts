@@ -10,7 +10,8 @@ import {
 describe("hero stat threshold queries", () => {
 	it("uses effective attributes", () => {
 		const hero = createTestRunState().hero;
-		hero.attributes.strength = 30;
+		hero.attributes.strength = 28;
+		hero.featIds = ["herculean_strength"];
 
 		expect(hasReachedMaximumAttribute(hero, "strength")).toBe(true);
 	});
@@ -26,12 +27,12 @@ describe("hero stat threshold queries", () => {
 		expect(hasReachedMaxHpThreshold(hero, 100)).toBe(true);
 	});
 
-	it("uses effective Armour Class", () => {
+	it("uses Dexterity when deriving effective Armour Class", () => {
 		const hero = createTestRunState().hero;
 		hero.equipment.body = null;
-		hero.attributes.dexterity = 30;
-		hero.featIds = ["runic_ward", "unyielding_guard", "duelist_training"];
+		hero.attributes.dexterity = 28;
+		hero.featIds = ["catlike_grace"];
 
-		expect(hasReachedArmourClassThreshold(hero, 25)).toBe(true);
+		expect(hasReachedArmourClassThreshold(hero, 20)).toBe(true);
 	});
 });

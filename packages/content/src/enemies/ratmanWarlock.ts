@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["flame_arrow", "blind"],
-		featIds: ["embrace_shadows", "shadow_focus"],
+		skillIds: ["embrace_shadows", "flame_arrow", "shadow_bolt", "blind"],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

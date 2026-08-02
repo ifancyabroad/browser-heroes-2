@@ -22,9 +22,9 @@ describe("content studio routes", () => {
 				<App />
 			</MemoryRouter>,
 		);
-		expect(screen.getByText("Showing 1–30 of 156 entries")).toBeInTheDocument();
+		expect(screen.getByText("Showing 1–30 of 188 entries")).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "Next" }));
-		expect(screen.getByText("Showing 31–60 of 156 entries")).toBeInTheDocument();
+		expect(screen.getByText("Showing 31–60 of 188 entries")).toBeInTheDocument();
 	});
 
 	it("renders details, complete artwork paths, and references", () => {

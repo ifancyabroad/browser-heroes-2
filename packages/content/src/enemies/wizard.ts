@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["sparks", "frost_arrow", "flame_arrow"],
-		featIds: ["armour"],
+		skillIds: ["armour", "sparks", "frost_arrow", "flame_arrow"],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

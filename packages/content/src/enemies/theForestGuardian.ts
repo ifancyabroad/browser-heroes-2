@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["double_strike", "stoke_the_flames"],
-		featIds: ["focus_energy"],
+		skillIds: ["double_strike", "focus_energy", "stoke_the_flames"],
+		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {

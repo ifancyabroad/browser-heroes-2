@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["cripple"],
-		featIds: ["acrobatic_training"],
+		skillIds: ["acrobatic_strike", "cripple"],
+		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {

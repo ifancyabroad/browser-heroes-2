@@ -23,7 +23,7 @@ describe("content source", () => {
 	it.each([
 		["enemies", "abomination"],
 		["skills", "acid_bite"],
-		["feats", "armour"],
+		["feats", "acid_mastery"],
 		["classes", "fighter"],
 		["item-bases", "base_dagger"],
 		["affixes", "accurate"],

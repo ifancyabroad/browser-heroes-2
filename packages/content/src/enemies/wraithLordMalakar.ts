@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["corrupting_touch", "wail"],
-		featIds: ["cloak_of_shadows"],
+		skillIds: ["corrupting_touch", "wail", "cloak_of_shadows"],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

@@ -40,8 +40,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["disarm", "whirlwind_strike"],
-		featIds: ["focus_energy"],
+		skillIds: ["disarm", "focus_energy", "whirlwind_strike"],
+		featIds: [],
 		tactic: "random",
 	},
 	proficiencies: {

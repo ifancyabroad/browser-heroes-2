@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cure_minor_wounds", "holy_bolt"],
-		featIds: ["runic_ward"],
+		skillIds: ["cure_minor_wounds", "holy_bolt", "power_word_shield"],
+		featIds: [],
 		tactic: "defensive",
 	},
 	proficiencies: {

@@ -31,8 +31,14 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["tentacle_wrap", "psionic_blast", "drain_life"],
-		featIds: ["arcane_warding", "siphoned_vigor"],
+		skillIds: [
+			"globe_of_invulnerability",
+			"drain_energy",
+			"tentacle_wrap",
+			"psionic_blast",
+			"drain_life",
+		],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

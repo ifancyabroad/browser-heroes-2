@@ -156,21 +156,17 @@ describe("achievement.service", () => {
 		);
 	});
 
-	it("evaluates effective health and armour class thresholds", () => {
+	it("evaluates the effective health threshold", () => {
 		const previousState = createTestRunState();
 		previousState.hero.maxHp = 99;
 		previousState.hero.currentHp = 99;
-		previousState.hero.equipment.body = null;
-		previousState.hero.attributes.dexterity = 28;
-		previousState.hero.featIds = ["runic_ward", "unyielding_guard", "duelist_training"];
 
 		const nextState = structuredClone(previousState);
 		nextState.hero.maxHp = 100;
 		nextState.hero.currentHp = 100;
-		nextState.hero.attributes.dexterity = 30;
 
 		expect(evaluateRunActionAchievements({ previousState, nextState, events: [] })).toEqual(
-			expect.arrayContaining(["reach_100_max_hp", "reach_25_armour_class"]),
+			expect.arrayContaining(["reach_100_max_hp"]),
 		);
 	});
 

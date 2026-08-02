@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "call_upon_rit_chi"],
-		featIds: ["siphoned_vigor"],
+		skillIds: ["double_strike", "drain_energy", "call_upon_rit_chi"],
+		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {

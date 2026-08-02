@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["corrupting_touch"],
-		featIds: ["evasion"],
+		skillIds: ["corrupting_touch", "evasion"],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

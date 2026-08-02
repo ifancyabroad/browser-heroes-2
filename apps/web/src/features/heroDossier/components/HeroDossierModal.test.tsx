@@ -88,7 +88,7 @@ describe("HeroDossierModal", () => {
 							charisma: 11,
 						},
 						skills: [{ skillId: "heavy_strike", chargesRemaining: 1 }],
-						featIds: ["armour"],
+						featIds: ["herculean_strength"],
 						equipment: emptyEquipment,
 						pendingLevelUp: null,
 						healingPotions: 3,
@@ -122,7 +122,7 @@ describe("HeroDossierModal", () => {
 		expect(screen.getByText("Cycle")).toBeInTheDocument();
 		expect(screen.getByText("2")).toBeInTheDocument();
 		expect(screen.getByText("Heavy Strike")).toBeInTheDocument();
-		expect(screen.getByText("Arcane Armour")).toBeInTheDocument();
+		expect(screen.getByText("Herculean Strength")).toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "Combat" })).toHaveTextContent("Maximum Health");
 		expect(screen.getByText("Armour Class")).toBeInTheDocument();
 		expect(screen.getByText("Attack Roll Bonus")).toBeInTheDocument();

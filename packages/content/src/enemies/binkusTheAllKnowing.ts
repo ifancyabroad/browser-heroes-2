@@ -40,8 +40,15 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["finger_of_death", "chain_lightning", "dragon_breath", "binkus_deathray"],
-		featIds: ["arcane_warding", "arcane_penetration"],
+		skillIds: [
+			"finger_of_death",
+			"globe_of_invulnerability",
+			"chain_lightning",
+			"dragon_breath",
+			"pierce_magic",
+			"binkus_deathray",
+		],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

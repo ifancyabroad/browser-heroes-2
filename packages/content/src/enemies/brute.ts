@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["stand_ground"],
-		featIds: ["focus_energy"],
+		skillIds: ["stand_ground", "focus_energy"],
+		featIds: [],
 		tactic: "defensive",
 	},
 	proficiencies: {

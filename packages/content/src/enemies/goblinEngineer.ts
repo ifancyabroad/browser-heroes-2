@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["acid_bomb", "poison_bomb"],
-		featIds: ["corrosive_craft"],
+		skillIds: ["acid_bomb", "acid_trap", "poison_bomb"],
+		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {

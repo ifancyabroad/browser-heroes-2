@@ -34,16 +34,16 @@ describe("completeLevelUp", () => {
 	it("applies a feat choice", () => {
 		const state = withPendingLevelUp({
 			type: "feat",
-			featId: "brute_strength",
+			featId: "herculean_strength",
 		});
 
 		const result = applyAction(state, {
 			type: "COMPLETE_LEVEL_UP",
-			selection: { type: "feat", featId: "brute_strength" },
+			selection: { type: "feat", featId: "herculean_strength" },
 		});
 
 		expect(result.ok).toBe(true);
-		expect(result.state.hero.featIds).toContain("brute_strength");
+		expect(result.state.hero.featIds).toContain("herculean_strength");
 	});
 
 	it("completes levels with no choice using a null selection", () => {
@@ -87,7 +87,7 @@ describe("completeLevelUp", () => {
 });
 
 function withPendingLevelUp(
-	option: { type: "skill"; skillId: "fireball" } | { type: "feat"; featId: "brute_strength" },
+	option: { type: "skill"; skillId: "fireball" } | { type: "feat"; featId: "herculean_strength" },
 ) {
 	return modifyTestRunState(createTestVictoryState(), (draft) => {
 		draft.hero.pendingLevelUp = {

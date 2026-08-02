@@ -40,8 +40,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["wind_strike", "drop_from_above"],
-		featIds: ["evasion"],
+		skillIds: ["wind_strike", "evasion", "drop_from_above"],
+		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {

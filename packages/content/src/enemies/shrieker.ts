@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["deafening_screech"],
-		featIds: ["evasion"],
+		skillIds: ["evasion", "deafening_screech"],
+		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {

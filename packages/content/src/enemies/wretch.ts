@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["leap_attack"],
-		featIds: ["evasion"],
+		skillIds: ["evasion", "leap_attack"],
+		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {

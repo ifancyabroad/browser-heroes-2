@@ -31,8 +31,8 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["armour_break"],
-		featIds: ["brute_strength"],
+		skillIds: ["battle_cry", "armour_break"],
+		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {
