@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 15,
 	},
 	combat: {
-		hitDie: "1d12",
+		hitDie: "1d8",
 		armourClass: 16,
 		damageAffinities: {
 			resistances: ["acid", "cold", "crushing", "fire", "lightning", "piercing", "slashing"],
@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Withering Touch",
-			attackAttribute: "charisma",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8",
 				type: "necrotic",
-				attribute: "charisma",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["corrupting_touch", "wail"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution", "charisma"],
+		savingThrows: ["dexterity", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "hills",

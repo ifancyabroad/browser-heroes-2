@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Claw",
-			attackAttribute: "dexterity",
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
 				type: "slashing",
-				attribute: "dexterity",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["leap_attack"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "strength"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "dungeon",

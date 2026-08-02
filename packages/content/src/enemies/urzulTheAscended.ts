@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 12,
 	},
 	combat: {
-		hitDie: "1d12",
+		hitDie: "1d8",
 		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Staff of Lightning",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
+				dice: "1d8+1",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "intelligence", "wisdom"],
+		savingThrows: ["intelligence", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "plains",

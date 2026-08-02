@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Bite",
-			attackAttribute: "dexterity",
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
 				type: "piercing",
-				attribute: "dexterity",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["eye_ray"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "intelligence"],
+		savingThrows: ["intelligence", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "volcano",

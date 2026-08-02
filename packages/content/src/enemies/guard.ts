@@ -16,19 +16,19 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 11,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Longbow",
+			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8",
+				type: "piercing",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["cripple", "take_aim"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution"],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "castle",

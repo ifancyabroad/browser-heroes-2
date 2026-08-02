@@ -37,7 +37,7 @@ export default buildEnemy({
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d8+12",
+				dice: "4d10",
 				type: "piercing",
 				attribute: "strength",
 			},
@@ -53,7 +53,7 @@ export default buildEnemy({
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "charisma"],
+		savingThrows: ["dexterity", "constitution", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "tower",

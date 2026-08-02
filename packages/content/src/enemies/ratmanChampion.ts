@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 12,
+		armourClass: 20,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Claw",
+			name: "Longsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
+				dice: "1d6",
 				type: "slashing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "dexterity"],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "desert",

@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 6,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 17,
 		damageAffinities: {
 			resistances: [
@@ -35,7 +35,7 @@ export default buildEnemy({
 			name: "Withering Touch",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "2d4+2",
+				dice: "2d6",
 				type: "necrotic",
 				attribute: "dexterity",
 			},
@@ -45,7 +45,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution"],
+		savingThrows: ["dexterity", "charisma"],
 	},
 	encounter: {
 		zone: "tower",

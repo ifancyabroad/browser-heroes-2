@@ -16,18 +16,18 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 13,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: ["poison"],
 			vulnerabilities: ["crushing", "radiant"],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Handaxe",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
+				dice: "1d6",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "dexterity"],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "hills",

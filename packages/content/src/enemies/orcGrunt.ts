@@ -23,11 +23,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Spear",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
+				dice: "1d8",
+				type: "piercing",
 				attribute: "strength",
 			},
 		},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "plains",

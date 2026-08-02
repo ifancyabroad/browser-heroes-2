@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 6,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 18,
 		damageAffinities: {
 			resistances: ["cold"],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+2",
+				dice: "2d6",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "strength"],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "ocean",

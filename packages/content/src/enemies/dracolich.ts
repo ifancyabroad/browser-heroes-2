@@ -15,18 +15,18 @@ export default buildEnemy({
 		charisma: 20,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d12",
 		armourClass: 18,
 		damageAffinities: {
-			resistances: ["acid", "cold", "fire", "lightning", "necrotic", "piercing", "slashing"],
-			immunities: ["poison"],
+			resistances: ["acid", "cold", "fire", "lightning", "piercing", "slashing"],
+			immunities: ["necrotic", "poison"],
 			vulnerabilities: ["crushing", "radiant"],
 		},
 		basicAttack: {
 			name: "Claw",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8+6",
+				dice: "2d8",
 				type: "slashing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "charisma"],
+		savingThrows: ["dexterity", "constitution", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "dungeon",

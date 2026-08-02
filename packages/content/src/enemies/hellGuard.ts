@@ -32,12 +32,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Fine Crossbow",
+			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8+1",
+				type: "piercing",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["multi_shot", "drop_from_above", "hunterss_mark"],

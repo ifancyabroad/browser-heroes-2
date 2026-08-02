@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Flail",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
+				dice: "1d8",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "strength"],
+		savingThrows: ["strength"],
 	},
 	encounter: {
 		zone: "castle",

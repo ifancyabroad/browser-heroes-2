@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 18,
+		armourClass: 19,
 		damageAffinities: {
 			resistances: [
 				"acid",
@@ -32,11 +32,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Greatsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
+				dice: "2d6",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},
@@ -45,7 +45,7 @@ export default buildEnemy({
 		tactic: "random",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: ["strength", "constitution", "charisma"],
 	},
 	encounter: {
 		zone: "dungeon",

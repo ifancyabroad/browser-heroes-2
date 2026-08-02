@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Burning Touch",
-			attackAttribute: "intelligence",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d6",
 				type: "fire",
-				attribute: "intelligence",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["engulf", "fireball"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "constitution"],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "volcano",

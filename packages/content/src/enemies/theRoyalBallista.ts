@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+2",
+				dice: "2d6",
 				type: "piercing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "dexterity"],
+		savingThrows: ["constitution"],
 	},
 	encounter: {
 		zone: "castle",

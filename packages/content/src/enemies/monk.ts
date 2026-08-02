@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["wisdom", "constitution"],
+		savingThrows: ["dexterity", "wisdom"],
 	},
 	encounter: {
 		zone: "castle",

@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "ocean",

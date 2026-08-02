@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 6,
 	},
 	combat: {
-		hitDie: "1d12",
+		hitDie: "1d8",
 		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Claw",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+4",
+				dice: "2d6+2",
 				type: "slashing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "strength", "dexterity"],
+		savingThrows: ["dexterity", "constitution", "wisdom"],
 	},
 	encounter: {
 		zone: "desert",

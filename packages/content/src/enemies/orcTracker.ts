@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Fine Longbow",
+			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8+1",
+				type: "piercing",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["multi_shot", "take_aim", "trip_wire"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution"],
+		savingThrows: ["dexterity", "wisdom"],
 	},
 	encounter: {
 		zone: "plains",

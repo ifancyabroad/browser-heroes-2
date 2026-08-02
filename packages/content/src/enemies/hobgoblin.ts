@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Longbow",
+			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8",
+				type: "piercing",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["cripple"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "dexterity"],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "forest",

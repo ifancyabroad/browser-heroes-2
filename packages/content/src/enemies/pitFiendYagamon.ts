@@ -18,24 +18,15 @@ export default buildEnemy({
 		hitDie: "1d12",
 		armourClass: 20,
 		damageAffinities: {
-			resistances: [
-				"acid",
-				"cold",
-				"crushing",
-				"fire",
-				"lightning",
-				"piercing",
-				"poison",
-				"slashing",
-			],
-			immunities: [],
+			resistances: ["acid", "cold", "crushing", "lightning", "piercing", "slashing"],
+			immunities: ["fire", "poison"],
 			vulnerabilities: [],
 		},
 		basicAttack: {
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+4",
+				dice: "2d6+2",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -45,7 +36,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "charisma"],
+		savingThrows: ["dexterity", "constitution", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "volcano",

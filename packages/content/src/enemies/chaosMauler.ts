@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 18,
+		armourClass: 19,
 		damageAffinities: {
 			resistances: [
 				"acid",
@@ -32,10 +32,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Fine Warhammer",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
+				dice: "1d10+1",
 				type: "crushing",
 				attribute: "strength",
 			},

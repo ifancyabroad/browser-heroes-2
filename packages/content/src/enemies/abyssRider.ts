@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 18,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 16,
 		damageAffinities: {
 			resistances: [
@@ -32,11 +32,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Fine Spear",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
+				dice: "1d8+1",
+				type: "piercing",
 				attribute: "strength",
 			},
 		},

@@ -16,19 +16,19 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 12,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Crossbow",
+			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8",
+				type: "piercing",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["take_aim", "multi_shot"],

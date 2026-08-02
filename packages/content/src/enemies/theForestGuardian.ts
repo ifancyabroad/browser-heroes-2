@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d12",
-		armourClass: 11,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: ["crushing", "piercing", "slashing"],
 			immunities: ["fire", "poison"],
@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Burning Touch",
-			attackAttribute: "constitution",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8",
 				type: "fire",
-				attribute: "constitution",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["double_strike", "stoke_the_flames"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "dexterity", "strength"],
+		savingThrows: ["constitution", "wisdom"],
 	},
 	encounter: {
 		zone: "forest",

@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 6,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d6",
 		armourClass: 12,
 		damageAffinities: {
 			resistances: [],
@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Claw",
-			attackAttribute: "dexterity",
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d4",
 				type: "slashing",
-				attribute: "dexterity",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["poison_bomb"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "wisdom"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "desert",

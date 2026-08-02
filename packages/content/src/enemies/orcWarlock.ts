@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Quarterstaff",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
+				dice: "1d8",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "constitution"],
+		savingThrows: ["intelligence", "charisma"],
 	},
 	encounter: {
 		zone: "plains",

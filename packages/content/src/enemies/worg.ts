@@ -16,7 +16,7 @@ export default buildEnemy({
 		charisma: 8,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 8,
 		damageAffinities: {
 			resistances: [],
@@ -37,7 +37,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "dexterity"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "forest",

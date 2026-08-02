@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Claw",
-			attackAttribute: "dexterity",
+			name: "Quarterstaff",
+			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "slashing",
-				attribute: "dexterity",
+				dice: "1d8",
+				type: "crushing",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["flame_arrow", "blind"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "dexterity"],
+		savingThrows: ["intelligence", "charisma"],
 	},
 	encounter: {
 		zone: "desert",

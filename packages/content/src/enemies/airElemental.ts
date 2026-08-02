@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 6,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 16,
 		damageAffinities: {
 			resistances: ["acid", "cold", "crushing", "fire", "lightning", "piercing", "slashing"],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Static Touch",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "2d4+2",
+				dice: "2d6",
 				type: "lightning",
 				attribute: "dexterity",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "strength"],
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "tower",

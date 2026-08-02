@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 3,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d4",
 		armourClass: 13,
 		damageAffinities: {
 			resistances: ["fire"],
@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Bite",
-			attackAttribute: "dexterity",
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
 				type: "piercing",
-				attribute: "dexterity",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["combust"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "dexterity"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "volcano",

@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 3,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
@@ -23,11 +23,11 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
-			name: "Bite",
+			name: "Greatsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+2",
-				type: "piercing",
+				dice: "2d6",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},

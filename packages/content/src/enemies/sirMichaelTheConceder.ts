@@ -15,19 +15,19 @@ export default buildEnemy({
 		charisma: 10,
 	},
 	combat: {
-		hitDie: "1d12",
-		armourClass: 10,
+		hitDie: "1d8",
+		armourClass: 19,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Spear",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
+				dice: "1d8",
+				type: "piercing",
 				attribute: "strength",
 			},
 		},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "conceder",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "dexterity"],
+		savingThrows: ["strength", "constitution", "charisma"],
 	},
 	encounter: {
 		zone: "castle",

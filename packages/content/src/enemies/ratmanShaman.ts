@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Claw",
-			attackAttribute: "dexterity",
+			name: "Spear",
+			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "slashing",
-				attribute: "dexterity",
+				dice: "1d8",
+				type: "piercing",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["cure_medium_wounds", "bless", "lighting_bolt"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution"],
+		savingThrows: ["wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "desert",

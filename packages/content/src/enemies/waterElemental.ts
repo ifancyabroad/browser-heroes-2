@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 8,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 15,
 		damageAffinities: {
 			resistances: ["acid", "cold", "crushing", "fire", "lightning", "piercing", "slashing"],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+2",
+				dice: "2d6",
 				type: "crushing",
 				attribute: "strength",
 			},

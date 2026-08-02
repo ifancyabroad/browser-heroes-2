@@ -35,7 +35,7 @@ export default buildEnemy({
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+8",
+				dice: "2d6+6",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -45,7 +45,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "dexterity"],
+		savingThrows: ["strength", "constitution", "wisdom"],
 	},
 	encounter: {
 		zone: "dungeon",

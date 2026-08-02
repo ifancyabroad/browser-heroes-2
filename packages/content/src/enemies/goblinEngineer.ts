@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 8,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d6",
 		armourClass: 12,
 		damageAffinities: {
 			resistances: [],
@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
-			attackAttribute: "strength",
+			name: "Dagger",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d4",
-				type: "crushing",
-				attribute: "strength",
+				type: "slashing",
+				attribute: "dexterity",
 			},
 		},
 		skillIds: ["acid_bomb", "poison_bomb"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "abyss",

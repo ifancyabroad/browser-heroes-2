@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 4,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d4",
 		armourClass: 6,
 		damageAffinities: {
 			resistances: [],
@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Bite",
-			attackAttribute: "dexterity",
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
 				type: "piercing",
-				attribute: "dexterity",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["poison_bite", "growth"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "strength"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "forest",

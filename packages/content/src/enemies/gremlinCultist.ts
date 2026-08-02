@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 12,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d6",
 		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Quarterstaff",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
+				dice: "1d8",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["wisdom", "dexterity"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "dungeon",

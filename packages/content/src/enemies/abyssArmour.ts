@@ -16,27 +16,18 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 18,
+		armourClass: 20,
 		damageAffinities: {
-			resistances: [
-				"acid",
-				"cold",
-				"crushing",
-				"fire",
-				"lightning",
-				"piercing",
-				"poison",
-				"slashing",
-			],
-			immunities: [],
+			resistances: ["acid", "cold", "crushing", "fire", "lightning", "piercing", "slashing"],
+			immunities: ["poison"],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Fine Longsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
+				dice: "1d6+1",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},

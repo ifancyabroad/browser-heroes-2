@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 5,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d12",
 		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8+6",
+				dice: "2d8",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: ["constitution"],
 	},
 	encounter: {
 		zone: "plains",

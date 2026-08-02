@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 9,
 	},
 	combat: {
-		hitDie: "1d12",
+		hitDie: "1d10",
 		armourClass: 11,
 		damageAffinities: {
 			resistances: [],
@@ -23,11 +23,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Fine Battleaxe",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d10+1",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "wisdom"],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "forest",

@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "wisdom"],
+		savingThrows: ["intelligence", "charisma"],
 	},
 	encounter: {
 		zone: "ocean",

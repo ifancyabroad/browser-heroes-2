@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 14,
 	},
 	combat: {
-		hitDie: "1d12",
+		hitDie: "1d10",
 		armourClass: 18,
 		damageAffinities: {
 			resistances: ["cold", "poison"],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+4",
+				dice: "2d6+2",
 				type: "piercing",
 				attribute: "strength",
 			},
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "charisma"],
+		savingThrows: ["strength", "constitution", "wisdom"],
 	},
 	encounter: {
 		zone: "ocean",

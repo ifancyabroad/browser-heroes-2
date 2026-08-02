@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 10,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 16,
 		damageAffinities: {
 			resistances: ["acid", "cold", "crushing", "lightning", "piercing", "slashing"],
@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Venomous Bite",
-			attackAttribute: "constitution",
+			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+2",
+				dice: "2d6",
 				type: "poison",
-				attribute: "constitution",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["natures_blessing", "poison_cloud"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "strength"],
+		savingThrows: ["constitution", "wisdom"],
 	},
 	encounter: {
 		zone: "tower",

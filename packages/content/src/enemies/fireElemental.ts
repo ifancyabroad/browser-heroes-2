@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 7,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 14,
 		damageAffinities: {
 			resistances: ["acid", "crushing", "lightning", "piercing", "slashing"],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Burning Touch",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "2d4+2",
+				dice: "2d6",
 				type: "fire",
 				attribute: "dexterity",
 			},

@@ -23,7 +23,7 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Claw",
+			name: "Dagger",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d4",
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution"],
+		savingThrows: ["dexterity", "intelligence"],
 	},
 	encounter: {
 		zone: "desert",

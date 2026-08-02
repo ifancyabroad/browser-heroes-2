@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 12,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		armourClass: 18,
 		damageAffinities: {
 			resistances: [
@@ -32,11 +32,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Greatsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
+				dice: "2d6",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},
@@ -45,7 +45,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "strength"],
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "abyss",

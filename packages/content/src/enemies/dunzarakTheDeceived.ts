@@ -35,7 +35,7 @@ export default buildEnemy({
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d4+8",
+				dice: "2d6+6",
 				type: "piercing",
 				attribute: "strength",
 			},
@@ -45,7 +45,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "charisma"],
+		savingThrows: ["strength", "constitution", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "abyss",

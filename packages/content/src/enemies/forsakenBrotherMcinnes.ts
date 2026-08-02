@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 18,
 	},
 	combat: {
-		hitDie: "1d12",
+		hitDie: "1d8",
 		armourClass: 20,
 		damageAffinities: {
 			resistances: [
@@ -51,7 +51,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["wisdom", "constitution", "intelligence"],
+		savingThrows: ["constitution", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "abyss",

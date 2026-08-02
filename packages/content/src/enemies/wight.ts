@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Withering Touch",
-			attackAttribute: "constitution",
+			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
 				type: "necrotic",
-				attribute: "constitution",
+				attribute: "strength",
 			},
 		},
 		skillIds: ["corrupting_touch"],
@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "strength"],
+		savingThrows: ["constitution", "wisdom"],
 	},
 	encounter: {
 		zone: "hills",

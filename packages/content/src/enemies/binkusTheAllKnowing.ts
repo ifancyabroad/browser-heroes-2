@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 16,
 	},
 	combat: {
-		hitDie: "1d12",
+		hitDie: "1d8",
 		armourClass: 21,
 		damageAffinities: {
 			resistances: [
@@ -32,10 +32,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Staff of the Archmage",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d4",
+				dice: "2d6+1",
 				type: "crushing",
 				attribute: "strength",
 			},
@@ -45,7 +45,7 @@ export default buildEnemy({
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "wisdom", "constitution"],
+		savingThrows: ["intelligence", "wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "dungeon",

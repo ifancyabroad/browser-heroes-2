@@ -36,7 +36,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["constitution", "dexterity"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "hills",
