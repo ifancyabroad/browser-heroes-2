@@ -4,11 +4,16 @@ export default buildFeat({
 	id: "necrotic_mastery",
 	name: "Necrotic Mastery",
 	description: "Necrotic damage is multiplied by 1.2.",
-	icon: "skills/warlock/shadow_bolt.png",
+	icon: "skills/feats/Aura_ShadowPresence_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [
-		{ type: "modifyDamage", damageType: "necrotic", operation: "multiply", value: 1.2 },
+		{
+			type: "modifyDamage",
+			damageType: "necrotic",
+			operation: "multiply",
+			value: 1.2,
+		},
 	],
 	attackRiders: [],
 	tags: [],

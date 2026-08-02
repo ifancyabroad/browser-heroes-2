@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "pressure_points",
 	name: "Pressure Points",
 	description: "Hits can impose disadvantage on the enemy's saving throws for 2 turns.",
-	icon: "skills/feats/armour.png",
+	icon: "skills/feats/Assassinskill_48_nobg.png",
 	kind: "training",
 	category: "utility",
 	modifiers: [],

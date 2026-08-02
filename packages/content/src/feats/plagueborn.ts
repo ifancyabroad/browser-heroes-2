@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "plagueborn",
 	name: "Plagueborn",
 	description: "Grants immunity to poison damage, but all healing received is halved.",
-	icon: "skills/feats/armour.png",
+	icon: "skills/feats/Aura_Infection_nb.png",
 	kind: "bargain",
 	category: "defensive",
 	modifiers: [
@@ -14,7 +14,10 @@ export default buildFeat({
 			operation: "add",
 			damageType: "poison",
 		},
-		{ type: "modifyHealing", multiplier: 0.5 },
+		{
+			type: "modifyHealing",
+			multiplier: 0.5,
+		},
 	],
 	attackRiders: [],
 	tags: [],

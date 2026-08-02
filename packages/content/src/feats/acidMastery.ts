@@ -4,10 +4,17 @@ export default buildFeat({
 	id: "acid_mastery",
 	name: "Acid Mastery",
 	description: "Acid damage is multiplied by 1.2.",
-	icon: "skills/rogue/acid_coating.png",
+	icon: "skills/feats/Aura_Druid_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
-	modifiers: [{ type: "modifyDamage", damageType: "acid", operation: "multiply", value: 1.2 }],
+	modifiers: [
+		{
+			type: "modifyDamage",
+			damageType: "acid",
+			operation: "multiply",
+			value: 1.2,
+		},
+	],
 	attackRiders: [],
 	tags: [],
 });

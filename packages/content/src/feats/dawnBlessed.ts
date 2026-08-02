@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "dawn_blessed",
 	name: "Dawn-Blessed",
 	description: "Grants immunity to radiant damage, but vulnerability to necrotic damage.",
-	icon: "skills/feats/armour.png",
+	icon: "skills/feats/Skill_NatureResistance_nb.png",
 	kind: "bargain",
 	category: "defensive",
 	modifiers: [
