@@ -13,23 +13,23 @@ const TEST_RIDER: AttackRider = {
 	effects: [{ type: "shield", target: "self", amount: 3, durationTurns: 2 }],
 };
 
-const brawler = FEATS_BY_ID.brawler;
-const originalAttackRiders = brawler.attackRiders;
+const guardedAssault = FEATS_BY_ID.guarded_assault;
+const originalAttackRiders = guardedAssault.attackRiders;
 
 describe("feat attack riders", () => {
 	beforeEach(() => {
-		brawler.attackRiders = [TEST_RIDER];
+		guardedAssault.attackRiders = [TEST_RIDER];
 	});
 
 	afterEach(() => {
-		brawler.attackRiders = originalAttackRiders;
+		guardedAssault.attackRiders = originalAttackRiders;
 	});
 
 	it("collects riders with their feat source identity", () => {
-		expect(collectFeatAttackRiders(["brawler"])).toEqual([
+		expect(collectFeatAttackRiders(["guarded_assault"])).toEqual([
 			{
-				featId: "brawler",
-				featName: "Brawler",
+				featId: "guarded_assault",
+				featName: "Guarded Assault",
 				riderIndex: 0,
 				rider: TEST_RIDER,
 			},
@@ -37,7 +37,7 @@ describe("feat attack riders", () => {
 	});
 
 	it("resolves a feat rider after a successful basic attack", () => {
-		const combat = createCombatWithBrawler();
+		const combat = createCombatWithGuardedAssault();
 
 		const result = resolveBasicAttack({
 			combat,
@@ -51,16 +51,16 @@ describe("feat attack riders", () => {
 				remainingAmount: 3,
 				source: {
 					type: "feat",
-					featId: "brawler",
-					sourceName: "Brawler",
-					sourceEffectKey: "feat:brawler:rider:0:effect:0",
+					featId: "guarded_assault",
+					sourceName: "Guarded Assault",
+					sourceEffectKey: "feat:guarded_assault:rider:0:effect:0",
 				},
 			}),
 		);
 	});
 
 	it("does not resolve an on-hit feat rider when the attack misses", () => {
-		const combat = createCombatWithBrawler();
+		const combat = createCombatWithGuardedAssault();
 
 		const result = resolveBasicAttack({
 			combat,
@@ -72,8 +72,8 @@ describe("feat attack riders", () => {
 	});
 
 	it("resolves an on-crit feat rider only after a critical hit", () => {
-		brawler.attackRiders = [{ ...TEST_RIDER, timing: "onCrit" }];
-		const combat = createCombatWithBrawler();
+		guardedAssault.attackRiders = [{ ...TEST_RIDER, timing: "onCrit" }];
+		const combat = createCombatWithGuardedAssault();
 
 		const criticalResult = resolveBasicAttack({
 			combat,
@@ -91,7 +91,7 @@ describe("feat attack riders", () => {
 	});
 
 	it("resolves a feat rider after a successful attack-damage skill effect", () => {
-		const combat = createCombatWithBrawler();
+		const combat = createCombatWithGuardedAssault();
 
 		const result = resolveAttackDamageEffect({
 			combat,
@@ -112,14 +112,14 @@ describe("feat attack riders", () => {
 			expect.objectContaining({
 				type: "shield",
 				remainingAmount: 3,
-				source: expect.objectContaining({ type: "feat", featId: "brawler" }),
+				source: expect.objectContaining({ type: "feat", featId: "guarded_assault" }),
 			}),
 		);
 	});
 
 	it("serializes active effects sourced from feats", () => {
 		const state = createTestRunState();
-		const combat = createCombatWithBrawler();
+		const combat = createCombatWithGuardedAssault();
 		const result = resolveBasicAttack({
 			combat,
 			attackerSide: "player",
@@ -136,7 +136,7 @@ describe("feat attack riders", () => {
 
 	it("refreshes repeated active effects from the same feat rider", () => {
 		const firstResult = resolveBasicAttack({
-			combat: createCombatWithBrawler(),
+			combat: createCombatWithGuardedAssault(),
 			attackerSide: "player",
 			rngState: createInitialRngState("feat-skill-attack"),
 		});
@@ -150,19 +150,19 @@ describe("feat attack riders", () => {
 		expect(secondResult.value.player.activeEffects[0]).toMatchObject({
 			type: "shield",
 			remainingAmount: 3,
-			source: { type: "feat", featId: "brawler" },
+			source: { type: "feat", featId: "guarded_assault" },
 		});
 	});
 });
 
-function createCombatWithBrawler() {
+function createCombatWithGuardedAssault() {
 	const combat = structuredClone(createTestRunState().combat);
 
 	if (!combat) {
 		throw new Error("Expected test run to have combat");
 	}
 
-	combat.player.featIds.push("brawler");
+	combat.player.featIds.push("guarded_assault");
 	combat.player.combatStats.attackRollBonus = 100;
 	combat.enemy.combatStats.armourClass = 0;
 	combat.enemy.maxHp = 10_000;
