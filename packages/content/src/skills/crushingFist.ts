@@ -8,21 +8,31 @@ export default buildSkill({
 	pool: "warlock",
 	kind: "spell",
 	category: "damage",
-	maxUses: 4,
+	maxUses: 3,
 	effects: [
 		{
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "1d12+8",
+			dice: "3d8",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "strength",
+				onSuccess: "halfDamage",
+				dc: { attribute: "intelligence" },
+			},
 		},
 		{
 			type: "applyStatus",
 			target: "enemy",
 			statusId: "stunned",
 			durationTurns: 1,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "intelligence" },
+			},
 		},
 	],
 	tags: [],

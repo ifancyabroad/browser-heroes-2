@@ -15,7 +15,7 @@ export default buildSkill({
 			target: "self",
 			roll: "attack",
 			mode: "advantage",
-			durationTurns: 4,
+			durationTurns: 6,
 		},
 	],
 	tags: [],

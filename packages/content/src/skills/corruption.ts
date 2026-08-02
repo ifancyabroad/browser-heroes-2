@@ -3,13 +3,12 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "corruption",
 	name: "Corruption",
-	description:
-		"Unleash a vile energy that has a chance to cripple the enemy and lower their resistance to necrotic damage.",
+	description: "Corrupt the enemy's body, leaving them profoundly vulnerable to necrotic power.",
 	icon: "skills/warlock/corruption.png",
 	pool: "warlock",
 	kind: "spell",
 	category: "debuff",
-	maxUses: 4,
+	maxUses: 3,
 	effects: [
 		{
 			type: "modifyDamageAffinity",
@@ -17,14 +16,12 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "necrotic",
-			durationTurns: 5,
-		},
-		{
-			type: "modifyStat",
-			target: "enemy",
-			stat: "attackRollBonus",
-			value: -2,
-			durationTurns: 5,
+			durationTurns: 4,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "intelligence" },
+			},
 		},
 	],
 	tags: [],

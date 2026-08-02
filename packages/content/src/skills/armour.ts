@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "armour",
 	name: "Armour",
-	description: "Conjure a thin layer of physical protection.",
+	description: "Conjure a durable arcane shell that greatly reinforces your armour.",
 	icon: "skills/mage/armour.png",
 	pool: "mage",
 	kind: "spell",

@@ -8,7 +8,7 @@ export default buildSkill({
 	pool: "warrior",
 	kind: "technique",
 	category: "defensive",
-	maxUses: 4,
+	maxUses: 5,
 	effects: [
 		{
 			type: "modifyDamageAffinity",
@@ -16,7 +16,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "slashing",
-			durationTurns: 4,
+			durationTurns: 6,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -24,7 +24,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "crushing",
-			durationTurns: 4,
+			durationTurns: 6,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -32,21 +32,14 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "piercing",
-			durationTurns: 4,
+			durationTurns: 6,
 		},
 		{
 			type: "modifyRoll",
 			target: "self",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 4,
-		},
-		{
-			type: "modifyRoll",
-			target: "self",
-			roll: "savingThrow",
-			mode: "advantage",
-			durationTurns: 4,
+			durationTurns: 6,
 		},
 	],
 	tags: [],

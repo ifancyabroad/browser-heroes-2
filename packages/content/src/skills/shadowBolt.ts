@@ -3,10 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "shadow_bolt",
 	name: "Shadow Bolt",
-	description: "Hurl a bolt of shadow energy at your target.",
+	description: "Hurl a precise bolt of concentrated shadow at the enemy.",
 	icon: "skills/warlock/shadow_bolt.png",
 	pool: "warlock",
-	kind: "spell",
+	kind: "spellAttack",
 	category: "damage",
 	maxUses: 12,
 	effects: [
@@ -16,14 +16,7 @@ export default buildSkill({
 			damageType: "necrotic",
 			dice: "1d10",
 			attribute: "intelligence",
-			requiresAttackRoll: false,
-		},
-		{
-			type: "modifyStat",
-			target: "enemy",
-			stat: "attackRollBonus",
-			value: -2,
-			durationTurns: 1,
+			requiresAttackRoll: true,
 		},
 	],
 	tags: [],

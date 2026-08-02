@@ -3,31 +3,25 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "cruel_deception",
 	name: "Cruel Deception",
-	description: "Misdirect the enemy into hesitating and striking with diminished conviction.",
+	description:
+		"Manipulate the enemy into holding back, potentially reducing their damage to a quarter.",
 	icon: "skills/rogue/cruel_deception.png",
 	pool: "rogue",
 	kind: "technique",
 	category: "debuff",
-	maxUses: 3,
+	maxUses: 2,
 	effects: [
 		{
-			type: "modifyRoll",
+			type: "modifyDamage",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
-			durationTurns: 2,
+			operation: "multiply",
+			value: 0.25,
+			durationTurns: 4,
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
 				dc: { attribute: "charisma" },
 			},
-		},
-		{
-			type: "modifyDamage",
-			target: "enemy",
-			operation: "multiply",
-			value: 0.75,
-			durationTurns: 2,
 		},
 	],
 	tags: [],

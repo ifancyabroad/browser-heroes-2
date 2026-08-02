@@ -3,10 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "sparks",
 	name: "Sparks",
-	description: "Shoot lightning from your fingers.",
+	description: "Snap a precise arc of lightning from your fingertips.",
 	icon: "skills/mage/sparks.png",
 	pool: "mage",
-	kind: "spell",
+	kind: "spellAttack",
 	category: "damage",
 	maxUses: 12,
 	effects: [
@@ -16,7 +16,7 @@ export default buildSkill({
 			damageType: "lightning",
 			dice: "1d8",
 			attribute: "intelligence",
-			requiresAttackRoll: false,
+			requiresAttackRoll: true,
 		},
 	],
 	tags: [],

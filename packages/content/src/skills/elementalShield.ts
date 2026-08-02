@@ -9,7 +9,7 @@ export default buildSkill({
 	pool: "warrior",
 	kind: "technique",
 	category: "defensive",
-	maxUses: 3,
+	maxUses: 4,
 	effects: [
 		{
 			type: "modifyDamageAffinity",
@@ -17,7 +17,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "fire",
-			durationTurns: 4,
+			durationTurns: 8,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -25,7 +25,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "cold",
-			durationTurns: 4,
+			durationTurns: 8,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -33,7 +33,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "lightning",
-			durationTurns: 4,
+			durationTurns: 8,
 		},
 	],
 	tags: [],

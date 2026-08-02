@@ -27,7 +27,12 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "acid",
-			durationTurns: 3,
+			durationTurns: 4,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "dexterity" },
+			},
 		},
 	],
 	tags: [],

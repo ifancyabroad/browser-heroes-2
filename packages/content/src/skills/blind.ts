@@ -3,20 +3,19 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "blind",
 	name: "Blind",
-	description:
-		"Temporarily obscure your enemy’s vision, with a chance to cause their attacks to miss.",
+	description: "Envelop the enemy's sight in shadow, reliably hindering their attacks.",
 	icon: "skills/warlock/blind.png",
 	pool: "warlock",
 	kind: "spell",
 	category: "debuff",
-	maxUses: 8,
+	maxUses: 4,
 	effects: [
 		{
 			type: "modifyRoll",
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 8,
+			durationTurns: 5,
 		},
 	],
 	tags: [],

@@ -15,7 +15,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 2,
+			durationTurns: 4,
 		},
 		{
 			type: "modifyRoll",
@@ -23,7 +23,7 @@ export default buildSkill({
 			roll: "savingThrow",
 			attribute: "dexterity",
 			mode: "advantage",
-			durationTurns: 3,
+			durationTurns: 5,
 		},
 	],
 	tags: [],

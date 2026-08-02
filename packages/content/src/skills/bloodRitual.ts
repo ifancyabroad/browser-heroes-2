@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "self",
 			damageType: "slashing",
 			dice: "1d4",
-			durationTurns: 4,
+			durationTurns: 3,
 		},
 		{
 			type: "damage",
@@ -32,6 +32,11 @@ export default buildSkill({
 			dice: "4d12+19",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "halfDamage",
+				dc: { attribute: "intelligence" },
+			},
 		},
 	],
 	tags: [],
