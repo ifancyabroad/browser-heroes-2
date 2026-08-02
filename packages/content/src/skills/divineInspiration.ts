@@ -12,10 +12,10 @@ export default buildSkill({
 	maxUses: 4,
 	effects: [
 		{
-			type: "modifyRoll",
+			type: "modifyStat",
 			target: "self",
-			roll: "savingThrow",
-			mode: "advantage",
+			stat: "savingThrowBonus",
+			value: 4,
 			durationTurns: 8,
 		},
 		{

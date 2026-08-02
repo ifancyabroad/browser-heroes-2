@@ -27,8 +27,8 @@ export default buildSkill({
 		{
 			type: "modifyStat",
 			target: "self",
-			stat: "criticalRangeBonus",
-			value: 2,
+			stat: "criticalDiceMultiplierBonus",
+			value: 1,
 			durationTurns: 3,
 		},
 	],
