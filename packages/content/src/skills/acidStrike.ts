@@ -8,7 +8,7 @@ export default buildSkill({
 	pool: "rogue",
 	kind: "weaponAttack",
 	category: "damage",
-	maxUses: 7,
+	maxUses: 6,
 	effects: [
 		{
 			type: "attackDamage",

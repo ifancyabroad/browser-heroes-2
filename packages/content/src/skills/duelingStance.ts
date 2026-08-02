@@ -3,18 +3,18 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "dueling_stance",
 	name: "Dueling Stance",
-	description: "Adopt a balanced fighting posture that improves both defense and weapon damage.",
+	description: "Adopt a defensive posture that improves armour at the cost of weapon damage.",
 	icon: "skills/warrior/dueling_stance.png",
 	pool: "warrior",
 	kind: "technique",
-	category: "buff",
+	category: "defensive",
 	maxUses: 5,
 	effects: [
 		{
 			type: "modifyStat",
 			target: "self",
 			stat: "armourClass",
-			value: 3,
+			value: 5,
 			durationTurns: 4,
 		},
 		{
@@ -22,7 +22,7 @@ export default buildSkill({
 			target: "self",
 			damageType: "slashing",
 			operation: "multiply",
-			value: 1.35,
+			value: 0.75,
 			durationTurns: 4,
 		},
 		{
@@ -30,7 +30,7 @@ export default buildSkill({
 			target: "self",
 			damageType: "crushing",
 			operation: "multiply",
-			value: 1.35,
+			value: 0.75,
 			durationTurns: 4,
 		},
 		{
@@ -38,7 +38,7 @@ export default buildSkill({
 			target: "self",
 			damageType: "piercing",
 			operation: "multiply",
-			value: 1.35,
+			value: 0.75,
 			durationTurns: 4,
 		},
 	],

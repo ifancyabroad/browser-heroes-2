@@ -8,7 +8,7 @@ export default buildSkill({
 	pool: "assassin",
 	kind: "weaponAttack",
 	category: "damage",
-	maxUses: 7,
+	maxUses: 6,
 	effects: [
 		{
 			type: "attackDamage",
@@ -17,19 +17,24 @@ export default buildSkill({
 			attackRiders: [
 				{
 					timing: "onHit",
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: { attribute: "dexterity" },
+					},
 					effects: [
 						{
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "poison",
 							dice: "1d4",
-							durationTurns: 6,
+							durationTurns: 3,
 						},
 						{
 							type: "damage",
 							target: "enemy",
 							damageType: "poison",
-							dice: "1d8",
+							dice: "2d6",
 						},
 					],
 				},

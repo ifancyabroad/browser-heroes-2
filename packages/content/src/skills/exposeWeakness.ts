@@ -3,19 +3,31 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "expose_weakness",
 	name: "Expose Weakness",
-	description: "Exploit armour weaknesses to maximize the impact of attacks.",
+	description: "Strike a vulnerable seam and leave the enemy exposed to follow-up attacks.",
 	icon: "skills/assassin/expose_weakness.png",
 	pool: "assassin",
-	kind: "technique",
+	kind: "weaponAttack",
 	category: "debuff",
 	maxUses: 4,
 	effects: [
 		{
-			type: "modifyStat",
+			type: "attackDamage",
 			target: "enemy",
-			stat: "armourClass",
-			value: -8,
-			durationTurns: 6,
+			multiplier: 1,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "modifyStat",
+							target: "enemy",
+							stat: "armourClass",
+							value: -4,
+							durationTurns: 3,
+						},
+					],
+				},
+			],
 		},
 	],
 	tags: [],

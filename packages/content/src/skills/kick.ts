@@ -3,36 +3,36 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "kick",
 	name: "Kick",
-	description:
-		"Deliver a swift kick with a chance to knock your opponent off balance and stun them.",
+	description: "Drive a swift kick into the enemy, potentially knocking them off balance.",
 	icon: "skills/rogue/kick.png",
 	pool: "rogue",
 	kind: "technique",
-	category: "damage",
-	maxUses: 2,
+	category: "debuff",
+	maxUses: 3,
 	effects: [
 		{
-			type: "damage",
+			type: "attackDamage",
 			target: "enemy",
-			damageType: "crushing",
-			dice: "1d6",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "constitution",
-					includeProficiency: true,
-					bonus: 1,
+			multiplier: 0.5,
+			damageTypeOverride: "crushing",
+			attackRiders: [
+				{
+					timing: "onHit",
+					save: {
+						attribute: "strength",
+						onSuccess: "noEffect",
+						dc: { attribute: "dexterity" },
+					},
+					effects: [
+						{
+							type: "applyStatus",
+							target: "enemy",
+							statusId: "stunned",
+							durationTurns: 1,
+						},
+					],
 				},
-			},
-		},
-		{
-			type: "applyStatus",
-			target: "enemy",
-			statusId: "stunned",
-			durationTurns: 2,
+			],
 		},
 	],
 	tags: [],

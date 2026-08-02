@@ -22,7 +22,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "slashing",
-							dice: "2d8",
+							dice: "1d8",
 						},
 					],
 				},

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "maim",
 	name: "Maim",
-	description: "Strike with brutal force, causing bleeding and a chance to disarm your opponent.",
+	description: "Deliver a vicious cut that can leave the enemy bleeding and weakened.",
 	icon: "skills/assassin/maim.png",
 	pool: "assassin",
 	kind: "weaponAttack",
@@ -13,23 +13,28 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 2,
+			multiplier: 1.5,
 			attackRiders: [
 				{
 					timing: "onHit",
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: { attribute: "dexterity" },
+					},
 					effects: [
 						{
 							type: "modifyDamage",
 							target: "enemy",
 							operation: "multiply",
 							value: 0.75,
-							durationTurns: 3,
+							durationTurns: 2,
 						},
 						{
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "slashing",
-							dice: "1d4",
+							dice: "1d6",
 							durationTurns: 3,
 						},
 					],

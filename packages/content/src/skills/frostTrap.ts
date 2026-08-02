@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "frost_trap",
 	name: "Frost Trap",
-	description:
-		"Set a hidden trap that delivers piercing and cold damage, with a chance to cripple the target.",
+	description: "Spring a freezing trap that wounds the enemy and hampers their attacks.",
 	icon: "skills/rogue/frost_trap.png",
 	pool: "rogue",
 	kind: "technique",
@@ -12,44 +11,27 @@ export default buildSkill({
 	maxUses: 4,
 	effects: [
 		{
-			type: "modifyDamage",
-			target: "enemy",
-			operation: "multiply",
-			value: 0.75,
-			durationTurns: 4,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "piercing",
-			dice: "2d6",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "dexterity",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "constitution",
-					includeProficiency: true,
-					bonus: 1,
-				},
-			},
-		},
-		{
 			type: "damage",
 			target: "enemy",
 			damageType: "cold",
-			dice: "2d6",
+			dice: "3d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "dexterity" },
+			},
+		},
+		{
+			type: "modifyRoll",
+			target: "enemy",
+			roll: "attack",
+			mode: "disadvantage",
+			durationTurns: 2,
+			save: {
+				attribute: "constitution",
 				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "constitution",
-					includeProficiency: true,
-					bonus: 1,
-				},
+				dc: { attribute: "dexterity" },
 			},
 		},
 	],

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "backstab",
 	name: "Backstab",
-	description: "Sneak behind the enemy to strike them in the back.",
+	description: "Exploit the enemy's blind spot with a devastating, precise strike.",
 	icon: "skills/assassin/backstab.png",
 	pool: "assassin",
 	kind: "weaponAttack",
@@ -14,6 +14,7 @@ export default buildSkill({
 			type: "attackDamage",
 			target: "enemy",
 			multiplier: 2,
+			rollMode: "advantage",
 			attackRiders: [],
 		},
 	],

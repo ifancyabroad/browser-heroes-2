@@ -3,20 +3,28 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_coating",
 	name: "Acid Coating",
-	description: "Coat your weapon in corrosive acid to increase acid type damage.",
+	description:
+		"Coat your weapon in acid and immediately strike, empowering further acid attacks.",
 	icon: "skills/rogue/acid_coating.png",
 	pool: "rogue",
 	kind: "technique",
 	category: "buff",
-	maxUses: 6,
+	maxUses: 4,
 	effects: [
 		{
 			type: "modifyDamage",
 			target: "self",
 			damageType: "acid",
-			operation: "add",
-			value: 80,
-			durationTurns: 8,
+			operation: "multiply",
+			value: 1.5,
+			durationTurns: 3,
+		},
+		{
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			damageTypeOverride: "acid",
+			attackRiders: [],
 		},
 	],
 	tags: [],

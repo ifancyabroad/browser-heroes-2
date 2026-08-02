@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_trap",
 	name: "Acid Trap",
-	description: "Trap your enemy to incapacitate them and reduce their defenses.",
+	description: "Spring a caustic snare that can pin the enemy and expose them to acid.",
 	icon: "skills/rogue/acid_trap.png",
 	pool: "rogue",
 	kind: "technique",
@@ -15,6 +15,11 @@ export default buildSkill({
 			target: "enemy",
 			statusId: "stunned",
 			durationTurns: 1,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "noEffect",
+				dc: { attribute: "dexterity" },
+			},
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -22,7 +27,7 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "acid",
-			durationTurns: 5,
+			durationTurns: 3,
 		},
 	],
 	tags: [],

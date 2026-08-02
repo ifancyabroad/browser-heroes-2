@@ -3,21 +3,27 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "enhance_poison",
 	name: "Enhance Poison",
-	description:
-		"Amplify the potency of your poison, causing it to inflict greater, lingering damage.",
+	description: "Concentrate your toxins, then immediately strike with a weapon steeped in venom.",
 	icon: "skills/assassin/enhance_poison.png",
 	pool: "assassin",
 	kind: "technique",
 	category: "buff",
-	maxUses: 6,
+	maxUses: 4,
 	effects: [
 		{
 			type: "modifyDamage",
 			target: "self",
 			damageType: "poison",
-			operation: "add",
-			value: 50,
-			durationTurns: 8,
+			operation: "multiply",
+			value: 1.5,
+			durationTurns: 3,
+		},
+		{
+			type: "attackDamage",
+			target: "enemy",
+			multiplier: 1,
+			damageTypeOverride: "poison",
+			attackRiders: [],
 		},
 	],
 	tags: [],
