@@ -2,13 +2,9 @@ import { z } from "zod";
 import { attackRiderSchema } from "./effect.schema";
 import { passiveModifierSchema } from "./modifier.schema";
 
-export const featCategorySchema = z.enum([
-	"offensive",
-	"defensive",
-	"utility",
-	"resource",
-	"elemental",
-]);
+export const featCategorySchema = z.enum(["offensive", "defensive", "utility", "resource"]);
+
+export const featKindSchema = z.enum(["attribute", "damageMastery", "training", "bargain"]);
 
 export const featSchema = z
 	.object({
@@ -16,6 +12,7 @@ export const featSchema = z
 		name: z.string().nonempty(),
 		description: z.string().optional(),
 		icon: z.string().nonempty(),
+		kind: featKindSchema,
 		category: featCategorySchema,
 		modifiers: z.array(passiveModifierSchema).default([]),
 		attackRiders: z.array(attackRiderSchema).default([]),
@@ -27,5 +24,6 @@ export const featSchema = z
 	});
 
 export type FeatCategory = z.infer<typeof featCategorySchema>;
+export type FeatKind = z.infer<typeof featKindSchema>;
 export type FeatDefinition = z.infer<typeof featSchema>;
 export type FeatDefinitionInput = z.input<typeof featSchema>;

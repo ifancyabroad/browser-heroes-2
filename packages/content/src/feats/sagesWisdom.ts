@@ -5,6 +5,7 @@ export default buildFeat({
 	name: "Sage's Wisdom",
 	description: "Hard-won insight increases Wisdom by 2.",
 	icon: "skills/cleric/prayer.png",
+	kind: "attribute",
 	category: "utility",
 	modifiers: [{ type: "modifyStat", stat: "wisdom", value: 2 }],
 	attackRiders: [],

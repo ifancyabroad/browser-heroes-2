@@ -5,6 +5,7 @@ export default buildFeat({
 	name: "Slashing Mastery",
 	description: "Slashing damage is multiplied by 1.2.",
 	icon: "skills/barbarian/cleave.png",
+	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [
 		{ type: "modifyDamage", damageType: "slashing", operation: "multiply", value: 1.2 },

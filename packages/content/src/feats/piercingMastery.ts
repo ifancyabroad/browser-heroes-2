@@ -5,6 +5,7 @@ export default buildFeat({
 	name: "Piercing Mastery",
 	description: "Piercing damage is multiplied by 1.2.",
 	icon: "skills/assassin/backstab.png",
+	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [
 		{ type: "modifyDamage", damageType: "piercing", operation: "multiply", value: 1.2 },

@@ -92,9 +92,11 @@ export function StructuredEditor(props: Props) {
 	const options =
 		field === "type"
 			? typeOptions(path)
-			: field === "category"
-				? categoryOptions(props.category, path)
-				: optionsByField[field];
+			: field === "kind"
+				? kindOptions(props.category, path)
+				: field === "category"
+					? categoryOptions(props.category, path)
+					: optionsByField[field];
 	const reference = referenceTargets[field];
 	return (
 		<label className={`editor-field ${fieldIssues.length ? "invalid" : ""}`}>
@@ -317,12 +319,21 @@ function typeOptions(path: string) {
 }
 function categoryOptions(category: CategoryKey, path: string) {
 	if (category === "skills" && path === "category") {
-		return ["attack", "spell", "heal", "buff", "debuff", "defensive", "utility"];
+		return ["damage", "heal", "buff", "debuff", "defensive", "utility"];
 	}
 	if (category === "feats" && path === "category") {
-		return ["offensive", "defensive", "utility", "resource", "elemental"];
+		return ["offensive", "defensive", "utility", "resource"];
 	}
 	return ["cloth", "light", "medium", "heavy"];
+}
+function kindOptions(category: CategoryKey, path: string) {
+	if (category === "skills" && path === "kind") {
+		return ["weaponAttack", "spellAttack", "spell", "technique", "prayer"];
+	}
+	if (category === "feats" && path === "kind") {
+		return ["attribute", "damageMastery", "training", "bargain"];
+	}
+	return undefined;
 }
 function discriminatorValue(path: string, next: string, current: unknown) {
 	if (path === "type") {

@@ -5,6 +5,7 @@ export default buildFeat({
 	name: "Commanding Presence",
 	description: "An irresistible personality increases Charisma by 2.",
 	icon: "skills/barbarian/intimidating_shout.png",
+	kind: "attribute",
 	category: "utility",
 	modifiers: [{ type: "modifyStat", stat: "charisma", value: 2 }],
 	attackRiders: [],

@@ -5,6 +5,7 @@ export default buildFeat({
 	name: "Keen Intellect",
 	description: "A brilliant mind increases Intelligence by 2.",
 	icon: "skills/mage/magic_missiles.png",
+	kind: "attribute",
 	category: "utility",
 	modifiers: [{ type: "modifyStat", stat: "intelligence", value: 2 }],
 	attackRiders: [],

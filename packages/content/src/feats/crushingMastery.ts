@@ -5,6 +5,7 @@ export default buildFeat({
 	name: "Crushing Mastery",
 	description: "Crushing damage is multiplied by 1.2.",
 	icon: "skills/warrior/mighty_blow.png",
+	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [
 		{ type: "modifyDamage", damageType: "crushing", operation: "multiply", value: 1.2 },

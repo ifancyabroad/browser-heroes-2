@@ -6,6 +6,7 @@ import type {
 	DamageType,
 	EquipmentSlot,
 	FeatCategory,
+	FeatKind,
 	ItemRarity,
 	ModifiableStat,
 	SkillCategory,
@@ -207,5 +208,11 @@ export const featCategoryLabels: Record<FeatCategory, string> = {
 	defensive: "Defensive",
 	utility: "Utility",
 	resource: "Resource",
-	elemental: "Elemental",
+};
+
+export const featKindLabels: Record<FeatKind, string> = {
+	attribute: "Attribute",
+	damageMastery: "Damage Mastery",
+	training: "Training",
+	bargain: "Bargain",
 };

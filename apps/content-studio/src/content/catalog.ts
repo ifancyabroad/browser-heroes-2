@@ -246,6 +246,7 @@ const featEntries: CatalogEntry[] = feats.map((feat) => ({
 		riderSummary(feat.attackRiders),
 	]),
 	facets: {
+		kind: [feat.kind],
 		category: [feat.category],
 		modifier: unique(feat.modifiers.map((modifier) => modifier.type)),
 		timing: unique(feat.attackRiders.map((rider) => rider.timing)),
@@ -253,6 +254,7 @@ const featEntries: CatalogEntry[] = feats.map((feat) => ({
 	cells: {
 		name: feat.name,
 		id: feat.id,
+		kind: feat.kind,
 		category: feat.category,
 		modifiers: modifierSummary(feat.modifiers) || "—",
 		riders: riderSummary(feat.attackRiders) || "—",
@@ -503,8 +505,9 @@ export const catalogs: readonly Catalog[] = [
 		entries: featEntries,
 		hasImages: true,
 		defaultSort: "name",
-		columns: columns("name", "id", "category", "modifiers", "riders", "tags"),
+		columns: columns("name", "id", "kind", "category", "modifiers", "riders", "tags"),
 		filters: makeFilters(featEntries, [
+			{ key: "kind", label: "Kind" },
 			{ key: "category", label: "Category" },
 			{ key: "modifier", label: "Modifier" },
 			{ key: "timing", label: "Rider timing" },

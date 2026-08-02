@@ -5,7 +5,8 @@ export default buildFeat({
 	name: "Necrotic Mastery",
 	description: "Necrotic damage is multiplied by 1.2.",
 	icon: "skills/warlock/shadow_bolt.png",
-	category: "elemental",
+	kind: "damageMastery",
+	category: "offensive",
 	modifiers: [
 		{ type: "modifyDamage", damageType: "necrotic", operation: "multiply", value: 1.2 },
 	],
