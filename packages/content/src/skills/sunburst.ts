@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "sunburst",
 	name: "Sunburst",
-	description:
-		"Unleash a blinding burst of radiant energy, dealing significant damage with a chance to blind your enemies.",
+	description: "Unleash overwhelming sunlight that sears the enemy and may leave them blinded.",
 	icon: "skills/cleric/sunburst.png",
 	pool: "cleric",
 	kind: "prayer",
@@ -15,9 +14,14 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "radiant",
-			dice: "2d12+8",
+			dice: "4d8",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "halfDamage",
+				dc: { attribute: "wisdom" },
+			},
 		},
 		{
 			type: "modifyRoll",
@@ -25,6 +29,11 @@ export default buildSkill({
 			roll: "attack",
 			mode: "disadvantage",
 			durationTurns: 4,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

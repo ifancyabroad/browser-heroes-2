@@ -16,6 +16,11 @@ export default buildSkill({
 			target: "enemy",
 			statusId: "stunned",
 			durationTurns: 2,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

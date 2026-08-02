@@ -31,7 +31,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cure_medium_wounds", "bless", "lighting_bolt"],
+		skillIds: ["renew", "bless", "lighting_bolt"],
 		featIds: [],
 		tactic: "defensive",
 	},

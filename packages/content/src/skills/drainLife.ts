@@ -18,6 +18,11 @@ export default buildSkill({
 			dice: "1d10+5",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "halfDamage",
+				dc: { attribute: "wisdom" },
+			},
 		},
 		{
 			type: "heal",

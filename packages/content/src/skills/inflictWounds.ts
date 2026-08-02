@@ -3,11 +3,10 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "inflict_wounds",
 	name: "Inflict Wounds",
-	description:
-		"Channel dark energy to deal necrotic damage with a chance to cause ongoing bleeding.",
+	description: "Reach out with concentrated deathly power to inflict a grievous necrotic wound.",
 	icon: "skills/occultist/inflict_wounds.png",
 	pool: "occultist",
-	kind: "spell",
+	kind: "spellAttack",
 	category: "damage",
 	maxUses: 8,
 	effects: [
@@ -15,16 +14,9 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "1d10",
+			dice: "2d10",
 			attribute: "wisdom",
-			requiresAttackRoll: false,
-		},
-		{
-			type: "damageOverTime",
-			target: "enemy",
-			damageType: "slashing",
-			dice: "1d4",
-			durationTurns: 4,
+			requiresAttackRoll: true,
 		},
 	],
 	tags: [],

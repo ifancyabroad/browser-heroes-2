@@ -3,12 +3,13 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "curse",
 	name: "Curse",
-	description: "Inflict a debilitating curse that hinders the enemy's saving throws.",
+	description:
+		"Lay a malignant curse that may leave the enemy vulnerable to further afflictions.",
 	icon: "skills/occultist/curse.png",
 	pool: "occultist",
 	kind: "spell",
 	category: "debuff",
-	maxUses: 8,
+	maxUses: 4,
 	effects: [
 		{
 			type: "modifyRoll",
@@ -16,6 +17,11 @@ export default buildSkill({
 			roll: "savingThrow",
 			mode: "disadvantage",
 			durationTurns: 6,
+			save: {
+				attribute: "charisma",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

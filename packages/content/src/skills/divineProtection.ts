@@ -3,37 +3,14 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "divine_protection",
 	name: "Divine Protection",
-	description: "Invoke celestial safeguard, shielding yourself from harm and dark forces.",
+	description:
+		"Invoke a celestial safeguard against divine radiance and the consuming power of death.",
 	icon: "skills/cleric/divine_protection.png",
 	pool: "cleric",
 	kind: "prayer",
 	category: "defensive",
-	maxUses: 6,
+	maxUses: 4,
 	effects: [
-		{
-			type: "modifyDamageAffinity",
-			target: "self",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "slashing",
-			durationTurns: 6,
-		},
-		{
-			type: "modifyDamageAffinity",
-			target: "self",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "crushing",
-			durationTurns: 6,
-		},
-		{
-			type: "modifyDamageAffinity",
-			target: "self",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "piercing",
-			durationTurns: 6,
-		},
 		{
 			type: "modifyDamageAffinity",
 			target: "self",
@@ -45,7 +22,7 @@ export default buildSkill({
 		{
 			type: "modifyDamageAffinity",
 			target: "self",
-			affinity: "resistance",
+			affinity: "immunity",
 			operation: "add",
 			damageType: "necrotic",
 			durationTurns: 6,

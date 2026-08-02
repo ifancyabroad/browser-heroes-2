@@ -3,27 +3,25 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "prayer",
 	name: "Prayer",
-	description:
-		"Call upon divine favor to boost radiant damage and to provide protection from harmful effects.",
+	description: "Call upon divine favour to empower radiant attacks and restorative prayers.",
 	icon: "skills/cleric/prayer.png",
 	pool: "cleric",
 	kind: "prayer",
 	category: "buff",
-	maxUses: 8,
+	maxUses: 6,
 	effects: [
 		{
 			type: "modifyDamage",
 			target: "self",
 			damageType: "radiant",
-			operation: "add",
-			value: 50,
+			operation: "multiply",
+			value: 1.5,
 			durationTurns: 8,
 		},
 		{
-			type: "modifyStat",
+			type: "modifyHealing",
 			target: "self",
-			stat: "savingThrowBonus",
-			value: 5,
+			multiplier: 1.5,
 			durationTurns: 8,
 		},
 	],
