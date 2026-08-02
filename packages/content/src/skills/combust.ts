@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "combust",
 	name: "Combust",
-	description: "Overheat and erupt into flames burning all those around you.",
+	description: "Overheat and erupt into a suicidal explosion that can only be partially escaped.",
 	icon: "skills/unique/combust.png",
 	pool: "unique",
 	kind: "spell",
@@ -21,8 +21,13 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
-			dice: "10d8",
+			dice: "15d12",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "constitution" },
+			},
 		},
 	],
 	tags: [],

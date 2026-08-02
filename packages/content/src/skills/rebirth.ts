@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "rebirth",
 	name: "Rebirth",
+	description: "Rekindle the Dawnflame and restore an immense amount of health once per battle.",
 	icon: "skills/unique/rebirth.png",
 	pool: "unique",
 	kind: "spell",

@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "wail",
 	name: "Wail",
+	description:
+		"Release a deathly wail that damages the soul and may leave the enemy paralysed with terror.",
 	icon: "skills/unique/wail.png",
 	pool: "unique",
 	kind: "spell",
@@ -17,7 +19,7 @@ export default buildSkill({
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",
-				onSuccess: "noEffect",
+				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
 					attribute: "wisdom",
@@ -31,6 +33,11 @@ export default buildSkill({
 			target: "enemy",
 			statusId: "stunned",
 			durationTurns: 2,
+			save: {
+				attribute: "wisdom",
+				onSuccess: "noEffect",
+				dc: { attribute: "charisma" },
+			},
 		},
 	],
 	tags: [],

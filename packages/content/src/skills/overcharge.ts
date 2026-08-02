@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "overcharge",
 	name: "Overcharge",
+	description: "Release a dangerously concentrated surge of elemental lightning.",
 	icon: "skills/unique/overcharge.png",
 	pool: "unique",
 	kind: "spell",
@@ -12,16 +13,14 @@ export default buildSkill({
 		{
 			type: "damage",
 			target: "enemy",
-			damageType: "fire",
-			dice: "6d6",
+			damageType: "lightning",
+			dice: "10d8",
 			requiresAttackRoll: false,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "radiant",
-			dice: "6d6",
-			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "halfDamage",
+				dc: { attribute: "constitution" },
+			},
 		},
 	],
 	tags: [],

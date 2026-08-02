@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "summon_storm",
 	name: "Summon Storm",
+	description:
+		"Summon a devastating storm that strikes immediately and continues to hound the enemy.",
 	icon: "skills/unique/summon_storm.png",
 	pool: "unique",
 	kind: "spell",
@@ -13,8 +15,25 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
-			dice: "10d8",
+			dice: "6d10",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "charisma" },
+			},
+		},
+		{
+			type: "damageOverTime",
+			target: "enemy",
+			damageType: "lightning",
+			dice: "2d10",
+			durationTurns: 3,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "noEffect",
+				dc: { attribute: "charisma" },
+			},
 		},
 	],
 	tags: [],

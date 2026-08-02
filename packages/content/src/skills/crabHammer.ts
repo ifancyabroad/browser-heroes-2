@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "crab_hammer",
 	name: "Crab Hammer",
+	description: "Hammer the enemy with a freezing claw that may crack their armour.",
 	icon: "skills/unique/crab_hammer.png",
 	pool: "unique",
 	kind: "weaponAttack",
@@ -29,6 +30,11 @@ export default buildSkill({
 							stat: "armourClass",
 							value: -4,
 							durationTurns: 4,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
 						},
 					],
 				},

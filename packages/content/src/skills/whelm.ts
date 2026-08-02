@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "whelm",
 	name: "Whelm",
+	description:
+		"Overwhelm the enemy beneath a crushing mass of water that may leave them unable to act.",
 	icon: "skills/unique/whelm.png",
 	pool: "unique",
 	kind: "spell",
@@ -13,17 +15,12 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "6d6",
+			dice: "8d8",
 			requiresAttackRoll: false,
 			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "strength",
-					includeProficiency: true,
-					bonus: 0,
-				},
+				attribute: "strength",
+				onSuccess: "halfDamage",
+				dc: { attribute: "constitution" },
 			},
 		},
 		{
@@ -31,22 +28,10 @@ export default buildSkill({
 			target: "enemy",
 			statusId: "stunned",
 			durationTurns: 2,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "cold",
-			dice: "6d6",
-			requiresAttackRoll: false,
 			save: {
-				attribute: "constitution",
+				attribute: "strength",
 				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "strength",
-					includeProficiency: true,
-					bonus: 0,
-				},
+				dc: { attribute: "constitution" },
 			},
 		},
 	],

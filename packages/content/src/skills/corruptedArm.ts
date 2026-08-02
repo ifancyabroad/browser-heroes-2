@@ -3,52 +3,43 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "corrupted_arm",
 	name: "Corrupted Arm",
+	description:
+		"Smash the enemy with a corrupted limb that spreads necrosis and tears open their defences.",
 	icon: "skills/unique/corrupted_arm.png",
 	pool: "unique",
-	kind: "spell",
+	kind: "weaponAttack",
 	category: "damage",
 	maxUses: 2,
 	effects: [
 		{
-			type: "damage",
+			type: "attackDamage",
 			target: "enemy",
-			damageType: "necrotic",
-			dice: "2d8",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "constitution",
-					includeProficiency: true,
-					bonus: 3,
+			multiplier: 1.5,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "necrotic",
+							dice: "2d8",
+						},
+						{
+							type: "modifyStat",
+							target: "enemy",
+							stat: "armourClass",
+							value: -4,
+							durationTurns: 4,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
 				},
-			},
-		},
-		{
-			type: "modifyStat",
-			target: "enemy",
-			stat: "armourClass",
-			value: -6,
-			durationTurns: 4,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "crushing",
-			dice: "2d8",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "constitution",
-					includeProficiency: true,
-					bonus: 3,
-				},
-			},
+			],
 		},
 	],
 	tags: [],

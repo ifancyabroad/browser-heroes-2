@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "binkus_deathray",
 	name: "Binkus' Deathray",
+	description: "Unleash a singular beam of annihilating fire and necrotic energy.",
 	icon: "skills/unique/binkus_deathray.png",
 	pool: "unique",
 	kind: "spell",
@@ -15,6 +16,11 @@ export default buildSkill({
 			damageType: "necrotic",
 			dice: "10d6",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "intelligence" },
+			},
 		},
 		{
 			type: "damage",
@@ -22,6 +28,11 @@ export default buildSkill({
 			damageType: "fire",
 			dice: "10d6",
 			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "intelligence" },
+			},
 		},
 	],
 	tags: [],

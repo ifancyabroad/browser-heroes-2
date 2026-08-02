@@ -3,11 +3,13 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "engulf",
 	name: "Engulf",
+	description:
+		"Surround the enemy in living flame that burns immediately and continues to consume them.",
 	icon: "skills/unique/engulf.png",
 	pool: "unique",
 	kind: "spell",
 	category: "damage",
-	maxUses: 7,
+	maxUses: 5,
 	effects: [
 		{
 			type: "damage",
@@ -16,30 +18,22 @@ export default buildSkill({
 			dice: "4d6",
 			requiresAttackRoll: false,
 			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "constitution",
-					includeProficiency: true,
-					bonus: 3,
-				},
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "constitution" },
 			},
 		},
 		{
-			type: "modifyStat",
+			type: "damageOverTime",
 			target: "enemy",
-			stat: "attackRollBonus",
-			value: -2,
-			durationTurns: 3,
-		},
-		{
-			type: "modifyDamageAffinity",
-			target: "enemy",
-			affinity: "vulnerability",
-			operation: "add",
 			damageType: "fire",
+			dice: "2d6",
 			durationTurns: 3,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "constitution" },
+			},
 		},
 	],
 	tags: [],

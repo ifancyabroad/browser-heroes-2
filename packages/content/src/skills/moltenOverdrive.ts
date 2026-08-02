@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "molten_overdrive",
 	name: "Molten Overdrive",
+	description:
+		"Drive the molten core beyond its limits, gaining brutal precision and power while shedding armour.",
 	icon: "skills/unique/molten_overdrive.png",
 	pool: "unique",
 	kind: "technique",
@@ -10,10 +12,10 @@ export default buildSkill({
 	maxUses: 1,
 	effects: [
 		{
-			type: "modifyStat",
+			type: "modifyRoll",
 			target: "self",
-			stat: "attackRollBonus",
-			value: 2,
+			roll: "attack",
+			mode: "advantage",
 			durationTurns: 6,
 		},
 		{
@@ -27,8 +29,15 @@ export default buildSkill({
 			type: "modifyDamage",
 			target: "self",
 			damageType: "crushing",
-			operation: "add",
-			value: 50,
+			operation: "multiply",
+			value: 1.5,
+			durationTurns: 6,
+		},
+		{
+			type: "modifyStat",
+			target: "self",
+			stat: "armourClass",
+			value: -3,
 			durationTurns: 6,
 		},
 	],

@@ -3,11 +3,13 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "eye_ray",
 	name: "Eye Ray",
+	description:
+		"Project a debilitating ray that ravages the enemy's mind and may leave them helpless.",
 	icon: "skills/unique/eye_ray.png",
 	pool: "unique",
 	kind: "spell",
 	category: "damage",
-	maxUses: 12,
+	maxUses: 6,
 	effects: [
 		{
 			type: "damage",
@@ -17,34 +19,20 @@ export default buildSkill({
 			requiresAttackRoll: false,
 			save: {
 				attribute: "wisdom",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "wisdom",
-					includeProficiency: true,
-					bonus: 0,
-				},
+				onSuccess: "halfDamage",
+				dc: { attribute: "intelligence" },
 			},
-		},
-		{
-			type: "modifyRoll",
-			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
-			durationTurns: 1,
 		},
 		{
 			type: "applyStatus",
 			target: "enemy",
 			statusId: "stunned",
 			durationTurns: 1,
-		},
-		{
-			type: "modifyDamage",
-			target: "enemy",
-			operation: "multiply",
-			value: 0.75,
-			durationTurns: 1,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "intelligence", includeProficiency: false },
+			},
 		},
 	],
 	tags: [],

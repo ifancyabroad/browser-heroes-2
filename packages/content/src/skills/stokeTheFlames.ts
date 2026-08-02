@@ -3,6 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "stoke_the_flames",
 	name: "Stoke the Flames",
+	description:
+		"Feed the inner flame to substantially increase fire damage for the coming assault.",
 	icon: "skills/unique/stoke_the_flames.png",
 	pool: "unique",
 	kind: "spell",
@@ -13,8 +15,8 @@ export default buildSkill({
 			type: "modifyDamage",
 			target: "self",
 			damageType: "fire",
-			operation: "add",
-			value: 40,
+			operation: "multiply",
+			value: 1.4,
 			durationTurns: 4,
 		},
 	],

@@ -3,34 +3,35 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "minotaur_charge",
 	name: "Minotaur Charge",
+	description: "Charge horns-first into the enemy with enough force to knock them senseless.",
 	icon: "skills/unique/minotaur_charge.png",
 	pool: "unique",
-	kind: "technique",
+	kind: "weaponAttack",
 	category: "damage",
 	maxUses: 1,
 	effects: [
 		{
-			type: "applyStatus",
+			type: "attackDamage",
 			target: "enemy",
-			statusId: "stunned",
-			durationTurns: 1,
-		},
-		{
-			type: "damage",
-			target: "enemy",
-			damageType: "piercing",
-			dice: "2d6",
-			requiresAttackRoll: false,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: {
-					base: 8,
-					attribute: "dexterity",
-					includeProficiency: true,
-					bonus: 0,
+			multiplier: 2,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "applyStatus",
+							target: "enemy",
+							statusId: "stunned",
+							durationTurns: 2,
+							save: {
+								attribute: "strength",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
 				},
-			},
+			],
 		},
 	],
 	tags: [],

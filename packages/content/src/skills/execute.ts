@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "execute",
 	name: "Execute",
+	description: "Commit to a single overwhelming executioner's blow.",
 	icon: "skills/unique/execute.png",
 	pool: "unique",
 	kind: "weaponAttack",
@@ -12,21 +13,8 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 2,
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damageOverTime",
-							target: "enemy",
-							damageType: "slashing",
-							dice: "1d8",
-							durationTurns: 5,
-						},
-					],
-				},
-			],
+			multiplier: 2.5,
+			attackRiders: [],
 		},
 	],
 	tags: [],

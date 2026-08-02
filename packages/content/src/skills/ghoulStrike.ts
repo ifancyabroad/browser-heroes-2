@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "ghoul_strike",
 	name: "Ghoul Strike",
+	description: "Rake the enemy with a paralysing ghoul's claw.",
 	icon: "skills/unique/ghoul_strike.png",
 	pool: "unique",
 	kind: "weaponAttack",
@@ -21,7 +22,12 @@ export default buildSkill({
 							type: "applyStatus",
 							target: "enemy",
 							statusId: "stunned",
-							durationTurns: 1,
+							durationTurns: 2,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
 						},
 					],
 				},
