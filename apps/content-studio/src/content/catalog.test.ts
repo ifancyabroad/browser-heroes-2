@@ -63,4 +63,31 @@ describe("content catalogs", () => {
 		expect(acidBite?.facets.damageType).toEqual(["acid"]);
 		expect(acidBite?.cells.damageTypes).toBe("acid");
 	});
+
+	it("projects skill kind and category for browsing and filtering", () => {
+		const catalog = catalogByKey.skills;
+		const skill = catalog.entries[0];
+
+		expect(catalog.columns.map((column) => column.key)).toContain("kind");
+		expect(catalog.filters.map((filter) => filter.key)).toContain("kind");
+		expect(skill.facets.kind).toEqual([skill.cells.kind]);
+		expect(skill.facets.category).toEqual([skill.cells.category]);
+		expect(skill.searchText).toContain(String(skill.cells.kind).toLocaleLowerCase());
+	});
+
+	it("projects feat kind, category, and attack riders", () => {
+		const catalog = catalogByKey.feats;
+		const feat = catalog.entries.find((entry) => entry.id === "blood_drinker")!;
+
+		expect(catalog.columns.map((column) => column.key)).toEqual(
+			expect.arrayContaining(["kind", "category", "riders"]),
+		);
+		expect(catalog.filters.map((filter) => filter.key)).toEqual(
+			expect.arrayContaining(["kind", "category", "timing"]),
+		);
+		expect(feat.facets.kind).toEqual([feat.cells.kind]);
+		expect(feat.facets.category).toEqual([feat.cells.category]);
+		expect(feat.cells.riders).not.toBe("—");
+		expect(feat.facets.timing).not.toHaveLength(0);
+	});
 });

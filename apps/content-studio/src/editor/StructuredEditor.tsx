@@ -1,4 +1,10 @@
 import { useState } from "react";
+import {
+	featCategorySchema,
+	featKindSchema,
+	skillCategorySchema,
+	skillKindSchema,
+} from "@app/content";
 import { ContentImage } from "../components/ContentImage";
 import { catalogByKey, type CategoryKey } from "../content/catalog";
 import type { FieldIssue } from "./api";
@@ -319,19 +325,19 @@ function typeOptions(path: string) {
 }
 function categoryOptions(category: CategoryKey, path: string) {
 	if (category === "skills" && path === "category") {
-		return ["damage", "heal", "buff", "debuff", "defensive", "utility"];
+		return skillCategorySchema.options;
 	}
 	if (category === "feats" && path === "category") {
-		return ["offensive", "defensive", "utility", "resource"];
+		return featCategorySchema.options;
 	}
 	return ["cloth", "light", "medium", "heavy"];
 }
 function kindOptions(category: CategoryKey, path: string) {
 	if (category === "skills" && path === "kind") {
-		return ["weaponAttack", "spellAttack", "spell", "technique", "prayer"];
+		return skillKindSchema.options;
 	}
 	if (category === "feats" && path === "kind") {
-		return ["attribute", "damageMastery", "training", "bargain"];
+		return featKindSchema.options;
 	}
 	return undefined;
 }
