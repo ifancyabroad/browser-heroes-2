@@ -22,7 +22,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "necrotic",
-							dice: "1d8+3",
+							dice: "2d6",
 						},
 					],
 				},

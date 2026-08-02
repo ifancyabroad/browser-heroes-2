@@ -26,10 +26,10 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyDamage",
+			type: "modifyRoll",
 			target: "enemy",
-			operation: "multiply",
-			value: 0.75,
+			roll: "attack",
+			mode: "disadvantage",
 			durationTurns: 1,
 		},
 		{

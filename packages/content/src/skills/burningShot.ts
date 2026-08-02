@@ -20,7 +20,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "fire",
-							dice: "1d8+3",
+							dice: "2d6",
 						},
 					],
 				},

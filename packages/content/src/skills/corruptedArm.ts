@@ -12,7 +12,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "1d8+5",
+			dice: "2d6+2",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",
@@ -36,7 +36,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "1d8+5",
+			dice: "2d6+2",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "cursing_bolt",
 	name: "Cursing Bolt",
 	description:
-		"Fire a bolt of necrotic energy that deals damage and may curse your enemy, forcing them to fail any saving throws.",
+		"Fire a bolt of necrotic energy that deals damage and hinders the enemy's saving throws.",
 	icon: "skills/warlock/cursing_bolt.png",
 	pool: "warlock",
 	category: "spell",
@@ -19,10 +19,10 @@ export default buildSkill({
 			requiresAttackRoll: false,
 		},
 		{
-			type: "modifyDamage",
+			type: "modifyRoll",
 			target: "enemy",
-			operation: "multiply",
-			value: 0.75,
+			roll: "savingThrow",
+			mode: "disadvantage",
 			durationTurns: 4,
 		},
 	],

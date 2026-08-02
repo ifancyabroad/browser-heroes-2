@@ -18,7 +18,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "piercing",
-			dice: "1d8+3",
+			dice: "2d6",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",

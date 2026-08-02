@@ -13,7 +13,7 @@ export default buildSkill({
 			type: "damage",
 			target: "self",
 			damageType: "fire",
-			dice: "25d6+13",
+			dice: "15d12",
 			requiresAttackRoll: false,
 		},
 		{

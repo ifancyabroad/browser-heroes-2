@@ -11,10 +11,10 @@ export default buildSkill({
 	maxUses: 8,
 	effects: [
 		{
-			type: "modifyDamage",
+			type: "modifyRoll",
 			target: "enemy",
-			operation: "multiply",
-			value: 0.75,
+			roll: "attack",
+			mode: "disadvantage",
 			durationTurns: 8,
 		},
 	],

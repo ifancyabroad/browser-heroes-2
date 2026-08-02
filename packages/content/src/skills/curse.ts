@@ -3,18 +3,17 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "curse",
 	name: "Curse",
-	description:
-		"Inflict a debilitating curse that forces the enemy to fail all saving throws, leaving them vulnerable.",
+	description: "Inflict a debilitating curse that hinders the enemy's saving throws.",
 	icon: "skills/occultist/curse.png",
 	pool: "occultist",
 	category: "debuff",
 	maxUses: 8,
 	effects: [
 		{
-			type: "modifyDamage",
+			type: "modifyRoll",
 			target: "enemy",
-			operation: "multiply",
-			value: 0.75,
+			roll: "savingThrow",
+			mode: "disadvantage",
 			durationTurns: 6,
 		},
 	],

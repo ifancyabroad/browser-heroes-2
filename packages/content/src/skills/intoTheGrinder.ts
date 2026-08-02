@@ -12,7 +12,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "acid",
-			dice: "1d8+5",
+			dice: "2d6+2",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
@@ -29,7 +29,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "1d8+5",
+			dice: "2d6+2",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
