@@ -47,8 +47,9 @@ export default buildWeapon({
 				{
 					type: "modifyDamageTaken",
 					target: "enemy",
+					damageType: "fire",
 					operation: "multiply",
-					value: 1.25,
+					value: 1.5,
 					durationTurns: 4,
 				},
 			],

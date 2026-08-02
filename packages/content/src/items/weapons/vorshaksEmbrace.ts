@@ -50,8 +50,9 @@ export default buildWeapon({
 				{
 					type: "modifyDamageTaken",
 					target: "enemy",
+					damageType: "slashing",
 					operation: "multiply",
-					value: 1.25,
+					value: 1.4,
 					durationTurns: 2,
 				},
 			],
