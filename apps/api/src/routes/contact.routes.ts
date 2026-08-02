@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { contactBodySchema } from "@app/shared";
 import { submitContact } from "../controllers/contact.controller";
-import { contactSubmissionLimit } from "../middlewares/authRateLimits";
+import { contactSubmissionLimit } from "../middlewares/rateLimits";
 import { requireTrustedOrigin } from "../middlewares/origin";
 import { validateBody } from "../middlewares/validate";
 

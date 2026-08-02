@@ -29,6 +29,13 @@ function createEmailLimit(limit: number, skipSuccessfulRequests = false) {
 	});
 }
 
+export const apiBaselineLimit = rateLimit({
+	windowMs: WINDOW_MS,
+	limit: 300,
+	skip: (req) => req.method === "GET" && req.path === "/health",
+	standardHeaders: "draft-8",
+});
+
 export const guestCreationLimit = createIpLimit(60);
 export const registrationLimit = createIpLimit(5);
 export const loginLimits = [createIpLimit(20, true), createEmailLimit(10, true)];

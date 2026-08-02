@@ -22,7 +22,7 @@ import {
 	passwordResetCompletionLimit,
 	passwordResetRequestLimits,
 	registrationLimit,
-} from "../middlewares/authRateLimits";
+} from "../middlewares/rateLimits";
 
 export const authRoutes = Router();
 authRoutes.use(requireTrustedOrigin);

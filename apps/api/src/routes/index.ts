@@ -6,9 +6,11 @@ import { leaderboardRoutes } from "./leaderboard.routes";
 import { historyRoutes } from "./history.routes";
 import { contactRoutes } from "./contact.routes";
 import { achievementRoutes } from "./achievement.routes";
+import { apiBaselineLimit } from "../middlewares/rateLimits";
 
 export const routes = Router();
 
+routes.use(apiBaselineLimit);
 routes.use("/auth", authRoutes);
 routes.use("/health", healthRoutes);
 routes.use("/runs", runRoutes);
