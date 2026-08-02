@@ -19,7 +19,7 @@ export default buildSkill({
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
-				dc: { attribute: "charisma" },
+				dc: { attribute: "charisma", bonus: 6 },
 			},
 		},
 		{
@@ -31,7 +31,7 @@ export default buildSkill({
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
-				dc: { attribute: "charisma" },
+				dc: { attribute: "charisma", bonus: 6 },
 			},
 		},
 	],

@@ -21,7 +21,7 @@ export default buildSkill({
 				onSuccess: "halfDamage",
 				dc: {
 					base: 8,
-					attribute: "dexterity",
+					attribute: "constitution",
 					includeProficiency: true,
 					bonus: 0,
 				},

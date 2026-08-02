@@ -20,7 +20,7 @@ export default buildSkill({
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
-				dc: { attribute: "charisma" },
+				dc: { attribute: "constitution" },
 			},
 		},
 	],

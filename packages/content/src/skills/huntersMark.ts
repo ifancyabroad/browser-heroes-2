@@ -2,7 +2,9 @@ import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
 	id: "hunterss_mark",
-	name: "Hunters's Mark",
+	name: "Hunter's Mark",
+	description:
+		"Mark the enemy as quarry, sharpening attacks and creating opportunities for critical strikes.",
 	icon: "skills/common/hunterss_mark.png",
 	pool: "common",
 	kind: "technique",

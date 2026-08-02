@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_bite",
 	name: "Acid Bite",
+	description: "Bite into the enemy and sear the wound with corrosive acid.",
 	icon: "skills/common/acid_bite.png",
 	pool: "common",
 	kind: "weaponAttack",

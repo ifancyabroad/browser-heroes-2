@@ -3,6 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "natures_blessing",
 	name: "Nature's Blessing",
+	description: "Invoke nature's venomous aspect to greatly empower poison damage.",
 	icon: "skills/common/natures_blessing.png",
 	pool: "common",
 	kind: "prayer",

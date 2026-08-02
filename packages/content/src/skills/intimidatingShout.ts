@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "intimidating_shout",
 	name: "Intimidating Shout",
-	description: "Release a fearsome bellow that can leave the enemy attacking at a disadvantage.",
+	description:
+		"Release a fearsome bellow that may sap the enemy's resolve and halve their damage.",
 	icon: "skills/barbarian/intimidating_shout.png",
 	pool: "barbarian",
 	kind: "technique",
@@ -11,11 +12,11 @@ export default buildSkill({
 	maxUses: 3,
 	effects: [
 		{
-			type: "modifyRoll",
+			type: "modifyDamage",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
-			durationTurns: 6,
+			operation: "multiply",
+			value: 0.5,
+			durationTurns: 5,
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",

@@ -19,7 +19,7 @@ export default buildSkill({
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",
-				dc: { attribute: "strength" },
+				dc: { attribute: "dexterity" },
 			},
 		},
 	],
