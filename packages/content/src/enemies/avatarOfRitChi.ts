@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Claw",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6+2",
+				dice: "2d6",
 				type: "slashing",
 				attribute: "strength",
 			},

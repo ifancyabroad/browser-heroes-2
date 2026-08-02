@@ -35,7 +35,7 @@ export default buildEnemy({
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6+6",
+				dice: "2d10",
 				type: "piercing",
 				attribute: "strength",
 			},

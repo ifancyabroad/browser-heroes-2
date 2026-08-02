@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6+2",
+				dice: "2d6",
 				type: "crushing",
 				attribute: "strength",
 			},
