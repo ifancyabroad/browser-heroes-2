@@ -10,7 +10,7 @@ export default buildItemBase({
 	range: "melee",
 	damage: {
 		dice: "1d4",
-		type: "slashing",
+		type: "piercing",
 		attribute: "dexterity",
 	},
 	iconPool: [

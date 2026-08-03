@@ -28,35 +28,37 @@ import iba_gauntlets_11 from '../itemBases/armour/gauntlets';
 import iba_girdle_12 from '../itemBases/armour/girdle';
 import iba_gloves_13 from '../itemBases/armour/gloves';
 import iba_greatclub_41 from '../itemBases/weapons/greatclub';
+import iba_greatsword_42 from '../itemBases/weapons/greatsword';
 import iba_greaves_14 from '../itemBases/armour/greaves';
 import iba_halfPlate_15 from '../itemBases/armour/halfPlate';
-import iba_hammer_42 from '../itemBases/weapons/hammer';
-import iba_handaxe_43 from '../itemBases/weapons/handaxe';
+import iba_hammer_43 from '../itemBases/weapons/hammer';
+import iba_handaxe_44 from '../itemBases/weapons/handaxe';
 import iba_helmet_16 from '../itemBases/armour/helmet';
 import iba_hideArmour_17 from '../itemBases/armour/hideArmour';
 import iba_hood_18 from '../itemBases/armour/hood';
 import iba_leatherArmour_19 from '../itemBases/armour/leatherArmour';
-import iba_lightningWand_44 from '../itemBases/weapons/lightningWand';
-import iba_longbow_45 from '../itemBases/weapons/longbow';
-import iba_longsword_46 from '../itemBases/weapons/longsword';
-import iba_mace_47 from '../itemBases/weapons/mace';
+import iba_lightningWand_45 from '../itemBases/weapons/lightningWand';
+import iba_longbow_46 from '../itemBases/weapons/longbow';
+import iba_longsword_47 from '../itemBases/weapons/longsword';
+import iba_mace_48 from '../itemBases/weapons/mace';
 import iba_mask_20 from '../itemBases/armour/mask';
-import iba_morningstar_48 from '../itemBases/weapons/morningstar';
+import iba_morningstar_49 from '../itemBases/weapons/morningstar';
 import iba_necklace_21 from '../itemBases/armour/necklace';
 import iba_paddedArmour_22 from '../itemBases/armour/paddedArmour';
 import iba_plateArmour_23 from '../itemBases/armour/plateArmour';
-import iba_quarterstaff_49 from '../itemBases/weapons/quarterstaff';
+import iba_quarterstaff_50 from '../itemBases/weapons/quarterstaff';
 import iba_ring_24 from '../itemBases/armour/ring';
 import iba_robe_25 from '../itemBases/armour/robe';
 import iba_sash_26 from '../itemBases/armour/sash';
 import iba_shield_27 from '../itemBases/armour/shield';
-import iba_spear_50 from '../itemBases/weapons/spear';
+import iba_shortsword_51 from '../itemBases/weapons/shortsword';
+import iba_spear_52 from '../itemBases/weapons/spear';
 import iba_splintMail_28 from '../itemBases/armour/splintMail';
-import iba_staff_51 from '../itemBases/weapons/staff';
+import iba_staff_53 from '../itemBases/weapons/staff';
 import iba_studdedLeather_29 from '../itemBases/armour/studdedLeather';
 import iba_towerShield_30 from '../itemBases/armour/towerShield';
 import iba_tunic_31 from '../itemBases/armour/tunic';
-import iba_warhammer_52 from '../itemBases/weapons/warhammer';
+import iba_warhammer_54 from '../itemBases/weapons/warhammer';
 import iba_wraps_32 from '../itemBases/armour/wraps';
 
 export { itemBaseIdSchema, itemBaseIds };
@@ -64,7 +66,7 @@ export type { ItemBaseId } from './itemBaseIds';
 
 export type ItemBase = WithGeneratedId<ItemBaseDefinition, ItemBaseId>;
 
-const rawItemBases = [iba_amulet_0, iba_band_1, iba_battleaxe_33, iba_belt_2, iba_boneclub_34, iba_boots_3, iba_bracers_4, iba_breastplate_5, iba_buckler_6, iba_chain_7, iba_chainMail_8, iba_circlet_9, iba_club_35, iba_coldWand_36, iba_crossbow_37, iba_crown_10, iba_dagger_38, iba_fireWand_39, iba_flail_40, iba_gauntlets_11, iba_girdle_12, iba_gloves_13, iba_greatclub_41, iba_greaves_14, iba_halfPlate_15, iba_hammer_42, iba_handaxe_43, iba_helmet_16, iba_hideArmour_17, iba_hood_18, iba_leatherArmour_19, iba_lightningWand_44, iba_longbow_45, iba_longsword_46, iba_mace_47, iba_mask_20, iba_morningstar_48, iba_necklace_21, iba_paddedArmour_22, iba_plateArmour_23, iba_quarterstaff_49, iba_ring_24, iba_robe_25, iba_sash_26, iba_shield_27, iba_spear_50, iba_splintMail_28, iba_staff_51, iba_studdedLeather_29, iba_towerShield_30, iba_tunic_31, iba_warhammer_52, iba_wraps_32] satisfies readonly ItemBaseDefinition[];
+const rawItemBases = [iba_amulet_0, iba_band_1, iba_battleaxe_33, iba_belt_2, iba_boneclub_34, iba_boots_3, iba_bracers_4, iba_breastplate_5, iba_buckler_6, iba_chain_7, iba_chainMail_8, iba_circlet_9, iba_club_35, iba_coldWand_36, iba_crossbow_37, iba_crown_10, iba_dagger_38, iba_fireWand_39, iba_flail_40, iba_gauntlets_11, iba_girdle_12, iba_gloves_13, iba_greatclub_41, iba_greatsword_42, iba_greaves_14, iba_halfPlate_15, iba_hammer_43, iba_handaxe_44, iba_helmet_16, iba_hideArmour_17, iba_hood_18, iba_leatherArmour_19, iba_lightningWand_45, iba_longbow_46, iba_longsword_47, iba_mace_48, iba_mask_20, iba_morningstar_49, iba_necklace_21, iba_paddedArmour_22, iba_plateArmour_23, iba_quarterstaff_50, iba_ring_24, iba_robe_25, iba_sash_26, iba_shield_27, iba_shortsword_51, iba_spear_52, iba_splintMail_28, iba_staff_53, iba_studdedLeather_29, iba_towerShield_30, iba_tunic_31, iba_warhammer_54, iba_wraps_32] satisfies readonly ItemBaseDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const itemBases = rawItemBases as readonly ItemBase[];
@@ -93,35 +95,37 @@ const rawItemBasesById = {
   "base_girdle": iba_girdle_12,
   "base_gloves": iba_gloves_13,
   "base_greatclub": iba_greatclub_41,
+  "base_greatsword": iba_greatsword_42,
   "base_greaves": iba_greaves_14,
   "base_half_plate": iba_halfPlate_15,
-  "base_hammer": iba_hammer_42,
-  "base_handaxe": iba_handaxe_43,
+  "base_hammer": iba_hammer_43,
+  "base_handaxe": iba_handaxe_44,
   "base_helmet": iba_helmet_16,
   "base_hide_armour": iba_hideArmour_17,
   "base_hood": iba_hood_18,
   "base_leather_armour": iba_leatherArmour_19,
-  "base_lightning_wand": iba_lightningWand_44,
-  "base_longbow": iba_longbow_45,
-  "base_longsword": iba_longsword_46,
-  "base_mace": iba_mace_47,
+  "base_lightning_wand": iba_lightningWand_45,
+  "base_longbow": iba_longbow_46,
+  "base_longsword": iba_longsword_47,
+  "base_mace": iba_mace_48,
   "base_mask": iba_mask_20,
-  "base_morningstar": iba_morningstar_48,
+  "base_morningstar": iba_morningstar_49,
   "base_necklace": iba_necklace_21,
   "base_padded_armour": iba_paddedArmour_22,
   "base_plate_armour": iba_plateArmour_23,
-  "base_quarterstaff": iba_quarterstaff_49,
+  "base_quarterstaff": iba_quarterstaff_50,
   "base_ring": iba_ring_24,
   "base_robe": iba_robe_25,
   "base_sash": iba_sash_26,
   "base_shield": iba_shield_27,
-  "base_spear": iba_spear_50,
+  "base_shortsword": iba_shortsword_51,
+  "base_spear": iba_spear_52,
   "base_splint_mail": iba_splintMail_28,
-  "base_staff": iba_staff_51,
+  "base_staff": iba_staff_53,
   "base_studded_leather": iba_studdedLeather_29,
   "base_tower_shield": iba_towerShield_30,
   "base_tunic": iba_tunic_31,
-  "base_warhammer": iba_warhammer_52,
+  "base_warhammer": iba_warhammer_54,
   "base_wraps": iba_wraps_32,
 } satisfies Record<ItemBaseId, ItemBaseDefinition>;
 

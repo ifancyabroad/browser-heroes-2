@@ -1,0 +1,35 @@
+import { buildItemBase } from "../../builders/buildItemBase";
+
+export default buildItemBase({
+	id: "base_greatsword",
+	name: "Greatsword",
+	basePrice: 70,
+	type: "weapon",
+	weaponType: "sword",
+	handedness: "twoHanded",
+	range: "melee",
+	damage: {
+		dice: "2d6",
+		type: "slashing",
+		attribute: "strength",
+	},
+	iconPool: [
+		"items/weapons/swords/Sword_0.png",
+		"items/weapons/swords/Sword_04.png",
+		"items/weapons/swords/Sword_06.png",
+		"items/weapons/swords/Sword_10.png",
+		"items/weapons/swords/Sword_11.png",
+		"items/weapons/swords/Sword_15.png",
+		"items/weapons/swords/Sword_16.png",
+		"items/weapons/swords/Sword_29.png",
+		"items/weapons/swords/Sword_30.png",
+		"items/weapons/swords/Sword_31.png",
+		"items/weapons/swords/Sword_32.png",
+		"items/weapons/swords/Sword_40.png",
+		"items/weapons/swords/Sword_49.png",
+		"items/weapons/swords/Sword_52.png",
+		"items/weapons/swords/Sword_54.png",
+		"items/weapons/swords/Sword_64.png",
+	],
+	tags: [],
+});
