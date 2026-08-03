@@ -8,14 +8,14 @@ export default buildSkill({
 	pool: "cleric",
 	kind: "prayer",
 	category: "damage",
-	rarity: "epic",
+	rarity: "legendary",
 	maxUses: 2,
 	effects: [
 		{
 			type: "damage",
 			target: "enemy",
 			damageType: "radiant",
-			dice: "4d8",
+			dice: "6d8",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
 			save: {

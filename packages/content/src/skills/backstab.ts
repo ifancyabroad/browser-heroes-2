@@ -8,13 +8,13 @@ export default buildSkill({
 	pool: "assassin",
 	kind: "weaponAttack",
 	category: "damage",
-	rarity: "uncommon",
+	rarity: "legendary",
 	maxUses: 1,
 	effects: [
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 3,
+			multiplier: 4,
 			rollMode: "advantage",
 			attackRiders: [],
 		},

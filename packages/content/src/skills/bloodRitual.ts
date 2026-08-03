@@ -9,7 +9,7 @@ export default buildSkill({
 	pool: "warlock",
 	kind: "spell",
 	category: "damage",
-	rarity: "epic",
+	rarity: "legendary",
 	maxUses: 1,
 	effects: [
 		{
@@ -30,7 +30,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "10d8",
+			dice: "10d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {
