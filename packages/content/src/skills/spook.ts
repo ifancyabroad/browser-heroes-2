@@ -13,6 +13,13 @@ export default buildSkill({
 	maxUses: 4,
 	effects: [
 		{
+			type: "damage",
+			target: "enemy",
+			damageType: "necrotic",
+			dice: "1d6",
+			requiresAttackRoll: false,
+		},
+		{
 			type: "modifyDamage",
 			target: "enemy",
 			operation: "multiply",

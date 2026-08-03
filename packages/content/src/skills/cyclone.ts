@@ -15,7 +15,24 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
-			dice: "5d10",
+			dice: "3d10",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "halfDamage",
+				dc: {
+					base: 8,
+					attribute: "constitution",
+					includeProficiency: true,
+					bonus: 0,
+				},
+			},
+		},
+		{
+			type: "damage",
+			target: "enemy",
+			damageType: "crushing",
+			dice: "3d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",

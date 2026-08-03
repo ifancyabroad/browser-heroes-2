@@ -12,27 +12,27 @@ export default buildSkill({
 	maxUses: 1,
 	effects: [
 		{
-			type: "attackDamage",
+			type: "damage",
 			target: "enemy",
-			multiplier: 2,
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "applyStatus",
-							target: "enemy",
-							statusId: "stunned",
-							durationTurns: 1,
-							save: {
-								attribute: "strength",
-								onSuccess: "noEffect",
-								dc: { attribute: "strength" },
-							},
-						},
-					],
-				},
-			],
+			damageType: "crushing",
+			dice: "5d8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "strength" },
+			},
+		},
+		{
+			type: "applyStatus",
+			target: "enemy",
+			statusId: "stunned",
+			durationTurns: 1,
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 	],
 	tags: [],

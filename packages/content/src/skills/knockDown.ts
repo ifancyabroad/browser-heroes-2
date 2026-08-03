@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "attackDamage",
 			target: "enemy",
 			multiplier: 1,
+			damageTypeOverride: "crushing",
 			attackRiders: [
 				{
 					timing: "onHit",
