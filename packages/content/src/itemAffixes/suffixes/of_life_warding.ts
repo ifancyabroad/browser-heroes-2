@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "of Life Warding",
 	position: "suffix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["helmet", "amulet", "ring"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["helmet", "amulet", "ring"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",

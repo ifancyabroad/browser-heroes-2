@@ -5,9 +5,11 @@ export default buildItemAffix({
 	name: "Corroding",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",

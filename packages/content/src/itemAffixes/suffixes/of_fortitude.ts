@@ -6,9 +6,11 @@ export default buildItemAffix({
 	position: "suffix",
 	rarity: "uncommon",
 	weight: 1,
-	appliesTo: {
-		itemTypes: ["armour"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyStat",

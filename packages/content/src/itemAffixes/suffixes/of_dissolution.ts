@@ -6,6 +6,6 @@ export default buildItemAffix({
 	position: "suffix",
 	rarity: "epic",
 	weight: 0.5,
-	appliesTo: { itemTypes: ["weapon", "armour"] },
+	appliesTo: [{ itemTypes: ["weapon", "armour"] }],
 	modifiers: [{ type: "modifyDamage", damageType: "acid", operation: "add", value: 4 }],
 });

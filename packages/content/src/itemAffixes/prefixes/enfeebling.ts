@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "Enfeebling",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["staff", "wand"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["staff", "wand"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",

@@ -6,9 +6,11 @@ export default buildItemAffix({
 	position: "suffix",
 	rarity: "epic",
 	weight: 1,
-	appliesTo: {
-		itemTypes: ["weapon", "armour"],
-	},
+	appliesTo: [
+		{ itemTypes: ["weapon"], weaponTypes: ["mace", "staff", "wand"] },
+		{ itemTypes: ["armour"], armourSlots: ["gloves", "belt", "amulet", "ring"] },
+		{ itemTypes: ["armour"], armourSlots: ["body"], armourCategories: ["cloth"] },
+	],
 	modifiers: [
 		{
 			type: "modifyHealing",

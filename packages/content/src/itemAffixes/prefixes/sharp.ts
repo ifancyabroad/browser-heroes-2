@@ -6,11 +6,13 @@ export default buildItemAffix({
 	position: "prefix",
 	rarity: "uncommon",
 	weight: 1,
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["axe", "dagger", "sword"],
-		damageTypes: ["slashing"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["axe", "dagger", "sword"],
+			damageTypes: ["slashing"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamage",

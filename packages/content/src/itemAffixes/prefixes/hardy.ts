@@ -5,9 +5,11 @@ export default buildItemAffix({
 	name: "Hardy",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon", "armour"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon", "armour"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyStat",

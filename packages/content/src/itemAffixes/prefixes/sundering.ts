@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "Sundering",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["axe", "hammer", "mace"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["axe", "hammer", "mace"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",

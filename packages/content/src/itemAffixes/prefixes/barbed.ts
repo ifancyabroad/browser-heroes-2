@@ -5,11 +5,13 @@ export default buildItemAffix({
 	name: "Barbed",
 	position: "prefix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["bow", "crossbow", "spear"],
-		damageTypes: ["piercing"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["bow", "crossbow", "spear"],
+			damageTypes: ["piercing"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamage",

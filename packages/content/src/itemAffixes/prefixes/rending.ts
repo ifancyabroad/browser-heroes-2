@@ -5,11 +5,13 @@ export default buildItemAffix({
 	name: "Rending",
 	position: "prefix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["axe", "sword"],
-		damageTypes: ["slashing"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["axe", "sword"],
+			damageTypes: ["slashing"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",

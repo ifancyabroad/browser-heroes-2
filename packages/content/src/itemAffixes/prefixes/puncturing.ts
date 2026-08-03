@@ -5,11 +5,13 @@ export default buildItemAffix({
 	name: "Puncturing",
 	position: "prefix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["bow", "crossbow", "dagger", "spear"],
-		damageTypes: ["piercing"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["bow", "crossbow", "dagger", "spear"],
+			damageTypes: ["piercing"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",

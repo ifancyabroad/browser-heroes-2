@@ -7,7 +7,7 @@ import { itemAffixRaritySchema } from "./itemRarity.schema";
 
 export const itemAffixPositionSchema = z.enum(["prefix", "suffix"]);
 
-const itemAffixApplicabilitySchema = z.object({
+const itemAffixApplicabilityRuleSchema = z.object({
 	itemTypes: z
 		.array(z.enum(["weapon", "armour"]))
 		.min(1)
@@ -18,6 +18,8 @@ const itemAffixApplicabilitySchema = z.object({
 	armourCategories: z.array(bodyArmourCategorySchema).min(1).optional(),
 });
 
+const itemAffixApplicabilitySchema = z.array(itemAffixApplicabilityRuleSchema).min(1);
+
 export const itemAffixSchema = z
 	.object({
 		id: z.string().nonempty(),
@@ -25,7 +27,7 @@ export const itemAffixSchema = z
 		position: itemAffixPositionSchema,
 		rarity: itemAffixRaritySchema,
 		weight: z.number().positive().default(1),
-		appliesTo: itemAffixApplicabilitySchema.default({}),
+		appliesTo: itemAffixApplicabilitySchema.default([{}]),
 		modifiers: z.array(itemModifierSchema).default([]),
 		attackRiders: z.array(attackRiderSchema).default([]),
 		tags: z.array(z.string().nonempty()).default([]),
@@ -40,9 +42,12 @@ export const itemAffixSchema = z
 				return true;
 			}
 
-			const itemTypes = affix.appliesTo.itemTypes;
-
-			return itemTypes !== undefined && itemTypes.length === 1 && itemTypes[0] === "weapon";
+			return affix.appliesTo.every(
+				(rule) =>
+					rule.itemTypes !== undefined &&
+					rule.itemTypes.length === 1 &&
+					rule.itemTypes[0] === "weapon",
+			);
 		},
 		{
 			message: "Attack rider affixes must apply exclusively to weapons",
@@ -51,6 +56,9 @@ export const itemAffixSchema = z
 	);
 
 export type ItemAffixPosition = z.infer<typeof itemAffixPositionSchema>;
+
+export type ItemAffixApplicabilityRule = z.infer<typeof itemAffixApplicabilityRuleSchema>;
+export type ItemAffixApplicability = z.infer<typeof itemAffixApplicabilitySchema>;
 
 export type ItemAffixDefinition = z.infer<typeof itemAffixSchema>;
 export type ItemAffixDefinitionInput = z.input<typeof itemAffixSchema>;

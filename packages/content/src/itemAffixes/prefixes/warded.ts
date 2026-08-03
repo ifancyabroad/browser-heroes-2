@@ -5,9 +5,11 @@ export default buildItemAffix({
 	name: "Warded",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["armour"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamageTaken",

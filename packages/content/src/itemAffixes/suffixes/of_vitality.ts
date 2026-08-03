@@ -5,9 +5,11 @@ export default buildItemAffix({
 	name: "of Vitality",
 	position: "suffix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon", "armour"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon", "armour"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyStat",

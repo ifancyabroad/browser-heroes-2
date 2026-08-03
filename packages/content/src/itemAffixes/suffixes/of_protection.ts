@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "of Protection",
 	position: "suffix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["body", "shield"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["body", "shield"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyStat",

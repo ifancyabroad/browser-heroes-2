@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "of Warmth",
 	position: "suffix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["body", "shield", "boots", "amulet", "ring"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["body", "shield", "boots", "amulet", "ring"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",

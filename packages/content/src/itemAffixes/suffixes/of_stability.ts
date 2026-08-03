@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "of Stability",
 	position: "suffix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["body", "shield", "helmet"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["body", "shield", "helmet"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",

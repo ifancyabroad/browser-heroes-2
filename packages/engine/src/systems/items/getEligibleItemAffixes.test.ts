@@ -2,6 +2,7 @@ import {
 	ITEMAFFIXES_BY_ID,
 	ITEMBASES_BY_ID,
 	itemAffixRarities,
+	itemAffixSchema,
 	type ItemAffixRarity,
 	type ItemBase,
 } from "@app/content";
@@ -14,6 +15,63 @@ function getAffixIds(base: ItemBase, rarity: ItemAffixRarity, position: "prefix"
 }
 
 describe("getEligibleItemAffixes", () => {
+	it("requires applicability to use the canonical rule array", () => {
+		expect(
+			itemAffixSchema.safeParse({
+				id: "legacy_applicability_shape",
+				name: "Legacy Applicability Shape",
+				position: "prefix",
+				rarity: "uncommon",
+				appliesTo: { itemTypes: ["weapon"] },
+				modifiers: [{ type: "modifyStat", stat: "attackBonus", value: 1 }],
+			}).success,
+		).toBe(false);
+	});
+
+	it("matches any applicability rule while retaining AND semantics within each rule", () => {
+		expect(getAffixIds(ITEMBASES_BY_ID.base_longsword, "rare", "prefix")).toContain("precise");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_helmet, "rare", "prefix")).toContain("precise");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_boots, "rare", "prefix")).not.toContain("precise");
+
+		expect(getAffixIds(ITEMBASES_BY_ID.base_fire_wand, "rare", "prefix")).toContain("potent");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_robe, "rare", "prefix")).toContain("potent");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_plate_armour, "rare", "prefix")).not.toContain(
+			"potent",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_longsword, "rare", "prefix")).not.toContain(
+			"potent",
+		);
+
+		expect(getAffixIds(ITEMBASES_BY_ID.base_mace, "rare", "suffix")).toContain("of_mending");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_robe, "rare", "suffix")).toContain("of_mending");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_shield, "rare", "suffix")).not.toContain(
+			"of_mending",
+		);
+	});
+
+	it("rejects attack riders when any applicability alternative permits armour", () => {
+		expect(
+			itemAffixSchema.safeParse({
+				id: "invalid_mixed_rider",
+				name: "Invalid Mixed Rider",
+				position: "prefix",
+				rarity: "rare",
+				appliesTo: [
+					{ itemTypes: ["weapon"] },
+					{ itemTypes: ["armour"], armourSlots: ["gloves"] },
+				],
+				attackRiders: [
+					{
+						timing: "onHit",
+						effects: [
+							{ type: "damage", target: "enemy", damageType: "fire", dice: "1d4" },
+						],
+					},
+				],
+			}).success,
+		).toBe(false);
+	});
+
 	it("provides complete attribute and maximum HP rarity progressions", () => {
 		expect(ITEMAFFIXES_BY_ID.of_might.modifiers).toContainEqual({
 			type: "modifyStat",

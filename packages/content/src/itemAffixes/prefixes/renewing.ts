@@ -6,10 +6,12 @@ export default buildItemAffix({
 	position: "prefix",
 	rarity: "epic",
 	weight: 0.75,
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["mace", "staff", "wand"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["mace", "staff", "wand"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onCrit",

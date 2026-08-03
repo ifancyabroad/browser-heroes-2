@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "Defending",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["mace", "spear", "sword"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["mace", "spear", "sword"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onCrit",

@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "Weakening",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["dagger", "staff", "wand"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["dagger", "staff", "wand"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",

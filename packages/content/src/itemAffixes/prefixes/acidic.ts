@@ -5,9 +5,11 @@ export default buildItemAffix({
 	name: "Acidic",
 	position: "prefix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["weapon"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",

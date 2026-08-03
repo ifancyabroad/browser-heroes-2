@@ -5,9 +5,11 @@ export default buildItemAffix({
 	name: "of Striking",
 	position: "suffix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["weapon"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyStat",

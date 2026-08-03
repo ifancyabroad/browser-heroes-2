@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "Reinforced",
 	position: "prefix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["body", "shield", "helmet"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["body", "shield", "helmet"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamageTaken",

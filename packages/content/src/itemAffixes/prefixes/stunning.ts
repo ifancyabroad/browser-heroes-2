@@ -6,11 +6,13 @@ export default buildItemAffix({
 	position: "prefix",
 	rarity: "epic",
 	weight: 0.35,
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["club", "hammer", "mace"],
-		damageTypes: ["crushing"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["club", "hammer", "mace"],
+			damageTypes: ["crushing"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onCrit",

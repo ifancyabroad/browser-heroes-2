@@ -6,9 +6,10 @@ export default buildItemAffix({
 	position: "prefix",
 	rarity: "rare",
 	weight: 1,
-	appliesTo: {
-		itemTypes: ["weapon", "armour"],
-	},
+	appliesTo: [
+		{ itemTypes: ["weapon"] },
+		{ itemTypes: ["armour"], armourSlots: ["helmet", "gloves", "ring"] },
+	],
 	modifiers: [
 		{
 			type: "modifyStat",

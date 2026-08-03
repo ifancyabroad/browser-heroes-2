@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "of Evasion",
 	position: "suffix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["gloves", "boots"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["gloves", "boots"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyStat",

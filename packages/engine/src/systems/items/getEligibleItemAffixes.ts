@@ -1,4 +1,10 @@
-import { itemAffixes, type ItemAffix, type ItemAffixRarity, type ItemBase } from "@app/content";
+import {
+	itemAffixes,
+	type ItemAffix,
+	type ItemAffixApplicabilityRule,
+	type ItemAffixRarity,
+	type ItemBase,
+} from "@app/content";
 
 import type { GeneratedItemDefinition } from "../../schemas";
 
@@ -25,8 +31,13 @@ export function getEligibleItemAffixes(input: GetEligibleItemAffixesInput): Item
 }
 
 function canApplyAffixToItem(affix: ItemAffix, item: AffixableItem): boolean {
-	const { appliesTo } = affix;
+	return affix.appliesTo.some((rule) => matchesApplicabilityRule(rule, item));
+}
 
+function matchesApplicabilityRule(
+	appliesTo: ItemAffixApplicabilityRule,
+	item: AffixableItem,
+): boolean {
 	if (appliesTo.itemTypes && !appliesTo.itemTypes.includes(item.type)) {
 		return false;
 	}

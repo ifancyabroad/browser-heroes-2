@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "Vampiric",
 	position: "prefix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["dagger", "sword", "wand"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["dagger", "sword", "wand"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onCrit",

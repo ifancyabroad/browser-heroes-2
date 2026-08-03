@@ -6,10 +6,12 @@ export default buildItemAffix({
 	position: "suffix",
 	rarity: "epic",
 	weight: 0.5,
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["body", "shield", "helmet", "boots", "amulet", "ring"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["body", "shield", "helmet", "boots", "amulet", "ring"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",

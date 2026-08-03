@@ -5,10 +5,12 @@ export default buildItemAffix({
 	name: "of Antidotes",
 	position: "suffix",
 	rarity: "rare",
-	appliesTo: {
-		itemTypes: ["armour"],
-		armourSlots: ["gloves", "boots", "belt", "ring"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["gloves", "boots", "belt", "ring"],
+		},
+	],
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",

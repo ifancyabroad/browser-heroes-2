@@ -5,11 +5,13 @@ export default buildItemAffix({
 	name: "Concussive",
 	position: "prefix",
 	rarity: "uncommon",
-	appliesTo: {
-		itemTypes: ["weapon"],
-		weaponTypes: ["club", "hammer", "mace"],
-		damageTypes: ["crushing"],
-	},
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["club", "hammer", "mace"],
+			damageTypes: ["crushing"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",
