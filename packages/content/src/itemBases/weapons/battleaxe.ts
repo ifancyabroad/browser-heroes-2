@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_battleaxe",
 	name: "Battleaxe",
-	basePrice: 70,
+	basePrice: 125,
 	type: "weapon",
 	weaponType: "axe",
 	handedness: "twoHanded",

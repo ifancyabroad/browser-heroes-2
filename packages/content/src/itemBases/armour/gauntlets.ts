@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_gauntlets",
 	name: "Gauntlets",
-	basePrice: 70,
+	basePrice: 80,
 	type: "armour",
 	slot: "gloves",
 	iconPool: [

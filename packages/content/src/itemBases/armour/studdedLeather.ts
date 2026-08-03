@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_studded_leather",
 	name: "Studded Leather",
-	basePrice: 200,
+	basePrice: 105,
 	type: "armour",
 	slot: "body",
 	category: "light",

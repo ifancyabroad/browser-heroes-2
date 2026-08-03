@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_tunic",
 	name: "Tunic",
-	basePrice: 60,
+	basePrice: 80,
 	type: "armour",
 	slot: "body",
 	category: "cloth",

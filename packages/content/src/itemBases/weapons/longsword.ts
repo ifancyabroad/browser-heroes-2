@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_longsword",
 	name: "Longsword",
-	basePrice: 50,
+	basePrice: 115,
 	type: "weapon",
 	weaponType: "sword",
 	handedness: "oneHanded",

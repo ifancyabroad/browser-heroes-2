@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_tower_shield",
 	name: "Tower Shield",
-	basePrice: 90,
+	basePrice: 150,
 	armourClass: 3,
 	type: "armour",
 	slot: "shield",

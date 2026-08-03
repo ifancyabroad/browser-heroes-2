@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_chain_mail",
 	name: "Chain Mail",
-	basePrice: 140,
+	basePrice: 115,
 	type: "armour",
 	slot: "body",
 	category: "medium",

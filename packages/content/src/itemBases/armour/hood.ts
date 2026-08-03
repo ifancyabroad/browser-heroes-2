@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_hood",
 	name: "Hood",
-	basePrice: 20,
+	basePrice: 70,
 	type: "armour",
 	slot: "helmet",
 	iconPool: [

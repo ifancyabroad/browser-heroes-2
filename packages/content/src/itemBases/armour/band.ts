@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_band",
 	name: "Band",
-	basePrice: 90,
+	basePrice: 95,
 	type: "armour",
 	slot: "ring",
 	iconPool: [

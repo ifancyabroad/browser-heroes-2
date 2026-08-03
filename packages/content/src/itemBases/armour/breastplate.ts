@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_breastplate",
 	name: "Breastplate",
-	basePrice: 300,
+	basePrice: 140,
 	type: "armour",
 	slot: "body",
 	category: "heavy",

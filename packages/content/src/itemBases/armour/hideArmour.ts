@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_hide_armour",
 	name: "Hide Armour",
-	basePrice: 60,
+	basePrice: 100,
 	type: "armour",
 	slot: "body",
 	category: "medium",

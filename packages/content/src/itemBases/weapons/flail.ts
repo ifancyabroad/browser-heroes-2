@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_flail",
 	name: "Flail",
-	basePrice: 280,
+	basePrice: 115,
 	type: "weapon",
 	weaponType: "mace",
 	handedness: "oneHanded",

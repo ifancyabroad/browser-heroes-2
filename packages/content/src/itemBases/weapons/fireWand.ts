@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_fire_wand",
 	name: "Fire Wand",
-	basePrice: 60,
+	basePrice: 100,
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",

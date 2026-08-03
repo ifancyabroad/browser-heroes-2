@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_hammer",
 	name: "Hammer",
-	basePrice: 50,
+	basePrice: 75,
 	type: "weapon",
 	weaponType: "hammer",
 	handedness: "oneHanded",

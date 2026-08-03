@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_necklace",
 	name: "Necklace",
-	basePrice: 130,
+	basePrice: 105,
 	type: "armour",
 	slot: "amulet",
 	iconPool: [

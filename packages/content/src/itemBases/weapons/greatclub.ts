@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_greatclub",
 	name: "Greatclub",
-	basePrice: 70,
+	basePrice: 105,
 	type: "weapon",
 	weaponType: "club",
 	handedness: "twoHanded",

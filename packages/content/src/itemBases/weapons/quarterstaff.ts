@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_quarterstaff",
 	name: "Quarterstaff",
-	basePrice: 30,
+	basePrice: 105,
 	type: "weapon",
 	weaponType: "staff",
 	handedness: "twoHanded",

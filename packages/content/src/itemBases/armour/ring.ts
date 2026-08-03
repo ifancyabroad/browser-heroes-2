@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_ring",
 	name: "Ring",
-	basePrice: 90,
+	basePrice: 95,
 	type: "armour",
 	slot: "ring",
 	iconPool: [
