@@ -13,7 +13,7 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 1.5,
+			multiplier: 2,
 			attackRiders: [
 				{
 					timing: "onHit",

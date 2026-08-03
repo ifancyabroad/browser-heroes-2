@@ -34,7 +34,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "poison",
-							dice: "2d6",
+							dice: "3d6",
 						},
 					],
 				},

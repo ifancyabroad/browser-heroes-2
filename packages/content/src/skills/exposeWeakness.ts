@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "expose_weakness",
 	name: "Expose Weakness",
-	description: "Strike a vulnerable seam and leave the enemy exposed to follow-up attacks.",
+	description:
+		"Strike a vulnerable seam and expose it, causing the enemy to suffer greater damage from follow-up attacks.",
 	icon: "skills/assassin/expose_weakness.png",
 	pool: "assassin",
 	kind: "weaponAttack",
@@ -19,10 +20,10 @@ export default buildSkill({
 					timing: "onHit",
 					effects: [
 						{
-							type: "modifyStat",
+							type: "modifyDamageTaken",
 							target: "enemy",
-							stat: "armourClass",
-							value: -4,
+							operation: "multiply",
+							value: 1.5,
 							durationTurns: 3,
 						},
 					],
