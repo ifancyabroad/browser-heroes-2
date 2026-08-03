@@ -1,10 +1,10 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	id: "lighting_bolt",
-	name: "Lighting Bolt",
+	id: "lightning_bolt",
+	name: "Lightning Bolt",
 	description: "Hurl a powerful bolt of lightning that can be partially avoided.",
-	icon: "skills/mage/lighting_bolt.png",
+	icon: "skills/mage/lightning_bolt.png",
 	pool: "mage",
 	kind: "spell",
 	category: "damage",

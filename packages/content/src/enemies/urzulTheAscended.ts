@@ -31,7 +31,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cure_major_wounds", "flamestrike", "lighting_bolt", "blessing_of_the_old_gods"],
+		skillIds: [
+			"cure_major_wounds",
+			"flamestrike",
+			"lightning_bolt",
+			"blessing_of_the_old_gods",
+		],
 		featIds: [],
 		tactic: "caster",
 	},
