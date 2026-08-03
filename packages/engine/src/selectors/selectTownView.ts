@@ -102,7 +102,7 @@ function createTownShopSlotView(
 	effectiveCharisma: number,
 ): TownShopSlotView[] {
 	const item = getItemInstanceDefinition(slot.item);
-	const price = calculateTownItemPrice(item.price, effectiveCharisma);
+	const price = calculateTownItemPrice(slot.price, effectiveCharisma);
 
 	const validEquipmentSlots = getValidEquipmentSlots(item);
 

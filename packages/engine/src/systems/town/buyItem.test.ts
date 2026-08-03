@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
-import { selectAvailableActions } from "../../selectors";
+import { selectAvailableActions, selectTownView } from "../../selectors";
 import { createTestTownState, modifyTestRunState } from "../../test/createTestRunState";
 
 describe("buyItem", () => {
@@ -16,16 +16,27 @@ describe("buyItem", () => {
 		if (!action || action.type !== "BUY_ITEM") {
 			throw new Error("Expected an available buy action");
 		}
+		const price = selectTownView(state)?.shopSlots.find(
+			(slot) => slot.id === action.shopSlotId,
+		)?.price;
+
+		if (price === undefined) {
+			throw new Error("Expected the shop price");
+		}
 
 		const result = applyAction(state, action);
 
 		expect(result.ok).toBe(true);
-		expect(result.state.gold).toBeLessThan(state.gold);
+		expect(result.state.gold).toBe(state.gold - price);
 		expect(
 			result.state.town?.shopSlots.find((slot) => slot.id === action.shopSlotId)?.purchased,
 		).toBe(true);
 		expect(result.events).toContainEqual(
-			expect.objectContaining({ type: "ITEM_BOUGHT", equipmentSlot: expect.any(String) }),
+			expect.objectContaining({
+				type: "ITEM_BOUGHT",
+				equipmentSlot: expect.any(String),
+				price,
+			}),
 		);
 	});
 

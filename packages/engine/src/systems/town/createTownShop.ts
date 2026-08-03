@@ -1,11 +1,14 @@
 import type { ItemId } from "@app/content";
 
 import { createShopItemInstanceId, createTownShopSlotId } from "../../core/ids";
-import type { RngResult, RngState } from "../../core/rng";
+import { randomInt, type RngResult, type RngState } from "../../core/rng";
 import type { HeroState, TownShopSlot } from "../../schemas";
+import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 import { createRandomItemInstance } from "../items/createRandomItemInstance";
 
 const TOWN_SHOP_SLOT_COUNT = 6;
+const PRICE_VARIANCE = 10;
+const PRICE_STEP = 5;
 
 type CreateTownShopInput = {
 	runId: string;
@@ -16,8 +19,10 @@ type CreateTownShopInput = {
 	rngState: RngState;
 };
 
+type UnpricedSlot = Omit<TownShopSlot, "price">;
+
 export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSlot[]> {
-	const shopSlots: TownShopSlot[] = [];
+	const shopSlots: UnpricedSlot[] = [];
 	const excludedLegendaryItemIds = new Set<ItemId>();
 
 	let rngState = input.rngState;
@@ -51,8 +56,31 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 		rngState = itemResult.rngState;
 	}
 
+	const pricedSlots: TownShopSlot[] = [];
+
+	for (const slot of shopSlots) {
+		const item = getItemInstanceDefinition(slot.item);
+		const price = rollPrice(item.price, rngState);
+
+		pricedSlots.push({
+			...slot,
+			price: price.value,
+		});
+		rngState = price.rngState;
+	}
+
 	return {
-		value: shopSlots,
+		value: pricedSlots,
 		rngState,
+	};
+}
+
+function rollPrice(price: number, rngState: RngState): RngResult<number> {
+	const roll = randomInt(rngState, 100 - PRICE_VARIANCE, 100 + PRICE_VARIANCE);
+	const variedPrice = (price * roll.value) / 100;
+
+	return {
+		value: Math.max(PRICE_STEP, Math.round(variedPrice / PRICE_STEP) * PRICE_STEP),
+		rngState: roll.rngState,
 	};
 }

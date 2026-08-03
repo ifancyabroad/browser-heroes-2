@@ -11,6 +11,7 @@ export const runPhaseSchema = z.enum(["town", "combat", "dead", "retired"]);
 export const townShopSlotSchema = z.object({
 	id: z.string(),
 	item: itemInstanceSchema,
+	price: z.number().int().positive(),
 	purchased: z.boolean(),
 });
 

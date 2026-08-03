@@ -213,7 +213,7 @@ function getBuyItemActions(state: RunState, effectiveCharisma: number): EngineAc
 		}
 
 		const item = getItemInstanceDefinition(slot.item);
-		const price = calculateTownItemPrice(item.price, effectiveCharisma);
+		const price = calculateTownItemPrice(slot.price, effectiveCharisma);
 
 		if (state.gold < price) {
 			return [];
