@@ -29,7 +29,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "savingThrow",
 			mode: "disadvantage",
-			durationTurns: 2,
+			durationTurns: 4,
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",

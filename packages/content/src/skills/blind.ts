@@ -8,14 +8,14 @@ export default buildSkill({
 	pool: "warlock",
 	kind: "spell",
 	category: "debuff",
-	maxUses: 4,
+	maxUses: 6,
 	effects: [
 		{
 			type: "modifyRoll",
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 5,
+			durationTurns: 8,
 		},
 	],
 	tags: [],

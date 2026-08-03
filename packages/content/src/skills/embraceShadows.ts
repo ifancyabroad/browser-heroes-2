@@ -15,7 +15,7 @@ export default buildSkill({
 			target: "self",
 			damageType: "necrotic",
 			operation: "multiply",
-			value: 1.8,
+			value: 1.75,
 			durationTurns: 8,
 		},
 		{
