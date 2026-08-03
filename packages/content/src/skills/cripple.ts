@@ -14,8 +14,8 @@ export default buildSkill({
 		{
 			type: "modifyDamage",
 			target: "enemy",
-			operation: "multiply",
-			value: 0.5,
+			operation: "add",
+			value: -4,
 			durationTurns: 4,
 			save: {
 				attribute: "constitution",
