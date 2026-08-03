@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "frost_trap",
 	name: "Frost Trap",
-	description: "Spring a freezing trap that wounds the enemy and hampers their attacks.",
+	description:
+		"Spring a freezing trap whose spikes pierce the enemy as its cold hampers their attacks.",
 	icon: "skills/rogue/frost_trap.png",
 	pool: "rogue",
 	kind: "technique",
@@ -13,8 +14,20 @@ export default buildSkill({
 		{
 			type: "damage",
 			target: "enemy",
+			damageType: "piercing",
+			dice: "2d8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "dexterity" },
+			},
+		},
+		{
+			type: "damage",
+			target: "enemy",
 			damageType: "cold",
-			dice: "3d8",
+			dice: "2d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
@@ -27,7 +40,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 2,
+			durationTurns: 3,
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

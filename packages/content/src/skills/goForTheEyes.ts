@@ -28,7 +28,7 @@ export default buildSkill({
 							target: "enemy",
 							roll: "attack",
 							mode: "disadvantage",
-							durationTurns: 2,
+							durationTurns: 4,
 						},
 					],
 				},
