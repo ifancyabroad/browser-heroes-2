@@ -150,6 +150,21 @@ const riderSummary = (
 	riders: readonly { timing: string; effects: readonly { type: string }[] }[],
 ) => join(riders.map((rider) => `${rider.timing}: ${join(describeEffects(rider.effects))}`));
 
+const applicabilityRuleSummary = (rule: {
+	itemTypes?: readonly string[];
+	weaponTypes?: readonly string[];
+	damageTypes?: readonly string[];
+	armourSlots?: readonly string[];
+	armourCategories?: readonly string[];
+}) =>
+	join([
+		rule.itemTypes?.length ? `type: ${rule.itemTypes.join("/")}` : undefined,
+		rule.weaponTypes?.length ? `weapon: ${rule.weaponTypes.join("/")}` : undefined,
+		rule.damageTypes?.length ? `damage: ${rule.damageTypes.join("/")}` : undefined,
+		rule.armourSlots?.length ? `slot: ${rule.armourSlots.join("/")}` : undefined,
+		rule.armourCategories?.length ? `armour: ${rule.armourCategories.join("/")}` : undefined,
+	]) || "all items";
+
 const makeSearchText = (definition: ContentDefinition, extra: readonly string[] = []) =>
 	join([
 		definition.id,
@@ -346,12 +361,17 @@ const itemBaseEntries: CatalogEntry[] = itemBases.map((base) => {
 });
 
 const affixEntries: CatalogEntry[] = itemAffixes.map((affix) => {
-	const appliesTo = join([
-		...(affix.appliesTo.itemTypes ?? []),
-		...(affix.appliesTo.weaponTypes ?? []),
-		...(affix.appliesTo.armourSlots ?? []),
-		...(affix.appliesTo.armourCategories ?? []),
-	]);
+	const appliesTo = affix.appliesTo.map(applicabilityRuleSummary).join(" OR ");
+	const applicabilityValues = unique(
+		affix.appliesTo.flatMap((rule) => [
+			...(rule.itemTypes ?? []),
+			...(rule.weaponTypes ?? []),
+			...(rule.damageTypes ?? []),
+			...(rule.armourSlots ?? []),
+			...(rule.armourCategories ?? []),
+		]),
+	);
+	const damageTypes = unique(affix.appliesTo.flatMap((rule) => rule.damageTypes ?? []));
 	return {
 		id: affix.id,
 		name: affix.name,
@@ -364,11 +384,8 @@ const affixEntries: CatalogEntry[] = itemAffixes.map((affix) => {
 		facets: {
 			position: [affix.position],
 			rarity: [affix.rarity],
-			appliesTo: unique([
-				...(affix.appliesTo.itemTypes ?? []),
-				...(affix.appliesTo.weaponTypes ?? []),
-				...(affix.appliesTo.armourSlots ?? []),
-			]),
+			appliesTo: applicabilityValues,
+			damageType: damageTypes,
 			modifier: unique(affix.modifiers.map((modifier) => modifier.type)),
 		},
 		cells: {
@@ -595,6 +612,7 @@ export const catalogs: readonly Catalog[] = [
 			{ key: "position", label: "Position" },
 			{ key: "rarity", label: "Rarity" },
 			{ key: "appliesTo", label: "Applies to" },
+			{ key: "damageType", label: "Damage type rule" },
 			{ key: "modifier", label: "Modifier" },
 		]),
 	},

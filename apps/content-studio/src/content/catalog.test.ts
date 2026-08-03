@@ -90,4 +90,18 @@ describe("content catalogs", () => {
 		expect(feat.cells.riders).not.toBe("—");
 		expect(feat.facets.timing).not.toHaveLength(0);
 	});
+
+	it("projects grouped affix applicability and damage type rules", () => {
+		const catalog = catalogByKey.affixes;
+		const barbed = catalog.entries.find((entry) => entry.id === "barbed")!;
+
+		expect(barbed.cells.appliesTo).toBe(
+			"type: weapon, weapon: bow/crossbow/spear, damage: piercing",
+		);
+		expect(barbed.facets.appliesTo).toEqual(
+			expect.arrayContaining(["weapon", "bow", "crossbow", "spear", "piercing"]),
+		);
+		expect(barbed.facets.damageType).toEqual(["piercing"]);
+		expect(catalog.filters.map((filter) => filter.key)).toContain("damageType");
+	});
 });

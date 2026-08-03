@@ -200,6 +200,7 @@ export function StructuredEditor(props: Props) {
 function ArrayEditor(props: Props & { value: unknown[] }) {
 	const { value, field, path, onChange } = props;
 	const reference = referenceTargets[field];
+	const itemOptions = arrayItemOptions(field);
 	const [picker, setPicker] = useState(false);
 	const add = () =>
 		onChange([
@@ -210,7 +211,11 @@ function ArrayEditor(props: Props & { value: unknown[] }) {
 					? modifierDefaults.modifyStat
 					: field === "attackRiders"
 						? { timing: "onHit", effects: [discriminatorDefaults.damage] }
-						: "",
+						: field === "appliesTo"
+							? {}
+							: itemOptions
+								? itemOptions[0]
+								: "",
 		]);
 	return (
 		<fieldset className="editor-group array-editor">
@@ -228,6 +233,17 @@ function ArrayEditor(props: Props & { value: unknown[] }) {
 								onChange={(event) => replace(index, event.target.value)}
 							/>
 						</div>
+					) : itemOptions && typeof item === "string" ? (
+						<select
+							aria-label={`${label(field)} ${index + 1}`}
+							value={item}
+							onChange={(event) => replace(index, event.target.value)}
+						>
+							{!itemOptions.includes(item) && <option>{item}</option>}
+							{itemOptions.map((option) => (
+								<option key={option}>{option}</option>
+							))}
+						</select>
 					) : reference && typeof item === "string" ? (
 						<select
 							value={item}
@@ -322,6 +338,24 @@ function typeOptions(path: string) {
 		return Object.keys(modifierDefaults);
 	}
 	return Object.keys(discriminatorDefaults);
+}
+function arrayItemOptions(field: string) {
+	if (field === "itemTypes") {
+		return ["weapon", "armour"];
+	}
+	if (field === "weaponTypes") {
+		return optionsByField.weaponType;
+	}
+	if (field === "damageTypes") {
+		return optionsByField.damageType;
+	}
+	if (field === "armourSlots") {
+		return optionsByField.slot;
+	}
+	if (field === "armourCategories") {
+		return ["cloth", "light", "medium", "heavy"];
+	}
+	return undefined;
 }
 function categoryOptions(category: CategoryKey, path: string) {
 	if (category === "skills" && path === "category") {
@@ -472,10 +506,11 @@ function optionalEntries(
 			["extraDamageType", "fire"],
 		);
 	}
-	if (path.endsWith("appliesTo")) {
+	if (/^appliesTo\.\d+$/.test(path)) {
 		candidates.push(
 			["itemTypes", ["weapon"]],
 			["weaponTypes", ["sword"]],
+			["damageTypes", ["slashing"]],
 			["armourSlots", ["body"]],
 			["armourCategories", ["light"]],
 		);
