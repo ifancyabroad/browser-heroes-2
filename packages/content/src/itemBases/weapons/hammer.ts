@@ -9,7 +9,7 @@ export default buildItemBase({
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {
-		dice: "1d6",
+		dice: "1d4",
 		type: "crushing",
 		attribute: "strength",
 	},
