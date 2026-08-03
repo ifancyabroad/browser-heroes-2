@@ -1,11 +1,10 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	id: "pierce_magic",
-	name: "Pierce Magic",
-	description:
-		"Focus your magic to pierce enemy defenses and make your effects harder to resist.",
-	icon: "skills/mage/pierce_magic.png",
+	id: "piercing_magic",
+	name: "Piercing Magic",
+	description: "Focus your arcane power, making your spells and effects harder to resist.",
+	icon: "skills/mage/piercing_magic.png",
 	pool: "mage",
 	kind: "spell",
 	category: "buff",
@@ -15,8 +14,8 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "saveDcBonus",
-			value: 3,
-			durationTurns: 6,
+			value: 4,
+			durationTurns: 8,
 		},
 	],
 	tags: [],

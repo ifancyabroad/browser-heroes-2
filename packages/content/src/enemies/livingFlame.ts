@@ -31,7 +31,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["engulf", "fireball", "pierce_magic", "embrace_elements"],
+		skillIds: ["engulf", "fireball", "piercing_magic", "embrace_elements"],
 		featIds: [],
 		tactic: "caster",
 	},

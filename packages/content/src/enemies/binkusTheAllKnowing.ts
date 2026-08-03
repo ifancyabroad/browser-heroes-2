@@ -45,7 +45,7 @@ export default buildEnemy({
 			"globe_of_invulnerability",
 			"chain_lightning",
 			"dragon_breath",
-			"pierce_magic",
+			"piercing_magic",
 			"binkus_deathray",
 		],
 		featIds: [],
