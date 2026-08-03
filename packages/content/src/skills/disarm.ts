@@ -9,13 +9,13 @@ export default buildSkill({
 	kind: "technique",
 	category: "debuff",
 	rarity: "rare",
-	maxUses: 3,
+	maxUses: 2,
 	effects: [
 		{
 			type: "modifyDamage",
 			target: "enemy",
 			operation: "multiply",
-			value: 0.5,
+			value: 0.25,
 			durationTurns: 3,
 			save: {
 				attribute: "strength",

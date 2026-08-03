@@ -9,7 +9,7 @@ export default buildSkill({
 	pool: "common",
 	kind: "technique",
 	category: "debuff",
-	rarity: "uncommon",
+	rarity: "rare",
 	maxUses: 4,
 	effects: [
 		{
