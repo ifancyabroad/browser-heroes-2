@@ -14,7 +14,20 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "radiant",
-			dice: "4d6",
+			dice: "2d6",
+			attribute: "wisdom",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "dexterity",
+				onSuccess: "halfDamage",
+				dc: { attribute: "wisdom" },
+			},
+		},
+		{
+			type: "damage",
+			target: "enemy",
+			damageType: "fire",
+			dice: "2d6",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
 			save: {
