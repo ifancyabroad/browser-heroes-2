@@ -123,3 +123,37 @@ export function selectWeightedItem<T>(
 		rngState: roll.rngState,
 	};
 }
+
+export function selectWeightedItems<T>(
+	items: readonly WeightedItem<T>[],
+	count: number,
+	rngState: RngState,
+): RngResult<T[]> {
+	const remaining = items.filter((item) => item.weight > 0);
+	const selected: T[] = [];
+	let nextRngState = rngState;
+	const selectionCount = Math.min(Math.max(0, count), remaining.length);
+
+	while (selected.length < selectionCount) {
+		const result = selectWeightedItem(
+			remaining.map((item) => ({ value: item, weight: item.weight })),
+			nextRngState,
+		);
+
+		if (!result) {
+			break;
+		}
+
+		const selectedItem = result.value;
+		const selectedIndex = remaining.indexOf(selectedItem);
+
+		remaining.splice(selectedIndex, 1);
+		selected.push(selectedItem.value);
+		nextRngState = result.rngState;
+	}
+
+	return {
+		value: selected,
+		rngState: nextRngState,
+	};
+}

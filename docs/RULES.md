@@ -70,7 +70,7 @@ Boss victories can create a pending reward choice. Current boss reward choices c
 
 Level-ups are triggered by XP thresholds. When a level-up is pending, the player must complete it before normal run actions continue.
 
-Level-up choices are intended to stay curated: the player should choose from a small set of relevant skill or feat options rather than manage a large open tree during the run.
+Level-up choices are intended to stay curated: the player should choose from a small set of relevant skill or feat options rather than manage a large open tree during the run. Skill options are selected without replacement using rarity weights; common skills appear most frequently, while legendary skills are significantly rarer. Feat options remain uniformly selected.
 
 ## 6. Skills
 
