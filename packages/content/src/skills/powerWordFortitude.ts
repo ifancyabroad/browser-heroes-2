@@ -16,7 +16,7 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "maxHpBonus",
-			value: 15,
+			value: 30,
 			durationTurns: 8,
 		},
 	],

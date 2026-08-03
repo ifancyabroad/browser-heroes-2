@@ -18,13 +18,6 @@ export default buildSkill({
 			mode: "advantage",
 			durationTurns: 3,
 		},
-		{
-			type: "modifyStat",
-			target: "self",
-			stat: "criticalRangeBonus",
-			value: 2,
-			durationTurns: 3,
-		},
 	],
 	tags: [],
 });
