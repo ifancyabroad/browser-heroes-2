@@ -1,8 +1,8 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "of_invincibility",
-	name: "of Invincibility",
+	id: "of_supreme_defiance",
+	name: "of Supreme Defiance",
 	position: "suffix",
 	rarity: "epic",
 	weight: 1,

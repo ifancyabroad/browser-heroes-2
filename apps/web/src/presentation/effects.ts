@@ -45,7 +45,7 @@ export function formatModifier(modifier: ItemModifier | PassiveModifier) {
 		case "modifyHealing":
 			return `${formatModifierValue("multiply", modifier.multiplier)} healing`;
 		case "modifyDamage":
-			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageSubject(modifier.damageType)}`;
+			return `${formatModifierValue(modifier.operation, modifier.value)} to ${formatDamageSubject(modifier.damageType).toLowerCase()} dealt`;
 		case "modifyDamageTaken":
 			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageTakenSubject(modifier.damageType)}`;
 		case "modifyDamageAffinity":

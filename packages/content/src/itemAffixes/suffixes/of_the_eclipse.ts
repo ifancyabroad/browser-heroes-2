@@ -1,8 +1,8 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "of_shadowing",
-	name: "of Shadowing",
+	id: "of_the_eclipse",
+	name: "of the Eclipse",
 	position: "suffix",
 	rarity: "rare",
 	appliesTo: {

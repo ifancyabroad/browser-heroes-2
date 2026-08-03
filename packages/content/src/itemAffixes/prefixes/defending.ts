@@ -1,8 +1,8 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "bulwark",
-	name: "Bulwark",
+	id: "defending",
+	name: "Defending",
 	position: "prefix",
 	rarity: "rare",
 	appliesTo: {

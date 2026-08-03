@@ -1,8 +1,8 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "nullifying",
-	name: "Nullifying",
+	id: "cinderbreaking",
+	name: "Cinderbreaking",
 	position: "prefix",
 	rarity: "epic",
 	weight: 0.75,
@@ -14,10 +14,16 @@ export default buildItemAffix({
 			timing: "onCrit",
 			effects: [
 				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "2d6",
+				},
+				{
 					type: "modifyDamageAffinity",
 					target: "enemy",
-					affinity: "resistance",
-					operation: "remove",
+					affinity: "vulnerability",
+					operation: "add",
 					damageType: "fire",
 					durationTurns: 2,
 				},

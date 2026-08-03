@@ -5,6 +5,7 @@ export default buildItemAffix({
 	name: "Deathly",
 	position: "prefix",
 	rarity: "uncommon",
+	weight: 0.5,
 	appliesTo: {
 		itemTypes: ["weapon", "armour"],
 	},
