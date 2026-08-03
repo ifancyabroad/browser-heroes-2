@@ -1,18 +1,18 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "of_restoration",
-	name: "of Restoration",
-	position: "suffix",
-	rarity: "epic",
-	weight: 1,
+	id: "astute",
+	name: "Astute",
+	position: "prefix",
+	rarity: "rare",
 	appliesTo: {
 		itemTypes: ["weapon", "armour"],
 	},
 	modifiers: [
 		{
-			type: "modifyHealing",
-			multiplier: 1.4,
+			type: "modifyStat",
+			stat: "intelligence",
+			value: 2,
 		},
 	],
 });

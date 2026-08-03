@@ -1,4 +1,5 @@
 import {
+	ITEMAFFIXES_BY_ID,
 	ITEMBASES_BY_ID,
 	itemAffixRarities,
 	type ItemAffixRarity,
@@ -13,6 +14,80 @@ function getAffixIds(base: ItemBase, rarity: ItemAffixRarity, position: "prefix"
 }
 
 describe("getEligibleItemAffixes", () => {
+	it("provides complete attribute and maximum HP rarity progressions", () => {
+		expect(ITEMAFFIXES_BY_ID.of_might.modifiers).toContainEqual({
+			type: "modifyStat",
+			stat: "strength",
+			value: 1,
+		});
+		expect(ITEMAFFIXES_BY_ID.powerful.modifiers).toContainEqual({
+			type: "modifyStat",
+			stat: "strength",
+			value: 2,
+		});
+		expect(ITEMAFFIXES_BY_ID.titanic.modifiers).toContainEqual({
+			type: "modifyStat",
+			stat: "strength",
+			value: 4,
+		});
+		expect([
+			ITEMAFFIXES_BY_ID.of_vigor.modifiers[0],
+			ITEMAFFIXES_BY_ID.of_vitality.modifiers[0],
+			ITEMAFFIXES_BY_ID.of_immortality.modifiers[0],
+		]).toEqual([
+			{ type: "modifyStat", stat: "maxHpBonus", value: 5 },
+			{ type: "modifyStat", stat: "maxHpBonus", value: 10 },
+			{ type: "modifyStat", stat: "maxHpBonus", value: 20 },
+		]);
+	});
+
+	it("provides weighted typed damage progressions through every rarity", () => {
+		const progressions = [
+			["searing", "of_embers", "of_conflagration"],
+			["glacial", "of_rime", "of_the_glacier"],
+			["charged", "of_storms", "of_the_tempest"],
+			["caustic", "of_corrosion", "of_dissolution"],
+			["venomous", "of_venom", "of_pestilence"],
+			["deathly", "of_decay", "of_oblivion"],
+			["blessed", "of_light", "of_the_sun"],
+		] as const;
+
+		for (const [uncommonId, rareId, epicId] of progressions) {
+			expect(ITEMAFFIXES_BY_ID[uncommonId].modifiers[0]).toMatchObject({ value: 1 });
+			expect(ITEMAFFIXES_BY_ID[rareId]).toMatchObject({ weight: 0.5 });
+			expect(ITEMAFFIXES_BY_ID[rareId].modifiers[0]).toMatchObject({ value: 2 });
+			expect(ITEMAFFIXES_BY_ID[epicId]).toMatchObject({ weight: 0.5 });
+			expect(ITEMAFFIXES_BY_ID[epicId].modifiers[0]).toMatchObject({ value: 4 });
+		}
+	});
+
+	it("provides a distinct rare and epic rider for every elemental damage type", () => {
+		const rareRiders = [
+			"corroding",
+			"incendiary",
+			"chilling",
+			"disrupting",
+			"virulent",
+			"withering",
+			"consecrated",
+		];
+		const epicRiders = [
+			"dissolving",
+			"infernal",
+			"deep_freezing",
+			"thunderous",
+			"plague_bearing",
+			"soul_draining",
+			"sun_blessed",
+		];
+
+		const swordRarePrefixes = getAffixIds(ITEMBASES_BY_ID.base_longsword, "rare", "prefix");
+		const swordEpicPrefixes = getAffixIds(ITEMBASES_BY_ID.base_longsword, "epic", "prefix");
+
+		expect(swordRarePrefixes).toEqual(expect.arrayContaining(rareRiders));
+		expect(swordEpicPrefixes).toEqual(expect.arrayContaining(epicRiders));
+	});
+
 	it("matches physical affixes to the weapon's base damage type", () => {
 		expect(getAffixIds(ITEMBASES_BY_ID.base_longsword, "uncommon", "prefix")).toContain(
 			"sharp",
@@ -71,7 +146,7 @@ describe("getEligibleItemAffixes", () => {
 		expect(bodyArmourAffixes).not.toContain("forceful");
 	});
 
-	it("retains at least three choices in every required affix pool", () => {
+	it("retains at least five choices in every required affix pool", () => {
 		for (const base of Object.values(ITEMBASES_BY_ID)) {
 			for (const rarity of itemAffixRarities) {
 				const prefixes = getEligibleItemAffixes({ item: base, rarity, position: "prefix" });
@@ -81,12 +156,12 @@ describe("getEligibleItemAffixes", () => {
 					expect(
 						prefixes.length + suffixes.length,
 						`${base.id} ${rarity}`,
-					).toBeGreaterThanOrEqual(3);
+					).toBeGreaterThanOrEqual(5);
 					continue;
 				}
 
-				expect(prefixes.length, `${base.id} ${rarity} prefixes`).toBeGreaterThanOrEqual(3);
-				expect(suffixes.length, `${base.id} ${rarity} suffixes`).toBeGreaterThanOrEqual(3);
+				expect(prefixes.length, `${base.id} ${rarity} prefixes`).toBeGreaterThanOrEqual(5);
+				expect(suffixes.length, `${base.id} ${rarity} suffixes`).toBeGreaterThanOrEqual(5);
 			}
 		}
 	});

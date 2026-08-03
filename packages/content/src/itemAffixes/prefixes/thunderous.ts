@@ -1,0 +1,25 @@
+import { buildItemAffix } from "../../builders/buildItemAffix";
+
+export default buildItemAffix({
+	id: "thunderous",
+	name: "Thunderous",
+	position: "prefix",
+	rarity: "epic",
+	weight: 0.5,
+	appliesTo: { itemTypes: ["weapon"] },
+	attackRiders: [
+		{
+			timing: "onCrit",
+			effects: [
+				{ type: "damage", target: "enemy", damageType: "lightning", dice: "2d6" },
+				{
+					type: "modifyRoll",
+					target: "enemy",
+					roll: "savingThrow",
+					mode: "disadvantage",
+					durationTurns: 2,
+				},
+			],
+		},
+	],
+});

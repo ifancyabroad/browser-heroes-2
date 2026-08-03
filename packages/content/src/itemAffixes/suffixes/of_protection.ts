@@ -1,18 +1,19 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "of_mending",
-	name: "of Mending",
+	id: "of_protection",
+	name: "of Protection",
 	position: "suffix",
 	rarity: "rare",
-	weight: 1,
 	appliesTo: {
-		itemTypes: ["weapon", "armour"],
+		itemTypes: ["armour"],
+		armourSlots: ["body", "shield"],
 	},
 	modifiers: [
 		{
-			type: "modifyHealing",
-			multiplier: 1.2,
+			type: "modifyStat",
+			stat: "armourClass",
+			value: 1,
 		},
 	],
 });
