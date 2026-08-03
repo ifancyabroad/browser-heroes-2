@@ -31,7 +31,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "detect_blood", "cold_bite", "rend"],
+		skillIds: ["charge", "detect_blood", "shark_bite"],
 		featIds: [],
 		tactic: "aggressive",
 	},

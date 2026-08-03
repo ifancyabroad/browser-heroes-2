@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "eye_ray",
 	name: "Eye Ray",
 	description:
-		"Project a debilitating ray that ravages the enemy's mind and may leave them helpless.",
+		"Project a debilitating ray that ravages the enemy's mind and may leave them blinded or helpless.",
 	icon: "skills/unique/eye_ray.png",
 	pool: "unique",
 	kind: "spell",
@@ -33,6 +33,18 @@ export default buildSkill({
 				attribute: "constitution",
 				onSuccess: "noEffect",
 				dc: { attribute: "intelligence", includeProficiency: false },
+			},
+		},
+		{
+			type: "modifyRoll",
+			target: "enemy",
+			roll: "attack",
+			mode: "disadvantage",
+			durationTurns: 2,
+			save: {
+				attribute: "wisdom",
+				onSuccess: "noEffect",
+				dc: { attribute: "intelligence" },
 			},
 		},
 	],

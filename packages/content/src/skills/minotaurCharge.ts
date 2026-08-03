@@ -8,13 +8,14 @@ export default buildSkill({
 	pool: "unique",
 	kind: "weaponAttack",
 	category: "damage",
-	rarity: "uncommon",
+	rarity: "rare",
 	maxUses: 1,
 	effects: [
 		{
 			type: "attackDamage",
 			target: "enemy",
 			multiplier: 2,
+			damageTypeOverride: "piercing",
 			attackRiders: [
 				{
 					timing: "onHit",

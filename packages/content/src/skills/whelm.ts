@@ -4,19 +4,31 @@ export default buildSkill({
 	id: "whelm",
 	name: "Whelm",
 	description:
-		"Overwhelm the enemy beneath a crushing mass of water that may leave them unable to act.",
+		"Overwhelm the enemy beneath a freezing, crushing mass of water that may leave them unable to act.",
 	icon: "skills/unique/whelm.png",
 	pool: "unique",
 	kind: "spell",
 	category: "damage",
-	rarity: "epic",
+	rarity: "legendary",
 	maxUses: 1,
 	effects: [
 		{
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "8d8",
+			dice: "4d8",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "strength",
+				onSuccess: "halfDamage",
+				dc: { attribute: "constitution" },
+			},
+		},
+		{
+			type: "damage",
+			target: "enemy",
+			damageType: "cold",
+			dice: "4d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
