@@ -9,7 +9,7 @@ export default buildSkill({
 	kind: "weaponAttack",
 	category: "damage",
 	rarity: "rare",
-	maxUses: 7,
+	maxUses: 3,
 	effects: [
 		{
 			type: "attackDamage",

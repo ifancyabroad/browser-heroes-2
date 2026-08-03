@@ -23,7 +23,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "cold",
-							dice: "1d8",
+							dice: "2d8",
 						},
 						{
 							type: "modifyRoll",
