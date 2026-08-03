@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "divine_protection",
 	name: "Divine Protection",
-	description:
-		"Invoke a celestial safeguard against divine radiance and the consuming power of death.",
+	description: "Become impervious to divine radiance and the consuming power of death.",
 	icon: "skills/cleric/divine_protection.png",
 	pool: "cleric",
 	kind: "prayer",
@@ -14,7 +13,7 @@ export default buildSkill({
 		{
 			type: "modifyDamageAffinity",
 			target: "self",
-			affinity: "resistance",
+			affinity: "immunity",
 			operation: "add",
 			damageType: "radiant",
 			durationTurns: 6,
