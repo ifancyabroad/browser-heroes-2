@@ -7,6 +7,7 @@ export default buildItemAffix({
 	rarity: "uncommon",
 	appliesTo: {
 		itemTypes: ["weapon"],
+		weaponTypes: ["club", "hammer", "mace", "staff"],
 		damageTypes: ["crushing"],
 	},
 	modifiers: [

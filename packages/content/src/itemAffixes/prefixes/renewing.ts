@@ -8,6 +8,7 @@ export default buildItemAffix({
 	weight: 0.75,
 	appliesTo: {
 		itemTypes: ["weapon"],
+		weaponTypes: ["mace", "staff", "wand"],
 	},
 	attackRiders: [
 		{

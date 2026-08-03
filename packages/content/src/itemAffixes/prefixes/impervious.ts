@@ -8,6 +8,7 @@ export default buildItemAffix({
 	weight: 0.75,
 	appliesTo: {
 		itemTypes: ["armour"],
+		armourSlots: ["body", "shield"],
 	},
 	modifiers: [
 		{

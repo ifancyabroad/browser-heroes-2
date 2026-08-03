@@ -7,6 +7,7 @@ export default buildItemAffix({
 	rarity: "rare",
 	appliesTo: {
 		itemTypes: ["weapon"],
+		weaponTypes: ["mace", "spear", "sword"],
 	},
 	attackRiders: [
 		{

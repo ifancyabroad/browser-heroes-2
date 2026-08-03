@@ -23,17 +23,40 @@ describe("getEligibleItemAffixes", () => {
 		expect(getAffixIds(ITEMBASES_BY_ID.base_spear, "uncommon", "prefix")).toContain("barbed");
 	});
 
-	it("uses base damage rather than weapon family for exceptional weapons", () => {
+	it("combines weapon family and damage type restrictions", () => {
 		const morningstarAffixes = getAffixIds(
 			ITEMBASES_BY_ID.base_morningstar,
 			"uncommon",
 			"prefix",
 		);
 
-		expect(morningstarAffixes).toContain("barbed");
-		expect(morningstarAffixes).toContain("puncturing");
+		expect(morningstarAffixes).not.toContain("barbed");
+		expect(morningstarAffixes).not.toContain("puncturing");
 		expect(morningstarAffixes).not.toContain("forceful");
 		expect(morningstarAffixes).not.toContain("concussive");
+	});
+
+	it("keeps specialised weapon riders within their thematic families", () => {
+		expect(getAffixIds(ITEMBASES_BY_ID.base_hammer, "epic", "prefix")).toContain("stunning");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_longsword, "epic", "prefix")).not.toContain(
+			"stunning",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_fire_wand, "epic", "prefix")).toContain(
+			"silencing",
+		);
+	});
+
+	it("keeps defensive and resistance affixes within their thematic armour slots", () => {
+		expect(getAffixIds(ITEMBASES_BY_ID.base_plate_armour, "uncommon", "prefix")).toContain(
+			"reinforced",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_boots, "uncommon", "prefix")).not.toContain(
+			"reinforced",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_boots, "rare", "suffix")).toContain("of_warmth");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_gauntlets, "rare", "suffix")).not.toContain(
+			"of_warmth",
+		);
 	});
 
 	it("does not apply base damage restrictions to armour", () => {
@@ -48,7 +71,7 @@ describe("getEligibleItemAffixes", () => {
 		expect(bodyArmourAffixes).not.toContain("forceful");
 	});
 
-	it("retains a valid affix pool for every eligible non-common base and rarity", () => {
+	it("retains at least three choices in every required affix pool", () => {
 		for (const base of Object.values(ITEMBASES_BY_ID)) {
 			for (const rarity of itemAffixRarities) {
 				const prefixes = getEligibleItemAffixes({ item: base, rarity, position: "prefix" });
@@ -58,12 +81,12 @@ describe("getEligibleItemAffixes", () => {
 					expect(
 						prefixes.length + suffixes.length,
 						`${base.id} ${rarity}`,
-					).toBeGreaterThan(0);
+					).toBeGreaterThanOrEqual(3);
 					continue;
 				}
 
-				expect(prefixes.length, `${base.id} ${rarity} prefixes`).toBeGreaterThan(0);
-				expect(suffixes.length, `${base.id} ${rarity} suffixes`).toBeGreaterThan(0);
+				expect(prefixes.length, `${base.id} ${rarity} prefixes`).toBeGreaterThanOrEqual(3);
+				expect(suffixes.length, `${base.id} ${rarity} suffixes`).toBeGreaterThanOrEqual(3);
 			}
 		}
 	});

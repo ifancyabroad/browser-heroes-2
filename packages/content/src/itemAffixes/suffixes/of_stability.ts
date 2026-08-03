@@ -7,6 +7,7 @@ export default buildItemAffix({
 	rarity: "rare",
 	appliesTo: {
 		itemTypes: ["armour"],
+		armourSlots: ["body", "shield", "helmet"],
 	},
 	modifiers: [
 		{
