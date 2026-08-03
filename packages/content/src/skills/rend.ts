@@ -27,7 +27,7 @@ export default buildSkill({
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "slashing",
-							dice: "1d4",
+							dice: "1d6",
 							durationTurns: 3,
 						},
 					],

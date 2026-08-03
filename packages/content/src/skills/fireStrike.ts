@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "fire_strike",
 	name: "Fire Strike",
-	description: "Infuse your attack with searing flames to scorch your target.",
+	description: "Infuse your attack with searing flames for immediate fire damage.",
 	icon: "skills/barbarian/fire_strike.png",
 	pool: "barbarian",
 	kind: "weaponAttack",
@@ -23,13 +23,6 @@ export default buildSkill({
 							target: "enemy",
 							damageType: "fire",
 							dice: "2d6",
-						},
-						{
-							type: "damageOverTime",
-							target: "enemy",
-							damageType: "fire",
-							dice: "1d6",
-							durationTurns: 2,
 						},
 					],
 				},

@@ -23,7 +23,7 @@ export default buildSkill({
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "fire",
-							dice: "2d6",
+							dice: "1d6",
 							durationTurns: 3,
 						},
 					],

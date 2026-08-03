@@ -8,13 +8,24 @@ export default buildSkill({
 	pool: "barbarian",
 	kind: "weaponAttack",
 	category: "damage",
-	maxUses: 5,
+	maxUses: 6,
 	effects: [
 		{
 			type: "attackDamage",
 			target: "enemy",
 			multiplier: 1,
 			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "crushing",
+							dice: "1d6",
+						},
+					],
+				},
 				{
 					timing: "onHit",
 					save: {

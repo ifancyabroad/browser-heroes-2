@@ -8,7 +8,7 @@ export default buildSkill({
 	pool: "warrior",
 	kind: "weaponAttack",
 	category: "debuff",
-	maxUses: 5,
+	maxUses: 6,
 	effects: [
 		{
 			type: "attackDamage",
@@ -17,11 +17,6 @@ export default buildSkill({
 			attackRiders: [
 				{
 					timing: "onHit",
-					save: {
-						attribute: "strength",
-						onSuccess: "noEffect",
-						dc: { attribute: "strength" },
-					},
 					effects: [
 						{
 							type: "modifyStat",

@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "focus_energy",
 	name: "Focus Energy",
-	description: "Channel your concentration to sharpen precision and increase hit accuracy.",
+	description:
+		"Channel your concentration to sharpen accuracy and deliver deadlier critical hits.",
 	icon: "skills/warrior/focus_energy.png",
 	pool: "warrior",
 	kind: "technique",
@@ -15,7 +16,14 @@ export default buildSkill({
 			target: "self",
 			roll: "attack",
 			mode: "advantage",
-			durationTurns: 6,
+			durationTurns: 8,
+		},
+		{
+			type: "modifyStat",
+			target: "self",
+			stat: "criticalRangeBonus",
+			value: 1,
+			durationTurns: 8,
 		},
 	],
 	tags: [],

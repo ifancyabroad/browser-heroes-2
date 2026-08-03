@@ -13,7 +13,7 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 2.5,
+			multiplier: 3,
 			attackRiders: [],
 		},
 	],
