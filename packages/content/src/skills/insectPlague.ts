@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "piercing",
-			dice: "2d6",
+			dice: "4d6",
 			durationTurns: 3,
 			save: {
 				attribute: "dexterity",

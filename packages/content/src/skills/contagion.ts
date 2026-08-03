@@ -8,14 +8,14 @@ export default buildSkill({
 	icon: "skills/occultist/contagion.png",
 	pool: "occultist",
 	kind: "spell",
-	category: "debuff",
+	category: "damage",
 	maxUses: 2,
 	effects: [
 		{
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "poison",
-			dice: "2d6",
+			dice: "3d6",
 			durationTurns: 5,
 			save: {
 				attribute: "constitution",

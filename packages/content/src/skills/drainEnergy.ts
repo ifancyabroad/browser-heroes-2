@@ -4,13 +4,20 @@ export default buildSkill({
 	id: "drain_energy",
 	name: "Drain Energy",
 	description:
-		"Sap the enemy's vigour, drastically weakening the force of their attacks and magic.",
+		"Steal the enemy's vigour to fortify yourself while weakening the force of their attacks and magic.",
 	icon: "skills/occultist/drain_energy.png",
 	pool: "occultist",
 	kind: "spell",
 	category: "debuff",
-	maxUses: 4,
+	maxUses: 3,
 	effects: [
+		{
+			type: "modifyStat",
+			target: "self",
+			stat: "maxHpBonus",
+			value: 20,
+			durationTurns: 5,
+		},
 		{
 			type: "modifyDamage",
 			target: "enemy",

@@ -3,20 +3,33 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "inflict_wounds",
 	name: "Inflict Wounds",
-	description: "Reach out with concentrated deathly power to inflict a grievous necrotic wound.",
+	description:
+		"Reach out with concentrated deathly power to inflict a grievous wound that continues to decay.",
 	icon: "skills/occultist/inflict_wounds.png",
 	pool: "occultist",
-	kind: "spellAttack",
+	kind: "spell",
 	category: "damage",
-	maxUses: 8,
+	maxUses: 6,
 	effects: [
 		{
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "2d10",
+			dice: "1d10",
 			attribute: "wisdom",
-			requiresAttackRoll: true,
+			requiresAttackRoll: false,
+		},
+		{
+			type: "damageOverTime",
+			target: "enemy",
+			damageType: "necrotic",
+			dice: "1d6",
+			durationTurns: 3,
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "wisdom" },
+			},
 		},
 	],
 	tags: [],

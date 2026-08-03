@@ -9,12 +9,12 @@ export default buildSkill({
 	pool: "occultist",
 	kind: "spell",
 	category: "defensive",
-	maxUses: 4,
+	maxUses: 2,
 	effects: [
 		{
 			type: "shield",
 			target: "self",
-			amount: 20,
+			amount: 40,
 			durationTurns: 6,
 		},
 	],
