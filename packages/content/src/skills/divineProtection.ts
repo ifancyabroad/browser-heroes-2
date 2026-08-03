@@ -8,6 +8,7 @@ export default buildSkill({
 	pool: "cleric",
 	kind: "prayer",
 	category: "defensive",
+	rarity: "rare",
 	maxUses: 4,
 	effects: [
 		{

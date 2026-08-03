@@ -8,6 +8,7 @@ export default buildSkill({
 	pool: "cleric",
 	kind: "weaponAttack",
 	category: "damage",
+	rarity: "common",
 	maxUses: 7,
 	effects: [
 		{

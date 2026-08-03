@@ -9,6 +9,7 @@ export default buildSkill({
 	pool: "occultist",
 	kind: "spell",
 	category: "damage",
+	rarity: "rare",
 	maxUses: 4,
 	effects: [
 		{

@@ -8,6 +8,7 @@ export default buildSkill({
 	pool: "rogue",
 	kind: "technique",
 	category: "buff",
+	rarity: "common",
 	maxUses: 5,
 	effects: [
 		{

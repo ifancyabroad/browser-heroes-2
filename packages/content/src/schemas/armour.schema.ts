@@ -7,7 +7,7 @@ import {
 	passiveModifierSchema,
 	passiveStatModifierSchema,
 } from "./modifier.schema";
-import { generatedItemRaritySchema, itemRaritySchema } from "./itemRarity.schema";
+import { generatedItemRaritySchema, raritySchema } from "./rarity.schema";
 
 export const armourSlots = [
 	"body",
@@ -45,7 +45,7 @@ const armourBaseSchema = z.object({
 	description: z.string().optional(),
 	icon: z.string().nonempty(),
 	price: z.number().int().nonnegative(),
-	rarity: itemRaritySchema.default("common"),
+	rarity: raritySchema.default("common"),
 	modifiers: z.array(itemModifierSchema).default([]),
 	tags: z.array(z.string().nonempty()).default([]),
 });

@@ -7,7 +7,7 @@ import {
 } from "./common.schema";
 import { attackRiderSchema } from "./effect.schema";
 import { itemModifierSchema } from "./armour.schema";
-import { generatedItemRaritySchema, itemRaritySchema } from "./itemRarity.schema";
+import { generatedItemRaritySchema, raritySchema } from "./rarity.schema";
 
 export const weaponHandednessSchema = z.enum(["oneHanded", "twoHanded"]);
 
@@ -26,7 +26,7 @@ export const weaponSchema = z.object({
 	description: z.string().optional(),
 	icon: z.string().nonempty(),
 	price: z.number().int().nonnegative(),
-	rarity: itemRaritySchema.default("common"),
+	rarity: raritySchema.default("common"),
 	weaponType: weaponTypeSchema,
 	handedness: weaponHandednessSchema,
 	range: weaponRangeSchema,

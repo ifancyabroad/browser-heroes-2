@@ -9,6 +9,7 @@ export default buildSkill({
 	pool: "common",
 	kind: "spell",
 	category: "buff",
+	rarity: "rare",
 	maxUses: 4,
 	effects: [
 		{

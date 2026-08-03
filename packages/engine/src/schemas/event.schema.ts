@@ -2,7 +2,7 @@ import {
 	equipmentSlotSchema,
 	featIdSchema,
 	itemIdSchema,
-	itemRaritySchema,
+	raritySchema,
 	skillIdSchema,
 } from "@app/content";
 import { z } from "zod";
@@ -10,7 +10,7 @@ import { z } from "zod";
 const itemEventPayloadSchema = z.object({
 	itemInstanceId: z.string().nonempty(),
 	itemName: z.string().nonempty(),
-	rarity: itemRaritySchema,
+	rarity: raritySchema,
 	staticItemId: itemIdSchema.optional(),
 });
 

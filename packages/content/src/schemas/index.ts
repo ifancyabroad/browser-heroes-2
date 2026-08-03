@@ -11,5 +11,5 @@ export * from "./item.schema";
 export * from "./attack.schema";
 export * from "./itemBase.schema";
 export * from "./itemAffix.schema";
-export * from "./itemRarity.schema";
+export * from "./rarity.schema";
 export * from "./achievement.schema";

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { armourSlotSchema, bodyArmourCategorySchema, itemModifierSchema } from "./armour.schema";
 import { damageTypeSchema, weaponTypeSchema } from "./common.schema";
 import { attackRiderSchema } from "./effect.schema";
-import { itemAffixRaritySchema } from "./itemRarity.schema";
+import { itemAffixRaritySchema } from "./rarity.schema";
 
 export const itemAffixPositionSchema = z.enum(["prefix", "suffix"]);
 

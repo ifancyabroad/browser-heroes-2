@@ -9,6 +9,7 @@ export default buildSkill({
 	pool: "assassin",
 	kind: "technique",
 	category: "defensive",
+	rarity: "epic",
 	maxUses: 3,
 	effects: [
 		{

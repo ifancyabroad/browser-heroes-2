@@ -8,6 +8,7 @@ export default buildSkill({
 	pool: "warlock",
 	kind: "spell",
 	category: "damage",
+	rarity: "rare",
 	maxUses: 3,
 	effects: [
 		{

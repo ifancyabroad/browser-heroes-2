@@ -8,6 +8,7 @@ export default buildSkill({
 	pool: "warrior",
 	kind: "technique",
 	category: "defensive",
+	rarity: "uncommon",
 	maxUses: 2,
 	effects: [
 		{

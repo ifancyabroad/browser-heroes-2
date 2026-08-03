@@ -8,6 +8,7 @@ export default buildSkill({
 	pool: "mage",
 	kind: "spell",
 	category: "damage",
+	rarity: "epic",
 	maxUses: 3,
 	effects: [
 		{

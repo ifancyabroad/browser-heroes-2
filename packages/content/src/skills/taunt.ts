@@ -9,6 +9,7 @@ export default buildSkill({
 	pool: "barbarian",
 	kind: "technique",
 	category: "buff",
+	rarity: "uncommon",
 	maxUses: 4,
 	effects: [
 		{

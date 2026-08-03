@@ -8,6 +8,7 @@ export default buildSkill({
 	pool: "barbarian",
 	kind: "weaponAttack",
 	category: "damage",
+	rarity: "rare",
 	maxUses: 5,
 	effects: [
 		{
