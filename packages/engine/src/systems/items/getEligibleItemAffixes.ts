@@ -36,10 +36,14 @@ function canApplyAffixToItem(affix: ItemAffix, item: AffixableItem): boolean {
 			return false;
 		}
 
+		if (appliesTo.damageTypes && !appliesTo.damageTypes.includes(item.damage.type)) {
+			return false;
+		}
+
 		return !(appliesTo.armourSlots || appliesTo.armourCategories);
 	}
 
-	if (appliesTo.weaponTypes) {
+	if (appliesTo.weaponTypes || appliesTo.damageTypes) {
 		return false;
 	}
 

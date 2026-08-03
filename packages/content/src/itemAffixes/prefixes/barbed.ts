@@ -6,7 +6,8 @@ export default buildItemAffix({
 	position: "prefix",
 	rarity: "uncommon",
 	appliesTo: {
-		itemTypes: ["weapon", "armour"],
+		itemTypes: ["weapon"],
+		damageTypes: ["piercing"],
 	},
 	modifiers: [
 		{

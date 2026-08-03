@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { armourSlotSchema, bodyArmourCategorySchema, itemModifierSchema } from "./armour.schema";
-import { weaponTypeSchema } from "./common.schema";
+import { damageTypeSchema, weaponTypeSchema } from "./common.schema";
 import { attackRiderSchema } from "./effect.schema";
 import { itemAffixRaritySchema } from "./itemRarity.schema";
 
@@ -13,6 +13,7 @@ const itemAffixApplicabilitySchema = z.object({
 		.min(1)
 		.optional(),
 	weaponTypes: z.array(weaponTypeSchema).min(1).optional(),
+	damageTypes: z.array(damageTypeSchema).min(1).optional(),
 	armourSlots: z.array(armourSlotSchema).min(1).optional(),
 	armourCategories: z.array(bodyArmourCategorySchema).min(1).optional(),
 });
