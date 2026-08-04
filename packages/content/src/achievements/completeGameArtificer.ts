@@ -1,9 +1,9 @@
 import { buildAchievement } from "../builders/buildAchievement";
 
 export default buildAchievement({
-	order: 35,
-	id: "lifetime_kills_1000",
-	name: "Death Incarnate",
-	description: "Defeat 1,000 enemies across all runs.",
+	order: 29,
+	id: "complete_game_artificer",
+	name: "Artificer's Triumph",
+	description: "Defeat the final boss as an Artificer.",
 	icon: "skills/feats/armour.png",
 });

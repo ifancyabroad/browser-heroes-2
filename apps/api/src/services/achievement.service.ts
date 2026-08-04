@@ -16,6 +16,7 @@ import {
 } from "./lifetimeProgress.service";
 
 const CLASS_VICTORY_ACHIEVEMENTS: Record<ClassId, AchievementId> = {
+	artificer: "complete_game_artificer",
 	battlemage: "complete_game_battlemage",
 	fighter: "complete_game_fighter",
 	mage: "complete_game_mage",
