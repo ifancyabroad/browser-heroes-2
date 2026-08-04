@@ -81,7 +81,12 @@ function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltip
 						>
 							{formatActiveEffectDetail(effect)}
 						</span>
-						<span className="shrink-0 text-text-muted">{effect.remainingTurns}t</span>
+						<span className="shrink-0 text-text-muted">
+							{effect.type === "modifyRoll" && effect.remainingCharges !== undefined
+								? `${effect.remainingCharges} ${effect.remainingCharges === 1 ? "charge" : "charges"} · `
+								: ""}
+							{effect.remainingTurns}t
+						</span>
 					</li>
 				))}
 			</ul>

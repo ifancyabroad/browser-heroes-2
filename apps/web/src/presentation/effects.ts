@@ -5,6 +5,7 @@ import type {
 	DamageModifierOperation,
 	PassiveModifier,
 	RiderEffect,
+	RollModifierMode,
 	SavingThrow,
 } from "@app/content";
 import type { ActiveCombatEffect } from "@app/engine";
@@ -230,7 +231,7 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 		case "modifyDamageAffinity":
 			return `${effect.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]}`;
 		case "modifyRoll":
-			return `${formatTitle(effect.mode)} on ${formatRollSubject(effect.roll, effect.attribute)}`;
+			return `${formatRollModifierMode(effect.mode, effect.roll)} on ${formatRollSubject(effect.roll, effect.attribute)}`;
 		case "damageOverTime":
 			return `${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn`;
 		case "healOverTime":
@@ -258,7 +259,11 @@ export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 		case "modifyDamageAffinity":
 			return getDamageAffinityTone(effect.operation, effect.affinity);
 		case "modifyRoll":
-			return effect.mode === "advantage" ? "positive" : "negative";
+			return effect.mode === "advantage" ||
+				effect.mode === "automaticSuccess" ||
+				effect.mode === "automaticCritical"
+				? "positive"
+				: "negative";
 		case "healOverTime":
 		case "shield":
 			return "positive";
@@ -349,7 +354,47 @@ function formatDamageAffinityEffect(
 
 function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyRoll" }>) {
 	const target = effect.target === "self" ? "your" : "the enemy's";
-	return `Grant ${effect.mode} on ${target} ${formatRollSubject(effect.roll, effect.attribute)} for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
+	const rolls = formatRollSubject(effect.roll, effect.attribute);
+	const limitedRolls = effect.charges
+		? `${target} next ${effect.charges === 1 ? singularizeRollSubject(rolls) : `${effect.charges} ${rolls}`}`
+		: `${target} ${rolls}`;
+	const duration = formatTurns(effect.durationTurns);
+	const save = formatOptionalSave(effect.save);
+
+	if (effect.mode === "advantage" || effect.mode === "disadvantage") {
+		return `Grant ${effect.mode} on ${limitedRolls} for ${duration}${save}.`;
+	}
+
+	const outcome =
+		effect.mode === "automaticCritical"
+			? `automatically result in ${effect.charges === 1 ? "a critical hit" : "critical hits"}`
+			: effect.mode === "automaticSuccess"
+				? effect.roll === "attack"
+					? "automatically hit"
+					: "automatically succeed"
+				: effect.roll === "attack"
+					? "automatically miss"
+					: "automatically fail";
+
+	return `Make ${limitedRolls} ${outcome}${save}. Expires after ${duration}.`;
+}
+
+function formatRollModifierMode(mode: RollModifierMode, roll: "attack" | "savingThrow") {
+	switch (mode) {
+		case "advantage":
+		case "disadvantage":
+			return formatTitle(mode);
+		case "automaticSuccess":
+			return roll === "attack" ? "Automatic hits" : "Automatic successes";
+		case "automaticFailure":
+			return roll === "attack" ? "Automatic misses" : "Automatic failures";
+		case "automaticCritical":
+			return "Automatic critical hits";
+	}
+}
+
+function singularizeRollSubject(subject: string) {
+	return subject.endsWith("s") ? subject.slice(0, -1) : subject;
 }
 
 function formatRollSubject(roll: "attack" | "savingThrow", attribute: Attribute | undefined) {
