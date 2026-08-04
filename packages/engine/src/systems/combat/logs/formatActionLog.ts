@@ -40,9 +40,7 @@ export function formatActionOutcome(outcome: ActionOutcome): FormattedActionOutc
 	switch (outcome.type) {
 		case "miss":
 			return {
-				message: outcome.automatic
-					? `The attack automatically misses ${outcome.targetName}.`
-					: `The attack misses ${outcome.targetName}.`,
+				message: `The attack misses ${outcome.targetName}.`,
 				eventType: "attack_missed",
 			};
 

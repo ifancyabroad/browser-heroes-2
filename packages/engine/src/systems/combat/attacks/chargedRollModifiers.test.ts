@@ -31,7 +31,7 @@ describe("charged attack roll modifiers", () => {
 
 		expect(result.value.enemy.currentHp).toBe(enemyHp);
 		expect(result.value.player.activeEffects).toEqual([]);
-		expect(result.value.log.at(-1)?.message).toContain("automatically misses");
+		expect(result.value.log.at(-1)?.message).toContain("The attack misses");
 	});
 
 	it("decrements charged advantage without removing duration-based modifiers", () => {

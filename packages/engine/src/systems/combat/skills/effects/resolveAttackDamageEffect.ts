@@ -55,7 +55,6 @@ export function resolveAttackDamageEffect(
 					{
 						type: "miss",
 						targetName: target.name,
-						automatic: attackRoll.value.automaticOutcome === "miss",
 					},
 				],
 			},

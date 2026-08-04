@@ -126,7 +126,6 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 					{
 						type: "miss",
 						targetName: defender.name,
-						automatic: attackRoll.value.automaticOutcome === "miss",
 					},
 				],
 			},

@@ -54,7 +54,6 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 						{
 							type: "miss",
 							targetName: target.name,
-							automatic: attackRoll.value.automaticOutcome === "miss",
 						},
 					],
 				},
