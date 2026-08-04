@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "complete_game",
 	name: "Against All Odds",
 	description: "Defeat the final boss at battle 100.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_254_noBG.png",
 });

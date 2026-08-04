@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "complete_endless_cycle",
 	name: "Endlessly Victorious",
 	description: "Defeat the boss at battle 200.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_34_noBG.png",
 });
