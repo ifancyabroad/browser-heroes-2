@@ -5,6 +5,7 @@ import type { ClientSession } from "mongoose";
 import { UserModel } from "../models/user.model";
 
 const ORIGINAL_CLASS_IDS = [
+	"artificer",
 	"battlemage",
 	"fighter",
 	"mage",
@@ -35,7 +36,7 @@ const LIFETIME_ACHIEVEMENTS = [
 		counter: "legendaryItemsAcquired",
 		target: 10,
 	},
-	{ achievementId: "lifetime_game_wins_5", counter: "gamesCompleted", target: 5 },
+	{ achievementId: "lifetime_game_wins_10", counter: "gamesCompleted", target: 10 },
 	{ achievementId: "lifetime_potions_100", counter: "healingPotionsUsed", target: 100 },
 ] as const satisfies readonly {
 	achievementId: AchievementId;

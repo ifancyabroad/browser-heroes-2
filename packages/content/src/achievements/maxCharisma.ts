@@ -4,6 +4,6 @@ export default buildAchievement({
 	order: 16,
 	id: "max_charisma",
 	name: "Peak Charisma",
-	description: "Reach 30 effective Charisma.",
+	description: "Reach 30 Charisma.",
 	icon: "achievements/skill_291_noBG.png",
 });

@@ -25,7 +25,7 @@ import ach_dieToOwnGhost_16 from '../achievements/dieToOwnGhost';
 import ach_ghostEndOtherRun_17 from '../achievements/ghostEndOtherRun';
 import ach_holdTenThousandGold_18 from '../achievements/holdTenThousandGold';
 import ach_lifetimeBossesTwentyFive_19 from '../achievements/lifetimeBossesTwentyFive';
-import ach_lifetimeGameWinsFive_20 from '../achievements/lifetimeGameWinsFive';
+import ach_lifetimeGameWinsTen_20 from '../achievements/lifetimeGameWinsTen';
 import ach_lifetimeGhostsTen_21 from '../achievements/lifetimeGhostsTen';
 import ach_lifetimeGoldOneHundredThousand_22 from '../achievements/lifetimeGoldOneHundredThousand';
 import ach_lifetimeKillsOneHundred_24 from '../achievements/lifetimeKillsOneHundred';
@@ -51,7 +51,7 @@ export type { AchievementId } from './achievementIds';
 
 export type Achievement = WithGeneratedId<AchievementDefinition, AchievementId>;
 
-const rawAchievements = [ach_acquireLegendaryItem_0, ach_completeEndlessCycle_1, ach_completeGame_2, ach_completeGameAllOriginalClasses_3, ach_completeGameArtificer_4, ach_completeGameBattlemage_5, ach_completeGameByDayFive_6, ach_completeGameFighter_7, ach_completeGameMage_8, ach_completeGamePaladin_9, ach_completeGamePriest_10, ach_completeGameShadowblade_11, ach_completeGameThief_12, ach_defeatBoss_13, ach_defeatFullHealthBoss_14, ach_defeatGhost_15, ach_dieToOwnGhost_16, ach_ghostEndOtherRun_17, ach_holdTenThousandGold_18, ach_lifetimeBossesTwentyFive_19, ach_lifetimeGameWinsFive_20, ach_lifetimeGhostsTen_21, ach_lifetimeGoldOneHundredThousand_22, ach_lifetimeKillsOneHundred_24, ach_lifetimeKillsOneThousand_25, ach_lifetimeKillsFiveHundred_23, ach_lifetimeLegendaryItemsTen_26, ach_lifetimePotionsOneHundred_27, ach_maxCharisma_28, ach_maxConstitution_29, ach_maxDexterity_30, ach_maxIntelligence_31, ach_maxStrength_32, ach_maxWisdom_33, ach_reachMaximumHp_36, ach_reachArmourClass_34, ach_reachLevelTen_35, ach_reachStreakTen_38, ach_reachStreakTwentyFive_39, ach_reachStreakFifty_37] satisfies readonly AchievementDefinition[];
+const rawAchievements = [ach_acquireLegendaryItem_0, ach_completeEndlessCycle_1, ach_completeGame_2, ach_completeGameAllOriginalClasses_3, ach_completeGameArtificer_4, ach_completeGameBattlemage_5, ach_completeGameByDayFive_6, ach_completeGameFighter_7, ach_completeGameMage_8, ach_completeGamePaladin_9, ach_completeGamePriest_10, ach_completeGameShadowblade_11, ach_completeGameThief_12, ach_defeatBoss_13, ach_defeatFullHealthBoss_14, ach_defeatGhost_15, ach_dieToOwnGhost_16, ach_ghostEndOtherRun_17, ach_holdTenThousandGold_18, ach_lifetimeBossesTwentyFive_19, ach_lifetimeGameWinsTen_20, ach_lifetimeGhostsTen_21, ach_lifetimeGoldOneHundredThousand_22, ach_lifetimeKillsOneHundred_24, ach_lifetimeKillsOneThousand_25, ach_lifetimeKillsFiveHundred_23, ach_lifetimeLegendaryItemsTen_26, ach_lifetimePotionsOneHundred_27, ach_maxCharisma_28, ach_maxConstitution_29, ach_maxDexterity_30, ach_maxIntelligence_31, ach_maxStrength_32, ach_maxWisdom_33, ach_reachMaximumHp_36, ach_reachArmourClass_34, ach_reachLevelTen_35, ach_reachStreakTen_38, ach_reachStreakTwentyFive_39, ach_reachStreakFifty_37] satisfies readonly AchievementDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const achievements = rawAchievements as readonly Achievement[];
@@ -77,7 +77,7 @@ const rawAchievementsById = {
   "ghost_end_other_run": ach_ghostEndOtherRun_17,
   "hold_10000_gold": ach_holdTenThousandGold_18,
   "lifetime_bosses_25": ach_lifetimeBossesTwentyFive_19,
-  "lifetime_game_wins_5": ach_lifetimeGameWinsFive_20,
+  "lifetime_game_wins_10": ach_lifetimeGameWinsTen_20,
   "lifetime_ghosts_10": ach_lifetimeGhostsTen_21,
   "lifetime_gold_100000": ach_lifetimeGoldOneHundredThousand_22,
   "lifetime_kills_100": ach_lifetimeKillsOneHundred_24,

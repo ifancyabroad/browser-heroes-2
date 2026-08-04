@@ -103,8 +103,9 @@ describe("lifetimeProgress.service", () => {
 		]);
 	});
 
-	it("tracks unique original class victories and unlocks the seventh", () => {
-		const firstSix = [
+	it("tracks unique original class victories and unlocks the eighth", () => {
+		const firstSeven = [
+			"artificer",
 			"battlemage",
 			"fighter",
 			"mage",
@@ -112,16 +113,30 @@ describe("lifetimeProgress.service", () => {
 			"priest",
 			"shadowblade",
 		] as const;
-		const previous = { ...EMPTY_STATS, completedGameClassIds: [...firstSix] };
-		const current = { ...previous, completedGameClassIds: [...firstSix, "thief" as const] };
+		const previous = { ...EMPTY_STATS, completedGameClassIds: [...firstSeven] };
+		const current = { ...previous, completedGameClassIds: [...firstSeven, "thief" as const] };
 
 		expect(evaluateLifetimeAchievementProgress({ previous, current })).toContain(
 			"complete_game_all_original_classes",
 		);
 		expect(projectLifetimeAchievementProgress(current)).toContainEqual({
 			achievementId: "complete_game_all_original_classes",
-			current: 7,
-			target: 7,
+			current: 8,
+			target: 8,
+		});
+	});
+
+	it("unlocks Proven Champion on the tenth completed game", () => {
+		const previous = { ...EMPTY_STATS, gamesCompleted: 9 };
+		const current = { ...previous, gamesCompleted: 10 };
+
+		expect(evaluateLifetimeAchievementProgress({ previous, current })).toContain(
+			"lifetime_game_wins_10",
+		);
+		expect(projectLifetimeAchievementProgress(current)).toContainEqual({
+			achievementId: "lifetime_game_wins_10",
+			current: 10,
+			target: 10,
 		});
 	});
 

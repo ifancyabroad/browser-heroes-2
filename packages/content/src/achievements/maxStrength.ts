@@ -4,6 +4,6 @@ export default buildAchievement({
 	order: 11,
 	id: "max_strength",
 	name: "Peak Strength",
-	description: "Reach 30 effective Strength.",
+	description: "Reach 30 Strength.",
 	icon: "achievements/skill_443_noBG.png",
 });
