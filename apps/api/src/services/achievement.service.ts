@@ -18,12 +18,12 @@ import {
 const CLASS_VICTORY_ACHIEVEMENTS: Record<ClassId, AchievementId> = {
 	artificer: "complete_game_artificer",
 	battlemage: "complete_game_battlemage",
-	fighter: "complete_game_fighter",
+	warrior: "complete_game_warrior",
 	mage: "complete_game_mage",
 	paladin: "complete_game_paladin",
 	priest: "complete_game_priest",
 	shadowblade: "complete_game_shadowblade",
-	thief: "complete_game_thief",
+	rogue: "complete_game_rogue",
 };
 
 const ATTRIBUTE_ACHIEVEMENTS: Record<Attribute, AchievementId> = {

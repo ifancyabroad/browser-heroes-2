@@ -18,7 +18,7 @@ describe("createInitialRunState", () => {
 			battleNumber: 1,
 			hero: {
 				name: "Test Hero",
-				classId: "fighter",
+				classId: "warrior",
 			},
 		});
 		expect(state.log).toEqual([

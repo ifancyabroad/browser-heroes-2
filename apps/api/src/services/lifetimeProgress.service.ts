@@ -7,12 +7,12 @@ import { UserModel } from "../models/user.model";
 const ORIGINAL_CLASS_IDS = [
 	"artificer",
 	"battlemage",
-	"fighter",
+	"warrior",
 	"mage",
 	"paladin",
 	"priest",
 	"shadowblade",
-	"thief",
+	"rogue",
 ] as const satisfies readonly ClassId[];
 
 type LifetimeCounter =

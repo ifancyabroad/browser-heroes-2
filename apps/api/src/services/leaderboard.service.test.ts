@@ -56,7 +56,7 @@ describe("leaderboard.service", () => {
 			query: {
 				scope: "daily",
 				date: "2026-07-24",
-				classId: "fighter",
+				classId: "warrior",
 				page: 1,
 				limit: 20,
 			},
@@ -68,7 +68,7 @@ describe("leaderboard.service", () => {
 				$gte: new Date("2026-07-24T00:00:00.000Z"),
 				$lt: new Date("2026-07-25T00:00:00.000Z"),
 			},
-			"summary.classId": "fighter",
+			"summary.classId": "warrior",
 		});
 	});
 
@@ -108,7 +108,7 @@ describe("leaderboard.service", () => {
 				status: "dead",
 				summary: {
 					heroName: "Hero",
-					classId: "fighter",
+					classId: "warrior",
 					level: 4,
 					battleNumber: 12,
 					zoneNumber: 2,
@@ -133,7 +133,7 @@ describe("leaderboard.service", () => {
 					rank: 11,
 					runId: "run-id",
 					heroName: "Hero",
-					classId: "fighter",
+					classId: "warrior",
 					level: 4,
 					battleNumber: 12,
 					zoneNumber: 2,

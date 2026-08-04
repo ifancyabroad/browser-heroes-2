@@ -54,12 +54,12 @@ describe("run routes", () => {
 		const response = await request(buildApp())
 			.post("/api/runs")
 			.set("x-test-user-id", "user-id")
-			.send({ heroName: "  Test Hero  ", classId: "fighter" })
+			.send({ heroName: "  Test Hero  ", classId: "warrior" })
 			.expect(201);
 
 		expect(runService.createRun).toHaveBeenCalledWith({
 			userId: "user-id",
-			body: { heroName: "Test Hero", classId: "fighter" },
+			body: { heroName: "Test Hero", classId: "warrior" },
 		});
 		expect(response.body.run.id).toBe("run-document-id");
 	});

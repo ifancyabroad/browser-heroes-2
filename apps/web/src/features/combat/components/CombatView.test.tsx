@@ -85,7 +85,7 @@ import { CombatView } from "./CombatView";
 
 const run = {
 	id: "run-id",
-	state: { hero: { classId: "fighter" } },
+	state: { hero: { classId: "warrior" } },
 } as RunView;
 
 function createCombatView() {

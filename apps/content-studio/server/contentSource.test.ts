@@ -24,7 +24,7 @@ describe("content source", () => {
 		["enemies", "abomination"],
 		["skills", "acid_bite"],
 		["feats", "acid_mastery"],
-		["classes", "fighter"],
+		["classes", "warrior"],
 		["item-bases", "base_dagger"],
 		["affixes", "accurate"],
 		["items", "acid_edge"],
@@ -82,9 +82,9 @@ describe("content source", () => {
 
 	it("keeps representative files beneath the owned content root", async () => {
 		const definitions = await discover("classes");
-		const file = definitions.get("fighter")!;
+		const file = definitions.get("warrior")!;
 		const source = await readFile(file, "utf8");
 		expect(source).toContain("import { buildClass }");
-		expect(resolve(contentRoot, "classes/fighter.ts")).toBe(file);
+		expect(resolve(contentRoot, "classes/warrior.ts")).toBe(file);
 	});
 });

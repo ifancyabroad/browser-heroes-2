@@ -74,7 +74,7 @@ describe("HeroDossierModal", () => {
 					hero: {
 						id: "hero-1",
 						name: "Aria",
-						classId: "fighter",
+						classId: "warrior",
 						level: 9,
 						xp: 900,
 						maxHp: 80,
@@ -115,7 +115,7 @@ describe("HeroDossierModal", () => {
 
 		render(<HeroDossierModal runId="run-1" onClose={vi.fn()} />);
 
-		expect(screen.getByText("Aria the Fighter")).toBeInTheDocument();
+		expect(screen.getByText("Aria the Warrior")).toBeInTheDocument();
 		expect(screen.getByText("Slain by The Nameless One")).toBeInTheDocument();
 		expect(screen.getByText("Battle")).toBeInTheDocument();
 		expect(screen.getByText("42")).toBeInTheDocument();

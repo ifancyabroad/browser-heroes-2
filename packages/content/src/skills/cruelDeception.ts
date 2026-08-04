@@ -5,8 +5,8 @@ export default buildSkill({
 	name: "Cruel Deception",
 	description:
 		"Lure the enemy into striking at a false opening while preparing two devastating counterattacks.",
-	icon: "skills/rogue/cruel_deception.png",
-	pool: "rogue",
+	icon: "skills/thief/cruel_deception.png",
+	pool: "thief",
 	kind: "technique",
 	category: "debuff",
 	rarity: "legendary",

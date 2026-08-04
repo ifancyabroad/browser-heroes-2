@@ -40,7 +40,7 @@ const testRunState = actualEngine.createInitialRunState({
 	runId: "test-run",
 	seed: "test-seed",
 	heroName: "Test Hero",
-	classId: "fighter",
+	classId: "warrior",
 });
 
 describe("run.service", () => {
@@ -60,7 +60,7 @@ describe("run.service", () => {
 	it("normalizes the hero name and creates a run transactionally", async () => {
 		const created = await createRun({
 			userId: "user-id",
-			body: { heroName: "  tEST  ", classId: "fighter" },
+			body: { heroName: "  tEST  ", classId: "warrior" },
 		});
 
 		expect(models.run.updateMany).toHaveBeenCalledWith(
@@ -72,7 +72,7 @@ describe("run.service", () => {
 			runId: expect.any(String),
 			seed: expect.any(String),
 			heroName: "Test",
-			classId: "fighter",
+			classId: "warrior",
 		});
 		expect(models.run.create).toHaveBeenCalledWith(
 			[
@@ -94,7 +94,7 @@ describe("run.service", () => {
 		["thisnameisfarbeyondtheallowedheronamelength", "characters or fewer"],
 	])("rejects invalid hero name %j", async (heroName, message) => {
 		await expect(
-			createRun({ userId: "user-id", body: { heroName, classId: "fighter" } }),
+			createRun({ userId: "user-id", body: { heroName, classId: "warrior" } }),
 		).rejects.toThrow(message);
 
 		expect(mongoose.connection.transaction).not.toHaveBeenCalled();
@@ -106,7 +106,7 @@ describe("run.service", () => {
 		await expect(
 			createRun({
 				userId: "user-id",
-				body: { heroName: "Forbidden", classId: "fighter" },
+				body: { heroName: "Forbidden", classId: "warrior" },
 			}),
 		).rejects.toMatchObject({ message: "Hero name is not allowed.", status: 400 });
 	});

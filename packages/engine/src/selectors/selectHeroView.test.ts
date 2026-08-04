@@ -10,7 +10,7 @@ describe("selectHeroView", () => {
 		expect(view).toMatchObject({
 			name: "Test Hero",
 			level: 1,
-			classId: "fighter",
+			classId: "warrior",
 			healingPotions: state.hero.healingPotions,
 			maxHealingPotions: 3,
 			equipment: state.hero.equipment,

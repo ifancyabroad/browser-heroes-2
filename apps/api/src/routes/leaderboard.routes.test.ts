@@ -46,7 +46,7 @@ describe("leaderboard routes", () => {
 	it("coerces and forwards run leaderboard filters", async () => {
 		await request(buildApp())
 			.get(
-				"/api/leaderboard/runs?scope=daily&date=2026-07-24&classId=fighter&page=2&limit=10",
+				"/api/leaderboard/runs?scope=daily&date=2026-07-24&classId=warrior&page=2&limit=10",
 			)
 			.set("x-test-user-id", "user-id")
 			.expect(200);
@@ -56,7 +56,7 @@ describe("leaderboard routes", () => {
 			query: {
 				scope: "daily",
 				date: "2026-07-24",
-				classId: "fighter",
+				classId: "warrior",
 				page: 2,
 				limit: 10,
 			},

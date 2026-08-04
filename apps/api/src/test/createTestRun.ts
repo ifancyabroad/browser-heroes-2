@@ -6,7 +6,7 @@ export function createTestRunState() {
 		runId: "test-run",
 		seed: "test-seed",
 		heroName: "Test Hero",
-		classId: "fighter",
+		classId: "warrior",
 	});
 }
 

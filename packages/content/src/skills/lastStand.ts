@@ -5,8 +5,8 @@ export default buildSkill({
 	name: "Last Stand",
 	description:
 		"Summon your remaining strength to recover health and temporarily bolster your physical resilience.",
-	icon: "skills/warrior/last_stand.png",
-	pool: "warrior",
+	icon: "skills/fighter/last_stand.png",
+	pool: "fighter",
 	kind: "technique",
 	category: "heal",
 	rarity: "epic",

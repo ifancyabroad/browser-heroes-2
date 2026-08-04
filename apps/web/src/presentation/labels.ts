@@ -195,12 +195,12 @@ export const skillPoolLabels: Record<SkillPool, string> = {
 	barbarian: "Barbarian",
 	cleric: "Cleric",
 	common: "Common",
-	mage: "Mage",
+	fighter: "Fighter",
 	occultist: "Occultist",
-	rogue: "Rogue",
+	thief: "Thief",
 	unique: "Unique",
 	warlock: "Warlock",
-	warrior: "Warrior",
+	wizard: "Wizard",
 };
 
 export const featCategoryLabels: Record<FeatCategory, string> = {

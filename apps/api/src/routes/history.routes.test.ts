@@ -52,7 +52,7 @@ describe("history routes", () => {
 	it("coerces, trims, and forwards run history filters", async () => {
 		await request(buildApp())
 			.get(
-				"/api/history/runs?page=2&limit=5&classId=fighter&search=%20Hero%20&sort=kills&direction=asc",
+				"/api/history/runs?page=2&limit=5&classId=warrior&search=%20Hero%20&sort=kills&direction=asc",
 			)
 			.set("x-test-user-id", "user-id")
 			.expect(200);
@@ -62,7 +62,7 @@ describe("history routes", () => {
 			query: {
 				page: 2,
 				limit: 5,
-				classId: "fighter",
+				classId: "warrior",
 				search: "Hero",
 				sort: "kills",
 				direction: "asc",

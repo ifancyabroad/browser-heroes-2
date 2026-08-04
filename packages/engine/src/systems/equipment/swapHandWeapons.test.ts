@@ -11,7 +11,7 @@ describe("swapHandWeapons", () => {
 		const state = modifyTestRunState(createTestTownState(), (draft) => {
 			const mainHand = draft.hero.equipment.mainHand;
 			if (!mainHand) {
-				throw new Error("Expected fighter to have a main-hand weapon");
+				throw new Error("Expected warrior to have a main-hand weapon");
 			}
 			draft.hero.equipment.offHand = {
 				...structuredClone(mainHand),

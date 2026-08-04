@@ -51,7 +51,7 @@ describe("achievement.service", () => {
 				"defeat_boss",
 				"defeat_full_health_boss",
 				"complete_game",
-				"complete_game_fighter",
+				"complete_game_warrior",
 				"complete_game_by_day_5",
 			]),
 		);

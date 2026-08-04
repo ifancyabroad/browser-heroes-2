@@ -12,12 +12,12 @@ import ach_completeGameAllOriginalClasses_3 from '../achievements/completeGameAl
 import ach_completeGameArtificer_4 from '../achievements/completeGameArtificer';
 import ach_completeGameBattlemage_5 from '../achievements/completeGameBattlemage';
 import ach_completeGameByDayFive_6 from '../achievements/completeGameByDayFive';
-import ach_completeGameFighter_7 from '../achievements/completeGameFighter';
-import ach_completeGameMage_8 from '../achievements/completeGameMage';
-import ach_completeGamePaladin_9 from '../achievements/completeGamePaladin';
-import ach_completeGamePriest_10 from '../achievements/completeGamePriest';
+import ach_completeGameMage_7 from '../achievements/completeGameMage';
+import ach_completeGamePaladin_8 from '../achievements/completeGamePaladin';
+import ach_completeGamePriest_9 from '../achievements/completeGamePriest';
+import ach_completeGameRogue_10 from '../achievements/completeGameRogue';
 import ach_completeGameShadowblade_11 from '../achievements/completeGameShadowblade';
-import ach_completeGameThief_12 from '../achievements/completeGameThief';
+import ach_completeGameWarrior_12 from '../achievements/completeGameWarrior';
 import ach_defeatBoss_13 from '../achievements/defeatBoss';
 import ach_defeatFullHealthBoss_14 from '../achievements/defeatFullHealthBoss';
 import ach_defeatGhost_15 from '../achievements/defeatGhost';
@@ -51,7 +51,7 @@ export type { AchievementId } from './achievementIds';
 
 export type Achievement = WithGeneratedId<AchievementDefinition, AchievementId>;
 
-const rawAchievements = [ach_acquireLegendaryItem_0, ach_completeEndlessCycle_1, ach_completeGame_2, ach_completeGameAllOriginalClasses_3, ach_completeGameArtificer_4, ach_completeGameBattlemage_5, ach_completeGameByDayFive_6, ach_completeGameFighter_7, ach_completeGameMage_8, ach_completeGamePaladin_9, ach_completeGamePriest_10, ach_completeGameShadowblade_11, ach_completeGameThief_12, ach_defeatBoss_13, ach_defeatFullHealthBoss_14, ach_defeatGhost_15, ach_dieToOwnGhost_16, ach_ghostEndOtherRun_17, ach_holdTenThousandGold_18, ach_lifetimeBossesTwentyFive_19, ach_lifetimeGameWinsTen_20, ach_lifetimeGhostsTen_21, ach_lifetimeGoldOneHundredThousand_22, ach_lifetimeKillsOneHundred_24, ach_lifetimeKillsOneThousand_25, ach_lifetimeKillsFiveHundred_23, ach_lifetimeLegendaryItemsTen_26, ach_lifetimePotionsOneHundred_27, ach_maxCharisma_28, ach_maxConstitution_29, ach_maxDexterity_30, ach_maxIntelligence_31, ach_maxStrength_32, ach_maxWisdom_33, ach_reachMaximumHp_36, ach_reachArmourClass_34, ach_reachLevelTen_35, ach_reachStreakTen_38, ach_reachStreakTwentyFive_39, ach_reachStreakFifty_37] satisfies readonly AchievementDefinition[];
+const rawAchievements = [ach_acquireLegendaryItem_0, ach_completeEndlessCycle_1, ach_completeGame_2, ach_completeGameAllOriginalClasses_3, ach_completeGameArtificer_4, ach_completeGameBattlemage_5, ach_completeGameByDayFive_6, ach_completeGameMage_7, ach_completeGamePaladin_8, ach_completeGamePriest_9, ach_completeGameRogue_10, ach_completeGameShadowblade_11, ach_completeGameWarrior_12, ach_defeatBoss_13, ach_defeatFullHealthBoss_14, ach_defeatGhost_15, ach_dieToOwnGhost_16, ach_ghostEndOtherRun_17, ach_holdTenThousandGold_18, ach_lifetimeBossesTwentyFive_19, ach_lifetimeGameWinsTen_20, ach_lifetimeGhostsTen_21, ach_lifetimeGoldOneHundredThousand_22, ach_lifetimeKillsOneHundred_24, ach_lifetimeKillsOneThousand_25, ach_lifetimeKillsFiveHundred_23, ach_lifetimeLegendaryItemsTen_26, ach_lifetimePotionsOneHundred_27, ach_maxCharisma_28, ach_maxConstitution_29, ach_maxDexterity_30, ach_maxIntelligence_31, ach_maxStrength_32, ach_maxWisdom_33, ach_reachMaximumHp_36, ach_reachArmourClass_34, ach_reachLevelTen_35, ach_reachStreakTen_38, ach_reachStreakTwentyFive_39, ach_reachStreakFifty_37] satisfies readonly AchievementDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const achievements = rawAchievements as readonly Achievement[];
@@ -64,12 +64,12 @@ const rawAchievementsById = {
   "complete_game_artificer": ach_completeGameArtificer_4,
   "complete_game_battlemage": ach_completeGameBattlemage_5,
   "complete_game_by_day_5": ach_completeGameByDayFive_6,
-  "complete_game_fighter": ach_completeGameFighter_7,
-  "complete_game_mage": ach_completeGameMage_8,
-  "complete_game_paladin": ach_completeGamePaladin_9,
-  "complete_game_priest": ach_completeGamePriest_10,
+  "complete_game_mage": ach_completeGameMage_7,
+  "complete_game_paladin": ach_completeGamePaladin_8,
+  "complete_game_priest": ach_completeGamePriest_9,
+  "complete_game_rogue": ach_completeGameRogue_10,
   "complete_game_shadowblade": ach_completeGameShadowblade_11,
-  "complete_game_thief": ach_completeGameThief_12,
+  "complete_game_warrior": ach_completeGameWarrior_12,
   "defeat_boss": ach_defeatBoss_13,
   "defeat_full_health_boss": ach_defeatFullHealthBoss_14,
   "defeat_ghost": ach_defeatGhost_15,

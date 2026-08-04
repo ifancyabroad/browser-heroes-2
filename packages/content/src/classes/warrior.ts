@@ -1,13 +1,13 @@
 import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
-	id: "fighter",
+	id: "warrior",
 	order: 1,
-	name: "Fighter",
+	name: "Warrior",
 	description: "Proud and honorable, specialising in brute strength. ",
-	portrait: "classes/portraits/fighter.png",
-	enemyPortrait: "classes/enemy_portraits/fighter.png",
-	icon: "classes/icons/fighter.png",
+	portrait: "classes/portraits/warrior.png",
+	enemyPortrait: "classes/enemy_portraits/warrior.png",
+	icon: "classes/icons/warrior.png",
 	attributes: {
 		charisma: 12,
 		constitution: 16,
@@ -27,7 +27,7 @@ export default buildClass({
 		weaponTypes: ["sword", "axe", "club", "hammer", "mace", "spear"],
 		savingThrows: ["strength", "constitution"],
 	},
-	skillPoolIds: ["warrior", "barbarian"],
+	skillPoolIds: ["fighter", "barbarian"],
 	startingEquipment: {
 		body: "base_hide_armour",
 		mainHand: "base_longsword",

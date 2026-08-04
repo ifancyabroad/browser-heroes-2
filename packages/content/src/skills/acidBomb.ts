@@ -5,8 +5,8 @@ export default buildSkill({
 	name: "Acid Bomb",
 	description:
 		"Throw a volatile bomb that scorches the enemy with fire and acid while corroding their armour.",
-	icon: "skills/rogue/acid_bomb.png",
-	pool: "rogue",
+	icon: "skills/thief/acid_bomb.png",
+	pool: "thief",
 	kind: "technique",
 	category: "damage",
 	rarity: "rare",

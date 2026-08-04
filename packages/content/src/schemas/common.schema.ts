@@ -128,12 +128,12 @@ export const skillPools = [
 	"barbarian",
 	"cleric",
 	"common",
-	"mage",
+	"fighter",
 	"occultist",
-	"rogue",
+	"thief",
 	"unique",
 	"warlock",
-	"warrior",
+	"wizard",
 ] as const;
 
 export const skillPoolSchema = z.enum(skillPools);

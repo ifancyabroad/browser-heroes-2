@@ -5,8 +5,8 @@ export default buildSkill({
 	name: "Evasion",
 	description:
 		"Adopt an evasive stance that makes you exceptionally difficult to hit and sharpens your reflexes.",
-	icon: "skills/rogue/evasion.png",
-	pool: "rogue",
+	icon: "skills/thief/evasion.png",
+	pool: "thief",
 	kind: "technique",
 	category: "defensive",
 	rarity: "rare",

@@ -27,7 +27,7 @@ export default buildClass({
 		weaponTypes: ["crossbow", "dagger", "staff", "wand"],
 		savingThrows: ["dexterity", "intelligence"],
 	},
-	skillPoolIds: ["mage", "rogue"],
+	skillPoolIds: ["wizard", "thief"],
 	startingEquipment: {
 		body: "base_padded_armour",
 		mainHand: "base_crossbow",

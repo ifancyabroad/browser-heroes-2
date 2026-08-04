@@ -18,7 +18,7 @@ import { VictoryScreen } from "./VictoryScreen";
 const run = { state: {} } as RunView;
 const summary = {
 	status: "dead",
-	hero: { name: "Test Hero", classId: "fighter", level: 7 },
+	hero: { name: "Test Hero", classId: "warrior", level: 7 },
 	finalEnemy: { name: "Dragon" },
 	battleNumber: 20,
 	gold: 100,

@@ -18,7 +18,7 @@ describe("projection.service", () => {
 
 		expect(toRunSummary(state)).toEqual({
 			heroName: "Test Hero",
-			classId: "fighter",
+			classId: "warrior",
 			level: 1,
 			battleNumber: 1,
 			zoneNumber: 1,

@@ -18,7 +18,7 @@ import { DeathScreen } from "./DeathScreen";
 const run = { state: {} } as RunView;
 const summary = {
 	status: "dead",
-	hero: { name: "Test Hero", classId: "fighter", level: 7 },
+	hero: { name: "Test Hero", classId: "warrior", level: 7 },
 	finalEnemy: { name: "Dragon" },
 	battleNumber: 20,
 	gold: 100,
@@ -64,7 +64,7 @@ describe("DeathScreen", () => {
 				"The dungeon falls quiet. Test Hero's wounds are too deep, and their story ends in the dark.",
 			),
 		).toBeInTheDocument();
-		expect(screen.getByText(/Test Hero the Fighter/)).toBeInTheDocument();
+		expect(screen.getByText(/Test Hero the Warrior/)).toBeInTheDocument();
 		expect(screen.getByText("Dragon")).toBeInTheDocument();
 		expect(screen.getByText("20")).toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "Final moments" })).toHaveTextContent(

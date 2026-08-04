@@ -1,13 +1,13 @@
 import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
-	id: "thief",
+	id: "rogue",
 	order: 4,
-	name: "Thief",
+	name: "Rogue",
 	description: "Unscrupulous and underhanded, strikes from the shadows.",
-	portrait: "classes/portraits/thief.png",
-	enemyPortrait: "classes/enemy_portraits/thief.png",
-	icon: "classes/icons/thief.png",
+	portrait: "classes/portraits/rogue.png",
+	enemyPortrait: "classes/enemy_portraits/rogue.png",
+	icon: "classes/icons/rogue.png",
 	attributes: {
 		charisma: 14,
 		constitution: 14,
@@ -27,7 +27,7 @@ export default buildClass({
 		weaponTypes: ["dagger", "crossbow", "bow"],
 		savingThrows: ["dexterity", "charisma"],
 	},
-	skillPoolIds: ["rogue", "assassin"],
+	skillPoolIds: ["thief", "assassin"],
 	startingEquipment: {
 		body: "base_padded_armour",
 		mainHand: "base_dagger",

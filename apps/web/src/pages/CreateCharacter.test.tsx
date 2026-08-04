@@ -77,8 +77,8 @@ describe("CreateCharacter", () => {
 	it("opens and closes the hero-name modal for a selected class", () => {
 		renderPage();
 
-		fireEvent.click(screen.getByRole("button", { name: "Fighter" }));
-		expect(screen.getByRole("dialog")).toHaveTextContent("Fighter hero name");
+		fireEvent.click(screen.getByRole("button", { name: "Warrior" }));
+		expect(screen.getByRole("dialog")).toHaveTextContent("Warrior hero name");
 
 		fireEvent.click(screen.getByRole("button", { name: "Close" }));
 		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -94,13 +94,13 @@ describe("CreateCharacter", () => {
 		});
 		renderPage();
 
-		fireEvent.click(screen.getByRole("button", { name: "Fighter" }));
+		fireEvent.click(screen.getByRole("button", { name: "Warrior" }));
 		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
 
 		await waitFor(() => expect(screen.getByText("Game destination")).toBeInTheDocument());
 		expect(order).toEqual(["session", "run"]);
 		expect(createRun.mutateAsync).toHaveBeenCalledWith({
-			classId: "fighter",
+			classId: "warrior",
 			heroName: "Test Hero",
 		});
 	});
@@ -109,7 +109,7 @@ describe("CreateCharacter", () => {
 		auth.useAuth.mockReturnValue({ hasSession: true });
 		renderPage();
 
-		fireEvent.click(screen.getByRole("button", { name: "Fighter" }));
+		fireEvent.click(screen.getByRole("button", { name: "Warrior" }));
 		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
 
 		await waitFor(() => expect(createRun.mutateAsync).toHaveBeenCalledOnce());
@@ -123,7 +123,7 @@ describe("CreateCharacter", () => {
 		mutation.mockRejectedValueOnce(new Error("failed"));
 		renderPage();
 
-		fireEvent.click(screen.getByRole("button", { name: "Fighter" }));
+		fireEvent.click(screen.getByRole("button", { name: "Warrior" }));
 		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
 
 		await waitFor(() =>
@@ -139,7 +139,7 @@ describe("CreateCharacter", () => {
 		});
 		renderPage();
 
-		fireEvent.click(screen.getByRole("button", { name: "Fighter" }));
+		fireEvent.click(screen.getByRole("button", { name: "Warrior" }));
 
 		expect(screen.getByText("Submitting")).toBeInTheDocument();
 	});

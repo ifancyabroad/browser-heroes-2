@@ -45,12 +45,12 @@ describe("lifetimeProgress.service", () => {
 			{ type: "HEALING_POTION_USED", amount: 10, remainingPotions: 1 },
 		];
 
-		expect(deriveLifetimeStatsDelta(events, "fighter")).toEqual({
+		expect(deriveLifetimeStatsDelta(events, "warrior")).toEqual({
 			kills: 1,
 			goldEarned: 75,
 			bossesDefeated: 1,
 			gamesCompleted: 1,
-			completedGameClassId: "fighter",
+			completedGameClassId: "warrior",
 			healingPotionsUsed: 1,
 		});
 	});
@@ -86,7 +86,7 @@ describe("lifetimeProgress.service", () => {
 			},
 		];
 
-		expect(deriveLifetimeStatsDelta(events, "fighter")).toMatchObject({
+		expect(deriveLifetimeStatsDelta(events, "warrior")).toMatchObject({
 			kills: 1,
 			ghostsDefeated: 1,
 			legendaryItemsAcquired: 2,
@@ -107,14 +107,14 @@ describe("lifetimeProgress.service", () => {
 		const firstSeven = [
 			"artificer",
 			"battlemage",
-			"fighter",
+			"warrior",
 			"mage",
 			"paladin",
 			"priest",
 			"shadowblade",
 		] as const;
 		const previous = { ...EMPTY_STATS, completedGameClassIds: [...firstSeven] };
-		const current = { ...previous, completedGameClassIds: [...firstSeven, "thief" as const] };
+		const current = { ...previous, completedGameClassIds: [...firstSeven, "rogue" as const] };
 
 		expect(evaluateLifetimeAchievementProgress({ previous, current })).toContain(
 			"complete_game_all_original_classes",
@@ -147,7 +147,7 @@ describe("lifetimeProgress.service", () => {
 
 		const transition = await recordLifetimeProgress({
 			userId: "user",
-			classId: "fighter",
+			classId: "warrior",
 			events: [
 				{
 					type: "COMBAT_ENDED",

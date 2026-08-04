@@ -4,7 +4,7 @@ const TEST_RUN_INPUT = {
 	runId: "test-run",
 	seed: "test-seed",
 	heroName: "Test Hero",
-	classId: "fighter",
+	classId: "warrior",
 } as const;
 
 export function createTestRunState(): RunState {

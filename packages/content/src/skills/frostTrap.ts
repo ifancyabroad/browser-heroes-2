@@ -5,8 +5,8 @@ export default buildSkill({
 	name: "Frost Trap",
 	description:
 		"Spring a freezing trap whose spikes pierce the enemy as its cold hampers their attacks.",
-	icon: "skills/rogue/frost_trap.png",
-	pool: "rogue",
+	icon: "skills/thief/frost_trap.png",
+	pool: "thief",
 	kind: "technique",
 	category: "damage",
 	rarity: "uncommon",

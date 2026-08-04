@@ -27,7 +27,7 @@ export default buildClass({
 		weaponTypes: ["sword", "axe", "club", "mace", "hammer", "spear"],
 		savingThrows: ["wisdom", "charisma"],
 	},
-	skillPoolIds: ["warrior", "cleric"],
+	skillPoolIds: ["fighter", "cleric"],
 	startingEquipment: {
 		body: "base_breastplate",
 		mainHand: "base_hammer",

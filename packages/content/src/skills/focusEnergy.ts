@@ -5,8 +5,8 @@ export default buildSkill({
 	name: "Focus Energy",
 	description:
 		"Channel your concentration to sharpen accuracy and deliver deadlier critical hits.",
-	icon: "skills/warrior/focus_energy.png",
-	pool: "warrior",
+	icon: "skills/fighter/focus_energy.png",
+	pool: "fighter",
 	kind: "technique",
 	category: "buff",
 	rarity: "uncommon",

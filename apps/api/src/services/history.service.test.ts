@@ -65,7 +65,7 @@ describe("history.service", () => {
 			query: {
 				page: 1,
 				limit: 20,
-				classId: "fighter",
+				classId: "warrior",
 				search: "Hero.*(one)",
 				sort: "heroName",
 				direction: "asc",
@@ -74,7 +74,7 @@ describe("history.service", () => {
 
 		expect(models.run.find).toHaveBeenCalledWith(
 			expect.objectContaining({
-				"summary.classId": "fighter",
+				"summary.classId": "warrior",
 				"summary.heroName": {
 					$regex: "Hero\\.\\*\\(one\\)",
 					$options: "i",
@@ -105,7 +105,7 @@ describe("history.service", () => {
 				status: "retired",
 				summary: {
 					heroName: "Hero",
-					classId: "fighter",
+					classId: "warrior",
 					level: 8,
 					battleNumber: 30,
 					zoneNumber: 4,
@@ -129,7 +129,7 @@ describe("history.service", () => {
 				{
 					runId: "run-id",
 					heroName: "Hero",
-					classId: "fighter",
+					classId: "warrior",
 					level: 8,
 					battleNumber: 30,
 					zoneNumber: 4,

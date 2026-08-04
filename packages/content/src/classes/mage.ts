@@ -27,7 +27,7 @@ export default buildClass({
 		weaponTypes: ["staff", "wand"],
 		savingThrows: ["intelligence", "wisdom"],
 	},
-	skillPoolIds: ["mage", "warlock"],
+	skillPoolIds: ["wizard", "warlock"],
 	startingEquipment: {
 		body: "base_robe",
 		mainHand: "base_staff",
