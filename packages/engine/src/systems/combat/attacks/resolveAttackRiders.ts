@@ -6,7 +6,7 @@ import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
 import { resolveHealEffect } from "../skills/effects/resolveHealEffect";
 import type { FeatId, RiderEffect, SavingThrow, SkillId } from "@app/content";
 import { getCombatant, getOpponent } from "../combatants/combatantSelectors";
-import { resolveSavingThrow } from "../checks/resolveSavingThrow";
+import { resolveCombatSavingThrow } from "../checks/resolveCombatSavingThrow";
 import { applyRecurringEffect } from "../skills/effects/applyRecurringEffect";
 import { applyStatusEffect } from "../skills/effects/applyStatusEffect";
 import { applyTemporaryModifierEffect } from "../skills/effects/applyTemporaryModifierEffect";
@@ -56,14 +56,16 @@ export function resolveAttackRiders(input: ResolveAttackRidersInput): RngResult<
 
 		const target = getOpponent(combat, input.actorSide);
 
-		const savingThrow = resolveSavingThrow({
+		const savingThrow = resolveCombatSavingThrow({
+			combat,
 			rngState,
-			attacker: actor,
-			defender: target,
+			attackerSide: actor.side,
+			defenderSide: target.side,
 			save: input.save,
 		});
 
 		rngState = savingThrow.rngState;
+		combat = savingThrow.value.combat;
 
 		if (savingThrow.value.success) {
 			return {

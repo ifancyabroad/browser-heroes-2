@@ -7,8 +7,9 @@ import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/co
 import { applyDamage } from "../../damage/applyDamage";
 import { calculateDamage } from "../../damage/calculateDamage";
 import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
-import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
+import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 import type { ActionResolution } from "../../logs/actionOutcome";
+import { consumeCombatantRollModifierCharges } from "../../effects/consumeRollModifierCharges";
 
 type ResolveDamageEffectInput = {
 	combat: CombatState;
@@ -18,6 +19,7 @@ type ResolveDamageEffectInput = {
 };
 
 export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<ActionResolution> {
+	let combat = input.combat;
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
@@ -38,12 +40,23 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 
 		rngState = attackRoll.rngState;
 		critical = attackRoll.value.critical;
+		combat = consumeCombatantRollModifierCharges(
+			combat,
+			actor.side,
+			attackRoll.value.consumedEffectIds,
+		);
 
 		if (!attackRoll.value.hit) {
 			return {
 				value: {
-					combat: input.combat,
-					outcomes: [{ type: "miss", targetName: target.name }],
+					combat,
+					outcomes: [
+						{
+							type: "miss",
+							targetName: target.name,
+							automatic: attackRoll.value.automaticOutcome === "miss",
+						},
+					],
 				},
 				rngState,
 			};
@@ -51,20 +64,22 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 	}
 
 	if (input.effect.save) {
-		const savingThrow = resolveSavingThrow({
+		const savingThrow = resolveCombatSavingThrow({
+			combat,
 			rngState,
-			attacker: actor,
-			defender: target,
+			attackerSide: actor.side,
+			defenderSide: target.side,
 			save: input.effect.save,
 		});
 
 		rngState = savingThrow.rngState;
 		successfulSave = savingThrow.value.success;
+		combat = savingThrow.value.combat;
 
 		if (successfulSave && input.effect.save.onSuccess === "noEffect") {
 			return {
 				value: {
-					combat: input.combat,
+					combat,
 					outcomes: [
 						{
 							type: "resisted",
@@ -78,10 +93,12 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 		}
 	}
 
+	const resolvedActor = getCombatant(combat, actor.side);
+	const resolvedTarget = getCombatant(combat, target.side);
 	const damage = calculateDamage({
 		rngState,
-		attacker: actor,
-		defender: target,
+		attacker: resolvedActor,
+		defender: resolvedTarget,
 		dice: input.effect.dice,
 		damageType: input.effect.damageType,
 		attribute: input.effect.attribute,
@@ -96,11 +113,11 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 				}
 			: damage.value;
 
-	const appliedDamage = applyDamage(target, resolvedDamage);
+	const appliedDamage = applyDamage(resolvedTarget, resolvedDamage);
 
 	const updatedTarget = appliedDamage.combatant;
 
-	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
+	const updatedCombat = replaceCombatant(combat, updatedTarget);
 
 	return {
 		value: {

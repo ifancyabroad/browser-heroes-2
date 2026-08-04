@@ -22,6 +22,55 @@ describe("applyTemporaryModifierEffect", () => {
 		).toBe(false);
 	});
 
+	it("requires charges and a compatible roll type for automatic outcomes", () => {
+		expect(
+			modifyRollEffectSchema.safeParse({
+				type: "modifyRoll",
+				target: "enemy",
+				roll: "attack",
+				mode: "automaticFailure",
+				durationTurns: 3,
+			}).success,
+		).toBe(false);
+
+		expect(
+			modifyRollEffectSchema.safeParse({
+				type: "modifyRoll",
+				target: "enemy",
+				roll: "savingThrow",
+				mode: "automaticCritical",
+				charges: 1,
+				durationTurns: 3,
+			}).success,
+		).toBe(false);
+	});
+
+	it("stores roll modifier charges on the active effect", () => {
+		const combat = structuredClone(createTestRunState().combat!);
+		const result = applyTemporaryModifierEffect({
+			combat,
+			actorSide: "player",
+			effect: {
+				type: "modifyRoll",
+				target: "self",
+				roll: "attack",
+				mode: "automaticCritical",
+				charges: 1,
+				durationTurns: 3,
+			},
+			source,
+			rngState: { value: 0 },
+		});
+
+		expect(result.value.combat.player.activeEffects).toContainEqual(
+			expect.objectContaining({
+				type: "modifyRoll",
+				mode: "automaticCritical",
+				remainingCharges: 1,
+			}),
+		);
+	});
+
 	it("does not apply a hostile modifier when its saving throw succeeds", () => {
 		const combat = structuredClone(createTestRunState().combat!);
 		combat.enemy.attributes.wisdom = 30;

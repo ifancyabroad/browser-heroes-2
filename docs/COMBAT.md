@@ -166,6 +166,8 @@ Current statuses are `stunned` and `silenced`. Stun prevents the affected combat
 
 Temporary roll modifiers can grant advantage or disadvantage on the affected combatant's own attack rolls or saving throws. Saving-throw modifiers may be limited to one attribute. Advantage rolls two D20s and uses the higher result, disadvantage uses the lower result, and having both resolves as a normal single roll regardless of how many sources provide either mode.
 
+Roll modifiers may have a limited number of charges as well as a duration. A matching attack roll or saving throw consumes one charge, and the modifier expires when its final charge is consumed or its duration ends. Charged modifiers can also force an attack to hit, miss, or critically hit, or force a saving throw to succeed or fail. Conflicting forced success and failure outcomes cancel, while a forced critical hit includes a successful hit. Automatic outcomes must be charge-limited.
+
 ## 11. Death and Combat End
 
 When a combatant reaches 0 HP, combat status is checked immediately.

@@ -11,6 +11,7 @@ import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/co
 import { resolveAttackRiders } from "../../attacks/resolveAttackRiders";
 import type { ActionResolution } from "../../logs/actionOutcome";
 import { collectFeatAttackRiders } from "../../attacks/collectFeatAttackRiders";
+import { consumeCombatantRollModifierCharges } from "../../effects/consumeRollModifierCharges";
 
 type ResolveAttackDamageEffectInput = {
 	combat: CombatState;
@@ -40,10 +41,24 @@ export function resolveAttackDamageEffect(
 		proficient: actor.basicAttack.proficient,
 		rollMode: input.effect.rollMode,
 	});
+	const combatAfterRoll = consumeCombatantRollModifierCharges(
+		input.combat,
+		input.actorSide,
+		attackRoll.value.consumedEffectIds,
+	);
 
 	if (!attackRoll.value.hit) {
 		return {
-			value: { combat: input.combat, outcomes: [{ type: "miss", targetName: target.name }] },
+			value: {
+				combat: combatAfterRoll,
+				outcomes: [
+					{
+						type: "miss",
+						targetName: target.name,
+						automatic: attackRoll.value.automaticOutcome === "miss",
+					},
+				],
+			},
 			rngState: attackRoll.rngState,
 		};
 	}
@@ -106,7 +121,7 @@ export function resolveAttackDamageEffect(
 		});
 	}
 
-	let resolvedCombat = replaceCombatant(input.combat, updatedTarget);
+	let resolvedCombat = replaceCombatant(combatAfterRoll, updatedTarget);
 
 	for (let riderIndex = 0; riderIndex < input.effect.attackRiders.length; riderIndex += 1) {
 		const rider = input.effect.attackRiders[riderIndex];

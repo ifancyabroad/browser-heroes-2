@@ -21,7 +21,7 @@ import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/co
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
 import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
-import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
+import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 
 type TemporaryModifierEffect =
 	| ModifyStatEffect
@@ -42,6 +42,7 @@ type ApplyTemporaryModifierEffectInput = {
 export function applyTemporaryModifierEffect(
 	input: ApplyTemporaryModifierEffectInput,
 ): RngResult<ActionResolution> {
+	let combat = input.combat;
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
@@ -49,19 +50,21 @@ export function applyTemporaryModifierEffect(
 	let rngState = input.rngState;
 
 	if (input.effect.save) {
-		const savingThrow = resolveSavingThrow({
+		const savingThrow = resolveCombatSavingThrow({
+			combat,
 			rngState,
-			attacker: actor,
-			defender: target,
+			attackerSide: actor.side,
+			defenderSide: target.side,
 			save: input.effect.save,
 		});
 
 		rngState = savingThrow.rngState;
+		combat = savingThrow.value.combat;
 
 		if (savingThrow.value.success) {
 			return {
 				value: {
-					combat: input.combat,
+					combat,
 					outcomes: [
 						{
 							type: "resisted",
@@ -76,18 +79,19 @@ export function applyTemporaryModifierEffect(
 	}
 
 	const activeEffect = createActiveCombatEffect({
-		combat: input.combat,
+		combat,
 		actorId: actor.id,
 		effect: input.effect,
 		source: input.source,
 	});
 
-	const refreshed = target.activeEffects.some((effect) =>
+	const resolvedTarget = getCombatant(combat, target.side);
+	const refreshed = resolvedTarget.activeEffects.some((effect) =>
 		isSameActiveEffectSource(effect, activeEffect),
 	);
-	const updatedTarget = upsertActiveCombatEffect(target, activeEffect);
+	const updatedTarget = upsertActiveCombatEffect(resolvedTarget, activeEffect);
 
-	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
+	const updatedCombat = replaceCombatant(combat, updatedTarget);
 
 	return {
 		value: {
@@ -168,6 +172,7 @@ function createActiveCombatEffect(input: {
 				roll: input.effect.roll,
 				mode: input.effect.mode,
 				attribute: input.effect.attribute,
+				remainingCharges: input.effect.charges,
 			};
 	}
 }

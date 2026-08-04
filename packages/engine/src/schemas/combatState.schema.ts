@@ -14,7 +14,8 @@ import {
 	diceFormulaSchema,
 	tacticSchema,
 	damageModifierOperationSchema,
-	rollModeSchema,
+	automaticRollOutcomeSchema,
+	rollModifierModeSchema,
 	rollTypeSchema,
 } from "@app/content";
 import { combatLogEntrySchema } from "./log.schema";
@@ -82,12 +83,33 @@ export const activeDamageAffinityModifierSchema = activeCombatEffectBaseSchema.e
 	damageType: damageTypeSchema,
 });
 
-export const activeRollModifierSchema = activeCombatEffectBaseSchema.extend({
-	type: z.literal("modifyRoll"),
-	roll: rollTypeSchema,
-	mode: rollModeSchema,
-	attribute: attributeSchema.optional(),
-});
+export const activeRollModifierSchema = activeCombatEffectBaseSchema
+	.extend({
+		type: z.literal("modifyRoll"),
+		roll: rollTypeSchema,
+		mode: rollModifierModeSchema,
+		attribute: attributeSchema.optional(),
+		remainingCharges: z.number().int().positive().optional(),
+	})
+	.superRefine((effect, ctx) => {
+		const automatic = automaticRollOutcomeSchema.safeParse(effect.mode).success;
+
+		if (automatic && effect.remainingCharges === undefined) {
+			ctx.addIssue({
+				code: "custom",
+				message: "Automatic roll outcomes require remaining charges",
+				path: ["remainingCharges"],
+			});
+		}
+
+		if (effect.roll === "savingThrow" && effect.mode === "automaticCritical") {
+			ctx.addIssue({
+				code: "custom",
+				message: "Automatic criticals can only modify attack rolls",
+				path: ["mode"],
+			});
+		}
+	});
 
 export const activeStatusEffectSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("status"),

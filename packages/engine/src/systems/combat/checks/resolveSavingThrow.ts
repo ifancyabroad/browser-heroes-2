@@ -1,4 +1,4 @@
-import type { SavingThrow } from "@app/content";
+import type { RollModifierMode, SavingThrow } from "@app/content";
 
 import type { CombatantState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
@@ -6,7 +6,11 @@ import type { RngResult, RngState } from "../../../core/rng";
 import { rollD20WithMode, type D20Roll, type D20RollMode } from "../../../core/dice";
 import { getAttributeModifier } from "./getAttributeModifier";
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
-import { getEffectiveRollMode } from "../effects/getEffectiveRollMode";
+import {
+	getChargedRollModifierIds,
+	getMatchingRollModifiers,
+	getRollModeFromModifiers,
+} from "../effects/getEffectiveRollMode";
 import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type SavingThrowResult = {
@@ -19,6 +23,8 @@ export type SavingThrowResult = {
 	total: number;
 	dc: number;
 	success: boolean;
+	automaticOutcome: "success" | "failure" | null;
+	consumedEffectIds: string[];
 };
 
 type ResolveSavingThrowInput = {
@@ -29,7 +35,12 @@ type ResolveSavingThrowInput = {
 };
 
 export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<SavingThrowResult> {
-	const rollMode = getEffectiveRollMode(input.defender, "savingThrow", input.save.attribute);
+	const activeModifiers = getMatchingRollModifiers(
+		input.defender,
+		"savingThrow",
+		input.save.attribute,
+	);
+	const rollMode = getRollModeFromModifiers(activeModifiers);
 	const rollResult = rollD20WithMode(input.rngState, rollMode);
 	const roll = rollResult.value.roll;
 
@@ -52,6 +63,11 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 		getEffectiveCombatStatValue(input.attacker, "saveDcBonus") +
 		input.save.dc.bonus;
 
+	const automaticOutcome = getAutomaticSavingThrowOutcome(
+		activeModifiers.map(({ mode }) => mode),
+	);
+	const success = applyAutomaticSavingThrowOutcome(total >= dc, automaticOutcome);
+
 	return {
 		value: {
 			roll,
@@ -62,8 +78,35 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 			savingThrowBonus,
 			total,
 			dc,
-			success: total >= dc,
+			success,
+			automaticOutcome,
+			consumedEffectIds: getChargedRollModifierIds(activeModifiers),
 		},
 		rngState: rollResult.rngState,
 	};
+}
+
+function applyAutomaticSavingThrowOutcome(
+	rolledSuccess: boolean,
+	automaticOutcome: SavingThrowResult["automaticOutcome"],
+): boolean {
+	switch (automaticOutcome) {
+		case "success":
+			return true;
+		case "failure":
+			return false;
+		default:
+			return rolledSuccess;
+	}
+}
+
+function getAutomaticSavingThrowOutcome(modes: RollModifierMode[]): "success" | "failure" | null {
+	const automaticSuccess = modes.includes("automaticSuccess");
+	const automaticFailure = modes.includes("automaticFailure");
+
+	if (automaticSuccess === automaticFailure) {
+		return null;
+	}
+
+	return automaticSuccess ? "success" : "failure";
 }

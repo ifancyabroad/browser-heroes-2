@@ -26,7 +26,7 @@ export type ActionOutcome =
 			critical: boolean;
 			halfDamageSave: boolean;
 	  }
-	| { type: "miss"; targetName: string }
+	| { type: "miss"; targetName: string; automatic?: boolean }
 	| { type: "resisted"; targetName: string; subject: string }
 	| { type: "healing"; targetName: string; amount: number }
 	| {

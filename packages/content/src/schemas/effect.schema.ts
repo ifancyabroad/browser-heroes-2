@@ -131,15 +131,44 @@ export const rollTypeSchema = z.enum(["attack", "savingThrow"]);
 
 export const rollModeSchema = z.enum(["advantage", "disadvantage"]);
 
-export const modifyRollEffectSchema = z.object({
-	type: z.literal("modifyRoll"),
-	target: skillTargetSchema,
-	roll: rollTypeSchema,
-	mode: rollModeSchema,
-	attribute: attributeSchema.optional(),
-	durationTurns: z.number().int().positive(),
-	save: negatingSavingThrowSchema.optional(),
-});
+export const automaticRollOutcomeSchema = z.enum([
+	"automaticSuccess",
+	"automaticFailure",
+	"automaticCritical",
+]);
+
+export const rollModifierModeSchema = z.union([rollModeSchema, automaticRollOutcomeSchema]);
+
+export const modifyRollEffectSchema = z
+	.object({
+		type: z.literal("modifyRoll"),
+		target: skillTargetSchema,
+		roll: rollTypeSchema,
+		mode: rollModifierModeSchema,
+		attribute: attributeSchema.optional(),
+		charges: z.number().int().positive().optional(),
+		durationTurns: z.number().int().positive(),
+		save: negatingSavingThrowSchema.optional(),
+	})
+	.superRefine((effect, ctx) => {
+		const automatic = automaticRollOutcomeSchema.safeParse(effect.mode).success;
+
+		if (automatic && effect.charges === undefined) {
+			ctx.addIssue({
+				code: "custom",
+				message: "Automatic roll outcomes require charges",
+				path: ["charges"],
+			});
+		}
+
+		if (effect.roll === "savingThrow" && effect.mode === "automaticCritical") {
+			ctx.addIssue({
+				code: "custom",
+				message: "Automatic criticals can only modify attack rolls",
+				path: ["mode"],
+			});
+		}
+	});
 
 export const damageOverTimeEffectSchema = z.object({
 	type: z.literal("damageOverTime"),
@@ -226,6 +255,8 @@ export type SaveOutcome = z.infer<typeof saveOutcomeSchema>;
 export type SavingThrow = z.infer<typeof savingThrowSchema>;
 export type RollType = z.infer<typeof rollTypeSchema>;
 export type RollMode = z.infer<typeof rollModeSchema>;
+export type AutomaticRollOutcome = z.infer<typeof automaticRollOutcomeSchema>;
+export type RollModifierMode = z.infer<typeof rollModifierModeSchema>;
 
 export type RiderEffect = z.infer<typeof riderEffectSchema>;
 export type AttackRiderTiming = z.infer<typeof attackRiderTimingSchema>;

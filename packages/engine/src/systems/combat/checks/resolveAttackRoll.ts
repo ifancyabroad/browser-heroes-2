@@ -1,4 +1,4 @@
-import type { Attribute, RollMode } from "@app/content";
+import type { Attribute, RollMode, RollModifierMode } from "@app/content";
 
 import type { CombatantState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
@@ -13,7 +13,11 @@ import {
 import { getAttributeModifier } from "./getAttributeModifier";
 
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
-import { getEffectiveRollMode } from "../effects/getEffectiveRollMode";
+import {
+	getChargedRollModifierIds,
+	getMatchingRollModifiers,
+	getRollModeFromModifiers,
+} from "../effects/getEffectiveRollMode";
 import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type AttackRollResult = {
@@ -28,6 +32,8 @@ export type AttackRollResult = {
 	targetArmourClass: number;
 	hit: boolean;
 	critical: boolean;
+	automaticOutcome: "hit" | "miss" | "critical" | null;
+	consumedEffectIds: string[];
 };
 
 type ResolveAttackRollInput = {
@@ -40,8 +46,9 @@ type ResolveAttackRollInput = {
 };
 
 export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<AttackRollResult> {
+	const activeModifiers = getMatchingRollModifiers(input.attacker, "attack");
 	const rollMode = combineD20RollModes([
-		getEffectiveRollMode(input.attacker, "attack"),
+		getRollModeFromModifiers(activeModifiers),
 		input.rollMode ?? "normal",
 	]);
 	const rollResult = rollD20WithMode(input.rngState, rollMode);
@@ -61,9 +68,9 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 
 	const criticalRangeBonus = getEffectiveCombatStatValue(input.attacker, "criticalRangeBonus");
 	const criticalThreshold = 20 - criticalRangeBonus;
-	const critical = roll.isNaturalTwenty || (!roll.isNaturalOne && roll.roll >= criticalThreshold);
-
-	const hit = critical || (!roll.isNaturalOne && total >= targetArmourClass);
+	const rolledOutcome = getRolledAttackOutcome(roll, total, targetArmourClass, criticalThreshold);
+	const automaticOutcome = getAutomaticAttackOutcome(activeModifiers.map(({ mode }) => mode));
+	const finalOutcome = applyAutomaticAttackOutcome(rolledOutcome, automaticOutcome);
 
 	return {
 		value: {
@@ -76,9 +83,62 @@ export function resolveAttackRoll(input: ResolveAttackRollInput): RngResult<Atta
 			attackRollBonus,
 			total,
 			targetArmourClass,
-			hit,
-			critical,
+			...finalOutcome,
+			automaticOutcome,
+			consumedEffectIds: getChargedRollModifierIds(activeModifiers),
 		},
 		rngState: rollResult.rngState,
 	};
+}
+
+type AttackOutcome = { hit: boolean; critical: boolean };
+
+function getRolledAttackOutcome(
+	roll: D20Roll,
+	total: number,
+	targetArmourClass: number,
+	criticalThreshold: number,
+): AttackOutcome {
+	const critical = roll.isNaturalTwenty || (!roll.isNaturalOne && roll.roll >= criticalThreshold);
+
+	return {
+		hit: critical || (!roll.isNaturalOne && total >= targetArmourClass),
+		critical,
+	};
+}
+
+function applyAutomaticAttackOutcome(
+	rolledOutcome: AttackOutcome,
+	automaticOutcome: AttackRollResult["automaticOutcome"],
+): AttackOutcome {
+	switch (automaticOutcome) {
+		case "miss":
+			return { hit: false, critical: false };
+		case "hit":
+			return { hit: true, critical: false };
+		case "critical":
+			return { hit: true, critical: true };
+		default:
+			return rolledOutcome;
+	}
+}
+
+function getAutomaticAttackOutcome(modes: RollModifierMode[]): "hit" | "miss" | "critical" | null {
+	const automaticFailure = modes.includes("automaticFailure");
+	const automaticSuccess = modes.includes("automaticSuccess");
+	const automaticCritical = modes.includes("automaticCritical");
+
+	if (automaticFailure && (automaticSuccess || automaticCritical)) {
+		return null;
+	}
+
+	if (automaticFailure) {
+		return "miss";
+	}
+
+	if (automaticCritical) {
+		return "critical";
+	}
+
+	return automaticSuccess ? "hit" : null;
 }

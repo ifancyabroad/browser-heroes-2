@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createTestRunState } from "../../../test/createTestRunState";
+import type { CombatantState } from "../../../schemas";
 import { resolveAttackRoll } from "./resolveAttackRoll";
 
 describe("resolveAttackRoll", () => {
@@ -129,4 +130,72 @@ describe("resolveAttackRoll", () => {
 		expect(result.value.rollMode).toBe("normal");
 		expect(result.value.rolls).toHaveLength(1);
 	});
+
+	it("forces a charged automatic miss even on a natural twenty", () => {
+		const state = createTestRunState();
+		const attacker = withAutomaticAttackModifier(state.combat!.player, "automaticFailure");
+
+		const result = resolveAttackRoll({
+			rngState: { value: 36 },
+			attacker,
+			defender: state.combat!.enemy,
+			attribute: "strength",
+			proficient: true,
+		});
+
+		expect(result.value.roll.isNaturalTwenty).toBe(true);
+		expect(result.value).toMatchObject({
+			hit: false,
+			critical: false,
+			automaticOutcome: "miss",
+			consumedEffectIds: ["automatic-modifier"],
+		});
+	});
+
+	it("forces a charged automatic critical even on a natural one", () => {
+		const state = createTestRunState();
+		const attacker = withAutomaticAttackModifier(state.combat!.player, "automaticCritical");
+
+		const result = resolveAttackRoll({
+			rngState: { value: 7 },
+			attacker,
+			defender: state.combat!.enemy,
+			attribute: "strength",
+			proficient: true,
+		});
+
+		expect(result.value.roll.isNaturalOne).toBe(true);
+		expect(result.value).toMatchObject({
+			hit: true,
+			critical: true,
+			automaticOutcome: "critical",
+			consumedEffectIds: ["automatic-modifier"],
+		});
+	});
 });
+
+function withAutomaticAttackModifier(
+	combatant: CombatantState,
+	mode: "automaticFailure" | "automaticCritical",
+) {
+	return {
+		...combatant,
+		activeEffects: [
+			{
+				id: "automatic-modifier",
+				type: "modifyRoll" as const,
+				sourceCombatantId: combatant.id,
+				source: {
+					type: "skill" as const,
+					skillId: "intimidating_shout" as const,
+					sourceName: "Automatic Modifier",
+					sourceEffectKey: "effect:0",
+				},
+				remainingTurns: 4,
+				remainingCharges: 1,
+				roll: "attack" as const,
+				mode,
+			},
+		],
+	};
+}

@@ -12,7 +12,7 @@ import { createEffectInstanceId } from "../../../../core/ids";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
 import type { RngResult, RngState } from "../../../../core/rng";
-import { resolveSavingThrow } from "../../checks/resolveSavingThrow";
+import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
 
@@ -29,6 +29,7 @@ type ApplyRecurringEffectInput = {
 export function applyRecurringEffect(
 	input: ApplyRecurringEffectInput,
 ): RngResult<ActionResolution> {
+	let combat = input.combat;
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
@@ -37,19 +38,21 @@ export function applyRecurringEffect(
 	let rngState = input.rngState;
 
 	if (input.effect.type === "damageOverTime" && input.effect.save) {
-		const savingThrow = resolveSavingThrow({
+		const savingThrow = resolveCombatSavingThrow({
+			combat,
 			rngState,
-			attacker: actor,
-			defender: target,
+			attackerSide: actor.side,
+			defenderSide: target.side,
 			save: input.effect.save,
 		});
 
 		rngState = savingThrow.rngState;
+		combat = savingThrow.value.combat;
 
 		if (savingThrow.value.success) {
 			return {
 				value: {
-					combat: input.combat,
+					combat,
 					outcomes: [
 						{
 							type: "resisted",
@@ -64,18 +67,19 @@ export function applyRecurringEffect(
 	}
 
 	const activeEffect = createActiveRecurringEffect({
-		combat: input.combat,
+		combat,
 		actorId: actor.id,
 		effect: input.effect,
 		source: input.source,
 	});
 
-	const refreshed = target.activeEffects.some((effect) =>
+	const resolvedTarget = getCombatant(combat, target.side);
+	const refreshed = resolvedTarget.activeEffects.some((effect) =>
 		isSameActiveEffectSource(effect, activeEffect),
 	);
-	const updatedTarget = upsertActiveCombatEffect(target, activeEffect);
+	const updatedTarget = upsertActiveCombatEffect(resolvedTarget, activeEffect);
 
-	const updatedCombat = replaceCombatant(input.combat, updatedTarget);
+	const updatedCombat = replaceCombatant(combat, updatedTarget);
 
 	return {
 		value: {

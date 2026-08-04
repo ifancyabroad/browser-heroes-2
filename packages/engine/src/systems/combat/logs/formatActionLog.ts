@@ -1,4 +1,4 @@
-import type { ModifiableStat } from "@app/content";
+import type { ModifiableStat, RollModifierMode } from "@app/content";
 
 import type { CombatLogEntry } from "../../../schemas";
 import type { ActionOutcome } from "./actionOutcome";
@@ -40,7 +40,9 @@ export function formatActionOutcome(outcome: ActionOutcome): FormattedActionOutc
 	switch (outcome.type) {
 		case "miss":
 			return {
-				message: `The attack misses ${outcome.targetName}.`,
+				message: outcome.automatic
+					? `The attack automatically misses ${outcome.targetName}.`
+					: `The attack misses ${outcome.targetName}.`,
 				eventType: "attack_missed",
 			};
 
@@ -159,10 +161,38 @@ function formatModifierOutcome(outcome: Extract<ActionOutcome, { type: "modifier
 					: effect.attribute
 						? `${statLabels[effect.attribute]} saving throws`
 						: "saving throws";
+			const mode = formatRollModifierMode(effect.roll, effect.mode);
+			const chargedSubject =
+				effect.roll === "attack"
+					? "attack"
+					: effect.attribute
+						? `${statLabels[effect.attribute]} saving throw`
+						: "saving throw";
+			const limit = effect.charges
+				? ` on the next ${effect.charges} ${chargedSubject}${effect.charges === 1 ? "" : "s"}`
+				: ` on ${subject}`;
 			return refreshed
-				? `${targetName}'s ${effect.mode} on ${subject} is refreshed for ${duration}.`
-				: `${targetName} gains ${effect.mode} on ${subject} for ${duration}.`;
+				? `${targetName}'s ${mode}${limit} is refreshed for ${duration}.`
+				: `${targetName} gains ${mode}${limit} for ${duration}.`;
 		}
+	}
+}
+
+function formatRollModifierMode(roll: "attack" | "savingThrow", mode: RollModifierMode): string {
+	switch (mode) {
+		case "advantage":
+		case "disadvantage":
+			return mode;
+		case "automaticSuccess":
+			return roll === "attack"
+				? "automatic success on attack rolls"
+				: "automatic success on saving throws";
+		case "automaticFailure":
+			return roll === "attack"
+				? "automatic failure on attack rolls"
+				: "automatic failure on saving throws";
+		case "automaticCritical":
+			return "automatic critical hits";
 	}
 }
 

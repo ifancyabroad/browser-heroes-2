@@ -18,6 +18,7 @@ import type { ActionResolution } from "../logs/actionOutcome";
 import { formatBasicAttackHeading } from "../logs/formatActionLog";
 import { appendActionLog } from "../logs/appendActionLog";
 import { collectFeatAttackRiders } from "./collectFeatAttackRiders";
+import { consumeCombatantRollModifierCharges } from "../effects/consumeRollModifierCharges";
 
 type ResolveBasicAttackInput = {
 	combat: CombatState;
@@ -111,12 +112,23 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 		attribute: getBasicAttackAttribute(input.attackPart.attack),
 		proficient: input.attackPart.attack.proficient,
 	});
+	const combatAfterRoll = consumeCombatantRollModifierCharges(
+		input.combat,
+		input.attackerSide,
+		attackRoll.value.consumedEffectIds,
+	);
 
 	if (!attackRoll.value.hit) {
 		return {
 			value: {
-				combat: input.combat,
-				outcomes: [{ type: "miss", targetName: defender.name }],
+				combat: combatAfterRoll,
+				outcomes: [
+					{
+						type: "miss",
+						targetName: defender.name,
+						automatic: attackRoll.value.automaticOutcome === "miss",
+					},
+				],
 			},
 			rngState: attackRoll.rngState,
 		};
@@ -134,7 +146,7 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 
 	const appliedDamage = applyDamage(defender, damage.value);
 
-	let resolvedCombat = replaceCombatant(input.combat, appliedDamage.combatant);
+	let resolvedCombat = replaceCombatant(combatAfterRoll, appliedDamage.combatant);
 	const outcomes: ActionResolution["outcomes"] = [
 		{
 			type: "damage",
