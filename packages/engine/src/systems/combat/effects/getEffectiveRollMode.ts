@@ -34,7 +34,17 @@ export function getMatchingRollModifiers(
 }
 
 export function getChargedRollModifierIds(modifiers: readonly ActiveRollModifier[]): string[] {
-	return modifiers.flatMap((modifier) =>
-		modifier.remainingCharges === undefined ? [] : [modifier.id],
-	);
+	const selectedModes = new Set<ActiveRollModifier["mode"]>();
+	const selectedIds: string[] = [];
+
+	for (const modifier of modifiers) {
+		if (modifier.remainingCharges === undefined || selectedModes.has(modifier.mode)) {
+			continue;
+		}
+
+		selectedModes.add(modifier.mode);
+		selectedIds.push(modifier.id);
+	}
+
+	return selectedIds;
 }

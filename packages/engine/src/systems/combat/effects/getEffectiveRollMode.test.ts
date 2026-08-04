@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
+import type { RollModifierMode } from "@app/content";
 import type { ActiveRollModifier, CombatantState } from "../../../schemas";
 import { createTestRunState } from "../../../test/createTestRunState";
-import { getEffectiveRollMode } from "./getEffectiveRollMode";
+import { getChargedRollModifierIds, getEffectiveRollMode } from "./getEffectiveRollMode";
 
 describe("getEffectiveRollMode", () => {
 	it.each([
@@ -28,6 +29,26 @@ describe("getEffectiveRollMode", () => {
 		expect(getEffectiveRollMode(combatant, "savingThrow", "dexterity")).toBe("normal");
 		expect(getEffectiveRollMode(combatant, "attack", "strength")).toBe("normal");
 	});
+
+	it("selects only the first charged modifier for each distinct mode", () => {
+		const modifiers = [
+			createRollModifier("critical-1", "automaticCritical", "attack", undefined, 1),
+			createRollModifier("critical-2", "automaticCritical", "attack", undefined, 2),
+			createRollModifier("duration-only", "advantage"),
+			createRollModifier("advantage", "advantage", "attack", undefined, 1),
+			createRollModifier("disadvantage", "disadvantage", "attack", undefined, 1),
+			createRollModifier("automatic-success", "automaticSuccess", "attack", undefined, 1),
+			createRollModifier("automatic-failure", "automaticFailure", "attack", undefined, 1),
+		];
+
+		expect(getChargedRollModifierIds(modifiers)).toEqual([
+			"critical-1",
+			"advantage",
+			"disadvantage",
+			"automatic-success",
+			"automatic-failure",
+		]);
+	});
 });
 
 function withRollModifiers(
@@ -42,9 +63,10 @@ function withRollModifiers(
 
 function createRollModifier(
 	id: string,
-	mode: "advantage" | "disadvantage",
+	mode: RollModifierMode,
 	roll: "attack" | "savingThrow" = "attack",
 	attribute?: "strength" | "dexterity",
+	remainingCharges?: number,
 ): ActiveRollModifier {
 	return {
 		id,
@@ -60,5 +82,6 @@ function createRollModifier(
 		roll,
 		mode,
 		attribute,
+		remainingCharges,
 	};
 }
