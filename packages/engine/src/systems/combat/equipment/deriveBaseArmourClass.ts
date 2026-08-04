@@ -3,6 +3,9 @@ import { calculateAttributeModifier } from "../../../core/attributes";
 import { getEquippedBodyArmour, type BodyArmour } from "../../equipment/getEquippedBodyArmour";
 import { getEquippedShield } from "../../equipment/getEquippedShield";
 
+const MAX_DEX_BONUS = 5;
+const MAX_MEDIUM_DEX_BONUS = 2;
+
 export type BaseArmourClassBreakdown = {
 	baseValue: number;
 
@@ -73,16 +76,16 @@ export function deriveBaseArmourClass(
 
 function getAppliedDexterityModifier(armour: BodyArmour | null, dexterityModifier: number): number {
 	if (!armour) {
-		return dexterityModifier;
+		return Math.min(MAX_DEX_BONUS, dexterityModifier);
 	}
 
 	switch (armour.category) {
 		case "cloth":
 		case "light":
-			return dexterityModifier;
+			return Math.min(MAX_DEX_BONUS, dexterityModifier);
 
 		case "medium":
-			return Math.min(2, Math.max(0, dexterityModifier));
+			return Math.min(MAX_MEDIUM_DEX_BONUS, Math.max(0, dexterityModifier));
 
 		case "heavy":
 			return 0;
