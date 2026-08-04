@@ -151,16 +151,6 @@ export const modifyRollEffectSchema = z
 		save: negatingSavingThrowSchema.optional(),
 	})
 	.superRefine((effect, ctx) => {
-		const automatic = automaticRollOutcomeSchema.safeParse(effect.mode).success;
-
-		if (automatic && effect.charges === undefined) {
-			ctx.addIssue({
-				code: "custom",
-				message: "Automatic roll outcomes require charges",
-				path: ["charges"],
-			});
-		}
-
 		if (effect.roll === "savingThrow" && effect.mode === "automaticCritical") {
 			ctx.addIssue({
 				code: "custom",

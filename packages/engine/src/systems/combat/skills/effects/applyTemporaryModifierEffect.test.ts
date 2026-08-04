@@ -22,7 +22,7 @@ describe("applyTemporaryModifierEffect", () => {
 		).toBe(false);
 	});
 
-	it("requires charges and a compatible roll type for automatic outcomes", () => {
+	it("allows duration-only automatic outcomes with a compatible roll type", () => {
 		expect(
 			modifyRollEffectSchema.safeParse({
 				type: "modifyRoll",
@@ -31,7 +31,7 @@ describe("applyTemporaryModifierEffect", () => {
 				mode: "automaticFailure",
 				durationTurns: 3,
 			}).success,
-		).toBe(false);
+		).toBe(true);
 
 		expect(
 			modifyRollEffectSchema.safeParse({

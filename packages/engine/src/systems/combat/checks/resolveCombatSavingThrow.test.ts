@@ -48,12 +48,35 @@ describe("resolveCombatSavingThrow", () => {
 		expect(result.value.success).toBe(true);
 		expect(result.value.combat.enemy.activeEffects).toEqual([]);
 	});
+
+	it("retains a duration-only automatic modifier after use", () => {
+		const combat = structuredClone(createTestRunState().combat!);
+		combat.enemy = withSavingThrowModifier(combat.enemy, "automaticSuccess");
+
+		const result = resolveCombatSavingThrow({
+			combat,
+			attackerSide: "player",
+			defenderSide: "enemy",
+			save: {
+				attribute: "wisdom",
+				dc: { base: 100, attribute: "wisdom", includeProficiency: false, bonus: 0 },
+				onSuccess: "noEffect",
+			},
+			rngState: { value: 0 },
+		});
+
+		expect(result.value.automaticOutcome).toBe("success");
+		expect(result.value.success).toBe(true);
+		expect(result.value.combat.enemy.activeEffects).toContainEqual(
+			expect.objectContaining({ id: "automatic-save", remainingTurns: 4 }),
+		);
+	});
 });
 
 function withSavingThrowModifier(
 	combatant: CombatantState,
 	mode: "automaticSuccess" | "automaticFailure",
-	remainingCharges: number,
+	remainingCharges?: number,
 ): CombatantState {
 	return {
 		...combatant,
@@ -69,7 +92,7 @@ function withSavingThrowModifier(
 					sourceEffectKey: "effect:0",
 				},
 				remainingTurns: 4,
-				remainingCharges,
+				...(remainingCharges === undefined ? {} : { remainingCharges }),
 				roll: "savingThrow",
 				mode,
 			},

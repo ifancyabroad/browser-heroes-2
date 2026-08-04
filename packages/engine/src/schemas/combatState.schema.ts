@@ -14,7 +14,6 @@ import {
 	diceFormulaSchema,
 	tacticSchema,
 	damageModifierOperationSchema,
-	automaticRollOutcomeSchema,
 	rollModifierModeSchema,
 	rollTypeSchema,
 } from "@app/content";
@@ -92,16 +91,6 @@ export const activeRollModifierSchema = activeCombatEffectBaseSchema
 		remainingCharges: z.number().int().positive().optional(),
 	})
 	.superRefine((effect, ctx) => {
-		const automatic = automaticRollOutcomeSchema.safeParse(effect.mode).success;
-
-		if (automatic && effect.remainingCharges === undefined) {
-			ctx.addIssue({
-				code: "custom",
-				message: "Automatic roll outcomes require remaining charges",
-				path: ["remainingCharges"],
-			});
-		}
-
 		if (effect.roll === "savingThrow" && effect.mode === "automaticCritical") {
 			ctx.addIssue({
 				code: "custom",
