@@ -24,7 +24,7 @@ export default buildSkill({
 			target: "self",
 			roll: "savingThrow",
 			attribute: "dexterity",
-			mode: "advantage",
+			mode: "automaticSuccess",
 			durationTurns: 3,
 		},
 	],
