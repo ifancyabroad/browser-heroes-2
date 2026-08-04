@@ -64,15 +64,19 @@ describe("content catalogs", () => {
 		expect(acidBite?.cells.damageTypes).toBe("acid");
 	});
 
-	it("projects skill kind and category for browsing and filtering", () => {
+	it("projects skill kind, category, and rarity for browsing and filtering", () => {
 		const catalog = catalogByKey.skills;
 		const skill = catalog.entries[0];
 
 		expect(catalog.columns.map((column) => column.key)).toContain("kind");
 		expect(catalog.filters.map((filter) => filter.key)).toContain("kind");
+		expect(catalog.columns.map((column) => column.key)).toContain("rarity");
+		expect(catalog.filters.map((filter) => filter.key)).toContain("rarity");
 		expect(skill.facets.kind).toEqual([skill.cells.kind]);
 		expect(skill.facets.category).toEqual([skill.cells.category]);
+		expect(skill.facets.rarity).toEqual([skill.cells.rarity]);
 		expect(skill.searchText).toContain(String(skill.cells.kind).toLocaleLowerCase());
+		expect(skill.searchText).toContain(String(skill.cells.rarity).toLocaleLowerCase());
 	});
 
 	it("projects feat kind, category, and attack riders", () => {

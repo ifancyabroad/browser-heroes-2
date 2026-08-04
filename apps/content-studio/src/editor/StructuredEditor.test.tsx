@@ -30,3 +30,32 @@ describe("StructuredEditor affix applicability", () => {
 		]);
 	});
 });
+
+describe("StructuredEditor skill rarity", () => {
+	it("edits rarity using the supported rarity values", () => {
+		const onChange = vi.fn();
+		render(
+			<StructuredEditor
+				value="rare"
+				path="rarity"
+				field="rarity"
+				category="skills"
+				issues={[]}
+				onChange={onChange}
+			/>,
+		);
+
+		const rarity = screen.getByRole("combobox", { name: "Rarity" });
+		expect(rarity).toHaveValue("rare");
+		expect(Array.from(rarity.querySelectorAll("option"), (option) => option.value)).toEqual([
+			"common",
+			"uncommon",
+			"rare",
+			"epic",
+			"legendary",
+		]);
+
+		fireEvent.change(rarity, { target: { value: "legendary" } });
+		expect(onChange).toHaveBeenCalledWith("legendary");
+	});
+});
