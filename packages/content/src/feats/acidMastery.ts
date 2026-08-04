@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "acid_mastery",
 	name: "Acid Mastery",
-	description: "Acid damage is multiplied by 1.2.",
+	description: "Acid damage is multiplied by 1.25.",
 	icon: "skills/feats/Aura_Druid_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
@@ -12,7 +12,7 @@ export default buildFeat({
 			type: "modifyDamage",
 			damageType: "acid",
 			operation: "multiply",
-			value: 1.2,
+			value: 1.25,
 		},
 	],
 	attackRiders: [],

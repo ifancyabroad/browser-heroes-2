@@ -53,7 +53,6 @@ describe("achievement.service", () => {
 				"complete_game",
 				"complete_game_fighter",
 				"complete_game_by_day_5",
-				"complete_game_without_resting",
 			]),
 		);
 	});

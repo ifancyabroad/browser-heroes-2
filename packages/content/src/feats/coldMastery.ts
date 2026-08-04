@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "cold_mastery",
 	name: "Cold Mastery",
-	description: "Cold damage is multiplied by 1.2.",
+	description: "Cold damage is multiplied by 1.25.",
 	icon: "skills/feats/Aura_Frost_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
@@ -12,7 +12,7 @@ export default buildFeat({
 			type: "modifyDamage",
 			damageType: "cold",
 			operation: "multiply",
-			value: 1.2,
+			value: 1.25,
 		},
 	],
 	attackRiders: [],

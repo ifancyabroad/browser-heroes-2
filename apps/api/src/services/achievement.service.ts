@@ -175,10 +175,6 @@ export function evaluateRunActionAchievements(input: {
 				if (input.nextState.day <= FAST_GAME_DAY_THRESHOLD) {
 					unlocked.add("complete_game_by_day_5");
 				}
-
-				if (input.nextState.day === 1) {
-					unlocked.add("complete_game_without_resting");
-				}
 			}
 
 			if (event.completedEndlessCycle) {

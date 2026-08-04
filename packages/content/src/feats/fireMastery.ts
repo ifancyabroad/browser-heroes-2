@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "fire_mastery",
 	name: "Fire Mastery",
-	description: "Fire damage is multiplied by 1.2.",
+	description: "Fire damage is multiplied by 1.25.",
 	icon: "skills/feats/Skill_FireMaster_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
@@ -12,7 +12,7 @@ export default buildFeat({
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "multiply",
-			value: 1.2,
+			value: 1.25,
 		},
 	],
 	attackRiders: [],

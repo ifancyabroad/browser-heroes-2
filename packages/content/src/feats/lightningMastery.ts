@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "lightning_mastery",
 	name: "Lightning Mastery",
-	description: "Lightning damage is multiplied by 1.2.",
+	description: "Lightning damage is multiplied by 1.25.",
 	icon: "skills/feats/Skill_LightningUltimate_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
@@ -12,7 +12,7 @@ export default buildFeat({
 			type: "modifyDamage",
 			damageType: "lightning",
 			operation: "multiply",
-			value: 1.2,
+			value: 1.25,
 		},
 	],
 	attackRiders: [],
