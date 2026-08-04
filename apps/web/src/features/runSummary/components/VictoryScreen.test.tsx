@@ -13,7 +13,6 @@ vi.mock("../../../components/GameLayout", () => ({
 	GameLayout: ({ children }: { children: React.ReactNode }) => children,
 }));
 
-import { DeathScreen } from "./DeathScreen";
 import { VictoryScreen } from "./VictoryScreen";
 
 const run = { state: {} } as RunView;
@@ -30,47 +29,22 @@ const summary = {
 	],
 };
 
-function renderScreen(component: React.ReactNode) {
-	return render(<MemoryRouter>{component}</MemoryRouter>);
+function renderScreen() {
+	return render(
+		<MemoryRouter>
+			<VictoryScreen run={run} />
+		</MemoryRouter>,
+	);
 }
 
-describe("completed run screens", () => {
+describe("VictoryScreen", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 		selectRunSummaryView.mockReturnValue(summary);
 	});
 
-	it("renders a safe death fallback when summary selection fails", () => {
-		selectRunSummaryView.mockReturnValue(null);
-
-		renderScreen(<DeathScreen run={run} />);
-
-		expect(screen.getByRole("heading", { name: "HERO SLAIN" })).toHaveFocus();
-		expect(screen.getByRole("link", { name: "Try Again" })).toHaveAttribute(
-			"href",
-			"/create-character",
-		);
-	});
-
-	it("renders death identity, enemy, battle, and final moments", () => {
-		renderScreen(<DeathScreen run={run} />);
-
-		expect(screen.getByRole("heading", { name: "TEST HERO WAS SLAIN" })).toBeInTheDocument();
-		expect(
-			screen.getByText(
-				"The dungeon falls quiet. Test Hero's wounds are too deep, and their story ends in the dark.",
-			),
-		).toBeInTheDocument();
-		expect(screen.getByText(/Test Hero the Fighter/)).toBeInTheDocument();
-		expect(screen.getByText("Dragon")).toBeInTheDocument();
-		expect(screen.getByText("20")).toBeInTheDocument();
-		expect(screen.getByRole("region", { name: "Final moments" })).toHaveTextContent(
-			"Dragon attacks.",
-		);
-	});
-
-	it("renders a safe victory fallback for non-retired summaries", () => {
-		renderScreen(<VictoryScreen run={run} />);
+	it("renders a safe fallback for non-retired summaries", () => {
+		renderScreen();
 
 		expect(
 			screen.getByText("The run has ended, and its tale is complete."),
@@ -84,7 +58,7 @@ describe("completed run screens", () => {
 	it("renders retired victory details and final moments", () => {
 		selectRunSummaryView.mockReturnValue({ ...summary, status: "retired" });
 
-		renderScreen(<VictoryScreen run={run} />);
+		renderScreen();
 
 		expect(screen.getByRole("heading", { name: "The Ladder Is Broken" })).toBeInTheDocument();
 		expect(screen.getByText(/Test Hero has earned their rest/)).toBeInTheDocument();

@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
+
 import { applyAction } from "../actions";
 import { createTestRunState } from "../test/createTestRunState";
-import { deserializeRunState, deserializeRunStateJson, serializeRunState } from "./index";
+import { deserializeRunStateJson } from "./deserializeRunState";
+import { serializeRunState } from "./serializeRunState";
 
-describe("run state serialization", () => {
+describe("serializeRunState", () => {
 	it("round trips a valid initial state", () => {
 		const state = createTestRunState();
 
@@ -20,22 +22,6 @@ describe("run state serialization", () => {
 		expect(deserializeRunStateJson(serializeRunState(result.state))).toEqual({
 			ok: true,
 			state: result.state,
-		});
-	});
-
-	it("returns a structured failure for invalid state", () => {
-		const result = deserializeRunState({ version: 1 });
-
-		expect(result.ok).toBe(false);
-		if (!result.ok) {
-			expect(result.error).toBeTruthy();
-		}
-	});
-
-	it("returns a stable failure for invalid JSON", () => {
-		expect(deserializeRunStateJson("{")).toEqual({
-			ok: false,
-			error: "Invalid JSON",
 		});
 	});
 });

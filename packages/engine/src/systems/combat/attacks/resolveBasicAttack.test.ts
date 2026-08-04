@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { createTestRunState } from "../../../test/createTestRunState";
 import { resolveBasicAttack } from "./resolveBasicAttack";
 
-describe("charged attack roll modifiers", () => {
+describe("resolveBasicAttack charged roll modifiers", () => {
 	it("consumes an automatic miss during a basic attack", () => {
 		const combat = structuredClone(createTestRunState().combat!);
 		combat.player.activeEffects.push({
