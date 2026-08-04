@@ -108,4 +108,19 @@ describe("content catalogs", () => {
 		expect(barbed.facets.damageType).toEqual(["piercing"]);
 		expect(catalog.filters.map((filter) => filter.key)).toContain("damageType");
 	});
+
+	it("projects roll types and modes from nested skill effects", () => {
+		const catalog = catalogByKey.skills;
+		const acrobaticStrike = catalog.entries.find((entry) => entry.id === "acrobatic_strike")!;
+		const bless = catalog.entries.find((entry) => entry.id === "bless")!;
+
+		expect(acrobaticStrike.facets.rollMode).toEqual(["advantage"]);
+		expect(acrobaticStrike.cells.rollModes).toBe("advantage");
+		expect(bless.facets.rollType).toEqual(["savingThrow"]);
+		expect(bless.facets.rollMode).toEqual(["advantage"]);
+		expect(bless.cells.rollTypes).toBe("savingThrow");
+		expect(catalog.filters.map((filter) => filter.key)).toEqual(
+			expect.arrayContaining(["rollType", "rollMode"]),
+		);
+	});
 });

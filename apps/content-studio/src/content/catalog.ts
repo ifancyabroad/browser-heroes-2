@@ -125,6 +125,12 @@ const effectDamageTypes = (effects: readonly unknown[]) =>
 const effectTargets = (effects: readonly unknown[]) =>
 	unique(collectProperties(effects, new Set(["target"])));
 
+const effectRollTypes = (effects: readonly unknown[]) =>
+	unique(collectProperties(effects, new Set(["roll"])));
+
+const effectRollModes = (effects: readonly unknown[]) =>
+	unique(collectProperties(effects, new Set(["mode", "rollMode"])));
+
 const modifierSummary = (modifiers: readonly unknown[]) =>
 	join(
 		modifiers.map((modifier) => {
@@ -219,6 +225,8 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 	const effectTypes = describeEffects(skill.effects);
 	const damageTypes = effectDamageTypes(skill.effects);
 	const targets = effectTargets(skill.effects);
+	const rollTypes = effectRollTypes(skill.effects);
+	const rollModes = effectRollModes(skill.effects);
 	const hasSave = hasPropertyValue(skill.effects, "save");
 	const attackRoll = hasPropertyValue(skill.effects, "requiresAttackRoll", true);
 	return {
@@ -233,6 +241,8 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 			...effectTypes,
 			...damageTypes,
 			...targets,
+			...rollTypes,
+			...rollModes,
 		]),
 		facets: {
 			pool: [skill.pool],
@@ -242,6 +252,8 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 			effect: effectTypes,
 			damageType: damageTypes,
 			target: targets,
+			rollType: rollTypes,
+			rollMode: rollModes,
 		},
 		cells: {
 			name: skill.name,
@@ -253,6 +265,8 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 			uses: skill.maxUses ?? "∞",
 			effects: join(effectTypes),
 			targets: join(targets),
+			rollTypes: join(rollTypes) || "—",
+			rollModes: join(rollModes) || "—",
 			damageTypes: join(damageTypes),
 			checks:
 				join([hasSave ? "save" : undefined, attackRoll ? "attack roll" : undefined]) || "—",
@@ -518,6 +532,8 @@ export const catalogs: readonly Catalog[] = [
 			"uses",
 			"effects",
 			"targets",
+			"rollTypes",
+			"rollModes",
 			"damageTypes",
 			"checks",
 			"tags",
@@ -530,6 +546,8 @@ export const catalogs: readonly Catalog[] = [
 			{ key: "effect", label: "Effect" },
 			{ key: "damageType", label: "Damage type" },
 			{ key: "target", label: "Target" },
+			{ key: "rollType", label: "Roll type" },
+			{ key: "rollMode", label: "Roll mode" },
 		]),
 	},
 	{

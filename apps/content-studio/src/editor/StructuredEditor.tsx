@@ -1,15 +1,10 @@
 import { useState } from "react";
-import {
-	featCategorySchema,
-	featKindSchema,
-	skillCategorySchema,
-	skillKindSchema,
-} from "@app/content";
 import { ContentImage } from "../components/ContentImage";
 import { catalogByKey, type CategoryKey } from "../content/catalog";
 import type { FieldIssue } from "./api";
 import { ArtworkPicker } from "./ArtworkPicker";
-import { discriminatorDefaults, modifierDefaults, optionsByField } from "./defaults";
+import { discriminatorDefaults, modifierDefaults } from "./editorDefaults";
+import { arrayItemOptions, categoryOptions, kindOptions, optionsByField } from "./editorOptions";
 
 type Props = {
 	value: unknown;
@@ -339,42 +334,6 @@ function typeOptions(path: string) {
 	}
 	return Object.keys(discriminatorDefaults);
 }
-function arrayItemOptions(field: string) {
-	if (field === "itemTypes") {
-		return ["weapon", "armour"];
-	}
-	if (field === "weaponTypes") {
-		return optionsByField.weaponType;
-	}
-	if (field === "damageTypes") {
-		return optionsByField.damageType;
-	}
-	if (field === "armourSlots") {
-		return optionsByField.slot;
-	}
-	if (field === "armourCategories") {
-		return ["cloth", "light", "medium", "heavy"];
-	}
-	return undefined;
-}
-function categoryOptions(category: CategoryKey, path: string) {
-	if (category === "skills" && path === "category") {
-		return skillCategorySchema.options;
-	}
-	if (category === "feats" && path === "category") {
-		return featCategorySchema.options;
-	}
-	return ["cloth", "light", "medium", "heavy"];
-}
-function kindOptions(category: CategoryKey, path: string) {
-	if (category === "skills" && path === "kind") {
-		return skillKindSchema.options;
-	}
-	if (category === "feats" && path === "kind") {
-		return featKindSchema.options;
-	}
-	return undefined;
-}
 function discriminatorValue(path: string, next: string, current: unknown) {
 	if (path === "type") {
 		return next;
@@ -504,7 +463,11 @@ function optionalEntries(
 			["damageTypeOverride", "fire"],
 			["extraDice", "1d4"],
 			["extraDamageType", "fire"],
+			["rollMode", "advantage"],
 		);
+	}
+	if (value.type === "modifyRoll") {
+		candidates.push(["attribute", "dexterity"], ["charges", 1]);
 	}
 	if (/^appliesTo\.\d+$/.test(path)) {
 		candidates.push(

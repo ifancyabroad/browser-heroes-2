@@ -59,3 +59,50 @@ describe("StructuredEditor skill rarity", () => {
 		expect(onChange).toHaveBeenCalledWith("legendary");
 	});
 });
+
+describe("StructuredEditor roll effects", () => {
+	it("uses constrained roll type and mode controls with optional charges", () => {
+		render(
+			<StructuredEditor
+				value={{
+					type: "modifyRoll",
+					target: "self",
+					roll: "savingThrow",
+					mode: "automaticSuccess",
+					durationTurns: 1,
+				}}
+				path="effects.0"
+				field="Effect 1"
+				category="skills"
+				issues={[]}
+				onChange={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByRole("combobox", { name: "Roll" })).toHaveValue("savingThrow");
+		expect(screen.getByRole("combobox", { name: "Mode" })).toHaveValue("automaticSuccess");
+		expect(screen.getByRole("option", { name: "automaticCritical" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Charges" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Attribute" })).toBeInTheDocument();
+	});
+
+	it("allows an attack damage roll mode to be added", () => {
+		render(
+			<StructuredEditor
+				value={{
+					type: "attackDamage",
+					target: "enemy",
+					multiplier: 1,
+					attackRiders: [],
+				}}
+				path="effects.0"
+				field="Effect 1"
+				category="skills"
+				issues={[]}
+				onChange={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByRole("button", { name: "Roll Mode" })).toBeInTheDocument();
+	});
+});
