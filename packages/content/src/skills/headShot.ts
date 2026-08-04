@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "head_shot",
 	name: "Head Shot",
-	description: "Aim a devastating shot at the enemy's head with a chance to leave them stunned.",
+	description:
+		"Guarantee a critical shot to the enemy's head with a chance to leave them stunned.",
 	icon: "skills/common/head_shot.png",
 	pool: "common",
 	kind: "weaponAttack",
@@ -12,9 +13,17 @@ export default buildSkill({
 	maxUses: 1,
 	effects: [
 		{
+			type: "modifyRoll",
+			target: "self",
+			roll: "attack",
+			mode: "automaticCritical",
+			charges: 1,
+			durationTurns: 1,
+		},
+		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 1.5,
+			multiplier: 1,
 			attackRiders: [
 				{
 					timing: "onHit",

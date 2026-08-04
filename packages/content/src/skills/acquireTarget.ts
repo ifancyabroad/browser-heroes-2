@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acquire_target",
 	name: "Acquire Target",
-	description:
-		"Lock onto the enemy, greatly improving accuracy and critical targeting for a short time.",
+	description: "Lock onto the enemy to guarantee a critical hit with the next attack.",
 	icon: "skills/unique/acquire_target.png",
 	pool: "unique",
 	kind: "technique",
@@ -16,15 +15,9 @@ export default buildSkill({
 			type: "modifyRoll",
 			target: "self",
 			roll: "attack",
-			mode: "advantage",
-			durationTurns: 3,
-		},
-		{
-			type: "modifyStat",
-			target: "self",
-			stat: "criticalRangeBonus",
-			value: 3,
-			durationTurns: 3,
+			mode: "automaticCritical",
+			charges: 1,
+			durationTurns: 4,
 		},
 	],
 	tags: [],

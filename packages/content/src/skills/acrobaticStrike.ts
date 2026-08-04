@@ -16,16 +16,17 @@ export default buildSkill({
 			type: "attackDamage",
 			target: "enemy",
 			multiplier: 1,
-			rollMode: "advantage",
+			rollMode: "disadvantage",
 			attackRiders: [
 				{
 					timing: "onHit",
 					effects: [
 						{
-							type: "modifyStat",
+							type: "modifyRoll",
 							target: "self",
-							stat: "criticalRangeBonus",
-							value: 8,
+							roll: "attack",
+							mode: "automaticCritical",
+							charges: 1,
 							durationTurns: 1,
 						},
 					],

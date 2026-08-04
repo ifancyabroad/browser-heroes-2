@@ -15,14 +15,16 @@ export default buildSkill({
 			type: "modifyRoll",
 			target: "enemy",
 			roll: "attack",
-			mode: "disadvantage",
-			durationTurns: 2,
+			mode: "automaticFailure",
+			charges: 1,
+			durationTurns: 3,
 		},
 		{
 			type: "modifyRoll",
 			target: "self",
 			roll: "attack",
 			mode: "advantage",
+			charges: 2,
 			durationTurns: 3,
 		},
 		{

@@ -17,7 +17,8 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "advantage",
-			durationTurns: 2,
+			charges: 2,
+			durationTurns: 3,
 		},
 		{
 			type: "modifyDamageTaken",
