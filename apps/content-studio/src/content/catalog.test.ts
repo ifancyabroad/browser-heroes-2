@@ -114,8 +114,8 @@ describe("content catalogs", () => {
 		const acrobaticStrike = catalog.entries.find((entry) => entry.id === "acrobatic_strike")!;
 		const bless = catalog.entries.find((entry) => entry.id === "bless")!;
 
-		expect(acrobaticStrike.facets.rollMode).toEqual(["advantage"]);
-		expect(acrobaticStrike.cells.rollModes).toBe("advantage");
+		expect(acrobaticStrike.facets.rollMode).toEqual(["automaticCritical", "disadvantage"]);
+		expect(acrobaticStrike.cells.rollModes).toBe("automaticCritical, disadvantage");
 		expect(bless.facets.rollType).toEqual(["savingThrow"]);
 		expect(bless.facets.rollMode).toEqual(["advantage"]);
 		expect(bless.cells.rollTypes).toBe("savingThrow");
