@@ -12,7 +12,11 @@ export function rerollShop(state: RunState): EngineResult {
 
 	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
 
-	const cost = calculateRerollCost(effectiveCharisma, state.town.rerollCount);
+	const cost = calculateRerollCost(
+		effectiveCharisma,
+		state.town.shopLevel,
+		state.town.rerollCount,
+	);
 
 	if (state.gold < cost) {
 		return failureResult(state, "NOT_ENOUGH_GOLD");

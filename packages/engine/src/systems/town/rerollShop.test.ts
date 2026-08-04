@@ -30,4 +30,20 @@ describe("rerollShop", () => {
 			state,
 		});
 	});
+
+	it("charges the shop-level-scaled reroll cost", () => {
+		const state = modifyTestRunState(createTestTownState(), (draft) => {
+			draft.gold = 1_000;
+			if (!draft.town) {
+				throw new Error("Expected test run to be in town");
+			}
+			draft.town.shopLevel = 5;
+		});
+
+		const result = applyAction(state, { type: "REROLL_SHOP" });
+
+		expect(result.ok).toBe(true);
+		expect(result.state.gold).toBe(908);
+		expect(result.events).toContainEqual({ type: "SHOP_REROLLED", cost: 92 });
+	});
 });

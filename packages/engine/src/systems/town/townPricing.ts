@@ -20,9 +20,14 @@ export function calculateTownItemPrice(basePrice: number, effectiveCharisma: num
 	return Math.round(basePrice * calculateTownDiscountMultiplier(effectiveCharisma));
 }
 
-export function calculateRerollCost(effectiveCharisma: number, rerollCount: number): number {
+export function calculateRerollCost(
+	effectiveCharisma: number,
+	shopLevel: number,
+	rerollCount: number,
+): number {
 	return Math.round(
 		BASE_REROLL_COST *
+			Math.max(1, shopLevel) *
 			Math.pow(REROLL_MULTIPLIER, rerollCount) *
 			calculateTownDiscountMultiplier(effectiveCharisma),
 	);

@@ -160,7 +160,11 @@ function getTownActions(state: RunState): EngineAction[] {
 
 	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
 
-	const rerollCost = calculateRerollCost(effectiveCharisma, state.town.rerollCount);
+	const rerollCost = calculateRerollCost(
+		effectiveCharisma,
+		state.town.shopLevel,
+		state.town.rerollCount,
+	);
 
 	const restCost = calculateRestCost(effectiveCharisma, state.day);
 

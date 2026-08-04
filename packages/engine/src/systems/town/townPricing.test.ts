@@ -24,10 +24,16 @@ describe("town pricing", () => {
 		expect(calculateTownItemPrice(99, 10)).toBe(99);
 	});
 
-	it("increases reroll cost with each reroll", () => {
-		expect(calculateRerollCost(10, 0)).toBe(20);
-		expect(calculateRerollCost(10, 1)).toBe(30);
-		expect(calculateRerollCost(10, 2)).toBe(45);
+	it("increases reroll cost with shop level and each reroll", () => {
+		expect(calculateRerollCost(10, 1, 0)).toBe(20);
+		expect(calculateRerollCost(10, 5, 0)).toBe(100);
+		expect(calculateRerollCost(10, 5, 1)).toBe(150);
+		expect(calculateRerollCost(10, 5, 2)).toBe(225);
+	});
+
+	it("continues scaling reroll cost beyond the final shop loot tier", () => {
+		expect(calculateRerollCost(10, 11, 0)).toBe(220);
+		expect(calculateRerollCost(18, 11, 0)).toBe(147);
 	});
 
 	it("increases rest cost with each day", () => {

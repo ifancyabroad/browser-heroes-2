@@ -62,7 +62,11 @@ export function selectTownView(state: RunState): TownView | null {
 	const derivedHeroStats = deriveHeroStats(state.hero);
 	const effectiveCharisma = derivedHeroStats.effectiveAttributes.charisma;
 
-	const rerollCost = calculateRerollCost(effectiveCharisma, state.town.rerollCount);
+	const rerollCost = calculateRerollCost(
+		effectiveCharisma,
+		state.town.shopLevel,
+		state.town.rerollCount,
+	);
 
 	const restCost = calculateRestCost(effectiveCharisma, state.day);
 
