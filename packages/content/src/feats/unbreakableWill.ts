@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "unbreakable_will",
 	name: "Unbreakable Will",
 	description: "Unshakable resolve grants a +2 bonus to saving throws.",
-	icon: "skills/feats/Skill_SpellImmune_nb.png",
+	icon: "feats/Skill_SpellImmune_nb.png",
 	kind: "training",
 	category: "defensive",
 	modifiers: [

@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "poison_mastery",
 	name: "Poison Mastery",
 	description: "Poison damage is multiplied by 1.25.",
-	icon: "skills/feats/Aura_Filth_nb.png",
+	icon: "feats/Aura_Filth_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [

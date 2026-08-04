@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "blood_drinker",
 	name: "Blood Drinker",
 	description: "Critical hits restore 1d8 HP.",
-	icon: "skills/feats/Skill_Thirst_nb.png",
+	icon: "feats/Skill_Thirst_nb.png",
 	kind: "training",
 	category: "resource",
 	modifiers: [],

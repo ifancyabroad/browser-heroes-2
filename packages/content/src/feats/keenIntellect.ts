@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "keen_intellect",
 	name: "Keen Intellect",
 	description: "A brilliant mind increases Intelligence by 2.",
-	icon: "skills/feats/Aura_Wizard_nb.png",
+	icon: "feats/Aura_Wizard_nb.png",
 	kind: "attribute",
 	category: "utility",
 	modifiers: [

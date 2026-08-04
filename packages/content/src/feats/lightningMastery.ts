@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "lightning_mastery",
 	name: "Lightning Mastery",
 	description: "Lightning damage is multiplied by 1.25.",
-	icon: "skills/feats/Skill_LightningUltimate_nb.png",
+	icon: "feats/Skill_LightningUltimate_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [

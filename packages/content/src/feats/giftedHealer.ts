@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "gifted_healer",
 	name: "Gifted Healer",
 	description: "Healing is multiplied by 1.25.",
-	icon: "skills/feats/Skill_HealingAura_nb.png",
+	icon: "feats/Skill_HealingAura_nb.png",
 	kind: "training",
 	category: "resource",
 	modifiers: [

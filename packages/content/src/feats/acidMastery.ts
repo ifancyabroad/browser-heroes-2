@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "acid_mastery",
 	name: "Acid Mastery",
 	description: "Acid damage is multiplied by 1.25.",
-	icon: "skills/feats/Aura_Druid_nb.png",
+	icon: "feats/Aura_Druid_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [

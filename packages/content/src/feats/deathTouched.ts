@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "death_touched",
 	name: "Death-Touched",
 	description: "Grants immunity to necrotic damage, but vulnerability to radiant damage.",
-	icon: "skills/feats/Skill_ShadowResistance_nb.png",
+	icon: "feats/Skill_ShadowResistance_nb.png",
 	kind: "bargain",
 	category: "defensive",
 	modifiers: [

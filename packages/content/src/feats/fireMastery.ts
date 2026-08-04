@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "fire_mastery",
 	name: "Fire Mastery",
 	description: "Fire damage is multiplied by 1.25.",
-	icon: "skills/feats/Skill_FireMaster_nb.png",
+	icon: "feats/Skill_FireMaster_nb.png",
 	kind: "damageMastery",
 	category: "offensive",
 	modifiers: [

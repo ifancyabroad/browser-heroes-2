@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "spellbreaker",
 	name: "Spellbreaker",
 	description: "Critical hits can silence the enemy for 1 turn.",
-	icon: "skills/feats/Skill_IceArmorDestroy_nb.png",
+	icon: "feats/Skill_IceArmorDestroy_nb.png",
 	kind: "training",
 	category: "utility",
 	modifiers: [],

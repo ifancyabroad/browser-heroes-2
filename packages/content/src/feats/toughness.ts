@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "toughness",
 	name: "Toughness",
 	description: "Hard-earned resilience increases maximum HP by 20.",
-	icon: "skills/feats/Skill_Muscles_nb.png",
+	icon: "feats/Skill_Muscles_nb.png",
 	kind: "training",
 	category: "defensive",
 	modifiers: [

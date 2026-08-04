@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "flameborn",
 	name: "Flameborn",
 	description: "Grants immunity to fire damage, but vulnerability to cold damage.",
-	icon: "skills/feats/Skill_FireResistance_nb.png",
+	icon: "feats/Skill_FireResistance_nb.png",
 	kind: "bargain",
 	category: "defensive",
 	modifiers: [

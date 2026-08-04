@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "iron_constitution",
 	name: "Iron Constitution",
 	description: "Exceptional endurance increases Constitution by 2.",
-	icon: "skills/feats/Skill_StoneBody_nb.png",
+	icon: "feats/Skill_StoneBody_nb.png",
 	kind: "attribute",
 	category: "defensive",
 	modifiers: [
