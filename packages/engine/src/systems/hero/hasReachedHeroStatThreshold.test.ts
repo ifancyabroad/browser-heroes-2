@@ -27,12 +27,13 @@ describe("hero stat threshold queries", () => {
 		expect(hasReachedMaxHpThreshold(hero, 100)).toBe(true);
 	});
 
-	it("uses Dexterity when deriving effective Armour Class", () => {
+	it("uses the capped Dexterity bonus when deriving effective Armour Class", () => {
 		const hero = createTestRunState().hero;
 		hero.equipment.body = null;
 		hero.attributes.dexterity = 28;
 		hero.featIds = ["catlike_grace"];
 
-		expect(hasReachedArmourClassThreshold(hero, 20)).toBe(true);
+		expect(hasReachedArmourClassThreshold(hero, 15)).toBe(true);
+		expect(hasReachedArmourClassThreshold(hero, 16)).toBe(false);
 	});
 });
