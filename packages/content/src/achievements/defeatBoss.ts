@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "defeat_boss",
 	name: "Boss Breaker",
 	description: "Defeat any boss.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_488_noBG.png",
 });

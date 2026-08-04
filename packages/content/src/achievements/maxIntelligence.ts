@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "max_intelligence",
 	name: "Peak Intelligence",
 	description: "Reach 30 effective Intelligence.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_322_noBG.png",
 });

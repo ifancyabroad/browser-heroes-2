@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "max_dexterity",
 	name: "Peak Dexterity",
 	description: "Reach 30 effective Dexterity.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_408_noBG.png",
 });

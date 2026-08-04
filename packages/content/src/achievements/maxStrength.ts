@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "max_strength",
 	name: "Peak Strength",
 	description: "Reach 30 effective Strength.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_443_noBG.png",
 });

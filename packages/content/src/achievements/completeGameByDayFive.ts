@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "complete_game_by_day_5",
 	name: "Ahead of Dawn",
 	description: "Defeat battle 100 by the end of day 5.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_115_noBG.png",
 });

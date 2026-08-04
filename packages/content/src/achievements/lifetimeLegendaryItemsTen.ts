@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "lifetime_legendary_items_10",
 	name: "Legendary Collector",
 	description: "Acquire 10 legendary items across all runs.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_447_noBG.png",
 });

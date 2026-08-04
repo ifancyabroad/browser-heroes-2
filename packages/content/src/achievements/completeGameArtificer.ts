@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "complete_game_artificer",
 	name: "Artificer's Triumph",
 	description: "Defeat the final boss as an Artificer.",
-	icon: "skills/feats/armour.png",
+	icon: "classes/icons/artificer.png",
 });

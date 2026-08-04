@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "max_constitution",
 	name: "Peak Constitution",
 	description: "Reach 30 effective Constitution.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_379_noBG.png",
 });

@@ -5,5 +5,5 @@ export default buildAchievement({
 	id: "reach_streak_25",
 	name: "Unbroken",
 	description: "Reach a combat streak of 25.",
-	icon: "skills/feats/armour.png",
+	icon: "achievements/skill_481_noBG.png",
 });
