@@ -3,25 +3,37 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "cripple",
 	name: "Cripple",
-	description: "Inflict a debilitating injury that may severely weaken the enemy's attacks.",
+	description: "Strike with a debilitating injury that may weaken the enemy's attacks.",
 	icon: "skills/common/cripple.png",
 	pool: "common",
-	kind: "technique",
+	kind: "weaponAttack",
 	category: "debuff",
 	rarity: "common",
 	maxUses: 4,
 	effects: [
 		{
-			type: "modifyDamage",
+			type: "attackDamage",
 			target: "enemy",
-			operation: "add",
-			value: -4,
-			durationTurns: 4,
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: { attribute: "dexterity" },
-			},
+			multiplier: 1,
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "modifyDamage",
+							target: "enemy",
+							operation: "multiply",
+							value: 0.75,
+							durationTurns: 3,
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "dexterity" },
+							},
+						},
+					],
+				},
+			],
 		},
 	],
 	tags: [],
