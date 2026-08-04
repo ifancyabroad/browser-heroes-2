@@ -8,7 +8,9 @@ type ClassSelectProps = {
 
 const classOptions = [
 	{ label: "All classes", value: "all" },
-	...classes.map((gameClass) => ({ label: gameClass.name, value: gameClass.id })),
+	...[...classes]
+		.sort((a, b) => a.order - b.order)
+		.map((gameClass) => ({ label: gameClass.name, value: gameClass.id })),
 ] satisfies readonly { label: string; value: ClassId | "all" }[];
 
 export function ClassSelect({ value, onChange }: ClassSelectProps) {

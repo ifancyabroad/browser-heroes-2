@@ -2,6 +2,7 @@ import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
 	id: "artificer",
+	order: 8,
 	name: "Artificer",
 	description: "An ingenious arcanist who wields enchanted devices and volatile compounds.",
 	portrait: "classes/portraits/artificer.png",

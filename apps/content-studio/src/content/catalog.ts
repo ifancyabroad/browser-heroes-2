@@ -325,6 +325,7 @@ const classEntries: CatalogEntry[] = classes.map((gameClass) => ({
 		weapon: gameClass.proficiencies.weaponTypes,
 	},
 	cells: {
+		order: gameClass.order,
 		name: gameClass.name,
 		id: gameClass.id,
 		hitDie: gameClass.combat.hitDie,
@@ -571,8 +572,9 @@ export const catalogs: readonly Catalog[] = [
 		singular: "Class",
 		entries: classEntries,
 		hasImages: true,
-		defaultSort: "name",
+		defaultSort: "order",
 		columns: columns(
+			"order",
 			"name",
 			"id",
 			"hitDie",

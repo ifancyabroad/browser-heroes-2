@@ -2,6 +2,7 @@ import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
 	id: "shadowblade",
+	order: 6,
 	name: "Shadowblade",
 	description: "Assassin forged in darkness, blending magic and steel to silence foes.",
 	portrait: "classes/portraits/shadowblade.png",

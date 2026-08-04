@@ -2,6 +2,7 @@ import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
 	id: "mage",
+	order: 2,
 	name: "Mage",
 	description: "Master of the arcane arts and proficient with all forms of magic.",
 	portrait: "classes/portraits/mage.png",

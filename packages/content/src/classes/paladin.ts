@@ -2,6 +2,7 @@ import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
 	id: "paladin",
+	order: 5,
 	name: "Paladin",
 	description: "A noble warrior bound by divine oath, wielding both sword and faith.",
 	portrait: "classes/portraits/paladin.png",

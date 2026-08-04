@@ -2,6 +2,7 @@ import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
 	id: "priest",
+	order: 3,
 	name: "Priest",
 	description: "Dedicated to the Gods, wielding both shadow and holy energy.",
 	portrait: "classes/portraits/priest.png",

@@ -25,6 +25,7 @@ export const classCombatSchema = z.object({
 
 export const classSchema = z.object({
 	id: z.string().nonempty(),
+	order: z.number().int().positive(),
 	name: z.string().nonempty(),
 	description: z.string().optional(),
 	portrait: z.string().nonempty(),

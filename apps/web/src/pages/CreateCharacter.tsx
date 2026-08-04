@@ -9,6 +9,8 @@ import { PageLayout } from "../components/PageLayout";
 import { Container } from "../components/Container";
 import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
 
+const orderedClasses = [...classes].sort((a, b) => a.order - b.order);
+
 export default function CreateCharacter() {
 	const navigate = useNavigate();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -68,7 +70,7 @@ export default function CreateCharacter() {
 					</header>
 
 					<div className="grid gap-3 md:grid-cols-2">
-						{classes.map((gameClass) => (
+						{orderedClasses.map((gameClass) => (
 							<ClassCard
 								key={gameClass.id}
 								gameClass={gameClass}

@@ -2,6 +2,7 @@ import { buildClass } from "../builders/buildClass";
 
 export default buildClass({
 	id: "thief",
+	order: 4,
 	name: "Thief",
 	description: "Unscrupulous and underhanded, strikes from the shadows.",
 	portrait: "classes/portraits/thief.png",
