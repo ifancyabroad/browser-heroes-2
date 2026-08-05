@@ -28,6 +28,7 @@ export type {
 	PendingLevelUp,
 	LevelUpOption,
 	LevelUpSelection,
+	RerollLevelUpAction,
 	EquippedItemState,
 	RuntimeItem,
 } from "./schemas";

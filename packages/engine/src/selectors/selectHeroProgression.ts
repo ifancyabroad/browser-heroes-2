@@ -5,6 +5,7 @@ import { getLevelForXp } from "../systems/progression/level/getLevelForXp";
 import { getLevelProgression } from "../systems/progression/level/getLevelProgression";
 import { getNextLevelXp } from "../systems/progression/level/getNextLevelXp";
 import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
+import { canRerollLevelUp } from "../systems/progression/levelUp/selectLevelUpOptions";
 
 export type HeroProgressionView = {
 	level: number;
@@ -16,6 +17,8 @@ export type HeroProgressionView = {
 	canLevelUp: boolean;
 	pendingLevelUp: PendingLevelUp | null;
 	resultingMaxHp: number | null;
+	levelUpRerolls: number;
+	canRerollLevelUp: boolean;
 };
 
 export function selectHeroProgression(state: RunState): HeroProgressionView {
@@ -33,5 +36,10 @@ export function selectHeroProgression(state: RunState): HeroProgressionView {
 		canLevelUp: pendingLevelUp !== null,
 		pendingLevelUp,
 		resultingMaxHp: pendingLevelUp ? effectiveMaxHp + pendingLevelUp.hpGain : null,
+		levelUpRerolls: state.levelUpRerolls,
+		canRerollLevelUp:
+			state.levelUpRerolls > 0 &&
+			pendingLevelUp !== null &&
+			canRerollLevelUp(hero, pendingLevelUp.options),
 	};
 }

@@ -4,6 +4,7 @@ import { createRunLogId } from "../core/ids";
 import { createInitialHeroState } from "./createInitialHeroState";
 import { createCombat } from "../systems/combat/createCombat";
 import { ClassId } from "@app/content";
+import { STARTING_LEVEL_UP_REROLLS } from "../systems/progression/constants/levelUpRerolls";
 
 export type CreateInitialRunStateInput = {
 	runId: string;
@@ -65,6 +66,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		shopLocks: [],
 
 		gold: 0,
+		levelUpRerolls: STARTING_LEVEL_UP_REROLLS,
 		streak: 0,
 
 		log: [

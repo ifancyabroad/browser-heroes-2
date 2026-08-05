@@ -10,6 +10,8 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	ENEMY_DEFINITION_NOT_FOUND: "Enemy details could not be loaded for this battle.",
 	LEVEL_UP_NOT_AVAILABLE: "There is no level-up available right now.",
 	INVALID_LEVEL_UP_SELECTION: "That level-up choice is not available.",
+	NO_LEVEL_UP_REROLLS_REMAINING: "No level-up rerolls remain.",
+	NO_ALTERNATIVE_LEVEL_UP_OPTIONS: "No alternative level-up choices are available.",
 	SKILL_NOT_KNOWN: "You do not know that skill.",
 	SKILL_HAS_NO_USES_REMAINING: "That skill has no uses remaining.",
 	SKILL_EFFECT_NOT_SUPPORTED: "That skill is not supported yet.",

@@ -43,7 +43,10 @@ describe("LevelUpModal", () => {
 			<LevelUpModal
 				pendingLevelUp={{ level: 2, hpGain: 5, options: [] }}
 				isPending={false}
+				levelUpRerolls={5}
+				canReroll={false}
 				onConfirm={onConfirm}
+				onReroll={vi.fn()}
 			/>,
 		);
 
@@ -63,7 +66,10 @@ describe("LevelUpModal", () => {
 					} as never
 				}
 				isPending={false}
+				levelUpRerolls={5}
+				canReroll
 				onConfirm={vi.fn()}
+				onReroll={vi.fn()}
 			/>,
 		);
 
@@ -83,7 +89,10 @@ describe("LevelUpModal", () => {
 					} as never
 				}
 				isPending={false}
+				levelUpRerolls={5}
+				canReroll
 				onConfirm={onConfirm}
+				onReroll={vi.fn()}
 			/>,
 		);
 
@@ -104,11 +113,80 @@ describe("LevelUpModal", () => {
 					} as never
 				}
 				isPending
+				levelUpRerolls={5}
+				canReroll
 				onConfirm={vi.fn()}
+				onReroll={vi.fn()}
 			/>,
 		);
 
 		expect(screen.getByRole("button", { name: "Select option" })).toBeDisabled();
+		expect(screen.getByRole("button", { name: "Confirm" })).toBeDisabled();
+		expect(screen.getByRole("button", { name: "Reroll (5 remaining)" })).toBeDisabled();
+	});
+
+	it("submits an available reroll", () => {
+		const onReroll = vi.fn();
+		render(
+			<LevelUpModal
+				pendingLevelUp={
+					{
+						level: 2,
+						hpGain: 5,
+						options: [{ type: "skill", skillId: "heavy_strike" }],
+					} as never
+				}
+				isPending={false}
+				levelUpRerolls={5}
+				canReroll
+				onConfirm={vi.fn()}
+				onReroll={onReroll}
+			/>,
+		);
+
+		fireEvent.click(screen.getByRole("button", { name: "Reroll (5 remaining)" }));
+
+		expect(onReroll).toHaveBeenCalledOnce();
+	});
+
+	it("clears the selected choice when a reroll replaces the options", () => {
+		const props = {
+			isPending: false,
+			levelUpRerolls: 5,
+			canReroll: true,
+			onConfirm: vi.fn(),
+			onReroll: vi.fn(),
+		};
+		const { rerender } = render(
+			<LevelUpModal
+				{...props}
+				pendingLevelUp={
+					{
+						level: 2,
+						hpGain: 5,
+						options: [{ type: "skill", skillId: "heavy_strike" }],
+					} as never
+				}
+			/>,
+		);
+
+		fireEvent.click(screen.getByRole("button", { name: "Select option" }));
+		expect(screen.getByRole("button", { name: "Confirm" })).toBeEnabled();
+
+		rerender(
+			<LevelUpModal
+				{...props}
+				levelUpRerolls={4}
+				pendingLevelUp={
+					{
+						level: 2,
+						hpGain: 5,
+						options: [{ type: "skill", skillId: "fireball" }],
+					} as never
+				}
+			/>,
+		);
+
 		expect(screen.getByRole("button", { name: "Confirm" })).toBeDisabled();
 	});
 });

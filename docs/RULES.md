@@ -72,6 +72,8 @@ Level-ups are triggered by XP thresholds. When a level-up is pending, the player
 
 Level-up choices are intended to stay curated: the player should choose from a small set of relevant skill or feat options rather than manage a large open tree during the run. Skill options are selected without replacement using rarity weights; common skills appear most frequently, while legendary skills are significantly rarer. Feat options remain uniformly selected.
 
+Each run begins with five level-up rerolls shared across skill and feat offers. Rerolls cost no gold and never replenish. A reroll prioritizes choices not present in the current offer; when fewer than three new choices remain, previous choices fill the remaining slots. Rerolling is unavailable when no alternative eligible choice exists.
+
 ## 6. Skills
 
 Skills are active abilities owned by heroes, enemies, or other combatants.

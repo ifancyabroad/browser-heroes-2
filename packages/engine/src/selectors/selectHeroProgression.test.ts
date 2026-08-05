@@ -16,6 +16,8 @@ describe("selectHeroProgression", () => {
 			nextLevelXp: 50,
 			availableLevel: 2,
 			canLevelUp: true,
+			levelUpRerolls: 5,
+			canRerollLevelUp: false,
 			resultingMaxHp: expect.any(Number),
 		});
 	});

@@ -67,6 +67,8 @@ The intended combat feel is fast tactical RPG combat: basic attacks stay simple,
 
 Players earn XP and gold from combat victories. Boss victories may offer a small reward choice between eligible equipment and gold. Level-ups may offer a small curated set of skill or feat options.
 
+Each run provides five shared, non-replenishing level-up rerolls. They let players replace skill or feat offers without spending gold while preserving the run's deterministic randomness and curated choice size.
+
 Progression should reward continuing a run while making risk visible. Returning to town should be a meaningful pacing and safety decision rather than a purely cosmetic step.
 
 ### 4.4 Content System

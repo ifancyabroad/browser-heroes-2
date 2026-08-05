@@ -39,6 +39,7 @@ export const runStateSchema = z.object({
 	shopLocks: z.array(townShopSlotSchema),
 	pendingRewardChoice: pendingRewardChoiceSchema.nullable(),
 	gold: z.number().int().min(0),
+	levelUpRerolls: z.number().int().min(0),
 	streak: z.number().int().min(0),
 	log: z.array(runLogEntrySchema),
 });

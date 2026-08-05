@@ -1,19 +1,10 @@
-import { CLASSES_BY_ID, SKILLS_BY_ID } from "@app/content";
+import { CLASSES_BY_ID } from "@app/content";
 
-import {
-	selectRandomItems,
-	selectWeightedItems,
-	type RngResult,
-	type RngState,
-} from "../../../core/rng";
-import type { HeroState, LevelUpOption, PendingLevelUp } from "../../../schemas";
+import { type RngResult, type RngState } from "../../../core/rng";
+import type { HeroState, PendingLevelUp } from "../../../schemas";
 import { calculateLevelUpHpGain } from "../health/calculateLevelUpHpGain";
 import { getPendingLevelUp } from "../level/getPendingLevelUp";
-import { getEligibleFeatOptions } from "./getEligibleFeatOptions";
-import { getEligibleSkillOptions } from "./getEligibleSkillOptions";
-import { getSkillRarityWeight } from "./skillRarityWeights";
-
-const LEVEL_UP_OPTION_COUNT = 3;
+import { selectLevelUpOptions } from "./selectLevelUpOptions";
 
 export function createPendingLevelUp(
 	hero: HeroState,
@@ -52,30 +43,4 @@ export function createPendingLevelUp(
 		},
 		rngState: selected.rngState,
 	};
-}
-
-function selectLevelUpOptions(
-	hero: HeroState,
-	choice: "skill" | "feat" | undefined,
-	rngState: RngState,
-): RngResult<LevelUpOption[]> {
-	switch (choice) {
-		case "skill": {
-			const weightedOptions = getEligibleSkillOptions(hero).map((option) => ({
-				value: option,
-				weight: getSkillRarityWeight(SKILLS_BY_ID[option.skillId].rarity),
-			}));
-
-			return selectWeightedItems(weightedOptions, LEVEL_UP_OPTION_COUNT, rngState);
-		}
-
-		case "feat":
-			return selectRandomItems(getEligibleFeatOptions(hero), LEVEL_UP_OPTION_COUNT, rngState);
-
-		default:
-			return {
-				value: [],
-				rngState,
-			};
-	}
 }

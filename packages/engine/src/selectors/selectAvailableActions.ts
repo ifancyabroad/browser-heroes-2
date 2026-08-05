@@ -1,10 +1,4 @@
-import type {
-	CompleteLevelUpAction,
-	EngineAction,
-	PendingLevelUp,
-	PlayerUseSkillAction,
-	RunState,
-} from "../schemas";
+import type { EngineAction, PlayerUseSkillAction, RunState } from "../schemas";
 import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
@@ -12,6 +6,7 @@ import { isFinalBossVictory } from "../systems/endless/endlessProgression";
 import { canSwapHandWeapons } from "../systems/equipment/canSwapHandWeapons";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
 import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
+import { canRerollLevelUp } from "../systems/progression/levelUp/selectLevelUpOptions";
 import {
 	calculateHealingPotionCost,
 	calculateRerollCost,
@@ -21,7 +16,7 @@ import {
 
 export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (state.hero.pendingLevelUp) {
-		return getLevelUpActions(state.hero.pendingLevelUp);
+		return getLevelUpActions(state);
 	}
 
 	if (state.pendingRewardChoice) {
@@ -99,7 +94,13 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 	return [];
 }
 
-function getLevelUpActions(pendingLevelUp: PendingLevelUp): CompleteLevelUpAction[] {
+function getLevelUpActions(state: RunState): EngineAction[] {
+	const pendingLevelUp = state.hero.pendingLevelUp;
+
+	if (!pendingLevelUp) {
+		return [];
+	}
+
 	if (pendingLevelUp.options.length === 0) {
 		return [
 			{
@@ -109,7 +110,7 @@ function getLevelUpActions(pendingLevelUp: PendingLevelUp): CompleteLevelUpActio
 		];
 	}
 
-	return pendingLevelUp.options.map((option) => {
+	const actions: EngineAction[] = pendingLevelUp.options.map((option) => {
 		if (option.type === "skill") {
 			return {
 				type: "COMPLETE_LEVEL_UP",
@@ -128,6 +129,12 @@ function getLevelUpActions(pendingLevelUp: PendingLevelUp): CompleteLevelUpActio
 			},
 		};
 	});
+
+	if (state.levelUpRerolls > 0 && canRerollLevelUp(state.hero, pendingLevelUp.options)) {
+		actions.push({ type: "REROLL_LEVEL_UP" });
+	}
+
+	return actions;
 }
 
 function getRewardActions(state: RunState): EngineAction[] {

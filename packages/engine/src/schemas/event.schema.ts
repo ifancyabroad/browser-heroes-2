@@ -81,6 +81,11 @@ const levelUpCompletedEventSchema = z.object({
 	selection: completedLevelUpSelectionSchema.nullable(),
 });
 
+const levelUpRerolledEventSchema = z.object({
+	type: z.literal("LEVEL_UP_REROLLED"),
+	remainingRerolls: z.number().int().min(0),
+});
+
 const rewardSelectedEventSchema = z.discriminatedUnion("rewardType", [
 	z.object({
 		type: z.literal("REWARD_SELECTED"),
@@ -144,6 +149,7 @@ export const engineEventSchema = z.union([
 	nextCombatReadyEventSchema,
 	runRetiredEventSchema,
 	levelUpCompletedEventSchema,
+	levelUpRerolledEventSchema,
 	rewardSelectedEventSchema,
 	shopRerolledEventSchema,
 	shopLockChangedEventSchema,

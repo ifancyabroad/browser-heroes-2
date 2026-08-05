@@ -21,13 +21,16 @@ vi.mock("../../../stores/errorModalStore", () => ({
 vi.mock("./LevelUpModal", () => ({
 	LevelUpModal: ({
 		onConfirm,
+		onReroll,
 	}: {
 		onConfirm: (selection: { optionIndex: number } | null) => void;
+		onReroll: () => void;
 	}) => (
 		<div>
 			<span>Level-up modal</span>
 			<button onClick={() => onConfirm({ optionIndex: 1 })}>Confirm level-up</button>
 			<button onClick={() => onConfirm(null)}>Continue level-up</button>
+			<button onClick={onReroll}>Reroll level-up</button>
 		</div>
 	),
 }));
@@ -41,6 +44,8 @@ describe("LevelUpModalController", () => {
 		vi.clearAllMocks();
 		selectHeroProgression.mockReturnValue({
 			pendingLevelUp: { level: 2, hpGain: 5, options: [] },
+			levelUpRerolls: 5,
+			canRerollLevelUp: false,
 		});
 	});
 
@@ -78,6 +83,20 @@ describe("LevelUpModalController", () => {
 			{
 				runId: "run-id",
 				action: { type: "COMPLETE_LEVEL_UP", selection: null },
+			},
+			expect.any(Object),
+		);
+	});
+
+	it("submits a level-up reroll", () => {
+		render(<LevelUpModalController run={run} />);
+
+		fireEvent.click(screen.getByRole("button", { name: "Reroll level-up" }));
+
+		expect(mutate).toHaveBeenCalledWith(
+			{
+				runId: "run-id",
+				action: { type: "REROLL_LEVEL_UP" },
 			},
 			expect.any(Object),
 		);

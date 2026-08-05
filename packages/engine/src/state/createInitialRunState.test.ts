@@ -16,6 +16,7 @@ describe("createInitialRunState", () => {
 			seed: "test-seed",
 			phase: "combat",
 			battleNumber: 1,
+			levelUpRerolls: 5,
 			hero: {
 				name: "Test Hero",
 				classId: "warrior",

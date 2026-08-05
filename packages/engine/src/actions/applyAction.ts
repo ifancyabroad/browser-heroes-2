@@ -14,6 +14,7 @@ import { buyConsumable } from "../systems/town/buyConsumable";
 import { retireRun } from "../systems/endless/retireRun";
 import { swapHandWeapons } from "../systems/equipment/swapHandWeapons";
 import { setShopLock } from "../systems/town/setShopLock";
+import { rerollLevelUp } from "../systems/progression/levelUp/rerollLevelUp";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -33,6 +34,9 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "COMPLETE_LEVEL_UP":
 			return completeLevelUp(state, action);
+
+		case "REROLL_LEVEL_UP":
+			return rerollLevelUp(state);
 
 		case "SELECT_REWARD":
 			return completeRewardChoice(state, action);

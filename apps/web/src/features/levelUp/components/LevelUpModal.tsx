@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { LevelUpSelection, PendingLevelUp } from "@app/engine";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
@@ -7,13 +7,32 @@ import { LevelUpOptionList } from "./LevelUpOptionList";
 type LevelUpModalProps = {
 	pendingLevelUp: PendingLevelUp;
 	isPending: boolean;
+	levelUpRerolls: number;
+	canReroll: boolean;
 	onConfirm: (selection: LevelUpSelection | null) => void;
+	onReroll: () => void;
 };
 
-export function LevelUpModal({ pendingLevelUp, isPending, onConfirm }: LevelUpModalProps) {
+export function LevelUpModal({
+	pendingLevelUp,
+	isPending,
+	levelUpRerolls,
+	canReroll,
+	onConfirm,
+	onReroll,
+}: LevelUpModalProps) {
 	const [selection, setSelection] = useState<LevelUpSelection | null>(null);
 	const hasOptions = pendingLevelUp.options.length > 0;
 	const canConfirm = !isPending && (!hasOptions || selection !== null);
+	const optionKey = pendingLevelUp.options
+		.map((option) =>
+			option.type === "skill" ? `skill:${option.skillId}` : `feat:${option.featId}`,
+		)
+		.join("|");
+
+	useEffect(() => {
+		setSelection(null);
+	}, [optionKey]);
 
 	function handleConfirm() {
 		if (!canConfirm) {
@@ -30,14 +49,26 @@ export function LevelUpModal({ pendingLevelUp, isPending, onConfirm }: LevelUpMo
 			onClose={() => undefined}
 			dismissible={false}
 			footer={
-				<Button
-					type="button"
-					variant="primary"
-					disabled={!canConfirm}
-					onClick={handleConfirm}
-				>
-					{hasOptions ? "Confirm" : "Continue"}
-				</Button>
+				<div className="flex flex-wrap justify-end gap-2">
+					{hasOptions && (
+						<Button
+							type="button"
+							disabled={isPending || !canReroll}
+							title={getRerollUnavailableReason(levelUpRerolls, canReroll)}
+							onClick={onReroll}
+						>
+							Reroll ({levelUpRerolls} remaining)
+						</Button>
+					)}
+					<Button
+						type="button"
+						variant="primary"
+						disabled={!canConfirm}
+						onClick={handleConfirm}
+					>
+						{hasOptions ? "Confirm" : "Continue"}
+					</Button>
+				</div>
 			}
 		>
 			<div className="grid gap-4 text-base">
@@ -65,6 +96,18 @@ export function LevelUpModal({ pendingLevelUp, isPending, onConfirm }: LevelUpMo
 			</div>
 		</Modal>
 	);
+}
+
+function getRerollUnavailableReason(remaining: number, canReroll: boolean) {
+	if (remaining === 0) {
+		return "No level-up rerolls remain.";
+	}
+
+	if (!canReroll) {
+		return "No alternative level-up choices are available.";
+	}
+
+	return undefined;
 }
 
 function getSelectionInstruction(options: PendingLevelUp["options"]) {

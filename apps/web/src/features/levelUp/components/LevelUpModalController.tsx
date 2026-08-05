@@ -12,7 +12,7 @@ export function LevelUpModalController({ run }: LevelUpModalControllerProps) {
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
 	const progression = selectHeroProgression(run.state);
-	const { pendingLevelUp } = progression;
+	const { pendingLevelUp, levelUpRerolls, canRerollLevelUp } = progression;
 
 	if (!pendingLevelUp) {
 		return null;
@@ -40,12 +40,34 @@ export function LevelUpModalController({ run }: LevelUpModalControllerProps) {
 		);
 	}
 
+	function handleReroll() {
+		applyRunAction.mutate(
+			{
+				runId: run.id,
+				action: { type: "REROLL_LEVEL_UP" },
+			},
+			{
+				onSuccess: ({ result }) => {
+					if (!result.ok) {
+						showError(getEngineErrorMessage(result.error));
+					}
+				},
+				onError: () => {
+					showError("Unable to reroll the level-up choices. Please try again.");
+				},
+			},
+		);
+	}
+
 	return (
 		<LevelUpModal
 			key={pendingLevelUp.level}
 			pendingLevelUp={pendingLevelUp}
 			isPending={applyRunAction.isPending}
+			levelUpRerolls={levelUpRerolls}
+			canReroll={canRerollLevelUp}
 			onConfirm={handleConfirm}
+			onReroll={handleReroll}
 		/>
 	);
 }
