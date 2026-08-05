@@ -9,14 +9,14 @@ export default buildSkill({
 	kind: "spell",
 	category: "defensive",
 	rarity: "uncommon",
-	maxUses: 8,
+	maxUses: 2,
 	effects: [
 		{
 			type: "modifyStat",
 			target: "self",
 			stat: "armourClass",
-			value: 6,
-			duration: { unit: "battles", value: 3 },
+			value: 4,
+			duration: { unit: "battles", value: 5 },
 		},
 	],
 	tags: [],
