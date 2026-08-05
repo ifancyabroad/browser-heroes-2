@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "applyStatus",
 			target: "enemy",
 			statusId: "stunned",
-			duration: { unit: "turns", value: 1 },
+			duration: { unit: "turns", value: 2 },
 			save: {
 				attribute: "dexterity",
 				onSuccess: "noEffect",
@@ -28,7 +28,7 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "acid",
-			duration: { unit: "turns", value: 4 },
+			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",
