@@ -53,11 +53,12 @@ export function LevelUpModal({
 					{hasOptions && (
 						<Button
 							type="button"
+							aria-label={`Reroll level-up choices. ${levelUpRerolls} remaining`}
 							disabled={isPending || !canReroll}
 							title={getRerollUnavailableReason(levelUpRerolls, canReroll)}
 							onClick={onReroll}
 						>
-							Reroll ({levelUpRerolls} remaining)
+							Reroll ({levelUpRerolls})
 						</Button>
 					)}
 					<Button

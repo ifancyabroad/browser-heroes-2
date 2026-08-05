@@ -122,7 +122,9 @@ describe("LevelUpModal", () => {
 
 		expect(screen.getByRole("button", { name: "Select option" })).toBeDisabled();
 		expect(screen.getByRole("button", { name: "Confirm" })).toBeDisabled();
-		expect(screen.getByRole("button", { name: "Reroll (5 remaining)" })).toBeDisabled();
+		expect(
+			screen.getByRole("button", { name: "Reroll level-up choices. 5 remaining" }),
+		).toBeDisabled();
 	});
 
 	it("submits an available reroll", () => {
@@ -144,7 +146,9 @@ describe("LevelUpModal", () => {
 			/>,
 		);
 
-		fireEvent.click(screen.getByRole("button", { name: "Reroll (5 remaining)" }));
+		fireEvent.click(
+			screen.getByRole("button", { name: "Reroll level-up choices. 5 remaining" }),
+		);
 
 		expect(onReroll).toHaveBeenCalledOnce();
 	});
