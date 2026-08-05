@@ -30,7 +30,7 @@ export default buildItemAffix({
 					target: "enemy",
 					operation: "multiply",
 					value: 0.85,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

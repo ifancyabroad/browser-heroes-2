@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "dexterity",
 				onSuccess: "noEffect",
@@ -30,7 +30,7 @@ export default buildSkill({
 			roll: "savingThrow",
 			attribute: "dexterity",
 			mode: "disadvantage",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "dexterity",
 				onSuccess: "noEffect",

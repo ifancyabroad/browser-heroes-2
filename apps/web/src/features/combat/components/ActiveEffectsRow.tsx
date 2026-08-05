@@ -85,7 +85,8 @@ function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltip
 							{effect.type === "modifyRoll" && effect.remainingCharges !== undefined
 								? `${effect.remainingCharges} ${effect.remainingCharges === 1 ? "charge" : "charges"} · `
 								: ""}
-							{effect.remainingTurns}t
+							{effect.duration.remaining}
+							{effect.duration.unit === "turns" ? "t" : "b"}
 						</span>
 					</li>
 				))}

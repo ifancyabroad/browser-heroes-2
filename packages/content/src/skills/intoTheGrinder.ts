@@ -29,7 +29,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "acid",
 			dice: "2d6",
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

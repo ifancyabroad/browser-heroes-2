@@ -20,6 +20,7 @@ import { createEffectInstanceId } from "../../../../core/ids";
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
 import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
+import { createActiveEffectDuration } from "../../effects/createActiveEffectDuration";
 import type { ActionResolution } from "../../logs/actionOutcome";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 
@@ -81,6 +82,7 @@ export function applyTemporaryModifierEffect(
 	const activeEffect = createActiveCombatEffect({
 		combat,
 		actorId: actor.id,
+		actorSide: actor.side,
 		effect: input.effect,
 		source: input.source,
 	});
@@ -107,6 +109,7 @@ export function applyTemporaryModifierEffect(
 function createActiveCombatEffect(input: {
 	combat: CombatState;
 	actorId: string;
+	actorSide: CombatantSide;
 	effect: TemporaryModifierEffect;
 	source: ActiveEffectSource;
 }): ActiveCombatEffect {
@@ -118,8 +121,9 @@ function createActiveCombatEffect(input: {
 			input.source.sourceEffectKey,
 		),
 		sourceCombatantId: input.actorId,
+		sourceSide: input.actorSide,
 		source: input.source,
-		remainingTurns: input.effect.durationTurns,
+		duration: createActiveEffectDuration(input.effect.duration),
 	};
 
 	switch (input.effect.type) {

@@ -17,7 +17,7 @@ export default buildSkill({
 			affinity: "immunity",
 			operation: "add",
 			damageType: "fire",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -25,7 +25,7 @@ export default buildSkill({
 			affinity: "immunity",
 			operation: "add",
 			damageType: "cold",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -33,7 +33,7 @@ export default buildSkill({
 			affinity: "immunity",
 			operation: "add",
 			damageType: "lightning",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 		},
 	],
 	tags: [],

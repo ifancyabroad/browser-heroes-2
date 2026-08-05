@@ -27,7 +27,7 @@ State transitions are explicit and engine-owned:
 - Combat -> Dead
 - Combat -> Retired
 
-After a victorious combat, the player may continue directly to the next combat or return to town. Continuing preserves and increases run momentum through the active streak. Returning to town resets that streak.
+After a victorious combat, the player may continue directly to the next combat or return to town. Continuing preserves and increases run momentum through the active streak and carries surviving battle-duration effects on the hero into the next encounter. Returning to town resets that streak and clears all active effects.
 
 ## 3. Hero and Build Rules
 

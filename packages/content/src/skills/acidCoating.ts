@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "acid",
 			operation: "multiply",
 			value: 2,
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 		},
 	],
 	tags: [],

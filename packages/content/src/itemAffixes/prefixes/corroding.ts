@@ -29,7 +29,7 @@ export default buildItemAffix({
 					target: "enemy",
 					damageType: "acid",
 					dice: "1d4",
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

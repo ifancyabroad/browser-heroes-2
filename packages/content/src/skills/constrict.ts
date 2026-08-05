@@ -33,7 +33,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "strength",
 				onSuccess: "noEffect",

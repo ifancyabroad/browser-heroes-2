@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "self",
 			stat: "armourClass",
 			value: 10,
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 		},
 		{
 			type: "modifyRoll",
@@ -25,7 +25,7 @@ export default buildSkill({
 			roll: "savingThrow",
 			attribute: "dexterity",
 			mode: "automaticSuccess",
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 		},
 	],
 	tags: [],

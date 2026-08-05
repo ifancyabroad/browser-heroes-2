@@ -7,6 +7,7 @@ import type {
 	RiderEffect,
 	RollModifierMode,
 	SavingThrow,
+	EffectDuration,
 } from "@app/content";
 import type { ActiveCombatEffect } from "@app/engine";
 import {
@@ -103,7 +104,7 @@ export function formatSkillEffect(effect: Effect): string {
 		case "heal":
 			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
-			return `Apply ${formatTitle(effect.statusId)} to ${formatTargetObject(effect.target)} for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
+			return `Apply ${formatTitle(effect.statusId)} to ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
 		case "removeStatus":
 			return `Remove ${formatRemovedStatuses(effect)} from ${formatTargetObject(effect.target)}.`;
 		case "modifyStat":
@@ -112,7 +113,7 @@ export function formatSkillEffect(effect: Effect): string {
 				modifiableStatFullLabels[effect.stat],
 				"add",
 				effect.value,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyHealing":
@@ -121,7 +122,7 @@ export function formatSkillEffect(effect: Effect): string {
 				"healing",
 				"multiply",
 				effect.multiplier,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyDamage":
@@ -130,7 +131,7 @@ export function formatSkillEffect(effect: Effect): string {
 				formatDamageSubject(effect.damageType, false),
 				effect.operation,
 				effect.value,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyDamageTaken":
@@ -139,7 +140,7 @@ export function formatSkillEffect(effect: Effect): string {
 				formatDamageTakenSubject(effect.damageType),
 				effect.operation,
 				effect.value,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyDamageAffinity":
@@ -147,11 +148,11 @@ export function formatSkillEffect(effect: Effect): string {
 		case "modifyRoll":
 			return formatRollEffect(effect);
 		case "damageOverTime":
-			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
+			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
 		case "healOverTime":
-			return `Heal yourself for ${effect.dice} per turn for ${formatTurns(effect.durationTurns)}.`;
+			return `Heal yourself for ${effect.dice} per turn for ${formatEffectDuration(effect.duration)}.`;
 		case "shield":
-			return `Grant yourself a ${effect.amount}-point shield for ${formatTurns(effect.durationTurns)}.`;
+			return `Grant yourself a ${effect.amount}-point shield for ${formatEffectDuration(effect.duration)}.`;
 		default:
 			return assertNever(effect);
 	}
@@ -164,14 +165,14 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "heal":
 			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
-			return `Apply ${formatTitle(effect.statusId)} to ${formatTargetObject(effect.target)} for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
+			return `Apply ${formatTitle(effect.statusId)} to ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
 		case "modifyStat":
 			return formatTemporaryModifier(
 				effect.target,
 				modifiableStatFullLabels[effect.stat],
 				"add",
 				effect.value,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyHealing":
@@ -180,7 +181,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				"healing",
 				"multiply",
 				effect.multiplier,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyDamage":
@@ -189,7 +190,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				formatDamageSubject(effect.damageType, false),
 				effect.operation,
 				effect.value,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyDamageTaken":
@@ -198,7 +199,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				formatDamageTakenSubject(effect.damageType),
 				effect.operation,
 				effect.value,
-				effect.durationTurns,
+				effect.duration,
 				effect.save,
 			);
 		case "modifyDamageAffinity":
@@ -206,11 +207,11 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "modifyRoll":
 			return formatRollEffect(effect);
 		case "damageOverTime":
-			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn${formatOptionalDuration(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
+			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn${formatDurationSuffix(effect.duration)}${formatOptionalSave(effect.save)}.`;
 		case "healOverTime":
-			return `Heal yourself for ${effect.dice} per turn${formatOptionalDuration(effect.durationTurns)}.`;
+			return `Heal yourself for ${effect.dice} per turn${formatDurationSuffix(effect.duration)}.`;
 		case "shield":
-			return `Grant yourself a ${effect.amount}-point shield${formatOptionalDuration(effect.durationTurns)}.`;
+			return `Grant yourself a ${effect.amount}-point shield${formatDurationSuffix(effect.duration)}.`;
 		default:
 			return assertNever(effect);
 	}
@@ -349,7 +350,7 @@ function formatDamageEffect(effect: Extract<Effect | RiderEffect, { type: "damag
 function formatDamageAffinityEffect(
 	effect: Extract<Effect | RiderEffect, { type: "modifyDamageAffinity" }>,
 ) {
-	return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatTurns(effect.durationTurns)}${formatOptionalSave(effect.save)}.`;
+	return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
 }
 
 function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyRoll" }>) {
@@ -358,7 +359,7 @@ function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyR
 	const limitedRolls = effect.charges
 		? `${target} next ${effect.charges === 1 ? singularizeRollSubject(rolls) : `${effect.charges} ${rolls}`}`
 		: `${target} ${rolls}`;
-	const duration = formatTurns(effect.durationTurns);
+	const duration = formatEffectDuration(effect.duration);
 	const save = formatOptionalSave(effect.save);
 
 	if (effect.mode === "advantage" || effect.mode === "disadvantage") {
@@ -410,27 +411,31 @@ function formatTemporaryModifier(
 	subject: string,
 	operation: DamageModifierOperation,
 	value: number,
-	durationTurns: number | undefined,
+	duration: EffectDuration,
 	save: SavingThrow | undefined,
 ) {
-	const duration = formatOptionalDuration(durationTurns);
+	const durationText = formatDurationSuffix(duration);
 	const savingThrow = formatOptionalSave(save);
 	const possessiveTarget = target === "self" ? "your" : "the enemy's";
 
 	const change = operation === "multiply" ? getPercentageChange(value) : value;
 	if (change === 0) {
-		return `${target === "self" ? "Your" : "The enemy's"} ${subject} is unchanged${duration}${savingThrow}.`;
+		return `${target === "self" ? "Your" : "The enemy's"} ${subject} is unchanged${durationText}${savingThrow}.`;
 	}
 
-	return `${change > 0 ? "Increase" : "Reduce"} ${possessiveTarget} ${subject} by ${Math.abs(change)}${operation === "multiply" ? "%" : ""}${duration}${savingThrow}.`;
+	return `${change > 0 ? "Increase" : "Reduce"} ${possessiveTarget} ${subject} by ${Math.abs(change)}${operation === "multiply" ? "%" : ""}${durationText}${savingThrow}.`;
 }
 
 function formatDiceFormula(dice: string, attribute: Attribute | undefined) {
 	return attribute ? `${dice} + ${attributeShortLabels[attribute]}` : dice;
 }
 
-function formatOptionalDuration(durationTurns: number | undefined) {
-	return durationTurns === undefined ? "" : ` for ${formatTurns(durationTurns)}`;
+export function formatEffectDuration(duration: EffectDuration) {
+	return `${duration.value} ${duration.value === 1 ? duration.unit.slice(0, -1) : duration.unit}`;
+}
+
+function formatDurationSuffix(duration: EffectDuration) {
+	return ` for ${formatEffectDuration(duration)}`;
 }
 
 function formatOptionalSave(save: SavingThrow | undefined) {

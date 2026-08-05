@@ -14,7 +14,7 @@ describe("advanceActiveEffects", () => {
 		const result = advanceActiveEffects(combatant, new Set([effect.id]));
 
 		expect(result.combatant.activeEffects).toEqual([
-			expect.objectContaining({ id: effect.id, remainingTurns: 1 }),
+			expect.objectContaining({ id: effect.id, duration: { unit: "turns", remaining: 1 } }),
 		]);
 		expect(result.expiredEffects).toEqual([]);
 	});
@@ -44,20 +44,37 @@ describe("advanceActiveEffects", () => {
 		expect(result.combatant.activeEffects).toEqual([effect]);
 		expect(result.expiredEffects).toEqual([]);
 	});
+
+	it("does not decrement battle-duration effects during a turn", () => {
+		const effect = {
+			...createStatusEffect("battle-effect", 2),
+			duration: { unit: "battles" as const, remaining: 2 },
+		};
+		const combatant = {
+			...createTestRunState().combat!.player,
+			activeEffects: [effect],
+		};
+
+		const result = advanceActiveEffects(combatant, new Set([effect.id]));
+
+		expect(result.combatant.activeEffects).toEqual([effect]);
+		expect(result.expiredEffects).toEqual([]);
+	});
 });
 
-function createStatusEffect(id: string, remainingTurns: number): ActiveCombatEffect {
+function createStatusEffect(id: string, remaining: number): ActiveCombatEffect {
 	return {
 		id,
 		type: "status",
 		sourceCombatantId: "enemy",
+		sourceSide: "enemy",
 		source: {
 			type: "skill",
 			skillId: "armour_break",
 			sourceName: "Test Effect",
 			sourceEffectKey: id,
 		},
-		remainingTurns,
+		duration: { unit: "turns", remaining },
 		statusId: "stunned",
 	};
 }

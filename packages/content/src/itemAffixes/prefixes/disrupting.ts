@@ -21,7 +21,7 @@ export default buildItemAffix({
 					target: "enemy",
 					stat: "savingThrowBonus",
 					value: -1,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

@@ -27,7 +27,7 @@ export default buildItemAffix({
 					affinity: "vulnerability",
 					operation: "add",
 					damageType: "fire",
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

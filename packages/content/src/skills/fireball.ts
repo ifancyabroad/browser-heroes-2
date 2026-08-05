@@ -29,7 +29,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "fire",
 			dice: "1d6",
-			durationTurns: 2,
+			duration: { unit: "turns", value: 2 },
 		},
 	],
 	tags: [],

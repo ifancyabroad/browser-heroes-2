@@ -18,7 +18,7 @@ export default buildSkill({
 			damageType: "fire",
 			operation: "multiply",
 			value: 1.4,
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 		},
 	],
 	tags: [],

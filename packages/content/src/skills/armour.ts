@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "self",
 			stat: "armourClass",
 			value: 6,
-			durationTurns: 10,
+			duration: { unit: "battles", value: 3 },
 		},
 	],
 	tags: [],

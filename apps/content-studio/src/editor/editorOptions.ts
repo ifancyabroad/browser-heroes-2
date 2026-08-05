@@ -30,6 +30,7 @@ import type { CategoryKey } from "../content/catalog";
 const unique = (...groups: readonly (readonly string[])[]) => [...new Set(groups.flat())];
 
 export const optionsByField: Record<string, readonly string[]> = {
+	unit: ["turns", "battles"],
 	target: skillTargetSchema.options,
 	pool: skillPoolSchema.options,
 	hitDie: hitDieSchema.options,

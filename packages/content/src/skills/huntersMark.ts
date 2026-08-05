@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "self",
 			roll: "attack",
 			mode: "advantage",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -25,7 +25,7 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "piercing",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "dexterity",
 				onSuccess: "noEffect",

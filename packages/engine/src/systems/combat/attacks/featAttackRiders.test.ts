@@ -10,7 +10,7 @@ import { resolveBasicAttack } from "./resolveBasicAttack";
 
 const TEST_RIDER: AttackRider = {
 	timing: "onHit",
-	effects: [{ type: "shield", target: "self", amount: 3, durationTurns: 2 }],
+	effects: [{ type: "shield", target: "self", amount: 3, duration: { unit: "turns", value: 2 } }],
 };
 
 const guardedAssault = FEATS_BY_ID.guarded_assault;

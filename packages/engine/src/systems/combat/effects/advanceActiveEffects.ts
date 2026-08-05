@@ -14,21 +14,21 @@ export function advanceActiveEffects(
 	const expiredEffects: ActiveCombatEffect[] = [];
 
 	for (const effect of combatant.activeEffects) {
-		if (!effectIds.has(effect.id)) {
+		if (!effectIds.has(effect.id) || effect.duration.unit !== "turns") {
 			activeEffects.push(effect);
 			continue;
 		}
 
-		const remainingTurns = effect.remainingTurns - 1;
+		const remaining = effect.duration.remaining - 1;
 
-		if (remainingTurns <= 0) {
+		if (remaining <= 0) {
 			expiredEffects.push(effect);
 			continue;
 		}
 
 		activeEffects.push({
 			...effect,
-			remainingTurns,
+			duration: { unit: "turns", remaining },
 		});
 	}
 

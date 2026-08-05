@@ -4,6 +4,7 @@ import { failureResult, successResult } from "../../core/result";
 import { createCombat } from "../combat/createCombat";
 import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
 import { getEndlessCycleForBattle } from "../endless/endlessProgression";
+import { carryBattleEffects } from "../combat/effects/carryBattleEffects";
 
 export function continueToNextCombat(
 	state: RunState,
@@ -44,12 +45,17 @@ export function continueToNextCombat(
 		return failureResult(state, "NO_ELIGIBLE_ENEMY");
 	}
 
+	const combat = {
+		...combatResult.value,
+		player: carryBattleEffects(state.combat.player, combatResult.value.player),
+	};
+
 	return successResult(
 		{
 			...state,
 			rngState: combatResult.rngState,
 			phase: "combat",
-			combat: combatResult.value,
+			combat,
 			town: null,
 			battleNumber,
 			zoneNumber,
@@ -62,7 +68,7 @@ export function continueToNextCombat(
 			},
 			{
 				type: "COMBAT_STARTED",
-				combatId: combatResult.value.id,
+				combatId: combat.id,
 			},
 		],
 	);

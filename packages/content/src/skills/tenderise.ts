@@ -31,7 +31,7 @@ export default buildSkill({
 							affinity: "vulnerability",
 							operation: "add",
 							damageType: "crushing",
-							durationTurns: 3,
+							duration: { unit: "turns", value: 3 },
 						},
 					],
 				},

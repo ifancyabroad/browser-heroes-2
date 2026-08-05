@@ -17,14 +17,14 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 2,
+			duration: { unit: "turns", value: 2 },
 		},
 		{
 			type: "modifyDamage",
 			target: "enemy",
 			operation: "multiply",
 			value: 0.5,
-			durationTurns: 5,
+			duration: { unit: "turns", value: 5 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",

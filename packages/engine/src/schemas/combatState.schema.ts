@@ -43,11 +43,27 @@ export const activeEffectSourceSchema = z.discriminatedUnion("type", [
 	}),
 ]);
 
+export const activeTurnDurationSchema = z.object({
+	unit: z.literal("turns"),
+	remaining: z.number().int().positive(),
+});
+
+export const activeBattleDurationSchema = z.object({
+	unit: z.literal("battles"),
+	remaining: z.number().int().positive(),
+});
+
+export const activeEffectDurationSchema = z.discriminatedUnion("unit", [
+	activeTurnDurationSchema,
+	activeBattleDurationSchema,
+]);
+
 const activeCombatEffectBaseSchema = z.object({
 	id: z.string(),
 	sourceCombatantId: combatantIdSchema,
+	sourceSide: combatantSideSchema,
 	source: activeEffectSourceSchema,
-	remainingTurns: z.number().int().positive(),
+	duration: activeEffectDurationSchema,
 });
 
 export const activeStatModifierSchema = activeCombatEffectBaseSchema.extend({
@@ -216,3 +232,6 @@ export type ActiveHealOverTimeEffect = z.infer<typeof activeHealOverTimeEffectSc
 export type ActiveShieldEffect = z.infer<typeof activeShieldEffectSchema>;
 export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;
 export type ActiveEffectSource = z.infer<typeof activeEffectSourceSchema>;
+export type ActiveTurnDuration = z.infer<typeof activeTurnDurationSchema>;
+export type ActiveBattleDuration = z.infer<typeof activeBattleDurationSchema>;
+export type ActiveEffectDuration = z.infer<typeof activeEffectDurationSchema>;

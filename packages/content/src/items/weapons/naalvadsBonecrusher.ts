@@ -42,7 +42,7 @@ export default buildWeapon({
 					target: "enemy",
 					stat: "armourClass",
 					value: -6,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 				{
 					type: "modifyDamageTaken",
@@ -50,7 +50,7 @@ export default buildWeapon({
 					damageType: "crushing",
 					operation: "multiply",
 					value: 1.4,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

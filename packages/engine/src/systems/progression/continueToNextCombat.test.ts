@@ -58,4 +58,67 @@ describe("continueToNextCombat", () => {
 			state,
 		});
 	});
+
+	it("carries and advances only surviving battle-duration effects on the player", () => {
+		const state = modifyTestRunState(createTestVictoryState(), (draft) => {
+			const player = draft.combat!.player;
+			const enemy = draft.combat!.enemy;
+			player.activeEffects.push(
+				{
+					id: "armour",
+					type: "modifyStat",
+					sourceCombatantId: player.id,
+					sourceSide: "player",
+					source: {
+						type: "skill",
+						skillId: "armour",
+						sourceName: "Armour",
+						sourceEffectKey: "effect:0",
+					},
+					duration: { unit: "battles", remaining: 3 },
+					stat: "armourClass",
+					value: 6,
+				},
+				{
+					id: "expiring-debuff",
+					type: "status",
+					sourceCombatantId: enemy.id,
+					sourceSide: "enemy",
+					source: {
+						type: "skill",
+						skillId: "blind",
+						sourceName: "Blind",
+						sourceEffectKey: "effect:0",
+					},
+					duration: { unit: "battles", remaining: 1 },
+					statusId: "silenced",
+				},
+				{
+					id: "turn-effect",
+					type: "status",
+					sourceCombatantId: enemy.id,
+					sourceSide: "enemy",
+					source: {
+						type: "skill",
+						skillId: "blind",
+						sourceName: "Blind",
+						sourceEffectKey: "effect:1",
+					},
+					duration: { unit: "turns", remaining: 8 },
+					statusId: "stunned",
+				},
+			);
+		});
+
+		const result = applyAction(state, { type: "CONTINUE_TO_NEXT_COMBAT" });
+
+		expect(result.ok).toBe(true);
+		expect(result.state.combat!.player.activeEffects).toEqual([
+			expect.objectContaining({
+				id: "armour",
+				sourceCombatantId: result.state.combat!.player.id,
+				duration: { unit: "battles", remaining: 2 },
+			}),
+		]);
+	});
 });

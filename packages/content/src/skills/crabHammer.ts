@@ -30,7 +30,7 @@ export default buildSkill({
 							target: "enemy",
 							stat: "armourClass",
 							value: -4,
-							durationTurns: 4,
+							duration: { unit: "turns", value: 4 },
 							save: {
 								attribute: "constitution",
 								onSuccess: "noEffect",

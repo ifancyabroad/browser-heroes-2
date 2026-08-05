@@ -53,7 +53,7 @@ export default buildWeapon({
 					damageType: "slashing",
 					operation: "multiply",
 					value: 1.4,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

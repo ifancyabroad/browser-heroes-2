@@ -32,7 +32,7 @@ export default buildSkill({
 							affinity: "vulnerability",
 							operation: "add",
 							damageType: "piercing",
-							durationTurns: 3,
+							duration: { unit: "turns", value: 3 },
 						},
 					],
 				},

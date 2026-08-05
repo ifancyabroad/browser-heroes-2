@@ -136,7 +136,7 @@ function hasActiveSourceEffect(
 	sourceEffectKey: string,
 ): boolean {
 	return target.activeEffects.some((effect: ActiveCombatEffect) =>
-		isMatchingSourceEffect(effect, source.id, skillId, sourceEffectKey),
+		isMatchingSourceEffect(effect, source.side, skillId, sourceEffectKey),
 	);
 }
 
@@ -195,12 +195,12 @@ function getAffinityRank(
 
 function isMatchingSourceEffect(
 	effect: ActiveCombatEffect,
-	sourceCombatantId: string,
+	sourceSide: CombatantState["side"],
 	skillId: SkillId,
 	sourceEffectKey: string,
 ): boolean {
 	return (
-		effect.sourceCombatantId === sourceCombatantId &&
+		effect.sourceSide === sourceSide &&
 		effect.source.type === "skill" &&
 		effect.source.skillId === skillId &&
 		effect.source.sourceEffectKey === sourceEffectKey

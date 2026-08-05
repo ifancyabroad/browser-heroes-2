@@ -15,6 +15,7 @@ import type { RngResult, RngState } from "../../../../core/rng";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
+import { createActiveEffectDuration } from "../../effects/createActiveEffectDuration";
 
 type RecurringEffect = DamageOverTimeEffect | HealOverTimeEffect | ShieldEffect;
 
@@ -69,6 +70,7 @@ export function applyRecurringEffect(
 	const activeEffect = createActiveRecurringEffect({
 		combat,
 		actorId: actor.id,
+		actorSide: actor.side,
 		effect: input.effect,
 		source: input.source,
 	});
@@ -95,6 +97,7 @@ export function applyRecurringEffect(
 function createActiveRecurringEffect(input: {
 	combat: CombatState;
 	actorId: string;
+	actorSide: CombatantSide;
 	effect: RecurringEffect;
 	source: ActiveEffectSource;
 }): ActiveCombatEffect {
@@ -106,8 +109,9 @@ function createActiveRecurringEffect(input: {
 			input.source.sourceEffectKey,
 		),
 		sourceCombatantId: input.actorId,
+		sourceSide: input.actorSide,
 		source: input.source,
-		remainingTurns: input.effect.durationTurns,
+		duration: createActiveEffectDuration(input.effect.duration),
 	};
 
 	switch (input.effect.type) {

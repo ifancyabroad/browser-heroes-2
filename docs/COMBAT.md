@@ -156,11 +156,13 @@ Passive effects should remain visible through derived state, combat logs, or cle
 
 ## 10. Active Effects and Conditions
 
-Active effects are combat-limited buffs, debuffs, conditions, shields, or recurring effects tracked on combatants.
+Active effects are buffs, debuffs, conditions, shields, or recurring effects tracked on combatants. An effect has either a turn duration or a battle duration.
 
 Effects define duration and expiration through explicit combat state. Reapplying an effect from the same source updates the active effect instance rather than relying on hidden stacking behavior.
 
-Current timing advances effects after the affected combatant's action or skipped turn. Damage-over-time and healing-over-time effects trigger during that advancement before durations are decremented and expired effects are logged.
+Turn-duration effects advance after the affected combatant's action or skipped turn. Damage-over-time and healing-over-time effects trigger during that advancement before turn durations are decremented and expired effects are logged.
+
+Battle-duration effects remain active for the whole battle in which they are applied. That battle counts toward their duration. After victory, continuing directly advances their duration and carries surviving effects on the hero into the next combat; returning to town clears all active effects. Effects on a defeated enemy do not carry forward. Effect-specific limits such as shield strength and roll-modifier charges can still end a battle-duration effect early.
 
 Current statuses are `stunned` and `silenced`. Stun prevents the affected combatant from acting. Silence prevents skill use, so a silenced enemy falls back to its basic attack. Statuses and other active effects should remain understandable through visible state and combat logs.
 

@@ -50,7 +50,7 @@ export default buildWeapon({
 					damageType: "fire",
 					operation: "multiply",
 					value: 1.5,
-					durationTurns: 4,
+					duration: { unit: "turns", value: 4 },
 				},
 			],
 		},

@@ -21,7 +21,7 @@ export default buildItemAffix({
 					target: "enemy",
 					damageType: "fire",
 					dice: "1d6",
-					durationTurns: 3,
+					duration: { unit: "turns", value: 3 },
 				},
 				{
 					type: "modifyDamageTaken",
@@ -29,7 +29,7 @@ export default buildItemAffix({
 					damageType: "fire",
 					operation: "multiply",
 					value: 1.2,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

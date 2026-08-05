@@ -12,7 +12,12 @@ export default buildItemAffix({
 			timing: "onCrit",
 			effects: [
 				{ type: "damage", target: "enemy", damageType: "radiant", dice: "1d6" },
-				{ type: "shield", target: "self", amount: 4, durationTurns: 2 },
+				{
+					type: "shield",
+					target: "self",
+					amount: 4,
+					duration: { unit: "turns", value: 2 },
+				},
 			],
 		},
 	],

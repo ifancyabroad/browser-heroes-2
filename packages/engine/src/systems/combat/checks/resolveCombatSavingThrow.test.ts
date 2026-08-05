@@ -68,7 +68,10 @@ describe("resolveCombatSavingThrow", () => {
 		expect(result.value.automaticOutcome).toBe("success");
 		expect(result.value.success).toBe(true);
 		expect(result.value.combat.enemy.activeEffects).toContainEqual(
-			expect.objectContaining({ id: "automatic-save", remainingTurns: 4 }),
+			expect.objectContaining({
+				id: "automatic-save",
+				duration: { unit: "turns", remaining: 4 },
+			}),
 		);
 	});
 });
@@ -85,13 +88,14 @@ function withSavingThrowModifier(
 				id: "automatic-save",
 				type: "modifyRoll",
 				sourceCombatantId: combatant.id,
+				sourceSide: combatant.side,
 				source: {
 					type: "skill",
 					skillId: "curse",
 					sourceName: "Automatic Save",
 					sourceEffectKey: "effect:0",
 				},
-				remainingTurns: 4,
+				duration: { unit: "turns", remaining: 4 },
 				...(remainingCharges === undefined ? {} : { remainingCharges }),
 				roll: "savingThrow",
 				mode,

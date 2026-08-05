@@ -1,4 +1,4 @@
-import type { ModifiableStat, RollModifierMode } from "@app/content";
+import type { EffectDuration, ModifiableStat, RollModifierMode } from "@app/content";
 
 import type { CombatLogEntry } from "../../../schemas";
 import type { ActionOutcome } from "./actionOutcome";
@@ -68,8 +68,8 @@ export function formatActionOutcome(outcome: ActionOutcome): FormattedActionOutc
 		case "status":
 			return {
 				message: outcome.refreshed
-					? `${capitalize(outcome.effect.statusId === "stunned" ? "stun" : "silence")} on ${outcome.targetName} is refreshed for ${formatTurns(outcome.effect.durationTurns)}.`
-					: `${outcome.targetName} is ${outcome.effect.statusId} for ${formatTurns(outcome.effect.durationTurns)}.`,
+					? `${capitalize(outcome.effect.statusId === "stunned" ? "stun" : "silence")} on ${outcome.targetName} is refreshed for ${formatEffectDuration(outcome.effect.duration)}.`
+					: `${outcome.targetName} is ${outcome.effect.statusId} for ${formatEffectDuration(outcome.effect.duration)}.`,
 				eventType: "effect_applied",
 			};
 
@@ -111,7 +111,7 @@ function formatDamageOutcome(outcome: Extract<ActionOutcome, { type: "damage" }>
 
 function formatModifierOutcome(outcome: Extract<ActionOutcome, { type: "modifier" }>): string {
 	const { effect, targetName, refreshed } = outcome;
-	const duration = formatTurns(effect.durationTurns);
+	const duration = formatEffectDuration(effect.duration);
 
 	switch (effect.type) {
 		case "modifyStat":
@@ -196,7 +196,7 @@ function formatRollModifierMode(roll: "attack" | "savingThrow", mode: RollModifi
 
 function formatRecurringOutcome(outcome: Extract<ActionOutcome, { type: "recurring" }>): string {
 	const { effect, targetName, refreshed } = outcome;
-	const duration = formatTurns(effect.durationTurns);
+	const duration = formatEffectDuration(effect.duration);
 
 	if (refreshed) {
 		switch (effect.type) {
@@ -221,6 +221,10 @@ function formatRecurringOutcome(outcome: Extract<ActionOutcome, { type: "recurri
 
 export function formatTurns(turns: number): string {
 	return `${turns} ${turns === 1 ? "turn" : "turns"}`;
+}
+
+function formatEffectDuration(duration: EffectDuration): string {
+	return `${duration.value} ${duration.value === 1 ? duration.unit.slice(0, -1) : duration.unit}`;
 }
 
 function capitalize(value: string): string {

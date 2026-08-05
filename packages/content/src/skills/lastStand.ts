@@ -22,7 +22,7 @@ export default buildSkill({
 			type: "shield",
 			target: "self",
 			amount: 20,
-			durationTurns: 2,
+			duration: { unit: "turns", value: 2 },
 		},
 	],
 	tags: [],

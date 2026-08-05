@@ -17,7 +17,7 @@ export default buildSkill({
 			affinity: "immunity",
 			operation: "add",
 			damageType: "radiant",
-			durationTurns: 6,
+			duration: { unit: "turns", value: 6 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -25,7 +25,7 @@ export default buildSkill({
 			affinity: "immunity",
 			operation: "add",
 			damageType: "necrotic",
-			durationTurns: 6,
+			duration: { unit: "turns", value: 6 },
 		},
 	],
 	tags: [],

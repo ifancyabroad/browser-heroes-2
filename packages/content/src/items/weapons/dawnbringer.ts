@@ -56,7 +56,7 @@ export default buildWeapon({
 					damageType: "radiant",
 					operation: "multiply",
 					value: 1.4,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 				{
 					type: "modifyDamageTaken",
@@ -64,7 +64,7 @@ export default buildWeapon({
 					damageType: "slashing",
 					operation: "multiply",
 					value: 1.4,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

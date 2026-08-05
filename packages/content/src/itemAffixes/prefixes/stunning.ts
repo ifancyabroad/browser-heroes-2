@@ -31,7 +31,7 @@ export default buildItemAffix({
 					type: "applyStatus",
 					target: "enemy",
 					statusId: "stunned",
-					durationTurns: 1,
+					duration: { unit: "turns", value: 1 },
 				},
 			],
 		},

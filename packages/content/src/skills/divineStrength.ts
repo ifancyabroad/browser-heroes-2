@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "self",
 			stat: "attackRollBonus",
 			value: 4,
-			durationTurns: 8,
+			duration: { unit: "turns", value: 8 },
 		},
 		{
 			type: "modifyDamage",
@@ -25,7 +25,7 @@ export default buildSkill({
 			damageType: "slashing",
 			operation: "add",
 			value: 4,
-			durationTurns: 8,
+			duration: { unit: "turns", value: 8 },
 		},
 		{
 			type: "modifyDamage",
@@ -33,7 +33,7 @@ export default buildSkill({
 			damageType: "crushing",
 			operation: "add",
 			value: 4,
-			durationTurns: 8,
+			duration: { unit: "turns", value: 8 },
 		},
 		{
 			type: "modifyDamage",
@@ -41,7 +41,7 @@ export default buildSkill({
 			damageType: "piercing",
 			operation: "add",
 			value: 4,
-			durationTurns: 8,
+			duration: { unit: "turns", value: 8 },
 		},
 	],
 	tags: [],

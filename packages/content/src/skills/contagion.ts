@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "poison",
 			dice: "3d6",
-			durationTurns: 5,
+			duration: { unit: "turns", value: 5 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

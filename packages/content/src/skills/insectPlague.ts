@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "piercing",
 			dice: "4d6",
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "dexterity",
 				onSuccess: "noEffect",

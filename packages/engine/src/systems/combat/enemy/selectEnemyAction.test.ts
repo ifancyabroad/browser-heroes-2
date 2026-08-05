@@ -42,13 +42,14 @@ describe("enemy skill usefulness", () => {
 					id: "reduced-healing",
 					type: "modifyHealing" as const,
 					sourceCombatantId: player.id,
+					sourceSide: "player" as const,
 					source: {
 						type: "skill" as const,
 						skillId: "curse" as const,
 						sourceName: "Reduced Healing",
 						sourceEffectKey: "test",
 					},
-					remainingTurns: 2,
+					duration: { unit: "turns", remaining: 2 },
 					multiplier: 0.1,
 				},
 			],
@@ -69,14 +70,15 @@ describe("enemy skill usefulness", () => {
 		const effect: ActiveCombatEffect = {
 			id: "shield-wall-effect",
 			type: "modifyStat",
-			sourceCombatantId: enemy.id,
+			sourceCombatantId: "previous-enemy",
+			sourceSide: "enemy",
 			source: {
 				type: "skill",
 				skillId: "shield_wall",
 				sourceName: "Shield Wall",
 				sourceEffectKey: "effect:0",
 			},
-			remainingTurns: 3,
+			duration: { unit: "turns", remaining: 3 },
 			stat: "armourClass",
 			value: 3,
 		};

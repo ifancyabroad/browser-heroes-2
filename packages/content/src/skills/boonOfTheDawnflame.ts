@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "radiant",
 			operation: "multiply",
 			value: 1.5,
-			durationTurns: 6,
+			duration: { unit: "turns", value: 6 },
 		},
 		{
 			type: "modifyDamage",
@@ -25,7 +25,7 @@ export default buildSkill({
 			damageType: "fire",
 			operation: "multiply",
 			value: 1.5,
-			durationTurns: 6,
+			duration: { unit: "turns", value: 6 },
 		},
 	],
 	tags: [],

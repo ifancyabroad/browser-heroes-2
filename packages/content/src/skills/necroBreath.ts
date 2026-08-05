@@ -27,7 +27,7 @@ export default buildSkill({
 			type: "modifyHealing",
 			target: "enemy",
 			multiplier: 0.5,
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

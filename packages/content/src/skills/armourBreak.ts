@@ -24,7 +24,7 @@ export default buildSkill({
 							target: "enemy",
 							stat: "armourClass",
 							value: -4,
-							durationTurns: 3,
+							duration: { unit: "turns", value: 3 },
 						},
 					],
 				},

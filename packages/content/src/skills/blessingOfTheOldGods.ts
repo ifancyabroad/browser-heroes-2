@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "self",
 			operation: "multiply",
 			value: 0.5,
-			durationTurns: 5,
+			duration: { unit: "turns", value: 5 },
 		},
 	],
 	tags: [],

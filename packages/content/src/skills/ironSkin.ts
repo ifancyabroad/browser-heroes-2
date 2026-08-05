@@ -17,7 +17,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "slashing",
-			durationTurns: 6,
+			duration: { unit: "turns", value: 6 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -25,7 +25,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "crushing",
-			durationTurns: 6,
+			duration: { unit: "turns", value: 6 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -33,7 +33,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "piercing",
-			durationTurns: 6,
+			duration: { unit: "turns", value: 6 },
 		},
 	],
 	tags: [],

@@ -35,7 +35,7 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "necrotic",
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

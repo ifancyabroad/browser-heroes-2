@@ -27,7 +27,7 @@ export default buildSkill({
 							roll: "attack",
 							mode: "automaticCritical",
 							charges: 1,
-							durationTurns: 1,
+							duration: { unit: "turns", value: 1 },
 						},
 					],
 				},

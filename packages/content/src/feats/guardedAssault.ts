@@ -16,7 +16,7 @@ export default buildFeat({
 					type: "shield",
 					target: "self",
 					amount: 8,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

@@ -30,7 +30,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "lightning",
 			dice: "1d8",
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "dexterity",
 				onSuccess: "noEffect",

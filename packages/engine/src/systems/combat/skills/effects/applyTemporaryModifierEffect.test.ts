@@ -29,7 +29,7 @@ describe("applyTemporaryModifierEffect", () => {
 				target: "enemy",
 				roll: "attack",
 				mode: "automaticFailure",
-				durationTurns: 3,
+				duration: { unit: "turns", value: 3 },
 			}).success,
 		).toBe(true);
 
@@ -40,9 +40,34 @@ describe("applyTemporaryModifierEffect", () => {
 				roll: "savingThrow",
 				mode: "automaticCritical",
 				charges: 1,
-				durationTurns: 3,
+				duration: { unit: "turns", value: 3 },
 			}).success,
 		).toBe(false);
+	});
+
+	it("accepts positive battle durations and rejects malformed durations", () => {
+		const effect = {
+			type: "modifyRoll",
+			target: "enemy",
+			roll: "attack",
+			mode: "disadvantage",
+		};
+
+		expect(
+			modifyRollEffectSchema.safeParse({
+				...effect,
+				duration: { unit: "battles", value: 2 },
+			}).success,
+		).toBe(true);
+		expect(
+			modifyRollEffectSchema.safeParse({
+				...effect,
+				duration: { unit: "battles", value: 0 },
+			}).success,
+		).toBe(false);
+		expect(modifyRollEffectSchema.safeParse({ ...effect, durationTurns: 2 }).success).toBe(
+			false,
+		);
 	});
 
 	it("stores roll modifier charges on the active effect", () => {
@@ -56,7 +81,7 @@ describe("applyTemporaryModifierEffect", () => {
 				roll: "attack",
 				mode: "automaticCritical",
 				charges: 1,
-				durationTurns: 3,
+				duration: { unit: "turns", value: 3 },
 			},
 			source,
 			rngState: { value: 0 },
@@ -118,7 +143,7 @@ function createEffect(dcBase: number): ModifyRollEffect {
 		target: "enemy",
 		roll: "attack",
 		mode: "disadvantage",
-		durationTurns: 3,
+		duration: { unit: "turns", value: 3 },
 		save: {
 			attribute: "wisdom",
 			onSuccess: "noEffect",

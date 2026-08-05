@@ -20,7 +20,7 @@ export default buildItemAffix({
 					type: "healOverTime",
 					target: "self",
 					dice: "1d4",
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

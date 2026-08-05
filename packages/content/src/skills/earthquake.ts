@@ -32,7 +32,7 @@ export default buildSkill({
 			type: "applyStatus",
 			target: "enemy",
 			statusId: "stunned",
-			durationTurns: 2,
+			duration: { unit: "turns", value: 2 },
 			save: {
 				attribute: "strength",
 				onSuccess: "noEffect",

@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "enemy",
 			operation: "multiply",
 			value: 0.25,
-			durationTurns: 3,
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "strength",
 				onSuccess: "noEffect",

@@ -21,7 +21,7 @@ export default buildItemAffix({
 					target: "enemy",
 					operation: "add",
 					value: -1,
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "self",
 			stat: "criticalRangeBonus",
 			value: 5,
-			durationTurns: 8,
+			duration: { unit: "turns", value: 8 },
 		},
 	],
 	tags: [],

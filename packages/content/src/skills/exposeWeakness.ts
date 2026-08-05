@@ -25,7 +25,7 @@ export default buildSkill({
 							target: "enemy",
 							operation: "multiply",
 							value: 1.5,
-							durationTurns: 3,
+							duration: { unit: "turns", value: 3 },
 						},
 					],
 				},

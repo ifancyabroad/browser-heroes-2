@@ -26,7 +26,7 @@ export default buildFeat({
 					type: "applyStatus",
 					target: "enemy",
 					statusId: "silenced",
-					durationTurns: 1,
+					duration: { unit: "turns", value: 1 },
 				},
 			],
 		},

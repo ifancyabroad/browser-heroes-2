@@ -26,7 +26,7 @@ export default buildSkill({
 							affinity: "vulnerability",
 							operation: "add",
 							damageType: "crushing",
-							durationTurns: 4,
+							duration: { unit: "turns", value: 4 },
 							save: {
 								attribute: "constitution",
 								onSuccess: "noEffect",

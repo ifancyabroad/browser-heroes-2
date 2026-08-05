@@ -18,7 +18,7 @@ export default buildSkill({
 			roll: "attack",
 			mode: "automaticFailure",
 			charges: 1,
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
@@ -31,7 +31,7 @@ export default buildSkill({
 			roll: "attack",
 			mode: "automaticCritical",
 			charges: 2,
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 		},
 	],
 	tags: [],

@@ -16,6 +16,7 @@ import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow"
 import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
 import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
+import { createActiveEffectDuration } from "../../effects/createActiveEffectDuration";
 
 type ApplyStatusEffectInput = {
 	combat: CombatState;
@@ -75,8 +76,9 @@ export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<Acti
 		),
 		type: "status",
 		sourceCombatantId: actor.id,
+		sourceSide: actor.side,
 		source: input.source,
-		remainingTurns: input.effect.durationTurns,
+		duration: createActiveEffectDuration(input.effect.duration),
 		statusId: input.effect.statusId,
 	};
 

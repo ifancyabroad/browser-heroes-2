@@ -48,13 +48,14 @@ export function addPlayerStatus(state: RunState, statusId: "stunned" | "silenced
 			id: `test-${statusId}`,
 			type: "status",
 			sourceCombatantId: draft.combat.enemy.id,
+			sourceSide: "enemy",
 			source: {
 				type: "skill",
 				skillId: "armour_break",
 				sourceName: `Test ${statusId}`,
 				sourceEffectKey: `test-${statusId}`,
 			},
-			remainingTurns: 1,
+			duration: { unit: "turns", remaining: 1 },
 			statusId,
 		});
 	});

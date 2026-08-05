@@ -21,7 +21,7 @@ export default buildItemAffix({
 					target: "enemy",
 					damageType: "fire",
 					dice: "1d4",
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

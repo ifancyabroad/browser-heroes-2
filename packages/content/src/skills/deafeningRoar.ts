@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",
@@ -28,7 +28,7 @@ export default buildSkill({
 			target: "enemy",
 			stat: "saveDcBonus",
 			value: -3,
-			durationTurns: 4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

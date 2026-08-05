@@ -40,7 +40,7 @@ export default buildSkill({
 							target: "enemy",
 							stat: "attackRollBonus",
 							value: -3,
-							durationTurns: 2,
+							duration: { unit: "turns", value: 2 },
 						},
 					],
 				},

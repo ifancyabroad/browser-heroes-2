@@ -30,7 +30,7 @@ export default buildItemAffix({
 					type: "applyStatus",
 					target: "enemy",
 					statusId: "silenced",
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

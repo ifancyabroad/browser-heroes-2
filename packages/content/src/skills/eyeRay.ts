@@ -28,7 +28,7 @@ export default buildSkill({
 			type: "applyStatus",
 			target: "enemy",
 			statusId: "stunned",
-			durationTurns: 1,
+			duration: { unit: "turns", value: 1 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",
@@ -40,7 +40,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			durationTurns: 2,
+			duration: { unit: "turns", value: 2 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",

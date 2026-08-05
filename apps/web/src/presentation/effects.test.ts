@@ -45,11 +45,31 @@ describe("effect presentation", () => {
 				attribute: "wisdom",
 				mode: "automaticFailure",
 				charges: 2,
-				durationTurns: 4,
+				duration: { unit: "turns", value: 4 },
 			}),
 		).toBe(
 			"Make the enemy's next 2 WIS saving throws automatically fail. Expires after 4 turns.",
 		);
+	});
+
+	it("describes battle-duration effects with singular and plural labels", () => {
+		expect(
+			formatSkillEffect({
+				type: "modifyStat",
+				target: "self",
+				stat: "armourClass",
+				value: 6,
+				duration: { unit: "battles", value: 3 },
+			}),
+		).toBe("Increase your Armour Class by 6 for 3 battles.");
+		expect(
+			formatSkillEffect({
+				type: "shield",
+				target: "self",
+				amount: 4,
+				duration: { unit: "battles", value: 1 },
+			}),
+		).toBe("Grant yourself a 4-point shield for 1 battle.");
 	});
 
 	it("formats and classifies active automatic roll outcomes", () => {
@@ -57,13 +77,14 @@ describe("effect presentation", () => {
 			id: "automatic-critical",
 			type: "modifyRoll" as const,
 			sourceCombatantId: "player",
+			sourceSide: "player" as const,
 			source: {
 				type: "skill" as const,
 				skillId: "focus_energy" as const,
 				sourceName: "Focus Energy",
 				sourceEffectKey: "effect:0",
 			},
-			remainingTurns: 3,
+			duration: { unit: "turns" as const, remaining: 3 },
 			remainingCharges: 1,
 			roll: "attack" as const,
 			mode: "automaticCritical" as const,

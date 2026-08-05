@@ -31,6 +31,21 @@ export const negatingSavingThrowSchema = savingThrowSchema.extend({
 	onSuccess: z.literal("noEffect").default("noEffect"),
 });
 
+export const turnDurationSchema = z.object({
+	unit: z.literal("turns"),
+	value: z.number().int().positive(),
+});
+
+export const battleDurationSchema = z.object({
+	unit: z.literal("battles"),
+	value: z.number().int().positive(),
+});
+
+export const effectDurationSchema = z.discriminatedUnion("unit", [
+	turnDurationSchema,
+	battleDurationSchema,
+]);
+
 export const damageEffectSchema = z
 	.object({
 		type: z.literal("damage"),
@@ -63,7 +78,7 @@ export const applyStatusEffectSchema = z.object({
 	type: z.literal("applyStatus"),
 	target: skillTargetSchema,
 	statusId: statusEffectSchema,
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
 });
 
@@ -85,7 +100,7 @@ export const modifyStatEffectSchema = z.object({
 	target: skillTargetSchema,
 	stat: combatStatSchema,
 	value: z.number(),
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
 });
 
@@ -93,7 +108,7 @@ export const modifyHealingEffectSchema = z.object({
 	type: z.literal("modifyHealing"),
 	target: skillTargetSchema,
 	multiplier: z.number().nonnegative(),
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
 });
 
@@ -103,7 +118,7 @@ export const modifyDamageEffectSchema = z.object({
 	damageType: damageTypeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
 });
 
@@ -113,7 +128,7 @@ export const modifyDamageTakenEffectSchema = z.object({
 	damageType: damageTypeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
 });
 
@@ -123,7 +138,7 @@ export const modifyDamageAffinityEffectSchema = z.object({
 	affinity: damageAffinityKindSchema,
 	operation: damageAffinityOperationSchema,
 	damageType: damageTypeSchema,
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
 });
 
@@ -147,7 +162,7 @@ export const modifyRollEffectSchema = z
 		mode: rollModifierModeSchema,
 		attribute: attributeSchema.optional(),
 		charges: z.number().int().positive().optional(),
-		durationTurns: z.number().int().positive(),
+		duration: effectDurationSchema,
 		save: negatingSavingThrowSchema.optional(),
 	})
 	.superRefine((effect, ctx) => {
@@ -165,7 +180,7 @@ export const damageOverTimeEffectSchema = z.object({
 	target: skillTargetSchema,
 	damageType: damageTypeSchema,
 	dice: diceFormulaSchema,
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
 });
 
@@ -173,14 +188,14 @@ export const healOverTimeEffectSchema = z.object({
 	type: z.literal("healOverTime"),
 	target: z.literal("self").default("self"),
 	dice: diceFormulaSchema,
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 });
 
 export const shieldEffectSchema = z.object({
 	type: z.literal("shield"),
 	target: z.literal("self").default("self"),
 	amount: z.number().int().positive(),
-	durationTurns: z.number().int().positive(),
+	duration: effectDurationSchema,
 });
 
 export const riderEffectSchema = z.discriminatedUnion("type", [
@@ -240,6 +255,9 @@ export const effectSchema = z.discriminatedUnion("type", [
 ]);
 
 export type StatusEffect = z.infer<typeof statusEffectSchema>;
+export type TurnDuration = z.infer<typeof turnDurationSchema>;
+export type BattleDuration = z.infer<typeof battleDurationSchema>;
+export type EffectDuration = z.infer<typeof effectDurationSchema>;
 
 export type SaveOutcome = z.infer<typeof saveOutcomeSchema>;
 export type SavingThrow = z.infer<typeof savingThrowSchema>;

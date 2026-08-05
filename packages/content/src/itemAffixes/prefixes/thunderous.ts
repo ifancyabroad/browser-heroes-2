@@ -17,7 +17,7 @@ export default buildItemAffix({
 					target: "enemy",
 					roll: "savingThrow",
 					mode: "disadvantage",
-					durationTurns: 2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

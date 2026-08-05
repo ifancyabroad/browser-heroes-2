@@ -75,6 +75,9 @@ export {
 	combatantCombatStatsSchema,
 	combatantBasicAttackSchema,
 	activeEffectSourceSchema,
+	activeTurnDurationSchema,
+	activeBattleDurationSchema,
+	activeEffectDurationSchema,
 } from "./combatState.schema";
 
 export type {
@@ -98,6 +101,9 @@ export type {
 	ActiveHealOverTimeEffect,
 	ActiveShieldEffect,
 	ActiveEffectSource,
+	ActiveTurnDuration,
+	ActiveBattleDuration,
+	ActiveEffectDuration,
 } from "./combatState.schema";
 
 export { combatLogEntrySchema, runLogEntrySchema, logActorSchema } from "./log.schema";

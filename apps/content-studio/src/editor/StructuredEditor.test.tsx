@@ -69,7 +69,7 @@ describe("StructuredEditor roll effects", () => {
 					target: "self",
 					roll: "savingThrow",
 					mode: "automaticSuccess",
-					durationTurns: 1,
+					duration: { unit: "turns", value: 1 },
 				}}
 				path="effects.0"
 				field="Effect 1"
@@ -81,6 +81,8 @@ describe("StructuredEditor roll effects", () => {
 
 		expect(screen.getByRole("combobox", { name: "Roll" })).toHaveValue("savingThrow");
 		expect(screen.getByRole("combobox", { name: "Mode" })).toHaveValue("automaticSuccess");
+		expect(screen.getByRole("combobox", { name: "Unit" })).toHaveValue("turns");
+		expect(screen.getByRole("option", { name: "battles" })).toBeInTheDocument();
 		expect(screen.getByRole("option", { name: "automaticCritical" })).toBeInTheDocument();
 		expect(screen.getByRole("button", { name: "Charges" })).toBeInTheDocument();
 		expect(screen.getByRole("button", { name: "Attribute" })).toBeInTheDocument();
