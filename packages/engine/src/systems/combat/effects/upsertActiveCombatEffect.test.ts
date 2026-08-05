@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ActiveCombatEffect } from "../../../schemas";
 import { createTestRunState } from "../../../test/createTestRunState";
+import { advanceActiveEffects, getActiveEffectIds } from "./advanceActiveEffects";
 import { upsertActiveCombatEffect } from "./upsertActiveCombatEffect";
 
 describe("upsertActiveCombatEffect", () => {
@@ -15,7 +16,7 @@ describe("upsertActiveCombatEffect", () => {
 		expect(combatant).toEqual(original);
 	});
 
-	it("replaces an effect from the same source while preserving its stable ID", () => {
+	it("replaces an effect from the same source with a new instance ID", () => {
 		const existing = createModifierEffect("stable-id", "same-source", 1, 1);
 		const replacement = createModifierEffect("replacement-id", "same-source", 3, 2);
 		const combatant = {
@@ -27,12 +28,28 @@ describe("upsertActiveCombatEffect", () => {
 
 		expect(result.activeEffects).toEqual([
 			expect.objectContaining({
-				id: "stable-id",
+				id: "replacement-id",
 				duration: { unit: "turns", remaining: 3 },
 				value: 2,
 			}),
 		]);
 		expect(result.activeEffects).toHaveLength(1);
+	});
+
+	it("does not advance a refreshed effect during the action that refreshed it", () => {
+		const existing = createModifierEffect("existing-id", "same-source", 1, 1);
+		const replacement = createModifierEffect("replacement-id", "same-source", 1, 2);
+		const combatant = {
+			...createTestRunState().combat!.player,
+			activeEffects: [existing],
+		};
+		const effectIdsAtActionStart = getActiveEffectIds(combatant);
+
+		const refreshed = upsertActiveCombatEffect(combatant, replacement);
+		const advanced = advanceActiveEffects(refreshed, effectIdsAtActionStart);
+
+		expect(advanced.combatant.activeEffects).toEqual([replacement]);
+		expect(advanced.expiredEffects).toEqual([]);
 	});
 
 	it("refreshes the same authored effect across combatant IDs", () => {
@@ -55,7 +72,7 @@ describe("upsertActiveCombatEffect", () => {
 
 		expect(result.activeEffects).toHaveLength(1);
 		expect(result.activeEffects[0]).toMatchObject({
-			id: "stable-id",
+			id: "replacement-id",
 			sourceCombatantId: "next-enemy",
 			duration: { unit: "turns", remaining: 3 },
 		});

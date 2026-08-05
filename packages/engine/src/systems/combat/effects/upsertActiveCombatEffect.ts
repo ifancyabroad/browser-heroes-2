@@ -22,10 +22,7 @@ export function upsertActiveCombatEffect(
 				return activeEffect;
 			}
 
-			return {
-				...effect,
-				id: activeEffect.id,
-			};
+			return effect;
 		}),
 	);
 }
