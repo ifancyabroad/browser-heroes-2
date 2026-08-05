@@ -125,6 +125,8 @@ Sessions use secure HTTP-only, `SameSite=Lax` cookies backed by MongoDB. Product
 
 Direct connections use zero trusted proxy hops. Deployments behind CloudFront or a load balancer must configure the verified proxy-hop count so Express derives HTTPS and client IP information from the intended forwarding chain.
 
+Production startup requires an HTTPS application URL, a session secret of at least 32 characters, SES email delivery, and an explicit trusted proxy-hop count. Development retains local HTTP, logged email delivery, and zero proxy hops as defaults.
+
 Gameplay should remain accessible without mandatory account creation.
 
 Guest retention is separate from public game history. Empty guests may be removed after a short retention period and abandoned active guest runs after extended inactivity. Completed runs and published ghosts remain available to keep leaderboards stable, along with the minimal guest record required by their ownership references. Cleanup scheduling is future operational work.
