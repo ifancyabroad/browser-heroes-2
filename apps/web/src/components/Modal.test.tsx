@@ -10,7 +10,9 @@ describe("Modal", () => {
 			</Modal>,
 		);
 
-		expect(screen.getByRole("dialog")).toHaveClass("max-w-md");
+		const dialog = screen.getByRole("dialog");
+		expect(dialog).toHaveClass("max-w-md", "inset-0", "m-auto", "h-fit");
+		expect(dialog).not.toHaveClass("-translate-x-1/2", "-translate-y-1/2");
 	});
 
 	it("maps size names directly to their Tailwind width classes", () => {

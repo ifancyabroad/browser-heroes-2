@@ -1,6 +1,7 @@
 import { useEffect, useState, type PropsWithChildren, type ReactNode } from "react";
 import { Popover as PopoverPrimitive, Tooltip as TooltipPrimitive } from "radix-ui";
 import clsx from "clsx";
+import { useOverlayPortalContainer } from "../contexts/OverlayPortalContext";
 
 type TooltipProviderProps = PropsWithChildren;
 
@@ -19,7 +20,7 @@ export function TooltipProvider({ children }: TooltipProviderProps) {
 		<TooltipPrimitive.Provider
 			delayDuration={350}
 			skipDelayDuration={500}
-			disableHoverableContent
+			disableHoverableContent={false}
 		>
 			{children}
 		</TooltipPrimitive.Provider>
@@ -28,7 +29,7 @@ export function TooltipProvider({ children }: TooltipProviderProps) {
 
 export function Tooltip({
 	content,
-	placement = "top",
+	placement = "right",
 	disabled = false,
 	className,
 	contentClassName,
@@ -38,6 +39,7 @@ export function Tooltip({
 }: TooltipProps) {
 	const enabled = !disabled && content !== null && content !== undefined;
 	const usesTouchInteraction = useCoarsePointer();
+	const portalContainer = useOverlayPortalContainer();
 
 	const trigger = (
 		<span
@@ -58,14 +60,14 @@ export function Tooltip({
 		return (
 			<PopoverPrimitive.Root>
 				<PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>
-				<PopoverPrimitive.Portal>
+				<PopoverPrimitive.Portal container={portalContainer ?? undefined}>
 					<PopoverPrimitive.Content
 						side={touchPlacement}
 						sideOffset={8}
 						collisionPadding={8}
 						className={clsx(
 							getContentClassName(contentClassName),
-							"max-h-[calc(100dvh-1rem)] overflow-y-auto overscroll-contain",
+							"max-h-[var(--radix-popover-content-available-height)] max-w-[var(--radix-popover-content-available-width)] overflow-y-auto overscroll-contain",
 						)}
 					>
 						{content}
@@ -78,12 +80,15 @@ export function Tooltip({
 	return (
 		<TooltipPrimitive.Root>
 			<TooltipPrimitive.Trigger asChild>{trigger}</TooltipPrimitive.Trigger>
-			<TooltipPrimitive.Portal>
+			<TooltipPrimitive.Portal container={portalContainer ?? undefined}>
 				<TooltipPrimitive.Content
 					side={placement}
 					sideOffset={8}
 					collisionPadding={8}
-					className={getContentClassName(contentClassName, true)}
+					className={clsx(
+						getContentClassName(contentClassName),
+						"max-h-[var(--radix-tooltip-content-available-height)] max-w-[var(--radix-tooltip-content-available-width)] overflow-y-auto overscroll-contain",
+					)}
 				>
 					{content}
 				</TooltipPrimitive.Content>
@@ -109,10 +114,9 @@ function useCoarsePointer() {
 	return matches;
 }
 
-function getContentClassName(contentClassName?: string, pointerEventsNone = false) {
+function getContentClassName(contentClassName?: string) {
 	return clsx(
 		"z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text",
-		pointerEventsNone && "pointer-events-none",
 		!contentClassName && "max-w-sm",
 		contentClassName,
 	);

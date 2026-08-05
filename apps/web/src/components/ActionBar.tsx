@@ -121,6 +121,7 @@ export function ActionSlotButton({
 	return (
 		<Tooltip
 			content={tooltip}
+			placement="top"
 			className="h-16 w-16 sm:h-20 sm:w-20"
 			contentClassName="w-64 max-w-[calc(100vw-1rem)]"
 			referenceTabIndex={null}

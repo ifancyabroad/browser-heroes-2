@@ -260,6 +260,7 @@ function SkillSlot({ skill, available, loading, onUseSkill }: SkillSlotProps) {
 	return (
 		<Tooltip
 			content={<SkillTooltipContent skill={skill} definition={definition} />}
+			placement="top"
 			className="w-16 sm:w-20"
 			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 			referenceTabIndex={available && !loading ? null : 0}

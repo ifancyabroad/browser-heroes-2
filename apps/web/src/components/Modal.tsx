@@ -1,6 +1,7 @@
-import { useRef, type PropsWithChildren, type ReactNode } from "react";
+import { useCallback, useRef, useState, type PropsWithChildren, type ReactNode } from "react";
 import { Dialog } from "radix-ui";
 import clsx from "clsx";
+import { OverlayPortalProvider } from "../contexts/OverlayPortalContext";
 import { PanelTitle } from "./PanelTitle";
 
 type ModalProps = PropsWithChildren<{
@@ -35,6 +36,11 @@ export function Modal({
 	children,
 }: ModalProps) {
 	const contentRef = useRef<HTMLDivElement>(null);
+	const [portalContainer, setPortalContainer] = useState<HTMLDivElement | null>(null);
+	const setContentRef = useCallback((node: HTMLDivElement | null) => {
+		contentRef.current = node;
+		setPortalContainer(node);
+	}, []);
 
 	function preventDismiss(event: Event) {
 		if (!dismissible) {
@@ -54,7 +60,7 @@ export function Modal({
 			<Dialog.Portal>
 				<Dialog.Overlay className="fixed inset-0 z-50 bg-black/70" />
 				<Dialog.Content
-					ref={contentRef}
+					ref={setContentRef}
 					tabIndex={-1}
 					onOpenAutoFocus={(event) => {
 						event.preventDefault();
@@ -63,24 +69,26 @@ export function Modal({
 					onEscapeKeyDown={preventDismiss}
 					onPointerDownOutside={preventDismiss}
 					className={clsx(
-						"fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col border-2 border-border bg-bg-elevated outline-none",
+						"fixed inset-0 z-50 m-auto flex h-fit max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] flex-col border-2 border-border bg-bg-elevated outline-none",
 						modalSizeClassNames[size],
 						className,
 					)}
 				>
-					<header>
-						<Dialog.Title asChild>
-							<PanelTitle title={title} align="center" />
-						</Dialog.Title>
-					</header>
+					<OverlayPortalProvider container={portalContainer}>
+						<header>
+							<Dialog.Title asChild>
+								<PanelTitle title={title} align="center" />
+							</Dialog.Title>
+						</header>
 
-					<div className="min-h-0 overflow-y-auto px-4 pb-4 pt-6">{children}</div>
+						<div className="min-h-0 overflow-y-auto px-4 pb-4 pt-6">{children}</div>
 
-					{footer && (
-						<footer className="flex shrink-0 flex-wrap justify-end gap-4 px-4 pb-4 pt-2">
-							{footer}
-						</footer>
-					)}
+						{footer && (
+							<footer className="flex shrink-0 flex-wrap justify-end gap-4 px-4 pb-4 pt-2">
+								{footer}
+							</footer>
+						)}
+					</OverlayPortalProvider>
 				</Dialog.Content>
 			</Dialog.Portal>
 		</Dialog.Root>
