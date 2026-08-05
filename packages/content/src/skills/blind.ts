@@ -9,14 +9,14 @@ export default buildSkill({
 	kind: "spell",
 	category: "debuff",
 	rarity: "common",
-	maxUses: 6,
+	maxUses: 4,
 	effects: [
 		{
 			type: "modifyRoll",
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			duration: { unit: "turns", value: 8 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],

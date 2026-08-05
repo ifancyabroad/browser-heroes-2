@@ -17,7 +17,19 @@ export default buildSkill({
 			affinity: "vulnerability",
 			operation: "add",
 			damageType: "necrotic",
-			duration: { unit: "turns", value: 4 },
+			duration: { unit: "battles", value: 1 },
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "intelligence" },
+			},
+		},
+		{
+			type: "damageOverTime",
+			target: "enemy",
+			damageType: "necrotic",
+			dice: "1d6",
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",
