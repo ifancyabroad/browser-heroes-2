@@ -4,32 +4,20 @@ export default buildSkill({
 	id: "expose_weakness",
 	name: "Expose Weakness",
 	description:
-		"Strike a vulnerable seam and expose it, causing the enemy to suffer greater damage from follow-up attacks.",
+		"Study the enemy's defenses and expose a weakness, causing them to suffer greater damage for the rest of the battle.",
 	icon: "skills/assassin/expose_weakness.png",
 	pool: "assassin",
-	kind: "weaponAttack",
+	kind: "technique",
 	category: "debuff",
 	rarity: "rare",
-	maxUses: 4,
+	maxUses: 3,
 	effects: [
 		{
-			type: "attackDamage",
+			type: "modifyDamageTaken",
 			target: "enemy",
-			multiplier: 1,
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "modifyDamageTaken",
-							target: "enemy",
-							operation: "multiply",
-							value: 1.5,
-							duration: { unit: "turns", value: 3 },
-						},
-					],
-				},
-			],
+			operation: "multiply",
+			value: 1.75,
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],
