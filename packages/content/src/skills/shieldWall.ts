@@ -9,7 +9,7 @@ export default buildSkill({
 	pool: "common",
 	kind: "technique",
 	category: "defensive",
-	rarity: "rare",
+	rarity: "uncommon",
 	maxUses: 3,
 	effects: [
 		{
@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "self",
 			stat: "armourClass",
 			value: 6,
-			duration: { unit: "turns", value: 4 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],

@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "self",
 			roll: "savingThrow",
 			mode: "advantage",
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],
