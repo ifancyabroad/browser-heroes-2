@@ -6,6 +6,7 @@ import { registerRunSocket } from "./run.socket";
 
 export function createSocketServer(httpServer: HttpServer) {
 	const io = new Server(httpServer, {
+		maxHttpBufferSize: 100_000,
 		cors: {
 			origin: env.APP_URL,
 			credentials: true,

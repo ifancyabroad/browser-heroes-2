@@ -3,10 +3,32 @@ import { applyRunAction } from "../services/engine.service";
 import { RunActionPayload, runActionPayloadSchema, RunActionResponse } from "@app/shared";
 import { toApplyRunActionResponse } from "../services/projection.service";
 
+const ACTION_LIMIT = 10;
+const ACTION_WINDOW_MS = 1_000;
+
 export function registerRunSocket(socket: Socket) {
+	let actionCount = 0;
+	let actionWindowStartedAt = Date.now();
+
 	socket.on(
 		"run:action",
-		async (payload: RunActionPayload, respond: (response: RunActionResponse) => void) => {
+		async (payload: RunActionPayload, respond?: (response: RunActionResponse) => void) => {
+			if (typeof respond !== "function") {
+				return;
+			}
+
+			const now = Date.now();
+			if (now - actionWindowStartedAt >= ACTION_WINDOW_MS) {
+				actionCount = 0;
+				actionWindowStartedAt = now;
+			}
+
+			if (actionCount >= ACTION_LIMIT) {
+				respond({ ok: false, error: "RATE_LIMITED" });
+				return;
+			}
+			actionCount += 1;
+
 			try {
 				const userId = socket.request.session.userId;
 

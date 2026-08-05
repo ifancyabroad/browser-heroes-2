@@ -1,5 +1,5 @@
 import type { Socket } from "socket.io";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTestRunDocument } from "../test/createTestRun";
 
 const engineService = vi.hoisted(() => ({
@@ -10,7 +10,7 @@ vi.mock("../services/engine.service", () => engineService);
 
 import { registerRunSocket } from "./run.socket";
 
-type RunActionHandler = (payload: unknown, respond: (response: unknown) => void) => Promise<void>;
+type RunActionHandler = (payload: unknown, respond?: (response: unknown) => void) => Promise<void>;
 
 function createSocket(userId?: string) {
 	let handler: RunActionHandler | undefined;
@@ -32,6 +32,7 @@ function createSocket(userId?: string) {
 			await handler!(payload, respond);
 			return respond;
 		},
+		invokeWithoutAck: async (payload: unknown) => handler!(payload),
 	};
 }
 
@@ -40,10 +41,40 @@ describe("registerRunSocket", () => {
 		vi.clearAllMocks();
 	});
 
+	afterEach(() => {
+		vi.useRealTimers();
+	});
+
 	it("registers the run action event", () => {
 		const { socket } = createSocket("user-id");
 
 		expect(socket.on).toHaveBeenCalledWith("run:action", expect.any(Function));
+	});
+
+	it("ignores actions without an acknowledgement callback", async () => {
+		await createSocket("user-id").invokeWithoutAck({
+			runId: "run-id",
+			action: { type: "PLAYER_SKIP_TURN" },
+		});
+
+		expect(engineService.applyRunAction).not.toHaveBeenCalled();
+	});
+
+	it("limits each socket to ten actions per second", async () => {
+		vi.useFakeTimers();
+		const client = createSocket();
+
+		for (let action = 0; action < 10; action += 1) {
+			const respond = await client.invoke(undefined);
+			expect(respond).toHaveBeenLastCalledWith({ ok: false, error: "UNAUTHENTICATED" });
+		}
+
+		const limitedResponse = await client.invoke(undefined);
+		expect(limitedResponse).toHaveBeenCalledWith({ ok: false, error: "RATE_LIMITED" });
+
+		vi.advanceTimersByTime(1_000);
+		const resetResponse = await client.invoke(undefined);
+		expect(resetResponse).toHaveBeenCalledWith({ ok: false, error: "UNAUTHENTICATED" });
 	});
 
 	it("rejects unauthenticated actions before validation", async () => {
