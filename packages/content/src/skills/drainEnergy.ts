@@ -17,14 +17,14 @@ export default buildSkill({
 			target: "self",
 			stat: "maxHpBonus",
 			value: 20,
-			duration: { unit: "turns", value: 5 },
+			duration: { unit: "battles", value: 1 },
 		},
 		{
 			type: "modifyDamage",
 			target: "enemy",
 			operation: "multiply",
-			value: 0.5,
-			duration: { unit: "turns", value: 5 },
+			value: 0.75,
+			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

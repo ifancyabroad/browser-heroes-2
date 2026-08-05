@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "power_word_shield",
 	name: "Power Word: Shield",
 	description:
-		"Speak a word of warding that surrounds you with a powerful but temporary barrier.",
+		"Speak a word of warding that surrounds you with a protective barrier for the battle.",
 	icon: "skills/occultist/power_word_shield.png",
 	pool: "occultist",
 	kind: "spell",
@@ -16,7 +16,7 @@ export default buildSkill({
 			type: "shield",
 			target: "self",
 			amount: 40,
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],
