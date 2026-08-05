@@ -10,7 +10,7 @@ import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipCo
 import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import continueIcon from "../../../assets/images/actions/Skill_Swords.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
-import skipTurnIcon from "../../../assets/images/actions/Quest_20_flag.png";
+import skipTurnIcon from "../../../assets/images/actions/Skill_Cancel_nb.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 import { resolveImageUrl } from "../../../utils/image";
 
