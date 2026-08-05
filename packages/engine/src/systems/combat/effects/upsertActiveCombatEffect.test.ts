@@ -79,7 +79,32 @@ describe("upsertActiveCombatEffect", () => {
 
 		expect(result.activeEffects).toEqual([existing, otherSkill]);
 	});
+
+	it("keeps identically named basic attacks from distinct definitions independent", () => {
+		const existing = createBasicAttackEffect("first", "giant_spider:mainHand");
+		const otherDefinition = createBasicAttackEffect("second", "vampire_bat:mainHand");
+		const combatant = {
+			...createTestRunState().combat!.player,
+			activeEffects: [existing],
+		};
+
+		const result = upsertActiveCombatEffect(combatant, otherDefinition);
+
+		expect(result.activeEffects).toEqual([existing, otherDefinition]);
+	});
 });
+
+function createBasicAttackEffect(id: string, sourceDefinitionId: string): ActiveCombatEffect {
+	return {
+		...createModifierEffect(id, "basicAttack:mainHand:rider:0:effect:0", 2, -1),
+		source: {
+			type: "basicAttack",
+			sourceDefinitionId,
+			sourceName: "Bite",
+			sourceEffectKey: "basicAttack:mainHand:rider:0:effect:0",
+		},
+	};
+}
 
 function createModifierEffect(
 	id: string,

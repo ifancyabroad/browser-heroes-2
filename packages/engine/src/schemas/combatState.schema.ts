@@ -32,6 +32,7 @@ export const activeEffectSourceSchema = z.discriminatedUnion("type", [
 	}),
 	z.object({
 		type: z.literal("basicAttack"),
+		sourceDefinitionId: z.string().nonempty(),
 		sourceName: z.string().nonempty(),
 		sourceEffectKey: z.string().nonempty(),
 	}),

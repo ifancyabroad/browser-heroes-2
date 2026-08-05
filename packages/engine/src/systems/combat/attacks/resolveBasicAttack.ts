@@ -181,6 +181,7 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 			sourceContext: {
 				source: {
 					type: "basicAttack",
+					sourceDefinitionId: `${attacker.sourceId}:${input.attackPart.sourceKey}`,
 					sourceName: input.attackPart.attack.name,
 				},
 				sourceEffectKeyPrefix: `basicAttack:${input.attackPart.sourceKey}:rider:${riderIndex}`,
