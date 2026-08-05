@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "saveDcBonus",
-			value: 4,
+			value: 5,
 			duration: { unit: "battles", value: 5 },
 		},
 	],
