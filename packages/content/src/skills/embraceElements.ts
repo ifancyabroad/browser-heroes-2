@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "cold",
 			operation: "multiply",
 			value: 1.5,
-			duration: { unit: "turns", value: 8 },
+			duration: { unit: "battles", value: 1 },
 		},
 		{
 			type: "modifyDamage",
@@ -25,7 +25,7 @@ export default buildSkill({
 			damageType: "fire",
 			operation: "multiply",
 			value: 1.5,
-			duration: { unit: "turns", value: 8 },
+			duration: { unit: "battles", value: 1 },
 		},
 		{
 			type: "modifyDamage",
@@ -33,7 +33,7 @@ export default buildSkill({
 			damageType: "lightning",
 			operation: "multiply",
 			value: 1.5,
-			duration: { unit: "turns", value: 8 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],

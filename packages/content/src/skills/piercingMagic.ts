@@ -9,14 +9,14 @@ export default buildSkill({
 	kind: "spell",
 	category: "buff",
 	rarity: "rare",
-	maxUses: 4,
+	maxUses: 2,
 	effects: [
 		{
 			type: "modifyStat",
 			target: "self",
 			stat: "saveDcBonus",
 			value: 4,
-			duration: { unit: "turns", value: 8 },
+			duration: { unit: "battles", value: 5 },
 		},
 	],
 	tags: [],
