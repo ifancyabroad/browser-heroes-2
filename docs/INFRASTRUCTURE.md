@@ -147,9 +147,7 @@ The command processes bounded batches, rechecks eligibility in MongoDB transacti
 
 ## 9. Deployment Direction
 
-Current docs should treat deployment as direction unless deployment automation is present in the codebase.
-
-Preferred deployment direction:
+The production deployment target is:
 
 - AWS infrastructure
 - CloudFront CDN
@@ -160,6 +158,7 @@ Preferred deployment direction:
 Deployment should prioritize operational familiarity, reliability, predictable releases, and low maintenance overhead.
 
 Build artifacts should be repeatable and environment-specific configuration should stay explicit.
+The repository-owned artifact and runtime contract is defined in `DEPLOYMENT.md`; pipeline orchestration is managed separately.
 
 ## 10. Offline Direction
 

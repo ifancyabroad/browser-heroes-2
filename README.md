@@ -6,7 +6,7 @@ The project uses a pnpm workspace monorepo so the web app, API, shared gameplay 
 
 ## Prerequisites
 
-- Node.js 18.18+
+- Node.js 22
 - pnpm 10+
 - MongoDB for API persistence
 
