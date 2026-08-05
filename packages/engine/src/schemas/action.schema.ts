@@ -58,6 +58,12 @@ export const rerollShopActionSchema = z.object({
 	type: z.literal("REROLL_SHOP"),
 });
 
+export const setShopLockActionSchema = z.object({
+	type: z.literal("SET_SHOP_LOCK"),
+	shopSlotId: z.string(),
+	locked: z.boolean(),
+});
+
 export const completeLevelUpActionSchema = z.object({
 	type: z.literal("COMPLETE_LEVEL_UP"),
 	selection: levelUpSelectionSchema.nullable(),
@@ -91,6 +97,7 @@ export const engineActionSchema = z.discriminatedUnion("type", [
 	buyConsumableActionSchema,
 	restAtTownActionSchema,
 	rerollShopActionSchema,
+	setShopLockActionSchema,
 	completeLevelUpActionSchema,
 	playerSkipTurnActionSchema,
 	selectRewardActionSchema,
@@ -109,6 +116,7 @@ export type BuyItemAction = z.infer<typeof buyItemActionSchema>;
 export type BuyConsumableAction = z.infer<typeof buyConsumableActionSchema>;
 export type RestAtTownAction = z.infer<typeof restAtTownActionSchema>;
 export type RerollShopAction = z.infer<typeof rerollShopActionSchema>;
+export type SetShopLockAction = z.infer<typeof setShopLockActionSchema>;
 export type CompleteLevelUpAction = z.infer<typeof completeLevelUpActionSchema>;
 export type PlayerSkipTurnAction = z.infer<typeof playerSkipTurnActionSchema>;
 export type SelectRewardAction = z.infer<typeof selectRewardActionSchema>;

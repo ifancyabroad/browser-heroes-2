@@ -74,7 +74,13 @@ vi.mock("./TownActionBar", () => ({
 	),
 }));
 vi.mock("./TownShopGrid", () => ({
-	TownShopGrid: ({ onBuy }: { onBuy: (slot: unknown) => void }) => (
+	TownShopGrid: ({
+		onBuy,
+		onLockChange,
+	}: {
+		onBuy: (slot: unknown) => void;
+		onLockChange: (slot: unknown, locked: boolean) => void;
+	}) => (
 		<div>
 			<button
 				onClick={() =>
@@ -101,6 +107,19 @@ vi.mock("./TownShopGrid", () => ({
 				}
 			>
 				Buy replacement
+			</button>
+			<button
+				onClick={() =>
+					onLockChange(
+						{
+							id: "lock-item",
+							purchased: false,
+						},
+						true,
+					)
+				}
+			>
+				Lock item
 			</button>
 		</div>
 	),
@@ -208,6 +227,7 @@ describe("TownView", () => {
 		["Enter", { type: "ENTER_COMBAT" }],
 		["Swap", { type: "SWAP_HAND_WEAPONS" }],
 		["Buy item", { type: "BUY_ITEM", shopSlotId: "simple-item" }],
+		["Lock item", { type: "SET_SHOP_LOCK", shopSlotId: "lock-item", locked: true }],
 	])("submits the %s engine action", (button, action) => {
 		renderView();
 

@@ -202,8 +202,29 @@ function getTownActions(state: RunState): EngineAction[] {
 	}
 
 	actions.push(...getBuyItemActions(state, effectiveCharisma));
+	actions.push(...getShopLockActions(state));
 
 	return actions;
+}
+
+function getShopLockActions(state: RunState): EngineAction[] {
+	if (!state.town) {
+		return [];
+	}
+
+	return state.town.shopSlots.flatMap((slot): EngineAction[] => {
+		if (slot.purchased) {
+			return [];
+		}
+
+		return [
+			{
+				type: "SET_SHOP_LOCK",
+				shopSlotId: slot.id,
+				locked: !state.shopLocks.some((lock) => lock.id === slot.id),
+			},
+		];
+	});
 }
 
 function getBuyItemActions(state: RunState, effectiveCharisma: number): EngineAction[] {

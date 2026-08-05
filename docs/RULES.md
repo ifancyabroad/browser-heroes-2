@@ -136,6 +136,12 @@ Town state includes:
 - reroll cost and reroll count
 - healing potion cost
 
+Each unpurchased equipment slot in the shop can be locked for free. A locked slot preserves
+its exact item and price through shop rerolls and future town visits until it is unlocked or
+purchased. Buying a locked item clears its lock. Reroll cost is unaffected by locks; rerolling
+with every slot locked still charges the normal cost and increases the visit-local reroll count,
+but does not change inventory.
+
 Town pricing is engine-owned. Current costs are affected by the hero's charisma modifier through a town discount multiplier. Rest costs increase with each rest across the full run. Reroll costs scale with shop level and increase with repeated use during the current town visit. Healing potion and reroll costs continue scaling beyond the final zone during endless progression, even after shop item quality reaches its highest tier.
 
 Returning to town after a victory creates fresh town state for the current run position and resets the active streak and town-local reroll count. It does not reset the current day or rest-price escalation. Continuing directly to the next combat preserves momentum and increases the streak.

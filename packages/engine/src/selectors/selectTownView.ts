@@ -25,6 +25,7 @@ export type TownShopSlotView = {
 	item: RuntimeItem;
 	price: number;
 	purchased: boolean;
+	locked: boolean;
 	canAfford: boolean;
 	destinations: readonly TownShopDestinationView[];
 	requiresEquipmentSlotSelection: boolean;
@@ -116,6 +117,7 @@ function createTownShopSlotView(
 			item,
 			price,
 			purchased: slot.purchased,
+			locked: state.shopLocks.some((lock) => lock.id === slot.id),
 			canAfford: !slot.purchased && state.gold >= price,
 			destinations: validEquipmentSlots.flatMap((equipmentSlot) => {
 				const preview = previewEquipItem({

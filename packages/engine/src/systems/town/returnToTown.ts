@@ -32,6 +32,7 @@ export function returnToTown(state: RunState): EngineResult {
 		zoneNumber,
 		battleNumber,
 		rngState: state.rngState,
+		shopLocks: state.shopLocks,
 	});
 
 	return successResult(

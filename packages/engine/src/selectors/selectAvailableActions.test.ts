@@ -69,7 +69,10 @@ describe("selectAvailableActions", () => {
 			draft.gold = 0;
 		});
 
-		expect(createActionTypes(state)).toEqual(["ENTER_COMBAT"]);
+		expect(createActionTypes(state)).toEqual([
+			"ENTER_COMBAT",
+			...Array.from({ length: 6 }, () => "SET_SHOP_LOCK" as const),
+		]);
 	});
 
 	it.each(["dead", "retired"] as const)("returns no actions for a %s run", (phase) => {

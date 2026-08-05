@@ -1,4 +1,4 @@
-import { townStateSchema, type HeroState, type TownState } from "../schemas";
+import { townStateSchema, type HeroState, type TownShopSlot, type TownState } from "../schemas";
 import type { RngResult, RngState } from "../core/rng";
 import { calculateShopLevel } from "../systems/town/townPricing";
 import { createTownShop } from "../systems/town/createTownShop";
@@ -9,6 +9,7 @@ type CreateTownStateInput = {
 	zoneNumber: number;
 	battleNumber: number;
 	rngState: RngState;
+	shopLocks: readonly TownShopSlot[];
 };
 
 export function createTownState(input: CreateTownStateInput): RngResult<TownState> {
@@ -22,6 +23,7 @@ export function createTownState(input: CreateTownStateInput): RngResult<TownStat
 		battleNumber: input.battleNumber,
 		rerollCount,
 		rngState: input.rngState,
+		preservedSlots: input.shopLocks,
 	});
 
 	const town: TownState = {

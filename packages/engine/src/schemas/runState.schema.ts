@@ -36,6 +36,7 @@ export const runStateSchema = z.object({
 	hero: heroStateSchema,
 	combat: combatStateSchema.nullable(),
 	town: townStateSchema.nullable(),
+	shopLocks: z.array(townShopSlotSchema),
 	pendingRewardChoice: pendingRewardChoiceSchema.nullable(),
 	gold: z.number().int().min(0),
 	streak: z.number().int().min(0),

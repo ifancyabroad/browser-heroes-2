@@ -100,6 +100,12 @@ const shopRerolledEventSchema = z.object({
 	cost: z.number().int().min(0),
 });
 
+const shopLockChangedEventSchema = z.object({
+	type: z.literal("SHOP_LOCK_CHANGED"),
+	shopSlotId: z.string(),
+	locked: z.boolean(),
+});
+
 const restedAtTownEventSchema = z.object({
 	type: z.literal("RESTED_AT_TOWN"),
 	cost: z.number().int().min(0),
@@ -140,6 +146,7 @@ export const engineEventSchema = z.union([
 	levelUpCompletedEventSchema,
 	rewardSelectedEventSchema,
 	shopRerolledEventSchema,
+	shopLockChangedEventSchema,
 	restedAtTownEventSchema,
 	itemBoughtEventSchema,
 	healingPotionUsedEventSchema,

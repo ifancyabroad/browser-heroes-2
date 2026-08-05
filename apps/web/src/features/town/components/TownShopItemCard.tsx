@@ -10,6 +10,7 @@ import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { attributeLabels } from "../../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../../presentation/effects";
+import { LockSharp } from "pixelarticons/react/LockSharp";
 import {
 	getEquipmentSlotLabel,
 	getItemKindLabel,
@@ -22,9 +23,10 @@ type TownShopItemCardProps = {
 	slot: TownShopSlotView;
 	isPending: boolean;
 	onBuy: () => void;
+	onLockChange: (locked: boolean) => void;
 };
 
-export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardProps) {
+export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownShopItemCardProps) {
 	const { item } = slot;
 	const isPurchased = slot.purchased;
 	const disabled = isPending || isPurchased || !slot.canAfford;
@@ -63,7 +65,12 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 				</Tooltip>
 
 				<div className="grid min-w-0 content-start gap-1 md:hidden">
-					<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
+					<ItemHeading
+						slot={slot}
+						tooltipSlots={tooltipSlots}
+						isPending={isPending}
+						onLockChange={onLockChange}
+					/>
 					<ReplacementDetails destinations={slot.destinations} compact />
 				</div>
 
@@ -76,7 +83,12 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 
 				<div className="hidden min-w-0 content-start gap-2 md:grid">
 					<div className="grid min-w-0 grid-cols-[minmax(0,1fr)_3.5rem] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_3.75rem] md:grid-cols-[minmax(0,1fr)_4rem]">
-						<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
+						<ItemHeading
+							slot={slot}
+							tooltipSlots={tooltipSlots}
+							isPending={isPending}
+							onLockChange={onLockChange}
+						/>
 						<BuyButton slot={slot} disabled={disabled} onBuy={onBuy} />
 					</div>
 
@@ -123,9 +135,13 @@ export function TownShopItemCard({ slot, isPending, onBuy }: TownShopItemCardPro
 function ItemHeading({
 	slot,
 	tooltipSlots,
+	isPending,
+	onLockChange,
 }: {
 	slot: TownShopSlotView;
 	tooltipSlots: readonly TownShopDestinationView["equipmentSlot"][];
+	isPending: boolean;
+	onLockChange: (locked: boolean) => void;
 }) {
 	const { item } = slot;
 
@@ -149,6 +165,19 @@ function ItemHeading({
 				<span className="mr-2 text-text-muted">/</span>
 				<span className={getPriceClassName(slot)}>{slot.price}g</span>
 			</span>
+			<Button
+				type="button"
+				variant={slot.locked ? "primary" : "default"}
+				className="min-h-8 gap-1 px-2 py-0"
+				disabled={isPending || slot.purchased}
+				aria-pressed={slot.locked}
+				aria-label={`${slot.locked ? "Unlock" : "Lock"} ${item.name}`}
+				title={`${slot.locked ? "Unlock" : "Lock"} ${item.name}`}
+				onClick={() => onLockChange(!slot.locked)}
+			>
+				<LockSharp aria-hidden="true" className="h-4 w-4" />
+				{slot.locked ? "Locked" : "Lock"}
+			</Button>
 		</div>
 	);
 }

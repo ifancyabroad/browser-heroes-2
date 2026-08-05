@@ -5,6 +5,7 @@ export {
 	continueToNextCombatActionSchema,
 	returnToTownActionSchema,
 	completeLevelUpActionSchema,
+	setShopLockActionSchema,
 } from "./action.schema";
 
 export type {
@@ -19,6 +20,7 @@ export type {
 	BuyItemAction,
 	RestAtTownAction,
 	RerollShopAction,
+	SetShopLockAction,
 	PlayerSkipTurnAction,
 	SelectRewardAction,
 	BuyConsumableAction,

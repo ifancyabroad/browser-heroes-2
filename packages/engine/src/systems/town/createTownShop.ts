@@ -17,18 +17,34 @@ type CreateTownShopInput = {
 	battleNumber: number;
 	rerollCount: number;
 	rngState: RngState;
+	preservedSlots?: readonly TownShopSlot[];
 };
 
-type UnpricedSlot = Omit<TownShopSlot, "price">;
+type ShopSlotDraft =
+	| { preserved: true; slot: TownShopSlot }
+	| { preserved: false; slot: Omit<TownShopSlot, "price"> };
 
 export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSlot[]> {
-	const shopSlots: UnpricedSlot[] = [];
+	const shopSlots: ShopSlotDraft[] = [];
 	const excludedLegendaryItemIds = new Set<ItemId>();
+	const preservedSlots = new Map(input.preservedSlots?.map((slot) => [slot.id, slot]) ?? []);
+
+	for (const slot of preservedSlots.values()) {
+		if (slot.item.type === "static") {
+			excludedLegendaryItemIds.add(slot.item.itemId);
+		}
+	}
 
 	let rngState = input.rngState;
 
 	while (shopSlots.length < TOWN_SHOP_SLOT_COUNT) {
 		const shopSlotId = createTownShopSlotId(input.runId, shopSlots.length + 1);
+		const preservedSlot = preservedSlots.get(shopSlotId);
+
+		if (preservedSlot) {
+			shopSlots.push({ preserved: true, slot: preservedSlot });
+			continue;
+		}
 
 		const itemResult = createRandomItemInstance({
 			hero: input.hero,
@@ -44,9 +60,12 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 		});
 
 		shopSlots.push({
-			id: shopSlotId,
-			item: itemResult.value,
-			purchased: false,
+			preserved: false,
+			slot: {
+				id: shopSlotId,
+				item: itemResult.value,
+				purchased: false,
+			},
 		});
 
 		if (itemResult.value.type === "static") {
@@ -58,12 +77,17 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 
 	const pricedSlots: TownShopSlot[] = [];
 
-	for (const slot of shopSlots) {
-		const item = getItemInstanceDefinition(slot.item);
+	for (const pendingSlot of shopSlots) {
+		if (pendingSlot.preserved) {
+			pricedSlots.push(pendingSlot.slot);
+			continue;
+		}
+
+		const item = getItemInstanceDefinition(pendingSlot.slot.item);
 		const price = rollPrice(item.price, rngState);
 
 		pricedSlots.push({
-			...slot,
+			...pendingSlot.slot,
 			price: price.value,
 		});
 		rngState = price.rngState;

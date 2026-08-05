@@ -13,6 +13,7 @@ import { useConsumable } from "../systems/consumables/useConsumable";
 import { buyConsumable } from "../systems/town/buyConsumable";
 import { retireRun } from "../systems/endless/retireRun";
 import { swapHandWeapons } from "../systems/equipment/swapHandWeapons";
+import { setShopLock } from "../systems/town/setShopLock";
 
 export function applyAction(state: RunState, action: EngineAction): EngineResult {
 	switch (action.type) {
@@ -38,6 +39,9 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 
 		case "REROLL_SHOP":
 			return rerollShop(state);
+
+		case "SET_SHOP_LOCK":
+			return setShopLock(state, action);
 
 		case "REST_AT_TOWN":
 			return restAtTown(state);

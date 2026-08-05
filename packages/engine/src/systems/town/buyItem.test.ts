@@ -70,4 +70,24 @@ describe("buyItem", () => {
 			}),
 		).toMatchObject({ ok: false, error: "NOT_ENOUGH_GOLD" });
 	});
+
+	it("clears a shop lock when its item is purchased", () => {
+		const state = modifyTestRunState(createTestTownState(), (draft) => {
+			draft.gold = 100_000;
+			draft.shopLocks = [draft.town!.shopSlots[0]];
+		});
+		const action = selectAvailableActions(state).find(
+			(candidate) =>
+				candidate.type === "BUY_ITEM" &&
+				candidate.shopSlotId === state.town!.shopSlots[0].id,
+		);
+
+		expect(action).toBeDefined();
+		if (!action || action.type !== "BUY_ITEM") {
+			throw new Error("Expected a buy action for the locked slot");
+		}
+
+		const result = applyAction(state, action);
+		expect(result.state.shopLocks).toEqual([]);
+	});
 });

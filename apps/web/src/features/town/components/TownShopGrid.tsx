@@ -5,9 +5,10 @@ type TownShopGridProps = {
 	shopSlots: readonly TownShopSlotView[];
 	isPending: boolean;
 	onBuy: (slot: TownShopSlotView) => void;
+	onLockChange: (slot: TownShopSlotView, locked: boolean) => void;
 };
 
-export function TownShopGrid({ shopSlots, isPending, onBuy }: TownShopGridProps) {
+export function TownShopGrid({ shopSlots, isPending, onBuy, onLockChange }: TownShopGridProps) {
 	return (
 		<div className="grid min-w-0 gap-3 xl:grid-cols-2 xl:gap-4">
 			{shopSlots.map((slot) => (
@@ -16,6 +17,7 @@ export function TownShopGrid({ shopSlots, isPending, onBuy }: TownShopGridProps)
 					slot={slot}
 					isPending={isPending}
 					onBuy={() => onBuy(slot)}
+					onLockChange={(locked) => onLockChange(slot, locked)}
 				/>
 			))}
 		</div>

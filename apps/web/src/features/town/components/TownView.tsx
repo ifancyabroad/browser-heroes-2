@@ -111,6 +111,21 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
+	function handleLockChange(slot: TownShopSlotView, locked: boolean) {
+		if (slot.purchased || applyRunAction.isPending) {
+			return;
+		}
+
+		submitAction(
+			{
+				type: "SET_SHOP_LOCK",
+				shopSlotId: slot.id,
+				locked,
+			},
+			"Unable to update that shop lock. Please try again.",
+		);
+	}
+
 	function handleBuyHealingPotion() {
 		submitAction(
 			{
@@ -231,6 +246,7 @@ export function TownView({ run }: TownViewProps) {
 					shopSlots={townView.shopSlots}
 					isPending={applyRunAction.isPending}
 					onBuy={handleBuy}
+					onLockChange={handleLockChange}
 				/>
 			</GameMainPanel>
 

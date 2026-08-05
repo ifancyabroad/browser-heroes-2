@@ -48,4 +48,36 @@ describe("returnToTown", () => {
 			state,
 		});
 	});
+
+	it("restores locked slots on a later town visit", () => {
+		const firstTown = createTestRunState();
+		const firstVictory = {
+			...firstTown,
+			combat: firstTown.combat
+				? { ...firstTown.combat, status: "player_won" as const }
+				: null,
+		};
+		const enteredTown = applyAction(firstVictory, { type: "RETURN_TO_TOWN" });
+		const shopSlotId = enteredTown.state.town!.shopSlots[0].id;
+		const locked = applyAction(enteredTown.state, {
+			type: "SET_SHOP_LOCK",
+			shopSlotId,
+			locked: true,
+		});
+		const lockedSlot = locked.state.shopLocks[0];
+		const combat = applyAction(locked.state, { type: "ENTER_COMBAT" });
+		const victory = {
+			...combat.state,
+			combat: combat.state.combat
+				? { ...combat.state.combat, status: "player_won" as const }
+				: null,
+		};
+
+		const returned = applyAction(victory, { type: "RETURN_TO_TOWN" });
+
+		expect(returned.ok).toBe(true);
+		expect(returned.state.town?.rerollCount).toBe(0);
+		expect(returned.state.town?.shopSlots[0]).toEqual(lockedSlot);
+		expect(returned.state.shopLocks).toEqual([lockedSlot]);
+	});
 });

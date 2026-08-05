@@ -46,4 +46,35 @@ describe("rerollShop", () => {
 		expect(result.state.gold).toBe(908);
 		expect(result.events).toContainEqual({ type: "SHOP_REROLLED", cost: 92 });
 	});
+
+	it("preserves locked slots while replacing unlocked slots", () => {
+		const state = modifyTestRunState(createTestTownState(), (draft) => {
+			draft.gold = 1_000;
+			draft.shopLocks = [draft.town!.shopSlots[0]];
+		});
+		const lockedSlot = state.town!.shopSlots[0];
+		const unlockedSlot = state.town!.shopSlots[1];
+
+		const result = applyAction(state, { type: "REROLL_SHOP" });
+
+		expect(result.state.town?.shopSlots[0]).toEqual(lockedSlot);
+		expect(result.state.town?.shopSlots[1].item.instanceId).not.toBe(
+			unlockedSlot.item.instanceId,
+		);
+	});
+
+	it("allows an all-locked paid reroll without consuming RNG", () => {
+		const state = modifyTestRunState(createTestTownState(), (draft) => {
+			draft.gold = 1_000;
+			draft.shopLocks = [...draft.town!.shopSlots];
+		});
+
+		const result = applyAction(state, { type: "REROLL_SHOP" });
+
+		expect(result.ok).toBe(true);
+		expect(result.state.gold).toBeLessThan(state.gold);
+		expect(result.state.town?.rerollCount).toBe(1);
+		expect(result.state.town?.shopSlots).toEqual(state.town?.shopSlots);
+		expect(result.state.rngState).toEqual(state.rngState);
+	});
 });

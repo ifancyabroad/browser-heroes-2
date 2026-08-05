@@ -62,6 +62,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		combat: combatResult.value,
 
 		town: null,
+		shopLocks: [],
 
 		gold: 0,
 		streak: 0,

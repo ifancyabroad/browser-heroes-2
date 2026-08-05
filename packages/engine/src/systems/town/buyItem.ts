@@ -63,6 +63,7 @@ export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 			gold: state.gold - price,
 			hero: equipResult.hero,
 			town,
+			shopLocks: state.shopLocks.filter((slot) => slot.id !== shopSlot.id),
 		},
 		[
 			{
