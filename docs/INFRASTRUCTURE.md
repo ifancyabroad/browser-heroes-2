@@ -121,7 +121,7 @@ Players can begin without account creation. Guest sessions are stored through se
 
 Registered accounts support login and password recovery. Signing into an existing account switches the browser to that account without transferring history from the previous guest session. Registration instead upgrades the current guest user in place, so its heroes and history remain attached automatically. Passwords are stored as Argon2id hashes. Recovery uses expiring, single-use opaque tokens whose hashes are persisted.
 
-Sessions use secure HTTP-only cookies backed by MongoDB. Authentication transitions regenerate the session, and identity-changing requests accept only the configured web origin. Amazon SES delivers password-reset messages; local development logs these links by default.
+Sessions use secure HTTP-only, `SameSite=Lax` cookies backed by MongoDB. Production serves the web app and API from the same site so session cookies do not need cross-site access. Authentication transitions regenerate the session, and identity-changing requests accept only the configured web origin. Amazon SES delivers password-reset messages; local development logs these links by default.
 
 Direct connections use zero trusted proxy hops. Deployments behind CloudFront or a load balancer must configure the verified proxy-hop count so Express derives HTTPS and client IP information from the intended forwarding chain.
 
