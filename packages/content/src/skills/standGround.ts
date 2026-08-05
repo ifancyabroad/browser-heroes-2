@@ -9,7 +9,7 @@ export default buildSkill({
 	kind: "technique",
 	category: "defensive",
 	rarity: "common",
-	maxUses: 5,
+	maxUses: 3,
 	effects: [
 		{
 			type: "modifyDamageAffinity",
@@ -17,7 +17,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "slashing",
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -25,7 +25,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "crushing",
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -33,7 +33,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "piercing",
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 		},
 		{
 			type: "modifyRoll",
@@ -41,7 +41,7 @@ export default buildSkill({
 			roll: "savingThrow",
 			mode: "disadvantage",
 			attribute: "dexterity",
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],
