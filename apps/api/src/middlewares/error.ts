@@ -28,9 +28,10 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
 	}
 
 	const status = getStatus(err);
-	const message = getMessage(err);
 	if (status >= 500) {
 		console.error(err);
+		return res.status(status).json({ error: "INTERNAL_SERVER_ERROR" });
 	}
-	res.status(status).json({ error: message });
+
+	res.status(status).json({ error: getMessage(err) });
 };

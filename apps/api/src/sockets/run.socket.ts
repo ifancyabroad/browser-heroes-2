@@ -2,6 +2,7 @@ import type { Socket } from "socket.io";
 import { applyRunAction } from "../services/engine.service";
 import { RunActionPayload, runActionPayloadSchema, RunActionResponse } from "@app/shared";
 import { toApplyRunActionResponse } from "../services/projection.service";
+import { ZodError } from "zod";
 
 const ACTION_LIMIT = 10;
 const ACTION_WINDOW_MS = 1_000;
@@ -57,9 +58,20 @@ export function registerRunSocket(socket: Socket) {
 					),
 				});
 			} catch (error) {
+				if (error instanceof ZodError) {
+					respond({ ok: false, error: "INVALID_PAYLOAD" });
+					return;
+				}
+
+				if (error instanceof Error && error.message === "RUN_NOT_FOUND") {
+					respond({ ok: false, error: error.message });
+					return;
+				}
+
+				console.error(error);
 				respond({
 					ok: false,
-					error: error instanceof Error ? error.message : "UNKNOWN_ERROR",
+					error: "INTERNAL_SERVER_ERROR",
 				});
 			}
 		},

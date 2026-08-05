@@ -43,6 +43,7 @@ describe("registerRunSocket", () => {
 
 	afterEach(() => {
 		vi.useRealTimers();
+		vi.restoreAllMocks();
 	});
 
 	it("registers the run action event", () => {
@@ -92,7 +93,7 @@ describe("registerRunSocket", () => {
 
 		expect(respond).toHaveBeenCalledWith({
 			ok: false,
-			error: expect.stringContaining("["),
+			error: "INVALID_PAYLOAD",
 		});
 		expect(engineService.applyRunAction).not.toHaveBeenCalled();
 	});
@@ -118,7 +119,7 @@ describe("registerRunSocket", () => {
 		});
 	});
 
-	it("returns thrown error messages", async () => {
+	it("returns known domain error codes", async () => {
 		engineService.applyRunAction.mockRejectedValue(new Error("RUN_NOT_FOUND"));
 
 		const respond = await createSocket("user-id").invoke({
@@ -129,7 +130,22 @@ describe("registerRunSocket", () => {
 		expect(respond).toHaveBeenCalledWith({ ok: false, error: "RUN_NOT_FOUND" });
 	});
 
+	it("hides unexpected error details", async () => {
+		const error = new Error("database connection failed at internal-host");
+		const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+		engineService.applyRunAction.mockRejectedValue(error);
+
+		const respond = await createSocket("user-id").invoke({
+			runId: "run-id",
+			action: { type: "PLAYER_SKIP_TURN" },
+		});
+
+		expect(respond).toHaveBeenCalledWith({ ok: false, error: "INTERNAL_SERVER_ERROR" });
+		expect(consoleError).toHaveBeenCalledWith(error);
+	});
+
 	it("returns a stable error for non-Error failures", async () => {
+		const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
 		engineService.applyRunAction.mockRejectedValue("failure");
 
 		const respond = await createSocket("user-id").invoke({
@@ -137,6 +153,7 @@ describe("registerRunSocket", () => {
 			action: { type: "PLAYER_SKIP_TURN" },
 		});
 
-		expect(respond).toHaveBeenCalledWith({ ok: false, error: "UNKNOWN_ERROR" });
+		expect(respond).toHaveBeenCalledWith({ ok: false, error: "INTERNAL_SERVER_ERROR" });
+		expect(consoleError).toHaveBeenCalledWith("failure");
 	});
 });
