@@ -18,7 +18,7 @@ export default buildSkill({
 			damageType: "crushing",
 			operation: "multiply",
 			value: 1.5,
-			duration: { unit: "turns", value: 4 },
+			duration: { unit: "battles", value: 1 },
 		},
 		{
 			type: "modifyDamage",
@@ -26,7 +26,7 @@ export default buildSkill({
 			damageType: "fire",
 			operation: "multiply",
 			value: 1.5,
-			duration: { unit: "turns", value: 4 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],

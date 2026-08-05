@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			stat: "maxHpBonus",
 			value: -30,
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
@@ -29,7 +29,7 @@ export default buildSkill({
 			target: "enemy",
 			operation: "multiply",
 			value: 0.25,
-			duration: { unit: "turns", value: 6 },
+			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
