@@ -27,7 +27,7 @@ export function Button({ className, variant = "default", ...props }: ButtonProps
 			className={clsx(
 				commandFrameClassName,
 				commandVariantClassNames[variant],
-				"enabled:cursor-pointer enabled:hover:border-border-bright enabled:hover:text-text-bright",
+				"enabled:cursor-pointer enabled:hover:border-border-bright",
 				commandFocusClassName,
 				"disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60",
 				className,
@@ -49,7 +49,7 @@ export function ButtonLink({ className, variant = "default", ...props }: ButtonL
 				commandFrameClassName,
 				"cursor-pointer",
 				commandVariantClassNames[variant],
-				"hover:border-border-bright hover:text-text-bright",
+				"hover:border-border-bright",
 				commandFocusClassName,
 				className,
 			)}
