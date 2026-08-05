@@ -24,7 +24,7 @@ export default buildSkill({
 			target: "enemy",
 			operation: "multiply",
 			value: 0.5,
-			duration: { unit: "turns", value: 5 },
+			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
