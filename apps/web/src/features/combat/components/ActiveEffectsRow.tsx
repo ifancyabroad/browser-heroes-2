@@ -83,10 +83,12 @@ function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltip
 						</span>
 						<span className="shrink-0 text-text-muted">
 							{effect.type === "modifyRoll" && effect.remainingCharges !== undefined
-								? `${effect.remainingCharges} ${effect.remainingCharges === 1 ? "charge" : "charges"} · `
+								? `${effect.remainingCharges} ${effect.remainingCharges === 1 ? "charge" : "charges"} / `
 								: ""}
-							{effect.duration.remaining}
-							{effect.duration.unit === "turns" ? "t" : "b"}
+							{effect.duration.remaining}{" "}
+							{effect.duration.remaining === 1
+								? effect.duration.unit.slice(0, -1)
+								: effect.duration.unit}
 						</span>
 					</li>
 				))}
