@@ -123,4 +123,18 @@ describe("content catalogs", () => {
 			expect.arrayContaining(["rollType", "rollMode"]),
 		);
 	});
+
+	it("projects duration summaries and units from nested effects", () => {
+		const skills = catalogByKey.skills;
+		const armour = skills.entries.find((entry) => entry.id === "armour")!;
+		const feats = catalogByKey.feats;
+		const guardedAssault = feats.entries.find((entry) => entry.id === "guarded_assault")!;
+
+		expect(armour.cells.durations).toBe("3 battles");
+		expect(armour.facets.durationUnit).toEqual(["battles"]);
+		expect(armour.searchText).toContain("3 battles");
+		expect(skills.filters.map((filter) => filter.key)).toContain("durationUnit");
+		expect(guardedAssault.cells.riders).toContain("2 turns");
+		expect(guardedAssault.searchText).toContain("2 turns");
+	});
 });

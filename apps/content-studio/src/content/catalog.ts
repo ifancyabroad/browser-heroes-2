@@ -131,6 +131,38 @@ const effectRollTypes = (effects: readonly unknown[]) =>
 const effectRollModes = (effects: readonly unknown[]) =>
 	unique(collectProperties(effects, new Set(["mode", "rollMode"])));
 
+const effectDurations = (effects: readonly unknown[]) => {
+	const durations: Array<{ unit: string; value: number }> = [];
+	const visit = (value: unknown) => {
+		if (Array.isArray(value)) {
+			value.forEach(visit);
+			return;
+		}
+		if (typeof value !== "object" || value === null) {
+			return;
+		}
+		for (const [key, child] of Object.entries(value)) {
+			if (
+				key === "duration" &&
+				typeof child === "object" &&
+				child !== null &&
+				"unit" in child &&
+				typeof child.unit === "string" &&
+				"value" in child &&
+				typeof child.value === "number"
+			) {
+				durations.push({ unit: child.unit, value: child.value });
+			}
+			visit(child);
+		}
+	};
+	visit(effects);
+	return durations;
+};
+
+const durationSummary = (effects: readonly unknown[]) =>
+	unique(effectDurations(effects).map(({ unit, value }) => `${value} ${unit}`));
+
 const modifierSummary = (modifiers: readonly unknown[]) =>
 	join(
 		modifiers.map((modifier) => {
@@ -154,7 +186,15 @@ const modifierSummary = (modifiers: readonly unknown[]) =>
 
 const riderSummary = (
 	riders: readonly { timing: string; effects: readonly { type: string }[] }[],
-) => join(riders.map((rider) => `${rider.timing}: ${join(describeEffects(rider.effects))}`));
+) =>
+	join(
+		riders.map((rider) =>
+			join([
+				`${rider.timing}: ${join(describeEffects(rider.effects))}`,
+				...durationSummary(rider.effects),
+			]),
+		),
+	);
 
 const applicabilityRuleSummary = (rule: {
 	itemTypes?: readonly string[];
@@ -227,6 +267,8 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 	const targets = effectTargets(skill.effects);
 	const rollTypes = effectRollTypes(skill.effects);
 	const rollModes = effectRollModes(skill.effects);
+	const durations = durationSummary(skill.effects);
+	const durationUnits = unique(effectDurations(skill.effects).map(({ unit }) => unit));
 	const hasSave = hasPropertyValue(skill.effects, "save");
 	const attackRoll = hasPropertyValue(skill.effects, "requiresAttackRoll", true);
 	return {
@@ -243,6 +285,7 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 			...targets,
 			...rollTypes,
 			...rollModes,
+			...durations,
 		]),
 		facets: {
 			pool: [skill.pool],
@@ -254,6 +297,7 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 			target: targets,
 			rollType: rollTypes,
 			rollMode: rollModes,
+			durationUnit: durationUnits,
 		},
 		cells: {
 			name: skill.name,
@@ -267,6 +311,7 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 			targets: join(targets),
 			rollTypes: join(rollTypes) || "—",
 			rollModes: join(rollModes) || "—",
+			durations: join(durations) || "—",
 			damageTypes: join(damageTypes),
 			checks:
 				join([hasSave ? "save" : undefined, attackRoll ? "attack roll" : undefined]) || "—",
@@ -535,6 +580,7 @@ export const catalogs: readonly Catalog[] = [
 			"targets",
 			"rollTypes",
 			"rollModes",
+			"durations",
 			"damageTypes",
 			"checks",
 			"tags",
@@ -549,6 +595,7 @@ export const catalogs: readonly Catalog[] = [
 			{ key: "target", label: "Target" },
 			{ key: "rollType", label: "Roll type" },
 			{ key: "rollMode", label: "Roll mode" },
+			{ key: "durationUnit", label: "Duration unit" },
 		]),
 	},
 	{

@@ -108,3 +108,29 @@ describe("StructuredEditor roll effects", () => {
 		expect(screen.getByRole("button", { name: "Roll Mode" })).toBeInTheDocument();
 	});
 });
+
+describe("StructuredEditor effect durations", () => {
+	it("edits the duration unit and value", () => {
+		const onChange = vi.fn();
+		render(
+			<StructuredEditor
+				value={{ unit: "turns", value: 2 }}
+				path="effects.0.duration"
+				field="duration"
+				category="skills"
+				issues={[]}
+				onChange={onChange}
+			/>,
+		);
+
+		fireEvent.change(screen.getByRole("combobox", { name: "Unit" }), {
+			target: { value: "battles" },
+		});
+		expect(onChange).toHaveBeenLastCalledWith({ unit: "battles", value: 2 });
+
+		fireEvent.change(screen.getByRole("spinbutton", { name: "Value" }), {
+			target: { value: "4" },
+		});
+		expect(onChange).toHaveBeenLastCalledWith({ unit: "turns", value: 4 });
+	});
+});
