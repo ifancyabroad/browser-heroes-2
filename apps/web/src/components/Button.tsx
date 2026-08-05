@@ -3,10 +3,13 @@ import { Link as RouterLink, type LinkProps as RouterLinkProps } from "react-rou
 import clsx from "clsx";
 
 const commandFrameClassName =
-	"inline-flex min-h-9 items-center justify-center border-2 border-border bg-bg-panel px-3 py-1";
+	"inline-flex min-h-9 items-center justify-center border-2 border-border bg-bg-panel";
 
 const commandFocusClassName =
 	"focus-visible:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+
+const commandInteractionClassName =
+	"enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60";
 
 type CommandVariant = "default" | "primary" | "info" | "success";
 
@@ -27,9 +30,29 @@ export function Button({ className, variant = "default", ...props }: ButtonProps
 			className={clsx(
 				commandFrameClassName,
 				commandVariantClassNames[variant],
-				"enabled:cursor-pointer enabled:hover:border-border-bright",
+				"px-3 py-1",
+				commandInteractionClassName,
 				commandFocusClassName,
-				"disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
+
+type IconButtonProps = Omit<ButtonProps, "aria-label"> & {
+	"aria-label": string;
+};
+
+export function IconButton({ className, variant = "default", ...props }: IconButtonProps) {
+	return (
+		<button
+			className={clsx(
+				commandFrameClassName,
+				commandVariantClassNames[variant],
+				"h-9 w-9",
+				commandInteractionClassName,
+				commandFocusClassName,
 				className,
 			)}
 			{...props}
@@ -47,6 +70,7 @@ export function ButtonLink({ className, variant = "default", ...props }: ButtonL
 		<RouterLink
 			className={clsx(
 				commandFrameClassName,
+				"px-3 py-1",
 				"cursor-pointer",
 				commandVariantClassNames[variant],
 				"hover:border-border-bright",

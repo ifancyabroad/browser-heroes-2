@@ -5,7 +5,7 @@ import {
 } from "@app/engine";
 import clsx from "clsx";
 import { Badge } from "../../../components/Badge";
-import { Button } from "../../../components/Button";
+import { Button, IconButton } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { attributeLabels } from "../../../presentation/labels";
@@ -29,7 +29,6 @@ type TownShopItemCardProps = {
 export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownShopItemCardProps) {
 	const { item } = slot;
 	const isPurchased = slot.purchased;
-	const disabled = isPending || isPurchased || !slot.canAfford;
 	const tooltipSlots = slot.destinations.map((destination) => destination.equipmentSlot);
 	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
 	const primaryStat = getPrimaryItemStat(item);
@@ -37,7 +36,7 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 	return (
 		<article
 			className={clsx(
-				"relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)_3.5rem] gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)_3.75rem] md:grid-cols-[4rem_minmax(0,1fr)]",
+				"relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)_max-content] items-start gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)_max-content] md:grid-cols-[4rem_minmax(0,1fr)_max-content]",
 				isPurchased && "border-dashed bg-bg-base",
 			)}
 		>
@@ -65,32 +64,12 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 				</Tooltip>
 
 				<div className="grid min-w-0 content-start gap-1 md:hidden">
-					<ItemHeading
-						slot={slot}
-						tooltipSlots={tooltipSlots}
-						isPending={isPending}
-						onLockChange={onLockChange}
-					/>
+					<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
 					<ReplacementDetails destinations={slot.destinations} compact />
 				</div>
 
-				<BuyButton
-					slot={slot}
-					disabled={disabled}
-					onBuy={onBuy}
-					className="self-start justify-self-end md:hidden"
-				/>
-
 				<div className="hidden min-w-0 content-start gap-2 md:grid">
-					<div className="grid min-w-0 grid-cols-[minmax(0,1fr)_3.5rem] items-center gap-3 sm:grid-cols-[minmax(0,1fr)_3.75rem] md:grid-cols-[minmax(0,1fr)_4rem]">
-						<ItemHeading
-							slot={slot}
-							tooltipSlots={tooltipSlots}
-							isPending={isPending}
-							onLockChange={onLockChange}
-						/>
-						<BuyButton slot={slot} disabled={disabled} onBuy={onBuy} />
-					</div>
+					<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
 
 					<div className="grid min-w-0 gap-1">
 						<DetailLine
@@ -121,6 +100,13 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 						<ModifierPreview slot={slot} />
 					</div>
 				</div>
+
+				<ItemActions
+					slot={slot}
+					isPending={isPending}
+					onBuy={onBuy}
+					onLockChange={onLockChange}
+				/>
 			</div>
 
 			{isPurchased && (
@@ -135,13 +121,9 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 function ItemHeading({
 	slot,
 	tooltipSlots,
-	isPending,
-	onLockChange,
 }: {
 	slot: TownShopSlotView;
 	tooltipSlots: readonly TownShopDestinationView["equipmentSlot"][];
-	isPending: boolean;
-	onLockChange: (locked: boolean) => void;
 }) {
 	const { item } = slot;
 
@@ -161,24 +143,60 @@ function ItemHeading({
 			>
 				{item.name}
 			</Tooltip>
-			<span className="whitespace-nowrap">
+			<span className="whitespace-nowrap tabular-nums">
 				<span className="mr-2 text-text-muted">/</span>
 				<span className={getPriceClassName(slot)}>{slot.price}g</span>
 			</span>
-			<Button
-				type="button"
-				variant={slot.locked ? "primary" : "default"}
-				className="min-h-8 gap-1 px-2 py-0"
-				disabled={isPending || slot.purchased}
-				aria-pressed={slot.locked}
-				aria-label={`${slot.locked ? "Unlock" : "Lock"} ${item.name}`}
-				title={`${slot.locked ? "Unlock" : "Lock"} ${item.name}`}
-				onClick={() => onLockChange(!slot.locked)}
-			>
-				<LockSharp aria-hidden="true" className="h-4 w-4" />
-				{slot.locked ? "Locked" : "Lock"}
-			</Button>
 		</div>
+	);
+}
+
+function ItemActions({
+	slot,
+	isPending,
+	onBuy,
+	onLockChange,
+}: {
+	slot: TownShopSlotView;
+	isPending: boolean;
+	onBuy: () => void;
+	onLockChange: (locked: boolean) => void;
+}) {
+	return (
+		<div className="flex items-start gap-2 md:grid md:self-stretch md:content-between md:justify-items-end">
+			<BuyButton
+				slot={slot}
+				disabled={isPending || slot.purchased || !slot.canAfford}
+				onBuy={onBuy}
+			/>
+			<LockButton slot={slot} isPending={isPending} onLockChange={onLockChange} />
+		</div>
+	);
+}
+
+function LockButton({
+	slot,
+	isPending,
+	onLockChange,
+}: {
+	slot: TownShopSlotView;
+	isPending: boolean;
+	onLockChange: (locked: boolean) => void;
+}) {
+	const label = `${slot.locked ? "Unlock" : "Lock"} ${slot.item.name}`;
+
+	return (
+		<IconButton
+			type="button"
+			variant={slot.locked ? "primary" : "default"}
+			disabled={isPending || slot.purchased}
+			aria-pressed={slot.locked}
+			aria-label={label}
+			title={label}
+			onClick={() => onLockChange(!slot.locked)}
+		>
+			<LockSharp aria-hidden="true" className="h-5 w-5 shrink-0" />
+		</IconButton>
 	);
 }
 
