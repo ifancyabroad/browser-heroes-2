@@ -18,7 +18,7 @@ export default buildSkill({
 			damageType: "poison",
 			operation: "multiply",
 			value: 1.5,
-			duration: { unit: "turns", value: 8 },
+			duration: { unit: "battles", value: 1 },
 		},
 	],
 	tags: [],
