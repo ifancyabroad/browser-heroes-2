@@ -35,6 +35,15 @@ export const attributeLabels: Record<Attribute, string> = {
 	charisma: "Charisma",
 };
 
+export const attributeDescriptions: Record<Attribute, string> = {
+	strength: "Improves Strength-based attacks and damage.",
+	dexterity: "Improves Armour Class and Dexterity-based attacks and damage.",
+	constitution: "Increases maximum health.",
+	intelligence: "Improves Intelligence-based effects.",
+	wisdom: "Improves Wisdom-based effects.",
+	charisma: "Improves Charisma-based effects and lowers town prices.",
+};
+
 export const combatStatShortLabels = {
 	armourClass: "AC",
 	attackRollBonus: "Attack",
@@ -56,6 +65,17 @@ export const combatStatLabels = {
 	healingMultiplier: "Healing Multiplier",
 	maxHpBonus: "Maximum HP Bonus",
 } as const;
+
+export const combatStatDescriptions: Record<keyof typeof combatStatLabels, string> = {
+	armourClass: "Makes attacks less likely to hit you.",
+	attackRollBonus: "Makes your attacks more likely to hit.",
+	savingThrowBonus: "Helps you resist hostile effects.",
+	saveDcBonus: "Makes your effects harder for enemies to resist.",
+	criticalRangeBonus: "Makes critical hits more likely.",
+	criticalDiceMultiplierBonus: "Increases critical hit damage.",
+	healingMultiplier: "Increases health restored by healing.",
+	maxHpBonus: "Increases maximum health.",
+};
 
 export const modifiableStatLabels: Record<ModifiableStat, string> = {
 	armourClass: combatStatShortLabels.armourClass,

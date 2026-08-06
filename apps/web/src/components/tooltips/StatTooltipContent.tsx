@@ -6,9 +6,15 @@ type StatTooltipContentProps = {
 	label: string;
 	stat: StatPresentation;
 	signed?: boolean;
+	description?: string;
 };
 
-export function StatTooltipContent({ label, stat, signed = false }: StatTooltipContentProps) {
+export function StatTooltipContent({
+	label,
+	stat,
+	signed = false,
+	description,
+}: StatTooltipContentProps) {
 	return (
 		<div className="grid gap-2">
 			<div className="flex items-baseline justify-between gap-3">
@@ -36,6 +42,8 @@ export function StatTooltipContent({ label, stat, signed = false }: StatTooltipC
 					))}
 				</ul>
 			)}
+
+			{description && <p>{description}</p>}
 		</div>
 	);
 }

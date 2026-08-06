@@ -12,8 +12,10 @@ import { StatTooltipContent } from "../../../components/tooltips/StatTooltipCont
 import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
 import {
 	armourTypeLabels,
+	attributeDescriptions,
 	attributeLabels,
 	attributeShortLabels,
+	combatStatDescriptions,
 	combatStatLabels,
 	combatStatShortLabels,
 	damageTypeLabels,
@@ -29,6 +31,7 @@ import {
 type StatGridItem = {
 	label: string;
 	fullLabel: string;
+	description: string;
 	stat: StatPresentation;
 	signed?: boolean;
 };
@@ -37,6 +40,7 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 	const attributeItems: StatGridItem[] = attributes.map((attribute) => ({
 		label: attributeShortLabels[attribute],
 		fullLabel: attributeLabels[attribute],
+		description: attributeDescriptions[attribute],
 		stat: getStatPresentation(heroView.attributes[attribute]),
 	}));
 
@@ -44,44 +48,52 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 		{
 			label: combatStatShortLabels.armourClass,
 			fullLabel: combatStatLabels.armourClass,
+			description: combatStatDescriptions.armourClass,
 			stat: getArmourClassStatPresentation(heroView.armourClassBreakdown),
 		},
 		{
 			label: combatStatShortLabels.attackRollBonus,
 			fullLabel: combatStatLabels.attackRollBonus,
+			description: combatStatDescriptions.attackRollBonus,
 			stat: getStatPresentation(heroView.combatStats.attackRollBonus),
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.savingThrowBonus,
 			fullLabel: combatStatLabels.savingThrowBonus,
+			description: combatStatDescriptions.savingThrowBonus,
 			stat: getStatPresentation(heroView.combatStats.savingThrowBonus),
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.saveDcBonus,
 			fullLabel: combatStatLabels.saveDcBonus,
+			description: combatStatDescriptions.saveDcBonus,
 			stat: getStatPresentation(heroView.combatStats.saveDcBonus),
 			signed: true,
 		},
 		{
 			label: combatStatShortLabels.criticalRangeBonus,
 			fullLabel: combatStatLabels.criticalRangeBonus,
+			description: combatStatDescriptions.criticalRangeBonus,
 			stat: getStatPresentation(heroView.combatStats.criticalRangeBonus),
 		},
 		{
 			label: combatStatShortLabels.criticalDiceMultiplierBonus,
 			fullLabel: combatStatLabels.criticalDiceMultiplierBonus,
+			description: combatStatDescriptions.criticalDiceMultiplierBonus,
 			stat: getStatPresentation(heroView.combatStats.criticalDiceMultiplierBonus),
 		},
 		{
 			label: combatStatShortLabels.healingMultiplier,
 			fullLabel: combatStatLabels.healingMultiplier,
+			description: combatStatDescriptions.healingMultiplier,
 			stat: getStatPresentation(heroView.combatStats.healingMultiplier),
 		},
 		{
 			label: combatStatShortLabels.maxHpBonus,
 			fullLabel: combatStatLabels.maxHpBonus,
+			description: combatStatDescriptions.maxHpBonus,
 			stat: getStatPresentation(heroView.combatStats.maxHpBonus),
 			signed: true,
 		},
@@ -184,6 +196,7 @@ function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 								label={item.fullLabel}
 								stat={item.stat}
 								signed={item.signed}
+								description={item.description}
 							/>
 						}
 						placement="top"
