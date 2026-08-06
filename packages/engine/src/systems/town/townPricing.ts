@@ -1,6 +1,6 @@
 import { calculateAttributeModifier } from "../../core/attributes";
 
-const CHARISMA_DISCOUNT_DIVISOR = 12;
+const CHARISMA_DISCOUNT_DIVISOR = 15;
 
 const BASE_REROLL_COST = 20;
 const REROLL_MULTIPLIER = 1.5;
