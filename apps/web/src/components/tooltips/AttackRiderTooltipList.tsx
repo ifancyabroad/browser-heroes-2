@@ -1,6 +1,10 @@
 import type { AttackRider } from "@app/content";
 import { Badge } from "../Badge";
-import { formatRiderEffect, formatSavingThrow } from "../../presentation/effects";
+import {
+	formatRiderEffect,
+	formatSavingThrow,
+	formatSavingThrowModifier,
+} from "../../presentation/effects";
 
 type AttackRiderTooltipListProps = {
 	riders: readonly AttackRider[];
@@ -39,8 +43,12 @@ function formatSavedRiderEffects(rider: AttackRider, effects: string) {
 	}
 
 	if (rider.save.onSuccess === "noEffect") {
-		return `${formatSavingThrow(rider.save)}. On Failure: ${effects}`;
+		return `Failed ${formatSavingThrow(rider.save)}: ${lowercaseFirst(effects)} ${formatSavingThrowModifier(rider.save)}`;
 	}
 
-	return `${formatSavingThrow(rider.save)}. On Success: Half damage. ${effects}`;
+	return `${effects} ${formatSavingThrow(rider.save)}: half damage. ${formatSavingThrowModifier(rider.save)}`;
+}
+
+function lowercaseFirst(value: string) {
+	return `${value.charAt(0).toLowerCase()}${value.slice(1)}`;
 }

@@ -4,6 +4,8 @@ import {
 	formatActiveEffectDetail,
 	formatItemModifier,
 	formatRiderEffect,
+	formatSavingThrow,
+	formatSavingThrowModifier,
 	formatSkillEffect,
 	getActiveEffectTone,
 } from "./effects";
@@ -26,7 +28,54 @@ describe("effect presentation", () => {
 				dice: "1d4",
 				requiresAttackRoll: false,
 			}),
-		).toBe("The enemy takes 1d4 Fire damage.");
+		).toBe("Deal 1d4 Fire damage.");
+	});
+
+	it("keeps saving throws concise while identifying both relevant attributes", () => {
+		const save = {
+			attribute: "dexterity" as const,
+			onSuccess: "halfDamage" as const,
+			dc: {
+				base: 11,
+				attribute: "constitution" as const,
+				includeProficiency: true,
+				bonus: 3,
+			},
+		};
+
+		expect(formatSavingThrow(save)).toBe("DEX save");
+		expect(formatSavingThrowModifier(save)).toBe("Uses your CON modifier.");
+		expect(
+			formatSkillEffect({
+				type: "damage",
+				target: "enemy",
+				damageType: "fire",
+				dice: "10d6",
+				requiresAttackRoll: false,
+				save,
+			}),
+		).toBe("Deal 10d6 Fire damage. DEX save: half damage. Uses your CON modifier.");
+	});
+
+	it("leads negated effects with the failed save", () => {
+		expect(
+			formatSkillEffect({
+				type: "applyStatus",
+				target: "enemy",
+				statusId: "stunned",
+				duration: { unit: "turns", value: 1 },
+				save: {
+					attribute: "constitution",
+					onSuccess: "noEffect",
+					dc: {
+						base: 8,
+						attribute: "dexterity",
+						includeProficiency: true,
+						bonus: 0,
+					},
+				},
+			}),
+		).toBe("Failed CON save: stun the enemy for 1 turn. Uses your DEX modifier.");
 	});
 
 	it("describes universal damage and round healing multipliers clearly", () => {
@@ -47,9 +96,7 @@ describe("effect presentation", () => {
 				charges: 2,
 				duration: { unit: "turns", value: 4 },
 			}),
-		).toBe(
-			"Make the enemy's next 2 WIS saving throws automatically fail. Expires after 4 turns.",
-		);
+		).toBe("Make the enemy's next 2 WIS saving throws automatically fail for up to 4 turns.");
 	});
 
 	it("describes battle-duration effects with singular and plural labels", () => {

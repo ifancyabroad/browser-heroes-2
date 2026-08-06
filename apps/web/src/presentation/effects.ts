@@ -104,7 +104,10 @@ export function formatSkillEffect(effect: Effect): string {
 		case "heal":
 			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
-			return `Apply ${formatTitle(effect.statusId)} to ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
+			return formatSavedEffect(
+				`${formatStatusAction(effect.statusId)} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
+				effect.save,
+			);
 		case "removeStatus":
 			return `Remove ${formatRemovedStatuses(effect)} from ${formatTargetObject(effect.target)}.`;
 		case "modifyStat":
@@ -148,7 +151,10 @@ export function formatSkillEffect(effect: Effect): string {
 		case "modifyRoll":
 			return formatRollEffect(effect);
 		case "damageOverTime":
-			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
+			return formatSavedEffect(
+				`${effect.target === "self" ? "Take" : "Deal"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn for ${formatEffectDuration(effect.duration)}`,
+				effect.save,
+			);
 		case "healOverTime":
 			return `Heal yourself for ${effect.dice} per turn for ${formatEffectDuration(effect.duration)}.`;
 		case "shield":
@@ -165,7 +171,10 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "heal":
 			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
-			return `Apply ${formatTitle(effect.statusId)} to ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
+			return formatSavedEffect(
+				`${formatStatusAction(effect.statusId)} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
+				effect.save,
+			);
 		case "modifyStat":
 			return formatTemporaryModifier(
 				effect.target,
@@ -207,7 +216,10 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "modifyRoll":
 			return formatRollEffect(effect);
 		case "damageOverTime":
-			return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn${formatDurationSuffix(effect.duration)}${formatOptionalSave(effect.save)}.`;
+			return formatSavedEffect(
+				`${effect.target === "self" ? "Take" : "Deal"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn${formatDurationSuffix(effect.duration)}`,
+				effect.save,
+			);
 		case "healOverTime":
 			return `Heal yourself for ${effect.dice} per turn${formatDurationSuffix(effect.duration)}.`;
 		case "shield":
@@ -274,19 +286,11 @@ export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 }
 
 export function formatSavingThrow(save: SavingThrow) {
-	const dcParts = [
-		String(save.dc.base),
-		`your ${attributeShortLabels[save.dc.attribute]} modifier`,
-		save.dc.includeProficiency ? "your proficiency bonus" : null,
-	].filter(Boolean);
-	const bonus =
-		save.dc.bonus > 0
-			? ` + ${save.dc.bonus}`
-			: save.dc.bonus < 0
-				? ` - ${Math.abs(save.dc.bonus)}`
-				: "";
+	return `${attributeShortLabels[save.attribute]} save`;
+}
 
-	return `${attributeShortLabels[save.attribute]} save vs DC ${dcParts.join(" + ")}${bonus}`;
+export function formatSavingThrowModifier(save: SavingThrow) {
+	return `Uses your ${attributeShortLabels[save.dc.attribute]} modifier.`;
 }
 
 export function formatTurns(turns: number) {
@@ -344,13 +348,19 @@ export function getNumberTone(value: number): ModifierTone {
 }
 
 function formatDamageEffect(effect: Extract<Effect | RiderEffect, { type: "damage" }>) {
-	return `${formatTargetSubject(effect.target)} ${effect.target === "self" ? "take" : "takes"} ${formatDiceFormula(effect.dice, effect.attribute)} ${damageTypeLabels[effect.damageType]} damage${effect.requiresAttackRoll ? " with an attack roll" : ""}${formatOptionalSave(effect.save)}.`;
+	return formatSavedEffect(
+		`${effect.target === "self" ? "Take" : "Deal"} ${formatDiceFormula(effect.dice, effect.attribute)} ${damageTypeLabels[effect.damageType]} damage${effect.requiresAttackRoll ? " with an attack roll" : ""}`,
+		effect.save,
+	);
 }
 
 function formatDamageAffinityEffect(
 	effect: Extract<Effect | RiderEffect, { type: "modifyDamageAffinity" }>,
 ) {
-	return `${formatTargetSubject(effect.target)} ${effect.operation === "add" ? "gain" : "lose"}${effect.target === "enemy" ? "s" : ""} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} for ${formatEffectDuration(effect.duration)}${formatOptionalSave(effect.save)}.`;
+	return formatSavedEffect(
+		`${effect.operation === "add" ? "Grant" : "Remove"} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} ${effect.operation === "add" ? "to" : "from"} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
+		effect.save,
+	);
 }
 
 function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyRoll" }>) {
@@ -360,10 +370,12 @@ function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyR
 		? `${target} next ${effect.charges === 1 ? singularizeRollSubject(rolls) : `${effect.charges} ${rolls}`}`
 		: `${target} ${rolls}`;
 	const duration = formatEffectDuration(effect.duration);
-	const save = formatOptionalSave(effect.save);
 
 	if (effect.mode === "advantage" || effect.mode === "disadvantage") {
-		return `Grant ${effect.mode} on ${limitedRolls} for ${duration}${save}.`;
+		return formatSavedEffect(
+			`Grant ${effect.mode} on ${limitedRolls} for ${duration}`,
+			effect.save,
+		);
 	}
 
 	const outcome =
@@ -377,7 +389,7 @@ function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyR
 					? "automatically miss"
 					: "automatically fail";
 
-	return `Make ${limitedRolls} ${outcome}${save}. Expires after ${duration}.`;
+	return formatSavedEffect(`Make ${limitedRolls} ${outcome} for up to ${duration}`, effect.save);
 }
 
 function formatRollModifierMode(mode: RollModifierMode, roll: "attack" | "savingThrow") {
@@ -415,15 +427,20 @@ function formatTemporaryModifier(
 	save: SavingThrow | undefined,
 ) {
 	const durationText = formatDurationSuffix(duration);
-	const savingThrow = formatOptionalSave(save);
 	const possessiveTarget = target === "self" ? "your" : "the enemy's";
 
 	const change = operation === "multiply" ? getPercentageChange(value) : value;
 	if (change === 0) {
-		return `${target === "self" ? "Your" : "The enemy's"} ${subject} is unchanged${durationText}${savingThrow}.`;
+		return formatSavedEffect(
+			`${target === "self" ? "Your" : "The enemy's"} ${subject} is unchanged${durationText}`,
+			save,
+		);
 	}
 
-	return `${change > 0 ? "Increase" : "Reduce"} ${possessiveTarget} ${subject} by ${Math.abs(change)}${operation === "multiply" ? "%" : ""}${durationText}${savingThrow}.`;
+	return formatSavedEffect(
+		`${change > 0 ? "Increase" : "Reduce"} ${possessiveTarget} ${subject} by ${Math.abs(change)}${operation === "multiply" ? "%" : ""}${durationText}`,
+		save,
+	);
 }
 
 function formatDiceFormula(dice: string, attribute: Attribute | undefined) {
@@ -438,20 +455,24 @@ function formatDurationSuffix(duration: EffectDuration) {
 	return ` for ${formatEffectDuration(duration)}`;
 }
 
-function formatOptionalSave(save: SavingThrow | undefined) {
+function formatSavedEffect(effectText: string, save: SavingThrow | undefined) {
 	if (!save) {
-		return "";
+		return `${effectText}.`;
 	}
 
 	if (save.onSuccess === "noEffect") {
-		return ` (on a failed ${formatSavingThrow(save)})`;
+		return `Failed ${formatSavingThrow(save)}: ${lowercaseFirst(effectText)}. ${formatSavingThrowModifier(save)}`;
 	}
 
-	return ` (${formatSavingThrow(save)}; half damage on success)`;
+	return `${effectText}. ${formatSavingThrow(save)}: half damage. ${formatSavingThrowModifier(save)}`;
 }
 
-function formatTargetSubject(target: "self" | "enemy") {
-	return target === "self" ? "You" : "The enemy";
+function formatStatusAction(statusId: "stunned" | "silenced") {
+	return statusId === "stunned" ? "Stun" : "Silence";
+}
+
+function lowercaseFirst(value: string) {
+	return `${value.charAt(0).toLowerCase()}${value.slice(1)}`;
 }
 
 function formatTargetObject(target: "self" | "enemy") {
