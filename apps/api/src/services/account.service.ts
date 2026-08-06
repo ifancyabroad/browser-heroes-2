@@ -47,7 +47,7 @@ export async function registerGuest(input: {
 					lastActiveAt: new Date(),
 				},
 			},
-			{ new: true, runValidators: true },
+			{ returnDocument: "after", runValidators: true },
 		);
 	} catch (error) {
 		if (isDuplicateEmailError(error)) {
@@ -111,7 +111,7 @@ export async function resetPassword(token: string, password: string) {
 	const user = await UserModel.findByIdAndUpdate(
 		record.userId,
 		{ $set: { passwordHash } },
-		{ new: true },
+		{ returnDocument: "after" },
 	).orFail();
 
 	await Promise.all([

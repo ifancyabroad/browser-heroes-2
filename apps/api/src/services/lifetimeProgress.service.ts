@@ -82,7 +82,7 @@ export async function recordLifetimeProgress(input: {
 	};
 
 	const userBeforeUpdate = await UserModel.findByIdAndUpdate(input.userId, update, {
-		new: false,
+		returnDocument: "before",
 		session: input.session,
 	});
 

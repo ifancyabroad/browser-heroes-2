@@ -166,7 +166,7 @@ describe("lifetimeProgress.service", () => {
 		expect(userModel.findByIdAndUpdate).toHaveBeenCalledWith(
 			"user",
 			{ $inc: { "lifetimeStats.kills": 1, "lifetimeStats.goldEarned": 5 } },
-			expect.objectContaining({ new: false }),
+			expect.objectContaining({ returnDocument: "before" }),
 		);
 		expect(transition?.previous.kills).toBe(99);
 		expect(transition?.current.kills).toBe(100);

@@ -84,7 +84,7 @@ describe("ghost.service", () => {
 					stats: { kills: 0, deaths: 0, encounters: 0 },
 				}),
 			},
-			{ new: true, upsert: true, session },
+			{ returnDocument: "after", upsert: true, session },
 		);
 	});
 
@@ -185,7 +185,7 @@ describe("ghost.service", () => {
 		expect(ghostModel.findOneAndUpdate).toHaveBeenCalledWith(
 			{ _id: "ghost-id" },
 			{ $inc: { [field]: 1 } },
-			{ new: true, session },
+			{ returnDocument: "after", session },
 		);
 	});
 });

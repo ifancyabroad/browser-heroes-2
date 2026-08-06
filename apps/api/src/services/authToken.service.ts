@@ -33,7 +33,7 @@ export function consumeAuthToken(token: string, purpose: AuthTokenPurpose) {
 			expiresAt: { $gt: new Date() },
 		},
 		{ $set: { usedAt: new Date() } },
-		{ new: true },
+		{ returnDocument: "after" },
 	);
 }
 

@@ -59,7 +59,7 @@ export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInpu
 			},
 		},
 		{
-			new: true,
+			returnDocument: "after",
 			upsert: true,
 			session: input.session,
 		},
@@ -123,7 +123,7 @@ export async function recordGhostCombatOutcome(input: RecordGhostCombatOutcomeIn
 						},
 		},
 		{
-			new: true,
+			returnDocument: "after",
 			session: input.session,
 		},
 	);
