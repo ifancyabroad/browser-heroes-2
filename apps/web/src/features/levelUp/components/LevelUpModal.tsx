@@ -115,12 +115,12 @@ function getSelectionInstruction(options: PendingLevelUp["options"]) {
 	const optionType = options[0]?.type;
 
 	if (optionType === "skill") {
-		return "Select a skill to learn before continuing.";
+		return "Choose a skill to learn.";
 	}
 
 	if (optionType === "feat") {
-		return "Select a feat before continuing.";
+		return "Choose a passive feat.";
 	}
 
-	return "Select a level-up reward before continuing.";
+	return "Choose a level-up reward.";
 }

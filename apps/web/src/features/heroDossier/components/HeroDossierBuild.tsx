@@ -131,6 +131,7 @@ function FeatsSection({ hero }: { hero: HeroView }) {
 										icon={feat.icon}
 										name={feat.name}
 										subtitle={featCategoryLabels[feat.category]}
+										badge="Passive"
 									/>
 								</Tooltip>
 							</li>

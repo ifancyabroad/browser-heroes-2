@@ -82,7 +82,7 @@ function getOptionContent(option: LevelUpOption) {
 		icon: feat.icon,
 		name: feat.name,
 		category: featCategoryLabels[feat.category],
-		metaLabel: null,
+		metaLabel: "Passive",
 	};
 }
 

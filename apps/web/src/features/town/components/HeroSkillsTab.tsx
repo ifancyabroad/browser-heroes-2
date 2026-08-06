@@ -71,7 +71,7 @@ export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 											icon={feat.icon}
 											name={feat.name}
 											meta={featCategoryLabels[feat.category]}
-											badges={[]}
+											badges={["Passive"]}
 										/>
 									</Tooltip>
 								</li>
@@ -99,7 +99,7 @@ function AbilityRow({ icon, name, meta, badges }: AbilityRowProps) {
 			className={clsx(
 				"grid gap-3 py-1",
 				badges.length > 0
-					? "grid-cols-[3rem_minmax(0,1fr)_3.5rem]"
+					? "grid-cols-[3rem_minmax(0,1fr)_auto]"
 					: "grid-cols-[3rem_minmax(0,1fr)]",
 			)}
 		>

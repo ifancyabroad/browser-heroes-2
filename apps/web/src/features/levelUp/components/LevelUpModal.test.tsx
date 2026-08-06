@@ -74,7 +74,28 @@ describe("LevelUpModal", () => {
 		);
 
 		expect(screen.getByRole("button", { name: "Confirm" })).toBeDisabled();
-		expect(screen.getByText("Select a skill to learn before continuing.")).toBeInTheDocument();
+		expect(screen.getByText("Choose a skill to learn.")).toBeInTheDocument();
+	});
+
+	it("identifies feat choices as passive", () => {
+		render(
+			<LevelUpModal
+				pendingLevelUp={
+					{
+						level: 3,
+						hpGain: 5,
+						options: [{ type: "feat", featId: "toughness" }],
+					} as never
+				}
+				isPending={false}
+				levelUpRerolls={5}
+				canReroll
+				onConfirm={vi.fn()}
+				onReroll={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByText("Choose a passive feat.")).toBeInTheDocument();
 	});
 
 	it("submits the selected level-up choice", () => {
