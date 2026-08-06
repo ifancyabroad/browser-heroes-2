@@ -28,7 +28,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "poison",
-			dice: "2d6",
+			dice: "1d6",
 			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "constitution",

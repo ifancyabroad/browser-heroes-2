@@ -9,13 +9,13 @@ export default buildSkill({
 	kind: "spellAttack",
 	category: "damage",
 	rarity: "common",
-	maxUses: 12,
+	maxUses: 20,
 	effects: [
 		{
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
-			dice: "1d8",
+			dice: "1d10",
 			attribute: "intelligence",
 			requiresAttackRoll: true,
 		},

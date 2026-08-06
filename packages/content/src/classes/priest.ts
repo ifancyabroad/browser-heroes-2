@@ -31,6 +31,7 @@ export default buildClass({
 	startingEquipment: {
 		body: "base_robe",
 		mainHand: "base_mace",
+		offHand: "base_buckler",
 	},
 	tags: [],
 });

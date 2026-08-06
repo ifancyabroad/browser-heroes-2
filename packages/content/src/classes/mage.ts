@@ -17,7 +17,7 @@ export default buildClass({
 		wisdom: 12,
 	},
 	combat: {
-		hitDie: "1d6",
+		hitDie: "1d8",
 		skillIds: ["sparks"],
 		featIds: [],
 		tactic: "caster",
