@@ -64,9 +64,14 @@ describe("TownShopItemCard", () => {
 				onLockChange={onLockChange}
 			/>,
 		);
-		expect(
-			screen.getAllByRole("button", { name: `Unlock ${testItem.name}` })[0],
-		).toHaveAttribute("aria-pressed", "true");
+		const unlockButton = screen.getAllByRole("button", {
+			name: `Unlock ${testItem.name}`,
+		})[0];
+		expect(unlockButton).toHaveAttribute("aria-pressed", "true");
+		expect(unlockButton).toHaveClass(
+			"aria-pressed:bg-primary",
+			"aria-pressed:text-primary-contrast",
+		);
 	});
 
 	it("blocks lock changes while an action is pending", () => {
