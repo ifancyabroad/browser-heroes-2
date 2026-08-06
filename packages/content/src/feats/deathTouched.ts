@@ -3,16 +3,17 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "death_touched",
 	name: "Death-Touched",
-	description: "Grants immunity to necrotic damage, but vulnerability to radiant damage.",
+	description:
+		"Necrotic damage is multiplied by 1.5. Hits deal an additional 1d8 necrotic damage, but you are vulnerable to radiant damage.",
 	icon: "feats/Skill_ShadowResistance_nb.png",
-	kind: "bargain",
-	category: "defensive",
+	kind: "elemental",
+	category: "offensive",
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "immunity",
-			operation: "add",
+			type: "modifyDamage",
 			damageType: "necrotic",
+			operation: "multiply",
+			value: 1.5,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -21,6 +22,18 @@ export default buildFeat({
 			damageType: "radiant",
 		},
 	],
-	attackRiders: [],
+	attackRiders: [
+		{
+			timing: "onHit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "1d8",
+				},
+			],
+		},
+	],
 	tags: [],
 });

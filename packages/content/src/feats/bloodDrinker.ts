@@ -3,11 +3,17 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "blood_drinker",
 	name: "Blood Drinker",
-	description: "Critical hits restore 1d8 HP.",
+	description: "Critical range increases by 2 and critical hits restore 2d8 HP.",
 	icon: "feats/Skill_Thirst_nb.png",
-	kind: "training",
+	kind: "martial",
 	category: "resource",
-	modifiers: [],
+	modifiers: [
+		{
+			type: "modifyStat",
+			stat: "criticalRangeBonus",
+			value: 2,
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onCrit",
@@ -15,7 +21,7 @@ export default buildFeat({
 				{
 					type: "heal",
 					target: "self",
-					dice: "1d8",
+					dice: "2d8",
 				},
 			],
 		},

@@ -10,10 +10,10 @@ import {
 describe("hero stat threshold queries", () => {
 	it("uses effective attributes", () => {
 		const hero = createTestRunState().hero;
-		hero.attributes.strength = 28;
-		hero.featIds = ["herculean_strength"];
+		hero.attributes.charisma = 24;
+		hero.featIds = ["commanding_presence"];
 
-		expect(hasReachedMaximumAttribute(hero, "strength")).toBe(true);
+		expect(hasReachedMaximumAttribute(hero, "charisma")).toBe(true);
 	});
 
 	it("uses effective maximum HP", () => {
@@ -30,8 +30,7 @@ describe("hero stat threshold queries", () => {
 	it("uses the capped Dexterity bonus when deriving effective Armour Class", () => {
 		const hero = createTestRunState().hero;
 		hero.equipment.body = null;
-		hero.attributes.dexterity = 28;
-		hero.featIds = ["catlike_grace"];
+		hero.attributes.dexterity = 32;
 
 		expect(hasReachedArmourClassThreshold(hero, 15)).toBe(true);
 		expect(hasReachedArmourClassThreshold(hero, 16)).toBe(false);

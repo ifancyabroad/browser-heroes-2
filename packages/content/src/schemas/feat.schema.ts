@@ -4,7 +4,7 @@ import { passiveModifierSchema } from "./modifier.schema";
 
 export const featCategorySchema = z.enum(["offensive", "defensive", "utility", "resource"]);
 
-export const featKindSchema = z.enum(["attribute", "damageMastery", "training", "bargain"]);
+export const featKindSchema = z.enum(["elemental", "martial", "spellcraft", "survival", "utility"]);
 
 export const featSchema = z
 	.object({

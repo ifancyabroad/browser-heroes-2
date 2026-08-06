@@ -3,19 +3,26 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "pressure_points",
 	name: "Pressure Points",
-	description: "Hits can impose disadvantage on the enemy's saving throws for 2 turns.",
+	description:
+		"Attack rolls increase by 2 and hits can impose disadvantage on enemy saving throws for 2 turns.",
 	icon: "feats/Assassinskill_48_nobg.png",
-	kind: "training",
+	kind: "martial",
 	category: "utility",
-	modifiers: [],
+	modifiers: [
+		{
+			type: "modifyStat",
+			stat: "attackRollBonus",
+			value: 2,
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",
 			save: {
 				attribute: "constitution",
 				dc: {
-					base: 12,
-					attribute: "constitution",
+					base: 14,
+					attribute: "dexterity",
 					includeProficiency: false,
 					bonus: 0,
 				},

@@ -3,16 +3,17 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "winters_heart",
 	name: "Winter's Heart",
-	description: "Grants immunity to cold damage, but vulnerability to fire damage.",
+	description:
+		"Cold damage is multiplied by 1.5. Hits deal an additional 1d8 cold damage, but you are vulnerable to fire damage.",
 	icon: "feats/Skill_FrostResistance_nb.png",
-	kind: "bargain",
-	category: "defensive",
+	kind: "elemental",
+	category: "offensive",
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "immunity",
-			operation: "add",
+			type: "modifyDamage",
 			damageType: "cold",
+			operation: "multiply",
+			value: 1.5,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -21,6 +22,18 @@ export default buildFeat({
 			damageType: "fire",
 		},
 	],
-	attackRiders: [],
+	attackRiders: [
+		{
+			timing: "onHit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					dice: "1d8",
+				},
+			],
+		},
+	],
 	tags: [],
 });

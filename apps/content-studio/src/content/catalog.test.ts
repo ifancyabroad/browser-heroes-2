@@ -128,13 +128,13 @@ describe("content catalogs", () => {
 		const skills = catalogByKey.skills;
 		const armour = skills.entries.find((entry) => entry.id === "armour")!;
 		const feats = catalogByKey.feats;
-		const guardedAssault = feats.entries.find((entry) => entry.id === "guarded_assault")!;
+		const plaguebearer = feats.entries.find((entry) => entry.id === "plaguebearer")!;
 
 		expect(armour.cells.durations).toBe("5 battles");
 		expect(armour.facets.durationUnit).toEqual(["battles"]);
 		expect(armour.searchText).toContain("5 battles");
 		expect(skills.filters.map((filter) => filter.key)).toContain("durationUnit");
-		expect(guardedAssault.cells.riders).toContain("2 turns");
-		expect(guardedAssault.searchText).toContain("2 turns");
+		expect(plaguebearer.cells.riders).toContain("2 turns");
+		expect(plaguebearer.searchText).toContain("2 turns");
 	});
 });

@@ -3,16 +3,17 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "flameborn",
 	name: "Flameborn",
-	description: "Grants immunity to fire damage, but vulnerability to cold damage.",
+	description:
+		"Fire damage is multiplied by 1.5. Hits deal an additional 1d8 fire damage, but you are vulnerable to cold damage.",
 	icon: "feats/Skill_FireResistance_nb.png",
-	kind: "bargain",
-	category: "defensive",
+	kind: "elemental",
+	category: "offensive",
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "immunity",
-			operation: "add",
+			type: "modifyDamage",
 			damageType: "fire",
+			operation: "multiply",
+			value: 1.5,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -21,6 +22,18 @@ export default buildFeat({
 			damageType: "cold",
 		},
 	],
-	attackRiders: [],
+	attackRiders: [
+		{
+			timing: "onHit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "fire",
+					dice: "1d8",
+				},
+			],
+		},
+	],
 	tags: [],
 });

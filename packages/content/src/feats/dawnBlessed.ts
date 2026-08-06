@@ -3,16 +3,17 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "dawn_blessed",
 	name: "Dawn-Blessed",
-	description: "Grants immunity to radiant damage, but vulnerability to necrotic damage.",
-	icon: "feats/Skill_NatureResistance_nb.png",
-	kind: "bargain",
-	category: "defensive",
+	description:
+		"Radiant damage is multiplied by 1.5. Hits deal an additional 1d8 radiant damage, but you are vulnerable to necrotic damage.",
+	icon: "feats/Skill_HolyMagic_nb.png",
+	kind: "elemental",
+	category: "offensive",
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "immunity",
-			operation: "add",
+			type: "modifyDamage",
 			damageType: "radiant",
+			operation: "multiply",
+			value: 1.5,
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -21,6 +22,18 @@ export default buildFeat({
 			damageType: "necrotic",
 		},
 	],
-	attackRiders: [],
+	attackRiders: [
+		{
+			timing: "onHit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "radiant",
+					dice: "1d8",
+				},
+			],
+		},
+	],
 	tags: [],
 });

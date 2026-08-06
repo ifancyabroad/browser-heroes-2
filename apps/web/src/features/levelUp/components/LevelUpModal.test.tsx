@@ -84,7 +84,7 @@ describe("LevelUpModal", () => {
 					{
 						level: 3,
 						hpGain: 5,
-						options: [{ type: "feat", featId: "toughness" }],
+						options: [{ type: "feat", featId: "juggernaut" }],
 					} as never
 				}
 				isPending={false}

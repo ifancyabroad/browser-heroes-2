@@ -3,14 +3,26 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "spellbreaker",
 	name: "Spellbreaker",
-	description: "Critical hits can silence the enemy for 1 turn.",
+	description:
+		"Saving throws increase by 4 and hits can silence the enemy for 1 turn, but skill save DC is reduced by 2.",
 	icon: "feats/Skill_IceArmorDestroy_nb.png",
-	kind: "training",
+	kind: "martial",
 	category: "utility",
-	modifiers: [],
+	modifiers: [
+		{
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 4,
+		},
+		{
+			type: "modifyStat",
+			stat: "saveDcBonus",
+			value: -2,
+		},
+	],
 	attackRiders: [
 		{
-			timing: "onCrit",
+			timing: "onHit",
 			save: {
 				attribute: "wisdom",
 				dc: {

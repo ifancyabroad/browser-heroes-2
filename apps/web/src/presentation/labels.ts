@@ -231,8 +231,9 @@ export const featCategoryLabels: Record<FeatCategory, string> = {
 };
 
 export const featKindLabels: Record<FeatKind, string> = {
-	attribute: "Attribute",
-	damageMastery: "Damage Mastery",
-	training: "Training",
-	bargain: "Bargain",
+	elemental: "Elemental",
+	martial: "Martial",
+	spellcraft: "Spellcraft",
+	survival: "Survival",
+	utility: "Utility",
 };
