@@ -41,27 +41,17 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 			)}
 		>
 			<div className={clsx("contents", isPurchased && "invisible")} aria-hidden={isPurchased}>
-				<Tooltip
-					content={
-						tooltipSlots.length > 0 ? (
-							<ItemTooltipContent item={item} slot={tooltipSlots} />
-						) : null
-					}
-					className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16"
-					contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-				>
-					<span className="block h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
-						<img
-							key={item.id}
-							src={resolveImageUrl(item.icon)}
-							alt=""
-							loading="eager"
-							decoding="async"
-							className="h-full w-full object-cover"
-							aria-hidden
-						/>
-					</span>
-				</Tooltip>
+				<span className="block h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
+					<img
+						key={item.id}
+						src={resolveImageUrl(item.icon)}
+						alt=""
+						loading="eager"
+						decoding="async"
+						className="h-full w-full object-cover"
+						aria-hidden
+					/>
+				</span>
 
 				<div className="grid min-w-0 content-start gap-1 md:hidden">
 					<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
