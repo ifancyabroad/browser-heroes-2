@@ -100,9 +100,9 @@ export function formatSkillEffect(effect: Effect): string {
 		case "damage":
 			return formatDamageEffect(effect);
 		case "attackDamage":
-			return `Deal ${effect.multiplier}x weapon damage${effect.damageTypeOverride ? ` as ${damageTypeLabels[effect.damageTypeOverride]} damage` : ""}${effect.extraDice ? ` plus ${effect.extraDice}${effect.extraDamageType ? ` ${damageTypeLabels[effect.extraDamageType]}` : ""} damage` : ""} to the enemy${effect.rollMode ? ` with ${effect.rollMode}` : ""}.`;
+			return `Attack${effect.rollMode ? ` with ${effect.rollMode}` : ""} for ${effect.multiplier === 1 ? "" : `${effect.multiplier}x `}weapon damage${effect.damageTypeOverride ? ` as ${damageTypeLabels[effect.damageTypeOverride]} damage` : ""}${effect.extraDice ? ` plus ${effect.extraDice}${effect.extraDamageType ? ` ${damageTypeLabels[effect.extraDamageType]}` : ""} damage` : ""}.`;
 		case "heal":
-			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
+			return `Heal for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
 			return formatSavedEffect(
 				`${formatStatusAction(effect.statusId)} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
@@ -156,9 +156,9 @@ export function formatSkillEffect(effect: Effect): string {
 				effect.save,
 			);
 		case "healOverTime":
-			return `Heal yourself for ${effect.dice} per turn for ${formatEffectDuration(effect.duration)}.`;
+			return `Heal for ${effect.dice} per turn for ${formatEffectDuration(effect.duration)}.`;
 		case "shield":
-			return `Grant yourself a ${effect.amount}-point shield for ${formatEffectDuration(effect.duration)}.`;
+			return `Gain a ${effect.amount}-point shield for ${formatEffectDuration(effect.duration)}.`;
 		default:
 			return assertNever(effect);
 	}
@@ -169,7 +169,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "damage":
 			return formatDamageEffect(effect);
 		case "heal":
-			return `Heal yourself for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
+			return `Heal for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
 			return formatSavedEffect(
 				`${formatStatusAction(effect.statusId)} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
@@ -221,9 +221,9 @@ export function formatRiderEffect(effect: RiderEffect): string {
 				effect.save,
 			);
 		case "healOverTime":
-			return `Heal yourself for ${effect.dice} per turn${formatDurationSuffix(effect.duration)}.`;
+			return `Heal for ${effect.dice} per turn${formatDurationSuffix(effect.duration)}.`;
 		case "shield":
-			return `Grant yourself a ${effect.amount}-point shield${formatDurationSuffix(effect.duration)}.`;
+			return `Gain a ${effect.amount}-point shield${formatDurationSuffix(effect.duration)}.`;
 		default:
 			return assertNever(effect);
 	}
@@ -349,7 +349,7 @@ export function getNumberTone(value: number): ModifierTone {
 
 function formatDamageEffect(effect: Extract<Effect | RiderEffect, { type: "damage" }>) {
 	return formatSavedEffect(
-		`${effect.target === "self" ? "Take" : "Deal"} ${formatDiceFormula(effect.dice, effect.attribute)} ${damageTypeLabels[effect.damageType]} damage${effect.requiresAttackRoll ? " with an attack roll" : ""}`,
+		`${effect.target === "self" ? "Take" : effect.requiresAttackRoll ? "Attack for" : "Deal"} ${formatDiceFormula(effect.dice, effect.attribute)} ${damageTypeLabels[effect.damageType]} damage`,
 		effect.save,
 	);
 }
@@ -366,30 +366,37 @@ function formatDamageAffinityEffect(
 function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyRoll" }>) {
 	const target = effect.target === "self" ? "your" : "the enemy's";
 	const rolls = formatRollSubject(effect.roll, effect.attribute);
-	const limitedRolls = effect.charges
-		? `${target} next ${effect.charges === 1 ? singularizeRollSubject(rolls) : `${effect.charges} ${rolls}`}`
-		: `${target} ${rolls}`;
 	const duration = formatEffectDuration(effect.duration);
 
 	if (effect.mode === "advantage" || effect.mode === "disadvantage") {
+		const limitedRolls = effect.charges
+			? `${target} next ${effect.charges === 1 ? singularizeRollSubject(rolls) : `${effect.charges} ${rolls}`}`
+			: `${target} ${rolls}`;
 		return formatSavedEffect(
-			`Grant ${effect.mode} on ${limitedRolls} for ${duration}`,
+			`Gain ${effect.mode} on ${limitedRolls} ${effect.charges ? "for up to" : "for"} ${duration}`,
 			effect.save,
 		);
 	}
 
+	const subject = effect.charges
+		? `${effect.target === "self" ? "Your" : "The enemy's"} next ${effect.charges === 1 ? singularizeRollSubject(rolls) : `${effect.charges} ${rolls}`}`
+		: `${effect.target === "self" ? "Your" : "The enemy's"} ${rolls}`;
+	const singular = effect.charges === 1;
 	const outcome =
 		effect.mode === "automaticCritical"
-			? `automatically result in ${effect.charges === 1 ? "a critical hit" : "critical hits"}`
+			? `automatically ${singular ? "results" : "result"} in ${singular ? "a critical hit" : "critical hits"}`
 			: effect.mode === "automaticSuccess"
 				? effect.roll === "attack"
-					? "automatically hit"
-					: "automatically succeed"
+					? `automatically ${singular ? "hits" : "hit"}`
+					: `automatically ${singular ? "succeeds" : "succeed"}`
 				: effect.roll === "attack"
-					? "automatically miss"
-					: "automatically fail";
+					? `automatically ${singular ? "misses" : "miss"}`
+					: `automatically ${singular ? "fails" : "fail"}`;
 
-	return formatSavedEffect(`Make ${limitedRolls} ${outcome} for up to ${duration}`, effect.save);
+	return formatSavedEffect(
+		`${subject} ${outcome} ${effect.charges ? "within" : "for"} ${duration}`,
+		effect.save,
+	);
 }
 
 function formatRollModifierMode(mode: RollModifierMode, roll: "attack" | "savingThrow") {
@@ -415,7 +422,7 @@ function formatRollSubject(roll: "attack" | "savingThrow", attribute: Attribute 
 		return "attack rolls";
 	}
 
-	return attribute ? `${attributeShortLabels[attribute]} saving throws` : "saving throws";
+	return attribute ? `${attributeShortLabels[attribute]} saves` : "saves";
 }
 
 function formatTemporaryModifier(

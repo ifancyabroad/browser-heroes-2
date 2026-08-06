@@ -96,7 +96,33 @@ describe("effect presentation", () => {
 				charges: 2,
 				duration: { unit: "turns", value: 4 },
 			}),
-		).toBe("Make the enemy's next 2 WIS saving throws automatically fail for up to 4 turns.");
+		).toBe("The enemy's next 2 WIS saves automatically fail within 4 turns.");
+	});
+
+	it("describes ongoing automatic saves without redundant wording", () => {
+		expect(
+			formatSkillEffect({
+				type: "modifyRoll",
+				target: "self",
+				roll: "savingThrow",
+				attribute: "dexterity",
+				mode: "automaticSuccess",
+				duration: { unit: "turns", value: 3 },
+			}),
+		).toBe("Your DEX saves automatically succeed for 3 turns.");
+	});
+
+	it("describes damage rolls as attacks", () => {
+		expect(
+			formatSkillEffect({
+				type: "damage",
+				target: "enemy",
+				damageType: "piercing",
+				dice: "1d8",
+				attribute: "dexterity",
+				requiresAttackRoll: true,
+			}),
+		).toBe("Attack for 1d8 + DEX Piercing damage.");
 	});
 
 	it("describes battle-duration effects with singular and plural labels", () => {
@@ -116,7 +142,7 @@ describe("effect presentation", () => {
 				amount: 4,
 				duration: { unit: "battles", value: 1 },
 			}),
-		).toBe("Grant yourself a 4-point shield for 1 battle.");
+		).toBe("Gain a 4-point shield for 1 battle.");
 	});
 
 	it("formats and classifies active automatic roll outcomes", () => {
