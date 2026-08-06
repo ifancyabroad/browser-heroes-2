@@ -1,5 +1,5 @@
 import { type Skill, type SkillId } from "@app/content";
-import { skillCategoryLabels, skillKindLabels, skillPoolLabels } from "../../presentation/labels";
+import { skillCategoryLabels, skillPoolLabels } from "../../presentation/labels";
 import { formatSkillEffect } from "../../presentation/effects";
 import {
 	TooltipDetailList,
@@ -19,7 +19,6 @@ type SkillTooltipContentProps = {
 
 export function SkillTooltipContent({ definition }: SkillTooltipContentProps) {
 	const detailRows: TooltipDetailRow[] = [
-		{ label: "Kind", value: skillKindLabels[definition.kind] },
 		{ label: "Category", value: skillCategoryLabels[definition.category] },
 		{ label: "Pool", value: skillPoolLabels[definition.pool] },
 	];
