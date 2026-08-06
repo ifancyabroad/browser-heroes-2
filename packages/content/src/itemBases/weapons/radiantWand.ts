@@ -1,8 +1,8 @@
 import { buildItemBase } from "../../builders/buildItemBase";
 
 export default buildItemBase({
-	id: "base_cold_wand",
-	name: "Cold Wand",
+	id: "base_radiant_wand",
+	name: "Radiant Wand",
 	basePrice: 100,
 	type: "weapon",
 	weaponType: "wand",
@@ -10,13 +10,13 @@ export default buildItemBase({
 	range: "ranged",
 	damage: {
 		dice: "1d4",
-		type: "cold",
-		attribute: "intelligence",
+		type: "radiant",
+		attribute: "wisdom",
 	},
 	iconPool: [
-		"items/weapons/wands/Wand_v2_02.png",
-		"items/weapons/wands/Wand_v2_07.png",
-		"items/weapons/wands/Wand_v2_22.png",
+		"items/weapons/wands/Wand_v2_04.png",
+		"items/weapons/wands/Wand_v2_13.png",
+		"items/weapons/wands/Wand_v2_53.png",
 	],
 	tags: [],
 });
