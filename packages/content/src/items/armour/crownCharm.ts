@@ -13,7 +13,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "radiant",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyStat",

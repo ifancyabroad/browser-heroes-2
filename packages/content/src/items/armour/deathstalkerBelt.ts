@@ -10,16 +10,10 @@ export default buildArmour({
 	slot: "belt",
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "piercing",
-		},
-		{
 			type: "modifyDamage",
 			damageType: "piercing",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyStat",

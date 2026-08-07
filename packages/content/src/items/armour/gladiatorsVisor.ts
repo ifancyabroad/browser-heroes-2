@@ -14,19 +14,19 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "slashing",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "crushing",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "piercing",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyStat",

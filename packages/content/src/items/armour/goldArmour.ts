@@ -10,7 +10,7 @@ export default buildArmour({
 	type: "armour",
 	slot: "body",
 	category: "heavy",
-	armourClass: 18,
+	armourClass: 22,
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",

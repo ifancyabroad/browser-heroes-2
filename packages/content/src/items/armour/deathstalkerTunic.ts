@@ -9,19 +9,13 @@ export default buildArmour({
 	type: "armour",
 	slot: "body",
 	category: "light",
-	armourClass: 12,
+	armourClass: 16,
 	modifiers: [
 		{
 			type: "modifyDamage",
 			damageType: "slashing",
 			operation: "add",
-			value: 40,
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "slashing",
+			value: 5,
 		},
 		{
 			type: "modifyStat",

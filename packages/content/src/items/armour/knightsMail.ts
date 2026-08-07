@@ -9,7 +9,7 @@ export default buildArmour({
 	type: "armour",
 	slot: "body",
 	category: "medium",
-	armourClass: 15,
+	armourClass: 19,
 	modifiers: [
 		{
 			type: "modifyStat",
@@ -30,7 +30,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "slashing",
 			operation: "add",
-			value: 20,
+			value: 3,
 		},
 	],
 	tags: [],

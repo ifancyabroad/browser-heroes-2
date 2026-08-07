@@ -9,7 +9,7 @@ export default buildArmour({
 	type: "armour",
 	slot: "body",
 	category: "medium",
-	armourClass: 10,
+	armourClass: 14,
 	modifiers: [
 		{
 			type: "modifyStat",

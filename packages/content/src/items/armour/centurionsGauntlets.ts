@@ -18,7 +18,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 	],
 	tags: [],

@@ -23,7 +23,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "piercing",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 	],
 	tags: [],

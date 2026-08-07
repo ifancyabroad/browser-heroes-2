@@ -23,7 +23,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "crushing",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 	],
 	tags: [],

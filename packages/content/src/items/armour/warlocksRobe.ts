@@ -9,13 +9,13 @@ export default buildArmour({
 	type: "armour",
 	slot: "body",
 	category: "cloth",
-	armourClass: 10,
+	armourClass: 14,
 	modifiers: [
 		{
 			type: "modifyDamage",
 			damageType: "necrotic",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyDamageAffinity",

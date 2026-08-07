@@ -9,19 +9,13 @@ export default buildArmour({
 	type: "armour",
 	slot: "body",
 	category: "heavy",
-	armourClass: 18,
+	armourClass: 22,
 	modifiers: [
 		{
 			type: "modifyDamage",
 			damageType: "crushing",
 			operation: "add",
-			value: 40,
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "crushing",
+			value: 5,
 		},
 		{
 			type: "modifyStat",

@@ -19,7 +19,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "slashing",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 	],
 	tags: [],

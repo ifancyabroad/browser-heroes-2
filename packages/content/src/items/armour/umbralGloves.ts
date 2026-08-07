@@ -13,13 +13,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "poison",
 			operation: "add",
-			value: 40,
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "poison",
+			value: 5,
 		},
 		{
 			type: "modifyStat",

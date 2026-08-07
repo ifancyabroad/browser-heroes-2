@@ -15,13 +15,7 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "add",
-			value: 40,
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "fire",
+			value: 5,
 		},
 		{
 			type: "modifyStat",

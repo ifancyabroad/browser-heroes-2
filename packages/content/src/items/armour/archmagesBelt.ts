@@ -14,19 +14,19 @@ export default buildArmour({
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "lightning",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "cold",
 			operation: "add",
-			value: 40,
+			value: 5,
 		},
 		{
 			type: "modifyStat",
