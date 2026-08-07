@@ -13,7 +13,7 @@ export default buildWeapon({
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {
-		dice: "1d6+3",
+		dice: "1d6+4",
 		type: "slashing",
 		attribute: "strength",
 	},
@@ -22,7 +22,7 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "acid",
 			operation: "add",
-			value: 50,
+			value: 5,
 		},
 	],
 	attackRiders: [

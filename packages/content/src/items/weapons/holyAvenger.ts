@@ -28,7 +28,7 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "radiant",
 			operation: "add",
-			value: 40,
+			value: 4,
 		},
 	],
 	attackRiders: [

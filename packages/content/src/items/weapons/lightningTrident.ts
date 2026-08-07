@@ -22,7 +22,7 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "lightning",
 			operation: "add",
-			value: 50,
+			value: 5,
 		},
 	],
 	attackRiders: [

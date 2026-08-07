@@ -13,7 +13,7 @@ export default buildWeapon({
 	handedness: "oneHanded",
 	range: "ranged",
 	damage: {
-		dice: "1d4+3",
+		dice: "1d4+4",
 		type: "lightning",
 		attribute: "intelligence",
 	},
@@ -22,19 +22,19 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "add",
-			value: 20,
+			value: 2,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "cold",
 			operation: "add",
-			value: 20,
+			value: 2,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "lightning",
 			operation: "add",
-			value: 20,
+			value: 2,
 		},
 		{
 			type: "modifyStat",

@@ -13,7 +13,7 @@ export default buildWeapon({
 	handedness: "oneHanded",
 	range: "ranged",
 	damage: {
-		dice: "1d4+3",
+		dice: "1d4+4",
 		type: "cold",
 		attribute: "intelligence",
 	},

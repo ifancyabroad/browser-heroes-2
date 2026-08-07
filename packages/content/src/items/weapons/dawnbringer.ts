@@ -12,7 +12,7 @@ export default buildWeapon({
 	handedness: "twoHanded",
 	range: "melee",
 	damage: {
-		dice: "2d6+6",
+		dice: "2d6+5",
 		type: "slashing",
 		attribute: "strength",
 	},
@@ -21,7 +21,7 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "radiant",
 			operation: "add",
-			value: 50,
+			value: 5,
 		},
 	],
 	attackRiders: [
