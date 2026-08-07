@@ -49,6 +49,96 @@ describe("getEligibleItemAffixes", () => {
 		);
 	});
 
+	it("gives quarterstaves martial crushing affixes instead of magical staff affixes", () => {
+		const quarterstaff = ITEMBASES_BY_ID.base_quarterstaff;
+
+		expect(getAffixIds(quarterstaff, "uncommon", "prefix")).toEqual(
+			expect.arrayContaining(["concussive", "forceful"]),
+		);
+		expect(getAffixIds(quarterstaff, "rare", "prefix")).toContain("defending");
+		expect(getAffixIds(quarterstaff, "epic", "prefix")).toContain("stunning");
+
+		expect(getAffixIds(quarterstaff, "uncommon", "prefix")).not.toContain("focused");
+		expect(getAffixIds(quarterstaff, "rare", "prefix")).not.toContain("potent");
+		expect(getAffixIds(quarterstaff, "epic", "prefix")).not.toContain("overwhelming");
+		expect(getAffixIds(quarterstaff, "rare", "suffix")).not.toContain("of_mending");
+		expect(getAffixIds(quarterstaff, "epic", "suffix")).not.toContain("of_restoration");
+	});
+
+	it("keeps mace, morningstar, and flail affix identities distinct", () => {
+		const mace = ITEMBASES_BY_ID.base_mace;
+		const morningstar = ITEMBASES_BY_ID.base_morningstar;
+		const flail = ITEMBASES_BY_ID.base_flail;
+
+		expect(getAffixIds(mace, "uncommon", "prefix")).toEqual(
+			expect.arrayContaining(["concussive", "forceful"]),
+		);
+		expect(getAffixIds(mace, "rare", "prefix")).toEqual(
+			expect.arrayContaining(["defending", "sundering"]),
+		);
+		expect(getAffixIds(mace, "rare", "suffix")).toContain("of_mending");
+		expect(getAffixIds(mace, "epic", "prefix")).toContain("renewing");
+
+		expect(getAffixIds(morningstar, "uncommon", "prefix")).toEqual(
+			expect.arrayContaining(["barbed", "puncturing"]),
+		);
+		expect(getAffixIds(morningstar, "uncommon", "prefix")).not.toContain("concussive");
+		expect(getAffixIds(morningstar, "rare", "prefix")).toContain("sundering");
+		expect(getAffixIds(morningstar, "rare", "prefix")).not.toContain("defending");
+		expect(getAffixIds(morningstar, "rare", "suffix")).not.toContain("of_mending");
+
+		expect(getAffixIds(flail, "uncommon", "prefix")).toEqual(
+			expect.arrayContaining(["concussive"]),
+		);
+		expect(getAffixIds(flail, "uncommon", "prefix")).not.toContain("forceful");
+		expect(getAffixIds(flail, "rare", "prefix")).toEqual(
+			expect.arrayContaining(["entangling", "sundering"]),
+		);
+		expect(getAffixIds(flail, "rare", "prefix")).not.toContain("defending");
+		expect(getAffixIds(flail, "rare", "suffix")).not.toContain("of_mending");
+	});
+
+	it("distinguishes light, balanced, and heavy weapon archetypes", () => {
+		expect(getAffixIds(ITEMBASES_BY_ID.base_handaxe, "rare", "prefix")).not.toContain(
+			"sundering",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_battleaxe, "rare", "prefix")).toContain(
+			"sundering",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_club, "uncommon", "prefix")).not.toContain(
+			"forceful",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_greatclub, "uncommon", "prefix")).toContain(
+			"forceful",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_shortsword, "uncommon", "prefix")).toContain(
+			"puncturing",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_shortsword, "uncommon", "prefix")).not.toContain(
+			"sharp",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_greatsword, "rare", "prefix")).toContain(
+			"sundering",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_greatsword, "rare", "prefix")).not.toContain(
+			"defending",
+		);
+	});
+
+	it("offers brutal only to heavy two-handed weapon families", () => {
+		for (const base of [
+			ITEMBASES_BY_ID.base_battleaxe,
+			ITEMBASES_BY_ID.base_greatclub,
+			ITEMBASES_BY_ID.base_greatsword,
+			ITEMBASES_BY_ID.base_warhammer,
+		]) {
+			expect(getAffixIds(base, "epic", "prefix")).toContain("brutal");
+		}
+
+		expect(getAffixIds(ITEMBASES_BY_ID.base_handaxe, "epic", "prefix")).not.toContain("brutal");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_hammer, "epic", "prefix")).not.toContain("brutal");
+	});
+
 	it("rejects attack riders when any applicability alternative permits armour", () => {
 		expect(
 			itemAffixSchema.safeParse({
@@ -213,8 +303,8 @@ describe("getEligibleItemAffixes", () => {
 			"prefix",
 		);
 
-		expect(morningstarAffixes).not.toContain("barbed");
-		expect(morningstarAffixes).not.toContain("puncturing");
+		expect(morningstarAffixes).toContain("barbed");
+		expect(morningstarAffixes).toContain("puncturing");
 		expect(morningstarAffixes).not.toContain("forceful");
 		expect(morningstarAffixes).not.toContain("concussive");
 	});

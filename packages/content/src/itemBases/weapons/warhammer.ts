@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Warhammer",
 	basePrice: 135,
 	type: "weapon",
-	weaponType: "hammer",
+	weaponType: "warhammer",
 	handedness: "twoHanded",
 	range: "melee",
 	damage: {

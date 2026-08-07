@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Greatsword",
 	basePrice: 150,
 	type: "weapon",
-	weaponType: "sword",
+	weaponType: "greatsword",
 	handedness: "twoHanded",
 	range: "melee",
 	damage: {

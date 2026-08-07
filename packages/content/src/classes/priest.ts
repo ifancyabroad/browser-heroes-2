@@ -24,7 +24,7 @@ export default buildClass({
 	},
 	proficiencies: {
 		armourTypes: ["cloth", "shield"],
-		weaponTypes: ["mace", "hammer", "club", "staff"],
+		weaponTypes: ["mace", "hammer", "club", "staff", "wand"],
 		savingThrows: ["wisdom", "charisma"],
 	},
 	skillPoolIds: ["cleric", "occultist"],

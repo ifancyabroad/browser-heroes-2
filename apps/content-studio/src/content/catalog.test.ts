@@ -100,7 +100,7 @@ describe("content catalogs", () => {
 		const barbed = catalog.entries.find((entry) => entry.id === "barbed")!;
 
 		expect(barbed.cells.appliesTo).toBe(
-			"type: weapon, weapon: bow/crossbow/spear, damage: piercing",
+			"type: weapon, weapon: bow/crossbow/morningstar/spear, damage: piercing",
 		);
 		expect(barbed.facets.appliesTo).toEqual(
 			expect.arrayContaining(["weapon", "bow", "crossbow", "spear", "piercing"]),

@@ -8,7 +8,16 @@ export default buildItemAffix({
 	appliesTo: [
 		{
 			itemTypes: ["weapon"],
-			weaponTypes: ["axe", "hammer", "mace"],
+			weaponTypes: [
+				"battleaxe",
+				"crossbow",
+				"greatclub",
+				"greatsword",
+				"warhammer",
+				"mace",
+				"morningstar",
+				"flail",
+			],
 		},
 	],
 	attackRiders: [

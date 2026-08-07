@@ -358,7 +358,7 @@ function switchItemType(value: Record<string, unknown>, type: string, category: 
 		? {
 				...common,
 				type,
-				weaponType: "sword",
+				weaponType: "longsword",
 				handedness: "oneHanded",
 				range: "melee",
 				damage: { dice: "1d6", type: "slashing", attribute: "strength" },
@@ -472,7 +472,7 @@ function optionalEntries(
 	if (/^appliesTo\.\d+$/.test(path)) {
 		candidates.push(
 			["itemTypes", ["weapon"]],
-			["weaponTypes", ["sword"]],
+			["weaponTypes", ["longsword"]],
 			["damageTypes", ["slashing"]],
 			["armourSlots", ["body"]],
 			["armourCategories", ["light"]],

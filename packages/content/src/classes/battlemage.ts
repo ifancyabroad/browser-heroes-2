@@ -24,7 +24,15 @@ export default buildClass({
 	},
 	proficiencies: {
 		armourTypes: ["light", "medium"],
-		weaponTypes: ["sword", "axe", "spear", "mace", "hammer", "club", "staff"],
+		weaponTypes: [
+			"longsword",
+			"greatsword",
+			"battleaxe",
+			"spear",
+			"warhammer",
+			"quarterstaff",
+			"staff",
+		],
 		savingThrows: ["constitution", "intelligence"],
 	},
 	skillPoolIds: ["barbarian", "warlock"],

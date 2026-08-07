@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Handaxe",
 	basePrice: 90,
 	type: "weapon",
-	weaponType: "axe",
+	weaponType: "handaxe",
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {

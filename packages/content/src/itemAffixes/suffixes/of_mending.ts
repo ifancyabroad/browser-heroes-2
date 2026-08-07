@@ -7,7 +7,10 @@ export default buildItemAffix({
 	rarity: "rare",
 	weight: 1,
 	appliesTo: [
-		{ itemTypes: ["weapon"], weaponTypes: ["mace", "staff", "wand"] },
+		{
+			itemTypes: ["weapon"],
+			weaponTypes: ["mace", "staff"],
+		},
 		{ itemTypes: ["armour"], armourSlots: ["gloves", "belt", "amulet", "ring"] },
 		{ itemTypes: ["armour"], armourSlots: ["body"], armourCategories: ["cloth"] },
 	],

@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Shortsword",
 	basePrice: 90,
 	type: "weapon",
-	weaponType: "sword",
+	weaponType: "shortsword",
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {

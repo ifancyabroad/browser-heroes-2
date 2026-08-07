@@ -170,16 +170,24 @@ export const armourCategoryLabels: Record<BodyArmourCategory, string> = {
 };
 
 export const weaponTypeLabels: Record<WeaponType, string> = {
-	axe: "Axe",
+	battleaxe: "Battleaxe",
 	bow: "Bow",
 	club: "Club",
 	crossbow: "Crossbow",
 	dagger: "Dagger",
+	flail: "Flail",
+	greatclub: "Greatclub",
+	greatsword: "Greatsword",
 	hammer: "Hammer",
+	handaxe: "Handaxe",
+	longsword: "Longsword",
 	mace: "Mace",
+	morningstar: "Morningstar",
+	quarterstaff: "Quarterstaff",
 	spear: "Spear",
 	staff: "Staff",
-	sword: "Sword",
+	shortsword: "Shortsword",
+	warhammer: "Warhammer",
 	wand: "Wand",
 };
 

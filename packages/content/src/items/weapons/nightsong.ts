@@ -9,7 +9,7 @@ export default buildWeapon({
 	price: 1050,
 	rarity: "legendary",
 	type: "weapon",
-	weaponType: "sword",
+	weaponType: "shortsword",
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {

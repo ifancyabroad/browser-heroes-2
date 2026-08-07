@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Flail",
 	basePrice: 115,
 	type: "weapon",
-	weaponType: "mace",
+	weaponType: "flail",
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {

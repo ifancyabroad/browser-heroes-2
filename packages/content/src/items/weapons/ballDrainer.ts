@@ -9,7 +9,7 @@ export default buildWeapon({
 	price: 1380,
 	rarity: "legendary",
 	type: "weapon",
-	weaponType: "mace",
+	weaponType: "flail",
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {

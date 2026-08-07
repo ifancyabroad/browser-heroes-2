@@ -1,24 +1,25 @@
 import { buildItemAffix } from "../../builders/buildItemAffix";
 
 export default buildItemAffix({
-	id: "weakening",
-	name: "Weakening",
+	id: "entangling",
+	name: "Entangling",
 	position: "prefix",
 	rarity: "rare",
+	weight: 0.75,
 	appliesTo: [
 		{
 			itemTypes: ["weapon"],
-			weaponTypes: ["dagger", "staff"],
+			weaponTypes: ["flail"],
 		},
 	],
 	attackRiders: [
 		{
 			timing: "onHit",
 			save: {
-				attribute: "constitution",
+				attribute: "dexterity",
 				dc: {
 					base: 12,
-					attribute: "constitution",
+					attribute: "dexterity",
 					includeProficiency: false,
 					bonus: 0,
 				},
@@ -26,10 +27,10 @@ export default buildItemAffix({
 			},
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyStat",
 					target: "enemy",
-					operation: "add",
-					value: -1,
+					stat: "attackRollBonus",
+					value: -2,
 					duration: { unit: "turns", value: 2 },
 				},
 			],

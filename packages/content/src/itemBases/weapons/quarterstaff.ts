@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Quarterstaff",
 	basePrice: 105,
 	type: "weapon",
-	weaponType: "staff",
+	weaponType: "quarterstaff",
 	handedness: "twoHanded",
 	range: "melee",
 	damage: {

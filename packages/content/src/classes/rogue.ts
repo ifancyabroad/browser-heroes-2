@@ -24,7 +24,7 @@ export default buildClass({
 	},
 	proficiencies: {
 		armourTypes: ["light"],
-		weaponTypes: ["dagger", "crossbow", "bow"],
+		weaponTypes: ["dagger", "shortsword", "crossbow", "bow"],
 		savingThrows: ["dexterity", "charisma"],
 	},
 	skillPoolIds: ["thief", "assassin"],

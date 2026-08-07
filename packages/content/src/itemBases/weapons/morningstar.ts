@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Morningstar",
 	basePrice: 115,
 	type: "weapon",
-	weaponType: "mace",
+	weaponType: "morningstar",
 	handedness: "oneHanded",
 	range: "melee",
 	damage: {

@@ -160,16 +160,24 @@ export const armourTypes = ["cloth", "light", "medium", "heavy", "shield"] as co
 export const armourTypeSchema = z.enum(armourTypes);
 
 export const weaponTypes = [
-	"axe",
+	"battleaxe",
 	"bow",
 	"club",
 	"crossbow",
 	"dagger",
+	"flail",
+	"greatclub",
+	"greatsword",
 	"hammer",
+	"handaxe",
+	"longsword",
 	"mace",
+	"morningstar",
+	"quarterstaff",
 	"spear",
 	"staff",
-	"sword",
+	"shortsword",
+	"warhammer",
 	"wand",
 ] as const;
 

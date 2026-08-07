@@ -5,7 +5,7 @@ export default buildItemBase({
 	name: "Greatclub",
 	basePrice: 105,
 	type: "weapon",
-	weaponType: "club",
+	weaponType: "greatclub",
 	handedness: "twoHanded",
 	range: "melee",
 	damage: {
