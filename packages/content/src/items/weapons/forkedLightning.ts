@@ -14,8 +14,8 @@ export default buildWeapon({
 	range: "melee",
 	damage: {
 		dice: "1d8+4",
-		type: "crushing",
-		attribute: "strength",
+		type: "lightning",
+		attribute: "intelligence",
 	},
 	modifiers: [
 		{

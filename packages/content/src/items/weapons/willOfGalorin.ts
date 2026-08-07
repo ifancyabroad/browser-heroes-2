@@ -13,8 +13,8 @@ export default buildWeapon({
 	range: "melee",
 	damage: {
 		dice: "1d8+5",
-		type: "crushing",
-		attribute: "strength",
+		type: "fire",
+		attribute: "intelligence",
 	},
 	modifiers: [
 		{

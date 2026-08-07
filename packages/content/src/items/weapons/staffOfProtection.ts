@@ -8,7 +8,7 @@ export default buildWeapon({
 	price: 1360,
 	rarity: "legendary",
 	type: "weapon",
-	weaponType: "staff",
+	weaponType: "quarterstaff",
 	handedness: "twoHanded",
 	range: "melee",
 	damage: {

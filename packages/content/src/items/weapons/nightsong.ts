@@ -15,7 +15,7 @@ export default buildWeapon({
 	damage: {
 		dice: "1d6+4",
 		type: "slashing",
-		attribute: "strength",
+		attribute: "dexterity",
 	},
 	modifiers: [
 		{

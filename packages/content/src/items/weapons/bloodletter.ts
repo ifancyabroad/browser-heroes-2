@@ -14,7 +14,7 @@ export default buildWeapon({
 	range: "melee",
 	damage: {
 		dice: "1d4+4",
-		type: "slashing",
+		type: "piercing",
 		attribute: "dexterity",
 	},
 	modifiers: [],
