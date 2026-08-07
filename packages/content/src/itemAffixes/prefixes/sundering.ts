@@ -38,7 +38,7 @@ export default buildItemAffix({
 					type: "modifyDamageTaken",
 					target: "enemy",
 					operation: "multiply",
-					value: 1.15,
+					value: 1.25,
 					duration: { unit: "turns", value: 2 },
 				},
 			],

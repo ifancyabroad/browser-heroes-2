@@ -28,7 +28,7 @@ export default buildItemAffix({
 					target: "enemy",
 					damageType: "fire",
 					operation: "multiply",
-					value: 1.2,
+					value: 1.25,
 					duration: { unit: "turns", value: 2 },
 				},
 			],
