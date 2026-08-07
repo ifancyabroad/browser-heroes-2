@@ -13,12 +13,17 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			value: 3,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			value: 3,
+			value: 4,
+		},
+		{
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 1,
 		},
 	],
 	tags: [],

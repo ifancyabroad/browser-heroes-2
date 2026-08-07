@@ -20,7 +20,7 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			value: 2,
+			value: 4,
 		},
 	],
 	tags: [],

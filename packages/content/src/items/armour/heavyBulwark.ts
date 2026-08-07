@@ -21,6 +21,11 @@ export default buildArmour({
 			stat: "constitution",
 			value: 4,
 		},
+		{
+			type: "modifyStat",
+			stat: "maxHpBonus",
+			value: 30,
+		},
 	],
 	tags: [],
 });

@@ -15,6 +15,11 @@ export default buildArmour({
 			stat: "charisma",
 			value: 6,
 		},
+		{
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 3,
+		},
 	],
 	tags: [],
 });

@@ -28,7 +28,7 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "charisma",
-			value: -4,
+			value: -2,
 		},
 	],
 	tags: [],

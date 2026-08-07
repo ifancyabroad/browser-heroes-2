@@ -25,6 +25,11 @@ export default buildArmour({
 			stat: "constitution",
 			value: 2,
 		},
+		{
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 3,
+		},
 	],
 	tags: [],
 });

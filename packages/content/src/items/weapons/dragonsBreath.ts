@@ -31,7 +31,7 @@ export default buildWeapon({
 			save: {
 				attribute: "intelligence",
 				dc: {
-					base: 18,
+					base: 15,
 					attribute: "intelligence",
 					includeProficiency: false,
 					bonus: 0,
@@ -44,7 +44,7 @@ export default buildWeapon({
 					target: "enemy",
 					damageType: "fire",
 					operation: "multiply",
-					value: 1.4,
+					value: 1.25,
 					duration: { unit: "turns", value: 2 },
 				},
 			],

@@ -13,32 +13,37 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "strength",
-			value: 2,
+			value: 1,
 		},
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			value: 2,
+			value: 1,
 		},
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			value: 2,
+			value: 1,
 		},
 		{
 			type: "modifyStat",
 			stat: "intelligence",
-			value: 2,
+			value: 1,
 		},
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			value: 2,
+			value: 1,
 		},
 		{
 			type: "modifyStat",
 			stat: "charisma",
-			value: 2,
+			value: 1,
+		},
+		{
+			type: "modifyStat",
+			stat: "maxHpBonus",
+			value: 20,
 		},
 	],
 	tags: [],

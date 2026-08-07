@@ -30,7 +30,7 @@ export default buildWeapon({
 			save: {
 				attribute: "intelligence",
 				dc: {
-					base: 22,
+					base: 16,
 					attribute: "intelligence",
 					includeProficiency: false,
 					bonus: 0,
@@ -43,7 +43,7 @@ export default buildWeapon({
 					target: "enemy",
 					damageType: "necrotic",
 					operation: "multiply",
-					value: 1.4,
+					value: 1.25,
 					duration: { unit: "turns", value: 2 },
 				},
 			],
@@ -53,7 +53,7 @@ export default buildWeapon({
 			save: {
 				attribute: "intelligence",
 				dc: {
-					base: 19,
+					base: 16,
 					attribute: "intelligence",
 					includeProficiency: false,
 					bonus: 0,
@@ -65,8 +65,8 @@ export default buildWeapon({
 					type: "modifyStat",
 					target: "enemy",
 					stat: "attackRollBonus",
-					value: -4,
-					duration: { unit: "turns", value: 4 },
+					value: -2,
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

@@ -39,7 +39,7 @@ export default buildWeapon({
 			save: {
 				attribute: "constitution",
 				dc: {
-					base: 24,
+					base: 16,
 					attribute: "constitution",
 					includeProficiency: false,
 					bonus: 0,
@@ -52,7 +52,7 @@ export default buildWeapon({
 					target: "enemy",
 					damageType: "slashing",
 					operation: "multiply",
-					value: 1.4,
+					value: 1.25,
 					duration: { unit: "turns", value: 2 },
 				},
 			],

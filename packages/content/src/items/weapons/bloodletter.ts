@@ -24,7 +24,7 @@ export default buildWeapon({
 			save: {
 				attribute: "constitution",
 				dc: {
-					base: 18,
+					base: 15,
 					attribute: "constitution",
 					includeProficiency: false,
 					bonus: 0,

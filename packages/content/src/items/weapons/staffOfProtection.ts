@@ -20,7 +20,7 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "armourClass",
-			value: 6,
+			value: 4,
 		},
 	],
 	attackRiders: [],

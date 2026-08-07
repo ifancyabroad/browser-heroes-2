@@ -29,7 +29,7 @@ export default buildWeapon({
 			save: {
 				attribute: "constitution",
 				dc: {
-					base: 24,
+					base: 16,
 					attribute: "constitution",
 					includeProficiency: false,
 					bonus: 0,
@@ -41,8 +41,8 @@ export default buildWeapon({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "slashing",
-					dice: "1d10",
-					duration: { unit: "turns", value: 6 },
+					dice: "1d6",
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},
@@ -51,7 +51,7 @@ export default buildWeapon({
 			save: {
 				attribute: "constitution",
 				dc: {
-					base: 24,
+					base: 16,
 					attribute: "constitution",
 					includeProficiency: false,
 					bonus: 0,
@@ -64,7 +64,7 @@ export default buildWeapon({
 					target: "enemy",
 					damageType: "slashing",
 					operation: "multiply",
-					value: 1.4,
+					value: 1.25,
 					duration: { unit: "turns", value: 2 },
 				},
 			],
