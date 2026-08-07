@@ -27,6 +27,8 @@ export default buildItemBase({
 		"items/armour/helms/Helm_51.png",
 		"items/armour/helms/HelmS.png",
 		"items/armour/helms/HelmS2.png",
+		"items/armour/helms/Helm_37.png",
+		"items/armour/helms/Helm_38_wanderer.png",
 	],
 	tags: [],
 });
