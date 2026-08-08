@@ -46,6 +46,13 @@ describe("item affix attack riders", () => {
 	it("applies the offensive and defensive parts of a radiant rider", () => {
 		const combat = createGuaranteedCriticalCombat("sun_blessed");
 		const initialHp = combat.enemy.currentHp;
+		const shieldEffect = ITEMAFFIXES_BY_ID.sun_blessed.attackRiders[0]?.effects.find(
+			(effect) => effect.type === "shield",
+		);
+
+		if (!shieldEffect || shieldEffect.type !== "shield") {
+			throw new Error("Expected Sun-Blessed to define a shield effect");
+		}
 
 		const result = resolveBasicAttack({
 			combat,
@@ -55,7 +62,7 @@ describe("item affix attack riders", () => {
 
 		expect(result.value.enemy.currentHp).toBeLessThan(initialHp);
 		expect(result.value.player.activeEffects).toContainEqual(
-			expect.objectContaining({ type: "shield", remainingAmount: 8 }),
+			expect.objectContaining({ type: "shield", remainingAmount: shieldEffect.amount }),
 		);
 	});
 

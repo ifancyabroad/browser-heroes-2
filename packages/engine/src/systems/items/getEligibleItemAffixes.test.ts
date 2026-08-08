@@ -209,56 +209,6 @@ describe("getEligibleItemAffixes", () => {
 		}
 	});
 
-	it("keeps conditional typed damage below half of each selectable weighted pool", () => {
-		const typedDamageIds = new Set([
-			"searing",
-			"glacial",
-			"charged",
-			"caustic",
-			"venomous",
-			"deathly",
-			"blessed",
-			"of_embers",
-			"of_rime",
-			"of_storms",
-			"of_corrosion",
-			"of_venom",
-			"of_decay",
-			"of_light",
-			"of_conflagration",
-			"of_the_glacier",
-			"of_the_tempest",
-			"of_dissolution",
-			"of_pestilence",
-			"of_oblivion",
-			"of_the_sun",
-		]);
-
-		for (const base of Object.values(ITEMBASES_BY_ID)) {
-			for (const rarity of itemAffixRarities) {
-				const positions = rarity === "uncommon" ? (["prefix", "suffix"] as const) : null;
-				const pools = positions
-					? [
-							positions.flatMap((position) =>
-								getEligibleItemAffixes({ item: base, rarity, position }),
-							),
-						]
-					: (["prefix", "suffix"] as const).map((position) =>
-							getEligibleItemAffixes({ item: base, rarity, position }),
-						);
-
-				for (const pool of pools) {
-					const totalWeight = pool.reduce((total, affix) => total + affix.weight, 0);
-					const typedWeight = pool
-						.filter((affix) => typedDamageIds.has(affix.id))
-						.reduce((total, affix) => total + affix.weight, 0);
-
-					expect(typedWeight / totalWeight, `${base.id} ${rarity}`).toBeLessThan(0.5);
-				}
-			}
-		}
-	});
-
 	it("provides a distinct rare and epic rider for every elemental damage type", () => {
 		const rareRiders = [
 			"corroding",

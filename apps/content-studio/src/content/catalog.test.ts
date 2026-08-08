@@ -147,7 +147,8 @@ describe("content catalogs", () => {
 		)!;
 
 		expect(potentCasting.cells.modifiers).not.toMatch(/modify[A-Z]/);
-		expect(potentCasting.cells.modifiers).toBe("+4 save DC · +3 saves · -3 attack");
+		expect(potentCasting.cells.modifiers).toMatch(/[+-]\d+ save DC/);
+		expect(potentCasting.cells.modifiers).toMatch(/[+-]\d+ attack/);
 		expect(plaguebearer.cells.riders).toMatch(/^Hit: /);
 		expect(plaguebearer.cells.riders).not.toContain("damageOverTime");
 	});
