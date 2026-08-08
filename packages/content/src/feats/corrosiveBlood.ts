@@ -5,7 +5,7 @@ export default buildFeat({
 	name: "Corrosive Blood",
 	description:
 		"Acid damage is multiplied by 1.5. Hits deal an additional 1d8 acid damage and can reduce enemy Armour Class by 2 for 2 turns, but your Armour Class is reduced by 3.",
-	icon: "feats/Aura_Acid_nb.png",
+	icon: "feats/skill_376_noBG.png",
 	kind: "elemental",
 	category: "offensive",
 	modifiers: [
@@ -36,10 +36,15 @@ export default buildFeat({
 					target: "enemy",
 					stat: "armourClass",
 					value: -2,
-					duration: { unit: "turns", value: 2 },
+					duration: {
+						unit: "turns",
+						value: 2,
+					},
 					save: {
 						attribute: "constitution",
-						dc: { attribute: "constitution" },
+						dc: {
+							attribute: "constitution",
+						},
 						onSuccess: "noEffect",
 					},
 				},

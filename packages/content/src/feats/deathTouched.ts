@@ -5,7 +5,7 @@ export default buildFeat({
 	name: "Death-Touched",
 	description:
 		"Necrotic damage is multiplied by 1.5. Hits deal 1d8 necrotic damage over 2 turns, but you are vulnerable to radiant damage.",
-	icon: "feats/Skill_ShadowResistance_nb.png",
+	icon: "feats/Skill_DeathMark_nb.png",
 	kind: "elemental",
 	category: "offensive",
 	modifiers: [
@@ -31,7 +31,10 @@ export default buildFeat({
 					target: "enemy",
 					damageType: "necrotic",
 					dice: "1d8",
-					duration: { unit: "turns", value: 2 },
+					duration: {
+						unit: "turns",
+						value: 2,
+					},
 				},
 			],
 		},

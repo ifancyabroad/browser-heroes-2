@@ -5,7 +5,7 @@ export default buildFeat({
 	name: "Berserker",
 	description:
 		"Critical range increases by 2 and critical hits roll an additional set of damage dice. Critical hits also grant 1.5x damage on your next turn and advantage on your next attack, but Armour Class is reduced by 4.",
-	icon: "feats/skill_200_noBG.png",
+	icon: "feats/skill_189_noBG.png",
 	kind: "martial",
 	category: "offensive",
 	modifiers: [
@@ -34,7 +34,10 @@ export default buildFeat({
 					target: "self",
 					operation: "multiply",
 					value: 1.5,
-					duration: { unit: "turns", value: 1 },
+					duration: {
+						unit: "turns",
+						value: 1,
+					},
 				},
 				{
 					type: "modifyRoll",
@@ -42,7 +45,10 @@ export default buildFeat({
 					roll: "attack",
 					mode: "advantage",
 					charges: 1,
-					duration: { unit: "turns", value: 1 },
+					duration: {
+						unit: "turns",
+						value: 1,
+					},
 				},
 			],
 		},

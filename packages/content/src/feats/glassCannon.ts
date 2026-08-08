@@ -5,7 +5,7 @@ export default buildFeat({
 	name: "Glass Cannon",
 	description:
 		"All outgoing damage is multiplied by 1.5, but all incoming damage is also multiplied by 1.5.",
-	icon: "feats/Assassinskill_48_nobg.png",
+	icon: "feats/Skill_BombardShot_nb.png",
 	kind: "utility",
 	category: "offensive",
 	modifiers: [

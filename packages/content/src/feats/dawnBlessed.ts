@@ -31,6 +31,7 @@ export default buildFeat({
 					target: "enemy",
 					damageType: "radiant",
 					dice: "1d6",
+					requiresAttackRoll: false,
 				},
 			],
 		},
@@ -40,8 +41,11 @@ export default buildFeat({
 				{
 					type: "shield",
 					target: "self",
-					amount: 15,
-					duration: { unit: "turns", value: 2 },
+					amount: 10,
+					duration: {
+						unit: "turns",
+						value: 2,
+					},
 				},
 			],
 		},
