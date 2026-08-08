@@ -89,7 +89,7 @@ function createPlainGeneratedItem(
 			...common,
 			type: "armour",
 			slot: "shield",
-			armourClass: base.armourClass,
+			armourClass: base.armourClass + rarityBonus,
 		};
 	}
 
