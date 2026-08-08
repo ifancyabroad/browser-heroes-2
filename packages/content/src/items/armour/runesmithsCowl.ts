@@ -1,9 +1,10 @@
 import { buildArmour } from "../../builders/buildArmour";
 
 export default buildArmour({
-	id: "runesmiths_goggles",
-	name: "Runesmith's Goggles",
-	description: "Calibrated lenses reveal structural weaknesses and unstable magical currents.",
+	id: "runesmiths_cowl",
+	name: "Runesmith's Cowl",
+	description:
+		"A rune-lined cowl whose brass respirator filters toxic fumes and reveals unstable magical currents.",
 	icon: "items/armour/sets/cloth/Cloth14_Head.png",
 	price: 2500,
 	rarity: "legendary",
