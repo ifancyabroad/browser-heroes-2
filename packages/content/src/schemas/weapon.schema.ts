@@ -42,6 +42,7 @@ export const generatedWeaponSchema = weaponSchema.extend({
 
 export const legendaryWeaponSchema = weaponSchema.extend({
 	rarity: z.literal("legendary"),
+	restrictedToClassIds: z.array(z.string().nonempty()).min(1).optional(),
 });
 
 export type LegendaryWeapon = z.infer<typeof legendaryWeaponSchema>;

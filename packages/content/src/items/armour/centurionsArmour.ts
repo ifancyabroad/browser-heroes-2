@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/mail/Mail17_Chest.png",
 	price: 4500,
 	rarity: "legendary",
+	restrictedToClassIds: ["battlemage"],
 	type: "armour",
 	slot: "body",
 	category: "medium",

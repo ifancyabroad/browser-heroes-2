@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/mail/Mail17_Boots.png",
 	price: 2900,
 	rarity: "legendary",
+	restrictedToClassIds: ["battlemage"],
 	type: "armour",
 	slot: "boots",
 	modifiers: [

@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth7_Head.png",
 	price: 2200,
 	rarity: "legendary",
+	restrictedToClassIds: ["priest"],
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

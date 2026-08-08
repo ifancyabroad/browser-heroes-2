@@ -8,6 +8,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth14_Head.png",
 	price: 2500,
 	rarity: "legendary",
+	restrictedToClassIds: ["artificer"],
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

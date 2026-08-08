@@ -7,6 +7,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth14_Chest.png",
 	price: 3800,
 	rarity: "legendary",
+	restrictedToClassIds: ["artificer"],
 	type: "armour",
 	slot: "body",
 	category: "light",

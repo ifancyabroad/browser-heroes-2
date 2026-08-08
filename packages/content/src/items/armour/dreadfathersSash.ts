@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth7_belt.png",
 	price: 2700,
 	rarity: "legendary",
+	restrictedToClassIds: ["priest"],
 	type: "armour",
 	slot: "belt",
 	modifiers: [

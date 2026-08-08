@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/leather/Leather8_head.png",
 	price: 2500,
 	rarity: "legendary",
+	restrictedToClassIds: ["shadowblade"],
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

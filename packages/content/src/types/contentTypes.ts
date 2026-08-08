@@ -22,3 +22,12 @@ export type WithEquipmentIds<TEquipment, TId extends string> = TEquipment extend
 				: TEquipment[TSlot];
 		}
 	: TEquipment;
+
+export type WithRestrictedClassIds<
+	TDefinition,
+	TClassId extends string,
+> = TDefinition extends unknown
+	? Omit<TDefinition, "restrictedToClassIds"> & {
+			restrictedToClassIds?: TClassId[];
+		}
+	: never;

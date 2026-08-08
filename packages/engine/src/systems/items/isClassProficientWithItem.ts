@@ -1,8 +1,10 @@
-import type { Class, Item, ItemBase } from "@app/content";
+import type { Class, ItemBase } from "@app/content";
 
-type EquippableLike = Item | ItemBase;
+import type { RuntimeItem } from "../../schemas";
 
-export function canEquipItemLike(classDefinition: Class, item: EquippableLike): boolean {
+type EquippableLike = ItemBase | RuntimeItem;
+
+export function isClassProficientWithItem(classDefinition: Class, item: EquippableLike): boolean {
 	if (item.type === "weapon") {
 		return classDefinition.proficiencies.weaponTypes.includes(item.weaponType);
 	}

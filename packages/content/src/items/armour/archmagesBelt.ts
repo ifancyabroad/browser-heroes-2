@@ -7,6 +7,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth17_belt.png",
 	price: 2700,
 	rarity: "legendary",
+	restrictedToClassIds: ["mage"],
 	type: "armour",
 	slot: "belt",
 	modifiers: [

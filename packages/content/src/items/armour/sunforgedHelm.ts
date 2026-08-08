@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/mail/Mail13_head.png",
 	price: 2200,
 	rarity: "legendary",
+	restrictedToClassIds: ["paladin"],
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

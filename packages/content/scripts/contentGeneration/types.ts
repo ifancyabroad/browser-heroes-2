@@ -8,7 +8,11 @@ export type ContentType =
 	| "feat"
 	| "achievement";
 
-export type ReferencePath = "combat.skillIds[]" | "combat.featIds[]" | "startingEquipment.*";
+export type ReferencePath =
+	| "combat.skillIds[]"
+	| "combat.featIds[]"
+	| "restrictedToClassIds[]"
+	| "startingEquipment.*";
 
 export type ReferenceRule = {
 	path: ReferencePath;
@@ -35,6 +39,7 @@ export type ContentValue = {
 		skillIds?: readonly string[];
 		featIds?: readonly string[];
 	};
+	restrictedToClassIds?: readonly string[];
 	startingEquipment?: Record<string, string | undefined>;
 };
 

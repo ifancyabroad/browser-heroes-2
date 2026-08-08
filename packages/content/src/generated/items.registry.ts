@@ -2,7 +2,8 @@
 
 import type { ItemDefinition } from '../schemas';
 import type { ItemId } from './itemIds';
-import type { WithGeneratedId } from '../types/contentTypes';
+import type { ClassId } from './classIds';
+import type { WithGeneratedId, WithRestrictedClassIds } from '../types/contentTypes';
 import { itemIdSchema, itemIds } from './itemIds';
 
 import ite_acidEdge_72 from '../items/weapons/acidEdge';
@@ -110,7 +111,7 @@ import ite_willOfGalorin_100 from '../items/weapons/willOfGalorin';
 export { itemIdSchema, itemIds };
 export type { ItemId } from './itemIds';
 
-export type Item = WithGeneratedId<ItemDefinition, ItemId>;
+export type Item = WithRestrictedClassIds<WithGeneratedId<ItemDefinition, ItemId>, ClassId>;
 
 const rawItems = [ite_acidEdge_72, ite_archmagesBelt_0, ite_archmagesBindings_1, ite_archmagesBoots_2, ite_archmagesCrown_3, ite_archmagesRobe_4, ite_archmagesWand_73, ite_axeOfTheFrozenWastes_74, ite_ballDrainer_75, ite_barbariansTunic_5, ite_beastHands_6, ite_beltOfDeathProtection_7, ite_blackBladeOfDoom_76, ite_bloodletter_77, ite_bootsOfInsulation_8, ite_centurionsArmour_9, ite_centurionsBelt_10, ite_centurionsGauntlets_11, ite_centurionsGreaves_12, ite_centurionsGuard_13, ite_crownCharm_14, ite_dawnbringer_78, ite_deadshotGirdle_15, ite_deathstalkerBelt_16, ite_deathstalkerBoots_17, ite_deathstalkerGloves_18, ite_deathstalkerHood_19, ite_deathstalkerTunic_20, ite_divineCandle_79, ite_doomseersWand_80, ite_dragonScaleRing_21, ite_dragonShield_24, ite_dragonsBreath_81, ite_dragonsClaw_22, ite_dragonsGem_23, ite_dreadfathersBoots_25, ite_dreadfathersMask_26, ite_dreadfathersRibcage_27, ite_dreadfathersSash_28, ite_dreadfathersWraps_29, ite_dwarvenThunder_82, ite_ebonstrideFootwear_30, ite_elementalistsWand_83, ite_flameShot_84, ite_forkedLightning_85, ite_giantsGauntlets_31, ite_gladiatorsVisor_32, ite_goldArmour_33, ite_goldCrown_34, ite_goldWing_35, ite_heavyBulwark_36, ite_holyAvenger_86, ite_horrifyingMask_37, ite_jacksBelt_38, ite_jacksBoots_39, ite_jacksGloves_40, ite_jacksMask_41, ite_knightsMail_42, ite_lightningTrident_87, ite_lionsCourage_43, ite_moltenCrusher_88, ite_naalvadsBonecrusher_89, ite_naturesFury_90, ite_nightsong_91, ite_powerChain_44, ite_ratGodsDecapitator_92, ite_ringOfShadows_45, ite_robeOfProtection_46, ite_royalJewels_47, ite_runesmithsBoots_48, ite_runesmithsCoat_49, ite_runesmithsCowl_50, ite_runesmithsGloves_51, ite_runesmithsUtilityBelt_52, ite_sacrificialArmour_53, ite_shieldAmulet_54, ite_staffOfProtection_93, ite_staffOfTheArchmage_94, ite_staffOfWarding_95, ite_starOfVengeance_96, ite_sunforgedBelt_55, ite_sunforgedGauntlets_56, ite_sunforgedGreaves_57, ite_sunforgedHelm_58, ite_sunforgedPlate_59, ite_umbralBoots_60, ite_umbralGloves_61, ite_umbralHood_62, ite_umbralStrap_63, ite_umbralTunic_64, ite_unholyBolter_97, ite_unholyGauntlets_65, ite_unholyGirdle_66, ite_unholyHelm_67, ite_unholyPlate_68, ite_unholyTreads_69, ite_voidpiercer_98, ite_voodooCharm_70, ite_vorshaksEmbrace_99, ite_warlocksRobe_71, ite_willOfGalorin_100] satisfies readonly ItemDefinition[];
 

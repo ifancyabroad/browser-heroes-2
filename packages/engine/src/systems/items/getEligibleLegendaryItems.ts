@@ -1,7 +1,7 @@
-import { CLASSES_BY_ID, items, type Item, type ItemId } from "@app/content";
+import { items, type Item, type ItemId } from "@app/content";
 
 import type { HeroState } from "../../schemas";
-import { canEquipItemLike } from "./canEquipItemLike";
+import { canHeroEquipItem } from "./canHeroEquipItem";
 
 type GetEligibleLegendaryItemsInput = {
 	hero: HeroState;
@@ -9,8 +9,6 @@ type GetEligibleLegendaryItemsInput = {
 };
 
 export function getEligibleLegendaryItems(input: GetEligibleLegendaryItemsInput): Item[] {
-	const classDefinition = CLASSES_BY_ID[input.hero.classId];
-
 	const equippedItemIds = new Set(
 		Object.values(input.hero.equipment).flatMap((item) => {
 			if (!item || item.type !== "static") {
@@ -34,6 +32,6 @@ export function getEligibleLegendaryItems(input: GetEligibleLegendaryItemsInput)
 			return false;
 		}
 
-		return canEquipItemLike(classDefinition, item);
+		return canHeroEquipItem(input.hero, item);
 	});
 }

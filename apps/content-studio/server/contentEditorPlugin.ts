@@ -168,6 +168,13 @@ function readReferenceValues(draft: Draft, path: ReferencePath): Array<[string, 
 			return Array.isArray(combat?.featIds)
 				? combat.featIds.map((id, index) => [`combat.featIds.${index}`, id])
 				: [];
+		case "restrictedToClassIds[]":
+			return Array.isArray(draft.restrictedToClassIds)
+				? draft.restrictedToClassIds.map((id, index) => [
+						`restrictedToClassIds.${index}`,
+						id,
+					])
+				: [];
 		case "startingEquipment.*":
 			return typeof draft.startingEquipment === "object" &&
 				draft.startingEquipment !== null &&

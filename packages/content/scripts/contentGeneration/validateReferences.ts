@@ -75,6 +75,15 @@ function validateRule(
 				rule.targetType,
 				rootDir,
 			);
+		case "restrictedToClassIds[]":
+			return validateStringRefs(
+				entry,
+				entry.value.restrictedToClassIds ?? [],
+				targetIds,
+				"restrictedToClassIds",
+				rule.targetType,
+				rootDir,
+			);
 		case "startingEquipment.*":
 			return validateStartingEquipment(entry, targetIds, rule.targetType, rootDir);
 	}

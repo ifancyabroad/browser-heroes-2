@@ -22,6 +22,7 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	REWARD_NOT_AVAILABLE: "There is no reward available right now.",
 	INVALID_REWARD_SELECTION: "That reward choice is not available.",
 	INVALID_EQUIPMENT_SLOT: "That item cannot be equipped there.",
+	ITEM_NOT_EQUIPPABLE: "That item cannot be equipped by this class.",
 	TOWN_NOT_AVAILABLE: "Town is not available right now.",
 	NOT_ENOUGH_GOLD: "You do not have enough gold.",
 	SHOP_SLOT_NOT_FOUND: "That shop item is no longer available.",

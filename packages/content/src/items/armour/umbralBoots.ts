@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/leather/Leather8_boots.png",
 	price: 2900,
 	rarity: "legendary",
+	restrictedToClassIds: ["shadowblade"],
 	type: "armour",
 	slot: "boots",
 	modifiers: [

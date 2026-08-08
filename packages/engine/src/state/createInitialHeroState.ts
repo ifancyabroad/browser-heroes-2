@@ -17,7 +17,7 @@ import { calculateMaxHpForLevel } from "../systems/progression/health/calculateM
 import { STARTING_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import type { RngResult, RngState } from "../core/rng";
 import { createGeneratedItemInstance } from "../systems/items/createGeneratedItemInstance";
-import { canEquipItemLike } from "../systems/items/canEquipItemLike";
+import { isClassProficientWithItem } from "../systems/items/isClassProficientWithItem";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { isItemBaseEligibleForRarity } from "../systems/items/isItemBaseEligibleForRarity";
 import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
@@ -132,7 +132,7 @@ function createInitialEquipment(
 			);
 		}
 
-		if (!canEquipItemLike(classDefinition, base)) {
+		if (!isClassProficientWithItem(classDefinition, base)) {
 			throw new Error(
 				`Class ${classDefinition.id} cannot equip starting item base ${itemBaseId}`,
 			);

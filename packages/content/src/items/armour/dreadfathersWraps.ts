@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth7_gloves.png",
 	price: 2600,
 	rarity: "legendary",
+	restrictedToClassIds: ["priest"],
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

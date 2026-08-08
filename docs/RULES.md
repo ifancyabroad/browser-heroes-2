@@ -111,6 +111,8 @@ Items modify hero capabilities during a run.
 
 Equipment may be an authored legendary item or a generated common, uncommon, rare, or epic item. Generated items combine an eligible base with rarity-matched affixes, while common generated items use the base without affixes. Both forms can affect derived combat values and persist as distinct item instances within the run.
 
+Authored legendary items may be restricted to specific classes. Restricted items are excluded from other classes' shops and reward choices and cannot be equipped by an ineligible class.
+
 Items can be acquired from town shops and boss reward choices. Their selection and generation consume the run's seeded randomness. When an item can occupy multiple valid slots, the selected equipment slot is explicit and replacement can be previewed before confirmation.
 
 Items may:

@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/leather/Leather8_gloves.png",
 	price: 2600,
 	rarity: "legendary",
+	restrictedToClassIds: ["shadowblade"],
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

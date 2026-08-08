@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth17_Chest.png",
 	price: 2600,
 	rarity: "legendary",
+	restrictedToClassIds: ["mage"],
 	type: "armour",
 	slot: "body",
 	category: "cloth",

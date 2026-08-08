@@ -3,7 +3,7 @@ import { CLASSES_BY_ID, type GeneratedItemRarity, itemBases, type ItemBase } fro
 import type { HeroState } from "../../schemas";
 import type { RngResult, RngState } from "../../core/rng";
 import { selectWeightedItem } from "../../core/rng";
-import { canEquipItemLike } from "./canEquipItemLike";
+import { isClassProficientWithItem } from "./isClassProficientWithItem";
 import { getTypeWeightedItemCandidates } from "./getTypeWeightedItemCandidates";
 import { isItemBaseEligibleForRarity } from "./isItemBaseEligibleForRarity";
 
@@ -43,6 +43,6 @@ export function getEligibleItemBases(input: GetEligibleItemBasesInput): ItemBase
 			return false;
 		}
 
-		return canEquipItemLike(classDefinition, base);
+		return isClassProficientWithItem(classDefinition, base);
 	});
 }

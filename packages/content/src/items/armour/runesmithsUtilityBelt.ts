@@ -8,6 +8,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth14_belt.png",
 	price: 3100,
 	rarity: "legendary",
+	restrictedToClassIds: ["artificer"],
 	type: "armour",
 	slot: "belt",
 	modifiers: [

@@ -7,6 +7,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth17_Boots.png",
 	price: 2900,
 	rarity: "legendary",
+	restrictedToClassIds: ["mage"],
 	type: "armour",
 	slot: "boots",
 	modifiers: [

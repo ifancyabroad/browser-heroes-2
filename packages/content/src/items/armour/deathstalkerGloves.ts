@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/leather/Leather13_gloves.png",
 	price: 2900,
 	rarity: "legendary",
+	restrictedToClassIds: ["rogue"],
 	type: "armour",
 	slot: "gloves",
 	modifiers: [

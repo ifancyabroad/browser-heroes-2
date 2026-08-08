@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth7_Chest.png",
 	price: 2600,
 	rarity: "legendary",
+	restrictedToClassIds: ["priest"],
 	type: "armour",
 	slot: "body",
 	category: "cloth",

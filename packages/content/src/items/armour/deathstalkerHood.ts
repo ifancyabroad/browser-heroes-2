@@ -6,6 +6,7 @@ export default buildArmour({
 	icon: "items/armour/sets/leather/Leather13_head.png",
 	price: 2500,
 	rarity: "legendary",
+	restrictedToClassIds: ["rogue"],
 	type: "armour",
 	slot: "helmet",
 	modifiers: [

@@ -8,6 +8,7 @@ import type { ItemInstance } from "../../schemas";
 import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 import { deriveHeroStats } from "../hero/deriveHeroStats";
 import { adjustCurrentHpForMaxHpChange } from "../health/adjustCurrentHpForMaxHpChange";
+import { canHeroEquipItem } from "../items/canHeroEquipItem";
 
 type EquipItemInput = {
 	hero: HeroState;
@@ -24,13 +25,19 @@ export type EquipItemSuccess = {
 
 export type EquipItemFailure = {
 	ok: false;
-	error: "INVALID_EQUIPMENT_SLOT";
+	error: "INVALID_EQUIPMENT_SLOT" | "ITEM_NOT_EQUIPPABLE";
 };
 
 export type EquipItemResult = EquipItemSuccess | EquipItemFailure;
 
 export function equipItem(input: EquipItemInput): EquipItemResult {
 	const itemDefinition = getItemInstanceDefinition(input.item);
+	if (!canHeroEquipItem(input.hero, itemDefinition)) {
+		return {
+			ok: false,
+			error: "ITEM_NOT_EQUIPPABLE",
+		};
+	}
 
 	const preview = previewEquipItem({
 		hero: input.hero,

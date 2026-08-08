@@ -82,12 +82,15 @@ export const generatedArmourSchema = z.union([
 export const legendaryArmourSchema = z.union([
 	bodyArmourSchema.extend({
 		rarity: z.literal("legendary"),
+		restrictedToClassIds: z.array(z.string().nonempty()).min(1).optional(),
 	}),
 	shieldArmourSchema.extend({
 		rarity: z.literal("legendary"),
+		restrictedToClassIds: z.array(z.string().nonempty()).min(1).optional(),
 	}),
 	accessoryArmourSchema.extend({
 		rarity: z.literal("legendary"),
+		restrictedToClassIds: z.array(z.string().nonempty()).min(1).optional(),
 	}),
 ]);
 

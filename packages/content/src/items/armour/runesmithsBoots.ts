@@ -8,6 +8,7 @@ export default buildArmour({
 	icon: "items/armour/sets/cloth/Cloth14_Boots.png",
 	price: 3200,
 	rarity: "legendary",
+	restrictedToClassIds: ["artificer"],
 	type: "armour",
 	slot: "boots",
 	modifiers: [
