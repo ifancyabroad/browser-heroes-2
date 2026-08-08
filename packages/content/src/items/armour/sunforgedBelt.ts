@@ -10,27 +10,19 @@ export default buildArmour({
 	slot: "belt",
 	modifiers: [
 		{
+			type: "modifyStat",
+			stat: "wisdom",
+			value: 4,
+		},
+		{
+			type: "modifyHealing",
+			multiplier: 1.5,
+		},
+		{
 			type: "modifyDamageAffinity",
 			affinity: "resistance",
 			operation: "add",
 			damageType: "fire",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "cold",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "lightning",
-		},
-		{
-			type: "modifyStat",
-			stat: "strength",
-			value: 2,
 		},
 	],
 	tags: [],

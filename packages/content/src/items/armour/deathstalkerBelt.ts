@@ -20,6 +20,12 @@ export default buildArmour({
 			stat: "attackRollBonus",
 			value: 4,
 		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "piercing",
+		},
 	],
 	tags: [],
 });

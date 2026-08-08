@@ -11,19 +11,20 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "intelligence",
-			value: 2,
-		},
-		{
-			type: "modifyStat",
-			stat: "constitution",
-			value: 2,
+			stat: "saveDcBonus",
+			value: 4,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "lightning",
 			operation: "add",
 			value: 5,
+		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "lightning",
 		},
 	],
 	tags: [],

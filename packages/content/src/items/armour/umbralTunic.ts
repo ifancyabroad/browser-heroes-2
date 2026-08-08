@@ -21,6 +21,11 @@ export default buildArmour({
 			stat: "dexterity",
 			value: 4,
 		},
+		{
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 4,
+		},
 	],
 	tags: [],
 });

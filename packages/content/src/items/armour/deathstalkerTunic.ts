@@ -12,20 +12,20 @@ export default buildArmour({
 	armourClass: 16,
 	modifiers: [
 		{
-			type: "modifyDamage",
-			damageType: "slashing",
-			operation: "add",
-			value: 5,
-		},
-		{
-			type: "modifyStat",
-			stat: "dexterity",
-			value: 2,
-		},
-		{
 			type: "modifyStat",
 			stat: "constitution",
-			value: 2,
+			value: 4,
+		},
+		{
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 4,
+		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "crushing",
 		},
 	],
 	tags: [],

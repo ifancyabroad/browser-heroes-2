@@ -12,12 +12,12 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			value: 2,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
-			stat: "constitution",
-			value: 2,
+			stat: "saveDcBonus",
+			value: 4,
 		},
 		{
 			type: "modifyDamage",

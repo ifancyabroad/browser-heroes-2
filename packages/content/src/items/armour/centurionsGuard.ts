@@ -12,28 +12,17 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "armourClass",
-			value: 1,
-		},
-		{
-			type: "modifyStat",
-			stat: "strength",
 			value: 2,
 		},
 		{
 			type: "modifyStat",
 			stat: "intelligence",
-			value: 2,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
-			stat: "constitution",
-			value: 2,
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "fire",
+			stat: "saveDcBonus",
+			value: 4,
 		},
 	],
 	tags: [],

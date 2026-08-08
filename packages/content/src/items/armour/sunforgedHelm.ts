@@ -20,6 +20,11 @@ export default buildArmour({
 			stat: "armourClass",
 			value: 2,
 		},
+		{
+			type: "modifyStat",
+			stat: "saveDcBonus",
+			value: 4,
+		},
 	],
 	tags: [],
 });

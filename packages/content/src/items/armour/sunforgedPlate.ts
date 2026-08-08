@@ -13,18 +13,13 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "strength",
-			value: 2,
-		},
-		{
-			type: "modifyStat",
 			stat: "constitution",
-			value: 2,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
-			stat: "wisdom",
-			value: 2,
+			stat: "maxHpBonus",
+			value: 25,
 		},
 		{
 			type: "modifyDamageAffinity",

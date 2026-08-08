@@ -12,7 +12,12 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "criticalRangeBonus",
-			value: 4,
+			value: 3,
+		},
+		{
+			type: "modifyStat",
+			stat: "criticalDiceMultiplierBonus",
+			value: 3,
 		},
 		{
 			type: "modifyDamage",

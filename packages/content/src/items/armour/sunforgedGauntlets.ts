@@ -17,7 +17,12 @@ export default buildArmour({
 		},
 		{
 			type: "modifyStat",
-			stat: "wisdom",
+			stat: "strength",
+			value: 4,
+		},
+		{
+			type: "modifyStat",
+			stat: "attackRollBonus",
 			value: 4,
 		},
 	],

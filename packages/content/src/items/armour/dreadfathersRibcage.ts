@@ -12,32 +12,20 @@ export default buildArmour({
 	armourClass: 14,
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "fire",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "lightning",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "cold",
-		},
-		{
-			type: "modifyStat",
-			stat: "wisdom",
-			value: 2,
-		},
-		{
 			type: "modifyStat",
 			stat: "constitution",
-			value: 2,
+			value: 4,
+		},
+		{
+			type: "modifyStat",
+			stat: "maxHpBonus",
+			value: 25,
+		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "poison",
 		},
 	],
 	tags: [],

@@ -32,7 +32,7 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "intelligence",
-			value: 2,
+			value: 4,
 		},
 	],
 	tags: [],

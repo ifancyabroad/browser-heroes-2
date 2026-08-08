@@ -17,8 +17,14 @@ export default buildArmour({
 		},
 		{
 			type: "modifyStat",
-			stat: "strength",
+			stat: "attackRollBonus",
 			value: 4,
+		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "poison",
 		},
 	],
 	tags: [],

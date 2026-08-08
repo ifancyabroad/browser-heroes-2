@@ -11,19 +11,20 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "dexterity",
-			value: 2,
-		},
-		{
-			type: "modifyStat",
 			stat: "wisdom",
-			value: 2,
+			value: 4,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "crushing",
 			operation: "add",
 			value: 5,
+		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "crushing",
 		},
 	],
 	tags: [],

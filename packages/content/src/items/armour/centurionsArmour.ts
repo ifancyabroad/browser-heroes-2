@@ -22,6 +22,12 @@ export default buildArmour({
 			operation: "add",
 			value: 5,
 		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "slashing",
+		},
 	],
 	tags: [],
 });

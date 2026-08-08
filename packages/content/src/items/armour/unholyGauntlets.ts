@@ -21,6 +21,11 @@ export default buildArmour({
 			operation: "add",
 			value: 5,
 		},
+		{
+			type: "modifyStat",
+			stat: "criticalDiceMultiplierBonus",
+			value: 4,
+		},
 	],
 	tags: [],
 });

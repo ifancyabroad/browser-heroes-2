@@ -11,19 +11,20 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "dexterity",
-			value: 2,
-		},
-		{
-			type: "modifyStat",
-			stat: "strength",
-			value: 2,
+			stat: "savingThrowBonus",
+			value: 4,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "add",
 			value: 5,
+		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "fire",
 		},
 	],
 	tags: [],

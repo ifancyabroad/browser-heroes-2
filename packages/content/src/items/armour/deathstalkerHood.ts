@@ -10,11 +10,6 @@ export default buildArmour({
 	slot: "helmet",
 	modifiers: [
 		{
-			type: "modifyStat",
-			stat: "charisma",
-			value: -2,
-		},
-		{
 			type: "modifyDamage",
 			damageType: "poison",
 			operation: "add",
@@ -22,13 +17,14 @@ export default buildArmour({
 		},
 		{
 			type: "modifyStat",
-			stat: "criticalRangeBonus",
-			value: 2,
+			stat: "saveDcBonus",
+			value: 4,
 		},
 		{
-			type: "modifyStat",
-			stat: "dexterity",
-			value: 2,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "poison",
 		},
 	],
 	tags: [],

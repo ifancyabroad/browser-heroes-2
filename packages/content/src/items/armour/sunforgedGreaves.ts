@@ -17,8 +17,14 @@ export default buildArmour({
 		},
 		{
 			type: "modifyStat",
-			stat: "dexterity",
+			stat: "savingThrowBonus",
 			value: 4,
+		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "crushing",
 		},
 	],
 	tags: [],

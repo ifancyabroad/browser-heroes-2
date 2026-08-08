@@ -10,11 +10,6 @@ export default buildArmour({
 	slot: "helmet",
 	modifiers: [
 		{
-			type: "modifyStat",
-			stat: "constitution",
-			value: 2,
-		},
-		{
 			type: "modifyDamageAffinity",
 			affinity: "resistance",
 			operation: "add",
@@ -28,7 +23,7 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "strength",
-			value: 2,
+			value: 4,
 		},
 	],
 	tags: [],
