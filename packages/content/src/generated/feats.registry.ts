@@ -14,10 +14,10 @@ import fea_deathTouched_5 from '../feats/deathTouched';
 import fea_duelist_6 from '../feats/duelist';
 import fea_flameborn_7 from '../feats/flameborn';
 import fea_giftedHealer_8 from '../feats/giftedHealer';
-import fea_juggernaut_9 from '../feats/juggernaut';
-import fea_plaguebearer_10 from '../feats/plaguebearer';
-import fea_potentCasting_11 from '../feats/potentCasting';
-import fea_pressurePoints_12 from '../feats/pressurePoints';
+import fea_glassCannon_9 from '../feats/glassCannon';
+import fea_juggernaut_10 from '../feats/juggernaut';
+import fea_plaguebearer_11 from '../feats/plaguebearer';
+import fea_potentCasting_12 from '../feats/potentCasting';
 import fea_spellbreaker_13 from '../feats/spellbreaker';
 import fea_stormConduit_14 from '../feats/stormConduit';
 import fea_wintersHeart_15 from '../feats/wintersHeart';
@@ -27,7 +27,7 @@ export type { FeatId } from './featIds';
 
 export type Feat = WithGeneratedId<FeatDefinition, FeatId>;
 
-const rawFeats = [fea_berserker_0, fea_bloodDrinker_1, fea_commandingPresence_2, fea_corrosiveBlood_3, fea_dawnBlessed_4, fea_deathTouched_5, fea_duelist_6, fea_flameborn_7, fea_giftedHealer_8, fea_juggernaut_9, fea_plaguebearer_10, fea_potentCasting_11, fea_pressurePoints_12, fea_spellbreaker_13, fea_stormConduit_14, fea_wintersHeart_15] satisfies readonly FeatDefinition[];
+const rawFeats = [fea_berserker_0, fea_bloodDrinker_1, fea_commandingPresence_2, fea_corrosiveBlood_3, fea_dawnBlessed_4, fea_deathTouched_5, fea_duelist_6, fea_flameborn_7, fea_giftedHealer_8, fea_glassCannon_9, fea_juggernaut_10, fea_plaguebearer_11, fea_potentCasting_12, fea_spellbreaker_13, fea_stormConduit_14, fea_wintersHeart_15] satisfies readonly FeatDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const feats = rawFeats as readonly Feat[];
@@ -42,10 +42,10 @@ const rawFeatsById = {
   "duelist": fea_duelist_6,
   "flameborn": fea_flameborn_7,
   "gifted_healer": fea_giftedHealer_8,
-  "juggernaut": fea_juggernaut_9,
-  "plaguebearer": fea_plaguebearer_10,
-  "potent_casting": fea_potentCasting_11,
-  "pressure_points": fea_pressurePoints_12,
+  "glass_cannon": fea_glassCannon_9,
+  "juggernaut": fea_juggernaut_10,
+  "plaguebearer": fea_plaguebearer_11,
+  "potent_casting": fea_potentCasting_12,
   "spellbreaker": fea_spellbreaker_13,
   "storm_conduit": fea_stormConduit_14,
   "winters_heart": fea_wintersHeart_15,
