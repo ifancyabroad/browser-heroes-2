@@ -11,13 +11,20 @@ export default buildItemAffix({
 			itemTypes: ["weapon"],
 			weaponTypes: ["mace", "staff"],
 		},
-		{ itemTypes: ["armour"], armourSlots: ["gloves", "belt", "amulet", "ring"] },
-		{ itemTypes: ["armour"], armourSlots: ["body"], armourCategories: ["cloth"] },
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["gloves", "belt", "amulet", "ring"],
+		},
+		{
+			itemTypes: ["armour"],
+			armourSlots: ["body"],
+			armourCategories: ["cloth"],
+		},
 	],
 	modifiers: [
 		{
 			type: "modifyHealing",
-			multiplier: 1.4,
+			multiplier: 1.5,
 		},
 	],
 });

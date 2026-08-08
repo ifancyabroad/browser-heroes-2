@@ -5,7 +5,7 @@ export default buildItemAffix({
 	name: "Cinderbreaking",
 	position: "prefix",
 	rarity: "epic",
-	weight: 0.75,
+	weight: 0.5,
 	appliesTo: [
 		{
 			itemTypes: ["weapon"],

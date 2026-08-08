@@ -5,6 +5,7 @@ export default buildItemAffix({
 	name: "Enfeebling",
 	position: "prefix",
 	rarity: "rare",
+	weight: 0.75,
 	appliesTo: [
 		{
 			itemTypes: ["weapon"],
