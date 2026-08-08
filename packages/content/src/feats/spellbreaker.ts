@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "spellbreaker",
 	name: "Spellbreaker",
 	description:
-		"Saving throws increase by 4 and hits can silence the enemy for 1 turn, but skill save DC is reduced by 2.",
+		"Saving throws increase by 4 and hits can silence the enemy for 1 turn, but skill save DC is reduced by 4.",
 	icon: "feats/Skill_IceArmorDestroy_nb.png",
 	kind: "martial",
 	category: "utility",
@@ -17,7 +17,7 @@ export default buildFeat({
 		{
 			type: "modifyStat",
 			stat: "saveDcBonus",
-			value: -2,
+			value: -4,
 		},
 	],
 	attackRiders: [

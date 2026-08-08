@@ -3,8 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "potent_casting",
 	name: "Potent Casting",
-	description:
-		"Skill save DC increases by 4 and saving throws by 3, but attack rolls are reduced by 3.",
+	description: "Skill save DC increases by 4, but attack rolls are reduced by 4.",
 	icon: "feats/Aura_Wizards_nb.png",
 	kind: "spellcraft",
 	category: "offensive",
@@ -16,13 +15,8 @@ export default buildFeat({
 		},
 		{
 			type: "modifyStat",
-			stat: "savingThrowBonus",
-			value: 3,
-		},
-		{
-			type: "modifyStat",
 			stat: "attackRollBonus",
-			value: -3,
+			value: -4,
 		},
 	],
 	attackRiders: [],
