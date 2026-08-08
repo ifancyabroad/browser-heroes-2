@@ -30,8 +30,7 @@ export default buildWeapon({
 			save: {
 				attribute: "intelligence",
 				dc: {
-					base: 16,
-					attribute: "intelligence",
+					base: 18,
 					includeProficiency: false,
 					bonus: 0,
 				},
@@ -53,8 +52,7 @@ export default buildWeapon({
 			save: {
 				attribute: "intelligence",
 				dc: {
-					base: 16,
-					attribute: "intelligence",
+					base: 18,
 					includeProficiency: false,
 					bonus: 0,
 				},
