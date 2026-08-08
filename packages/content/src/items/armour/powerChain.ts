@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "power_chain",
 	name: "Power Chain",
 	icon: "items/armour/neck/necklace_10.png",
-	price: 1520,
+	price: 3400,
 	rarity: "legendary",
 	type: "armour",
 	slot: "amulet",

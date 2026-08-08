@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A bow steeped in virulent natural magic, its arrows poisoning their victims and leaving them vulnerable to further venom.",
 	icon: "items/weapons/bows/Bow_v2_08.png",
-	price: 2600,
+	price: 4400,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "bow",

@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"A ring cloaked in darkness, granting its wearer the ability to blend into shadows.",
 	icon: "items/armour/ring/Ring_47.png",
-	price: 1700,
+	price: 3400,
 	rarity: "legendary",
 	type: "armour",
 	slot: "ring",

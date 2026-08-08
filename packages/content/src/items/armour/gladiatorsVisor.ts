@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"A battle-scarred visor that combines brutal strength, deadly precision, and the protection needed to survive the arena.",
 	icon: "items/armour/helms/Helm_25_gladiator.png",
-	price: 1620,
+	price: 2500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

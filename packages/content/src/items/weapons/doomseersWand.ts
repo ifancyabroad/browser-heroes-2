@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A wand carved for prophets of ruin, clouding its victims' attacks with visions of doom before exposing them to deathly magic.",
 	icon: "items/weapons/wands/Wand_v2_42.png",
-	price: 2220,
+	price: 3600,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "wand",

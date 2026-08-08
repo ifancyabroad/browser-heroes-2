@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A steadfast staff whose layered enchantments fortify body and spirit, allowing its bearer to endure the fiercest assaults.",
 	icon: "items/weapons/staves/Staff_v2_21.png",
-	price: 1360,
+	price: 3800,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "quarterstaff",

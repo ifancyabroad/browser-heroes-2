@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"Dark energies steep this robe, empowering baleful magic while shielding its wearer from the touch of death.",
 	icon: "items/armour/sets/cloth/Cloth6_Chest.png",
-	price: 1620,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

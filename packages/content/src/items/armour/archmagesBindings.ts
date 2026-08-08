@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Archmage's Bindings",
 	description: "Crafted for the master of magic, these bracers enhance spell weaving.",
 	icon: "items/armour/sets/cloth/Cloth17_bracers.png",
-	price: 1600,
+	price: 2600,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

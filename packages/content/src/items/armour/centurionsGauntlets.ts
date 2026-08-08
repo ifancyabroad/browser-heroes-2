@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "centurions_gauntlets",
 	name: "Centurion's Gauntlets",
 	icon: "items/armour/sets/mail/Mail17_gloves.png",
-	price: 1600,
+	price: 2600,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

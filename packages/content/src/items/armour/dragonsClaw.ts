@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"A talon-shaped ring that lends its wearer a dragon's speed and predatory precision, carving through foes with every strike.",
 	icon: "items/armour/ring/Ring_b_09.png",
-	price: 1680,
+	price: 3000,
 	rarity: "legendary",
 	type: "armour",
 	slot: "ring",

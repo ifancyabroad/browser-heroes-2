@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"Naalvad's colossal warhammer pulverizes armour and bone alike, leaving shattered foes exposed to every crushing blow that follows.",
 	icon: "items/weapons/hammers/Hammer_v2_20.png",
-	price: 2540,
+	price: 5400,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "warhammer",

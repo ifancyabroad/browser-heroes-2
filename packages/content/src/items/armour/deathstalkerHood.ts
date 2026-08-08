@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "deathstalker_hood",
 	name: "Deathstalker Hood",
 	icon: "items/armour/sets/leather/Leather13_head.png",
-	price: 1700,
+	price: 2500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A sacred flame burns atop this staff without consuming it, magnifying radiant power and guiding restorative prayers.",
 	icon: "items/weapons/staves/Staff_v2_35.png",
-	price: 1460,
+	price: 3400,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "staff",

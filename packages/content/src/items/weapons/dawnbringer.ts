@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A radiant greatsword forged to carry the light of dawn, scorching the wicked and raising a divine barrier around those who wield it.",
 	icon: "items/weapons/swords/Sword_v2_50.png",
-	price: 3200,
+	price: 6000,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "greatsword",

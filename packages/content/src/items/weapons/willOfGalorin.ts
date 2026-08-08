@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"Galorin's unyielding will burns within this staff, granting the fortitude to command fire with unmatched destructive force.",
 	icon: "items/weapons/staves/Staff_v2_52.png",
-	price: 2500,
+	price: 4200,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "staff",

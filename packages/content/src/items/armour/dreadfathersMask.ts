@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "dreadfathers_mask",
 	name: "Dreadfather's Mask",
 	icon: "items/armour/sets/cloth/Cloth7_Head.png",
-	price: 1700,
+	price: 2200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

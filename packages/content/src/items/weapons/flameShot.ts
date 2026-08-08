@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"Flame Shot is a beautifully crafted bow with fiery engravings along its limbs. When drawn, it ignites arrows in a blaze of fire, unleashing scorching shots that can engulf targets in flames. Favored by skilled archers, this bow is perfect for delivering both precision and destruction.",
 	icon: "items/weapons/bows/Bow_v2_05.png",
-	price: 1280,
+	price: 3500,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "bow",

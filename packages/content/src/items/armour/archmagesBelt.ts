@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Archmage's Belt",
 	description: "This belt augments spellcasting abilities, a mark of the master mage.",
 	icon: "items/armour/sets/cloth/Cloth17_belt.png",
-	price: 1600,
+	price: 2700,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

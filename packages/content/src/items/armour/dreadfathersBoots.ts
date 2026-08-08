@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "dreadfathers_boots",
 	name: "Dreadfather's Boots",
 	icon: "items/armour/sets/cloth/Cloth7_Boots.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "centurions_guard",
 	name: "Centurion's Guard",
 	icon: "items/armour/sets/mail/Mail17_head.png",
-	price: 1700,
+	price: 2200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

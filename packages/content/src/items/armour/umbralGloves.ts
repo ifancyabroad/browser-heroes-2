@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "umbral_gloves",
 	name: "Umbral Gloves",
 	icon: "items/armour/sets/leather/Leather8_gloves.png",
-	price: 1600,
+	price: 2600,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

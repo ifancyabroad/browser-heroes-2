@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"Mail forged for a noble champion, reinforcing martial strength, commanding presence, and unwavering resolve.",
 	icon: "items/armour/sets/mail/Mail14_Chest.png",
-	price: 1560,
+	price: 4000,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

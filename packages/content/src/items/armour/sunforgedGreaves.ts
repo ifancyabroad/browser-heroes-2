@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "sunforged_greaves",
 	name: "Sunforged Greaves",
 	icon: "items/armour/sets/mail/Mail13_Boots.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

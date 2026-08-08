@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"The Unholy Bolter is a sinister crossbow adorned with dark symbols and a blackened finish. It fires cursed bolts that deal extra damage and drain vitality. Favored by dark sorcerers, this weapon embodies malevolence and relentless power in battle.",
 	icon: "items/weapons/crossbows/Crossbow_v2_06.png",
-	price: 1200,
+	price: 3700,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "crossbow",

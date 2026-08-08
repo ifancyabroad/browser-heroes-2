@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Jack's Belt",
 	description: "Worn by versatile adventurers, this belt aids in mastering various skills.",
 	icon: "items/armour/sets/leather/Leather9_belt.png",
-	price: 1600,
+	price: 3100,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

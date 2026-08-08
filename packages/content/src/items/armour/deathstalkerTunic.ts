@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "deathstalker_tunic",
 	name: "Deathstalker Tunic",
 	icon: "items/armour/sets/leather/Leather13_Chest.png",
-	price: 1800,
+	price: 3400,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

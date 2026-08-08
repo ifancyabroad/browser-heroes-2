@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A formidable trident whose three sharp prongs shimmer with electric energy, unleashing violent arcs of lightning with every impact.",
 	icon: "items/weapons/spears/Spear_v2_12.png",
-	price: 1260,
+	price: 3400,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "spear",

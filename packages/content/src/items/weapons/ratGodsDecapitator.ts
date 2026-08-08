@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A brutal executioner's axe sacred to the Rat God. Its jagged edge tears open mortal wounds and leaves survivors exposed to further slaughter.",
 	icon: "items/weapons/axes/Axe_v2_51.png",
-	price: 2600,
+	price: 5000,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "battleaxe",

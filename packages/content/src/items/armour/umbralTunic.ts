@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "umbral_tunic",
 	name: "Umbral Tunic",
 	icon: "items/armour/sets/leather/Leather8_Chest.png",
-	price: 1800,
+	price: 3400,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

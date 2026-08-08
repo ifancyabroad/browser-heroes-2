@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"Forged around an ancient dragon scale, this ring hardens its wearer against every blow and renders flame harmless.",
 	icon: "items/armour/ring/Ring_50_dragon.png",
-	price: 1650,
+	price: 3400,
 	rarity: "legendary",
 	type: "armour",
 	slot: "ring",

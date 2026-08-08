@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "sunforged_belt",
 	name: "Sunforged Belt",
 	icon: "items/armour/sets/mail/Mail13_belt.png",
-	price: 1600,
+	price: 2700,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

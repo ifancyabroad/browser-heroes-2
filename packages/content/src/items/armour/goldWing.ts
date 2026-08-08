@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"A feather-light golden shield that turns swift movement into precise attacks and evasive defence.",
 	icon: "items/armour/shields/shield_48.png",
-	price: 1420,
+	price: 4300,
 	rarity: "legendary",
 	type: "armour",
 	slot: "shield",

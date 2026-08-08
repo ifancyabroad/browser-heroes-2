@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A beautifully crafted wand adorned with symbols of fire, water, earth, and air, balancing all four elements within a single weapon.",
 	icon: "items/weapons/wands/Wand_v2_72.png",
-	price: 1060,
+	price: 3200,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "wand",

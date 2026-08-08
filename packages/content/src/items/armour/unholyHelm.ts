@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "unholy_helm",
 	name: "Unholy Helm",
 	icon: "items/armour/sets/mail/Mail16_head.png",
-	price: 1700,
+	price: 2200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A frost-patterned battleaxe favoured by northern warriors. Each heavy swing unleashes the merciless cold of the frozen wastes.",
 	icon: "items/weapons/axes/Axe_v2_46.png",
-	price: 1440,
+	price: 4500,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "battleaxe",

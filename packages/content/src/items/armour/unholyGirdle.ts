@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "unholy_girdle",
 	name: "Unholy Girdle",
 	icon: "items/armour/sets/mail/Mail16_belt.png",
-	price: 1600,
+	price: 2700,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

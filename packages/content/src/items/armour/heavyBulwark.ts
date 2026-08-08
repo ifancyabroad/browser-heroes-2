@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Heavy Bulwark",
 	description: "A massive bulwark of reinforced steel, providing unparalleled defense in battle.",
 	icon: "items/armour/shields/shield_41.png",
-	price: 1280,
+	price: 6000,
 	rarity: "legendary",
 	type: "armour",
 	slot: "shield",

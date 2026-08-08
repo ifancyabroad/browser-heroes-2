@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Archmage's Boots",
 	description: "Boots infused with arcane energy, enhancing spellcasting prowess.",
 	icon: "items/armour/sets/cloth/Cloth17_Boots.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

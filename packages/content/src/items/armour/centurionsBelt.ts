@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "centurions_belt",
 	name: "Centurion's Belt",
 	icon: "items/armour/sets/mail/Mail17_belt.png",
-	price: 1600,
+	price: 2700,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

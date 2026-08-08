@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"A rugged tunic that forsakes rigid protection for primal strength, endurance, and sheer vitality.",
 	icon: "items/armour/chest/BarbarianChest.png",
-	price: 1400,
+	price: 4000,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

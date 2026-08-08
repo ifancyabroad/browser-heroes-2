@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"Incorruptible enchantments suffuse this golden plate, turning aside corrosive forces and reflecting even the fiercest radiance.",
 	icon: "items/armour/chest/Chest_17.png",
-	price: 1760,
+	price: 6500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

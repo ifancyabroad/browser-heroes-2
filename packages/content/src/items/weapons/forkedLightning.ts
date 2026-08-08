@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"Forked Lightning is a striking staff adorned with two jagged tips that crackle with electric energy. Designed to channel powerful lightning spells, it allows the wielder to unleash devastating bolts of electricity. Favored by storm mages, this staff embodies the raw fury of a thunderstorm.",
 	icon: "items/weapons/staves/staff_40.png",
-	price: 1450,
+	price: 3800,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "staff",

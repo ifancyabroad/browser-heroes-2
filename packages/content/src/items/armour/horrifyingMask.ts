@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"A grotesque mask steeped in forbidden knowledge, sacrificing mortal charm to empower devastating necrotic magic.",
 	icon: "items/armour/helms/Helm_36_mask.png",
-	price: 1450,
+	price: 2500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

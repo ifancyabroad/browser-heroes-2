@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"The Acid Edge is a wickedly curved blade coated with a corrosive substance that glows faintly green. Designed for swift strikes, it can melt through armor and inflict lingering damage. Favored by assassins and alchemists, this weapon combines lethality with a sinister touch.",
 	icon: "items/weapons/axes/Axe_v2_48.png",
-	price: 1020,
+	price: 2900,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "handaxe",

@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "sunforged_gauntlets",
 	name: "Sunforged Gauntlets",
 	icon: "items/armour/sets/mail/Mail13_gloves.png",
-	price: 1600,
+	price: 2600,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

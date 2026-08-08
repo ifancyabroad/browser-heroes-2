@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Ebonstride Footwear",
 	description: "These black plated boots imbue the wearer with the essence of darkness.",
 	icon: "items/armour/boots/Boots_12.png",
-	price: 1480,
+	price: 3200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

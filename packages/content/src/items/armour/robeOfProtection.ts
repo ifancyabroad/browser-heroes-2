@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"Powerful wards woven through this robe turn aside attacks, blunt harmful magic, and soften every blow that reaches its wearer.",
 	icon: "items/armour/sets/cloth/Cloth5_Chest.png",
-	price: 1700,
+	price: 3200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

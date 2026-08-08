@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A vicious claw fashioned in Vorshak's image, feeding upon the blood it spills while tearing open wounds for the killing blow.",
 	icon: "items/weapons/claws/BrassKnuckles_v2_11.png",
-	price: 2250,
+	price: 3200,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "dagger",

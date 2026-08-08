@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Giant's Gauntlets",
 	description: "These gauntlets grant the power of giants, crushing foes with ease.",
 	icon: "items/armour/gloves/Gloves_23.png",
-	price: 1590,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

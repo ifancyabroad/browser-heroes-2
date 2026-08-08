@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"The Molten Crusher is a heavy hammer with a glowing, lava-like head that radiates intense heat. Designed for devastating strikes, it can crush armor and ignite foes upon contact. Favored by fire-infused warriors, this hammer embodies the fury of molten rock in battle.",
 	icon: "items/weapons/hammers/Hammer_v2_21.png",
-	price: 1120,
+	price: 2400,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "hammer",

@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "dreadfathers_sash",
 	name: "Dreadfather's Sash",
 	icon: "items/armour/sets/cloth/Cloth7_belt.png",
-	price: 1600,
+	price: 2700,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

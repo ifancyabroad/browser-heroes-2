@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "jacks_gloves",
 	name: "Jack's Gloves",
 	icon: "items/armour/sets/leather/Leather9_gloves.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

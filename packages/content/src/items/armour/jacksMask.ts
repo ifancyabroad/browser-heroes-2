@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "jacks_mask",
 	name: "Jack's Mask",
 	icon: "items/armour/sets/leather/Leather9_head.png",
-	price: 1700,
+	price: 2500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

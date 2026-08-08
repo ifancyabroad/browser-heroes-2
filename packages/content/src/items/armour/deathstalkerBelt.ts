@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "deathstalker_belt",
 	name: "Deathstalker Belt",
 	icon: "items/armour/sets/leather/Leather13_belt.png",
-	price: 1600,
+	price: 2700,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

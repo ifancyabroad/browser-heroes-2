@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "archmages_crown",
 	name: "Archmage's Crown",
 	icon: "items/armour/sets/cloth/Cloth17_Head.png",
-	price: 1700,
+	price: 2200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

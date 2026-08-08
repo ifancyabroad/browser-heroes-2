@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "unholy_plate",
 	name: "Unholy Plate",
 	icon: "items/armour/sets/mail/Mail16_Chest.png",
-	price: 1800,
+	price: 5800,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

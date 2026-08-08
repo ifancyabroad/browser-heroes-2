@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Lion's Courage",
 	description: "A ring embossed with a roaring lion, instilling courage and valor in its wearer.",
 	icon: "items/armour/ring/Ring_16_lion.png",
-	price: 1240,
+	price: 3000,
 	rarity: "legendary",
 	type: "armour",
 	slot: "ring",

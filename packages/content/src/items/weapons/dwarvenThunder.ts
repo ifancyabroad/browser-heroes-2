@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"Dwarven Thunder is a sturdy warhammer with a heavy head that resonates with a deep sound upon impact. Crafted by skilled dwarven smiths, it delivers devastating blows, often stunning foes. This weapon embodies the strength and craftsmanship of dwarven warriors.",
 	icon: "items/weapons/hammers/Hammer_v2_14.png",
-	price: 1440,
+	price: 4900,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "warhammer",

@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"Bloodletter is a sinister dagger with a jagged, crimson blade that gleams ominously. Designed for stealthy strikes, it inflicts deep wounds that bleed profusely, weakening foes over time. Favored by assassins, this weapon embodies the art of death and the thirst for blood in battle.",
 	icon: "items/weapons/daggers/Dagger_46.png",
-	price: 1300,
+	price: 2600,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "dagger",

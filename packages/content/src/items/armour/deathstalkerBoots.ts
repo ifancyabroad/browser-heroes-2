@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "deathstalker_boots",
 	name: "Deathstalker Boots",
 	icon: "items/armour/sets/leather/Leather13_boots.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

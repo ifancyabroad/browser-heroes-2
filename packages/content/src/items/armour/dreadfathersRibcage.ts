@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "dreadfathers_ribcage",
 	name: "Dreadfather's Ribcage",
 	icon: "items/armour/sets/cloth/Cloth7_Chest.png",
-	price: 1800,
+	price: 2600,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A cruel spiked flail that channels the force of every impact into its wielder, siphoning vitality from those it crushes.",
 	icon: "items/weapons/clubs/Club_v2_20.png",
-	price: 1380,
+	price: 4100,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "flail",

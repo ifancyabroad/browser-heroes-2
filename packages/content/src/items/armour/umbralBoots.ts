@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "umbral_boots",
 	name: "Umbral Boots",
 	icon: "items/armour/sets/leather/Leather8_boots.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "sunforged_plate",
 	name: "Sunforged Plate",
 	icon: "items/armour/sets/mail/Mail13_Chest.png",
-	price: 1800,
+	price: 5800,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

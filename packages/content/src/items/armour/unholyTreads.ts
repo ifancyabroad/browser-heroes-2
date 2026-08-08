@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "unholy_treads",
 	name: "Unholy Treads",
 	icon: "items/armour/sets/mail/Mail16_Boots.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

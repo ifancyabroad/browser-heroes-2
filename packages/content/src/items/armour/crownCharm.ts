@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "crown_charm",
 	name: "Crown Charm",
 	icon: "items/armour/neck/Neck_b_05.png",
-	price: 1400,
+	price: 3400,
 	rarity: "legendary",
 	type: "armour",
 	slot: "amulet",

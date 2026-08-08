@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "centurions_greaves",
 	name: "Centurion's Greaves",
 	icon: "items/armour/sets/mail/Mail17_Boots.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

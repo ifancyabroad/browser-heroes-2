@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "umbral_hood",
 	name: "Umbral Hood",
 	icon: "items/armour/sets/leather/Leather8_head.png",
-	price: 1700,
+	price: 2500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "centurions_armour",
 	name: "Centurion's Armour",
 	icon: "items/armour/sets/mail/Mail17_Chest.png",
-	price: 1800,
+	price: 4500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Voodoo Charm",
 	description: "The Voodoo Necklace, harnessing the primal forces of voodoo magic.",
 	icon: "items/armour/neck/necklace_21_doll.png",
-	price: 1420,
+	price: 3800,
 	rarity: "legendary",
 	type: "armour",
 	slot: "amulet",

@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "deathstalker_gloves",
 	name: "Deathstalker Gloves",
 	icon: "items/armour/sets/leather/Leather13_gloves.png",
-	price: 1600,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

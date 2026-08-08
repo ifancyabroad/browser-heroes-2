@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"A jet-black greatsword wreathed in hellfire. Its critical blows pronounce doom upon their victims, leaving them vulnerable to every curse that follows.",
 	icon: "items/weapons/swords/Sword_26.png",
-	price: 1720,
+	price: 5400,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "greatsword",

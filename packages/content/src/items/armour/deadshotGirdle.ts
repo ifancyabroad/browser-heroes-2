@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "deadshot_girdle",
 	name: "Deadshot Girdle",
 	icon: "items/armour/belts/Belt_32.png",
-	price: 1320,
+	price: 3100,
 	rarity: "legendary",
 	type: "armour",
 	slot: "belt",

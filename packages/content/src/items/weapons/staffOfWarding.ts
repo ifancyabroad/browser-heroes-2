@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"Protective runes and a glowing crystal weave elemental wards around this staff, sheltering its bearer from flame, frost, and lightning.",
 	icon: "items/weapons/staves/staff_28.png",
-	price: 1400,
+	price: 3400,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "quarterstaff",

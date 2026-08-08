@@ -6,7 +6,7 @@ export default buildWeapon({
 	description:
 		"The Staff of the Archmage is an ornate rod made from dark wood, crowned with a radiant crystal that glimmers with arcane energy. It enhances spellcasting abilities, allowing the wielder to manipulate powerful spells with ease. This staff is a symbol of mastery, favored by the most powerful mages.",
 	icon: "items/weapons/staves/staff_49.png",
-	price: 1800,
+	price: 4200,
 	rarity: "legendary",
 	type: "weapon",
 	weaponType: "staff",

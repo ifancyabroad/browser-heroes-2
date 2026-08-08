@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "sunforged_helm",
 	name: "Sunforged Helm",
 	icon: "items/armour/sets/mail/Mail13_head.png",
-	price: 1700,
+	price: 2200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

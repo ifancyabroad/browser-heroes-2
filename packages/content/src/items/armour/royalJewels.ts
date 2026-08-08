@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Royal Jewels",
 	description: "A royal amulet that bestows presence, resilience, and wisdom upon its wearer.",
 	icon: "items/armour/neck/Neck_b_10.png",
-	price: 1200,
+	price: 3400,
 	rarity: "legendary",
 	type: "armour",
 	slot: "amulet",

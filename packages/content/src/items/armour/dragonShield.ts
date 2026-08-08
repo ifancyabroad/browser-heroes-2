@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"Forged in the likeness of a great wyrm, this shield lends its bearer draconic strength, command of flame, and immunity to fire.",
 	icon: "items/armour/shields/shield_47.png",
-	price: 1440,
+	price: 4800,
 	rarity: "legendary",
 	type: "armour",
 	slot: "shield",

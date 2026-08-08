@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "archmages_robe",
 	name: "Archmage's Robe",
 	icon: "items/armour/sets/cloth/Cloth17_Chest.png",
-	price: 1800,
+	price: 2600,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

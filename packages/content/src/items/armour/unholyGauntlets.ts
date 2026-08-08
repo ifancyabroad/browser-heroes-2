@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Unholy Gauntlets",
 	description: "Wreathed in darkness, these gauntlets embody the essence of the shadow.",
 	icon: "items/armour/sets/mail/Mail16_gloves.png",
-	price: 1600,
+	price: 2600,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",

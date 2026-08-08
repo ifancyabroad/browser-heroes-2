@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"A crown of enchanted gold that lends its wearer regal authority, commanding magic, and sovereign protection.",
 	icon: "items/armour/helms/Helm_61_crown.png",
-	price: 1520,
+	price: 2500,
 	rarity: "legendary",
 	type: "armour",
 	slot: "helmet",

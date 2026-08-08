@@ -6,7 +6,7 @@ export default buildArmour({
 	description:
 		"This blood-bound armour demands its wearer's safety as tribute, sharpening every strike while leaving flesh dangerously exposed.",
 	icon: "items/armour/sets/leather/Leather16_Chest.png",
-	price: 1740,
+	price: 4200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "body",

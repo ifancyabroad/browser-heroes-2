@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Boots of Insulation",
 	description: "Insulated boots that ward against bitter cold and violent storms.",
 	icon: "items/armour/boots/Boots_31.png",
-	price: 1550,
+	price: 3200,
 	rarity: "legendary",
 	type: "armour",
 	slot: "boots",

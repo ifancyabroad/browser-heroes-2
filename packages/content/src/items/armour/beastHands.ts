@@ -5,7 +5,7 @@ export default buildArmour({
 	name: "Beast Hands",
 	description: "Gloves imbued with the untamed fury of beasts, enhancing combat prowess.",
 	icon: "items/armour/gloves/HandsS2.png",
-	price: 1550,
+	price: 2900,
 	rarity: "legendary",
 	type: "armour",
 	slot: "gloves",
