@@ -27,8 +27,7 @@ export default buildItemAffix({
 			save: {
 				attribute: "constitution",
 				dc: {
-					base: 14,
-					attribute: "constitution",
+					base: 17,
 					includeProficiency: false,
 					bonus: 0,
 				},

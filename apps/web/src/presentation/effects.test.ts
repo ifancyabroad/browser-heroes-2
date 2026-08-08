@@ -57,6 +57,20 @@ describe("effect presentation", () => {
 		).toBe("Deal 10d6 Fire damage. DEX save: half damage. Uses your CON modifier.");
 	});
 
+	it("describes an attribute-free saving throw as a base DC", () => {
+		const save = {
+			attribute: "constitution" as const,
+			onSuccess: "noEffect" as const,
+			dc: {
+				base: 15,
+				includeProficiency: false,
+				bonus: 0,
+			},
+		};
+
+		expect(formatSavingThrowModifier(save)).toBe("Base DC 15.");
+	});
+
 	it("leads negated effects with the failed save", () => {
 		expect(
 			formatSkillEffect({

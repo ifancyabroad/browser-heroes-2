@@ -12,7 +12,7 @@ export default buildItemAffix({
 			timing: "onHit",
 			save: {
 				attribute: "wisdom",
-				dc: { base: 12, attribute: "wisdom", includeProficiency: false, bonus: 0 },
+				dc: { base: 15, includeProficiency: false, bonus: 0 },
 				onSuccess: "noEffect",
 			},
 			effects: [

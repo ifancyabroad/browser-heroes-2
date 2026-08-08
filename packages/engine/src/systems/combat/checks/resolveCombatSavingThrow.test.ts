@@ -5,6 +5,25 @@ import { createTestRunState } from "../../../test/createTestRunState";
 import { resolveCombatSavingThrow } from "./resolveCombatSavingThrow";
 
 describe("resolveCombatSavingThrow", () => {
+	it("resolves an attribute-free DC with save DC bonuses", () => {
+		const combat = structuredClone(createTestRunState().combat!);
+		combat.player.combatStats.saveDcBonus = 2;
+
+		const result = resolveCombatSavingThrow({
+			combat,
+			rngState: { value: 0 },
+			attackerSide: "player",
+			defenderSide: "enemy",
+			save: {
+				attribute: "constitution",
+				dc: { base: 15, includeProficiency: false, bonus: 1 },
+				onSuccess: "noEffect",
+			},
+		});
+
+		expect(result.value.dc).toBe(18);
+	});
+
 	it("forces failure and consumes one charge", () => {
 		const combat = structuredClone(createTestRunState().combat!);
 		combat.enemy = withSavingThrowModifier(combat.enemy, "automaticFailure", 2);

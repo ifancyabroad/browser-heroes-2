@@ -56,7 +56,9 @@ export function resolveSavingThrow(input: ResolveSavingThrowInput): RngResult<Sa
 
 	const dc =
 		input.save.dc.base +
-		getAttributeModifier(input.attacker, input.save.dc.attribute) +
+		(input.save.dc.attribute
+			? getAttributeModifier(input.attacker, input.save.dc.attribute)
+			: 0) +
 		(input.save.dc.includeProficiency
 			? calculateBaseProficiencyBonus(input.attacker.level)
 			: 0) +

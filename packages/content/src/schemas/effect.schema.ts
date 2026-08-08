@@ -16,7 +16,7 @@ export const saveOutcomeSchema = z.enum(["noEffect", "halfDamage"]);
 
 export const saveDcSchema = z.object({
 	base: z.number().int().default(8),
-	attribute: attributeSchema,
+	attribute: attributeSchema.optional(),
 	includeProficiency: z.boolean().default(true),
 	bonus: z.number().int().default(0),
 });

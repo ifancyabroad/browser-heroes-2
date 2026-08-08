@@ -18,8 +18,7 @@ export default buildItemAffix({
 			save: {
 				attribute: "dexterity",
 				dc: {
-					base: 12,
-					attribute: "dexterity",
+					base: 15,
 					includeProficiency: false,
 					bonus: 0,
 				},

@@ -17,8 +17,7 @@ export default buildItemAffix({
 			save: {
 				attribute: "wisdom",
 				dc: {
-					base: 12,
-					attribute: "wisdom",
+					base: 15,
 					includeProficiency: false,
 					bonus: 0,
 				},

@@ -290,7 +290,9 @@ export function formatSavingThrow(save: SavingThrow) {
 }
 
 export function formatSavingThrowModifier(save: SavingThrow) {
-	return `Uses your ${attributeShortLabels[save.dc.attribute]} modifier.`;
+	return save.dc.attribute
+		? `Uses your ${attributeShortLabels[save.dc.attribute]} modifier.`
+		: `Base DC ${save.dc.base}.`;
 }
 
 export function formatTurns(turns: number) {
