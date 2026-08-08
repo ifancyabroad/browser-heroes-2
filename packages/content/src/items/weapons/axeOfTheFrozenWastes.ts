@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "axe_of_the_frozen_wastes",
 	name: "Axe of the Frozen Wastes",
 	description:
-		"The Axe of the Frozen Wastes features a shimmering blade adorned with frost patterns. Designed for powerful swings, it delivers chilling damage, freezing foes in their tracks. Favored by northern warriors, this axe embodies the strength and harshness of winter.",
+		"A frost-patterned battleaxe favoured by northern warriors. Each heavy swing unleashes the merciless cold of the frozen wastes.",
 	icon: "items/weapons/axes/Axe_v2_46.png",
 	price: 1440,
 	rarity: "legendary",

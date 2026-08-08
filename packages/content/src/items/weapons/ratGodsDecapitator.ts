@@ -3,7 +3,8 @@ import { buildWeapon } from "../../builders/buildWeapon";
 export default buildWeapon({
 	id: "rat_gods_decapitator",
 	name: "Rat God's Decapitator",
-	description: "",
+	description:
+		"A brutal executioner's axe sacred to the Rat God. Its jagged edge tears open mortal wounds and leaves survivors exposed to further slaughter.",
 	icon: "items/weapons/axes/Axe_v2_51.png",
 	price: 2600,
 	rarity: "legendary",
@@ -25,7 +26,7 @@ export default buildWeapon({
 	],
 	attackRiders: [
 		{
-			timing: "onHit",
+			timing: "onCrit",
 			save: {
 				attribute: "constitution",
 				dc: {
@@ -40,29 +41,15 @@ export default buildWeapon({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "slashing",
-					dice: "1d6",
+					dice: "2d6",
 					duration: { unit: "turns", value: 3 },
 				},
-			],
-		},
-		{
-			timing: "onHit",
-			save: {
-				attribute: "constitution",
-				dc: {
-					base: 18,
-					includeProficiency: false,
-					bonus: 0,
-				},
-				onSuccess: "noEffect",
-			},
-			effects: [
 				{
-					type: "modifyDamageTaken",
+					type: "modifyDamageAffinity",
 					target: "enemy",
+					affinity: "vulnerability",
+					operation: "add",
 					damageType: "slashing",
-					operation: "multiply",
-					value: 1.25,
 					duration: { unit: "turns", value: 2 },
 				},
 			],
