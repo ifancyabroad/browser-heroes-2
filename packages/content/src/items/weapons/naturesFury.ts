@@ -3,7 +3,8 @@ import { buildWeapon } from "../../builders/buildWeapon";
 export default buildWeapon({
 	id: "natures_fury",
 	name: "Nature's Fury",
-	description: "",
+	description:
+		"A bow steeped in virulent natural magic, its arrows poisoning their victims and leaving them vulnerable to further venom.",
 	icon: "items/weapons/bows/Bow_v2_08.png",
 	price: 2600,
 	rarity: "legendary",
@@ -46,7 +47,7 @@ export default buildWeapon({
 			],
 		},
 		{
-			timing: "onHit",
+			timing: "onCrit",
 			save: {
 				attribute: "constitution",
 				dc: {
@@ -58,24 +59,12 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "modifyDamageTaken",
+					type: "modifyDamageAffinity",
 					target: "enemy",
+					affinity: "vulnerability",
+					operation: "add",
 					damageType: "poison",
-					operation: "multiply",
-					value: 1.25,
-					duration: { unit: "turns", value: 2 },
-				},
-			],
-		},
-		{
-			timing: "onHit",
-			effects: [
-				{
-					type: "damage",
-					target: "enemy",
-					damageType: "poison",
-					dice: "2d6",
-					requiresAttackRoll: false,
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},

@@ -22,29 +22,24 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "add",
-			value: 2,
+			value: 5,
+		},
+		{
+			type: "modifyStat",
+			stat: "saveDcBonus",
+			value: 4,
 		},
 	],
 	attackRiders: [
 		{
 			timing: "onHit",
-			save: {
-				attribute: "intelligence",
-				dc: {
-					base: 18,
-					includeProficiency: false,
-					bonus: 0,
-				},
-				onSuccess: "noEffect",
-			},
 			effects: [
 				{
-					type: "modifyDamageTaken",
+					type: "damage",
 					target: "enemy",
 					damageType: "fire",
-					operation: "multiply",
-					value: 1.25,
-					duration: { unit: "turns", value: 2 },
+					dice: "2d6",
+					requiresAttackRoll: false,
 				},
 			],
 		},

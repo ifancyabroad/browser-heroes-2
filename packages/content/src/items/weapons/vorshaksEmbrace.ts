@@ -3,7 +3,8 @@ import { buildWeapon } from "../../builders/buildWeapon";
 export default buildWeapon({
 	id: "vorshaks_embrace",
 	name: "Vorshak's Embrace",
-	description: "",
+	description:
+		"A vicious claw fashioned in Vorshak's image, feeding upon the blood it spills while tearing open wounds for the killing blow.",
 	icon: "items/weapons/claws/BrassKnuckles_v2_11.png",
 	price: 2250,
 	rarity: "legendary",
@@ -20,7 +21,7 @@ export default buildWeapon({
 		{
 			type: "modifyStat",
 			stat: "dexterity",
-			value: 2,
+			value: 4,
 		},
 	],
 	attackRiders: [
@@ -35,7 +36,7 @@ export default buildWeapon({
 			],
 		},
 		{
-			timing: "onHit",
+			timing: "onCrit",
 			save: {
 				attribute: "constitution",
 				dc: {
@@ -47,12 +48,12 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "modifyDamageTaken",
+					type: "modifyDamageAffinity",
 					target: "enemy",
+					affinity: "vulnerability",
+					operation: "add",
 					damageType: "slashing",
-					operation: "multiply",
-					value: 1.25,
-					duration: { unit: "turns", value: 2 },
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},

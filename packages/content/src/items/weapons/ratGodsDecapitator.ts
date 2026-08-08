@@ -50,7 +50,7 @@ export default buildWeapon({
 					affinity: "vulnerability",
 					operation: "add",
 					damageType: "slashing",
-					duration: { unit: "turns", value: 2 },
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},

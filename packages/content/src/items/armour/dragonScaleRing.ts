@@ -3,6 +3,8 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "dragon_scale_ring",
 	name: "Dragon Scale Ring",
+	description:
+		"Forged around an ancient dragon scale, this ring hardens its wearer against every blow and renders flame harmless.",
 	icon: "items/armour/ring/Ring_50_dragon.png",
 	price: 1650,
 	rarity: "legendary",
@@ -11,26 +13,19 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",
-			affinity: "resistance",
+			affinity: "immunity",
 			operation: "add",
 			damageType: "fire",
 		},
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "lightning",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "cold",
-		},
-		{
 			type: "modifyStat",
 			stat: "constitution",
-			value: 2,
+			value: 4,
+		},
+		{
+			type: "modifyDamageTaken",
+			operation: "add",
+			value: -4,
 		},
 	],
 	tags: [],

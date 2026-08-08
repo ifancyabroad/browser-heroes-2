@@ -21,9 +21,10 @@ export default buildArmour({
 			value: 4,
 		},
 		{
-			type: "modifyStat",
-			stat: "savingThrowBonus",
-			value: 1,
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "necrotic",
 		},
 	],
 	tags: [],

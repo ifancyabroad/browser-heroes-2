@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "lightning_trident",
 	name: "Lightning Trident",
 	description:
-		"The Lightning Trident is a formidable weapon with three sharp prongs that shimmer with electric energy. Designed for both melee combat and throwing, it can unleash arcs of lightning upon impact. Favored by storm warriors, this trident embodies the raw power of thunderstorms in battle.",
+		"A formidable trident whose three sharp prongs shimmer with electric energy, unleashing violent arcs of lightning with every impact.",
 	icon: "items/weapons/spears/Spear_v2_12.png",
 	price: 1260,
 	rarity: "legendary",
@@ -23,6 +23,11 @@ export default buildWeapon({
 			damageType: "lightning",
 			operation: "add",
 			value: 5,
+		},
+		{
+			type: "modifyStat",
+			stat: "criticalDiceMultiplierBonus",
+			value: 2,
 		},
 	],
 	attackRiders: [

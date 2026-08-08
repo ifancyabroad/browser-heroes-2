@@ -24,6 +24,11 @@ export default buildWeapon({
 			operation: "add",
 			value: 5,
 		},
+		{
+			type: "modifyStat",
+			stat: "dexterity",
+			value: 4,
+		},
 	],
 	attackRiders: [
 		{

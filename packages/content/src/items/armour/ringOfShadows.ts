@@ -19,12 +19,12 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "criticalRangeBonus",
-			value: 3,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "attackRollBonus",
-			value: 3,
+			value: 4,
 		},
 	],
 	tags: [],

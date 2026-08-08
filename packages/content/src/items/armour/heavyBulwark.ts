@@ -9,7 +9,7 @@ export default buildArmour({
 	rarity: "legendary",
 	type: "armour",
 	slot: "shield",
-	armourClass: 4,
+	armourClass: 7,
 	modifiers: [
 		{
 			type: "modifyStat",
@@ -25,6 +25,11 @@ export default buildArmour({
 			type: "modifyStat",
 			stat: "maxHpBonus",
 			value: 30,
+		},
+		{
+			type: "modifyDamageTaken",
+			operation: "add",
+			value: -5,
 		},
 	],
 	tags: [],

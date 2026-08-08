@@ -3,6 +3,8 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "warlocks_robe",
 	name: "Warlock's Robe",
+	description:
+		"Dark energies steep this robe, empowering baleful magic while shielding its wearer from the touch of death.",
 	icon: "items/armour/sets/cloth/Cloth6_Chest.png",
 	price: 1620,
 	rarity: "legendary",
@@ -25,8 +27,8 @@ export default buildArmour({
 		},
 		{
 			type: "modifyStat",
-			stat: "intelligence",
-			value: 2,
+			stat: "saveDcBonus",
+			value: 4,
 		},
 	],
 	tags: [],

@@ -3,6 +3,8 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "knights_mail",
 	name: "Knight's Mail",
+	description:
+		"Mail forged for a noble champion, reinforcing martial strength, commanding presence, and unwavering resolve.",
 	icon: "items/armour/sets/mail/Mail14_Chest.png",
 	price: 1560,
 	rarity: "legendary",
@@ -14,23 +16,17 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "strength",
-			value: 2,
-		},
-		{
-			type: "modifyStat",
-			stat: "dexterity",
-			value: 2,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "charisma",
-			value: 2,
+			value: 4,
 		},
 		{
-			type: "modifyDamage",
-			damageType: "slashing",
-			operation: "add",
-			value: 3,
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 4,
 		},
 	],
 	tags: [],

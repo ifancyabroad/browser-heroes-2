@@ -3,7 +3,8 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "gold_crown",
 	name: "Gold Crown",
-	description: "This helm combines golden splendor with superior protection.",
+	description:
+		"A crown of enchanted gold that lends its wearer regal authority, commanding magic, and sovereign protection.",
 	icon: "items/armour/helms/Helm_61_crown.png",
 	price: 1520,
 	rarity: "legendary",
@@ -11,27 +12,19 @@ export default buildArmour({
 	slot: "helmet",
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "fire",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "cold",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "lightning",
+			type: "modifyStat",
+			stat: "armourClass",
+			value: 2,
 		},
 		{
 			type: "modifyStat",
-			stat: "constitution",
-			value: 2,
+			stat: "charisma",
+			value: 4,
+		},
+		{
+			type: "modifyStat",
+			stat: "saveDcBonus",
+			value: 4,
 		},
 	],
 	tags: [],

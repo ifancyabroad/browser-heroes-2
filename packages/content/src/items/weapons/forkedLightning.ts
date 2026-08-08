@@ -30,12 +30,19 @@ export default buildWeapon({
 			operation: "add",
 			damageType: "lightning",
 		},
+	],
+	attackRiders: [
 		{
-			type: "modifyStat",
-			stat: "intelligence",
-			value: 2,
+			timing: "onCrit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					dice: "4d6",
+				},
+			],
 		},
 	],
-	attackRiders: [],
 	tags: [],
 });

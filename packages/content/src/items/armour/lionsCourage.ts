@@ -13,12 +13,17 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "charisma",
-			value: 6,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "savingThrowBonus",
-			value: 3,
+			value: 4,
+		},
+		{
+			type: "modifyStat",
+			stat: "maxHpBonus",
+			value: 25,
 		},
 	],
 	tags: [],

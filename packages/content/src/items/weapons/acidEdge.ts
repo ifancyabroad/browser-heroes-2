@@ -28,13 +28,29 @@ export default buildWeapon({
 	attackRiders: [
 		{
 			timing: "onHit",
+			save: {
+				attribute: "constitution",
+				dc: {
+					base: 18,
+					includeProficiency: false,
+					bonus: 0,
+				},
+				onSuccess: "noEffect",
+			},
 			effects: [
 				{
-					type: "damage",
+					type: "damageOverTime",
 					target: "enemy",
 					damageType: "acid",
-					dice: "1d8",
-					requiresAttackRoll: false,
+					dice: "1d6",
+					duration: { unit: "turns", value: 3 },
+				},
+				{
+					type: "modifyStat",
+					target: "enemy",
+					stat: "armourClass",
+					value: -2,
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},

@@ -24,6 +24,12 @@ export default buildWeapon({
 			operation: "add",
 			value: 5,
 		},
+		{
+			type: "modifyDamageAffinity",
+			affinity: "resistance",
+			operation: "add",
+			damageType: "fire",
+		},
 	],
 	attackRiders: [
 		{

@@ -22,6 +22,11 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "necrotic",
 			operation: "add",
+			value: 5,
+		},
+		{
+			type: "modifyStat",
+			stat: "attackRollBonus",
 			value: 4,
 		},
 	],

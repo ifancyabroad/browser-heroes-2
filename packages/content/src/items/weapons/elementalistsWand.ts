@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "elementalists_wand",
 	name: "Elementalist's Wand",
 	description:
-		"The Elementalist's Wand is a beautifully crafted rod adorned with symbols of fire, water, earth, and air. This wand allows the wielder to channel elemental magic, casting powerful spells of all four elements. Favored by versatile mages, it embodies the balance of nature’s forces in battle.",
+		"A beautifully crafted wand adorned with symbols of fire, water, earth, and air, balancing all four elements within a single weapon.",
 	icon: "items/weapons/wands/Wand_v2_72.png",
 	price: 1060,
 	rarity: "legendary",
@@ -17,7 +17,13 @@ export default buildWeapon({
 		type: "cold",
 		attribute: "intelligence",
 	},
-	modifiers: [],
+	modifiers: [
+		{
+			type: "modifyStat",
+			stat: "intelligence",
+			value: 4,
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",
@@ -26,7 +32,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "fire",
-					dice: "1d4+3",
+					dice: "1d4",
 					requiresAttackRoll: false,
 				},
 			],
@@ -38,7 +44,19 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "lightning",
-					dice: "1d4+3",
+					dice: "1d4",
+					requiresAttackRoll: false,
+				},
+			],
+		},
+		{
+			timing: "onHit",
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "crushing",
+					dice: "1d4",
 					requiresAttackRoll: false,
 				},
 			],

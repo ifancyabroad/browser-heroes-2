@@ -3,7 +3,8 @@ import { buildWeapon } from "../../builders/buildWeapon";
 export default buildWeapon({
 	id: "divine_candle",
 	name: "Divine Candle",
-	description: "",
+	description:
+		"A sacred flame burns atop this staff without consuming it, magnifying radiant power and guiding restorative prayers.",
 	icon: "items/weapons/staves/Staff_v2_35.png",
 	price: 1460,
 	rarity: "legendary",
@@ -24,15 +25,13 @@ export default buildWeapon({
 			value: 5,
 		},
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "necrotic",
+			type: "modifyHealing",
+			multiplier: 1.5,
 		},
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			value: 2,
+			value: 4,
 		},
 	],
 	attackRiders: [],

@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "ball_drainer",
 	name: "Ball Drainer",
 	description:
-		"The Ball Drainer is a unique, spiked weapon designed for devastating impact. Its heavy head and jagged edges are made to crush and incapacitate foes, inflicting pain with each strike. Favored by ruthless fighters, this weapon emphasizes brute strength and intimidation on the battlefield.",
+		"A cruel spiked flail that channels the force of every impact into its wielder, siphoning vitality from those it crushes.",
 	icon: "items/weapons/clubs/Club_v2_20.png",
 	price: 1380,
 	rarity: "legendary",
@@ -17,11 +17,25 @@ export default buildWeapon({
 		type: "crushing",
 		attribute: "strength",
 	},
-	modifiers: [],
+	modifiers: [
+		{
+			type: "modifyDamage",
+			damageType: "crushing",
+			operation: "add",
+			value: 5,
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",
 			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					dice: "1d6",
+					requiresAttackRoll: false,
+				},
 				{
 					type: "heal",
 					target: "self",

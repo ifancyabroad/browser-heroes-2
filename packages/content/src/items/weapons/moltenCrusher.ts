@@ -17,7 +17,14 @@ export default buildWeapon({
 		type: "crushing",
 		attribute: "strength",
 	},
-	modifiers: [],
+	modifiers: [
+		{
+			type: "modifyDamage",
+			damageType: "fire",
+			operation: "add",
+			value: 5,
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",
@@ -32,7 +39,7 @@ export default buildWeapon({
 			],
 		},
 		{
-			timing: "onHit",
+			timing: "onCrit",
 			save: {
 				attribute: "constitution",
 				dc: {
@@ -44,12 +51,12 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "modifyDamageTaken",
+					type: "modifyDamageAffinity",
 					target: "enemy",
+					affinity: "vulnerability",
+					operation: "add",
 					damageType: "fire",
-					operation: "multiply",
-					value: 1.25,
-					duration: { unit: "turns", value: 2 },
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},

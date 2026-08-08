@@ -17,7 +17,13 @@ export default buildWeapon({
 		type: "piercing",
 		attribute: "dexterity",
 	},
-	modifiers: [],
+	modifiers: [
+		{
+			type: "modifyStat",
+			stat: "criticalRangeBonus",
+			value: 4,
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",
@@ -35,8 +41,8 @@ export default buildWeapon({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "slashing",
-					dice: "1d4",
-					duration: { unit: "turns", value: 2 },
+					dice: "1d6",
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},

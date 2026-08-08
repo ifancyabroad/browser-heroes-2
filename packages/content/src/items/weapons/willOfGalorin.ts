@@ -3,7 +3,8 @@ import { buildWeapon } from "../../builders/buildWeapon";
 export default buildWeapon({
 	id: "will_of_galorin",
 	name: "Will of Galorin",
-	description: "",
+	description:
+		"Galorin's unyielding will burns within this staff, granting the fortitude to command fire with unmatched destructive force.",
 	icon: "items/weapons/staves/Staff_v2_52.png",
 	price: 2500,
 	rarity: "legendary",
@@ -19,11 +20,6 @@ export default buildWeapon({
 	modifiers: [
 		{
 			type: "modifyStat",
-			stat: "intelligence",
-			value: 4,
-		},
-		{
-			type: "modifyStat",
 			stat: "constitution",
 			value: 4,
 		},
@@ -31,7 +27,7 @@ export default buildWeapon({
 			type: "modifyDamage",
 			damageType: "fire",
 			operation: "add",
-			value: 8,
+			value: 10,
 		},
 	],
 	attackRiders: [],

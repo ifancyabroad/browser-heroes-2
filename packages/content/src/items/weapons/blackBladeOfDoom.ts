@@ -4,7 +4,7 @@ export default buildWeapon({
 	id: "black_blade_of_doom",
 	name: "Black Blade of Doom",
 	description:
-		"The Black Blade of Doom is a dark, menacing sword with a jet-black blade that seems to absorb light. Infused with malevolent energy, it curses those it strikes, sowing despair among enemies. This blade is favored by dark warriors and necromancers seeking to unleash chaos and destruction.",
+		"A jet-black greatsword wreathed in hellfire. Its critical blows pronounce doom upon their victims, leaving them vulnerable to every curse that follows.",
 	icon: "items/weapons/swords/Sword_26.png",
 	price: 1720,
 	rarity: "legendary",
@@ -24,12 +24,6 @@ export default buildWeapon({
 			operation: "add",
 			value: 5,
 		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "fire",
-		},
 	],
 	attackRiders: [
 		{
@@ -41,6 +35,18 @@ export default buildWeapon({
 					damageType: "fire",
 					dice: "2d6",
 					requiresAttackRoll: false,
+				},
+			],
+		},
+		{
+			timing: "onCrit",
+			effects: [
+				{
+					type: "modifyRoll",
+					target: "enemy",
+					roll: "savingThrow",
+					mode: "disadvantage",
+					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},

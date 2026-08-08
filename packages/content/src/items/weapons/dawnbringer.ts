@@ -3,7 +3,8 @@ import { buildWeapon } from "../../builders/buildWeapon";
 export default buildWeapon({
 	id: "dawnbringer",
 	name: "Dawnbringer",
-	description: "",
+	description:
+		"A radiant greatsword forged to carry the light of dawn, scorching the wicked and raising a divine barrier around those who wield it.",
 	icon: "items/weapons/swords/Sword_v2_50.png",
 	price: 3200,
 	rarity: "legendary",
@@ -38,31 +39,12 @@ export default buildWeapon({
 			],
 		},
 		{
-			timing: "onHit",
-			save: {
-				attribute: "constitution",
-				dc: {
-					base: 18,
-					includeProficiency: false,
-					bonus: 0,
-				},
-				onSuccess: "noEffect",
-			},
+			timing: "onCrit",
 			effects: [
 				{
-					type: "modifyDamageTaken",
-					target: "enemy",
-					damageType: "radiant",
-					operation: "multiply",
-					value: 1.25,
-					duration: { unit: "turns", value: 2 },
-				},
-				{
-					type: "modifyDamageTaken",
-					target: "enemy",
-					damageType: "slashing",
-					operation: "multiply",
-					value: 1.25,
+					type: "shield",
+					target: "self",
+					amount: 20,
 					duration: { unit: "turns", value: 2 },
 				},
 			],

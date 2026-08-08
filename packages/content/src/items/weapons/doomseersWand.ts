@@ -3,7 +3,8 @@ import { buildWeapon } from "../../builders/buildWeapon";
 export default buildWeapon({
 	id: "doomseers_wand",
 	name: "Doomseer's Wand",
-	description: "",
+	description:
+		"A wand carved for prophets of ruin, clouding its victims' attacks with visions of doom before exposing them to deathly magic.",
 	icon: "items/weapons/wands/Wand_v2_42.png",
 	price: 2220,
 	rarity: "legendary",
@@ -14,21 +15,21 @@ export default buildWeapon({
 	damage: {
 		dice: "1d4+5",
 		type: "necrotic",
-		attribute: "intelligence",
+		attribute: "wisdom",
 	},
 	modifiers: [
 		{
 			type: "modifyDamage",
 			damageType: "necrotic",
 			operation: "add",
-			value: 4,
+			value: 5,
 		},
 	],
 	attackRiders: [
 		{
 			timing: "onHit",
 			save: {
-				attribute: "intelligence",
+				attribute: "wisdom",
 				dc: {
 					base: 18,
 					includeProficiency: false,
@@ -38,19 +39,18 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "modifyDamageTaken",
+					type: "modifyRoll",
 					target: "enemy",
-					damageType: "necrotic",
-					operation: "multiply",
-					value: 1.25,
+					roll: "attack",
+					mode: "disadvantage",
 					duration: { unit: "turns", value: 2 },
 				},
 			],
 		},
 		{
-			timing: "onHit",
+			timing: "onCrit",
 			save: {
-				attribute: "intelligence",
+				attribute: "wisdom",
 				dc: {
 					base: 18,
 					includeProficiency: false,
@@ -60,11 +60,12 @@ export default buildWeapon({
 			},
 			effects: [
 				{
-					type: "modifyStat",
+					type: "modifyDamageAffinity",
 					target: "enemy",
-					stat: "attackRollBonus",
-					value: -2,
-					duration: { unit: "turns", value: 2 },
+					affinity: "vulnerability",
+					operation: "add",
+					damageType: "necrotic",
+					duration: { unit: "turns", value: 3 },
 				},
 			],
 		},

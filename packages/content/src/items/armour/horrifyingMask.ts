@@ -3,6 +3,8 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "horrifying_mask",
 	name: "Horrifying Mask",
+	description:
+		"A grotesque mask steeped in forbidden knowledge, sacrificing mortal charm to empower devastating necrotic magic.",
 	icon: "items/armour/helms/Helm_36_mask.png",
 	price: 1450,
 	rarity: "legendary",
@@ -24,6 +26,11 @@ export default buildArmour({
 			damageType: "necrotic",
 			operation: "add",
 			value: 5,
+		},
+		{
+			type: "modifyStat",
+			stat: "saveDcBonus",
+			value: 4,
 		},
 	],
 	tags: [],

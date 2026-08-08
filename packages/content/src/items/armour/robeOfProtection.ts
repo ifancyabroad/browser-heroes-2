@@ -3,6 +3,8 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "robe_of_protection",
 	name: "Robe of Protection",
+	description:
+		"Powerful wards woven through this robe turn aside attacks, blunt harmful magic, and soften every blow that reaches its wearer.",
 	icon: "items/armour/sets/cloth/Cloth5_Chest.png",
 	price: 1700,
 	rarity: "legendary",
@@ -12,22 +14,19 @@ export default buildArmour({
 	armourClass: 14,
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "slashing",
+			type: "modifyStat",
+			stat: "armourClass",
+			value: 2,
 		},
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "crushing",
+			type: "modifyStat",
+			stat: "savingThrowBonus",
+			value: 4,
 		},
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
+			type: "modifyDamageTaken",
 			operation: "add",
-			damageType: "piercing",
+			value: -5,
 		},
 	],
 	tags: [],

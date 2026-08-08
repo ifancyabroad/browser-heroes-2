@@ -3,7 +3,8 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "gold_armour",
 	name: "Gold Armour",
-	description: "Gilded in enchantments, this gold-plated armor radiates magical protection.",
+	description:
+		"Incorruptible enchantments suffuse this golden plate, turning aside corrosive forces and reflecting even the fiercest radiance.",
 	icon: "items/armour/chest/Chest_17.png",
 	price: 1760,
 	rarity: "legendary",
@@ -14,26 +15,20 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",
-			affinity: "resistance",
+			affinity: "immunity",
 			operation: "add",
-			damageType: "cold",
+			damageType: "acid",
 		},
 		{
 			type: "modifyDamageAffinity",
-			affinity: "resistance",
+			affinity: "immunity",
 			operation: "add",
-			damageType: "lightning",
-		},
-		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "fire",
+			damageType: "radiant",
 		},
 		{
 			type: "modifyStat",
-			stat: "constitution",
-			value: 2,
+			stat: "savingThrowBonus",
+			value: 4,
 		},
 	],
 	tags: [],

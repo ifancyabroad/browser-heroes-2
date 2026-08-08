@@ -19,16 +19,14 @@ export default buildWeapon({
 	},
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "necrotic",
+			type: "modifyHealing",
+			multiplier: 1.5,
 		},
 		{
 			type: "modifyDamage",
 			damageType: "radiant",
 			operation: "add",
-			value: 4,
+			value: 5,
 		},
 	],
 	attackRiders: [

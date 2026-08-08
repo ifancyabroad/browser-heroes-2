@@ -19,12 +19,6 @@ export default buildWeapon({
 	},
 	modifiers: [
 		{
-			type: "modifyDamageAffinity",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "lightning",
-		},
-		{
 			type: "modifyDamage",
 			damageType: "lightning",
 			operation: "add",
@@ -41,6 +35,26 @@ export default buildWeapon({
 					damageType: "lightning",
 					dice: "2d6",
 					requiresAttackRoll: false,
+				},
+			],
+		},
+		{
+			timing: "onCrit",
+			save: {
+				attribute: "constitution",
+				dc: {
+					base: 18,
+					includeProficiency: false,
+					bonus: 0,
+				},
+				onSuccess: "noEffect",
+			},
+			effects: [
+				{
+					type: "applyStatus",
+					target: "enemy",
+					statusId: "stunned",
+					duration: { unit: "turns", value: 1 },
 				},
 			],
 		},

@@ -11,13 +11,13 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyDamageAffinity",
-			affinity: "resistance",
+			affinity: "immunity",
 			operation: "add",
 			damageType: "necrotic",
 		},
 		{
 			type: "modifyDamageAffinity",
-			affinity: "resistance",
+			affinity: "immunity",
 			operation: "add",
 			damageType: "poison",
 		},

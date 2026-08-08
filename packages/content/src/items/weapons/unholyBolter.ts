@@ -38,6 +38,16 @@ export default buildWeapon({
 				},
 			],
 		},
+		{
+			timing: "onCrit",
+			effects: [
+				{
+					type: "heal",
+					target: "self",
+					dice: "1d6",
+				},
+			],
+		},
 	],
 	tags: [],
 });
