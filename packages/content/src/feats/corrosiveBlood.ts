@@ -39,12 +39,7 @@ export default buildFeat({
 					duration: { unit: "turns", value: 2 },
 					save: {
 						attribute: "constitution",
-						dc: {
-							base: 13,
-							attribute: "constitution",
-							includeProficiency: false,
-							bonus: 0,
-						},
+						dc: { attribute: "constitution" },
 						onSuccess: "noEffect",
 					},
 				},

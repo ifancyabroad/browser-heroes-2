@@ -20,12 +20,7 @@ export default buildFeat({
 			timing: "onHit",
 			save: {
 				attribute: "dexterity",
-				dc: {
-					base: 14,
-					attribute: "dexterity",
-					includeProficiency: false,
-					bonus: 0,
-				},
+				dc: { attribute: "dexterity" },
 				onSuccess: "noEffect",
 			},
 			effects: [

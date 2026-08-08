@@ -26,10 +26,8 @@ export default buildFeat({
 			save: {
 				attribute: "wisdom",
 				dc: {
-					base: 14,
 					attribute: "wisdom",
-					includeProficiency: false,
-					bonus: 0,
+					bonus: 4,
 				},
 				onSuccess: "noEffect",
 			},
