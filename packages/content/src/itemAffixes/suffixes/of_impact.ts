@@ -4,7 +4,7 @@ export default buildItemAffix({
 	id: "of_impact",
 	name: "of Impact",
 	position: "suffix",
-	rarity: "rare",
+	rarity: "uncommon",
 	weight: 1,
 	appliesTo: [
 		{

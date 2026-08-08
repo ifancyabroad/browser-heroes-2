@@ -17,10 +17,9 @@ export default buildItemAffix({
 			},
 			effects: [
 				{
-					type: "modifyDamage",
+					type: "modifyHealing",
 					target: "enemy",
-					operation: "add",
-					value: -2,
+					multiplier: 0.5,
 					duration: { unit: "turns", value: 2 },
 				},
 			],

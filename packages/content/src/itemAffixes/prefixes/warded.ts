@@ -13,8 +13,8 @@ export default buildItemAffix({
 	modifiers: [
 		{
 			type: "modifyDamageTaken",
-			operation: "multiply",
-			value: 0.9,
+			operation: "add",
+			value: -2,
 		},
 	],
 });

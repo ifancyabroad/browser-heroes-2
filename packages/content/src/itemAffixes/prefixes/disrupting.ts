@@ -6,13 +6,21 @@ export default buildItemAffix({
 	position: "prefix",
 	rarity: "rare",
 	weight: 0.75,
-	appliesTo: [{ itemTypes: ["weapon"] }],
+	appliesTo: [
+		{
+			itemTypes: ["weapon"],
+		},
+	],
 	attackRiders: [
 		{
 			timing: "onHit",
 			save: {
 				attribute: "dexterity",
-				dc: { base: 15, includeProficiency: false, bonus: 0 },
+				dc: {
+					base: 15,
+					includeProficiency: false,
+					bonus: 0,
+				},
 				onSuccess: "noEffect",
 			},
 			effects: [
@@ -20,8 +28,11 @@ export default buildItemAffix({
 					type: "modifyStat",
 					target: "enemy",
 					stat: "savingThrowBonus",
-					value: -1,
-					duration: { unit: "turns", value: 2 },
+					value: -2,
+					duration: {
+						unit: "turns",
+						value: 2,
+					},
 				},
 			],
 		},

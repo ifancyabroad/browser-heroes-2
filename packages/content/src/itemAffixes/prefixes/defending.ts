@@ -18,7 +18,7 @@ export default buildItemAffix({
 				{
 					type: "shield",
 					target: "self",
-					amount: 10,
+					amount: 15,
 					duration: {
 						unit: "turns",
 						value: 2,

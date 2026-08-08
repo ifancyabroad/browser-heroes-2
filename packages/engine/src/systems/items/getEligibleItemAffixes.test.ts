@@ -286,6 +286,64 @@ describe("getEligibleItemAffixes", () => {
 		expect(swordEpicPrefixes).toEqual(expect.arrayContaining(epicRiders));
 	});
 
+	it("provides simple on-hit rider progressions where no damage-over-time family exists", () => {
+		const progressions = [
+			["frosted", "icy", "permafrost", "cold"],
+			["concussive", "pulverising", "earthshaking", "crushing"],
+			["storming", "electrified", "tempestuous", "lightning"],
+			["necrotic", "funereal", "deathbound", "necrotic"],
+			["puncturing", "impaling", "transfixing", "piercing"],
+			["radiant", "sacred", "dawnbound", "radiant"],
+			["rending", "serrated", "severing", "slashing"],
+		] as const;
+
+		for (const [uncommonId, rareId, epicId, damageType] of progressions) {
+			for (const [id, rarity, dice] of [
+				[uncommonId, "uncommon", "1d4"],
+				[rareId, "rare", "1d6"],
+				[epicId, "epic", "1d8"],
+			] as const) {
+				expect(ITEMAFFIXES_BY_ID[id]).toMatchObject({ rarity });
+				expect(ITEMAFFIXES_BY_ID[id].attackRiders).toContainEqual(
+					expect.objectContaining({
+						timing: "onHit",
+						effects: [expect.objectContaining({ type: "damage", damageType, dice })],
+					}),
+				);
+			}
+		}
+	});
+
+	it("uses a non-stacking critical progression across affix positions", () => {
+		expect(ITEMAFFIXES_BY_ID.of_impact).toMatchObject({
+			rarity: "uncommon",
+			position: "suffix",
+			modifiers: [{ stat: "criticalDiceMultiplierBonus", value: 1 }],
+		});
+		expect(ITEMAFFIXES_BY_ID.of_devastation).toMatchObject({
+			rarity: "rare",
+			position: "suffix",
+			modifiers: [{ stat: "criticalDiceMultiplierBonus", value: 2 }],
+		});
+		expect(ITEMAFFIXES_BY_ID.brutal).toMatchObject({
+			rarity: "epic",
+			position: "prefix",
+			modifiers: [{ stat: "criticalDiceMultiplierBonus", value: 4 }],
+		});
+	});
+
+	it("provides epic immunity counterparts to elemental resistances", () => {
+		expect(getAffixIds(ITEMBASES_BY_ID.base_boots, "epic", "suffix")).toEqual(
+			expect.arrayContaining(["of_the_alkaline", "of_the_unfrozen", "of_the_stormless"]),
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_gauntlets, "epic", "suffix")).toContain(
+			"of_the_alkaline",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_gauntlets, "epic", "suffix")).not.toContain(
+			"of_the_unfrozen",
+		);
+	});
+
 	it("matches physical affixes to the weapon's base damage type", () => {
 		expect(getAffixIds(ITEMBASES_BY_ID.base_longsword, "uncommon", "prefix")).toContain(
 			"sharp",
@@ -294,6 +352,9 @@ describe("getEligibleItemAffixes", () => {
 			"sharp",
 		);
 		expect(getAffixIds(ITEMBASES_BY_ID.base_spear, "uncommon", "prefix")).toContain("barbed");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_longsword, "rare", "prefix")).toContain("serrated");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_spear, "rare", "prefix")).not.toContain("serrated");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_spear, "epic", "prefix")).toContain("transfixing");
 	});
 
 	it("combines weapon family and damage type restrictions", () => {

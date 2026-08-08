@@ -20,7 +20,7 @@ export default buildItemAffix({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "poison",
-					dice: "1d4",
+					dice: "1d6",
 					duration: { unit: "turns", value: 3 },
 				},
 			],
