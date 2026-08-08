@@ -3,7 +3,7 @@ import { buildArmour } from "../../builders/buildArmour";
 export default buildArmour({
 	id: "royal_jewels",
 	name: "Royal Jewels",
-	description: "A Royal Amulet that bestows wisdom and strength to its wearer.",
+	description: "A royal amulet that bestows presence, resilience, and wisdom upon its wearer.",
 	icon: "items/armour/neck/Neck_b_10.png",
 	price: 1200,
 	rarity: "legendary",
@@ -13,17 +13,17 @@ export default buildArmour({
 		{
 			type: "modifyStat",
 			stat: "charisma",
-			value: 3,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "constitution",
-			value: 3,
+			value: 4,
 		},
 		{
 			type: "modifyStat",
 			stat: "wisdom",
-			value: 3,
+			value: 4,
 		},
 	],
 	tags: [],
