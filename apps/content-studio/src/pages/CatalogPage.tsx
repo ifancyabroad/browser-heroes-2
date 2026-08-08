@@ -167,7 +167,23 @@ export function CatalogPage() {
 									{catalog.columns.map((column) => (
 										<td
 											key={column.key}
-											className={column.numeric ? "numeric" : undefined}
+											className={
+												[
+													column.numeric ? "numeric" : "",
+													column.key === "modifiers" ||
+													column.key === "riders"
+														? "summary-cell"
+														: "",
+												]
+													.filter(Boolean)
+													.join(" ") || undefined
+											}
+											title={
+												column.key === "modifiers" ||
+												column.key === "riders"
+													? String(entry.cells[column.key] ?? "")
+													: undefined
+											}
 										>
 											<Link
 												to={`/${category}/${entry.id}`}

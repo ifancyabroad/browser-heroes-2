@@ -137,4 +137,18 @@ describe("content catalogs", () => {
 		expect(plaguebearer.cells.riders).toContain("2 turns");
 		expect(plaguebearer.searchText).toContain("2 turns");
 	});
+
+	it("uses compact human-readable modifier and rider summaries", () => {
+		const potentCasting = catalogByKey.feats.entries.find(
+			(entry) => entry.id === "potent_casting",
+		)!;
+		const plaguebearer = catalogByKey.feats.entries.find(
+			(entry) => entry.id === "plaguebearer",
+		)!;
+
+		expect(potentCasting.cells.modifiers).not.toMatch(/modify[A-Z]/);
+		expect(potentCasting.cells.modifiers).toBe("+4 save DC · +3 saves · -3 attack");
+		expect(plaguebearer.cells.riders).toMatch(/^Hit: /);
+		expect(plaguebearer.cells.riders).not.toContain("damageOverTime");
+	});
 });

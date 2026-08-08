@@ -16,6 +16,7 @@ import {
 	type ItemBase,
 	type Skill,
 } from "@app/content";
+import { modifierSummary, riderSummary } from "./summaries";
 
 export type CategoryKey =
 	| "enemies"
@@ -162,39 +163,6 @@ const effectDurations = (effects: readonly unknown[]) => {
 
 const durationSummary = (effects: readonly unknown[]) =>
 	unique(effectDurations(effects).map(({ unit, value }) => `${value} ${unit}`));
-
-const modifierSummary = (modifiers: readonly unknown[]) =>
-	join(
-		modifiers.map((modifier) => {
-			const value = modifier as {
-				type: string;
-				stat?: string;
-				damageType?: string;
-				affinity?: string;
-				operation?: string;
-				value?: number;
-				multiplier?: number;
-			};
-			return join([
-				value.type,
-				value.stat ?? value.damageType ?? value.affinity,
-				value.operation,
-				value.value ?? value.multiplier,
-			]);
-		}),
-	);
-
-const riderSummary = (
-	riders: readonly { timing: string; effects: readonly { type: string }[] }[],
-) =>
-	join(
-		riders.map((rider) =>
-			join([
-				`${rider.timing}: ${join(describeEffects(rider.effects))}`,
-				...durationSummary(rider.effects),
-			]),
-		),
-	);
 
 const applicabilityRuleSummary = (rule: {
 	itemTypes?: readonly string[];

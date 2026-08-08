@@ -263,6 +263,17 @@ td a {
 	display: block;
 	min-height: 20px;
 }
+.summary-cell {
+	max-width: 260px;
+	white-space: normal;
+	line-height: 1.35;
+}
+.summary-cell a {
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
 .sort {
 	border: 0;
 	background: transparent;
