@@ -18,7 +18,7 @@ export function HistoryFilters({
 	onSearchInputChange,
 }: HistoryFiltersProps) {
 	return (
-		<div className="flex flex-wrap items-end gap-3 border-y-2 border-border-secondary bg-bg-panel p-3">
+		<div className="flex flex-wrap items-end gap-3 border-b-2 border-border-secondary bg-bg-panel p-3">
 			<InputField
 				id="history-search"
 				type="search"
