@@ -30,6 +30,11 @@ export default buildSkill({
 			roll: "attack",
 			mode: "disadvantage",
 			duration: { unit: "turns", value: 2 },
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "intelligence" },
+			},
 		},
 	],
 	tags: [],
