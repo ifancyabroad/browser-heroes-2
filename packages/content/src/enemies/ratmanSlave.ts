@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ratman Slave",
 	portrait: "enemies/desert/ratman_slave.png",
 	rank: "normal",
-	threat: 6,
+	threat: 8,
 	attributes: {
 		strength: 8,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d6",
-		armourClass: 12,
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

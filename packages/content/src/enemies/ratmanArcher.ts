@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ratman Archer",
 	portrait: "enemies/desert/ratman_archer.png",
 	rank: "normal",
-	threat: 10,
+	threat: 12,
 	attributes: {
 		strength: 8,
 		dexterity: 16,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 12,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Longbow",
+			name: "Fine Longbow",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d8",
+				dice: "1d8+1",
 				type: "piercing",
 				attribute: "dexterity",
 			},

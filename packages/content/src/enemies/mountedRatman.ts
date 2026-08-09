@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Mounted Ratman",
 	portrait: "enemies/desert/mounted_ratman.png",
 	rank: "normal",
-	threat: 12,
+	threat: 13,
 	attributes: {
 		strength: 14,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 12,
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

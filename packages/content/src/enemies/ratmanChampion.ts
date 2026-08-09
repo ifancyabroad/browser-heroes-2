@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ratman Champion",
 	portrait: "enemies/desert/ratman_champion.png",
 	rank: "normal",
-	threat: 15,
+	threat: 16,
 	attributes: {
 		strength: 16,
 		dexterity: 16,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 20,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Longsword",
+			name: "Fine Longsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d8+1",
 				type: "slashing",
 				attribute: "strength",
 			},

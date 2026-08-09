@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Avatar of Rit Chi",
 	portrait: "enemies/desert/avatar_of_rit_chi.png",
 	rank: "boss",
-	threat: 18,
+	threat: 19,
 	attributes: {
 		strength: 19,
 		dexterity: 16,

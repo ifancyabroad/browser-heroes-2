@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Rat Ogre",
 	portrait: "enemies/desert/rat_ogre.png",
 	rank: "normal",
-	threat: 14,
+	threat: 15,
 	attributes: {
 		strength: 18,
 		dexterity: 14,
@@ -23,11 +23,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Bite",
+			name: "Bone Claws",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8",
-				type: "piercing",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},

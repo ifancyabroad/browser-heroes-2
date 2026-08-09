@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "The Hellfire Catapult",
 	portrait: "enemies/desert/the_hellfire_catapult.png",
 	rank: "boss",
-	threat: 17,
+	threat: 18,
 	attributes: {
 		strength: 20,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d12",
-		armourClass: 16,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: ["poison"],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Hellfire Shot",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d8",
+				dice: "1d12+2",
 				type: "crushing",
 				attribute: "strength",
 			},

@@ -16,18 +16,18 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 12,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Dagger",
+			name: "Twin Daggers",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "slashing",
+				dice: "2d4+1",
+				type: "piercing",
 				attribute: "dexterity",
 			},
 		},

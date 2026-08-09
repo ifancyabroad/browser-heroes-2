@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ratman Shaman",
 	portrait: "enemies/desert/ratman_shaman.png",
 	rank: "normal",
-	threat: 11,
+	threat: 13,
 	attributes: {
 		strength: 10,
 		dexterity: 16,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 12,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Spear",
+			name: "Fine Spear",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8",
+				dice: "1d8+1",
 				type: "piercing",
 				attribute: "strength",
 			},

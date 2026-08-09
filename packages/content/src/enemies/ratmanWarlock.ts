@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ratman Warlock",
 	portrait: "enemies/desert/ratman_warlock.png",
 	rank: "normal",
-	threat: 13,
+	threat: 14,
 	attributes: {
 		strength: 10,
 		dexterity: 16,
@@ -16,22 +16,22 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 12,
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Quarterstaff",
-			attackAttribute: "strength",
+			name: "Necrotic Staff",
+			attackAttribute: "intelligence",
 			damage: {
-				dice: "1d8",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8+1",
+				type: "necrotic",
+				attribute: "intelligence",
 			},
 		},
-		skillIds: ["embrace_shadows", "flame_arrow", "shadow_bolt", "blind"],
+		skillIds: ["embrace_shadows", "flame_arrow", "blind"],
 		featIds: [],
 		tactic: "caster",
 	},
