@@ -15,7 +15,7 @@ export default buildEnemy({
 		charisma: 4,
 	},
 	combat: {
-		hitDie: "1d4",
+		hitDie: "1d8",
 		armourClass: 6,
 		damageAffinities: {
 			resistances: [],
@@ -30,6 +30,7 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "dexterity",
 			},
+			attackRiders: [],
 		},
 		skillIds: ["poison_bite", "growth"],
 		featIds: [],

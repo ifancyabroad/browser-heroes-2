@@ -10,6 +10,10 @@ describe("calculateMaxHpForLevel", () => {
 		expect(calculateMaxHpForLevel("1d10", 16, 3)).toBe(31);
 	});
 
+	it("supports d20 hit dice", () => {
+		expect(calculateMaxHpForLevel("1d20", 20, 10)).toBe(169);
+	});
+
 	it("normalises levels below one and guarantees positive gains", () => {
 		expect(calculateMaxHpForLevel("1d6", 1, 0)).toBe(1);
 		expect(calculateMaxHpForLevel("1d6", 1, 3)).toBe(3);

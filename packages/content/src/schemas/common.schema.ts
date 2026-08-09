@@ -121,7 +121,7 @@ export const diceFormulaSchema = z
 		"Expected a valid dice formula such as 1d6, 2d8+3, or 1d20-1",
 	);
 
-export const hitDieSchema = z.enum(["1d4", "1d6", "1d8", "1d10", "1d12"]);
+export const hitDieSchema = z.enum(["1d4", "1d6", "1d8", "1d10", "1d12", "1d20"]);
 
 export const skillPools = [
 	"assassin",
