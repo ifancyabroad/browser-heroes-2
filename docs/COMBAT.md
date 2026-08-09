@@ -126,7 +126,7 @@ Damage may derive from weapons, skills, attributes, proficiencies, feats, items,
 
 Incoming damage modifiers and affinities may increase, reduce, or prevent damage. They may derive from attributes, feats, items, saving throws, and temporary effects. Armour class instead affects whether attacks hit.
 
-Damage affinities include normal, resistant, immune, and vulnerable outcomes. Combat logs should make important outcomes understandable.
+Damage affinities include normal, resistant, immune, and vulnerable outcomes. Resistance and vulnerability for the same damage type cancel each other out, while immunity still prevents damage. Combat logs should make important outcomes understandable.
 
 ## 8. Skills and Consumables
 

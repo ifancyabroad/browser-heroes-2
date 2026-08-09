@@ -14,11 +14,18 @@ export function getDamageAffinity(
 		return "immune";
 	}
 
-	if (affinities.vulnerabilities.includes(damageType)) {
+	const isResistant = affinities.resistances.includes(damageType);
+	const isVulnerable = affinities.vulnerabilities.includes(damageType);
+
+	if (isResistant && isVulnerable) {
+		return "normal";
+	}
+
+	if (isVulnerable) {
 		return "vulnerable";
 	}
 
-	if (affinities.resistances.includes(damageType)) {
+	if (isResistant) {
 		return "resistant";
 	}
 

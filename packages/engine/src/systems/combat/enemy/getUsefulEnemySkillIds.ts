@@ -184,10 +184,17 @@ function getAffinityRank(
 	if (affinities.immunities.includes(damageType)) {
 		return 0;
 	}
-	if (affinities.vulnerabilities.includes(damageType)) {
+
+	const isResistant = affinities.resistances.includes(damageType);
+	const isVulnerable = affinities.vulnerabilities.includes(damageType);
+
+	if (isResistant && isVulnerable) {
+		return 2;
+	}
+	if (isVulnerable) {
 		return 3;
 	}
-	if (affinities.resistances.includes(damageType)) {
+	if (isResistant) {
 		return 1;
 	}
 	return 2;

@@ -38,4 +38,36 @@ describe("getDamageAffinity", () => {
 		expect(getDamageAffinity(defender, "acid")).toBe("vulnerable");
 		expect(getDamageAffinity(defender, "slashing")).toBe("normal");
 	});
+
+	it("cancels resistance and vulnerability for the same damage type", () => {
+		const defender: CombatantState = {
+			...createTestRunState().combat!.enemy,
+			combatStats: {
+				...createTestRunState().combat!.enemy.combatStats,
+				damageAffinities: {
+					resistances: ["cold"],
+					immunities: [],
+					vulnerabilities: ["cold"],
+				},
+			},
+		};
+
+		expect(getDamageAffinity(defender, "cold")).toBe("normal");
+	});
+
+	it("keeps immunity when all affinities apply to the same damage type", () => {
+		const defender: CombatantState = {
+			...createTestRunState().combat!.enemy,
+			combatStats: {
+				...createTestRunState().combat!.enemy.combatStats,
+				damageAffinities: {
+					resistances: ["fire"],
+					immunities: ["fire"],
+					vulnerabilities: ["fire"],
+				},
+			},
+		};
+
+		expect(getDamageAffinity(defender, "fire")).toBe("immune");
+	});
 });
