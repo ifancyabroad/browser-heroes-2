@@ -23,6 +23,7 @@ Consult the relevant docs before changing related systems:
 - Prefer explicitness over hidden behavior
 - Prefer composition over inheritance
 - Ask for clarification rather than guessing
+- Keep conversational answers concise
 
 ---
 
