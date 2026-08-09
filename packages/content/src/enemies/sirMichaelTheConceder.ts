@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Sir Michael the Conceder",
 	portrait: "enemies/castle/sir_michael_the_conceder.png",
 	rank: "boss",
-	threat: 14,
+	threat: 15,
 	attributes: {
 		strength: 18,
 		dexterity: 16,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d10",
-		armourClass: 19,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Spear",
+			name: "Michael's Lance",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8",
+				dice: "1d8+1",
 				type: "piercing",
 				attribute: "strength",
 			},

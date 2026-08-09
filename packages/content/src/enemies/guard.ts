@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Guard",
 	portrait: "enemies/castle/guard.png",
 	rank: "normal",
-	threat: 9,
+	threat: 10,
 	attributes: {
 		strength: 10,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 11,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

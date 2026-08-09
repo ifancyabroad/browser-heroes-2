@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Brute",
 	portrait: "enemies/castle/brute.png",
 	rank: "normal",
-	threat: 12,
+	threat: 13,
 	attributes: {
 		strength: 14,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 14,
+		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

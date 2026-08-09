@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Ballista Bolt",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
+				dice: "1d10+2",
 				type: "piercing",
 				attribute: "strength",
 			},

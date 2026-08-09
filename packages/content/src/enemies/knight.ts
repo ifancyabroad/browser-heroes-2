@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Knight",
 	portrait: "enemies/castle/knight.png",
 	rank: "normal",
-	threat: 13,
+	threat: 14,
 	attributes: {
 		strength: 16,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 19,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Longsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d8",
 				type: "slashing",
 				attribute: "strength",
 			},
