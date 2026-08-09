@@ -6,7 +6,7 @@ export default buildEnemy({
 	description: "A dragon.",
 	portrait: "enemies/volcano/drakus_the_awakened.png",
 	rank: "boss",
-	threat: 23,
+	threat: 26,
 	attributes: {
 		strength: 27,
 		dexterity: 10,
@@ -36,7 +36,7 @@ export default buildEnemy({
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
+				dice: "2d10",
 				type: "piercing",
 				attribute: "strength",
 			},

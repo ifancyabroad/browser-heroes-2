@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Basilisk",
 	portrait: "enemies/volcano/basilisk.png",
 	rank: "normal",
-	threat: 11,
+	threat: 16,
 	attributes: {
 		strength: 12,
 		dexterity: 13,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d6",
-		armourClass: 11,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: ["fire"],
 			immunities: [],
@@ -26,12 +26,42 @@ export default buildEnemy({
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d8",
 				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "poison",
+							dice: "3d4",
+							save: {
+								attribute: "constitution",
+								onSuccess: "halfDamage",
+								dc: { attribute: "constitution" },
+							},
+						},
+						{
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "2d4",
+							duration: { unit: "turns", value: 4 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["petrifying_gaze", "leap_attack", "toxic_bite"],
+		skillIds: ["petrifying_gaze", "leap_attack"],
 		featIds: [],
 		tactic: "aggressive",
 	},

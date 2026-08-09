@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Pit Fiend Yagamon",
 	portrait: "enemies/volcano/pit_fiend_yagamon.png",
 	rank: "boss",
-	threat: 22,
+	threat: 26,
 	attributes: {
 		strength: 26,
 		dexterity: 14,
@@ -26,12 +26,25 @@ export default buildEnemy({
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
+				dice: "2d8",
 				type: "crushing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "fire",
+							dice: "2d6",
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["double_strike", "fireball", "fire_strike", "yagamons_revenge"],
+		skillIds: ["double_strike", "fireball", "yagamons_revenge"],
 		featIds: [],
 		tactic: "default",
 	},

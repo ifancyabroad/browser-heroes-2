@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Golem",
 	portrait: "enemies/volcano/golem.png",
 	rank: "normal",
-	threat: 19,
+	threat: 22,
 	attributes: {
 		strength: 22,
 		dexterity: 9,

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Fire Snake",
 	portrait: "enemies/volcano/fire_snake.png",
 	rank: "normal",
-	threat: 13,
+	threat: 18,
 	attributes: {
 		strength: 19,
 		dexterity: 14,
@@ -30,8 +30,21 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "fire",
+							dice: "1d10",
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["constrict", "flame_bite"],
+		skillIds: ["constrict"],
 		featIds: [],
 		tactic: "aggressive",
 	},

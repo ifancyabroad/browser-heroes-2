@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Beholder",
 	portrait: "enemies/volcano/beholder.png",
 	rank: "normal",
-	threat: 18,
+	threat: 22,
 	attributes: {
 		strength: 10,
 		dexterity: 14,

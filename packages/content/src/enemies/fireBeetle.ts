@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Fire Beetle",
 	portrait: "enemies/volcano/fire_beetle.png",
 	rank: "normal",
-	threat: 12,
+	threat: 18,
 	attributes: {
 		strength: 8,
 		dexterity: 10,

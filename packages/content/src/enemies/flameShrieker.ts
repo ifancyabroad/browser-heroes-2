@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Flame Shrieker",
 	portrait: "enemies/volcano/flame_shrieker.png",
 	rank: "normal",
-	threat: 14,
+	threat: 18,
 	attributes: {
 		strength: 18,
 		dexterity: 16,

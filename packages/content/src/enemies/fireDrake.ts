@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Fire Drake",
 	portrait: "enemies/volcano/fire_drake.png",
 	rank: "normal",
-	threat: 17,
+	threat: 20,
 	attributes: {
 		strength: 21,
 		dexterity: 13,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d10",
-		armourClass: 15,
+		armourClass: 17,
 		damageAffinities: {
 			resistances: ["lightning"],
 			immunities: ["fire"],

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Living Flame",
 	portrait: "enemies/volcano/living_flame.png",
 	rank: "normal",
-	threat: 18,
+	threat: 21,
 	attributes: {
 		strength: 9,
 		dexterity: 14,
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Burning Touch",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d6",
+				dice: "1d8",
 				type: "fire",
 				attribute: "dexterity",
 			},
