@@ -18,16 +18,25 @@ describe("applyEndlessEnemyScaling", () => {
 		expect(applyEndlessEnemyScaling(enemy, 0)).toBe(enemy);
 	});
 
-	it("increases damage and reduces damage taken for each endless cycle", () => {
+	it("adds half of base damage for each endless cycle", () => {
 		const scaledEnemy = applyEndlessEnemyScaling(createEnemy(), 2);
 
 		expect(scaledEnemy.combatStats.damageModifiers).toEqual([
 			{ operation: "add", value: 2 },
-			{ operation: "multiply", value: 1.5 },
+			{ operation: "multiply", value: 2 },
 		]);
+	});
+
+	it.each([
+		[1, 0.5],
+		[2, 0.25],
+		[3, 0.125],
+	])("halves damage taken in endless cycle %i", (endlessCycle, multiplier) => {
+		const scaledEnemy = applyEndlessEnemyScaling(createEnemy(), endlessCycle);
+
 		expect(scaledEnemy.combatStats.damageTakenModifiers).toEqual([
 			{ operation: "multiply", value: 0.9 },
-			{ operation: "multiply", value: 0.5625 },
+			{ operation: "multiply", value: multiplier },
 		]);
 	});
 });
