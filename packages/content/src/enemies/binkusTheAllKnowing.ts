@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Binkus the All Knowing",
 	portrait: "enemies/dungeon/binkus_the_all_knowing.png",
 	rank: "boss",
-	threat: 25,
+	threat: 29,
 	attributes: {
 		strength: 8,
 		dexterity: 14,
@@ -33,11 +33,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Staff of the Archmage",
-			attackAttribute: "strength",
+			attackAttribute: "intelligence",
 			damage: {
-				dice: "2d6+1",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8+4",
+				type: "lightning",
+				attribute: "intelligence",
 			},
 		},
 		skillIds: [

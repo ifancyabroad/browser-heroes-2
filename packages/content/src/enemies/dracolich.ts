@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Dracolich",
 	portrait: "enemies/dungeon/dracolich.png",
 	rank: "normal",
-	threat: 20,
+	threat: 26,
 	attributes: {
 		strength: 22,
 		dexterity: 14,

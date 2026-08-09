@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Wretch",
 	portrait: "enemies/dungeon/wretch.png",
 	rank: "normal",
-	threat: 10,
+	threat: 16,
 	attributes: {
 		strength: 12,
 		dexterity: 16,

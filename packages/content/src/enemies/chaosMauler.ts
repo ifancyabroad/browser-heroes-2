@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Chaos Mauler",
 	portrait: "enemies/dungeon/chaos_mauler.png",
 	rank: "normal",
-	threat: 19,
+	threat: 25,
 	attributes: {
 		strength: 22,
 		dexterity: 12,
@@ -32,10 +32,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Fine Warhammer",
+			name: "Masterwork Warhammer",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d10+1",
+				dice: "1d10+4",
 				type: "crushing",
 				attribute: "strength",
 			},

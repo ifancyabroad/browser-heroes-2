@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Chaos Knight",
 	portrait: "enemies/dungeon/chaos_knight.png",
 	rank: "normal",
-	threat: 17,
+	threat: 25,
 	attributes: {
 		strength: 20,
 		dexterity: 18,
@@ -32,10 +32,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Greatsword",
+			name: "Masterwork Greatsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
+				dice: "2d6+4",
 				type: "slashing",
 				attribute: "strength",
 			},

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Vilespawn",
 	portrait: "enemies/dungeon/vilespawn.png",
 	rank: "normal",
-	threat: 15,
+	threat: 22,
 	attributes: {
 		strength: 18,
 		dexterity: 14,
@@ -30,8 +30,38 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "poison",
+							dice: "3d4",
+							save: {
+								attribute: "constitution",
+								onSuccess: "halfDamage",
+								dc: { attribute: "constitution" },
+							},
+						},
+						{
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "2d4",
+							duration: { unit: "turns", value: 4 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["leap_attack", "overpower", "toxic_bite"],
+		skillIds: ["leap_attack", "overpower"],
 		featIds: [],
 		tactic: "aggressive",
 	},

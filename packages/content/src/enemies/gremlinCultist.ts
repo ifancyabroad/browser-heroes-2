@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Gremlin Cultist",
 	portrait: "enemies/dungeon/gremlin_cultist.png",
 	rank: "normal",
-	threat: 14,
+	threat: 20,
 	attributes: {
 		strength: 8,
 		dexterity: 14,
@@ -23,12 +23,12 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Quarterstaff",
-			attackAttribute: "strength",
+			name: "Necrotic Staff",
+			attackAttribute: "wisdom",
 			damage: {
-				dice: "1d8",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8+4",
+				type: "necrotic",
+				attribute: "wisdom",
 			},
 		},
 		skillIds: ["curse", "chosen_by_the_nameless", "drain_life", "power_word_confusion"],

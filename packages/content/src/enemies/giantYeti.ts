@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Giant Yeti",
 	portrait: "enemies/dungeon/giant_yeti.png",
 	rank: "normal",
-	threat: 19,
+	threat: 25,
 	attributes: {
 		strength: 24,
 		dexterity: 14,

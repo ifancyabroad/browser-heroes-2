@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Hell Guard",
 	portrait: "enemies/dungeon/hell_guard.png",
 	rank: "normal",
-	threat: 16,
+	threat: 23,
 	attributes: {
 		strength: 16,
 		dexterity: 22,
@@ -32,10 +32,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Fine Crossbow",
+			name: "Masterwork Crossbow",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d8+1",
+				dice: "1d8+4",
 				type: "piercing",
 				attribute: "dexterity",
 			},

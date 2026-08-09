@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "The Nameless One",
 	portrait: "enemies/dungeon/the_nameless_one.png",
 	rank: "boss",
-	threat: 26,
+	threat: 30,
 	attributes: {
 		strength: 26,
 		dexterity: 18,
