@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { PageLayout } from "../components/PageLayout";
 import { Tabs } from "../components/Tabs";
 import { useAuth } from "../features/auth";
@@ -52,6 +53,7 @@ export default function History() {
 					/>
 				</Card>
 			</Container>
+			<Footer />
 		</PageLayout>
 	);
 }

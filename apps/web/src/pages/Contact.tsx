@@ -2,6 +2,7 @@ import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { InputField, TextareaField } from "../components/FormFields";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { PageLayout } from "../components/PageLayout";
 import { useSendContactMessage } from "../features/contact";
 
@@ -70,6 +71,7 @@ export default function Contact() {
 					{contact.data && <p className="text-success">{contact.data.message}</p>}
 				</form>
 			</Container>
+			<Footer />
 		</PageLayout>
 	);
 }

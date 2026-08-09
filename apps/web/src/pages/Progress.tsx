@@ -1,6 +1,7 @@
 import { achievements } from "@app/content";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { PageLayout } from "../components/PageLayout";
 import { AchievementGrid, useAchievements } from "../features/achievements";
 import { useAuth } from "../features/auth";
@@ -36,6 +37,7 @@ export default function Progress() {
 					)}
 				</section>
 			</Container>
+			<Footer />
 		</PageLayout>
 	);
 }

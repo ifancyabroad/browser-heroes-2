@@ -2,6 +2,7 @@ import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { InputField } from "../components/FormFields";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { PageLayout } from "../components/PageLayout";
 import { useRequestPasswordReset } from "../features/auth";
 
@@ -52,6 +53,7 @@ export default function ForgotPassword() {
 					)}
 				</form>
 			</Container>
+			<Footer />
 		</PageLayout>
 	);
 }

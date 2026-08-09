@@ -2,6 +2,7 @@ import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { PageLayout } from "../components/PageLayout";
 import { useAuth, useLogout } from "../features/auth";
 
@@ -44,6 +45,7 @@ export default function Account() {
 					</Button>
 				</section>
 			</Container>
+			<Footer />
 		</PageLayout>
 	);
 }

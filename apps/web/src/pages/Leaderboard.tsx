@@ -9,6 +9,7 @@ import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { PageLayout } from "../components/PageLayout";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { Tabs } from "../components/Tabs";
 import { TablePagination } from "../components/TablePagination";
 import { useAuth } from "../features/auth";
@@ -179,6 +180,7 @@ export default function Leaderboard() {
 				</Card>
 			</Container>
 			<HeroDossierModal runId={selectedRunId} onClose={() => setSelectedRunId(null)} />
+			<Footer />
 		</PageLayout>
 	);
 }

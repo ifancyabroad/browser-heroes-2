@@ -1,6 +1,7 @@
 import { ButtonLink } from "../components/Button";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { PageLayout } from "../components/PageLayout";
 
 export default function NotFound() {
@@ -16,6 +17,7 @@ export default function NotFound() {
 					</ButtonLink>
 				</div>
 			</Container>
+			<Footer />
 		</PageLayout>
 	);
 }

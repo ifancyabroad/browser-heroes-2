@@ -7,6 +7,7 @@ import { Button, ButtonLink } from "../components/Button";
 import { PageLayout } from "../components/PageLayout";
 import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { Container } from "../components/Container";
 import browserHeroesLogo from "../assets/images/logos/browser_heroes.png";
 
@@ -71,6 +72,7 @@ export default function Landing() {
 					)}
 				</div>
 			</Container>
+			<Footer />
 		</PageLayout>
 	);
 }
