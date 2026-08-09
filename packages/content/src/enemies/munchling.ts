@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Munchling",
 	portrait: "enemies/ocean/munchling.png",
 	rank: "normal",
-	threat: 11,
+	threat: 15,
 	attributes: {
 		strength: 14,
 		dexterity: 17,
@@ -30,8 +30,33 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "dexterity",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "cold",
+							dice: "1d8",
+						},
+						{
+							type: "modifyRoll",
+							target: "enemy",
+							roll: "attack",
+							mode: "disadvantage",
+							duration: { unit: "turns", value: 2 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["go_for_the_eyes", "cold_bite"],
+		skillIds: ["go_for_the_eyes"],
 		featIds: [],
 		tactic: "aggressive",
 	},

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Void Creeper",
 	portrait: "enemies/ocean/void_creeper.png",
 	rank: "normal",
-	threat: 17,
+	threat: 19,
 	attributes: {
 		strength: 9,
 		dexterity: 14,
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Tendril Strike",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
+				dice: "1d6",
 				type: "crushing",
 				attribute: "dexterity",
 			},

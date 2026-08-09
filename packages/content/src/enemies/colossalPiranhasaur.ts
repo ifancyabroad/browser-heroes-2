@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Colossal Piranhasaur",
 	portrait: "enemies/ocean/colossal_piranhasaur.png",
 	rank: "normal",
-	threat: 16,
+	threat: 19,
 	attributes: {
 		strength: 22,
 		dexterity: 10,
@@ -23,11 +23,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Claws",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
-				type: "crushing",
+				dice: "2d8",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},

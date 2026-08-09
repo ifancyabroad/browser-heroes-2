@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Dread Serpent",
 	portrait: "enemies/hills/dread_serpent.png",
 	rank: "normal",
-	threat: 16,
+	threat: 17,
 	attributes: {
 		strength: 16,
 		dexterity: 16,
@@ -38,10 +38,22 @@ export default buildEnemy({
 							type: "damage",
 							target: "enemy",
 							damageType: "poison",
-							dice: "2d4",
+							dice: "3d4",
 							save: {
 								attribute: "constitution",
 								onSuccess: "halfDamage",
+								dc: { attribute: "constitution" },
+							},
+						},
+						{
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "2d4",
+							duration: { unit: "turns", value: 4 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
 								dc: { attribute: "constitution" },
 							},
 						},

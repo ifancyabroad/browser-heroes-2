@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Hydra of the Deep",
 	portrait: "enemies/ocean/hydra_of_the_deep.png",
 	rank: "boss",
-	threat: 21,
+	threat: 23,
 	attributes: {
 		strength: 24,
 		dexterity: 10,

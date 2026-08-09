@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Squib",
 	portrait: "enemies/ocean/squib.png",
 	rank: "normal",
-	threat: 7,
+	threat: 13,
 	attributes: {
 		strength: 13,
 		dexterity: 10,

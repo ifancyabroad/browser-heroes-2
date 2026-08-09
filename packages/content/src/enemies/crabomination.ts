@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Crabomination",
 	portrait: "enemies/ocean/crabomination.png",
 	rank: "normal",
-	threat: 17,
+	threat: 20,
 	attributes: {
 		strength: 20,
 		dexterity: 10,
@@ -23,7 +23,7 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Pincer",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",

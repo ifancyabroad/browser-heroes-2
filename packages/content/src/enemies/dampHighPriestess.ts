@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Damp High Priestess",
 	portrait: "enemies/ocean/damp_high_priestess.png",
 	rank: "normal",
-	threat: 16,
+	threat: 18,
 	attributes: {
 		strength: 11,
 		dexterity: 14,
@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Fine Spear",
+			name: "Superior Spear",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8+1",
+				dice: "1d8+2",
 				type: "piercing",
 				attribute: "strength",
 			},

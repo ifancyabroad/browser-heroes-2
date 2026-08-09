@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Piranhasaur",
 	portrait: "enemies/ocean/piranhasaur.png",
 	rank: "normal",
-	threat: 12,
+	threat: 16,
 	attributes: {
 		strength: 16,
 		dexterity: 14,
@@ -30,8 +30,33 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "cold",
+							dice: "1d8",
+						},
+						{
+							type: "modifyRoll",
+							target: "enemy",
+							roll: "attack",
+							mode: "disadvantage",
+							duration: { unit: "turns", value: 2 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["cold_bite", "detect_blood"],
+		skillIds: ["detect_blood"],
 		featIds: [],
 		tactic: "aggressive",
 	},

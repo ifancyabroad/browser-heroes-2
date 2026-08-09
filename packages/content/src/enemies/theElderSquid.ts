@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "The Elder Squid",
 	portrait: "enemies/ocean/the_elder_squid.png",
 	rank: "boss",
-	threat: 22,
+	threat: 24,
 	attributes: {
 		strength: 18,
 		dexterity: 15,

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Sharkman",
 	portrait: "enemies/ocean/sharkman.png",
 	rank: "normal",
-	threat: 13,
+	threat: 17,
 	attributes: {
 		strength: 16,
 		dexterity: 15,
