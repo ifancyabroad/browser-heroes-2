@@ -8,6 +8,7 @@ import { PageLayout } from "../components/PageLayout";
 import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
 import { Container } from "../components/Container";
+import browserHeroesLogo from "../assets/images/logos/browser_heroes.png";
 
 export default function Landing() {
 	const { user, hasSession, isRegistered } = useAuth();
@@ -28,15 +29,14 @@ export default function Landing() {
 			<Header />
 			<Container className="flex items-center justify-center">
 				<div className="flex w-full max-w-sm flex-col items-center gap-5 text-center">
-					<div className="grid gap-2">
-						<h1
-							className="flex flex-col gap-1 sm:flex-row sm:gap-3"
-							aria-label="Browser Heroes"
-						>
-							<span className="text-[3rem] leading-none text-primary">BROWSER</span>
-							<span className="text-[3rem] leading-none text-primary">HEROES</span>
+					<div>
+						<h1 className="flex justify-center">
+							<img
+								src={browserHeroesLogo}
+								alt="Browser Heroes"
+								className="h-auto w-full max-w-[19rem]"
+							/>
 						</h1>
-						<p className="text-secondary">A new road awaits</p>
 					</div>
 					<div className="grid gap-2">
 						{isRegistered && (
