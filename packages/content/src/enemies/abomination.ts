@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Abomination",
 	portrait: "enemies/hills/abomination.png",
 	rank: "normal",
-	threat: 15,
+	threat: 17,
 	attributes: {
 		strength: 20,
 		dexterity: 10,

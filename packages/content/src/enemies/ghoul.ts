@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ghoul",
 	portrait: "enemies/hills/ghoul.png",
 	rank: "normal",
-	threat: 11,
+	threat: 13,
 	attributes: {
 		strength: 13,
 		dexterity: 15,
@@ -23,15 +23,33 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
-			name: "Feral Strike",
+			name: "Claws",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d6",
-				type: "crushing",
+				type: "slashing",
 				attribute: "dexterity",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "applyStatus",
+							target: "enemy",
+							statusId: "stunned",
+							duration: { unit: "turns", value: 1 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["ghoul_strike"],
+		skillIds: [],
 		featIds: [],
 		tactic: "aggressive",
 	},

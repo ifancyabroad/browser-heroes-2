@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Wraith Lord Malakar",
 	portrait: "enemies/hills/wraith_lord_malakar.png",
 	rank: "boss",
-	threat: 21,
+	threat: 22,
 	attributes: {
 		strength: 6,
 		dexterity: 16,
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Withering Touch",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d8",
+				dice: "2d6",
 				type: "necrotic",
 				attribute: "dexterity",
 			},

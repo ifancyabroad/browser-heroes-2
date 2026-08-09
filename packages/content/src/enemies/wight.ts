@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Wight",
 	portrait: "enemies/hills/wight.png",
 	rank: "normal",
-	threat: 15,
+	threat: 18,
 	attributes: {
 		strength: 15,
 		dexterity: 14,

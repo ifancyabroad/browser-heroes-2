@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Dread Serpent",
 	portrait: "enemies/hills/dread_serpent.png",
 	rank: "normal",
-	threat: 15,
+	threat: 16,
 	attributes: {
 		strength: 16,
 		dexterity: 16,
@@ -30,8 +30,26 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "poison",
+							dice: "2d4",
+							save: {
+								attribute: "constitution",
+								onSuccess: "halfDamage",
+								dc: { attribute: "constitution" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["toxic_bite", "acid_spray"],
+		skillIds: ["acid_spray"],
 		featIds: [],
 		tactic: "aggressive",
 	},

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Grotesque",
 	portrait: "enemies/hills/grotesque.png",
 	rank: "normal",
-	threat: 14,
+	threat: 17,
 	attributes: {
 		strength: 18,
 		dexterity: 10,
@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
-			name: "Greatsword",
+			name: "Superior Greatsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
+				dice: "2d6+2",
 				type: "slashing",
 				attribute: "strength",
 			},

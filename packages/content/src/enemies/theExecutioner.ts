@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "The Executioner",
 	portrait: "enemies/hills/the_executioner.png",
 	rank: "boss",
-	threat: 19,
+	threat: 21,
 	attributes: {
 		strength: 22,
 		dexterity: 10,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d12",
-		armourClass: 16,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: ["poison"],
 			vulnerabilities: ["crushing", "radiant"],
 		},
 		basicAttack: {
-			name: "Fine Battleaxe",
+			name: "Superior Battleaxe",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d10+1",
+				dice: "1d10+2",
 				type: "slashing",
 				attribute: "strength",
 			},

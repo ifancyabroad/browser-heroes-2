@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Skeleton Warrior",
 	portrait: "enemies/hills/skeleton_warrior.png",
 	rank: "normal",
-	threat: 9,
+	threat: 12,
 	attributes: {
 		strength: 12,
 		dexterity: 14,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 14,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: ["poison"],
 			vulnerabilities: ["crushing", "radiant"],
 		},
 		basicAttack: {
-			name: "Handaxe",
+			name: "Superior Handaxe",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d6+2",
 				type: "slashing",
 				attribute: "strength",
 			},

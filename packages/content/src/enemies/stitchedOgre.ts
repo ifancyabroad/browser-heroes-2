@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Stitched Ogre",
 	portrait: "enemies/hills/stitched_ogre.png",
 	rank: "normal",
-	threat: 16,
+	threat: 18,
 	attributes: {
 		strength: 19,
 		dexterity: 16,
@@ -23,11 +23,11 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
-			name: "Bite",
+			name: "Claws",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8",
-				type: "piercing",
+				dice: "2d6",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},
