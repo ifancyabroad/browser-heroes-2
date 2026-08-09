@@ -33,7 +33,13 @@ Serve `index.html` with a short or disabled cache and hashed assets with a long 
 
 Production uses same-origin defaults, so the web build should not set `VITE_API_BASE_URL` or `VITE_SOCKET_URL` unless intentionally changing this topology.
 
-## 4. API Environment
+## 4. Frontend Environment
+
+Frontend environment values are compiled into the static build. Set `VITE_HOLDING_PAGE_ENABLED=true` to show the holding page and set `VITE_HOLDING_PAGE_BYPASS_KEY` to enable preview access through `?holding_bypass=<key>`. The bypass is client-side convenience rather than an authorization boundary.
+
+See `apps/web/.env.example` for the complete frontend configuration.
+
+## 5. API Environment
 
 Provide these values outside the source artifact:
 
@@ -50,7 +56,7 @@ Set `APP_URL` to the public CloudFront-backed HTTPS origin. Verify the proxy-hop
 
 Use the Elastic Beanstalk instance role for SES rather than shipping AWS access keys.
 
-## 5. Atlas and Rollback
+## 6. Atlas and Rollback
 
 Give the application a dedicated Atlas database user and allow connections only from the Elastic Beanstalk network path. Do not allow `0.0.0.0/0`. Dedicated Atlas clusters may use AWS PrivateLink; smaller tiers can use a narrow IP access-list entry.
 
