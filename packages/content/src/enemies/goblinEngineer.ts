@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Engineer",
 	portrait: "enemies/abyss/goblin_engineer.png",
 	rank: "normal",
-	threat: 12,
+	threat: 17,
 	attributes: {
 		strength: 8,
 		dexterity: 14,
@@ -16,18 +16,18 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d6",
-		armourClass: 12,
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Dagger",
+			name: "Exceptional Dagger",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "slashing",
+				dice: "1d4+3",
+				type: "piercing",
 				attribute: "dexterity",
 			},
 		},

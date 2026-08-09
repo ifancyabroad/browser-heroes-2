@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Dunzarak the Deceived",
 	portrait: "enemies/abyss/dunzarak_the_deceived.png",
 	rank: "boss",
-	threat: 24,
+	threat: 28,
 	attributes: {
 		strength: 27,
 		dexterity: 14,

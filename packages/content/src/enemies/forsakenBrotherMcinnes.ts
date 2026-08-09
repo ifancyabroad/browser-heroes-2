@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Forsaken Brother McInnes",
 	portrait: "enemies/abyss/forsaken_brother_mcinnes.png",
 	rank: "boss",
-	threat: 23,
+	threat: 27,
 	attributes: {
 		strength: 12,
 		dexterity: 14,
@@ -32,12 +32,12 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
-			name: "Unholy Strike",
-			attackAttribute: "strength",
+			name: "Unholy Bolt",
+			attackAttribute: "wisdom",
 			damage: {
-				dice: "1d4",
-				type: "crushing",
-				attribute: "strength",
+				dice: "2d8",
+				type: "necrotic",
+				attribute: "wisdom",
 			},
 		},
 		skillIds: [

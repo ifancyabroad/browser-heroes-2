@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Abyss Armour",
 	portrait: "enemies/abyss/abyss_armour.png",
 	rank: "normal",
-	threat: 16,
+	threat: 23,
 	attributes: {
 		strength: 18,
 		dexterity: 10,
@@ -23,15 +23,28 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Fine Longsword",
+			name: "Exceptional Shortsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6+1",
-				type: "slashing",
+				dice: "1d6+3",
+				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "lightning",
+							dice: "1d10",
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["armour_break", "disarm", "wind_strike"],
+		skillIds: ["armour_break", "disarm"],
 		featIds: [],
 		tactic: "aggressive",
 	},

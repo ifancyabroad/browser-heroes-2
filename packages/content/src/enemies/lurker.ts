@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Lurker",
 	portrait: "enemies/abyss/lurker.png",
 	rank: "normal",
-	threat: 16,
+	threat: 23,
 	attributes: {
 		strength: 20,
 		dexterity: 10,
@@ -32,11 +32,11 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Slam",
+			name: "Claws",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d8",
-				type: "crushing",
+				type: "slashing",
 				attribute: "strength",
 			},
 		},

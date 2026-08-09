@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Winged Nightmare",
 	portrait: "enemies/abyss/winged_nightmare.png",
 	rank: "normal",
-	threat: 19,
+	threat: 24,
 	attributes: {
 		strength: 18,
 		dexterity: 22,
@@ -32,15 +32,28 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Greatsword",
+			name: "Exceptional Longsword",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
+				dice: "1d8+3",
 				type: "slashing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "lightning",
+							dice: "1d10",
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["wind_strike", "evasion", "drop_from_above"],
+		skillIds: ["evasion", "drop_from_above"],
 		featIds: [],
 		tactic: "aggressive",
 	},

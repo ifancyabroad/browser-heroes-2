@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Cyclops",
 	portrait: "enemies/abyss/cyclops.png",
 	rank: "normal",
-	threat: 16,
+	threat: 20,
 	attributes: {
 		strength: 22,
 		dexterity: 11,
@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Fine Battleaxe",
+			name: "Exceptional Battleaxe",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d10+1",
+				dice: "1d10+3",
 				type: "slashing",
 				attribute: "strength",
 			},

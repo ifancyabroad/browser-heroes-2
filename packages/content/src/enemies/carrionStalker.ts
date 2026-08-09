@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Carrion Stalker",
 	portrait: "enemies/abyss/carrion_stalker.png",
 	rank: "normal",
-	threat: 13,
+	threat: 16,
 	attributes: {
 		strength: 14,
 		dexterity: 16,

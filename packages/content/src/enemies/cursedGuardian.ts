@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Cursed Guardian",
 	portrait: "enemies/abyss/cursed_guardian.png",
 	rank: "normal",
-	threat: 20,
+	threat: 24,
 	attributes: {
 		strength: 22,
 		dexterity: 14,

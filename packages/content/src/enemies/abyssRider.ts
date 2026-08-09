@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Abyss Rider",
 	portrait: "enemies/abyss/abyss_rider.png",
 	rank: "normal",
-	threat: 17,
+	threat: 24,
 	attributes: {
 		strength: 18,
 		dexterity: 16,
@@ -32,15 +32,28 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Fine Spear",
+			name: "Exceptional Spear",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8+1",
+				dice: "1d8+3",
 				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "lightning",
+							dice: "1d10",
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["armour_break", "deafening_roar", "leap_attack", "wind_strike"],
+		skillIds: ["armour_break", "deafening_roar", "leap_attack"],
 		featIds: [],
 		tactic: "aggressive",
 	},
