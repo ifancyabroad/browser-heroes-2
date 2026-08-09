@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
-			dice: "2d6",
+			dice: "1d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {
@@ -28,7 +28,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
-			dice: "2d6",
+			dice: "1d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {
@@ -41,7 +41,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
-			dice: "2d6",
+			dice: "1d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {

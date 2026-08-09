@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			dice: "4d10",
+			dice: "3d12",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",

@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "radiant",
-			dice: "6d8",
+			dice: "8d6",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
 			save: {

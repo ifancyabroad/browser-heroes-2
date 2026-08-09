@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
-			dice: "10d6",
+			dice: "6d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
@@ -27,7 +27,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
-			dice: "10d6",
+			dice: "6d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
