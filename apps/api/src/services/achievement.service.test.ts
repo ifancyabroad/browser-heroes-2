@@ -157,11 +157,11 @@ describe("achievement.service", () => {
 
 	it("evaluates the effective health threshold", () => {
 		const previousState = createTestRunState();
-		previousState.hero.maxHp = 99;
+		previousState.hero.maxHp = 119;
 		previousState.hero.currentHp = 99;
 
 		const nextState = structuredClone(previousState);
-		nextState.hero.maxHp = 100;
+		nextState.hero.maxHp = 120;
 		nextState.hero.currentHp = 100;
 
 		expect(evaluateRunActionAchievements({ previousState, nextState, events: [] })).toEqual(
