@@ -31,7 +31,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["shield_wall", "disarm", "rend"],
+		skillIds: ["shield_wall", "rend"],
 		featIds: [],
 		tactic: "defensive",
 	},

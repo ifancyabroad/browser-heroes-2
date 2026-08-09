@@ -44,7 +44,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["armour_break", "disarm"],
+		skillIds: ["armour_break"],
 		featIds: [],
 		tactic: "aggressive",
 	},
