@@ -25,10 +25,9 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyRoll",
+			type: "modifyHealing",
 			target: "enemy",
-			roll: "savingThrow",
-			mode: "disadvantage",
+			multiplier: 0.5,
 			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "wisdom",
