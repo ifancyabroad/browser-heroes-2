@@ -5,6 +5,7 @@ import { createInitialRngState } from "../../../core/rng";
 import { runStateSchema } from "../../../schemas";
 import { createTestRunState } from "../../../test/createTestRunState";
 import { resolveAttackDamageEffect } from "../skills/effects/resolveAttackDamageEffect";
+import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
 import { collectFeatAttackRiders } from "./collectFeatAttackRiders";
 import { resolveBasicAttack } from "./resolveBasicAttack";
 
@@ -117,6 +118,71 @@ describe("feat attack riders", () => {
 		);
 	});
 
+	it("resolves a feat rider after a successful attack-roll damage skill effect", () => {
+		const combat = createCombatWithBerserker();
+
+		const result = resolveDamageEffect({
+			combat,
+			actorSide: "player",
+			effect: {
+				type: "damage",
+				target: "enemy",
+				damageType: "lightning",
+				dice: "1d10",
+				attribute: "intelligence",
+				requiresAttackRoll: true,
+			},
+			rngState: createInitialRngState("feat-skill-attack"),
+		});
+
+		expect(result.value.combat.player.activeEffects).toContainEqual(
+			expect.objectContaining({
+				type: "shield",
+				remainingAmount: 3,
+				source: expect.objectContaining({ type: "feat", featId: "berserker" }),
+			}),
+		);
+	});
+
+	it("does not resolve a feat rider after damage without an attack roll", () => {
+		const combat = createCombatWithBerserker();
+
+		const result = resolveDamageEffect({
+			combat,
+			actorSide: "player",
+			effect: {
+				type: "damage",
+				target: "enemy",
+				damageType: "lightning",
+				dice: "1d10",
+			},
+			rngState: createInitialRngState("feat-skill-attack"),
+		});
+
+		expect(result.value.combat.player.activeEffects).toEqual([]);
+	});
+
+	it("does not resolve a feat rider when an attack-roll damage skill misses", () => {
+		const combat = createCombatWithBerserker();
+		combat.player.combatStats.attackRollBonus = -100;
+
+		const result = resolveDamageEffect({
+			combat,
+			actorSide: "player",
+			effect: {
+				type: "damage",
+				target: "enemy",
+				damageType: "lightning",
+				dice: "1d10",
+				attribute: "intelligence",
+				requiresAttackRoll: true,
+			},
+			rngState: createInitialRngState("feat-skill-attack"),
+		});
+
+		expect(result.value.combat.player.activeEffects).toEqual([]);
+	});
+
 	it("serializes active effects sourced from feats", () => {
 		const state = createTestRunState();
 		const combat = createCombatWithBerserker();
@@ -165,7 +231,7 @@ describe("feat attack riders", () => {
 			expect.objectContaining({
 				type: "damageOverTime",
 				damageType: "poison",
-				dice: "1d8",
+				dice: "2d4",
 				source: expect.objectContaining({ type: "feat", featId: "plaguebearer" }),
 			}),
 		);

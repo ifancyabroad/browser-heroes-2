@@ -10,6 +10,7 @@ import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 import type { ActionResolution } from "../../logs/actionOutcome";
 import { consumeCombatantRollModifierCharges } from "../../effects/consumeRollModifierCharges";
+import { resolveFeatAttackRiders } from "../../attacks/resolveFeatAttackRiders";
 
 type ResolveDamageEffectInput = {
 	combat: CombatState;
@@ -116,24 +117,39 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 
 	const updatedTarget = appliedDamage.combatant;
 
-	const updatedCombat = replaceCombatant(combat, updatedTarget);
+	let updatedCombat = replaceCombatant(combat, updatedTarget);
+	const outcomes: ActionResolution["outcomes"] = [
+		{
+			type: "damage",
+			targetName: target.name,
+			damageType: input.effect.damageType,
+			hpDamage: appliedDamage.hpDamage,
+			absorbedDamage: appliedDamage.absorbedDamage,
+			affinity: resolvedDamage.affinity,
+			critical,
+			halfDamageSave: successfulSave && input.effect.save?.onSuccess === "halfDamage",
+		},
+	];
+	let finalRngState = damage.rngState;
+
+	if (input.effect.requiresAttackRoll) {
+		const featRiderResult = resolveFeatAttackRiders({
+			combat: updatedCombat,
+			actorSide: input.actorSide,
+			critical,
+			rngState: finalRngState,
+		});
+
+		updatedCombat = featRiderResult.value.combat;
+		outcomes.push(...featRiderResult.value.outcomes);
+		finalRngState = featRiderResult.rngState;
+	}
 
 	return {
 		value: {
 			combat: updatedCombat,
-			outcomes: [
-				{
-					type: "damage",
-					targetName: target.name,
-					damageType: input.effect.damageType,
-					hpDamage: appliedDamage.hpDamage,
-					absorbedDamage: appliedDamage.absorbedDamage,
-					affinity: resolvedDamage.affinity,
-					critical,
-					halfDamageSave: successfulSave && input.effect.save?.onSuccess === "halfDamage",
-				},
-			],
+			outcomes,
 		},
-		rngState: damage.rngState,
+		rngState: finalRngState,
 	};
 }

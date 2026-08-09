@@ -17,7 +17,7 @@ import { resolveAttackRiders } from "./resolveAttackRiders";
 import type { ActionResolution } from "../logs/actionOutcome";
 import { formatBasicAttackHeading } from "../logs/formatActionLog";
 import { appendActionLog } from "../logs/appendActionLog";
-import { collectFeatAttackRiders } from "./collectFeatAttackRiders";
+import { resolveFeatAttackRiders } from "./resolveFeatAttackRiders";
 import { consumeCombatantRollModifierCharges } from "../effects/consumeRollModifierCharges";
 
 type ResolveBasicAttackInput = {
@@ -194,36 +194,16 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 		rngState = riderResult.rngState;
 	}
 
-	const featAttackRiders = collectFeatAttackRiders(attacker.featIds);
+	const featRiderResult = resolveFeatAttackRiders({
+		combat: resolvedCombat,
+		actorSide: input.attackerSide,
+		critical: attackRoll.value.critical,
+		rngState,
+	});
 
-	for (const { featId, featName, riderIndex, rider } of featAttackRiders) {
-		const shouldResolve =
-			rider.timing === "onHit" || (rider.timing === "onCrit" && attackRoll.value.critical);
-
-		if (!shouldResolve) {
-			continue;
-		}
-
-		const riderResult = resolveAttackRiders({
-			combat: resolvedCombat,
-			actorSide: input.attackerSide,
-			effects: rider.effects,
-			save: rider.save,
-			sourceContext: {
-				source: {
-					type: "feat",
-					featId,
-					sourceName: featName,
-				},
-				sourceEffectKeyPrefix: `feat:${featId}:rider:${riderIndex}`,
-			},
-			rngState,
-		});
-
-		resolvedCombat = riderResult.value.combat;
-		outcomes.push(...riderResult.value.outcomes);
-		rngState = riderResult.rngState;
-	}
+	resolvedCombat = featRiderResult.value.combat;
+	outcomes.push(...featRiderResult.value.outcomes);
+	rngState = featRiderResult.rngState;
 
 	return {
 		value: { combat: resolvedCombat, outcomes },
