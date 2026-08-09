@@ -8,7 +8,7 @@ export function Header() {
 	const openLogin = useAuthModalStore((state) => state.openLogin);
 
 	return (
-		<header className="bg-bg-elevated">
+		<header>
 			<nav
 				aria-label="Main navigation"
 				className="mx-auto flex w-full max-w-6xl items-center justify-end px-4 py-3"
