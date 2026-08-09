@@ -58,10 +58,10 @@ describe("content catalogs", () => {
 	});
 
 	it("includes nested attack-rider metadata in skill projections", () => {
-		const acidBite = catalogByKey.skills.entries.find((entry) => entry.id === "acid_bite");
-		expect(acidBite?.facets.effect).toEqual(["attackDamage", "damage"]);
-		expect(acidBite?.facets.damageType).toEqual(["acid"]);
-		expect(acidBite?.cells.damageTypes).toBe("acid");
+		const fireStrike = catalogByKey.skills.entries.find((entry) => entry.id === "fire_strike");
+		expect(fireStrike?.facets.effect).toEqual(["attackDamage", "damage"]);
+		expect(fireStrike?.facets.damageType).toEqual(["fire"]);
+		expect(fireStrike?.cells.damageTypes).toBe("fire");
 	});
 
 	it("projects skill kind, category, and rarity for browsing and filtering", () => {
