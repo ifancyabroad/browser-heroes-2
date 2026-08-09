@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Runtling",
 	portrait: "enemies/forest/runtling.png",
 	rank: "normal",
-	threat: 4,
+	threat: 6,
 	attributes: {
 		strength: 8,
 		dexterity: 13,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d6",
-		armourClass: 7,
+		armourClass: 10,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -30,8 +30,21 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "dexterity",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "acid",
+							dice: "1d4",
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["charge", "acid_bite"],
+		skillIds: ["charge"],
 		featIds: [],
 		tactic: "aggressive",
 	},

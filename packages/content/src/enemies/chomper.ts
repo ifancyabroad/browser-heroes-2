@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Chomper",
 	portrait: "enemies/forest/chomper.png",
 	rank: "normal",
-	threat: 7,
+	threat: 8,
 	attributes: {
 		strength: 12,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 6,
+		armourClass: 10,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -30,9 +30,27 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "dexterity",
 			},
-			attackRiders: [],
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "1d4",
+							duration: { unit: "turns", value: 4 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["poison_bite", "growth"],
+		skillIds: ["growth"],
 		featIds: [],
 		tactic: "aggressive",
 	},

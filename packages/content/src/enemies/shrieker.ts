@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Shrieker",
 	portrait: "enemies/forest/shrieker.png",
 	rank: "normal",
-	threat: 6,
+	threat: 7,
 	attributes: {
 		strength: 12,
 		dexterity: 10,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 6,
+		armourClass: 10,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

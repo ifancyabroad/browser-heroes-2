@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Living Mold",
 	portrait: "enemies/forest/living_mold.png",
 	rank: "normal",
-	threat: 8,
+	threat: 9,
 	attributes: {
 		strength: 12,
 		dexterity: 8,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 8,
+		armourClass: 9,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -27,11 +27,30 @@ export default buildEnemy({
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
-				type: "piercing",
+				type: "acid",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damageOverTime",
+							target: "enemy",
+							damageType: "poison",
+							dice: "1d4",
+							duration: { unit: "turns", value: 4 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "constitution" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["regeneration", "poison_bite"],
+		skillIds: ["regeneration"],
 		featIds: [],
 		tactic: "defensive",
 	},

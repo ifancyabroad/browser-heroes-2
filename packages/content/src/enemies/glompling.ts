@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Glompling",
 	portrait: "enemies/forest/glompling.png",
 	rank: "normal",
-	threat: 5,
+	threat: 6,
 	attributes: {
 		strength: 7,
 		dexterity: 14,
@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 7,
+		armourClass: 11,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -30,8 +30,21 @@ export default buildEnemy({
 				type: "piercing",
 				attribute: "dexterity",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "acid",
+							dice: "1d4",
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["acid_bite"],
+		skillIds: [],
 		featIds: [],
 		tactic: "aggressive",
 	},
