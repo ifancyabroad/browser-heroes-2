@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Orc Grunt",
 	portrait: "enemies/plains/orc_grunt.png",
 	rank: "normal",
-	threat: 11,
+	threat: 12,
 	attributes: {
 		strength: 16,
 		dexterity: 14,
@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Spear",
+			name: "Fine Spear",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8",
+				dice: "1d8+1",
 				type: "piercing",
 				attribute: "strength",
 			},

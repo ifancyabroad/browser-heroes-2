@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Half Ogre",
 	portrait: "enemies/plains/half_ogre.png",
 	rank: "normal",
-	threat: 13,
+	threat: 14,
 	attributes: {
 		strength: 19,
 		dexterity: 12,
@@ -23,10 +23,10 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Greatclub",
+			name: "Fine Greatclub",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8",
+				dice: "1d8+1",
 				type: "crushing",
 				attribute: "strength",
 			},

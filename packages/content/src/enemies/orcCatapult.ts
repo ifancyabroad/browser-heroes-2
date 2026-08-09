@@ -16,7 +16,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d12",
-		armourClass: 14,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: ["poison"],
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Catapult Shot",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d8",
+				dice: "1d12+1",
 				type: "crushing",
 				attribute: "strength",
 			},

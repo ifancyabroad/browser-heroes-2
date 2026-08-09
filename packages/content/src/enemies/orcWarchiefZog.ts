@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Orc Warchief Zog",
 	portrait: "enemies/plains/orc_warchief_zog.png",
 	rank: "boss",
-	threat: 20,
+	threat: 21,
 	attributes: {
 		strength: 20,
 		dexterity: 16,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d10",
-		armourClass: 19,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Fine Battleaxe",
+			name: "Superior Battleaxe",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d10+1",
+				dice: "1d10+2",
 				type: "slashing",
 				attribute: "strength",
 			},

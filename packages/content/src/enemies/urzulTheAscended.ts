@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Urzul the Ascended",
 	portrait: "enemies/plains/urzul_the_ascended.png",
 	rank: "boss",
-	threat: 19,
+	threat: 20,
 	attributes: {
 		strength: 14,
 		dexterity: 12,
@@ -24,11 +24,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			name: "Staff of Lightning",
-			attackAttribute: "strength",
+			attackAttribute: "intelligence",
 			damage: {
-				dice: "1d8+1",
-				type: "crushing",
-				attribute: "strength",
+				dice: "1d8+2",
+				type: "lightning",
+				attribute: "intelligence",
 			},
 		},
 		skillIds: [

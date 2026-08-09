@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Orc Soldier",
 	portrait: "enemies/plains/orc_soldier.png",
 	rank: "normal",
-	threat: 13,
+	threat: 14,
 	attributes: {
 		strength: 18,
 		dexterity: 14,
@@ -16,17 +16,17 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 16,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			name: "Handaxe",
+			name: "Fine Handaxe",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d6+1",
 				type: "slashing",
 				attribute: "strength",
 			},
