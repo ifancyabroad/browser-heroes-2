@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Power Elemental",
 	portrait: "enemies/tower/power_elemental.png",
 	rank: "normal",
-	threat: 19,
+	threat: 28,
 	attributes: {
 		strength: 22,
 		dexterity: 10,

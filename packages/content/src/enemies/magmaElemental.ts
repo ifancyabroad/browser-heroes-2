@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Magma Elemental",
 	portrait: "enemies/tower/magma_elemental.png",
 	rank: "normal",
-	threat: 19,
+	threat: 28,
 	attributes: {
 		strength: 24,
 		dexterity: 8,

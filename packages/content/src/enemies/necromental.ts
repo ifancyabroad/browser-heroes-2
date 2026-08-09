@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Necromental",
 	portrait: "enemies/tower/necromental.png",
 	rank: "normal",
-	threat: 17,
+	threat: 27,
 	attributes: {
 		strength: 20,
 		dexterity: 14,

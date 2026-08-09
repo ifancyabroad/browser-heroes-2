@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Darkness Elemental",
 	portrait: "enemies/tower/darkness_elemental.png",
 	rank: "normal",
-	threat: 18,
+	threat: 26,
 	attributes: {
 		strength: 16,
 		dexterity: 22,

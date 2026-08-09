@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Water Elemental",
 	portrait: "enemies/tower/water_elemental.png",
 	rank: "normal",
-	threat: 17,
+	threat: 27,
 	attributes: {
 		strength: 20,
 		dexterity: 16,
@@ -26,7 +26,7 @@ export default buildEnemy({
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d6",
+				dice: "2d8",
 				type: "crushing",
 				attribute: "strength",
 			},

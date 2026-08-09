@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ice Elemental",
 	portrait: "enemies/tower/ice_elemental.png",
 	rank: "normal",
-	threat: 20,
+	threat: 28,
 	attributes: {
 		strength: 24,
 		dexterity: 18,
@@ -30,8 +30,27 @@ export default buildEnemy({
 				type: "cold",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "modifyRoll",
+							target: "enemy",
+							roll: "attack",
+							mode: "disadvantage",
+							duration: { unit: "turns", value: 2 },
+							save: {
+								attribute: "constitution",
+								onSuccess: "noEffect",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["double_strike", "ice_punch"],
+		skillIds: ["double_strike"],
 		featIds: [],
 		tactic: "aggressive",
 	},

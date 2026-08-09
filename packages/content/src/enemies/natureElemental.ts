@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Nature Elemental",
 	portrait: "enemies/tower/nature_elemental.png",
 	rank: "normal",
-	threat: 18,
+	threat: 27,
 	attributes: {
 		strength: 18,
 		dexterity: 14,
@@ -27,9 +27,27 @@ export default buildEnemy({
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",
-				type: "poison",
+				type: "piercing",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "poison",
+							dice: "2d6",
+							save: {
+								attribute: "constitution",
+								onSuccess: "halfDamage",
+								dc: { attribute: "strength" },
+							},
+						},
+					],
+				},
+			],
 		},
 		skillIds: ["natures_blessing", "poison_cloud"],
 		featIds: [],

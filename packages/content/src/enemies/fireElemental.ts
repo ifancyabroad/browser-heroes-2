@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Fire Elemental",
 	portrait: "enemies/tower/fire_elemental.png",
 	rank: "normal",
-	threat: 16,
+	threat: 25,
 	attributes: {
 		strength: 12,
 		dexterity: 19,

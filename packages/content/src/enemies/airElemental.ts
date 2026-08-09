@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Air Elemental",
 	portrait: "enemies/tower/air_elemental.png",
 	rank: "normal",
-	threat: 17,
+	threat: 26,
 	attributes: {
 		strength: 18,
 		dexterity: 22,
