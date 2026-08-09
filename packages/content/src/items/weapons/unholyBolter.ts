@@ -33,7 +33,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "necrotic",
-					dice: "2d6",
+					dice: "1d10",
 					requiresAttackRoll: false,
 				},
 			],

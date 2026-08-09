@@ -41,7 +41,7 @@ export default buildWeapon({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "slashing",
-					dice: "2d6",
+					dice: "3d4",
 					duration: { unit: "turns", value: 3 },
 				},
 				{

@@ -33,7 +33,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "lightning",
-					dice: "2d6",
+					dice: "2d8",
 					requiresAttackRoll: false,
 				},
 			],
