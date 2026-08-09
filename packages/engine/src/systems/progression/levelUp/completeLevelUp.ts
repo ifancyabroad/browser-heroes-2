@@ -12,7 +12,7 @@ import type {
 	RunState,
 } from "../../../schemas";
 import { createPendingLevelUp } from "./createPendingLevelUp";
-import { createPlayerCombatant } from "../../combat/combatants/createPlayerCombatant";
+import { refreshCompletedCombatPlayer } from "../../combat/combatants/refreshCompletedCombatPlayer";
 import { deriveHeroStats } from "../../hero/deriveHeroStats";
 
 export function completeLevelUp(state: RunState, action: CompleteLevelUpAction): EngineResult {
@@ -156,19 +156,5 @@ function createCompletedSelection(option: LevelUpOption | null): CompletedLevelU
 	return {
 		type: "feat",
 		featId: option.featId,
-	};
-}
-
-function refreshCompletedCombatPlayer(
-	combat: RunState["combat"],
-	hero: HeroState,
-): RunState["combat"] {
-	if (!combat || combat.status !== "player_won") {
-		return combat;
-	}
-
-	return {
-		...combat,
-		player: createPlayerCombatant(hero, combat.id),
 	};
 }

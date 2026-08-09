@@ -3,6 +3,7 @@ import type { EngineResult, RunState, SelectRewardAction } from "../../../schema
 import { failureResult, successResult } from "../../../core/result";
 import { equipItem } from "../../equipment/equipItem";
 import { createItemEventPayload } from "../../items/createItemEventPayload";
+import { refreshCompletedCombatPlayer } from "../../combat/combatants/refreshCompletedCombatPlayer";
 
 export function completeRewardChoice(state: RunState, action: SelectRewardAction): EngineResult {
 	const pendingRewardChoice = state.pendingRewardChoice;
@@ -58,6 +59,7 @@ export function completeRewardChoice(state: RunState, action: SelectRewardAction
 		{
 			...state,
 			hero: equipResult.hero,
+			combat: refreshCompletedCombatPlayer(state.combat, equipResult.hero),
 			pendingRewardChoice: null,
 		},
 		[

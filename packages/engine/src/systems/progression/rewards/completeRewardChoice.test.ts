@@ -40,6 +40,35 @@ describe("completeRewardChoice", () => {
 			}),
 		).toMatchObject({ ok: false, error: "INVALID_REWARD_SELECTION", state });
 	});
+
+	it("refreshes the completed combat player after equipping a constitution reward", () => {
+		const state = modifyTestRunState(createTestVictoryState(), (draft) => {
+			draft.pendingRewardChoice = {
+				options: [
+					{
+						type: "item",
+						item: {
+							instanceId: "constitution-reward",
+							type: "static",
+							itemId: "power_chain",
+						},
+					},
+					{ type: "gold", amount: 10 },
+					{ type: "gold", amount: 20 },
+				],
+			};
+		});
+		const previousMaxHp = state.combat!.player.maxHp;
+
+		const result = applyAction(state, {
+			type: "SELECT_REWARD",
+			selection: { optionIndex: 0 },
+		});
+
+		expect(result.ok).toBe(true);
+		expect(result.state.combat?.player.maxHp).toBeGreaterThan(previousMaxHp);
+		expect(result.state.combat?.player.maxHp).toBe(result.state.hero.currentHp);
+	});
 });
 
 function createGoldRewardState() {
