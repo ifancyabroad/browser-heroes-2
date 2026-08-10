@@ -11,8 +11,8 @@ export function HeroDossier({ view }: { view: RunHeroView }) {
 	return (
 		<article className="grid gap-5">
 			<HeroHeader view={view} hero={hero} className={heroClass.name} />
-			<div className="grid items-start gap-5 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.15fr)_minmax(0,1.15fr)]">
-				<div className="grid items-start gap-5 bg-bg-panel px-4 py-4">
+			<div className="grid items-start gap-5 lg:grid-cols-[10.5rem_minmax(0,1fr)_minmax(0,1fr)]">
+				<div className="grid items-start gap-5">
 					<AttributesSection hero={hero} />
 					<CombatSection hero={hero} />
 				</div>
@@ -40,7 +40,7 @@ function HeroHeader({
 	];
 
 	return (
-		<header className="grid gap-3 bg-bg-panel px-4 py-4 text-center sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:text-left">
+		<header className="grid gap-3 text-center">
 			<div className="grid gap-1">
 				<p className="text-primary">
 					{hero.name} the {className}
@@ -50,7 +50,7 @@ function HeroHeader({
 					{getOutcome(view)}
 				</p>
 			</div>
-			<dl className="flex flex-wrap justify-center gap-x-5 gap-y-1 sm:max-w-72 sm:justify-end">
+			<dl className="flex flex-wrap justify-center gap-x-5 gap-y-1" aria-label="Journey">
 				{journey.map((item) => (
 					<div key={item.label} className="flex gap-2">
 						<dt className="text-text-label">{item.label}</dt>

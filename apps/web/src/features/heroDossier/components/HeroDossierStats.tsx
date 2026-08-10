@@ -31,6 +31,7 @@ export function AttributesSection({ hero }: { hero: HeroView }) {
 
 type CombatStatItem = {
 	label: string;
+	displayLabel: string;
 	stat: StatPresentation;
 	signed?: boolean;
 };
@@ -39,20 +40,24 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 	const stats: CombatStatItem[] = [
 		{
 			label: combatStatLabels.armourClass,
+			displayLabel: "Armour",
 			stat: getArmourClassStatPresentation(hero.armourClassBreakdown),
 		},
 		{
 			label: combatStatLabels.attackRollBonus,
+			displayLabel: "Attack",
 			stat: getStatPresentation(hero.combatStats.attackRollBonus),
 			signed: true,
 		},
 		{
 			label: combatStatLabels.savingThrowBonus,
+			displayLabel: "Save",
 			stat: getStatPresentation(hero.combatStats.savingThrowBonus),
 			signed: true,
 		},
 		{
 			label: combatStatLabels.saveDcBonus,
+			displayLabel: "Save DC",
 			stat: getStatPresentation(hero.combatStats.saveDcBonus),
 			signed: true,
 		},
@@ -63,7 +68,7 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 			<h2 className="text-text-bright">Combat</h2>
 			<ul className="grid gap-y-2">
 				<li className="grid grid-cols-[1fr_auto] items-baseline gap-4 px-1">
-					<span className="text-text-label">Maximum Health</span>
+					<span className="text-text-label">Max HP</span>
 					<span className="text-right text-text-bright tabular-nums">
 						{hero.health.maxHp}
 					</span>
@@ -78,10 +83,12 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 
 function StatRow({
 	label,
+	displayLabel,
 	stat,
 	signed = false,
 }: {
 	label: string;
+	displayLabel?: string;
 	stat: StatPresentation;
 	signed?: boolean;
 }) {
@@ -93,7 +100,7 @@ function StatRow({
 				className={statRowClassName}
 				contentClassName="w-64 max-w-[calc(100vw-1rem)]"
 			>
-				<span className="text-text-label">{label}</span>
+				<span className="text-text-label">{displayLabel ?? label}</span>
 				<span className="text-right tabular-nums">
 					<HeroStatValue stat={stat} signed={signed} />
 				</span>

@@ -124,11 +124,11 @@ describe("HeroDossierModal", () => {
 		expect(screen.getByText("Heavy Strike")).toBeInTheDocument();
 		expect(screen.getByText("Commanding Presence")).toBeInTheDocument();
 		expect(screen.getByText("Passive")).toBeInTheDocument();
-		expect(screen.getByRole("region", { name: "Combat" })).toHaveTextContent("Maximum Health");
-		expect(screen.getByText("Armour Class")).toBeInTheDocument();
-		expect(screen.getByText("Attack Roll Bonus")).toBeInTheDocument();
-		expect(screen.getByText("Saving Throw Bonus")).toBeInTheDocument();
-		expect(screen.getByText("Save DC Bonus")).toBeInTheDocument();
+		expect(screen.getByRole("region", { name: "Combat" })).toHaveTextContent("Max HP");
+		expect(screen.getByText("Armour")).toBeInTheDocument();
+		expect(screen.getByText("Attack")).toBeInTheDocument();
+		expect(screen.getByText("Save")).toBeInTheDocument();
+		expect(screen.getByText("Save DC")).toBeInTheDocument();
 		expect(screen.getByText("No equipment worn.")).toBeInTheDocument();
 		expect(screen.queryByText("999")).not.toBeInTheDocument();
 		expect(screen.queryByText(/potion/i)).not.toBeInTheDocument();

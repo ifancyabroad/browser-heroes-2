@@ -28,7 +28,7 @@ export function EquipmentSection({ hero }: { hero: HeroView }) {
 	});
 
 	return (
-		<section className="grid gap-3 bg-bg-panel px-4 py-4" aria-label="Equipment">
+		<section className="grid gap-3" aria-label="Equipment">
 			<h2 className="text-text-bright">Equipment</h2>
 			{equippedItems.length > 0 ? (
 				<ul className="grid gap-1">
@@ -59,9 +59,9 @@ export function EquipmentSection({ hero }: { hero: HeroView }) {
 
 export function AbilitiesSection({ hero }: { hero: HeroView }) {
 	return (
-		<div className="grid items-start gap-5 bg-bg-panel px-4 py-4">
-			<SkillsSection hero={hero} />
+		<div className="grid items-start gap-5">
 			<FeatsSection hero={hero} />
+			<SkillsSection hero={hero} />
 		</div>
 	);
 }
