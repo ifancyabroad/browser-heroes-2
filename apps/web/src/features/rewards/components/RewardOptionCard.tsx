@@ -1,12 +1,9 @@
-import {
-	selectItemDefinition,
-	type EquipmentDestinationView,
-	type RewardChoiceOptionView,
-} from "@app/engine";
+import { type RewardChoiceOptionView } from "@app/engine";
 import clsx from "clsx";
 import { RadioCard } from "../../../components/RadioCard";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
+import { EquipmentReplacementItems } from "../../../components/EquipmentReplacementItems";
 import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../presentation/items";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 import { resolveImageUrl } from "../../../utils/image";
@@ -20,8 +17,8 @@ type RewardOptionCardProps = {
 
 export function RewardOptionCard({ option, value, selected, disabled }: RewardOptionCardProps) {
 	const content = getOptionContent(option);
-	const replacements =
-		option.type === "item" ? getUniqueReplacements(option.equipmentPlacement.destinations) : [];
+	const requiresReplacement =
+		option.type === "item" && option.equipmentPlacement.automaticDestination === null;
 
 	return (
 		<div className="min-w-0">
@@ -75,7 +72,16 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 				</span>
 			</RadioCard>
 
-			<ReplacementDetail replacements={replacements} />
+			{requiresReplacement && (
+				<p className="min-w-0 pt-1">
+					<span className="mr-1 text-text-label">Replaces:</span>
+					<span className="min-w-0 break-words text-text">
+						<EquipmentReplacementItems
+							destinations={option.equipmentPlacement.destinations}
+						/>
+					</span>
+				</p>
+			)}
 		</div>
 	);
 }
@@ -98,75 +104,4 @@ function getOptionContent(option: RewardChoiceOptionView) {
 		name: option.item.name,
 		tooltipSlot: destinationSlots.length > 0 ? destinationSlots : null,
 	};
-}
-
-type Replacement = {
-	replacedItem: EquipmentDestinationView["replacedItems"][number];
-	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
-};
-
-function ReplacementDetail({ replacements }: { replacements: readonly Replacement[] }) {
-	if (replacements.length === 0) {
-		return null;
-	}
-
-	return (
-		<p className="min-w-0 pt-1">
-			<span className="mr-1 text-text-label">Replaces:</span>
-			<span className="min-w-0 break-words text-text">
-				{replacements.map((replacement, index) => (
-					<ReplacedItemTooltip
-						key={replacement.replacedItem.instanceId}
-						{...replacement}
-						prefix={index > 0 ? ", " : ""}
-					/>
-				))}
-			</span>
-		</p>
-	);
-}
-
-function getUniqueReplacements(destinations: readonly EquipmentDestinationView[]): Replacement[] {
-	const replacedItems = destinations.flatMap((destination) =>
-		destination.replacedItems.map((replacedItem) => ({
-			replacedItem,
-			fallbackSlot: destination.equipmentSlot,
-		})),
-	);
-	return replacedItems.filter(
-		(entry, index) =>
-			replacedItems.findIndex(
-				(candidate) => candidate.replacedItem.instanceId === entry.replacedItem.instanceId,
-			) === index,
-	);
-}
-
-type ReplacedItemTooltipProps = {
-	replacedItem: EquipmentDestinationView["replacedItems"][number];
-	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
-	prefix: string;
-};
-
-function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedItemTooltipProps) {
-	const item = selectItemDefinition(replacedItem);
-
-	if (!item) {
-		return <span>{prefix}Unknown item</span>;
-	}
-
-	return (
-		<span>
-			{prefix}
-			<Tooltip
-				content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
-				className={clsx(
-					"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-					getItemRarityTextClassName(item.rarity),
-				)}
-				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-			>
-				{item.name}
-			</Tooltip>
-		</span>
-	);
 }

@@ -161,6 +161,42 @@ describe("TownShopItemCard", () => {
 			</TooltipProvider>,
 		);
 
-		expect(screen.getAllByText("Replaces:")).toHaveLength(2);
+		expect(screen.getByText("Replaces", { exact: true })).toBeInTheDocument();
+		expect(screen.getByText("Replaces:")).toBeInTheDocument();
+	});
+
+	it("does not describe replacements when an empty destination can be used", () => {
+		render(
+			<TooltipProvider>
+				<TownShopItemCard
+					slot={createSlot(false, {
+						equipmentPlacement: {
+							destinations: [
+								{
+									equipmentSlot: "mainHand",
+									replacedItems: [
+										{
+											instanceId: "equipped-item",
+											type: "static",
+											itemId: "acid_edge",
+										},
+									],
+								},
+								{ equipmentSlot: "offHand", replacedItems: [] },
+							],
+							automaticDestination: {
+								equipmentSlot: "offHand",
+								replacedItems: [],
+							},
+						},
+					})}
+					isPending={false}
+					onBuy={vi.fn()}
+					onLockChange={vi.fn()}
+				/>
+			</TooltipProvider>,
+		);
+
+		expect(screen.queryByText("Replaces:")).not.toBeInTheDocument();
 	});
 });

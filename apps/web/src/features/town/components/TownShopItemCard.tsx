@@ -1,13 +1,10 @@
-import {
-	selectItemDefinition,
-	type EquipmentDestinationView,
-	type TownShopSlotView,
-} from "@app/engine";
+import { type EquipmentDestinationView, type TownShopSlotView } from "@app/engine";
 import clsx from "clsx";
 import { Badge } from "../../../components/Badge";
 import { Button, IconButton } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
+import { EquipmentReplacementItems } from "../../../components/EquipmentReplacementItems";
 import { AttackRiderTooltipList } from "../../../components/tooltips/AttackRiderTooltipList";
 import { attributeLabels } from "../../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../../presentation/effects";
@@ -34,7 +31,7 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 	const tooltipSlots = destinations.map((destination) => destination.equipmentSlot);
 	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
 	const primaryStat = getPrimaryItemStat(item);
-	const replacements = getUniqueReplacements(destinations);
+	const requiresReplacement = slot.equipmentPlacement.automaticDestination === null;
 
 	return (
 		<article className="relative min-w-0">
@@ -87,7 +84,14 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 								className="hidden md:grid"
 							/>
 						)}
-						<ReplacementDetails replacements={replacements} />
+						{requiresReplacement && (
+							<p className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-2">
+								<span className="text-text-label">Replaces</span>
+								<span className="min-w-0 break-words text-text">
+									<EquipmentReplacementItems destinations={destinations} />
+								</span>
+							</p>
+						)}
 					</div>
 
 					<div className="hidden md:block">
@@ -107,12 +111,17 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 				/>
 			</div>
 
-			{replacements.length > 0 && (
+			{requiresReplacement && (
 				<div
 					className={clsx("pt-1 md:hidden", isPurchased && "[&>*]:invisible")}
 					aria-hidden={isPurchased}
 				>
-					<ReplacementDetails replacements={replacements} compact />
+					<p className="min-w-0">
+						<span className="mr-1 text-text-label">Replaces:</span>
+						<span className="min-w-0 break-words text-text">
+							<EquipmentReplacementItems destinations={destinations} />
+						</span>
+					</p>
 				</div>
 			)}
 
@@ -297,83 +306,6 @@ function ModifierPreview({ slot }: { slot: TownShopSlotView }) {
 				</li>
 			))}
 		</ul>
-	);
-}
-
-type Replacement = {
-	replacedItem: EquipmentDestinationView["replacedItems"][number];
-	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
-};
-
-function ReplacementDetails({
-	replacements,
-	compact = false,
-}: {
-	replacements: readonly Replacement[];
-	compact?: boolean;
-}) {
-	if (replacements.length === 0) {
-		return null;
-	}
-
-	return (
-		<p
-			className={clsx(
-				"min-w-0",
-				compact ? "block" : "grid grid-cols-[5rem_minmax(0,1fr)] gap-2",
-			)}
-		>
-			<span className={clsx("text-text-label", compact && "mr-1")}>Replaces:</span>
-			<span className="min-w-0 break-words text-text">
-				{replacements.map((replacement, index) => (
-					<span key={replacement.replacedItem.instanceId}>
-						{index > 0 && ", "}
-						<ReplacedItemTooltip {...replacement} />
-					</span>
-				))}
-			</span>
-		</p>
-	);
-}
-
-function getUniqueReplacements(destinations: readonly EquipmentDestinationView[]): Replacement[] {
-	const replacedItems = destinations.flatMap((destination) =>
-		destination.replacedItems.map((replacedItem) => ({
-			replacedItem,
-			fallbackSlot: destination.equipmentSlot,
-		})),
-	);
-	return replacedItems.filter(
-		(entry, index) =>
-			replacedItems.findIndex(
-				(candidate) => candidate.replacedItem.instanceId === entry.replacedItem.instanceId,
-			) === index,
-	);
-}
-
-type ReplacedItemTooltipProps = {
-	replacedItem: EquipmentDestinationView["replacedItems"][number];
-	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
-};
-
-function ReplacedItemTooltip({ replacedItem, fallbackSlot }: ReplacedItemTooltipProps) {
-	const item = selectItemDefinition(replacedItem);
-
-	if (!item) {
-		return <span>Unknown item</span>;
-	}
-
-	return (
-		<Tooltip
-			content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
-			className={clsx(
-				"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-				getItemRarityTextClassName(item.rarity),
-			)}
-			contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-		>
-			{item.name}
-		</Tooltip>
 	);
 }
 
