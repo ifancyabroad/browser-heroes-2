@@ -125,6 +125,7 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 				outcomes: [
 					{
 						type: "miss",
+						targetId: defender.id,
 						targetName: defender.name,
 					},
 				],
@@ -149,6 +150,7 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 	const outcomes: ActionResolution["outcomes"] = [
 		{
 			type: "damage",
+			targetId: defender.id,
 			targetName: defender.name,
 			damageType: damage.value.damageType,
 			hpDamage: appliedDamage.hpDamage,

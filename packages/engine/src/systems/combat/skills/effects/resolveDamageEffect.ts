@@ -54,6 +54,7 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 					outcomes: [
 						{
 							type: "miss",
+							targetId: target.id,
 							targetName: target.name,
 						},
 					],
@@ -121,6 +122,7 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 	const outcomes: ActionResolution["outcomes"] = [
 		{
 			type: "damage",
+			targetId: target.id,
 			targetName: target.name,
 			damageType: input.effect.damageType,
 			hpDamage: appliedDamage.hpDamage,

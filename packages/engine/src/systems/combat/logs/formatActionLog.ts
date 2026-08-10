@@ -1,9 +1,7 @@
 import type { EffectDuration, ModifiableStat, RollModifierMode } from "@app/content";
 
-import type { CombatLogEntry } from "../../../schemas";
+import type { CombatLogEntryContent } from "../../../schemas/log.schema";
 import type { ActionOutcome } from "./actionOutcome";
-
-type FormattedActionOutcome = Pick<CombatLogEntry, "message" | "eventType">;
 
 const statLabels: Record<ModifiableStat, string> = {
 	strength: "Strength",
@@ -36,12 +34,16 @@ export function formatBasicAttackHeading(actorName: string, targetName: string):
 	return `${actorName} attacks ${targetName}.`;
 }
 
-export function formatActionOutcome(outcome: ActionOutcome): FormattedActionOutcome {
+export function formatActionOutcome(outcome: ActionOutcome): CombatLogEntryContent {
 	switch (outcome.type) {
 		case "miss":
 			return {
 				message: `The attack misses ${outcome.targetName}.`,
 				eventType: "attack_missed",
+				outcome: {
+					type: "miss",
+					targetId: outcome.targetId,
+				},
 			};
 
 		case "resisted":
@@ -54,6 +56,16 @@ export function formatActionOutcome(outcome: ActionOutcome): FormattedActionOutc
 			return {
 				message: formatDamageOutcome(outcome),
 				eventType: "damage_dealt",
+				outcome: {
+					type: "damage",
+					targetId: outcome.targetId,
+					hpDamage: outcome.hpDamage,
+					absorbedDamage: outcome.absorbedDamage,
+					damageType: outcome.damageType,
+					affinity: outcome.affinity,
+					critical: outcome.critical,
+					halfDamageSave: outcome.halfDamageSave,
+				},
 			};
 
 		case "healing":

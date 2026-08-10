@@ -206,6 +206,7 @@ export function CombatView({ run }: CombatViewProps) {
 				<Battlefield
 					enemyId={combat.enemy.id}
 					enemyCurrentHp={combat.enemy.currentHp}
+					entries={combat.log}
 					enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
 					enemyName={combat.enemy.name}
 					isEnemySlain={isEnemySlain}

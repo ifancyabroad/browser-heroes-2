@@ -1,13 +1,13 @@
-.portraitSlain {
+.slain {
 	filter: grayscale(1) brightness(0.34) contrast(0.9);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-	.portraitHit {
+	.hit {
 		animation: enemy-hit 180ms ease-out both;
 	}
 
-	.portraitDeath {
+	.death {
 		animation: enemy-death 280ms ease-out both;
 	}
 }

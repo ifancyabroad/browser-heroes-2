@@ -1,0 +1,27 @@
+.overlay {
+	animation: combat-outcomes 1000ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.overlay {
+		animation: none;
+	}
+}
+
+@keyframes combat-outcomes {
+	0% {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+
+	12%,
+	72% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+}

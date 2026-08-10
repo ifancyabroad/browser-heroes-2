@@ -56,6 +56,16 @@ export function resolveDamageOverTimeEffects(
 						? `${target.name}'s shield absorbs all ${appliedDamage.absorbedDamage} ${effect.damageType} damage from ${effect.source.sourceName}.`
 						: `${target.name} takes ${appliedDamage.hpDamage} ${effect.damageType} damage from ${effect.source.sourceName}${appliedDamage.absorbedDamage > 0 ? ` after a shield absorbs ${appliedDamage.absorbedDamage}` : ""}.`,
 			eventType: "effect_triggered",
+			outcome: {
+				type: "damage",
+				targetId: target.id,
+				hpDamage: appliedDamage.hpDamage,
+				absorbedDamage: appliedDamage.absorbedDamage,
+				damageType: effect.damageType,
+				affinity: damage.value.affinity,
+				critical: false,
+				halfDamageSave: false,
+			},
 		});
 	}
 

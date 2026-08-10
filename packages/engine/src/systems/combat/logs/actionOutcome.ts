@@ -18,6 +18,7 @@ import type { DamageAffinity } from "../damage/damageAffinity";
 export type ActionOutcome =
 	| {
 			type: "damage";
+			targetId: string;
 			targetName: string;
 			damageType: DamageType;
 			hpDamage: number;
@@ -26,7 +27,7 @@ export type ActionOutcome =
 			critical: boolean;
 			halfDamageSave: boolean;
 	  }
-	| { type: "miss"; targetName: string }
+	| { type: "miss"; targetId: string; targetName: string }
 	| { type: "resisted"; targetName: string; subject: string }
 	| { type: "healing"; targetName: string; amount: number }
 	| {

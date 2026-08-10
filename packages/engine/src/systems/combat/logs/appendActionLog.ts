@@ -21,11 +21,10 @@ export function appendActionLog(input: {
 	});
 
 	for (const outcome of input.outcomes) {
-		const formatted = formatActionOutcome(outcome);
 		combat = appendCombatLog(combat, {
 			turnNumber: input.combat.turnNumber,
 			actor: input.actor,
-			...formatted,
+			...formatActionOutcome(outcome),
 		});
 	}
 

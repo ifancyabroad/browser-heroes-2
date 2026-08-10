@@ -33,6 +33,30 @@ describe("resolveBasicAttack charged roll modifiers", () => {
 		expect(result.value.enemy.currentHp).toBe(enemyHp);
 		expect(result.value.player.activeEffects).toEqual([]);
 		expect(result.value.log.at(-1)?.message).toContain("The attack misses");
+		expect(result.value.log.at(-1)?.outcome).toEqual({
+			type: "miss",
+			targetId: combat.enemy.id,
+		});
+	});
+
+	it("records structured damage for a successful attack", () => {
+		const combat = structuredClone(createTestRunState().combat!);
+
+		const result = resolveBasicAttack({
+			combat,
+			attackerSide: "player",
+			rngState: { value: 0 },
+		});
+
+		const damageEntry = result.value.log.find((entry) => entry.eventType === "damage_dealt");
+		expect(damageEntry?.outcome).toEqual(
+			expect.objectContaining({
+				type: "damage",
+				targetId: combat.enemy.id,
+				hpDamage: expect.any(Number),
+				absorbedDamage: 0,
+			}),
+		);
 	});
 
 	it("decrements charged advantage without removing duration-based modifiers", () => {

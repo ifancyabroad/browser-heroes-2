@@ -23,6 +23,7 @@ export type {
 	CombatantState,
 	CombatantSkillState,
 	CombatLogEntry,
+	CombatLogOutcome,
 	ActiveCombatEffect,
 	DeserializeRunStateResult,
 	PendingLevelUp,

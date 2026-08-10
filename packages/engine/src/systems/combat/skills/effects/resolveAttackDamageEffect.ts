@@ -54,6 +54,7 @@ export function resolveAttackDamageEffect(
 				outcomes: [
 					{
 						type: "miss",
+						targetId: target.id,
 						targetName: target.name,
 					},
 				],
@@ -83,6 +84,7 @@ export function resolveAttackDamageEffect(
 	const outcomes: ActionResolution["outcomes"] = [
 		{
 			type: "damage",
+			targetId: target.id,
 			targetName: target.name,
 			damageType,
 			hpDamage: appliedMainDamage.hpDamage,
@@ -110,6 +112,7 @@ export function resolveAttackDamageEffect(
 		updatedTarget = appliedExtraDamage.combatant;
 		outcomes.push({
 			type: "damage",
+			targetId: target.id,
 			targetName: target.name,
 			damageType: extraDamage.value.damageType,
 			hpDamage: appliedExtraDamage.hpDamage,

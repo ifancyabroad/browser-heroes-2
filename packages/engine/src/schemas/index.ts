@@ -112,7 +112,7 @@ export type {
 
 export { combatLogEntrySchema, runLogEntrySchema, logActorSchema } from "./log.schema";
 
-export type { CombatLogEntry, RunLogEntry, LogActor } from "./log.schema";
+export type { CombatLogEntry, CombatLogOutcome, RunLogEntry, LogActor } from "./log.schema";
 
 export {
 	deserializeRunStateResultSchema,
