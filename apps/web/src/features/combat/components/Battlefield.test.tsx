@@ -50,7 +50,7 @@ describe("Battlefield combat outcomes", () => {
 				entries={[
 					damageEntry("other", 50, 0, false, "enemy-2"),
 					damageEntry("immune", 0, 0, false, "enemy-1", "immune"),
-					damageEntry("blocked", 0, 5),
+					damageEntry("blocked", 0, 5, false, "enemy-1", "normal", "effect_triggered"),
 				]}
 			/>,
 		);
@@ -67,7 +67,10 @@ describe("Battlefield combat outcomes", () => {
 		rerender(
 			<Battlefield
 				{...baseProps}
-				entries={[damageEntry("small", 10), damageEntry("large", 40)]}
+				entries={[
+					damageEntry("small", 10),
+					damageEntry("large", 40, 0, false, "enemy-1", "normal", "effect_triggered"),
+				]}
 			/>,
 		);
 
