@@ -105,6 +105,19 @@ describe("TownShopItemCard", () => {
 		expect(screen.getAllByText("100g").length).toBeGreaterThan(0);
 	});
 
+	it("shows weapon attack riders beneath the item effects", () => {
+		render(
+			<TownShopItemCard
+				slot={createSlot(false)}
+				isPending={false}
+				onBuy={vi.fn()}
+				onLockChange={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByText("On hit")).toBeInTheDocument();
+	});
+
 	it("only describes equipped items that would be replaced", () => {
 		const { rerender } = render(
 			<TooltipProvider>

@@ -31,7 +31,6 @@ function AttackRiderTooltipItem({ rider, index }: { rider: AttackRider; index: n
 
 	return (
 		<li key={`${rider.timing}-${index}`} className="break-words">
-			<span className="text-text-muted">- </span>
 			<Badge label={trigger} className="text-primary" /> <span>{effectText}</span>
 		</li>
 	);

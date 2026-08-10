@@ -8,6 +8,7 @@ import { Badge } from "../../../components/Badge";
 import { Button, IconButton } from "../../../components/Button";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
+import { AttackRiderTooltipList } from "../../../components/tooltips/AttackRiderTooltipList";
 import { attributeLabels } from "../../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../../presentation/effects";
 import { LockSharp } from "pixelarticons/react/LockSharp";
@@ -90,6 +91,9 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 
 					<div className="hidden md:block">
 						<ModifierPreview slot={slot} />
+						{item.type === "weapon" && item.attackRiders.length > 0 && (
+							<AttackRiderTooltipList riders={item.attackRiders} />
+						)}
 					</div>
 				</div>
 
