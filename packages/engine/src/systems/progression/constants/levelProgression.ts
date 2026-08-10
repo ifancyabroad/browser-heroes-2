@@ -28,21 +28,21 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 5,
 		requiredXp: 12_000,
-		choice: "feat",
+		choice: "skill",
 	},
 	{
 		level: 6,
 		requiredXp: 20_000,
-		choice: "skill",
+		choice: "feat",
 	},
 	{
 		level: 7,
 		requiredXp: 35_000,
+		choice: "skill",
 	},
 	{
 		level: 8,
 		requiredXp: 55_000,
-		choice: "feat",
 	},
 	{
 		level: 9,
@@ -52,6 +52,7 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 10,
 		requiredXp: 100_000,
+		choice: "feat",
 	},
 ] as const satisfies readonly LevelProgressionEntry[];
 
