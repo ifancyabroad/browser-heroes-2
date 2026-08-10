@@ -74,6 +74,27 @@ describe("Battlefield combat outcomes", () => {
 		expect(screen.getByText(/-40 FIRE/)).toHaveStyle({ fontSize: "1.25rem" });
 	});
 
+	it("groups damage by event type and damage type", () => {
+		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+
+		rerender(
+			<Battlefield
+				{...baseProps}
+				entries={[
+					damageEntry("fire-1", 8),
+					damageEntry("fire-2", 7),
+					damageEntry("cold", 4, 0, false, "enemy-1", "normal", "damage_dealt", "cold"),
+					damageEntry("fire-dot", 3, 0, false, "enemy-1", "normal", "effect_triggered"),
+				]}
+			/>,
+		);
+
+		expect(screen.getByText(/-15 FIRE/)).toBeInTheDocument();
+		expect(screen.getByText(/-4 COLD/)).toBeInTheDocument();
+		expect(screen.getByText(/-3 FIRE/)).toBeInTheDocument();
+		expect(screen.queryByText(/-8 FIRE/)).not.toBeInTheDocument();
+	});
+
 	it("restarts feedback when a new outcome arrives before the previous one expires", () => {
 		vi.useFakeTimers();
 		const { container, rerender } = render(<Battlefield {...baseProps} entries={[]} />);
@@ -103,19 +124,21 @@ function damageEntry(
 	critical = false,
 	targetId = "enemy-1",
 	affinity: "normal" | "immune" = "normal",
+	eventType: "damage_dealt" | "effect_triggered" = "damage_dealt",
+	damageType: "fire" | "cold" = "fire",
 ): CombatLogEntry {
 	return {
 		id,
 		turnNumber: 1,
 		actor: "player",
 		message: "Damage",
-		eventType: "damage_dealt",
+		eventType,
 		outcome: {
 			type: "damage",
 			targetId,
 			hpDamage,
 			absorbedDamage,
-			damageType: "fire",
+			damageType,
 			affinity,
 			critical,
 			halfDamageSave: false,

@@ -46,9 +46,7 @@ export function CombatOutcomeOverlay({ enemyId, entries }: CombatOutcomeOverlayP
 			processedEntryIds.current.add(entry.id);
 		}
 
-		const enemyOutcomes = newEntries.flatMap((entry) =>
-			entry.outcome?.targetId === enemyId ? [entry.outcome] : [],
-		);
+		const enemyOutcomes = groupEnemyOutcomes(newEntries, enemyId);
 
 		if (enemyOutcomes.length === 0) {
 			return;
@@ -83,6 +81,53 @@ export function CombatOutcomeOverlay({ enemyId, entries }: CombatOutcomeOverlayP
 			</div>
 		</div>
 	);
+}
+
+function groupEnemyOutcomes(entries: CombatLogEntry[], enemyId: string): CombatLogOutcome[] {
+	const groupedOutcomes: CombatLogOutcome[] = [];
+	const damageGroupIndexes = new Map<string, number>();
+
+	for (const entry of entries) {
+		const outcome = entry.outcome;
+
+		if (!outcome || outcome.targetId !== enemyId) {
+			continue;
+		}
+
+		if (outcome.type === "miss") {
+			groupedOutcomes.push(outcome);
+			continue;
+		}
+
+		const groupKey = `${entry.eventType}:${outcome.damageType}`;
+		const groupIndex = damageGroupIndexes.get(groupKey);
+
+		if (groupIndex === undefined) {
+			damageGroupIndexes.set(groupKey, groupedOutcomes.length);
+			groupedOutcomes.push(outcome);
+			continue;
+		}
+
+		const existing = groupedOutcomes[groupIndex];
+
+		if (existing.type !== "damage") {
+			throw new Error(`Damage outcome group ${groupKey} contains a non-damage outcome`);
+		}
+
+		groupedOutcomes[groupIndex] = {
+			...existing,
+			hpDamage: existing.hpDamage + outcome.hpDamage,
+			absorbedDamage: existing.absorbedDamage + outcome.absorbedDamage,
+			affinity:
+				existing.affinity === "immune" && outcome.affinity === "immune"
+					? "immune"
+					: "normal",
+			critical: existing.critical || outcome.critical,
+			halfDamageSave: existing.halfDamageSave || outcome.halfDamageSave,
+		};
+	}
+
+	return groupedOutcomes;
 }
 
 function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
