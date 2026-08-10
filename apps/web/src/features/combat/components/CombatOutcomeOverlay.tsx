@@ -88,7 +88,7 @@ export function CombatOutcomeOverlay({ enemyId, entries }: CombatOutcomeOverlayP
 			className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center ${styles.overlay}`}
 			aria-hidden="true"
 		>
-			<div className="flex flex-col items-center gap-1 text-center font-bold drop-shadow-[2px_2px_0_var(--color-bg-base)]">
+			<div className="flex flex-col items-center text-center font-bold drop-shadow-[2px_2px_0_var(--color-bg-base)]">
 				{visibleBatch.outcomes.map((outcome, index) => (
 					<CombatOutcomeText key={`${outcome.type}-${index}`} outcome={outcome} />
 				))}
@@ -164,8 +164,8 @@ function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
 
 	return (
 		<p className={damageTypeClass} style={style}>
-			{outcome.critical && <span className="text-legendary">CRIT </span>}
 			{outcome.hpDamage > 0 ? `-${outcome.hpDamage}` : "0"} {damageType}
+			{outcome.critical && <span className="text-legendary"> CRIT</span>}
 			{outcome.absorbedDamage > 0 && (
 				<span className="text-text-muted"> ({outcome.absorbedDamage} BLOCKED)</span>
 			)}
