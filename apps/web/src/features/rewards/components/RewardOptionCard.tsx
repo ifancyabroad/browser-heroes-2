@@ -1,7 +1,7 @@
 import {
 	selectItemDefinition,
+	type EquipmentDestinationView,
 	type RewardChoiceOptionView,
-	type RewardItemDestinationView,
 } from "@app/engine";
 import clsx from "clsx";
 import { RadioCard } from "../../../components/RadioCard";
@@ -20,7 +20,8 @@ type RewardOptionCardProps = {
 
 export function RewardOptionCard({ option, value, selected, disabled }: RewardOptionCardProps) {
 	const content = getOptionContent(option);
-	const replacements = option.type === "item" ? getUniqueReplacements(option.destinations) : [];
+	const replacements =
+		option.type === "item" ? getUniqueReplacements(option.equipmentPlacement.destinations) : [];
 
 	return (
 		<div className="min-w-0">
@@ -58,18 +59,19 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 					) : (
 						<span>{content.name}</span>
 					)}
-					{option.type === "item" && option.destinations.length > 0 && (
-						<span>
-							<span className="mr-1 text-text-label">Slot:</span>
-							<span className="text-text">
-								{getEquipmentSlotLabel(
-									option.destinations.map(
-										(destination) => destination.equipmentSlot,
-									),
-								)}
+					{option.type === "item" &&
+						option.equipmentPlacement.destinations.length > 0 && (
+							<span>
+								<span className="mr-1 text-text-label">Slot:</span>
+								<span className="text-text">
+									{getEquipmentSlotLabel(
+										option.equipmentPlacement.destinations.map(
+											(destination) => destination.equipmentSlot,
+										),
+									)}
+								</span>
 							</span>
-						</span>
-					)}
+						)}
 				</span>
 			</RadioCard>
 
@@ -87,7 +89,7 @@ function getOptionContent(option: RewardChoiceOptionView) {
 		};
 	}
 
-	const destinationSlots = option.destinations.map(
+	const destinationSlots = option.equipmentPlacement.destinations.map(
 		(destinationOption) => destinationOption.equipmentSlot,
 	);
 
@@ -99,8 +101,8 @@ function getOptionContent(option: RewardChoiceOptionView) {
 }
 
 type Replacement = {
-	replacedItem: RewardItemDestinationView["replacedItems"][number];
-	fallbackSlot: RewardItemDestinationView["equipmentSlot"];
+	replacedItem: EquipmentDestinationView["replacedItems"][number];
+	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
 };
 
 function ReplacementDetail({ replacements }: { replacements: readonly Replacement[] }) {
@@ -124,7 +126,7 @@ function ReplacementDetail({ replacements }: { replacements: readonly Replacemen
 	);
 }
 
-function getUniqueReplacements(destinations: readonly RewardItemDestinationView[]): Replacement[] {
+function getUniqueReplacements(destinations: readonly EquipmentDestinationView[]): Replacement[] {
 	const replacedItems = destinations.flatMap((destination) =>
 		destination.replacedItems.map((replacedItem) => ({
 			replacedItem,
@@ -140,8 +142,8 @@ function getUniqueReplacements(destinations: readonly RewardItemDestinationView[
 }
 
 type ReplacedItemTooltipProps = {
-	replacedItem: RewardItemDestinationView["replacedItems"][number];
-	fallbackSlot: RewardItemDestinationView["equipmentSlot"];
+	replacedItem: EquipmentDestinationView["replacedItems"][number];
+	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
 	prefix: string;
 };
 

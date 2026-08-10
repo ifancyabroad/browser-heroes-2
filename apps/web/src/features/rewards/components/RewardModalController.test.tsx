@@ -37,8 +37,10 @@ vi.mock("./RewardModal", () => ({
 						type: "item",
 						optionIndex: 1,
 						item: { id: "item-id" },
-						destinations: ["mainHand"],
-						requiresEquipmentSlotSelection: true,
+						equipmentPlacement: {
+							destinations: ["mainHand"],
+							automaticDestination: null,
+						},
 					})
 				}
 			>
@@ -47,8 +49,8 @@ vi.mock("./RewardModal", () => ({
 		</div>
 	),
 }));
-vi.mock("../../../components/EquipmentSlotModal", () => ({
-	EquipmentSlotModal: ({
+vi.mock("../../../components/EquipmentReplacementModal", () => ({
+	EquipmentReplacementModal: ({
 		onCancel,
 		onConfirm,
 	}: {

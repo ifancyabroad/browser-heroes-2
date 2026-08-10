@@ -14,15 +14,13 @@ export type { HeroView } from "./selectHeroView";
 
 export { selectRewardChoiceView } from "./selectRewardChoiceView";
 
-export type {
-	RewardChoiceOptionView,
-	RewardChoiceView,
-	RewardItemDestinationView,
-} from "./selectRewardChoiceView";
+export type { RewardChoiceOptionView, RewardChoiceView } from "./selectRewardChoiceView";
+
+export type { EquipmentDestinationView, EquipmentPlacementView } from "./selectEquipmentPlacement";
 
 export { selectTownView } from "./selectTownView";
 
-export type { TownShopDestinationView, TownShopSlotView, TownView } from "./selectTownView";
+export type { TownShopSlotView, TownView } from "./selectTownView";
 
 export { selectRunSummaryView } from "./selectRunSummaryView";
 

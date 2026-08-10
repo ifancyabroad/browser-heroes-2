@@ -24,8 +24,10 @@ function createSlot(locked: boolean, overrides: Partial<TownShopSlotView> = {}):
 		purchased: false,
 		locked,
 		canAfford: true,
-		destinations: [],
-		requiresEquipmentSlotSelection: false,
+		equipmentPlacement: {
+			destinations: [],
+			automaticDestination: { equipmentSlot: "mainHand", replacedItems: [] },
+		},
 		...overrides,
 	};
 }
@@ -136,18 +138,21 @@ describe("TownShopItemCard", () => {
 			<TooltipProvider>
 				<TownShopItemCard
 					slot={createSlot(false, {
-						destinations: [
-							{
-								equipmentSlot: "mainHand",
-								replacedItems: [
-									{
-										instanceId: "equipped-item",
-										type: "static",
-										itemId: "acid_edge",
-									},
-								],
-							},
-						],
+						equipmentPlacement: {
+							destinations: [
+								{
+									equipmentSlot: "mainHand",
+									replacedItems: [
+										{
+											instanceId: "equipped-item",
+											type: "static",
+											itemId: "acid_edge",
+										},
+									],
+								},
+							],
+							automaticDestination: null,
+						},
 					})}
 					isPending={false}
 					onBuy={vi.fn()}

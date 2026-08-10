@@ -1,15 +1,7 @@
-import { type EquipmentSlot } from "@app/content";
+import type { RewardOption, RunState, RuntimeItem } from "../schemas";
 
-import type { EquippedItemState, RewardOption, RunState, RuntimeItem } from "../schemas";
-
-import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
-import { previewEquipItem } from "../systems/equipment/previewEquipItem";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
-
-export type RewardItemDestinationView = {
-	equipmentSlot: EquipmentSlot;
-	replacedItems: readonly EquippedItemState[];
-};
+import { type EquipmentPlacementView, selectEquipmentPlacement } from "./selectEquipmentPlacement";
 
 export type RewardChoiceOptionView =
 	| {
@@ -21,8 +13,7 @@ export type RewardChoiceOptionView =
 			type: "item";
 			optionIndex: number;
 			item: RuntimeItem;
-			destinations: readonly RewardItemDestinationView[];
-			requiresEquipmentSlotSelection: boolean;
+			equipmentPlacement: EquipmentPlacementView;
 	  };
 
 export type RewardChoiceView = {
@@ -60,32 +51,14 @@ function createRewardOptionView(
 
 	const item = getItemInstanceDefinition(option.item);
 
-	const validEquipmentSlots = getValidEquipmentSlots(item);
+	const equipmentPlacement = selectEquipmentPlacement(state.hero, item);
 
 	return [
 		{
 			type: "item",
 			optionIndex,
 			item,
-			destinations: validEquipmentSlots.flatMap((equipmentSlot) => {
-				const preview = previewEquipItem({
-					hero: state.hero,
-					item,
-					requestedSlot: equipmentSlot,
-				});
-
-				if (!preview.ok) {
-					return [];
-				}
-
-				return [
-					{
-						equipmentSlot: preview.equipmentSlot,
-						replacedItems: preview.replacedItems,
-					},
-				];
-			}),
-			requiresEquipmentSlotSelection: validEquipmentSlots.length > 1,
+			equipmentPlacement,
 		},
 	];
 }

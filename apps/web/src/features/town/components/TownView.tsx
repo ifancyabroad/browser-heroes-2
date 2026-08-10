@@ -9,7 +9,7 @@ import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Button } from "../../../components/Button";
-import { EquipmentSlotModal } from "../../../components/EquipmentSlotModal";
+import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { ButtonLink } from "../../../components/Button";
@@ -63,7 +63,9 @@ export function TownView({ run }: TownViewProps) {
 			return;
 		}
 
-		if (slot.requiresEquipmentSlotSelection) {
+		const automaticDestination = slot.equipmentPlacement.automaticDestination;
+
+		if (!automaticDestination) {
 			setReplacementSlot(slot);
 			return;
 		}
@@ -72,6 +74,7 @@ export function TownView({ run }: TownViewProps) {
 			{
 				type: "BUY_ITEM",
 				shopSlotId: slot.id,
+				equipmentSlot: automaticDestination.equipmentSlot,
 			},
 			"Unable to buy that item. Please try again.",
 		);
@@ -251,9 +254,9 @@ export function TownView({ run }: TownViewProps) {
 			</GameMainPanel>
 
 			{replacementSlot && (
-				<EquipmentSlotModal
+				<EquipmentReplacementModal
 					item={replacementSlot.item}
-					destinations={replacementSlot.destinations}
+					destinations={replacementSlot.equipmentPlacement.destinations}
 					isPending={applyRunAction.isPending}
 					onCancel={() => setReplacementSlot(null)}
 					onConfirm={handleConfirmReplacement}

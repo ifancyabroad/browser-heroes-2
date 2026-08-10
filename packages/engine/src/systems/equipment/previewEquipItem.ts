@@ -35,7 +35,11 @@ export function previewEquipItem(input: PreviewEquipItemInput): PreviewEquipItem
 		};
 	}
 
-	if (equipmentSlot === "offHand" && hasTwoHandedMainHand(input.hero.equipment)) {
+	if (
+		equipmentSlot === "offHand" &&
+		hasTwoHandedMainHand(input.hero.equipment) &&
+		!replacesTwoHandedMainHand(input.item)
+	) {
 		return {
 			ok: false,
 			error: "INVALID_EQUIPMENT_SLOT",
@@ -116,4 +120,8 @@ function collectItemAtSlot(
 
 function hasTwoHandedMainHand(equipment: HeroEquipmentState): boolean {
 	return getEquippedWeapon(equipment.mainHand)?.handedness === "twoHanded";
+}
+
+function replacesTwoHandedMainHand(item: RuntimeItem): boolean {
+	return item.type === "armour" && item.slot === "shield";
 }

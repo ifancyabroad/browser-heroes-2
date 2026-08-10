@@ -44,8 +44,10 @@ const replacement = {
 	type: "item" as const,
 	optionIndex: 1,
 	item: { id: "item-id" },
-	destinations: ["mainHand"],
-	requiresEquipmentSlotSelection: true,
+	equipmentPlacement: {
+		destinations: ["mainHand"],
+		automaticDestination: null,
+	},
 };
 
 describe("RewardModal", () => {

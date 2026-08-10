@@ -1,6 +1,6 @@
 import {
 	selectItemDefinition,
-	type TownShopDestinationView,
+	type EquipmentDestinationView,
 	type TownShopSlotView,
 } from "@app/engine";
 import clsx from "clsx";
@@ -30,10 +30,11 @@ type TownShopItemCardProps = {
 export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownShopItemCardProps) {
 	const { item } = slot;
 	const isPurchased = slot.purchased;
-	const tooltipSlots = slot.destinations.map((destination) => destination.equipmentSlot);
+	const { destinations } = slot.equipmentPlacement;
+	const tooltipSlots = destinations.map((destination) => destination.equipmentSlot);
 	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
 	const primaryStat = getPrimaryItemStat(item);
-	const replacements = getUniqueReplacements(slot.destinations);
+	const replacements = getUniqueReplacements(destinations);
 
 	return (
 		<article className="relative min-w-0">
@@ -129,7 +130,7 @@ function ItemHeading({
 	tooltipSlots,
 }: {
 	slot: TownShopSlotView;
-	tooltipSlots: readonly TownShopDestinationView["equipmentSlot"][];
+	tooltipSlots: readonly EquipmentDestinationView["equipmentSlot"][];
 }) {
 	const { item } = slot;
 
@@ -300,8 +301,8 @@ function ModifierPreview({ slot }: { slot: TownShopSlotView }) {
 }
 
 type Replacement = {
-	replacedItem: TownShopDestinationView["replacedItems"][number];
-	fallbackSlot: TownShopDestinationView["equipmentSlot"];
+	replacedItem: EquipmentDestinationView["replacedItems"][number];
+	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
 };
 
 function ReplacementDetails({
@@ -335,7 +336,7 @@ function ReplacementDetails({
 	);
 }
 
-function getUniqueReplacements(destinations: readonly TownShopDestinationView[]): Replacement[] {
+function getUniqueReplacements(destinations: readonly EquipmentDestinationView[]): Replacement[] {
 	const replacedItems = destinations.flatMap((destination) =>
 		destination.replacedItems.map((replacedItem) => ({
 			replacedItem,
@@ -351,8 +352,8 @@ function getUniqueReplacements(destinations: readonly TownShopDestinationView[])
 }
 
 type ReplacedItemTooltipProps = {
-	replacedItem: TownShopDestinationView["replacedItems"][number];
-	fallbackSlot: TownShopDestinationView["equipmentSlot"];
+	replacedItem: EquipmentDestinationView["replacedItems"][number];
+	fallbackSlot: EquipmentDestinationView["equipmentSlot"];
 };
 
 function ReplacedItemTooltip({ replacedItem, fallbackSlot }: ReplacedItemTooltipProps) {

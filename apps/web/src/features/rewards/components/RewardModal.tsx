@@ -28,14 +28,22 @@ export function RewardModal({
 			return;
 		}
 
-		if (selection.type === "item" && selection.requiresEquipmentSlotSelection) {
-			onChooseReplacement(selection);
+		if (selection.type === "item") {
+			const automaticDestination = selection.equipmentPlacement.automaticDestination;
+
+			if (!automaticDestination) {
+				onChooseReplacement(selection);
+				return;
+			}
+
+			onConfirm({
+				optionIndex: selection.optionIndex,
+				equipmentSlot: automaticDestination.equipmentSlot,
+			});
 			return;
 		}
 
-		onConfirm({
-			optionIndex: selection.optionIndex,
-		});
+		onConfirm({ optionIndex: selection.optionIndex });
 	}
 
 	return (
@@ -69,5 +77,5 @@ export function RewardModal({
 }
 
 function canSubmitSelection(selection: RewardChoiceOptionView) {
-	return selection.type === "gold" || selection.destinations.length > 0;
+	return selection.type === "gold" || selection.equipmentPlacement.destinations.length > 0;
 }

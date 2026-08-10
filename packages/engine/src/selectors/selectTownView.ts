@@ -1,9 +1,7 @@
-import { type EquipmentSlot, type Zone } from "@app/content";
+import { type Zone } from "@app/content";
 
-import type { EquippedItemState, RunState, RuntimeItem, TownShopSlot } from "../schemas";
+import type { RunState, RuntimeItem, TownShopSlot } from "../schemas";
 
-import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
-import { previewEquipItem } from "../systems/equipment/previewEquipItem";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import { getZoneForRun } from "../systems/encounters/zones/getZoneForRun";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
@@ -14,11 +12,7 @@ import {
 	calculateRestCost,
 	calculateTownItemPrice,
 } from "../systems/town/townPricing";
-
-export type TownShopDestinationView = {
-	equipmentSlot: EquipmentSlot;
-	replacedItems: readonly EquippedItemState[];
-};
+import { type EquipmentPlacementView, selectEquipmentPlacement } from "./selectEquipmentPlacement";
 
 export type TownShopSlotView = {
 	id: string;
@@ -27,8 +21,7 @@ export type TownShopSlotView = {
 	purchased: boolean;
 	locked: boolean;
 	canAfford: boolean;
-	destinations: readonly TownShopDestinationView[];
-	requiresEquipmentSlotSelection: boolean;
+	equipmentPlacement: EquipmentPlacementView;
 };
 
 export type TownView = {
@@ -109,7 +102,7 @@ function createTownShopSlotView(
 	const item = getItemInstanceDefinition(slot.item);
 	const price = calculateTownItemPrice(slot.price, effectiveCharisma);
 
-	const validEquipmentSlots = getValidEquipmentSlots(item);
+	const equipmentPlacement = selectEquipmentPlacement(state.hero, item);
 
 	return [
 		{
@@ -119,25 +112,7 @@ function createTownShopSlotView(
 			purchased: slot.purchased,
 			locked: state.shopLocks.some((lock) => lock.id === slot.id),
 			canAfford: !slot.purchased && state.gold >= price,
-			destinations: validEquipmentSlots.flatMap((equipmentSlot) => {
-				const preview = previewEquipItem({
-					hero: state.hero,
-					item,
-					requestedSlot: equipmentSlot,
-				});
-
-				if (!preview.ok) {
-					return [];
-				}
-
-				return [
-					{
-						equipmentSlot: preview.equipmentSlot,
-						replacedItems: preview.replacedItems,
-					},
-				];
-			}),
-			requiresEquipmentSlotSelection: validEquipmentSlots.length > 1,
+			equipmentPlacement,
 		},
 	];
 }

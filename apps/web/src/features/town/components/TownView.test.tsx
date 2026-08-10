@@ -88,7 +88,10 @@ vi.mock("./TownShopGrid", () => ({
 						id: "simple-item",
 						purchased: false,
 						canAfford: true,
-						requiresEquipmentSlotSelection: false,
+						equipmentPlacement: {
+							destinations: [],
+							automaticDestination: { equipmentSlot: "mainHand", replacedItems: [] },
+						},
 					})
 				}
 			>
@@ -99,10 +102,12 @@ vi.mock("./TownShopGrid", () => ({
 					onBuy({
 						id: "replacement-item",
 						item: { id: "item-id" },
-						destinations: ["mainHand"],
+						equipmentPlacement: {
+							destinations: ["mainHand"],
+							automaticDestination: null,
+						},
 						purchased: false,
 						canAfford: true,
-						requiresEquipmentSlotSelection: true,
 					})
 				}
 			>
@@ -124,8 +129,8 @@ vi.mock("./TownShopGrid", () => ({
 		</div>
 	),
 }));
-vi.mock("../../../components/EquipmentSlotModal", () => ({
-	EquipmentSlotModal: ({
+vi.mock("../../../components/EquipmentReplacementModal", () => ({
+	EquipmentReplacementModal: ({
 		onCancel,
 		onConfirm,
 	}: {
@@ -226,7 +231,7 @@ describe("TownView", () => {
 		["Buy potion", { type: "BUY_CONSUMABLE", consumableType: "healingPotion" }],
 		["Enter", { type: "ENTER_COMBAT" }],
 		["Swap", { type: "SWAP_HAND_WEAPONS" }],
-		["Buy item", { type: "BUY_ITEM", shopSlotId: "simple-item" }],
+		["Buy item", { type: "BUY_ITEM", shopSlotId: "simple-item", equipmentSlot: "mainHand" }],
 		["Lock item", { type: "SET_SHOP_LOCK", shopSlotId: "lock-item", locked: true }],
 	])("submits the %s engine action", (button, action) => {
 		renderView();
