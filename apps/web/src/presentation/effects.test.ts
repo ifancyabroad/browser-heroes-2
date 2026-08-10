@@ -126,6 +126,37 @@ describe("effect presentation", () => {
 		).toBe("Your DEX saves automatically succeed for 3 turns.");
 	});
 
+	it("uses gain for self roll benefits and receives for enemy roll penalties", () => {
+		expect(
+			formatSkillEffect({
+				type: "modifyRoll",
+				target: "self",
+				roll: "savingThrow",
+				mode: "advantage",
+				duration: { unit: "battles", value: 1 },
+			}),
+		).toBe("Gain advantage on your saves for 1 battle.");
+		expect(
+			formatSkillEffect({
+				type: "modifyRoll",
+				target: "enemy",
+				roll: "savingThrow",
+				mode: "disadvantage",
+				duration: { unit: "battles", value: 1 },
+			}),
+		).toBe("The enemy receives disadvantage on saves for 1 battle.");
+		expect(
+			formatSkillEffect({
+				type: "modifyRoll",
+				target: "self",
+				roll: "savingThrow",
+				attribute: "dexterity",
+				mode: "disadvantage",
+				duration: { unit: "battles", value: 1 },
+			}),
+		).toBe("Receive disadvantage on your DEX saves for 1 battle.");
+	});
+
 	it("describes damage rolls as attacks", () => {
 		expect(
 			formatSkillEffect({

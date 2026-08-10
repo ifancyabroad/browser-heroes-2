@@ -374,8 +374,16 @@ function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyR
 		const limitedRolls = effect.charges
 			? `${target} next ${effect.charges === 1 ? singularizeRollSubject(rolls) : `${effect.charges} ${rolls}`}`
 			: `${target} ${rolls}`;
+		const action =
+			effect.target === "enemy"
+				? "The enemy receives"
+				: effect.mode === "advantage"
+					? "Gain"
+					: "Receive";
+		const affectedRolls =
+			effect.target === "enemy" ? limitedRolls.replace(/^the enemy's /, "") : limitedRolls;
 		return formatSavedEffect(
-			`Gain ${effect.mode} on ${limitedRolls} ${effect.charges ? "for up to" : "for"} ${duration}`,
+			`${action} ${effect.mode} on ${affectedRolls} ${effect.charges ? "for up to" : "for"} ${duration}`,
 			effect.save,
 		);
 	}
