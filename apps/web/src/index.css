@@ -46,6 +46,16 @@
 	--color-hp: #50c050;
 	--color-hp-damage: #b83232;
 	--color-xp: #8040c0;
+	--color-damage-acid: #b6e35c;
+	--color-damage-cold: #7dd3fc;
+	--color-damage-crushing: #d6b98c;
+	--color-damage-fire: #ff6b35;
+	--color-damage-lightning: #ffe066;
+	--color-damage-necrotic: #c084fc;
+	--color-damage-piercing: #d1d5db;
+	--color-damage-poison: #72d572;
+	--color-damage-radiant: #fff1a8;
+	--color-damage-slashing: #f3f4f6;
 	--color-legendary: #ff7800;
 	--color-epic: #ff47da;
 	--color-rare: #2f6bc6;

@@ -32,9 +32,10 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		expect(screen.getByText(/CRIT -20 FIRE/)).toBeInTheDocument();
+		expect(screen.getByText("CRIT")).toHaveClass("text-legendary");
 		expect(screen.getByText(/3 BLOCKED/)).toBeInTheDocument();
-		expect(screen.getByText("MISS")).toBeInTheDocument();
+		expect(screen.getByText(/-20 FIRE/)).toHaveClass("text-damage-fire");
+		expect(screen.getByText("MISS")).toHaveClass("text-error");
 
 		act(() => vi.advanceTimersByTime(1_000));
 		expect(screen.queryByText("MISS")).not.toBeInTheDocument();

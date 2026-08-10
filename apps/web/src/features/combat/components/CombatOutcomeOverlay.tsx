@@ -1,8 +1,22 @@
 import { useEffect, useRef, useState } from "react";
+import type { DamageType } from "@app/content";
 import type { CombatLogEntry, CombatLogOutcome } from "@app/engine";
 import styles from "./CombatOutcomeOverlay.module.css";
 
 const COMBAT_OUTCOME_FEEDBACK_MS = 1_000;
+
+const damageTypeClasses = {
+	acid: "text-damage-acid",
+	cold: "text-damage-cold",
+	crushing: "text-damage-crushing",
+	fire: "text-damage-fire",
+	lightning: "text-damage-lightning",
+	necrotic: "text-damage-necrotic",
+	piercing: "text-damage-piercing",
+	poison: "text-damage-poison",
+	radiant: "text-damage-radiant",
+	slashing: "text-damage-slashing",
+} satisfies Record<DamageType, string>;
 
 type CombatOutcomeOverlayProps = {
 	enemyId: string;
@@ -132,24 +146,25 @@ function groupEnemyOutcomes(entries: CombatLogEntry[], enemyId: string): CombatL
 
 function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
 	if (outcome.type === "miss") {
-		return <p className="text-info">MISS</p>;
+		return <p className="text-error">MISS</p>;
 	}
 
 	const damageType = outcome.damageType.toUpperCase();
+	const damageTypeClass = damageTypeClasses[outcome.damageType];
 	const sizeStep = Math.max(0, Math.floor(Math.log2(Math.max(1, outcome.hpDamage) / 10)));
 	const style = { fontSize: `${1 + sizeStep * 0.125}rem` };
 
 	if (outcome.affinity === "immune") {
 		return (
-			<p className="text-info" style={{ fontSize: "1rem" }}>
+			<p className={damageTypeClass} style={{ fontSize: "1rem" }}>
 				IMMUNE: {damageType}
 			</p>
 		);
 	}
 
 	return (
-		<p className={outcome.critical ? "text-legendary" : "text-error"} style={style}>
-			{outcome.critical && "CRIT "}
+		<p className={damageTypeClass} style={style}>
+			{outcome.critical && <span className="text-legendary">CRIT </span>}
 			{outcome.hpDamage > 0 ? `-${outcome.hpDamage}` : "0"} {damageType}
 			{outcome.absorbedDamage > 0 && (
 				<span className="text-text-muted"> ({outcome.absorbedDamage} BLOCKED)</span>
