@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { selectItemDefinition, type TownShopSlotView } from "@app/engine";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { TooltipProvider } from "../../../components/Tooltip";
 import { TownShopItemCard } from "./TownShopItemCard";
 
 const item = selectItemDefinition({
@@ -15,7 +16,7 @@ if (!item) {
 
 const testItem = item;
 
-function createSlot(locked: boolean): TownShopSlotView {
+function createSlot(locked: boolean, overrides: Partial<TownShopSlotView> = {}): TownShopSlotView {
 	return {
 		id: "shop-slot",
 		item: testItem,
@@ -25,6 +26,7 @@ function createSlot(locked: boolean): TownShopSlotView {
 		canAfford: true,
 		destinations: [],
 		requiresEquipmentSlotSelection: false,
+		...overrides,
 	};
 }
 
@@ -51,9 +53,9 @@ describe("TownShopItemCard", () => {
 			/>,
 		);
 
-		const lockButtons = screen.getAllByRole("button", { name: `Lock ${testItem.name}` });
-		expect(lockButtons[0]).toHaveAttribute("aria-pressed", "false");
-		fireEvent.click(lockButtons[0]);
+		const lockButton = screen.getByRole("button", { name: `Lock ${testItem.name}` });
+		expect(lockButton).toHaveAttribute("aria-pressed", "false");
+		fireEvent.click(lockButton);
 		expect(onLockChange).toHaveBeenCalledWith(true);
 
 		rerender(
@@ -64,9 +66,9 @@ describe("TownShopItemCard", () => {
 				onLockChange={onLockChange}
 			/>,
 		);
-		const unlockButton = screen.getAllByRole("button", {
+		const unlockButton = screen.getByRole("button", {
 			name: `Unlock ${testItem.name}`,
-		})[0];
+		});
 		expect(unlockButton).toHaveAttribute("aria-pressed", "true");
 		expect(unlockButton).toHaveClass(
 			"aria-pressed:bg-primary",
@@ -84,8 +86,63 @@ describe("TownShopItemCard", () => {
 			/>,
 		);
 
-		for (const button of screen.getAllByRole("button", { name: `Lock ${testItem.name}` })) {
-			expect(button).toBeDisabled();
-		}
+		expect(screen.getByRole("button", { name: `Lock ${testItem.name}` })).toBeDisabled();
+	});
+
+	it("shows the price separately from the buy action", () => {
+		render(
+			<TownShopItemCard
+				slot={createSlot(false)}
+				isPending={false}
+				onBuy={vi.fn()}
+				onLockChange={vi.fn()}
+			/>,
+		);
+
+		expect(
+			screen.getByRole("button", { name: `Buy ${testItem.name} for 100 gold` }),
+		).toHaveTextContent("Buy");
+		expect(screen.getAllByText("100g").length).toBeGreaterThan(0);
+	});
+
+	it("only describes equipped items that would be replaced", () => {
+		const { rerender } = render(
+			<TooltipProvider>
+				<TownShopItemCard
+					slot={createSlot(false)}
+					isPending={false}
+					onBuy={vi.fn()}
+					onLockChange={vi.fn()}
+				/>
+			</TooltipProvider>,
+		);
+
+		expect(screen.queryByText("Replaces:")).not.toBeInTheDocument();
+
+		rerender(
+			<TooltipProvider>
+				<TownShopItemCard
+					slot={createSlot(false, {
+						destinations: [
+							{
+								equipmentSlot: "mainHand",
+								replacedItems: [
+									{
+										instanceId: "equipped-item",
+										type: "static",
+										itemId: "acid_edge",
+									},
+								],
+							},
+						],
+					})}
+					isPending={false}
+					onBuy={vi.fn()}
+					onLockChange={vi.fn()}
+				/>
+			</TooltipProvider>,
+		);
+
+		expect(screen.getAllByText("Replaces:")).toHaveLength(2);
 	});
 });

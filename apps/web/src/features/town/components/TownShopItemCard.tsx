@@ -32,15 +32,17 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 	const tooltipSlots = slot.destinations.map((destination) => destination.equipmentSlot);
 	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
 	const primaryStat = getPrimaryItemStat(item);
+	const replacements = getUniqueReplacements(slot.destinations);
 
 	return (
-		<article
-			className={clsx(
-				"relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)_max-content] items-start gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)_max-content] md:grid-cols-[4rem_minmax(0,1fr)_max-content]",
-				isPurchased && "border-dashed bg-bg-base",
-			)}
-		>
-			<div className={clsx("contents", isPurchased && "invisible")} aria-hidden={isPurchased}>
+		<article className="relative min-w-0">
+			<div
+				className={clsx(
+					"grid min-w-0 grid-cols-[3rem_minmax(0,1fr)_max-content] items-start gap-3 border-2 border-border-secondary bg-bg-panel p-3 sm:grid-cols-[3.5rem_minmax(0,1fr)_max-content] md:h-full md:grid-cols-[4rem_minmax(0,1fr)_max-content]",
+					isPurchased && "border-dashed bg-bg-base [&>*]:invisible",
+				)}
+				aria-hidden={isPurchased}
+			>
 				<span className="block h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base sm:h-14 sm:w-14 md:h-16 md:w-16">
 					<img
 						key={item.id}
@@ -55,7 +57,7 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 
 				<div className="grid min-w-0 content-start gap-1 md:hidden">
 					<ItemHeading slot={slot} tooltipSlots={tooltipSlots} />
-					<ReplacementDetails destinations={slot.destinations} compact />
+					<Price slot={slot} labelled />
 				</div>
 
 				<div className="hidden min-w-0 content-start gap-2 md:grid">
@@ -83,7 +85,7 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 								className="hidden md:grid"
 							/>
 						)}
-						<ReplacementDetails destinations={slot.destinations} />
+						<ReplacementDetails replacements={replacements} />
 					</div>
 
 					<div className="hidden md:block">
@@ -96,8 +98,18 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 					isPending={isPending}
 					onBuy={onBuy}
 					onLockChange={onLockChange}
+					className="md:grid md:self-stretch md:content-between md:justify-items-end"
 				/>
 			</div>
+
+			{replacements.length > 0 && (
+				<div
+					className={clsx("pt-1 md:hidden", isPurchased && "[&>*]:invisible")}
+					aria-hidden={isPurchased}
+				>
+					<ReplacementDetails replacements={replacements} compact />
+				</div>
+			)}
 
 			{isPurchased && (
 				<div className="pointer-events-none absolute inset-0 grid place-items-center">
@@ -118,7 +130,7 @@ function ItemHeading({
 	const { item } = slot;
 
 	return (
-		<div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+		<div className="min-w-0">
 			<Tooltip
 				content={
 					tooltipSlots.length > 0 ? (
@@ -133,10 +145,6 @@ function ItemHeading({
 			>
 				{item.name}
 			</Tooltip>
-			<span className="whitespace-nowrap tabular-nums">
-				<span className="mr-2 text-text-muted">/</span>
-				<span className={getPriceClassName(slot)}>{slot.price}g</span>
-			</span>
 		</div>
 	);
 }
@@ -146,21 +154,43 @@ function ItemActions({
 	isPending,
 	onBuy,
 	onLockChange,
+	className,
 }: {
 	slot: TownShopSlotView;
 	isPending: boolean;
 	onBuy: () => void;
 	onLockChange: (locked: boolean) => void;
+	className?: string;
 }) {
 	return (
-		<div className="flex items-start gap-2 md:grid md:self-stretch md:content-between md:justify-items-end">
-			<BuyButton
-				slot={slot}
-				disabled={isPending || slot.purchased || !slot.canAfford}
-				onBuy={onBuy}
-			/>
-			<LockButton slot={slot} isPending={isPending} onLockChange={onLockChange} />
+		<div className={clsx("flex items-start gap-2", className)}>
+			<Price slot={slot} className="hidden md:block" />
+			<div className="flex items-start gap-2">
+				<BuyButton
+					slot={slot}
+					disabled={isPending || slot.purchased || !slot.canAfford}
+					onBuy={onBuy}
+				/>
+				<LockButton slot={slot} isPending={isPending} onLockChange={onLockChange} />
+			</div>
 		</div>
+	);
+}
+
+function Price({
+	slot,
+	labelled = false,
+	className,
+}: {
+	slot: TownShopSlotView;
+	labelled?: boolean;
+	className?: string;
+}) {
+	return (
+		<p className={clsx("whitespace-nowrap tabular-nums", className)}>
+			{labelled && <span className="mr-1 text-text-label">Price:</span>}
+			<span className={getPriceClassName(slot)}>{slot.price}g</span>
+		</p>
 	);
 }
 
@@ -205,7 +235,10 @@ function BuyButton({
 		<Button
 			type="button"
 			variant="primary"
-			className={clsx("justify-self-end border-border-secondary px-2", className)}
+			className={clsx(
+				"whitespace-nowrap border-border-secondary px-2 tabular-nums",
+				className,
+			)}
 			disabled={disabled}
 			aria-label={getBuyLabel(slot)}
 			title={getBuyLabel(slot)}
@@ -221,7 +254,7 @@ function getPriceClassName(slot: TownShopSlotView) {
 		return "text-error";
 	}
 
-	return "text-primary";
+	return "text-text-bright";
 }
 
 function DetailLine({
@@ -262,75 +295,54 @@ function ModifierPreview({ slot }: { slot: TownShopSlotView }) {
 	);
 }
 
+type Replacement = {
+	replacedItem: TownShopDestinationView["replacedItems"][number];
+	fallbackSlot: TownShopDestinationView["equipmentSlot"];
+};
+
 function ReplacementDetails({
-	destinations,
+	replacements,
 	compact = false,
 }: {
-	destinations: readonly TownShopDestinationView[];
+	replacements: readonly Replacement[];
 	compact?: boolean;
 }) {
-	if (destinations.length === 0) {
+	if (replacements.length === 0) {
 		return null;
 	}
 
 	return (
 		<p
 			className={clsx(
-				"grid min-w-0",
-				compact
-					? "grid-cols-[max-content_minmax(0,1fr)] gap-1"
-					: "grid-cols-[5rem_minmax(0,1fr)] gap-2",
+				"min-w-0",
+				compact ? "block" : "grid grid-cols-[5rem_minmax(0,1fr)] gap-2",
 			)}
 		>
-			<span className="text-text-label">Current</span>
+			<span className={clsx("text-text-label", compact && "mr-1")}>Replaces:</span>
 			<span className="min-w-0 break-words text-text">
-				<CombinedDestinationItems destinations={destinations} />
+				{replacements.map((replacement, index) => (
+					<span key={replacement.replacedItem.instanceId}>
+						{index > 0 && ", "}
+						<ReplacedItemTooltip {...replacement} />
+					</span>
+				))}
 			</span>
 		</p>
 	);
 }
 
-function CombinedDestinationItems({
-	destinations,
-}: {
-	destinations: readonly TownShopDestinationView[];
-}) {
+function getUniqueReplacements(destinations: readonly TownShopDestinationView[]): Replacement[] {
 	const replacedItems = destinations.flatMap((destination) =>
 		destination.replacedItems.map((replacedItem) => ({
 			replacedItem,
 			fallbackSlot: destination.equipmentSlot,
 		})),
 	);
-	const uniqueReplacedItems = replacedItems.filter(
+	return replacedItems.filter(
 		(entry, index) =>
 			replacedItems.findIndex(
 				(candidate) => candidate.replacedItem.instanceId === entry.replacedItem.instanceId,
 			) === index,
-	);
-	const includesEmpty = destinations.some(
-		(destination) => destination.replacedItems.length === 0,
-	);
-	const values = [
-		...uniqueReplacedItems.map((entry) => ({ type: "item" as const, ...entry })),
-		...(includesEmpty ? [{ type: "empty" as const }] : []),
-	];
-
-	return (
-		<>
-			{values.map((value, index) => (
-				<span key={value.type === "item" ? value.replacedItem.instanceId : "empty"}>
-					{index > 0 && ", "}
-					{value.type === "item" ? (
-						<ReplacedItemTooltip
-							replacedItem={value.replacedItem}
-							fallbackSlot={value.fallbackSlot}
-						/>
-					) : (
-						"Empty"
-					)}
-				</span>
-			))}
-		</>
 	);
 }
 

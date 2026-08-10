@@ -57,7 +57,7 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 					<span>{content.name}</span>
 				)}
 				{option.type === "item" && (
-					<CurrentEquipmentDetail destinations={option.destinations} />
+					<EquippedItemDetail destinations={option.destinations} />
 				)}
 			</span>
 		</RadioCard>
@@ -84,7 +84,7 @@ function getOptionContent(option: RewardChoiceOptionView) {
 	};
 }
 
-function CurrentEquipmentDetail({
+function EquippedItemDetail({
 	destinations,
 }: {
 	destinations: readonly RewardItemDestinationView[];
@@ -111,7 +111,7 @@ function CurrentEquipmentDetail({
 
 	return (
 		<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
-			<span className="text-text-label">Current</span>
+			<span className="text-text-label">Equipped</span>
 			<span className="min-w-0 break-words text-text">
 				{uniqueReplacedItems.map((entry, index) => (
 					<ReplacedItemTooltip
