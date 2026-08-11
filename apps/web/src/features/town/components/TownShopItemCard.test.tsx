@@ -199,4 +199,37 @@ describe("TownShopItemCard", () => {
 
 		expect(screen.queryByText("Replaces:")).not.toBeInTheDocument();
 	});
+
+	it("removes replacement details and shows a muted badge after purchase", () => {
+		render(
+			<TooltipProvider>
+				<TownShopItemCard
+					slot={createSlot(false, {
+						purchased: true,
+						equipmentPlacement: {
+							destinations: [
+								{
+									equipmentSlot: "mainHand",
+									replacedItems: [
+										{
+											instanceId: "equipped-item",
+											type: "static",
+											itemId: "acid_edge",
+										},
+									],
+								},
+							],
+							automaticDestination: null,
+						},
+					})}
+					isPending={false}
+					onBuy={vi.fn()}
+					onLockChange={vi.fn()}
+				/>
+			</TooltipProvider>,
+		);
+
+		expect(screen.queryByText("Replaces:")).not.toBeInTheDocument();
+		expect(screen.getByText("SOLD")).toHaveClass("border-border-secondary", "text-text");
+	});
 });

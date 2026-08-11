@@ -111,11 +111,8 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 				/>
 			</div>
 
-			{requiresReplacement && (
-				<div
-					className={clsx("pt-1 md:hidden", isPurchased && "[&>*]:invisible")}
-					aria-hidden={isPurchased}
-				>
+			{requiresReplacement && !isPurchased && (
+				<div className="pt-1 md:hidden">
 					<p className="min-w-0">
 						<span className="mr-1 text-text-label">Replaces:</span>
 						<span className="min-w-0 break-words text-text">
@@ -127,7 +124,7 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 
 			{isPurchased && (
 				<div className="pointer-events-none absolute inset-0 grid place-items-center">
-					<Badge label="SOLD" className="text-text-muted" />
+					<Badge label="SOLD" variant="muted" />
 				</div>
 			)}
 		</article>
