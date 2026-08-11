@@ -23,7 +23,7 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "criticalRangeBonus",
-			value: 1,
+			value: 2,
 			duration: { unit: "battles", value: 1 },
 		},
 	],
