@@ -1,7 +1,7 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import { env } from "../config/env";
 
-const ses = new SESClient({ region: env.AWS_REGION });
+const ses = new SESClient({ region: env.SES_REGION });
 
 async function sendEmail(input: { to: string; subject: string; text: string; replyTo?: string }) {
 	if (env.EMAIL_DELIVERY === "log") {

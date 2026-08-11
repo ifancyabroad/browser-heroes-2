@@ -22,6 +22,7 @@ describe("environment configuration", () => {
 			PORT: 4000,
 			APP_URL: "http://localhost:5173",
 			TRUST_PROXY_HOPS: 0,
+			SES_REGION: "eu-west-1",
 			EMAIL_DELIVERY: "log",
 		});
 	});

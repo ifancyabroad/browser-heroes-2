@@ -15,7 +15,7 @@ The deployable build outputs are:
 
 The API artifact must be built on Linux because `argon2` includes native binaries. Its root `Procfile` starts Elastic Beanstalk with `node dist/server.js`.
 
-The exact API artifact assembly belongs to CodeBuild and should be chosen and tested when the pipeline is implemented. Elastic Beanstalk cannot install the API directly from `apps/api/package.json` because its `workspace:*` dependencies require workspace-aware packaging.
+CodeBuild assembles the API artifact with `pnpm deploy --filter @app/api --prod --legacy`. The API package allowlists only `dist` and `Procfile`, preventing local environment files and source-only files from entering the artifact. Elastic Beanstalk cannot install the API directly from `apps/api/package.json` because its `workspace:*` dependencies require workspace-aware packaging.
 
 ## 3. Production Topology
 
@@ -27,7 +27,7 @@ Use a single public CloudFront hostname with these ordered behaviors:
 | `/socket.io/*` | Elastic Beanstalk | Disabled | Forward the WebSocket handshake, headers, cookies, and query strings    |
 | Default `*`    | Private S3 bucket | Enabled  | Serve the built frontend without application cookies                    |
 
-Redirect viewer HTTP requests to HTTPS and use HTTPS from CloudFront to Elastic Beanstalk. Keep the S3 bucket private and grant CloudFront access through Origin Access Control.
+Redirect viewer HTTP requests to HTTPS. The initial low-traffic deployment uses a single-instance Elastic Beanstalk environment without a load balancer. CloudFront therefore uses HTTP to that origin, and the instance security group permits port 80 only from the AWS-managed CloudFront origin-facing prefix list. A future load-balanced environment should use HTTPS from CloudFront to the load balancer.
 
 Serve `index.html` with a short or disabled cache and hashed assets with a long immutable cache. Handle extensionless frontend routes within the default S3 behavior so genuine API errors are not rewritten to frontend HTML.
 
@@ -48,7 +48,7 @@ Provide these values outside the source artifact:
 - `SESSION_SECRET`
 - `APP_URL`
 - `TRUST_PROXY_HOPS`
-- `AWS_REGION`
+- `SES_REGION=eu-west-1`
 - `SES_FROM_EMAIL`
 - `EMAIL_DELIVERY=ses`
 
@@ -56,9 +56,17 @@ Set `APP_URL` to the public CloudFront-backed HTTPS origin. Verify the proxy-hop
 
 Use the Elastic Beanstalk instance role for SES rather than shipping AWS access keys.
 
-## 6. Atlas and Rollback
+## 6. CI/CD
 
-Give the application a dedicated Atlas database user and allow connections only from the Elastic Beanstalk network path. Do not allow `0.0.0.0/0`. Dedicated Atlas clusters may use AWS PrivateLink; smaller tiers can use a narrow IP access-list entry.
+Production uses separate `browser-heroes-api` and `browser-heroes-web` pipelines sourced from `main` through the existing GitHub CodeStar connection. Both pipelines run their affected lint, typecheck, test, and build tasks.
+
+The API pipeline emits the workspace-aware Beanstalk bundle and deploys it with the native Elastic Beanstalk action. The web pipeline builds with the holding page enabled, syncs normal documents with `no-cache`, syncs hashed assets with immutable one-year caching, and invalidates the CloudFront entry document.
+
+The new AWS resources are defined in `infra/cloudformation/production.yml`. The existing CloudFront distribution is intentionally not adopted into that stack; update it only after the new S3 and API origins are healthy.
+
+## 7. Atlas and Rollback
+
+Give the application a dedicated Atlas database user. The initial single-instance Beanstalk environment receives an Elastic IP; add that address as the sole Atlas network allowlist entry and do not allow `0.0.0.0/0`. If the environment later becomes load-balanced, replace this with stable NAT egress or PrivateLink.
 
 Enable the backup capability available to the chosen Atlas tier and test restoration.
 

@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+    install:
+        runtime-versions:
+            nodejs: 22
+        commands:
+            - corepack enable
+            - corepack prepare pnpm@10.14.0 --activate
+            - pnpm install --frozen-lockfile
+    pre_build:
+        commands:
+            - pnpm --filter @app/api... run lint
+            - pnpm --filter @app/api... run typecheck
+            - pnpm --filter @app/api... run test
+    build:
+        commands:
+            - pnpm --filter @app/api... run build
+            - pnpm deploy --filter @app/api --prod --legacy api-bundle
+            - test ! -e api-bundle/.env
+
+artifacts:
+    base-directory: api-bundle
+    files:
+        - "**/*"
+    enable-symlinks: yes
+
+cache:
+    paths:
+        - "/root/.local/share/pnpm/store/**/*"

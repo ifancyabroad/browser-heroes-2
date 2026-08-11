@@ -30,6 +30,7 @@ Thumbs.db
 
 # local browser review artifacts
 .playwright-mcp/
+.tmp-api-bundle/
 
 # local superpowers planning artifacts
 docs/superpowers/

@@ -5,6 +5,10 @@
 	"description": "Express + Mongoose API (TypeScript).",
 	"license": "MIT",
 	"type": "module",
+	"files": [
+		"dist",
+		"Procfile"
+	],
 	"engines": {
 		"node": ">=22"
 	},
