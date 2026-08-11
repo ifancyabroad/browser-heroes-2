@@ -58,7 +58,7 @@ Use the Elastic Beanstalk instance role for SES rather than shipping AWS access 
 
 ## 6. CI/CD
 
-Production uses separate `browser-heroes-api` and `browser-heroes-web` pipelines sourced from `main` through the existing GitHub CodeStar connection. Both pipelines run their affected lint, typecheck, test, and build tasks.
+Production uses separate `browser-heroes-api` and `browser-heroes-web` pipelines sourced from `main` through the existing GitHub CodeStar connection. Native path filters deploy app-specific changes independently; changes to shared runtime packages or root dependency and TypeScript configuration trigger both pipelines. Documentation-only changes trigger neither pipeline. Both pipelines run their affected lint, typecheck, test, and build tasks.
 
 The API pipeline emits the standalone Beanstalk bundle and deploys it with the native Elastic Beanstalk action. Elastic Beanstalk checks `/api/health` when evaluating the deployed environment. The web pipeline uploads hashed assets before publishing `index.html`, retains older hashed assets for open browser sessions, and invalidates the CloudFront entry document.
 

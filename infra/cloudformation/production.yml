@@ -451,10 +451,30 @@ Resources:
         Type: AWS::CodePipeline::Pipeline
         Properties:
             Name: browser-heroes-api
+            PipelineType: V2
+            ExecutionMode: SUPERSEDED
             RoleArn: !GetAtt PipelineRole.Arn
             ArtifactStore:
                 Type: S3
                 Location: !Ref ArtifactBucket
+            Triggers:
+                - ProviderType: CodeStarSourceConnection
+                  GitConfiguration:
+                      SourceActionName: Source
+                      Push:
+                          - Branches:
+                                Includes:
+                                    - !Ref BranchName
+                            FilePaths:
+                                Includes:
+                                    - apps/api/**
+                                    - packages/content/**
+                                    - packages/engine/**
+                                    - packages/shared/**
+                                    - package.json
+                                    - pnpm-lock.yaml
+                                    - pnpm-workspace.yaml
+                                    - tsconfig.base.json
             Stages:
                 - Name: Source
                   Actions:
@@ -469,7 +489,7 @@ Resources:
                             FullRepositoryId: !Ref RepositoryId
                             BranchName: !Ref BranchName
                             OutputArtifactFormat: CODE_ZIP
-                            DetectChanges: "true"
+                            DetectChanges: "false"
                         OutputArtifacts:
                             - Name: SourceOutput
                         RunOrder: 1
@@ -507,10 +527,30 @@ Resources:
         Type: AWS::CodePipeline::Pipeline
         Properties:
             Name: browser-heroes-web
+            PipelineType: V2
+            ExecutionMode: SUPERSEDED
             RoleArn: !GetAtt PipelineRole.Arn
             ArtifactStore:
                 Type: S3
                 Location: !Ref ArtifactBucket
+            Triggers:
+                - ProviderType: CodeStarSourceConnection
+                  GitConfiguration:
+                      SourceActionName: Source
+                      Push:
+                          - Branches:
+                                Includes:
+                                    - !Ref BranchName
+                            FilePaths:
+                                Includes:
+                                    - apps/web/**
+                                    - packages/content/**
+                                    - packages/engine/**
+                                    - packages/shared/**
+                                    - package.json
+                                    - pnpm-lock.yaml
+                                    - pnpm-workspace.yaml
+                                    - tsconfig.base.json
             Stages:
                 - Name: Source
                   Actions:
@@ -525,7 +565,7 @@ Resources:
                             FullRepositoryId: !Ref RepositoryId
                             BranchName: !Ref BranchName
                             OutputArtifactFormat: CODE_ZIP
-                            DetectChanges: "true"
+                            DetectChanges: "false"
                         OutputArtifacts:
                             - Name: SourceOutput
                         RunOrder: 1
