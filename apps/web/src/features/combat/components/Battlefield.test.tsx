@@ -9,6 +9,8 @@ const baseProps = {
 	enemyPortrait: null,
 	enemyName: "Orc",
 	isEnemySlain: false,
+	battleNumber: 12,
+	goldMultiplier: 2,
 	nextZone: "forest" as const,
 	zone: "forest" as const,
 	onOpenLog: vi.fn(),
@@ -27,6 +29,18 @@ describe("Battlefield combat outcomes", () => {
 
 		expect(onOpenLog).toHaveBeenCalledOnce();
 		expect(screen.getByRole("button", { name: "Open combat log" })).toHaveClass("md:hidden");
+	});
+
+	it("shows compact mobile battle and gold multiplier badges", () => {
+		render(<Battlefield {...baseProps} entries={[]} />);
+
+		const battleInfo = screen.getByRole("group", {
+			name: "Battle 12, gold multiplier 2 times",
+		});
+
+		expect(battleInfo).toHaveClass("tabular-nums", "md:hidden");
+		expect(battleInfo).toHaveTextContent("Battle 12");
+		expect(battleInfo).toHaveTextContent("Gold ×2");
 	});
 
 	it("ignores existing outcomes and shows all new enemy outcomes together", () => {

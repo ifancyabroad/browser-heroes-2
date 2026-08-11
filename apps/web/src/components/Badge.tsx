@@ -1,7 +1,8 @@
+import type { ReactNode } from "react";
 import clsx from "clsx";
 
 type BadgeProps = {
-	label: string;
+	label: ReactNode;
 	variant?: "default" | "muted";
 	textTone?: "default" | "bright";
 	className?: string;

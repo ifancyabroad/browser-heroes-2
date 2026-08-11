@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import type { Zone } from "@app/content";
 import type { CombatLogEntry } from "@app/engine";
 import { BookOpen } from "pixelarticons/react/BookOpen";
+import { Badge } from "../../../components/Badge";
 import { IconButton } from "../../../components/Button";
 import { CombatOutcomeOverlay } from "./CombatOutcomeOverlay";
 import { EnemyPortrait } from "./EnemyPortrait";
@@ -37,6 +38,8 @@ type BattlefieldProps = {
 	enemyPortrait: string | null;
 	enemyName: string;
 	isEnemySlain: boolean;
+	battleNumber: number;
+	goldMultiplier: number;
 	nextZone: Zone;
 	zone: Zone;
 	onOpenLog: () => void;
@@ -49,6 +52,8 @@ export function Battlefield({
 	enemyPortrait,
 	enemyName,
 	isEnemySlain,
+	battleNumber,
+	goldMultiplier,
 	nextZone,
 	zone,
 	onOpenLog,
@@ -75,6 +80,30 @@ export function Battlefield({
 			aria-label="Battlefield"
 			style={{ backgroundImage: `url(${ZONE_BACKGROUNDS[zone]})` }}
 		>
+			<div
+				className="absolute right-2 top-2 z-20 flex gap-1 tabular-nums md:hidden"
+				role="group"
+				aria-label={`Battle ${battleNumber}, gold multiplier ${goldMultiplier} times`}
+			>
+				<Badge
+					label={
+						<>
+							<span className="text-text-label">Battle</span>{" "}
+							<span className="text-text-bright">{battleNumber}</span>
+						</>
+					}
+					className="bg-bg-base/90"
+				/>
+				<Badge
+					label={
+						<>
+							<span className="text-text-label">Gold</span>{" "}
+							<span className="text-text-bright">×{goldMultiplier}</span>
+						</>
+					}
+					className="bg-bg-base/90"
+				/>
+			</div>
 			<IconButton
 				type="button"
 				aria-label="Open combat log"

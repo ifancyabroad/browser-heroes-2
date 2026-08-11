@@ -204,6 +204,8 @@ export function CombatView({ run }: CombatViewProps) {
 					enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
 					enemyName={combat.enemy.name}
 					isEnemySlain={isEnemySlain}
+					battleNumber={battleNumber}
+					goldMultiplier={goldMultiplier}
 					nextZone={nextZone}
 					zone={zone}
 					onOpenLog={handleOpenSidebar}
