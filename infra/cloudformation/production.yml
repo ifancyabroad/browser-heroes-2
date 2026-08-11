@@ -25,7 +25,7 @@ Parameters:
         Default: pl-93a247fa
     MongoUriSecretArn:
         Type: String
-        Description: ARN of a Secrets Manager secret whose entire value is the production MongoDB URI.
+        Description: ARN of a Secrets Manager JSON secret containing the production MongoDB URI under MONGO_URI.
     SesFromEmail:
         Type: String
         Default: noreply@browserheroes.com
@@ -254,7 +254,7 @@ Resources:
                   Value: ses
                 - Namespace: aws:elasticbeanstalk:application:environmentsecrets
                   OptionName: MONGO_URI
-                  Value: !Ref MongoUriSecretArn
+                  Value: !Sub "${MongoUriSecretArn}:MONGO_URI"
                 - Namespace: aws:elasticbeanstalk:application:environmentsecrets
                   OptionName: SESSION_SECRET
                   Value: !Ref SessionSecret

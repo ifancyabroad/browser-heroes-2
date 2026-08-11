@@ -13,7 +13,7 @@
 
 Before creating the stack:
 
-1. Create a Secrets Manager secret whose entire value is the production Atlas URI. Do not store the URI in this repository or a shell history file.
+1. Create a Secrets Manager JSON secret with key `MONGO_URI` and the production Atlas URI as its value. Do not store the URI in this repository or a shell history file.
 2. Request SES production access in `eu-west-1`. The existing `browserheroes.com` identity is verified with DKIM, but the account is currently in the SES sandbox.
 3. Push the buildspec and infrastructure changes to `main`; creating the pipelines before those files exist remotely causes their first executions to fail.
 
