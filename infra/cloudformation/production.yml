@@ -438,6 +438,8 @@ Resources:
                                 - !GetAtt ArtifactBucket.Arn
                                 - !Sub "${ArtifactBucket.Arn}/*"
                           - Effect: Allow
+                            # AWS's documented CodePipeline policy for the native
+                            # Elastic Beanstalk deploy action spans these services.
                             Action:
                                 - elasticbeanstalk:*
                                 - ec2:*

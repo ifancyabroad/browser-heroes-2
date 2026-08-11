@@ -9,6 +9,8 @@
 - generated session secret and an external MongoDB URI secret reference
 - permission to send through the existing verified eu-west-1 SES domain identity
 
+The API build produces a standalone JavaScript bundle. Its deployment manifest installs only `argon2`, the native password-hashing dependency that cannot be included in that bundle.
+
 ## Prerequisites
 
 Before creating the stack:

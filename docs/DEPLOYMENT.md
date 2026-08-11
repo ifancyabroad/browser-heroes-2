@@ -11,11 +11,11 @@ Use Node.js 22 and pnpm 10.14.0. Install dependencies with `pnpm install --froze
 The deployable build outputs are:
 
 - `apps/web/dist` for the frontend
-- `apps/api/dist` for the API, together with the API's production dependencies and workspace package runtime output
+- `apps/api/dist/server.cjs` for the bundled API, together with the files in `apps/api/deployment`
 
-The API artifact must be built on Linux because `argon2` includes native binaries. Its root `Procfile` starts Elastic Beanstalk with `node dist/server.js`.
+The API is bundled into `dist/server.cjs`, including its workspace packages and ordinary JavaScript dependencies. The build options live in `apps/api/esbuild.config.mjs` so the package script remains readable.
 
-CodeBuild assembles the API artifact with `pnpm deploy --filter @app/api --prod --legacy`. The API package allowlists only `dist` and `Procfile`, preventing local environment files and source-only files from entering the artifact. Elastic Beanstalk cannot install the API directly from `apps/api/package.json` because its `workspace:*` dependencies require workspace-aware packaging.
+`argon2` securely hashes account passwords and contains native code, so it remains outside the JavaScript bundle and is installed on Elastic Beanstalk's Linux runtime. CodeBuild combines the bundle with the small manifest and `Procfile` in `apps/api/deployment`. No source files, local environment files, workspace links, or development dependencies enter the artifact.
 
 ## 3. Production Topology
 
@@ -60,7 +60,7 @@ Use the Elastic Beanstalk instance role for SES rather than shipping AWS access 
 
 Production uses separate `browser-heroes-api` and `browser-heroes-web` pipelines sourced from `main` through the existing GitHub CodeStar connection. Both pipelines run their affected lint, typecheck, test, and build tasks.
 
-The API pipeline emits the workspace-aware Beanstalk bundle and deploys it with the native Elastic Beanstalk action. The web pipeline builds with the holding page enabled, syncs normal documents with `no-cache`, syncs hashed assets with immutable one-year caching, and invalidates the CloudFront entry document.
+The API pipeline emits the standalone Beanstalk bundle and deploys it with the native Elastic Beanstalk action. Elastic Beanstalk checks `/api/health` when evaluating the deployed environment. The web pipeline builds with the holding page enabled, syncs normal documents with `no-cache`, syncs hashed assets with immutable one-year caching, and invalidates the CloudFront entry document.
 
 The new AWS resources are defined in `infra/cloudformation/production.yml`. The existing CloudFront distribution is intentionally not adopted into that stack; update it only after the new S3 and API origins are healthy.
 

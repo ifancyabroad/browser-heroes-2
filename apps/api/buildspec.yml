@@ -18,8 +18,8 @@ phases:
             - pnpm --filter @app/api... run build
             - mkdir -p api-bundle/dist
             - cp apps/api/dist/server.cjs api-bundle/dist/server.cjs
-            - cp apps/api/Procfile api-bundle/Procfile
-            - cp apps/api/deploy-package.json api-bundle/package.json
+            - cp apps/api/deployment/Procfile api-bundle/Procfile
+            - cp apps/api/deployment/package.json api-bundle/package.json
             - test ! -e api-bundle/.env
 
 artifacts:
