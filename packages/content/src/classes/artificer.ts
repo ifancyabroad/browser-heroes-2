@@ -4,7 +4,7 @@ export default buildClass({
 	id: "artificer",
 	order: 8,
 	name: "Artificer",
-	description: "An ingenious arcanist who wields enchanted devices and volatile compounds.",
+	description: "A clever spellcaster using enchanted devices and volatile magic.",
 	portrait: "classes/portraits/artificer.png",
 	enemyPortrait: "classes/enemy_portraits/artificer.png",
 	icon: "classes/icons/artificer.png",

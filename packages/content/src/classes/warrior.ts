@@ -4,7 +4,7 @@ export default buildClass({
 	id: "warrior",
 	order: 1,
 	name: "Warrior",
-	description: "Proud and honorable, specialising in brute strength. ",
+	description: "A durable frontline fighter built around strength and martial weapons.",
 	portrait: "classes/portraits/warrior.png",
 	enemyPortrait: "classes/enemy_portraits/warrior.png",
 	icon: "classes/icons/warrior.png",

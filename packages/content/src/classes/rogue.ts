@@ -4,7 +4,7 @@ export default buildClass({
 	id: "rogue",
 	order: 4,
 	name: "Rogue",
-	description: "Unscrupulous and underhanded, strikes from the shadows.",
+	description: "An agile opportunist who uses poison, precision, and ranged weapons.",
 	portrait: "classes/portraits/rogue.png",
 	enemyPortrait: "classes/enemy_portraits/rogue.png",
 	icon: "classes/icons/rogue.png",

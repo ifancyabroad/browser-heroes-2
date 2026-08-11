@@ -1,6 +1,6 @@
 import { classes, CLASSES_BY_ID, type ClassId } from "@app/content";
 import { useState } from "react";
-import { ClassCard, HeroNameModal } from "../features/createCharacter";
+import { ClassCard, ClassDetailsModal, HeroNameModal } from "../features/createCharacter";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useAuth, useCreateGuestSession } from "../features/auth";
 import { useCreateRun } from "../features/runs";
@@ -18,7 +18,9 @@ export default function CreateCharacter() {
 	const createGuestSession = useCreateGuestSession();
 	const createRun = useCreateRun();
 	const [selectedClassId, setSelectedClassId] = useState<ClassId | null>(null);
+	const [detailsClassId, setDetailsClassId] = useState<ClassId | null>(null);
 	const selectedClass = selectedClassId ? CLASSES_BY_ID[selectedClassId] : null;
+	const detailsClass = detailsClassId ? CLASSES_BY_ID[detailsClassId] : null;
 
 	function handleChoose(classId: ClassId) {
 		setSelectedClassId(classId);
@@ -75,9 +77,17 @@ export default function CreateCharacter() {
 								key={gameClass.id}
 								gameClass={gameClass}
 								onChoose={handleChoose}
+								onViewDetails={setDetailsClassId}
 							/>
 						))}
 					</div>
+
+					{detailsClass && (
+						<ClassDetailsModal
+							gameClass={detailsClass}
+							onClose={() => setDetailsClassId(null)}
+						/>
+					)}
 
 					{selectedClass && (
 						<HeroNameModal

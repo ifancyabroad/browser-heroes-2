@@ -4,7 +4,7 @@ export default buildClass({
 	id: "priest",
 	order: 3,
 	name: "Priest",
-	description: "Dedicated to the Gods, wielding both shadow and holy energy.",
+	description: "A divine spellcaster who channels both holy and shadow magic.",
 	portrait: "classes/portraits/priest.png",
 	enemyPortrait: "classes/enemy_portraits/priest.png",
 	icon: "classes/icons/priest.png",

@@ -1,28 +1,18 @@
-import { SKILLS_BY_ID, type Class, type ClassId } from "@app/content";
+import { type Class, type ClassId } from "@app/content";
 import { resolveImageUrl } from "../../../utils/image";
 import { ArrowRight } from "pixelarticons/react/ArrowRight";
+import { Button } from "../../../components/Button";
 
 type ClassCardProps = {
 	gameClass: Class;
 	onChoose: (classId: ClassId) => void;
+	onViewDetails: (classId: ClassId) => void;
 };
 
-export function ClassCard({ gameClass, onChoose }: ClassCardProps) {
-	const startingSkillId = gameClass.combat.skillIds[0];
-	const startingSkill = startingSkillId ? SKILLS_BY_ID[startingSkillId] : null;
-
-	function handleChoose() {
-		onChoose(gameClass.id);
-	}
-
+export function ClassCard({ gameClass, onChoose, onViewDetails }: ClassCardProps) {
 	return (
-		<button
-			type="button"
-			aria-label={`Choose ${gameClass.name}`}
-			onClick={handleChoose}
-			className="flex min-w-0 cursor-pointer flex-col border-2 border-border-secondary bg-bg-panel p-3 text-left hover:border-border-bright focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-		>
-			<span className="flex min-w-0 items-start gap-3">
+		<article className="grid min-w-0 gap-2 border-2 border-border-secondary bg-bg-panel p-3">
+			<div className="flex min-w-0 items-start gap-3">
 				<img
 					src={resolveImageUrl(gameClass.icon)}
 					alt=""
@@ -31,28 +21,32 @@ export function ClassCard({ gameClass, onChoose }: ClassCardProps) {
 					loading="lazy"
 					className="shrink-0 border-2 border-bg-elevated bg-bg-base"
 				/>
-				<span className="grid min-w-0 gap-1">
-					<span className="flex min-w-0 items-center justify-between gap-3">
-						<span className="truncate text-text-bright">{gameClass.name}</span>
-						<span className="inline-flex shrink-0 items-center text-primary">
-							CHOOSE
-							<ArrowRight aria-hidden="true" className="ml-1 h-4 w-4" />
-						</span>
-					</span>
+				<div className="grid min-w-0 flex-1 content-start gap-1">
+					<h2 className="min-w-0 truncate text-text-bright">{gameClass.name}</h2>
 					{gameClass.description && (
-						<span className="line-clamp-2 text-text">
-							{gameClass.description.trim()}
-						</span>
+						<p className="line-clamp-2 text-text">{gameClass.description.trim()}</p>
 					)}
-				</span>
-			</span>
+				</div>
+			</div>
 
-			<span className="mt-auto flex flex-wrap gap-x-1 pt-2">
-				<span className="text-text-label">Starts with</span>
-				<span className="text-text-bright">
-					{startingSkill?.name ?? "No starting skill"}
-				</span>
-			</span>
-		</button>
+			<div className="grid grid-cols-2 gap-2">
+				<Button
+					className="w-full"
+					type="button"
+					onClick={() => onViewDetails(gameClass.id)}
+				>
+					DETAILS
+				</Button>
+				<Button
+					type="button"
+					variant="primary"
+					onClick={() => onChoose(gameClass.id)}
+					className="w-full"
+				>
+					<span>CHOOSE</span>
+					<ArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
+				</Button>
+			</div>
+		</article>
 	);
 }

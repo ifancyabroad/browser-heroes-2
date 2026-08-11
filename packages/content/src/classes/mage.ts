@@ -4,7 +4,7 @@ export default buildClass({
 	id: "mage",
 	order: 2,
 	name: "Mage",
-	description: "Master of the arcane arts and proficient with all forms of magic.",
+	description: "An arcane specialist who overwhelms enemies with powerful magic.",
 	portrait: "classes/portraits/mage.png",
 	enemyPortrait: "classes/enemy_portraits/mage.png",
 	icon: "classes/icons/mage.png",

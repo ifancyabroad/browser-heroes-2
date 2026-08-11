@@ -4,7 +4,7 @@ export default buildClass({
 	id: "shadowblade",
 	order: 6,
 	name: "Shadowblade",
-	description: "Assassin forged in darkness, blending magic and steel to silence foes.",
+	description: "A swift assassin who blends shadow magic with precise weapon attacks.",
 	portrait: "classes/portraits/shadowblade.png",
 	enemyPortrait: "classes/enemy_portraits/shadowblade.png",
 	icon: "classes/icons/shadowblade.png",

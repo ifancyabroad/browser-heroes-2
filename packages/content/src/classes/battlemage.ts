@@ -4,7 +4,7 @@ export default buildClass({
 	id: "battlemage",
 	order: 7,
 	name: "Battlemage",
-	description: "Proficient in both the arcane arts and melee combat.",
+	description: "A versatile combatant who combines martial weapons with arcane magic.",
 	portrait: "classes/portraits/battlemage.png",
 	enemyPortrait: "classes/enemy_portraits/battlemage.png",
 	icon: "classes/icons/battlemage.png",

@@ -21,10 +21,29 @@ vi.mock("../features/createCharacter", () => ({
 	ClassCard: ({
 		gameClass,
 		onChoose,
+		onViewDetails,
 	}: {
 		gameClass: { id: string; name: string };
 		onChoose: (id: string) => void;
-	}) => <button onClick={() => onChoose(gameClass.id)}>{gameClass.name}</button>,
+		onViewDetails: (id: string) => void;
+	}) => (
+		<div>
+			<button onClick={() => onViewDetails(gameClass.id)}>Details {gameClass.name}</button>
+			<button onClick={() => onChoose(gameClass.id)}>{gameClass.name}</button>
+		</div>
+	),
+	ClassDetailsModal: ({
+		gameClass,
+		onClose,
+	}: {
+		gameClass: { name: string };
+		onClose: () => void;
+	}) => (
+		<div role="dialog">
+			<span>{gameClass.name} details</span>
+			<button onClick={onClose}>Close details</button>
+		</div>
+	),
 	HeroNameModal: ({
 		heroClassName,
 		isSubmitting,
@@ -81,6 +100,17 @@ describe("CreateCharacter", () => {
 		expect(screen.getByRole("dialog")).toHaveTextContent("Warrior hero name");
 
 		fireEvent.click(screen.getByRole("button", { name: "Close" }));
+		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+	});
+
+	it("opens class details without selecting the class", () => {
+		renderPage();
+
+		fireEvent.click(screen.getByRole("button", { name: "Details Warrior" }));
+		expect(screen.getByRole("dialog")).toHaveTextContent("Warrior details");
+		expect(screen.queryByText("Warrior hero name")).not.toBeInTheDocument();
+
+		fireEvent.click(screen.getByRole("button", { name: "Close details" }));
 		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 	});
 

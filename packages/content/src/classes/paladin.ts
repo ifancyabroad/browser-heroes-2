@@ -4,7 +4,7 @@ export default buildClass({
 	id: "paladin",
 	order: 5,
 	name: "Paladin",
-	description: "A noble warrior bound by divine oath, wielding both sword and faith.",
+	description: "A resilient holy warrior combining heavy armour with divine skills.",
 	portrait: "classes/portraits/paladin.png",
 	enemyPortrait: "classes/enemy_portraits/paladin.png",
 	icon: "classes/icons/paladin.png",
