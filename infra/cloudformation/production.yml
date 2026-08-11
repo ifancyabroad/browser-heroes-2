@@ -421,6 +421,7 @@ Resources:
                           - Effect: Allow
                             Action:
                                 - s3:GetObject
+                                - s3:GetObjectAcl
                                 - s3:PutObject
                             Resource: !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}/*"
                           - Effect: Allow
@@ -429,6 +430,24 @@ Resources:
                                 - elasticbeanstalk:DescribeApplicationVersions
                                 - elasticbeanstalk:DescribeEnvironments
                                 - elasticbeanstalk:UpdateEnvironment
+                            Resource: "*"
+                          - Effect: Allow
+                            Action:
+                                - cloudformation:DescribeStackEvents
+                                - cloudformation:DescribeStackResource
+                                - cloudformation:DescribeStackResources
+                                - cloudformation:DescribeStacks
+                                - cloudformation:GetTemplate
+                            Resource: !Sub "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/awseb-*/*"
+                          - Effect: Allow
+                            Action:
+                                - autoscaling:DescribeAutoScalingGroups
+                                - cloudwatch:DescribeAlarms
+                                - ec2:DescribeInstances
+                                - ec2:DescribeSecurityGroups
+                                - ec2:DescribeSubnets
+                                - elasticloadbalancing:DescribeLoadBalancers
+                                - elasticloadbalancing:DescribeTargetGroups
                             Resource: "*"
 
     ApiPipeline:
