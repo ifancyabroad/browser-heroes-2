@@ -12,7 +12,7 @@ phases:
         commands:
             - pnpm --filter @app/api... run lint
             - pnpm --filter @app/api... run typecheck
-            - pnpm --filter @app/api... run test
+            - MONGO_URI=mongodb://localhost/browser-heroes-test SESSION_SECRET=codebuild-test-session-secret pnpm --filter @app/api... run test
     build:
         commands:
             - pnpm --filter @app/api... run build
