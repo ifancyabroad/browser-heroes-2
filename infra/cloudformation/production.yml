@@ -414,6 +414,17 @@ Resources:
                                 - !Sub "${ArtifactBucket.Arn}/*"
                           - Effect: Allow
                             Action:
+                                - s3:CreateBucket
+                                - s3:GetBucketLocation
+                                - s3:ListBucket
+                            Resource: !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}"
+                          - Effect: Allow
+                            Action:
+                                - s3:GetObject
+                                - s3:PutObject
+                            Resource: !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}/*"
+                          - Effect: Allow
+                            Action:
                                 - elasticbeanstalk:CreateApplicationVersion
                                 - elasticbeanstalk:DescribeApplicationVersions
                                 - elasticbeanstalk:DescribeEnvironments
