@@ -449,6 +449,7 @@ Resources:
                                 - ec2:DescribeImages
                                 - ec2:DescribeSecurityGroups
                                 - ec2:DescribeSubnets
+                                - ec2:DescribeVpcs
                                 - elasticloadbalancing:DescribeLoadBalancers
                                 - elasticloadbalancing:DescribeTargetGroups
                             Resource: "*"
