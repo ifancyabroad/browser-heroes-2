@@ -23,9 +23,6 @@ Parameters:
     CloudFrontPrefixListId:
         Type: String
         Default: pl-93a247fa
-    BeanstalkEnvironmentStackArn:
-        Type: String
-        Default: arn:aws:cloudformation:eu-west-2:391673454505:stack/awseb-e-agpkp8jp32-stack/349fe850-9560-11f1-b870-067b9c55f22d
     MongoUriSecretArn:
         Type: String
         Description: ARN of a Secrets Manager JSON secret containing the production MongoDB URI under MONGO_URI.
@@ -187,7 +184,7 @@ Resources:
                     MaxCountRule:
                         Enabled: true
                         DeleteSourceFromS3: true
-                        MaxCount: 10
+                        MaxCount: 5
 
     ApiEnvironment:
         Type: AWS::ElasticBeanstalk::Environment
@@ -213,6 +210,9 @@ Resources:
                 - Namespace: aws:autoscaling:launchconfiguration
                   OptionName: SecurityGroups
                   Value: !Ref ApiSecurityGroup
+                - Namespace: aws:autoscaling:launchconfiguration
+                  OptionName: DisableDefaultEC2SecurityGroup
+                  Value: "true"
                 - Namespace: aws:autoscaling:launchconfiguration
                   OptionName: RootVolumeType
                   Value: gp3
@@ -417,52 +417,17 @@ Resources:
                                 - !Sub "${ArtifactBucket.Arn}/*"
                           - Effect: Allow
                             Action:
-                                - s3:CreateBucket
-                                - s3:GetBucketAcl
-                                - s3:GetBucketLocation
-                                - s3:GetBucketPolicy
-                                - s3:GetBucketVersioning
-                                - s3:ListBucket
-                            Resource: !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}"
-                          - Effect: Allow
-                            Action:
-                                - s3:DeleteObject
-                                - s3:GetObject
-                                - s3:GetObjectAcl
-                                - s3:GetObjectVersion
-                                - s3:PutObject
-                                - s3:PutObjectAcl
-                            Resource: !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}/*"
-                          - Effect: Allow
-                            Action:
-                                - elasticbeanstalk:CreateApplicationVersion
-                                - elasticbeanstalk:DescribeApplicationVersions
-                                - elasticbeanstalk:DescribeEvents
-                                - elasticbeanstalk:DescribeEnvironments
-                                - elasticbeanstalk:UpdateEnvironment
-                            Resource: "*"
-                          - Effect: Allow
-                            Action:
-                                - cloudformation:DescribeStackEvents
-                                - cloudformation:DescribeStackResource
-                                - cloudformation:DescribeStackResources
-                                - cloudformation:DescribeStacks
-                                - cloudformation:GetTemplate
-                                - cloudformation:UpdateStack
-                            Resource: !Ref BeanstalkEnvironmentStackArn
-                          - Effect: Allow
-                            Action:
-                                - autoscaling:DescribeAutoScalingGroups
-                                - cloudwatch:DescribeAlarms
-                                - ec2:DescribeInstances
-                                - ec2:DescribeImages
-                                - ec2:DescribeSecurityGroups
-                                - ec2:DescribeLaunchTemplates
-                                - ec2:DescribeLaunchTemplateVersions
-                                - ec2:DescribeSubnets
-                                - ec2:DescribeVpcs
-                                - elasticloadbalancing:DescribeLoadBalancers
-                                - elasticloadbalancing:DescribeTargetGroups
+                                - elasticbeanstalk:*
+                                - ec2:*
+                                - elasticloadbalancing:*
+                                - autoscaling:*
+                                - cloudwatch:*
+                                - s3:*
+                                - sns:*
+                                - cloudformation:*
+                                - rds:*
+                                - sqs:*
+                                - ecs:*
                             Resource: "*"
 
     ApiPipeline:
