@@ -23,7 +23,6 @@ artifacts:
     base-directory: api-bundle
     files:
         - "**/*"
-    enable-symlinks: yes
 
 cache:
     paths:

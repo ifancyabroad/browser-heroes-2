@@ -2,6 +2,10 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: Low-cost Browser Heroes 2 production infrastructure in eu-west-2.
 
 Parameters:
+    S3ManagedKmsKeyArn:
+        Type: String
+        Default: arn:aws:kms:eu-west-2:391673454505:key/86bf3f30-76b9-49db-a6c6-1a7565debce7
+        Description: Regional aws/s3 KMS key used for CodePipeline artifacts.
     RepositoryId:
         Type: String
         Default: ifancyabroad/browser-heroes-2
@@ -154,6 +158,14 @@ Resources:
                                 - ses:SendEmail
                                 - ses:SendRawEmail
                             Resource: !Sub "arn:${AWS::Partition}:ses:eu-west-1:${AWS::AccountId}:identity/browserheroes.com"
+                          - Effect: Allow
+                            Action: s3:GetObject
+                            Resource: !Sub "${ArtifactBucket.Arn}/*"
+                          - Effect: Allow
+                            Action:
+                                - kms:Decrypt
+                                - kms:DescribeKey
+                            Resource: !Ref S3ManagedKmsKeyArn
 
     ApiInstanceProfile:
         Type: AWS::IAM::InstanceProfile
@@ -428,6 +440,8 @@ Resources:
                                 - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}/*"
                                 - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-samples-${AWS::Region}"
                                 - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-samples-${AWS::Region}/*"
+                                - !Sub "arn:${AWS::Partition}:s3:::cloudformation-waitcondition-${AWS::Region}/*"
+                                - !Sub "arn:${AWS::Partition}:s3:::cloudformation-custom-resource-response-${AWS::Region}/*"
                           - Effect: Allow
                             Action:
                                 - s3:CreateBucket
