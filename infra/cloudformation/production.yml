@@ -78,6 +78,28 @@ Resources:
                 SigningBehavior: always
                 SigningProtocol: sigv4
 
+    FrontendSpaFunction:
+        Type: AWS::CloudFront::Function
+        Properties:
+            Name: browser-heroes-spa-routing
+            AutoPublish: true
+            FunctionCode: |
+                function handler(event) {
+                    var request = event.request;
+                    var uri = request.uri;
+
+                    if (uri.endsWith("/")) {
+                        request.uri += "index.html";
+                    } else if (!uri.includes(".")) {
+                        request.uri = "/index.html";
+                    }
+
+                    return request;
+                }
+            FunctionConfig:
+                Comment: Route Browser Heroes frontend paths to the SPA entry point.
+                Runtime: cloudfront-js-2.0
+
     FrontendBucketPolicy:
         Type: AWS::S3::BucketPolicy
         Properties:
@@ -533,6 +555,8 @@ Outputs:
         Value: !GetAtt FrontendBucket.RegionalDomainName
     FrontendOriginAccessControlId:
         Value: !GetAtt FrontendOriginAccessControl.Id
+    FrontendSpaFunctionArn:
+        Value: !GetAtt FrontendSpaFunction.FunctionARN
     ApiEnvironmentName:
         Value: !Ref ApiEnvironment
     ApiOriginDomainName:
