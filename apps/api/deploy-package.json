@@ -1,0 +1,14 @@
+{
+	"name": "browser-heroes-api-production",
+	"version": "0.1.0",
+	"private": true,
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"start": "node dist/server.cjs"
+	},
+	"dependencies": {
+		"argon2": "^0.44.0"
+	}
+}
