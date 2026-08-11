@@ -35,7 +35,7 @@ Production uses same-origin defaults, so the web build should not set `VITE_API_
 
 ## 4. Frontend Environment
 
-Frontend environment values are compiled into the static build. Set `VITE_HOLDING_PAGE_ENABLED=true` to show the holding page and set `VITE_HOLDING_PAGE_BYPASS_KEY` to enable preview access through `?holding_bypass=<key>`. The bypass is client-side convenience rather than an authorization boundary.
+Frontend environment values are compiled into the static build. The production stack passes its `HoldingPageEnabled` and `HoldingPageBypassKey` parameters to CodeBuild. After changing either parameter, rebuild the frontend to publish the new setting. The bypass is client-side convenience rather than an authorization boundary.
 
 See `apps/web/.env.example` for the complete frontend configuration.
 
