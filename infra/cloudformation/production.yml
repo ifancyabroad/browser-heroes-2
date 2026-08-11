@@ -23,6 +23,9 @@ Parameters:
     CloudFrontPrefixListId:
         Type: String
         Default: pl-93a247fa
+    BeanstalkEnvironmentStackArn:
+        Type: String
+        Default: arn:aws:cloudformation:eu-west-2:391673454505:stack/awseb-e-agpkp8jp32-stack/349fe850-9560-11f1-b870-067b9c55f22d
     MongoUriSecretArn:
         Type: String
         Description: ARN of a Secrets Manager JSON secret containing the production MongoDB URI under MONGO_URI.
@@ -441,7 +444,8 @@ Resources:
                                 - cloudformation:DescribeStackResources
                                 - cloudformation:DescribeStacks
                                 - cloudformation:GetTemplate
-                            Resource: !Sub "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/awseb-*/*"
+                                - cloudformation:UpdateStack
+                            Resource: !Ref BeanstalkEnvironmentStackArn
                           - Effect: Allow
                             Action:
                                 - autoscaling:DescribeAutoScalingGroups
@@ -449,6 +453,7 @@ Resources:
                                 - ec2:DescribeInstances
                                 - ec2:DescribeImages
                                 - ec2:DescribeSecurityGroups
+                                - ec2:DescribeLaunchTemplates
                                 - ec2:DescribeSubnets
                                 - ec2:DescribeVpcs
                                 - elasticloadbalancing:DescribeLoadBalancers
