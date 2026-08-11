@@ -2,10 +2,6 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: Low-cost Browser Heroes 2 production infrastructure in eu-west-2.
 
 Parameters:
-    PipelineArtifactKmsKeyArn:
-        Type: String
-        Default: arn:aws:kms:eu-west-2:391673454505:key/86bf3f30-76b9-49db-a6c6-1a7565debce7
-        Description: KMS key used by CodePipeline to encrypt build artifacts.
     RepositoryId:
         Type: String
         Default: ifancyabroad/browser-heroes-2
@@ -421,9 +417,17 @@ Resources:
                                 - !Sub "${ArtifactBucket.Arn}/*"
                           - Effect: Allow
                             Action:
-                                - kms:Decrypt
-                                - kms:DescribeKey
-                            Resource: !Ref PipelineArtifactKmsKeyArn
+                                - s3:GetObject
+                                - s3:ListBucket
+                            Resource:
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-platform-assets-${AWS::Region}"
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-platform-assets-${AWS::Region}/*"
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-env-resources-${AWS::Region}"
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-env-resources-${AWS::Region}/*"
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}"
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}/*"
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-samples-${AWS::Region}"
+                                - !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-samples-${AWS::Region}/*"
                           - Effect: Allow
                             Action:
                                 - s3:CreateBucket
