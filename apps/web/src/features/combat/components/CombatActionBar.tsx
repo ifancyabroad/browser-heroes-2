@@ -56,9 +56,23 @@ export function CombatActionBar({
 	return (
 		<section aria-label="Command bar">
 			<ActionBarTray>
+				{isEnemySlain ? (
+					<ActionBarGroup aria-label="Run actions">
+						<RunActionSlots
+							isPending={isPending}
+							canContinue={canContinue}
+							canReturnToTown={canReturnToTown}
+							isEnemySlain={isEnemySlain}
+							onContinue={onContinue}
+							onReturnToTown={onReturnToTown}
+						/>
+					</ActionBarGroup>
+				) : null}
+
 				<ActionBarGroup aria-label="Combat actions">
 					<CombatSlots
 						player={player}
+						showRoundActions={!isEnemySlain}
 						isPending={isPending}
 						canBasicAttack={canBasicAttack}
 						canSkipTurn={canSkipTurn}
@@ -72,17 +86,6 @@ export function CombatActionBar({
 						onUseSkill={onUseSkill}
 					/>
 				</ActionBarGroup>
-
-				<ActionBarGroup aria-label="Run actions">
-					<RunActionSlots
-						isPending={isPending}
-						canContinue={canContinue}
-						canReturnToTown={canReturnToTown}
-						isEnemySlain={isEnemySlain}
-						onContinue={onContinue}
-						onReturnToTown={onReturnToTown}
-					/>
-				</ActionBarGroup>
 			</ActionBarTray>
 		</section>
 	);
@@ -90,6 +93,7 @@ export function CombatActionBar({
 
 type CombatSlotsProps = {
 	player: CombatantState;
+	showRoundActions: boolean;
 	isPending: boolean;
 	canBasicAttack: boolean;
 	canSkipTurn: boolean;
@@ -105,6 +109,7 @@ type CombatSlotsProps = {
 
 function CombatSlots({
 	player,
+	showRoundActions,
 	isPending,
 	canBasicAttack,
 	canSkipTurn,
@@ -119,23 +124,25 @@ function CombatSlots({
 }: CombatSlotsProps) {
 	return (
 		<>
-			<ActionSlotButton
-				ariaLabel={`Basic attack: ${player.basicAttack.name}`}
-				available={canBasicAttack}
-				icon={attackIcon}
-				loading={isPending}
-				tooltip={
-					<ActionTooltipContent
-						title="Basic attack"
-						detail={getBasicAttackTooltipDetail({
-							isPending,
-							available: canBasicAttack,
-							attackName: player.basicAttack.name,
-						})}
-					/>
-				}
-				onClick={onBasicAttack}
-			/>
+			{showRoundActions ? (
+				<ActionSlotButton
+					ariaLabel={`Basic attack: ${player.basicAttack.name}`}
+					available={canBasicAttack}
+					icon={attackIcon}
+					loading={isPending}
+					tooltip={
+						<ActionTooltipContent
+							title="Basic attack"
+							detail={getBasicAttackTooltipDetail({
+								isPending,
+								available: canBasicAttack,
+								attackName: player.basicAttack.name,
+							})}
+						/>
+					}
+					onClick={onBasicAttack}
+				/>
+			) : null}
 			{player.skills.map((skill) => (
 				<SkillSlot
 					key={skill.skillId}
@@ -145,23 +152,25 @@ function CombatSlots({
 					onUseSkill={onUseSkill}
 				/>
 			))}
-			<ActionSlotButton
-				ariaLabel="Skip turn"
-				available={canSkipTurn}
-				icon={skipTurnIcon}
-				loading={isPending}
-				tooltip={
-					<ActionTooltipContent
-						title="Skip turn"
-						detail={getCombatActionTooltipDetail({
-							isPending,
-							available: canSkipTurn,
-							availableDetail: "End the round without acting.",
-						})}
-					/>
-				}
-				onClick={onSkipTurn}
-			/>
+			{showRoundActions ? (
+				<ActionSlotButton
+					ariaLabel="Skip turn"
+					available={canSkipTurn}
+					icon={skipTurnIcon}
+					loading={isPending}
+					tooltip={
+						<ActionTooltipContent
+							title="Skip turn"
+							detail={getCombatActionTooltipDetail({
+								isPending,
+								available: canSkipTurn,
+								availableDetail: "End the round without acting.",
+							})}
+						/>
+					}
+					onClick={onSkipTurn}
+				/>
+			) : null}
 			<ActionSlotButton
 				ariaLabel="Use health potion"
 				available={canUseHealingPotion}
@@ -207,24 +216,6 @@ function RunActionSlots({
 	return (
 		<>
 			<ActionSlotButton
-				ariaLabel="Return to town"
-				available={canReturnToTown}
-				icon={townIcon}
-				loading={isPending}
-				tooltip={
-					<ActionTooltipContent
-						title="Return to town"
-						detail={getRunActionTooltipDetail({
-							isPending,
-							available: canReturnToTown,
-							isEnemySlain,
-							availableDetail: "End the streak and prepare in town.",
-						})}
-					/>
-				}
-				onClick={onReturnToTown}
-			/>
-			<ActionSlotButton
 				ariaLabel="Continue to next battle"
 				available={canContinue}
 				icon={continueIcon}
@@ -241,6 +232,24 @@ function RunActionSlots({
 					/>
 				}
 				onClick={onContinue}
+			/>
+			<ActionSlotButton
+				ariaLabel="Return to town"
+				available={canReturnToTown}
+				icon={townIcon}
+				loading={isPending}
+				tooltip={
+					<ActionTooltipContent
+						title="Return to town"
+						detail={getRunActionTooltipDetail({
+							isPending,
+							available: canReturnToTown,
+							isEnemySlain,
+							availableDetail: "End the streak and prepare in town.",
+						})}
+					/>
+				}
+				onClick={onReturnToTown}
 			/>
 		</>
 	);

@@ -55,6 +55,10 @@ describe("CombatActionBar", () => {
 		expect(props.onBasicAttack).toHaveBeenCalledOnce();
 		expect(props.onSkipTurn).toHaveBeenCalledOnce();
 		expect(props.onUseHealingPotion).toHaveBeenCalledOnce();
+		expect(
+			screen.queryByRole("button", { name: "Continue to next battle" }),
+		).not.toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "Return to town" })).not.toBeInTheDocument();
 	});
 
 	it("does not invoke unavailable actions", () => {
@@ -100,6 +104,14 @@ describe("CombatActionBar", () => {
 
 		expect(props.onContinue).toHaveBeenCalledOnce();
 		expect(props.onReturnToTown).toHaveBeenCalledOnce();
+		expect(
+			screen.queryByRole("button", { name: "Basic attack: Longsword" }),
+		).not.toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "Skip turn" })).not.toBeInTheDocument();
+
+		const buttons = screen.getAllByRole("button");
+		expect(buttons[0]).toHaveAccessibleName("Continue to next battle");
+		expect(buttons[1]).toHaveAccessibleName("Return to town");
 	});
 
 	it("renders potion inventory accessibly", () => {
