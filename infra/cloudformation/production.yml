@@ -229,6 +229,9 @@ Resources:
                 - Namespace: aws:elasticbeanstalk:environment
                   OptionName: EnvironmentType
                   Value: SingleInstance
+                - Namespace: aws:elasticbeanstalk:environment
+                  OptionName: ServiceRole
+                  Value: aws-elasticbeanstalk-service-role
                 - Namespace: aws:autoscaling:launchconfiguration
                   OptionName: InstanceType
                   Value: !Ref InstanceType
@@ -261,7 +264,7 @@ Resources:
                   Value: /api/health
                 - Namespace: aws:elasticbeanstalk:healthreporting:system
                   OptionName: SystemType
-                  Value: basic
+                  Value: enhanced
                 - Namespace: aws:elasticbeanstalk:command
                   OptionName: DeploymentPolicy
                   Value: AllAtOnce
