@@ -446,6 +446,7 @@ Resources:
                                 - autoscaling:DescribeAutoScalingGroups
                                 - cloudwatch:DescribeAlarms
                                 - ec2:DescribeInstances
+                                - ec2:DescribeImages
                                 - ec2:DescribeSecurityGroups
                                 - ec2:DescribeSubnets
                                 - elasticloadbalancing:DescribeLoadBalancers
