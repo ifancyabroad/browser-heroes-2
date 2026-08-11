@@ -35,7 +35,7 @@ Production uses same-origin defaults, so the web build should not set `VITE_API_
 
 ## 4. Frontend Environment
 
-Frontend environment values are compiled into the static build. The production stack passes its `HoldingPageEnabled` and `HoldingPageBypassKey` parameters to CodeBuild. After changing either parameter, rebuild the frontend to publish the new setting. The bypass is client-side convenience rather than an authorization boundary.
+Frontend environment values are compiled into the static build. Production holding-page settings live together in `apps/web/.env.production`; change them through a normal frontend commit and deployment. The bypass key is visible in the downloaded JavaScript and is a convenience rather than an authorization boundary.
 
 See `apps/web/.env.example` for the complete frontend configuration.
 
@@ -60,7 +60,7 @@ Use the Elastic Beanstalk instance role for SES rather than shipping AWS access 
 
 Production uses separate `browser-heroes-api` and `browser-heroes-web` pipelines sourced from `main` through the existing GitHub CodeStar connection. Both pipelines run their affected lint, typecheck, test, and build tasks.
 
-The API pipeline emits the standalone Beanstalk bundle and deploys it with the native Elastic Beanstalk action. Elastic Beanstalk checks `/api/health` when evaluating the deployed environment. The web pipeline builds with the holding page enabled, syncs normal documents with `no-cache`, syncs hashed assets with immutable one-year caching, and invalidates the CloudFront entry document.
+The API pipeline emits the standalone Beanstalk bundle and deploys it with the native Elastic Beanstalk action. Elastic Beanstalk checks `/api/health` when evaluating the deployed environment. The web pipeline uploads hashed assets before publishing `index.html`, retains older hashed assets for open browser sessions, and invalidates the CloudFront entry document.
 
 The new AWS resources are defined in `infra/cloudformation/production.yml`. The existing CloudFront distribution is intentionally not adopted into that stack; update it only after the new S3 and API origins are healthy.
 

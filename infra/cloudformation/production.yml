@@ -35,17 +35,6 @@ Parameters:
     InstanceType:
         Type: String
         Default: t3.micro
-    HoldingPageEnabled:
-        Type: String
-        Default: "true"
-        AllowedValues:
-            - "true"
-            - "false"
-    HoldingPageBypassKey:
-        Type: String
-        NoEcho: true
-        Default: ""
-
 Resources:
     FrontendBucket:
         Type: AWS::S3::Bucket
@@ -399,11 +388,6 @@ Resources:
                       Value: !Ref FrontendBucket
                     - Name: CLOUDFRONT_DISTRIBUTION_ID
                       Value: !Ref ExistingDistributionId
-                    - Name: VITE_HOLDING_PAGE_ENABLED
-                      Value: !Ref HoldingPageEnabled
-                    - Name: VITE_HOLDING_PAGE_BYPASS_KEY
-                      Value: !Ref HoldingPageBypassKey
-                      Type: PLAINTEXT
             LogsConfig:
                 CloudWatchLogs:
                     Status: ENABLED
