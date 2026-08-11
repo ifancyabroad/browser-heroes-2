@@ -59,6 +59,10 @@ describe("CombatActionBar", () => {
 			screen.queryByRole("button", { name: "Continue to next battle" }),
 		).not.toBeInTheDocument();
 		expect(screen.queryByRole("button", { name: "Return to town" })).not.toBeInTheDocument();
+
+		const buttons = screen.getAllByRole("button");
+		expect(buttons.at(-2)).toHaveAccessibleName("Use health potion");
+		expect(buttons.at(-1)).toHaveAccessibleName("Skip turn");
 	});
 
 	it("does not invoke unavailable actions", () => {

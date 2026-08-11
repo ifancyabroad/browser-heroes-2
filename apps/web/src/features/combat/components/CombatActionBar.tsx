@@ -152,25 +152,6 @@ function CombatSlots({
 					onUseSkill={onUseSkill}
 				/>
 			))}
-			{showRoundActions ? (
-				<ActionSlotButton
-					ariaLabel="Skip turn"
-					available={canSkipTurn}
-					icon={skipTurnIcon}
-					loading={isPending}
-					tooltip={
-						<ActionTooltipContent
-							title="Skip turn"
-							detail={getCombatActionTooltipDetail({
-								isPending,
-								available: canSkipTurn,
-								availableDetail: "End the round without acting.",
-							})}
-						/>
-					}
-					onClick={onSkipTurn}
-				/>
-			) : null}
 			<ActionSlotButton
 				ariaLabel="Use health potion"
 				available={canUseHealingPotion}
@@ -192,6 +173,25 @@ function CombatSlots({
 				}
 				onClick={onUseHealingPotion}
 			/>
+			{showRoundActions ? (
+				<ActionSlotButton
+					ariaLabel="Skip turn"
+					available={canSkipTurn}
+					icon={skipTurnIcon}
+					loading={isPending}
+					tooltip={
+						<ActionTooltipContent
+							title="Skip turn"
+							detail={getCombatActionTooltipDetail({
+								isPending,
+								available: canSkipTurn,
+								availableDetail: "End the round without acting.",
+							})}
+						/>
+					}
+					onClick={onSkipTurn}
+				/>
+			) : null}
 		</>
 	);
 }
