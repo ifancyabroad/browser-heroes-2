@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import type { CombatLogEntry } from "@app/engine";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Battlefield } from "./Battlefield";
@@ -11,11 +11,22 @@ const baseProps = {
 	isEnemySlain: false,
 	nextZone: "forest" as const,
 	zone: "forest" as const,
+	onOpenLog: vi.fn(),
 };
 
 describe("Battlefield combat outcomes", () => {
 	afterEach(() => {
 		vi.useRealTimers();
+	});
+
+	it("opens the combat log from the battlefield control", () => {
+		const onOpenLog = vi.fn();
+		render(<Battlefield {...baseProps} onOpenLog={onOpenLog} entries={[]} />);
+
+		fireEvent.click(screen.getByRole("button", { name: "Open combat log" }));
+
+		expect(onOpenLog).toHaveBeenCalledOnce();
+		expect(screen.getByRole("button", { name: "Open combat log" })).toHaveClass("md:hidden");
 	});
 
 	it("ignores existing outcomes and shows all new enemy outcomes together", () => {
@@ -104,7 +115,7 @@ describe("Battlefield combat outcomes", () => {
 		const { container, rerender } = render(<Battlefield {...baseProps} entries={[]} />);
 
 		rerender(<Battlefield {...baseProps} entries={[damageEntry("first", 10)]} />);
-		const firstOverlay = container.querySelector('[aria-hidden="true"]');
+		const firstOverlay = container.querySelector('div[aria-hidden="true"]');
 		expect(firstOverlay).not.toBeNull();
 
 		act(() => vi.advanceTimersByTime(500));
@@ -115,7 +126,7 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		const secondOverlay = container.querySelector('[aria-hidden="true"]');
+		const secondOverlay = container.querySelector('div[aria-hidden="true"]');
 		expect(secondOverlay).not.toBe(firstOverlay);
 		expect(screen.getByText(/-20 FIRE/)).toBeInTheDocument();
 	});

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import type { Zone } from "@app/content";
 import type { CombatLogEntry } from "@app/engine";
+import { BookOpen } from "pixelarticons/react/BookOpen";
+import { IconButton } from "../../../components/Button";
 import { CombatOutcomeOverlay } from "./CombatOutcomeOverlay";
 import { EnemyPortrait } from "./EnemyPortrait";
 
@@ -37,6 +39,7 @@ type BattlefieldProps = {
 	isEnemySlain: boolean;
 	nextZone: Zone;
 	zone: Zone;
+	onOpenLog: () => void;
 };
 
 export function Battlefield({
@@ -48,6 +51,7 @@ export function Battlefield({
 	isEnemySlain,
 	nextZone,
 	zone,
+	onOpenLog,
 }: BattlefieldProps) {
 	useEffect(() => {
 		if (nextZone === zone) {
@@ -71,6 +75,15 @@ export function Battlefield({
 			aria-label="Battlefield"
 			style={{ backgroundImage: `url(${ZONE_BACKGROUNDS[zone]})` }}
 		>
+			<IconButton
+				type="button"
+				aria-label="Open combat log"
+				title="Combat log"
+				className="absolute left-2 top-2 z-20 md:hidden"
+				onClick={onOpenLog}
+			>
+				<BookOpen aria-hidden="true" />
+			</IconButton>
 			<CombatOutcomeOverlay enemyId={enemyId} entries={entries} />
 			<EnemyPortrait
 				enemyId={enemyId}

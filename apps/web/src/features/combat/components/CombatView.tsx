@@ -8,7 +8,6 @@ import {
 	type EngineAction,
 } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { Button } from "../../../components/Button";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
@@ -157,11 +156,6 @@ export function CombatView({ run }: CombatViewProps) {
 			/>
 
 			<GameMainPanel
-				mobileHeader={
-					<Button variant="primary" type="button" onClick={handleOpenSidebar}>
-						Log
-					</Button>
-				}
 				contentClassName="flex min-h-0 flex-1 flex-col gap-4"
 				actions={
 					<CombatActionBar
@@ -212,6 +206,7 @@ export function CombatView({ run }: CombatViewProps) {
 					isEnemySlain={isEnemySlain}
 					nextZone={nextZone}
 					zone={zone}
+					onOpenLog={handleOpenSidebar}
 				/>
 			</GameMainPanel>
 		</GameLayout>
