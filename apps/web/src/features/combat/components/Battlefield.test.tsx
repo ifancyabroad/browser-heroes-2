@@ -99,8 +99,8 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		expect(screen.getByText(/-10 FIRE/)).toHaveStyle({ fontSize: "1rem" });
-		expect(screen.getByText(/-40 FIRE/)).toHaveStyle({ fontSize: "1.25rem" });
+		expect(screen.getByText(/-10 FIRE/)).toHaveStyle({ fontSize: "1.25rem" });
+		expect(screen.getByText(/-40 FIRE/)).toHaveStyle({ fontSize: "1.75rem" });
 	});
 
 	it("groups damage by event type and damage type", () => {

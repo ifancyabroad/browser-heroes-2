@@ -151,8 +151,8 @@ function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
 
 	const damageType = outcome.damageType.toUpperCase();
 	const damageTypeClass = damageTypeClasses[outcome.damageType];
-	const sizeStep = Math.max(0, Math.floor(Math.log2(Math.max(1, outcome.hpDamage) / 10)));
-	const style = { fontSize: `${1 + sizeStep * 0.125}rem` };
+	const sizeStep = Math.max(0, Math.floor(Math.log2(Math.max(1, outcome.hpDamage) / 10)) + 1);
+	const style = { fontSize: `${1 + sizeStep * 0.25}rem` };
 
 	if (outcome.affinity === "immune") {
 		return (
