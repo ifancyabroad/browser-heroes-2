@@ -416,6 +416,7 @@ Resources:
                             Action:
                                 - s3:CreateBucket
                                 - s3:GetBucketLocation
+                                - s3:GetBucketPolicy
                                 - s3:ListBucket
                             Resource: !Sub "arn:${AWS::Partition}:s3:::elasticbeanstalk-${AWS::Region}-${AWS::AccountId}"
                           - Effect: Allow
