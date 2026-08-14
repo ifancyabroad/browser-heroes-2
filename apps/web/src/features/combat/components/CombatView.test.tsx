@@ -44,7 +44,9 @@ vi.mock("../../../components/GameMainPanel", () => ({
 	),
 }));
 vi.mock("./CombatSidebar", () => ({ CombatSidebar: () => <div>Combat sidebar</div> }));
-vi.mock("./CombatantPanel", () => ({ CombatantPanel: () => <div>Combatant</div> }));
+vi.mock("./CombatantPanel", () => ({
+	CombatantPanel: ({ descriptor }: { descriptor?: string }) => <div>Combatant {descriptor}</div>,
+}));
 vi.mock("./Battlefield", () => ({ Battlefield: () => <div>Battlefield</div> }));
 vi.mock("./CombatActionBar", () => ({
 	CombatActionBar: (props: {
@@ -96,6 +98,7 @@ function createCombatView() {
 		zone: "forest",
 		healingPotions: 1,
 		maxHealingPotions: 3,
+		enemyDescriptor: undefined,
 		combat: {
 			status: "active",
 			encounterType: "standard",
@@ -140,6 +143,17 @@ describe("CombatView", () => {
 		render(<CombatView run={run} />);
 
 		expect(screen.getByText("availability:true,true,true,true,true")).toBeInTheDocument();
+	});
+
+	it("passes the enemy descriptor from the combat selector to the combatant panel", () => {
+		selectors.selectCombatView.mockReturnValue({
+			...createCombatView(),
+			enemyDescriptor: "Ghost Owner",
+		});
+
+		render(<CombatView run={run} />);
+
+		expect(screen.getByText("Combatant Ghost Owner")).toBeInTheDocument();
 	});
 
 	it.each([

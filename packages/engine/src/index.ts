@@ -13,6 +13,7 @@ export {
 
 export type {
 	EngineAction,
+	GhostEncounter,
 	EngineResult,
 	EngineEvent,
 	EngineErrorCode,

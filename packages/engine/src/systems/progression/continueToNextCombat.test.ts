@@ -43,6 +43,24 @@ describe("continueToNextCombat", () => {
 		});
 	});
 
+	it("preserves a ghost owner's name in combat state", () => {
+		const state = createTestVictoryState();
+		const result = applyAction(state, {
+			type: "CONTINUE_TO_NEXT_COMBAT",
+			ghostEncounter: {
+				ghostId: "ghost-id",
+				ghostUsername: "Ghost Owner",
+				hero: structuredClone(state.hero),
+			},
+		});
+
+		expect(result.ok).toBe(true);
+		expect(result.state.combat).toMatchObject({
+			encounterType: "ghost",
+			ghostUsername: "Ghost Owner",
+		});
+	});
+
 	it("blocks continuation while a level-up is pending", () => {
 		const state = modifyTestRunState(createTestVictoryState(), (draft) => {
 			draft.hero.pendingLevelUp = {

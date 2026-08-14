@@ -55,6 +55,7 @@ export function createCombat(input: CreateCombatInput): RngResult<CombatState> |
 		value: {
 			id: combatId,
 			encounterType,
+			ghostUsername: input.ghostEncounter?.ghostUsername ?? null,
 			turnNumber: 1,
 			activeActor: "player",
 			player,

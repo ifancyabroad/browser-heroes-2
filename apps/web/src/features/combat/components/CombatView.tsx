@@ -192,7 +192,7 @@ export function CombatView({ run }: CombatViewProps) {
 						combatant={combat.enemy}
 						identity={combat.enemy.name}
 						ariaLabel="Enemy"
-						isBoss={combat.encounterType === "boss"}
+						descriptor={combatView.enemyDescriptor}
 						statusLabel={isEnemySlain ? "SLAIN" : undefined}
 					/>
 				</section>

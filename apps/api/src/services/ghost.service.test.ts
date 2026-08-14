@@ -6,8 +6,24 @@ const ghostModel = vi.hoisted(() => ({
 	find: vi.fn(),
 	updateOne: vi.fn(),
 }));
+const userModel = vi.hoisted(() => ({
+	findById: vi.fn(),
+}));
 
 vi.mock("../models/ghost.model", () => ({ GhostModel: ghostModel }));
+vi.mock("../models/user.model", () => ({ UserModel: userModel }));
+
+function arrangeGhosts(ghosts: unknown[]) {
+	ghostModel.find.mockReturnValue({
+		sort: vi.fn().mockReturnValue({ lean: vi.fn().mockResolvedValue(ghosts) }),
+	});
+}
+
+function arrangeOwner(displayName: string | null) {
+	userModel.findById.mockReturnValue({
+		select: vi.fn().mockReturnValue({ lean: vi.fn().mockResolvedValue({ displayName }) }),
+	});
+}
 
 import {
 	createGhostFromRunIfEligible,
@@ -21,6 +37,7 @@ describe("ghost.service", () => {
 
 	beforeEach(() => {
 		vi.clearAllMocks();
+		arrangeOwner("Ghost Owner");
 	});
 
 	afterEach(() => {
@@ -118,44 +135,56 @@ describe("ghost.service", () => {
 
 	it("returns null when the chance succeeds but no matching ghosts exist", async () => {
 		vi.spyOn(Math, "random").mockReturnValue(0.01);
-		const lean = vi.fn().mockResolvedValue([]);
-		const sort = vi.fn().mockReturnValue({ lean });
-		ghostModel.find.mockReturnValue({ sort });
+		arrangeGhosts([]);
 
 		await expect(selectGhostEncounterForLevel({ encounterLevel: 3 })).resolves.toBeNull();
 		expect(ghostModel.find).toHaveBeenCalledWith({ encounterLevel: 3 });
-		expect(sort).toHaveBeenCalledWith({ createdAt: -1 });
 	});
 
 	it("selects recent ghosts with greater weight", async () => {
 		vi.spyOn(Math, "random").mockReturnValueOnce(0.01).mockReturnValueOnce(0);
 		const ghosts = [
-			{ _id: "recent", snapshot: { hero: { name: "Recent" } } },
-			{ _id: "older", snapshot: { hero: { name: "Older" } } },
+			{ _id: "recent", userId: "recent-user", snapshot: { hero: { name: "Recent" } } },
+			{ _id: "older", userId: "older-user", snapshot: { hero: { name: "Older" } } },
 		];
-		ghostModel.find.mockReturnValue({
-			sort: vi.fn().mockReturnValue({ lean: vi.fn().mockResolvedValue(ghosts) }),
-		});
+		arrangeGhosts(ghosts);
 
 		await expect(selectGhostEncounterForLevel({ encounterLevel: 3 })).resolves.toEqual({
 			ghostId: "recent",
+			ghostUsername: "Ghost Owner",
 			hero: { name: "Recent" },
 		});
+		expect(userModel.findById).toHaveBeenCalledWith("recent-user");
 	});
 
 	it("can select an older ghost from the weighted pool", async () => {
 		vi.spyOn(Math, "random").mockReturnValueOnce(0.01).mockReturnValueOnce(0.99);
 		const ghosts = [
-			{ _id: "recent", snapshot: { hero: { name: "Recent" } } },
-			{ _id: "older", snapshot: { hero: { name: "Older" } } },
+			{ _id: "recent", userId: "recent-user", snapshot: { hero: { name: "Recent" } } },
+			{ _id: "older", userId: "older-user", snapshot: { hero: { name: "Older" } } },
 		];
-		ghostModel.find.mockReturnValue({
-			sort: vi.fn().mockReturnValue({ lean: vi.fn().mockResolvedValue(ghosts) }),
-		});
+		arrangeGhosts(ghosts);
 
 		await expect(selectGhostEncounterForLevel({ encounterLevel: 3 })).resolves.toEqual({
 			ghostId: "older",
+			ghostUsername: "Ghost Owner",
 			hero: { name: "Older" },
+		});
+	});
+
+	it("uses Unknown when the ghost owner has no display name", async () => {
+		vi.spyOn(Math, "random").mockReturnValueOnce(0.01).mockReturnValueOnce(0);
+		arrangeOwner(null);
+		arrangeGhosts([
+			{
+				_id: "guest-ghost",
+				userId: "guest-user",
+				snapshot: { hero: { name: "Guest" } },
+			},
+		]);
+
+		await expect(selectGhostEncounterForLevel({ encounterLevel: 3 })).resolves.toMatchObject({
+			ghostUsername: "Unknown",
 		});
 	});
 

@@ -32,4 +32,18 @@ describe("selectCombatView", () => {
 		expect(selectCombatView(dead)).toMatchObject({ isDefeat: true });
 		expect(selectCombatView(createTestTownState())).toBeNull();
 	});
+
+	it("describes boss and ghost enemies for presentation", () => {
+		const boss = modifyTestRunState(createTestRunState(), (draft) => {
+			draft.combat!.encounterType = "boss";
+		});
+		const ghost = modifyTestRunState(createTestRunState(), (draft) => {
+			draft.combat!.encounterType = "ghost";
+			draft.combat!.ghostUsername = "Ghost Owner";
+		});
+
+		expect(selectCombatView(createTestRunState())?.enemyDescriptor).toBeUndefined();
+		expect(selectCombatView(boss)?.enemyDescriptor).toBe("Boss");
+		expect(selectCombatView(ghost)?.enemyDescriptor).toBe("Ghost Owner");
+	});
 });

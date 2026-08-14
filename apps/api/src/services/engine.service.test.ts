@@ -230,6 +230,7 @@ describe("engine.service", () => {
 		resultState.combat!.enemy.sourceId = "ghost-id";
 		const ghostEncounter = {
 			ghostId: "ghost-id",
+			ghostUsername: "Ghost Owner",
 			hero: structuredClone(state.hero),
 		};
 		const { run } = arrangeRun({ state });
@@ -264,6 +265,7 @@ describe("engine.service", () => {
 		const state = createTestRunState();
 		const ghostEncounter = {
 			ghostId: "provided-ghost",
+			ghostUsername: "Ghost Owner",
 			hero: structuredClone(state.hero),
 		};
 		const resultState = structuredClone(state);

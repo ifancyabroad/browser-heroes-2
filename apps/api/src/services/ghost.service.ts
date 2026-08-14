@@ -1,21 +1,18 @@
 import type { ClientSession, Types } from "mongoose";
-import type { HeroState, RunState } from "@app/engine";
+import type { GhostEncounter, HeroState, RunState } from "@app/engine";
 import { GhostModel } from "../models/ghost.model";
+import { UserModel } from "../models/user.model";
 
 const FIRST_BOSS_BATTLE_NUMBER = 10;
 const MAX_ENCOUNTER_LEVEL = 10;
 const GHOST_ENCOUNTER_CHANCE = 0.05;
+const UNKNOWN_GHOST_USERNAME = "Unknown";
 
 type CreateGhostFromRunInput = {
 	userId: string;
 	runId: Types.ObjectId;
 	state: RunState;
 	session: ClientSession;
-};
-
-type GhostEncounterInput = {
-	ghostId: string;
-	hero: HeroState;
 };
 
 type SelectGhostEncounterInput = {
@@ -68,7 +65,7 @@ export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInpu
 
 export async function selectGhostEncounterForLevel(
 	input: SelectGhostEncounterInput,
-): Promise<GhostEncounterInput | null> {
+): Promise<GhostEncounter | null> {
 	if (Math.random() >= GHOST_ENCOUNTER_CHANCE) {
 		return null;
 	}
@@ -84,9 +81,11 @@ export async function selectGhostEncounterForLevel(
 	}
 
 	const ghost = selectWeightedRecentGhost(ghosts);
+	const owner = await UserModel.findById(ghost.userId).select("displayName").lean();
 
 	return {
 		ghostId: String(ghost._id),
+		ghostUsername: owner?.displayName?.trim() || UNKNOWN_GHOST_USERNAME,
 		hero: ghost.snapshot.hero,
 	};
 }

@@ -18,6 +18,7 @@ export type CombatViewState = {
 	goldMultiplier: number;
 	healingPotions: number;
 	maxHealingPotions: number;
+	enemyDescriptor: string | undefined;
 
 	isActive: boolean;
 	isVictory: boolean;
@@ -49,6 +50,7 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 		goldMultiplier: calculateGoldMultiplier(state.streak),
 		healingPotions: state.hero.healingPotions,
 		maxHealingPotions: MAX_HEALING_POTIONS,
+		enemyDescriptor: getEnemyDescriptor(combat),
 
 		isActive: combat.status === "active",
 		isVictory: combat.status === "player_won",
@@ -61,4 +63,16 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 			state.hero.pendingLevelUp === null &&
 			state.pendingRewardChoice === null,
 	};
+}
+
+function getEnemyDescriptor(combat: CombatState): string | undefined {
+	if (combat.encounterType === "boss") {
+		return "Boss";
+	}
+
+	if (combat.encounterType === "ghost") {
+		return combat.ghostUsername ?? undefined;
+	}
+
+	return undefined;
 }

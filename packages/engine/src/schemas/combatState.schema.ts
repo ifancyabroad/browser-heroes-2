@@ -205,6 +205,7 @@ export const combatStatusSchema = z.enum(["active", "player_won", "enemy_won"]);
 export const combatStateSchema = z.object({
 	id: z.string(),
 	encounterType: z.enum(["standard", "boss", "ghost"]),
+	ghostUsername: z.string().nullable(),
 	turnNumber: z.number().int().min(1),
 	activeActor: combatantSideSchema,
 	player: combatantStateSchema,
