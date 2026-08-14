@@ -115,6 +115,7 @@ describe("engine.service", () => {
 					userId: "user-id",
 					sequence: 4,
 					action: { type: "PLAYER_SKIP_TURN" },
+					externalInput: {},
 					success: true,
 					error: undefined,
 				},
@@ -250,45 +251,25 @@ describe("engine.service", () => {
 		expect(ghostService.selectGhostEncounterForLevel).toHaveBeenCalledWith({
 			encounterLevel: expect.any(Number),
 		});
-		expect(engine.applyAction).toHaveBeenCalledWith(state, {
-			type: "ENTER_COMBAT",
-			ghostEncounter,
-		});
+		expect(engine.applyAction).toHaveBeenCalledWith(
+			state,
+			{ type: "ENTER_COMBAT" },
+			{ ghostEncounter },
+		);
 		expect(ghostService.incrementGhostEncounters).toHaveBeenCalledWith({
 			ghostId: "ghost-id",
 			session,
 		});
+		expect(models.action.create).toHaveBeenCalledWith(
+			[
+				expect.objectContaining({
+					action: { type: "ENTER_COMBAT" },
+					externalInput: { ghostEncounter },
+				}),
+			],
+			{ session },
+		);
 		expect(run.nextActionSequence).toBe(2);
-	});
-
-	it("preserves caller-supplied ghost encounters without selecting another", async () => {
-		const state = createTestRunState();
-		const ghostEncounter = {
-			ghostId: "provided-ghost",
-			ghostUsername: "Ghost Owner",
-			hero: structuredClone(state.hero),
-		};
-		const resultState = structuredClone(state);
-		resultState.combat!.encounterType = "ghost";
-		resultState.combat!.enemy.sourceId = "provided-ghost";
-		arrangeRun({ state });
-		engine.applyAction.mockReturnValue({
-			ok: true,
-			state: resultState,
-			events: [],
-		});
-
-		await applyRunAction({
-			userId: "user-id",
-			runId: "run-id",
-			action: { type: "ENTER_COMBAT", ghostEncounter },
-		});
-
-		expect(ghostService.selectGhostEncounterForLevel).not.toHaveBeenCalled();
-		expect(engine.applyAction).toHaveBeenCalledWith(state, {
-			type: "ENTER_COMBAT",
-			ghostEncounter,
-		});
 	});
 
 	it.each([

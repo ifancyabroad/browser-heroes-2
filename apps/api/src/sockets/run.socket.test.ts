@@ -119,6 +119,26 @@ describe("registerRunSocket", () => {
 		});
 	});
 
+	it("strips server-owned ghost encounter data from submitted actions", async () => {
+		const run = createTestRunDocument();
+		const result = { ok: true, state: run.state, events: [] };
+		engineService.applyRunAction.mockResolvedValue({ run, result });
+
+		await createSocket("user-id").invoke({
+			runId: "run-id",
+			action: {
+				type: "CONTINUE_TO_NEXT_COMBAT",
+				ghostEncounter: "client-controlled",
+			},
+		});
+
+		expect(engineService.applyRunAction).toHaveBeenCalledWith({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "CONTINUE_TO_NEXT_COMBAT" },
+		});
+	});
+
 	it("returns known domain error codes", async () => {
 		engineService.applyRunAction.mockRejectedValue(new Error("RUN_NOT_FOUND"));
 

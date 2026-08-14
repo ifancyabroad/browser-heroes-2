@@ -1,4 +1,4 @@
-import type { EngineAction, EngineResult, RunState } from "../schemas";
+import type { EngineAction, EngineExternalInput, EngineResult, RunState } from "../schemas";
 import { enterCombat } from "../systems/combat/enterCombat";
 import { applyCombatAction } from "../systems/combat/applyCombatAction";
 import { continueToNextCombat } from "../systems/progression/continueToNextCombat";
@@ -16,10 +16,14 @@ import { swapHandWeapons } from "../systems/equipment/swapHandWeapons";
 import { setShopLock } from "../systems/town/setShopLock";
 import { rerollLevelUp } from "../systems/progression/levelUp/rerollLevelUp";
 
-export function applyAction(state: RunState, action: EngineAction): EngineResult {
+export function applyAction(
+	state: RunState,
+	action: EngineAction,
+	externalInput: EngineExternalInput = {},
+): EngineResult {
 	switch (action.type) {
 		case "ENTER_COMBAT":
-			return enterCombat(state, action);
+			return enterCombat(state, externalInput.ghostEncounter);
 
 		case "PLAYER_BASIC_ATTACK":
 		case "PLAYER_USE_SKILL":
@@ -27,7 +31,7 @@ export function applyAction(state: RunState, action: EngineAction): EngineResult
 			return applyCombatAction(state, action);
 
 		case "CONTINUE_TO_NEXT_COMBAT":
-			return continueToNextCombat(state, action);
+			return continueToNextCombat(state, externalInput.ghostEncounter);
 
 		case "RETURN_TO_TOWN":
 			return returnToTown(state);

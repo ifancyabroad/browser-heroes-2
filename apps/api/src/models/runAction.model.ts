@@ -27,6 +27,11 @@ const runActionSchema = new Schema(
 			required: true,
 		},
 
+		externalInput: {
+			type: Schema.Types.Mixed,
+			required: true,
+		},
+
 		success: {
 			type: Boolean,
 			required: true,

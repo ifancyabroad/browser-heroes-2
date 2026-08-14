@@ -4,6 +4,7 @@ import {
 	runStateSchema,
 	selectEncounterContext,
 	type EngineAction,
+	type EngineExternalInput,
 	type RunState,
 } from "@app/engine";
 import { RunActionModel } from "../models/runAction.model";
@@ -41,16 +42,17 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 
 		const currentState = runStateSchema.parse(run.state);
 
-		const action = await prepareActionForEngine({
-			userId: input.userId,
+		const externalInput = await selectExternalInput({
 			state: currentState,
 			action: input.action,
 		});
 
-		const result = engineResultSchema.parse(applyAction(currentState, action));
+		const result = engineResultSchema.parse(
+			applyAction(currentState, input.action, externalInput),
+		);
 		const events = result.ok ? result.events : [];
 
-		const startedGhostId = result.ok ? getStartedGhostId(action, result.state) : null;
+		const startedGhostId = result.ok ? getStartedGhostId(externalInput, result.state) : null;
 
 		const resolvedGhostOutcome = result.ok
 			? getResolvedGhostOutcome(currentState, result.state)
@@ -121,7 +123,8 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 					runId: run._id,
 					userId: input.userId,
 					sequence,
-					action,
+					action: input.action,
+					externalInput,
 					success: result.ok,
 					error: result.ok ? undefined : result.error,
 				},
@@ -156,28 +159,23 @@ function deriveRunStatus(state: RunState): "active" | "dead" | "retired" {
 	}
 }
 
-async function prepareActionForEngine(input: {
-	userId: string;
+async function selectExternalInput(input: {
 	state: RunState;
 	action: EngineAction;
-}): Promise<EngineAction> {
+}): Promise<EngineExternalInput> {
 	if (input.action.type !== "ENTER_COMBAT" && input.action.type !== "CONTINUE_TO_NEXT_COMBAT") {
-		return input.action;
-	}
-
-	if (input.action.ghostEncounter) {
-		return input.action;
+		return {};
 	}
 
 	const battleNumber = getBattleNumberForAction(input.state, input.action);
 	const encounterContext = selectEncounterContext(battleNumber);
 
 	if (battleNumber < FIRST_GHOST_ENCOUNTER_BATTLE) {
-		return input.action;
+		return {};
 	}
 
 	if (encounterContext.encounterType !== "standard") {
-		return input.action;
+		return {};
 	}
 
 	const ghostEncounter = await selectGhostEncounterForLevel({
@@ -185,21 +183,17 @@ async function prepareActionForEngine(input: {
 	});
 
 	if (!ghostEncounter) {
-		return input.action;
+		return {};
 	}
 
-	return {
-		...input.action,
-		ghostEncounter,
-	};
+	return { ghostEncounter };
 }
 
-function getStartedGhostId(action: EngineAction, resultState: RunState): string | null {
-	if (action.type !== "ENTER_COMBAT" && action.type !== "CONTINUE_TO_NEXT_COMBAT") {
-		return null;
-	}
-
-	if (!action.ghostEncounter) {
+function getStartedGhostId(
+	externalInput: EngineExternalInput,
+	resultState: RunState,
+): string | null {
+	if (!externalInput.ghostEncounter) {
 		return null;
 	}
 
@@ -211,7 +205,7 @@ function getStartedGhostId(action: EngineAction, resultState: RunState): string 
 		return null;
 	}
 
-	return action.ghostEncounter.ghostId;
+	return externalInput.ghostEncounter.ghostId;
 }
 
 function getResolvedGhostOutcome(

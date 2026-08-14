@@ -6,6 +6,7 @@ export type { CreateInitialRunStateInput } from "./state";
 
 export {
 	engineActionSchema,
+	engineExternalInputSchema,
 	engineResultSchema,
 	runStateSchema,
 	deserializeRunStateResultSchema,
@@ -13,6 +14,7 @@ export {
 
 export type {
 	EngineAction,
+	EngineExternalInput,
 	GhostEncounter,
 	EngineResult,
 	EngineEvent,

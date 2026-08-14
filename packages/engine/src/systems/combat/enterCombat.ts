@@ -1,9 +1,9 @@
-import type { EngineResult, EnterCombatAction, RunState } from "../../schemas";
+import type { EngineResult, GhostEncounter, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { createCombat } from "./createCombat";
 
-export function enterCombat(state: RunState, action: EnterCombatAction): EngineResult {
+export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): EngineResult {
 	if (state.phase !== "town") {
 		return failureResult(state, "INVALID_PHASE");
 	}
@@ -15,7 +15,7 @@ export function enterCombat(state: RunState, action: EnterCombatAction): EngineR
 		zoneNumber: state.zoneNumber,
 		endlessCycle: state.endlessCycle,
 		rngState: state.rngState,
-		ghostEncounter: action.ghostEncounter,
+		ghostEncounter,
 	});
 
 	if (!combatResult) {

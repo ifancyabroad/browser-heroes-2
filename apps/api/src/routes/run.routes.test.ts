@@ -121,4 +121,27 @@ describe("run routes", () => {
 		});
 		expect(response.body.result).toEqual(result);
 	});
+
+	it("strips server-owned ghost encounter data from submitted actions", async () => {
+		const run = createTestRunDocument();
+		const result = { ok: true, state: run.state, events: [] };
+		engineService.applyRunAction.mockResolvedValue({ run, result });
+
+		await request(buildApp())
+			.post("/api/runs/run-id/actions")
+			.set("x-test-user-id", "user-id")
+			.send({
+				action: {
+					type: "ENTER_COMBAT",
+					ghostEncounter: "client-controlled",
+				},
+			})
+			.expect(200);
+
+		expect(engineService.applyRunAction).toHaveBeenCalledWith({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "ENTER_COMBAT" },
+		});
+	});
 });

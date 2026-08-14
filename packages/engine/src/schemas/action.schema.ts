@@ -2,17 +2,9 @@ import { z } from "zod";
 import { equipmentSlotSchema, skillIdSchema } from "@app/content";
 import { levelUpSelectionSchema } from "./levelUp.schema";
 import { rewardSelectionSchema } from "./reward.schema";
-import { heroStateSchema } from "./heroState.schema";
-
-export const ghostEncounterSchema = z.object({
-	ghostId: z.string(),
-	ghostUsername: z.string(),
-	hero: heroStateSchema,
-});
 
 export const enterCombatActionSchema = z.object({
 	type: z.literal("ENTER_COMBAT"),
-	ghostEncounter: ghostEncounterSchema.optional(),
 });
 
 export const playerBasicAttackActionSchema = z.object({
@@ -38,7 +30,6 @@ export const buyConsumableActionSchema = z.object({
 
 export const continueToNextCombatActionSchema = z.object({
 	type: z.literal("CONTINUE_TO_NEXT_COMBAT"),
-	ghostEncounter: ghostEncounterSchema.optional(),
 });
 
 export const returnToTownActionSchema = z.object({
@@ -111,7 +102,6 @@ export const engineActionSchema = z.discriminatedUnion("type", [
 	swapHandWeaponsActionSchema,
 ]);
 
-export type GhostEncounter = z.infer<typeof ghostEncounterSchema>;
 export type EnterCombatAction = z.infer<typeof enterCombatActionSchema>;
 export type PlayerBasicAttackAction = z.infer<typeof playerBasicAttackActionSchema>;
 export type PlayerUseSkillAction = z.infer<typeof playerUseSkillActionSchema>;

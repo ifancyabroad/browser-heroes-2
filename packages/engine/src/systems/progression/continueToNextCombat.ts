@@ -1,4 +1,4 @@
-import type { ContinueToNextCombatAction, EngineResult, RunState } from "../../schemas";
+import type { EngineResult, GhostEncounter, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { createCombat } from "../combat/createCombat";
@@ -8,7 +8,7 @@ import { carryBattleEffects } from "../combat/effects/carryBattleEffects";
 
 export function continueToNextCombat(
 	state: RunState,
-	action: ContinueToNextCombatAction,
+	ghostEncounter?: GhostEncounter,
 ): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
 		return failureResult(state, "INVALID_PHASE");
@@ -38,7 +38,7 @@ export function continueToNextCombat(
 		zoneNumber,
 		endlessCycle,
 		rngState: state.rngState,
-		ghostEncounter: action.ghostEncounter,
+		ghostEncounter,
 	});
 
 	if (!combatResult) {
