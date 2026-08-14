@@ -31,7 +31,7 @@ export function EquipmentSection({ hero }: { hero: HeroView }) {
 		<section className="grid gap-3" aria-label="Equipment">
 			<h2 className="text-text-bright">Equipment</h2>
 			{equippedItems.length > 0 ? (
-				<ul className="grid gap-1">
+				<ul className="grid gap-1 xs:grid-cols-2 sm:grid-cols-1">
 					{equippedItems.map(({ slot, item }) => (
 						<li key={slot}>
 							<Tooltip
@@ -71,7 +71,7 @@ function SkillsSection({ hero }: { hero: HeroView }) {
 		<section className="grid gap-3" aria-label="Skills">
 			<h2 className="text-text-bright">Skills</h2>
 			{hero.skills.length > 0 ? (
-				<ul className="grid gap-1">
+				<ul className="grid gap-1 xs:grid-cols-2 sm:grid-cols-1">
 					{hero.skills.map((skill) => {
 						const definition = SKILLS_BY_ID[skill.skillId];
 						const charges =

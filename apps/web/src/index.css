@@ -13,6 +13,8 @@
 }
 
 @theme {
+	--breakpoint-xs: 30rem;
+
 	/* Backgrounds */
 	--color-bg-base: #000000;
 	--color-bg-elevated: #050302;
