@@ -11,19 +11,15 @@ vi.mock("../features/combat", () => ({ CombatView: () => <div>Combat view</div> 
 vi.mock("../features/runSummary", () => ({
 	DeathScreen: () => <div>Death screen</div>,
 	VictoryScreen: () => <div>Victory screen</div>,
-	FinalBossVictoryModalController: () => <div>Final boss controller</div>,
-}));
-vi.mock("../features/levelUp", () => ({
-	LevelUpModalController: () => <div>Level-up controller</div>,
-}));
-vi.mock("../features/rewards", () => ({
-	RewardModalController: () => <div>Reward controller</div>,
 }));
 vi.mock("../features/howToPlay", () => ({
 	HowToPlayModal: () => <div>How to play modal</div>,
 }));
-vi.mock("./GamePhaseTransition", () => ({
+vi.mock("./game/GamePhaseTransition", () => ({
 	GamePhaseTransition: ({ children }: { children: React.ReactNode }) => children,
+}));
+vi.mock("./game/PostBattleModals", () => ({
+	PostBattleModals: () => <div>Post-battle modals</div>,
 }));
 
 import Game from "./Game";
@@ -88,7 +84,7 @@ describe("Game", () => {
 		expect(screen.getByText(expectedView)).toBeInTheDocument();
 	});
 
-	it("keeps mandatory-choice controllers mounted around the phase view", () => {
+	it("keeps post-battle modals mounted around the phase view", () => {
 		useGameRun.mockReturnValue({
 			data: { run: createRun("combat") },
 			isPending: false,
@@ -96,9 +92,7 @@ describe("Game", () => {
 
 		renderGame();
 
-		expect(screen.getByText("Level-up controller")).toBeInTheDocument();
-		expect(screen.getByText("Reward controller")).toBeInTheDocument();
-		expect(screen.getByText("Final boss controller")).toBeInTheDocument();
+		expect(screen.getByText("Post-battle modals")).toBeInTheDocument();
 		expect(screen.getByText("How to play modal")).toBeInTheDocument();
 	});
 

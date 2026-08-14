@@ -8,7 +8,7 @@ import {
 } from "react";
 import type { RunPhase } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { CombatView } from "../features/combat";
+import { CombatView } from "../../features/combat";
 import styles from "./GamePhaseTransition.module.css";
 
 type GamePhaseTransitionProps = PropsWithChildren<{

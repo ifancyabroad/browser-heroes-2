@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("../features/combat", () => ({
+vi.mock("../../features/combat", () => ({
 	CombatView: () => <div>Frozen combat frame</div>,
 }));
 

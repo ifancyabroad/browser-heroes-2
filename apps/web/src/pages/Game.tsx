@@ -3,15 +3,10 @@ import { useGameRun } from "../features/runs";
 import { TownView } from "../features/town";
 import { PageLoader } from "../components/PageLoader";
 import { CombatView } from "../features/combat";
-import { LevelUpModalController } from "../features/levelUp";
-import { RewardModalController } from "../features/rewards";
-import {
-	DeathScreen,
-	FinalBossVictoryModalController,
-	VictoryScreen,
-} from "../features/runSummary";
-import { GamePhaseTransition } from "./GamePhaseTransition";
+import { DeathScreen, VictoryScreen } from "../features/runSummary";
 import { HowToPlayModal } from "../features/howToPlay";
+import { GamePhaseTransition } from "./game/GamePhaseTransition";
+import { PostBattleModals } from "./game/PostBattleModals";
 
 export default function Game() {
 	const { data, isPending } = useGameRun();
@@ -48,9 +43,7 @@ export default function Game() {
 	return (
 		<>
 			<GamePhaseTransition run={run}>{view}</GamePhaseTransition>
-			<LevelUpModalController run={run} />
-			<RewardModalController run={run} />
-			<FinalBossVictoryModalController run={run} />
+			<PostBattleModals run={run} />
 			<HowToPlayModal />
 		</>
 	);
