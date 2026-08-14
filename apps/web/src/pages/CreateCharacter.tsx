@@ -85,6 +85,10 @@ export default function CreateCharacter() {
 					{detailsClass && (
 						<ClassDetailsModal
 							gameClass={detailsClass}
+							onChoose={() => {
+								handleChoose(detailsClass.id);
+								setDetailsClassId(null);
+							}}
 							onClose={() => setDetailsClassId(null)}
 						/>
 					)}

@@ -62,6 +62,18 @@
 	--color-uncommon: #99e64c;
 	--color-common: #fff;
 
+	/* Skill pool identities */
+	--color-skill-pool-assassin: #b85c68;
+	--color-skill-pool-barbarian: #c66b4e;
+	--color-skill-pool-cleric: #d4b45f;
+	--color-skill-pool-common: #9a9489;
+	--color-skill-pool-fighter: #8aa0b2;
+	--color-skill-pool-occultist: #a67bb8;
+	--color-skill-pool-thief: #77a36a;
+	--color-skill-pool-unique: #c89558;
+	--color-skill-pool-warlock: #8b6fb1;
+	--color-skill-pool-wizard: #6f9fc5;
+
 	/* One shared UI face keeps the text-forward presentation coherent. */
 	--font-sans: var(--font-ui), sans-serif;
 	--font-mono: var(--font-ui), sans-serif;
