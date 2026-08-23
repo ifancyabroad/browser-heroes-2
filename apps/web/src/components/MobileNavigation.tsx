@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Dialog } from "radix-ui";
 import { Close } from "pixelarticons/react/Close";
 import { Menu } from "pixelarticons/react/Menu";
+import browserHeroesIcon from "../assets/images/icons/browser_heroes.png";
 import { navigationItems } from "../config/navigation";
 import { useAuth, useAuthModalStore } from "../features/auth";
 import { NavigationLink } from "./NavigationLink";
@@ -58,7 +59,18 @@ export function MobileNavigation() {
 						className={`${styles.panel} fixed inset-y-0 left-0 z-50 flex h-dvh w-80 max-w-[calc(100vw-2rem)] flex-col border-r-2 border-border bg-bg-base outline-none md:hidden`}
 					>
 						<header className="flex items-center justify-between gap-4 border-b-2 border-border bg-bg-elevated px-4 py-3">
-							<Dialog.Title className="text-primary">BROWSER HEROES</Dialog.Title>
+							<Dialog.Title className="flex items-center gap-2 text-text-bright">
+								<img
+									src={browserHeroesIcon}
+									alt=""
+									width={32}
+									height={32}
+									className="h-8 w-8 [image-rendering:pixelated]"
+								/>
+								<span>
+									BROWSER <span className="text-primary">HEROES</span>
+								</span>
+							</Dialog.Title>
 							<Dialog.Close asChild>
 								<button
 									type="button"

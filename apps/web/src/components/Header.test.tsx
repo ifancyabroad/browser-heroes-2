@@ -74,13 +74,19 @@ describe("Header", () => {
 		renderHeader();
 
 		const desktopNavigation = screen.getByRole("navigation", { name: "Main navigation" });
+		expect(desktopNavigation).toHaveClass("justify-end", "md:justify-center");
 		expect(desktopNavigation.firstElementChild).toHaveClass("hidden", "md:flex");
 		expect(screen.getByRole("button", { name: "MENU" }).parentElement).toHaveClass("md:hidden");
 
 		fireEvent.click(screen.getByRole("button", { name: "MENU" }));
 
 		const mobileNavigation = screen.getByRole("navigation", { name: "Mobile navigation" });
-		expect(screen.getByRole("dialog", { name: "BROWSER HEROES" })).toBeInTheDocument();
+		const mobileDialog = screen.getByRole("dialog", { name: "BROWSER HEROES" });
+		expect(mobileDialog).toBeInTheDocument();
+		expect(mobileDialog.querySelector("img")).toHaveAttribute(
+			"src",
+			expect.stringContaining("browser_heroes.png"),
+		);
 		expect(mobileNavigation).toHaveClass("items-start");
 		expect(within(mobileNavigation).getByRole("link", { name: "HOME" })).toHaveAttribute(
 			"href",

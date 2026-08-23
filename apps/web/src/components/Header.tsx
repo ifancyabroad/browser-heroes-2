@@ -11,7 +11,7 @@ export function Header() {
 		<header>
 			<nav
 				aria-label="Main navigation"
-				className="mx-auto flex w-full max-w-6xl items-center justify-end px-4 py-3"
+				className="mx-auto flex w-full max-w-6xl items-center justify-end px-4 py-3 md:justify-center"
 			>
 				<div className="hidden items-center gap-4 md:flex">
 					{navigationItems.map((item) => (
