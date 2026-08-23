@@ -19,7 +19,6 @@ export default function CreateCharacter() {
 	const createRun = useCreateRun();
 	const [selectedClassId, setSelectedClassId] = useState<ClassId | null>(null);
 	const [detailsClassId, setDetailsClassId] = useState<ClassId | null>(null);
-	const selectedClass = selectedClassId ? CLASSES_BY_ID[selectedClassId] : null;
 	const detailsClass = detailsClassId ? CLASSES_BY_ID[detailsClassId] : null;
 
 	function handleChoose(classId: ClassId) {
@@ -93,9 +92,8 @@ export default function CreateCharacter() {
 						/>
 					)}
 
-					{selectedClass && (
+					{selectedClassId && (
 						<HeroNameModal
-							heroClassName={selectedClass.name}
 							isSubmitting={createGuestSession.isPending || createRun.isPending}
 							onClose={handleClose}
 							onConfirm={handleConfirm}

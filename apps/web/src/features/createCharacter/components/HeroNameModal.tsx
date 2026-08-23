@@ -7,18 +7,12 @@ import { HERO_NAME_MAX_LENGTH } from "@app/shared";
 import { isValidHeroNameShape } from "../utils/heroName";
 
 type HeroNameModalProps = {
-	heroClassName: string;
 	isSubmitting?: boolean;
 	onClose: () => void;
 	onConfirm: (heroName: string) => void;
 };
 
-export function HeroNameModal({
-	heroClassName,
-	isSubmitting = false,
-	onClose,
-	onConfirm,
-}: HeroNameModalProps) {
+export function HeroNameModal({ isSubmitting = false, onClose, onConfirm }: HeroNameModalProps) {
 	const [heroName, setHeroName] = useState(generateHeroName);
 
 	const trimmedName = heroName.trim();
@@ -47,7 +41,7 @@ export function HeroNameModal({
 	return (
 		<Modal
 			open
-			title={`NAME YOUR ${heroClassName.toUpperCase()}`}
+			title="NAME YOUR HERO"
 			onClose={onClose}
 			dismissible={!isSubmitting}
 			footer={

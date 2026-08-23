@@ -32,7 +32,7 @@ describe("DailyChallengeStartButton", () => {
 	it("opens hero naming immediately when there is no active run", () => {
 		render(
 			<MemoryRouter>
-				<DailyChallengeStartButton classId="warrior" />
+				<DailyChallengeStartButton />
 			</MemoryRouter>,
 		);
 
@@ -47,7 +47,7 @@ describe("DailyChallengeStartButton", () => {
 
 		render(
 			<MemoryRouter>
-				<DailyChallengeStartButton classId="warrior" currentRun={currentRun} />
+				<DailyChallengeStartButton currentRun={currentRun} />
 			</MemoryRouter>,
 		);
 

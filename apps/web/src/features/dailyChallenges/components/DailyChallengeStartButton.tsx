@@ -1,4 +1,3 @@
-import { CLASSES_BY_ID, type ClassId } from "@app/content";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../components/Button";
@@ -9,11 +8,7 @@ import { useStartDailyChallenge } from "../hooks/useStartDailyChallenge";
 import type { RunView } from "@app/shared";
 import { AbandonRunModal } from "../../../components/AbandonRunModal";
 
-export function DailyChallengeStartButton(props: {
-	classId: ClassId;
-	currentRun?: RunView | null;
-	label?: string;
-}) {
+export function DailyChallengeStartButton(props: { currentRun?: RunView | null; label?: string }) {
 	const navigate = useNavigate();
 	const { hasSession } = useAuth();
 	const createGuest = useCreateGuestSession();
@@ -64,7 +59,6 @@ export function DailyChallengeStartButton(props: {
 
 			{isNaming && (
 				<HeroNameModal
-					heroClassName={CLASSES_BY_ID[props.classId].name}
 					isSubmitting={createGuest.isPending || startChallenge.isPending}
 					onClose={() => setIsNaming(false)}
 					onConfirm={handleStart}

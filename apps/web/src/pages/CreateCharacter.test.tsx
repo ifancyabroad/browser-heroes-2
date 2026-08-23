@@ -45,18 +45,16 @@ vi.mock("../features/createCharacter", () => ({
 		</div>
 	),
 	HeroNameModal: ({
-		heroClassName,
 		isSubmitting,
 		onClose,
 		onConfirm,
 	}: {
-		heroClassName: string;
 		isSubmitting: boolean;
 		onClose: () => void;
 		onConfirm: (name: string) => void;
 	}) => (
 		<div role="dialog">
-			<span>{heroClassName} hero name</span>
+			<span>Name your hero</span>
 			<span>{isSubmitting ? "Submitting" : "Ready"}</span>
 			<button onClick={onClose}>Close</button>
 			<button onClick={() => onConfirm("Test Hero")}>Confirm</button>
@@ -97,7 +95,7 @@ describe("CreateCharacter", () => {
 		renderPage();
 
 		fireEvent.click(screen.getByRole("button", { name: "Warrior" }));
-		expect(screen.getByRole("dialog")).toHaveTextContent("Warrior hero name");
+		expect(screen.getByRole("dialog")).toHaveTextContent("Name your hero");
 
 		fireEvent.click(screen.getByRole("button", { name: "Close" }));
 		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -108,7 +106,7 @@ describe("CreateCharacter", () => {
 
 		fireEvent.click(screen.getByRole("button", { name: "Details Warrior" }));
 		expect(screen.getByRole("dialog")).toHaveTextContent("Warrior details");
-		expect(screen.queryByText("Warrior hero name")).not.toBeInTheDocument();
+		expect(screen.queryByText("Name your hero")).not.toBeInTheDocument();
 
 		fireEvent.click(screen.getByRole("button", { name: "Close details" }));
 		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
