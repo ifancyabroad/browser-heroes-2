@@ -5,6 +5,7 @@ import type {
 	GhostHistoryEntryView,
 	RunHistoryEntryView,
 } from "@app/shared";
+import { Star } from "pixelarticons/react/Star";
 import {
 	DataTable,
 	DataTableCell,
@@ -98,14 +99,24 @@ export function RunHistoryTable({
 								label={`Inspect hero ${entry.heroName}`}
 								onSelect={() => onSelectRun(entry.runId)}
 							>
-								<div>
-									<HeroIdentity name={entry.heroName} classId={entry.classId} />
-									{entry.mode === "dailyChallenge" && (
-										<p className="text-text-muted">
-											Daily Challenge · {entry.dailyChallengeDate}
-										</p>
-									)}
-								</div>
+								<HeroIdentity
+									name={entry.heroName}
+									classId={entry.classId}
+									nameAdornment={
+										entry.mode === "dailyChallenge" ? (
+											<span
+												aria-label="Daily Challenge"
+												title="Daily Challenge"
+												className="inline-flex shrink-0"
+											>
+												<Star
+													aria-hidden="true"
+													className="h-4 w-4 text-primary"
+												/>
+											</span>
+										) : undefined
+									}
+								/>
 							</DataTableRowAction>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
