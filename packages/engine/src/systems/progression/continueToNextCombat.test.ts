@@ -32,6 +32,22 @@ describe("continueToNextCombat", () => {
 		]);
 	});
 
+	it("selects the same encounter without consuming differing combat RNG states", () => {
+		const firstState = modifyTestRunState(createTestVictoryState(), (draft) => {
+			draft.rngState = { value: 1 };
+		});
+		const secondState = modifyTestRunState(createTestVictoryState(), (draft) => {
+			draft.rngState = { value: 4_000_000_000 };
+		});
+
+		const first = applyAction(firstState, { type: "CONTINUE_TO_NEXT_COMBAT" });
+		const second = applyAction(secondState, { type: "CONTINUE_TO_NEXT_COMBAT" });
+
+		expect(first.state.combat?.enemy.sourceId).toBe(second.state.combat?.enemy.sourceId);
+		expect(first.state.rngState).toEqual(firstState.rngState);
+		expect(second.state.rngState).toEqual(secondState.rngState);
+	});
+
 	it("rejects continuation before victory", () => {
 		const state = createTestRunState();
 
@@ -69,6 +85,7 @@ describe("continueToNextCombat", () => {
 			draft.hero.pendingLevelUp = {
 				level: 2,
 				hpGain: 9,
+				rerollIndex: 0,
 				options: [],
 			};
 		});

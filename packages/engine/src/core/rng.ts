@@ -13,6 +13,14 @@ export function createInitialRngState(seed: string): RngState {
 	};
 }
 
+export function createContextRngState(
+	seed: string,
+	namespace: string,
+	...context: readonly (string | number)[]
+): RngState {
+	return createInitialRngState(JSON.stringify([seed, namespace, ...context]));
+}
+
 export function randomFloat(rngState: RngState): RngResult<number> {
 	const nextState = nextRngState(rngState);
 

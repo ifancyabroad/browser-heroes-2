@@ -62,7 +62,9 @@ Combat uses six attributes:
 
 Attributes and proficiencies influence attacks, saves, damage, mitigation, health, class identity, and enemy identity.
 
-Dice and random selection consume seeded RNG from run state. Identical state plus identical action should produce identical outcomes.
+Combat dice and action selection consume seeded RNG from run state. Identical state plus identical
+action should produce identical outcomes. Encounter and progression selection instead use stable
+context-derived randomness so different combat decisions do not shift later opportunities.
 
 Dice may be used for:
 
@@ -72,7 +74,7 @@ Dice may be used for:
 - hit dice
 - damage rolls
 - effect rolls
-- random encounter or level-up option selection
+- random combatant action selection
 
 This document intentionally avoids exact formulas and tuning values.
 

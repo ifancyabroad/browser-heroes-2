@@ -1,28 +1,24 @@
-import { CLASSES_BY_ID, skills } from "@app/content";
+import { CLASSES_BY_ID, skills, type ClassId } from "@app/content";
 
 import type { HeroState, SkillLevelUpOption } from "../../../schemas";
 
 export function getEligibleSkillOptions(hero: HeroState): SkillLevelUpOption[] {
-	const classDefinition = CLASSES_BY_ID[hero.classId];
+	return getSkillLevelUpOptionsForClass(hero.classId).filter((option) =>
+		isSkillLevelUpOptionEligible(hero, option),
+	);
+}
 
-	const allowedPools = new Set(classDefinition.skillPoolIds);
+export function isSkillLevelUpOptionEligible(hero: HeroState, option: SkillLevelUpOption): boolean {
+	return !hero.skills.some((skill) => skill.skillId === option.skillId);
+}
 
-	const ownedSkillIds = new Set(hero.skills.map((skill) => skill.skillId));
+export function getSkillLevelUpOptionsForClass(classId: ClassId): SkillLevelUpOption[] {
+	const allowedPools = new Set(CLASSES_BY_ID[classId].skillPoolIds);
 
-	return skills.flatMap((skill): SkillLevelUpOption[] => {
-		if (!allowedPools.has(skill.pool)) {
-			return [];
-		}
-
-		if (ownedSkillIds.has(skill.id)) {
-			return [];
-		}
-
-		return [
-			{
-				type: "skill",
-				skillId: skill.id,
-			},
-		];
-	});
+	return skills
+		.filter((skill) => allowedPools.has(skill.pool))
+		.map((skill) => ({
+			type: "skill" as const,
+			skillId: skill.id,
+		}));
 }

@@ -33,6 +33,7 @@ export function continueToNextCombat(
 
 	const combatResult = createCombat({
 		runId: state.id,
+		seed: state.seed,
 		hero: state.hero,
 		battleNumber,
 		zoneNumber,

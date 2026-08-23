@@ -10,6 +10,7 @@ export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): E
 
 	const combatResult = createCombat({
 		runId: state.id,
+		seed: state.seed,
 		hero: state.hero,
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,

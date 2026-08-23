@@ -22,7 +22,8 @@ describe("rerollLevelUp", () => {
 			expect.arrayContaining(currentKeys),
 		);
 		expect(result.state.levelUpRerolls).toBe(4);
-		expect(result.state.rngState).not.toEqual(state.rngState);
+		expect(result.state.rngState).toEqual(state.rngState);
+		expect(result.state.hero.pendingLevelUp?.rerollIndex).toBe(1);
 		expect(result.events).toEqual([{ type: "LEVEL_UP_REROLLED", remainingRerolls: 4 }]);
 	});
 
@@ -34,7 +35,7 @@ describe("rerollLevelUp", () => {
 		const owned = eligible.slice(4);
 		const state = modifyTestRunState(baseState, (draft) => {
 			draft.hero.skills.push(...owned.map(({ skillId }) => ({ skillId })));
-			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, options: current };
+			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, rerollIndex: 0, options: current };
 		});
 
 		const result = applyAction(state, { type: "REROLL_LEVEL_UP" });
@@ -54,7 +55,7 @@ describe("rerollLevelUp", () => {
 		const eligible = getEligibleFeatOptions(baseState.hero);
 		const current = eligible.slice(0, 3);
 		const state = modifyTestRunState(baseState, (draft) => {
-			draft.hero.pendingLevelUp = { level: 3, hpGain: 9, options: current };
+			draft.hero.pendingLevelUp = { level: 3, hpGain: 9, rerollIndex: 0, options: current };
 		});
 
 		const result = applyAction(state, { type: "REROLL_LEVEL_UP" });
@@ -90,7 +91,12 @@ describe("rerollLevelUp", () => {
 		const eligible = getEligibleSkillOptions(baseState.hero);
 		const noAlternatives = modifyTestRunState(baseState, (draft) => {
 			draft.hero.skills.push(...eligible.slice(3).map(({ skillId }) => ({ skillId })));
-			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, options: eligible.slice(0, 3) };
+			draft.hero.pendingLevelUp = {
+				level: 2,
+				hpGain: 9,
+				rerollIndex: 0,
+				options: eligible.slice(0, 3),
+			};
 		});
 		expect(applyAction(noAlternatives, { type: "REROLL_LEVEL_UP" })).toMatchObject({
 			ok: false,
@@ -117,7 +123,7 @@ function withSkillOffer() {
 	const options = getEligibleSkillOptions(state.hero).slice(0, 3);
 
 	return modifyTestRunState(state, (draft) => {
-		draft.hero.pendingLevelUp = { level: 2, hpGain: 9, options };
+		draft.hero.pendingLevelUp = { level: 2, hpGain: 9, rerollIndex: 0, options };
 	});
 }
 

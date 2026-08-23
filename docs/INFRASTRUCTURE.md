@@ -190,6 +190,9 @@ Operational systems should be added incrementally based on real needs.
 
 Production uses Elastic Beanstalk enhanced health reporting without publishing optional CloudWatch custom metrics or streaming application logs. This provides detailed current environment health without intentionally adding monitoring charges; historical application latency and request metrics can be enabled later if needed.
 
+Gameplay and content releases that can change seeded opportunity generation should be activated at
+a UTC Daily Challenge boundary.
+
 ## 12. Guiding Principle
 
 Infrastructure should make the game easier to run, deploy, observe, and maintain. If an infrastructure choice adds operational burden without a clear need, prefer the simpler option.

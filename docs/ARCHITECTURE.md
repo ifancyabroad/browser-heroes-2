@@ -106,7 +106,11 @@ Game state is explicit serializable data.
 The following rules must hold:
 
 - identical state plus identical input produces identical outcome
-- engine randomness derives from seeded run RNG
+- engine randomness derives from the run seed
+- combat outcomes consume the run's sequential RNG state, while scheduled opportunities such as
+  enemies, level-up offers, rewards, and shops use independent context-derived RNG streams
+- context-derived streams use stable run positions such as battle, level, reroll, and slot so
+  decision-dependent combat rolls cannot shift later opportunities
 - externally selected data is passed into the engine as explicit input and recorded with the action
 - ghost encounter selection uses the run seed, battle context, and a stable cutoff derived from run metadata so later ghosts cannot change an existing run
 - runtime timing does not affect gameplay results

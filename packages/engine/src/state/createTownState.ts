@@ -5,6 +5,7 @@ import { createTownShop } from "../systems/town/createTownShop";
 
 type CreateTownStateInput = {
 	runId: string;
+	seed: string;
 	hero: HeroState;
 	zoneNumber: number;
 	battleNumber: number;
@@ -18,6 +19,7 @@ export function createTownState(input: CreateTownStateInput): RngResult<TownStat
 
 	const shop = createTownShop({
 		runId: input.runId,
+		seed: input.seed,
 		hero: input.hero,
 		shopLevel,
 		battleNumber: input.battleNumber,

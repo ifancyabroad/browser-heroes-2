@@ -20,6 +20,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		runId: input.runId,
 		heroName: input.heroName,
 		classId: input.classId,
+		seed: input.seed,
 		rngState: initialRngState,
 	});
 
@@ -31,6 +32,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 	const combatResult = createCombat({
 		runId: input.runId,
 		hero,
+		seed: input.seed,
 		battleNumber,
 		zoneNumber,
 		endlessCycle,

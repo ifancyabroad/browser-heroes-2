@@ -1,7 +1,7 @@
 import type { ItemId } from "@app/content";
 
 import { createShopItemInstanceId, createTownShopSlotId } from "../../core/ids";
-import { randomInt, type RngResult, type RngState } from "../../core/rng";
+import { createContextRngState, randomInt, type RngResult, type RngState } from "../../core/rng";
 import type { HeroState, TownShopSlot } from "../../schemas";
 import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 import { createRandomItemInstance } from "../items/createRandomItemInstance";
@@ -12,6 +12,7 @@ const PRICE_STEP = 5;
 
 type CreateTownShopInput = {
 	runId: string;
+	seed: string;
 	hero: HeroState;
 	shopLevel: number;
 	battleNumber: number;
@@ -35,10 +36,9 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 		}
 	}
 
-	let rngState = input.rngState;
-
 	while (shopSlots.length < TOWN_SHOP_SLOT_COUNT) {
-		const shopSlotId = createTownShopSlotId(input.runId, shopSlots.length + 1);
+		const slotNumber = shopSlots.length + 1;
+		const shopSlotId = createTownShopSlotId(input.runId, slotNumber);
 		const preservedSlot = preservedSlots.get(shopSlotId);
 
 		if (preservedSlot) {
@@ -56,7 +56,13 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 			),
 			lootTier: input.shopLevel,
 			excludedLegendaryItemIds,
-			rngState,
+			rngState: createContextRngState(
+				input.seed,
+				"shop-item",
+				input.battleNumber,
+				input.rerollCount,
+				slotNumber,
+			),
 		});
 
 		shopSlots.push({
@@ -71,31 +77,37 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 		if (itemResult.value.type === "static") {
 			excludedLegendaryItemIds.add(itemResult.value.itemId);
 		}
-
-		rngState = itemResult.rngState;
 	}
 
 	const pricedSlots: TownShopSlot[] = [];
 
-	for (const pendingSlot of shopSlots) {
+	for (const [slotIndex, pendingSlot] of shopSlots.entries()) {
 		if (pendingSlot.preserved) {
 			pricedSlots.push(pendingSlot.slot);
 			continue;
 		}
 
 		const item = getItemInstanceDefinition(pendingSlot.slot.item);
-		const price = rollPrice(item.price, rngState);
+		const price = rollPrice(
+			item.price,
+			createContextRngState(
+				input.seed,
+				"shop-price",
+				input.battleNumber,
+				input.rerollCount,
+				slotIndex + 1,
+			),
+		);
 
 		pricedSlots.push({
 			...pendingSlot.slot,
 			price: price.value,
 		});
-		rngState = price.rngState;
 	}
 
 	return {
 		value: pricedSlots,
-		rngState,
+		rngState: input.rngState,
 	};
 }
 

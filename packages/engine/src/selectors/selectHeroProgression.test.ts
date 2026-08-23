@@ -6,7 +6,7 @@ describe("selectHeroProgression", () => {
 	it("projects thresholds and a pending level-up result", () => {
 		const state = modifyTestRunState(createTestRunState(), (draft) => {
 			draft.hero.xp = 50;
-			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, options: [] };
+			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, rerollIndex: 0, options: [] };
 		});
 
 		expect(selectHeroProgression(state)).toMatchObject({

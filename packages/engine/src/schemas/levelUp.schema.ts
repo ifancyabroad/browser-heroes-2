@@ -19,6 +19,7 @@ export const levelUpOptionSchema = z.discriminatedUnion("type", [
 export const pendingLevelUpSchema = z.object({
 	level: z.number().int().min(2),
 	hpGain: z.number().int().positive(),
+	rerollIndex: z.number().int().min(0),
 	options: z.array(levelUpOptionSchema).max(3),
 });
 

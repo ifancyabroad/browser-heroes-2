@@ -38,7 +38,7 @@ export function completeLevelUp(state: RunState, action: CompleteLevelUpAction):
 		currentHp: deriveHeroStats(levelledHero).health.maxHp,
 	};
 
-	const nextPendingLevelUp = createPendingLevelUp(updatedHero, state.rngState);
+	const nextPendingLevelUp = createPendingLevelUp(updatedHero, state.seed, state.rngState);
 
 	const finalHero: HeroState = {
 		...updatedHero,

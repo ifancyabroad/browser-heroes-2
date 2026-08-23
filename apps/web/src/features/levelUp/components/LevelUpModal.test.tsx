@@ -41,7 +41,7 @@ describe("LevelUpModal", () => {
 		const onConfirm = vi.fn();
 		render(
 			<LevelUpModal
-				pendingLevelUp={{ level: 2, hpGain: 5, options: [] }}
+				pendingLevelUp={{ level: 2, hpGain: 5, rerollIndex: 0, options: [] }}
 				isPending={false}
 				levelUpRerolls={5}
 				canReroll={false}

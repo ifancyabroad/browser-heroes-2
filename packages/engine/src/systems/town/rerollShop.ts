@@ -26,6 +26,7 @@ export function rerollShop(state: RunState): EngineResult {
 
 	const shop = createTownShop({
 		runId: state.id,
+		seed: state.seed,
 		hero: state.hero,
 		shopLevel: state.town.shopLevel,
 		battleNumber: state.battleNumber,

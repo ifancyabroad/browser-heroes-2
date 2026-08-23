@@ -52,7 +52,8 @@ Heroes currently persist for the duration of a run. Long-term account or meta pr
 
 ## 4. Encounters and Zones
 
-Combat encounters select enemies from the current zone and encounter type.
+Combat encounters select enemies from the current zone and encounter type. The run seed and battle
+number determine the authored enemy schedule, so combat decisions do not change later selections.
 
 Every 10th battle is a boss encounter. Non-boss battles are standard encounters.
 
@@ -70,7 +71,7 @@ Boss victories can create a pending reward choice. Current boss reward choices c
 
 Level-ups are triggered by XP thresholds. When a level-up is pending, the player must complete it before normal run actions continue.
 
-Level-up choices are intended to stay curated: the player should choose from a small set of relevant skill or feat options rather than manage a large open tree during the run. Skill options are selected without replacement using rarity weights; common skills appear most frequently, while legendary skills are significantly rarer. Feat options remain uniformly selected.
+Level-up choices are intended to stay curated: the player should choose from a small set of relevant skill or feat options rather than manage a large open tree during the run. Skill options are selected without replacement using rarity weights; common skills appear most frequently, while legendary skills are significantly rarer. Feat options remain uniformly selected. Each level and reroll has a seed-derived candidate ranking shared by runs with the same seed. Options already owned by the hero are skipped, so prior build choices may produce valid differences in the displayed offer without changing the underlying ranking.
 
 Each run begins with five level-up rerolls shared across skill and feat offers. Rerolls cost no gold and never replenish. A reroll prioritizes choices not present in the current offer; when fewer than three new choices remain, previous choices fill the remaining slots. Rerolling is unavailable when no alternative eligible choice exists.
 
@@ -113,7 +114,10 @@ Equipment may be an authored legendary item or a generated common, uncommon, rar
 
 Authored legendary items may be restricted to specific classes. Restricted items are excluded from other classes' shops and reward choices and cannot be equipped by an ineligible class.
 
-Items can be acquired from town shops and boss reward choices. Their selection and generation consume the run's seeded randomness. When an item can occupy multiple valid slots, the selected equipment slot is explicit and replacement can be previewed before confirmation.
+Items can be acquired from town shops and boss reward choices. Their selection and generation use
+seeded randomness derived from the battle and option or shop slot. When an item can occupy multiple
+valid slots, the selected equipment slot is explicit and replacement can be previewed before
+confirmation.
 
 Items may:
 
@@ -150,6 +154,9 @@ Town pricing is engine-owned. Current costs are affected by the hero's charisma 
 
 Returning to town after a victory creates fresh town state for the current run position and resets the active streak and town-local reroll count. It does not reset the current day or rest-price escalation. Continuing directly to the next combat preserves momentum and increases the streak.
 
+Each battle and reroll has a seed-derived baseline shop inventory and price schedule. Locks,
+purchases, and class eligibility intentionally affect the inventory visible to an individual hero.
+
 Town should not contain combat encounters. It may prepare, recover, or redirect the run, but combat outcomes remain engine-owned.
 
 ## 10. Death, Victory, and Endless Progression
@@ -171,6 +178,10 @@ Ghost encounters and outcomes contribute to ghost records outside the active run
 ## 12. Daily Challenges
 
 Each UTC date has one Daily Challenge with a shared seed and predetermined class selected through an even rotation. The player chooses the hero name, while the server owns the class and seed.
+
+Participants share the same underlying enemy, reward, level-up, and shop schedules. Prior build and
+shop decisions may still create valid differences where owned options are skipped or slots are
+preserved.
 
 Each user identity may start the challenge once. Starting consumes the attempt even if the run is later abandoned. The challenge must be started on its date, but an active attempt may be resumed and completed later and remains attached to its original leaderboard. Starting any new run abandons the current active run.
 

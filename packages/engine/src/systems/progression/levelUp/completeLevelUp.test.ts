@@ -48,7 +48,7 @@ describe("completeLevelUp", () => {
 
 	it("completes levels with no choice using a null selection", () => {
 		const state = modifyTestRunState(createTestVictoryState(), (draft) => {
-			draft.hero.pendingLevelUp = { level: 7, hpGain: 9, options: [] };
+			draft.hero.pendingLevelUp = { level: 7, hpGain: 9, rerollIndex: 0, options: [] };
 		});
 
 		const result = applyAction(state, {
@@ -75,7 +75,7 @@ describe("completeLevelUp", () => {
 		).toMatchObject({ ok: false, error: "INVALID_LEVEL_UP_SELECTION" });
 
 		const noChoicePending = modifyTestRunState(createTestVictoryState(), (draft) => {
-			draft.hero.pendingLevelUp = { level: 7, hpGain: 9, options: [] };
+			draft.hero.pendingLevelUp = { level: 7, hpGain: 9, rerollIndex: 0, options: [] };
 		});
 		expect(
 			applyAction(noChoicePending, {
@@ -93,6 +93,7 @@ function withPendingLevelUp(
 		draft.hero.pendingLevelUp = {
 			level: 2,
 			hpGain: 9,
+			rerollIndex: 0,
 			options: [option],
 		};
 	});

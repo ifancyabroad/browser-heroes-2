@@ -3,12 +3,16 @@ import { feats } from "@app/content";
 import type { FeatLevelUpOption, HeroState } from "../../../schemas";
 
 export function getEligibleFeatOptions(hero: HeroState): FeatLevelUpOption[] {
-	const ownedFeatIds = new Set(hero.featIds);
+	return getFeatLevelUpOptions().filter((option) => isFeatLevelUpOptionEligible(hero, option));
+}
 
-	return feats
-		.filter((feat) => !ownedFeatIds.has(feat.id))
-		.map((feat) => ({
-			type: "feat" as const,
-			featId: feat.id,
-		}));
+export function isFeatLevelUpOptionEligible(hero: HeroState, option: FeatLevelUpOption): boolean {
+	return !hero.featIds.includes(option.featId);
+}
+
+export function getFeatLevelUpOptions(): FeatLevelUpOption[] {
+	return feats.map((feat) => ({
+		type: "feat" as const,
+		featId: feat.id,
+	}));
 }

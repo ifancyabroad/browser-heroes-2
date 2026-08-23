@@ -1,5 +1,5 @@
 import type { CombatantState, CombatState, GhostEncounter, HeroState } from "../../schemas";
-import type { RngResult, RngState } from "../../core/rng";
+import { createContextRngState, type RngResult, type RngState } from "../../core/rng";
 
 import { createCombatId } from "../../core/ids";
 import { getEncounterTypeForBattle, selectEnemyForEncounter } from "../encounters";
@@ -10,6 +10,7 @@ import { createCombatLogEntry } from "./logs/createCombatLogEntry";
 
 type CreateCombatInput = {
 	runId: string;
+	seed: string;
 	hero: HeroState;
 	battleNumber: number;
 	zoneNumber: number;
@@ -34,7 +35,7 @@ export function createCombat(input: CreateCombatInput): RngResult<CombatState> |
 		const selectedEnemy = selectEnemyForEncounter({
 			battleNumber: input.battleNumber,
 			zoneNumber: input.zoneNumber,
-			rngState: input.rngState,
+			rngState: createContextRngState(input.seed, "enemy", input.battleNumber),
 		});
 
 		if (!selectedEnemy) {
@@ -48,7 +49,7 @@ export function createCombat(input: CreateCombatInput): RngResult<CombatState> |
 			input.endlessCycle,
 		);
 		encounterType = getEncounterTypeForBattle(input.battleNumber);
-		rngState = selectedEnemy.rngState;
+		rngState = input.rngState;
 	}
 
 	return {

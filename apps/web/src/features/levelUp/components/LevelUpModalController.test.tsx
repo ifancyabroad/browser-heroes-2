@@ -43,7 +43,7 @@ describe("LevelUpModalController", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 		selectHeroProgression.mockReturnValue({
-			pendingLevelUp: { level: 2, hpGain: 5, options: [] },
+			pendingLevelUp: { level: 2, hpGain: 5, rerollIndex: 0, options: [] },
 			levelUpRerolls: 5,
 			canRerollLevelUp: false,
 		});

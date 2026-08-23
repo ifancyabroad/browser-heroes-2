@@ -85,7 +85,7 @@ Current town responsibilities include equipment shops, rest recovery, healing po
 
 ### 4.6 Meta Systems
 
-Daily Challenges provide the public competitive mode. Every UTC day gives all participants the same seeded run, predetermined rotating class, and deterministic ghost pool, with one attempt per user identity and a historical leaderboard. Normal runs remain playable but are not publicly ranked.
+Daily Challenges provide the public competitive mode. Every UTC day gives all participants the same seeded opportunity schedule, predetermined rotating class, and deterministic ghost pool, with one attempt per user identity and a historical leaderboard. Combat decisions can change combat outcomes without shifting later enemies, rewards, progression rankings, or baseline shops. Normal runs remain playable but are not publicly ranked.
 
 Ghost encounters, achievements, and personal hero and ghost history add asynchronous variety and goals around both run modes. Achievement progress belongs to the user across heroes and is available to guests as well as registered accounts. Broader world activity remains future direction.
 

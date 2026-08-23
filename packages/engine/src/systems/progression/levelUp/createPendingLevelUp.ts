@@ -1,6 +1,6 @@
 import { CLASSES_BY_ID } from "@app/content";
 
-import { type RngResult, type RngState } from "../../../core/rng";
+import { createContextRngState, type RngResult, type RngState } from "../../../core/rng";
 import type { HeroState, PendingLevelUp } from "../../../schemas";
 import { calculateLevelUpHpGain } from "../health/calculateLevelUpHpGain";
 import { getPendingLevelUp } from "../level/getPendingLevelUp";
@@ -8,6 +8,7 @@ import { selectLevelUpOptions } from "./selectLevelUpOptions";
 
 export function createPendingLevelUp(
 	hero: HeroState,
+	seed: string,
 	rngState: RngState,
 ): RngResult<PendingLevelUp | null> {
 	if (hero.pendingLevelUp) {
@@ -33,14 +34,26 @@ export function createPendingLevelUp(
 		hero.attributes.constitution,
 	);
 
-	const selected = selectLevelUpOptions(hero, progression.choice, rngState);
+	const rerollIndex = 0;
+	const selected = selectLevelUpOptions(
+		hero,
+		progression.choice,
+		createContextRngState(
+			seed,
+			"level-up",
+			progression.level,
+			progression.choice ?? "none",
+			rerollIndex,
+		),
+	);
 
 	return {
 		value: {
 			level: progression.level,
 			hpGain,
+			rerollIndex,
 			options: selected.value,
 		},
-		rngState: selected.rngState,
+		rngState,
 	};
 }

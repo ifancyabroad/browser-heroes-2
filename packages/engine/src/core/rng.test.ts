@@ -1,6 +1,20 @@
 import { describe, expect, it } from "vitest";
 
-import { createInitialRngState, selectWeightedItems } from "./rng";
+import { createContextRngState, createInitialRngState, selectWeightedItems } from "./rng";
+
+describe("createContextRngState", () => {
+	it("is stable for the same context and isolated by namespace and values", () => {
+		expect(createContextRngState("seed", "enemy", 4)).toEqual(
+			createContextRngState("seed", "enemy", 4),
+		);
+		expect(createContextRngState("seed", "enemy", 4)).not.toEqual(
+			createContextRngState("seed", "shop-item", 4),
+		);
+		expect(createContextRngState("seed", "enemy", 4)).not.toEqual(
+			createContextRngState("seed", "enemy", 5),
+		);
+	});
+});
 
 describe("selectWeightedItems", () => {
 	it("selects positive-weight items without replacement", () => {

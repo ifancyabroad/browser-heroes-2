@@ -15,7 +15,7 @@ import {
 import { createStartingItemInstanceId } from "../core/ids";
 import { calculateMaxHpForLevel } from "../systems/progression/health/calculateMaxHpForLevel";
 import { STARTING_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
-import type { RngResult, RngState } from "../core/rng";
+import { createContextRngState, type RngResult, type RngState } from "../core/rng";
 import { createGeneratedItemInstance } from "../systems/items/createGeneratedItemInstance";
 import { isClassProficientWithItem } from "../systems/items/isClassProficientWithItem";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
@@ -26,6 +26,7 @@ export type CreateInitialHeroStateInput = {
 	runId: string;
 	heroName: string;
 	classId: ClassId;
+	seed: string;
 	rngState: RngState;
 };
 
@@ -37,7 +38,12 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): RngR
 		1,
 	);
 
-	const equipmentResult = createInitialEquipment(classDefinition, input.runId, input.rngState);
+	const equipmentResult = createInitialEquipment(
+		classDefinition,
+		input.runId,
+		input.seed,
+		input.rngState,
+	);
 
 	const hero: HeroState = {
 		id: "player",
@@ -96,13 +102,12 @@ const EMPTY_EQUIPMENT: HeroEquipmentState = {
 function createInitialEquipment(
 	classDefinition: Class,
 	runId: string,
+	seed: string,
 	initialRngState: RngState,
 ): RngResult<HeroEquipmentState> {
 	const equipment: HeroEquipmentState = {
 		...EMPTY_EQUIPMENT,
 	};
-
-	let rngState = initialRngState;
 
 	const mainHandBaseId = classDefinition.startingEquipment?.mainHand;
 	const offHandBaseId = classDefinition.startingEquipment?.offHand;
@@ -146,15 +151,14 @@ function createInitialEquipment(
 			instanceId: createStartingItemInstanceId(runId, slot),
 			base,
 			rarity: "common",
-			rngState,
+			rngState: createContextRngState(seed, "starting-equipment", slot),
 		});
 
 		equipment[slot] = itemResult.value;
-		rngState = itemResult.rngState;
 	}
 
 	return {
 		value: equipment,
-		rngState,
+		rngState: initialRngState,
 	};
 }

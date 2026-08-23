@@ -46,7 +46,11 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 
 	const rewardedState = applyCombatReward(stateWithRewardLog, reward);
 
-	const pendingLevelUpResult = createPendingLevelUp(rewardedState.hero, rewardedState.rngState);
+	const pendingLevelUpResult = createPendingLevelUp(
+		rewardedState.hero,
+		rewardedState.seed,
+		rewardedState.rngState,
+	);
 
 	const hero: HeroState = {
 		...rewardedState.hero,
@@ -55,6 +59,7 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 
 	const pendingRewardResult = createPendingRewardChoice({
 		runId: rewardedState.id,
+		seed: rewardedState.seed,
 		hero,
 		zoneNumber: rewardedState.zoneNumber,
 		battleNumber: rewardedState.battleNumber,

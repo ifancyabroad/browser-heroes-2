@@ -1,5 +1,6 @@
 import type { CombatState, HeroState, PendingRewardChoice } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
+import { createContextRngState } from "../../../core/rng";
 import type { ItemId } from "@app/content";
 
 import { createRewardItemOptionInstanceId } from "../../../core/ids";
@@ -10,6 +11,7 @@ const ITEM_REWARD_COUNT = 2;
 
 type CreatePendingRewardChoiceInput = {
 	runId: string;
+	seed: string;
 	hero: HeroState;
 	zoneNumber: number;
 	battleNumber: number;
@@ -39,19 +41,24 @@ export function createPendingRewardChoice(
 
 	const itemOptions: PendingRewardItemOption[] = [];
 	const excludedLegendaryItemIds = new Set<ItemId>();
-	let rngState = input.rngState;
 
 	while (itemOptions.length < ITEM_REWARD_COUNT) {
+		const optionIndex = itemOptions.length;
 		const itemResult = createRandomItemInstance({
 			hero: input.hero,
 			instanceId: createRewardItemOptionInstanceId(
 				input.runId,
 				input.battleNumber,
-				itemOptions.length,
+				optionIndex,
 			),
 			lootTier: input.zoneNumber,
 			excludedLegendaryItemIds,
-			rngState,
+			rngState: createContextRngState(
+				input.seed,
+				"reward-item",
+				input.battleNumber,
+				optionIndex,
+			),
 		});
 
 		itemOptions.push({
@@ -62,8 +69,6 @@ export function createPendingRewardChoice(
 		if (itemResult.value.type === "static") {
 			excludedLegendaryItemIds.add(itemResult.value.itemId);
 		}
-
-		rngState = itemResult.rngState;
 	}
 
 	if (itemOptions.length !== ITEM_REWARD_COUNT) {
@@ -81,7 +86,7 @@ export function createPendingRewardChoice(
 				},
 			],
 		},
-		rngState,
+		rngState: input.rngState,
 	};
 }
 
