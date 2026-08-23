@@ -1,5 +1,6 @@
 import { getZoneForRun } from "@app/engine";
 import type { ChallengeEntryView } from "@app/shared";
+import { Badge } from "../../../components/Badge";
 import {
 	DataTable,
 	DataTableCell,
@@ -57,7 +58,11 @@ export function DailyChallengeLeaderboardTable(props: {
 								<HeroIdentity
 									name={entry.heroName}
 									classId={entry.classId}
-									isCurrentUser={entry.isCurrentUser}
+									nameAdornment={
+										entry.isCurrentUser ? (
+											<Badge label="YOU" textTone="bright" />
+										) : undefined
+									}
 								/>
 							</DataTableRowAction>
 						</DataTableCell>

@@ -1,17 +1,14 @@
 import { CLASSES_BY_ID, type ClassId } from "@app/content";
 import type { ReactNode } from "react";
-import { Badge } from "./Badge";
 import { resolveImageUrl } from "../utils/image";
 
 export function HeroIdentity({
 	name,
 	classId,
-	isCurrentUser = false,
 	nameAdornment,
 }: {
 	name: string;
 	classId: ClassId;
-	isCurrentUser?: boolean;
 	nameAdornment?: ReactNode;
 }) {
 	const heroClass = CLASSES_BY_ID[classId];
@@ -30,7 +27,6 @@ export function HeroIdentity({
 				<div className="flex items-center gap-2">
 					<span className="truncate text-text-bright">{name}</span>
 					{nameAdornment}
-					{isCurrentUser && <Badge label="YOU" textTone="bright" />}
 				</div>
 				<span className="text-text-muted">{heroClass.name}</span>
 			</div>
