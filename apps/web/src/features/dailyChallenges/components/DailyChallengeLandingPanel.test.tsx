@@ -36,6 +36,11 @@ describe("DailyChallengeLandingPanel", () => {
 			</MemoryRouter>,
 		);
 		expect(screen.getByRole("heading", { name: "DAILY CHALLENGE" })).toBeInTheDocument();
+		expect(
+			screen.getByText(
+				"Everyone faces the same adventure with the same hero class. One attempt. How far can you get?",
+			),
+		).toBeInTheDocument();
 		expect(screen.getByText("14 ATTEMPTS")).toBeInTheDocument();
 		expect(screen.getByText("BEST 31 KILLS")).toBeInTheDocument();
 		expect(screen.getByRole("button", { name: "START DAILY CHALLENGE" })).toBeInTheDocument();

@@ -1,4 +1,3 @@
-import { CLASSES_BY_ID } from "@app/content";
 import type { RunView } from "@app/shared";
 import { ButtonLink } from "../../../components/Button";
 import { Card } from "../../../components/Card";
@@ -12,32 +11,23 @@ export function DailyChallengeLandingPanel({ currentRun }: { currentRun: RunView
 	const activeDailyRun = currentRun?.mode === "dailyChallenge" ? currentRun : null;
 
 	if (summary.isPending) {
-		return (
-			<Card className="w-full border-primary p-4 text-text-muted">
-				Loading Daily Challenge...
-			</Card>
-		);
+		return <Card className="w-full p-4 text-text-muted">Loading Daily Challenge...</Card>;
 	}
 
 	if (summary.isError || !summary.data) {
-		return (
-			<Card className="w-full border-primary p-4 text-error">
-				Daily Challenge unavailable.
-			</Card>
-		);
+		return <Card className="w-full p-4 text-error">Daily Challenge unavailable.</Card>;
 	}
 
 	const challenge = summary.data.challenge;
-	const classId = activeDailyRun?.summary.classId ?? challenge.classId;
-	const date = activeDailyRun?.dailyChallengeDate ?? challenge.date;
 
 	return (
-		<Card className="grid w-full gap-3 border-primary p-4">
+		<Card className="grid w-full gap-3 p-4">
 			<h2 className="text-primary">
 				{activeDailyRun ? "DAILY CHALLENGE IN PROGRESS" : "DAILY CHALLENGE"}
 			</h2>
-			<p>
-				{CLASSES_BY_ID[classId].name} · {date}
+			<p className="text-text">
+				Everyone faces the same adventure with the same hero class. One attempt. How far can
+				you get?
 			</p>
 
 			{!activeDailyRun && (

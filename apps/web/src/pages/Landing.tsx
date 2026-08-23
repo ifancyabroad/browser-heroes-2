@@ -20,6 +20,7 @@ export default function Landing() {
 	});
 
 	const run = currentRun.data?.run ?? null;
+	const adventureRun = run?.mode === "normal" ? run : null;
 	const isCheckingRun = hasSession && currentRun.isLoading;
 
 	if (isCheckingRun) {
@@ -52,18 +53,33 @@ export default function Landing() {
 
 					<DailyChallengeLandingPanel currentRun={run} />
 
-					{run && <CurrentRunSection run={run} />}
+					<section className="grid w-full gap-3" aria-labelledby="adventure-heading">
+						<div className="flex items-center gap-3">
+							<span className="h-0.5 flex-1 bg-border-secondary" aria-hidden="true" />
+							<h2 id="adventure-heading" className="shrink-0 text-text-bright">
+								YOUR ADVENTURE
+							</h2>
+							<span className="h-0.5 flex-1 bg-border-secondary" aria-hidden="true" />
+						</div>
 
-					<div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
-						{run && (
-							<ButtonLink variant="primary" to="/game">
-								CONTINUE
+						<p className="text-text">Create your own hero and play at your own pace.</p>
+
+						{adventureRun && <CurrentRunSection run={adventureRun} />}
+
+						<div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+							{adventureRun && (
+								<ButtonLink variant="primary" to="/game">
+									CONTINUE
+								</ButtonLink>
+							)}
+							<ButtonLink
+								variant={run ? "default" : "primary"}
+								to="/create-character"
+							>
+								{run ? "NEW HERO" : "PLAY NOW"}
 							</ButtonLink>
-						)}
-						<ButtonLink variant={run ? "default" : "primary"} to="/create-character">
-							{run ? "NEW HERO" : "PLAY NOW"}
-						</ButtonLink>
-					</div>
+						</div>
+					</section>
 
 					{!isRegistered && (
 						<div className="grid w-full justify-items-center gap-3 border-t-2 border-border-secondary pt-4">
