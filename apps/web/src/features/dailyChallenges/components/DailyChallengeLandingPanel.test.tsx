@@ -46,6 +46,69 @@ describe("DailyChallengeLandingPanel", () => {
 		expect(screen.getByRole("button", { name: "START DAILY CHALLENGE" })).toBeInTheDocument();
 	});
 
+	it("reserves the completed card layout while loading", () => {
+		hooks.useDailyChallengeSummary.mockReturnValue({
+			data: undefined,
+			isPending: true,
+			isError: false,
+		});
+
+		render(
+			<MemoryRouter>
+				<DailyChallengeLandingPanel currentRun={null} />
+			</MemoryRouter>,
+		);
+
+		expect(screen.getByRole("heading", { name: "Loading Daily Challenge..." })).toBeVisible();
+		expect(screen.getByText("0 ATTEMPTS").closest('[aria-hidden="true"]')).not.toBeNull();
+		expect(
+			screen.getByText("START DAILY CHALLENGE").closest('[aria-hidden="true"]'),
+		).not.toBeNull();
+	});
+
+	it("does not reserve the statistics row when an active challenge is loading", () => {
+		hooks.useDailyChallengeSummary.mockReturnValue({
+			data: undefined,
+			isPending: true,
+			isError: false,
+		});
+		const run = {
+			mode: "dailyChallenge",
+			dailyChallengeDate: "2026-08-23",
+			summary: { heroName: "Ada" },
+		} as RunView;
+
+		render(
+			<MemoryRouter>
+				<DailyChallengeLandingPanel currentRun={run} />
+			</MemoryRouter>,
+		);
+
+		expect(screen.queryByText("0 ATTEMPTS")).not.toBeInTheDocument();
+		expect(
+			screen.getByText("CONTINUE DAILY CHALLENGE").closest('[aria-hidden="true"]'),
+		).not.toBeNull();
+	});
+
+	it("preserves the card layout when the challenge is unavailable", () => {
+		hooks.useDailyChallengeSummary.mockReturnValue({
+			data: undefined,
+			isPending: false,
+			isError: true,
+		});
+
+		render(
+			<MemoryRouter>
+				<DailyChallengeLandingPanel currentRun={null} />
+			</MemoryRouter>,
+		);
+
+		expect(screen.getByRole("heading", { name: "Daily Challenge unavailable." })).toBeVisible();
+		expect(
+			screen.getByText("START DAILY CHALLENGE").closest('[aria-hidden="true"]'),
+		).not.toBeNull();
+	});
+
 	it("continues an active daily run instead of offering another attempt", () => {
 		const run = {
 			mode: "dailyChallenge",
