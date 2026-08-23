@@ -16,11 +16,14 @@ vi.mock("../../achievements/stores/achievementToastStore", () => ({
 
 import { useApplyRunAction } from "./useApplyRunAction";
 
-function createRun(phase: RunView["state"]["phase"]): RunView {
+function createRun(
+	phase: RunView["state"]["phase"],
+	options: { mode?: RunView["mode"]; dailyChallengeDate?: string | null } = {},
+): RunView {
 	return {
 		id: "run-id",
-		mode: "normal",
-		dailyChallengeDate: null,
+		mode: options.mode ?? "normal",
+		dailyChallengeDate: options.dailyChallengeDate ?? null,
 		status: phase === "town" || phase === "combat" ? "active" : phase,
 		state: { phase } as RunView["state"],
 		summary: {} as RunView["summary"],
@@ -154,6 +157,32 @@ describe("useApplyRunAction", () => {
 
 			expect(queryClient.getQueryData(runKeys.game())).toEqual({ run });
 			expect(queryClient.getQueryData(runKeys.current())).toEqual({ run: null });
+		},
+	);
+
+	it.each(["dead", "retired"] as const)(
+		"invalidates Daily Challenge results when a daily run becomes %s",
+		async (phase) => {
+			const run = createRun(phase, {
+				mode: "dailyChallenge",
+				dailyChallengeDate: "2026-08-23",
+			});
+			applyRunAction.mockResolvedValue({
+				run,
+				result: { ok: true, state: run.state, events: [] },
+			});
+			const { queryClient, wrapper } = createHarness();
+			const invalidateQueries = vi.spyOn(queryClient, "invalidateQueries");
+			const { result } = renderHook(() => useApplyRunAction(), { wrapper });
+
+			await act(() =>
+				result.current.mutateAsync({
+					runId: "run-id",
+					action: { type: "PLAYER_SKIP_TURN" },
+				}),
+			);
+
+			expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: ["dailyChallenges"] });
 		},
 	);
 

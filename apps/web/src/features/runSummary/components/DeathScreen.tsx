@@ -4,7 +4,7 @@ import { CLASSES_BY_ID } from "@app/content";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
 import { ButtonLink } from "../../../components/Button";
-import { DailyChallengeResultLink } from "../../dailyChallenges";
+import { DailyChallengeResult } from "../../dailyChallenges";
 
 type DeathScreenProps = {
 	run: RunView;
@@ -91,11 +91,12 @@ export function DeathScreen({ run }: DeathScreenProps) {
 						</section>
 					)}
 
+					{run.mode === "dailyChallenge" && run.dailyChallengeDate && (
+						<DailyChallengeResult date={run.dailyChallengeDate} outcome="dead" />
+					)}
+
 					<div className="flex flex-wrap justify-center gap-4">
 						<ButtonLink to="/">Home</ButtonLink>
-						{run.mode === "dailyChallenge" && run.dailyChallengeDate && (
-							<DailyChallengeResultLink date={run.dailyChallengeDate} />
-						)}
 						<ButtonLink variant="primary" to="/create-character">
 							Try Again
 						</ButtonLink>

@@ -5,6 +5,7 @@ import { runKeys } from "../api/runKeys";
 import { isPlayableRunState } from "../utils/isPlayableRunState";
 import { achievementKeys } from "../../achievements/api/achievementKeys";
 import { useAchievementToastStore } from "../../achievements/stores/achievementToastStore";
+import { dailyChallengeKeys } from "../../dailyChallenges/api/dailyChallengeKeys";
 
 export function useApplyRunAction() {
 	const queryClient = useQueryClient();
@@ -24,6 +25,10 @@ export function useApplyRunAction() {
 				runKeys.current(),
 				isPlayableRunState(run.state) ? { run } : { run: null },
 			);
+
+			if (run.mode === "dailyChallenge" && !isPlayableRunState(run.state)) {
+				void queryClient.invalidateQueries({ queryKey: dailyChallengeKeys.all });
+			}
 
 			if (unlockedAchievements?.length > 0) {
 				showAchievementUnlocks(unlockedAchievements);

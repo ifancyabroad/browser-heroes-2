@@ -4,7 +4,7 @@ import type { RunView } from "@app/shared";
 import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
 import { ButtonLink } from "../../../components/Button";
-import { DailyChallengeResultLink } from "../../dailyChallenges";
+import { DailyChallengeResult } from "../../dailyChallenges";
 
 type VictoryScreenProps = {
 	run: RunView;
@@ -89,11 +89,12 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 							</section>
 						)}
 
+						{run.mode === "dailyChallenge" && run.dailyChallengeDate && (
+							<DailyChallengeResult date={run.dailyChallengeDate} outcome="retired" />
+						)}
+
 						<nav className="flex flex-wrap justify-center gap-4" aria-label="Run links">
 							<ButtonLink to="/">Home</ButtonLink>
-							{run.mode === "dailyChallenge" && run.dailyChallengeDate && (
-								<DailyChallengeResultLink date={run.dailyChallengeDate} />
-							)}
 							<ButtonLink variant="primary" to="/create-character">
 								New Hero
 							</ButtonLink>
