@@ -7,8 +7,12 @@ import {
 	type RunState,
 } from "@app/engine";
 import { z } from "zod";
-import { HERO_NAME_MAX_LENGTH } from "./heroNames";
 import type { AchievementUnlockView } from "./achievements";
+import { HERO_NAME_MAX_LENGTH } from "./heroNames";
+
+export const runModes = ["normal", "dailyChallenge"] as const;
+export const runModeSchema = z.enum(runModes);
+export type RunMode = z.infer<typeof runModeSchema>;
 
 export const createRunBodySchema = z.object({
 	heroName: z.string().trim().min(1).max(HERO_NAME_MAX_LENGTH),
@@ -40,6 +44,8 @@ export interface RunSummaryView {
 
 export interface RunView {
 	id: string;
+	mode: RunMode;
+	dailyChallengeDate: string | null;
 	status: RunStatus;
 	summary: RunSummaryView;
 	state: RunState;

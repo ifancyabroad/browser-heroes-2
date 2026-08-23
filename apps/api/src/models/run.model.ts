@@ -1,5 +1,6 @@
 import { Schema, model, type InferSchemaType } from "mongoose";
 import { classIds } from "@app/content";
+import { runModes } from "@app/shared";
 
 export const RUN_STATUSES = ["active", "dead", "retired", "abandoned"] as const;
 
@@ -94,6 +95,26 @@ const runSchema = new Schema(
 			ref: "User",
 			required: true,
 		},
+		mode: {
+			type: String,
+			enum: runModes,
+			required: true,
+			default: "normal",
+		},
+		dailyChallengeDate: {
+			type: String,
+			match: /^\d{4}-\d{2}-\d{2}$/,
+			required(this: { mode: string }) {
+				return this.mode === "dailyChallenge";
+			},
+			validate: {
+				validator(this: { mode: string }, value?: string) {
+					return this.mode === "dailyChallenge" || value === undefined;
+				},
+				message: "Daily Challenge runs require a challenge date; normal runs must omit it.",
+			},
+			default: undefined,
+		},
 
 		status: {
 			type: String,
@@ -142,37 +163,25 @@ const runSchema = new Schema(
 );
 
 runSchema.index({ userId: 1, createdAt: -1 });
+runSchema.index(
+	{ userId: 1, dailyChallengeDate: 1 },
+	{ unique: true, partialFilterExpression: { mode: "dailyChallenge" } },
+);
+runSchema.index({ mode: 1, dailyChallengeDate: 1, status: 1 });
+runSchema.index({
+	mode: 1,
+	dailyChallengeDate: 1,
+	status: 1,
+	"summary.kills": -1,
+	"summary.day": 1,
+	completedAt: 1,
+	_id: 1,
+});
 
 runSchema.index({
 	userId: 1,
 	status: 1,
 	completedAt: -1,
-	_id: 1,
-});
-
-runSchema.index({
-	status: 1,
-	"summary.kills": -1,
-	"summary.day": 1,
-	completedAt: 1,
-	_id: 1,
-});
-
-runSchema.index({
-	userId: 1,
-	status: 1,
-	"summary.kills": -1,
-	"summary.day": 1,
-	completedAt: 1,
-	_id: 1,
-});
-
-runSchema.index({
-	status: 1,
-	"summary.classId": 1,
-	"summary.kills": -1,
-	"summary.day": 1,
-	completedAt: 1,
 	_id: 1,
 });
 

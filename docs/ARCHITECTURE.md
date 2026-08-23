@@ -84,7 +84,7 @@ The API currently:
 - resolves external encounter candidates into explicit engine inputs
 - derives lightweight summaries for querying and display
 - evaluates account achievements from engine state transitions and structured events
-- serves persisted meta-game views such as leaderboards and personal hero and ghost history
+- creates UTC daily challenges and serves their persisted leaderboards alongside personal hero and ghost history
 - exposes REST and socket-based action submission paths
 
 The web app currently:
@@ -95,7 +95,7 @@ The web app currently:
 - submits player intent to the backend
 - renders engine selectors and shared content
 - shows reward choices, level-up choices, town shop state, equipment replacement previews, and hero state
-- displays achievements, leaderboards, and personal hero and ghost history from shared contracts and persisted data
+- displays achievements, daily challenges, their historical leaderboards, and personal hero and ghost history from shared contracts and persisted data
 
 The presentation layer may display simulation state and collect player intent. It must not calculate gameplay outcomes or directly mutate authoritative run state.
 
@@ -108,6 +108,7 @@ The following rules must hold:
 - identical state plus identical input produces identical outcome
 - engine randomness derives from seeded run RNG
 - externally selected data is passed into the engine as explicit input and recorded with the action
+- ghost encounter selection uses the run seed, battle context, and a stable cutoff derived from run metadata so later ghosts cannot change an existing run
 - runtime timing does not affect gameplay results
 - no hidden global state influences simulation outcomes
 - state transitions remain traceable

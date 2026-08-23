@@ -3,6 +3,6 @@ export * from "./contact";
 export * from "./heroNames";
 export * from "./health";
 export * from "./runs";
-export * from "./leaderboard";
+export * from "./dailyChallenges";
 export * from "./history";
 export * from "./achievements";

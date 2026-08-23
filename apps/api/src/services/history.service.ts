@@ -78,6 +78,8 @@ export async function getRunHistory(params: { userId: string; query: GetRunHisto
 
 	const entries: RunHistoryEntryView[] = runs.map((run) => ({
 		runId: String(run._id),
+		mode: run.mode,
+		dailyChallengeDate: run.dailyChallengeDate ?? null,
 		heroName: run.summary.heroName,
 		classId: run.summary.classId,
 		level: run.summary.level,

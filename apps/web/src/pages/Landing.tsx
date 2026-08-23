@@ -10,6 +10,7 @@ import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Container } from "../components/Container";
 import browserHeroesLogo from "../assets/images/logos/browser_heroes.png";
+import { DailyChallengeLandingPanel } from "../features/dailyChallenges";
 
 export default function Landing() {
 	const { user, hasSession, isRegistered } = useAuth();
@@ -29,7 +30,7 @@ export default function Landing() {
 		<PageLayout>
 			<Header />
 			<Container className="flex items-center justify-center">
-				<div className="flex w-full max-w-sm flex-col items-center gap-5 text-center">
+				<div className="flex w-full max-w-lg flex-col items-center gap-5 text-center">
 					<div>
 						<h1 className="flex justify-center">
 							<img
@@ -48,6 +49,8 @@ export default function Landing() {
 							through increasingly deadly encounters.
 						</p>
 					</div>
+
+					<DailyChallengeLandingPanel currentRun={run} />
 
 					{run && <CurrentRunSection run={run} />}
 

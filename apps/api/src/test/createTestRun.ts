@@ -25,6 +25,7 @@ export function createTestRunDocument(
 	return {
 		_id: "run-document-id",
 		userId: "user-id",
+		mode: "normal",
 		status: "active",
 		state: createTestRunState(),
 		summary: {},

@@ -1,5 +1,6 @@
 import { classIdSchema, type ClassId } from "@app/content";
 import { z } from "zod";
+import type { RunMode } from "./runs";
 
 export const historySortDirectionSchema = z.enum(["asc", "desc"]);
 
@@ -27,6 +28,8 @@ export type GetRunHistoryQuery = z.infer<typeof getRunHistoryQuerySchema>;
 
 export interface RunHistoryEntryView {
 	runId: string;
+	mode: RunMode;
+	dailyChallengeDate: string | null;
 	heroName: string;
 	classId: ClassId;
 	level: number;

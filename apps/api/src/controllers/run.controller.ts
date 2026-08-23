@@ -25,7 +25,8 @@ export async function createRunController(
 ) {
 	const run = await createRun({
 		userId: req.session.userId!,
-		body: req.body,
+		heroName: req.body.heroName,
+		classId: req.body.classId,
 	});
 
 	res.status(201).json({

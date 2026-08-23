@@ -1,6 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 import { describe, expect, it, vi } from "vitest";
-import { leaderboardKeys } from "../../leaderboards/api/leaderboardKeys";
+import { dailyChallengeKeys } from "../../dailyChallenges/api/dailyChallengeKeys";
 import { runKeys } from "../../runs/api/runKeys";
 import { historyKeys } from "../../history/api/historyKeys";
 import { authKeys } from "../api/authKeys";
@@ -27,6 +27,6 @@ describe("updateIdentityCache", () => {
 		expect(queryClient.getQueryData(runKeys.current())).toBeUndefined();
 		expect(queryClient.getQueryData(historyKeys.runs(historyQuery))).toBeUndefined();
 		expect(queryClient.getQueryData(["content"])).toEqual({ classes: [] });
-		expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: leaderboardKeys.all });
+		expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: dailyChallengeKeys.all });
 	});
 });

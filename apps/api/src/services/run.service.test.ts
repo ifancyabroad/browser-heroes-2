@@ -28,6 +28,7 @@ vi.mock("@app/engine", async (importOriginal) => ({
 vi.mock("leo-profanity", () => ({ default: profanity }));
 
 import {
+	createDailyChallengeRun,
 	createRun,
 	getCurrentRunForUser,
 	getRunActions,
@@ -60,7 +61,8 @@ describe("run.service", () => {
 	it("normalizes the hero name and creates a run transactionally", async () => {
 		const created = await createRun({
 			userId: "user-id",
-			body: { heroName: "  tEST  ", classId: "warrior" },
+			heroName: "  tEST  ",
+			classId: "warrior",
 		});
 
 		expect(models.run.updateMany).toHaveBeenCalledWith(
@@ -88,13 +90,39 @@ describe("run.service", () => {
 		expect(created).toEqual({ _id: "created-run" });
 	});
 
+	it("creates daily runs through the same run lifecycle with an explicit definition", async () => {
+		await createDailyChallengeRun({
+			userId: "user-id",
+			heroName: "Hero",
+			classId: "mage",
+			seed: "d47b9203-2ac8-8d97-a2ad-6e3f70c239d9",
+			dailyChallengeDate: "2026-08-23",
+		});
+
+		expect(engine.createInitialRunState).toHaveBeenCalledWith({
+			runId: expect.any(String),
+			seed: "d47b9203-2ac8-8d97-a2ad-6e3f70c239d9",
+			heroName: "Hero",
+			classId: "mage",
+		});
+		expect(models.run.create).toHaveBeenCalledWith(
+			[
+				expect.objectContaining({
+					mode: "dailyChallenge",
+					dailyChallengeDate: "2026-08-23",
+				}),
+			],
+			{ session },
+		);
+	});
+
 	it.each([
 		["   ", "Hero name is required."],
 		["123", "Hero name can only contain letters."],
 		["thisnameisfarbeyondtheallowedheronamelength", "characters or fewer"],
 	])("rejects invalid hero name %j", async (heroName, message) => {
 		await expect(
-			createRun({ userId: "user-id", body: { heroName, classId: "warrior" } }),
+			createRun({ userId: "user-id", heroName, classId: "warrior" }),
 		).rejects.toThrow(message);
 
 		expect(mongoose.connection.transaction).not.toHaveBeenCalled();
@@ -106,7 +134,8 @@ describe("run.service", () => {
 		await expect(
 			createRun({
 				userId: "user-id",
-				body: { heroName: "Forbidden", classId: "warrior" },
+				heroName: "Forbidden",
+				classId: "warrior",
 			}),
 		).rejects.toMatchObject({ message: "Hero name is not allowed.", status: 400 });
 	});

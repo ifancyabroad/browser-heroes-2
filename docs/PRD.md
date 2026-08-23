@@ -85,7 +85,9 @@ Current town responsibilities include equipment shops, rest recovery, healing po
 
 ### 4.6 Meta Systems
 
-Ghost encounters, achievements, hero and ghost leaderboards, and personal hero and ghost history currently add asynchronous competition and goals around the core run. Achievement progress belongs to the user across heroes and is available to guests as well as registered accounts. Broader world activity remains future direction.
+Daily Challenges provide the public competitive mode. Every UTC day gives all participants the same seeded run, predetermined rotating class, and deterministic ghost pool, with one attempt per user identity and a historical leaderboard. Normal runs remain playable but are not publicly ranked.
+
+Ghost encounters, achievements, and personal hero and ghost history add asynchronous variety and goals around both run modes. Achievement progress belongs to the user across heroes and is available to guests as well as registered accounts. Broader world activity remains future direction.
 
 Meta systems must not override deterministic run rules unless their effects are represented explicitly in run state.
 

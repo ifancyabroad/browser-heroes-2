@@ -98,7 +98,14 @@ export function RunHistoryTable({
 								label={`Inspect hero ${entry.heroName}`}
 								onSelect={() => onSelectRun(entry.runId)}
 							>
-								<HeroIdentity name={entry.heroName} classId={entry.classId} />
+								<div>
+									<HeroIdentity name={entry.heroName} classId={entry.classId} />
+									{entry.mode === "dailyChallenge" && (
+										<p className="text-text-muted">
+											Daily Challenge · {entry.dailyChallengeDate}
+										</p>
+									)}
+								</div>
 							</DataTableRowAction>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>

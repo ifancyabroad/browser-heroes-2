@@ -27,6 +27,8 @@ import Game from "./Game";
 function createRun(phase: RunView["state"]["phase"]): RunView {
 	return {
 		id: "run-id",
+		mode: "normal",
+		dailyChallengeDate: null,
 		status: phase === "town" || phase === "combat" ? "active" : phase,
 		state: { phase } as RunView["state"],
 		summary: {} as RunView["summary"],

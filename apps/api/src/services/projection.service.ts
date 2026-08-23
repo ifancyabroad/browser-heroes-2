@@ -1,6 +1,7 @@
 import type { EngineResult, RunState } from "@app/engine";
 import type {
 	ApplyRunActionResponse,
+	ChallengeEntryView,
 	RunHeroView,
 	RunSlainByView,
 	RunSummaryView,
@@ -43,12 +44,37 @@ export function toRunSummary(state: RunState): RunSummaryView {
 export function toRunView(run: RunDocument & { _id: unknown }): RunView {
 	return {
 		id: String(run._id),
+		mode: run.mode,
+		dailyChallengeDate: run.dailyChallengeDate ?? null,
 		status: run.status,
 		summary: toRunSummary(run.state),
 		state: run.state,
 		createdAt: toIsoString(run.createdAt),
 		updatedAt: toIsoString(run.updatedAt),
 		completedAt: run.completedAt ? toIsoString(run.completedAt) : null,
+	};
+}
+
+export function toChallengeEntry(
+	run: RunDocument & { _id: unknown },
+	rank: number,
+	userId?: string,
+): ChallengeEntryView {
+	return {
+		rank,
+		runId: String(run._id),
+		heroName: run.summary.heroName,
+		classId: run.summary.classId,
+		level: run.summary.level,
+		battleNumber: run.summary.battleNumber,
+		zoneNumber: run.summary.zoneNumber,
+		endlessCycle: run.summary.endlessCycle,
+		day: run.summary.day,
+		kills: run.summary.kills,
+		status: run.status as "dead" | "retired",
+		slainBy: run.summary.slainBy ?? null,
+		completedAt: run.completedAt?.toISOString() ?? "",
+		isCurrentUser: String(run.userId) === userId,
 	};
 }
 

@@ -102,6 +102,7 @@ describe("history.service", () => {
 		arrangeQuery(models.run.find, [
 			{
 				_id: "run-id",
+				mode: "normal",
 				status: "retired",
 				summary: {
 					heroName: "Hero",
@@ -128,6 +129,8 @@ describe("history.service", () => {
 			entries: [
 				{
 					runId: "run-id",
+					mode: "normal",
+					dailyChallengeDate: null,
 					heroName: "Hero",
 					classId: "warrior",
 					level: 8,

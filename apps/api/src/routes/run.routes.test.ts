@@ -59,7 +59,8 @@ describe("run routes", () => {
 
 		expect(runService.createRun).toHaveBeenCalledWith({
 			userId: "user-id",
-			body: { heroName: "Test Hero", classId: "warrior" },
+			heroName: "Test Hero",
+			classId: "warrior",
 		});
 		expect(response.body.run.id).toBe("run-document-id");
 	});

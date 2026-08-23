@@ -15,10 +15,6 @@ type CreateGhostFromRunInput = {
 	session: ClientSession;
 };
 
-type SelectGhostEncounterInput = {
-	encounterLevel: number;
-};
-
 type IncrementGhostEncounterInput = {
 	ghostId: string;
 	session: ClientSession;
@@ -28,6 +24,13 @@ type RecordGhostCombatOutcomeInput = {
 	ghostId: string;
 	outcome: "ghost_won" | "ghost_lost";
 	session: ClientSession;
+};
+
+type SelectGhostEncounterInput = {
+	encounterLevel: number;
+	seed: string;
+	battleNumber: number;
+	ghostPoolCutoff: Date;
 };
 
 export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInput) {
@@ -63,26 +66,37 @@ export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInpu
 	);
 }
 
-export async function selectGhostEncounterForLevel(
+export async function selectGhostEncounter(
 	input: SelectGhostEncounterInput,
 ): Promise<GhostEncounter | null> {
-	if (Math.random() >= GHOST_ENCOUNTER_CHANCE) {
+	const selectionKey = `${input.seed}:ghost:${input.battleNumber}`;
+	if (getDeterministicFraction(`${selectionKey}:chance`) >= GHOST_ENCOUNTER_CHANCE) {
 		return null;
 	}
 
-	const ghosts = await GhostModel.find({
+	const filter = {
 		encounterLevel: input.encounterLevel,
-	})
-		.sort({ createdAt: -1 })
-		.lean();
-
-	if (ghosts.length === 0) {
+		createdAt: { $lt: input.ghostPoolCutoff },
+	};
+	const count = await GhostModel.countDocuments(filter);
+	if (count === 0) {
 		return null;
 	}
 
-	const ghost = selectWeightedRecentGhost(ghosts);
-	const owner = await UserModel.findById(ghost.userId).select("displayName").lean();
+	const index = selectDescendingWeightedIndex(
+		count,
+		getDeterministicFraction(`${selectionKey}:selection`),
+	);
+	const ghost = await GhostModel.findOne(filter)
+		.sort({ createdAt: -1, _id: 1 })
+		.skip(index)
+		.select("_id userId snapshot.hero")
+		.lean();
+	if (!ghost) {
+		return null;
+	}
 
+	const owner = await UserModel.findById(ghost.userId).select("displayName").lean();
 	return {
 		ghostId: String(ghost._id),
 		ghostUsername: owner?.displayName?.trim() || UNKNOWN_GHOST_USERNAME,
@@ -152,23 +166,22 @@ function createGhostSnapshot(state: RunState): { hero: HeroState; createdFrom: u
 	};
 }
 
-function selectWeightedRecentGhost<T>(items: readonly T[]): T {
-	const weightedItems = items.map((item, index) => ({
-		item,
-		weight: items.length - index,
-	}));
+function getDeterministicFraction(key: string): number {
+	let hash = 2166136261;
+	for (let index = 0; index < key.length; index += 1) {
+		hash ^= key.charCodeAt(index);
+		hash = Math.imul(hash, 16777619);
+	}
+	return (hash >>> 0) / 4_294_967_296;
+}
 
-	const totalWeight = weightedItems.reduce((sum, entry) => sum + entry.weight, 0);
-
-	let roll = Math.random() * totalWeight;
-
-	for (const entry of weightedItems) {
-		roll -= entry.weight;
-
+function selectDescendingWeightedIndex(itemCount: number, fraction: number): number {
+	let roll = fraction * ((itemCount * (itemCount + 1)) / 2);
+	for (let index = 0; index < itemCount; index += 1) {
+		roll -= itemCount - index;
 		if (roll <= 0) {
-			return entry.item;
+			return index;
 		}
 	}
-
-	return weightedItems[weightedItems.length - 1].item;
+	return itemCount - 1;
 }

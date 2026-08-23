@@ -1,5 +1,5 @@
 import { getZoneForRun } from "@app/engine";
-import type { GhostLeaderboardEntryView, RunLeaderboardEntryView } from "@app/shared";
+import type { ChallengeEntryView } from "@app/shared";
 import {
 	DataTable,
 	DataTableCell,
@@ -12,11 +12,8 @@ import { HeroIdentity } from "../../../components/HeroIdentity";
 import { formatTitle } from "../../../presentation/effects";
 import { formatDisplayDate } from "../../../utils/date";
 
-export function RunLeaderboardTable({
-	entries,
-	onSelectRun,
-}: {
-	entries: RunLeaderboardEntryView[];
+export function DailyChallengeLeaderboardTable(props: {
+	entries: ChallengeEntryView[];
 	onSelectRun: (runId: string) => void;
 }) {
 	return (
@@ -43,11 +40,11 @@ export function RunLeaderboardTable({
 				<DataTableHeading hideOnMobile>COMPLETED</DataTableHeading>
 			</DataTableHeader>
 			<tbody>
-				{entries.map((entry) => (
+				{props.entries.map((entry) => (
 					<DataTableRow
 						key={entry.runId}
 						highlighted={entry.isCurrentUser}
-						onSelect={() => onSelectRun(entry.runId)}
+						onSelect={() => props.onSelectRun(entry.runId)}
 					>
 						<DataTableCell numeric className="w-12 sm:w-auto">
 							{entry.rank}
@@ -55,7 +52,7 @@ export function RunLeaderboardTable({
 						<DataTableCell>
 							<DataTableRowAction
 								label={`Inspect hero ${entry.heroName}`}
-								onSelect={() => onSelectRun(entry.runId)}
+								onSelect={() => props.onSelectRun(entry.runId)}
 							>
 								<HeroIdentity
 									name={entry.heroName}
@@ -82,65 +79,6 @@ export function RunLeaderboardTable({
 						<DataTableCell hideOnMobile>{entry.slainBy?.name ?? "—"}</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatDisplayDate(entry.completedAt)}
-						</DataTableCell>
-					</DataTableRow>
-				))}
-			</tbody>
-		</DataTable>
-	);
-}
-
-export function GhostLeaderboardTable({ entries }: { entries: GhostLeaderboardEntryView[] }) {
-	return (
-		<DataTable tableClassName="sm:min-w-225">
-			<DataTableHeader>
-				<DataTableHeading numeric className="w-12 sm:w-auto">
-					RANK
-				</DataTableHeading>
-				<DataTableHeading>GHOST</DataTableHeading>
-				<DataTableHeading numeric className="w-18 sm:w-auto">
-					KILLS
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					LEVEL
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					DEATHS
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					ENCOUNTERS
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					WIN RATE
-				</DataTableHeading>
-			</DataTableHeader>
-			<tbody>
-				{entries.map((entry) => (
-					<DataTableRow key={entry.ghostId} highlighted={entry.isCurrentUser}>
-						<DataTableCell numeric className="w-12 sm:w-auto">
-							{entry.rank}
-						</DataTableCell>
-						<DataTableCell>
-							<HeroIdentity
-								name={entry.name}
-								classId={entry.classId}
-								isCurrentUser={entry.isCurrentUser}
-							/>
-						</DataTableCell>
-						<DataTableCell numeric className="w-18 sm:w-auto">
-							{entry.kills}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.heroLevel}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.deaths}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.encounters}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{Math.round(entry.winRate * 100)}%
 						</DataTableCell>
 					</DataTableRow>
 				))}

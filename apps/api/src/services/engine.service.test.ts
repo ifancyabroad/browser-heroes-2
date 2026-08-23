@@ -17,7 +17,7 @@ const ghostService = vi.hoisted(() => ({
 	createGhostFromRunIfEligible: vi.fn(),
 	incrementGhostEncounters: vi.fn(),
 	recordGhostCombatOutcome: vi.fn(),
-	selectGhostEncounterForLevel: vi.fn(),
+	selectGhostEncounter: vi.fn(),
 }));
 
 vi.mock("../models/run.model", () => ({ RunModel: models.run }));
@@ -235,7 +235,7 @@ describe("engine.service", () => {
 			hero: structuredClone(state.hero),
 		};
 		const { run } = arrangeRun({ state });
-		ghostService.selectGhostEncounterForLevel.mockResolvedValue(ghostEncounter);
+		ghostService.selectGhostEncounter.mockResolvedValue(ghostEncounter);
 		engine.applyAction.mockReturnValue({
 			ok: true,
 			state: resultState,
@@ -248,8 +248,11 @@ describe("engine.service", () => {
 			action: { type: "ENTER_COMBAT" },
 		});
 
-		expect(ghostService.selectGhostEncounterForLevel).toHaveBeenCalledWith({
+		expect(ghostService.selectGhostEncounter).toHaveBeenCalledWith({
 			encounterLevel: expect.any(Number),
+			seed: state.seed,
+			battleNumber: 11,
+			ghostPoolCutoff: run.createdAt,
 		});
 		expect(engine.applyAction).toHaveBeenCalledWith(
 			state,
@@ -270,6 +273,30 @@ describe("engine.service", () => {
 			{ session },
 		);
 		expect(run.nextActionSequence).toBe(2);
+	});
+
+	it("derives a daily run's ghost cutoff from its challenge date", async () => {
+		const state = createTestRunState();
+		state.battleNumber = 11;
+		arrangeRun({
+			mode: "dailyChallenge",
+			dailyChallengeDate: "2026-08-23",
+			state,
+		});
+		ghostService.selectGhostEncounter.mockResolvedValue(null);
+		engine.applyAction.mockReturnValue({ ok: true, state, events: [] });
+
+		await applyRunAction({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "ENTER_COMBAT" },
+		});
+
+		expect(ghostService.selectGhostEncounter).toHaveBeenCalledWith(
+			expect.objectContaining({
+				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+			}),
+		);
 	});
 
 	it.each([

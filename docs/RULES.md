@@ -164,15 +164,25 @@ Continuing beyond battle 100 starts a new endless cycle. The zone ladder repeats
 
 A hero who dies after progressing beyond the first boss leaves a ghost snapshot at full health without a pending level-up. Each eligible run creates at most one ghost.
 
-Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Their encounters and outcomes contribute to ghost records outside the active run without changing its gameplay rules.
+Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Ghost appearance and identity are derived from the run seed and battle context using only ghosts published before the run's ghost-pool cutoff. Normal runs take this cutoff when created; participants in the same Daily Challenge share it. Later ghosts therefore affect future runs without changing an existing run.
 
-## 12. Achievements
+Ghost encounters and outcomes contribute to ghost records outside the active run without changing its gameplay rules.
+
+## 12. Daily Challenges
+
+Each UTC date has one Daily Challenge with a shared seed and predetermined class selected through an even rotation. The player chooses the hero name, while the server owns the class and seed.
+
+Each user identity may start the challenge once. Starting consumes the attempt even if the run is later abandoned. The challenge must be started on its date, but an active attempt may be resumed and completed later and remains attached to its original leaderboard. Starting any new run abandons the current active run.
+
+All started attempts contribute to the participation count. Dead and retired attempts are ranked by kills, then fewer run days, then earlier completion. Daily runs participate in achievements, lifetime progress, personal history, and normal ghost creation. Normal runs are not publicly ranked.
+
+## 13. Achievements
 
 Achievements are permanent account-level goals shared across a user's heroes. Guests earn achievements against their guest user record, and those unlocks remain attached when the guest registers.
 
 Achievement definitions are shared game content. Unlocks are awarded from authoritative gameplay outcomes and retain the date and time first earned. Locked achievements remain visible so players can pursue their requirements.
 
-## 13. Scope Boundaries
+## 14. Scope Boundaries
 
 This document does not define:
 

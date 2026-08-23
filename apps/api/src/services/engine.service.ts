@@ -14,7 +14,7 @@ import {
 	createGhostFromRunIfEligible,
 	incrementGhostEncounters,
 	recordGhostCombatOutcome,
-	selectGhostEncounterForLevel,
+	selectGhostEncounter,
 } from "./ghost.service";
 import { toRunSummary } from "./projection.service";
 import { processRunActionAchievements } from "./achievement.service";
@@ -45,6 +45,7 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 		const externalInput = await selectExternalInput({
 			state: currentState,
 			action: input.action,
+			ghostPoolCutoff: getGhostPoolCutoff(run),
 		});
 
 		const result = engineResultSchema.parse(
@@ -136,6 +137,18 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 	});
 }
 
+function getGhostPoolCutoff(run: RunDocument): Date {
+	if (run.mode === "normal") {
+		return run.createdAt;
+	}
+
+	if (!run.dailyChallengeDate) {
+		throw new Error("DAILY_CHALLENGE_METADATA_MISSING");
+	}
+
+	return new Date(`${run.dailyChallengeDate}T00:00:00.000Z`);
+}
+
 function applyStateToRun(run: RunDocument, state: RunState): void {
 	run.state = state;
 	run.summary = toRunSummary(state);
@@ -162,6 +175,7 @@ function deriveRunStatus(state: RunState): "active" | "dead" | "retired" {
 async function selectExternalInput(input: {
 	state: RunState;
 	action: EngineAction;
+	ghostPoolCutoff: Date;
 }): Promise<EngineExternalInput> {
 	if (input.action.type !== "ENTER_COMBAT" && input.action.type !== "CONTINUE_TO_NEXT_COMBAT") {
 		return {};
@@ -178,8 +192,11 @@ async function selectExternalInput(input: {
 		return {};
 	}
 
-	const ghostEncounter = await selectGhostEncounterForLevel({
+	const ghostEncounter = await selectGhostEncounter({
 		encounterLevel: encounterContext.ghostEncounterLevel,
+		seed: input.state.seed,
+		battleNumber,
+		ghostPoolCutoff: input.ghostPoolCutoff,
 	});
 
 	if (!ghostEncounter) {

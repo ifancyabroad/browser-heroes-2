@@ -1,6 +1,7 @@
 import mongoose, { Types } from "mongoose";
-import { HERO_NAME_MAX_LENGTH, HERO_NAME_PATTERN, type CreateRunBody } from "@app/shared";
+import { HERO_NAME_MAX_LENGTH, HERO_NAME_PATTERN, type RunMode } from "@app/shared";
 import { createInitialRunState } from "@app/engine";
+import type { ClassId } from "@app/content";
 import profanityFilter from "leo-profanity";
 import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
@@ -44,8 +45,35 @@ function normalizeAndValidateHeroName(heroName: string): string {
 	return normalizedName;
 }
 
-export async function createRun(params: { userId: string; body: CreateRunBody }) {
-	const heroName = normalizeAndValidateHeroName(params.body.heroName);
+export async function createRun(params: { userId: string; heroName: string; classId: ClassId }) {
+	return createRunRecord({
+		mode: "normal",
+		userId: params.userId,
+		heroName: params.heroName,
+		classId: params.classId,
+		seed: crypto.randomUUID(),
+	});
+}
+
+export function createDailyChallengeRun(params: {
+	userId: string;
+	heroName: string;
+	classId: ClassId;
+	seed: string;
+	dailyChallengeDate: string;
+}) {
+	return createRunRecord({ mode: "dailyChallenge", ...params });
+}
+
+async function createRunRecord(params: {
+	userId: string;
+	heroName: string;
+	classId: ClassId;
+	seed: string;
+	mode: RunMode;
+	dailyChallengeDate?: string;
+}) {
+	const heroName = normalizeAndValidateHeroName(params.heroName);
 
 	return mongoose.connection.transaction(async (session) => {
 		const now = new Date();
@@ -66,13 +94,11 @@ export async function createRun(params: { userId: string; body: CreateRunBody })
 
 		const runObjectId = new Types.ObjectId();
 		const runId = runObjectId.toString();
-		const seed = crypto.randomUUID();
-
 		const state = createInitialRunState({
 			runId,
-			seed,
+			seed: params.seed,
 			heroName,
-			classId: params.body.classId,
+			classId: params.classId,
 		});
 
 		const [run] = await RunModel.create(
@@ -80,6 +106,9 @@ export async function createRun(params: { userId: string; body: CreateRunBody })
 				{
 					_id: runObjectId,
 					userId: params.userId,
+					mode: params.mode,
+					dailyChallengeDate:
+						params.mode === "dailyChallenge" ? params.dailyChallengeDate : undefined,
 					status: "active",
 					state,
 					summary: toRunSummary(state),

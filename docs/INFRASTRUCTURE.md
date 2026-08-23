@@ -81,6 +81,8 @@ MongoDB is the current persistence store.
 
 Runs store the full engine-owned run state as the authoritative gameplay snapshot. Persistence should not duplicate the full engine state shape as database schema fields.
 
+Daily challenge definitions are derived from their UTC date and stored when first played. The date determines the shared seed, class, and midnight ghost-pool cutoff, so an unplayed day remains reproducible without a database record. Runs identify their mode and challenge date, and a unique constraint permits only one daily attempt per user and date. Ghost selection derives a daily run's cutoff from that date, while normal runs use their creation time directly.
+
 The database may store derived summaries for lookup, display, and indexing. These summaries are not authoritative gameplay data and should be regenerated from run state when state changes.
 
 Run actions are recorded in sequence for debugging, replay investigation, and future audit/reconstruction workflows.
@@ -129,7 +131,7 @@ Production startup requires an HTTPS application URL, a session secret of at lea
 
 Gameplay should remain accessible without mandatory account creation.
 
-Guest retention is separate from public game history. Empty guests may be removed after a short retention period and abandoned active guest runs after extended inactivity. Completed runs and published ghosts remain available to keep leaderboards stable, along with the minimal guest record required by their ownership references. Cleanup scheduling is future operational work.
+Guest retention is separate from public game history. Empty guests may be removed after a short retention period and abandoned active guest runs after extended inactivity. Ranked daily challenge runs and published ghosts remain available to keep historical results and deterministic ghost pools stable, along with the minimal guest record required by their ownership references. Cleanup scheduling is future operational work.
 
 The guest cleanup command defaults to a read-only report:
 
