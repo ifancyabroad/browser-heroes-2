@@ -46,7 +46,7 @@ export function DailyChallengeLandingPanel({ currentRun }: { currentRun: RunView
 					CONTINUE DAILY CHALLENGE
 				</ButtonLink>
 			) : challenge.canStart ? (
-				<DailyChallengeStartButton classId={challenge.classId} />
+				<DailyChallengeStartButton classId={challenge.classId} currentRun={currentRun} />
 			) : (
 				<ButtonLink variant="primary" to="/daily-challenge">
 					VIEW RESULTS

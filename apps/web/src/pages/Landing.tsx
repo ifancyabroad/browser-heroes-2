@@ -11,8 +11,13 @@ import { Footer } from "../components/Footer";
 import { Container } from "../components/Container";
 import browserHeroesLogo from "../assets/images/logos/browser_heroes.png";
 import { DailyChallengeLandingPanel } from "../features/dailyChallenges";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AbandonRunModal } from "../components/AbandonRunModal";
 
 export default function Landing() {
+	const navigate = useNavigate();
+	const [isConfirmingNewHero, setIsConfirmingNewHero] = useState(false);
 	const { user, hasSession, isRegistered } = useAuth();
 	const openRegister = useAuthModalStore((state) => state.openRegister);
 	const currentRun = useCurrentRun({
@@ -72,12 +77,15 @@ export default function Landing() {
 									CONTINUE
 								</ButtonLink>
 							)}
-							<ButtonLink
-								variant={run ? "default" : "primary"}
-								to="/create-character"
-							>
-								{run ? "NEW HERO" : "PLAY NOW"}
-							</ButtonLink>
+							{run ? (
+								<Button type="button" onClick={() => setIsConfirmingNewHero(true)}>
+									NEW HERO
+								</Button>
+							) : (
+								<ButtonLink variant="primary" to="/create-character">
+									PLAY NOW
+								</ButtonLink>
+							)}
 						</div>
 					</section>
 
@@ -91,6 +99,13 @@ export default function Landing() {
 					)}
 				</div>
 			</Container>
+			{isConfirmingNewHero && run && (
+				<AbandonRunModal
+					heroName={run.summary.heroName}
+					onClose={() => setIsConfirmingNewHero(false)}
+					onConfirm={() => navigate("/create-character")}
+				/>
+			)}
 			<Footer />
 		</PageLayout>
 	);
