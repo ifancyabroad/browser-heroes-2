@@ -25,15 +25,12 @@ export function selectLevelUpOptions(
 	hero: HeroState,
 	choice: "skill" | "feat" | undefined,
 	rngState: RngState,
-): RngResult<LevelUpOption[]> {
+): LevelUpOption[] {
 	const ranked = rankLevelUpOptions(hero.classId, choice, rngState);
 
-	return {
-		value: ranked.value
-			.filter((option) => isLevelUpOptionEligible(hero, option))
-			.slice(0, LEVEL_UP_OPTION_COUNT),
-		rngState: ranked.rngState,
-	};
+	return ranked.value
+		.filter((option) => isLevelUpOptionEligible(hero, option))
+		.slice(0, LEVEL_UP_OPTION_COUNT);
 }
 
 export function canRerollLevelUp(
@@ -58,7 +55,7 @@ export function rerollLevelUpOptions(
 	hero: HeroState,
 	currentOptions: readonly LevelUpOption[],
 	rngState: RngState,
-): RngResult<LevelUpOption[]> | null {
+): LevelUpOption[] | null {
 	const choice = currentOptions[0]?.type;
 
 	if (!choice) {
@@ -85,7 +82,7 @@ export function rerollLevelUpOptions(
 		fill.rngState,
 	);
 
-	return shuffled;
+	return shuffled.value;
 }
 
 function rankLevelUpOptions(

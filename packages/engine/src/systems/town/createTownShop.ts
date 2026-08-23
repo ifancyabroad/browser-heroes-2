@@ -17,7 +17,6 @@ type CreateTownShopInput = {
 	shopLevel: number;
 	battleNumber: number;
 	rerollCount: number;
-	rngState: RngState;
 	preservedSlots?: readonly TownShopSlot[];
 };
 
@@ -25,7 +24,7 @@ type ShopSlotDraft =
 	| { preserved: true; slot: TownShopSlot }
 	| { preserved: false; slot: Omit<TownShopSlot, "price"> };
 
-export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSlot[]> {
+export function createTownShop(input: CreateTownShopInput): TownShopSlot[] {
 	const shopSlots: ShopSlotDraft[] = [];
 	const excludedLegendaryItemIds = new Set<ItemId>();
 	const preservedSlots = new Map(input.preservedSlots?.map((slot) => [slot.id, slot]) ?? []);
@@ -105,10 +104,7 @@ export function createTownShop(input: CreateTownShopInput): RngResult<TownShopSl
 		});
 	}
 
-	return {
-		value: pricedSlots,
-		rngState: input.rngState,
-	};
+	return pricedSlots;
 }
 
 function rollPrice(price: number, rngState: RngState): RngResult<number> {

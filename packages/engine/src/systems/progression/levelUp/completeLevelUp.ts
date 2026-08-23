@@ -38,17 +38,16 @@ export function completeLevelUp(state: RunState, action: CompleteLevelUpAction):
 		currentHp: deriveHeroStats(levelledHero).health.maxHp,
 	};
 
-	const nextPendingLevelUp = createPendingLevelUp(updatedHero, state.seed, state.rngState);
+	const nextPendingLevelUp = createPendingLevelUp(updatedHero, state.seed);
 
 	const finalHero: HeroState = {
 		...updatedHero,
-		pendingLevelUp: nextPendingLevelUp.value,
+		pendingLevelUp: nextPendingLevelUp,
 	};
 
 	return successResult(
 		{
 			...state,
-			rngState: nextPendingLevelUp.rngState,
 			hero: finalHero,
 			combat: refreshCompletedCombatPlayer(state.combat, finalHero),
 		},

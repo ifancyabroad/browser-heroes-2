@@ -1,5 +1,5 @@
 import type { CombatantState, CombatState, GhostEncounter, HeroState } from "../../schemas";
-import { createContextRngState, type RngResult, type RngState } from "../../core/rng";
+import { createContextRngState } from "../../core/rng";
 
 import { createCombatId } from "../../core/ids";
 import { getEncounterTypeForBattle, selectEnemyForEncounter } from "../encounters";
@@ -15,22 +15,19 @@ type CreateCombatInput = {
 	battleNumber: number;
 	zoneNumber: number;
 	endlessCycle: number;
-	rngState: RngState;
 	ghostEncounter?: GhostEncounter;
 };
 
-export function createCombat(input: CreateCombatInput): RngResult<CombatState> | null {
+export function createCombat(input: CreateCombatInput): CombatState | null {
 	const combatId = createCombatId(input.runId, input.battleNumber);
 	const player = createPlayerCombatant(input.hero, combatId);
 
 	let enemy: CombatantState;
 	let encounterType: CombatState["encounterType"];
-	let rngState: RngState;
 
 	if (input.ghostEncounter) {
 		enemy = createGhostCombatant(input.ghostEncounter, combatId);
 		encounterType = "ghost";
-		rngState = input.rngState;
 	} else {
 		const selectedEnemy = selectEnemyForEncounter({
 			battleNumber: input.battleNumber,
@@ -49,28 +46,24 @@ export function createCombat(input: CreateCombatInput): RngResult<CombatState> |
 			input.endlessCycle,
 		);
 		encounterType = getEncounterTypeForBattle(input.battleNumber);
-		rngState = input.rngState;
 	}
 
 	return {
-		value: {
-			id: combatId,
-			encounterType,
-			ghostUsername: input.ghostEncounter?.ghostUsername ?? null,
-			turnNumber: 1,
-			activeActor: "player",
-			player,
-			enemy,
-			log: [
-				createCombatLogEntry(combatId, 1, {
-					turnNumber: 1,
-					actor: "system",
-					message: `Combat begins between ${player.name} and ${enemy.name}.`,
-					eventType: "combat_started",
-				}),
-			],
-			status: "active",
-		},
-		rngState,
+		id: combatId,
+		encounterType,
+		ghostUsername: input.ghostEncounter?.ghostUsername ?? null,
+		turnNumber: 1,
+		activeActor: "player",
+		player,
+		enemy,
+		log: [
+			createCombatLogEntry(combatId, 1, {
+				turnNumber: 1,
+				actor: "system",
+				message: `Combat begins between ${player.name} and ${enemy.name}.`,
+				eventType: "combat_started",
+			}),
+		],
+		status: "active",
 	};
 }

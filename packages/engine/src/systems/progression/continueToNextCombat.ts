@@ -38,7 +38,6 @@ export function continueToNextCombat(
 		battleNumber,
 		zoneNumber,
 		endlessCycle,
-		rngState: state.rngState,
 		ghostEncounter,
 	});
 
@@ -47,14 +46,13 @@ export function continueToNextCombat(
 	}
 
 	const combat = {
-		...combatResult.value,
-		player: carryBattleEffects(state.combat.player, combatResult.value.player),
+		...combatResult,
+		player: carryBattleEffects(state.combat.player, combatResult.player),
 	};
 
 	return successResult(
 		{
 			...state,
-			rngState: combatResult.rngState,
 			phase: "combat",
 			combat,
 			town: null,

@@ -43,7 +43,7 @@ export function rerollLevelUp(state: RunState): EngineResult {
 				pendingLevelUp: {
 					...pendingLevelUp,
 					rerollIndex,
-					options: rerolled.value,
+					options: rerolled,
 				},
 			},
 		},

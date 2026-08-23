@@ -15,7 +15,6 @@ export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): E
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,
 		endlessCycle: state.endlessCycle,
-		rngState: state.rngState,
 		ghostEncounter,
 	});
 
@@ -26,15 +25,14 @@ export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): E
 	return successResult(
 		{
 			...state,
-			rngState: combatResult.rngState,
 			phase: "combat",
-			combat: combatResult.value,
+			combat: combatResult,
 			town: null,
 		},
 		[
 			{
 				type: "COMBAT_STARTED",
-				combatId: combatResult.value.id,
+				combatId: combatResult.id,
 			},
 		],
 	);

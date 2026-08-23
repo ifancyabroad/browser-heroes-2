@@ -31,20 +31,18 @@ export function rerollShop(state: RunState): EngineResult {
 		shopLevel: state.town.shopLevel,
 		battleNumber: state.battleNumber,
 		rerollCount: rerollCount,
-		rngState: state.rngState,
 		preservedSlots: state.shopLocks,
 	});
 
 	const town: TownState = {
 		...state.town,
-		shopSlots: shop.value,
+		shopSlots: shop,
 		rerollCount,
 	};
 
 	return successResult(
 		{
 			...state,
-			rngState: shop.rngState,
 			gold: state.gold - cost,
 			town,
 		},

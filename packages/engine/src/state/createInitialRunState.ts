@@ -21,10 +21,9 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		heroName: input.heroName,
 		classId: input.classId,
 		seed: input.seed,
-		rngState: initialRngState,
 	});
 
-	const hero = heroResult.value;
+	const hero = heroResult;
 	const zoneNumber = 1;
 	const battleNumber = 1;
 	const endlessCycle = 0;
@@ -36,7 +35,6 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		battleNumber,
 		zoneNumber,
 		endlessCycle,
-		rngState: heroResult.rngState,
 	});
 
 	if (!combatResult) {
@@ -49,7 +47,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		id: input.runId,
 
 		seed: input.seed,
-		rngState: combatResult.rngState,
+		rngState: initialRngState,
 
 		phase: "combat",
 
@@ -62,7 +60,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 
 		hero,
 
-		combat: combatResult.value,
+		combat: combatResult,
 
 		town: null,
 		shopLocks: [],

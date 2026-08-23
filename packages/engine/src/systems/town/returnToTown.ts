@@ -32,7 +32,6 @@ export function returnToTown(state: RunState): EngineResult {
 		hero: state.hero,
 		zoneNumber,
 		battleNumber,
-		rngState: state.rngState,
 		shopLocks: state.shopLocks,
 	});
 
@@ -45,8 +44,7 @@ export function returnToTown(state: RunState): EngineResult {
 			zoneNumber,
 			endlessCycle,
 			streak: 0,
-			town: town.value,
-			rngState: town.rngState,
+			town,
 		},
 		[
 			{

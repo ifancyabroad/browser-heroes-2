@@ -1,5 +1,4 @@
 import type { CombatState, HeroState, PendingRewardChoice } from "../../../schemas";
-import type { RngResult, RngState } from "../../../core/rng";
 import { createContextRngState } from "../../../core/rng";
 import type { ItemId } from "@app/content";
 
@@ -17,26 +16,19 @@ type CreatePendingRewardChoiceInput = {
 	battleNumber: number;
 	encounterType: CombatState["encounterType"];
 	pendingRewardChoice: PendingRewardChoice | null;
-	rngState: RngState;
 };
 
 type PendingRewardItemOption = Extract<PendingRewardChoice["options"][number], { type: "item" }>;
 
 export function createPendingRewardChoice(
 	input: CreatePendingRewardChoiceInput,
-): RngResult<PendingRewardChoice | null> {
+): PendingRewardChoice | null {
 	if (input.pendingRewardChoice) {
-		return {
-			value: input.pendingRewardChoice,
-			rngState: input.rngState,
-		};
+		return input.pendingRewardChoice;
 	}
 
 	if (!grantsPendingRewardChoice(input.encounterType)) {
-		return {
-			value: null,
-			rngState: input.rngState,
-		};
+		return null;
 	}
 
 	const itemOptions: PendingRewardItemOption[] = [];
@@ -76,17 +68,14 @@ export function createPendingRewardChoice(
 	}
 
 	return {
-		value: {
-			options: [
-				itemOptions[0],
-				itemOptions[1],
-				{
-					type: "gold",
-					amount: input.battleNumber * REWARD_GOLD_MULTIPLIER,
-				},
-			],
-		},
-		rngState: input.rngState,
+		options: [
+			itemOptions[0],
+			itemOptions[1],
+			{
+				type: "gold",
+				amount: input.battleNumber * REWARD_GOLD_MULTIPLIER,
+			},
+		],
 	};
 }
 

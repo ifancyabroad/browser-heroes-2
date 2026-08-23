@@ -16,9 +16,8 @@ describe("createPendingRewardChoice", () => {
 				battleNumber: state.battleNumber,
 				encounterType: "standard",
 				pendingRewardChoice: null,
-				rngState: state.rngState,
 			}),
-		).toEqual({ value: null, rngState: state.rngState });
+		).toBeNull();
 	});
 
 	it("creates deterministic boss choices with two items and scaled gold", () => {
@@ -31,19 +30,17 @@ describe("createPendingRewardChoice", () => {
 			battleNumber: 10,
 			encounterType: "boss" as const,
 			pendingRewardChoice: null,
-			rngState: state.rngState,
 		};
 
 		const first = createPendingRewardChoice(input);
 		const second = createPendingRewardChoice(input);
 
 		expect(first).toEqual(second);
-		expect(first.value?.options).toEqual([
+		expect(first?.options).toEqual([
 			expect.objectContaining({ type: "item" }),
 			expect.objectContaining({ type: "item" }),
 			{ type: "gold", amount: 100 },
 		]);
-		expect(first.rngState).toEqual(state.rngState);
 	});
 
 	it("preserves an existing pending choice and RNG state", () => {
@@ -64,27 +61,8 @@ describe("createPendingRewardChoice", () => {
 			battleNumber: 10,
 			encounterType: "boss",
 			pendingRewardChoice,
-			rngState: state.rngState,
 		});
 
-		expect(result).toEqual({ value: pendingRewardChoice, rngState: state.rngState });
-	});
-
-	it("creates the same reward items independently of combat RNG", () => {
-		const state = createTestRunState();
-		const create = (rngValue: number) =>
-			createPendingRewardChoice({
-				runId: state.id,
-				seed: state.seed,
-				hero: state.hero,
-				zoneNumber: 1,
-				battleNumber: 10,
-				encounterType: "boss",
-				pendingRewardChoice: null,
-				rngState: { value: rngValue },
-			});
-
-		expect(create(1).value).toEqual(create(4_000_000_000).value);
-		expect(create(1).rngState).toEqual({ value: 1 });
+		expect(result).toEqual(pendingRewardChoice);
 	});
 });

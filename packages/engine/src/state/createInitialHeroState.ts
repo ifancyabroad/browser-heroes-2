@@ -15,7 +15,7 @@ import {
 import { createStartingItemInstanceId } from "../core/ids";
 import { calculateMaxHpForLevel } from "../systems/progression/health/calculateMaxHpForLevel";
 import { STARTING_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
-import { createContextRngState, type RngResult, type RngState } from "../core/rng";
+import { createContextRngState } from "../core/rng";
 import { createGeneratedItemInstance } from "../systems/items/createGeneratedItemInstance";
 import { isClassProficientWithItem } from "../systems/items/isClassProficientWithItem";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
@@ -27,10 +27,9 @@ export type CreateInitialHeroStateInput = {
 	heroName: string;
 	classId: ClassId;
 	seed: string;
-	rngState: RngState;
 };
 
-export function createInitialHeroState(input: CreateInitialHeroStateInput): RngResult<HeroState> {
+export function createInitialHeroState(input: CreateInitialHeroStateInput): HeroState {
 	const classDefinition = CLASSES_BY_ID[input.classId];
 	const maxHp = calculateMaxHpForLevel(
 		classDefinition.combat.hitDie,
@@ -38,12 +37,7 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): RngR
 		1,
 	);
 
-	const equipmentResult = createInitialEquipment(
-		classDefinition,
-		input.runId,
-		input.seed,
-		input.rngState,
-	);
+	const equipment = createInitialEquipment(classDefinition, input.runId, input.seed);
 
 	const hero: HeroState = {
 		id: "player",
@@ -56,18 +50,15 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): RngR
 		attributes: classDefinition.attributes,
 		skills: createInitialSkills(classDefinition),
 		featIds: [],
-		equipment: equipmentResult.value,
+		equipment,
 		pendingLevelUp: null,
 		healingPotions: STARTING_HEALING_POTIONS,
 	};
 
-	return {
-		value: heroStateSchema.parse({
-			...hero,
-			currentHp: deriveHeroStats(hero).health.maxHp,
-		}),
-		rngState: equipmentResult.rngState,
-	};
+	return heroStateSchema.parse({
+		...hero,
+		currentHp: deriveHeroStats(hero).health.maxHp,
+	});
 }
 
 function createInitialSkills(classDefinition: Class): HeroSkillState[] {
@@ -103,8 +94,7 @@ function createInitialEquipment(
 	classDefinition: Class,
 	runId: string,
 	seed: string,
-	initialRngState: RngState,
-): RngResult<HeroEquipmentState> {
+): HeroEquipmentState {
 	const equipment: HeroEquipmentState = {
 		...EMPTY_EQUIPMENT,
 	};
@@ -157,8 +147,5 @@ function createInitialEquipment(
 		equipment[slot] = itemResult.value;
 	}
 
-	return {
-		value: equipment,
-		rngState: initialRngState,
-	};
+	return equipment;
 }

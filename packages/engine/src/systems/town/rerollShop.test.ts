@@ -59,8 +59,7 @@ describe("rerollShop", () => {
 				shopLevel: 1,
 				battleNumber: 2,
 				rerollCount: 0,
-				rngState: state.rngState,
-			}).value.map((slot) => ({
+			}).map((slot) => ({
 				item:
 					slot.item.type === "static"
 						? { type: slot.item.type, itemId: slot.item.itemId }
