@@ -36,7 +36,16 @@ export function RunHistoryTable({
 	onSelectRun: (runId: string) => void;
 } & SortProps<GetRunHistoryQuery["sort"]>) {
 	return (
-		<DataTable tableClassName="sm:min-w-275">
+		<DataTable tableClassName="sm:min-w-248">
+			<colgroup>
+				<col />
+				<col className="w-24" />
+				<col className="hidden sm:table-column sm:w-24" />
+				<col className="hidden sm:table-column sm:w-24" />
+				<col className="hidden sm:table-column sm:w-36" />
+				<col className="hidden sm:table-column sm:w-28" />
+				<col className="hidden sm:table-column sm:w-48" />
+			</colgroup>
 			<DataTableHeader>
 				<SortableDataTableHeading
 					label="HERO"
@@ -71,15 +80,6 @@ export function RunHistoryTable({
 					numeric
 					hideOnMobile
 				/>
-				<SortableDataTableHeading
-					label="LEVEL"
-					sortKey="level"
-					activeSort={sort}
-					direction={direction}
-					onSort={onSort}
-					numeric
-					hideOnMobile
-				/>
 				<DataTableHeading hideOnMobile>ZONE</DataTableHeading>
 				<DataTableHeading hideOnMobile>STATUS</DataTableHeading>
 				<SortableDataTableHeading
@@ -102,6 +102,7 @@ export function RunHistoryTable({
 								<HeroIdentity
 									name={entry.heroName}
 									classId={entry.classId}
+									level={entry.level}
 									nameAdornment={
 										entry.mode === "dailyChallenge" ? (
 											<span
@@ -126,9 +127,6 @@ export function RunHistoryTable({
 						<DataTableCell numeric hideOnMobile>
 							{entry.endlessCycle}
 						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.level}
-						</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatTitle(getZoneForRun(entry.zoneNumber))}
 						</DataTableCell>
@@ -150,7 +148,15 @@ export function GhostHistoryTable({
 	onSort,
 }: { entries: GhostHistoryEntryView[] } & SortProps<GetGhostHistoryQuery["sort"]>) {
 	return (
-		<DataTable tableClassName="sm:min-w-250">
+		<DataTable tableClassName="sm:min-w-216">
+			<colgroup>
+				<col />
+				<col className="w-24" />
+				<col className="hidden sm:table-column sm:w-24" />
+				<col className="hidden sm:table-column sm:w-28" />
+				<col className="hidden sm:table-column sm:w-28" />
+				<col className="hidden sm:table-column sm:w-48" />
+			</colgroup>
 			<DataTableHeader>
 				<SortableDataTableHeading
 					label="GHOST"
@@ -166,15 +172,6 @@ export function GhostHistoryTable({
 					direction={direction}
 					onSort={onSort}
 					numeric
-				/>
-				<SortableDataTableHeading
-					label="LEVEL"
-					sortKey="heroLevel"
-					activeSort={sort}
-					direction={direction}
-					onSort={onSort}
-					numeric
-					hideOnMobile
 				/>
 				<SortableDataTableHeading
 					label="DEATHS"
@@ -210,12 +207,13 @@ export function GhostHistoryTable({
 				{entries.map((entry) => (
 					<DataTableRow key={entry.ghostId}>
 						<DataTableCell>
-							<HeroIdentity name={entry.name} classId={entry.classId} />
+							<HeroIdentity
+								name={entry.name}
+								classId={entry.classId}
+								level={entry.heroLevel}
+							/>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.heroLevel}
-						</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{entry.deaths}
 						</DataTableCell>

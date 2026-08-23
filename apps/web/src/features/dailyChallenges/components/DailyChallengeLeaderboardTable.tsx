@@ -18,23 +18,26 @@ export function DailyChallengeLeaderboardTable(props: {
 	onSelectRun: (runId: string) => void;
 }) {
 	return (
-		<DataTable tableClassName="sm:min-w-225">
+		<DataTable tableClassName="sm:min-w-272">
+			<colgroup>
+				<col className="w-16" />
+				<col />
+				<col className="w-24" />
+				<col className="hidden sm:table-column sm:w-24" />
+				<col className="hidden sm:table-column sm:w-24" />
+				<col className="hidden sm:table-column sm:w-36" />
+				<col className="hidden sm:table-column sm:w-40" />
+				<col className="hidden sm:table-column sm:w-48" />
+			</colgroup>
 			<DataTableHeader>
-				<DataTableHeading numeric className="w-12 sm:w-auto">
-					RANK
-				</DataTableHeading>
+				<DataTableHeading numeric>RANK</DataTableHeading>
 				<DataTableHeading>HERO</DataTableHeading>
-				<DataTableHeading numeric className="w-18 sm:w-auto">
-					KILLS
-				</DataTableHeading>
+				<DataTableHeading numeric>KILLS</DataTableHeading>
 				<DataTableHeading numeric hideOnMobile>
 					DAY
 				</DataTableHeading>
 				<DataTableHeading numeric hideOnMobile>
 					CYCLE
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					LEVEL
 				</DataTableHeading>
 				<DataTableHeading hideOnMobile>ZONE</DataTableHeading>
 				<DataTableHeading hideOnMobile>SLAIN BY</DataTableHeading>
@@ -47,9 +50,7 @@ export function DailyChallengeLeaderboardTable(props: {
 						highlighted={entry.isCurrentUser}
 						onSelect={() => props.onSelectRun(entry.runId)}
 					>
-						<DataTableCell numeric className="w-12 sm:w-auto">
-							{entry.rank}
-						</DataTableCell>
+						<DataTableCell numeric>{entry.rank}</DataTableCell>
 						<DataTableCell>
 							<DataTableRowAction
 								label={`Inspect hero ${entry.heroName}`}
@@ -58,6 +59,7 @@ export function DailyChallengeLeaderboardTable(props: {
 								<HeroIdentity
 									name={entry.heroName}
 									classId={entry.classId}
+									level={entry.level}
 									nameAdornment={
 										entry.isCurrentUser ? (
 											<Badge label="YOU" textTone="bright" />
@@ -66,17 +68,12 @@ export function DailyChallengeLeaderboardTable(props: {
 								/>
 							</DataTableRowAction>
 						</DataTableCell>
-						<DataTableCell numeric className="w-18 sm:w-auto">
-							{entry.kills}
-						</DataTableCell>
+						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{entry.day}
 						</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{entry.endlessCycle}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.level}
 						</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatTitle(getZoneForRun(entry.zoneNumber))}

@@ -10,9 +10,7 @@ type DataTableProps = PropsWithChildren<{
 export function DataTable({ children, tableClassName }: DataTableProps) {
 	return (
 		<div className="overflow-x-auto">
-			<table
-				className={clsx("w-full table-fixed border-collapse sm:table-auto", tableClassName)}
-			>
+			<table className={clsx("w-full table-fixed border-collapse", tableClassName)}>
 				{children}
 			</table>
 		</div>
@@ -91,12 +89,14 @@ export function SortableDataTableHeading<TSort extends string>({
 				)}
 			>
 				<span>{label}</span>
-				{isActive &&
-					(direction === "asc" ? (
-						<ArrowUp aria-hidden="true" className="h-4 w-4" />
-					) : (
-						<ArrowDown aria-hidden="true" className="h-4 w-4" />
-					))}
+				<span className="inline-flex h-4 w-4 shrink-0">
+					{isActive &&
+						(direction === "asc" ? (
+							<ArrowUp aria-hidden="true" className="h-4 w-4" />
+						) : (
+							<ArrowDown aria-hidden="true" className="h-4 w-4" />
+						))}
+				</span>
 			</button>
 		</DataTableHeading>
 	);
@@ -167,7 +167,7 @@ export function DataTableRowAction({
 				event.stopPropagation();
 				onSelect();
 			}}
-			className="cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+			className="block cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 		>
 			{children}
 		</button>

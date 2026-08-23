@@ -5,10 +5,12 @@ import { resolveImageUrl } from "../utils/image";
 export function HeroIdentity({
 	name,
 	classId,
+	level,
 	nameAdornment,
 }: {
 	name: string;
 	classId: ClassId;
+	level: number;
 	nameAdornment?: ReactNode;
 }) {
 	const heroClass = CLASSES_BY_ID[classId];
@@ -28,7 +30,9 @@ export function HeroIdentity({
 					<span className="truncate text-text-bright">{name}</span>
 					{nameAdornment}
 				</div>
-				<span className="text-text-muted">{heroClass.name}</span>
+				<span className="truncate text-text-muted">
+					Level {level} {heroClass.name}
+				</span>
 			</div>
 		</div>
 	);
