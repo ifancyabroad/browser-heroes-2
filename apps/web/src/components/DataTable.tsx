@@ -142,7 +142,7 @@ export function DataTableRow({
 			onClick={onSelect}
 			className={clsx(
 				"border-b border-border-secondary last:border-b-0",
-				highlighted && "bg-bg-panel text-primary",
+				highlighted && "bg-bg-panel",
 				onSelect && "cursor-pointer hover:bg-bg-elevated focus-within:bg-bg-elevated",
 			)}
 		>
