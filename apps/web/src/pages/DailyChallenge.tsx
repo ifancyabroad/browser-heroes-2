@@ -1,7 +1,8 @@
-import { CLASSES_BY_ID } from "@app/content";
+import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
+import { ArrowRight } from "pixelarticons/react/ArrowRight";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Button, ButtonLink } from "../components/Button";
+import { Button, IconButton } from "../components/Button";
 import { Card } from "../components/Card";
 import { Container } from "../components/Container";
 import { Footer } from "../components/Footer";
@@ -9,9 +10,7 @@ import { Header } from "../components/Header";
 import { PageLayout } from "../components/PageLayout";
 import { TablePagination } from "../components/TablePagination";
 import { DailyChallengeLeaderboardTable } from "../features/dailyChallenges/components/DailyChallengeLeaderboardTable";
-import { DailyChallengeStartButton } from "../features/dailyChallenges/components/DailyChallengeStartButton";
 import { useDailyChallengeLeaderboard } from "../features/dailyChallenges/hooks/useDailyChallengeLeaderboard";
-import { useDailyChallengeSummary } from "../features/dailyChallenges/hooks/useDailyChallengeSummary";
 import { HeroDossierModal } from "../features/heroDossier";
 import { addUtcDays, formatDailyDate, getTodayUtc } from "../utils/date";
 
@@ -23,9 +22,10 @@ export default function DailyChallenge() {
 	const [page, setPage] = useState(1);
 	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 
-	const summary = useDailyChallengeSummary(date);
 	const leaderboard = useDailyChallengeLeaderboard(date, { page, limit: PAGE_SIZE });
-	const challenge = summary.data?.challenge;
+	const leaderboardData =
+		leaderboard.data?.challenge.date === date ? leaderboard.data : undefined;
+	const isToday = date === getTodayUtc();
 
 	function changeDate(nextDate: string) {
 		setDate(nextDate);
@@ -41,73 +41,69 @@ export default function DailyChallenge() {
 					<p>One attempt. One class. The same journey for everyone.</p>
 				</header>
 
-				<Card className="mb-4 grid gap-4 p-4">
-					<div className="flex flex-wrap items-center justify-between gap-3">
-						<Button onClick={() => changeDate(addUtcDays(date, -1))}>PREVIOUS</Button>
-						<div className="text-center">
-							<p className="text-primary">{formatDailyDate(date)}</p>
-							{challenge && <p>{CLASSES_BY_ID[challenge.classId].name}</p>}
+				<Card className="min-w-0">
+					<div
+						className="grid grid-cols-[auto_1fr_auto] items-center gap-2 border-b-2 border-border-secondary bg-bg-panel px-3 py-2 sm:grid-cols-[1fr_auto_1fr]"
+						aria-label="Daily Challenge date"
+					>
+						<div className="flex items-center gap-2 sm:justify-self-start">
+							<IconButton
+								type="button"
+								aria-label="Previous challenge"
+								onClick={() => changeDate(addUtcDays(date, -1))}
+							>
+								<ArrowLeft aria-hidden="true" className="h-4 w-4" />
+							</IconButton>
+							<div aria-hidden="true" className="invisible hidden sm:block">
+								<Button type="button" tabIndex={-1}>
+									TODAY
+								</Button>
+							</div>
 						</div>
-						<Button
-							disabled={date === getTodayUtc()}
-							onClick={() => changeDate(addUtcDays(date, 1))}
-						>
-							NEXT
-						</Button>
+						<p className="whitespace-nowrap text-center text-text-bright sm:min-w-52">
+							{formatDailyDate(date)}
+						</p>
+						<div className="flex items-center gap-2 sm:justify-self-end">
+							<Button
+								type="button"
+								variant="primary"
+								disabled={isToday}
+								onClick={() => changeDate(getTodayUtc())}
+							>
+								TODAY
+							</Button>
+							<IconButton
+								type="button"
+								aria-label="Next challenge"
+								disabled={isToday}
+								onClick={() => changeDate(addUtcDays(date, 1))}
+							>
+								<ArrowRight aria-hidden="true" className="h-4 w-4" />
+							</IconButton>
+						</div>
 					</div>
 
-					{summary.isPending ? (
-						<p className="text-center text-text-muted">Loading challenge...</p>
-					) : summary.isError || !challenge ? (
-						<p className="text-center text-error">Unable to load this challenge.</p>
-					) : (
-						<div className="flex flex-wrap items-center justify-center gap-5 text-center tabular-nums">
-							<p>{challenge.attemptCount} ATTEMPTS</p>
-							<p>
-								{challenge.leader
-									? `BEST: ${challenge.leader.kills} KILLS · DAY ${challenge.leader.day}`
-									: "NO COMPLETED ATTEMPTS"}
-							</p>
-							{challenge.canStart && (
-								<DailyChallengeStartButton
-									classId={challenge.classId}
-									label="START CHALLENGE"
-								/>
-							)}
-							{challenge.attempt?.status === "active" && (
-								<ButtonLink variant="primary" to="/game">
-									CONTINUE CHALLENGE
-								</ButtonLink>
-							)}
-							{challenge.attempt && challenge.attempt.status !== "active" && (
-								<p className="text-text-muted">ATTEMPT COMPLETE</p>
-							)}
-						</div>
-					)}
-				</Card>
-
-				<Card className="min-w-0">
-					{leaderboard.isPending ? (
+					{leaderboard.isPending || (!leaderboardData && leaderboard.isFetching) ? (
 						<p className="p-12 text-center text-text-muted">Loading leaderboard...</p>
-					) : leaderboard.isError ? (
+					) : leaderboard.isError || !leaderboardData ? (
 						<p className="p-12 text-center text-error">
 							Unable to load the leaderboard.
 						</p>
-					) : leaderboard.data.entries.length === 0 ? (
+					) : leaderboardData.entries.length === 0 ? (
 						<p className="p-12 text-center text-text-muted">
 							No completed attempts yet.
 						</p>
 					) : (
 						<DailyChallengeLeaderboardTable
-							entries={leaderboard.data.entries}
+							entries={leaderboardData.entries}
 							onSelectRun={setSelectedRunId}
 						/>
 					)}
-					{leaderboard.data && !leaderboard.isError && (
+					{leaderboardData && !leaderboard.isError && (
 						<TablePagination
 							page={page}
-							total={leaderboard.data.total}
-							totalPages={leaderboard.data.totalPages}
+							total={leaderboardData.total}
+							totalPages={leaderboardData.totalPages}
 							isFetching={leaderboard.isFetching}
 							onPageChange={setPage}
 						/>
