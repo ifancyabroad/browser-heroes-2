@@ -31,11 +31,14 @@ export function DailyChallengeLandingPanel({ currentRun }: { currentRun: RunView
 			</p>
 
 			{!activeDailyRun && (
-				<div className="flex justify-center gap-5 tabular-nums">
-					<span>{challenge.attemptCount} ATTEMPTS</span>
+				<div className="flex justify-center gap-5 tabular-nums text-text-bright">
+					<span>
+						{challenge.attemptCount}{" "}
+						{challenge.attemptCount === 1 ? "ATTEMPT" : "ATTEMPTS"}
+					</span>
 					<span>
 						{challenge.leader
-							? `BEST ${challenge.leader.kills} KILLS`
+							? `BEST ${challenge.leader.kills} ${challenge.leader.kills === 1 ? "KILL" : "KILLS"}`
 							: "NO FINISHES YET"}
 					</span>
 				</div>
