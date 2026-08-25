@@ -31,15 +31,15 @@ describe("town pricing", () => {
 	});
 
 	it("increases reroll cost with shop level and each reroll", () => {
-		expect(calculateRerollCost(10, 1, 0)).toBe(20);
-		expect(calculateRerollCost(10, 5, 0)).toBe(100);
-		expect(calculateRerollCost(10, 5, 1)).toBe(150);
-		expect(calculateRerollCost(10, 5, 2)).toBe(225);
+		expect(calculateRerollCost(10, 1, 0)).toBe(10);
+		expect(calculateRerollCost(10, 5, 0)).toBe(50);
+		expect(calculateRerollCost(10, 5, 1)).toBe(75);
+		expect(calculateRerollCost(10, 5, 2)).toBe(113);
 	});
 
 	it("continues scaling reroll cost beyond the final shop loot tier", () => {
-		expect(calculateRerollCost(10, 11, 0)).toBe(220);
-		expect(calculateRerollCost(18, 11, 0)).toBe(161);
+		expect(calculateRerollCost(10, 11, 0)).toBe(110);
+		expect(calculateRerollCost(18, 11, 0)).toBe(80);
 	});
 
 	it("increases rest cost with each day", () => {

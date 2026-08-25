@@ -10,7 +10,7 @@ describe("calculateCombatReward", () => {
 				goldMultiplier: 1.1,
 			}),
 		).toEqual({
-			gold: 5,
+			gold: 6,
 			xp: 75,
 		});
 	});

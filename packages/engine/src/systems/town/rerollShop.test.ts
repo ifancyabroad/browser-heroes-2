@@ -96,8 +96,8 @@ describe("rerollShop", () => {
 		const result = applyAction(state, { type: "REROLL_SHOP" });
 
 		expect(result.ok).toBe(true);
-		expect(result.state.gold).toBe(795);
-		expect(result.events).toContainEqual({ type: "SHOP_REROLLED", cost: 205 });
+		expect(result.state.gold).toBe(898);
+		expect(result.events).toContainEqual({ type: "SHOP_REROLLED", cost: 102 });
 	});
 
 	it("preserves locked slots while replacing unlocked slots", () => {
