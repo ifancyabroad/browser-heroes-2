@@ -11,7 +11,7 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyDamage",
-			damageType: "piercing",
+			attackRange: "ranged",
 			operation: "add",
 			value: 5,
 		},

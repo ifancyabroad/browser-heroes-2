@@ -21,19 +21,7 @@ export default buildWeapon({
 	modifiers: [
 		{
 			type: "modifyDamage",
-			damageType: "cold",
-			operation: "add",
-			value: 5,
-		},
-		{
-			type: "modifyDamage",
-			damageType: "fire",
-			operation: "add",
-			value: 5,
-		},
-		{
-			type: "modifyDamage",
-			damageType: "lightning",
+			damageClass: "magical",
 			operation: "add",
 			value: 5,
 		},

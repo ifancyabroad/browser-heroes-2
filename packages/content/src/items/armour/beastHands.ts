@@ -12,13 +12,7 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyDamage",
-			damageType: "slashing",
-			operation: "add",
-			value: 5,
-		},
-		{
-			type: "modifyDamage",
-			damageType: "piercing",
+			damageClass: "physical",
 			operation: "add",
 			value: 5,
 		},

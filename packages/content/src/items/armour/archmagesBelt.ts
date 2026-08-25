@@ -13,19 +13,7 @@ export default buildArmour({
 	modifiers: [
 		{
 			type: "modifyDamage",
-			damageType: "fire",
-			operation: "add",
-			value: 5,
-		},
-		{
-			type: "modifyDamage",
-			damageType: "lightning",
-			operation: "add",
-			value: 5,
-		},
-		{
-			type: "modifyDamage",
-			damageType: "cold",
+			damageClass: "magical",
 			operation: "add",
 			value: 5,
 		},
