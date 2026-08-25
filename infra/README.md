@@ -16,7 +16,7 @@ The API build produces a standalone JavaScript bundle. Its deployment manifest i
 Before creating the stack:
 
 1. Create a Secrets Manager JSON secret with key `MONGO_URI` and the production Atlas URI as its value. Do not store the URI in this repository or a shell history file.
-2. Request SES production access in `eu-west-1`. The existing `browserheroes.com` identity is verified with DKIM, but the account is currently in the SES sandbox.
+2. Confirm SES production access in `eu-west-1` for the verified `browserheroes.com` identity.
 3. Push the buildspec and infrastructure changes to `main`; creating the pipelines before those files exist remotely causes their first executions to fail.
 
 ## Deployment sequence

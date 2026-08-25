@@ -37,8 +37,6 @@ The current implementation supports the complete run loop:
 
 After victories, town acts as an optional run checkpoint, shop, recovery point, and launch point for the next combat.
 
-Combat exposes basic attacks, player and enemy skill use, healing potions, readable combat logs, and active effects. Status removal remains represented in content but is not resolved by the engine.
-
 ## 3. Run Structure
 
 The run is a 100-battle ladder across zones, with a boss encounter every 10 battles. Players develop their build through rewards, equipment, skills, and feats as the encounters become more dangerous.
@@ -51,7 +49,7 @@ Detailed player-facing rules belong in `RULES.md`. Combat-specific behavior belo
 
 ### 4.1 Hero and Build System
 
-Heroes have class identity, attributes, proficiencies, active skills, passive feats, equipment, level, XP, health, gold, and run-specific state.
+A hero combines a distinct class identity with run-specific progression and equipment.
 
 Classes should establish identity and starting direction, while skills, feats, equipment, and level-up offers allow each run to branch.
 
@@ -65,9 +63,7 @@ The intended combat feel is fast tactical RPG combat: basic attacks stay simple,
 
 ### 4.3 Progression System
 
-Players earn XP and gold from combat victories. Boss victories may offer a small reward choice between eligible equipment and gold. Level-ups may offer a small curated set of skill or feat options.
-
-Each run provides five shared, non-replenishing level-up rerolls. They let players replace skill or feat offers without spending gold while preserving the run's deterministic randomness and curated choice size.
+Players earn XP and gold from victories, choose rewards after bosses, and develop through curated skill and feat offers. Limited level-up rerolls provide control without replacing seeded progression.
 
 Progression should reward continuing a run while making risk visible. Returning to town should be a meaningful pacing and safety decision rather than a purely cosmetic step.
 
@@ -81,11 +77,11 @@ Content should support variety and synergy without moving gameplay authority int
 
 Town is a strategic checkpoint between fights.
 
-Current town responsibilities include equipment shops, rest recovery, healing potion purchases, shop rerolls, equipment decisions, hero inspection, and combat entry. Future town work can deepen preparation choices without moving gameplay authority into the UI.
+Town provides shopping, recovery, equipment management, and the choice to begin the next encounter. It may deepen preparation choices without moving gameplay authority into the UI.
 
 ### 4.6 Meta Systems
 
-Daily Challenges provide the public competitive mode. Every UTC day gives all participants the same seeded opportunity schedule, predetermined rotating class, and deterministic ghost pool, with one attempt per user identity and a historical leaderboard. Combat decisions can change combat outcomes without shifting later enemies, rewards, progression rankings, or baseline shops. Normal runs remain playable but are not publicly ranked.
+Daily Challenges provide the public competitive mode: one attempt per identity on a shared UTC-date seed, class, opportunity schedule, and ghost pool, with historical leaderboards. Normal runs remain unranked.
 
 Ghost encounters, achievements, and personal hero and ghost history add asynchronous variety and goals around both run modes. Achievement progress belongs to the user across heroes and is available to guests as well as registered accounts. Broader world activity remains future direction.
 

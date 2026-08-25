@@ -6,29 +6,7 @@ This document defines runtime, persistence, networking, deployment, authenticati
 
 Architecture boundaries belong in `ARCHITECTURE.md`. Gameplay rules belong in `RULES.md` and `COMBAT.md`.
 
-## 2. Infrastructure Philosophy
-
-Browser Heroes 2 should remain operationally manageable for a solo developer or small team.
-
-Infrastructure decisions should prioritize:
-
-- reliability
-- simplicity
-- maintainability
-- predictable deployments
-- fast iteration speed
-- low operational overhead
-
-Infrastructure complexity should increase only in response to proven requirements.
-
-The project avoids:
-
-- premature microservices
-- unnecessary distributed systems
-- excessive cloud abstraction
-- speculative scalability systems
-
-## 3. Current Runtime Model
+## 2. Runtime Model
 
 The project runs as a pnpm workspace containing a React/Vite web app, an Express API, and shared engine/content/shared packages.
 
@@ -42,7 +20,9 @@ Current local responsibilities:
 
 Gameplay logic must remain portable and environment-independent. The backend may validate and persist gameplay outcomes, but must not introduce gameplay divergence from the shared engine.
 
-## 4. Frontend Infrastructure
+Offline play is not current product behavior, but the engine should remain able to run and serialize gameplay without persistent server connectivity.
+
+## 3. Frontend
 
 Current frontend stack:
 
@@ -53,13 +33,9 @@ Current frontend stack:
 - Zustand
 - Socket.IO client
 
-The frontend is responsible for rendering, user interaction, local orchestration, visual feedback, and submitting player intent.
+The React client renders shared state and submits player intent. UI behavior and gameplay authority are defined in `DESIGN.md` and `ARCHITECTURE.md`.
 
-The web client does not use Phaser or another standalone game rendering engine. Town, combat, character creation, and meta-game screens should be implemented as React interfaces backed by shared engine state, content, and selectors.
-
-The frontend should prioritize responsiveness, fast loading, mobile compatibility, and low runtime overhead.
-
-## 5. Backend Infrastructure
+## 4. Backend
 
 Current backend stack:
 
@@ -73,9 +49,7 @@ Current backend stack:
 
 The backend supports guest-first identity, optional accounts and recovery, persisted gameplay and meta-game data, health checks, and both HTTP and socket-based run actions. Its application responsibilities and authority boundaries are defined in `ARCHITECTURE.md`.
 
-The backend should remain lightweight, operationally simple, and stateless where practical outside session and database storage.
-
-## 6. Persistence Model
+## 5. Persistence
 
 MongoDB is the current persistence store.
 
@@ -89,14 +63,7 @@ Run actions are recorded in sequence for debugging, replay investigation, and fu
 
 Achievement unlocks are stored separately from run snapshots with one permanent unlock per user and achievement. They are created transactionally while authoritative actions and ghost outcomes are processed. Achievement-bearing guests are retained by guest cleanup.
 
-Persistence should support:
-
-- flexible run storage
-- action history
-- debugging and historical analysis
-- future replay validation
-
-## 7. Networking Model
+## 6. Networking
 
 Browser Heroes 2 is not a real-time multiplayer game.
 
@@ -109,13 +76,7 @@ Networking exists primarily for:
 - retrieving persisted and derived application data
 - lightweight event delivery where useful
 
-The networking model should avoid:
-
-- real-time combat synchronization
-- lockstep multiplayer systems
-- latency-sensitive gameplay mechanics
-
-## 8. Authentication and Sessions
+## 7. Authentication and Sessions
 
 The authentication model is guest-first with optional email/password accounts.
 
@@ -147,7 +108,7 @@ pnpm --filter @app/api cleanup:guests -- --execute
 
 The command processes bounded batches, rechecks eligibility in MongoDB transactions, preserves dead and retired runs and their actions, and preserves ghosts and their source runs. It requires only `MONGO_URI`. Production execution remains manual until the retention behavior has been validated against live dry-run reports.
 
-## 9. Deployment Direction
+## 8. Deployment
 
 The production deployment target is:
 
@@ -157,42 +118,15 @@ The production deployment target is:
 - Elastic Beanstalk API hosting
 - CodeBuild and CodePipeline CI/CD
 
-Deployment should prioritize operational familiarity, reliability, predictable releases, and low maintenance overhead.
+The repository-owned artifact and runtime contract is defined in `DEPLOYMENT.md`; the infrastructure stack and operational sequence are summarized in `../infra/README.md`.
 
-Build artifacts should be repeatable and environment-specific configuration should stay explicit.
-The repository-owned artifact and runtime contract is defined in `DEPLOYMENT.md`; pipeline orchestration is managed separately.
-
-## 10. Offline Direction
-
-Offline capability is a desirable architectural property, not current product behavior.
-
-Infrastructure and engine design should preserve the ability to:
-
-- run gameplay locally
-- save runs locally
-- replay runs offline
-- synchronize progression later where practical
-
-The simulation engine should not require persistent server connectivity, even when the current web flow uses backend persistence.
-
-## 11. CI/CD and Operations
-
-CI/CD should prioritize simplicity, repeatability, reliability, and fast feedback loops.
-
-The pipeline should:
-
-- validate builds consistently
-- support isolated frontend and backend deployment
-- minimize manual deployment steps
-- preserve deterministic build outputs
-
-Operational systems should be added incrementally based on real needs.
+## 9. CI/CD and Operations
 
 Production uses Elastic Beanstalk enhanced health reporting without publishing optional CloudWatch custom metrics or streaming application logs. This provides detailed current environment health without intentionally adding monitoring charges; historical application latency and request metrics can be enabled later if needed.
 
 Gameplay and content releases that can change seeded opportunity generation should be activated at
 a UTC Daily Challenge boundary.
 
-## 12. Guiding Principle
+## 10. Guiding Principle
 
 Infrastructure should make the game easier to run, deploy, observe, and maintain. If an infrastructure choice adds operational burden without a clear need, prefer the simpler option.

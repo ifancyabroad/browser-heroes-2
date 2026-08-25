@@ -17,9 +17,7 @@ Combat should support:
 
 ## 2. Current Combat Model
 
-Combat currently consists of one hero against one enemy.
-
-Current combat has:
+Combat consists of one hero against one enemy, with:
 
 - no positioning system
 - no movement system
@@ -33,7 +31,7 @@ The player acts through basic attacks, skills, healing potions, or skipped turns
 
 Combatants are derived from hero, enemy, item, skill, and feat content.
 
-Combat-relevant identity includes:
+Combatants expose:
 
 - current and maximum HP
 - six core attributes
@@ -80,7 +78,7 @@ This document intentionally avoids exact formulas and tuning values.
 
 ## 5. Player Combat Round
 
-Current player combat resolution is round-based from the player's perspective:
+Combat resolution is round-based from the player's perspective:
 
 1. The player submits a basic attack, skill, healing potion, or skip-turn action.
 2. The engine validates that combat is active.
@@ -97,7 +95,7 @@ This keeps the UI simple while preserving engine-owned combat resolution.
 
 ## 6. Valid Actions
 
-Current engine-supported actions around combat include:
+Engine-supported actions include:
 
 - basic attack while combat is active
 - skill use while combat is active, the hero knows the skill, the skill has uses remaining if limited, and the hero is not silenced
@@ -149,7 +147,7 @@ Damage affinities include normal, resistant, immune, and vulnerable outcomes. Re
 
 Skills are active combat abilities. Consumables provide limited-use recovery, combat, or utility effects.
 
-Current state: player skill actions and healing potion use are part of engine combat resolution. Skills can exist on combatants, can be gained through progression, can consume limited charges, and resolve through shared engine logic. Healing potions restore a percentage of maximum HP adjusted by effective healing modifiers, consume one potion, write combat logs/events, and then complete the normal player action round.
+Skills can belong to any combatant, be gained through progression, and consume limited charges. Healing potions restore a percentage of maximum HP adjusted by healing modifiers, consume one potion, log the outcome, and complete the normal player round.
 
 Skills and consumables should have:
 

@@ -6,29 +6,9 @@ This document defines system ownership and boundaries for Browser Heroes 2.
 
 It covers architecture only. Product intent, player-facing rules, combat behavior, UI design, and operational infrastructure belong in their own documents.
 
-## 2. Architectural Philosophy
+Browser Heroes 2 uses a deterministic, framework-agnostic gameplay core with explicit serializable state and deliberately simple package boundaries.
 
-Browser Heroes 2 is built around a deterministic shared gameplay core that can be used by both the web client and backend services.
-
-The architecture prioritizes:
-
-- simple package boundaries
-- deterministic state transitions
-- explicit serializable state
-- reusable shared gameplay logic
-- data-driven content where practical
-- small modules that remain understandable by one developer
-
-The architecture avoids:
-
-- duplicated gameplay rules
-- hidden mutable state
-- UI-owned gameplay outcomes
-- backend-only gameplay divergence
-- speculative services or managers
-- framework-dependent engine logic
-
-## 3. Workspace Ownership
+## 2. Workspace Ownership
 
 The project is a pnpm workspace with apps and packages that have distinct responsibilities.
 
@@ -37,10 +17,11 @@ The project is a pnpm workspace with apps and packages that have distinct respon
 - `packages/shared` owns contracts shared by the web app and API, such as request/response shapes and socket payload contracts that are not gameplay rules.
 - `apps/web` owns presentation, user interaction, client orchestration, query/socket integration, and rendering projected engine state.
 - `apps/api` owns sessions, persistence, backend orchestration, action submission, validation, run/action storage, and external encounter selection.
+- `apps/content-studio` owns local browsing and validated editing of existing content definitions; TypeScript content remains authoritative.
 
 Cross-package dependencies should remain deliberate and acyclic. Gameplay authority belongs in the engine and content packages, not in app-specific code.
 
-## 4. Simulation Layer
+## 3. Simulation Layer
 
 The simulation layer is the gameplay source of truth.
 
@@ -59,7 +40,7 @@ It owns:
 
 The simulation layer must remain framework-agnostic. It must not depend on React, Express, Mongoose, Socket.IO, browser APIs, rendering, persistence, networking, or runtime timing.
 
-## 5. Content Layer
+## 4. Content Layer
 
 The content layer owns authored game definitions and generated lookup surfaces.
 
@@ -71,7 +52,7 @@ Generated registries support lookup, type safety, and stable content imports. Do
 
 Reference validation should catch broken content links where practical. Content should remain readable, versionable, and reusable across engine, web, and API systems.
 
-## 6. Application and Presentation Layers
+## 5. Application and Presentation Layers
 
 The application layer coordinates runtime systems around the simulation.
 
@@ -99,7 +80,7 @@ The web app currently:
 
 The presentation layer may display simulation state and collect player intent. It must not calculate gameplay outcomes or directly mutate authoritative run state.
 
-## 7. Determinism and State
+## 6. Determinism and State
 
 Game state is explicit serializable data.
 
@@ -121,7 +102,7 @@ The entire run should always be representable as a snapshot. Save/load parity, r
 
 Run position is explicit in serialized state: battle number, cumulative zone number, and endless cycle advance together through engine-owned transitions. The repeating authored zone identity is derived from the cumulative zone number.
 
-## 8. Selectors and Projections
+## 7. Selectors and Projections
 
 Selectors are the boundary between authoritative state and UI-friendly views.
 
@@ -129,7 +110,7 @@ Selectors may derive hero stats, combat views, progression state, reward choice 
 
 Projection code in the API may derive summaries for persistence and responses, but those summaries are not authoritative gameplay data.
 
-## 9. Testing Philosophy
+## 8. Testing
 
 Testing should prioritize deterministic simulation correctness, action validation, serialization safety, replayability, and stable package boundaries.
 
@@ -137,7 +118,7 @@ Preferred tests are targeted, lightweight, and close to the behavior they protec
 
 UI tests should focus on rendering, interaction, and error boundaries. They should not duplicate engine rule tests.
 
-## 10. Non-Goals
+## 9. Non-Goals
 
 The architecture is not intended to optimize for:
 

@@ -12,7 +12,7 @@ The main run is a 100-battle ladder. Every 10th battle is a boss encounter. Defe
 
 ## 2. Primary Game States
 
-The game currently operates through explicit run phases:
+The run has four phases:
 
 - Town: an optional between-combat checkpoint after victory for shopping, resting, rerolling shop inventory, inspecting the hero, and entering combat.
 - Combat: a turn-based encounter between the hero and one enemy.
@@ -33,7 +33,7 @@ After a victorious combat, the player may continue directly to the next combat o
 
 A hero represents the player's run identity.
 
-Hero and build state includes:
+Hero state includes:
 
 - class identity
 - level and XP
@@ -48,7 +48,7 @@ Classes set the hero's starting direction. Skills, feats, and equipment should l
 
 Effective attributes include equipment and feat modifiers and are capped at 30. Base attributes remain part of the hero's stored build state.
 
-Heroes currently persist for the duration of a run. Long-term account or meta progression must be introduced explicitly and must not be hidden inside run rules.
+Equipment and build choices persist for the run but do not carry between heroes.
 
 ## 4. Encounters and Zones
 
@@ -73,7 +73,7 @@ Boss victories can create a pending reward choice. Current boss reward choices c
 
 Level-ups are triggered by XP thresholds. When a level-up is pending, the player must complete it before normal run actions continue.
 
-Level-up choices are intended to stay curated: the player should choose from a small set of relevant skill or feat options rather than manage a large open tree during the run. Skill options are selected without replacement using rarity weights; common skills appear most frequently, while legendary skills are significantly rarer. Feat options remain uniformly selected. Each level and reroll has a seed-derived candidate ranking shared by runs with the same seed. Options already owned by the hero are skipped, so prior build choices may produce valid differences in the displayed offer without changing the underlying ranking.
+Level-up choices are a small set of relevant skills or feats. Skill options use rarity weights; feat options are selected uniformly. Each level and reroll has a seed-derived candidate ranking. Owned options are skipped, so prior build choices can change the visible offer without changing that ranking.
 
 Each run begins with five level-up rerolls shared across skill and feat offers. Rerolls cost no gold and never replenish. A reroll prioritizes choices not present in the current offer; when fewer than three new choices remain, previous choices fill the remaining slots. Rerolling is unavailable when no alternative eligible choice exists.
 
@@ -81,7 +81,7 @@ Each run begins with five level-up rerolls shared across skill and feat offers. 
 
 Skills are active abilities owned by heroes, enemies, or other combatants.
 
-Current state: heroes can start with skills, gain new skills through level-up choices, and use available skills during active combat. Skill actions are engine-validated and are unavailable when the hero is silenced. A stunned hero cannot act and may only skip the turn.
+Heroes can start with skills, gain them through level-ups, and use them in combat. The engine validates skill actions; silence prevents skill use, while stun permits only skipping the turn.
 
 Implemented skill effects may:
 
@@ -97,7 +97,7 @@ Detailed skill resolution belongs in `COMBAT.md`.
 
 Feats are passive build features.
 
-Current state: feats can be part of class identity and can be gained through level-up choices where eligible.
+Feats can be part of class identity or gained through eligible level-up choices.
 
 Feats may:
 
@@ -120,13 +120,6 @@ Items can be acquired from town shops and boss reward choices. Their selection a
 seeded randomness derived from the battle and option or shop slot. When an item can occupy multiple
 valid slots, the selected equipment slot is explicit and replacement can be previewed before
 confirmation.
-
-Items may:
-
-- provide weapons or armour
-- modify stats
-- affect damage or mitigation
-- interact with skills or feats
 
 Items persist during a run but do not carry between runs unless a future meta system explicitly allows it.
 

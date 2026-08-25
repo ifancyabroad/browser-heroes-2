@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-This document defines the stable contract that the separately managed CodePipeline and CodeBuild configuration should satisfy. It does not prescribe how the pipeline packages or promotes artifacts.
+This document defines the production artifact, topology, environment, pipeline, and rollback contract. See `../infra/README.md` for the operational deployment sequence.
 
 ## 2. Runtime and Builds
 

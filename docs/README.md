@@ -15,11 +15,11 @@ These docs should:
 
 - [Product Requirements](PRD.md) - product vision, current playable loop, intended game shape, and scope priorities.
 - [Game Rules](RULES.md) - player-facing run, progression, town, item, skill, feat, victory, and failure rules.
-- [Combat](COMBAT.md) - combat model, current round flow, deterministic resolution, logs, damage concepts, and planned combat depth.
+- [Combat](COMBAT.md) - combat actions, deterministic round resolution, damage, effects, tactics, combat end, and logging.
 - [Balance](BALANCE.md) - comparative content baselines and thematic guidance for stats, dice, riders, skills, and items.
 - [Architecture](ARCHITECTURE.md) - package ownership, state-transition authority, content generation boundaries, and app responsibilities.
 - [Design](DESIGN.md) - UI direction, Tailwind usage, reusable components, layout rules, and presentation-layer constraints.
-- [Infrastructure](INFRASTRUCTURE.md) - local runtime, backend persistence, sessions, networking, deployment direction, and operational principles.
+- [Infrastructure](INFRASTRUCTURE.md) - runtime stack, persistence, sessions, networking, deployment, and operations.
 - [Deployment](DEPLOYMENT.md) - production artifact contracts and AWS deployment requirements.
 
 ## Working Guidance
