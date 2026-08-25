@@ -7,7 +7,7 @@ export default buildSkill({
 		"Crush the enemy with overwhelming force and potentially leave their body vulnerable to further damage.",
 	icon: "skills/common/obliterate.png",
 	pool: "common",
-	kind: "spell",
+	kind: "technique",
 	category: "damage",
 	rarity: "legendary",
 	maxUses: 2,
@@ -17,6 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "crushing",
 			damageClass: "physical",
+			attackRange: "melee",
 			dice: "6d12",
 			requiresAttackRoll: false,
 			save: {

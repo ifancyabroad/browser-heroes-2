@@ -16,7 +16,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "piercing",
-			damageClass: "physical",
+			damageClass: "magical",
 			dice: "4d6",
 			duration: { unit: "turns", value: 3 },
 			save: {

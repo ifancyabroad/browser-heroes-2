@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
-			damageClass: "physical",
+			damageClass: "magical",
 			dice: "3d8",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
