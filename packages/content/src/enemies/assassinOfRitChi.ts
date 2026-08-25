@@ -33,7 +33,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["acrobatic_strike", "evasion", "backstab"],
+		skillIds: ["acrobatic_strike", "evasion"],
 		featIds: [],
 		tactic: "aggressive",
 	},
