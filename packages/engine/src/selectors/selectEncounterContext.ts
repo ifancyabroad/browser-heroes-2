@@ -16,14 +16,13 @@ export type EncounterContext = {
 
 export function selectEncounterContext(battleNumber: number): EncounterContext {
 	const zoneNumber = getZoneNumberForBattle(battleNumber);
-	const endlessCycle = getEndlessCycleForBattle(battleNumber);
 
 	return {
 		battleNumber,
 		zoneNumber,
 		zone: getZoneForRun(zoneNumber),
-		endlessCycle,
+		endlessCycle: getEndlessCycleForBattle(battleNumber),
 		encounterType: getEncounterTypeForBattle(battleNumber),
-		ghostEncounterLevel: endlessCycle > 0 ? 10 : Math.min(zoneNumber, 10),
+		ghostEncounterLevel: Math.min(zoneNumber, 10),
 	};
 }

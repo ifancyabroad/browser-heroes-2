@@ -54,7 +54,6 @@ describe("selectAvailableActions", () => {
 	it("also offers retirement after final-boss victory", () => {
 		const state = modifyTestRunState(createTestVictoryState(), (draft) => {
 			draft.battleNumber = 100;
-			draft.zoneNumber = 10;
 		});
 
 		expect(createActionTypes(state)).toEqual([

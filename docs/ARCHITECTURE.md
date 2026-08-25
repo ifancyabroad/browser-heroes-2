@@ -119,6 +119,8 @@ The following rules must hold:
 
 The entire run should always be representable as a snapshot. Save/load parity, replay investigation, server-side validation, and combat reconstruction should all build from that same explicit state model.
 
+Run position is explicit in serialized state: battle number, cumulative zone number, and endless cycle advance together through engine-owned transitions. The repeating authored zone identity is derived from the cumulative zone number.
+
 ## 8. Selectors and Projections
 
 Selectors are the boundary between authoritative state and UI-friendly views.

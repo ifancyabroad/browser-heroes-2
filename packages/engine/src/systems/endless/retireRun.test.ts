@@ -10,7 +10,6 @@ describe("retireRun", () => {
 	it("retires after final-boss victory", () => {
 		const state = modifyTestRunState(createTestVictoryState(), (draft) => {
 			draft.battleNumber = 100;
-			draft.zoneNumber = 10;
 		});
 
 		expect(applyAction(state, { type: "RETIRE_RUN" })).toMatchObject({

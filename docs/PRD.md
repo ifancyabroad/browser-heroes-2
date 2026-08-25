@@ -43,7 +43,7 @@ Combat exposes basic attacks, player and enemy skill use, healing potions, reada
 
 The run is a 100-battle ladder across zones, with a boss encounter every 10 battles. Players develop their build through rewards, equipment, skills, and feats as the encounters become more dangerous.
 
-After defeating the final boss at battle 100, the player may retire victorious or repeat the ladder at increased pressure through endless progression.
+After defeating the final boss at battle 100, the player may retire victorious or repeat the authored zone ladder while enemy levels and endless pressure continue increasing.
 
 ## 4. Core Systems
 

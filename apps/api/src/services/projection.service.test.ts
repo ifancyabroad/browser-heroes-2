@@ -40,6 +40,19 @@ describe("projection.service", () => {
 		});
 	});
 
+	it("projects cumulative zone and endless cycle from run state", () => {
+		const state = createTestRunState();
+		state.battleNumber = 201;
+		state.zoneNumber = 21;
+		state.endlessCycle = 2;
+
+		expect(toRunSummary(state)).toMatchObject({
+			battleNumber: 201,
+			zoneNumber: 21,
+			endlessCycle: 2,
+		});
+	});
+
 	it("only exposes completed heroes for dead or retired runs", () => {
 		expect(toRunHeroView(createTestRunState())).toBeNull();
 

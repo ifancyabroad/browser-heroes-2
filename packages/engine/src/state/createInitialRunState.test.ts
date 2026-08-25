@@ -13,11 +13,14 @@ describe("createInitialRunState", () => {
 		const state = createTestRunState();
 
 		expect(runStateSchema.safeParse(state).success).toBe(true);
+		expect(state.town).toBeNull();
 		expect(state).toMatchObject({
 			id: "test-run",
 			seed: "test-seed",
 			phase: "combat",
 			battleNumber: 1,
+			zoneNumber: 1,
+			endlessCycle: 0,
 			levelUpRerolls: 5,
 			hero: {
 				name: "Test Hero",

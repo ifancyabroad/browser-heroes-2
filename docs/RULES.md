@@ -57,7 +57,9 @@ number determine the authored enemy schedule, so combat decisions do not change 
 
 Every 10th battle is a boss encounter. Non-boss battles are standard encounters.
 
-Zones define broad enemy pools, run pacing, and difficulty identity. Endless progression repeats the zone ladder in successive cycles with stronger enemy damage.
+Zones are cumulative ten-battle segments. Each zone increases the level of authored enemies, while
+the sequence of authored zone identities and enemy pools repeats every ten zones. Endless cycles
+add further combat pressure on top of that continuing level progression.
 
 Eligible standard encounters after the first boss may be replaced by ghosts created from other heroes who died beyond that point. Boss encounters are never replaced by ghosts.
 
@@ -139,7 +141,7 @@ Town allows the player to inspect the hero, enter combat, buy equipment and heal
 Town state includes:
 
 - shop slots with item instances, prices, and purchased state
-- shop level derived from the current zone
+- shop level following the current cumulative zone
 - rest cost and rest count
 - reroll cost and reroll count
 - healing potion cost
@@ -150,7 +152,7 @@ purchased. Buying a locked item clears its lock. Reroll cost is unaffected by lo
 with every slot locked still charges the normal cost and increases the visit-local reroll count,
 but does not change inventory.
 
-Town pricing is engine-owned. Current costs are affected by the hero's charisma modifier through a town discount multiplier. Rest costs increase with each rest across the full run. Reroll costs scale with shop level and increase with repeated use during the current town visit. Healing potion and reroll costs continue scaling beyond the final zone during endless progression, even after shop item quality reaches its highest tier.
+Town pricing is engine-owned. Current costs are affected by the hero's charisma modifier through a town discount multiplier. Rest costs increase with each rest across the full run. Healing potion costs scale with the cumulative zone number. The stored shop level follows that zone number, drives reroll costs and item quality, and rerolls also increase with repeated use during the current town visit. Shop and boss-reward item quality increases through the first zone cycle, then remains at its highest tier while pricing and enemy levels continue scaling.
 
 Returning to town after a victory creates fresh town state for the current run position and resets the active streak and town-local reroll count. It does not reset the current day or rest-price escalation. Continuing directly to the next combat preserves momentum and increases the streak.
 
@@ -165,7 +167,7 @@ Player death immediately ends the run.
 
 Defeating the final boss at battle 100 is the victory condition. After resolving pending rewards and level-ups, the player may retire the hero to end the run, return to town, or continue directly into endless progression.
 
-Continuing beyond battle 100 starts a new endless cycle. The zone ladder repeats, enemies gain additional damage each cycle, and the run continues under the same deterministic rules until death.
+Continuing beyond battle 100 starts a new endless cycle. Authored zone identities and enemy pools repeat, while cumulative zone numbers and enemy levels continue increasing. Enemies also gain additional endless-cycle combat scaling, and the run continues under the same deterministic rules until death. Ghosts preserve their original builds and receive the same endless-cycle combat scaling.
 
 ## 11. Ghosts
 

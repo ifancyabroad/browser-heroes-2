@@ -19,6 +19,7 @@ describe("continueToNextCombat", () => {
 			phase: "combat",
 			battleNumber: 2,
 			zoneNumber: 1,
+			endlessCycle: 0,
 			streak: 1,
 			town: null,
 			combat: {

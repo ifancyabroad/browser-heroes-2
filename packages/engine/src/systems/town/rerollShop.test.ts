@@ -73,10 +73,7 @@ describe("rerollShop", () => {
 	it("deducts and reports the calculated reroll cost", () => {
 		const state = modifyTestRunState(createTestTownState(), (draft) => {
 			draft.gold = 1_000;
-			if (!draft.town) {
-				throw new Error("Expected test run to be in town");
-			}
-			draft.town.shopLevel = 5;
+			draft.battleNumber = 41;
 		});
 
 		const result = applyAction(state, { type: "REROLL_SHOP" });
@@ -85,6 +82,22 @@ describe("rerollShop", () => {
 		expect(result.ok).toBe(true);
 		expect(chargedGold).toBeGreaterThan(0);
 		expect(result.events).toContainEqual({ type: "SHOP_REROLLED", cost: chargedGold });
+	});
+
+	it("continues scaling the first reroll after the first zone cycle", () => {
+		const state = modifyTestRunState(createTestTownState(), (draft) => {
+			draft.battleNumber = 101;
+			draft.zoneNumber = 11;
+			draft.endlessCycle = 1;
+			draft.town!.shopLevel = 11;
+			draft.gold = 1_000;
+		});
+
+		const result = applyAction(state, { type: "REROLL_SHOP" });
+
+		expect(result.ok).toBe(true);
+		expect(result.state.gold).toBe(795);
+		expect(result.events).toContainEqual({ type: "SHOP_REROLLED", cost: 205 });
 	});
 
 	it("preserves locked slots while replacing unlocked slots", () => {

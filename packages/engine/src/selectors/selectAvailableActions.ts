@@ -65,7 +65,7 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 	if (
 		state.phase === "combat" &&
 		state.combat?.status === "player_won" &&
-		isFinalBossVictory(state.battleNumber, state.endlessCycle)
+		isFinalBossVictory(state.battleNumber)
 	) {
 		return [
 			{

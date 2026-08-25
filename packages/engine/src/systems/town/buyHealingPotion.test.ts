@@ -39,6 +39,29 @@ describe("buyHealingPotion", () => {
 		).toMatchObject({ ok: false, error: "HEALING_POTIONS_FULL", state });
 	});
 
+	it("continues scaling the price after the first zone cycle", () => {
+		const state = modifyTestRunState(createTestTownState(), (draft) => {
+			draft.battleNumber = 101;
+			draft.zoneNumber = 11;
+			draft.endlessCycle = 1;
+			draft.gold = 1_000;
+			draft.hero.healingPotions = 0;
+		});
+
+		const result = applyAction(state, {
+			type: "BUY_CONSUMABLE",
+			consumableType: "healingPotion",
+		});
+
+		expect(result.ok).toBe(true);
+		expect(result.state.gold).toBe(795);
+		expect(result.events).toContainEqual({
+			type: "HEALING_POTION_BOUGHT",
+			cost: 205,
+			remainingPotions: 1,
+		});
+	});
+
 	it("rejects buying without enough gold", () => {
 		const state = modifyTestRunState(createTestTownState(), (draft) => {
 			draft.gold = 0;

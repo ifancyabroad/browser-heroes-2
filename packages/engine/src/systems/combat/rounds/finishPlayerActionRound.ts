@@ -112,7 +112,7 @@ type FinishVictoryInput = {
 function finishVictory(input: FinishVictoryInput): EngineResult {
 	const { state, combat, rngState, events, finishingPlayerAction } = input;
 	const hasDefeatedFinalBoss =
-		state.hasDefeatedFinalBoss || isFinalBossVictory(state.battleNumber, state.endlessCycle);
+		state.hasDefeatedFinalBoss || isFinalBossVictory(state.battleNumber);
 
 	const completedState: RunState = {
 		...state,
@@ -136,8 +136,8 @@ function finishVictory(input: FinishVictoryInput): EngineResult {
 			outcome: "victory",
 			battleNumber: state.battleNumber,
 			encounterType: combat.encounterType,
-			defeatedFinalBoss: isFinalBossVictory(state.battleNumber, state.endlessCycle),
-			completedEndlessCycle: isEndlessCycleVictory(state.battleNumber, state.endlessCycle),
+			defeatedFinalBoss: isFinalBossVictory(state.battleNumber),
+			completedEndlessCycle: isEndlessCycleVictory(state.battleNumber),
 			finishingPlayerAction,
 			reward: victoryResult.reward,
 		},

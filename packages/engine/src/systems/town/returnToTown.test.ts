@@ -20,6 +20,7 @@ describe("returnToTown", () => {
 			combat: null,
 			battleNumber: 2,
 			zoneNumber: 1,
+			endlessCycle: 0,
 			streak: 0,
 			town: {
 				rerollCount: 0,

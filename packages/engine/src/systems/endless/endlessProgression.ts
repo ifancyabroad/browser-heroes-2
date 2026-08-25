@@ -4,14 +4,20 @@ export function getEndlessCycleForBattle(battleNumber: number): number {
 	return Math.floor((battleNumber - 1) / BATTLES_PER_ENDLESS_CYCLE);
 }
 
+export function getBattleNumberInEndlessCycle(battleNumber: number): number {
+	return ((battleNumber - 1) % BATTLES_PER_ENDLESS_CYCLE) + 1;
+}
+
 export function hasDefeatedFinalBoss(battleNumber: number): boolean {
 	return battleNumber > BATTLES_PER_ENDLESS_CYCLE;
 }
 
-export function isFinalBossVictory(battleNumber: number, endlessCycle: number): boolean {
-	return battleNumber === BATTLES_PER_ENDLESS_CYCLE && endlessCycle === 0;
+export function isFinalBossVictory(battleNumber: number): boolean {
+	return battleNumber === BATTLES_PER_ENDLESS_CYCLE;
 }
 
-export function isEndlessCycleVictory(battleNumber: number, endlessCycle: number): boolean {
-	return endlessCycle > 0 && battleNumber % BATTLES_PER_ENDLESS_CYCLE === 0;
+export function isEndlessCycleVictory(battleNumber: number): boolean {
+	return (
+		battleNumber > BATTLES_PER_ENDLESS_CYCLE && battleNumber % BATTLES_PER_ENDLESS_CYCLE === 0
+	);
 }

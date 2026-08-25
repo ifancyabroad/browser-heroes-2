@@ -48,8 +48,8 @@ describe("ghost.service", () => {
 
 	it("upserts one full-health ghost snapshot per eligible run", async () => {
 		const state = createTestRunState();
-		state.battleNumber = 11;
-		state.zoneNumber = 2;
+		state.battleNumber = 111;
+		state.zoneNumber = 12;
 		state.endlessCycle = 1;
 		state.hero.currentHp = 1;
 		state.hero.pendingLevelUp = { availableAtLevel: 2, selectionRequired: true } as never;
@@ -79,8 +79,8 @@ describe("ghost.service", () => {
 							pendingLevelUp: null,
 						},
 						createdFrom: {
-							battleNumber: 11,
-							zoneNumber: 2,
+							battleNumber: 111,
+							zoneNumber: 12,
 							endlessCycle: 1,
 							phase: state.phase,
 						},

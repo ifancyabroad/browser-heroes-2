@@ -7,7 +7,7 @@ export function retireRun(state: RunState): EngineResult {
 		state.phase !== "combat" ||
 		!state.combat ||
 		state.combat.status !== "player_won" ||
-		!isFinalBossVictory(state.battleNumber, state.endlessCycle)
+		!isFinalBossVictory(state.battleNumber)
 	) {
 		return failureResult(state, "INVALID_PHASE");
 	}
