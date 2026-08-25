@@ -29,6 +29,22 @@ describe("StructuredEditor affix applicability", () => {
 			{},
 		]);
 	});
+
+	it("offers damage class and attack range applicability fields", () => {
+		render(
+			<StructuredEditor
+				value={[{ itemTypes: ["weapon"] }]}
+				path="appliesTo"
+				field="appliesTo"
+				category="affixes"
+				issues={[]}
+				onChange={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByRole("button", { name: "Damage Classes" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Attack Ranges" })).toBeInTheDocument();
+	});
 });
 
 describe("StructuredEditor skill rarity", () => {

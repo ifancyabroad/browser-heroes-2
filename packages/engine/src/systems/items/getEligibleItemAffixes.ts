@@ -51,10 +51,23 @@ function matchesApplicabilityRule(
 			return false;
 		}
 
+		if (appliesTo.damageClasses && !appliesTo.damageClasses.includes(item.damage.damageClass)) {
+			return false;
+		}
+
+		if (appliesTo.attackRanges && !appliesTo.attackRanges.includes(item.attackRange)) {
+			return false;
+		}
+
 		return !(appliesTo.armourSlots || appliesTo.armourCategories);
 	}
 
-	if (appliesTo.weaponTypes || appliesTo.damageTypes) {
+	if (
+		appliesTo.weaponTypes ||
+		appliesTo.damageTypes ||
+		appliesTo.damageClasses ||
+		appliesTo.attackRanges
+	) {
 		return false;
 	}
 

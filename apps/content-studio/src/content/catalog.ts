@@ -168,6 +168,8 @@ const applicabilityRuleSummary = (rule: {
 	itemTypes?: readonly string[];
 	weaponTypes?: readonly string[];
 	damageTypes?: readonly string[];
+	damageClasses?: readonly string[];
+	attackRanges?: readonly string[];
 	armourSlots?: readonly string[];
 	armourCategories?: readonly string[];
 }) =>
@@ -175,6 +177,8 @@ const applicabilityRuleSummary = (rule: {
 		rule.itemTypes?.length ? `type: ${rule.itemTypes.join("/")}` : undefined,
 		rule.weaponTypes?.length ? `weapon: ${rule.weaponTypes.join("/")}` : undefined,
 		rule.damageTypes?.length ? `damage: ${rule.damageTypes.join("/")}` : undefined,
+		rule.damageClasses?.length ? `class: ${rule.damageClasses.join("/")}` : undefined,
+		rule.attackRanges?.length ? `range: ${rule.attackRanges.join("/")}` : undefined,
 		rule.armourSlots?.length ? `slot: ${rule.armourSlots.join("/")}` : undefined,
 		rule.armourCategories?.length ? `armour: ${rule.armourCategories.join("/")}` : undefined,
 	]) || "all items";
@@ -397,11 +401,15 @@ const affixEntries: CatalogEntry[] = itemAffixes.map((affix) => {
 			...(rule.itemTypes ?? []),
 			...(rule.weaponTypes ?? []),
 			...(rule.damageTypes ?? []),
+			...(rule.damageClasses ?? []),
+			...(rule.attackRanges ?? []),
 			...(rule.armourSlots ?? []),
 			...(rule.armourCategories ?? []),
 		]),
 	);
 	const damageTypes = unique(affix.appliesTo.flatMap((rule) => rule.damageTypes ?? []));
+	const damageClasses = unique(affix.appliesTo.flatMap((rule) => rule.damageClasses ?? []));
+	const attackRanges = unique(affix.appliesTo.flatMap((rule) => rule.attackRanges ?? []));
 	return {
 		id: affix.id,
 		name: affix.name,
@@ -416,6 +424,8 @@ const affixEntries: CatalogEntry[] = itemAffixes.map((affix) => {
 			rarity: [affix.rarity],
 			appliesTo: applicabilityValues,
 			damageType: damageTypes,
+			damageClass: damageClasses,
+			attackRange: attackRanges,
 			modifier: unique(affix.modifiers.map((modifier) => modifier.type)),
 		},
 		cells: {
@@ -651,6 +661,8 @@ export const catalogs: readonly Catalog[] = [
 			{ key: "rarity", label: "Rarity" },
 			{ key: "appliesTo", label: "Applies to" },
 			{ key: "damageType", label: "Damage type rule" },
+			{ key: "damageClass", label: "Damage class rule" },
+			{ key: "attackRange", label: "Attack range rule" },
 			{ key: "modifier", label: "Modifier" },
 		]),
 	},

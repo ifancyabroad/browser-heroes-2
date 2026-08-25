@@ -89,6 +89,12 @@ export function arrayItemOptions(field: string) {
 	if (field === "damageTypes") {
 		return damageTypeSchema.options;
 	}
+	if (field === "damageClasses") {
+		return damageClassSchema.options;
+	}
+	if (field === "attackRanges") {
+		return attackRangeSchema.options;
+	}
 	if (field === "armourSlots") {
 		return armourSlotSchema.options;
 	}

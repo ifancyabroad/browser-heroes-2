@@ -483,6 +483,8 @@ function optionalEntries(
 			["itemTypes", ["weapon"]],
 			["weaponTypes", ["longsword"]],
 			["damageTypes", ["slashing"]],
+			["damageClasses", ["physical"]],
+			["attackRanges", ["melee"]],
 			["armourSlots", ["body"]],
 			["armourCategories", ["light"]],
 		);
