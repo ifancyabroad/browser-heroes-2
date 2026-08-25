@@ -5,6 +5,7 @@ import { Card } from "../../../components/Card";
 import { GameLayout } from "../../../components/GameLayout";
 import { ButtonLink } from "../../../components/Button";
 import { DailyChallengeResult } from "../../dailyChallenges";
+import { ShareRunButton } from "./ShareRunButton";
 
 type VictoryScreenProps = {
 	run: RunView;
@@ -42,6 +43,7 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 	const heroClassName = heroClass?.name ?? summary.hero.classId;
 	const finalEnemy = summary.finalEnemy?.name ?? "the final boss";
 	const finalMomentEntries = summary.finalMomentLog;
+	const shareText = `${summary.hero.name} the ${heroClassName} retired victorious at level ${summary.hero.level} after battle ${summary.battleNumber} in Browser Heroes 2. Can you do better?`;
 
 	return (
 		<GameLayout>
@@ -92,6 +94,8 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 						{run.mode === "dailyChallenge" && run.dailyChallengeDate && (
 							<DailyChallengeResult date={run.dailyChallengeDate} outcome="retired" />
 						)}
+
+						<ShareRunButton title={`${summary.hero.name}'s victory`} text={shareText} />
 
 						<nav className="flex flex-wrap justify-center gap-4" aria-label="Run links">
 							<ButtonLink to="/">Home</ButtonLink>

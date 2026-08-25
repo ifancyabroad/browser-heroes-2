@@ -11,11 +11,12 @@ const commandFocusClassName =
 const commandInteractionClassName =
 	"enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60";
 
-type CommandVariant = "default" | "primary" | "info" | "success" | "danger";
+type CommandVariant = "default" | "primary" | "secondary" | "info" | "success" | "danger";
 
 const commandVariantClassNames: Record<CommandVariant, string> = {
 	default: "text-text-bright",
 	primary: "text-primary",
+	secondary: "text-secondary",
 	info: "text-info",
 	success: "text-success",
 	danger: "text-error",

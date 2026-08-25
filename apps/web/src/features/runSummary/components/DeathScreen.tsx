@@ -5,6 +5,7 @@ import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
 import { ButtonLink } from "../../../components/Button";
 import { DailyChallengeResult } from "../../dailyChallenges";
+import { ShareRunButton } from "./ShareRunButton";
 
 type DeathScreenProps = {
 	run: RunView;
@@ -48,6 +49,7 @@ export function DeathScreen({ run }: DeathScreenProps) {
 	const heroClassName = CLASSES_BY_ID[summary.hero.classId]?.name ?? summary.hero.classId;
 	const slainBy = summary.finalEnemy?.name ?? "Unknown enemy";
 	const finalMomentEntries = summary.finalMomentLog;
+	const shareText = `${summary.hero.name} the ${heroClassName} was slain by ${slainBy} on battle ${summary.battleNumber} in Browser Heroes 2. Can you do better?`;
 
 	return (
 		<GameLayout>
@@ -94,6 +96,8 @@ export function DeathScreen({ run }: DeathScreenProps) {
 					{run.mode === "dailyChallenge" && run.dailyChallengeDate && (
 						<DailyChallengeResult date={run.dailyChallengeDate} outcome="dead" />
 					)}
+
+					<ShareRunButton title={`${summary.hero.name}'s final stand`} text={shareText} />
 
 					<div className="flex flex-wrap justify-center gap-4">
 						<ButtonLink to="/">Home</ButtonLink>
