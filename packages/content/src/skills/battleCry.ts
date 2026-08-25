@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "battle_cry",
 	name: "Battle Cry",
 	description:
-		"Release a resounding battle cry that bolsters vitality and empowers your attacks.",
+		"Release a resounding battle cry that bolsters vitality and empowers physical attacks.",
 	icon: "skills/barbarian/battle_cry.png",
 	pool: "barbarian",
 	kind: "technique",
@@ -22,6 +22,7 @@ export default buildSkill({
 		{
 			type: "modifyDamage",
 			target: "self",
+			damageClass: "physical",
 			operation: "multiply",
 			value: 1.25,
 			duration: { unit: "battles", value: 1 },
