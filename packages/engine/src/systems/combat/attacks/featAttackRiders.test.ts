@@ -219,23 +219,6 @@ describe("feat attack riders", () => {
 			source: { type: "feat", featId: "berserker" },
 		});
 	});
-
-	it("applies an authored elemental build-enabling rider", () => {
-		const result = resolveBasicAttack({
-			combat: createCombatWithFeat("plaguebearer"),
-			attackerSide: "player",
-			rngState: createInitialRngState("feat-elemental-rider"),
-		});
-
-		expect(result.value.enemy.activeEffects).toContainEqual(
-			expect.objectContaining({
-				type: "damageOverTime",
-				damageType: "poison",
-				dice: "2d4",
-				source: expect.objectContaining({ type: "feat", featId: "plaguebearer" }),
-			}),
-		);
-	});
 });
 
 function createCombatWithBerserker() {

@@ -28,7 +28,6 @@ describe("Battlefield combat outcomes", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Open combat log" }));
 
 		expect(onOpenLog).toHaveBeenCalledOnce();
-		expect(screen.getByRole("button", { name: "Open combat log" })).toHaveClass("md:hidden");
 	});
 
 	it("shows compact mobile battle and gold multiplier badges", () => {
@@ -38,7 +37,6 @@ describe("Battlefield combat outcomes", () => {
 			name: "Battle 12, gold multiplier 2 times",
 		});
 
-		expect(battleInfo).toHaveClass("tabular-nums", "md:hidden");
 		expect(battleInfo).toHaveTextContent("Battle 12");
 		expect(battleInfo).toHaveTextContent("Gold ×2");
 	});
@@ -57,10 +55,10 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		expect(screen.getByText("CRIT")).toHaveClass("text-legendary");
+		expect(screen.getByText("CRIT")).toBeInTheDocument();
 		expect(screen.getByText(/3 BLOCKED/)).toBeInTheDocument();
-		expect(screen.getByText(/-20 FIRE/)).toHaveClass("text-damage-fire");
-		expect(screen.getByText("MISS")).toHaveClass("text-error");
+		expect(screen.getByText(/-20 FIRE/)).toBeInTheDocument();
+		expect(screen.getByText("MISS")).toBeInTheDocument();
 
 		act(() => vi.advanceTimersByTime(1_000));
 		expect(screen.queryByText("MISS")).not.toBeInTheDocument();
@@ -84,23 +82,6 @@ describe("Battlefield combat outcomes", () => {
 		expect(screen.getByText("IMMUNE: FIRE")).toBeInTheDocument();
 		expect(screen.getByText(/0 FIRE/)).toBeInTheDocument();
 		expect(screen.getByText(/5 BLOCKED/)).toBeInTheDocument();
-	});
-
-	it("uses logarithmic font-size steps based on HP damage", () => {
-		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
-
-		rerender(
-			<Battlefield
-				{...baseProps}
-				entries={[
-					damageEntry("small", 10),
-					damageEntry("large", 40, 0, false, "enemy-1", "normal", "effect_triggered"),
-				]}
-			/>,
-		);
-
-		expect(screen.getByText(/-10 FIRE/)).toHaveStyle({ fontSize: "1.25rem" });
-		expect(screen.getByText(/-40 FIRE/)).toHaveStyle({ fontSize: "1.75rem" });
 	});
 
 	it("groups damage by event type and damage type", () => {

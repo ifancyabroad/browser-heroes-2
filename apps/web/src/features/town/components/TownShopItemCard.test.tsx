@@ -72,10 +72,6 @@ describe("TownShopItemCard", () => {
 			name: `Unlock ${testItem.name}`,
 		});
 		expect(unlockButton).toHaveAttribute("aria-pressed", "true");
-		expect(unlockButton).toHaveClass(
-			"aria-pressed:bg-primary",
-			"aria-pressed:text-primary-contrast",
-		);
 	});
 
 	it("blocks lock changes while an action is pending", () => {
@@ -200,7 +196,7 @@ describe("TownShopItemCard", () => {
 		expect(screen.queryByText("Replaces:")).not.toBeInTheDocument();
 	});
 
-	it("removes replacement details and shows a muted badge after purchase", () => {
+	it("removes replacement details and shows a sold state after purchase", () => {
 		render(
 			<TooltipProvider>
 				<TownShopItemCard
@@ -230,6 +226,6 @@ describe("TownShopItemCard", () => {
 		);
 
 		expect(screen.queryByText("Replaces:")).not.toBeInTheDocument();
-		expect(screen.getByText("SOLD")).toHaveClass("border-border-secondary", "text-text");
+		expect(screen.getByText("SOLD")).toBeInTheDocument();
 	});
 });

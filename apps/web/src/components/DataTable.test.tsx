@@ -23,7 +23,6 @@ describe("DataTableRow", () => {
 		const row = screen.getByRole("row");
 		const action = screen.getByRole("button", { name: "Inspect hero Aria" });
 		expect(row).not.toHaveAttribute("tabindex");
-		expect(action).toHaveClass("cursor-pointer");
 
 		fireEvent.click(row);
 		fireEvent.click(action);

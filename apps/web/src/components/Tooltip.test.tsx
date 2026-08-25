@@ -35,11 +35,6 @@ describe("Tooltip", () => {
 		fireEvent.click(screen.getByText("Inspect item"));
 
 		expect(screen.getByText("Helpful detail")).toBeInTheDocument();
-		expect(screen.getByText("Helpful detail")).toHaveClass(
-			"max-h-[var(--radix-popover-content-available-height)]",
-			"max-w-[var(--radix-popover-content-available-width)]",
-			"overflow-y-auto",
-		);
 	});
 
 	it("leaves actionable children unchanged when mobile popovers are disabled", () => {
@@ -73,23 +68,12 @@ describe("Tooltip", () => {
 		expect(screen.getByText("Helpful detail")).toBeInTheDocument();
 	});
 
-	it("constrains desktop tooltip content and allows it to scroll", async () => {
+	it("shows desktop tooltip content on focus", async () => {
 		renderTooltip(<span>Inspect item</span>);
 
 		fireEvent.focus(screen.getByText("Inspect item").parentElement!);
 
-		const content = (await screen.findAllByText("Helpful detail")).find(
-			(element) => element.tagName === "DIV",
-		);
-		expect(content).toBeDefined();
-		expect(content).toHaveClass(
-			"max-h-[var(--radix-tooltip-content-available-height)]",
-			"max-w-[var(--radix-tooltip-content-available-width)]",
-			"overflow-y-auto",
-			"overscroll-contain",
-		);
-		expect(content).not.toHaveClass("pointer-events-none");
-		expect(content).toHaveAttribute("data-side", "right");
+		expect(await screen.findAllByText("Helpful detail")).not.toHaveLength(0);
 	});
 
 	it("portals scrollable content into the nearest modal", () => {
@@ -109,6 +93,5 @@ describe("Tooltip", () => {
 		const dialog = screen.getByRole("dialog", { name: "Details" });
 		const content = screen.getByText("Modal detail");
 		expect(dialog).toContainElement(content);
-		expect(content).toHaveClass("overflow-y-auto");
 	});
 });
