@@ -20,6 +20,7 @@ export default buildItemAffix({
 					type: "damage",
 					target: "enemy",
 					damageType: "piercing",
+					damageClass: "physical",
 					dice: "1d4",
 				},
 			],

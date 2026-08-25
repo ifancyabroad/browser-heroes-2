@@ -32,11 +32,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Staff of the Archmage",
 			attackAttribute: "intelligence",
 			damage: {
 				dice: "1d8+4",
 				type: "lightning",
+				damageClass: "magical",
 				attribute: "intelligence",
 			},
 		},

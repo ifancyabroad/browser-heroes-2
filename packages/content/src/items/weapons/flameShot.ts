@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "bow",
 	handedness: "twoHanded",
-	range: "ranged",
+	attackRange: "ranged",
 	damage: {
 		dice: "1d8+4",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "dexterity",
 	},
 	modifiers: [
@@ -39,6 +40,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "fire",
+					damageClass: "magical",
 					dice: "2d6",
 					requiresAttackRoll: false,
 				},

@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
+			attackRange: "ranged",
 			name: "Hellfire Shot",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d12+2",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

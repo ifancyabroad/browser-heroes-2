@@ -360,8 +360,13 @@ function switchItemType(value: Record<string, unknown>, type: string, category: 
 				type,
 				weaponType: "longsword",
 				handedness: "oneHanded",
-				range: "melee",
-				damage: { dice: "1d6", type: "slashing", attribute: "strength" },
+				attackRange: "melee",
+				damage: {
+					dice: "1d6",
+					type: "slashing",
+					damageClass: "physical",
+					attribute: "strength",
+				},
 				...(category === "items" ? { attackRiders: [] } : {}),
 			}
 		: { ...common, type, slot: "body", category: "light", armourClass: 10 };
@@ -453,13 +458,20 @@ function optionalEntries(
 		]);
 	}
 	if (["modifyDamage", "modifyDamageTaken"].includes(String(value.type))) {
-		candidates.push(["damageType", "fire"]);
+		candidates.push(
+			["damageType", "fire"],
+			["damageClass", "magical"],
+			["attackRange", "ranged"],
+		);
 	}
 	if (value.type === "attackDamage") {
 		candidates.push(
 			["damageTypeOverride", "fire"],
+			["damageClassOverride", "magical"],
+			["attackRangeOverride", "ranged"],
 			["extraDice", "1d4"],
 			["extraDamageType", "fire"],
+			["extraDamageClass", "magical"],
 			["rollMode", "advantage"],
 		);
 	}

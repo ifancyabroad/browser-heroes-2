@@ -11,7 +11,13 @@ export default buildItemAffix({
 		{
 			timing: "onCrit",
 			effects: [
-				{ type: "damage", target: "enemy", damageType: "lightning", dice: "2d8" },
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "lightning",
+					damageClass: "magical",
+					dice: "2d8",
+				},
 				{
 					type: "modifyRoll",
 					target: "enemy",

@@ -16,6 +16,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
+			damageClass: "other",
 			dice: "4d6",
 			requiresAttackRoll: false,
 			save: {
@@ -28,6 +29,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "acid",
+			damageClass: "other",
 			dice: "4d6",
 			requiresAttackRoll: false,
 			save: {

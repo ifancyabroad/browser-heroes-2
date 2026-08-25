@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "quarterstaff",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8+4",
 		type: "crushing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	modifiers: [

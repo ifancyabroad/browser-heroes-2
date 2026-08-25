@@ -102,6 +102,8 @@ export function resolveDamageEffect(input: ResolveDamageEffectInput): RngResult<
 		defender: resolvedTarget,
 		dice: input.effect.dice,
 		damageType: input.effect.damageType,
+		damageClass: input.effect.damageClass,
+		attackRange: input.effect.attackRange,
 		attribute: input.effect.attribute,
 		critical,
 	});

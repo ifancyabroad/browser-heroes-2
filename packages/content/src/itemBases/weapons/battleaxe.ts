@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "battleaxe",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d10",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	iconPool: [

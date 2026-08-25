@@ -16,6 +16,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "poison",
+			damageClass: "magical",
 			dice: "4d6",
 			requiresAttackRoll: false,
 			save: {
@@ -33,6 +34,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "poison",
+			damageClass: "magical",
 			dice: "2d4",
 			duration: { unit: "turns", value: 4 },
 			save: {

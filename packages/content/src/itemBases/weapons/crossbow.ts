@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "crossbow",
 	handedness: "twoHanded",
-	range: "ranged",
+	attackRange: "ranged",
 	damage: {
 		dice: "1d8",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "dexterity",
 	},
 	iconPool: [

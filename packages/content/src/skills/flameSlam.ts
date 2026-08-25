@@ -24,6 +24,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "fire",
+							damageClass: "magical",
 							dice: "2d8",
 						},
 					],

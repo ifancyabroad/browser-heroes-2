@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "staff",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8",
 		type: "cold",
+		damageClass: "magical",
 		attribute: "intelligence",
 	},
 	iconPool: [

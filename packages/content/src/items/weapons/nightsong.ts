@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "shortsword",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d6+4",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "dexterity",
 	},
 	modifiers: [
@@ -38,6 +39,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "necrotic",
+					damageClass: "magical",
 					dice: "1d8",
 					requiresAttackRoll: false,
 				},

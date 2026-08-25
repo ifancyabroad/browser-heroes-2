@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
+			attackRange: "ranged",
 			name: "Ballista Bolt",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d10+2",
 				type: "piercing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

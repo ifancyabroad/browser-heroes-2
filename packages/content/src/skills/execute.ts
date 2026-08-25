@@ -23,6 +23,7 @@ export default buildSkill({
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "slashing",
+							damageClass: "physical",
 							dice: "2d4",
 							duration: { unit: "turns", value: 4 },
 							save: {

@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8",
 				type: "piercing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 			attackRiders: [
@@ -38,6 +40,7 @@ export default buildEnemy({
 							type: "damage",
 							target: "enemy",
 							damageType: "poison",
+							damageClass: "other",
 							dice: "3d4",
 							save: {
 								attribute: "constitution",
@@ -49,6 +52,7 @@ export default buildEnemy({
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "poison",
+							damageClass: "other",
 							dice: "2d4",
 							duration: { unit: "turns", value: 4 },
 							save: {

@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "staff",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8+4",
 		type: "cold",
+		damageClass: "magical",
 		attribute: "intelligence",
 	},
 	modifiers: [

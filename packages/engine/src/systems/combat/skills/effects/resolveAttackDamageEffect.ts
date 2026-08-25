@@ -71,6 +71,8 @@ export function resolveAttackDamageEffect(
 		defender: target,
 		dice: actor.basicAttack.damage.dice,
 		damageType,
+		damageClass: input.effect.damageClassOverride ?? actor.basicAttack.damage.damageClass,
+		attackRange: input.effect.attackRangeOverride ?? actor.basicAttack.attackRange,
 		attribute: actor.basicAttack.damage.attribute,
 		critical: attackRoll.value.critical,
 		multiplier: input.effect.multiplier,
@@ -102,6 +104,8 @@ export function resolveAttackDamageEffect(
 			defender: updatedTarget,
 			dice: input.effect.extraDice,
 			damageType: input.effect.extraDamageType ?? damageType,
+			damageClass: input.effect.extraDamageClass!,
+			attackRange: input.effect.attackRangeOverride ?? actor.basicAttack.attackRange,
 			critical: attackRoll.value.critical,
 		});
 

@@ -30,6 +30,7 @@ export default buildFeat({
 					type: "damage",
 					target: "enemy",
 					damageType: "radiant",
+					damageClass: "magical",
 					dice: "1d6",
 					requiresAttackRoll: false,
 				},

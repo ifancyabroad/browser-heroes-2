@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "crossbow",
 	handedness: "twoHanded",
-	range: "ranged",
+	attackRange: "ranged",
 	damage: {
 		dice: "1d8+4",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "dexterity",
 	},
 	modifiers: [
@@ -33,6 +34,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "necrotic",
+					damageClass: "magical",
 					dice: "1d10",
 					requiresAttackRoll: false,
 				},

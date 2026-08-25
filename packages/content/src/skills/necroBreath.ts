@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
+			damageClass: "magical",
 			dice: "10d6",
 			requiresAttackRoll: false,
 			save: {

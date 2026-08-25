@@ -22,7 +22,10 @@ const timingLabels = { onHit: "Hit", onCrit: "Crit" } as const;
 
 const signed = (value: number) => `${value >= 0 ? "+" : ""}${value}`;
 const percentChange = (multiplier: number) => signed(Math.round((multiplier - 1) * 100)) + "%";
-const damageLabel = (damageType?: string) => (damageType ? `${damageType} damage` : "damage");
+const damageLabel = (damageType?: string, damageClass?: string, attackRange?: string) => {
+	const selectors = [damageClass, attackRange, damageType].filter(Boolean);
+	return selectors.length > 0 ? `${selectors.join(" ")} damage` : "damage";
+};
 const durationLabel = (duration: { unit: string; value: number }) =>
 	`${duration.value} ${duration.value === 1 ? duration.unit.replace(/s$/, "") : duration.unit}`;
 
@@ -41,9 +44,9 @@ function formatModifier(modifier: PassiveModifier): string {
 		case "modifyHealing":
 			return `${percentChange(modifier.multiplier)} healing`;
 		case "modifyDamage":
-			return `${formatOperation(modifier.operation, modifier.value)} ${damageLabel(modifier.damageType)}`;
+			return `${formatOperation(modifier.operation, modifier.value)} ${damageLabel(modifier.damageType, modifier.damageClass, modifier.attackRange)}`;
 		case "modifyDamageTaken":
-			return `${formatOperation(modifier.operation, modifier.value)} ${modifier.damageType ?? "all"} damage taken`;
+			return `${formatOperation(modifier.operation, modifier.value)} ${damageLabel(modifier.damageType, modifier.damageClass, modifier.attackRange)} taken`;
 		case "modifyDamageAffinity":
 			return `${modifier.operation === "add" ? "" : "Lose "}${modifier.damageType} ${modifier.affinity}`;
 	}
@@ -68,9 +71,9 @@ function formatRiderEffect(effect: RiderEffect): string {
 		case "modifyHealing":
 			return `${percentChange(effect.multiplier)} healing · ${durationLabel(effect.duration)}`;
 		case "modifyDamage":
-			return `${formatOperation(effect.operation, effect.value)} ${damageLabel(effect.damageType)} · ${durationLabel(effect.duration)}`;
+			return `${formatOperation(effect.operation, effect.value)} ${damageLabel(effect.damageType, effect.damageClass, effect.attackRange)} · ${durationLabel(effect.duration)}`;
 		case "modifyDamageTaken":
-			return `${formatOperation(effect.operation, effect.value)} ${effect.damageType ?? "all"} damage taken · ${durationLabel(effect.duration)}`;
+			return `${formatOperation(effect.operation, effect.value)} ${damageLabel(effect.damageType, effect.damageClass, effect.attackRange)} taken · ${durationLabel(effect.duration)}`;
 		case "modifyDamageAffinity":
 			return `${effect.operation === "add" ? "" : "lose "}${effect.damageType} ${effect.affinity} · ${durationLabel(effect.duration)}`;
 		case "modifyRoll":

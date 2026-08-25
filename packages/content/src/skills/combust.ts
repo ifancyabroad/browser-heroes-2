@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "self",
 			damageType: "fire",
+			damageClass: "magical",
 			dice: "15d12",
 			requiresAttackRoll: false,
 		},
@@ -22,6 +23,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
+			damageClass: "magical",
 			dice: "15d12",
 			requiresAttackRoll: false,
 			save: {

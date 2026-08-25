@@ -29,6 +29,7 @@ export default buildFeat({
 					type: "damage",
 					target: "enemy",
 					damageType: "acid",
+					damageClass: "magical",
 					dice: "2d4",
 				},
 				{

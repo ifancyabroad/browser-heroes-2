@@ -1,8 +1,10 @@
 import type {
 	ArmourSlot,
 	ArmourType,
+	AttackRange,
 	Attribute,
 	BodyArmourCategory,
+	DamageClass,
 	DamageType,
 	EquipmentSlot,
 	FeatCategory,
@@ -13,7 +15,6 @@ import type {
 	SkillKind,
 	SkillPool,
 	WeaponHandedness,
-	WeaponRange,
 	WeaponType,
 } from "@app/content";
 
@@ -143,6 +144,12 @@ export const damageTypeLabels: Record<DamageType, string> = {
 	slashing: "Slashing",
 };
 
+export const damageClassLabels: Record<DamageClass, string> = {
+	physical: "Physical",
+	magical: "Magical",
+	other: "Other",
+};
+
 export const armourSlotLabels: Record<ArmourSlot, string> = {
 	body: "Body",
 	shield: "Shield",
@@ -196,7 +203,7 @@ export const weaponHandednessLabels: Record<WeaponHandedness, string> = {
 	twoHanded: "Two-handed",
 };
 
-export const weaponRangeLabels: Record<WeaponRange, string> = {
+export const attackRangeLabels: Record<AttackRange, string> = {
 	melee: "Melee",
 	ranged: "Ranged",
 };

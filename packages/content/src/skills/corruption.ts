@@ -28,6 +28,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "necrotic",
+			damageClass: "magical",
 			dice: "1d4",
 			duration: { unit: "turns", value: 3 },
 			save: {

@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Freezing Touch",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d8",
 				type: "cold",
+				damageClass: "magical",
 				attribute: "strength",
 			},
 			attackRiders: [

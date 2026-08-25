@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Withering Touch",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
 				type: "necrotic",
+				damageClass: "magical",
 				attribute: "strength",
 			},
 		},

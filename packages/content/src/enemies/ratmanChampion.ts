@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Fine Longsword",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+1",
 				type: "slashing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

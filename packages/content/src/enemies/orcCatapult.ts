@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
+			attackRange: "ranged",
 			name: "Catapult Shot",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d12+1",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

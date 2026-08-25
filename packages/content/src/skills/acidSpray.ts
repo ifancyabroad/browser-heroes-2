@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "acid",
+			damageClass: "magical",
 			dice: "3d6",
 			requiresAttackRoll: false,
 			save: {

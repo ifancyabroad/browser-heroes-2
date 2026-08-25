@@ -30,6 +30,7 @@ export default buildFeat({
 					type: "damage",
 					target: "enemy",
 					damageType: "fire",
+					damageClass: "magical",
 					dice: "1d8",
 				},
 			],

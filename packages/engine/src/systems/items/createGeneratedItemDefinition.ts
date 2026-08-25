@@ -65,7 +65,7 @@ function createPlainGeneratedItem(
 			type: "weapon",
 			weaponType: base.weaponType,
 			handedness: base.handedness,
-			range: base.range,
+			attackRange: base.attackRange,
 			damage: {
 				...base.damage,
 				dice: addDiceFormulaModifier(base.damage.dice, rarityBonus),

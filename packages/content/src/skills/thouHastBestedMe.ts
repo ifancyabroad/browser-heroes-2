@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "self",
 			damageType: "radiant",
+			damageClass: "magical",
 			dice: "3d12",
 			requiresAttackRoll: false,
 		},

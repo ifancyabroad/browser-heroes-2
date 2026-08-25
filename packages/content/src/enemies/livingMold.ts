@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Bite",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
 				type: "acid",
+				damageClass: "other",
 				attribute: "strength",
 			},
 			attackRiders: [
@@ -38,6 +40,7 @@ export default buildEnemy({
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "poison",
+							damageClass: "other",
 							dice: "1d4",
 							duration: { unit: "turns", value: 4 },
 							save: {

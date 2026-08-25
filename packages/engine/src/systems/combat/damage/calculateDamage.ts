@@ -1,4 +1,4 @@
-import type { Attribute, DamageType, DiceFormula } from "@app/content";
+import type { AttackRange, Attribute, DamageClass, DamageType, DiceFormula } from "@app/content";
 
 import type { CombatantState } from "../../../schemas";
 
@@ -16,6 +16,8 @@ import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatVa
 export type DamageResult = {
 	amount: number;
 	damageType: DamageType;
+	damageClass: DamageClass;
+	attackRange?: AttackRange;
 	roll: DamageRollSummary;
 	abilityModifier: number;
 	modifiedBaseAmount: number;
@@ -28,6 +30,8 @@ type CalculateDamageInput = {
 	defender: CombatantState;
 	dice: DiceFormula;
 	damageType: DamageType;
+	damageClass: DamageClass;
+	attackRange?: AttackRange;
 	attribute?: Attribute;
 	critical?: boolean;
 	multiplier?: number;
@@ -54,6 +58,8 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 	const attackerModifiedAmount = applyDamageModifiers({
 		baseAmount,
 		damageType: input.damageType,
+		damageClass: input.damageClass,
+		attackRange: input.attackRange,
 		modifiers: getEffectiveDamageModifiers(input.attacker),
 	});
 
@@ -62,6 +68,8 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 	const defenderModifiedAmount = applyDamageModifiers({
 		baseAmount: multipliedAmount,
 		damageType: input.damageType,
+		damageClass: input.damageClass,
+		attackRange: input.attackRange,
 		modifiers: getEffectiveDamageTakenModifiers(input.defender),
 	});
 
@@ -75,6 +83,8 @@ export function calculateDamage(input: CalculateDamageInput): RngResult<DamageRe
 		value: {
 			amount,
 			damageType: input.damageType,
+			damageClass: input.damageClass,
+			attackRange: input.attackRange,
 			roll: roll.value,
 			abilityModifier,
 			modifiedBaseAmount: attackerModifiedAmount,

@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "handaxe",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d6",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	iconPool: [

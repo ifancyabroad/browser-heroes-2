@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "ranged",
 			name: "Fine Longbow",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8+1",
 				type: "piercing",
+				damageClass: "physical",
 				attribute: "dexterity",
 			},
 		},

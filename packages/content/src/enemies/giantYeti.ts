@@ -31,11 +31,13 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Slam",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d8",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

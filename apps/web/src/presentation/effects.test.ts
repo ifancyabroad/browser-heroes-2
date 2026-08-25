@@ -16,15 +16,17 @@ describe("effect presentation", () => {
 			formatItemModifier({
 				type: "modifyDamage",
 				damageType: "fire",
+				damageClass: "magical",
 				operation: "add",
 				value: 2,
 			}),
-		).toBe("+2 to fire damage dealt");
+		).toBe("+2 to magical fire damage dealt");
 		expect(
 			formatRiderEffect({
 				type: "damage",
 				target: "enemy",
 				damageType: "fire",
+				damageClass: "magical",
 				dice: "1d4",
 				requiresAttackRoll: false,
 			}),
@@ -50,6 +52,7 @@ describe("effect presentation", () => {
 				type: "damage",
 				target: "enemy",
 				damageType: "fire",
+				damageClass: "magical",
 				dice: "10d6",
 				requiresAttackRoll: false,
 				save,
@@ -163,6 +166,7 @@ describe("effect presentation", () => {
 				type: "damage",
 				target: "enemy",
 				damageType: "piercing",
+				damageClass: "physical",
 				dice: "1d8",
 				attribute: "dexterity",
 				requiresAttackRoll: true,

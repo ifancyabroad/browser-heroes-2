@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "greatsword",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "2d6",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	iconPool: [

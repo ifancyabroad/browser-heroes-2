@@ -147,6 +147,8 @@ function createActiveCombatEffect(input: {
 				...base,
 				type: "modifyDamage",
 				damageType: input.effect.damageType,
+				damageClass: input.effect.damageClass,
+				attackRange: input.effect.attackRange,
 				operation: input.effect.operation,
 				value: input.effect.value,
 			};
@@ -156,6 +158,8 @@ function createActiveCombatEffect(input: {
 				...base,
 				type: "modifyDamageTaken",
 				damageType: input.effect.damageType,
+				damageClass: input.effect.damageClass,
+				attackRange: input.effect.attackRange,
 				operation: input.effect.operation,
 				value: input.effect.value,
 			};

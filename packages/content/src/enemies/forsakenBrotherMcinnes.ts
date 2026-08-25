@@ -32,11 +32,13 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
+			attackRange: "ranged",
 			name: "Unholy Bolt",
 			attackAttribute: "wisdom",
 			damage: {
 				dice: "2d8",
 				type: "necrotic",
+				damageClass: "magical",
 				attribute: "wisdom",
 			},
 		},

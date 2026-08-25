@@ -23,6 +23,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "poison",
+							damageClass: "magical",
 							dice: "1d4",
 							save: {
 								attribute: "constitution",

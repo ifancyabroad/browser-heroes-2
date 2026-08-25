@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Tendril Strike",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d6",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "dexterity",
 			},
 		},

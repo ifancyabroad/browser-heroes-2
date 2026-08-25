@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "battleaxe",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d10+5",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	modifiers: [
@@ -41,6 +42,7 @@ export default buildWeapon({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "slashing",
+					damageClass: "physical",
 					dice: "3d4",
 					duration: { unit: "turns", value: 3 },
 				},

@@ -23,6 +23,7 @@ export default buildSkill({
 			type: "damage",
 			target: "self",
 			damageType: "crushing",
+			damageClass: "physical",
 			dice: "2d6",
 			requiresAttackRoll: false,
 		},

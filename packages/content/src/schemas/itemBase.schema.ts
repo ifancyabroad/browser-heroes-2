@@ -2,12 +2,14 @@ import { z } from "zod";
 
 import {
 	attributeSchema,
+	attackRangeSchema,
+	damageClassSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
 	weaponTypeSchema,
 } from "./common.schema";
 import { bodyArmourCategorySchema } from "./armour.schema";
-import { weaponHandednessSchema, weaponRangeSchema } from "./weapon.schema";
+import { weaponHandednessSchema } from "./weapon.schema";
 
 const itemBaseCommonSchema = z.object({
 	id: z.string().nonempty(),
@@ -21,10 +23,11 @@ export const weaponItemBaseSchema = itemBaseCommonSchema.extend({
 	type: z.literal("weapon"),
 	weaponType: weaponTypeSchema,
 	handedness: weaponHandednessSchema,
-	range: weaponRangeSchema,
+	attackRange: attackRangeSchema,
 	damage: z.object({
 		dice: diceFormulaSchema,
 		type: damageTypeSchema,
+		damageClass: damageClassSchema,
 		attribute: attributeSchema,
 	}),
 });

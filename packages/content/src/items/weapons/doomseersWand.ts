@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",
-	range: "ranged",
+	attackRange: "ranged",
 	damage: {
 		dice: "1d4+5",
 		type: "necrotic",
+		damageClass: "magical",
 		attribute: "wisdom",
 	},
 	modifiers: [

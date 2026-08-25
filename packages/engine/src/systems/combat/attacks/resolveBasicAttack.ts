@@ -140,6 +140,8 @@ function resolveBasicAttackPart(input: ResolveBasicAttackPartInput): RngResult<A
 		defender,
 		dice: input.attackPart.attack.damage.dice,
 		damageType: input.attackPart.attack.damage.type,
+		damageClass: input.attackPart.attack.damage.damageClass,
+		attackRange: input.attackPart.attack.attackRange,
 		attribute: input.attackPart.damageAttribute,
 		critical: attackRoll.value.critical,
 	});

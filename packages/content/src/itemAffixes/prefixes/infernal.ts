@@ -20,6 +20,7 @@ export default buildItemAffix({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "fire",
+					damageClass: "magical",
 					dice: "1d6",
 					duration: { unit: "turns", value: 3 },
 				},

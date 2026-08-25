@@ -1,6 +1,7 @@
 import type { HeroView } from "@app/engine";
 import clsx from "clsx";
 import { damageTypeLabels } from "../../presentation/labels";
+import { formatDamageSelector } from "../../presentation/damage";
 import {
 	formatModifierValue,
 	getDamageTakenModifierTone,
@@ -68,14 +69,12 @@ export function DamageModifierTooltipContent({
 	modifierGroup: DamageModifierGroup;
 	kind: DamageModifierKind;
 }) {
-	const damageType = modifierGroup.damageType
-		? damageTypeLabels[modifierGroup.damageType]
-		: "All";
+	const damageSubject = formatDamageSelector(modifierGroup);
 
 	return (
 		<div className="grid gap-2">
 			<p className="break-words text-text-label">
-				{damageType} Damage {kind === "damageReduction" ? "Reduction" : "Bonus"}
+				{damageSubject} Damage {kind === "damageReduction" ? "Reduction" : "Bonus"}
 			</p>
 			<ul className="grid gap-1">
 				{modifierGroup.contributions.map(({ source, modifierValue }, index) => (

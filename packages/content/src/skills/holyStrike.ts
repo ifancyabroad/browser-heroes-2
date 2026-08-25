@@ -23,6 +23,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "radiant",
+							damageClass: "magical",
 							dice: "1d8",
 						},
 					],

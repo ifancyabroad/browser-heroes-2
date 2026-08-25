@@ -24,12 +24,14 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "cold",
+							damageClass: "magical",
 							dice: "2d8",
 						},
 						{
 							type: "damageOverTime",
 							target: "enemy",
 							damageType: "slashing",
+							damageClass: "physical",
 							dice: "2d4",
 							duration: { unit: "turns", value: 3 },
 							save: {

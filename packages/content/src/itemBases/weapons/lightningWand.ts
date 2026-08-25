@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",
-	range: "ranged",
+	attackRange: "ranged",
 	damage: {
 		dice: "1d4",
 		type: "lightning",
+		damageClass: "magical",
 		attribute: "intelligence",
 	},
 	iconPool: [

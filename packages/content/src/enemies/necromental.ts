@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["crushing", "radiant"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Claw",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",
 				type: "slashing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

@@ -7,6 +7,7 @@ describe("applyDamageModifiers", () => {
 			applyDamageModifiers({
 				baseAmount: 10,
 				damageType: "fire",
+				damageClass: "magical",
 				modifiers: [
 					{ operation: "add", value: 5 },
 					{ operation: "multiply", value: 2 },
@@ -20,6 +21,7 @@ describe("applyDamageModifiers", () => {
 			applyDamageModifiers({
 				baseAmount: 10,
 				damageType: "fire",
+				damageClass: "magical",
 				modifiers: [
 					{ operation: "add", value: 2 },
 					{ operation: "add", value: 3 },
@@ -35,6 +37,7 @@ describe("applyDamageModifiers", () => {
 			applyDamageModifiers({
 				baseAmount: 10,
 				damageType: "fire",
+				damageClass: "magical",
 				modifiers: [
 					{ operation: "add", value: 2 },
 					{ operation: "add", value: 100, damageType: "cold" },
@@ -42,5 +45,38 @@ describe("applyDamageModifiers", () => {
 				],
 			}),
 		).toBe(24);
+	});
+
+	it("requires every provided damage selector to match", () => {
+		expect(
+			applyDamageModifiers({
+				baseAmount: 10,
+				damageType: "slashing",
+				damageClass: "physical",
+				attackRange: "melee",
+				modifiers: [
+					{ operation: "add", value: 1, damageClass: "physical" },
+					{ operation: "add", value: 2, attackRange: "melee" },
+					{
+						operation: "add",
+						value: 4,
+						damageClass: "physical",
+						attackRange: "melee",
+					},
+					{
+						operation: "add",
+						value: 100,
+						damageClass: "magical",
+						attackRange: "melee",
+					},
+					{
+						operation: "add",
+						value: 100,
+						damageClass: "physical",
+						attackRange: "ranged",
+					},
+				],
+			}),
+		).toBe(17);
 	});
 });

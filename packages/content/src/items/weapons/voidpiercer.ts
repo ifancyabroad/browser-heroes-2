@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "dagger",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d4+4",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "dexterity",
 	},
 	modifiers: [
@@ -38,6 +39,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "necrotic",
+					damageClass: "magical",
 					dice: "1d10",
 					requiresAttackRoll: false,
 				},

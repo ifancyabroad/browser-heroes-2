@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["crushing", "radiant"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Bony Fist",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d4",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

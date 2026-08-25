@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
+			damageClass: "magical",
 			dice: "10d6",
 			requiresAttackRoll: false,
 			save: {
@@ -27,6 +28,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "fire",
+			damageClass: "magical",
 			dice: "1d6",
 			duration: { unit: "turns", value: 2 },
 			save: {

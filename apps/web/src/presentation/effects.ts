@@ -16,6 +16,7 @@ import {
 	modifiableStatFullLabels,
 	modifiableStatLabels,
 } from "./labels";
+import { formatDamageSubject } from "./damage";
 
 export type ModifierTone = "positive" | "negative" | "neutral";
 
@@ -47,9 +48,9 @@ export function formatModifier(modifier: ItemModifier | PassiveModifier) {
 		case "modifyHealing":
 			return `${formatModifierValue("multiply", modifier.multiplier)} healing`;
 		case "modifyDamage":
-			return `${formatModifierValue(modifier.operation, modifier.value)} to ${formatDamageSubject(modifier.damageType).toLowerCase()} dealt`;
+			return `${formatModifierValue(modifier.operation, modifier.value)} to ${formatDamageSubject(modifier).toLowerCase()} dealt`;
 		case "modifyDamageTaken":
-			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageTakenSubject(modifier.damageType)}`;
+			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageTakenSubject(modifier)}`;
 		case "modifyDamageAffinity":
 			return `${modifier.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[modifier.damageType]} ${damageAffinityLabels[modifier.affinity]}`;
 		default:
@@ -131,7 +132,7 @@ export function formatSkillEffect(effect: Effect): string {
 		case "modifyDamage":
 			return formatTemporaryModifier(
 				effect.target,
-				formatDamageSubject(effect.damageType, false),
+				formatDamageSubject(effect, "damage"),
 				effect.operation,
 				effect.value,
 				effect.duration,
@@ -140,7 +141,7 @@ export function formatSkillEffect(effect: Effect): string {
 		case "modifyDamageTaken":
 			return formatTemporaryModifier(
 				effect.target,
-				formatDamageTakenSubject(effect.damageType),
+				formatDamageTakenSubject(effect, "damage taken"),
 				effect.operation,
 				effect.value,
 				effect.duration,
@@ -196,7 +197,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "modifyDamage":
 			return formatTemporaryModifier(
 				effect.target,
-				formatDamageSubject(effect.damageType, false),
+				formatDamageSubject(effect, "damage"),
 				effect.operation,
 				effect.value,
 				effect.duration,
@@ -205,7 +206,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "modifyDamageTaken":
 			return formatTemporaryModifier(
 				effect.target,
-				formatDamageTakenSubject(effect.damageType),
+				formatDamageTakenSubject(effect, "damage taken"),
 				effect.operation,
 				effect.value,
 				effect.duration,
@@ -238,9 +239,9 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 		case "modifyHealing":
 			return `${formatModifierValue("multiply", effect.multiplier)} healing`;
 		case "modifyDamage":
-			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageSubject(effect.damageType)}`;
+			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageSubject(effect)}`;
 		case "modifyDamageTaken":
-			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageTakenSubject(effect.damageType, true)}`;
+			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageTakenSubject(effect, "All damage taken")}`;
 		case "modifyDamageAffinity":
 			return `${effect.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]}`;
 		case "modifyRoll":
@@ -496,23 +497,12 @@ function formatTargetObject(target: "self" | "enemy") {
 	return target === "self" ? "yourself" : "the enemy";
 }
 
-function formatDamageSubject(
-	damageType: keyof typeof damageTypeLabels | undefined,
-	capitalizeAll = true,
-) {
-	const typeLabel = damageType ? damageTypeLabels[damageType] : capitalizeAll ? "All" : "";
-	return typeLabel ? `${typeLabel} damage` : "damage";
-}
-
 function formatDamageTakenSubject(
-	damageType: keyof typeof damageTypeLabels | undefined,
-	capitalizeAll = false,
+	selector: Parameters<typeof formatDamageSubject>[0],
+	fallback = "damage taken",
 ) {
-	if (damageType) {
-		return `${damageTypeLabels[damageType]} damage taken`;
-	}
-
-	return capitalizeAll ? "All damage taken" : "damage taken";
+	const subject = formatDamageSubject(selector, "");
+	return subject ? `${subject} taken` : fallback;
 }
 
 function formatRemovedStatuses(effect: {

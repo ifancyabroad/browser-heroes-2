@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "warhammer",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d10+5",
 		type: "crushing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	modifiers: [

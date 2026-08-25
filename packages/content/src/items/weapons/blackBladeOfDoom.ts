@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "greatsword",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "2d6+4",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	modifiers: [
@@ -33,6 +34,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "fire",
+					damageClass: "magical",
 					dice: "2d6",
 					requiresAttackRoll: false,
 				},

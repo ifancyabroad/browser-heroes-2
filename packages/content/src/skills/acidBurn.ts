@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "acid",
+			damageClass: "other",
 			dice: "2d6",
 			requiresAttackRoll: false,
 			save: {
@@ -34,6 +35,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "acid",
+			damageClass: "other",
 			dice: "1d6",
 			duration: { unit: "turns", value: 3 },
 		},

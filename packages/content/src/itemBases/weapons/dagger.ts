@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "dagger",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d4",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "dexterity",
 	},
 	iconPool: [

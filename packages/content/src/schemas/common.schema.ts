@@ -30,6 +30,12 @@ export const damageTypes = [
 
 export const damageTypeSchema = z.enum(damageTypes);
 
+export const damageClasses = ["physical", "magical", "other"] as const;
+export const damageClassSchema = z.enum(damageClasses);
+
+export const attackRanges = ["melee", "ranged"] as const;
+export const attackRangeSchema = z.enum(attackRanges);
+
 export const damageAffinitiesSchema = z
 	.object({
 		resistances: z.array(damageTypeSchema).default([]),
@@ -211,6 +217,8 @@ export const tacticSchema = z.enum(tactics);
 
 export type EquipmentSlot = z.infer<typeof equipmentSlotSchema>;
 export type DamageType = z.infer<typeof damageTypeSchema>;
+export type DamageClass = z.infer<typeof damageClassSchema>;
+export type AttackRange = z.infer<typeof attackRangeSchema>;
 export type DamageAffinities = z.infer<typeof damageAffinitiesSchema>;
 export type Attribute = z.infer<typeof attributeSchema>;
 export type Equipment = z.infer<typeof equipmentSchema>;

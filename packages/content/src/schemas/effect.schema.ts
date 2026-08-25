@@ -1,6 +1,8 @@
 import { z } from "zod";
 import {
 	attributeSchema,
+	attackRangeSchema,
+	damageClassSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
 	skillTargetSchema,
@@ -51,6 +53,8 @@ export const damageEffectSchema = z
 		type: z.literal("damage"),
 		target: skillTargetSchema.default("enemy"),
 		damageType: damageTypeSchema,
+		damageClass: damageClassSchema,
+		attackRange: attackRangeSchema.optional(),
 		dice: diceFormulaSchema,
 		attribute: attributeSchema.optional(),
 		requiresAttackRoll: z.boolean().default(false),
@@ -116,6 +120,8 @@ export const modifyDamageEffectSchema = z.object({
 	type: z.literal("modifyDamage"),
 	target: skillTargetSchema.default("self"),
 	damageType: damageTypeSchema.optional(),
+	damageClass: damageClassSchema.optional(),
+	attackRange: attackRangeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 	duration: effectDurationSchema,
@@ -126,6 +132,8 @@ export const modifyDamageTakenEffectSchema = z.object({
 	type: z.literal("modifyDamageTaken"),
 	target: skillTargetSchema,
 	damageType: damageTypeSchema.optional(),
+	damageClass: damageClassSchema.optional(),
+	attackRange: attackRangeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 	duration: effectDurationSchema,
@@ -179,6 +187,7 @@ export const damageOverTimeEffectSchema = z.object({
 	type: z.literal("damageOverTime"),
 	target: skillTargetSchema,
 	damageType: damageTypeSchema,
+	damageClass: damageClassSchema,
 	dice: diceFormulaSchema,
 	duration: effectDurationSchema,
 	save: negatingSavingThrowSchema.optional(),
@@ -227,14 +236,25 @@ export const attackDamageEffectSchema = z
 		target: z.literal("enemy").default("enemy"),
 		multiplier: z.number().positive().default(1),
 		damageTypeOverride: damageTypeSchema.optional(),
+		damageClassOverride: damageClassSchema.optional(),
+		attackRangeOverride: attackRangeSchema.optional(),
 		extraDice: diceFormulaSchema.optional(),
 		extraDamageType: damageTypeSchema.optional(),
+		extraDamageClass: damageClassSchema.optional(),
 		rollMode: rollModeSchema.optional(),
 		attackRiders: z.array(attackRiderSchema).default([]),
 	})
 	.refine((effect) => effect.extraDamageType === undefined || effect.extraDice !== undefined, {
 		message: "extraDamageType requires extraDice",
 		path: ["extraDamageType"],
+	})
+	.refine((effect) => effect.extraDamageClass === undefined || effect.extraDice !== undefined, {
+		message: "extraDamageClass requires extraDice",
+		path: ["extraDamageClass"],
+	})
+	.refine((effect) => effect.extraDice === undefined || effect.extraDamageClass !== undefined, {
+		message: "extraDice requires extraDamageClass",
+		path: ["extraDamageClass"],
 	});
 
 export const effectSchema = z.discriminatedUnion("type", [

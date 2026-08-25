@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
+			damageClass: "magical",
 			dice: "2d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,

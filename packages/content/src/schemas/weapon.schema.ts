@@ -1,6 +1,8 @@
 import { z } from "zod";
 import {
 	attributeSchema,
+	attackRangeSchema,
+	damageClassSchema,
 	damageTypeSchema,
 	diceFormulaSchema,
 	weaponTypeSchema,
@@ -11,11 +13,10 @@ import { generatedItemRaritySchema, raritySchema } from "./rarity.schema";
 
 export const weaponHandednessSchema = z.enum(["oneHanded", "twoHanded"]);
 
-export const weaponRangeSchema = z.enum(["melee", "ranged"]);
-
 export const weaponDamageSchema = z.object({
 	dice: diceFormulaSchema,
 	type: damageTypeSchema,
+	damageClass: damageClassSchema,
 	attribute: attributeSchema,
 });
 
@@ -29,7 +30,7 @@ export const weaponSchema = z.object({
 	rarity: raritySchema.default("common"),
 	weaponType: weaponTypeSchema,
 	handedness: weaponHandednessSchema,
-	range: weaponRangeSchema,
+	attackRange: attackRangeSchema,
 	damage: weaponDamageSchema,
 	modifiers: z.array(itemModifierSchema).default([]),
 	attackRiders: z.array(attackRiderSchema).default([]),
@@ -52,7 +53,6 @@ export type LegendaryWeaponInput = z.input<typeof legendaryWeaponSchema>;
 export type GeneratedWeapon = z.infer<typeof generatedWeaponSchema>;
 
 export type WeaponHandedness = z.infer<typeof weaponHandednessSchema>;
-export type WeaponRange = z.infer<typeof weaponRangeSchema>;
 export type WeaponDamage = z.infer<typeof weaponDamageSchema>;
 export type Weapon = z.infer<typeof weaponSchema>;
 export type WeaponInput = z.input<typeof weaponSchema>;

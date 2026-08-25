@@ -16,6 +16,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "necrotic",
+			damageClass: "magical",
 			dice: "1d10",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
@@ -24,6 +25,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "necrotic",
+			damageClass: "magical",
 			dice: "1d6",
 			duration: { unit: "turns", value: 3 },
 			save: {

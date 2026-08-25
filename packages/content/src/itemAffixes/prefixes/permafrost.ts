@@ -10,7 +10,15 @@ export default buildItemAffix({
 	attackRiders: [
 		{
 			timing: "onHit",
-			effects: [{ type: "damage", target: "enemy", damageType: "cold", dice: "1d8" }],
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "cold",
+					damageClass: "magical",
+					dice: "1d8",
+				},
+			],
 		},
 	],
 });

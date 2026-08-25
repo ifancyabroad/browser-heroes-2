@@ -15,6 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
+			damageClass: "magical",
 			dice: "3d10",
 			requiresAttackRoll: false,
 			save: {
@@ -32,6 +33,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "crushing",
+			damageClass: "physical",
 			dice: "3d10",
 			requiresAttackRoll: false,
 			save: {

@@ -11,7 +11,13 @@ export default buildItemAffix({
 		{
 			timing: "onCrit",
 			effects: [
-				{ type: "damage", target: "enemy", damageType: "necrotic", dice: "2d6" },
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "necrotic",
+					damageClass: "magical",
+					dice: "2d6",
+				},
 				{ type: "heal", target: "self", dice: "1d6" },
 			],
 		},

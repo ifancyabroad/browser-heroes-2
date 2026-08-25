@@ -2,6 +2,8 @@ import {
 	armourSlotSchema,
 	attackRiderTimingSchema,
 	attributeSchema,
+	attackRangeSchema,
+	damageClassSchema,
 	automaticRollOutcomeSchema,
 	bodyArmourCategorySchema,
 	damageAffinityKindSchema,
@@ -22,7 +24,6 @@ import {
 	skillTargetSchema,
 	tacticSchema,
 	weaponHandednessSchema,
-	weaponRangeSchema,
 	weaponTypeSchema,
 } from "@app/content";
 import type { CategoryKey } from "../content/catalog";
@@ -38,6 +39,13 @@ export const optionsByField: Record<string, readonly string[]> = {
 	rank: enemyRankSchema.options,
 	tactic: tacticSchema.options,
 	damageType: damageTypeSchema.options,
+	damageTypeOverride: damageTypeSchema.options,
+	extraDamageType: damageTypeSchema.options,
+	damageClass: damageClassSchema.options,
+	damageClassOverride: damageClassSchema.options,
+	extraDamageClass: damageClassSchema.options,
+	attackRange: attackRangeSchema.options,
+	attackRangeOverride: attackRangeSchema.options,
 	attribute: attributeSchema.options,
 	timing: attackRiderTimingSchema.options,
 	operation: unique(damageModifierOperationSchema.options, damageAffinityOperationSchema.options),
@@ -48,7 +56,6 @@ export const optionsByField: Record<string, readonly string[]> = {
 	rollMode: rollModeSchema.options,
 	mode: [...rollModeSchema.options, ...automaticRollOutcomeSchema.options],
 	handedness: weaponHandednessSchema.options,
-	range: weaponRangeSchema.options,
 	slot: armourSlotSchema.options,
 };
 

@@ -1,5 +1,7 @@
 import type {
 	ClassId,
+	AttackRange,
+	DamageClass,
 	DamageType,
 	FeatId,
 	ItemId,
@@ -74,6 +76,8 @@ export type DerivedDamageModifierContribution = {
 
 export type DerivedDamageModifier = {
 	damageType?: DamageType;
+	damageClass?: DamageClass;
+	attackRange?: AttackRange;
 	operation: PassiveDamageModifier["operation"];
 	value: number;
 	contributions: DerivedDamageModifierContribution[];

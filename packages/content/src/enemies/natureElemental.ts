@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["fire"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Venomous Bite",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",
 				type: "piercing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 			attackRiders: [
@@ -38,6 +40,7 @@ export default buildEnemy({
 							type: "damage",
 							target: "enemy",
 							damageType: "poison",
+							damageClass: "other",
 							dice: "2d6",
 							save: {
 								attribute: "constitution",

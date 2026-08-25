@@ -1,10 +1,12 @@
 import { z } from "zod";
 import {
 	attributeSchema,
+	attackRangeSchema,
 	attributesSchema,
 	basicAttackSchema,
 	damageAffinitiesSchema,
 	damageTypeSchema,
+	damageClassSchema,
 	featIdSchema,
 	skillIdSchema,
 	damageAffinityKindSchema,
@@ -81,6 +83,8 @@ export const activeHealingModifierSchema = activeCombatEffectBaseSchema.extend({
 export const activeDamageModifierSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("modifyDamage"),
 	damageType: damageTypeSchema.optional(),
+	damageClass: damageClassSchema.optional(),
+	attackRange: attackRangeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 });
@@ -88,6 +92,8 @@ export const activeDamageModifierSchema = activeCombatEffectBaseSchema.extend({
 export const activeDamageTakenModifierSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("modifyDamageTaken"),
 	damageType: damageTypeSchema.optional(),
+	damageClass: damageClassSchema.optional(),
+	attackRange: attackRangeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 });
@@ -125,6 +131,7 @@ export const activeStatusEffectSchema = activeCombatEffectBaseSchema.extend({
 export const activeDamageOverTimeEffectSchema = activeCombatEffectBaseSchema.extend({
 	type: z.literal("damageOverTime"),
 	damageType: damageTypeSchema,
+	damageClass: damageClassSchema,
 	dice: diceFormulaSchema,
 });
 
@@ -162,6 +169,8 @@ export const combatantBasicAttackSchema = basicAttackSchema.extend({
 
 export const combatantDamageModifierSchema = z.object({
 	damageType: damageTypeSchema.optional(),
+	damageClass: damageClassSchema.optional(),
+	attackRange: attackRangeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 });

@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "longsword",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	iconPool: [

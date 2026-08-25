@@ -7,6 +7,8 @@ export function getEffectiveDamageModifiers(
 		.filter((effect): effect is ActiveDamageModifier => effect.type === "modifyDamage")
 		.map((effect) => ({
 			damageType: effect.damageType,
+			damageClass: effect.damageClass,
+			attackRange: effect.attackRange,
 			operation: effect.operation,
 			value: effect.value,
 		}));

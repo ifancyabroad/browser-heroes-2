@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "dagger",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d4+4",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "dexterity",
 	},
 	modifiers: [
@@ -41,6 +42,7 @@ export default buildWeapon({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "slashing",
+					damageClass: "physical",
 					dice: "2d4",
 					duration: { unit: "turns", value: 3 },
 				},

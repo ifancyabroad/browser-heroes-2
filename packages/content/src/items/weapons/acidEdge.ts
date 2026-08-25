@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "handaxe",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d6+4",
 		type: "slashing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	modifiers: [
@@ -42,6 +43,7 @@ export default buildWeapon({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "acid",
+					damageClass: "magical",
 					dice: "2d4",
 					duration: { unit: "turns", value: 3 },
 				},

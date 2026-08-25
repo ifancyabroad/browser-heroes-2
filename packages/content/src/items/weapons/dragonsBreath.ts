@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "wand",
 	handedness: "oneHanded",
-	range: "ranged",
+	attackRange: "ranged",
 	damage: {
 		dice: "1d4+4",
 		type: "fire",
+		damageClass: "magical",
 		attribute: "intelligence",
 	},
 	modifiers: [
@@ -38,6 +39,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "fire",
+					damageClass: "magical",
 					dice: "2d6",
 					requiresAttackRoll: false,
 				},

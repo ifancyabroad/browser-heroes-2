@@ -30,6 +30,7 @@ export default buildFeat({
 					type: "damage",
 					target: "enemy",
 					damageType: "crushing",
+					damageClass: "physical",
 					dice: "1d8",
 				},
 			],

@@ -38,7 +38,12 @@ function deriveDamageAdjustments(
 
 	for (const [order, resolvedModifier] of modifiers.entries()) {
 		const { modifier } = resolvedModifier;
-		const key = `${modifier.damageType ?? "all"}-${modifier.operation}`;
+		const key = [
+			modifier.damageType ?? "allTypes",
+			modifier.damageClass ?? "allClasses",
+			modifier.attackRange ?? "allRanges",
+			modifier.operation,
+		].join("-");
 
 		const orderedModifier = {
 			...resolvedModifier,
@@ -59,6 +64,8 @@ function deriveDamageAdjustments(
 
 		return {
 			damageType: modifier.damageType,
+			damageClass: modifier.damageClass,
+			attackRange: modifier.attackRange,
 			operation: modifier.operation,
 			value: combineModifierValues(
 				modifier.operation,
@@ -77,11 +84,13 @@ export function toCombatantDamageModifiers(
 	derivedModifiers: readonly DerivedDamageModifier[],
 ): CombatantDamageModifier[] {
 	return derivedModifiers
-		.flatMap(({ damageType, operation, contributions }) =>
+		.flatMap(({ damageType, damageClass, attackRange, operation, contributions }) =>
 			contributions.map(({ modifierValue, order }) => ({
 				order,
 				modifier: {
 					damageType,
+					damageClass,
+					attackRange,
 					operation,
 					value: modifierValue,
 				},

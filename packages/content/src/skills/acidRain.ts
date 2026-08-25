@@ -22,6 +22,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "acid",
+			damageClass: "magical",
 			dice: "2d6",
 			attribute: "intelligence",
 			requiresAttackRoll: false,

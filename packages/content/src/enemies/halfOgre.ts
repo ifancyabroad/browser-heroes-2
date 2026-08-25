@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Fine Greatclub",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+1",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

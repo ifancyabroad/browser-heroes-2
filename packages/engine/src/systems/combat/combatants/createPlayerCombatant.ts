@@ -48,6 +48,7 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 function createWeaponBasicAttack(hero: HeroState, weapon: Weapon): CombatantBasicAttack {
 	return {
 		name: weapon.name,
+		attackRange: weapon.attackRange,
 		attackAttribute: weapon.damage.attribute,
 		proficient: isHeroWeaponProficient(hero, weapon),
 		damage: weapon.damage,

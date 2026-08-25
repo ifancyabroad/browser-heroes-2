@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "spear",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	iconPool: [

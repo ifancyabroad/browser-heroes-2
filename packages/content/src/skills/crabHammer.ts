@@ -23,6 +23,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "cold",
+							damageClass: "magical",
 							dice: "2d10",
 						},
 						{

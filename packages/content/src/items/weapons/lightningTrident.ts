@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "spear",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8+4",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	modifiers: [
@@ -38,6 +39,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "lightning",
+					damageClass: "magical",
 					dice: "2d8",
 					requiresAttackRoll: false,
 				},

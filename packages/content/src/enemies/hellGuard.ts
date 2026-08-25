@@ -32,11 +32,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "ranged",
 			name: "Masterwork Crossbow",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8+4",
 				type: "piercing",
+				damageClass: "physical",
 				attribute: "dexterity",
 			},
 		},

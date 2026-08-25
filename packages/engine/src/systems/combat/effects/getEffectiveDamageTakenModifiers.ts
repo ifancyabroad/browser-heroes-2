@@ -9,6 +9,8 @@ export function getEffectiveDamageTakenModifiers(
 		)
 		.map((effect) => ({
 			damageType: effect.damageType,
+			damageClass: effect.damageClass,
+			attackRange: effect.attackRange,
 			operation: effect.operation,
 			value: effect.value,
 		}));

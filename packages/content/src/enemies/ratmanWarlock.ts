@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Necrotic Staff",
 			attackAttribute: "intelligence",
 			damage: {
 				dice: "1d8+1",
 				type: "necrotic",
+				damageClass: "magical",
 				attribute: "intelligence",
 			},
 		},

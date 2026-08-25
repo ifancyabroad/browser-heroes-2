@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "hammer",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d4+4",
 		type: "crushing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	modifiers: [
@@ -33,6 +34,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "fire",
+					damageClass: "magical",
 					dice: "1d8",
 					requiresAttackRoll: false,
 				},

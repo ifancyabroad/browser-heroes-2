@@ -30,6 +30,7 @@ export default buildFeat({
 					type: "damage",
 					target: "enemy",
 					damageType: "piercing",
+					damageClass: "physical",
 					dice: "1d6",
 				},
 			],

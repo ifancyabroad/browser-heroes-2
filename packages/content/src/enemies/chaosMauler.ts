@@ -32,11 +32,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Masterwork Warhammer",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d10+4",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

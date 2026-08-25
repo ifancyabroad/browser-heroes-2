@@ -16,6 +16,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "lightning",
+			damageClass: "magical",
 			dice: "3d8",
 			attribute: "wisdom",
 			requiresAttackRoll: false,
@@ -29,6 +30,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "lightning",
+			damageClass: "magical",
 			dice: "1d8",
 			duration: { unit: "turns", value: 3 },
 			save: {

@@ -36,6 +36,7 @@ export function resolveDamageOverTimeEffects(
 			defender: target,
 			dice: effect.dice,
 			damageType: effect.damageType,
+			damageClass: effect.damageClass,
 		});
 
 		rngState = damage.rngState;

@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "club",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d4",
 		type: "crushing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	iconPool: [

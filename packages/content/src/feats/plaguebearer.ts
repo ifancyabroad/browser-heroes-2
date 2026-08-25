@@ -28,6 +28,7 @@ export default buildFeat({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "poison",
+					damageClass: "magical",
 					dice: "2d4",
 					duration: { unit: "turns", value: 2 },
 				},

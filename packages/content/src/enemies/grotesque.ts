@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["radiant"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Superior Greatsword",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6+2",
 				type: "slashing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

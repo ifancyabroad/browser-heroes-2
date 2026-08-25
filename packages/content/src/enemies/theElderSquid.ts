@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Tentacle",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",
 				type: "crushing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},

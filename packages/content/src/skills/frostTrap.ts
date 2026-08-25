@@ -16,6 +16,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "piercing",
+			damageClass: "physical",
 			dice: "2d8",
 			requiresAttackRoll: false,
 			save: {
@@ -28,6 +29,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "cold",
+			damageClass: "other",
 			dice: "2d8",
 			requiresAttackRoll: false,
 			save: {

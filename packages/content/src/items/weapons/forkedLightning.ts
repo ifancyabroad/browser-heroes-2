@@ -11,10 +11,11 @@ export default buildWeapon({
 	type: "weapon",
 	weaponType: "staff",
 	handedness: "twoHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8+4",
 		type: "lightning",
+		damageClass: "magical",
 		attribute: "intelligence",
 	},
 	modifiers: [
@@ -39,6 +40,7 @@ export default buildWeapon({
 					type: "damage",
 					target: "enemy",
 					damageType: "lightning",
+					damageClass: "magical",
 					dice: "4d6",
 				},
 			],

@@ -30,6 +30,7 @@ export default buildFeat({
 					type: "damageOverTime",
 					target: "enemy",
 					damageType: "necrotic",
+					damageClass: "magical",
 					dice: "2d4",
 					duration: {
 						unit: "turns",

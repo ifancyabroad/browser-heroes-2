@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Lightning Staff",
 			attackAttribute: "intelligence",
 			damage: {
 				dice: "1d8",
 				type: "lightning",
+				damageClass: "magical",
 				attribute: "intelligence",
 			},
 		},

@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { attributes, damageTypeSchema } from "./common.schema";
+import {
+	attackRangeSchema,
+	attributes,
+	damageClassSchema,
+	damageTypeSchema,
+} from "./common.schema";
 
 export const combatStats = [
 	"armourClass",
@@ -37,6 +42,8 @@ export const damageModifierOperationSchema = z.enum(["add", "multiply"]);
 export const passiveDamageModifierSchema = z.object({
 	type: z.literal("modifyDamage"),
 	damageType: damageTypeSchema.optional(),
+	damageClass: damageClassSchema.optional(),
+	attackRange: attackRangeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 });
@@ -44,6 +51,8 @@ export const passiveDamageModifierSchema = z.object({
 export const passiveDamageTakenModifierSchema = z.object({
 	type: z.literal("modifyDamageTaken"),
 	damageType: damageTypeSchema.optional(),
+	damageClass: damageClassSchema.optional(),
+	attackRange: attackRangeSchema.optional(),
 	operation: damageModifierOperationSchema,
 	value: z.number(),
 });

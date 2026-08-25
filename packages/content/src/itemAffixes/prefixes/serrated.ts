@@ -10,7 +10,15 @@ export default buildItemAffix({
 	attackRiders: [
 		{
 			timing: "onHit",
-			effects: [{ type: "damage", target: "enemy", damageType: "slashing", dice: "1d6" }],
+			effects: [
+				{
+					type: "damage",
+					target: "enemy",
+					damageType: "slashing",
+					damageClass: "physical",
+					dice: "1d6",
+				},
+			],
 		},
 	],
 });

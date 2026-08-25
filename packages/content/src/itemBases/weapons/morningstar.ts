@@ -7,10 +7,11 @@ export default buildItemBase({
 	type: "weapon",
 	weaponType: "morningstar",
 	handedness: "oneHanded",
-	range: "melee",
+	attackRange: "melee",
 	damage: {
 		dice: "1d8",
 		type: "piercing",
+		damageClass: "physical",
 		attribute: "strength",
 	},
 	iconPool: ["items/weapons/clubs/Club_v2_07.png", "items/weapons/clubs/Club_v2_12.png"],

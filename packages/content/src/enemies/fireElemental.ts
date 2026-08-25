@@ -23,11 +23,13 @@ export default buildEnemy({
 			vulnerabilities: ["cold"],
 		},
 		basicAttack: {
+			attackRange: "melee",
 			name: "Burning Touch",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "2d6",
 				type: "fire",
+				damageClass: "magical",
 				attribute: "dexterity",
 			},
 		},

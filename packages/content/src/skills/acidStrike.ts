@@ -23,6 +23,7 @@ export default buildSkill({
 							type: "damage",
 							target: "enemy",
 							damageType: "acid",
+							damageClass: "magical",
 							dice: "2d4",
 						},
 					],

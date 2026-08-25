@@ -18,6 +18,7 @@ export default buildItemAffix({
 					type: "damage",
 					target: "enemy",
 					damageType: "acid",
+					damageClass: "magical",
 					dice: "1d4",
 				},
 			],

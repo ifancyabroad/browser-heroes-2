@@ -120,6 +120,7 @@ function createActiveRecurringEffect(input: {
 				...base,
 				type: "damageOverTime",
 				damageType: input.effect.damageType,
+				damageClass: input.effect.damageClass,
 				dice: input.effect.dice,
 			};
 

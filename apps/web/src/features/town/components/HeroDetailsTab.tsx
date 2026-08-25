@@ -22,6 +22,7 @@ import {
 	weaponTypeLabels,
 } from "../../../presentation/labels";
 import { formatModifierValue } from "../../../presentation/effects";
+import { formatDamageSelector } from "../../../presentation/damage";
 import {
 	getArmourClassStatPresentation,
 	getStatPresentation,
@@ -293,19 +294,14 @@ function DamageModifierList({
 			<p className="py-0.5 text-text-label">{label}</p>
 			<ul className="flex flex-wrap gap-1">
 				{modifiers.map((modifierGroup) => {
-					const damageTypeLabel = modifierGroup.damageType
-						? damageTypeLabels[modifierGroup.damageType]
-						: "All";
+					const damageTypeLabel = formatDamageSelector(modifierGroup);
 					const badgeLabel = `${formatModifierValue(
 						modifierGroup.operation,
 						modifierGroup.value,
 					)} ${damageTypeLabel}`;
 
 					return (
-						<li
-							key={`${modifierGroup.damageType ?? "all"}-${modifierGroup.operation}`}
-							className="flex"
-						>
+						<li key={`${damageTypeLabel}-${modifierGroup.operation}`} className="flex">
 							<Tooltip
 								content={
 									<DamageModifierTooltipContent
