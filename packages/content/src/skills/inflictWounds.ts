@@ -17,6 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "necrotic",
 			damageClass: "magical",
+			attackRange: "melee",
 			dice: "1d10",
 			attribute: "wisdom",
 			requiresAttackRoll: false,

@@ -17,6 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "necrotic",
 			damageClass: "magical",
+			attackRange: "melee",
 			dice: "3d8",
 			requiresAttackRoll: false,
 			save: {

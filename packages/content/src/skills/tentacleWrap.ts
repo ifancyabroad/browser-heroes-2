@@ -17,6 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "crushing",
 			damageClass: "physical",
+			attackRange: "melee",
 			dice: "2d8",
 			requiresAttackRoll: false,
 			save: {
