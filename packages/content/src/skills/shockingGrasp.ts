@@ -1,9 +1,9 @@
 import { buildSkill } from "../builders/buildSkill";
 
 export default buildSkill({
-	id: "sparks",
-	name: "Sparks",
-	description: "Snap a precise arc of lightning from your fingertips.",
+	id: "shocking_grasp",
+	name: "Shocking Grasp",
+	description: "Seize the enemy and discharge lightning through your grasp.",
 	icon: "skills/wizard/sparks.png",
 	pool: "wizard",
 	kind: "spellAttack",
@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "lightning",
 			damageClass: "magical",
-			attackRange: "ranged",
+			attackRange: "melee",
 			dice: "1d10",
 			attribute: "intelligence",
 			requiresAttackRoll: true,

@@ -92,7 +92,7 @@ describe("enemy skill usefulness", () => {
 
 	it("excludes pure damage when the target is immune", () => {
 		const { enemy, player } = createCombatants();
-		const caster = withSkills(enemy, [{ skillId: "sparks", chargesRemaining: 12 }]);
+		const caster = withSkills(enemy, [{ skillId: "shocking_grasp", chargesRemaining: 12 }]);
 		const immunePlayer = {
 			...player,
 			combatStats: {
@@ -128,7 +128,7 @@ describe("enemy skill usefulness", () => {
 
 	it("makes caster tactics favor useful skills more strongly than the default tactic", () => {
 		const { enemy, player } = createCombatants();
-		const caster = withSkills(enemy, [{ skillId: "sparks", chargesRemaining: 12 }]);
+		const caster = withSkills(enemy, [{ skillId: "shocking_grasp", chargesRemaining: 12 }]);
 		let casterSkillSelections = 0;
 		let defaultSkillSelections = 0;
 

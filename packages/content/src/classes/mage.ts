@@ -18,7 +18,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d8",
-		skillIds: ["sparks"],
+		skillIds: ["shocking_grasp"],
 		featIds: [],
 		tactic: "caster",
 	},

@@ -6,7 +6,7 @@ import { createTestRunState } from "../../../test/createTestRunState";
 import { getEnemyActionWeight, type EnemyAction } from "./enemyTactics";
 
 const BASIC_ATTACK: EnemyAction = { type: "basicAttack" };
-const OFFENSIVE_SKILL: EnemyAction = { type: "skill", skillId: "sparks" };
+const OFFENSIVE_SKILL: EnemyAction = { type: "skill", skillId: "shocking_grasp" };
 const HEALING_SKILL: EnemyAction = { type: "skill", skillId: "regeneration" };
 const DEFENSIVE_SKILL: EnemyAction = { type: "skill", skillId: "shield_wall" };
 
