@@ -6,10 +6,7 @@ import { isEnemyEligibleForEncounter } from "../eligibility/isEnemyEligibleForEn
 
 export function getEncounterCandidates(
 	zone: Zone,
-	battleNumber: number,
 	encounterType: CombatState["encounterType"],
 ): readonly Enemy[] {
-	return enemies.filter((enemy) =>
-		isEnemyEligibleForEncounter(enemy, zone, battleNumber, encounterType),
-	);
+	return enemies.filter((enemy) => isEnemyEligibleForEncounter(enemy, zone, encounterType));
 }

@@ -29,23 +29,10 @@ export const enemyCombatSchema = z.object({
 	tactic: tacticSchema.default("default"),
 });
 
-export const enemyEncounterSchema = z
-	.object({
-		zone: zoneSchema,
-		minBattle: z.number().int().positive().optional(),
-		maxBattle: z.number().int().positive().optional(),
-		weight: z.number().positive().default(1),
-	})
-	.refine(
-		(encounter) =>
-			encounter.minBattle === undefined ||
-			encounter.maxBattle === undefined ||
-			encounter.maxBattle >= encounter.minBattle,
-		{
-			message: "maxBattle must be greater than or equal to minBattle",
-			path: ["maxBattle"],
-		},
-	);
+export const enemyEncounterSchema = z.object({
+	zone: zoneSchema,
+	weight: z.number().positive().default(1),
+});
 
 export const enemySchema = z.object({
 	id: z.string().nonempty(),

@@ -410,9 +410,6 @@ function optionalEntries(
 			candidates.push(["startingEquipment", {}]);
 		}
 	}
-	if (path.endsWith("encounter")) {
-		candidates.push(["minBattle", 1], ["maxBattle", 1]);
-	}
 	if (path.endsWith("startingEquipment")) {
 		for (const slot of [
 			"head",

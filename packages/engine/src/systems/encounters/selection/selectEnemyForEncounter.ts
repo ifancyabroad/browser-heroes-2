@@ -4,7 +4,6 @@ import type { RngResult, RngState } from "../../../core/rng";
 
 import { getEncounterTypeForBattle } from "../getEncounterTypeForBattle";
 import { getZoneForRun } from "../zones/getZoneForRun";
-import { getBattleNumberInEndlessCycle } from "../../endless/endlessProgression";
 import { getEncounterCandidates } from "./getEncounterCandidates";
 import { selectWeightedEnemy } from "./selectWeightedEnemy";
 
@@ -19,11 +18,7 @@ export function selectEnemyForEncounter(
 ): RngResult<Enemy> | null {
 	const zone = getZoneForRun(input.zoneNumber);
 	const encounterType = getEncounterTypeForBattle(input.battleNumber);
-	const candidates = getEncounterCandidates(
-		zone,
-		getBattleNumberInEndlessCycle(input.battleNumber),
-		encounterType,
-	);
+	const candidates = getEncounterCandidates(zone, encounterType);
 
 	return selectWeightedEnemy(input.rngState, candidates);
 }
