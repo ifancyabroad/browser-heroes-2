@@ -6,7 +6,7 @@ export default buildSkill({
 	description: "Exhale a torrent of flame that scorches and may ignite the enemy.",
 	icon: "skills/common/fire_breath.png",
 	pool: "common",
-	kind: "spell",
+	kind: "technique",
 	category: "damage",
 	rarity: "epic",
 	maxUses: 2,
@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
-			damageClass: "magical",
+			damageClass: "other",
 			dice: "10d6",
 			requiresAttackRoll: false,
 			save: {
@@ -28,7 +28,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "fire",
-			damageClass: "magical",
+			damageClass: "other",
 			dice: "1d6",
 			duration: { unit: "turns", value: 2 },
 			save: {

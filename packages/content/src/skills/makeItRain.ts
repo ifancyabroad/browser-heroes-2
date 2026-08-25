@@ -7,7 +7,7 @@ export default buildSkill({
 		"Rain burning ammunition over the enemy, causing an explosion followed by lingering fire.",
 	icon: "skills/unique/make_it_rain.png",
 	pool: "unique",
-	kind: "spell",
+	kind: "technique",
 	category: "damage",
 	rarity: "rare",
 	maxUses: 2,
@@ -16,7 +16,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "fire",
-			damageClass: "magical",
+			damageClass: "other",
 			dice: "6d6",
 			requiresAttackRoll: false,
 			save: {
@@ -29,7 +29,7 @@ export default buildSkill({
 			type: "damageOverTime",
 			target: "enemy",
 			damageType: "fire",
-			damageClass: "magical",
+			damageClass: "other",
 			dice: "2d6",
 			duration: { unit: "turns", value: 2 },
 			save: {

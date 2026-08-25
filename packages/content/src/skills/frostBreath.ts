@@ -6,7 +6,7 @@ export default buildSkill({
 	description: "Exhale killing frost that damages and may numb the enemy's attacks.",
 	icon: "skills/common/frost_breath.png",
 	pool: "common",
-	kind: "spell",
+	kind: "technique",
 	category: "damage",
 	rarity: "epic",
 	maxUses: 2,
@@ -15,7 +15,7 @@ export default buildSkill({
 			type: "damage",
 			target: "enemy",
 			damageType: "cold",
-			damageClass: "magical",
+			damageClass: "other",
 			dice: "10d6",
 			requiresAttackRoll: false,
 			save: {
