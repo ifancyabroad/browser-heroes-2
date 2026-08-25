@@ -64,8 +64,8 @@ export function DeathScreen({ run }: DeathScreenProps) {
 							{summary.hero.name.toUpperCase()} WAS SLAIN
 						</h1>
 						<p className="max-w-xl text-text-muted">
-							The dungeon falls quiet. {summary.hero.name}'s wounds are too deep, and
-							their story ends in the dark.
+							The battlefield falls quiet. {summary.hero.name}'s wounds are too deep,
+							and their journey ends here.
 						</p>
 					</header>
 

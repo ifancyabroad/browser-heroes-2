@@ -39,7 +39,7 @@ export function ShareRunButton({ title, text }: ShareRunButtonProps) {
 	return (
 		<div className="grid justify-items-center gap-2">
 			<p className="max-w-xl text-center text-text">
-				Challenge another hero to brave the dungeon. Can they do better?
+				Challenge another hero to brave the adventure. Can they do better?
 			</p>
 			<Button className="gap-2" type="button" variant="secondary" onClick={shareResult}>
 				<Icon className="h-5 w-5" aria-hidden="true" />

@@ -50,7 +50,7 @@ describe("CombatActionBar", () => {
 
 		fireEvent.click(screen.getByRole("button", { name: "Basic attack: Longsword" }));
 		fireEvent.click(screen.getByRole("button", { name: "Skip turn" }));
-		fireEvent.click(screen.getByRole("button", { name: "Use health potion" }));
+		fireEvent.click(screen.getByRole("button", { name: "Use healing potion" }));
 
 		expect(props.onBasicAttack).toHaveBeenCalledOnce();
 		expect(props.onSkipTurn).toHaveBeenCalledOnce();
@@ -61,7 +61,7 @@ describe("CombatActionBar", () => {
 		expect(screen.queryByRole("button", { name: "Return to town" })).not.toBeInTheDocument();
 
 		const buttons = screen.getAllByRole("button");
-		expect(buttons.at(-2)).toHaveAccessibleName("Use health potion");
+		expect(buttons.at(-2)).toHaveAccessibleName("Use healing potion");
 		expect(buttons.at(-1)).toHaveAccessibleName("Skip turn");
 	});
 
@@ -75,7 +75,7 @@ describe("CombatActionBar", () => {
 
 		fireEvent.click(screen.getByRole("button", { name: "Basic attack: Longsword" }));
 		fireEvent.click(screen.getByRole("button", { name: "Skip turn" }));
-		fireEvent.click(screen.getByRole("button", { name: "Use health potion" }));
+		fireEvent.click(screen.getByRole("button", { name: "Use healing potion" }));
 
 		expect(props.onBasicAttack).not.toHaveBeenCalled();
 		expect(props.onSkipTurn).not.toHaveBeenCalled();
@@ -121,7 +121,7 @@ describe("CombatActionBar", () => {
 	it("renders potion inventory accessibly", () => {
 		render(<CombatActionBar {...createProps({ healingPotions: 1, maxHealingPotions: 4 })} />);
 
-		expect(screen.getByRole("button", { name: "Use health potion" })).toHaveTextContent("1/4");
+		expect(screen.getByRole("button", { name: "Use healing potion" })).toHaveTextContent("1/4");
 	});
 
 	it("forwards available skill ids", () => {

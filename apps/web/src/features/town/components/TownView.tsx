@@ -135,7 +135,7 @@ export function TownView({ run }: TownViewProps) {
 				type: "BUY_CONSUMABLE",
 				consumableType: "healingPotion",
 			},
-			"Unable to buy a health potion. Please try again.",
+			"Unable to buy a healing potion. Please try again.",
 		);
 	}
 
@@ -144,7 +144,7 @@ export function TownView({ run }: TownViewProps) {
 			{
 				type: "ENTER_COMBAT",
 			},
-			"Unable to enter combat. Please try again.",
+			"Unable to enter the battle. Please try again.",
 		);
 	}
 

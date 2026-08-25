@@ -153,7 +153,7 @@ function CombatSlots({
 				/>
 			))}
 			<ActionSlotButton
-				ariaLabel="Use health potion"
+				ariaLabel="Use healing potion"
 				available={canUseHealingPotion}
 				icon={healingPotionIcon}
 				label={`${healingPotions}/${maxHealingPotions}`}
@@ -161,7 +161,7 @@ function CombatSlots({
 				loading={isPending}
 				tooltip={
 					<ActionTooltipContent
-						title="Use health potion"
+						title="Use healing potion"
 						detail={getPotionTooltipDetail({
 							isPending,
 							available: canUseHealingPotion,
@@ -347,7 +347,7 @@ function getPotionTooltipDetail({
 		return ACTION_PENDING_DETAIL;
 	}
 	if (healingPotions <= 0) {
-		return "No health potions remaining.";
+		return "No healing potions remaining.";
 	}
 	if (currentHp >= maxHp) {
 		return "Already at full health.";

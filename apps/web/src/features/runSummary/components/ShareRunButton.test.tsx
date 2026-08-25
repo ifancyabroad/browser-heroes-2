@@ -13,7 +13,7 @@ describe("ShareRunButton", () => {
 
 		render(<ShareRunButton title="A final stand" text="Hero reached battle 20." />);
 		expect(
-			screen.getByText("Challenge another hero to brave the dungeon. Can they do better?"),
+			screen.getByText("Challenge another hero to brave the adventure. Can they do better?"),
 		).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "Share Result" }));
 

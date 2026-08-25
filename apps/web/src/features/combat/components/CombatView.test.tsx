@@ -188,6 +188,6 @@ describe("CombatView", () => {
 
 		callbacks.onError();
 
-		expect(showError).toHaveBeenCalledWith("Unable to use a health potion. Please try again.");
+		expect(showError).toHaveBeenCalledWith("Unable to use a healing potion. Please try again.");
 	});
 });

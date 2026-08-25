@@ -46,7 +46,7 @@ describe("TownActionBar", () => {
 		expect(screen.getByRole("button", { name: "Rest for 10 gold" })).toHaveTextContent("10g");
 		expect(
 			screen.getByRole("button", {
-				name: "Buy health potion for 8 gold. 1 of 3 carried",
+				name: "Buy healing potion for 8 gold. 1 of 3 carried",
 			}),
 		).toHaveTextContent("1/3");
 	});
@@ -58,11 +58,11 @@ describe("TownActionBar", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Reroll shop for 5 gold" }));
 		fireEvent.click(
 			screen.getByRole("button", {
-				name: "Buy health potion for 8 gold. 1 of 3 carried",
+				name: "Buy healing potion for 8 gold. 1 of 3 carried",
 			}),
 		);
 		fireEvent.click(screen.getByRole("button", { name: "Rest for 10 gold" }));
-		fireEvent.click(screen.getByRole("button", { name: "Enter combat" }));
+		fireEvent.click(screen.getByRole("button", { name: "Enter battle" }));
 
 		expect(props.onReroll).toHaveBeenCalledOnce();
 		expect(props.onBuyHealingPotion).toHaveBeenCalledOnce();

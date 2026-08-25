@@ -88,7 +88,7 @@ export function TownActionBar({
 						onClick={onReroll}
 					/>
 					<ActionSlotButton
-						ariaLabel={`Buy health potion for ${healingPotionCost} gold. ${healingPotions} of ${maxHealingPotions} carried`}
+						ariaLabel={`Buy healing potion for ${healingPotionCost} gold. ${healingPotions} of ${maxHealingPotions} carried`}
 						available={canBuyHealingPotion}
 						icon={healingPotionIcon}
 						label={`${healingPotionCost}g`}
@@ -96,7 +96,7 @@ export function TownActionBar({
 						loading={isPending}
 						tooltip={
 							<ActionTooltipContent
-								title="Buy health potion"
+								title="Buy healing potion"
 								detail={getPotionTooltipDetail({
 									isPending,
 									canAffordHealingPotion,
@@ -130,13 +130,13 @@ export function TownActionBar({
 						onClick={onRest}
 					/>
 					<ActionSlotButton
-						ariaLabel="Enter combat"
+						ariaLabel="Enter battle"
 						available={canEnterCombat}
 						icon={enterCombatIcon}
 						loading={isPending}
 						tooltip={
 							<ActionTooltipContent
-								title="Enter combat"
+								title="Enter battle"
 								detail={
 									isPending ? ACTION_PENDING_DETAIL : "Begin the next battle."
 								}
@@ -190,7 +190,7 @@ function getPotionTooltipDetail({
 	if (!canAffordHealingPotion) {
 		return `Requires ${healingPotionCost} gold.`;
 	}
-	return `Add one health potion for ${healingPotionCost} gold.`;
+	return `Add one healing potion for ${healingPotionCost} gold.`;
 }
 
 function getRestTooltipDetail({

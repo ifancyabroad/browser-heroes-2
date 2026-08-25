@@ -64,7 +64,7 @@ export function RewardModal({
 			}
 		>
 			<div className="grid gap-4 text-base">
-				<p className="text-text-bright">Select one reward from the battle.</p>
+				<p className="text-text-bright">Choose one reward for defeating the boss.</p>
 				<RewardOptionList
 					options={rewardChoice.options}
 					selection={selection}

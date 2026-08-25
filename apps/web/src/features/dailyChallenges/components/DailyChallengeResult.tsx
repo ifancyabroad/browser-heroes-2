@@ -46,8 +46,8 @@ function getResultCopy({ isPending, rank, outcome }: ResultCopyInput) {
 			beforeRank: "You currently rank ",
 			afterRank:
 				outcome === "retired"
-					? ". A triumphant challenge run."
-					: ". A worthy attempt in the dungeon.",
+					? ". A triumphant victory."
+					: ". A worthy attempt at today's challenge.",
 		};
 	}
 

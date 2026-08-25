@@ -58,7 +58,7 @@ export function HeroHistoryPanel(props: CommonPanelProps) {
 					message={
 						search || classId !== "all"
 							? "No heroes match these filters."
-							: "No completed heroes yet."
+							: "No completed runs yet."
 					}
 				/>
 			) : (

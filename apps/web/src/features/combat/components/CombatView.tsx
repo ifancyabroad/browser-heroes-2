@@ -95,7 +95,7 @@ export function CombatView({ run }: CombatViewProps) {
 			{
 				type: "CONTINUE_TO_NEXT_COMBAT",
 			},
-			"Unable to continue to the next combat. Please try again.",
+			"Unable to continue to the next battle. Please try again.",
 		);
 	}
 
@@ -124,7 +124,7 @@ export function CombatView({ run }: CombatViewProps) {
 				type: "PLAYER_USE_CONSUMABLE",
 				consumableType: "healingPotion",
 			},
-			"Unable to use a health potion. Please try again.",
+			"Unable to use a healing potion. Please try again.",
 		);
 	}
 

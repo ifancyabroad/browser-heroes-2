@@ -20,7 +20,7 @@ export default function Progress() {
 					<h1 className="text-primary">PROGRESS</h1>
 					<p className="max-w-3xl text-text">
 						Complete achievements across your heroes and leave a lasting mark on the
-						dungeon.
+						world.
 					</p>
 				</header>
 
