@@ -307,6 +307,62 @@ describe("getEligibleItemAffixes", () => {
 		expect(getAffixIds(ITEMBASES_BY_ID.base_spear, "epic", "prefix")).toContain("transfixing");
 	});
 
+	it("matches class and range suffixes to weapons while allowing them on armour", () => {
+		const longswordAffixes = getAffixIds(ITEMBASES_BY_ID.base_longsword, "rare", "suffix");
+		expect(longswordAffixes).toEqual(expect.arrayContaining(["of_prowess", "of_the_duelist"]));
+		expect(longswordAffixes).not.toEqual(
+			expect.arrayContaining(["of_sorcery", "of_marksmanship"]),
+		);
+
+		const wandAffixes = getAffixIds(ITEMBASES_BY_ID.base_fire_wand, "rare", "suffix");
+		expect(wandAffixes).toEqual(expect.arrayContaining(["of_sorcery", "of_marksmanship"]));
+		expect(wandAffixes).not.toEqual(expect.arrayContaining(["of_prowess", "of_the_duelist"]));
+
+		const staffAffixes = getAffixIds(ITEMBASES_BY_ID.base_fire_staff, "rare", "suffix");
+		expect(staffAffixes).toEqual(expect.arrayContaining(["of_sorcery", "of_the_duelist"]));
+		expect(staffAffixes).not.toEqual(expect.arrayContaining(["of_prowess", "of_marksmanship"]));
+
+		const armourAffixes = getAffixIds(ITEMBASES_BY_ID.base_robe, "rare", "suffix");
+		expect(armourAffixes).toEqual(
+			expect.arrayContaining([
+				"of_prowess",
+				"of_sorcery",
+				"of_the_duelist",
+				"of_marksmanship",
+			]),
+		);
+	});
+
+	it("provides rare and epic class and range suffixes", () => {
+		const progressions = [
+			["of_prowess", "of_martial_supremacy", "damageClass", "physical"],
+			["of_sorcery", "of_arcane_supremacy", "damageClass", "magical"],
+			["of_the_duelist", "of_the_vanguard", "attackRange", "melee"],
+			["of_marksmanship", "of_the_deadeye", "attackRange", "ranged"],
+		] as const;
+
+		for (const [rareId, epicId, selectorKey, selector] of progressions) {
+			expect(ITEMAFFIXES_BY_ID[rareId]).toMatchObject({
+				position: "suffix",
+				rarity: "rare",
+				weight: 0.5,
+			});
+			expect(ITEMAFFIXES_BY_ID[rareId].modifiers[0]).toMatchObject({
+				[selectorKey]: selector,
+				value: 2,
+			});
+			expect(ITEMAFFIXES_BY_ID[epicId]).toMatchObject({
+				position: "suffix",
+				rarity: "epic",
+				weight: 0.5,
+			});
+			expect(ITEMAFFIXES_BY_ID[epicId].modifiers[0]).toMatchObject({
+				[selectorKey]: selector,
+				value: 4,
+			});
+		}
+	});
+
 	it("combines weapon family and damage type restrictions", () => {
 		const morningstarAffixes = getAffixIds(
 			ITEMBASES_BY_ID.base_morningstar,
