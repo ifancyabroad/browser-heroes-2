@@ -28,7 +28,7 @@ describe("DailyChallengeResult", () => {
 		renderResult();
 
 		expect(screen.getByRole("region", { name: "DAILY CHALLENGE COMPLETE" })).toHaveTextContent(
-			"You currently rank #12. A worthy attempt in the dungeon.",
+			"#12",
 		);
 		expect(screen.getByRole("link", { name: "View leaderboard" })).toHaveAttribute(
 			"href",
@@ -36,10 +36,12 @@ describe("DailyChallengeResult", () => {
 		);
 	});
 
-	it("uses victory copy for a retired run", () => {
+	it("renders a completed retired run", () => {
 		renderResult("retired");
 
-		expect(screen.getByText(/A triumphant challenge run/)).toBeInTheDocument();
+		expect(
+			screen.getByRole("region", { name: "DAILY CHALLENGE COMPLETE" }),
+		).toBeInTheDocument();
 	});
 
 	it("shows a calculation message while the rank is loading", () => {

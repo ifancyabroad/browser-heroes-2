@@ -3,30 +3,6 @@ import { describe, expect, it } from "vitest";
 import { Modal } from "./Modal";
 
 describe("Modal", () => {
-	it("uses the medium size by default", () => {
-		render(
-			<Modal open title="Default modal" onClose={() => undefined}>
-				Content
-			</Modal>,
-		);
-
-		const dialog = screen.getByRole("dialog");
-		expect(dialog).toHaveClass("max-w-md", "inset-0", "m-auto", "h-fit");
-		expect(dialog).not.toHaveClass("-translate-x-1/2", "-translate-y-1/2");
-	});
-
-	it("maps size names directly to their Tailwind width classes", () => {
-		render(
-			<Modal open title="Large modal" size="2xl" onClose={() => undefined}>
-				Content
-			</Modal>,
-		);
-
-		const dialog = screen.getByRole("dialog");
-		expect(dialog).toHaveClass("max-w-2xl");
-		expect(dialog).not.toHaveClass("max-w-md");
-	});
-
 	it("focuses the dialog instead of its first interactive child when opened", () => {
 		render(
 			<Modal open title="Focus modal" onClose={() => undefined}>

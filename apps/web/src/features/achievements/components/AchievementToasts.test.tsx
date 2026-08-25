@@ -12,7 +12,7 @@ describe("AchievementToasts", () => {
 		vi.useRealTimers();
 	});
 
-	it("renders stacked achievement details in a bottom-right viewport", () => {
+	it("renders each queued achievement notification", () => {
 		useAchievementToastStore.getState().showAchievementUnlocks([
 			{ achievementId: "defeat_boss", unlockedAt: "2026-01-01T00:00:00.000Z" },
 			{ achievementId: "complete_game", unlockedAt: "2026-01-01T00:00:01.000Z" },
@@ -22,10 +22,8 @@ describe("AchievementToasts", () => {
 
 		expect(screen.getAllByText("ACHIEVEMENT UNLOCKED")).toHaveLength(2);
 		expect(screen.getByText("Boss Breaker")).toBeInTheDocument();
-		expect(screen.getByText("Defeat any boss.")).toBeInTheDocument();
 		expect(screen.getByText("Against All Odds")).toBeInTheDocument();
-		const viewport = screen.getByRole("list");
-		expect(viewport).toHaveClass("bottom-4", "right-4", "flex-col");
+		expect(screen.getByRole("list")).toBeInTheDocument();
 	});
 
 	it("dismisses an individual notification with its close control", async () => {

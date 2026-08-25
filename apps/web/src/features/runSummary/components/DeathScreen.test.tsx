@@ -59,12 +59,6 @@ describe("DeathScreen", () => {
 		renderScreen();
 
 		expect(screen.getByRole("heading", { name: "TEST HERO WAS SLAIN" })).toBeInTheDocument();
-		expect(
-			screen.getByText(
-				"The dungeon falls quiet. Test Hero's wounds are too deep, and their story ends in the dark.",
-			),
-		).toBeInTheDocument();
-		expect(screen.getByText(/Test Hero the Warrior/)).toBeInTheDocument();
 		expect(screen.getByText("Dragon")).toBeInTheDocument();
 		expect(screen.getByText("20")).toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "Final moments" })).toHaveTextContent(

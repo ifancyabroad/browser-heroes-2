@@ -25,12 +25,9 @@ describe("RadioCard", () => {
 
 		fireEvent.click(screen.getByText("Choice details"));
 		expect(selection).not.toBeChecked();
-		expect(card).not.toHaveClass("border-primary");
 
 		fireEvent.click(selection);
 		expect(selection).toBeChecked();
-		expect(card).toHaveClass("border-primary");
-		expect(selection.firstElementChild).toHaveClass("border-border", "bg-transparent");
-		expect(selection.firstElementChild?.firstElementChild).toHaveClass("bg-primary");
+		expect(selection.parentElement).toBe(card);
 	});
 });

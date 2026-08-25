@@ -21,6 +21,7 @@ These docs should:
 - [Design](DESIGN.md) - UI direction, Tailwind usage, reusable components, layout rules, and presentation-layer constraints.
 - [Infrastructure](INFRASTRUCTURE.md) - runtime stack, persistence, sessions, networking, deployment, and operations.
 - [Deployment](DEPLOYMENT.md) - production artifact contracts and AWS deployment requirements.
+- [Testing](TESTING.md) - durable test scope, test design guidance, and criteria for avoiding brittle or low-value coverage.
 
 ## Working Guidance
 
