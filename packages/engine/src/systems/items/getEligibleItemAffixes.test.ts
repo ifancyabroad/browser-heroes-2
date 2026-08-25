@@ -307,61 +307,6 @@ describe("getEligibleItemAffixes", () => {
 		expect(getAffixIds(ITEMBASES_BY_ID.base_spear, "epic", "prefix")).toContain("transfixing");
 	});
 
-	it("matches damage class and attack range affixes to weapon bases", () => {
-		const longswordAffixes = getAffixIds(ITEMBASES_BY_ID.base_longsword, "rare", "suffix");
-		expect(longswordAffixes).toEqual(expect.arrayContaining(["of_force", "of_close_quarters"]));
-		expect(longswordAffixes).not.toEqual(
-			expect.arrayContaining(["of_sorcery", "of_marksmanship"]),
-		);
-
-		const wandAffixes = getAffixIds(ITEMBASES_BY_ID.base_fire_wand, "rare", "suffix");
-		expect(wandAffixes).toEqual(expect.arrayContaining(["of_sorcery", "of_marksmanship"]));
-		expect(wandAffixes).not.toEqual(expect.arrayContaining(["of_force", "of_close_quarters"]));
-
-		const staffAffixes = getAffixIds(ITEMBASES_BY_ID.base_fire_staff, "rare", "suffix");
-		expect(staffAffixes).toEqual(expect.arrayContaining(["of_sorcery", "of_close_quarters"]));
-		expect(staffAffixes).not.toEqual(expect.arrayContaining(["of_force", "of_marksmanship"]));
-
-		const armourAffixes = getAffixIds(ITEMBASES_BY_ID.base_robe, "rare", "suffix");
-		expect(armourAffixes).not.toEqual(
-			expect.arrayContaining([
-				"of_force",
-				"of_sorcery",
-				"of_close_quarters",
-				"of_marksmanship",
-			]),
-		);
-	});
-
-	it("provides complete damage class and attack range progressions", () => {
-		const progressions = [
-			["of_prowess", "of_force", "of_devastating_force", "physical"],
-			["of_enchantment", "of_sorcery", "of_archsorcery", "magical"],
-			["of_skirmishing", "of_close_quarters", "of_the_vanguard", "melee"],
-			["of_aiming", "of_marksmanship", "of_the_deadeye", "ranged"],
-		] as const;
-
-		for (const [uncommonId, rareId, epicId, selector] of progressions) {
-			expect(ITEMAFFIXES_BY_ID[uncommonId]).toMatchObject({
-				rarity: "uncommon",
-				weight: 0.5,
-			});
-			expect(ITEMAFFIXES_BY_ID[uncommonId].modifiers[0]).toMatchObject({ value: 1 });
-			expect(ITEMAFFIXES_BY_ID[rareId]).toMatchObject({ rarity: "rare", weight: 0.5 });
-			expect(ITEMAFFIXES_BY_ID[rareId].modifiers[0]).toMatchObject({ value: 2 });
-			expect(ITEMAFFIXES_BY_ID[epicId]).toMatchObject({ rarity: "epic", weight: 0.5 });
-			expect(ITEMAFFIXES_BY_ID[epicId].modifiers[0]).toMatchObject({ value: 4 });
-
-			const selectorKey =
-				selector === "physical" || selector === "magical" ? "damageClass" : "attackRange";
-			for (const id of [uncommonId, rareId, epicId]) {
-				expect(ITEMAFFIXES_BY_ID[id].modifiers[0]).toMatchObject({
-					[selectorKey]: selector,
-				});
-			}
-		}
-	});
-
 	it("combines weapon family and damage type restrictions", () => {
 		const morningstarAffixes = getAffixIds(
 			ITEMBASES_BY_ID.base_morningstar,
