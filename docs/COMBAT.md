@@ -126,6 +126,21 @@ Base roll or value
 
 Damage may derive from weapons, skills, attributes, proficiencies, feats, items, and temporary effects.
 
+Every damage component has a damage type and class, and may also have an attack range. Damage type
+describes the harm dealt, such as slashing, fire, or necrotic. Damage class describes its source as
+physical, magical, or other. Attack range describes delivery as melee or ranged; effects without a
+meaningful delivery range leave it unspecified.
+
+Basic attacks use their weapon or enemy-authored damage class and range. Skills that resolve a
+weapon attack inherit that basic-attack profile unless they explicitly override it. Independent
+damage components, including attack riders, retain their own authored class and range rather than
+implicitly inheriting the triggering attack's range.
+
+Outgoing and incoming damage modifiers may filter by type, class, range, or a combination. When a
+modifier supplies more than one filter, the damage must match all of them. An unspecified filter
+matches any value, while a melee or ranged modifier does not affect damage whose range is
+unspecified.
+
 Incoming damage modifiers and affinities may increase, reduce, or prevent damage. They may derive from attributes, feats, items, saving throws, and temporary effects. Armour class instead affects whether attacks hit.
 
 Damage affinities include normal, resistant, immune, and vulnerable outcomes. Resistance and vulnerability for the same damage type cancel each other out, while immunity still prevents damage. Combat logs should make important outcomes understandable.

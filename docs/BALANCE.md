@@ -32,7 +32,7 @@ Finalized generated-item affixes establish the clearest numerical baseline:
 | ---------------------------------- | -------------: | ---------: | -------: |
 | Attribute                          |             +1 |         +2 |       +4 |
 | Attack roll, save DC, or all saves |             +1 |         +2 |       +4 |
-| Typed flat damage                  |             +1 |         +2 |       +4 |
+| Specialized flat damage            |             +1 |         +2 |       +4 |
 | Universal flat damage              |              - |         +1 |       +2 |
 | Maximum HP                         |             +5 |        +10 |      +20 |
 | Armour class                       | +1, restricted |         +1 |       +2 |
@@ -46,7 +46,7 @@ These values represent comparable content quality, not exact mathematical equiva
 
 - All attributes share a value even though a primary attribute, constitution, dexterity, or charisma may provide different secondary benefits.
 - Accuracy and save DC become more valuable as the attack or saved effect becomes stronger.
-- Typed damage is intentionally more generous than universal damage and accepts resistance or immunity risk.
+- Damage specialized by type, class, or range is intentionally more generous than universal damage. Its realized value depends on resistance, immunity, and how consistently the build produces matching damage.
 - Armour class prevents entire attacks and riders, so it advances more slowly and has narrower uncommon availability.
 - Maximum HP is stronger early and combines well with healing and mitigation.
 - Resistance and immunity are matchup effects, not quantities that should be converted directly into ordinary stats.
@@ -93,6 +93,17 @@ These are reference shapes rather than mandatory recipes. Apply the following co
 Flat damage is predictable, while multipliers scale with the rest of a focused build. Broad multipliers therefore deserve more scrutiny than equally impressive flat values. The same applies to incoming damage reduction, which combines strongly with armour class, HP, healing, shields, and affinities.
 
 Damage types should be authored thematically rather than forced into equal representation. Physical damage will naturally be common, while skills and items should give non-physical types meaningful build support.
+
+Damage type, class, and range express different axes. Type describes the harm, class describes its
+source, and range describes its delivery. Choose the narrowest combination that matches the effect's
+identity, but do not add a range to environmental, area, or rider damage solely to make it interact
+with a build bonus. Multiple selectors make a modifier more specialized because matching damage must
+satisfy every selector.
+
+Generated damage-class and range suffixes may support any armour-based build. On weapons, those
+suffixes should match the weapon's own class or range so a generated weapon reinforces what it
+actually does. Elemental bonuses remain broader because skills, enchantments, and riders provide
+many independent ways to produce those damage types.
 
 Resistance halves matching damage and immunity prevents it. Immunity is currently a hard counter with no guaranteed removal or bypass. This permits generous rewards for damage-type specialization, but immunity should remain thematic and deliberate because it can invalidate a build's primary strategy. A mandatory enemy or boss immunity is more consequential than an occasional normal encounter immunity.
 
