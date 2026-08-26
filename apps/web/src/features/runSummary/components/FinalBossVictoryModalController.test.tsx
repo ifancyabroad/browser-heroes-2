@@ -61,9 +61,9 @@ describe("FinalBossVictoryModalController", () => {
 	});
 
 	it.each([
-		["Retire Victorious", { type: "RETIRE_RUN" }],
-		["Prepare in Town", { type: "RETURN_TO_TOWN" }],
-		["March Onward", { type: "CONTINUE_TO_NEXT_COMBAT" }],
+		["Retire", { type: "RETIRE_RUN" }],
+		["Town", { type: "RETURN_TO_TOWN" }],
+		["Continue", { type: "CONTINUE_TO_NEXT_COMBAT" }],
 	])("submits the %s choice", (button, action) => {
 		render(<FinalBossVictoryModalController run={createRun()} />);
 
@@ -77,19 +77,22 @@ describe("FinalBossVictoryModalController", () => {
 
 		render(<FinalBossVictoryModalController run={createRun()} />);
 
-		expect(screen.getByRole("button", { name: "Prepare in Town" })).toBeDisabled();
-		expect(screen.getByRole("button", { name: "March Onward" })).toBeDisabled();
+		expect(screen.getByRole("button", { name: "Town" })).toBeDisabled();
+		expect(screen.getByRole("button", { name: "Continue" })).toBeDisabled();
 	});
 
-	it("names the hero in the retirement choice", () => {
+	it("names the hero in the victory message", () => {
 		render(<FinalBossVictoryModalController run={createRun()} />);
 
-		expect(screen.getByText(/Test Hero may retire with their life/)).toBeInTheDocument();
+		expect(screen.getByText(/Test Hero has earned their rest/)).toBeInTheDocument();
+		expect(
+			screen.getByText(/WARNING: Continuing leaves retirement behind/),
+		).toBeInTheDocument();
 	});
 
 	it("shows translated engine failures", () => {
 		render(<FinalBossVictoryModalController run={createRun()} />);
-		fireEvent.click(screen.getByRole("button", { name: "Retire Victorious" }));
+		fireEvent.click(screen.getByRole("button", { name: "Retire" }));
 		mutate.mock.calls[0][1].onSuccess({ result: { ok: false, error: "RUN_ENDED" } });
 
 		expect(showError).toHaveBeenCalledWith("Engine: RUN_ENDED");
@@ -97,7 +100,7 @@ describe("FinalBossVictoryModalController", () => {
 
 	it("shows choice-specific transport failures", () => {
 		render(<FinalBossVictoryModalController run={createRun()} />);
-		fireEvent.click(screen.getByRole("button", { name: "March Onward" }));
+		fireEvent.click(screen.getByRole("button", { name: "Continue" }));
 		mutate.mock.calls[0][1].onError();
 
 		expect(showError).toHaveBeenCalledWith("Unable to continue onwards. Please try again.");

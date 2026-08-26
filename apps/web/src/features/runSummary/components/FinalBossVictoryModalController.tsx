@@ -50,10 +50,10 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 	return (
 		<Modal
 			open
-			title="The Final Boss Falls"
+			title="Victory!"
 			onClose={() => undefined}
 			dismissible={false}
-			size="2xl"
+			size="sm"
 			footer={
 				<div className="flex flex-wrap justify-end gap-4" aria-label="Final boss choices">
 					<Button
@@ -67,7 +67,7 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 							)
 						}
 					>
-						Retire Victorious
+						Retire
 					</Button>
 					<Button
 						type="button"
@@ -79,7 +79,7 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 							)
 						}
 					>
-						Prepare in Town
+						Town
 					</Button>
 					<Button
 						type="button"
@@ -92,25 +92,21 @@ export function FinalBossVictoryModalController({ run }: FinalBossVictoryModalCo
 							)
 						}
 					>
-						March Onward
+						Continue
 					</Button>
 				</div>
 			}
 		>
 			<div className="grid gap-4 text-base">
 				<p className="text-text-bright">
-					The last tyrant of the hundredth battle lies defeated.
+					The final foe has fallen. {run.state.hero.name} has earned their rest.
 				</p>
 				<p className="text-text">
-					{run.state.hero.name} may retire with their life and victory secured, or
-					continue beyond the victory ladder in pursuit of rarer renown.
-				</p>
-				<p className="text-text-muted">
-					Preparing in town and marching straight on both continue the run; town is only a
-					rest stop before the battles beyond.
+					Retire and end the journey in victory, or continue beyond battle 100. Visit town
+					first to prepare, or press on now.
 				</p>
 				<p className="text-error">
-					WARNING: Continuing onward will strengthen the foes ahead.
+					WARNING: Continuing leaves retirement behind. Stronger foes await.
 				</p>
 			</div>
 		</Modal>
