@@ -6,7 +6,11 @@ import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { EquipmentReplacementItems } from "../../../components/EquipmentReplacementItems";
 import { AttackRiderTooltipList } from "../../../components/tooltips/AttackRiderTooltipList";
-import { attributeLabels } from "../../../presentation/labels";
+import {
+	attackRangeLabels,
+	attributeLabels,
+	damageClassLabels,
+} from "../../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../../presentation/effects";
 import { LockSharp } from "pixelarticons/react/LockSharp";
 import {
@@ -78,11 +82,23 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 							/>
 						)}
 						{item.type === "weapon" && (
-							<DetailLine
-								label="Attribute"
-								value={attributeLabels[item.damage.attribute]}
-								className="hidden md:grid"
-							/>
+							<>
+								<DetailLine
+									label="Class"
+									value={damageClassLabels[item.damage.damageClass]}
+									className="hidden md:grid"
+								/>
+								<DetailLine
+									label="Range"
+									value={attackRangeLabels[item.attackRange]}
+									className="hidden md:grid"
+								/>
+								<DetailLine
+									label="Attribute"
+									value={attributeLabels[item.damage.attribute]}
+									className="hidden md:grid"
+								/>
+							</>
 						)}
 						{requiresReplacement && (
 							<p className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-2">

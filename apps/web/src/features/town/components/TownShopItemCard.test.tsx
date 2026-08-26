@@ -116,6 +116,20 @@ describe("TownShopItemCard", () => {
 		expect(screen.getByText("On hit")).toBeInTheDocument();
 	});
 
+	it("shows weapon class and range in the desktop details", () => {
+		render(
+			<TownShopItemCard
+				slot={createSlot(false)}
+				isPending={false}
+				onBuy={vi.fn()}
+				onLockChange={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByText("Class")).toBeInTheDocument();
+		expect(screen.getByText("Range")).toBeInTheDocument();
+	});
+
 	it("only describes equipped items that would be replaced", () => {
 		const { rerender } = render(
 			<TooltipProvider>

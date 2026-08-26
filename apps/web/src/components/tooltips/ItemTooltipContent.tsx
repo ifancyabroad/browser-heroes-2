@@ -1,6 +1,11 @@
 import type { EquipmentSlot } from "@app/content";
 import clsx from "clsx";
-import { attributeLabels, itemRarityLabels } from "../../presentation/labels";
+import {
+	attackRangeLabels,
+	attributeLabels,
+	damageClassLabels,
+	itemRarityLabels,
+} from "../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../presentation/effects";
 import {
 	getEquipmentSlotLabel,
@@ -84,6 +89,8 @@ function getItemDetailRows(
 		return [
 			...rows,
 			...(primaryStat ? [{ ...primaryStat, valueClassName: "text-text-bright" }] : []),
+			{ label: "Class", value: damageClassLabels[item.damage.damageClass] },
+			{ label: "Range", value: attackRangeLabels[item.attackRange] },
 			{ label: "Attribute", value: attributeLabels[item.damage.attribute] },
 		];
 	}
