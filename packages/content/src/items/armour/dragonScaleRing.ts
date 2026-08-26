@@ -25,7 +25,7 @@ export default buildArmour({
 		{
 			type: "modifyDamageTaken",
 			operation: "add",
-			value: -4,
+			value: -2,
 		},
 	],
 	tags: [],

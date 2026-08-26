@@ -29,7 +29,7 @@ export default buildArmour({
 		{
 			type: "modifyDamageTaken",
 			operation: "add",
-			value: -5,
+			value: -3,
 		},
 	],
 	tags: [],
