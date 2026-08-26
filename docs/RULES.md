@@ -166,7 +166,7 @@ Continuing beyond battle 100 starts a new endless cycle. Authored zone identitie
 
 A hero who dies after progressing beyond the first boss leaves a ghost snapshot at full health without a pending level-up. Each eligible run creates at most one ghost.
 
-Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Ghost appearance and identity are derived from the run seed and battle context using only ghosts published before the run's ghost-pool cutoff. Normal runs take this cutoff when created; participants in the same Daily Challenge share it. Later ghosts therefore affect future runs without changing an existing run. When a ghost encounter is selected but that frozen pool has no eligible player ghost at the required level, an authored system ghost appears instead.
+Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Player ghosts are grouped by the zone in which they died but retain their original hero level and build. Ghost appearance and identity are derived from the run seed and battle context using only ghosts published before the run's ghost-pool cutoff. Normal runs take this cutoff when created; participants in the same Daily Challenge share it. Later ghosts therefore affect future runs without changing an existing run. When a ghost encounter is selected but that frozen pool has no eligible player ghost for the zone, an authored system ghost appears instead.
 
 Player ghost encounters and outcomes contribute to their ghost records outside the active run without changing its gameplay rules. System ghosts have no owner or persistent record, but defeating one still counts as defeating a ghost for the acting player.
 

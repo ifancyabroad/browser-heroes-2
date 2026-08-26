@@ -153,7 +153,7 @@ function isGhostEligible(state: RunState): boolean {
 }
 
 function getGhostEncounterLevel(state: RunState): number {
-	return Math.min(state.hero.level, MAX_ENCOUNTER_LEVEL);
+	return Math.min(state.zoneNumber, MAX_ENCOUNTER_LEVEL);
 }
 
 function createGhostSnapshot(state: RunState): { hero: HeroState; createdFrom: unknown } {

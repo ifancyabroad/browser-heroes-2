@@ -3,6 +3,7 @@ import { buildSystemGhost } from "../builders/buildSystemGhost";
 export default buildSystemGhost({
 	id: "night_reaver",
 	encounterLevel: 7,
+	heroLevel: 8,
 	name: "Nyx",
 	classId: "shadowblade",
 	additionalSkillIds: ["backstab", "cloak_of_shadows", "enhance_poison"],

@@ -3,6 +3,7 @@ import { buildSystemGhost } from "../builders/buildSystemGhost";
 export default buildSystemGhost({
 	id: "ember_scholar",
 	encounterLevel: 3,
+	heroLevel: 4,
 	name: "Orin",
 	classId: "mage",
 	additionalSkillIds: ["fireball"],

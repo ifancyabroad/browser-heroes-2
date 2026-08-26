@@ -13,10 +13,12 @@ describe("createSystemGhostEncounter", () => {
 
 		for (let level = 2; level <= 10; level += 1) {
 			const encounter = createSystemGhostEncounter(level);
+			const definition = systemGhosts.find((ghost) => ghost.encounterLevel === level);
+			expect(definition).toBeDefined();
 			expect(encounter.ghostSource).toBe("system");
 			expect(encounter.ghostUsername).toBe("The Forgotten");
 			expect(encounter.ghostId).toMatch(/^system-ghost:/);
-			expect(encounter.hero.level).toBe(level);
+			expect(encounter.hero.level).toBe(definition!.heroLevel);
 			expect(encounter.hero.xp).toBe(0);
 			expect(encounter.hero.pendingLevelUp).toBeNull();
 			expect(encounter.hero.healingPotions).toBe(0);

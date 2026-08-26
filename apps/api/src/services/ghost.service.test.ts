@@ -51,6 +51,7 @@ describe("ghost.service", () => {
 		state.battleNumber = 111;
 		state.zoneNumber = 12;
 		state.endlessCycle = 1;
+		state.hero.level = 7;
 		state.hero.currentHp = 1;
 		state.hero.pendingLevelUp = { availableAtLevel: 2, selectionRequired: true } as never;
 		ghostModel.findOneAndUpdate.mockResolvedValue({ _id: "ghost-id" });
@@ -71,7 +72,7 @@ describe("ghost.service", () => {
 					name: state.hero.name,
 					classId: state.hero.classId,
 					heroLevel: state.hero.level,
-					encounterLevel: state.hero.level,
+					encounterLevel: 10,
 					snapshot: {
 						hero: {
 							...state.hero,
@@ -155,7 +156,7 @@ describe("ghost.service", () => {
 			ghostId: "system-ghost:dawn_keeper",
 			ghostUsername: "The Forgotten",
 			ghostSource: "system",
-			hero: { level: 4, classId: "priest" },
+			hero: { level: 5, classId: "priest" },
 		});
 		expect(ghostModel.findOne).not.toHaveBeenCalled();
 		expect(userModel.findById).not.toHaveBeenCalled();
@@ -182,10 +183,11 @@ describe("ghost.service", () => {
 		expect(userModel.findById).not.toHaveBeenCalled();
 	});
 
-	it("caps ghost encounter levels at ten", async () => {
+	it("groups ghosts by capped death zone while preserving their hero level", async () => {
 		const state = createTestRunState();
-		state.battleNumber = 11;
-		state.hero.level = 12;
+		state.battleNumber = 111;
+		state.zoneNumber = 12;
+		state.hero.level = 7;
 
 		await createGhostFromRunIfEligible({
 			userId: "user-id",
@@ -197,7 +199,38 @@ describe("ghost.service", () => {
 		expect(ghostModel.findOneAndUpdate).toHaveBeenCalledWith(
 			expect.anything(),
 			expect.objectContaining({
-				$setOnInsert: expect.objectContaining({ encounterLevel: 10 }),
+				$setOnInsert: expect.objectContaining({
+					heroLevel: 7,
+					encounterLevel: 10,
+					snapshot: expect.objectContaining({
+						hero: expect.objectContaining({ level: 7 }),
+					}),
+				}),
+			}),
+			expect.anything(),
+		);
+	});
+
+	it("places the first eligible level-three hero in the zone-two ghost pool", async () => {
+		const state = createTestRunState();
+		state.battleNumber = 11;
+		state.zoneNumber = 2;
+		state.hero.level = 3;
+
+		await createGhostFromRunIfEligible({
+			userId: "user-id",
+			runId: "run-id" as never,
+			state,
+			session: session as never,
+		});
+
+		expect(ghostModel.findOneAndUpdate).toHaveBeenCalledWith(
+			expect.anything(),
+			expect.objectContaining({
+				$setOnInsert: expect.objectContaining({
+					heroLevel: 3,
+					encounterLevel: 2,
+				}),
 			}),
 			expect.anything(),
 		);

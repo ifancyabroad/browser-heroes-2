@@ -16,6 +16,7 @@ export const systemGhostEquipmentSchema = z.partialRecord(
 export const systemGhostSchema = z.object({
 	id: z.string().nonempty(),
 	encounterLevel: z.number().int().min(2).max(10),
+	heroLevel: z.number().int().min(1).max(10),
 	name: z.string().nonempty(),
 	classId: z.string().nonempty(),
 	additionalSkillIds: z.array(z.string().nonempty()).default([]),

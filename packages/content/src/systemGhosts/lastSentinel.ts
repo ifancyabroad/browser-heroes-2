@@ -3,6 +3,7 @@ import { buildSystemGhost } from "../builders/buildSystemGhost";
 export default buildSystemGhost({
 	id: "last_sentinel",
 	encounterLevel: 10,
+	heroLevel: 10,
 	name: "Brannoc",
 	classId: "warrior",
 	additionalSkillIds: ["double_strike", "dancing_defense", "heavy_strike", "last_stand"],

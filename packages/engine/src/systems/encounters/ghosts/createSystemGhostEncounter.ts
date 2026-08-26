@@ -38,11 +38,11 @@ export function createSystemGhostEncounter(encounterLevel: number): GhostEncount
 	const maxHp = calculateMaxHpForLevel(
 		classDefinition.combat.hitDie,
 		classDefinition.attributes.constitution,
-		definition.encounterLevel,
+		definition.heroLevel,
 	);
 	const heroWithAuthoredBuild = {
 		...initialHero,
-		level: definition.encounterLevel,
+		level: definition.heroLevel,
 		xp: 0,
 		maxHp,
 		currentHp: maxHp,
