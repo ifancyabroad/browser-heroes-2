@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tenderise",
 	name: "Tenderise",
-	description: "Beat the enemy into submission with a chance to lower physical resistances.",
+	description:
+		"Batter the enemy with a crushing blow that may leave them vulnerable to physical damage.",
 	icon: "skills/barbarian/tenderise.png",
 	pool: "barbarian",
 	kind: "weaponAttack",
@@ -26,11 +27,11 @@ export default buildSkill({
 					},
 					effects: [
 						{
-							type: "modifyDamageAffinity",
+							type: "modifyDamageTaken",
 							target: "enemy",
-							affinity: "vulnerability",
-							operation: "add",
-							damageType: "crushing",
+							damageClass: "physical",
+							operation: "multiply",
+							value: 1.5,
 							duration: { unit: "turns", value: 3 },
 						},
 					],
