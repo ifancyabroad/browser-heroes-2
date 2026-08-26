@@ -91,7 +91,7 @@ const rawAchievementsById = {
   "max_intelligence": ach_maxIntelligence_31,
   "max_strength": ach_maxStrength_32,
   "max_wisdom": ach_maxWisdom_33,
-  "reach_100_max_hp": ach_reachMaximumHp_36,
+  "reach_150_max_hp": ach_reachMaximumHp_36,
   "reach_25_armour_class": ach_reachArmourClass_34,
   "reach_level_10": ach_reachLevelTen_35,
   "reach_streak_10": ach_reachStreakTen_38,

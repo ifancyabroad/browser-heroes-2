@@ -2,8 +2,8 @@ import { buildAchievement } from "../builders/buildAchievement";
 
 export default buildAchievement({
 	order: 5,
-	id: "reach_100_max_hp",
+	id: "reach_150_max_hp",
 	name: "Centurion",
-	description: "Reach 120 effective maximum HP.",
+	description: "Reach 150 effective maximum HP.",
 	icon: "achievements/skill_358_noBG.png",
 });

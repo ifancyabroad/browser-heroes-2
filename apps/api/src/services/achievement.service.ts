@@ -35,7 +35,7 @@ const ATTRIBUTE_ACHIEVEMENTS: Record<Attribute, AchievementId> = {
 	charisma: "max_charisma",
 };
 
-const MAX_HP_ACHIEVEMENT_THRESHOLD = 120;
+const MAX_HP_ACHIEVEMENT_THRESHOLD = 150;
 const ARMOUR_CLASS_ACHIEVEMENT_THRESHOLD = 25;
 const LEVEL_ACHIEVEMENT_THRESHOLD = 10;
 const GOLD_ACHIEVEMENT_THRESHOLD = 10_000;
@@ -211,7 +211,7 @@ export function evaluateRunActionAchievements(input: {
 		!hasReachedMaxHpThreshold(input.previousState.hero, MAX_HP_ACHIEVEMENT_THRESHOLD) &&
 		hasReachedMaxHpThreshold(input.nextState.hero, MAX_HP_ACHIEVEMENT_THRESHOLD)
 	) {
-		unlocked.add("reach_100_max_hp");
+		unlocked.add("reach_150_max_hp");
 	}
 
 	if (
