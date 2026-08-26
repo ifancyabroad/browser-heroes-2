@@ -46,6 +46,7 @@ describe("VictoryScreen", () => {
 	it("renders a safe fallback for non-retired summaries", () => {
 		renderScreen();
 
+		expect(screen.getByRole("heading", { name: "RUN COMPLETE" })).toHaveFocus();
 		expect(screen.getByRole("link", { name: "New Hero" })).toHaveAttribute(
 			"href",
 			"/create-character",
@@ -57,7 +58,9 @@ describe("VictoryScreen", () => {
 
 		renderScreen();
 
-		expect(screen.getByRole("heading", { name: "The Ladder Is Broken" })).toBeInTheDocument();
+		expect(screen.getByRole("heading", { name: "TEST HERO RETIRED VICTORIOUS" })).toHaveFocus();
+		expect(screen.queryByText("Level")).not.toBeInTheDocument();
+		expect(screen.queryByText("Gold")).not.toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "Final moments" })).toHaveTextContent(
 			"The run ends.",
 		);
