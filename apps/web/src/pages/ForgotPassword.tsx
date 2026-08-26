@@ -21,37 +21,39 @@ export default function ForgotPassword() {
 			<Header />
 
 			<Container className="flex items-center justify-center">
-				<form
-					className="grid w-full max-w-md gap-4 border-2 border-border bg-bg-panel p-4"
-					onSubmit={handleSubmit}
-				>
-					<h1 className="text-primary">RESET PASSWORD</h1>
+				<section className="w-full max-w-sm">
+					<header className="mb-5 grid gap-2">
+						<h1 className="text-base text-primary">FORGOT PASSWORD</h1>
+						<p className="text-text">
+							Enter your account email and we will send you a password reset link.
+						</p>
+					</header>
 
-					<p>Enter your account email. If it exists, we will send a reset link.</p>
+					<form className="grid gap-4" onSubmit={handleSubmit}>
+						<InputField
+							id="forgot-password-email"
+							label="Email"
+							name="email"
+							type="email"
+							autoComplete="email"
+							required
+							disabled={requestPasswordReset.isPending}
+							autoFocus
+						/>
 
-					<InputField
-						id="forgot-password-email"
-						label="Email"
-						name="email"
-						type="email"
-						autoComplete="email"
-						required
-						disabled={requestPasswordReset.isPending}
-						autoFocus
-					/>
+						<Button
+							type="submit"
+							variant="primary"
+							disabled={requestPasswordReset.isPending}
+						>
+							{requestPasswordReset.isPending ? "Sending..." : "SEND RESET EMAIL"}
+						</Button>
 
-					<Button
-						type="submit"
-						variant="primary"
-						disabled={requestPasswordReset.isPending}
-					>
-						{requestPasswordReset.isPending ? "Sending..." : "SEND RESET EMAIL"}
-					</Button>
-
-					{requestPasswordReset.data && (
-						<p className="text-info">{requestPasswordReset.data.message}</p>
-					)}
-				</form>
+						{requestPasswordReset.data && (
+							<p className="text-success">{requestPasswordReset.data.message}</p>
+						)}
+					</form>
+				</section>
 			</Container>
 			<Footer />
 		</PageLayout>
