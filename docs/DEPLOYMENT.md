@@ -21,13 +21,15 @@ The API is bundled into `dist/server.cjs`, including its workspace packages and 
 
 Use a single public CloudFront hostname with these ordered behaviors:
 
-| Path           | Origin            | Caching  | Methods and forwarding                                                  |
-| -------------- | ----------------- | -------- | ----------------------------------------------------------------------- |
-| `/api/*`       | Elastic Beanstalk | Disabled | Allow required API methods; forward headers, cookies, and query strings |
-| `/socket.io/*` | Elastic Beanstalk | Disabled | Forward the WebSocket handshake, headers, cookies, and query strings    |
-| Default `*`    | Private S3 bucket | Enabled  | Serve the built frontend without application cookies                    |
+| Path           | Origin            | Caching  | Methods and forwarding                                                                   |
+| -------------- | ----------------- | -------- | ---------------------------------------------------------------------------------------- |
+| `/api/*`       | Elastic Beanstalk | Disabled | Allow required API methods; forward headers, cookies, query strings, and viewer protocol |
+| `/socket.io/*` | Elastic Beanstalk | Disabled | Forward the WebSocket handshake, cookies, query strings, and viewer protocol             |
+| Default `*`    | Private S3 bucket | Enabled  | Serve the built frontend without application cookies                                     |
 
 Redirect viewer HTTP requests to HTTPS. The initial low-traffic deployment uses a single-instance Elastic Beanstalk environment without a load balancer. CloudFront therefore uses HTTP to that origin, and the instance security group permits port 80 only from the AWS-managed CloudFront origin-facing prefix list. A future load-balanced environment should use HTTPS from CloudFront to the load balancer.
+
+The API origin request policy adds `CloudFront-Forwarded-Proto`. The API normalizes that trusted CloudFront header before session handling so Express recognizes the original HTTPS viewer request and can issue secure cookies despite the HTTP origin connection.
 
 Serve `index.html` with a short or disabled cache and hashed assets with a long immutable cache. Handle extensionless frontend routes within the default S3 behavior so genuine API errors are not rewritten to frontend HTML.
 
@@ -62,7 +64,7 @@ Production uses separate `browser-heroes-api` and `browser-heroes-web` pipelines
 
 The API pipeline emits the standalone Beanstalk bundle and deploys it with the native Elastic Beanstalk action. Elastic Beanstalk checks `/api/health` when evaluating the deployed environment. The web pipeline uploads hashed assets before publishing `index.html`, retains older hashed assets for open browser sessions, and invalidates the CloudFront entry document.
 
-The new AWS resources are defined in `infra/cloudformation/production.yml`. The existing CloudFront distribution is intentionally not adopted into that stack; update it only after the new S3 and API origins are healthy.
+The AWS resources, including the existing `browserheroes.com` CloudFront distribution adopted into the stack, are defined in `infra/cloudformation/production.yml`.
 
 ## 7. Atlas and Rollback
 

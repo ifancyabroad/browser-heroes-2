@@ -11,9 +11,6 @@ Parameters:
     CodeStarConnectionArn:
         Type: String
         Default: arn:aws:codestar-connections:eu-west-2:391673454505:connection/aca9cca0-a8a9-4378-9aaf-628695aeb7df
-    ExistingDistributionId:
-        Type: String
-        Default: E1SBYI7G6KFV8U
     VpcId:
         Type: AWS::EC2::VPC::Id
         Default: vpc-0d675fa77a20c303c
@@ -95,6 +92,108 @@ Resources:
                 Comment: Route Browser Heroes frontend paths to the SPA entry point.
                 Runtime: cloudfront-js-2.0
 
+    ApiOriginRequestPolicy:
+        Type: AWS::CloudFront::OriginRequestPolicy
+        Properties:
+            OriginRequestPolicyConfig:
+                Name: browser-heroes-api
+                Comment: Forward API sessions and the original CloudFront viewer protocol.
+                CookiesConfig:
+                    CookieBehavior: all
+                HeadersConfig:
+                    HeaderBehavior: allViewerAndWhitelistCloudFront
+                    Headers:
+                        - CloudFront-Forwarded-Proto
+                QueryStringsConfig:
+                    QueryStringBehavior: all
+
+    FrontendDistribution:
+        Type: AWS::CloudFront::Distribution
+        DeletionPolicy: Retain
+        UpdateReplacePolicy: Retain
+        Properties:
+            DistributionConfig:
+                Aliases:
+                    - browserheroes.com
+                Comment: Browser Heroes 2 production
+                DefaultCacheBehavior:
+                    AllowedMethods:
+                        - GET
+                        - HEAD
+                    CachedMethods:
+                        - GET
+                        - HEAD
+                    CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+                    Compress: true
+                    FunctionAssociations:
+                        - EventType: viewer-request
+                          FunctionARN: !GetAtt FrontendSpaFunction.FunctionARN
+                    TargetOriginId: browser-heroes-frontend
+                    ViewerProtocolPolicy: redirect-to-https
+                DefaultRootObject: index.html
+                Enabled: true
+                HttpVersion: http2
+                IPV6Enabled: true
+                Origins:
+                    - DomainName: !GetAtt FrontendBucket.RegionalDomainName
+                      Id: browser-heroes-frontend
+                      OriginAccessControlId: !GetAtt FrontendOriginAccessControl.Id
+                      S3OriginConfig:
+                          OriginAccessIdentity: ""
+                    - CustomOriginConfig:
+                          HTTPPort: 80
+                          HTTPSPort: 443
+                          OriginKeepaliveTimeout: 5
+                          OriginProtocolPolicy: http-only
+                          OriginReadTimeout: 30
+                          OriginSSLProtocols:
+                              - TLSv1.2
+                      DomainName: browser-heroes-api-production.eu-west-2.elasticbeanstalk.com
+                      Id: browser-heroes-api
+                CacheBehaviors:
+                    - AllowedMethods:
+                          - GET
+                          - HEAD
+                          - OPTIONS
+                          - PUT
+                          - PATCH
+                          - POST
+                          - DELETE
+                      CachedMethods:
+                          - GET
+                          - HEAD
+                      CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
+                      Compress: true
+                      OriginRequestPolicyId: !Ref ApiOriginRequestPolicy
+                      PathPattern: /api/*
+                      TargetOriginId: browser-heroes-api
+                      ViewerProtocolPolicy: redirect-to-https
+                    - AllowedMethods:
+                          - GET
+                          - HEAD
+                          - OPTIONS
+                          - PUT
+                          - PATCH
+                          - POST
+                          - DELETE
+                      CachedMethods:
+                          - GET
+                          - HEAD
+                      CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
+                      Compress: true
+                      OriginRequestPolicyId: !Ref ApiOriginRequestPolicy
+                      PathPattern: /socket.io/*
+                      TargetOriginId: browser-heroes-api
+                      ViewerProtocolPolicy: redirect-to-https
+                PriceClass: PriceClass_All
+                Restrictions:
+                    GeoRestriction:
+                        RestrictionType: none
+                ViewerCertificate:
+                    AcmCertificateArn: arn:aws:acm:us-east-1:391673454505:certificate/ca857fed-232a-4fc6-804d-3a3abc14aaf4
+                    MinimumProtocolVersion: TLSv1.2_2021
+                    SslSupportMethod: sni-only
+
     FrontendBucketPolicy:
         Type: AWS::S3::BucketPolicy
         Properties:
@@ -110,7 +209,7 @@ Resources:
                       Resource: !Sub "${FrontendBucket.Arn}/*"
                       Condition:
                           StringEquals:
-                              AWS:SourceArn: !Sub "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${ExistingDistributionId}"
+                              AWS:SourceArn: !Sub "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${FrontendDistribution}"
 
     ArtifactBucket:
         Type: AWS::S3::Bucket
@@ -343,7 +442,7 @@ Resources:
                                 - !Sub "${FrontendBucket.Arn}/*"
                           - Effect: Allow
                             Action: cloudfront:CreateInvalidation
-                            Resource: !Sub "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${ExistingDistributionId}"
+                            Resource: !Sub "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${FrontendDistribution}"
 
     ApiBuildProject:
         Type: AWS::CodeBuild::Project
@@ -387,7 +486,7 @@ Resources:
                     - Name: FRONTEND_BUCKET
                       Value: !Ref FrontendBucket
                     - Name: CLOUDFRONT_DISTRIBUTION_ID
-                      Value: !Ref ExistingDistributionId
+                      Value: !Ref FrontendDistribution
             LogsConfig:
                 CloudWatchLogs:
                     Status: ENABLED
@@ -592,6 +691,8 @@ Outputs:
         Value: !GetAtt FrontendOriginAccessControl.Id
     FrontendSpaFunctionArn:
         Value: !GetAtt FrontendSpaFunction.FunctionARN
+    FrontendDistributionId:
+        Value: !Ref FrontendDistribution
     ApiEnvironmentName:
         Value: !Ref ApiEnvironment
     ApiOriginDomainName:

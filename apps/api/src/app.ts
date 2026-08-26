@@ -6,6 +6,7 @@ import { sessionMiddleware } from "./config/session";
 import { routes } from "./routes";
 import { errorHandler, notFoundHandler } from "./middlewares/error";
 import { env } from "./config/env";
+import { trustCloudFrontProtocol } from "./middlewares/cloudFrontProtocol";
 
 export function buildApp() {
 	const app = express();
@@ -22,6 +23,8 @@ export function buildApp() {
 	app.use(express.json());
 	// gzip responses
 	app.use(compression());
+	// Restore the viewer protocol that CloudFront records before its HTTP origin request.
+	app.use(trustCloudFrontProtocol);
 	// Session management
 	app.use(sessionMiddleware);
 

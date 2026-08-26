@@ -3,6 +3,7 @@
 `cloudformation/production.yml` defines the low-cost production resources in `eu-west-2`:
 
 - private, versioned `browser-heroes` frontend bucket and CloudFront OAC
+- the `browserheroes.com` CloudFront distribution and its frontend, API, and socket behaviors
 - single-instance Node.js 22 Elastic Beanstalk API
 - API and frontend CodeBuild projects and CodePipelines
 - scoped runtime/build roles, short log retention, and expiring pipeline artifacts
@@ -25,12 +26,6 @@ Before creating the stack:
 2. Execute the stack and wait for the Beanstalk sample environment to become healthy.
 3. Add the environment's Elastic IP to the Atlas network allowlist.
 4. Release the API pipeline and verify `/api/health` directly through the Beanstalk origin.
-5. Update distribution `E1SBYI7G6KFV8U`:
-    - replace the default origin with the new private S3 regional origin and OAC
-    - point `/api/*` and `/socket.io/*` at the Beanstalk domain over HTTP
-    - redirect viewer HTTP to HTTPS for both API behaviors
-    - preserve disabled caching and forwarded cookies, headers, and query strings
-    - remove the legacy `/admin*` behavior and global 404-to-index rewrite
-6. Release the frontend pipeline, verify the holding page through `https://browserheroes.com`, then test the bypass flow and API/socket paths.
+5. Release the frontend pipeline, verify the holding page through `https://browserheroes.com`, then test the bypass flow and API/socket paths.
 
-The CloudFront update remains separate because the distribution predates this stack and serves the live domain. This keeps the initial change reviewable and avoids importing a legacy global resource during the first deployment.
+CloudFront terminates viewer HTTPS while the low-cost single-instance API origin remains HTTP-only. The API origin request policy forwards `CloudFront-Forwarded-Proto` so Express can issue secure session cookies using the original viewer protocol. Cookies and query strings are forwarded for both `/api/*` and `/socket.io/*`, with caching disabled.
