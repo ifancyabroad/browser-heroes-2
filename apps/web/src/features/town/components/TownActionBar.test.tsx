@@ -51,6 +51,19 @@ describe("TownActionBar", () => {
 		).toHaveTextContent("1/3");
 	});
 
+	it.each([
+		{ healingPotions: 0, expectedClass: "text-error" },
+		{ healingPotions: 1, expectedClass: "text-text-bright" },
+		{ healingPotions: 3, expectedClass: "text-primary" },
+	])(
+		"styles the $healingPotions/3 potion counter with $expectedClass",
+		({ healingPotions, expectedClass }) => {
+			render(<TownActionBar {...createProps({ healingPotions })} />);
+
+			expect(screen.getByText(`${healingPotions}/3`)).toHaveClass(expectedClass);
+		},
+	);
+
 	it("invokes every available town action", () => {
 		const props = createProps();
 		render(<TownActionBar {...props} />);

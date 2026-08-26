@@ -1,6 +1,11 @@
 import { SKILLS_BY_ID, type SkillId } from "@app/content";
 import type { CombatantSkillState, CombatantState } from "@app/engine";
-import { ActionBarGroup, ActionBarTray, ActionSlotButton } from "../../../components/ActionBar";
+import {
+	ActionBarGroup,
+	ActionBarTray,
+	ActionSlotButton,
+	getRemainingUsesClassName,
+} from "../../../components/ActionBar";
 import { Tooltip } from "../../../components/Tooltip";
 import {
 	ACTION_PENDING_DETAIL,
@@ -157,7 +162,7 @@ function CombatSlots({
 				available={canUseHealingPotion}
 				icon={healingPotionIcon}
 				label={`${healingPotions}/${maxHealingPotions}`}
-				labelClassName="text-primary"
+				labelClassName={getRemainingUsesClassName(healingPotions, maxHealingPotions)}
 				loading={isPending}
 				tooltip={
 					<ActionTooltipContent
@@ -265,6 +270,7 @@ type SkillSlotProps = {
 function SkillSlot({ skill, available, loading, onUseSkill }: SkillSlotProps) {
 	const definition = SKILLS_BY_ID[skill.skillId];
 	const usesLabel = getUsesLabel(skill, definition.maxUses);
+	const usesRemaining = skill.chargesRemaining ?? definition.maxUses;
 
 	return (
 		<Tooltip
@@ -280,7 +286,11 @@ function SkillSlot({ skill, available, loading, onUseSkill }: SkillSlotProps) {
 				ariaLabel={available ? `Use ${definition.name}` : `${definition.name} unavailable`}
 				icon={resolveImageUrl(definition.icon)}
 				label={usesLabel ?? undefined}
-				labelClassName="text-primary"
+				labelClassName={
+					usesRemaining !== undefined && definition.maxUses !== undefined
+						? getRemainingUsesClassName(usesRemaining, definition.maxUses)
+						: undefined
+				}
 				loading={loading}
 				onClick={() => onUseSkill(skill.skillId)}
 			/>

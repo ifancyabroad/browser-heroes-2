@@ -3,6 +3,7 @@ import {
 	ActionBarTray,
 	ActionSlotButton,
 	ActionSlotDisplay,
+	getRemainingUsesClassName,
 } from "../../../components/ActionBar";
 import restIcon from "../../../assets/images/actions/Skill_Rest.png";
 import rerollIcon from "../../../assets/images/actions/Skill_Dice.png";
@@ -108,7 +109,10 @@ export function TownActionBar({
 						}
 						onClick={onBuyHealingPotion}
 						topLeftLabel={`${healingPotions}/${maxHealingPotions}`}
-						topLeftLabelClassName="text-primary"
+						topLeftLabelClassName={getRemainingUsesClassName(
+							healingPotions,
+							maxHealingPotions,
+						)}
 					/>
 					<ActionSlotButton
 						ariaLabel={`Rest for ${restCost} gold`}

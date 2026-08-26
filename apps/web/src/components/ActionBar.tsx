@@ -34,6 +34,14 @@ export function ActionBarGroup({ "aria-label": ariaLabel, children }: ActionBarG
 	);
 }
 
+export function getRemainingUsesClassName(remainingUses: number, maxUses: number) {
+	if (remainingUses <= 0) {
+		return "text-error";
+	}
+
+	return remainingUses >= maxUses ? "text-primary" : "text-text-bright";
+}
+
 type ActionSlotButtonProps = {
 	ariaLabel: string;
 	available: boolean;

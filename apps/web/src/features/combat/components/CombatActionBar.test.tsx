@@ -124,6 +124,37 @@ describe("CombatActionBar", () => {
 		expect(screen.getByRole("button", { name: "Use healing potion" })).toHaveTextContent("1/4");
 	});
 
+	it.each([
+		{ healingPotions: 0, expectedClass: "text-error" },
+		{ healingPotions: 1, expectedClass: "text-text-bright" },
+		{ healingPotions: 3, expectedClass: "text-primary" },
+	])(
+		"styles the $healingPotions/3 potion counter with $expectedClass",
+		({ healingPotions, expectedClass }) => {
+			render(<CombatActionBar {...createProps({ healingPotions })} />);
+
+			expect(screen.getByText(`${healingPotions}/3`)).toHaveClass(expectedClass);
+		},
+	);
+
+	it.each([
+		{ chargesRemaining: 0, expectedClass: "text-error" },
+		{ chargesRemaining: 1, expectedClass: "text-text-bright" },
+		{ chargesRemaining: 6, expectedClass: "text-primary" },
+	])(
+		"styles the skill counter with $expectedClass when $chargesRemaining uses remain",
+		({ chargesRemaining, expectedClass }) => {
+			const player = {
+				...createProps().player,
+				skills: [{ skillId: "heavy_strike", chargesRemaining }],
+			} as CombatantState;
+
+			render(<CombatActionBar {...createProps({ player })} />);
+
+			expect(screen.getByText(`${chargesRemaining}/6`)).toHaveClass(expectedClass);
+		},
+	);
+
 	it("forwards available skill ids", () => {
 		const onUseSkill = vi.fn();
 		const player = {
