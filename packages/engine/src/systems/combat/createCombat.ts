@@ -52,6 +52,7 @@ export function createCombat(input: CreateCombatInput): CombatState | null {
 		id: combatId,
 		encounterType,
 		ghostUsername: input.ghostEncounter?.ghostUsername ?? null,
+		ghostSource: input.ghostEncounter?.ghostSource ?? null,
 		turnNumber: 1,
 		activeActor: "player",
 		player,

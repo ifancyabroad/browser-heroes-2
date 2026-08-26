@@ -215,6 +215,7 @@ export const combatStateSchema = z.object({
 	id: z.string(),
 	encounterType: z.enum(["standard", "boss", "ghost"]),
 	ghostUsername: z.string().nullable(),
+	ghostSource: z.enum(["player", "system"]).nullable(),
 	turnNumber: z.number().int().min(1),
 	activeActor: combatantSideSchema,
 	player: combatantStateSchema,

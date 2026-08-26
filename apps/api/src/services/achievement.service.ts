@@ -47,7 +47,7 @@ const STREAK_ACHIEVEMENTS = [
 	{ threshold: 50, achievementId: "reach_streak_50" },
 ] as const satisfies readonly { threshold: number; achievementId: AchievementId }[];
 
-type AchievementSource = {
+export type AchievementSource = {
 	runId?: string;
 	combatId?: string;
 	ghostId?: string;

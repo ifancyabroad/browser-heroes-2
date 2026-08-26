@@ -17,7 +17,7 @@ import {
 	selectGhostEncounter,
 } from "./ghost.service";
 import { toRunSummary } from "./projection.service";
-import { processRunActionAchievements } from "./achievement.service";
+import { processRunActionAchievements, type AchievementSource } from "./achievement.service";
 import { recordLifetimeProgress } from "./lifetimeProgress.service";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
@@ -53,11 +53,15 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 		);
 		const events = result.ok ? result.events : [];
 
-		const startedGhostId = result.ok ? getStartedGhostId(externalInput, result.state) : null;
+		const startedPlayerGhostId = result.ok
+			? getStartedPlayerGhostId(externalInput, result.state)
+			: null;
 
 		const resolvedGhostOutcome = result.ok
 			? getResolvedGhostOutcome(currentState, result.state)
 			: null;
+		const resolvedPlayerGhost =
+			resolvedGhostOutcome?.ghostSource === "player" ? resolvedGhostOutcome : null;
 
 		const sequence = run.nextActionSequence;
 
@@ -66,29 +70,23 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 
 		await run.save({ session });
 
-		if (startedGhostId) {
+		if (startedPlayerGhostId) {
 			await incrementGhostEncounters({
-				ghostId: startedGhostId,
+				ghostId: startedPlayerGhostId,
 				session,
 			});
 		}
 
 		let resolvedGhostOwnerId: string | null = null;
 
-		if (resolvedGhostOutcome) {
-			const resolvedGhost = await recordGhostCombatOutcome({
-				ghostId: resolvedGhostOutcome.ghostId,
-				outcome: resolvedGhostOutcome.outcome,
+		if (resolvedPlayerGhost) {
+			const ghost = await recordGhostCombatOutcome({
+				ghostId: resolvedPlayerGhost.ghostId,
+				outcome: resolvedPlayerGhost.outcome,
 				session,
 			});
-			resolvedGhostOwnerId = resolvedGhost ? String(resolvedGhost.userId) : null;
+			resolvedGhostOwnerId = ghost ? String(ghost.userId) : null;
 		}
-
-		const achievementSource = {
-			runId: String(run._id),
-			combatId: currentState.combat?.id,
-			ghostId: resolvedGhostOutcome?.ghostId,
-		};
 
 		const lifetimeProgress = await recordLifetimeProgress({
 			userId: input.userId,
@@ -96,6 +94,15 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			events,
 			session,
 		});
+
+		const achievementSource: AchievementSource = {
+			runId: String(run._id),
+			combatId: currentState.combat?.id,
+		};
+
+		if (resolvedPlayerGhost) {
+			achievementSource.ghostId = resolvedPlayerGhost.ghostId;
+		}
 
 		const unlockedAchievements = await processRunActionAchievements({
 			actingUserId: input.userId,
@@ -206,29 +213,33 @@ async function selectExternalInput(input: {
 	return { ghostEncounter };
 }
 
-function getStartedGhostId(
+function getStartedPlayerGhostId(
 	externalInput: EngineExternalInput,
 	resultState: RunState,
 ): string | null {
-	if (!externalInput.ghostEncounter) {
-		return null;
-	}
-
+	const encounter = externalInput.ghostEncounter;
 	if (
+		!encounter ||
+		encounter.ghostSource !== "player" ||
 		resultState.phase !== "combat" ||
-		!resultState.combat ||
-		resultState.combat.encounterType !== "ghost"
+		resultState.combat?.encounterType !== "ghost"
 	) {
 		return null;
 	}
 
-	return externalInput.ghostEncounter.ghostId;
+	return encounter.ghostId;
 }
+
+type ResolvedGhostOutcome = {
+	ghostId: string;
+	ghostSource: "player" | "system";
+	outcome: "ghost_won" | "ghost_lost";
+};
 
 function getResolvedGhostOutcome(
 	previousState: RunState,
 	resultState: RunState,
-): { ghostId: string; outcome: "ghost_won" | "ghost_lost" } | null {
+): ResolvedGhostOutcome | null {
 	const previousCombat = previousState.combat;
 	const resultCombat = resultState.combat;
 
@@ -245,9 +256,14 @@ function getResolvedGhostOutcome(
 		return null;
 	}
 
+	if (!previousCombat.ghostSource) {
+		throw new Error("GHOST_SOURCE_MISSING");
+	}
+
 	if (resultCombat.status === "enemy_won") {
 		return {
 			ghostId: previousCombat.enemy.sourceId,
+			ghostSource: previousCombat.ghostSource,
 			outcome: "ghost_won",
 		};
 	}
@@ -255,6 +271,7 @@ function getResolvedGhostOutcome(
 	if (resultCombat.status === "player_won") {
 		return {
 			ghostId: previousCombat.enemy.sourceId,
+			ghostSource: previousCombat.ghostSource,
 			outcome: "ghost_lost",
 		};
 	}

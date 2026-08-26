@@ -58,7 +58,7 @@ export function renderRegistryFile(
 		`} satisfies Record<${spec.typeName}Id, ${spec.definitionType}>;`,
 		"",
 		"// Reference IDs are validated by generateContent.ts before this registry is written.",
-		`export const ${spec.plural.toUpperCase()}_BY_ID = ${rawMapName} as Record<${spec.typeName}Id, ${spec.typeName}>;`,
+		`export const ${spec.registryConstantName ?? spec.plural.toUpperCase()}_BY_ID = ${rawMapName} as Record<${spec.typeName}Id, ${spec.typeName}>;`,
 		"",
 	].join("\n");
 }

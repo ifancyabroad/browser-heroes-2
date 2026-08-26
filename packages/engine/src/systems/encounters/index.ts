@@ -9,3 +9,5 @@ export { isEnemyEligibleForEncounter } from "./eligibility/isEnemyEligibleForEnc
 export { selectWeightedEnemy } from "./selection/selectWeightedEnemy";
 
 export { ZONE_ORDER } from "./constants/zoneOrder";
+
+export { createSystemGhostEncounter } from "./ghosts/createSystemGhostEncounter";

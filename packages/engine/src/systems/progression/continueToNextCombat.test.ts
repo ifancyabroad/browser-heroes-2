@@ -69,6 +69,7 @@ describe("continueToNextCombat", () => {
 				ghostEncounter: {
 					ghostId: "ghost-id",
 					ghostUsername: "Ghost Owner",
+					ghostSource: "player",
 					hero: structuredClone(state.hero),
 				},
 			},
@@ -78,6 +79,7 @@ describe("continueToNextCombat", () => {
 		expect(result.state.combat).toMatchObject({
 			encounterType: "ghost",
 			ghostUsername: "Ghost Owner",
+			ghostSource: "player",
 		});
 	});
 

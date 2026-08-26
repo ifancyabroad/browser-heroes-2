@@ -45,7 +45,11 @@ export {
 	hasReachedMaxHpThreshold,
 } from "./systems/hero/hasReachedHeroStatThreshold";
 
-export { getEncounterTypeForBattle, getZoneForRun } from "./systems/encounters";
+export {
+	createSystemGhostEncounter,
+	getEncounterTypeForBattle,
+	getZoneForRun,
+} from "./systems/encounters";
 
 export {
 	selectAvailableActions,

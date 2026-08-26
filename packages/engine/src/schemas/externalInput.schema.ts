@@ -4,6 +4,7 @@ import { heroStateSchema } from "./heroState.schema";
 export const ghostEncounterSchema = z.object({
 	ghostId: z.string(),
 	ghostUsername: z.string(),
+	ghostSource: z.enum(["player", "system"]),
 	hero: heroStateSchema,
 });
 

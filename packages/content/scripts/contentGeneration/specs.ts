@@ -128,4 +128,29 @@ export const contentSpecs = [
 		typeExpression: "WithGeneratedId<AchievementDefinition, AchievementId>",
 		referenceRules: [],
 	},
+	{
+		type: "systemGhost",
+		typeName: "SystemGhost",
+		plural: "systemGhosts",
+		dirName: "systemGhosts",
+		importPrefix: "sgh",
+		definitionType: "SystemGhostDefinition",
+		definitionImportPath: "../schemas",
+		typeImportLines: [
+			"import type { ClassId } from './classIds';",
+			"import type { FeatId } from './featIds';",
+			"import type { ItemBaseId } from './itemBaseIds';",
+			"import type { SkillId } from './skillIds';",
+		],
+		helperTypeNames: ["WithSystemGhostContentIds", "WithGeneratedId"],
+		typeExpression:
+			"WithSystemGhostContentIds<WithGeneratedId<SystemGhostDefinition, SystemGhostId>, ClassId, SkillId, FeatId, ItemBaseId>",
+		registryConstantName: "SYSTEM_GHOSTS",
+		referenceRules: [
+			{ path: "classId", targetType: "class" },
+			{ path: "additionalSkillIds[]", targetType: "skill" },
+			{ path: "featIds[]", targetType: "feat" },
+			{ path: "equipment.*.baseId", targetType: "itemBase" },
+		],
+	},
 ] as const satisfies readonly ContentSpec[];

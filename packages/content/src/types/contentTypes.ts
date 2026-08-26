@@ -31,3 +31,33 @@ export type WithRestrictedClassIds<
 			restrictedToClassIds?: TClassId[];
 		}
 	: never;
+
+export type WithSystemGhostContentIds<
+	TDefinition,
+	TClassId extends string,
+	TSkillId extends string,
+	TFeatId extends string,
+	TItemBaseId extends string,
+> = TDefinition extends {
+	classId: string;
+	additionalSkillIds: readonly string[];
+	featIds: readonly string[];
+	equipment: object;
+}
+	? Omit<TDefinition, "classId" | "additionalSkillIds" | "featIds" | "equipment"> & {
+			classId: TClassId;
+			additionalSkillIds: readonly TSkillId[];
+			featIds: readonly TFeatId[];
+			equipment: {
+				[TSlot in keyof TDefinition["equipment"]]: TDefinition["equipment"][TSlot] extends
+					| { baseId: string }
+					| undefined
+					?
+							| (Omit<NonNullable<TDefinition["equipment"][TSlot]>, "baseId"> & {
+									baseId: TItemBaseId;
+							  })
+							| undefined
+					: never;
+			};
+		}
+	: never;

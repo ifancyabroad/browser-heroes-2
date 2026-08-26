@@ -130,11 +130,56 @@ describe("ghost.service", () => {
 				battleNumber: 12,
 				ghostPoolCutoff: cutoff,
 			}),
-		).resolves.toMatchObject({ ghostId: "ghost-id", ghostUsername: "Owner" });
+		).resolves.toMatchObject({
+			ghostId: "ghost-id",
+			ghostUsername: "Owner",
+			ghostSource: "player",
+		});
 		const filter = { encounterLevel: 4, createdAt: { $lt: cutoff } };
 		expect(ghostModel.findOne).toHaveBeenCalledWith(filter);
 		expect(sort).toHaveBeenCalledWith({ createdAt: -1, _id: 1 });
 		expect(skip).toHaveBeenCalledWith(2);
+	});
+
+	it("uses the level-matched system ghost when the frozen player pool is empty", async () => {
+		ghostModel.countDocuments.mockResolvedValue(0);
+
+		await expect(
+			selectGhostEncounter({
+				encounterLevel: 4,
+				seed: "seed-73",
+				battleNumber: 12,
+				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+			}),
+		).resolves.toMatchObject({
+			ghostId: "system-ghost:dawn_keeper",
+			ghostUsername: "The Forgotten",
+			ghostSource: "system",
+			hero: { level: 4, classId: "priest" },
+		});
+		expect(ghostModel.findOne).not.toHaveBeenCalled();
+		expect(userModel.findById).not.toHaveBeenCalled();
+	});
+
+	it("uses the system ghost if the selected player record disappears", async () => {
+		ghostModel.countDocuments.mockResolvedValue(1);
+		const lean = vi.fn().mockResolvedValue(null);
+		const select = vi.fn().mockReturnValue({ lean });
+		const skip = vi.fn().mockReturnValue({ select });
+		ghostModel.findOne.mockReturnValue({ sort: vi.fn().mockReturnValue({ skip }) });
+
+		await expect(
+			selectGhostEncounter({
+				encounterLevel: 10,
+				seed: "seed-73",
+				battleNumber: 12,
+				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+			}),
+		).resolves.toMatchObject({
+			ghostId: "system-ghost:last_sentinel",
+			ghostSource: "system",
+		});
+		expect(userModel.findById).not.toHaveBeenCalled();
 	});
 
 	it("caps ghost encounter levels at ten", async () => {

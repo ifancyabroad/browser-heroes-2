@@ -19,6 +19,8 @@ const ghostService = vi.hoisted(() => ({
 	recordGhostCombatOutcome: vi.fn(),
 	selectGhostEncounter: vi.fn(),
 }));
+const achievementService = vi.hoisted(() => ({ processRunActionAchievements: vi.fn() }));
+const lifetimeProgressService = vi.hoisted(() => ({ recordLifetimeProgress: vi.fn() }));
 
 vi.mock("../models/run.model", () => ({ RunModel: models.run }));
 vi.mock("../models/runAction.model", () => ({ RunActionModel: models.action }));
@@ -27,6 +29,8 @@ vi.mock("@app/engine", async (importOriginal) => ({
 	applyAction: engine.applyAction,
 }));
 vi.mock("./ghost.service", () => ghostService);
+vi.mock("./achievement.service", () => achievementService);
+vi.mock("./lifetimeProgress.service", () => lifetimeProgressService);
 
 import { applyRunAction } from "./engine.service";
 
@@ -39,6 +43,8 @@ describe("engine.service", () => {
 			callback(session as never),
 		);
 		models.action.create.mockResolvedValue([]);
+		achievementService.processRunActionAchievements.mockResolvedValue([]);
+		lifetimeProgressService.recordLifetimeProgress.mockResolvedValue(null);
 	});
 
 	function arrangeRun(overrides = {}) {
@@ -228,10 +234,12 @@ describe("engine.service", () => {
 		const resultState = structuredClone(state);
 		resultState.phase = "combat";
 		resultState.combat!.encounterType = "ghost";
+		resultState.combat!.ghostSource = "player";
 		resultState.combat!.enemy.sourceId = "ghost-id";
 		const ghostEncounter = {
 			ghostId: "ghost-id",
 			ghostUsername: "Ghost Owner",
+			ghostSource: "player" as const,
 			hero: structuredClone(state.hero),
 		};
 		const { run } = arrangeRun({ state });
@@ -275,6 +283,37 @@ describe("engine.service", () => {
 		expect(run.nextActionSequence).toBe(2);
 	});
 
+	it("records a system ghost encounter without incrementing persisted ghost statistics", async () => {
+		const state = createTestRunState();
+		state.battleNumber = 11;
+		const resultState = structuredClone(state);
+		resultState.phase = "combat";
+		resultState.combat!.encounterType = "ghost";
+		resultState.combat!.ghostSource = "system";
+		resultState.combat!.enemy.sourceId = "system-ghost:iron_vigil";
+		const ghostEncounter = {
+			ghostId: "system-ghost:iron_vigil",
+			ghostUsername: "The Forgotten",
+			ghostSource: "system" as const,
+			hero: structuredClone(state.hero),
+		};
+		arrangeRun({ state });
+		ghostService.selectGhostEncounter.mockResolvedValue(ghostEncounter);
+		engine.applyAction.mockReturnValue({ ok: true, state: resultState, events: [] });
+
+		await applyRunAction({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "ENTER_COMBAT" },
+		});
+
+		expect(ghostService.incrementGhostEncounters).not.toHaveBeenCalled();
+		expect(models.action.create).toHaveBeenCalledWith(
+			[expect.objectContaining({ externalInput: { ghostEncounter } })],
+			{ session },
+		);
+	});
+
 	it("derives a daily run's ghost cutoff from its challenge date", async () => {
 		const state = createTestRunState();
 		state.battleNumber = 11;
@@ -305,6 +344,7 @@ describe("engine.service", () => {
 	] as const)("records a resolved ghost %s outcome", async (combatStatus, outcome) => {
 		const previousState = createTestRunState();
 		previousState.combat!.encounterType = "ghost";
+		previousState.combat!.ghostSource = "player";
 		previousState.combat!.enemy.sourceId = "ghost-id";
 		previousState.combat!.status = "active";
 		const resultState = structuredClone(previousState);
@@ -329,9 +369,40 @@ describe("engine.service", () => {
 		});
 	});
 
+	it("does not persist a resolved system ghost outcome", async () => {
+		const previousState = createTestRunState();
+		previousState.combat!.encounterType = "ghost";
+		previousState.combat!.ghostSource = "system";
+		previousState.combat!.enemy.sourceId = "system-ghost:iron_vigil";
+		previousState.combat!.status = "active";
+		const resultState = structuredClone(previousState);
+		resultState.combat!.status = "player_won";
+		arrangeRun({ state: previousState });
+		engine.applyAction.mockReturnValue({ ok: true, state: resultState, events: [] });
+
+		await applyRunAction({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "PLAYER_SKIP_TURN" },
+		});
+
+		expect(ghostService.recordGhostCombatOutcome).not.toHaveBeenCalled();
+		expect(achievementService.processRunActionAchievements).toHaveBeenCalledWith(
+			expect.objectContaining({
+				ghostOutcome: "ghost_lost",
+				ghostOwnerId: null,
+				source: {
+					runId: "run-document-id",
+					combatId: previousState.combat!.id,
+				},
+			}),
+		);
+	});
+
 	it("does not record unresolved ghost combat", async () => {
 		const state = createTestRunState();
 		state.combat!.encounterType = "ghost";
+		state.combat!.ghostSource = "player";
 		state.combat!.enemy.sourceId = "ghost-id";
 		const resultState = structuredClone(state);
 		arrangeRun({ state });

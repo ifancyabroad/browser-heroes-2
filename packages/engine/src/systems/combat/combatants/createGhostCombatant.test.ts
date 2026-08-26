@@ -10,6 +10,7 @@ describe("createGhostCombatant", () => {
 			{
 				ghostId: "ghost-id",
 				ghostUsername: "Ghost Owner",
+				ghostSource: "player",
 				hero: state.hero,
 			},
 			"combat-id",

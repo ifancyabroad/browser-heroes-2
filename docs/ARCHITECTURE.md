@@ -13,7 +13,7 @@ Browser Heroes 2 uses a deterministic, framework-agnostic gameplay core with exp
 The project is a pnpm workspace with apps and packages that have distinct responsibilities.
 
 - `packages/engine` owns deterministic run state, action validation/application, combat transitions, progression, reward choices, town transitions, town shop actions, consumables, serialization, and selectors.
-- `packages/content` owns declarative game definitions, item bases and affixes, content schemas/builders, generated IDs, generated registries, manifests, and content reference validation.
+- `packages/content` owns declarative game definitions, including authored system ghosts, item bases and affixes, content schemas/builders, generated IDs, generated registries, manifests, and content reference validation.
 - `packages/shared` owns contracts shared by the web app and API, such as request/response shapes and socket payload contracts that are not gameplay rules.
 - `apps/web` owns presentation, user interaction, client orchestration, query/socket integration, and rendering projected engine state.
 - `apps/api` owns sessions, persistence, backend orchestration, action submission, validation, run/action storage, and external encounter selection.
@@ -46,6 +46,8 @@ The content layer owns authored game definitions and generated lookup surfaces.
 
 It includes classes, enemies, fixed items, item bases, item affixes, skills, feats, and supporting content types. Authored content is validated through builders and schemas, then collected into generated IDs, registries, and manifests.
 
+System ghost builds are authored content. The engine materializes them into deterministic combat-ready snapshots, while the API decides when they substitute for an empty frozen player-ghost pool.
+
 The engine owns runtime item instances. An instance either references a fixed item or carries a generated definition assembled from content-owned bases and affixes through seeded engine rules. This keeps authored data reusable while preserving the exact equipment acquired during a run.
 
 Generated registries support lookup, type safety, and stable content imports. Documentation should describe this workflow, not duplicate generated contents.
@@ -62,7 +64,7 @@ The API currently:
 - stores full engine-owned run snapshots
 - records submitted actions in sequence
 - applies actions through the shared engine
-- resolves external encounter candidates into explicit engine inputs
+- resolves external encounter candidates, including player and system ghosts, into explicit engine inputs
 - derives lightweight summaries for querying and display
 - evaluates account achievements from engine state transitions and structured events
 - creates UTC daily challenges and serves their persisted leaderboards alongside personal hero and ghost history

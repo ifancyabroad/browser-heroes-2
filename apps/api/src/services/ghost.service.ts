@@ -1,5 +1,10 @@
 import type { ClientSession, Types } from "mongoose";
-import type { GhostEncounter, HeroState, RunState } from "@app/engine";
+import {
+	createSystemGhostEncounter,
+	type GhostEncounter,
+	type HeroState,
+	type RunState,
+} from "@app/engine";
 import { GhostModel } from "../models/ghost.model";
 import { UserModel } from "../models/user.model";
 
@@ -80,7 +85,7 @@ export async function selectGhostEncounter(
 	};
 	const count = await GhostModel.countDocuments(filter);
 	if (count === 0) {
-		return null;
+		return createSystemGhostEncounter(input.encounterLevel);
 	}
 
 	const index = selectDescendingWeightedIndex(
@@ -93,13 +98,14 @@ export async function selectGhostEncounter(
 		.select("_id userId snapshot.hero")
 		.lean();
 	if (!ghost) {
-		return null;
+		return createSystemGhostEncounter(input.encounterLevel);
 	}
 
 	const owner = await UserModel.findById(ghost.userId).select("displayName").lean();
 	return {
 		ghostId: String(ghost._id),
 		ghostUsername: owner?.displayName?.trim() || UNKNOWN_GHOST_USERNAME,
+		ghostSource: "player",
 		hero: ghost.snapshot.hero,
 	};
 }

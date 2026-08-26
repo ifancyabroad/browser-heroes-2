@@ -8,4 +8,5 @@ export * from './itemAffixes.registry';
 export * from './classes.registry';
 export * from './feats.registry';
 export * from './achievements.registry';
+export * from './systemGhosts.registry';
 export * from './manifests';

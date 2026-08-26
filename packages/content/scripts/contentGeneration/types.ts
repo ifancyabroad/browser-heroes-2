@@ -6,13 +6,18 @@ export type ContentType =
 	| "itemAffix"
 	| "class"
 	| "feat"
-	| "achievement";
+	| "achievement"
+	| "systemGhost";
 
 export type ReferencePath =
 	| "combat.skillIds[]"
 	| "combat.featIds[]"
 	| "restrictedToClassIds[]"
-	| "startingEquipment.*";
+	| "startingEquipment.*"
+	| "classId"
+	| "additionalSkillIds[]"
+	| "featIds[]"
+	| "equipment.*.baseId";
 
 export type ReferenceRule = {
 	path: ReferencePath;
@@ -30,6 +35,7 @@ export type ContentSpec = {
 	typeImportLines: readonly string[];
 	helperTypeNames: readonly string[];
 	typeExpression: string;
+	registryConstantName?: string;
 	referenceRules: readonly ReferenceRule[];
 };
 
@@ -41,6 +47,10 @@ export type ContentValue = {
 	};
 	restrictedToClassIds?: readonly string[];
 	startingEquipment?: Record<string, string | undefined>;
+	classId?: string;
+	additionalSkillIds?: readonly string[];
+	featIds?: readonly string[];
+	equipment?: Record<string, { baseId?: string } | undefined>;
 };
 
 export type LoadedContent = {

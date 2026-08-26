@@ -86,7 +86,53 @@ function validateRule(
 			);
 		case "startingEquipment.*":
 			return validateStartingEquipment(entry, targetIds, rule.targetType, rootDir);
+		case "classId":
+			return validateStringRefs(
+				entry,
+				entry.value.classId ? [entry.value.classId] : [],
+				targetIds,
+				"classId",
+				rule.targetType,
+				rootDir,
+			);
+		case "additionalSkillIds[]":
+			return validateStringRefs(
+				entry,
+				entry.value.additionalSkillIds ?? [],
+				targetIds,
+				"additionalSkillIds",
+				rule.targetType,
+				rootDir,
+			);
+		case "featIds[]":
+			return validateStringRefs(
+				entry,
+				entry.value.featIds ?? [],
+				targetIds,
+				"featIds",
+				rule.targetType,
+				rootDir,
+			);
+		case "equipment.*.baseId":
+			return validateSystemGhostEquipment(entry, targetIds, rule.targetType, rootDir);
 	}
+}
+
+function validateSystemGhostEquipment(
+	entry: LoadedContent,
+	targetIds: ReadonlySet<string>,
+	targetType: ContentType,
+	rootDir: string,
+) {
+	const errors: string[] = [];
+	for (const [slot, recipe] of Object.entries(entry.value.equipment ?? {})) {
+		if (recipe?.baseId && !targetIds.has(recipe.baseId)) {
+			errors.push(
+				`${formatFile(entry.file, rootDir)} equipment.${slot}.baseId references missing ${targetType} ${JSON.stringify(recipe.baseId)}`,
+			);
+		}
+	}
+	return errors;
 }
 
 function validateSkillRefs(entry: LoadedContent, targetIds: ReadonlySet<string>, rootDir: string) {
