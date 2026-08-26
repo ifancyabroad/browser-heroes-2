@@ -9,10 +9,10 @@ export default buildClass({
 	enemyPortrait: "classes/enemy_portraits/artificer.png",
 	icon: "classes/icons/artificer.png",
 	attributes: {
-		charisma: 10,
+		charisma: 12,
 		constitution: 14,
 		dexterity: 16,
-		intelligence: 18,
+		intelligence: 16,
 		strength: 10,
 		wisdom: 12,
 	},
