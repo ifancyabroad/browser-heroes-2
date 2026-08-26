@@ -1,22 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import type { DamageType } from "@app/content";
 import type { CombatLogEntry, CombatLogOutcome } from "@app/engine";
+import { getDamageTypeTextClass } from "../../../presentation/damage";
 import styles from "./CombatOutcomeOverlay.module.css";
 
 const COMBAT_OUTCOME_FEEDBACK_MS = 1_000;
-
-const damageTypeClasses = {
-	acid: "text-damage-acid",
-	cold: "text-damage-cold",
-	crushing: "text-damage-crushing",
-	fire: "text-damage-fire",
-	lightning: "text-damage-lightning",
-	necrotic: "text-damage-necrotic",
-	piercing: "text-damage-piercing",
-	poison: "text-damage-poison",
-	radiant: "text-damage-radiant",
-	slashing: "text-damage-slashing",
-} satisfies Record<DamageType, string>;
 
 type CombatOutcomeOverlayProps = {
 	enemyId: string;
@@ -150,7 +137,7 @@ function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
 	}
 
 	const damageType = outcome.damageType.toUpperCase();
-	const damageTypeClass = damageTypeClasses[outcome.damageType];
+	const damageTypeClass = getDamageTypeTextClass(outcome.damageType);
 	const sizeStep = Math.max(0, Math.floor(Math.log2(Math.max(1, outcome.hpDamage) / 10)) + 1);
 	const style = { fontSize: `${1 + sizeStep * 0.25}rem` };
 

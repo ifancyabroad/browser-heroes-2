@@ -22,7 +22,7 @@ import {
 	weaponTypeLabels,
 } from "../../../presentation/labels";
 import { formatModifierValue } from "../../../presentation/effects";
-import { formatDamageSelector } from "../../../presentation/damage";
+import { formatDamageSelector, getDamageTypeBorderClass } from "../../../presentation/damage";
 import {
 	getArmourClassStatPresentation,
 	getStatPresentation,
@@ -252,6 +252,7 @@ function DamageAffinityGroup({ label, affinityLabel, affinities }: DamageAffinit
 								label={damageTypeLabels[affinity.damageType]}
 								variant="muted"
 								textTone="bright"
+								className={getDamageTypeBorderClass(affinity.damageType)}
 							/>
 						</Tooltip>
 					</li>
@@ -312,7 +313,16 @@ function DamageModifierList({
 								contentClassName="w-64 max-w-[calc(100vw-1rem)]"
 								className="!flex focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 							>
-								<Badge label={badgeLabel} variant="muted" textTone="bright" />
+								<Badge
+									label={badgeLabel}
+									variant="muted"
+									textTone="bright"
+									className={
+										modifierGroup.damageType
+											? getDamageTypeBorderClass(modifierGroup.damageType)
+											: undefined
+									}
+								/>
 							</Tooltip>
 						</li>
 					);
