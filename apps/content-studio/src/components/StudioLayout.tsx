@@ -9,7 +9,7 @@ export function StudioLayout() {
 					<span className="eyebrow">Browser Heroes 2</span>
 					<h1>Content Studio</h1>
 				</div>
-				<span className="read-only">Local studio</span>
+				<span className="read-only">Read only</span>
 			</header>
 			<div className="studio-body">
 				<nav className="studio-nav" aria-label="Content categories">

@@ -17,7 +17,7 @@ The project is a pnpm workspace with apps and packages that have distinct respon
 - `packages/shared` owns contracts shared by the web app and API, such as request/response shapes and socket payload contracts that are not gameplay rules.
 - `apps/web` owns presentation, user interaction, client orchestration, query/socket integration, and rendering projected engine state.
 - `apps/api` owns sessions, persistence, backend orchestration, action submission, validation, run/action storage, and external encounter selection.
-- `apps/content-studio` owns local browsing and validated editing of existing content definitions; TypeScript content remains authoritative.
+- `apps/content-studio` owns local, read-only review of generated content registries; TypeScript content definitions remain authoritative.
 
 Cross-package dependencies should remain deliberate and acyclic. Gameplay authority belongs in the engine and content packages, not in app-specific code.
 

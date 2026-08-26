@@ -39,6 +39,7 @@ describe("content studio routes", () => {
 			"href",
 			"/skills/leap_attack",
 		);
+		expect(screen.queryByRole("link", { name: "Edit" })).not.toBeInTheDocument();
 	});
 
 	it("preserves list state in the detail back link", () => {

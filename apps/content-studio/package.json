@@ -2,7 +2,7 @@
 	"name": "@app/content-studio",
 	"version": "0.1.0",
 	"private": true,
-	"description": "Local browser and editor for Browser Heroes 2 content.",
+	"description": "Local read-only browser for Browser Heroes 2 content.",
 	"type": "module",
 	"scripts": {
 		"dev": "vite --port 5174",
@@ -26,7 +26,6 @@
 		"@types/react-dom": "^19.2.3",
 		"@vitejs/plugin-react": "^5.1.2",
 		"jsdom": "^27.4.0",
-		"prettier": "^3.6.2",
 		"tailwindcss": "^4.1.18",
 		"typescript": "~5.9.3",
 		"vite": "^7.3.1",
