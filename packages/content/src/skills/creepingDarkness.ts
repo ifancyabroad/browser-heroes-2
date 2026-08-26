@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "creeping_darkness",
 	name: "Creeping Darkness",
 	description:
-		"Surround the enemy with encroaching darkness that may leave their attacks uncertain.",
+		"Surround the enemy with encroaching darkness that may cloud the accuracy of their attacks.",
 	icon: "skills/common/creeping_darkness.png",
 	pool: "common",
 	kind: "technique",
@@ -13,10 +13,10 @@ export default buildSkill({
 	maxUses: 3,
 	effects: [
 		{
-			type: "modifyRoll",
+			type: "modifyStat",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
+			stat: "attackRollBonus",
+			value: -3,
 			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "wisdom",
