@@ -81,7 +81,7 @@ export function Battlefield({
 			style={{ backgroundImage: `url(${ZONE_BACKGROUNDS[zone]})` }}
 		>
 			<div
-				className="absolute right-2 top-2 z-20 flex gap-1 tabular-nums md:hidden"
+				className="absolute right-2 top-2 z-20 flex gap-1 tabular-nums"
 				role="group"
 				aria-label={`Battle ${battleNumber}, gold multiplier ${goldMultiplier} times`}
 			>
