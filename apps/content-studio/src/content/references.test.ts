@@ -24,4 +24,23 @@ describe("content references", () => {
 		const achievement = catalogByKey.achievements.entries[0]!;
 		expect(getOutgoingReferences("achievements", achievement)).toEqual([]);
 	});
+
+	it("links system ghost build references in both directions", () => {
+		const ghost = catalogByKey["system-ghosts"].entries.find(
+			(entry) => entry.id === "iron_vigil",
+		)!;
+		const outgoing = getOutgoingReferences("system-ghosts", ghost);
+
+		expect(outgoing).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ category: "classes", id: "warrior" }),
+				expect.objectContaining({ category: "skills", id: "double_strike" }),
+				expect.objectContaining({ category: "feats", id: "juggernaut" }),
+				expect.objectContaining({ category: "item-bases", id: "base_longsword" }),
+			]),
+		);
+		expect(getIncomingReferences("classes", "warrior")).toContainEqual(
+			expect.objectContaining({ category: "system-ghosts", id: ghost.id }),
+		);
+	});
 });

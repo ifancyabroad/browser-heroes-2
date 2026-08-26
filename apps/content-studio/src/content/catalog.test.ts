@@ -9,6 +9,7 @@ describe("content catalogs", () => {
 			"skills",
 			"feats",
 			"classes",
+			"system-ghosts",
 			"item-bases",
 			"affixes",
 			"items",
@@ -27,6 +28,23 @@ describe("content catalogs", () => {
 				),
 			).toBe(true);
 		}
+	});
+
+	it("projects authored system ghost builds", () => {
+		const catalog = catalogByKey["system-ghosts"];
+		const ghost = catalog.entries.find((entry) => entry.id === "iron_vigil")!;
+
+		expect(catalog.defaultSort).toBe("encounterLevel");
+		expect(ghost.cells).toEqual(
+			expect.objectContaining({
+				encounterLevel: 2,
+				heroLevel: 3,
+				class: "warrior",
+			}),
+		);
+		expect(ghost.searchText).toContain("double_strike");
+		expect(ghost.searchText).toContain("base_longsword");
+		expect(ghost.images).not.toHaveLength(0);
 	});
 
 	it("searches, filters, and sorts category projections", () => {

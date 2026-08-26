@@ -7,6 +7,7 @@ import {
 	itemBases,
 	items,
 	skills,
+	systemGhosts,
 	type Achievement,
 	type Class,
 	type Enemy,
@@ -15,6 +16,7 @@ import {
 	type ItemAffix,
 	type ItemBase,
 	type Skill,
+	type SystemGhost,
 } from "@app/content";
 import { modifierSummary, riderSummary } from "./summaries";
 
@@ -23,6 +25,7 @@ export type CategoryKey =
 	| "skills"
 	| "feats"
 	| "classes"
+	| "system-ghosts"
 	| "item-bases"
 	| "affixes"
 	| "items"
@@ -33,6 +36,7 @@ export type ContentDefinition =
 	| Skill
 	| Feat
 	| Class
+	| SystemGhost
 	| ItemBase
 	| ItemAffix
 	| Item
@@ -361,6 +365,42 @@ const classEntries: CatalogEntry[] = classes.map((gameClass) => ({
 	definition: gameClass,
 }));
 
+const classById = new Map(classes.map((gameClass) => [gameClass.id, gameClass]));
+
+const systemGhostEntries: CatalogEntry[] = systemGhosts.map((ghost) => {
+	const gameClass = classById.get(ghost.classId);
+	const equipment = Object.entries(ghost.equipment).map(
+		([slot, recipe]) => `${slot}: ${recipe.baseId} (${recipe.rarity})`,
+	);
+	return {
+		id: ghost.id,
+		name: ghost.name,
+		images: gameClass ? [gameClass.enemyPortrait] : [],
+		searchText: makeSearchText(ghost, [
+			ghost.classId,
+			...ghost.additionalSkillIds,
+			...ghost.featIds,
+			...equipment,
+		]),
+		facets: {
+			class: [ghost.classId],
+			encounterLevel: [String(ghost.encounterLevel)],
+			heroLevel: [String(ghost.heroLevel)],
+		},
+		cells: {
+			encounterLevel: ghost.encounterLevel,
+			heroLevel: ghost.heroLevel,
+			name: ghost.name,
+			id: ghost.id,
+			class: ghost.classId,
+			skills: join(ghost.additionalSkillIds),
+			feats: join(ghost.featIds),
+			equipment: join(equipment),
+		},
+		definition: ghost,
+	};
+});
+
 const itemBaseEntries: CatalogEntry[] = itemBases.map((base) => {
 	const subtype =
 		base.type === "weapon" ? base.weaponType : "category" in base ? base.category : base.slot;
@@ -613,6 +653,29 @@ export const catalogs: readonly Catalog[] = [
 			{ key: "tactic", label: "Tactic" },
 			{ key: "armour", label: "Armour proficiency" },
 			{ key: "weapon", label: "Weapon proficiency" },
+		]),
+	},
+	{
+		key: "system-ghosts",
+		label: "System Ghosts",
+		singular: "System Ghost",
+		entries: systemGhostEntries,
+		hasImages: true,
+		defaultSort: "encounterLevel",
+		columns: columns(
+			["encounterLevel", "Encounter Level", true],
+			["heroLevel", "Hero Level", true],
+			"name",
+			"id",
+			"class",
+			"skills",
+			"feats",
+			"equipment",
+		),
+		filters: makeFilters(systemGhostEntries, [
+			{ key: "class", label: "Class" },
+			{ key: "encounterLevel", label: "Encounter level" },
+			{ key: "heroLevel", label: "Hero level" },
 		]),
 	},
 	{
