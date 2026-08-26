@@ -16,7 +16,7 @@ export default buildItemAffix({
 		{
 			type: "modifyDamageTaken",
 			operation: "add",
-			value: -4,
+			value: -2,
 		},
 	],
 });

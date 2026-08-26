@@ -14,6 +14,7 @@ export default buildItemAffix({
 	modifiers: [
 		{
 			type: "modifyDamageTaken",
+			damageClass: "physical",
 			operation: "add",
 			value: -1,
 		},
