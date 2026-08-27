@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "intimidating_shout",
 	name: "Intimidating Shout",
 	description:
-		"Release a fearsome bellow that unsettles the enemy's attacks and may halve their damage.",
+		"Release a fearsome bellow that unsettles the enemy's attacks and may halve their physical damage.",
 	icon: "skills/barbarian/intimidating_shout.png",
 	pool: "barbarian",
 	kind: "technique",
@@ -22,6 +22,7 @@ export default buildSkill({
 		{
 			type: "modifyDamage",
 			target: "enemy",
+			damageClass: "physical",
 			operation: "multiply",
 			value: 0.5,
 			duration: { unit: "battles", value: 1 },
