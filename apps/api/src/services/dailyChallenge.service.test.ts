@@ -137,9 +137,117 @@ describe("dailyChallenge.service", () => {
 		expect(skip).toHaveBeenCalledWith(20);
 		expect(limit).toHaveBeenCalledWith(20);
 		expect(result).toMatchObject({ page: 2, total: 21, totalPages: 2 });
+		expect(result.currentUserEntry).toBeNull();
+	});
+
+	it("pins the current user's completed attempt with its global rank", async () => {
+		const attempt = createRankedAttempt();
+		mockLeaderboardRuns([]);
+		runs.findOne.mockReturnValue({ lean: vi.fn().mockResolvedValue(attempt) });
+		runs.countDocuments.mockResolvedValueOnce(25).mockResolvedValueOnce(7);
+
+		const result = await getDailyChallengeLeaderboard({
+			date,
+			userId: "user-id",
+			query: { page: 2, limit: 20 },
+		});
+
+		expect(result.currentUserEntry).toMatchObject({
+			rank: 8,
+			runId: "507f1f77bcf86cd799439011",
+			heroName: "Pinned Hero",
+			isCurrentUser: true,
+		});
+		expect(result.entries).toEqual([]);
+	});
+
+	it("keeps the user's natural leaderboard row alongside the pinned result", async () => {
+		const attempt = createRankedAttempt();
+		mockLeaderboardRuns([attempt]);
+		runs.findOne.mockReturnValue({ lean: vi.fn().mockResolvedValue(attempt) });
+		runs.countDocuments.mockResolvedValueOnce(1).mockResolvedValueOnce(0);
+
+		const result = await getDailyChallengeLeaderboard({
+			date,
+			userId: "user-id",
+			query: { page: 1, limit: 20 },
+		});
+
+		expect(result.currentUserEntry?.runId).toBe(attempt._id);
+		expect(result.entries).toHaveLength(1);
+		expect(result.entries[0]?.runId).toBe(attempt._id);
+	});
+
+	it.each(["active", "abandoned"])("does not pin an unranked %s attempt", async (status) => {
+		mockLeaderboardRuns([]);
+		runs.findOne.mockReturnValue({
+			lean: vi.fn().mockResolvedValue({ ...createRankedAttempt(), status }),
+		});
+
+		const result = await getDailyChallengeLeaderboard({
+			date,
+			userId: "user-id",
+			query: { page: 1, limit: 20 },
+		});
+
+		expect(result.currentUserEntry).toBeNull();
+	});
+
+	it("does not pin a result when the current user has no attempt", async () => {
+		mockLeaderboardRuns([]);
+		runs.findOne.mockReturnValue({ lean: vi.fn().mockResolvedValue(null) });
+
+		const result = await getDailyChallengeLeaderboard({
+			date,
+			userId: "user-id",
+			query: { page: 1, limit: 20 },
+		});
+
+		expect(result.currentUserEntry).toBeNull();
+	});
+
+	it("does not query for a pinned attempt for an anonymous viewer", async () => {
+		mockLeaderboardRuns([]);
+
+		const result = await getDailyChallengeLeaderboard({
+			date,
+			query: { page: 1, limit: 20 },
+		});
+
+		expect(runs.findOne).not.toHaveBeenCalled();
+		expect(result.currentUserEntry).toBeNull();
 	});
 });
 
 function rankedQuery(value: unknown) {
 	return { sort: vi.fn().mockReturnValue({ lean: vi.fn().mockResolvedValue(value) }) };
+}
+
+function mockLeaderboardRuns(value: unknown[]) {
+	const lean = vi.fn().mockResolvedValue(value);
+	const limit = vi.fn().mockReturnValue({ lean });
+	const skip = vi.fn().mockReturnValue({ limit });
+	runs.find.mockReturnValue({ sort: vi.fn().mockReturnValue({ skip }) });
+}
+
+function createRankedAttempt() {
+	return {
+		_id: "507f1f77bcf86cd799439011",
+		userId: "user-id",
+		mode: "dailyChallenge",
+		dailyChallengeDate: date,
+		status: "dead",
+		completedAt: new Date("2026-08-23T12:00:00.000Z"),
+		summary: {
+			heroName: "Pinned Hero",
+			classId: "warrior",
+			level: 4,
+			battleNumber: 9,
+			zoneNumber: 2,
+			endlessCycle: 0,
+			day: 3,
+			kills: 8,
+			slainBy: null,
+		},
+	};
 }

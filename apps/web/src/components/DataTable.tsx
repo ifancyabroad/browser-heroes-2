@@ -133,9 +133,11 @@ export function DataTableRow({
 	children,
 	highlighted = false,
 	onSelect,
+	className,
 }: PropsWithChildren<{
 	highlighted?: boolean;
 	onSelect?: () => void;
+	className?: string;
 }>) {
 	return (
 		<tr
@@ -144,6 +146,7 @@ export function DataTableRow({
 				"border-b border-border-secondary last:border-b-0",
 				highlighted && "bg-bg-panel",
 				onSelect && "cursor-pointer hover:bg-bg-elevated focus-within:bg-bg-elevated",
+				className,
 			)}
 		>
 			{children}

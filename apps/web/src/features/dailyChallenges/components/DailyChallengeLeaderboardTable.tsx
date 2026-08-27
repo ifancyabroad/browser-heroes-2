@@ -14,6 +14,7 @@ import { formatTitle } from "../../../presentation/effects";
 import { formatDisplayDate } from "../../../utils/date";
 
 export function DailyChallengeLeaderboardTable(props: {
+	currentUserEntry: ChallengeEntryView | null;
 	entries: ChallengeEntryView[];
 	onSelectRun: (runId: string) => void;
 }) {
@@ -44,47 +45,68 @@ export function DailyChallengeLeaderboardTable(props: {
 				<DataTableHeading hideOnMobile>COMPLETED</DataTableHeading>
 			</DataTableHeader>
 			<tbody>
+				{props.currentUserEntry && (
+					<LeaderboardEntryRow
+						entry={props.currentUserEntry}
+						onSelectRun={props.onSelectRun}
+						pinned
+					/>
+				)}
 				{props.entries.map((entry) => (
-					<DataTableRow
+					<LeaderboardEntryRow
 						key={entry.runId}
-						highlighted={entry.isCurrentUser}
-						onSelect={() => props.onSelectRun(entry.runId)}
-					>
-						<DataTableCell numeric>{entry.rank}</DataTableCell>
-						<DataTableCell>
-							<DataTableRowAction
-								label={`Inspect hero ${entry.heroName}`}
-								onSelect={() => props.onSelectRun(entry.runId)}
-							>
-								<HeroIdentity
-									name={entry.heroName}
-									classId={entry.classId}
-									level={entry.level}
-									nameAdornment={
-										entry.isCurrentUser ? (
-											<Badge label="YOU" textTone="bright" />
-										) : undefined
-									}
-								/>
-							</DataTableRowAction>
-						</DataTableCell>
-						<DataTableCell numeric>{entry.kills}</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.day}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.endlessCycle}
-						</DataTableCell>
-						<DataTableCell hideOnMobile>
-							{formatTitle(getZoneForRun(entry.zoneNumber))}
-						</DataTableCell>
-						<DataTableCell hideOnMobile>{entry.slainBy?.name ?? "—"}</DataTableCell>
-						<DataTableCell hideOnMobile>
-							{formatDisplayDate(entry.completedAt)}
-						</DataTableCell>
-					</DataTableRow>
+						entry={entry}
+						onSelectRun={props.onSelectRun}
+					/>
 				))}
 			</tbody>
 		</DataTable>
+	);
+}
+
+function LeaderboardEntryRow(props: {
+	entry: ChallengeEntryView;
+	onSelectRun: (runId: string) => void;
+	pinned?: boolean;
+}) {
+	const { entry, onSelectRun, pinned = false } = props;
+
+	return (
+		<DataTableRow
+			highlighted={entry.isCurrentUser}
+			onSelect={() => onSelectRun(entry.runId)}
+			className={pinned ? "border-b-2" : undefined}
+		>
+			<DataTableCell numeric>{entry.rank}</DataTableCell>
+			<DataTableCell>
+				<DataTableRowAction
+					label={`Inspect hero ${entry.heroName}`}
+					onSelect={() => onSelectRun(entry.runId)}
+				>
+					<HeroIdentity
+						name={entry.heroName}
+						classId={entry.classId}
+						level={entry.level}
+						nameAdornment={
+							entry.isCurrentUser ? (
+								<Badge label="YOU" textTone="bright" />
+							) : undefined
+						}
+					/>
+				</DataTableRowAction>
+			</DataTableCell>
+			<DataTableCell numeric>{entry.kills}</DataTableCell>
+			<DataTableCell numeric hideOnMobile>
+				{entry.day}
+			</DataTableCell>
+			<DataTableCell numeric hideOnMobile>
+				{entry.endlessCycle}
+			</DataTableCell>
+			<DataTableCell hideOnMobile>
+				{formatTitle(getZoneForRun(entry.zoneNumber))}
+			</DataTableCell>
+			<DataTableCell hideOnMobile>{entry.slainBy?.name ?? "—"}</DataTableCell>
+			<DataTableCell hideOnMobile>{formatDisplayDate(entry.completedAt)}</DataTableCell>
+		</DataTableRow>
 	);
 }

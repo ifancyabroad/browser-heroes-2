@@ -95,6 +95,7 @@ export default function DailyChallenge() {
 						</p>
 					) : (
 						<DailyChallengeLeaderboardTable
+							currentUserEntry={leaderboardData.currentUserEntry}
 							entries={leaderboardData.entries}
 							onSelectRun={setSelectedRunId}
 						/>

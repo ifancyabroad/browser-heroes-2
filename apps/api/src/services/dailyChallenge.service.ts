@@ -34,23 +34,10 @@ export async function getDailyChallengeSummary(input: { date: string; userId?: s
 	const [attemptCount, leader, attempt] = await Promise.all([
 		RunModel.countDocuments({ mode: "dailyChallenge", dailyChallengeDate: input.date }),
 		RunModel.findOne(rankedFilter).sort(DAILY_CHALLENGE_RANKING).lean(),
-		input.userId
-			? RunModel.findOne({
-					userId: input.userId,
-					mode: "dailyChallenge",
-					dailyChallengeDate: input.date,
-				}).lean()
-			: null,
+		getDailyChallengeAttempt(input.date, input.userId),
 	]);
 
-	const rankedEntry =
-		attempt && isRankedAttempt(attempt)
-			? toChallengeEntry(
-					attempt,
-					await getDailyChallengeRank(input.date, attempt),
-					input.userId,
-				)
-			: null;
+	const rankedEntry = await getRankedChallengeEntry(input.date, attempt, input.userId);
 
 	return {
 		challenge: {
@@ -81,17 +68,21 @@ export async function getDailyChallengeLeaderboard(input: {
 	const filter = getRankedDailyRunFilter(input.date);
 	const skip = (input.query.page - 1) * input.query.limit;
 
-	const [runs, total] = await Promise.all([
+	const [runs, total, attempt] = await Promise.all([
 		RunModel.find(filter)
 			.sort(DAILY_CHALLENGE_RANKING)
 			.skip(skip)
 			.limit(input.query.limit)
 			.lean(),
 		RunModel.countDocuments(filter),
+		getDailyChallengeAttempt(input.date, input.userId),
 	]);
+
+	const currentUserEntry = await getRankedChallengeEntry(input.date, attempt, input.userId);
 
 	return {
 		challenge: { date: input.date, classId: definition.classId },
+		currentUserEntry,
 		entries: runs.map((run, index) => toChallengeEntry(run, skip + index + 1, input.userId)),
 		page: input.query.page,
 		limit: input.query.limit,
@@ -132,6 +123,31 @@ export async function startTodayDailyChallenge(input: { userId: string; heroName
 
 function isRankedAttempt(run: { status: string; completedAt?: Date | null }): boolean {
 	return (run.status === "dead" || run.status === "retired") && Boolean(run.completedAt);
+}
+
+function getDailyChallengeAttempt(date: string, userId?: string) {
+	if (!userId) {
+		return null;
+	}
+
+	return RunModel.findOne({
+		userId,
+		mode: "dailyChallenge",
+		dailyChallengeDate: date,
+	}).lean();
+}
+
+async function getRankedChallengeEntry(
+	date: string,
+	attempt: (RunDocument & { _id: unknown }) | null,
+	userId?: string,
+) {
+	if (!attempt || !isRankedAttempt(attempt)) {
+		return null;
+	}
+
+	const rank = await getDailyChallengeRank(date, attempt);
+	return toChallengeEntry(attempt, rank, userId);
 }
 
 export function getTodayUtc(now = new Date()): string {

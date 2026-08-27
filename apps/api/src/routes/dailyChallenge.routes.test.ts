@@ -22,6 +22,7 @@ describe("daily challenge routes", () => {
 		challengeService.getDailyChallengeSummary.mockResolvedValue({ challenge: createSummary() });
 		challengeService.getDailyChallengeLeaderboard.mockResolvedValue({
 			challenge: { date: "2026-08-23", classId: "warrior" },
+			currentUserEntry: null,
 			entries: [],
 			page: 1,
 			limit: 20,

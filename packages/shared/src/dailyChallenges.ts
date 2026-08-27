@@ -55,6 +55,7 @@ export interface GetChallengeSummaryResponse {
 
 export interface GetChallengeLeaderboardResponse {
 	challenge: Pick<ChallengeSummaryView, "date" | "classId">;
+	currentUserEntry: ChallengeEntryView | null;
 	entries: ChallengeEntryView[];
 	page: number;
 	limit: number;
