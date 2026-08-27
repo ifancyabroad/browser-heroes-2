@@ -1,4 +1,3 @@
-import type { EquipmentSlot } from "@app/content";
 import clsx from "clsx";
 import {
 	attackRangeLabels,
@@ -8,7 +7,6 @@ import {
 } from "../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../presentation/effects";
 import {
-	getEquipmentSlotLabel,
 	getItemKindLabel,
 	getItemRarityTextClassName,
 	getPrimaryItemStat,
@@ -24,10 +22,9 @@ import { resolveImageUrl } from "../../utils/image";
 
 type ItemTooltipContentProps = {
 	item: RuntimeItem;
-	slot: EquipmentSlot | readonly EquipmentSlot[];
 };
 
-export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
+export function ItemTooltipContent({ item }: ItemTooltipContentProps) {
 	return (
 		<div className="grid gap-3">
 			<header className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-3">
@@ -49,7 +46,7 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 				</div>
 			</header>
 
-			<TooltipDetailList rows={getItemDetailRows(item, slot)} />
+			<TooltipDetailList rows={getItemDetailRows(item)} />
 
 			{item.modifiers.length > 0 && (
 				<TooltipSection title="Bonuses">
@@ -75,23 +72,19 @@ export function ItemTooltipContent({ item, slot }: ItemTooltipContentProps) {
 	);
 }
 
-function getItemDetailRows(
-	item: RuntimeItem,
-	slot: EquipmentSlot | readonly EquipmentSlot[],
-): TooltipDetailRow[] {
-	const rows: TooltipDetailRow[] = [
-		{ label: "Type", value: getItemKindLabel(item) },
-		{ label: "Slot", value: getEquipmentSlotLabel(slot) },
-	];
+function getItemDetailRows(item: RuntimeItem): TooltipDetailRow[] {
+	const rows: TooltipDetailRow[] = [{ label: "Type", value: getItemKindLabel(item) }];
 	const primaryStat = getPrimaryItemStat(item);
 
 	if (item.type === "weapon") {
 		return [
 			...rows,
 			...(primaryStat ? [{ ...primaryStat, valueClassName: "text-text-bright" }] : []),
-			{ label: "Class", value: damageClassLabels[item.damage.damageClass] },
-			{ label: "Range", value: attackRangeLabels[item.attackRange] },
-			{ label: "Attribute", value: attributeLabels[item.damage.attribute] },
+			{
+				label: "Attack",
+				value: `${damageClassLabels[item.damage.damageClass]} / ${attackRangeLabels[item.attackRange]}`,
+			},
+			{ label: "Scaling", value: attributeLabels[item.damage.attribute] },
 		];
 	}
 

@@ -116,7 +116,7 @@ describe("TownShopItemCard", () => {
 		expect(screen.getByText("On hit")).toBeInTheDocument();
 	});
 
-	it("shows weapon class and range in the desktop details", () => {
+	it("groups weapon class and range under attack in the desktop details", () => {
 		render(
 			<TownShopItemCard
 				slot={createSlot(false)}
@@ -126,8 +126,10 @@ describe("TownShopItemCard", () => {
 			/>,
 		);
 
-		expect(screen.getByText("Class")).toBeInTheDocument();
-		expect(screen.getByText("Range")).toBeInTheDocument();
+		expect(screen.getByText("Attack")).toBeInTheDocument();
+		expect(screen.getByText("Physical / Melee")).toBeInTheDocument();
+		expect(screen.getByText("Scaling")).toBeInTheDocument();
+		expect(screen.queryByText("Slot")).not.toBeInTheDocument();
 	});
 
 	it("only describes equipped items that would be replaced", () => {

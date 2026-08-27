@@ -14,7 +14,6 @@ import {
 import { formatItemModifier, getModifierTextClassName } from "../../../presentation/effects";
 import { LockSharp } from "pixelarticons/react/LockSharp";
 import {
-	getEquipmentSlotLabel,
 	getItemKindLabel,
 	getItemRarityTextClassName,
 	getPrimaryItemStat,
@@ -33,7 +32,6 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 	const isPurchased = slot.purchased;
 	const { destinations } = slot.equipmentPlacement;
 	const tooltipSlots = destinations.map((destination) => destination.equipmentSlot);
-	const slotLabel = getEquipmentSlotLabel(tooltipSlots);
 	const primaryStat = getPrimaryItemStat(item);
 	const requiresReplacement = slot.equipmentPlacement.automaticDestination === null;
 
@@ -72,7 +70,6 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 							value={getItemKindLabel(item)}
 							className="hidden md:grid"
 						/>
-						<DetailLine label="Slot" value={slotLabel} className="hidden md:grid" />
 						{primaryStat && (
 							<DetailLine
 								label={primaryStat.label}
@@ -84,17 +81,12 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 						{item.type === "weapon" && (
 							<>
 								<DetailLine
-									label="Class"
-									value={damageClassLabels[item.damage.damageClass]}
+									label="Attack"
+									value={`${damageClassLabels[item.damage.damageClass]} / ${attackRangeLabels[item.attackRange]}`}
 									className="hidden md:grid"
 								/>
 								<DetailLine
-									label="Range"
-									value={attackRangeLabels[item.attackRange]}
-									className="hidden md:grid"
-								/>
-								<DetailLine
-									label="Attribute"
+									label="Scaling"
 									value={attributeLabels[item.damage.attribute]}
 									className="hidden md:grid"
 								/>
@@ -159,11 +151,7 @@ function ItemHeading({
 	return (
 		<div className="min-w-0">
 			<Tooltip
-				content={
-					tooltipSlots.length > 0 ? (
-						<ItemTooltipContent item={item} slot={tooltipSlots} />
-					) : null
-				}
+				content={tooltipSlots.length > 0 ? <ItemTooltipContent item={item} /> : null}
 				className={clsx(
 					"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 					getItemRarityTextClassName(item.rarity),

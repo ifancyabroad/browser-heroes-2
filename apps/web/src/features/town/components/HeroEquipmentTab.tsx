@@ -28,7 +28,7 @@ export function HeroEquipmentTab({ equipment, canSwap, isPending, onSwap }: Hero
 						<p className="text-text-label">{getEquipmentSlotLabel(slot)}</p>
 						{item ? (
 							<Tooltip
-								content={<ItemTooltipContent item={item} slot={slot} />}
+								content={<ItemTooltipContent item={item} />}
 								placement="right"
 								className={clsx(
 									"min-w-0 max-w-full justify-self-end break-words text-right underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",

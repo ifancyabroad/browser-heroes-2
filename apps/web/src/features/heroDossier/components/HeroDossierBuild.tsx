@@ -35,7 +35,7 @@ export function EquipmentSection({ hero }: { hero: HeroView }) {
 					{equippedItems.map(({ slot, item }) => (
 						<li key={slot}>
 							<Tooltip
-								content={<ItemTooltipContent item={item} slot={slot} />}
+								content={<ItemTooltipContent item={item} />}
 								placement="top"
 								className="!block w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"

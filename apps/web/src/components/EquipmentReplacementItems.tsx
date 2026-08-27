@@ -11,7 +11,7 @@ type EquipmentReplacementItemsProps = {
 export function EquipmentReplacementItems({ destinations }: EquipmentReplacementItemsProps) {
 	const replacements = getUniqueReplacements(destinations);
 
-	return replacements.map(({ replacedItem, fallbackSlot }, index) => {
+	return replacements.map((replacedItem, index) => {
 		const item = selectItemDefinition(replacedItem);
 
 		return (
@@ -19,7 +19,7 @@ export function EquipmentReplacementItems({ destinations }: EquipmentReplacement
 				{index > 0 && ", "}
 				{item ? (
 					<Tooltip
-						content={<ItemTooltipContent item={item} slot={fallbackSlot} />}
+						content={<ItemTooltipContent item={item} />}
 						className={clsx(
 							"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 							getItemRarityTextClassName(item.rarity),
@@ -37,17 +37,12 @@ export function EquipmentReplacementItems({ destinations }: EquipmentReplacement
 }
 
 function getUniqueReplacements(destinations: readonly EquipmentDestinationView[]) {
-	const replacements = destinations.flatMap((destination) =>
-		destination.replacedItems.map((replacedItem) => ({
-			replacedItem,
-			fallbackSlot: destination.equipmentSlot,
-		})),
-	);
+	const replacements = destinations.flatMap((destination) => destination.replacedItems);
 
 	return replacements.filter(
-		(entry, index) =>
+		(replacedItem, index) =>
 			replacements.findIndex(
-				(candidate) => candidate.replacedItem.instanceId === entry.replacedItem.instanceId,
+				(candidate) => candidate.instanceId === replacedItem.instanceId,
 			) === index,
 	);
 }

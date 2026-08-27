@@ -42,9 +42,7 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 				<span className="grid min-w-0 gap-1 self-center">
 					{option.type === "item" && content.tooltipSlot ? (
 						<Tooltip
-							content={
-								<ItemTooltipContent item={option.item} slot={content.tooltipSlot} />
-							}
+							content={<ItemTooltipContent item={option.item} />}
 							className={clsx(
 								"w-fit min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 								getItemRarityTextClassName(option.item.rarity),

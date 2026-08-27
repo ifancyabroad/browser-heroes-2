@@ -39,9 +39,6 @@ export function EquipmentReplacementModal({
 	);
 	const canConfirm = !isPending && selection !== null;
 	const isReplacementChoice = destinations.length > 1;
-	const tooltipSlot =
-		selection?.equipmentSlot ?? destinations.map((destination) => destination.equipmentSlot);
-
 	function handleConfirm() {
 		if (!canConfirm || !selection) {
 			return;
@@ -76,14 +73,13 @@ export function EquipmentReplacementModal({
 				<p>
 					{isReplacementChoice ? (
 						<>
-							Choose which item to replace with{" "}
-							<ItemName item={item} slot={tooltipSlot} />.
+							Choose which item to replace with <ItemName item={item} />.
 						</>
 					) : selection ? (
 						<>
 							Are you sure you wish to replace{" "}
 							<ReplacedItemNames destination={selection} /> with{" "}
-							<ItemName item={item} slot={selection.equipmentSlot} />?
+							<ItemName item={item} />?
 						</>
 					) : null}
 				</p>
@@ -151,7 +147,6 @@ function ReplacedItemNames({ destination }: { destination: EquipmentDestinationV
 		<ReplacedItemTooltip
 			key={replacedItem.instanceId}
 			replacedItem={replacedItem}
-			fallbackSlot={destination.equipmentSlot}
 			prefix={index > 0 ? ", " : ""}
 		/>
 	));
@@ -159,11 +154,10 @@ function ReplacedItemNames({ destination }: { destination: EquipmentDestinationV
 
 type ReplacedItemTooltipProps = {
 	replacedItem: EquippedItemState;
-	fallbackSlot: EquipmentSlot;
 	prefix: string;
 };
 
-function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedItemTooltipProps) {
+function ReplacedItemTooltip({ replacedItem, prefix }: ReplacedItemTooltipProps) {
 	const item = selectItemDefinition(replacedItem);
 
 	if (!item) {
@@ -173,21 +167,15 @@ function ReplacedItemTooltip({ replacedItem, fallbackSlot, prefix }: ReplacedIte
 	return (
 		<span>
 			{prefix}
-			<ItemName item={item} slot={fallbackSlot} />
+			<ItemName item={item} />
 		</span>
 	);
 }
 
-function ItemName({
-	item,
-	slot,
-}: {
-	item: RuntimeItem;
-	slot: EquipmentSlot | readonly EquipmentSlot[];
-}) {
+function ItemName({ item }: { item: RuntimeItem }) {
 	return (
 		<Tooltip
-			content={<ItemTooltipContent item={item} slot={slot} />}
+			content={<ItemTooltipContent item={item} />}
 			className={clsx(itemTooltipTriggerClassName, getItemRarityTextClassName(item.rarity))}
 			contentClassName={itemTooltipContentClassName}
 		>
