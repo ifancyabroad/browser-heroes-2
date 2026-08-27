@@ -14,6 +14,7 @@ export default buildSkill({
 		{
 			type: "modifyDamage",
 			target: "self",
+			damageClass: "physical",
 			operation: "multiply",
 			value: 1.25,
 			duration: { unit: "battles", value: 1 },

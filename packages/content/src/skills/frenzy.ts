@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "frenzy",
 	name: "Frenzy",
 	description:
-		"Enter a reckless frenzy that increases accuracy and damage at the cost of defence.",
+		"Enter a reckless frenzy that increases attack accuracy and melee damage at the cost of defence.",
 	icon: "skills/common/frenzy.png",
 	pool: "common",
 	kind: "technique",
@@ -22,6 +22,7 @@ export default buildSkill({
 		{
 			type: "modifyDamage",
 			target: "self",
+			attackRange: "melee",
 			operation: "multiply",
 			value: 1.25,
 			duration: { unit: "turns", value: 4 },
