@@ -9,6 +9,7 @@ import { formatItemModifier, getModifierTextClassName } from "../../presentation
 import {
 	getItemKindLabel,
 	getItemRarityTextClassName,
+	getItemSlotLabel,
 	getPrimaryItemStat,
 } from "../../presentation/items";
 import {
@@ -73,7 +74,10 @@ export function ItemTooltipContent({ item }: ItemTooltipContentProps) {
 }
 
 function getItemDetailRows(item: RuntimeItem): TooltipDetailRow[] {
-	const rows: TooltipDetailRow[] = [{ label: "Type", value: getItemKindLabel(item) }];
+	const rows: TooltipDetailRow[] = [
+		{ label: "Type", value: getItemKindLabel(item) },
+		{ label: "Slot", value: getItemSlotLabel(item) },
+	];
 	const primaryStat = getPrimaryItemStat(item);
 
 	if (item.type === "weapon") {

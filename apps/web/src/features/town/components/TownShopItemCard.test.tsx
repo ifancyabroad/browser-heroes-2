@@ -129,7 +129,9 @@ describe("TownShopItemCard", () => {
 		expect(screen.getByText("Attack")).toBeInTheDocument();
 		expect(screen.getByText("Physical / Melee")).toBeInTheDocument();
 		expect(screen.getByText("Scaling")).toBeInTheDocument();
-		expect(screen.queryByText("Slot")).not.toBeInTheDocument();
+		expect(screen.getByText("Slot")).toBeInTheDocument();
+		expect(screen.getByText("Handaxe")).toBeInTheDocument();
+		expect(screen.getByText("Hand")).toBeInTheDocument();
 	});
 
 	it("only describes equipped items that would be replaced", () => {

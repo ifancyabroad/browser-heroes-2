@@ -16,6 +16,7 @@ import { LockSharp } from "pixelarticons/react/LockSharp";
 import {
 	getItemKindLabel,
 	getItemRarityTextClassName,
+	getItemSlotLabel,
 	getPrimaryItemStat,
 } from "../../../presentation/items";
 import { resolveImageUrl } from "../../../utils/image";
@@ -68,6 +69,11 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 						<DetailLine
 							label="Type"
 							value={getItemKindLabel(item)}
+							className="hidden md:grid"
+						/>
+						<DetailLine
+							label="Slot"
+							value={getItemSlotLabel(item)}
 							className="hidden md:grid"
 						/>
 						{primaryStat && (

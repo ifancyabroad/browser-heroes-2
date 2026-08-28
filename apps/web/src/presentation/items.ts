@@ -4,7 +4,6 @@ import {
 	armourSlotLabels,
 	damageTypeLabels,
 	equipmentSlotLabels,
-	weaponHandednessLabels,
 	weaponTypeLabels,
 } from "./labels";
 import type { RuntimeItem } from "@app/engine";
@@ -31,7 +30,7 @@ export function getItemRarityTextClassName(rarity: ItemRarity) {
 
 export function getItemKindLabel(item: RuntimeItem) {
 	if (item.type === "weapon") {
-		return `${weaponHandednessLabels[item.handedness]} ${weaponTypeLabels[item.weaponType].toLowerCase()}`;
+		return weaponTypeLabels[item.weaponType];
 	}
 
 	if (item.slot === "body") {
@@ -39,6 +38,31 @@ export function getItemKindLabel(item: RuntimeItem) {
 	}
 
 	return armourSlotLabels[item.slot];
+}
+
+export function getItemSlotLabel(item: RuntimeItem) {
+	if (item.type === "weapon") {
+		return item.handedness === "twoHanded" ? "Both Hands" : "Hand";
+	}
+
+	switch (item.slot) {
+		case "body":
+			return equipmentSlotLabels.body;
+		case "shield":
+			return equipmentSlotLabels.offHand;
+		case "helmet":
+			return equipmentSlotLabels.head;
+		case "gloves":
+			return equipmentSlotLabels.hands;
+		case "boots":
+			return equipmentSlotLabels.feet;
+		case "belt":
+			return equipmentSlotLabels.waist;
+		case "amulet":
+			return equipmentSlotLabels.neck;
+		case "ring":
+			return "Finger";
+	}
 }
 
 export function getEquipmentSlotLabel(slot: EquipmentSlot | readonly EquipmentSlot[]) {
