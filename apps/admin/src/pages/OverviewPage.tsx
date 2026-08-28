@@ -120,17 +120,13 @@ export function OverviewPage() {
 							<Bar
 								dataKey="value"
 								name="Runs"
-								fill="var(--violet)"
+								fill="var(--accent)"
 								radius={[4, 4, 0, 0]}
 							/>
 						</BarChart>
 					</ResponsiveContainer>
 				</Panel>
-				<Panel
-					title="Progression"
-					subtitle="Share of the run cohort reaching each battle"
-					wide
-				>
+				<Panel title="Progression" subtitle="Share of the run cohort reaching each battle">
 					<ResponsiveContainer width="100%" height={300}>
 						<BarChart
 							data={data.progression}
@@ -153,7 +149,7 @@ export function OverviewPage() {
 							<Bar
 								dataKey="percentage"
 								name="Runs reaching battle"
-								fill="var(--accent)"
+								fill="var(--success)"
 								radius={[4, 4, 0, 0]}
 							/>
 						</BarChart>

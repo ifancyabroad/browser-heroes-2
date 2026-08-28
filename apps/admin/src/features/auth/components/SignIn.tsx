@@ -23,6 +23,7 @@ export function SignIn() {
 						<span>Email</span>
 						<input
 							type="email"
+							autoComplete="email"
 							value={email}
 							onChange={(event) => setEmail(event.target.value)}
 							required
@@ -32,6 +33,7 @@ export function SignIn() {
 						<span>Password</span>
 						<input
 							type="password"
+							autoComplete="current-password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
 							required

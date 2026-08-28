@@ -66,8 +66,6 @@ export function RunsPage() {
 					value={percent.format(totals.finalBossCompletionRate)}
 					detail={`${totals.finalBossCompletions} completed`}
 				/>
-			</section>
-			<section className="stat-grid">
 				<Stat
 					label="Average battle reached"
 					value={totals.averageBattleReached.toFixed(1)}
@@ -96,20 +94,25 @@ export function RunsPage() {
 								dataKey="active"
 								name="Active"
 								stackId="outcomes"
-								fill="var(--violet)"
+								fill="var(--accent)"
 							/>
-							<Bar dataKey="dead" name="Dead" stackId="outcomes" fill="#e76875" />
+							<Bar
+								dataKey="dead"
+								name="Dead"
+								stackId="outcomes"
+								fill="var(--danger)"
+							/>
 							<Bar
 								dataKey="retired"
 								name="Retired"
 								stackId="outcomes"
-								fill="var(--accent)"
+								fill="var(--success)"
 							/>
 							<Bar
 								dataKey="abandoned"
 								name="Abandoned"
 								stackId="outcomes"
-								fill="#788493"
+								fill="var(--neutral)"
 							/>
 						</BarChart>
 					</ResponsiveContainer>

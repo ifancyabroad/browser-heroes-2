@@ -60,7 +60,7 @@ export function EnemiesPage() {
 						<Bar
 							dataKey="winRate"
 							name="Player win rate"
-							fill="var(--accent)"
+							fill="var(--success)"
 							radius={[0, 4, 4, 0]}
 						/>
 					</BarChart>
@@ -113,7 +113,7 @@ function Sort(props: {
 	set: (value: SortKey) => void;
 }) {
 	return (
-		<th>
+		<th aria-sort={props.active === props.value ? "descending" : "none"}>
 			<button
 				className={props.active === props.value ? "table-sort active" : "table-sort"}
 				onClick={() => props.set(props.value)}

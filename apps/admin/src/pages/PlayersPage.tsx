@@ -73,8 +73,6 @@ export function PlayersPage() {
 					value={number.format(totals.repeatPlayers)}
 					detail="Started at least two runs in the range"
 				/>
-			</section>
-			<section className="stat-grid">
 				<Stat
 					label="Runs per active player"
 					value={totals.runsPerActivePlayer.toFixed(1)}
@@ -114,7 +112,7 @@ export function PlayersPage() {
 								type="monotone"
 								dataKey="returningPlayers"
 								name="Returning players"
-								stroke="#e9a45b"
+								stroke="var(--success)"
 								strokeWidth={2}
 								dot={false}
 							/>

@@ -27,4 +27,15 @@ describe("Filters", () => {
 
 		expect(onChange).toHaveBeenCalledWith({ ...filters, mode: "dailyChallenge" }, 30);
 	});
+	it("includes both years when the reporting window crosses a year boundary", () => {
+		render(
+			<Filters
+				filters={{ ...filters, from: "2025-12-15", to: "2026-01-12" }}
+				preset={30}
+				onChange={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByText("15 Dec 2025 – 12 Jan 2026")).toBeInTheDocument();
+	});
 });
