@@ -78,6 +78,11 @@ describe("dailyChallenge.service", () => {
 			attempt: null,
 			canStart: true,
 		});
+		expect(runs.countDocuments).toHaveBeenCalledWith({
+			mode: "dailyChallenge",
+			dailyChallengeDate: date,
+			status: { $in: ["dead", "retired"] },
+		});
 		expect(challenges.findOneAndUpdate).not.toHaveBeenCalled();
 	});
 

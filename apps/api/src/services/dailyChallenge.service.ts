@@ -32,7 +32,7 @@ export async function getDailyChallengeSummary(input: { date: string; userId?: s
 	const rankedFilter = getRankedDailyRunFilter(input.date);
 
 	const [attemptCount, leader, attempt] = await Promise.all([
-		RunModel.countDocuments({ mode: "dailyChallenge", dailyChallengeDate: input.date }),
+		RunModel.countDocuments(rankedFilter),
 		RunModel.findOne(rankedFilter).sort(DAILY_CHALLENGE_RANKING).lean(),
 		getDailyChallengeAttempt(input.date, input.userId),
 	]);
