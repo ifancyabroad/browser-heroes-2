@@ -274,7 +274,7 @@ export async function getAdminMetricsOverview(
 	};
 	const userTypeLookup = {
 		from: UserModel.collection.name,
-		localField: "userId",
+		localField: "_id",
 		foreignField: "_id",
 		as: "user",
 	};

@@ -94,6 +94,14 @@ describe("admin metrics", () => {
 		const result = await getAdminMetricsOverview(query);
 
 		expect(result.players.active).toEqual({ total: 2, guests: 1, registered: 1 });
+		expect(mocks.runAggregate.mock.calls[1]?.[0]).toContainEqual({
+			$lookup: {
+				from: "users",
+				localField: "_id",
+				foreignField: "_id",
+				as: "user",
+			},
+		});
 		expect(result.runs.outcomes).toEqual({ active: 0, dead: 1, retired: 1, abandoned: 1 });
 		expect(result.runs.finalBossCompletionRate).toBe(1 / 3);
 		expect(result.daily[1].activePlayers).toBe(2);
