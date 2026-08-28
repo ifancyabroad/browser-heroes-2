@@ -10,7 +10,8 @@ Use Node.js 22 and pnpm 10.14.0. Install dependencies with `pnpm install --froze
 
 The deployable build outputs are:
 
-- `apps/web/dist` for the frontend
+- `apps/web/dist` for the player frontend
+- `apps/admin/dist` for the admin frontend uploaded beneath `/admin`
 - `apps/api/dist/server.cjs` for the bundled API, together with the files in `apps/api/deployment`
 
 The API is bundled into `dist/server.cjs`, including its workspace packages and ordinary JavaScript dependencies. The build options live in `apps/api/esbuild.config.mjs` so the package script remains readable.
@@ -31,7 +32,7 @@ Redirect viewer HTTP requests to HTTPS. The initial low-traffic deployment uses 
 
 The API origin request policy adds `CloudFront-Forwarded-Proto`. The API normalizes that trusted CloudFront header before session handling so Express recognizes the original HTTPS viewer request and can issue secure cookies despite the HTTP origin connection.
 
-Serve `index.html` with a short or disabled cache and hashed assets with a long immutable cache. Handle extensionless frontend routes within the default S3 behavior so genuine API errors are not rewritten to frontend HTML.
+Serve SPA entry documents with a short or disabled cache and hashed assets with a long immutable cache. The default CloudFront behavior routes extensionless game paths to `/index.html`; a dedicated `/admin*` behavior routes admin paths to `/admin/index.html`. API errors are therefore not rewritten to frontend HTML.
 
 Production uses same-origin defaults, so the web build should not set `VITE_API_BASE_URL` or `VITE_SOCKET_URL` unless intentionally changing this topology.
 
@@ -53,6 +54,7 @@ Provide these values outside the source artifact:
 - `SES_REGION=eu-west-1`
 - `SES_FROM_EMAIL`
 - `EMAIL_DELIVERY=ses`
+- `ADMIN_EMAIL`
 
 Set `APP_URL` to the public CloudFront-backed HTTPS origin. Verify the proxy-hop count against the deployed request path because it affects secure-cookie detection and IP rate limiting.
 
@@ -60,9 +62,9 @@ Use the Elastic Beanstalk instance role for SES rather than shipping AWS access 
 
 ## 6. CI/CD
 
-Production uses separate `browser-heroes-api` and `browser-heroes-web` pipelines sourced from `main` through the existing GitHub CodeStar connection. Native path filters deploy app-specific changes independently; changes to shared runtime packages or root dependency and TypeScript configuration trigger both pipelines. Documentation-only changes trigger neither pipeline. Both pipelines run their affected lint, typecheck, test, and build tasks.
+Production uses separate `browser-heroes-api`, `browser-heroes-web`, and `browser-heroes-admin` pipelines sourced from `main` through the existing GitHub CodeStar connection. Native path filters deploy each app independently; shared workspace or root configuration changes trigger the affected pipelines. Documentation-only changes trigger none. Each pipeline runs its affected lint, typecheck, test, and build tasks.
 
-The API pipeline emits the standalone Beanstalk bundle and deploys it with the native Elastic Beanstalk action. Elastic Beanstalk checks `/api/health` when evaluating the deployed environment. The web pipeline uploads hashed assets before publishing `index.html`, retains older hashed assets for open browser sessions, and invalidates the CloudFront entry document.
+The API pipeline emits the standalone Beanstalk bundle and deploys it with the native Elastic Beanstalk action. Elastic Beanstalk checks `/api/health` when evaluating the deployed environment. The web and admin pipelines publish to the bucket root and `/admin` prefix respectively, retaining older hashed assets for open browser sessions and invalidating only their own entry documents.
 
 The AWS resources, including the existing `browserheroes.com` CloudFront distribution adopted into the stack, are defined in `infra/cloudformation/production.yml`.
 

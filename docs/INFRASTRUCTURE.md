@@ -92,6 +92,8 @@ Production startup requires an HTTPS application URL, a session secret of at lea
 
 Gameplay should remain accessible without mandatory account creation.
 
+Internal admin routes use the existing registered-account session and require the account email to match `ADMIN_EMAIL`. This is a single-operator allowlist, not a general role system.
+
 Guest retention is separate from public game history. Empty guests may be removed after a short retention period and abandoned active guest runs after extended inactivity. Ranked daily challenge runs and published ghosts remain available to keep historical results and deterministic ghost pools stable, along with the minimal guest record required by their ownership references. Cleanup scheduling is future operational work.
 
 The guest cleanup command defaults to a read-only report:

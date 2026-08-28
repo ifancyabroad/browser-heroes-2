@@ -26,6 +26,10 @@ Parameters:
     SesFromEmail:
         Type: String
         Default: noreply@browserheroes.com
+    AdminEmail:
+        Type: String
+        Description: Registered Browser Heroes account allowed to access the admin application.
+        AllowedPattern: ^[^@\s]+@[^@\s]+\.[^@\s]+$
     PlatformArn:
         Type: String
         Default: arn:aws:elasticbeanstalk:eu-west-2::platform/Node.js 22 running on 64bit Amazon Linux 2023/6.11.5
@@ -92,6 +96,26 @@ Resources:
                 Comment: Route Browser Heroes frontend paths to the SPA entry point.
                 Runtime: cloudfront-js-2.0
 
+    AdminSpaFunction:
+        Type: AWS::CloudFront::Function
+        Properties:
+            Name: browser-heroes-admin-spa-routing
+            AutoPublish: true
+            FunctionCode: |
+                function handler(event) {
+                    var request = event.request;
+                    var uri = request.uri;
+
+                    if (uri === "/admin" || uri.endsWith("/") || !uri.includes(".")) {
+                        request.uri = "/admin/index.html";
+                    }
+
+                    return request;
+                }
+            FunctionConfig:
+                Comment: Route Browser Heroes admin paths to the admin SPA entry point.
+                Runtime: cloudfront-js-2.0
+
     ApiOriginRequestPolicy:
         Type: AWS::CloudFront::OriginRequestPolicy
         Properties:
@@ -151,6 +175,20 @@ Resources:
                       DomainName: browser-heroes-api-production.eu-west-2.elasticbeanstalk.com
                       Id: browser-heroes-api
                 CacheBehaviors:
+                    - AllowedMethods:
+                          - GET
+                          - HEAD
+                      CachedMethods:
+                          - GET
+                          - HEAD
+                      CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+                      Compress: true
+                      FunctionAssociations:
+                          - EventType: viewer-request
+                            FunctionARN: !GetAtt AdminSpaFunction.FunctionARN
+                      PathPattern: /admin*
+                      TargetOriginId: browser-heroes-frontend
+                      ViewerProtocolPolicy: redirect-to-https
                     - AllowedMethods:
                           - GET
                           - HEAD
@@ -374,6 +412,9 @@ Resources:
                 - Namespace: aws:elasticbeanstalk:application:environment
                   OptionName: EMAIL_DELIVERY
                   Value: ses
+                - Namespace: aws:elasticbeanstalk:application:environment
+                  OptionName: ADMIN_EMAIL
+                  Value: !Ref AdminEmail
                 - Namespace: aws:elasticbeanstalk:application:environmentsecrets
                   OptionName: MONGO_URI
                   Value: !Sub "${MongoUriSecretArn}:MONGO_URI"
@@ -395,6 +436,14 @@ Resources:
         UpdateReplacePolicy: Retain
         Properties:
             LogGroupName: /aws/codebuild/browser-heroes-web
+            RetentionInDays: 14
+
+    AdminBuildLogGroup:
+        Type: AWS::Logs::LogGroup
+        DeletionPolicy: Retain
+        UpdateReplacePolicy: Retain
+        Properties:
+            LogGroupName: /aws/codebuild/browser-heroes-admin
             RetentionInDays: 14
 
     BuildRole:
@@ -421,6 +470,8 @@ Resources:
                                 - !Sub "${ApiBuildLogGroup.Arn}:*"
                                 - !GetAtt WebBuildLogGroup.Arn
                                 - !Sub "${WebBuildLogGroup.Arn}:*"
+                                - !GetAtt AdminBuildLogGroup.Arn
+                                - !Sub "${AdminBuildLogGroup.Arn}:*"
                           - Effect: Allow
                             Action:
                                 - s3:GetObject
@@ -495,6 +546,34 @@ Resources:
                 Type: S3
                 Location: !Sub "${ArtifactBucket}/cache/web"
 
+    AdminBuildProject:
+        Type: AWS::CodeBuild::Project
+        Properties:
+            Name: browser-heroes-admin
+            ServiceRole: !GetAtt BuildRole.Arn
+            Artifacts:
+                Type: CODEPIPELINE
+            Source:
+                Type: CODEPIPELINE
+                BuildSpec: apps/admin/buildspec.yml
+            Environment:
+                ComputeType: BUILD_GENERAL1_SMALL
+                Image: aws/codebuild/standard:7.0
+                Type: LINUX_CONTAINER
+                PrivilegedMode: false
+                EnvironmentVariables:
+                    - Name: FRONTEND_BUCKET
+                      Value: !Ref FrontendBucket
+                    - Name: CLOUDFRONT_DISTRIBUTION_ID
+                      Value: !Ref FrontendDistribution
+            LogsConfig:
+                CloudWatchLogs:
+                    Status: ENABLED
+                    GroupName: !Ref AdminBuildLogGroup
+            Cache:
+                Type: S3
+                Location: !Sub "${ArtifactBucket}/cache/admin"
+
     PipelineRole:
         Type: AWS::IAM::Role
         Properties:
@@ -520,6 +599,7 @@ Resources:
                             Resource:
                                 - !GetAtt ApiBuildProject.Arn
                                 - !GetAtt WebBuildProject.Arn
+                                - !GetAtt AdminBuildProject.Arn
                           - Effect: Allow
                             Action:
                                 - s3:GetObject
@@ -682,6 +762,66 @@ Resources:
                             - Name: SourceOutput
                         RunOrder: 1
 
+    AdminPipeline:
+        Type: AWS::CodePipeline::Pipeline
+        Properties:
+            Name: browser-heroes-admin
+            PipelineType: V2
+            ExecutionMode: SUPERSEDED
+            RoleArn: !GetAtt PipelineRole.Arn
+            ArtifactStore:
+                Type: S3
+                Location: !Ref ArtifactBucket
+            Triggers:
+                - ProviderType: CodeStarSourceConnection
+                  GitConfiguration:
+                      SourceActionName: Source
+                      Push:
+                          - Branches:
+                                Includes:
+                                    - !Ref BranchName
+                            FilePaths:
+                                Includes:
+                                    - apps/admin/**
+                                    - packages/content/**
+                                    - packages/engine/**
+                                    - packages/shared/**
+                                    - package.json
+                                    - pnpm-lock.yaml
+                                    - pnpm-workspace.yaml
+                                    - tsconfig.base.json
+            Stages:
+                - Name: Source
+                  Actions:
+                      - Name: Source
+                        ActionTypeId:
+                            Category: Source
+                            Owner: AWS
+                            Provider: CodeStarSourceConnection
+                            Version: "1"
+                        Configuration:
+                            ConnectionArn: !Ref CodeStarConnectionArn
+                            FullRepositoryId: !Ref RepositoryId
+                            BranchName: !Ref BranchName
+                            OutputArtifactFormat: CODE_ZIP
+                            DetectChanges: "false"
+                        OutputArtifacts:
+                            - Name: SourceOutput
+                        RunOrder: 1
+                - Name: BuildAndDeploy
+                  Actions:
+                      - Name: BuildAndDeploy
+                        ActionTypeId:
+                            Category: Build
+                            Owner: AWS
+                            Provider: CodeBuild
+                            Version: "1"
+                        Configuration:
+                            ProjectName: !Ref AdminBuildProject
+                        InputArtifacts:
+                            - Name: SourceOutput
+                        RunOrder: 1
+
 Outputs:
     FrontendBucketName:
         Value: !Ref FrontendBucket
@@ -691,6 +831,8 @@ Outputs:
         Value: !GetAtt FrontendOriginAccessControl.Id
     FrontendSpaFunctionArn:
         Value: !GetAtt FrontendSpaFunction.FunctionARN
+    AdminSpaFunctionArn:
+        Value: !GetAtt AdminSpaFunction.FunctionARN
     FrontendDistributionId:
         Value: !Ref FrontendDistribution
     ApiEnvironmentName:

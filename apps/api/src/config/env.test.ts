@@ -8,6 +8,7 @@ const productionEnv = {
 	APP_URL: "https://browserheroes.com",
 	TRUST_PROXY_HOPS: "1",
 	EMAIL_DELIVERY: "ses",
+	ADMIN_EMAIL: " Admin@Example.COM ",
 };
 
 describe("environment configuration", () => {
@@ -32,6 +33,7 @@ describe("environment configuration", () => {
 			NODE_ENV: "production",
 			TRUST_PROXY_HOPS: 1,
 			EMAIL_DELIVERY: "ses",
+			ADMIN_EMAIL: "admin@example.com",
 		});
 	});
 
@@ -40,6 +42,7 @@ describe("environment configuration", () => {
 		["an HTTPS application URL", { APP_URL: "http://browserheroes.com" }],
 		["SES email delivery", { EMAIL_DELIVERY: "log" }],
 		["an explicit proxy-hop count", { TRUST_PROXY_HOPS: undefined }],
+		["an admin email", { ADMIN_EMAIL: undefined }],
 	])("requires %s in production", (_requirement, override) => {
 		expect(() => envSchema.parse({ ...productionEnv, ...override })).toThrow();
 	});

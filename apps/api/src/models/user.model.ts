@@ -64,6 +64,7 @@ userSchema.index(
 	},
 );
 userSchema.index({ type: 1, lastActiveAt: 1 });
+userSchema.index({ createdAt: 1 });
 
 export type UserDocument = InferSchemaType<typeof userSchema>;
 

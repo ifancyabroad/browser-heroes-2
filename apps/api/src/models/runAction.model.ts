@@ -55,6 +55,7 @@ runActionSchema.index(
 		unique: true,
 	},
 );
+runActionSchema.index({ createdAt: 1, userId: 1 });
 
 export type RunActionDocument = InferSchemaType<typeof runActionSchema>;
 

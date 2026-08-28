@@ -7,6 +7,7 @@ import { historyRoutes } from "./history.routes";
 import { contactRoutes } from "./contact.routes";
 import { achievementRoutes } from "./achievement.routes";
 import { apiBaselineLimit } from "../middlewares/rateLimits";
+import { adminRoutes } from "./admin.routes";
 
 export const routes = Router();
 
@@ -18,3 +19,4 @@ routes.use("/daily-challenges", dailyChallengeRoutes);
 routes.use("/history", historyRoutes);
 routes.use("/contact", contactRoutes);
 routes.use("/achievements", achievementRoutes);
+routes.use("/admin", adminRoutes);

@@ -12,6 +12,7 @@ export const envSchema = z
 		SES_REGION: z.string().default("eu-west-1"),
 		SES_FROM_EMAIL: z.email().default("noreply@browserheroes.com"),
 		EMAIL_DELIVERY: z.enum(["ses", "log"]).default("log"),
+		ADMIN_EMAIL: z.string().trim().toLowerCase().pipe(z.email()).optional(),
 	})
 	.superRefine((values, context) => {
 		if (values.NODE_ENV !== "production") {
@@ -47,6 +48,14 @@ export const envSchema = z
 				code: "custom",
 				path: ["TRUST_PROXY_HOPS"],
 				message: "TRUST_PROXY_HOPS must be set explicitly in production.",
+			});
+		}
+
+		if (!values.ADMIN_EMAIL) {
+			context.addIssue({
+				code: "custom",
+				path: ["ADMIN_EMAIL"],
+				message: "ADMIN_EMAIL must be set in production.",
 			});
 		}
 	})

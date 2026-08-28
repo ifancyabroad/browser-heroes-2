@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+    install:
+        runtime-versions:
+            nodejs: 22
+        commands:
+            - corepack enable
+            - corepack prepare pnpm@10.14.0 --activate
+            - pnpm install --frozen-lockfile
+    pre_build:
+        commands:
+            - pnpm --filter @app/admin... run lint
+            - pnpm --filter @app/admin... run typecheck
+            - pnpm --filter @app/admin... run test
+    build:
+        commands:
+            - pnpm --filter @app/admin... run build
+    post_build:
+        commands:
+            - aws s3 sync apps/admin/dist/assets "s3://${FRONTEND_BUCKET}/admin/assets" --cache-control "public,max-age=31536000,immutable"
+            - aws s3 sync apps/admin/dist "s3://${FRONTEND_BUCKET}/admin" --delete --exclude "assets/*" --cache-control "no-cache"
+            - aws cloudfront create-invalidation --distribution-id "${CLOUDFRONT_DISTRIBUTION_ID}" --paths "/admin/index.html" "/admin" "/admin/"
+
+cache:
+    paths:
+        - "/root/.local/share/pnpm/store/**/*"

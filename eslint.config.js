@@ -29,7 +29,7 @@ export default [
 
 	// Web app: browser globals
 	{
-		files: ["apps/{web,content-studio}/**/*.{ts,tsx}"],
+		files: ["apps/{web,admin,content-studio}/**/*.{ts,tsx}"],
 		languageOptions: {
 			globals: { window: "readonly", document: "readonly" },
 		},

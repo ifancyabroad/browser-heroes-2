@@ -163,6 +163,7 @@ const runSchema = new Schema(
 );
 
 runSchema.index({ userId: 1, createdAt: -1 });
+runSchema.index({ createdAt: 1 });
 runSchema.index(
 	{ userId: 1, dailyChallengeDate: 1 },
 	{ unique: true, partialFilterExpression: { mode: "dailyChallenge" } },

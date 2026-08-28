@@ -6,3 +6,4 @@ export * from "./runs";
 export * from "./dailyChallenges";
 export * from "./history";
 export * from "./achievements";
+export * from "./adminMetrics";

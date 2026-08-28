@@ -22,10 +22,11 @@ Before creating the stack:
 
 ## Deployment sequence
 
-1. Validate and create a reviewed CloudFormation change set with `CAPABILITY_IAM`, passing `MongoUriSecretArn` without exposing its value.
+1. Validate and create a reviewed CloudFormation change set with `CAPABILITY_IAM`, passing `MongoUriSecretArn` without exposing its value and `AdminEmail` for the registered operator account.
 2. Execute the stack and wait for the Beanstalk sample environment to become healthy.
 3. Add the environment's Elastic IP to the Atlas network allowlist.
 4. Release the API pipeline and verify `/api/health` directly through the Beanstalk origin.
-5. Release the frontend pipeline, verify the holding page through `https://browserheroes.com`, then test the bypass flow and API/socket paths.
+5. Release the web pipeline and verify the game through `https://browserheroes.com`.
+6. Release the admin pipeline and verify the allowlisted sign-in flow through `https://browserheroes.com/admin`, then test API/socket paths.
 
 CloudFront terminates viewer HTTPS while the low-cost single-instance API origin remains HTTP-only. The API origin request policy forwards `CloudFront-Forwarded-Proto` so Express can issue secure session cookies using the original viewer protocol. Cookies and query strings are forwarded for both `/api/*` and `/socket.io/*`, with caching disabled.

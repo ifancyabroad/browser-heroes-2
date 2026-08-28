@@ -1,0 +1,37 @@
+{
+	"name": "@app/admin",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Internal metrics dashboard for Browser Heroes 2.",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --port 5175",
+		"build": "tsc -b --pretty false && vite build",
+		"typecheck": "tsc -b --pretty false",
+		"lint": "eslint .",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@app/shared": "workspace:*",
+		"@tanstack/react-query": "^5.90.20",
+		"ky": "^1.14.3",
+		"recharts": "^3.1.2",
+		"react": "^19.2.3",
+		"react-dom": "^19.2.3",
+		"react-router-dom": "^7.18.2"
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.1.18",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@types/node": "^25.0.10",
+		"@types/react": "^19.2.9",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^5.1.2",
+		"jsdom": "^27.4.0",
+		"tailwindcss": "^4.1.18",
+		"typescript": "~5.9.3",
+		"vite": "^7.3.1",
+		"vitest": "^4.0.18"
+	}
+}

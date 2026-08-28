@@ -27,6 +27,7 @@ Default local services:
 
 - Web: `http://localhost:5173`
 - API: `http://localhost:4000`
+- Admin: `http://localhost:5175/admin` (requires `ADMIN_EMAIL`)
 
 ## Content Studio
 
@@ -46,6 +47,7 @@ The web app may optionally set `VITE_API_BASE_URL` in `apps/web/.env`. See
 
 ```text
 apps/
+  admin/     Internal React and Vite dashboard
   api/       Express API for persistence, scores, and backend services
   web/       React and Vite browser client
 packages/
