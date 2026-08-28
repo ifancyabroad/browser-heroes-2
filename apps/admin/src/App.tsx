@@ -9,6 +9,7 @@ import { presetRange, type DatePreset } from "./lib/dates";
 import { ClassesPage } from "./pages/ClassesPage";
 import { EnemiesPage } from "./pages/EnemiesPage";
 import { OverviewPage } from "./pages/OverviewPage";
+import { SkillsPage } from "./pages/SkillsPage";
 
 export default function App() {
 	const auth = useCurrentUser();
@@ -48,6 +49,7 @@ export default function App() {
 				<Route index element={<OverviewPage />} />
 				<Route path="classes" element={<ClassesPage />} />
 				<Route path="enemies" element={<EnemiesPage />} />
+				<Route path="skills" element={<SkillsPage />} />
 				<Route path="*" element={<Navigate to="/" replace />} />
 			</Route>
 		</Routes>

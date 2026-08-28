@@ -23,6 +23,7 @@ import {
 	getAdminClassMetrics,
 	getAdminEnemyMetrics,
 	getAdminMetricsOverview,
+	getAdminSkillMetrics,
 } from "./adminMetrics.service";
 
 const query = {
@@ -192,6 +193,59 @@ describe("admin metrics", () => {
 			expect.arrayContaining([
 				expect.objectContaining({ $match: { "run.mode": "normal" } }),
 				expect.objectContaining({ $unwind: "$events" }),
+			]),
+		);
+	});
+
+	it("aggregates skill usage and resolved combat outcomes", async () => {
+		mocks.runActionAggregate.mockResolvedValue([
+			{
+				skillId: "armour_break",
+				uses: 6,
+				runs: 3,
+				combats: 4,
+				battleTotal: 30,
+				turnTotal: 12,
+				resolvedCombats: 4,
+				combatWins: 3,
+			},
+			{
+				skillId: "taunt",
+				uses: 2,
+				runs: 1,
+				combats: 1,
+				battleTotal: 6,
+				turnTotal: 4,
+				resolvedCombats: 1,
+				combatWins: 0,
+			},
+		]);
+
+		const result = await getAdminSkillMetrics({ ...query, mode: "normal" });
+
+		expect(result.skills[0]).toEqual({
+			skillId: "armour_break",
+			uses: 6,
+			usageShare: 0.75,
+			runs: 3,
+			combats: 4,
+			averageUsesPerRun: 2,
+			averageBattle: 5,
+			averageTurn: 2,
+			resolvedCombats: 4,
+			combatWins: 3,
+			combatWinRate: 0.75,
+		});
+
+		const pipeline = mocks.runActionAggregate.mock.calls[0][0];
+		expect(pipeline).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ $match: { "run.mode": "normal" } }),
+				expect.objectContaining({
+					$match: {
+						"events.type": { $in: ["SKILL_USED", "COMBAT_ENDED"] },
+					},
+				}),
 			]),
 		);
 	});

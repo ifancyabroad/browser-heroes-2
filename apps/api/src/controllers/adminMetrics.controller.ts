@@ -4,11 +4,13 @@ import {
 	type AdminClassMetricsResponse,
 	type AdminEnemyMetricsResponse,
 	type AdminMetricsOverviewResponse,
+	type AdminSkillMetricsResponse,
 } from "@app/shared";
 import {
 	getAdminClassMetrics,
 	getAdminEnemyMetrics,
 	getAdminMetricsOverview,
+	getAdminSkillMetrics,
 } from "../services/adminMetrics.service";
 
 export async function getAdminMetricsOverviewController(
@@ -35,5 +37,14 @@ export async function getAdminEnemyMetricsController(
 ) {
 	const query = adminMetricsQuerySchema.parse(req.query);
 	const metrics = await getAdminEnemyMetrics(query);
+	res.status(200).json(metrics);
+}
+
+export async function getAdminSkillMetricsController(
+	req: Request,
+	res: Response<AdminSkillMetricsResponse>,
+) {
+	const query = adminMetricsQuerySchema.parse(req.query);
+	const metrics = await getAdminSkillMetrics(query);
 	res.status(200).json(metrics);
 }

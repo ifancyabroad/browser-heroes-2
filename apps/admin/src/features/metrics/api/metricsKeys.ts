@@ -5,4 +5,5 @@ export const metricsKeys = {
 	overview: (filters: MetricsFilters) => [...metricsKeys.all, "overview", filters] as const,
 	classes: (filters: MetricsFilters) => [...metricsKeys.all, "classes", filters] as const,
 	enemies: (filters: MetricsFilters) => [...metricsKeys.all, "enemies", filters] as const,
+	skills: (filters: MetricsFilters) => [...metricsKeys.all, "skills", filters] as const,
 };

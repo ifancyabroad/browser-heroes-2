@@ -31,6 +31,7 @@ export function DashboardLayout(props: {
 					</NavLink>
 					<NavLink to="/classes">Classes</NavLink>
 					<NavLink to="/enemies">Enemies</NavLink>
+					<NavLink to="/skills">Skills</NavLink>
 				</nav>
 				<button className="sign-out" onClick={() => logout.mutate()}>
 					Sign out

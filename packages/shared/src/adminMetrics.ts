@@ -139,3 +139,22 @@ export interface AdminEnemyMetricsResponse {
 	range: AdminMetricsRange;
 	enemies: AdminEnemyMetricsRow[];
 }
+
+export interface AdminSkillMetricsRow {
+	skillId: string;
+	uses: number;
+	usageShare: number;
+	runs: number;
+	combats: number;
+	averageUsesPerRun: number;
+	averageBattle: number;
+	averageTurn: number;
+	resolvedCombats: number;
+	combatWins: number;
+	combatWinRate: number;
+}
+
+export interface AdminSkillMetricsResponse {
+	range: AdminMetricsRange;
+	skills: AdminSkillMetricsRow[];
+}

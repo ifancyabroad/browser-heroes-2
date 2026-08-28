@@ -5,6 +5,7 @@ import type {
 	AdminMetricsOverviewResponse,
 	AdminMetricsQuery,
 	AdminRunOutcomeCounts,
+	AdminSkillMetricsResponse,
 } from "@app/shared";
 import { RunActionModel } from "../models/runAction.model";
 import { RunModel } from "../models/run.model";
@@ -32,6 +33,16 @@ type EnemyMetricsAggregate = {
 	victories: number;
 	defeats: number;
 	averageTurns: number;
+};
+type SkillMetricsAggregate = {
+	skillId: string;
+	uses: number;
+	runs: number;
+	combats: number;
+	battleTotal: number;
+	turnTotal: number;
+	resolvedCombats: number;
+	combatWins: number;
 };
 
 const MILESTONES = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
@@ -305,6 +316,121 @@ export async function getAdminEnemyMetrics(
 			defeats: row.defeats,
 			winRate: row.combats ? row.victories / row.combats : 0,
 			averageTurns: row.averageTurns,
+		})),
+	};
+}
+
+export async function getAdminSkillMetrics(
+	query: AdminMetricsQuery,
+): Promise<AdminSkillMetricsResponse> {
+	const { start, end } = bounds(query);
+	const pipeline: PipelineStage[] = [{ $match: { createdAt: { $gte: start, $lt: end } } }];
+
+	if (query.mode) {
+		pipeline.push(
+			{
+				$lookup: {
+					from: RunModel.collection.name,
+					localField: "runId",
+					foreignField: "_id",
+					as: "run",
+				},
+			},
+			{ $unwind: "$run" },
+			{ $match: { "run.mode": query.mode } },
+		);
+	}
+
+	pipeline.push(
+		{ $unwind: "$events" },
+		{ $match: { "events.type": { $in: ["SKILL_USED", "COMBAT_ENDED"] } } },
+		{
+			$group: {
+				_id: { runId: "$runId", combatId: "$events.combatId" },
+				skillUses: {
+					$push: {
+						$cond: [
+							{ $eq: ["$events.type", "SKILL_USED"] },
+							{
+								skillId: "$events.skillId",
+								battleNumber: "$events.battleNumber",
+								turnNumber: "$events.turnNumber",
+							},
+							null,
+						],
+					},
+				},
+				outcome: {
+					$max: {
+						$cond: [{ $eq: ["$events.type", "COMBAT_ENDED"] }, "$events.outcome", null],
+					},
+				},
+			},
+		},
+		{ $unwind: "$skillUses" },
+		{ $match: { skillUses: { $ne: null } } },
+		{
+			$group: {
+				_id: {
+					runId: "$_id.runId",
+					combatId: "$_id.combatId",
+					skillId: "$skillUses.skillId",
+				},
+				uses: { $sum: 1 },
+				battleTotal: { $sum: "$skillUses.battleNumber" },
+				turnTotal: { $sum: "$skillUses.turnNumber" },
+				outcome: { $first: "$outcome" },
+			},
+		},
+		{
+			$group: {
+				_id: "$_id.skillId",
+				uses: { $sum: "$uses" },
+				runIds: { $addToSet: "$_id.runId" },
+				combats: { $sum: 1 },
+				battleTotal: { $sum: "$battleTotal" },
+				turnTotal: { $sum: "$turnTotal" },
+				resolvedCombats: {
+					$sum: { $cond: [{ $ne: ["$outcome", null] }, 1, 0] },
+				},
+				combatWins: {
+					$sum: { $cond: [{ $eq: ["$outcome", "victory"] }, 1, 0] },
+				},
+			},
+		},
+		{
+			$project: {
+				_id: 0,
+				skillId: "$_id",
+				uses: 1,
+				runs: { $size: "$runIds" },
+				combats: 1,
+				battleTotal: 1,
+				turnTotal: 1,
+				resolvedCombats: 1,
+				combatWins: 1,
+			},
+		},
+		{ $sort: { uses: -1 } },
+	);
+
+	const rows = await RunActionModel.aggregate<SkillMetricsAggregate>(pipeline);
+	const totalUses = rows.reduce((total, row) => total + row.uses, 0);
+
+	return {
+		range: rangeView(query),
+		skills: rows.map((row) => ({
+			skillId: row.skillId,
+			uses: row.uses,
+			usageShare: totalUses ? row.uses / totalUses : 0,
+			runs: row.runs,
+			combats: row.combats,
+			averageUsesPerRun: row.runs ? row.uses / row.runs : 0,
+			averageBattle: row.uses ? row.battleTotal / row.uses : 0,
+			averageTurn: row.uses ? row.turnTotal / row.uses : 0,
+			resolvedCombats: row.resolvedCombats,
+			combatWins: row.combatWins,
+			combatWinRate: row.resolvedCombats ? row.combatWins / row.resolvedCombats : 0,
 		})),
 	};
 }
