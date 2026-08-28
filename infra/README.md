@@ -5,7 +5,7 @@
 - private, versioned `browser-heroes` frontend bucket and CloudFront OAC
 - the `browserheroes.com` CloudFront distribution and its frontend, API, and socket behaviors
 - single-instance Node.js 22 Elastic Beanstalk API
-- API and frontend CodeBuild projects and CodePipelines
+- API, web, and admin CodeBuild projects and CodePipelines
 - scoped runtime/build roles, short log retention, and expiring pipeline artifacts
 - generated session secret and an external MongoDB URI secret reference
 - permission to send through the existing verified eu-west-1 SES domain identity

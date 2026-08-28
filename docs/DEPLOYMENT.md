@@ -32,7 +32,7 @@ Redirect viewer HTTP requests to HTTPS. The initial low-traffic deployment uses 
 
 The API origin request policy adds `CloudFront-Forwarded-Proto`. The API normalizes that trusted CloudFront header before session handling so Express recognizes the original HTTPS viewer request and can issue secure cookies despite the HTTP origin connection.
 
-Serve SPA entry documents with a short or disabled cache and hashed assets with a long immutable cache. The default CloudFront behavior routes extensionless game paths to `/index.html`; a dedicated `/admin*` behavior routes admin paths to `/admin/index.html`. API errors are therefore not rewritten to frontend HTML.
+Serve SPA entry documents with a short or disabled cache and hashed assets with a long immutable cache. The default CloudFront behavior routes extensionless game paths to `/index.html`; dedicated `/admin` and `/admin/*` behaviors route admin paths to `/admin/index.html`. API errors are therefore not rewritten to frontend HTML.
 
 Production uses same-origin defaults, so the web build should not set `VITE_API_BASE_URL` or `VITE_SOCKET_URL` unless intentionally changing this topology.
 

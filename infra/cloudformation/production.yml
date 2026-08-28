@@ -186,7 +186,21 @@ Resources:
                       FunctionAssociations:
                           - EventType: viewer-request
                             FunctionARN: !GetAtt AdminSpaFunction.FunctionARN
-                      PathPattern: /admin*
+                      PathPattern: /admin
+                      TargetOriginId: browser-heroes-frontend
+                      ViewerProtocolPolicy: redirect-to-https
+                    - AllowedMethods:
+                          - GET
+                          - HEAD
+                      CachedMethods:
+                          - GET
+                          - HEAD
+                      CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+                      Compress: true
+                      FunctionAssociations:
+                          - EventType: viewer-request
+                            FunctionARN: !GetAtt AdminSpaFunction.FunctionARN
+                      PathPattern: /admin/*
                       TargetOriginId: browser-heroes-frontend
                       ViewerProtocolPolicy: redirect-to-https
                     - AllowedMethods:
@@ -223,7 +237,7 @@ Resources:
                       PathPattern: /socket.io/*
                       TargetOriginId: browser-heroes-api
                       ViewerProtocolPolicy: redirect-to-https
-                PriceClass: PriceClass_All
+                PriceClass: PriceClass_100
                 Restrictions:
                     GeoRestriction:
                         RestrictionType: none
@@ -654,6 +668,7 @@ Resources:
                                     - pnpm-lock.yaml
                                     - pnpm-workspace.yaml
                                     - tsconfig.base.json
+                                    - eslint.config.js
             Stages:
                 - Name: Source
                   Actions:
@@ -730,6 +745,7 @@ Resources:
                                     - pnpm-lock.yaml
                                     - pnpm-workspace.yaml
                                     - tsconfig.base.json
+                                    - eslint.config.js
             Stages:
                 - Name: Source
                   Actions:
@@ -790,6 +806,7 @@ Resources:
                                     - pnpm-lock.yaml
                                     - pnpm-workspace.yaml
                                     - tsconfig.base.json
+                                    - eslint.config.js
             Stages:
                 - Name: Source
                   Actions:
