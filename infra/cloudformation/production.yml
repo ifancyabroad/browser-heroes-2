@@ -664,7 +664,10 @@ Resources:
                                     - packages/content/**
                                     - packages/engine/**
                                     - packages/shared/**
-                                    - "*"
+                                    - package.json
+                                    - pnpm-lock.yaml
+                                    - pnpm-workspace.yaml
+                                    - tsconfig.base.json
             Stages:
                 - Name: Source
                   Actions:
@@ -737,7 +740,10 @@ Resources:
                                     - packages/content/**
                                     - packages/engine/**
                                     - packages/shared/**
-                                    - "*"
+                                    - package.json
+                                    - pnpm-lock.yaml
+                                    - pnpm-workspace.yaml
+                                    - tsconfig.base.json
             Stages:
                 - Name: Source
                   Actions:
@@ -794,7 +800,10 @@ Resources:
                                     - packages/content/**
                                     - packages/engine/**
                                     - packages/shared/**
-                                    - "*"
+                                    - package.json
+                                    - pnpm-lock.yaml
+                                    - pnpm-workspace.yaml
+                                    - tsconfig.base.json
             Stages:
                 - Name: Source
                   Actions:
