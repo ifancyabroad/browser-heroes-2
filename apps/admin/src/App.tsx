@@ -7,6 +7,7 @@ import { SignIn, Unauthorized, useCurrentUser } from "./features/auth";
 import { useOverview, type MetricsFilters } from "./features/metrics";
 import { presetRange, type DatePreset } from "./lib/dates";
 import { ClassesPage } from "./pages/ClassesPage";
+import { EnemiesPage } from "./pages/EnemiesPage";
 import { OverviewPage } from "./pages/OverviewPage";
 
 export default function App() {
@@ -46,6 +47,7 @@ export default function App() {
 			>
 				<Route index element={<OverviewPage />} />
 				<Route path="classes" element={<ClassesPage />} />
+				<Route path="enemies" element={<EnemiesPage />} />
 				<Route path="*" element={<Navigate to="/" replace />} />
 			</Route>
 		</Routes>

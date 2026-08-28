@@ -1,6 +1,7 @@
-import { classIds, CLASSES_BY_ID, type ClassId } from "@app/content";
+import { classIds, type ClassId } from "@app/content";
 import type {
 	AdminClassMetricsResponse,
+	AdminEnemyMetricsResponse,
 	AdminMetricsOverviewResponse,
 	AdminMetricsQuery,
 	AdminRunOutcomeCounts,
@@ -22,6 +23,16 @@ type CohortRun = {
 type CountByType = { _id: IdentityType; count: number };
 type DailyCount = { _id: string; count: number };
 type DailyActivity = { _id: string; userIds: unknown[] };
+type EnemyMetricsAggregate = {
+	_id: {
+		enemyId: string;
+		encounterType: "standard" | "boss" | "ghost";
+	};
+	combats: number;
+	victories: number;
+	defeats: number;
+	averageTurns: number;
+};
 
 const MILESTONES = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
 const DAY_MS = 86_400_000;
@@ -217,7 +228,6 @@ export async function getAdminClassMetrics(
 
 			return {
 				classId,
-				className: CLASSES_BY_ID[classId].name,
 				runsStarted: classRuns.length,
 				pickRate: runs.length ? classRuns.length / runs.length : 0,
 				...outcomes,
@@ -231,5 +241,70 @@ export async function getAdminClassMetrics(
 				averageKills: classRuns.length ? sum("kills") / classRuns.length : 0,
 			};
 		}),
+	};
+}
+
+export async function getAdminEnemyMetrics(
+	query: AdminMetricsQuery,
+): Promise<AdminEnemyMetricsResponse> {
+	const { start, end } = bounds(query);
+	const pipeline: PipelineStage[] = [{ $match: { createdAt: { $gte: start, $lt: end } } }];
+
+	if (query.mode) {
+		pipeline.push(
+			{
+				$lookup: {
+					from: RunModel.collection.name,
+					localField: "runId",
+					foreignField: "_id",
+					as: "run",
+				},
+			},
+			{ $unwind: "$run" },
+			{ $match: { "run.mode": query.mode } },
+		);
+	}
+
+	pipeline.push(
+		{ $unwind: "$events" },
+		{ $match: { "events.type": "COMBAT_ENDED" } },
+		{
+			$group: {
+				_id: {
+					enemyId: {
+						$cond: [
+							{ $eq: ["$events.encounterType", "ghost"] },
+							"ghost",
+							"$events.enemySourceId",
+						],
+					},
+					encounterType: "$events.encounterType",
+				},
+				combats: { $sum: 1 },
+				victories: {
+					$sum: { $cond: [{ $eq: ["$events.outcome", "victory"] }, 1, 0] },
+				},
+				defeats: {
+					$sum: { $cond: [{ $eq: ["$events.outcome", "defeat"] }, 1, 0] },
+				},
+				averageTurns: { $avg: "$events.turnNumber" },
+			},
+		},
+		{ $sort: { combats: -1 } },
+	);
+
+	const rows = await RunActionModel.aggregate<EnemyMetricsAggregate>(pipeline);
+
+	return {
+		range: rangeView(query),
+		enemies: rows.map((row) => ({
+			enemyId: row._id.enemyId,
+			encounterType: row._id.encounterType,
+			combats: row.combats,
+			victories: row.victories,
+			defeats: row.defeats,
+			winRate: row.combats ? row.victories / row.combats : 0,
+			averageTurns: row.averageTurns,
+		})),
 	};
 }

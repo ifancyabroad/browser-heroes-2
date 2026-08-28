@@ -37,7 +37,6 @@ describe("ClassesPage", () => {
 				classes: [
 					{
 						classId: "warrior",
-						className: "Warrior",
 						runsStarted: 10,
 						pickRate: 0.4,
 						active: 1,
@@ -53,7 +52,6 @@ describe("ClassesPage", () => {
 					},
 					{
 						classId: "mage",
-						className: "Mage",
 						runsStarted: 8,
 						pickRate: 0.6,
 						active: 2,

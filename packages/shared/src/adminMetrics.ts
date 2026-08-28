@@ -110,7 +110,6 @@ export interface AdminMetricsOverviewResponse {
 
 export interface AdminClassMetricsRow extends AdminRunOutcomeCounts {
 	classId: ClassId;
-	className: string;
 	runsStarted: number;
 	pickRate: number;
 	terminalRuns: number;
@@ -124,4 +123,19 @@ export interface AdminClassMetricsRow extends AdminRunOutcomeCounts {
 export interface AdminClassMetricsResponse {
 	range: AdminMetricsRange;
 	classes: AdminClassMetricsRow[];
+}
+
+export interface AdminEnemyMetricsRow {
+	enemyId: string;
+	encounterType: "standard" | "boss" | "ghost";
+	combats: number;
+	victories: number;
+	defeats: number;
+	winRate: number;
+	averageTurns: number;
+}
+
+export interface AdminEnemyMetricsResponse {
+	range: AdminMetricsRange;
+	enemies: AdminEnemyMetricsRow[];
 }

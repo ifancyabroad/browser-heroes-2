@@ -1,3 +1,4 @@
+import { CLASSES_BY_ID } from "@app/content";
 import type { AdminClassMetricsRow } from "@app/shared";
 import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -29,7 +30,7 @@ export function ClassesPage() {
 	}
 
 	const rows = [...query.data.classes].sort((a, b) => b[sort] - a[sort]);
-	const chart = rows.map((row) => ({ ...row, name: row.className }));
+	const chart = rows.map((row) => ({ ...row, name: CLASSES_BY_ID[row.classId].name }));
 	return (
 		<main className="dashboard">
 			<div className="page-title">
@@ -136,10 +137,12 @@ function Sort(props: {
 }
 
 function ClassRow({ row }: { row: AdminClassMetricsRow }) {
+	const className = CLASSES_BY_ID[row.classId].name;
+
 	return (
 		<tr>
 			<td>
-				<strong>{row.className}</strong>
+				<strong>{className}</strong>
 				<small>{row.classId}</small>
 			</td>
 			<td>{row.runsStarted}</td>

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
 	runAggregate: vi.fn(),
+	runActionAggregate: vi.fn(),
 	userAggregate: vi.fn(),
 }));
 
@@ -9,13 +10,20 @@ vi.mock("../models/run.model", () => ({
 	RunModel: { aggregate: mocks.runAggregate, collection: { name: "runs" } },
 }));
 vi.mock("../models/runAction.model", () => ({
-	RunActionModel: { collection: { name: "runactions" } },
+	RunActionModel: {
+		aggregate: mocks.runActionAggregate,
+		collection: { name: "runactions" },
+	},
 }));
 vi.mock("../models/user.model", () => ({
 	UserModel: { aggregate: mocks.userAggregate, collection: { name: "users" } },
 }));
 
-import { getAdminClassMetrics, getAdminMetricsOverview } from "./adminMetrics.service";
+import {
+	getAdminClassMetrics,
+	getAdminEnemyMetrics,
+	getAdminMetricsOverview,
+} from "./adminMetrics.service";
 
 const query = {
 	from: "2026-08-01",
@@ -26,6 +34,7 @@ const query = {
 describe("admin metrics", () => {
 	beforeEach(() => {
 		mocks.runAggregate.mockReset();
+		mocks.runActionAggregate.mockReset();
 		mocks.userAggregate.mockReset();
 	});
 
@@ -142,6 +151,47 @@ describe("admin metrics", () => {
 		expect(union.$unionWith.pipeline).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({ $match: { "run.mode": "dailyChallenge" } }),
+			]),
+		);
+	});
+
+	it("aggregates resolved combats without exposing individual ghost ids", async () => {
+		mocks.runActionAggregate.mockResolvedValue([
+			{
+				_id: { enemyId: "fire_beetle", encounterType: "standard" },
+				combats: 4,
+				victories: 3,
+				defeats: 1,
+				averageTurns: 2.5,
+			},
+			{
+				_id: { enemyId: "ghost", encounterType: "ghost" },
+				combats: 2,
+				victories: 1,
+				defeats: 1,
+				averageTurns: 4,
+			},
+		]);
+
+		const result = await getAdminEnemyMetrics({ ...query, mode: "normal" });
+
+		expect(result.enemies).toEqual([
+			expect.objectContaining({
+				enemyId: "fire_beetle",
+				combats: 4,
+				winRate: 0.75,
+			}),
+			expect.objectContaining({
+				enemyId: "ghost",
+				winRate: 0.5,
+			}),
+		]);
+
+		const pipeline = mocks.runActionAggregate.mock.calls[0][0];
+		expect(pipeline).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ $match: { "run.mode": "normal" } }),
+				expect.objectContaining({ $unwind: "$events" }),
 			]),
 		);
 	});

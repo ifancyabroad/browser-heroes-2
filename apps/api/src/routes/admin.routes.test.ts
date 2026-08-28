@@ -5,12 +5,14 @@ const mocks = vi.hoisted(() => ({
 	findUser: vi.fn(),
 	getOverview: vi.fn(),
 	getClasses: vi.fn(),
+	getEnemies: vi.fn(),
 }));
 
 vi.mock("../models/user.model", () => ({ UserModel: { findOne: mocks.findUser } }));
 vi.mock("../services/adminMetrics.service", () => ({
 	getAdminMetricsOverview: mocks.getOverview,
 	getAdminClassMetrics: mocks.getClasses,
+	getAdminEnemyMetrics: mocks.getEnemies,
 }));
 
 describe("admin routes", () => {
@@ -36,6 +38,7 @@ describe("admin routes", () => {
 		});
 		mocks.getOverview.mockResolvedValue({ players: {}, runs: {}, daily: [], progression: [] });
 		mocks.getClasses.mockResolvedValue({ classes: [] });
+		mocks.getEnemies.mockResolvedValue({ enemies: [] });
 	});
 
 	it("requires an authenticated session", async () => {
@@ -94,6 +97,20 @@ describe("admin routes", () => {
 			mode: "normal",
 		});
 	});
+
+	it("forwards enemy metric filters", async () => {
+		await request(buildApp())
+			.get("/api/admin/metrics/enemies?from=2026-08-01&to=2026-08-07&mode=normal")
+			.set("x-test-user-id", "admin-id")
+			.expect(200);
+
+		expect(mocks.getEnemies).toHaveBeenCalledWith({
+			from: "2026-08-01",
+			to: "2026-08-07",
+			mode: "normal",
+		});
+	});
+
 	it("rejects invalid metric filters", async () => {
 		await request(buildApp())
 			.get("/api/admin/metrics/overview?from=2026-08-08&to=2026-08-01")
