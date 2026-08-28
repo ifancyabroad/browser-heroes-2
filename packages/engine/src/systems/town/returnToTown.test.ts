@@ -37,7 +37,13 @@ describe("returnToTown", () => {
 			expect(slot.price).toBeLessThanOrEqual(max);
 			expect(slot.price % 5).toBe(0);
 		}
-		expect(first.events).toEqual([{ type: "RETURNED_TO_TOWN" }]);
+		expect(first.events[0]).toEqual({ type: "RETURNED_TO_TOWN" });
+		expect(first.events.filter((event) => event.type === "ITEM_OFFERED")).toHaveLength(
+			first.state.town?.shopSlots.length,
+		);
+		expect(first.events).toContainEqual(
+			expect.objectContaining({ type: "ITEM_OFFERED", source: "shop", battleNumber: 2 }),
+		);
 	});
 
 	it("rejects returning before victory", () => {

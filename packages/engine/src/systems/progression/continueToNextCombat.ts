@@ -68,6 +68,9 @@ export function continueToNextCombat(
 			{
 				type: "COMBAT_STARTED",
 				combatId: combat.id,
+				battleNumber,
+				encounterType: combat.encounterType,
+				enemySourceId: combat.enemy.sourceId,
 			},
 		],
 	);

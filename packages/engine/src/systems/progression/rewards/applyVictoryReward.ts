@@ -1,4 +1,10 @@
-import type { HeroState, RunState } from "../../../schemas";
+import type {
+	EngineEvent,
+	HeroState,
+	ItemInstance,
+	PendingRewardChoice,
+	RunState,
+} from "../../../schemas";
 
 import { getEnemyDefinition } from "../../encounters/getEnemyDefinition";
 import { appendCombatLog } from "../../combat/logs/appendCombatLog";
@@ -7,10 +13,13 @@ import { calculateCombatReward, type CombatReward } from "./calculateCombatRewar
 import { calculateGoldMultiplier } from "./calculateGoldMultiplier";
 import { createPendingLevelUp } from "../levelUp/createPendingLevelUp";
 import { createPendingRewardChoice } from "./createPendingRewardChoice";
+import { createSkillOfferEvents } from "../levelUp/createSkillOfferEvents";
+import { createItemOfferEvents } from "../../items/createItemOfferEvents";
 
 export type ApplyVictoryRewardResult = {
 	state: RunState;
 	reward: CombatReward;
+	events: EngineEvent[];
 };
 
 export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | null {
@@ -70,7 +79,27 @@ export function applyVictoryReward(state: RunState): ApplyVictoryRewardResult | 
 			pendingRewardChoice,
 		},
 		reward,
+		events: [
+			...createSkillOfferEvents(pendingLevelUp),
+			...createItemOfferEvents({
+				items: getRewardItems(pendingRewardChoice),
+				source: "reward",
+				battleNumber: rewardedState.battleNumber,
+			}),
+		],
 	};
+}
+
+function getRewardItems(rewardChoice: PendingRewardChoice | null): ItemInstance[] {
+	const items: ItemInstance[] = [];
+
+	for (const option of rewardChoice?.options ?? []) {
+		if (option.type === "item") {
+			items.push(option.item);
+		}
+	}
+
+	return items;
 }
 
 function getCombatRewardThreat(state: RunState): number | null {

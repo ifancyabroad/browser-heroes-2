@@ -32,6 +32,12 @@ const runActionSchema = new Schema(
 			required: true,
 		},
 
+		events: {
+			type: [Schema.Types.Mixed],
+			required: true,
+			default: [],
+		},
+
 		success: {
 			type: Boolean,
 			required: true,

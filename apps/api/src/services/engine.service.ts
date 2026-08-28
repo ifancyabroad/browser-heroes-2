@@ -133,6 +133,7 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 					sequence,
 					action: input.action,
 					externalInput,
+					events,
 					success: result.ok,
 					error: result.ok ? undefined : result.error,
 				},

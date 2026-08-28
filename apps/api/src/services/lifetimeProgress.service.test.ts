@@ -26,12 +26,19 @@ const EMPTY_STATS: LifetimeStats = {
 	completedGameClassIds: [],
 };
 
+const COMBAT_EVENT_CONTEXT = {
+	combatId: "combat-id",
+	enemySourceId: "enemy-id",
+	turnNumber: 1,
+} as const;
+
 describe("lifetimeProgress.service", () => {
 	beforeEach(() => vi.clearAllMocks());
 
 	it("derives account progress from general engine events", () => {
 		const events: EngineEvent[] = [
 			{
+				...COMBAT_EVENT_CONTEXT,
 				type: "COMBAT_ENDED",
 				outcome: "victory",
 				battleNumber: 100,
@@ -58,6 +65,7 @@ describe("lifetimeProgress.service", () => {
 	it("counts repeated legendary acquisitions and ghost victories", () => {
 		const legendaryItem = {
 			itemInstanceId: "item",
+			itemId: "legendary-item",
 			itemName: "Legendary",
 			rarity: "legendary" as const,
 		};
@@ -75,6 +83,7 @@ describe("lifetimeProgress.service", () => {
 				equipmentSlot: "mainHand",
 			},
 			{
+				...COMBAT_EVENT_CONTEXT,
 				type: "COMBAT_ENDED",
 				outcome: "victory",
 				battleNumber: 12,
@@ -150,6 +159,7 @@ describe("lifetimeProgress.service", () => {
 			classId: "warrior",
 			events: [
 				{
+					...COMBAT_EVENT_CONTEXT,
 					type: "COMBAT_ENDED",
 					outcome: "victory",
 					battleNumber: 1,

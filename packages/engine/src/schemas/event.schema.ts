@@ -1,22 +1,18 @@
-import {
-	equipmentSlotSchema,
-	featIdSchema,
-	itemIdSchema,
-	raritySchema,
-	skillIdSchema,
-} from "@app/content";
+import { equipmentSlotSchema, featIdSchema, raritySchema, skillIdSchema } from "@app/content";
 import { z } from "zod";
 
 const itemEventPayloadSchema = z.object({
 	itemInstanceId: z.string().nonempty(),
+	itemId: z.string().nonempty(),
 	itemName: z.string().nonempty(),
 	rarity: raritySchema,
-	staticItemId: itemIdSchema.optional(),
 });
 
 const combatContextSchema = z.object({
+	combatId: z.string().nonempty(),
 	battleNumber: z.number().int().min(1),
 	encounterType: z.enum(["standard", "boss", "ghost"]),
+	enemySourceId: z.string().nonempty(),
 });
 
 const finishingPlayerActionSchema = z.object({
@@ -24,18 +20,38 @@ const finishingPlayerActionSchema = z.object({
 	targetStartedAtFullHp: z.boolean(),
 });
 
-const combatStartedEventSchema = z.object({
+const combatStartedEventSchema = combatContextSchema.extend({
 	type: z.literal("COMBAT_STARTED"),
-	combatId: z.string(),
 });
 
 const combatTurnResolvedEventSchema = z.object({
 	type: z.literal("COMBAT_TURN_RESOLVED"),
 });
 
+const skillUsedEventSchema = combatContextSchema.extend({
+	type: z.literal("SKILL_USED"),
+	skillId: skillIdSchema,
+	turnNumber: z.number().int().min(1),
+});
+
+const skillOfferedEventSchema = z.object({
+	type: z.literal("SKILL_OFFERED"),
+	skillId: skillIdSchema,
+	level: z.number().int().min(2),
+	rerollIndex: z.number().int().min(0),
+});
+
+const itemOfferedEventSchema = z.object({
+	type: z.literal("ITEM_OFFERED"),
+	item: itemEventPayloadSchema,
+	source: z.enum(["reward", "shop"]),
+	battleNumber: z.number().int().min(1),
+});
+
 const combatVictoryEventSchema = combatContextSchema.extend({
 	type: z.literal("COMBAT_ENDED"),
 	outcome: z.literal("victory"),
+	turnNumber: z.number().int().min(1),
 	defeatedFinalBoss: z.boolean(),
 	completedEndlessCycle: z.boolean(),
 	finishingPlayerAction: finishingPlayerActionSchema.nullable(),
@@ -48,6 +64,7 @@ const combatVictoryEventSchema = combatContextSchema.extend({
 const combatDefeatEventSchema = combatContextSchema.extend({
 	type: z.literal("COMBAT_ENDED"),
 	outcome: z.literal("defeat"),
+	turnNumber: z.number().int().min(1),
 });
 
 const returnedToTownEventSchema = z.object({
@@ -143,6 +160,9 @@ const runRetiredEventSchema = z.object({
 export const engineEventSchema = z.union([
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
+	skillUsedEventSchema,
+	skillOfferedEventSchema,
+	itemOfferedEventSchema,
 	combatVictoryEventSchema,
 	combatDefeatEventSchema,
 	returnedToTownEventSchema,

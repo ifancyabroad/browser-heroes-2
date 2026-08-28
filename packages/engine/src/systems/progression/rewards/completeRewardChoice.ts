@@ -41,10 +41,6 @@ export function completeRewardChoice(state: RunState, action: SelectRewardAction
 
 	const eventItem = createItemEventPayload(option.item);
 
-	if (!eventItem) {
-		return failureResult(state, "INVALID_REWARD_SELECTION");
-	}
-
 	const equipResult = equipItem({
 		hero: state.hero,
 		item: option.item,

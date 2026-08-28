@@ -101,7 +101,8 @@ describe("engine.service", () => {
 		const nextState = structuredClone(createTestRunState());
 		nextState.kills = 2;
 		const { run } = arrangeRun({ nextActionSequence: 4 });
-		engine.applyAction.mockReturnValue({ ok: true, state: nextState, events: [] });
+		const events = [{ type: "COMBAT_TURN_RESOLVED" as const }];
+		engine.applyAction.mockReturnValue({ ok: true, state: nextState, events });
 
 		const response = await applyRunAction({
 			userId: "user-id",
@@ -122,6 +123,7 @@ describe("engine.service", () => {
 					sequence: 4,
 					action: { type: "PLAYER_SKIP_TURN" },
 					externalInput: {},
+					events,
 					success: true,
 					error: undefined,
 				},
@@ -130,7 +132,7 @@ describe("engine.service", () => {
 		);
 		expect(response).toEqual({
 			run,
-			result: { ok: true, state: nextState, events: [] },
+			result: { ok: true, state: nextState, events },
 			unlockedAchievements: [],
 		});
 	});
@@ -155,6 +157,7 @@ describe("engine.service", () => {
 		expect(models.action.create).toHaveBeenCalledWith(
 			[
 				expect.objectContaining({
+					events: [],
 					success: false,
 					error: "INVALID_PHASE",
 				}),

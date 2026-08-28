@@ -29,7 +29,13 @@ describe("continueToNextCombat", () => {
 		});
 		expect(first.events).toEqual([
 			{ type: "NEXT_COMBAT_READY" },
-			expect.objectContaining({ type: "COMBAT_STARTED" }),
+			{
+				type: "COMBAT_STARTED",
+				combatId: first.state.combat?.id,
+				battleNumber: 2,
+				encounterType: first.state.combat?.encounterType,
+				enemySourceId: first.state.combat?.enemy.sourceId,
+			},
 		]);
 	});
 

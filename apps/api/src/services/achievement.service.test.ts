@@ -16,6 +16,12 @@ import {
 	unlockAchievements,
 } from "./achievement.service";
 
+const COMBAT_EVENT_CONTEXT = {
+	combatId: "combat-id",
+	enemySourceId: "enemy-id",
+	turnNumber: 1,
+} as const;
+
 describe("achievement.service", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
@@ -32,6 +38,7 @@ describe("achievement.service", () => {
 				nextState,
 				events: [
 					{
+						...COMBAT_EVENT_CONTEXT,
 						type: "COMBAT_ENDED",
 						outcome: "victory",
 						battleNumber: 100,
@@ -66,6 +73,7 @@ describe("achievement.service", () => {
 				nextState: state,
 				events: [
 					{
+						...COMBAT_EVENT_CONTEXT,
 						type: "COMBAT_ENDED",
 						outcome: "victory",
 						battleNumber: 12,
@@ -83,6 +91,7 @@ describe("achievement.service", () => {
 	it("applies the day-five final-boss boundary", () => {
 		const previousState = createTestRunState();
 		const victoryEvent = {
+			...COMBAT_EVENT_CONTEXT,
 			type: "COMBAT_ENDED" as const,
 			outcome: "victory" as const,
 			battleNumber: 100,
@@ -128,6 +137,7 @@ describe("achievement.service", () => {
 						type: "ITEM_BOUGHT",
 						item: {
 							itemInstanceId: "item",
+							itemId: "legend",
 							itemName: "Legend",
 							rarity: "legendary",
 						},
@@ -135,6 +145,7 @@ describe("achievement.service", () => {
 						price: 1,
 					},
 					{
+						...COMBAT_EVENT_CONTEXT,
 						type: "COMBAT_ENDED",
 						outcome: "victory",
 						battleNumber: 200,

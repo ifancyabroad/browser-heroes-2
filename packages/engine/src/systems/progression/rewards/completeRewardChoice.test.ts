@@ -68,6 +68,12 @@ describe("completeRewardChoice", () => {
 		expect(result.ok).toBe(true);
 		expect(result.state.combat?.player.maxHp).toBeGreaterThan(previousMaxHp);
 		expect(result.state.combat?.player.maxHp).toBe(result.state.hero.currentHp);
+		expect(result.events).toContainEqual(
+			expect.objectContaining({
+				type: "REWARD_SELECTED",
+				item: expect.objectContaining({ itemId: "power_chain" }),
+			}),
+		);
 	});
 });
 

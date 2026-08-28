@@ -33,6 +33,9 @@ export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): E
 			{
 				type: "COMBAT_STARTED",
 				combatId: combatResult.id,
+				battleNumber: state.battleNumber,
+				encounterType: combatResult.encounterType,
+				enemySourceId: combatResult.enemy.sourceId,
 			},
 		],
 	);

@@ -134,13 +134,17 @@ function finishVictory(input: FinishVictoryInput): EngineResult {
 		{
 			type: "COMBAT_ENDED",
 			outcome: "victory",
+			combatId: combat.id,
 			battleNumber: state.battleNumber,
 			encounterType: combat.encounterType,
+			enemySourceId: combat.enemy.sourceId,
+			turnNumber: combat.turnNumber,
 			defeatedFinalBoss: isFinalBossVictory(state.battleNumber),
 			completedEndlessCycle: isEndlessCycleVictory(state.battleNumber),
 			finishingPlayerAction,
 			reward: victoryResult.reward,
 		},
+		...victoryResult.events,
 	]);
 }
 
@@ -163,8 +167,11 @@ function finishDefeat(
 			{
 				type: "COMBAT_ENDED",
 				outcome: "defeat",
+				combatId: combat.id,
 				battleNumber: state.battleNumber,
 				encounterType: combat.encounterType,
+				enemySourceId: combat.enemy.sourceId,
+				turnNumber: combat.turnNumber,
 			},
 		],
 	);

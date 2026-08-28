@@ -1,4 +1,4 @@
-import type { EngineResult, PlayerUseSkillAction, RunState } from "../../../schemas";
+import type { EngineEvent, EngineResult, PlayerUseSkillAction, RunState } from "../../../schemas";
 
 import { failureResult } from "../../../core/result";
 import { consumeCombatantSkillCharge } from "../skills/consumeCombatantSkillCharge";
@@ -46,12 +46,22 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		skillName: skillValidation.value.skill.name,
 		rngState: state.rngState,
 	});
+	const skillUsedEvent: EngineEvent = {
+		type: "SKILL_USED",
+		skillId: action.skillId,
+		combatId: state.combat.id,
+		battleNumber: state.battleNumber,
+		encounterType: state.combat.encounterType,
+		enemySourceId: state.combat.enemy.sourceId,
+		turnNumber: state.combat.turnNumber,
+	};
 
 	return finishPlayerActionRound({
 		state,
 		combatAfterPlayerAction: playerSkill.value,
 		rngState: playerSkill.rngState,
 		playerEffectIds,
+		events: [skillUsedEvent],
 		playerActionContext: {
 			type: "skill",
 			targetStartedAtFullHp: state.combat.enemy.currentHp === state.combat.enemy.maxHp,

@@ -31,10 +31,6 @@ export function buyItem(state: RunState, action: BuyItemAction): EngineResult {
 
 	const eventItem = createItemEventPayload(shopSlot.item);
 
-	if (!eventItem) {
-		return failureResult(state, "ITEM_DEFINITION_NOT_FOUND");
-	}
-
 	const equipResult = equipItem({
 		hero: state.hero,
 		item: shopSlot.item,
