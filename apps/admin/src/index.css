@@ -249,7 +249,12 @@ header h1 {
 	border-radius: 0 6px 6px 0;
 }
 .presets button + button {
-	border-left: 0;
+	margin-left: -1px;
+}
+.presets button:hover,
+.presets button:focus-visible {
+	position: relative;
+	z-index: 1;
 }
 .presets button.selected {
 	color: var(--text);
@@ -355,6 +360,11 @@ header h1 {
 }
 .state.loading {
 	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#root > .state.loading {
+	min-height: 100vh;
 }
 .state.loading span {
 	width: 8px;
