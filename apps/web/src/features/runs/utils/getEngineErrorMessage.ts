@@ -27,7 +27,6 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	NOT_ENOUGH_GOLD: "You do not have enough gold.",
 	SHOP_SLOT_NOT_FOUND: "That shop item is no longer available.",
 	SHOP_SLOT_ALREADY_PURCHASED: "That shop item has already been purchased.",
-	ITEM_DEFINITION_NOT_FOUND: "Item details could not be loaded.",
 	NO_HEALING_POTIONS_AVAILABLE: "You do not have any healing potions.",
 	CONSUMABLE_NOT_USABLE: "That consumable cannot be used right now.",
 	HEALING_POTIONS_FULL: "You cannot carry any more healing potions.",
