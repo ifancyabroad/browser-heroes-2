@@ -428,6 +428,13 @@ tbody tr:hover {
 .table-sort.active {
 	color: var(--accent);
 }
+.retention-samples {
+	display: flex;
+	justify-content: center;
+	gap: 22px;
+	color: var(--muted);
+	font-size: 0.75rem;
+}
 @media (max-width: 1050px) {
 	.stat-grid {
 		grid-template-columns: repeat(2, 1fr);
@@ -465,7 +472,13 @@ tbody tr:hover {
 	}
 	nav {
 		display: flex;
+		flex: 1;
+		min-width: 0;
 		margin-left: 10px;
+		overflow-x: auto;
+	}
+	nav a {
+		flex: 0 0 auto;
 	}
 	.sign-out {
 		margin: 0 0 0 auto;

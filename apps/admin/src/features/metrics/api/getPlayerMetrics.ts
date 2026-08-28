@@ -1,0 +1,13 @@
+import type { AdminPlayerMetricsResponse } from "@app/shared";
+import { api } from "../../../lib/api";
+import type { MetricsFilters } from "../types";
+import { toMetricsSearchParams } from "./toMetricsSearchParams";
+
+export function getPlayerMetrics(filters: MetricsFilters, signal?: AbortSignal) {
+	return api
+		.get("admin/metrics/players", {
+			searchParams: toMetricsSearchParams(filters),
+			signal,
+		})
+		.json<AdminPlayerMetricsResponse>();
+}

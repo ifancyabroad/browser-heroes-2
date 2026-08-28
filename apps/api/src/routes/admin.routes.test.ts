@@ -4,6 +4,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vites
 const mocks = vi.hoisted(() => ({
 	findUser: vi.fn(),
 	getOverview: vi.fn(),
+	getPlayers: vi.fn(),
 	getRuns: vi.fn(),
 	getClasses: vi.fn(),
 	getEnemies: vi.fn(),
@@ -13,6 +14,7 @@ const mocks = vi.hoisted(() => ({
 vi.mock("../models/user.model", () => ({ UserModel: { findOne: mocks.findUser } }));
 vi.mock("../services/adminMetrics.service", () => ({
 	getAdminMetricsOverview: mocks.getOverview,
+	getAdminPlayerMetrics: mocks.getPlayers,
 	getAdminRunMetrics: mocks.getRuns,
 	getAdminClassMetrics: mocks.getClasses,
 	getAdminEnemyMetrics: mocks.getEnemies,
@@ -41,6 +43,7 @@ describe("admin routes", () => {
 			select: vi.fn().mockResolvedValue({ _id: "admin-id" }),
 		});
 		mocks.getOverview.mockResolvedValue({ players: {}, runs: {}, daily: [], progression: [] });
+		mocks.getPlayers.mockResolvedValue({ totals: {}, daily: [], types: [], retention: [] });
 		mocks.getRuns.mockResolvedValue({ totals: {}, daily: [], depth: [], modes: [] });
 		mocks.getClasses.mockResolvedValue({ classes: [] });
 		mocks.getEnemies.mockResolvedValue({ enemies: [] });
@@ -111,6 +114,19 @@ describe("admin routes", () => {
 			.expect(200);
 
 		expect(mocks.getRuns).toHaveBeenCalledWith({
+			from: "2026-08-01",
+			to: "2026-08-07",
+			mode: "normal",
+		});
+	});
+
+	it("forwards player metric filters", async () => {
+		await request(buildApp())
+			.get("/api/admin/metrics/players?from=2026-08-01&to=2026-08-07&mode=normal")
+			.set("x-test-user-id", "admin-id")
+			.expect(200);
+
+		expect(mocks.getPlayers).toHaveBeenCalledWith({
 			from: "2026-08-01",
 			to: "2026-08-07",
 			mode: "normal",

@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import type { DashboardContext } from "../components/DashboardLayout";
 import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
+import { Stat } from "../components/Stat";
 import { shortDate } from "../lib/dates";
 
 const number = new Intl.NumberFormat("en-GB");
@@ -160,16 +161,6 @@ export function OverviewPage() {
 				</Panel>
 			</section>
 		</main>
-	);
-}
-
-function Stat(props: { label: string; value: string; detail: string }) {
-	return (
-		<article className="stat">
-			<span>{props.label}</span>
-			<strong>{props.value}</strong>
-			<small>{props.detail}</small>
-		</article>
 	);
 }
 

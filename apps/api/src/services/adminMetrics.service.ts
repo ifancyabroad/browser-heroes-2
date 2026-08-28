@@ -5,6 +5,7 @@ import {
 	type AdminEnemyMetricsResponse,
 	type AdminMetricsOverviewResponse,
 	type AdminMetricsQuery,
+	type AdminPlayerMetricsResponse,
 	type AdminRunMetricsDailyPoint,
 	type AdminRunMetricsResponse,
 	type AdminRunOutcomeCounts,
@@ -49,8 +50,22 @@ type SkillMetricsAggregate = {
 	resolvedCombats: number;
 	combatWins: number;
 };
+type NewIdentity = {
+	userId: string;
+	type: IdentityType;
+	createdAt: Date;
+};
+type PlayerActivity = {
+	userId: string;
+	type: IdentityType;
+	userCreatedAt: Date;
+	activityDates: string[];
+	runStarts: Array<{ date: string; count: number }>;
+};
 
 const MILESTONES = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
+const MAX_RETENTION_DAYS = 30;
+const RETENTION_DAYS = [1, 7, MAX_RETENTION_DAYS] as const;
 const DEPTH_BUCKETS = [
 	{ label: "1–9", fromBattle: 1, toBattle: 9 },
 	{ label: "10–19", fromBattle: 10, toBattle: 19 },
@@ -80,7 +95,6 @@ function dateExpression(field: string) {
 function rangeView(query: AdminMetricsQuery) {
 	return { from: query.from, to: query.to, mode: query.mode ?? null };
 }
-
 function identityBreakdown(rows: CountByType[]) {
 	const guests = rows.find((row) => row._id === "guest")?.count ?? 0;
 	const registered = rows.find((row) => row._id === "registered")?.count ?? 0;
@@ -122,6 +136,90 @@ async function loadCohortRuns(query: AdminMetricsQuery): Promise<CohortRun[]> {
 				kills: "$summary.kills",
 				hasDefeatedFinalBoss: "$summary.hasDefeatedFinalBoss",
 				createdAt: 1,
+			},
+		},
+	]);
+}
+
+async function loadPlayerActivity(query: AdminMetricsQuery): Promise<PlayerActivity[]> {
+	const { start, end } = bounds(query);
+	end.setUTCDate(end.getUTCDate() + MAX_RETENTION_DAYS);
+
+	const runMatch: Record<string, unknown> = { createdAt: { $gte: start, $lt: end } };
+	if (query.mode) {
+		runMatch.mode = query.mode;
+	}
+
+	const actionPipeline: PipelineStage.UnionWithPipelineStage[] = [
+		{ $match: { createdAt: { $gte: start, $lt: end } } },
+	];
+	if (query.mode) {
+		actionPipeline.push(
+			{
+				$lookup: {
+					from: RunModel.collection.name,
+					localField: "runId",
+					foreignField: "_id",
+					as: "run",
+				},
+			},
+			{ $unwind: "$run" },
+			{ $match: { "run.mode": query.mode } },
+		);
+	}
+	actionPipeline.push({
+		$project: {
+			userId: 1,
+			date: dateExpression("$createdAt"),
+			runsStarted: { $literal: 0 },
+		},
+	});
+
+	return RunModel.aggregate<PlayerActivity>([
+		{ $match: runMatch },
+		{
+			$project: {
+				userId: 1,
+				date: dateExpression("$createdAt"),
+				runsStarted: { $literal: 1 },
+			},
+		},
+		{
+			$unionWith: {
+				coll: RunActionModel.collection.name,
+				pipeline: actionPipeline,
+			},
+		},
+		{
+			$group: {
+				_id: { userId: "$userId", date: "$date" },
+				runsStarted: { $sum: "$runsStarted" },
+			},
+		},
+		{
+			$group: {
+				_id: "$_id.userId",
+				activityDates: { $push: "$_id.date" },
+				runStarts: { $push: { date: "$_id.date", count: "$runsStarted" } },
+			},
+		},
+		{
+			$lookup: {
+				from: UserModel.collection.name,
+				localField: "_id",
+				foreignField: "_id",
+				as: "user",
+			},
+		},
+		{ $unwind: "$user" },
+		{
+			$project: {
+				_id: 0,
+				userId: { $toString: "$_id" },
+				type: "$user.type",
+				userCreatedAt: "$user.createdAt",
+				activityDates: 1,
+				runStarts: 1,
 			},
 		},
 	]);
@@ -345,6 +443,125 @@ export async function getAdminRunMetrics(
 						: 0,
 				};
 			}),
+	};
+}
+
+export async function getAdminPlayerMetrics(
+	query: AdminMetricsQuery,
+): Promise<AdminPlayerMetricsResponse> {
+	const { start, end } = bounds(query);
+	const [newIdentities, activity, unfilteredActivity] = await Promise.all([
+		UserModel.aggregate<NewIdentity>([
+			{ $match: { createdAt: { $gte: start, $lt: end } } },
+			{
+				$project: {
+					_id: 0,
+					userId: { $toString: "$_id" },
+					type: 1,
+					createdAt: 1,
+				},
+			},
+		]),
+		loadPlayerActivity(query),
+		query.mode ? loadPlayerActivity({ ...query, mode: undefined }) : Promise.resolve(null),
+	]);
+	const retentionActivity = unfilteredActivity ?? activity;
+
+	const dates = enumerateDates(query);
+	const selectedDates = new Set(dates);
+	const selectedActivity = activity.filter((player) =>
+		player.activityDates.some((date) => selectedDates.has(date)),
+	);
+	const runCount = (player: PlayerActivity) =>
+		player.runStarts.reduce(
+			(total, row) => total + (selectedDates.has(row.date) ? row.count : 0),
+			0,
+		);
+	const returningPlayers = selectedActivity.filter((player) => player.userCreatedAt < start);
+	const repeatPlayers = selectedActivity.filter((player) => runCount(player) >= 2);
+	const runsStarted = selectedActivity.reduce((total, player) => total + runCount(player), 0);
+
+	const daily = new Map(
+		dates.map((date) => [date, { date, activePlayers: 0, newPlayers: 0, returningPlayers: 0 }]),
+	);
+	for (const identity of newIdentities) {
+		const date = identity.createdAt.toISOString().slice(0, 10);
+		const day = daily.get(date);
+		if (day) {
+			day.newPlayers += 1;
+		}
+	}
+	for (const player of selectedActivity) {
+		const createdDate = player.userCreatedAt.toISOString().slice(0, 10);
+		for (const date of player.activityDates) {
+			const day = daily.get(date);
+			if (!day) {
+				continue;
+			}
+			day.activePlayers += 1;
+			if (createdDate < date) {
+				day.returningPlayers += 1;
+			}
+		}
+	}
+
+	const types = (["guest", "registered"] as const).map((type) => {
+		const typeActivity = selectedActivity.filter((player) => player.type === type);
+		const typeReturning = returningPlayers.filter((player) => player.type === type);
+		const typeRuns = typeActivity.reduce((total, player) => total + runCount(player), 0);
+		return {
+			type,
+			activePlayers: typeActivity.length,
+			newPlayers: newIdentities.filter((identity) => identity.type === type).length,
+			returningPlayers: typeReturning.length,
+			repeatPlayers: typeActivity.filter((player) => runCount(player) >= 2).length,
+			runsStarted: typeRuns,
+			runsPerActivePlayer: typeActivity.length ? typeRuns / typeActivity.length : 0,
+		};
+	});
+
+	const activityByUser = new Map(retentionActivity.map((player) => [player.userId, player]));
+	const today = new Date();
+	today.setUTCHours(0, 0, 0, 0);
+	const todayDate = today.toISOString().slice(0, 10);
+	const retention = RETENTION_DAYS.map((day) => {
+		const eligible = newIdentities.filter((identity) => {
+			const target = new Date(identity.createdAt);
+			target.setUTCHours(0, 0, 0, 0);
+			target.setUTCDate(target.getUTCDate() + day);
+			return target.toISOString().slice(0, 10) < todayDate;
+		});
+		const returnedPlayers = eligible.filter((identity) => {
+			const target = new Date(identity.createdAt);
+			target.setUTCHours(0, 0, 0, 0);
+			target.setUTCDate(target.getUTCDate() + day);
+			return activityByUser
+				.get(identity.userId)
+				?.activityDates.includes(target.toISOString().slice(0, 10));
+		}).length;
+		return {
+			day,
+			eligiblePlayers: eligible.length,
+			returnedPlayers,
+			rate: eligible.length ? returnedPlayers / eligible.length : 0,
+		};
+	});
+
+	return {
+		range: rangeView(query),
+		totals: {
+			activePlayers: selectedActivity.length,
+			newPlayers: newIdentities.length,
+			returningPlayers: returningPlayers.length,
+			repeatPlayers: repeatPlayers.length,
+			runsStarted,
+			runsPerActivePlayer: selectedActivity.length
+				? runsStarted / selectedActivity.length
+				: 0,
+		},
+		daily: [...daily.values()],
+		types,
+		retention,
 	};
 }
 

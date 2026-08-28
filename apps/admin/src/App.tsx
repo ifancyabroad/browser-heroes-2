@@ -9,6 +9,7 @@ import { presetRange, type DatePreset } from "./lib/dates";
 import { ClassesPage } from "./pages/ClassesPage";
 import { EnemiesPage } from "./pages/EnemiesPage";
 import { OverviewPage } from "./pages/OverviewPage";
+import { PlayersPage } from "./pages/PlayersPage";
 import { RunsPage } from "./pages/RunsPage";
 import { SkillsPage } from "./pages/SkillsPage";
 
@@ -48,6 +49,7 @@ export default function App() {
 				}
 			>
 				<Route index element={<OverviewPage />} />
+				<Route path="players" element={<PlayersPage />} />
 				<Route path="runs" element={<RunsPage />} />
 				<Route path="classes" element={<ClassesPage />} />
 				<Route path="enemies" element={<EnemiesPage />} />

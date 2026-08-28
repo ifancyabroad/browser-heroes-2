@@ -12,6 +12,7 @@ import {
 import { useOutletContext } from "react-router-dom";
 import type { DashboardContext } from "../components/DashboardLayout";
 import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
+import { Stat } from "../components/Stat";
 import { useRunMetrics } from "../features/metrics";
 
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
@@ -164,16 +165,6 @@ export function RunsPage() {
 				</div>
 			</article>
 		</main>
-	);
-}
-
-function Stat(props: { label: string; value: string | number; detail: string }) {
-	return (
-		<article className="stat">
-			<span>{props.label}</span>
-			<strong>{props.value}</strong>
-			<small>{props.detail}</small>
-		</article>
 	);
 }
 

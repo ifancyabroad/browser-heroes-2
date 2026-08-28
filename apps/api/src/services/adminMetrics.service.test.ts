@@ -23,6 +23,7 @@ import {
 	getAdminClassMetrics,
 	getAdminEnemyMetrics,
 	getAdminMetricsOverview,
+	getAdminPlayerMetrics,
 	getAdminRunMetrics,
 	getAdminSkillMetrics,
 } from "./adminMetrics.service";
@@ -198,6 +199,108 @@ describe("admin metrics", () => {
 			expect.objectContaining({ mode: "normal", runsStarted: 2, share: 2 / 3 }),
 			expect.objectContaining({ mode: "dailyChallenge", runsStarted: 1, share: 1 / 3 }),
 		]);
+	});
+
+	it("summarizes player engagement and mature retention cohorts", async () => {
+		mocks.userAggregate.mockResolvedValue([
+			{
+				userId: "guest-new",
+				type: "guest",
+				createdAt: new Date("2026-06-01T12:00:00.000Z"),
+			},
+			{
+				userId: "registered-new",
+				type: "registered",
+				createdAt: new Date("2026-06-02T12:00:00.000Z"),
+			},
+		]);
+		const filteredActivity = [
+			{
+				userId: "guest-new",
+				type: "guest",
+				userCreatedAt: new Date("2026-06-01T12:00:00.000Z"),
+				activityDates: ["2026-06-01", "2026-06-02", "2026-06-08", "2026-07-01"],
+				runStarts: [
+					{ date: "2026-06-01", count: 2 },
+					{ date: "2026-06-02", count: 0 },
+				],
+			},
+			{
+				userId: "registered-new",
+				type: "registered",
+				userCreatedAt: new Date("2026-06-02T12:00:00.000Z"),
+				activityDates: ["2026-06-02"],
+				runStarts: [{ date: "2026-06-02", count: 1 }],
+			},
+			{
+				userId: "registered-returning",
+				type: "registered",
+				userCreatedAt: new Date("2026-05-01T12:00:00.000Z"),
+				activityDates: ["2026-06-02"],
+				runStarts: [{ date: "2026-06-02", count: 1 }],
+			},
+		];
+		mocks.runAggregate.mockResolvedValueOnce(filteredActivity).mockResolvedValueOnce(
+			filteredActivity.map((player) =>
+				player.userId === "registered-new"
+					? {
+							...player,
+							activityDates: ["2026-06-02", "2026-06-03"],
+							runStarts: [
+								{ date: "2026-06-02", count: 1 },
+								{ date: "2026-06-03", count: 0 },
+							],
+						}
+					: player,
+			),
+		);
+
+		const result = await getAdminPlayerMetrics({
+			from: "2026-06-01",
+			to: "2026-06-03",
+			mode: "normal",
+		});
+
+		expect(result.totals).toEqual({
+			activePlayers: 3,
+			newPlayers: 2,
+			returningPlayers: 1,
+			repeatPlayers: 1,
+			runsStarted: 4,
+			runsPerActivePlayer: 4 / 3,
+		});
+		expect(result.daily[1]).toEqual({
+			date: "2026-06-02",
+			activePlayers: 3,
+			newPlayers: 1,
+			returningPlayers: 2,
+		});
+		expect(result.retention).toEqual([
+			{ day: 1, eligiblePlayers: 2, returnedPlayers: 2, rate: 1 },
+			{ day: 7, eligiblePlayers: 2, returnedPlayers: 1, rate: 0.5 },
+			{ day: 30, eligiblePlayers: 2, returnedPlayers: 1, rate: 0.5 },
+		]);
+		expect(result.types).toEqual([
+			expect.objectContaining({ type: "guest", activePlayers: 1, repeatPlayers: 1 }),
+			expect.objectContaining({
+				type: "registered",
+				activePlayers: 2,
+				returningPlayers: 1,
+			}),
+		]);
+
+		const pipeline = mocks.runAggregate.mock.calls[0][0];
+		expect(pipeline).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					$match: { mode: "normal", createdAt: expect.any(Object) },
+				}),
+			]),
+		);
+		const retentionPipeline = mocks.runAggregate.mock.calls[1][0];
+		expect(retentionPipeline[0]).toEqual({
+			$match: { createdAt: expect.any(Object) },
+		});
 	});
 
 	it("adds run lookups to action activity when filtering by mode", async () => {

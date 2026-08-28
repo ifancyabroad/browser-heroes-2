@@ -164,6 +164,45 @@ export interface AdminRunMetricsResponse {
 	modes: AdminRunModeMetricsRow[];
 }
 
+export interface AdminPlayerMetricsDailyPoint {
+	date: string;
+	activePlayers: number;
+	newPlayers: number;
+	returningPlayers: number;
+}
+
+export interface AdminPlayerTypeMetricsRow {
+	type: "guest" | "registered";
+	activePlayers: number;
+	newPlayers: number;
+	returningPlayers: number;
+	repeatPlayers: number;
+	runsStarted: number;
+	runsPerActivePlayer: number;
+}
+
+export interface AdminPlayerRetentionRow {
+	day: 1 | 7 | 30;
+	eligiblePlayers: number;
+	returnedPlayers: number;
+	rate: number;
+}
+
+export interface AdminPlayerMetricsResponse {
+	range: AdminMetricsRange;
+	totals: {
+		activePlayers: number;
+		newPlayers: number;
+		returningPlayers: number;
+		repeatPlayers: number;
+		runsStarted: number;
+		runsPerActivePlayer: number;
+	};
+	daily: AdminPlayerMetricsDailyPoint[];
+	types: AdminPlayerTypeMetricsRow[];
+	retention: AdminPlayerRetentionRow[];
+}
+
 export interface AdminEnemyMetricsRow {
 	enemyId: string;
 	encounterType: "standard" | "boss" | "ghost";
