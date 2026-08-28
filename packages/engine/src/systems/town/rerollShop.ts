@@ -4,7 +4,6 @@ import { failureResult, successResult } from "../../core/result";
 import { createTownShop } from "./createTownShop";
 import { calculateRerollCost } from "./townPricing";
 import { deriveHeroStats } from "../hero/deriveHeroStats";
-import { createItemOfferEvents } from "../items/createItemOfferEvents";
 
 export function rerollShop(state: RunState): EngineResult {
 	if (state.phase !== "town" || !state.town) {
@@ -52,11 +51,6 @@ export function rerollShop(state: RunState): EngineResult {
 				type: "SHOP_REROLLED",
 				cost,
 			},
-			...createItemOfferEvents({
-				items: shop.map((slot) => slot.item),
-				source: "shop",
-				battleNumber: state.battleNumber,
-			}),
 		],
 	);
 }

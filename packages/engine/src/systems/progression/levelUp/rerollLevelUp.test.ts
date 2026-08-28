@@ -24,20 +24,7 @@ describe("rerollLevelUp", () => {
 		expect(result.state.levelUpRerolls).toBe(4);
 		expect(result.state.rngState).toEqual(state.rngState);
 		expect(result.state.hero.pendingLevelUp?.rerollIndex).toBe(1);
-		expect(result.events[0]).toEqual({
-			type: "LEVEL_UP_REROLLED",
-			remainingRerolls: 4,
-		});
-
-		const skillOffers = result.events.filter((event) => event.type === "SKILL_OFFERED");
-		expect(skillOffers.map((event) => event.skillId)).toEqual(
-			result.state.hero.pendingLevelUp?.options.flatMap((option) =>
-				option.type === "skill" ? [option.skillId] : [],
-			),
-		);
-		expect(skillOffers).toEqual(
-			expect.arrayContaining([expect.objectContaining({ level: 2, rerollIndex: 1 })]),
-		);
+		expect(result.events).toEqual([{ type: "LEVEL_UP_REROLLED", remainingRerolls: 4 }]);
 	});
 
 	it("guarantees the only new option and fills the offer from previous choices", () => {

@@ -4,7 +4,6 @@ import { failureResult, successResult } from "../../core/result";
 import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
 import { createTownState } from "../../state";
 import { getEndlessCycleForBattle } from "../endless/endlessProgression";
-import { createItemOfferEvents } from "../items/createItemOfferEvents";
 
 export function returnToTown(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
@@ -51,11 +50,6 @@ export function returnToTown(state: RunState): EngineResult {
 			{
 				type: "RETURNED_TO_TOWN",
 			},
-			...createItemOfferEvents({
-				items: town.shopSlots.map((slot) => slot.item),
-				source: "shop",
-				battleNumber,
-			}),
 		],
 	);
 }

@@ -14,7 +14,6 @@ import type {
 import { createPendingLevelUp } from "./createPendingLevelUp";
 import { refreshCompletedCombatPlayer } from "../../combat/combatants/refreshCompletedCombatPlayer";
 import { deriveHeroStats } from "../../hero/deriveHeroStats";
-import { createSkillOfferEvents } from "./createSkillOfferEvents";
 
 export function completeLevelUp(state: RunState, action: CompleteLevelUpAction): EngineResult {
 	const pendingLevelUp = state.hero.pendingLevelUp;
@@ -60,7 +59,6 @@ export function completeLevelUp(state: RunState, action: CompleteLevelUpAction):
 				newMaxHp: deriveHeroStats(finalHero).health.maxHp,
 				selection: createCompletedSelection(selectedOption),
 			},
-			...createSkillOfferEvents(nextPendingLevelUp),
 		],
 	);
 }

@@ -2,7 +2,6 @@ import { failureResult, successResult } from "../../../core/result";
 import { createContextRngState } from "../../../core/rng";
 import type { EngineResult, RunState } from "../../../schemas";
 import { rerollLevelUpOptions } from "./selectLevelUpOptions";
-import { createSkillOfferEvents } from "./createSkillOfferEvents";
 
 export function rerollLevelUp(state: RunState): EngineResult {
 	const pendingLevelUp = state.hero.pendingLevelUp;
@@ -34,11 +33,6 @@ export function rerollLevelUp(state: RunState): EngineResult {
 	}
 
 	const levelUpRerolls = state.levelUpRerolls - 1;
-	const nextPendingLevelUp = {
-		...pendingLevelUp,
-		rerollIndex,
-		options: rerolled,
-	};
 
 	return successResult(
 		{
@@ -46,15 +40,13 @@ export function rerollLevelUp(state: RunState): EngineResult {
 			levelUpRerolls,
 			hero: {
 				...state.hero,
-				pendingLevelUp: nextPendingLevelUp,
+				pendingLevelUp: {
+					...pendingLevelUp,
+					rerollIndex,
+					options: rerolled,
+				},
 			},
 		},
-		[
-			{
-				type: "LEVEL_UP_REROLLED",
-				remainingRerolls: levelUpRerolls,
-			},
-			...createSkillOfferEvents(nextPendingLevelUp),
-		],
+		[{ type: "LEVEL_UP_REROLLED", remainingRerolls: levelUpRerolls }],
 	);
 }

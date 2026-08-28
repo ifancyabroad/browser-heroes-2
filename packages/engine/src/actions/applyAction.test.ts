@@ -159,39 +159,6 @@ describe("applyAction", () => {
 		);
 	});
 
-	it("reports newly offered build choices after a boss victory", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
-			if (!draft.combat) {
-				throw new Error("Expected test run to have combat");
-			}
-
-			draft.battleNumber = 10;
-			draft.hero.level = 2;
-			draft.hero.xp = 999;
-			draft.combat.encounterType = "boss";
-			draft.combat.enemy.maxHp = 1;
-			draft.combat.enemy.currentHp = 1;
-			draft.combat.enemy.combatStats.armourClass = 0;
-			draft.combat.player.combatStats.attackRollBonus = 100;
-		});
-
-		const result = applyAction(state, { type: "PLAYER_BASIC_ATTACK" });
-		const skillOffers = result.events.filter((event) => event.type === "SKILL_OFFERED");
-		const itemOffers = result.events.filter((event) => event.type === "ITEM_OFFERED");
-
-		expect(skillOffers.map((event) => event.skillId)).toEqual(
-			result.state.hero.pendingLevelUp?.options.flatMap((option) =>
-				option.type === "skill" ? [option.skillId] : [],
-			),
-		);
-		expect(itemOffers).toHaveLength(2);
-		expect(itemOffers).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ source: "reward", battleNumber: 10 }),
-			]),
-		);
-	});
-
 	it("records a lethal skill as the finishing player action", () => {
 		const state = modifyTestRunState(createTestRunState(), (draft) => {
 			if (!draft.combat) {

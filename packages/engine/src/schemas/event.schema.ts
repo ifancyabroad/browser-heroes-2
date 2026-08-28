@@ -34,20 +34,6 @@ const skillUsedEventSchema = combatContextSchema.extend({
 	turnNumber: z.number().int().min(1),
 });
 
-const skillOfferedEventSchema = z.object({
-	type: z.literal("SKILL_OFFERED"),
-	skillId: skillIdSchema,
-	level: z.number().int().min(2),
-	rerollIndex: z.number().int().min(0),
-});
-
-const itemOfferedEventSchema = z.object({
-	type: z.literal("ITEM_OFFERED"),
-	item: itemEventPayloadSchema,
-	source: z.enum(["reward", "shop"]),
-	battleNumber: z.number().int().min(1),
-});
-
 const combatVictoryEventSchema = combatContextSchema.extend({
 	type: z.literal("COMBAT_ENDED"),
 	outcome: z.literal("victory"),
@@ -161,8 +147,6 @@ export const engineEventSchema = z.union([
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
 	skillUsedEventSchema,
-	skillOfferedEventSchema,
-	itemOfferedEventSchema,
 	combatVictoryEventSchema,
 	combatDefeatEventSchema,
 	returnedToTownEventSchema,

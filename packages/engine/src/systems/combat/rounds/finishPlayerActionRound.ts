@@ -144,7 +144,6 @@ function finishVictory(input: FinishVictoryInput): EngineResult {
 			finishingPlayerAction,
 			reward: victoryResult.reward,
 		},
-		...victoryResult.events,
 	]);
 }
 
