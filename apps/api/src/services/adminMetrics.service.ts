@@ -1,11 +1,14 @@
 import { classIds, type ClassId } from "@app/content";
-import type {
-	AdminClassMetricsResponse,
-	AdminEnemyMetricsResponse,
-	AdminMetricsOverviewResponse,
-	AdminMetricsQuery,
-	AdminRunOutcomeCounts,
-	AdminSkillMetricsResponse,
+import {
+	runModes,
+	type AdminClassMetricsResponse,
+	type AdminEnemyMetricsResponse,
+	type AdminMetricsOverviewResponse,
+	type AdminMetricsQuery,
+	type AdminRunMetricsDailyPoint,
+	type AdminRunMetricsResponse,
+	type AdminRunOutcomeCounts,
+	type AdminSkillMetricsResponse,
 } from "@app/shared";
 import { RunActionModel } from "../models/runAction.model";
 import { RunModel } from "../models/run.model";
@@ -16,10 +19,12 @@ type IdentityType = "guest" | "registered";
 type RunStatus = keyof AdminRunOutcomeCounts;
 type CohortRun = {
 	classId: ClassId;
+	mode: "normal" | "dailyChallenge";
 	status: RunStatus;
 	battleNumber: number;
 	kills: number;
 	hasDefeatedFinalBoss: boolean;
+	createdAt: Date;
 };
 type CountByType = { _id: IdentityType; count: number };
 type DailyCount = { _id: string; count: number };
@@ -46,6 +51,19 @@ type SkillMetricsAggregate = {
 };
 
 const MILESTONES = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
+const DEPTH_BUCKETS = [
+	{ label: "1–9", fromBattle: 1, toBattle: 9 },
+	{ label: "10–19", fromBattle: 10, toBattle: 19 },
+	{ label: "20–29", fromBattle: 20, toBattle: 29 },
+	{ label: "30–39", fromBattle: 30, toBattle: 39 },
+	{ label: "40–49", fromBattle: 40, toBattle: 49 },
+	{ label: "50–59", fromBattle: 50, toBattle: 59 },
+	{ label: "60–69", fromBattle: 60, toBattle: 69 },
+	{ label: "70–79", fromBattle: 70, toBattle: 79 },
+	{ label: "80–89", fromBattle: 80, toBattle: 89 },
+	{ label: "90–99", fromBattle: 90, toBattle: 99 },
+	{ label: "100+", fromBattle: 100, toBattle: null },
+] as const;
 const DAY_MS = 86_400_000;
 
 function bounds(query: AdminMetricsQuery) {
@@ -98,13 +116,30 @@ async function loadCohortRuns(query: AdminMetricsQuery): Promise<CohortRun[]> {
 			$project: {
 				_id: 0,
 				classId: "$summary.classId",
+				mode: 1,
 				status: 1,
 				battleNumber: "$summary.battleNumber",
 				kills: "$summary.kills",
 				hasDefeatedFinalBoss: "$summary.hasDefeatedFinalBoss",
+				createdAt: 1,
 			},
 		},
 	]);
+}
+
+function runOutcomes(runs: CohortRun[]): AdminRunOutcomeCounts {
+	const outcomes = emptyOutcomes();
+	for (const run of runs) {
+		outcomes[run.status] += 1;
+	}
+	return outcomes;
+}
+
+function average(runs: CohortRun[], field: "battleNumber" | "kills"): number {
+	if (!runs.length) {
+		return 0;
+	}
+	return runs.reduce((total, run) => total + run[field], 0) / runs.length;
 }
 
 export async function getAdminMetricsOverview(
@@ -187,10 +222,7 @@ export async function getAdminMetricsOverview(
 		]),
 	]);
 
-	const outcomes = emptyOutcomes();
-	for (const run of runs) {
-		outcomes[run.status] += 1;
-	}
+	const outcomes = runOutcomes(runs);
 	const finalBossCompletions = runs.filter((run) => run.hasDefeatedFinalBoss).length;
 	const toMap = (rows: DailyCount[]) => new Map(rows.map((row) => [row._id, row.count]));
 	const activityMap = new Map(dailyActivity.map((row) => [row._id, row.userIds.length]));
@@ -228,14 +260,9 @@ export async function getAdminClassMetrics(
 		range: rangeView(query),
 		classes: classIds.map((classId) => {
 			const classRuns = runs.filter((run) => run.classId === classId);
-			const outcomes = emptyOutcomes();
-			for (const run of classRuns) {
-				outcomes[run.status] += 1;
-			}
+			const outcomes = runOutcomes(classRuns);
 			const terminalRuns = outcomes.dead + outcomes.retired;
 			const finalBossCompletions = classRuns.filter((run) => run.hasDefeatedFinalBoss).length;
-			const sum = (field: "battleNumber" | "kills") =>
-				classRuns.reduce((total, run) => total + run[field], 0);
 
 			return {
 				classId,
@@ -248,10 +275,76 @@ export async function getAdminClassMetrics(
 				finalBossCompletionRate: classRuns.length
 					? finalBossCompletions / classRuns.length
 					: 0,
-				averageBattleReached: classRuns.length ? sum("battleNumber") / classRuns.length : 0,
-				averageKills: classRuns.length ? sum("kills") / classRuns.length : 0,
+				averageBattleReached: average(classRuns, "battleNumber"),
+				averageKills: average(classRuns, "kills"),
 			};
 		}),
+	};
+}
+
+export async function getAdminRunMetrics(
+	query: AdminMetricsQuery,
+): Promise<AdminRunMetricsResponse> {
+	const runs = await loadCohortRuns(query);
+	const outcomes = runOutcomes(runs);
+	const resolvedRuns = outcomes.dead + outcomes.retired;
+	const finalBossCompletions = runs.filter((run) => run.hasDefeatedFinalBoss).length;
+	const dailyRuns = new Map<string, AdminRunMetricsDailyPoint>();
+
+	for (const run of runs) {
+		const date = run.createdAt.toISOString().slice(0, 10);
+		const day = dailyRuns.get(date) ?? {
+			date,
+			runsStarted: 0,
+			...emptyOutcomes(),
+		};
+		day.runsStarted += 1;
+		day[run.status] += 1;
+		dailyRuns.set(date, day);
+	}
+
+	return {
+		range: rangeView(query),
+		totals: {
+			runsStarted: runs.length,
+			...outcomes,
+			resolvedRuns,
+			abandonmentRate: runs.length ? outcomes.abandoned / runs.length : 0,
+			averageBattleReached: average(runs, "battleNumber"),
+			averageKills: average(runs, "kills"),
+			finalBossCompletions,
+			finalBossCompletionRate: runs.length ? finalBossCompletions / runs.length : 0,
+		},
+		daily: enumerateDates(query).map(
+			(date) => dailyRuns.get(date) ?? { date, runsStarted: 0, ...emptyOutcomes() },
+		),
+		depth: DEPTH_BUCKETS.map((bucket) => {
+			const count = runs.filter(
+				(run) =>
+					run.battleNumber >= bucket.fromBattle &&
+					(bucket.toBattle === null || run.battleNumber <= bucket.toBattle),
+			).length;
+			return { ...bucket, runs: count, percentage: runs.length ? count / runs.length : 0 };
+		}),
+		modes: runModes
+			.filter((mode) => !query.mode || mode === query.mode)
+			.map((mode) => {
+				const modeRuns = runs.filter((run) => run.mode === mode);
+				const modeOutcomes = runOutcomes(modeRuns);
+				const modeCompletions = modeRuns.filter((run) => run.hasDefeatedFinalBoss).length;
+				return {
+					mode,
+					runsStarted: modeRuns.length,
+					share: runs.length ? modeRuns.length / runs.length : 0,
+					...modeOutcomes,
+					averageBattleReached: average(modeRuns, "battleNumber"),
+					averageKills: average(modeRuns, "kills"),
+					finalBossCompletions: modeCompletions,
+					finalBossCompletionRate: modeRuns.length
+						? modeCompletions / modeRuns.length
+						: 0,
+				};
+			}),
 	};
 }
 

@@ -23,6 +23,7 @@ import {
 	getAdminClassMetrics,
 	getAdminEnemyMetrics,
 	getAdminMetricsOverview,
+	getAdminRunMetrics,
 	getAdminSkillMetrics,
 } from "./adminMetrics.service";
 
@@ -138,6 +139,65 @@ describe("admin metrics", () => {
 			finalBossCompletions: 1,
 		});
 		expect(warrior.averageBattleReached).toBe(37);
+	});
+
+	it("summarizes run outcomes, depth, daily cohorts, and modes", async () => {
+		mocks.runAggregate.mockResolvedValue([
+			{
+				classId: "warrior",
+				mode: "normal",
+				status: "dead",
+				battleNumber: 12,
+				kills: 11,
+				hasDefeatedFinalBoss: false,
+				createdAt: new Date("2026-08-01T12:00:00.000Z"),
+			},
+			{
+				classId: "mage",
+				mode: "dailyChallenge",
+				status: "retired",
+				battleNumber: 100,
+				kills: 99,
+				hasDefeatedFinalBoss: true,
+				createdAt: new Date("2026-08-02T12:00:00.000Z"),
+			},
+			{
+				classId: "rogue",
+				mode: "normal",
+				status: "abandoned",
+				battleNumber: 1,
+				kills: 0,
+				hasDefeatedFinalBoss: false,
+				createdAt: new Date("2026-08-02T23:59:00.000Z"),
+			},
+		]);
+
+		const result = await getAdminRunMetrics(query);
+
+		expect(result.totals).toMatchObject({
+			runsStarted: 3,
+			resolvedRuns: 2,
+			dead: 1,
+			retired: 1,
+			abandoned: 1,
+			abandonmentRate: 1 / 3,
+			finalBossCompletionRate: 1 / 3,
+		});
+		expect(result.daily[1]).toMatchObject({
+			date: "2026-08-02",
+			runsStarted: 2,
+			retired: 1,
+			abandoned: 1,
+		});
+		expect(result.depth.find((bucket) => bucket.label === "10–19")).toMatchObject({
+			runs: 1,
+			percentage: 1 / 3,
+		});
+		expect(result.depth.find((bucket) => bucket.label === "100+")?.runs).toBe(1);
+		expect(result.modes).toEqual([
+			expect.objectContaining({ mode: "normal", runsStarted: 2, share: 2 / 3 }),
+			expect.objectContaining({ mode: "dailyChallenge", runsStarted: 1, share: 1 / 3 }),
+		]);
 	});
 
 	it("adds run lookups to action activity when filtering by mode", async () => {

@@ -125,6 +125,45 @@ export interface AdminClassMetricsResponse {
 	classes: AdminClassMetricsRow[];
 }
 
+export interface AdminRunMetricsDailyPoint extends AdminRunOutcomeCounts {
+	date: string;
+	runsStarted: number;
+}
+
+export interface AdminRunDepthBucket {
+	label: string;
+	fromBattle: number;
+	toBattle: number | null;
+	runs: number;
+	percentage: number;
+}
+
+export interface AdminRunModeMetricsRow extends AdminRunOutcomeCounts {
+	mode: RunMode;
+	runsStarted: number;
+	share: number;
+	averageBattleReached: number;
+	averageKills: number;
+	finalBossCompletions: number;
+	finalBossCompletionRate: number;
+}
+
+export interface AdminRunMetricsResponse {
+	range: AdminMetricsRange;
+	totals: AdminRunOutcomeCounts & {
+		runsStarted: number;
+		resolvedRuns: number;
+		abandonmentRate: number;
+		averageBattleReached: number;
+		averageKills: number;
+		finalBossCompletions: number;
+		finalBossCompletionRate: number;
+	};
+	daily: AdminRunMetricsDailyPoint[];
+	depth: AdminRunDepthBucket[];
+	modes: AdminRunModeMetricsRow[];
+}
+
 export interface AdminEnemyMetricsRow {
 	enemyId: string;
 	encounterType: "standard" | "boss" | "ghost";

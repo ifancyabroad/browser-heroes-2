@@ -29,6 +29,7 @@ export function DashboardLayout(props: {
 					<NavLink to="/" end>
 						Overview
 					</NavLink>
+					<NavLink to="/runs">Runs</NavLink>
 					<NavLink to="/classes">Classes</NavLink>
 					<NavLink to="/enemies">Enemies</NavLink>
 					<NavLink to="/skills">Skills</NavLink>
