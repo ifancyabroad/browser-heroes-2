@@ -59,6 +59,17 @@ describe("Header", () => {
 		expect(useAuthModalStore.getState().modal).toBe("login");
 	});
 
+	it("shows a mobile logo that links to the home page", () => {
+		auth.useAuth.mockReturnValue({ isRegistered: false });
+
+		renderHeader();
+
+		expect(screen.getByRole("link", { name: "Browser Heroes home" })).toHaveAttribute(
+			"href",
+			"/",
+		);
+	});
+
 	it("shows account instead of sign in for registered users", () => {
 		auth.useAuth.mockReturnValue({ isRegistered: true });
 
