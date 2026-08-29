@@ -18,6 +18,7 @@ node_modules/
 **/.env
 **/.env.*
 !**/.env.example
+!apps/web/.env
 !apps/web/.env.production
 
 # logs
