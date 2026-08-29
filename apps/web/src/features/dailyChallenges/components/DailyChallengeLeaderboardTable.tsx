@@ -19,12 +19,11 @@ export function DailyChallengeLeaderboardTable(props: {
 	onSelectRun: (runId: string) => void;
 }) {
 	return (
-		<DataTable tableClassName="sm:min-w-272">
+		<DataTable tableClassName="sm:min-w-248">
 			<colgroup>
 				<col className="w-16" />
 				<col />
 				<col className="w-24" />
-				<col className="hidden sm:table-column sm:w-24" />
 				<col className="hidden sm:table-column sm:w-24" />
 				<col className="hidden sm:table-column sm:w-36" />
 				<col className="hidden sm:table-column sm:w-40" />
@@ -36,9 +35,6 @@ export function DailyChallengeLeaderboardTable(props: {
 				<DataTableHeading numeric>KILLS</DataTableHeading>
 				<DataTableHeading numeric hideOnMobile>
 					DAY
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					CYCLE
 				</DataTableHeading>
 				<DataTableHeading hideOnMobile>ZONE</DataTableHeading>
 				<DataTableHeading hideOnMobile>SLAIN BY</DataTableHeading>
@@ -99,13 +95,14 @@ function LeaderboardEntryRow(props: {
 			<DataTableCell numeric hideOnMobile>
 				{entry.day}
 			</DataTableCell>
-			<DataTableCell numeric hideOnMobile>
-				{entry.endlessCycle}
-			</DataTableCell>
 			<DataTableCell hideOnMobile>
 				{formatTitle(getZoneForRun(entry.zoneNumber))}
 			</DataTableCell>
-			<DataTableCell hideOnMobile>{entry.slainBy?.name ?? "—"}</DataTableCell>
+			<DataTableCell hideOnMobile>
+				<span className="block whitespace-normal break-words leading-5">
+					{entry.slainBy?.name ?? "—"}
+				</span>
+			</DataTableCell>
 			<DataTableCell hideOnMobile>{formatDisplayDate(entry.completedAt)}</DataTableCell>
 		</DataTableRow>
 	);

@@ -36,11 +36,10 @@ export function RunHistoryTable({
 	onSelectRun: (runId: string) => void;
 } & SortProps<GetRunHistoryQuery["sort"]>) {
 	return (
-		<DataTable tableClassName="sm:min-w-248">
+		<DataTable tableClassName="sm:min-w-224">
 			<colgroup>
 				<col />
 				<col className="w-24" />
-				<col className="hidden sm:table-column sm:w-24" />
 				<col className="hidden sm:table-column sm:w-24" />
 				<col className="hidden sm:table-column sm:w-36" />
 				<col className="hidden sm:table-column sm:w-28" />
@@ -65,15 +64,6 @@ export function RunHistoryTable({
 				<SortableDataTableHeading
 					label="DAY"
 					sortKey="day"
-					activeSort={sort}
-					direction={direction}
-					onSort={onSort}
-					numeric
-					hideOnMobile
-				/>
-				<SortableDataTableHeading
-					label="CYCLE"
-					sortKey="endlessCycle"
 					activeSort={sort}
 					direction={direction}
 					onSort={onSort}
@@ -123,9 +113,6 @@ export function RunHistoryTable({
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{entry.day}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.endlessCycle}
 						</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatTitle(getZoneForRun(entry.zoneNumber))}
