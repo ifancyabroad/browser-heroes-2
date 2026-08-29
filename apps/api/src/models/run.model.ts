@@ -178,6 +178,19 @@ runSchema.index({
 	completedAt: 1,
 	_id: 1,
 });
+runSchema.index({
+	"summary.kills": -1,
+	"summary.day": 1,
+	completedAt: 1,
+	_id: 1,
+});
+runSchema.index({
+	"summary.classId": 1,
+	"summary.kills": -1,
+	"summary.day": 1,
+	completedAt: 1,
+	_id: 1,
+});
 
 runSchema.index({
 	userId: 1,

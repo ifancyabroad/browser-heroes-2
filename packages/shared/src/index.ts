@@ -4,6 +4,7 @@ export * from "./heroNames";
 export * from "./health";
 export * from "./runs";
 export * from "./dailyChallenges";
+export * from "./hallOfFame";
 export * from "./history";
 export * from "./achievements";
 export * from "./adminMetrics";

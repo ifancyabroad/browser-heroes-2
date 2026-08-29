@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Contact from "./pages/Contact";
 import Progress from "./pages/Progress";
+import HallOfFame from "./pages/HallOfFame";
 import { PrivateRoute } from "./features/auth";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
 			<Route path="/create-character" element={<CreateCharacter />} />
 			<Route path="/game" element={<Game />} />
 			<Route path="/daily-challenge" element={<DailyChallenge />} />
+			<Route path="/hall-of-fame" element={<HallOfFame />} />
 			<Route path="/history" element={<History />} />
 			<Route path="/progress" element={<Progress />} />
 			<Route path="/contact" element={<Contact />} />

@@ -1,0 +1,209 @@
+import type {
+	GetGhostHallOfFameQuery,
+	GetHeroHallOfFameQuery,
+	GhostHallOfFameEntryView,
+	HeroHallOfFameEntryView,
+} from "@app/shared";
+import { Types } from "mongoose";
+import { GhostModel, type GhostDocument } from "../models/ghost.model";
+import { RunModel, type RunDocument } from "../models/run.model";
+
+const COMPLETED_RUN_STATUSES = ["dead", "retired"] as const;
+
+const HERO_RANKING = {
+	"summary.kills": -1,
+	"summary.day": 1,
+	completedAt: 1,
+	_id: 1,
+} as const;
+
+const GHOST_RANKING = {
+	"stats.kills": -1,
+	"stats.deaths": 1,
+	"stats.encounters": -1,
+	createdAt: 1,
+	_id: 1,
+} as const;
+
+export async function getHeroHallOfFame(params: {
+	userId?: string;
+	query: GetHeroHallOfFameQuery;
+}) {
+	const { query } = params;
+	if (query.userOnly === "true" && !params.userId) {
+		return {
+			entries: [],
+			page: query.page,
+			limit: query.limit,
+			total: 0,
+			totalPages: 0,
+		};
+	}
+
+	const rankingFilter: Record<string, unknown> = {
+		status: { $in: COMPLETED_RUN_STATUSES },
+		completedAt: { $ne: null },
+	};
+	if (query.classId) {
+		rankingFilter["summary.classId"] = query.classId;
+	}
+
+	const resultFilter = {
+		...rankingFilter,
+		...(query.userOnly === "true" ? { userId: params.userId } : {}),
+	};
+	const skip = (query.page - 1) * query.limit;
+	const [runs, total] = await Promise.all([
+		RunModel.find(resultFilter).sort(HERO_RANKING).skip(skip).limit(query.limit).lean(),
+		RunModel.countDocuments(resultFilter),
+	]);
+	const ranks =
+		query.userOnly === "true"
+			? await Promise.all(runs.map((run) => getHeroRank(rankingFilter, run)))
+			: runs.map((_, index) => skip + index + 1);
+
+	const entries: HeroHallOfFameEntryView[] = runs.map((run, index) => ({
+		rank: ranks[index]!,
+		runId: String(run._id),
+		heroName: run.summary.heroName,
+		classId: run.summary.classId,
+		level: run.summary.level,
+		zoneNumber: run.summary.zoneNumber,
+		day: run.summary.day,
+		kills: run.summary.kills,
+		status: run.status as "dead" | "retired",
+		mode: run.mode,
+		slainBy: run.summary.slainBy ?? null,
+		completedAt: run.completedAt?.toISOString() ?? "",
+		isCurrentUser: String(run.userId) === params.userId,
+	}));
+
+	return {
+		entries,
+		page: query.page,
+		limit: query.limit,
+		total,
+		totalPages: Math.ceil(total / query.limit),
+	};
+}
+
+export async function getGhostHallOfFame(params: {
+	userId?: string;
+	query: GetGhostHallOfFameQuery;
+}) {
+	const { query } = params;
+	if (query.userOnly === "true" && !params.userId) {
+		return {
+			entries: [],
+			page: query.page,
+			limit: query.limit,
+			total: 0,
+			totalPages: 0,
+		};
+	}
+
+	const rankingFilter: Record<string, unknown> = {};
+	if (query.classId) {
+		rankingFilter.classId = query.classId;
+	}
+
+	const resultFilter = {
+		...rankingFilter,
+		...(query.userOnly === "true" ? { userId: params.userId } : {}),
+	};
+	const skip = (query.page - 1) * query.limit;
+	const [ghosts, total] = await Promise.all([
+		GhostModel.find(resultFilter).sort(GHOST_RANKING).skip(skip).limit(query.limit).lean(),
+		GhostModel.countDocuments(resultFilter),
+	]);
+	const ranks =
+		query.userOnly === "true"
+			? await Promise.all(ghosts.map((ghost) => getGhostRank(rankingFilter, ghost)))
+			: ghosts.map((_, index) => skip + index + 1);
+
+	const entries: GhostHallOfFameEntryView[] = ghosts.map((ghost, index) => {
+		const { kills, deaths, encounters } = ghost.stats;
+		const completedCombats = kills + deaths;
+		return {
+			rank: ranks[index]!,
+			ghostId: String(ghost._id),
+			name: ghost.name,
+			classId: ghost.classId,
+			heroLevel: ghost.heroLevel,
+			kills,
+			deaths,
+			encounters,
+			winRate: completedCombats > 0 ? kills / completedCombats : 0,
+			isCurrentUser: String(ghost.userId) === params.userId,
+		};
+	});
+
+	return {
+		entries,
+		page: query.page,
+		limit: query.limit,
+		total,
+		totalPages: Math.ceil(total / query.limit),
+	};
+}
+
+async function getHeroRank(
+	rankingFilter: Record<string, unknown>,
+	run: RunDocument & { _id: unknown },
+): Promise<number> {
+	const completedAt = run.completedAt!;
+	const id = new Types.ObjectId(String(run._id));
+	const betterRuns = await RunModel.countDocuments({
+		...rankingFilter,
+		$or: [
+			{ "summary.kills": { $gt: run.summary.kills } },
+			{ "summary.kills": run.summary.kills, "summary.day": { $lt: run.summary.day } },
+			{
+				"summary.kills": run.summary.kills,
+				"summary.day": run.summary.day,
+				completedAt: { $lt: completedAt },
+			},
+			{
+				"summary.kills": run.summary.kills,
+				"summary.day": run.summary.day,
+				completedAt,
+				_id: { $lt: id },
+			},
+		],
+	});
+	return betterRuns + 1;
+}
+
+async function getGhostRank(
+	rankingFilter: Record<string, unknown>,
+	ghost: GhostDocument & { _id: unknown; createdAt: Date },
+): Promise<number> {
+	const { kills, deaths, encounters } = ghost.stats;
+	const id = new Types.ObjectId(String(ghost._id));
+	const betterGhosts = await GhostModel.countDocuments({
+		...rankingFilter,
+		$or: [
+			{ "stats.kills": { $gt: kills } },
+			{ "stats.kills": kills, "stats.deaths": { $lt: deaths } },
+			{
+				"stats.kills": kills,
+				"stats.deaths": deaths,
+				"stats.encounters": { $gt: encounters },
+			},
+			{
+				"stats.kills": kills,
+				"stats.deaths": deaths,
+				"stats.encounters": encounters,
+				createdAt: { $lt: ghost.createdAt },
+			},
+			{
+				"stats.kills": kills,
+				"stats.deaths": deaths,
+				"stats.encounters": encounters,
+				createdAt: ghost.createdAt,
+				_id: { $lt: id },
+			},
+		],
+	});
+	return betterGhosts + 1;
+}

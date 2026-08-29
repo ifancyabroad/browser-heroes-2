@@ -5,6 +5,7 @@ import { runKeys } from "../../runs/api/runKeys";
 import { historyKeys } from "../../history/api/historyKeys";
 import { authKeys } from "../api/authKeys";
 import { achievementKeys } from "../../achievements/api/achievementKeys";
+import { hallOfFameKeys } from "../../hallOfFame/api/hallOfFameKeys";
 
 export function updateIdentityCache(queryClient: QueryClient, data: AuthUserResponse) {
 	queryClient.setQueryData(authKeys.currentUser(), data);
@@ -12,4 +13,5 @@ export function updateIdentityCache(queryClient: QueryClient, data: AuthUserResp
 	queryClient.removeQueries({ queryKey: historyKeys.all });
 	queryClient.removeQueries({ queryKey: achievementKeys.all });
 	void queryClient.invalidateQueries({ queryKey: dailyChallengeKeys.all });
+	void queryClient.invalidateQueries({ queryKey: hallOfFameKeys.all });
 }

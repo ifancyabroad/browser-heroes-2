@@ -180,7 +180,7 @@ preserved.
 
 Each user identity may start the challenge once. Starting consumes the attempt even if the run is later abandoned. The challenge must be started on its date, but an active attempt may be resumed and completed later and remains attached to its original leaderboard. Starting any new run abandons the current active run.
 
-Dead and retired attempts contribute to the completed-attempt count and are ranked by kills, then fewer run days, then earlier completion. Active and abandoned attempts are not counted or ranked. Daily runs participate in achievements, lifetime progress, personal history, and normal ghost creation. Normal runs are not publicly ranked.
+Dead and retired attempts contribute to the completed-attempt count and are ranked by kills, then fewer run days, then earlier completion. Active and abandoned attempts are not counted or ranked. Daily runs participate in achievements, lifetime progress, personal history, and normal ghost creation. Normal runs do not participate in Daily Challenge leaderboards.
 
 ## 13. Achievements
 

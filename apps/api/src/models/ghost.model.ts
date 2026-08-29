@@ -99,6 +99,21 @@ ghostSchema.index({ sourceRunId: 1 }, { unique: true });
 
 ghostSchema.index({ userId: 1, createdAt: -1 });
 ghostSchema.index({ encounterLevel: 1, createdAt: -1, _id: 1 });
+ghostSchema.index({
+	"stats.kills": -1,
+	"stats.deaths": 1,
+	"stats.encounters": -1,
+	createdAt: 1,
+	_id: 1,
+});
+ghostSchema.index({
+	classId: 1,
+	"stats.kills": -1,
+	"stats.deaths": 1,
+	"stats.encounters": -1,
+	createdAt: 1,
+	_id: 1,
+});
 
 export type GhostDocument = InferSchemaType<typeof ghostSchema>;
 

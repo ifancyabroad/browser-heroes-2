@@ -5,6 +5,7 @@ import { runKeys } from "../../runs/api/runKeys";
 import { historyKeys } from "../../history/api/historyKeys";
 import { authKeys } from "../api/authKeys";
 import { updateIdentityCache } from "./updateIdentityCache";
+import { hallOfFameKeys } from "../../hallOfFame/api/hallOfFameKeys";
 
 describe("updateIdentityCache", () => {
 	it("resets user-owned data without clearing unrelated cached data", () => {
@@ -28,5 +29,6 @@ describe("updateIdentityCache", () => {
 		expect(queryClient.getQueryData(historyKeys.runs(historyQuery))).toBeUndefined();
 		expect(queryClient.getQueryData(["content"])).toEqual({ classes: [] });
 		expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: dailyChallengeKeys.all });
+		expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: hallOfFameKeys.all });
 	});
 });
