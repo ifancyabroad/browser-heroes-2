@@ -11,7 +11,7 @@ const mocks = vi.hoisted(() => ({
 	getSkills: vi.fn(),
 }));
 
-vi.mock("../models/user.model", () => ({ UserModel: { findOne: mocks.findUser } }));
+vi.mock("../models/user.model", () => ({ UserModel: { findById: mocks.findUser } }));
 vi.mock("../services/adminMetrics.service", () => ({
 	getAdminMetricsOverview: mocks.getOverview,
 	getAdminPlayerMetrics: mocks.getPlayers,
@@ -40,7 +40,11 @@ describe("admin routes", () => {
 		vi.clearAllMocks();
 		env.ADMIN_EMAIL = "admin@example.com";
 		mocks.findUser.mockReturnValue({
-			select: vi.fn().mockResolvedValue({ _id: "admin-id" }),
+			select: vi.fn().mockResolvedValue({
+				_id: "admin-id",
+				type: "registered",
+				email: "admin@example.com",
+			}),
 		});
 		mocks.getOverview.mockResolvedValue({ players: {}, runs: {}, daily: [], progression: [] });
 		mocks.getPlayers.mockResolvedValue({ totals: {}, daily: [], types: [], retention: [] });
@@ -63,11 +67,7 @@ describe("admin routes", () => {
 			.set("x-test-user-id", "other-user")
 			.expect(403);
 
-		expect(mocks.findUser).toHaveBeenCalledWith({
-			_id: "other-user",
-			type: "registered",
-			email: "admin@example.com",
-		});
+		expect(mocks.findUser).toHaveBeenCalledWith("other-user");
 		expect(mocks.getOverview).not.toHaveBeenCalled();
 	});
 

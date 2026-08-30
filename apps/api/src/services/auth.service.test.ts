@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 const userModel = vi.hoisted(() => ({
 	create: vi.fn(),
@@ -8,10 +8,18 @@ const userModel = vi.hoisted(() => ({
 vi.mock("../models/user.model", () => ({ UserModel: userModel }));
 
 import { createGuestUser, getUserById, toAuthUserView } from "./auth.service";
+import { env } from "../config/env";
+
+const originalAdminEmail = env.ADMIN_EMAIL;
 
 describe("auth.service", () => {
+	afterAll(() => {
+		env.ADMIN_EMAIL = originalAdminEmail;
+	});
+
 	beforeEach(() => {
 		vi.clearAllMocks();
+		env.ADMIN_EMAIL = "admin@example.com";
 	});
 
 	it("creates a guest user with the expected type", async () => {
@@ -36,13 +44,14 @@ describe("auth.service", () => {
 				_id: 42,
 				type: "registered",
 				displayName: "Test User",
-				email: "test@example.com",
+				email: "admin@example.com",
 			}),
 		).toEqual({
 			id: "42",
 			type: "registered",
 			displayName: "Test User",
-			email: "test@example.com",
+			email: "admin@example.com",
+			isAdmin: true,
 		});
 	});
 
@@ -52,6 +61,7 @@ describe("auth.service", () => {
 			type: "guest",
 			displayName: null,
 			email: null,
+			isAdmin: false,
 		});
 	});
 });

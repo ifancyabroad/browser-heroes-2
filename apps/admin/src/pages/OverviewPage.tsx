@@ -14,13 +14,15 @@ import {
 import type { DashboardContext } from "../components/DashboardLayout";
 import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
 import { Stat } from "../components/Stat";
+import { useOverview } from "../features/metrics";
 import { shortDate } from "../lib/dates";
 
 const number = new Intl.NumberFormat("en-GB");
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
 
 export function OverviewPage() {
-	const { overview } = useOutletContext<DashboardContext>();
+	const { filters } = useOutletContext<DashboardContext>();
+	const overview = useOverview(filters);
 	if (overview.isPending) {
 		return <QueryLoading />;
 	}

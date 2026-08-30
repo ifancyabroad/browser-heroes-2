@@ -1,10 +1,9 @@
-import { HTTPError } from "ky";
 import { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { DashboardLayout } from "./components/DashboardLayout";
 import { QueryLoading } from "./components/QueryState";
 import { SignIn, Unauthorized, useCurrentUser } from "./features/auth";
-import { useOverview, type MetricsFilters } from "./features/metrics";
+import type { MetricsFilters } from "./features/metrics";
 import { presetRange, type DatePreset } from "./lib/dates";
 import { ClassesPage } from "./pages/ClassesPage";
 import { EnemiesPage } from "./pages/EnemiesPage";
@@ -21,7 +20,6 @@ export default function App() {
 		mode: "all",
 	});
 	const isRegistered = auth.data?.user?.type === "registered";
-	const overview = useOverview(filters, isRegistered);
 
 	if (auth.isPending) {
 		return <QueryLoading />;
@@ -29,7 +27,7 @@ export default function App() {
 	if (auth.isError || !isRegistered) {
 		return <SignIn />;
 	}
-	if (overview.error instanceof HTTPError && overview.error.response.status === 403) {
+	if (!auth.data.user?.isAdmin) {
 		return <Unauthorized />;
 	}
 
@@ -44,7 +42,6 @@ export default function App() {
 							setFilters(next);
 							setPreset(nextPreset);
 						}}
-						overview={overview}
 					/>
 				}
 			>

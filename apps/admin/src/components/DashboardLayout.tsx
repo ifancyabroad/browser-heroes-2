@@ -1,19 +1,17 @@
 import { Activity, LogOut, Shield, Skull, Sparkles, Swords, Users } from "lucide-react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useLogout } from "../features/auth";
-import { Filters, useOverview, type MetricsFilters } from "../features/metrics";
+import { Filters, type MetricsFilters } from "../features/metrics";
 import type { DatePreset } from "../lib/dates";
 
 export type DashboardContext = {
 	filters: MetricsFilters;
-	overview: ReturnType<typeof useOverview>;
 };
 
 export function DashboardLayout(props: {
 	filters: MetricsFilters;
 	preset: DatePreset;
 	onFiltersChange: (filters: MetricsFilters, preset: DatePreset) => void;
-	overview: DashboardContext["overview"];
 }) {
 	const logout = useLogout();
 	const location = useLocation();
@@ -73,7 +71,6 @@ export function DashboardLayout(props: {
 					context={
 						{
 							filters: props.filters,
-							overview: props.overview,
 						} satisfies DashboardContext
 					}
 				/>

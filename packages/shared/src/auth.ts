@@ -36,6 +36,7 @@ export interface AuthUserView {
 	type: AuthUserType;
 	displayName: string | null;
 	email: string | null;
+	isAdmin: boolean;
 }
 
 export interface AuthUserResponse {

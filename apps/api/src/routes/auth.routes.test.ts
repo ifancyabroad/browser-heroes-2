@@ -10,6 +10,7 @@ const authService = vi.hoisted(() => ({
 		type: user.type,
 		displayName: null,
 		email: null,
+		isAdmin: false,
 	})),
 }));
 
@@ -45,6 +46,7 @@ describe("auth routes", () => {
 				type: "guest",
 				displayName: null,
 				email: null,
+				isAdmin: false,
 			},
 		});
 		expect(authService.createGuestUser).toHaveBeenCalledOnce();
@@ -124,6 +126,7 @@ describe("auth routes", () => {
 				type: "registered",
 				displayName: null,
 				email: null,
+				isAdmin: false,
 			},
 		});
 		expect(accountService.loginAccount).toHaveBeenCalledWith({

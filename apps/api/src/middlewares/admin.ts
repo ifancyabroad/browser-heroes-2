@@ -1,6 +1,7 @@
 import type { RequestHandler } from "express";
 import { env } from "../config/env";
 import { UserModel } from "../models/user.model";
+import { isAdminUser } from "../services/auth.service";
 
 export const requireAdmin: RequestHandler = async (req, res, next) => {
 	if (!req.session.userId) {
@@ -13,13 +14,9 @@ export const requireAdmin: RequestHandler = async (req, res, next) => {
 		return;
 	}
 
-	const user = await UserModel.findOne({
-		_id: req.session.userId,
-		type: "registered",
-		email: env.ADMIN_EMAIL,
-	}).select("_id");
+	const user = await UserModel.findById(req.session.userId).select("type email");
 
-	if (!user) {
+	if (!user || !isAdminUser(user)) {
 		res.status(403).json({ error: "FORBIDDEN", message: "Not authorized." });
 		return;
 	}
