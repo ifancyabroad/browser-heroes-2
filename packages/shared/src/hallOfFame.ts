@@ -1,6 +1,7 @@
 import { classIdSchema, type ClassId } from "@app/content";
 import { z } from "zod";
 import type { RunMode, RunSlainByView } from "./runs";
+import type { GhostBanisherView } from "./ghosts";
 
 const hallOfFameQueryFields = {
 	classId: classIdSchema.optional(),
@@ -39,8 +40,7 @@ export interface GhostHallOfFameEntryView {
 	heroLevel: number;
 	kills: number;
 	status: "active" | "banished";
-	encounters: number;
-	winRate: number;
+	banishedBy: GhostBanisherView | null;
 	isCurrentUser: boolean;
 }
 

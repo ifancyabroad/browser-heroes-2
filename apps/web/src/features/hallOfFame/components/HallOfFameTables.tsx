@@ -1,3 +1,4 @@
+import { CLASSES_BY_ID } from "@app/content";
 import { getZoneForRun } from "@app/engine";
 import type { GhostHallOfFameEntryView, HeroHallOfFameEntryView } from "@app/shared";
 import { Star } from "pixelarticons/react/Star";
@@ -111,20 +112,14 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 				<col />
 				<col className="w-24" />
 				<col className="hidden sm:table-column sm:w-28" />
-				<col className="hidden sm:table-column sm:w-28" />
-				<col className="hidden sm:table-column sm:w-28" />
+				<col className="hidden sm:table-column sm:w-48" />
 			</colgroup>
 			<DataTableHeader>
 				<DataTableHeading numeric>RANK</DataTableHeading>
 				<DataTableHeading>GHOST</DataTableHeading>
 				<DataTableHeading numeric>KILLS</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					ENCOUNTERS
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
-					WIN RATE
-				</DataTableHeading>
 				<DataTableHeading hideOnMobile>STATUS</DataTableHeading>
+				<DataTableHeading hideOnMobile>BANISHED BY</DataTableHeading>
 			</DataTableHeader>
 			<tbody>
 				{entries.map((entry) => (
@@ -143,13 +138,17 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 							/>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.encounters}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{Math.round(entry.winRate * 100)}%
-						</DataTableCell>
 						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>
+						<DataTableCell hideOnMobile>
+							{entry.banishedBy ? (
+								<span className="block whitespace-normal break-words leading-5">
+									{entry.banishedBy.heroName} the{" "}
+									{CLASSES_BY_ID[entry.banishedBy.classId].name}
+								</span>
+							) : (
+								"—"
+							)}
+						</DataTableCell>
 					</DataTableRow>
 				))}
 			</tbody>

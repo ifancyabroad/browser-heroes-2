@@ -1,6 +1,7 @@
 import { classIdSchema, type ClassId } from "@app/content";
 import { z } from "zod";
 import type { RunMode } from "./runs";
+import type { GhostBanisherView } from "./ghosts";
 
 export const historySortDirectionSchema = z.enum(["asc", "desc"]);
 
@@ -56,7 +57,6 @@ export const ghostHistorySortSchema = z.enum([
 	"updatedAt",
 	"kills",
 	"status",
-	"encounters",
 	"heroLevel",
 	"encounterLevel",
 	"name",
@@ -82,8 +82,7 @@ export interface GhostHistoryEntryView {
 	encounterLevel: number;
 	kills: number;
 	status: "active" | "banished";
-	encounters: number;
-	winRate: number;
+	banishedBy: GhostBanisherView | null;
 	banishedAt: string | null;
 	createdAt: string;
 	updatedAt: string;

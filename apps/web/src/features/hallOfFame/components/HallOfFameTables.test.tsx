@@ -48,8 +48,12 @@ describe("HeroHallOfFameTable", () => {
 						heroLevel: 6,
 						kills: 4,
 						status: "banished",
-						encounters: 5,
-						winRate: 0.8,
+						banishedBy: {
+							sourceId: "banisher-run-id",
+							heroName: "Dawn",
+							classId: "priest",
+							heroLevel: 7,
+						},
 						isCurrentUser: true,
 					},
 				]}
@@ -57,5 +61,6 @@ describe("HeroHallOfFameTable", () => {
 		);
 
 		expect(screen.getByText("YOU")).toBeInTheDocument();
+		expect(screen.getByText("Dawn the Priest")).toBeInTheDocument();
 	});
 });

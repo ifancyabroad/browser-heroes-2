@@ -25,7 +25,6 @@ const ghostHistorySortMap = {
 	updatedAt: "updatedAt",
 	kills: "stats.kills",
 	status: "status",
-	encounters: "stats.encounters",
 	heroLevel: "heroLevel",
 	encounterLevel: "encounterLevel",
 	name: "name",
@@ -139,7 +138,6 @@ export async function getGhostHistory(params: { userId: string; query: GetGhostH
 
 	const entries: GhostHistoryEntryView[] = ghosts.map((ghost) => {
 		const kills = ghost.stats.kills;
-		const completedCombats = kills + ghost.stats.deaths;
 
 		return {
 			ghostId: String(ghost._id),
@@ -150,8 +148,14 @@ export async function getGhostHistory(params: { userId: string; query: GetGhostH
 			encounterLevel: ghost.encounterLevel,
 			kills,
 			status: ghost.status,
-			encounters: ghost.stats.encounters,
-			winRate: completedCombats > 0 ? kills / completedCombats : 0,
+			banishedBy: ghost.banishedBy
+				? {
+						sourceId: ghost.banishedBy.sourceId,
+						heroName: ghost.banishedBy.heroName,
+						classId: ghost.banishedBy.classId,
+						heroLevel: ghost.banishedBy.heroLevel,
+					}
+				: null,
 			banishedAt: ghost.banishedAt?.toISOString() ?? null,
 			createdAt: ghost.createdAt.toISOString(),
 			updatedAt: ghost.updatedAt.toISOString(),

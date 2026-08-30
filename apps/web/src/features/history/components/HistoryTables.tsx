@@ -1,3 +1,4 @@
+import { CLASSES_BY_ID } from "@app/content";
 import { getZoneForRun } from "@app/engine";
 import type {
 	GetGhostHistoryQuery,
@@ -140,8 +141,7 @@ export function GhostHistoryTable({
 				<col />
 				<col className="w-24" />
 				<col className="hidden sm:table-column sm:w-28" />
-				<col className="hidden sm:table-column sm:w-28" />
-				<col className="hidden sm:table-column sm:w-28" />
+				<col className="hidden sm:table-column sm:w-48" />
 				<col className="hidden sm:table-column sm:w-48" />
 			</colgroup>
 			<DataTableHeader>
@@ -161,18 +161,6 @@ export function GhostHistoryTable({
 					numeric
 				/>
 				<SortableDataTableHeading
-					label="ENCOUNTERS"
-					sortKey="encounters"
-					activeSort={sort}
-					direction={direction}
-					onSort={onSort}
-					numeric
-					hideOnMobile
-				/>
-				<DataTableHeading numeric hideOnMobile>
-					WIN RATE
-				</DataTableHeading>
-				<SortableDataTableHeading
 					label="STATUS"
 					sortKey="status"
 					activeSort={sort}
@@ -180,6 +168,7 @@ export function GhostHistoryTable({
 					onSort={onSort}
 					hideOnMobile
 				/>
+				<DataTableHeading hideOnMobile>BANISHED BY</DataTableHeading>
 				<SortableDataTableHeading
 					label="UPDATED"
 					sortKey="updatedAt"
@@ -200,13 +189,17 @@ export function GhostHistoryTable({
 							/>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{entry.encounters}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
-							{Math.round(entry.winRate * 100)}%
-						</DataTableCell>
 						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>
+						<DataTableCell hideOnMobile>
+							{entry.banishedBy ? (
+								<span className="block whitespace-normal break-words leading-5">
+									{entry.banishedBy.heroName} the{" "}
+									{CLASSES_BY_ID[entry.banishedBy.classId].name}
+								</span>
+							) : (
+								"—"
+							)}
+						</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatDisplayDate(entry.updatedAt)}
 						</DataTableCell>

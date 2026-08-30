@@ -19,7 +19,7 @@ const HERO_RANKING = {
 
 const GHOST_RANKING = {
 	"stats.kills": -1,
-	"stats.encounters": 1,
+	status: 1,
 	createdAt: 1,
 	_id: 1,
 } as const;
@@ -121,8 +121,7 @@ export async function getGhostHallOfFame(params: {
 			: ghosts.map((_, index) => skip + index + 1);
 
 	const entries: GhostHallOfFameEntryView[] = ghosts.map((ghost, index) => {
-		const { kills, deaths, encounters } = ghost.stats;
-		const completedCombats = kills + deaths;
+		const { kills } = ghost.stats;
 		return {
 			rank: ranks[index]!,
 			ghostId: String(ghost._id),
@@ -131,8 +130,14 @@ export async function getGhostHallOfFame(params: {
 			heroLevel: ghost.heroLevel,
 			kills,
 			status: ghost.status,
-			encounters,
-			winRate: completedCombats > 0 ? kills / completedCombats : 0,
+			banishedBy: ghost.banishedBy
+				? {
+						sourceId: ghost.banishedBy.sourceId,
+						heroName: ghost.banishedBy.heroName,
+						classId: ghost.banishedBy.classId,
+						heroLevel: ghost.banishedBy.heroLevel,
+					}
+				: null,
 			isCurrentUser: String(ghost.userId) === params.userId,
 		};
 	});
@@ -177,7 +182,7 @@ async function getGhostRank(
 	rankingFilter: Record<string, unknown>,
 	ghost: GhostDocument & { _id: unknown; createdAt: Date },
 ): Promise<number> {
-	const { kills, encounters } = ghost.stats;
+	const { kills } = ghost.stats;
 	const id = new Types.ObjectId(String(ghost._id));
 	const betterGhosts = await GhostModel.countDocuments({
 		...rankingFilter,
@@ -185,16 +190,16 @@ async function getGhostRank(
 			{ "stats.kills": { $gt: kills } },
 			{
 				"stats.kills": kills,
-				"stats.encounters": { $lt: encounters },
+				status: { $lt: ghost.status },
 			},
 			{
 				"stats.kills": kills,
-				"stats.encounters": encounters,
+				status: ghost.status,
 				createdAt: { $lt: ghost.createdAt },
 			},
 			{
 				"stats.kills": kills,
-				"stats.encounters": encounters,
+				status: ghost.status,
 				createdAt: ghost.createdAt,
 				_id: { $lt: id },
 			},

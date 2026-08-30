@@ -141,6 +141,12 @@ describe("hallOfFame.service", () => {
 				heroLevel: 6,
 				createdAt: new Date("2026-08-23T12:00:00.000Z"),
 				status: "banished",
+				banishedBy: {
+					sourceId: "banisher-run-id",
+					heroName: "Dawn",
+					classId: "priest",
+					heroLevel: 7,
+				},
 				stats: { kills: 3, deaths: 1, encounters: 5 },
 			},
 		]);
@@ -159,8 +165,12 @@ describe("hallOfFame.service", () => {
 			heroLevel: 6,
 			kills: 3,
 			status: "banished",
-			encounters: 5,
-			winRate: 0.75,
+			banishedBy: {
+				sourceId: "banisher-run-id",
+				heroName: "Dawn",
+				classId: "priest",
+				heroLevel: 7,
+			},
 			isCurrentUser: true,
 		});
 		expect(models.ghosts.countDocuments.mock.calls[1]![0]).toMatchObject({

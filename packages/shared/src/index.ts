@@ -2,6 +2,7 @@ export * from "./auth";
 export * from "./contact";
 export * from "./heroNames";
 export * from "./health";
+export * from "./ghosts";
 export * from "./runs";
 export * from "./dailyChallenges";
 export * from "./hallOfFame";

@@ -161,7 +161,7 @@ describe("history.service", () => {
 				limit: 5,
 				classId: "mage",
 				search: "Shade+",
-				sort: "encounters",
+				sort: "status",
 				direction: "desc",
 			},
 		});
@@ -173,7 +173,7 @@ describe("history.service", () => {
 		};
 		expect(models.ghost.find).toHaveBeenCalledWith(filter);
 		expect(models.ghost.countDocuments).toHaveBeenCalledWith(filter);
-		expect(query.sort).toHaveBeenCalledWith({ "stats.encounters": -1, _id: 1 });
+		expect(query.sort).toHaveBeenCalledWith({ status: -1, _id: 1 });
 		expect(query.skip).toHaveBeenCalledWith(5);
 		expect(query.limit).toHaveBeenCalledWith(5);
 	});
@@ -194,7 +194,7 @@ describe("history.service", () => {
 		expect(query.sort).toHaveBeenCalledWith({ [field]: 1, _id: 1 });
 	});
 
-	it("projects ghost entries and their completed-combat win rate", async () => {
+	it("projects ghost status and banisher details", async () => {
 		arrangeQuery(models.ghost.find, [
 			{
 				_id: "ghost-id",
@@ -205,6 +205,12 @@ describe("history.service", () => {
 				encounterLevel: 5,
 				status: "banished",
 				banishedAt: new Date("2026-07-02T00:00:00.000Z"),
+				banishedBy: {
+					sourceId: "banisher-run-id",
+					heroName: "Dawn",
+					classId: "priest",
+					heroLevel: 7,
+				},
 				stats: { kills: 2, deaths: 3, encounters: 7 },
 				createdAt: new Date("2026-07-01T00:00:00.000Z"),
 				updatedAt: new Date("2026-07-02T00:00:00.000Z"),
@@ -225,15 +231,19 @@ describe("history.service", () => {
 			encounterLevel: 5,
 			kills: 2,
 			status: "banished",
-			encounters: 7,
-			winRate: 0.4,
+			banishedBy: {
+				sourceId: "banisher-run-id",
+				heroName: "Dawn",
+				classId: "priest",
+				heroLevel: 7,
+			},
 			banishedAt: "2026-07-02T00:00:00.000Z",
 			createdAt: "2026-07-01T00:00:00.000Z",
 			updatedAt: "2026-07-02T00:00:00.000Z",
 		});
 	});
 
-	it("reports zero ghost win rate without completed combats", async () => {
+	it("projects no banisher for an active ghost", async () => {
 		arrangeQuery(models.ghost.find, [
 			{
 				_id: "ghost-id",
@@ -244,6 +254,7 @@ describe("history.service", () => {
 				encounterLevel: 1,
 				status: "active",
 				banishedAt: null,
+				banishedBy: null,
 				stats: { kills: 0, deaths: 0, encounters: 1 },
 				createdAt: new Date(),
 				updatedAt: new Date(),
@@ -255,7 +266,7 @@ describe("history.service", () => {
 			query: { page: 1, limit: 20, sort: "createdAt", direction: "desc" },
 		});
 
-		expect(result.entries[0].winRate).toBe(0);
 		expect(result.entries[0].status).toBe("active");
+		expect(result.entries[0].banishedBy).toBeNull();
 	});
 });

@@ -93,7 +93,7 @@ describe("history routes", () => {
 
 	it("forwards ghost history filters", async () => {
 		await request(buildApp())
-			.get("/api/history/ghosts?classId=mage&search=Shade&sort=encounters&direction=asc")
+			.get("/api/history/ghosts?classId=mage&search=Shade&sort=status&direction=asc")
 			.set("x-test-user-id", "user-id")
 			.expect(200);
 
@@ -104,7 +104,7 @@ describe("history routes", () => {
 				limit: 20,
 				classId: "mage",
 				search: "Shade",
-				sort: "encounters",
+				sort: "status",
 				direction: "asc",
 			},
 		});
