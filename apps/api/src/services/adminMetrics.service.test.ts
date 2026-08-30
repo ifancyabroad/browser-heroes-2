@@ -54,7 +54,7 @@ describe("admin metrics", () => {
 			{ date: "2026-08-02", activePlayers: 0, newPlayers: 0, runsStarted: 0 },
 			{ date: "2026-08-03", activePlayers: 0, newPlayers: 0, runsStarted: 0 },
 		]);
-		expect(result.progression[0]).toEqual({ battle: 1, runs: 0, percentage: 0 });
+		expect(result.progression[0]).toEqual({ battle: 10, runs: 0, percentage: 0 });
 	});
 
 	it("combines identity splits, deduplicated activity, outcomes, and progression", async () => {
@@ -106,6 +106,7 @@ describe("admin metrics", () => {
 		expect(result.runs.outcomes).toEqual({ active: 0, dead: 1, retired: 1, abandoned: 1 });
 		expect(result.runs.finalBossCompletionRate).toBe(1 / 3);
 		expect(result.daily[1].activePlayers).toBe(2);
+		expect(result.progression.some((row) => row.battle === 1)).toBe(false);
 		expect(result.progression.find((row) => row.battle === 10)).toEqual({
 			battle: 10,
 			runs: 2,

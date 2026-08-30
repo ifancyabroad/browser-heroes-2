@@ -65,7 +65,7 @@ type PlayerActivity = {
 	runStarts: Array<{ date: string; count: number }>;
 };
 
-const MILESTONES = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
+const MILESTONES = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
 const MAX_RETENTION_DAYS = 30;
 const RETENTION_DAYS = [1, 7, MAX_RETENTION_DAYS] as const;
 const DEPTH_BUCKETS = [

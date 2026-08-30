@@ -47,6 +47,7 @@ describe("OverviewPage", () => {
 
 		render(<OverviewPage />);
 		expect(screen.getByText("12")).toBeInTheDocument();
+		expect(screen.getByText("New identities")).toBeInTheDocument();
 		expect(screen.getByText("9 guests · 3 registered")).toBeInTheDocument();
 		expect(screen.getByText("16.7%")).toBeInTheDocument();
 	});

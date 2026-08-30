@@ -49,7 +49,7 @@ export function OverviewPage() {
 					detail={`${data.players.active.guests} guests · ${data.players.active.registered} registered`}
 				/>
 				<Stat
-					label="New players"
+					label="New identities"
 					value={number.format(data.players.new.total)}
 					detail={`${data.players.new.guests} guests · ${data.players.new.registered} registered`}
 				/>
@@ -145,7 +145,12 @@ export function OverviewPage() {
 								tickFormatter={(value) => `${Math.round(Number(value) * 100)}%`}
 								domain={[0, 1]}
 							/>
-							<Tooltip formatter={(value) => percent.format(Number(value))} />
+							<Tooltip
+								formatter={(value, _name, item) => [
+									percent.format(Number(value)),
+									`Runs reaching battle (${item.payload.runs})`,
+								]}
+							/>
 							<Bar
 								dataKey="percentage"
 								name="Runs reaching battle"
