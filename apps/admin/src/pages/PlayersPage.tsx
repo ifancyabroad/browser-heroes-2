@@ -15,15 +15,30 @@ import { useOutletContext } from "react-router-dom";
 import type { DashboardContext } from "../components/DashboardLayout";
 import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
 import { Stat } from "../components/Stat";
+import { SortableHeader } from "../components/SortableHeader";
 import { usePlayerMetrics } from "../features/metrics";
+import { useTableSort } from "../hooks/useTableSort";
 import { shortDate } from "../lib/dates";
 
 const number = new Intl.NumberFormat("en-GB");
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
+type SortKey = keyof Pick<
+	AdminPlayerTypeMetricsRow,
+	| "activePlayers"
+	| "newPlayers"
+	| "returningPlayers"
+	| "repeatPlayers"
+	| "runsStarted"
+	| "runsPerActivePlayer"
+>;
 
 export function PlayersPage() {
 	const { filters } = useOutletContext<DashboardContext>();
 	const query = usePlayerMetrics(filters);
+	const sort = useTableSort<AdminPlayerTypeMetricsRow, SortKey>(
+		query.data?.types ?? [],
+		"activePlayers",
+	);
 
 	if (query.isPending) {
 		return <QueryLoading />;
@@ -163,16 +178,40 @@ export function PlayersPage() {
 						<thead>
 							<tr>
 								<th>Type</th>
-								<th>Active</th>
-								<th>New</th>
-								<th>Returning</th>
-								<th>Repeat</th>
-								<th>Runs</th>
-								<th>Runs / active</th>
+								<SortableHeader
+									label="Active"
+									value="activePlayers"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="New"
+									value="newPlayers"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Returning"
+									value="returningPlayers"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Repeat"
+									value="repeatPlayers"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Runs"
+									value="runsStarted"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Runs / active"
+									value="runsPerActivePlayer"
+									{...sort.headerProps}
+								/>
 							</tr>
 						</thead>
 						<tbody>
-							{query.data.types.map((row) => (
+							{sort.rows.map((row) => (
 								<PlayerTypeRow key={row.type} row={row} />
 							))}
 						</tbody>

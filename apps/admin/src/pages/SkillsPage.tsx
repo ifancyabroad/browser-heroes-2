@@ -1,18 +1,21 @@
 import { SKILLS_BY_ID, type SkillId } from "@app/content";
 import type { AdminSkillMetricsRow } from "@app/shared";
-import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useOutletContext } from "react-router-dom";
 import type { DashboardContext } from "../components/DashboardLayout";
 import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
+import { SortableHeader } from "../components/SortableHeader";
 import { useSkillMetrics } from "../features/metrics";
+import { useTableSort } from "../hooks/useTableSort";
 
 type SortKey =
 	| "uses"
 	| "usageShare"
 	| "runs"
+	| "combats"
 	| "averageUsesPerRun"
 	| "averageBattle"
+	| "averageTurn"
 	| "combatWinRate";
 
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
@@ -20,7 +23,7 @@ const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFracti
 export function SkillsPage() {
 	const { filters } = useOutletContext<DashboardContext>();
 	const query = useSkillMetrics(filters);
-	const [sort, setSort] = useState<SortKey>("uses");
+	const sort = useTableSort<AdminSkillMetricsRow, SortKey>(query.data?.skills ?? [], "uses");
 
 	if (query.isPending) {
 		return <QueryLoading />;
@@ -34,7 +37,7 @@ export function SkillsPage() {
 		return <EmptyState />;
 	}
 
-	const rows = [...query.data.skills].sort((a, b) => b[sort] - a[sort]);
+	const rows = sort.rows;
 	const chart = [...query.data.skills]
 		.sort((a, b) => b.uses - a.uses)
 		.slice(0, 12)
@@ -82,33 +85,37 @@ export function SkillsPage() {
 						<thead>
 							<tr>
 								<th>Skill</th>
-								<Sort label="Uses" value="uses" active={sort} set={setSort} />
-								<Sort
+								<SortableHeader label="Uses" value="uses" {...sort.headerProps} />
+								<SortableHeader
 									label="Share"
 									value="usageShare"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
-								<Sort label="Runs" value="runs" active={sort} set={setSort} />
-								<th>Combats</th>
-								<Sort
+								<SortableHeader label="Runs" value="runs" {...sort.headerProps} />
+								<SortableHeader
+									label="Combats"
+									value="combats"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
 									label="Uses / run"
 									value="averageUsesPerRun"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
-								<Sort
+								<SortableHeader
 									label="Avg. battle"
 									value="averageBattle"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
-								<th>Avg. turn</th>
-								<Sort
+								<SortableHeader
+									label="Avg. turn"
+									value="averageTurn"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
 									label="Combat win rate"
 									value="combatWinRate"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
 							</tr>
 						</thead>
@@ -121,24 +128,6 @@ export function SkillsPage() {
 				</div>
 			</article>
 		</main>
-	);
-}
-
-function Sort(props: {
-	label: string;
-	value: SortKey;
-	active: SortKey;
-	set: (value: SortKey) => void;
-}) {
-	return (
-		<th aria-sort={props.active === props.value ? "descending" : "none"}>
-			<button
-				className={props.active === props.value ? "table-sort active" : "table-sort"}
-				onClick={() => props.set(props.value)}
-			>
-				{props.label}
-			</button>
-		</th>
 	);
 }
 

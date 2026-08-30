@@ -13,14 +13,32 @@ import { useOutletContext } from "react-router-dom";
 import type { DashboardContext } from "../components/DashboardLayout";
 import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
 import { Stat } from "../components/Stat";
+import { SortableHeader } from "../components/SortableHeader";
 import { useRunMetrics } from "../features/metrics";
+import { useTableSort } from "../hooks/useTableSort";
 
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
 const modeNames = { normal: "Normal", dailyChallenge: "Daily challenge" } as const;
+type SortKey = keyof Pick<
+	AdminRunModeMetricsRow,
+	| "runsStarted"
+	| "share"
+	| "active"
+	| "dead"
+	| "retired"
+	| "abandoned"
+	| "averageBattleReached"
+	| "averageKills"
+	| "finalBossCompletionRate"
+>;
 
 export function RunsPage() {
 	const { filters } = useOutletContext<DashboardContext>();
 	const query = useRunMetrics(filters);
+	const sort = useTableSort<AdminRunModeMetricsRow, SortKey>(
+		query.data?.modes ?? [],
+		"runsStarted",
+	);
 
 	if (query.isPending) {
 		return <QueryLoading />;
@@ -148,19 +166,47 @@ export function RunsPage() {
 						<thead>
 							<tr>
 								<th>Mode</th>
-								<th>Runs</th>
-								<th>Share</th>
-								<th>Active</th>
-								<th>Dead</th>
-								<th>Retired</th>
-								<th>Abandoned</th>
-								<th>Avg. battle</th>
-								<th>Avg. kills</th>
-								<th>Boss completion</th>
+								<SortableHeader
+									label="Runs"
+									value="runsStarted"
+									{...sort.headerProps}
+								/>
+								<SortableHeader label="Share" value="share" {...sort.headerProps} />
+								<SortableHeader
+									label="Active"
+									value="active"
+									{...sort.headerProps}
+								/>
+								<SortableHeader label="Dead" value="dead" {...sort.headerProps} />
+								<SortableHeader
+									label="Retired"
+									value="retired"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Abandoned"
+									value="abandoned"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Avg. battle"
+									value="averageBattleReached"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Avg. kills"
+									value="averageKills"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
+									label="Boss completion"
+									value="finalBossCompletionRate"
+									{...sort.headerProps}
+								/>
 							</tr>
 						</thead>
 						<tbody>
-							{query.data.modes.map((row) => (
+							{sort.rows.map((row) => (
 								<ModeRow key={row.mode} row={row} />
 							))}
 						</tbody>

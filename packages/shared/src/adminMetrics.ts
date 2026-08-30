@@ -1,8 +1,9 @@
 import { z } from "zod";
-import type { ClassId } from "@app/content";
+import { classIdSchema, type ClassId } from "@app/content";
 import type { RunMode } from "./runs";
 
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+export const ADMIN_ENEMY_METRICS_MAX_MIN_COMBATS = 100_000;
 
 function parseUtcDate(value: string): Date | null {
 	if (!datePattern.test(value)) {
@@ -24,41 +25,70 @@ function defaultRange(): { from: string; to: string } {
 	return { from: formatUtcDate(from), to: formatUtcDate(to) };
 }
 
-export const adminMetricsQuerySchema = z
-	.object({
-		from: z.string().optional(),
-		to: z.string().optional(),
-		mode: z.enum(["normal", "dailyChallenge"]).optional(),
-	})
-	.transform((query, context) => {
-		const defaults = defaultRange();
-		const from = query.from ?? defaults.from;
-		const to = query.to ?? defaults.to;
-		const fromDate = parseUtcDate(from);
-		const toDate = parseUtcDate(to);
+const metricsQueryFields = {
+	from: z.string().optional(),
+	to: z.string().optional(),
+	mode: z.enum(["normal", "dailyChallenge"]).optional(),
+};
 
-		if (!fromDate) {
-			context.addIssue({ code: "custom", path: ["from"], message: "Invalid UTC date." });
+type MetricsQueryInput = {
+	from?: string;
+	to?: string;
+};
+
+function normalizeMetricsRange(query: MetricsQueryInput, context: z.RefinementCtx) {
+	const defaults = defaultRange();
+	const from = query.from ?? defaults.from;
+	const to = query.to ?? defaults.to;
+	const fromDate = parseUtcDate(from);
+	const toDate = parseUtcDate(to);
+
+	if (!fromDate) {
+		context.addIssue({ code: "custom", path: ["from"], message: "Invalid UTC date." });
+		return z.NEVER;
+	}
+	if (!toDate) {
+		context.addIssue({ code: "custom", path: ["to"], message: "Invalid UTC date." });
+		return z.NEVER;
+	}
+
+	const days = Math.floor((toDate.getTime() - fromDate.getTime()) / 86_400_000) + 1;
+	if (days < 1 || days > 366) {
+		context.addIssue({
+			code: "custom",
+			message: "Date range must contain between 1 and 366 inclusive UTC dates.",
+		});
+		return z.NEVER;
+	}
+
+	return { from, to };
+}
+
+function createMetricsQuerySchema<Fields extends z.ZodRawShape>(fields: Fields) {
+	return z.object({ ...metricsQueryFields, ...fields }).transform((query, context) => {
+		const range = normalizeMetricsRange(query as MetricsQueryInput, context);
+		if (range === z.NEVER) {
 			return z.NEVER;
 		}
-		if (!toDate) {
-			context.addIssue({ code: "custom", path: ["to"], message: "Invalid UTC date." });
-			return z.NEVER;
-		}
-
-		const days = Math.floor((toDate.getTime() - fromDate.getTime()) / 86_400_000) + 1;
-		if (days < 1 || days > 366) {
-			context.addIssue({
-				code: "custom",
-				message: "Date range must contain between 1 and 366 inclusive UTC dates.",
-			});
-			return z.NEVER;
-		}
-
-		return { from, to, mode: query.mode };
+		return { ...query, ...range };
 	});
+}
+
+export const adminMetricsQuerySchema = createMetricsQuerySchema({});
 
 export type AdminMetricsQuery = z.infer<typeof adminMetricsQuerySchema>;
+
+export const adminEnemyMetricsQuerySchema = createMetricsQuerySchema({
+	classId: classIdSchema.optional(),
+	encounterType: z.enum(["standard", "boss", "ghost"]).optional(),
+	battleFrom: z.coerce.number().int().min(1).optional(),
+	battleTo: z.coerce.number().int().min(1).optional(),
+	minCombats: z.coerce.number().int().min(1).max(ADMIN_ENEMY_METRICS_MAX_MIN_COMBATS).default(1),
+}).refine((query) => !query.battleFrom || !query.battleTo || query.battleFrom <= query.battleTo, {
+	message: "Battle range must end on or after it starts.",
+});
+
+export type AdminEnemyMetricsQuery = z.infer<typeof adminEnemyMetricsQuerySchema>;
 
 export interface AdminMetricsRange {
 	from: string;

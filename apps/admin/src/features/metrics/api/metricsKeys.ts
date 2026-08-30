@@ -1,4 +1,4 @@
-import type { MetricsFilters } from "../types";
+import type { EnemyMetricsFilters, MetricsFilters } from "../types";
 
 export const metricsKeys = {
 	all: ["metrics"] as const,
@@ -6,6 +6,7 @@ export const metricsKeys = {
 	players: (filters: MetricsFilters) => [...metricsKeys.all, "players", filters] as const,
 	runs: (filters: MetricsFilters) => [...metricsKeys.all, "runs", filters] as const,
 	classes: (filters: MetricsFilters) => [...metricsKeys.all, "classes", filters] as const,
-	enemies: (filters: MetricsFilters) => [...metricsKeys.all, "enemies", filters] as const,
+	enemies: (filters: MetricsFilters, enemyFilters: EnemyMetricsFilters) =>
+		[...metricsKeys.all, "enemies", filters, enemyFilters] as const,
 	skills: (filters: MetricsFilters) => [...metricsKeys.all, "skills", filters] as const,
 };

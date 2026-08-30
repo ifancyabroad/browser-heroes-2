@@ -32,6 +32,7 @@ const query = {
 	from: "2026-08-01",
 	to: "2026-08-03",
 	mode: undefined,
+	minCombats: 1,
 };
 
 describe("admin metrics", () => {
@@ -364,6 +365,33 @@ describe("admin metrics", () => {
 			expect.arrayContaining([
 				expect.objectContaining({ $match: { "run.mode": "normal" } }),
 				expect.objectContaining({ $unwind: "$events" }),
+			]),
+		);
+	});
+
+	it("applies enemy class, encounter, battle, and sample filters", async () => {
+		mocks.runActionAggregate.mockResolvedValue([]);
+
+		await getAdminEnemyMetrics({
+			...query,
+			classId: "mage",
+			encounterType: "boss",
+			battleFrom: 10,
+			battleTo: 19,
+			minCombats: 5,
+		});
+
+		const pipeline = mocks.runActionAggregate.mock.calls[0][0];
+		expect(pipeline).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ $match: { "run.summary.classId": "mage" } }),
+				expect.objectContaining({
+					$match: expect.objectContaining({
+						"events.encounterType": "boss",
+						"events.battleNumber": { $gte: 10, $lte: 19 },
+					}),
+				}),
+				expect.objectContaining({ $match: { combats: { $gte: 5 } } }),
 			]),
 		);
 	});

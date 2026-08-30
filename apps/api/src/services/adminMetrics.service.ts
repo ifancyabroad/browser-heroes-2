@@ -3,6 +3,7 @@ import {
 	runModes,
 	type AdminClassMetricsResponse,
 	type AdminEnemyMetricsResponse,
+	type AdminEnemyMetricsQuery,
 	type AdminMetricsOverviewResponse,
 	type AdminMetricsQuery,
 	type AdminPlayerMetricsResponse,
@@ -566,12 +567,12 @@ export async function getAdminPlayerMetrics(
 }
 
 export async function getAdminEnemyMetrics(
-	query: AdminMetricsQuery,
+	query: AdminEnemyMetricsQuery,
 ): Promise<AdminEnemyMetricsResponse> {
 	const { start, end } = bounds(query);
 	const pipeline: PipelineStage[] = [{ $match: { createdAt: { $gte: start, $lt: end } } }];
 
-	if (query.mode) {
+	if (query.mode || query.classId) {
 		pipeline.push(
 			{
 				$lookup: {
@@ -582,13 +583,30 @@ export async function getAdminEnemyMetrics(
 				},
 			},
 			{ $unwind: "$run" },
-			{ $match: { "run.mode": query.mode } },
 		);
+		const runMatch: Record<string, unknown> = {};
+		if (query.mode) {
+			runMatch["run.mode"] = query.mode;
+		}
+		if (query.classId) {
+			runMatch["run.summary.classId"] = query.classId;
+		}
+		pipeline.push({ $match: runMatch });
+	}
+	const eventMatch: Record<string, unknown> = { "events.type": "COMBAT_ENDED" };
+	if (query.encounterType) {
+		eventMatch["events.encounterType"] = query.encounterType;
+	}
+	if (query.battleFrom || query.battleTo) {
+		eventMatch["events.battleNumber"] = {
+			...(query.battleFrom ? { $gte: query.battleFrom } : {}),
+			...(query.battleTo ? { $lte: query.battleTo } : {}),
+		};
 	}
 
 	pipeline.push(
 		{ $unwind: "$events" },
-		{ $match: { "events.type": "COMBAT_ENDED" } },
+		{ $match: eventMatch },
 		{
 			$group: {
 				_id: {
@@ -611,6 +629,7 @@ export async function getAdminEnemyMetrics(
 				averageTurns: { $avg: "$events.turnNumber" },
 			},
 		},
+		{ $match: { combats: { $gte: query.minCombats } } },
 		{ $sort: { combats: -1 } },
 	);
 

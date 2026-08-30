@@ -63,5 +63,17 @@ describe("EnemiesPage", () => {
 
 		fireEvent.click(screen.getByRole("button", { name: "Avg. turns" }));
 		expect(within(table).getAllByRole("row")[1]).toHaveTextContent("Ghost encounters");
+
+		fireEvent.click(screen.getByRole("button", { name: "Avg. turns" }));
+		expect(within(table).getAllByRole("row")[1]).toHaveTextContent("Fire Beetle");
+
+		fireEvent.click(screen.getByRole("button", { name: "Defeats" }));
+		expect(within(table).getAllByRole("row")[1]).toHaveTextContent("Ghost encounters");
+
+		fireEvent.change(screen.getByLabelText("Search enemies"), {
+			target: { value: "missing enemy" },
+		});
+		expect(screen.getByText("No enemies match this search")).toBeInTheDocument();
+		expect(screen.getByRole("heading", { name: "Player win rate" })).toBeInTheDocument();
 	});
 });

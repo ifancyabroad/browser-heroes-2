@@ -4,16 +4,26 @@ import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useOutletContext } from "react-router-dom";
 import type { DashboardContext } from "../components/DashboardLayout";
-import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
+import { QueryError, QueryLoading } from "../components/QueryState";
+import { SortableHeader } from "../components/SortableHeader";
 import { useEnemyMetrics } from "../features/metrics";
+import { EnemyFilters } from "../features/metrics/components/EnemyFilters";
+import { defaultEnemyMetricsFilters } from "../features/metrics/types";
+import { useTableSort } from "../hooks/useTableSort";
 
-type SortKey = "combats" | "winRate" | "averageTurns";
+type SortKey = "combats" | "victories" | "defeats" | "winRate" | "averageTurns";
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
-
 export function EnemiesPage() {
 	const { filters } = useOutletContext<DashboardContext>();
-	const query = useEnemyMetrics(filters);
-	const [sort, setSort] = useState<SortKey>("combats");
+	const [enemyFilters, setEnemyFilters] = useState(defaultEnemyMetricsFilters);
+	const [search, setSearch] = useState("");
+	const query = useEnemyMetrics(filters, enemyFilters);
+	const searchTerm = search.trim().toLocaleLowerCase();
+	const enemies = query.data?.enemies ?? [];
+	const tableRows = enemies.filter((row) =>
+		`${getEnemyName(row)} ${row.enemyId}`.toLocaleLowerCase().includes(searchTerm),
+	);
+	const sort = useTableSort<AdminEnemyMetricsRow, SortKey>(tableRows, "combats");
 
 	if (query.isPending) {
 		return <QueryLoading />;
@@ -23,12 +33,8 @@ export function EnemiesPage() {
 		return <QueryError onRetry={() => void query.refetch()} />;
 	}
 
-	if (query.data.enemies.length === 0) {
-		return <EmptyState />;
-	}
-
-	const rows = [...query.data.enemies].sort((a, b) => b[sort] - a[sort]);
-	const chart = [...query.data.enemies]
+	const rows = sort.rows;
+	const chart = [...enemies]
 		.sort((a, b) => b.combats - a.combats)
 		.slice(0, 12)
 		.map((row) => ({ ...row, name: getEnemyName(row) }));
@@ -42,85 +48,125 @@ export function EnemiesPage() {
 				</div>
 				{query.isFetching ? <span className="refreshing">Refreshing…</span> : null}
 			</div>
-			<article className="panel">
-				<div className="panel-heading">
-					<h3>Player win rate</h3>
-					<p>The twelve most frequently encountered enemies.</p>
-				</div>
-				<ResponsiveContainer width="100%" height={380}>
-					<BarChart data={chart} layout="vertical" margin={{ left: 55, right: 18 }}>
-						<CartesianGrid strokeDasharray="3 3" horizontal={false} />
-						<XAxis
-							type="number"
-							domain={[0, 1]}
-							tickFormatter={(value) => percent.format(Number(value))}
-						/>
-						<YAxis type="category" dataKey="name" width={130} />
-						<Tooltip formatter={(value) => percent.format(Number(value))} />
-						<Bar
-							dataKey="winRate"
-							name="Player win rate"
-							fill="var(--success)"
-							radius={[0, 4, 4, 0]}
-						/>
-					</BarChart>
-				</ResponsiveContainer>
-			</article>
-			<article className="panel table-panel">
-				<div className="panel-heading">
-					<h3>Enemy details</h3>
-					<p>Rates use resolved combats as their sample.</p>
-				</div>
-				<div className="table-wrap">
-					<table>
-						<thead>
-							<tr>
-								<th>Enemy</th>
-								<th>Type</th>
-								<Sort label="Combats" value="combats" active={sort} set={setSort} />
-								<th>Victories</th>
-								<th>Defeats</th>
-								<Sort
-									label="Win rate"
-									value="winRate"
-									active={sort}
-									set={setSort}
+			<EnemyFilters values={enemyFilters} onChange={setEnemyFilters} />
+			{enemies.length === 0 ? <EnemyEmptyState /> : null}
+			{enemies.length > 0 ? (
+				<>
+					<article className="panel">
+						<div className="panel-heading">
+							<h3>Player win rate</h3>
+							<p>The twelve most frequently encountered enemies.</p>
+						</div>
+						<ResponsiveContainer width="100%" height={380}>
+							<BarChart
+								data={chart}
+								layout="vertical"
+								margin={{ left: 55, right: 18 }}
+							>
+								<CartesianGrid strokeDasharray="3 3" horizontal={false} />
+								<XAxis
+									type="number"
+									domain={[0, 1]}
+									tickFormatter={(value) => percent.format(Number(value))}
 								/>
-								<Sort
-									label="Avg. turns"
-									value="averageTurns"
-									active={sort}
-									set={setSort}
+								<YAxis type="category" dataKey="name" width={130} />
+								<Tooltip formatter={(value) => percent.format(Number(value))} />
+								<Bar
+									dataKey="winRate"
+									name="Player win rate"
+									fill="var(--success)"
+									radius={[0, 4, 4, 0]}
 								/>
-							</tr>
-						</thead>
-						<tbody>
-							{rows.map((row) => (
-								<EnemyRow key={`${row.encounterType}:${row.enemyId}`} row={row} />
-							))}
-						</tbody>
-					</table>
-				</div>
-			</article>
+							</BarChart>
+						</ResponsiveContainer>
+					</article>
+					<article className="panel table-panel">
+						<div className="panel-heading table-panel-heading">
+							<div>
+								<h3>Enemy details</h3>
+								<p>
+									Rates use resolved combats as their sample. Click headings to
+									reverse sorting.
+								</p>
+							</div>
+							<label className="table-search">
+								<span>Search enemies</span>
+								<input
+									type="search"
+									value={search}
+									placeholder="Enemy name or ID"
+									onChange={(event) => setSearch(event.target.value)}
+								/>
+							</label>
+						</div>
+						{rows.length === 0 ? <EnemyTableEmptyState /> : null}
+						{rows.length > 0 ? (
+							<div className="table-wrap">
+								<table>
+									<thead>
+										<tr>
+											<th>Enemy</th>
+											<th>Type</th>
+											<SortableHeader
+												label="Combats"
+												value="combats"
+												{...sort.headerProps}
+											/>
+											<SortableHeader
+												label="Victories"
+												value="victories"
+												{...sort.headerProps}
+											/>
+											<SortableHeader
+												label="Defeats"
+												value="defeats"
+												{...sort.headerProps}
+											/>
+											<SortableHeader
+												label="Win rate"
+												value="winRate"
+												{...sort.headerProps}
+											/>
+											<SortableHeader
+												label="Avg. turns"
+												value="averageTurns"
+												{...sort.headerProps}
+											/>
+										</tr>
+									</thead>
+									<tbody>
+										{rows.map((row) => (
+											<EnemyRow
+												key={`${row.encounterType}:${row.enemyId}`}
+												row={row}
+											/>
+										))}
+									</tbody>
+								</table>
+							</div>
+						) : null}
+					</article>
+				</>
+			) : null}
 		</main>
 	);
 }
 
-function Sort(props: {
-	label: string;
-	value: SortKey;
-	active: SortKey;
-	set: (value: SortKey) => void;
-}) {
+function EnemyEmptyState() {
 	return (
-		<th aria-sort={props.active === props.value ? "descending" : "none"}>
-			<button
-				className={props.active === props.value ? "table-sort active" : "table-sort"}
-				onClick={() => props.set(props.value)}
-			>
-				{props.label}
-			</button>
-		</th>
+		<div className="state">
+			<h2>No enemies match these filters</h2>
+			<p>Adjust the enemy search or filters to include more combats.</p>
+		</div>
+	);
+}
+
+function EnemyTableEmptyState() {
+	return (
+		<div className="state table-empty-state">
+			<h2>No enemies match this search</h2>
+			<p>Try another enemy name or ID.</p>
+		</div>
 	);
 }
 

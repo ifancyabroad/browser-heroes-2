@@ -1,16 +1,18 @@
 import { CLASSES_BY_ID } from "@app/content";
 import type { AdminClassMetricsRow } from "@app/shared";
-import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useOutletContext } from "react-router-dom";
 import type { DashboardContext } from "../components/DashboardLayout";
 import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
+import { SortableHeader } from "../components/SortableHeader";
 import { useClassMetrics } from "../features/metrics";
+import { useTableSort } from "../hooks/useTableSort";
 
 type SortKey =
 	| "runsStarted"
 	| "pickRate"
 	| "averageBattleReached"
+	| "averageKills"
 	| "deathRate"
 	| "finalBossCompletionRate";
 const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFractionDigits: 1 });
@@ -18,7 +20,10 @@ const percent = new Intl.NumberFormat("en-GB", { style: "percent", maximumFracti
 export function ClassesPage() {
 	const { filters } = useOutletContext<DashboardContext>();
 	const query = useClassMetrics(filters);
-	const [sort, setSort] = useState<SortKey>("runsStarted");
+	const sort = useTableSort<AdminClassMetricsRow, SortKey>(
+		query.data?.classes ?? [],
+		"runsStarted",
+	);
 	if (query.isPending) {
 		return <QueryLoading />;
 	}
@@ -29,7 +34,7 @@ export function ClassesPage() {
 		return <EmptyState />;
 	}
 
-	const rows = [...query.data.classes].sort((a, b) => b[sort] - a[sort]);
+	const rows = sort.rows;
 	const chart = rows.map((row) => ({ ...row, name: CLASSES_BY_ID[row.classId].name }));
 	return (
 		<main className="dashboard">
@@ -66,43 +71,42 @@ export function ClassesPage() {
 			<article className="panel table-panel">
 				<div className="panel-heading">
 					<h3>Class details</h3>
-					<p>Click a column heading to sort descending.</p>
+					<p>Click a column heading to sort; click again to reverse.</p>
 				</div>
 				<div className="table-wrap">
 					<table>
 						<thead>
 							<tr>
 								<th>Class</th>
-								<Sort
+								<SortableHeader
 									label="Runs"
 									value="runsStarted"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
-								<Sort
+								<SortableHeader
 									label="Pick rate"
 									value="pickRate"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
-								<Sort
+								<SortableHeader
 									label="Avg. battle"
 									value="averageBattleReached"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
-								<th>Avg. kills</th>
-								<Sort
+								<SortableHeader
+									label="Avg. kills"
+									value="averageKills"
+									{...sort.headerProps}
+								/>
+								<SortableHeader
 									label="Death rate"
 									value="deathRate"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
-								<Sort
+								<SortableHeader
 									label="Boss completion"
 									value="finalBossCompletionRate"
-									active={sort}
-									set={setSort}
+									{...sort.headerProps}
 								/>
 							</tr>
 						</thead>
@@ -115,24 +119,6 @@ export function ClassesPage() {
 				</div>
 			</article>
 		</main>
-	);
-}
-
-function Sort(props: {
-	label: string;
-	value: SortKey;
-	active: SortKey;
-	set: (value: SortKey) => void;
-}) {
-	return (
-		<th aria-sort={props.active === props.value ? "descending" : "none"}>
-			<button
-				className={props.active === props.value ? "table-sort active" : "table-sort"}
-				onClick={() => props.set(props.value)}
-			>
-				{props.label}
-			</button>
-		</th>
 	);
 }
 
