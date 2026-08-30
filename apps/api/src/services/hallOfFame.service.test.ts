@@ -140,6 +140,7 @@ describe("hallOfFame.service", () => {
 				classId: "rogue",
 				heroLevel: 6,
 				createdAt: new Date("2026-08-23T12:00:00.000Z"),
+				status: "banished",
 				stats: { kills: 3, deaths: 1, encounters: 5 },
 			},
 		]);

@@ -149,9 +149,7 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 						<DataTableCell numeric hideOnMobile>
 							{Math.round(entry.winRate * 100)}%
 						</DataTableCell>
-						<DataTableCell hideOnMobile>
-							{entry.status?.toUpperCase() ?? "ACTIVE"}
-						</DataTableCell>
+						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>
 					</DataTableRow>
 				))}
 			</tbody>

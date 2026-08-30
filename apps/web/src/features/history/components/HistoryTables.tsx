@@ -117,9 +117,7 @@ export function RunHistoryTable({
 						<DataTableCell hideOnMobile>
 							{formatTitle(getZoneForRun(entry.zoneNumber))}
 						</DataTableCell>
-						<DataTableCell hideOnMobile>
-							{entry.status?.toUpperCase() ?? "ACTIVE"}
-						</DataTableCell>
+						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatDisplayDate(entry.completedAt)}
 						</DataTableCell>

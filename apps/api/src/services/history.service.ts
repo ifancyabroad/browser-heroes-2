@@ -149,7 +149,7 @@ export async function getGhostHistory(params: { userId: string; query: GetGhostH
 			heroLevel: ghost.heroLevel,
 			encounterLevel: ghost.encounterLevel,
 			kills,
-			status: ghost.status ?? (ghost.stats.deaths > 0 ? "banished" : "active"),
+			status: ghost.status,
 			encounters: ghost.stats.encounters,
 			winRate: completedCombats > 0 ? kills / completedCombats : 0,
 			banishedAt: ghost.banishedAt?.toISOString() ?? null,

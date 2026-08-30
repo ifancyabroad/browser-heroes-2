@@ -130,7 +130,7 @@ export async function getGhostHallOfFame(params: {
 			classId: ghost.classId,
 			heroLevel: ghost.heroLevel,
 			kills,
-			status: ghost.status ?? (deaths > 0 ? "banished" : "active"),
+			status: ghost.status,
 			encounters,
 			winRate: completedCombats > 0 ? kills / completedCombats : 0,
 			isCurrentUser: String(ghost.userId) === params.userId,

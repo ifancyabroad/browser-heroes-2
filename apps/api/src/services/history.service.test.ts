@@ -242,6 +242,7 @@ describe("history.service", () => {
 				classId: "mage",
 				heroLevel: 1,
 				encounterLevel: 1,
+				status: "active",
 				banishedAt: null,
 				stats: { kills: 0, deaths: 0, encounters: 1 },
 				createdAt: new Date(),
