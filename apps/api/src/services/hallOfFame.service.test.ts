@@ -157,7 +157,7 @@ describe("hallOfFame.service", () => {
 			classId: "rogue",
 			heroLevel: 6,
 			kills: 3,
-			deaths: 1,
+			status: "banished",
 			encounters: 5,
 			winRate: 0.75,
 			isCurrentUser: true,

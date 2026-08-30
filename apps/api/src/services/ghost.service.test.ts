@@ -100,6 +100,7 @@ describe("ghost.service", () => {
 				seed: "seed",
 				battleNumber: 12,
 				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+				defeatedGhostIds: [],
 			}),
 		).resolves.toBeNull();
 		expect(ghostModel.countDocuments).not.toHaveBeenCalled();
@@ -130,13 +131,19 @@ describe("ghost.service", () => {
 				seed: "seed-73",
 				battleNumber: 12,
 				ghostPoolCutoff: cutoff,
+				defeatedGhostIds: ["507f1f77bcf86cd799439011", "system-ghost:dawn_keeper"],
 			}),
 		).resolves.toMatchObject({
 			ghostId: "ghost-id",
 			ghostUsername: "Owner",
 			ghostSource: "player",
 		});
-		const filter = { encounterLevel: 4, createdAt: { $lt: cutoff } };
+		const filter = {
+			encounterLevel: 4,
+			createdAt: { $lt: cutoff },
+			$or: [{ banishedAt: null }, { banishedAt: { $gte: cutoff } }],
+			_id: { $nin: ["507f1f77bcf86cd799439011"] },
+		};
 		expect(ghostModel.findOne).toHaveBeenCalledWith(filter);
 		expect(sort).toHaveBeenCalledWith({ createdAt: -1, _id: 1 });
 		expect(skip).toHaveBeenCalledWith(2);
@@ -151,6 +158,7 @@ describe("ghost.service", () => {
 				seed: "seed-73",
 				battleNumber: 12,
 				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+				defeatedGhostIds: [],
 			}),
 		).resolves.toMatchObject({
 			ghostId: "system-ghost:dawn_keeper",
@@ -175,6 +183,7 @@ describe("ghost.service", () => {
 				seed: "seed-73",
 				battleNumber: 12,
 				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+				defeatedGhostIds: [],
 			}),
 		).resolves.toMatchObject({
 			ghostId: "system-ghost:last_sentinel",
@@ -256,6 +265,12 @@ describe("ghost.service", () => {
 		await recordGhostCombatOutcome({
 			ghostId: "ghost-id",
 			outcome,
+			banishedBy: {
+				sourceId: "run-id",
+				heroName: "Banisher",
+				classId: "mage",
+				heroLevel: 7,
+			},
 			session: session as never,
 		});
 
@@ -264,5 +279,37 @@ describe("ghost.service", () => {
 			{ $inc: { [field]: 1 } },
 			{ returnDocument: "after", session },
 		);
+		if (outcome === "ghost_lost") {
+			expect(ghostModel.updateOne).toHaveBeenCalledWith(
+				{ _id: "ghost-id", status: "active" },
+				expect.objectContaining({
+					$set: expect.objectContaining({
+						status: "banished",
+						banishedAt: expect.any(Date),
+						banishedBy: {
+							sourceId: "run-id",
+							heroName: "Banisher",
+							classId: "mage",
+							heroLevel: 7,
+						},
+					}),
+				}),
+				{ session },
+			);
+		}
+	});
+
+	it("does not repeat a defeated system ghost in the same run", async () => {
+		ghostModel.countDocuments.mockResolvedValue(0);
+
+		await expect(
+			selectGhostEncounter({
+				encounterLevel: 4,
+				seed: "seed-73",
+				battleNumber: 12,
+				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+				defeatedGhostIds: ["system-ghost:dawn_keeper"],
+			}),
+		).resolves.toBeNull();
 	});
 });

@@ -38,7 +38,7 @@ export interface GhostHallOfFameEntryView {
 	classId: ClassId;
 	heroLevel: number;
 	kills: number;
-	deaths: number;
+	status: "active" | "banished";
 	encounters: number;
 	winRate: number;
 	isCurrentUser: boolean;

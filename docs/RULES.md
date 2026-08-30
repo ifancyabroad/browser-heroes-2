@@ -167,9 +167,11 @@ Continuing beyond battle 100 starts a new endless cycle. Authored zone identitie
 
 A hero who dies after progressing beyond the first boss leaves a ghost snapshot at full health without a pending level-up. Each eligible run creates at most one ghost.
 
-Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Player ghosts are grouped by the zone in which they died but retain their original hero level and build. Ghost appearance and identity are derived from the run seed and battle context using only ghosts published before the run's ghost-pool cutoff. Normal runs take this cutoff when created; participants in the same Daily Challenge share it. Later ghosts therefore affect future runs without changing an existing run. When a ghost encounter is selected but that frozen pool has no eligible player ghost for the zone, an authored system ghost appears instead.
+Ghosts use the same combat rules, equipment, skills, feats, and class tactics as other combatants. Player ghosts are grouped by the zone in which they died but retain their original hero level and build. Defeating a player ghost banishes it from ghost pools frozen after that victory. Older runs retain the player ghost in their frozen pool, preserving deterministic encounters, but a run never encounters a ghost it has already defeated. Ghost appearance and identity are derived from the run seed and battle context using only ghosts published and not yet banished at the run's ghost-pool cutoff. Normal runs take this cutoff when created; participants in the same Daily Challenge share it.
 
-Player ghost encounters and outcomes contribute to their ghost records outside the active run without changing its gameplay rules. System ghosts have no owner or persistent record, but defeating one still counts as defeating a ghost for the acting player.
+When a frozen pool has no eligible player ghost for the zone, an authored system ghost appears instead. System ghosts cannot be globally banished, but a run does not encounter the same system ghost again after defeating it. If that leaves no eligible ghost, the scheduled battle remains a normal encounter.
+
+Player ghost encounters and outcomes contribute to their ghost records outside the active run. Active and banished player ghosts remain visible in history and the Hall of Fame. System ghosts have no owner or persistent record, but defeating one still counts as defeating a ghost for the acting player.
 
 ## 12. Daily Challenges
 

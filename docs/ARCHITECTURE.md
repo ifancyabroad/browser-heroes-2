@@ -96,7 +96,7 @@ The following rules must hold:
 - context-derived streams use stable run positions such as battle, level, reroll, and slot so
   decision-dependent combat rolls cannot shift later opportunities
 - externally selected data is passed into the engine as explicit input and recorded with the action
-- ghost encounter selection uses the run seed, battle context, and a stable cutoff derived from run metadata so later ghosts cannot change an existing run
+- ghost encounter selection uses the run seed, battle context, a stable cutoff derived from run metadata, and that run's prior ghost victories; later ghost creation and banishment cannot change its frozen pool, while defeated ghosts cannot repeat within the run
 - runtime timing does not affect gameplay results
 - no hidden global state influences simulation outcomes
 - state transitions remain traceable

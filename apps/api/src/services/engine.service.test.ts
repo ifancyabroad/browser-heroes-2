@@ -264,6 +264,7 @@ describe("engine.service", () => {
 			seed: state.seed,
 			battleNumber: 11,
 			ghostPoolCutoff: run.createdAt,
+			defeatedGhostIds: [],
 		});
 		expect(engine.applyAction).toHaveBeenCalledWith(
 			state,
@@ -368,6 +369,12 @@ describe("engine.service", () => {
 		expect(ghostService.recordGhostCombatOutcome).toHaveBeenCalledWith({
 			ghostId: "ghost-id",
 			outcome,
+			banishedBy: {
+				sourceId: "run-document-id",
+				heroName: resultState.hero.name,
+				classId: resultState.hero.classId,
+				heroLevel: resultState.hero.level,
+			},
 			session,
 		});
 	});
@@ -380,7 +387,7 @@ describe("engine.service", () => {
 		previousState.combat!.status = "active";
 		const resultState = structuredClone(previousState);
 		resultState.combat!.status = "player_won";
-		arrangeRun({ state: previousState });
+		const { run } = arrangeRun({ state: previousState });
 		engine.applyAction.mockReturnValue({ ok: true, state: resultState, events: [] });
 
 		await applyRunAction({
@@ -390,6 +397,7 @@ describe("engine.service", () => {
 		});
 
 		expect(ghostService.recordGhostCombatOutcome).not.toHaveBeenCalled();
+		expect(run.defeatedGhostIds).toEqual(["system-ghost:iron_vigil"]);
 		expect(achievementService.processRunActionAchievements).toHaveBeenCalledWith(
 			expect.objectContaining({
 				ghostOutcome: "ghost_lost",

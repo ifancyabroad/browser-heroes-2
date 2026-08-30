@@ -203,6 +203,8 @@ describe("history.service", () => {
 				classId: "mage",
 				heroLevel: 6,
 				encounterLevel: 5,
+				status: "banished",
+				banishedAt: new Date("2026-07-02T00:00:00.000Z"),
 				stats: { kills: 2, deaths: 3, encounters: 7 },
 				createdAt: new Date("2026-07-01T00:00:00.000Z"),
 				updatedAt: new Date("2026-07-02T00:00:00.000Z"),
@@ -222,9 +224,10 @@ describe("history.service", () => {
 			heroLevel: 6,
 			encounterLevel: 5,
 			kills: 2,
-			deaths: 3,
+			status: "banished",
 			encounters: 7,
 			winRate: 0.4,
+			banishedAt: "2026-07-02T00:00:00.000Z",
 			createdAt: "2026-07-01T00:00:00.000Z",
 			updatedAt: "2026-07-02T00:00:00.000Z",
 		});
@@ -239,6 +242,7 @@ describe("history.service", () => {
 				classId: "mage",
 				heroLevel: 1,
 				encounterLevel: 1,
+				banishedAt: null,
 				stats: { kills: 0, deaths: 0, encounters: 1 },
 				createdAt: new Date(),
 				updatedAt: new Date(),
@@ -251,5 +255,6 @@ describe("history.service", () => {
 		});
 
 		expect(result.entries[0].winRate).toBe(0);
+		expect(result.entries[0].status).toBe("active");
 	});
 });

@@ -55,7 +55,7 @@ export const ghostHistorySortSchema = z.enum([
 	"createdAt",
 	"updatedAt",
 	"kills",
-	"deaths",
+	"status",
 	"encounters",
 	"heroLevel",
 	"encounterLevel",
@@ -81,9 +81,10 @@ export interface GhostHistoryEntryView {
 	heroLevel: number;
 	encounterLevel: number;
 	kills: number;
-	deaths: number;
+	status: "active" | "banished";
 	encounters: number;
 	winRate: number;
+	banishedAt: string | null;
 	createdAt: string;
 	updatedAt: string;
 }

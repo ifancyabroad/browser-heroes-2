@@ -47,7 +47,7 @@ describe("HeroHallOfFameTable", () => {
 						classId: "mage",
 						heroLevel: 6,
 						kills: 4,
-						deaths: 1,
+						status: "banished",
 						encounters: 5,
 						winRate: 0.8,
 						isCurrentUser: true,

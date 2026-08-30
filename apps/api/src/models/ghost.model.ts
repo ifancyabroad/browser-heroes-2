@@ -27,8 +27,50 @@ const ghostStatsSchema = new Schema(
 	},
 );
 
+const ghostBanisherSchema = new Schema(
+	{
+		sourceId: {
+			type: String,
+			required: true,
+		},
+		heroName: {
+			type: String,
+			required: true,
+			trim: true,
+		},
+		classId: {
+			type: String,
+			enum: classIds,
+			required: true,
+		},
+		heroLevel: {
+			type: Number,
+			required: true,
+			min: 1,
+		},
+	},
+	{ _id: false },
+);
+
 const ghostSchema = new Schema(
 	{
+		status: {
+			type: String,
+			enum: ["active", "banished"],
+			required: true,
+			default: "active",
+		},
+
+		banishedAt: {
+			type: Date,
+			default: null,
+		},
+
+		banishedBy: {
+			type: ghostBanisherSchema,
+			default: null,
+		},
+
 		userId: {
 			type: Schema.Types.ObjectId,
 			ref: "User",
@@ -98,21 +140,28 @@ const ghostSchema = new Schema(
 ghostSchema.index({ sourceRunId: 1 }, { unique: true });
 
 ghostSchema.index({ userId: 1, createdAt: -1 });
-ghostSchema.index({ encounterLevel: 1, createdAt: -1, _id: 1 });
+ghostSchema.index({ encounterLevel: 1, createdAt: -1, banishedAt: 1, _id: 1 });
 ghostSchema.index({
 	"stats.kills": -1,
-	"stats.deaths": 1,
-	"stats.encounters": -1,
+	"stats.encounters": 1,
 	createdAt: 1,
 	_id: 1,
 });
 ghostSchema.index({
 	classId: 1,
 	"stats.kills": -1,
-	"stats.deaths": 1,
-	"stats.encounters": -1,
+	"stats.encounters": 1,
 	createdAt: 1,
 	_id: 1,
+});
+
+ghostSchema.pre("validate", function () {
+	if (this.status === "active" && (this.banishedAt || this.banishedBy)) {
+		throw new Error("Active ghosts cannot have banishment metadata.");
+	}
+	if (this.status === "banished" && !this.banishedAt) {
+		throw new Error("Banished ghosts require a banishment timestamp.");
+	}
 });
 
 export type GhostDocument = InferSchemaType<typeof ghostSchema>;

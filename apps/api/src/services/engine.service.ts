@@ -46,6 +46,7 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			state: currentState,
 			action: input.action,
 			ghostPoolCutoff: getGhostPoolCutoff(run),
+			defeatedGhostIds: run.defeatedGhostIds,
 		});
 
 		const result = engineResultSchema.parse(
@@ -64,6 +65,9 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			resolvedGhostOutcome?.ghostSource === "player" ? resolvedGhostOutcome : null;
 
 		const sequence = run.nextActionSequence;
+		if (resolvedGhostOutcome?.outcome === "ghost_lost") {
+			addDefeatedGhostId(run.defeatedGhostIds, resolvedGhostOutcome.ghostId);
+		}
 
 		applyStateToRun(run, result.state);
 		run.nextActionSequence += 1;
@@ -83,6 +87,12 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			const ghost = await recordGhostCombatOutcome({
 				ghostId: resolvedPlayerGhost.ghostId,
 				outcome: resolvedPlayerGhost.outcome,
+				banishedBy: {
+					sourceId: String(run._id),
+					heroName: result.state.hero.name,
+					classId: result.state.hero.classId,
+					heroLevel: result.state.hero.level,
+				},
 				session,
 			});
 			resolvedGhostOwnerId = ghost ? String(ghost.userId) : null;
@@ -184,6 +194,7 @@ async function selectExternalInput(input: {
 	state: RunState;
 	action: EngineAction;
 	ghostPoolCutoff: Date;
+	defeatedGhostIds: string[];
 }): Promise<EngineExternalInput> {
 	if (input.action.type !== "ENTER_COMBAT" && input.action.type !== "CONTINUE_TO_NEXT_COMBAT") {
 		return {};
@@ -205,6 +216,7 @@ async function selectExternalInput(input: {
 		seed: input.state.seed,
 		battleNumber,
 		ghostPoolCutoff: input.ghostPoolCutoff,
+		defeatedGhostIds: input.defeatedGhostIds,
 	});
 
 	if (!ghostEncounter) {
@@ -212,6 +224,12 @@ async function selectExternalInput(input: {
 	}
 
 	return { ghostEncounter };
+}
+
+function addDefeatedGhostId(defeatedGhostIds: string[], ghostId: string): void {
+	if (!defeatedGhostIds.includes(ghostId)) {
+		defeatedGhostIds.push(ghostId);
+	}
 }
 
 function getStartedPlayerGhostId(

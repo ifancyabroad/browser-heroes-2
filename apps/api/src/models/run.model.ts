@@ -130,6 +130,12 @@ const runSchema = new Schema(
 			min: 1,
 		},
 
+		defeatedGhostIds: {
+			type: [String],
+			required: true,
+			default: [],
+		},
+
 		/**
 		 * Full engine-owned run state.
 		 *

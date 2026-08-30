@@ -110,7 +110,7 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 				<col className="w-16" />
 				<col />
 				<col className="w-24" />
-				<col className="hidden sm:table-column sm:w-24" />
+				<col className="hidden sm:table-column sm:w-28" />
 				<col className="hidden sm:table-column sm:w-28" />
 				<col className="hidden sm:table-column sm:w-28" />
 			</colgroup>
@@ -119,14 +119,12 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 				<DataTableHeading>GHOST</DataTableHeading>
 				<DataTableHeading numeric>KILLS</DataTableHeading>
 				<DataTableHeading numeric hideOnMobile>
-					DEATHS
-				</DataTableHeading>
-				<DataTableHeading numeric hideOnMobile>
 					ENCOUNTERS
 				</DataTableHeading>
 				<DataTableHeading numeric hideOnMobile>
 					WIN RATE
 				</DataTableHeading>
+				<DataTableHeading hideOnMobile>STATUS</DataTableHeading>
 			</DataTableHeader>
 			<tbody>
 				{entries.map((entry) => (
@@ -146,13 +144,13 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
-							{entry.deaths}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
 							{entry.encounters}
 						</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{Math.round(entry.winRate * 100)}%
+						</DataTableCell>
+						<DataTableCell hideOnMobile>
+							{entry.status?.toUpperCase() ?? "ACTIVE"}
 						</DataTableCell>
 					</DataTableRow>
 				))}

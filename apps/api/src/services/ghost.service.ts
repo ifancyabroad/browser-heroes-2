@@ -1,4 +1,4 @@
-import type { ClientSession, Types } from "mongoose";
+import { Types, type ClientSession } from "mongoose";
 import {
 	createSystemGhostEncounter,
 	type GhostEncounter,
@@ -28,6 +28,12 @@ type IncrementGhostEncounterInput = {
 type RecordGhostCombatOutcomeInput = {
 	ghostId: string;
 	outcome: "ghost_won" | "ghost_lost";
+	banishedBy: {
+		sourceId: string;
+		heroName: string;
+		classId: HeroState["classId"];
+		heroLevel: number;
+	};
 	session: ClientSession;
 };
 
@@ -36,6 +42,7 @@ type SelectGhostEncounterInput = {
 	seed: string;
 	battleNumber: number;
 	ghostPoolCutoff: Date;
+	defeatedGhostIds: string[];
 };
 
 export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInput) {
@@ -55,6 +62,9 @@ export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInpu
 				classId: input.state.hero.classId,
 				heroLevel: input.state.hero.level,
 				encounterLevel: getGhostEncounterLevel(input.state),
+				status: "active",
+				banishedAt: null,
+				banishedBy: null,
 				snapshot: createGhostSnapshot(input.state),
 				stats: {
 					kills: 0,
@@ -82,10 +92,14 @@ export async function selectGhostEncounter(
 	const filter = {
 		encounterLevel: input.encounterLevel,
 		createdAt: { $lt: input.ghostPoolCutoff },
+		$or: [{ banishedAt: null }, { banishedAt: { $gte: input.ghostPoolCutoff } }],
+		_id: {
+			$nin: input.defeatedGhostIds.filter((ghostId) => Types.ObjectId.isValid(ghostId)),
+		},
 	};
 	const count = await GhostModel.countDocuments(filter);
 	if (count === 0) {
-		return createSystemGhostEncounter(input.encounterLevel);
+		return selectSystemGhostEncounter(input.encounterLevel, input.defeatedGhostIds);
 	}
 
 	const index = selectDescendingWeightedIndex(
@@ -98,7 +112,7 @@ export async function selectGhostEncounter(
 		.select("_id userId snapshot.hero")
 		.lean();
 	if (!ghost) {
-		return createSystemGhostEncounter(input.encounterLevel);
+		return selectSystemGhostEncounter(input.encounterLevel, input.defeatedGhostIds);
 	}
 
 	const owner = await UserModel.findById(ghost.userId).select("displayName").lean();
@@ -127,7 +141,7 @@ export async function incrementGhostEncounters(input: IncrementGhostEncounterInp
 }
 
 export async function recordGhostCombatOutcome(input: RecordGhostCombatOutcomeInput) {
-	return GhostModel.findOneAndUpdate(
+	const ghost = await GhostModel.findOneAndUpdate(
 		{
 			_id: input.ghostId,
 		},
@@ -146,6 +160,30 @@ export async function recordGhostCombatOutcome(input: RecordGhostCombatOutcomeIn
 			session: input.session,
 		},
 	);
+
+	if (input.outcome === "ghost_lost") {
+		await GhostModel.updateOne(
+			{ _id: input.ghostId, status: "active" },
+			{
+				$set: {
+					status: "banished",
+					banishedAt: new Date(),
+					banishedBy: input.banishedBy,
+				},
+			},
+			{ session: input.session },
+		);
+	}
+
+	return ghost;
+}
+
+function selectSystemGhostEncounter(
+	encounterLevel: number,
+	defeatedGhostIds: string[],
+): GhostEncounter | null {
+	const encounter = createSystemGhostEncounter(encounterLevel);
+	return defeatedGhostIds.includes(encounter.ghostId) ? null : encounter;
 }
 
 function isGhostEligible(state: RunState): boolean {

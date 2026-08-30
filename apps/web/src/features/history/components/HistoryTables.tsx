@@ -117,7 +117,9 @@ export function RunHistoryTable({
 						<DataTableCell hideOnMobile>
 							{formatTitle(getZoneForRun(entry.zoneNumber))}
 						</DataTableCell>
-						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>
+						<DataTableCell hideOnMobile>
+							{entry.status?.toUpperCase() ?? "ACTIVE"}
+						</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatDisplayDate(entry.completedAt)}
 						</DataTableCell>
@@ -135,11 +137,11 @@ export function GhostHistoryTable({
 	onSort,
 }: { entries: GhostHistoryEntryView[] } & SortProps<GetGhostHistoryQuery["sort"]>) {
 	return (
-		<DataTable tableClassName="sm:min-w-216">
+		<DataTable tableClassName="sm:min-w-220">
 			<colgroup>
 				<col />
 				<col className="w-24" />
-				<col className="hidden sm:table-column sm:w-24" />
+				<col className="hidden sm:table-column sm:w-28" />
 				<col className="hidden sm:table-column sm:w-28" />
 				<col className="hidden sm:table-column sm:w-28" />
 				<col className="hidden sm:table-column sm:w-48" />
@@ -161,15 +163,6 @@ export function GhostHistoryTable({
 					numeric
 				/>
 				<SortableDataTableHeading
-					label="DEATHS"
-					sortKey="deaths"
-					activeSort={sort}
-					direction={direction}
-					onSort={onSort}
-					numeric
-					hideOnMobile
-				/>
-				<SortableDataTableHeading
 					label="ENCOUNTERS"
 					sortKey="encounters"
 					activeSort={sort}
@@ -181,6 +174,14 @@ export function GhostHistoryTable({
 				<DataTableHeading numeric hideOnMobile>
 					WIN RATE
 				</DataTableHeading>
+				<SortableDataTableHeading
+					label="STATUS"
+					sortKey="status"
+					activeSort={sort}
+					direction={direction}
+					onSort={onSort}
+					hideOnMobile
+				/>
 				<SortableDataTableHeading
 					label="UPDATED"
 					sortKey="updatedAt"
@@ -202,14 +203,12 @@ export function GhostHistoryTable({
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
-							{entry.deaths}
-						</DataTableCell>
-						<DataTableCell numeric hideOnMobile>
 							{entry.encounters}
 						</DataTableCell>
 						<DataTableCell numeric hideOnMobile>
 							{Math.round(entry.winRate * 100)}%
 						</DataTableCell>
+						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatDisplayDate(entry.updatedAt)}
 						</DataTableCell>
