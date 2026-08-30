@@ -106,7 +106,12 @@ export function RunsPage() {
 							<CartesianGrid strokeDasharray="3 3" vertical={false} />
 							<XAxis dataKey="date" />
 							<YAxis allowDecimals={false} />
-							<Tooltip />
+							<Tooltip
+								formatter={(value, _name, item) => [
+									Number(value),
+									`Runs (${percent.format(item.payload.percentage)})`,
+								]}
+							/>
 							<Legend />
 							<Bar
 								dataKey="active"

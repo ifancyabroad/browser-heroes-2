@@ -69,17 +69,17 @@ const MILESTONES = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100] as const;
 const MAX_RETENTION_DAYS = 30;
 const RETENTION_DAYS = [1, 7, MAX_RETENTION_DAYS] as const;
 const DEPTH_BUCKETS = [
-	{ label: "1–9", fromBattle: 1, toBattle: 9 },
-	{ label: "10–19", fromBattle: 10, toBattle: 19 },
-	{ label: "20–29", fromBattle: 20, toBattle: 29 },
-	{ label: "30–39", fromBattle: 30, toBattle: 39 },
-	{ label: "40–49", fromBattle: 40, toBattle: 49 },
-	{ label: "50–59", fromBattle: 50, toBattle: 59 },
-	{ label: "60–69", fromBattle: 60, toBattle: 69 },
-	{ label: "70–79", fromBattle: 70, toBattle: 79 },
-	{ label: "80–89", fromBattle: 80, toBattle: 89 },
-	{ label: "90–99", fromBattle: 90, toBattle: 99 },
-	{ label: "100+", fromBattle: 100, toBattle: null },
+	{ label: "1–10", fromBattle: 1, toBattle: 10 },
+	{ label: "11–20", fromBattle: 11, toBattle: 20 },
+	{ label: "21–30", fromBattle: 21, toBattle: 30 },
+	{ label: "31–40", fromBattle: 31, toBattle: 40 },
+	{ label: "41–50", fromBattle: 41, toBattle: 50 },
+	{ label: "51–60", fromBattle: 51, toBattle: 60 },
+	{ label: "61–70", fromBattle: 61, toBattle: 70 },
+	{ label: "71–80", fromBattle: 71, toBattle: 80 },
+	{ label: "81–90", fromBattle: 81, toBattle: 90 },
+	{ label: "91–100", fromBattle: 91, toBattle: 100 },
+	{ label: "101+", fromBattle: 101, toBattle: null },
 ] as const;
 const DAY_MS = 86_400_000;
 

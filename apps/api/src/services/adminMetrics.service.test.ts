@@ -199,11 +199,11 @@ describe("admin metrics", () => {
 			retired: 1,
 			abandoned: 1,
 		});
-		expect(result.depth.find((bucket) => bucket.label === "10–19")).toMatchObject({
+		expect(result.depth.find((bucket) => bucket.label === "11–20")).toMatchObject({
 			runs: 1,
 			percentage: 1 / 3,
 		});
-		expect(result.depth.find((bucket) => bucket.label === "100+")?.runs).toBe(1);
+		expect(result.depth.find((bucket) => bucket.label === "91–100")?.runs).toBe(1);
 		expect(result.modes).toEqual([
 			expect.objectContaining({ mode: "normal", runsStarted: 2, share: 2 / 3 }),
 			expect.objectContaining({ mode: "dailyChallenge", runsStarted: 1, share: 1 / 3 }),
