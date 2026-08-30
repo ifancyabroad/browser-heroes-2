@@ -35,7 +35,13 @@ export function ClassesPage() {
 	}
 
 	const rows = sort.rows;
-	const chart = rows.map((row) => ({ ...row, name: CLASSES_BY_ID[row.classId].name }));
+	const chart = [...query.data.classes]
+		.filter((row) => row.runsStarted > 0)
+		.sort(
+			(a, b) =>
+				b.averageBattleReached - a.averageBattleReached || b.runsStarted - a.runsStarted,
+		)
+		.map((row) => ({ ...row, name: CLASSES_BY_ID[row.classId].name }));
 	return (
 		<main className="dashboard">
 			<div className="page-title">
@@ -58,7 +64,12 @@ export function ClassesPage() {
 						<CartesianGrid strokeDasharray="3 3" horizontal={false} />
 						<XAxis type="number" />
 						<YAxis type="category" dataKey="name" width={94} />
-						<Tooltip formatter={(value) => Number(value).toFixed(1)} />
+						<Tooltip
+							formatter={(value, _name, item) => [
+								Number(value).toFixed(1),
+								`Average battle (${item.payload.runsStarted} runs)`,
+							]}
+						/>
 						<Bar
 							dataKey="averageBattleReached"
 							name="Average battle"

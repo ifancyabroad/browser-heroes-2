@@ -70,6 +70,7 @@ describe("ClassesPage", () => {
 		});
 
 		render(<ClassesPage />);
+		expect(screen.getByRole("heading", { name: "Average battle reached" })).toBeInTheDocument();
 		const table = screen.getByRole("table");
 		expect(within(table).getAllByRole("row")[1]).toHaveTextContent("Warrior");
 
