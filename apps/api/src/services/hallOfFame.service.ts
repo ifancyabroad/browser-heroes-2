@@ -7,6 +7,7 @@ import type {
 import { Types } from "mongoose";
 import { GhostModel, type GhostDocument } from "../models/ghost.model";
 import { RunModel, type RunDocument } from "../models/run.model";
+import { getRegisteredDisplayNames } from "./publicIdentity.service";
 
 const COMPLETED_RUN_STATUSES = ["dead", "retired"] as const;
 
@@ -60,11 +61,13 @@ export async function getHeroHallOfFame(params: {
 		query.userOnly === "true"
 			? await Promise.all(runs.map((run) => getHeroRank(rankingFilter, run)))
 			: runs.map((_, index) => skip + index + 1);
+	const displayNames = await getRegisteredDisplayNames(runs.map((run) => run.userId));
 
 	const entries: HeroHallOfFameEntryView[] = runs.map((run, index) => ({
 		rank: ranks[index]!,
 		runId: String(run._id),
 		heroName: run.summary.heroName,
+		displayName: displayNames.get(String(run.userId)) ?? null,
 		classId: run.summary.classId,
 		level: run.summary.level,
 		zoneNumber: run.summary.zoneNumber,
@@ -119,6 +122,7 @@ export async function getGhostHallOfFame(params: {
 		query.userOnly === "true"
 			? await Promise.all(ghosts.map((ghost) => getGhostRank(rankingFilter, ghost)))
 			: ghosts.map((_, index) => skip + index + 1);
+	const displayNames = await getRegisteredDisplayNames(ghosts.map((ghost) => ghost.userId));
 
 	const entries: GhostHallOfFameEntryView[] = ghosts.map((ghost, index) => {
 		const { kills } = ghost.stats;
@@ -126,6 +130,7 @@ export async function getGhostHallOfFame(params: {
 			rank: ranks[index]!,
 			ghostId: String(ghost._id),
 			name: ghost.name,
+			displayName: displayNames.get(String(ghost.userId)) ?? null,
 			classId: ghost.classId,
 			heroLevel: ghost.heroLevel,
 			kills,

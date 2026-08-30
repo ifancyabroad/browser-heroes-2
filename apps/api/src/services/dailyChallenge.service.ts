@@ -12,6 +12,7 @@ import { DailyChallengeModel } from "../models/dailyChallenge.model";
 import { RunModel, type RunDocument } from "../models/run.model";
 import { createDailyChallengeRun } from "./run.service";
 import { toChallengeEntry } from "./projection.service";
+import { getRegisteredDisplayNames } from "./publicIdentity.service";
 
 const DAY_MS = 86_400_000;
 const ROTATION_EPOCH = Date.UTC(2026, 0, 1);
@@ -44,14 +45,24 @@ export async function getDailyChallengeSummary(input: { date: string; userId?: s
 		getDailyChallengeAttempt(input.date, input.userId),
 	]);
 
-	const rankedEntry = await getRankedChallengeEntry(input.date, attempt, input.userId);
+	const rankedAttempt = await getRankedChallengeAttempt(input.date, attempt);
+	const displayNames = await getRegisteredDisplayNames([
+		leader?.userId,
+		rankedAttempt?.run.userId,
+	]);
+	const leaderEntry = leader
+		? projectChallengeEntry(leader, 1, input.userId, displayNames)
+		: null;
+	const rankedEntry = rankedAttempt
+		? projectChallengeEntry(rankedAttempt.run, rankedAttempt.rank, input.userId, displayNames)
+		: null;
 
 	return {
 		challenge: {
 			date: input.date,
 			classId: definition.classId,
 			attemptCount,
-			leader: leader ? toChallengeEntry(leader, 1, input.userId) : null,
+			leader: leaderEntry,
 			attempt: attempt
 				? {
 						runId: String(attempt._id),
@@ -85,12 +96,22 @@ export async function getDailyChallengeLeaderboard(input: {
 		getDailyChallengeAttempt(input.date, input.userId),
 	]);
 
-	const currentUserEntry = await getRankedChallengeEntry(input.date, attempt, input.userId);
+	const rankedAttempt = await getRankedChallengeAttempt(input.date, attempt);
+	const displayNames = await getRegisteredDisplayNames([
+		...runs.map((run) => run.userId),
+		rankedAttempt?.run.userId,
+	]);
+	const currentUserEntry = rankedAttempt
+		? projectChallengeEntry(rankedAttempt.run, rankedAttempt.rank, input.userId, displayNames)
+		: null;
+	const entries = runs.map((run, index) =>
+		projectChallengeEntry(run, skip + index + 1, input.userId, displayNames),
+	);
 
 	return {
 		challenge: { date: input.date, classId: definition.classId },
 		currentUserEntry,
-		entries: runs.map((run, index) => toChallengeEntry(run, skip + index + 1, input.userId)),
+		entries,
 		page: input.query.page,
 		limit: input.query.limit,
 		total,
@@ -144,17 +165,25 @@ function getDailyChallengeAttempt(date: string, userId?: string) {
 	}).lean();
 }
 
-async function getRankedChallengeEntry(
+async function getRankedChallengeAttempt(
 	date: string,
 	attempt: (RunDocument & { _id: unknown }) | null,
-	userId?: string,
 ) {
 	if (!attempt || !isRankedAttempt(attempt)) {
 		return null;
 	}
 
 	const rank = await getDailyChallengeRank(date, attempt);
-	return toChallengeEntry(attempt, rank, userId);
+	return { run: attempt, rank };
+}
+
+function projectChallengeEntry(
+	run: RunDocument & { _id: unknown },
+	rank: number,
+	currentUserId: string | undefined,
+	displayNames: ReadonlyMap<string, string>,
+) {
+	return toChallengeEntry(run, rank, currentUserId, displayNames.get(String(run.userId)) ?? null);
 }
 
 export function getTodayUtc(now = new Date()): string {

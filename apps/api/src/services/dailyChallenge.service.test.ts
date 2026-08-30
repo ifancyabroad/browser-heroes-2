@@ -9,10 +9,12 @@ const runs = vi.hoisted(() => ({
 }));
 const challenges = vi.hoisted(() => ({ findOne: vi.fn(), findOneAndUpdate: vi.fn() }));
 const runService = vi.hoisted(() => ({ createDailyChallengeRun: vi.fn() }));
+const identities = vi.hoisted(() => ({ getRegisteredDisplayNames: vi.fn() }));
 
 vi.mock("../models/run.model", () => ({ RunModel: runs }));
 vi.mock("../models/dailyChallenge.model", () => ({ DailyChallengeModel: challenges }));
 vi.mock("./run.service", () => runService);
+vi.mock("./publicIdentity.service", () => identities);
 
 import {
 	DAILY_CHALLENGE_RANKING,
@@ -40,6 +42,7 @@ describe("dailyChallenge.service", () => {
 		});
 		runs.countDocuments.mockResolvedValue(0);
 		runs.exists.mockResolvedValue(null);
+		identities.getRegisteredDisplayNames.mockResolvedValue(new Map());
 	});
 
 	afterEach(() => vi.useRealTimers());
@@ -98,6 +101,22 @@ describe("dailyChallenge.service", () => {
 			rankedEntry: null,
 		});
 		expect(result.challenge.canStart).toBe(false);
+	});
+
+	it("adds the registered display name to the leader and ranked attempt", async () => {
+		const attempt = createRankedAttempt();
+		runs.findOne
+			.mockReturnValueOnce(rankedQuery(attempt))
+			.mockReturnValueOnce({ lean: vi.fn().mockResolvedValue(attempt) });
+		runs.countDocuments.mockResolvedValueOnce(1).mockResolvedValueOnce(0);
+		identities.getRegisteredDisplayNames.mockResolvedValue(new Map([["user-id", "Player"]]));
+
+		const result = await getDailyChallengeSummary({ date, userId: "user-id" });
+
+		expect(result.challenge.leader?.displayName).toBe("Player");
+		expect(result.challenge.attempt?.rankedEntry?.displayName).toBe("Player");
+		expect(identities.getRegisteredDisplayNames).toHaveBeenCalledOnce();
+		expect(identities.getRegisteredDisplayNames).toHaveBeenCalledWith(["user-id", "user-id"]);
 	});
 
 	it("atomically creates today's challenge when starting", async () => {
@@ -173,6 +192,7 @@ describe("dailyChallenge.service", () => {
 
 	it("pins the current user's completed attempt with its global rank", async () => {
 		const attempt = createRankedAttempt();
+		identities.getRegisteredDisplayNames.mockResolvedValue(new Map([["user-id", "Player"]]));
 		mockLeaderboardRuns([]);
 		runs.findOne.mockReturnValue({ lean: vi.fn().mockResolvedValue(attempt) });
 		runs.countDocuments.mockResolvedValueOnce(25).mockResolvedValueOnce(7);
@@ -187,6 +207,7 @@ describe("dailyChallenge.service", () => {
 			rank: 8,
 			runId: "507f1f77bcf86cd799439011",
 			heroName: "Pinned Hero",
+			displayName: "Player",
 			isCurrentUser: true,
 		});
 		expect(result.entries).toEqual([]);
@@ -194,6 +215,7 @@ describe("dailyChallenge.service", () => {
 
 	it("keeps the user's natural leaderboard row alongside the pinned result", async () => {
 		const attempt = createRankedAttempt();
+		identities.getRegisteredDisplayNames.mockResolvedValue(new Map([["user-id", "Player"]]));
 		mockLeaderboardRuns([attempt]);
 		runs.findOne.mockReturnValue({ lean: vi.fn().mockResolvedValue(attempt) });
 		runs.countDocuments.mockResolvedValueOnce(1).mockResolvedValueOnce(0);
@@ -207,6 +229,9 @@ describe("dailyChallenge.service", () => {
 		expect(result.currentUserEntry?.runId).toBe(attempt._id);
 		expect(result.entries).toHaveLength(1);
 		expect(result.entries[0]?.runId).toBe(attempt._id);
+		expect(result.currentUserEntry?.displayName).toBe("Player");
+		expect(result.entries[0]?.displayName).toBe("Player");
+		expect(identities.getRegisteredDisplayNames).toHaveBeenCalledOnce();
 	});
 
 	it.each(["active", "abandoned"])("does not pin an unranked %s attempt", async (status) => {

@@ -94,7 +94,7 @@ export function RunHistoryTable({
 									name={entry.heroName}
 									classId={entry.classId}
 									level={entry.level}
-									nameAdornment={
+									portraitAdornment={
 										entry.mode === "dailyChallenge" ? (
 											<span
 												aria-label="Daily Challenge"

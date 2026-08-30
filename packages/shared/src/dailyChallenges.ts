@@ -21,6 +21,7 @@ export interface ChallengeEntryView {
 	rank: number;
 	runId: string;
 	heroName: string;
+	displayName: string | null;
 	classId: ClassId;
 	level: number;
 	battleNumber: number;

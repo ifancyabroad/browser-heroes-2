@@ -7,6 +7,7 @@ const currentUserEntry: ChallengeEntryView = {
 	rank: 42,
 	runId: "current-run",
 	heroName: "Pinned Hero",
+	displayName: "Player",
 	classId: "warrior",
 	level: 4,
 	battleNumber: 9,
@@ -31,7 +32,9 @@ describe("DailyChallengeLeaderboardTable", () => {
 		);
 
 		const rows = screen.getAllByRole("row");
-		const heroButtons = screen.getAllByRole("button", { name: "Inspect hero Pinned Hero" });
+		const heroButtons = screen.getAllByRole("button", {
+			name: "Inspect hero Pinned Hero owned by Player",
+		});
 		const pinnedRow = heroButtons[0]!.closest("tr");
 		const leaderboardRow = heroButtons[1]!.closest("tr");
 
@@ -39,7 +42,8 @@ describe("DailyChallengeLeaderboardTable", () => {
 		expect(rows[1]).toBe(pinnedRow);
 		expect(rows.indexOf(pinnedRow!)).toBeLessThan(rows.indexOf(leaderboardRow!));
 		expect(within(pinnedRow!).getByText("42")).toBeInTheDocument();
-		expect(within(pinnedRow!).getByText("YOU")).toBeInTheDocument();
+		expect(within(pinnedRow!).getByText("Pinned Hero")).toHaveClass("text-primary");
+		expect(within(pinnedRow!).queryByText("YOU")).not.toBeInTheDocument();
 		expect(pinnedRow).toHaveClass("border-b-2");
 	});
 
@@ -52,7 +56,9 @@ describe("DailyChallengeLeaderboardTable", () => {
 			/>,
 		);
 
-		expect(screen.getAllByRole("button", { name: "Inspect hero Pinned Hero" })).toHaveLength(2);
+		expect(
+			screen.getAllByRole("button", { name: "Inspect hero Pinned Hero owned by Player" }),
+		).toHaveLength(2);
 	});
 
 	it("opens the hero dossier from the pinned result", () => {
@@ -65,7 +71,9 @@ describe("DailyChallengeLeaderboardTable", () => {
 			/>,
 		);
 
-		fireEvent.click(screen.getByRole("button", { name: "Inspect hero Pinned Hero" }));
+		fireEvent.click(
+			screen.getByRole("button", { name: "Inspect hero Pinned Hero owned by Player" }),
+		);
 		expect(onSelectRun).toHaveBeenCalledWith("current-run");
 	});
 

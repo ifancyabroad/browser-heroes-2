@@ -4,8 +4,10 @@ const models = vi.hoisted(() => ({
 	runs: { find: vi.fn(), countDocuments: vi.fn() },
 	ghosts: { find: vi.fn(), countDocuments: vi.fn() },
 }));
+const identities = vi.hoisted(() => ({ getRegisteredDisplayNames: vi.fn() }));
 vi.mock("../models/run.model", () => ({ RunModel: models.runs }));
 vi.mock("../models/ghost.model", () => ({ GhostModel: models.ghosts }));
+vi.mock("./publicIdentity.service", () => identities);
 
 import { getGhostHallOfFame, getHeroHallOfFame } from "./hallOfFame.service";
 
@@ -27,6 +29,7 @@ describe("hallOfFame.service", () => {
 		arrangeQuery(models.ghosts.find, []);
 		models.runs.countDocuments.mockResolvedValue(0);
 		models.ghosts.countDocuments.mockResolvedValue(0);
+		identities.getRegisteredDisplayNames.mockResolvedValue(new Map());
 	});
 
 	it("queries and maps the paginated hero ranking", async () => {
@@ -49,6 +52,7 @@ describe("hallOfFame.service", () => {
 			},
 		]);
 		models.runs.countDocuments.mockResolvedValue(21);
+		identities.getRegisteredDisplayNames.mockResolvedValue(new Map([[userId, "Player"]]));
 
 		const response = await getHeroHallOfFame({
 			userId,
@@ -75,6 +79,7 @@ describe("hallOfFame.service", () => {
 					rank: 11,
 					runId: "507f1f77bcf86cd799439012",
 					heroName: "Ada",
+					displayName: "Player",
 					classId: "mage",
 					level: 8,
 					zoneNumber: 4,
@@ -151,6 +156,7 @@ describe("hallOfFame.service", () => {
 			},
 		]);
 		models.ghosts.countDocuments.mockResolvedValueOnce(1).mockResolvedValueOnce(3);
+		identities.getRegisteredDisplayNames.mockResolvedValue(new Map([[userId, "Player"]]));
 
 		const response = await getGhostHallOfFame({
 			userId,
@@ -161,6 +167,7 @@ describe("hallOfFame.service", () => {
 			rank: 4,
 			ghostId: "507f1f77bcf86cd799439013",
 			name: "Shade",
+			displayName: "Player",
 			classId: "rogue",
 			heroLevel: 6,
 			kills: 3,
@@ -173,6 +180,7 @@ describe("hallOfFame.service", () => {
 			},
 			isCurrentUser: true,
 		});
+		expect(identities.getRegisteredDisplayNames).toHaveBeenCalledOnce();
 		expect(models.ghosts.countDocuments.mock.calls[1]![0]).toMatchObject({
 			$or: expect.any(Array),
 		});

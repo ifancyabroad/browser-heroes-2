@@ -20,6 +20,7 @@ export interface HeroHallOfFameEntryView {
 	rank: number;
 	runId: string;
 	heroName: string;
+	displayName: string | null;
 	classId: ClassId;
 	level: number;
 	zoneNumber: number;
@@ -36,6 +37,7 @@ export interface GhostHallOfFameEntryView {
 	rank: number;
 	ghostId: string;
 	name: string;
+	displayName: string | null;
 	classId: ClassId;
 	heroLevel: number;
 	kills: number;

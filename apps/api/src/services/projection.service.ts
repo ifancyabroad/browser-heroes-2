@@ -58,12 +58,14 @@ export function toRunView(run: RunDocument & { _id: unknown }): RunView {
 export function toChallengeEntry(
 	run: RunDocument & { _id: unknown },
 	rank: number,
-	userId?: string,
+	userId: string | undefined,
+	displayName: string | null,
 ): ChallengeEntryView {
 	return {
 		rank,
 		runId: String(run._id),
 		heroName: run.summary.heroName,
+		displayName,
 		classId: run.summary.classId,
 		level: run.summary.level,
 		battleNumber: run.summary.battleNumber,

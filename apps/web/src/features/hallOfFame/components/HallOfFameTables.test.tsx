@@ -13,6 +13,7 @@ describe("HeroHallOfFameTable", () => {
 						rank: 4,
 						runId: "run-id",
 						heroName: "Ada",
+						displayName: "Player",
 						classId: "mage",
 						level: 8,
 						zoneNumber: 4,
@@ -28,11 +29,17 @@ describe("HeroHallOfFameTable", () => {
 			/>,
 		);
 
-		expect(screen.getByLabelText("Daily Challenge")).toBeInTheDocument();
-		expect(screen.getByText("YOU")).toBeInTheDocument();
-		const row = screen.getByRole("button", { name: "Inspect hero Ada" }).closest("tr");
+		const challengeMarker = screen.getByLabelText("Daily Challenge");
+		expect(challengeMarker.parentElement).toHaveClass("absolute");
+		expect(challengeMarker.parentElement).not.toHaveClass("bg-bg-base");
+		expect(screen.getByText("Ada")).toHaveClass("text-primary");
+		expect(screen.getByText(/\(Player\)/)).toHaveClass("text-info");
+		expect(screen.queryByText("YOU")).not.toBeInTheDocument();
+		const row = screen
+			.getByRole("button", { name: "Inspect hero Ada owned by Player" })
+			.closest("tr");
 		expect(row).toHaveClass("bg-bg-panel");
-		fireEvent.click(screen.getByRole("button", { name: "Inspect hero Ada" }));
+		fireEvent.click(screen.getByRole("button", { name: "Inspect hero Ada owned by Player" }));
 		expect(onSelectRun).toHaveBeenCalledWith("run-id");
 	});
 
@@ -44,6 +51,7 @@ describe("HeroHallOfFameTable", () => {
 						rank: 2,
 						ghostId: "ghost-id",
 						name: "Echo",
+						displayName: null,
 						classId: "mage",
 						heroLevel: 6,
 						kills: 4,
@@ -60,7 +68,9 @@ describe("HeroHallOfFameTable", () => {
 			/>,
 		);
 
-		expect(screen.getByText("YOU")).toBeInTheDocument();
+		expect(screen.getByText("Echo")).toHaveClass("text-primary");
+		expect(screen.queryByText("YOU")).not.toBeInTheDocument();
+		expect(screen.queryByText("(Player)")).not.toBeInTheDocument();
 		expect(screen.getByText("Dawn the Priest")).toBeInTheDocument();
 	});
 });

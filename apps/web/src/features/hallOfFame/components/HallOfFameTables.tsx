@@ -2,7 +2,6 @@ import { CLASSES_BY_ID } from "@app/content";
 import { getZoneForRun } from "@app/engine";
 import type { GhostHallOfFameEntryView, HeroHallOfFameEntryView } from "@app/shared";
 import { Star } from "pixelarticons/react/Star";
-import { Badge } from "../../../components/Badge";
 import {
 	DataTable,
 	DataTableCell,
@@ -22,9 +21,9 @@ export function HeroHallOfFameTable(props: {
 	return (
 		<DataTable tableClassName="sm:min-w-248">
 			<colgroup>
-				<col className="w-16" />
+				<col className="w-12 sm:w-16" />
 				<col />
-				<col className="w-24" />
+				<col className="w-16 sm:w-24" />
 				<col className="hidden sm:table-column sm:w-24" />
 				<col className="hidden sm:table-column sm:w-36" />
 				<col className="hidden sm:table-column sm:w-40" />
@@ -51,32 +50,27 @@ export function HeroHallOfFameTable(props: {
 						<DataTableCell numeric>{entry.rank}</DataTableCell>
 						<DataTableCell>
 							<DataTableRowAction
-								label={`Inspect hero ${entry.heroName}`}
+								label={`Inspect hero ${entry.heroName}${entry.displayName ? ` owned by ${entry.displayName}` : ""}`}
 								onSelect={() => props.onSelectRun(entry.runId)}
 							>
 								<HeroIdentity
 									name={entry.heroName}
 									classId={entry.classId}
 									level={entry.level}
-									nameAdornment={
-										entry.isCurrentUser || entry.mode === "dailyChallenge" ? (
-											<>
-												{entry.isCurrentUser && (
-													<Badge label="YOU" textTone="bright" />
-												)}
-												{entry.mode === "dailyChallenge" && (
-													<span
-														aria-label="Daily Challenge"
-														title="Daily Challenge"
-														className="inline-flex shrink-0"
-													>
-														<Star
-															aria-hidden="true"
-															className="h-4 w-4 text-primary"
-														/>
-													</span>
-												)}
-											</>
+									displayName={entry.displayName}
+									nameTone={entry.isCurrentUser ? "primary" : "default"}
+									portraitAdornment={
+										entry.mode === "dailyChallenge" ? (
+											<span
+												aria-label="Daily Challenge"
+												title="Daily Challenge"
+												className="inline-flex"
+											>
+												<Star
+													aria-hidden="true"
+													className="h-4 w-4 text-primary"
+												/>
+											</span>
 										) : undefined
 									}
 								/>
@@ -108,9 +102,9 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 	return (
 		<DataTable tableClassName="sm:min-w-184">
 			<colgroup>
-				<col className="w-16" />
+				<col className="w-12 sm:w-16" />
 				<col />
-				<col className="w-24" />
+				<col className="w-16 sm:w-24" />
 				<col className="hidden sm:table-column sm:w-28" />
 				<col className="hidden sm:table-column sm:w-48" />
 			</colgroup>
@@ -130,11 +124,8 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 								name={entry.name}
 								classId={entry.classId}
 								level={entry.heroLevel}
-								nameAdornment={
-									entry.isCurrentUser ? (
-										<Badge label="YOU" textTone="bright" />
-									) : undefined
-								}
+								displayName={entry.displayName}
+								nameTone={entry.isCurrentUser ? "primary" : "default"}
 							/>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>

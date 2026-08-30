@@ -1,6 +1,5 @@
 import { getZoneForRun } from "@app/engine";
 import type { ChallengeEntryView } from "@app/shared";
-import { Badge } from "../../../components/Badge";
 import {
 	DataTable,
 	DataTableCell,
@@ -21,9 +20,9 @@ export function DailyChallengeLeaderboardTable(props: {
 	return (
 		<DataTable tableClassName="sm:min-w-248">
 			<colgroup>
-				<col className="w-16" />
+				<col className="w-12 sm:w-16" />
 				<col />
-				<col className="w-24" />
+				<col className="w-16 sm:w-24" />
 				<col className="hidden sm:table-column sm:w-24" />
 				<col className="hidden sm:table-column sm:w-36" />
 				<col className="hidden sm:table-column sm:w-40" />
@@ -76,18 +75,15 @@ function LeaderboardEntryRow(props: {
 			<DataTableCell numeric>{entry.rank}</DataTableCell>
 			<DataTableCell>
 				<DataTableRowAction
-					label={`Inspect hero ${entry.heroName}`}
+					label={`Inspect hero ${entry.heroName}${entry.displayName ? ` owned by ${entry.displayName}` : ""}`}
 					onSelect={() => onSelectRun(entry.runId)}
 				>
 					<HeroIdentity
 						name={entry.heroName}
 						classId={entry.classId}
 						level={entry.level}
-						nameAdornment={
-							entry.isCurrentUser ? (
-								<Badge label="YOU" textTone="bright" />
-							) : undefined
-						}
+						displayName={entry.displayName}
+						nameTone={entry.isCurrentUser ? "primary" : "default"}
 					/>
 				</DataTableRowAction>
 			</DataTableCell>
