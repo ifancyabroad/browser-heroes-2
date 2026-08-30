@@ -550,7 +550,7 @@ tbody tr:nth-child(even) {
 	text-transform: inherit;
 }
 .table-sort::after {
-	content: "↕";
+	content: "\2195";
 	color: #696b64;
 	font-size: 0.72rem;
 }
@@ -578,7 +578,6 @@ tbody tr:nth-child(even) {
 	font-size: 0.72rem;
 }
 .table-sort.active::after {
-	content: "↓";
 	color: var(--accent);
 }
 .retention-samples {

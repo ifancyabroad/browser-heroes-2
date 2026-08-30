@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useOutletContext } from "react-router-dom";
 import type { DashboardContext } from "../components/DashboardLayout";
-import { EmptyState, QueryError, QueryLoading } from "../components/QueryState";
+import { QueryError, QueryLoading } from "../components/QueryState";
 import { SortableHeader } from "../components/SortableHeader";
 import { useSkillMetrics } from "../features/metrics";
 import { SkillFilters } from "../features/metrics/components/SkillFilters";
@@ -59,7 +59,7 @@ export function SkillsPage() {
 				{query.isFetching ? <span className="refreshing">Refreshing…</span> : null}
 			</div>
 			<SkillFilters values={skillFilters} onChange={setSkillFilters} />
-			{skills.length === 0 ? <EmptyState /> : null}
+			{skills.length === 0 ? <SkillEmptyState /> : null}
 			{skills.length > 0 ? (
 				<article className="panel">
 					<div className="panel-heading">
@@ -74,7 +74,12 @@ export function SkillsPage() {
 								tickFormatter={(value) => percent.format(Number(value))}
 							/>
 							<YAxis type="category" dataKey="name" width={130} />
-							<Tooltip formatter={(value) => percent.format(Number(value))} />
+							<Tooltip
+								formatter={(value, _name, item) => [
+									percent.format(Number(value)),
+									`Usage share (${item.payload.uses} uses)`,
+								]}
+							/>
 							<Bar
 								dataKey="usageShare"
 								name="Usage share"
@@ -172,6 +177,15 @@ function SkillTableEmptyState() {
 		<div className="state table-empty-state">
 			<h2>No skills match this search</h2>
 			<p>Try another skill name or ID.</p>
+		</div>
+	);
+}
+
+function SkillEmptyState() {
+	return (
+		<div className="state">
+			<h2>No skills match these filters</h2>
+			<p>Choose another class, date range, or run mode.</p>
 		</div>
 	);
 }
