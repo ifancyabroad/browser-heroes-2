@@ -376,8 +376,8 @@ describe("admin metrics", () => {
 			...query,
 			classId: "mage",
 			encounterType: "boss",
-			battleFrom: 10,
-			battleTo: 19,
+			battleFrom: 11,
+			battleTo: 20,
 			minCombats: 5,
 		});
 
@@ -388,7 +388,7 @@ describe("admin metrics", () => {
 				expect.objectContaining({
 					$match: expect.objectContaining({
 						"events.encounterType": "boss",
-						"events.battleNumber": { $gte: 10, $lte: 19 },
+						"events.battleNumber": { $gte: 11, $lte: 20 },
 					}),
 				}),
 				expect.objectContaining({ $match: { combats: { $gte: 5 } } }),

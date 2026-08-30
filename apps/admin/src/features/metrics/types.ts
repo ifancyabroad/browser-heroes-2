@@ -8,17 +8,17 @@ export type MetricsFilters = {
 
 export const enemyBattleBands = [
 	{ value: "all", label: "All battles", from: null, to: null },
-	{ value: "1-9", label: "1–9", from: 1, to: 9 },
-	{ value: "10-19", label: "10–19", from: 10, to: 19 },
-	{ value: "20-29", label: "20–29", from: 20, to: 29 },
-	{ value: "30-39", label: "30–39", from: 30, to: 39 },
-	{ value: "40-49", label: "40–49", from: 40, to: 49 },
-	{ value: "50-59", label: "50–59", from: 50, to: 59 },
-	{ value: "60-69", label: "60–69", from: 60, to: 69 },
-	{ value: "70-79", label: "70–79", from: 70, to: 79 },
-	{ value: "80-89", label: "80–89", from: 80, to: 89 },
-	{ value: "90-99", label: "90–99", from: 90, to: 99 },
-	{ value: "100+", label: "100+", from: 100, to: null },
+	{ value: "1-10", label: "1–10", from: 1, to: 10 },
+	{ value: "11-20", label: "11–20", from: 11, to: 20 },
+	{ value: "21-30", label: "21–30", from: 21, to: 30 },
+	{ value: "31-40", label: "31–40", from: 31, to: 40 },
+	{ value: "41-50", label: "41–50", from: 41, to: 50 },
+	{ value: "51-60", label: "51–60", from: 51, to: 60 },
+	{ value: "61-70", label: "61–70", from: 61, to: 70 },
+	{ value: "71-80", label: "71–80", from: 71, to: 80 },
+	{ value: "81-90", label: "81–90", from: 81, to: 90 },
+	{ value: "91-100", label: "91–100", from: 91, to: 100 },
+	{ value: "101+", label: "101+", from: 101, to: null },
 ] as const;
 
 export type EnemyBattleBand = (typeof enemyBattleBands)[number]["value"];

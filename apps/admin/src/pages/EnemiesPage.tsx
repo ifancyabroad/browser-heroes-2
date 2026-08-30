@@ -35,9 +35,13 @@ export function EnemiesPage() {
 
 	const rows = sort.rows;
 	const chart = [...enemies]
-		.sort((a, b) => b.combats - a.combats)
-		.slice(0, 12)
-		.map((row) => ({ ...row, name: getEnemyName(row) }));
+		.map((row) => ({
+			...row,
+			name: getEnemyName(row),
+			defeatRate: row.combats ? row.defeats / row.combats : 0,
+		}))
+		.sort((a, b) => b.defeatRate - a.defeatRate || b.combats - a.combats)
+		.slice(0, 12);
 
 	return (
 		<main className="dashboard">
@@ -54,8 +58,8 @@ export function EnemiesPage() {
 				<>
 					<article className="panel">
 						<div className="panel-heading">
-							<h3>Player win rate</h3>
-							<p>The twelve most frequently encountered enemies.</p>
+							<h3>Most dangerous enemies</h3>
+							<p>The twelve highest player defeat rates in this population.</p>
 						</div>
 						<ResponsiveContainer width="100%" height={380}>
 							<BarChart
@@ -70,11 +74,16 @@ export function EnemiesPage() {
 									tickFormatter={(value) => percent.format(Number(value))}
 								/>
 								<YAxis type="category" dataKey="name" width={130} />
-								<Tooltip formatter={(value) => percent.format(Number(value))} />
+								<Tooltip
+									formatter={(value, _name, item) => [
+										percent.format(Number(value)),
+										`Player defeat rate (${item.payload.combats} combats)`,
+									]}
+								/>
 								<Bar
-									dataKey="winRate"
-									name="Player win rate"
-									fill="var(--success)"
+									dataKey="defeatRate"
+									name="Player defeat rate"
+									fill="var(--danger)"
 									radius={[0, 4, 4, 0]}
 								/>
 							</BarChart>

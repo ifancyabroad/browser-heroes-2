@@ -38,7 +38,7 @@ describe("getEnemyMetrics", () => {
 			...metricsFilters,
 			classId: "mage",
 			encounterType: "boss",
-			battleBand: "10-19",
+			battleBand: "11-20",
 			minCombats: 5,
 		};
 		await getEnemyMetrics(query);
@@ -49,25 +49,41 @@ describe("getEnemyMetrics", () => {
 				searchParams: expect.objectContaining({
 					classId: "mage",
 					encounterType: "boss",
-					battleFrom: 10,
-					battleTo: 19,
+					battleFrom: 11,
+					battleTo: 20,
 					minCombats: 5,
 				}),
 			}),
 		);
 	});
 
-	it("serializes the open-ended final battle band", () => {
+	it("serializes a bounded battle band", () => {
 		expect(
 			toEnemyMetricsSearchParams({
 				...metricsFilters,
 				...defaultEnemyMetricsFilters,
-				battleBand: "100+",
+				battleBand: "1-10",
 			}),
 		).toEqual({
 			from: "2026-08-01",
 			to: "2026-08-07",
-			battleFrom: 100,
+			battleFrom: 1,
+			battleTo: 10,
+			minCombats: 1,
+		});
+	});
+
+	it("serializes the final battle band as an open-ended range", () => {
+		expect(
+			toEnemyMetricsSearchParams({
+				...metricsFilters,
+				...defaultEnemyMetricsFilters,
+				battleBand: "101+",
+			}),
+		).toEqual({
+			from: "2026-08-01",
+			to: "2026-08-07",
+			battleFrom: 101,
 			minCombats: 1,
 		});
 	});

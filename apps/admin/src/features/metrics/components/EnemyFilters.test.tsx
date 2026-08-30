@@ -9,7 +9,7 @@ describe("EnemyFilters", () => {
 		render(<EnemyFilters values={defaultEnemyMetricsFilters} onChange={onChange} />);
 
 		fireEvent.change(screen.getByLabelText("Class"), { target: { value: "mage" } });
-		fireEvent.change(screen.getByLabelText("Battle"), { target: { value: "10-19" } });
+		fireEvent.change(screen.getByLabelText("Battle"), { target: { value: "11-20" } });
 
 		expect(onChange).toHaveBeenCalledWith({
 			...defaultEnemyMetricsFilters,
@@ -17,7 +17,7 @@ describe("EnemyFilters", () => {
 		});
 		expect(onChange).toHaveBeenCalledWith({
 			...defaultEnemyMetricsFilters,
-			battleBand: "10-19",
+			battleBand: "11-20",
 		});
 	});
 

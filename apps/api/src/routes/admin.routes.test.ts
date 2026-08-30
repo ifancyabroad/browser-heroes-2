@@ -136,7 +136,7 @@ describe("admin routes", () => {
 	it("forwards enemy metric filters", async () => {
 		await request(buildApp())
 			.get(
-				"/api/admin/metrics/enemies?from=2026-08-01&to=2026-08-07&mode=normal&classId=mage&encounterType=boss&battleFrom=10&battleTo=19&minCombats=5",
+				"/api/admin/metrics/enemies?from=2026-08-01&to=2026-08-07&mode=normal&classId=mage&encounterType=boss&battleFrom=11&battleTo=20&minCombats=5",
 			)
 			.set("x-test-user-id", "admin-id")
 			.expect(200);
@@ -147,8 +147,8 @@ describe("admin routes", () => {
 			mode: "normal",
 			classId: "mage",
 			encounterType: "boss",
-			battleFrom: 10,
-			battleTo: 19,
+			battleFrom: 11,
+			battleTo: 20,
 			minCombats: 5,
 		});
 	});

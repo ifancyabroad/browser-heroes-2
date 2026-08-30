@@ -74,6 +74,6 @@ describe("EnemiesPage", () => {
 			target: { value: "missing enemy" },
 		});
 		expect(screen.getByText("No enemies match this search")).toBeInTheDocument();
-		expect(screen.getByRole("heading", { name: "Player win rate" })).toBeInTheDocument();
+		expect(screen.getByRole("heading", { name: "Most dangerous enemies" })).toBeInTheDocument();
 	});
 });
