@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import {
 	adminMetricsQuerySchema,
 	adminEnemyMetricsQuerySchema,
+	adminSkillMetricsQuerySchema,
 	type AdminClassMetricsResponse,
 	type AdminEnemyMetricsResponse,
 	type AdminMetricsOverviewResponse,
@@ -67,7 +68,7 @@ export async function getAdminSkillMetricsController(
 	req: Request,
 	res: Response<AdminSkillMetricsResponse>,
 ) {
-	const query = adminMetricsQuerySchema.parse(req.query);
+	const query = adminSkillMetricsQuerySchema.parse(req.query);
 	const metrics = await getAdminSkillMetrics(query);
 	res.status(200).json(metrics);
 }

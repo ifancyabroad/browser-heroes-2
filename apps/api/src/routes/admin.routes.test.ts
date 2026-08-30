@@ -155,7 +155,7 @@ describe("admin routes", () => {
 
 	it("forwards skill metric filters", async () => {
 		await request(buildApp())
-			.get("/api/admin/metrics/skills?from=2026-08-01&to=2026-08-07&mode=normal")
+			.get("/api/admin/metrics/skills?from=2026-08-01&to=2026-08-07&mode=normal&classId=mage")
 			.set("x-test-user-id", "admin-id")
 			.expect(200);
 
@@ -163,6 +163,7 @@ describe("admin routes", () => {
 			from: "2026-08-01",
 			to: "2026-08-07",
 			mode: "normal",
+			classId: "mage",
 		});
 	});
 

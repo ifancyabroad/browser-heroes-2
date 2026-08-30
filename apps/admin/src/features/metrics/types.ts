@@ -38,3 +38,13 @@ export const defaultEnemyMetricsFilters: EnemyMetricsFilters = {
 	battleBand: "all",
 	minCombats: 1,
 };
+
+export type SkillMetricsFilters = {
+	classId: ClassId | "";
+};
+
+export type SkillMetricsQuery = MetricsFilters & SkillMetricsFilters;
+
+export const defaultSkillMetricsFilters: SkillMetricsFilters = {
+	classId: "",
+};

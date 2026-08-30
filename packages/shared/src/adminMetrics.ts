@@ -90,6 +90,12 @@ export const adminEnemyMetricsQuerySchema = createMetricsQuerySchema({
 
 export type AdminEnemyMetricsQuery = z.infer<typeof adminEnemyMetricsQuerySchema>;
 
+export const adminSkillMetricsQuerySchema = createMetricsQuerySchema({
+	classId: classIdSchema.optional(),
+});
+
+export type AdminSkillMetricsQuery = z.infer<typeof adminSkillMetricsQuerySchema>;
+
 export interface AdminMetricsRange {
 	from: string;
 	to: string;

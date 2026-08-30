@@ -420,7 +420,11 @@ describe("admin metrics", () => {
 			},
 		]);
 
-		const result = await getAdminSkillMetrics({ ...query, mode: "normal" });
+		const result = await getAdminSkillMetrics({
+			...query,
+			mode: "normal",
+			classId: "mage",
+		});
 
 		expect(result.skills[0]).toEqual({
 			skillId: "armour_break",
@@ -439,7 +443,12 @@ describe("admin metrics", () => {
 		const pipeline = mocks.runActionAggregate.mock.calls[0][0];
 		expect(pipeline).toEqual(
 			expect.arrayContaining([
-				expect.objectContaining({ $match: { "run.mode": "normal" } }),
+				expect.objectContaining({
+					$match: {
+						"run.mode": "normal",
+						"run.summary.classId": "mage",
+					},
+				}),
 				expect.objectContaining({
 					$match: {
 						"events.type": { $in: ["SKILL_USED", "COMBAT_ENDED"] },

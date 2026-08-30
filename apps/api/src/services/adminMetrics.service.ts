@@ -11,6 +11,7 @@ import {
 	type AdminRunMetricsResponse,
 	type AdminRunOutcomeCounts,
 	type AdminSkillMetricsResponse,
+	type AdminSkillMetricsQuery,
 } from "@app/shared";
 import { RunActionModel } from "../models/runAction.model";
 import { RunModel } from "../models/run.model";
@@ -650,12 +651,19 @@ export async function getAdminEnemyMetrics(
 }
 
 export async function getAdminSkillMetrics(
-	query: AdminMetricsQuery,
+	query: AdminSkillMetricsQuery,
 ): Promise<AdminSkillMetricsResponse> {
 	const { start, end } = bounds(query);
 	const pipeline: PipelineStage[] = [{ $match: { createdAt: { $gte: start, $lt: end } } }];
 
-	if (query.mode) {
+	if (query.mode || query.classId) {
+		const runMatch: Record<string, unknown> = {};
+		if (query.mode) {
+			runMatch["run.mode"] = query.mode;
+		}
+		if (query.classId) {
+			runMatch["run.summary.classId"] = query.classId;
+		}
 		pipeline.push(
 			{
 				$lookup: {
@@ -666,7 +674,7 @@ export async function getAdminSkillMetrics(
 				},
 			},
 			{ $unwind: "$run" },
-			{ $match: { "run.mode": query.mode } },
+			{ $match: runMatch },
 		);
 	}
 

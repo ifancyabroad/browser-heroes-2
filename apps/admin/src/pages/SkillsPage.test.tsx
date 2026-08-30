@@ -79,6 +79,14 @@ describe("SkillsPage", () => {
 		});
 
 		render(<SkillsPage />);
+		expect(useSkillMetrics).toHaveBeenCalledWith(
+			{
+				from: "2026-08-01",
+				to: "2026-08-07",
+				mode: "all",
+			},
+			{ classId: "" },
+		);
 		const table = screen.getByRole("table");
 		expect(within(table).getAllByRole("row")[1]).toHaveTextContent("Armour Break");
 		expect(
@@ -87,5 +95,12 @@ describe("SkillsPage", () => {
 
 		fireEvent.click(screen.getByRole("button", { name: "Avg. battle" }));
 		expect(within(table).getAllByRole("row")[1]).toHaveTextContent("Taunt");
+
+		fireEvent.change(screen.getByLabelText("Search skills"), {
+			target: { value: "armour" },
+		});
+		expect(within(table).getAllByRole("row")).toHaveLength(2);
+		expect(within(table).queryByText("Taunt")).not.toBeInTheDocument();
+		expect(screen.getByRole("heading", { name: "Usage share" })).toBeInTheDocument();
 	});
 });
