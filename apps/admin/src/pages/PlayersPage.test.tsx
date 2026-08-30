@@ -16,7 +16,20 @@ vi.mock("recharts", () => {
 	const Wrapper = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
 	return {
 		Bar: Wrapper,
-		BarChart: Wrapper,
+		BarChart: ({
+			children,
+			data,
+		}: {
+			children?: React.ReactNode;
+			data?: Array<{ label?: string }>;
+		}) => (
+			<div
+				data-testid="retention-chart"
+				data-labels={data?.map((row) => row.label).join(",")}
+			>
+				{children}
+			</div>
+		),
 		CartesianGrid: Wrapper,
 		Legend: Wrapper,
 		Line: Wrapper,
@@ -49,7 +62,7 @@ describe("PlayersPage", () => {
 				retention: [
 					{ day: 1, eligiblePlayers: 5, returnedPlayers: 2, rate: 0.4 },
 					{ day: 7, eligiblePlayers: 4, returnedPlayers: 1, rate: 0.25 },
-					{ day: 30, eligiblePlayers: 2, returnedPlayers: 0, rate: 0 },
+					{ day: 30, eligiblePlayers: 0, returnedPlayers: 0, rate: 0 },
 				],
 				types: [
 					{
@@ -78,6 +91,9 @@ describe("PlayersPage", () => {
 
 		expect(screen.getByText("Player engagement")).toBeInTheDocument();
 		expect(screen.getByText("D1: 2 / 5")).toBeInTheDocument();
+		expect(screen.getByText("D30: —")).toBeInTheDocument();
+		expect(screen.getByText("Pre-existing players")).toBeInTheDocument();
+		expect(screen.getByTestId("retention-chart")).toHaveAttribute("data-labels", "D1,D7");
 		const table = screen.getByRole("table");
 		expect(within(table).getByText("Guest")).toBeInTheDocument();
 		expect(within(table).getByText("Registered")).toBeInTheDocument();

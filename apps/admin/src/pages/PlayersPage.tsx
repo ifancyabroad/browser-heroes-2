@@ -53,7 +53,9 @@ export function PlayersPage() {
 	}
 
 	const { totals } = query.data;
-	const retention = query.data.retention.map((row) => ({ ...row, label: `D${row.day}` }));
+	const retention = query.data.retention
+		.filter((row) => row.eligiblePlayers > 0)
+		.map((row) => ({ ...row, label: `D${row.day}` }));
 
 	return (
 		<main className="dashboard">
@@ -79,9 +81,9 @@ export function PlayersPage() {
 					detail="Created within the selected dates"
 				/>
 				<Stat
-					label="Returning players"
+					label="Pre-existing players"
 					value={number.format(totals.returningPlayers)}
-					detail="Pre-existing identities active in the range"
+					detail="Created before the range and active within it"
 				/>
 				<Stat
 					label="Repeat players"
@@ -98,7 +100,10 @@ export function PlayersPage() {
 				<article className="panel wide">
 					<div className="panel-heading">
 						<h3>Daily players</h3>
-						<p>New identities are independent of the selected run mode.</p>
+						<p>
+							Daily returning players were active after their creation date; new
+							identities are independent of the selected run mode.
+						</p>
 					</div>
 					<ResponsiveContainer width="100%" height={320}>
 						<LineChart data={query.data.daily} margin={{ left: -18, right: 12 }}>
@@ -150,7 +155,12 @@ export function PlayersPage() {
 								domain={[0, 1]}
 								tickFormatter={(value) => percent.format(Number(value))}
 							/>
-							<Tooltip formatter={(value) => percent.format(Number(value))} />
+							<Tooltip
+								formatter={(value, _name, item) => [
+									percent.format(Number(value)),
+									`Retention (${item.payload.returnedPlayers} / ${item.payload.eligiblePlayers})`,
+								]}
+							/>
 							<Bar
 								dataKey="rate"
 								name="Retention"
@@ -162,7 +172,10 @@ export function PlayersPage() {
 					<div className="retention-samples">
 						{query.data.retention.map((row) => (
 							<span key={row.day}>
-								D{row.day}: {row.returnedPlayers} / {row.eligiblePlayers}
+								D{row.day}:{" "}
+								{row.eligiblePlayers
+									? `${row.returnedPlayers} / ${row.eligiblePlayers}`
+									: "—"}
 							</span>
 						))}
 					</div>
@@ -189,7 +202,7 @@ export function PlayersPage() {
 									{...sort.headerProps}
 								/>
 								<SortableHeader
-									label="Returning"
+									label="Pre-existing"
 									value="returningPlayers"
 									{...sort.headerProps}
 								/>
