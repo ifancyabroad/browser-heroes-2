@@ -42,7 +42,7 @@ export function DailyChallengeStartButton(props: { currentRun?: RunView | null; 
 
 	return (
 		<>
-			<Button variant="primary" onClick={handleRequestStart}>
+			<Button variant="primary" onClick={handleRequestStart} disabled>
 				{props.label ?? "START DAILY CHALLENGE"}
 			</Button>
 
