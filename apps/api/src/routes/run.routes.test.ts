@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import request from "supertest";
-import { createTestRunDocument } from "../test/createTestRun";
+import { createDeadTestRunState, createTestRunDocument } from "../test/createTestRun";
 
 const runService = vi.hoisted(() => ({
 	createRun: vi.fn(),
@@ -9,12 +9,14 @@ const runService = vi.hoisted(() => ({
 	getRunActions: vi.fn(),
 	getRunForUser: vi.fn(),
 }));
+const identities = vi.hoisted(() => ({ getRegisteredDisplayName: vi.fn() }));
 const engineService = vi.hoisted(() => ({
 	applyRunAction: vi.fn(),
 }));
 
 vi.mock("../services/run.service", () => runService);
 vi.mock("../services/engine.service", () => engineService);
+vi.mock("../services/publicIdentity.service", () => identities);
 
 describe("run routes", () => {
 	let buildApp: typeof import("../app").buildApp;
@@ -74,6 +76,23 @@ describe("run routes", () => {
 			.expect(200);
 
 		expect(response.body).toEqual({ run: null });
+	});
+
+	it("returns a completed hero with its registered owner name", async () => {
+		const run = createTestRunDocument();
+		run.state = createDeadTestRunState();
+		runService.getRunForHero.mockResolvedValue(run);
+		identities.getRegisteredDisplayName.mockResolvedValue("Player");
+
+		const response = await request(buildApp())
+			.get("/api/runs/run-document-id/hero")
+			.expect(200);
+
+		expect(identities.getRegisteredDisplayName).toHaveBeenCalledWith(run.userId);
+		expect(response.body).toMatchObject({
+			displayName: "Player",
+			hero: { name: "Test Hero" },
+		});
 	});
 
 	it("returns 404 for a missing or unowned run", async () => {

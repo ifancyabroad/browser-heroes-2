@@ -18,6 +18,7 @@ import {
 } from "../services/run.service";
 import { toApplyRunActionResponse, toRunHeroView, toRunView } from "../services/projection.service";
 import { applyRunAction } from "../services/engine.service";
+import { getRegisteredDisplayName } from "../services/publicIdentity.service";
 
 export async function createRunController(
 	req: Request<never, CreateRunResponse, CreateRunBody>,
@@ -51,7 +52,8 @@ export async function getRunHeroController(
 	res: Response<GetRunHeroResponse | ApiErrorResponse>,
 ) {
 	const run = await getRunForHero(req.params.runId);
-	const view = run ? toRunHeroView(run.state) : null;
+	const displayName = run ? await getRegisteredDisplayName(run.userId) : null;
+	const view = run ? toRunHeroView(run.state, displayName) : null;
 
 	if (!view) {
 		res.status(404).json({

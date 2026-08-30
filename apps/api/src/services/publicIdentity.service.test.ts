@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const users = vi.hoisted(() => ({ find: vi.fn() }));
 vi.mock("../models/user.model", () => ({ UserModel: users }));
 
-import { getRegisteredDisplayNames } from "./publicIdentity.service";
+import { getRegisteredDisplayName, getRegisteredDisplayNames } from "./publicIdentity.service";
 
 describe("getRegisteredDisplayNames", () => {
 	beforeEach(() => vi.clearAllMocks());
@@ -29,5 +29,12 @@ describe("getRegisteredDisplayNames", () => {
 			type: "registered",
 		});
 		expect(select).toHaveBeenCalledWith("_id displayName");
+	});
+
+	it("resolves one registered display name without exposing the map", async () => {
+		const lean = vi.fn().mockResolvedValue([{ _id: "user-one", displayName: "Player One" }]);
+		users.find.mockReturnValue({ select: vi.fn().mockReturnValue({ lean }) });
+
+		await expect(getRegisteredDisplayName("user-one")).resolves.toBe("Player One");
 	});
 });

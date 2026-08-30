@@ -71,6 +71,7 @@ describe("HeroDossierModal", () => {
 		useRunHero.mockReturnValue(
 			queryState({
 				data: {
+					displayName: "Player",
 					hero: {
 						id: "hero-1",
 						name: "Aria",
@@ -115,7 +116,9 @@ describe("HeroDossierModal", () => {
 
 		render(<HeroDossierModal runId="run-1" onClose={vi.fn()} />);
 
-		expect(screen.getByText("Aria the Warrior")).toBeInTheDocument();
+		expect(screen.getByText("Aria")).toHaveClass("text-primary");
+		expect(screen.getByText(/\(Player\)/)).toHaveClass("text-info");
+		expect(screen.getByText("Level 9 Warrior")).toBeInTheDocument();
 		expect(screen.getByText("Slain by The Nameless One")).toBeInTheDocument();
 		expect(screen.getByText("Battle")).toBeInTheDocument();
 		expect(screen.getByText("42")).toBeInTheDocument();

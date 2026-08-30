@@ -80,12 +80,13 @@ export function toChallengeEntry(
 	};
 }
 
-export function toRunHeroView(state: RunState): RunHeroView | null {
+export function toRunHeroView(state: RunState, displayName: string | null): RunHeroView | null {
 	if (state.phase !== "dead" && state.phase !== "retired") {
 		return null;
 	}
 
 	return {
+		displayName,
 		hero: state.hero,
 		run: {
 			status: state.phase,

@@ -67,6 +67,7 @@ export interface GetRunResponse {
 }
 
 export interface RunHeroView {
+	displayName: string | null;
 	hero: HeroState;
 	run: {
 		status: "dead" | "retired";

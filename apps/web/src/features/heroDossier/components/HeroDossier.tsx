@@ -42,10 +42,13 @@ function HeroHeader({
 	return (
 		<header className="grid gap-3 text-center">
 			<div className="grid gap-1">
-				<p className="text-primary">
-					{hero.name} the {className}
+				<p className="min-w-0 break-words">
+					<span className="text-primary">{hero.name}</span>
+					{view.displayName && <span className="text-info"> ({view.displayName})</span>}
 				</p>
-				<p className="text-text-bright">Level {hero.level}</p>
+				<p className="text-text-bright">
+					Level {hero.level} {className}
+				</p>
 				<p className={view.run.status === "dead" ? "text-error" : "text-success"}>
 					{getOutcome(view)}
 				</p>

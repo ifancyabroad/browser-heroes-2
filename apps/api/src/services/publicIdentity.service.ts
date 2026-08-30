@@ -20,3 +20,8 @@ export async function getRegisteredDisplayNames(userIds: unknown[]): Promise<Map
 		}),
 	);
 }
+
+export async function getRegisteredDisplayName(userId: unknown): Promise<string | null> {
+	const displayNames = await getRegisteredDisplayNames([userId]);
+	return displayNames.get(String(userId)) ?? null;
+}
