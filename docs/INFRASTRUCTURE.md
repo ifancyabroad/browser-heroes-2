@@ -55,8 +55,6 @@ MongoDB is the current persistence store.
 
 Runs store the full engine-owned run state as the authoritative gameplay snapshot. Persistence should not duplicate the full engine state shape as database schema fields.
 
-Daily challenge definitions are derived from their UTC date and stored when first played. The date determines the shared seed, class, and midnight ghost-pool cutoff, so an unplayed day remains reproducible without a database record. Runs identify their mode and challenge date, and a unique constraint permits only one daily attempt per user and date. Ghost selection derives a daily run's cutoff from that date, while normal runs use their creation time directly.
-
 The database may store derived summaries for lookup, display, and indexing. These summaries are not authoritative gameplay data and should be regenerated from run state when state changes.
 
 Run actions are recorded in sequence for debugging, replay investigation, and future audit/reconstruction workflows.

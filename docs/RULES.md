@@ -54,6 +54,7 @@ Equipment and build choices persist for the run but do not carry between heroes.
 
 Combat encounters select enemies from the current zone and encounter type. The run seed and battle
 number determine the authored enemy schedule, so combat decisions do not change later selections.
+Battle 1 selects only from the eligible enemies tied for the lowest authored threat.
 
 Every 10th battle is a boss encounter. Non-boss battles are standard encounters.
 
@@ -173,6 +174,10 @@ Player ghost encounters and outcomes contribute to their ghost records outside t
 ## 12. Daily Challenges
 
 Each UTC date has one Daily Challenge with a shared seed and predetermined class selected through an even rotation. The player chooses the hero name, while the server owns the class and seed.
+
+The challenge is created when the first player starts it. Before publishing it, the server
+deterministically tries candidate seeds until every available action sequence survives the first
+two combat turns. This opening safety check does not guarantee that the full challenge is beatable.
 
 Participants share the same underlying enemy, reward, level-up, and shop schedules. Prior build and
 shop decisions may still create valid differences where owned options are skipped or slots are

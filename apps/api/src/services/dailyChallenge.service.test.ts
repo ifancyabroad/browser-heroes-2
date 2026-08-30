@@ -101,6 +101,7 @@ describe("dailyChallenge.service", () => {
 	});
 
 	it("atomically creates today's challenge when starting", async () => {
+		challenges.findOne.mockReturnValueOnce({ lean: vi.fn().mockResolvedValue(null) });
 		runService.createDailyChallengeRun.mockResolvedValue({ _id: "run-id" });
 		await startTodayDailyChallenge({ userId: "user-id", heroName: "Hero" });
 
@@ -116,6 +117,31 @@ describe("dailyChallenge.service", () => {
 			seed: definition.seed,
 			dailyChallengeDate: date,
 		});
+	});
+
+	it("replaces an unsafe opening seed before storing the challenge", async () => {
+		const unsafeDate = "2026-08-30";
+		const safeDefinition = {
+			date: unsafeDate,
+			classId: "mage",
+			seed: "8e168767-83c4-8058-8a70-fd205011df50",
+		};
+		vi.setSystemTime(new Date(`${unsafeDate}T12:00:00.000Z`));
+		challenges.findOne.mockReturnValueOnce({ lean: vi.fn().mockResolvedValue(null) });
+		challenges.findOneAndUpdate.mockReturnValueOnce({
+			lean: vi.fn().mockResolvedValue(safeDefinition),
+		});
+		runService.createDailyChallengeRun.mockResolvedValue({ _id: "run-id" });
+
+		await startTodayDailyChallenge({ userId: "user-id", heroName: "Hero" });
+
+		expect(challenges.findOneAndUpdate).toHaveBeenCalledWith(
+			{ date: unsafeDate },
+			{
+				$setOnInsert: safeDefinition,
+			},
+			{ upsert: true, returnDocument: "after" },
+		);
 	});
 
 	it("rejects a consumed attempt", async () => {

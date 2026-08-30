@@ -18,7 +18,11 @@ export function selectEnemyForEncounter(
 ): RngResult<Enemy> | null {
 	const zone = getZoneForRun(input.zoneNumber);
 	const encounterType = getEncounterTypeForBattle(input.battleNumber);
-	const candidates = getEncounterCandidates(zone, encounterType);
+	const candidates = getEncounterCandidates({
+		zone,
+		encounterType,
+		battleNumber: input.battleNumber,
+	});
 
 	return selectWeightedEnemy(input.rngState, candidates);
 }
