@@ -89,7 +89,13 @@ describe("HeroDossierModal", () => {
 							charisma: 11,
 						},
 						skills: [{ skillId: "heavy_strike", chargesRemaining: 1 }],
-						featIds: ["commanding_presence"],
+						featIds: [
+							"commanding_presence",
+							"blood_drinker",
+							"berserker",
+							"gifted_healer",
+							"flameborn",
+						],
 						equipment: emptyEquipment,
 						pendingLevelUp: null,
 						healingPotions: 3,
@@ -126,12 +132,19 @@ describe("HeroDossierModal", () => {
 		expect(screen.getByText("2")).toBeInTheDocument();
 		expect(screen.getByText("Heavy Strike")).toBeInTheDocument();
 		expect(screen.getByText("Commanding Presence")).toBeInTheDocument();
-		expect(screen.getByText("Passive")).toBeInTheDocument();
+		expect(screen.getAllByText("Passive")).toHaveLength(5);
 		expect(screen.getByRole("region", { name: "Combat" })).toHaveTextContent("Max HP");
 		expect(screen.getByText("Armour")).toBeInTheDocument();
-		expect(screen.getByText("Attack")).toBeInTheDocument();
-		expect(screen.getByText("Save")).toBeInTheDocument();
-		expect(screen.getByText("Save DC")).toBeInTheDocument();
+		expect(screen.queryByText("Attack")).not.toBeInTheDocument();
+		expect(screen.queryByText("Save")).not.toBeInTheDocument();
+		expect(screen.queryByText("Save DC")).not.toBeInTheDocument();
+		expect(screen.getByText("Crit Range")).toBeInTheDocument();
+		expect(screen.getByText("Crit Dice")).toBeInTheDocument();
+		expect(screen.getByText("Healing")).toBeInTheDocument();
+		const damageSection = screen.getByRole("region", { name: "Damage" });
+		expect(damageSection).toHaveTextContent("VulnerabilitiesCold");
+		expect(damageSection).toHaveTextContent("Damage");
+		expect(damageSection).toHaveTextContent("+50% Fire");
 		expect(screen.getByText("No equipment worn.")).toBeInTheDocument();
 		expect(screen.queryByText("999")).not.toBeInTheDocument();
 		expect(screen.queryByText(/potion/i)).not.toBeInTheDocument();

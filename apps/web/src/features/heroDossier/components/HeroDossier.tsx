@@ -2,7 +2,7 @@ import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroView, type HeroView } from "@app/engine";
 import type { RunHeroView } from "@app/shared";
 import { AbilitiesSection, EquipmentSection } from "./HeroDossierBuild";
-import { AttributesSection, CombatSection } from "./HeroDossierStats";
+import { AttributesSection, CombatSection, DamageSection } from "./HeroDossierStats";
 
 export function HeroDossier({ view }: { view: RunHeroView }) {
 	const hero = selectHeroView(view.hero);
@@ -15,6 +15,7 @@ export function HeroDossier({ view }: { view: RunHeroView }) {
 				<div className="grid items-start gap-5 xs:grid-cols-2 sm:grid-cols-1">
 					<AttributesSection hero={hero} />
 					<CombatSection hero={hero} />
+					<DamageSection hero={hero} />
 				</div>
 				<EquipmentSection hero={hero} />
 				<AbilitiesSection hero={hero} />
