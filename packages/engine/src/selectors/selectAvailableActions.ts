@@ -130,7 +130,7 @@ function getLevelUpActions(state: RunState): EngineAction[] {
 		};
 	});
 
-	if (state.levelUpRerolls > 0 && canRerollLevelUp(state.hero, pendingLevelUp.options)) {
+	if (state.levelUpRerolls > 0 && canRerollLevelUp(state.hero, pendingLevelUp)) {
 		actions.push({ type: "REROLL_LEVEL_UP" });
 	}
 

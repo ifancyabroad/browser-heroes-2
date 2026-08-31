@@ -18,7 +18,7 @@ export function rerollLevelUp(state: RunState): EngineResult {
 	const rerollIndex = pendingLevelUp.rerollIndex + 1;
 	const rerolled = rerollLevelUpOptions(
 		state.hero,
-		pendingLevelUp.options,
+		pendingLevelUp,
 		createContextRngState(
 			state.seed,
 			"level-up",

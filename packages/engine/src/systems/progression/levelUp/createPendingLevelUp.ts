@@ -27,12 +27,12 @@ export function createPendingLevelUp(hero: HeroState, seed: string): PendingLeve
 	const rerollIndex = 0;
 	const options = selectLevelUpOptions(
 		hero,
-		progression.choice,
+		progression.level,
 		createContextRngState(
 			seed,
 			"level-up",
 			progression.level,
-			progression.choice ?? "none",
+			progression.choice?.type ?? "none",
 			rerollIndex,
 		),
 	);

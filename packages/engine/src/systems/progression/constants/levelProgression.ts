@@ -1,9 +1,16 @@
-export type LevelUpChoiceType = "skill" | "feat";
+import type { Rarity } from "@app/content";
+
+export type SkillLevelUpChoice = {
+	type: "skill";
+	rarityWeights: Partial<Record<Rarity, number>>;
+};
+
+export type LevelUpChoice = SkillLevelUpChoice | { type: "feat" };
 
 export type LevelProgressionEntry = {
 	level: number;
 	requiredXp: number;
-	choice?: LevelUpChoiceType;
+	choice?: LevelUpChoice;
 };
 
 export const LEVEL_PROGRESSION = [
@@ -14,12 +21,12 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 2,
 		requiredXp: 50,
-		choice: "feat",
+		choice: { type: "feat" },
 	},
 	{
 		level: 3,
 		requiredXp: 1_000,
-		choice: "skill",
+		choice: { type: "skill", rarityWeights: { common: 1 } },
 	},
 	{
 		level: 4,
@@ -28,17 +35,17 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 5,
 		requiredXp: 12_000,
-		choice: "skill",
+		choice: { type: "skill", rarityWeights: { uncommon: 1 } },
 	},
 	{
 		level: 6,
 		requiredXp: 20_000,
-		choice: "feat",
+		choice: { type: "feat" },
 	},
 	{
 		level: 7,
 		requiredXp: 35_000,
-		choice: "skill",
+		choice: { type: "skill", rarityWeights: { rare: 1 } },
 	},
 	{
 		level: 8,
@@ -47,12 +54,12 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 9,
 		requiredXp: 80_000,
-		choice: "skill",
+		choice: { type: "skill", rarityWeights: { epic: 3, legendary: 1 } },
 	},
 	{
 		level: 10,
 		requiredXp: 100_000,
-		choice: "feat",
+		choice: { type: "feat" },
 	},
 ] as const satisfies readonly LevelProgressionEntry[];
 

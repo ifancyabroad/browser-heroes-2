@@ -6,7 +6,7 @@ import {
 	createTestVictoryState,
 	modifyTestRunState,
 } from "../test/createTestRunState";
-import { getEligibleSkillOptions } from "../systems/progression/levelUp/getEligibleSkillOptions";
+import { getLevelUpOptionCandidates } from "../systems/progression/levelUp/getLevelUpOptionCandidates";
 import { deserializeRunStateJson } from "./deserializeRunState";
 import { serializeRunState } from "./serializeRunState";
 
@@ -34,10 +34,12 @@ describe("serializeRunState", () => {
 		const baseState = createTestVictoryState();
 		const state = modifyTestRunState(baseState, (draft) => {
 			draft.hero.pendingLevelUp = {
-				level: 2,
+				level: 3,
 				hpGain: 9,
 				rerollIndex: 2,
-				options: getEligibleSkillOptions(draft.hero).slice(0, 3),
+				options: getLevelUpOptionCandidates(draft.hero.classId, 3)
+					.map(({ option }) => option)
+					.slice(0, 3),
 			};
 		});
 		const restored = deserializeRunStateJson(serializeRunState(state));

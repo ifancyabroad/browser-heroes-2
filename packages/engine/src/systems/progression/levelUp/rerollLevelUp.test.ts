@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
+import { SKILLS_BY_ID } from "@app/content";
 
 import { applyAction } from "../../../actions";
 import { selectAvailableActions } from "../../../selectors";
+import type { HeroState } from "../../../schemas";
 import { createTestVictoryState, modifyTestRunState } from "../../../test/createTestRunState";
-import { getEligibleSkillOptions } from "./getEligibleSkillOptions";
-import { getEligibleFeatOptions } from "./getEligibleFeatOptions";
+import { getLevelUpOptionCandidates, isLevelUpOptionEligible } from "./getLevelUpOptionCandidates";
 
 describe("rerollLevelUp", () => {
 	it("replaces a full offer with new deterministic options", () => {
@@ -29,13 +30,13 @@ describe("rerollLevelUp", () => {
 
 	it("guarantees the only new option and fills the offer from previous choices", () => {
 		const baseState = createTestVictoryState();
-		const eligible = getEligibleSkillOptions(baseState.hero);
+		const eligible = getEligibleOptions(baseState.hero, 3);
 		const current = eligible.slice(0, 3);
 		const alternative = eligible[3];
 		const owned = eligible.slice(4);
 		const state = modifyTestRunState(baseState, (draft) => {
 			draft.hero.skills.push(...owned.map(({ skillId }) => ({ skillId })));
-			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, rerollIndex: 0, options: current };
+			draft.hero.pendingLevelUp = { level: 3, hpGain: 9, rerollIndex: 0, options: current };
 		});
 
 		const result = applyAction(state, { type: "REROLL_LEVEL_UP" });
@@ -50,12 +51,55 @@ describe("rerollLevelUp", () => {
 		).toHaveLength(2);
 	});
 
+	it("keeps final-level rerolls within the epic and legendary bucket", () => {
+		const baseState = createTestVictoryState();
+		const current = getEligibleOptions(baseState.hero, 9).slice(0, 3);
+		const state = modifyTestRunState(baseState, (draft) => {
+			draft.hero.pendingLevelUp = { level: 9, hpGain: 9, rerollIndex: 0, options: current };
+		});
+
+		const result = applyAction(state, { type: "REROLL_LEVEL_UP" });
+
+		expect(result.ok).toBe(true);
+		expect(
+			result.state.hero.pendingLevelUp?.options.every(
+				(option) =>
+					option.type === "skill" &&
+					["epic", "legendary"].includes(SKILLS_BY_ID[option.skillId].rarity),
+			),
+		).toBe(true);
+	});
+
+	it("applies current rules when rerolling a legacy pending offer", () => {
+		const baseState = createTestVictoryState();
+		const legacyOptions = getEligibleOptions(baseState.hero, 3).slice(0, 3);
+		const state = modifyTestRunState(baseState, (draft) => {
+			draft.hero.pendingLevelUp = {
+				level: 9,
+				hpGain: 9,
+				rerollIndex: 0,
+				options: legacyOptions,
+			};
+		});
+
+		const result = applyAction(state, { type: "REROLL_LEVEL_UP" });
+
+		expect(result.ok).toBe(true);
+		expect(
+			result.state.hero.pendingLevelUp?.options.every(
+				(option) =>
+					option.type === "skill" &&
+					["epic", "legendary"].includes(SKILLS_BY_ID[option.skillId].rarity),
+			),
+		).toBe(true);
+	});
+
 	it("rerolls feat offers using only eligible feat choices", () => {
 		const baseState = createTestVictoryState();
-		const eligible = getEligibleFeatOptions(baseState.hero);
+		const eligible = getEligibleOptions(baseState.hero, 2);
 		const current = eligible.slice(0, 3);
 		const state = modifyTestRunState(baseState, (draft) => {
-			draft.hero.pendingLevelUp = { level: 3, hpGain: 9, rerollIndex: 0, options: current };
+			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, rerollIndex: 0, options: current };
 		});
 
 		const result = applyAction(state, { type: "REROLL_LEVEL_UP" });
@@ -88,11 +132,11 @@ describe("rerollLevelUp", () => {
 		});
 
 		const baseState = createTestVictoryState();
-		const eligible = getEligibleSkillOptions(baseState.hero);
+		const eligible = getEligibleOptions(baseState.hero, 3);
 		const noAlternatives = modifyTestRunState(baseState, (draft) => {
 			draft.hero.skills.push(...eligible.slice(3).map(({ skillId }) => ({ skillId })));
 			draft.hero.pendingLevelUp = {
-				level: 2,
+				level: 3,
 				hpGain: 9,
 				rerollIndex: 0,
 				options: eligible.slice(0, 3),
@@ -120,11 +164,17 @@ describe("rerollLevelUp", () => {
 
 function withSkillOffer() {
 	const state = createTestVictoryState();
-	const options = getEligibleSkillOptions(state.hero).slice(0, 3);
+	const options = getEligibleOptions(state.hero, 3).slice(0, 3);
 
 	return modifyTestRunState(state, (draft) => {
-		draft.hero.pendingLevelUp = { level: 2, hpGain: 9, rerollIndex: 0, options };
+		draft.hero.pendingLevelUp = { level: 3, hpGain: 9, rerollIndex: 0, options };
 	});
+}
+
+function getEligibleOptions(hero: HeroState, level: number) {
+	return getLevelUpOptionCandidates(hero.classId, level)
+		.map(({ option }) => option)
+		.filter((option) => isLevelUpOptionEligible(hero, option));
 }
 
 function getOptionKey(

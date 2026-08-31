@@ -40,6 +40,6 @@ export function selectHeroProgression(state: RunState): HeroProgressionView {
 		canRerollLevelUp:
 			state.levelUpRerolls > 0 &&
 			pendingLevelUp !== null &&
-			canRerollLevelUp(hero, pendingLevelUp.options),
+			canRerollLevelUp(hero, pendingLevelUp),
 	};
 }

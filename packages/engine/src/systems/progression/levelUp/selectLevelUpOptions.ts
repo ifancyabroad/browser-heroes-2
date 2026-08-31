@@ -1,72 +1,58 @@
-import { SKILLS_BY_ID, type ClassId } from "@app/content";
-
 import {
 	selectRandomItems,
 	selectWeightedItems,
 	type RngResult,
 	type RngState,
 } from "../../../core/rng";
-import type { HeroState, LevelUpOption } from "../../../schemas";
-import {
-	getEligibleFeatOptions,
-	getFeatLevelUpOptions,
-	isFeatLevelUpOptionEligible,
-} from "./getEligibleFeatOptions";
-import {
-	getEligibleSkillOptions,
-	getSkillLevelUpOptionsForClass,
-	isSkillLevelUpOptionEligible,
-} from "./getEligibleSkillOptions";
-import { getSkillRarityWeight } from "./skillRarityWeights";
+import type { HeroState, LevelUpOption, PendingLevelUp } from "../../../schemas";
+import { getLevelUpOptionCandidates, isLevelUpOptionEligible } from "./getLevelUpOptionCandidates";
 
 const LEVEL_UP_OPTION_COUNT = 3;
 
 export function selectLevelUpOptions(
 	hero: HeroState,
-	choice: "skill" | "feat" | undefined,
+	targetLevel: number,
 	rngState: RngState,
 ): LevelUpOption[] {
-	const ranked = rankLevelUpOptions(hero.classId, choice, rngState);
+	const ranked = rankLevelUpOptions(hero, targetLevel, rngState);
 
 	return ranked.value
 		.filter((option) => isLevelUpOptionEligible(hero, option))
 		.slice(0, LEVEL_UP_OPTION_COUNT);
 }
 
-export function canRerollLevelUp(
-	hero: HeroState,
-	currentOptions: readonly LevelUpOption[],
-): boolean {
-	const choice = currentOptions[0]?.type;
+export function canRerollLevelUp(hero: HeroState, pending: PendingLevelUp): boolean {
+	const currentType = pending.options[0]?.type;
 
-	if (!choice) {
+	if (!currentType) {
 		return false;
 	}
 
-	const eligibleOptions =
-		choice === "skill" ? getEligibleSkillOptions(hero) : getEligibleFeatOptions(hero);
-
-	return eligibleOptions.some(
-		(option) => !currentOptions.some((current) => isSameLevelUpOption(current, option)),
+	return getLevelUpOptionCandidates(hero.classId, pending.level).some(
+		({ option }) =>
+			option.type === currentType &&
+			isLevelUpOptionEligible(hero, option) &&
+			!pending.options.some((current) => isSameLevelUpOption(current, option)),
 	);
 }
 
 export function rerollLevelUpOptions(
 	hero: HeroState,
-	currentOptions: readonly LevelUpOption[],
+	pending: PendingLevelUp,
 	rngState: RngState,
 ): LevelUpOption[] | null {
-	const choice = currentOptions[0]?.type;
+	const currentType = pending.options[0]?.type;
 
-	if (!choice) {
+	if (!currentType) {
 		return null;
 	}
 
-	const ranked = rankLevelUpOptions(hero.classId, choice, rngState);
+	const ranked = rankLevelUpOptions(hero, pending.level, rngState);
 	const alternatives = ranked.value.filter(
 		(option) =>
+			option.type === currentType &&
 			isLevelUpOptionEligible(hero, option) &&
-			!currentOptions.some((current) => isSameLevelUpOption(current, option)),
+			!pending.options.some((current) => isSameLevelUpOption(current, option)),
 	);
 
 	if (alternatives.length === 0) {
@@ -75,7 +61,7 @@ export function rerollLevelUpOptions(
 
 	const selectedAlternatives = alternatives.slice(0, LEVEL_UP_OPTION_COUNT);
 	const fillCount = LEVEL_UP_OPTION_COUNT - selectedAlternatives.length;
-	const fill = selectRandomItems(currentOptions, fillCount, ranked.rngState);
+	const fill = selectRandomItems(pending.options, fillCount, ranked.rngState);
 	const shuffled = selectRandomItems(
 		[...selectedAlternatives, ...fill.value],
 		LEVEL_UP_OPTION_COUNT,
@@ -86,37 +72,17 @@ export function rerollLevelUpOptions(
 }
 
 function rankLevelUpOptions(
-	classId: ClassId,
-	choice: "skill" | "feat" | undefined,
+	hero: HeroState,
+	targetLevel: number,
 	rngState: RngState,
 ): RngResult<LevelUpOption[]> {
-	if (choice === "skill") {
-		const options = getSkillLevelUpOptionsForClass(classId);
+	const candidates = getLevelUpOptionCandidates(hero.classId, targetLevel);
 
-		return selectWeightedItems(
-			options.map((option) => ({
-				value: option,
-				weight: getSkillRarityWeight(SKILLS_BY_ID[option.skillId].rarity),
-			})),
-			options.length,
-			rngState,
-		);
-	}
-
-	if (choice === "feat") {
-		const options = getFeatLevelUpOptions();
-		return selectRandomItems(options, options.length, rngState);
-	}
-
-	return { value: [], rngState };
-}
-
-function isLevelUpOptionEligible(hero: HeroState, option: LevelUpOption): boolean {
-	if (option.type === "skill") {
-		return isSkillLevelUpOptionEligible(hero, option);
-	}
-
-	return isFeatLevelUpOptionEligible(hero, option);
+	return selectWeightedItems(
+		candidates.map(({ option, weight }) => ({ value: option, weight })),
+		candidates.length,
+		rngState,
+	);
 }
 
 function isSameLevelUpOption(first: LevelUpOption, second: LevelUpOption): boolean {
