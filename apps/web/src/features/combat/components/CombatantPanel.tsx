@@ -23,7 +23,7 @@ export function CombatantPanel({
 	const title = `${identity} / Level ${combatant.level}${descriptor ? ` / ${descriptor}` : ""}${statusLabel ? ` ${statusLabel}` : ""}`;
 
 	return (
-		<section className="grid w-full max-w-[22rem] gap-2" aria-label={ariaLabel}>
+		<section className="grid w-full gap-2" aria-label={ariaLabel}>
 			<h2 className="flex min-w-0 items-center gap-2 text-base" title={title}>
 				<span className="min-w-0 truncate">
 					<span className="text-primary">{identity}</span> / Level {combatant.level}
@@ -42,6 +42,7 @@ export function CombatantPanel({
 				)}
 			</h2>
 			<ResourceBar
+				className="max-w-[22rem]"
 				label="HP"
 				value={`${combatant.currentHp}/${combatant.maxHp}`}
 				tone="hp"
