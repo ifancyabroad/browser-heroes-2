@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "lightning",
 			damageClass: "magical",
 			attackRange: "ranged",
-			dice: "1d10",
+			dice: "2d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {
@@ -32,7 +32,7 @@ export default buildSkill({
 			damageType: "lightning",
 			damageClass: "magical",
 			attackRange: "ranged",
-			dice: "1d10",
+			dice: "2d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {
@@ -47,7 +47,7 @@ export default buildSkill({
 			damageType: "lightning",
 			damageClass: "magical",
 			attackRange: "ranged",
-			dice: "1d10",
+			dice: "2d10",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {

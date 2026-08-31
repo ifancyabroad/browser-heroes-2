@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "cold",
 			damageClass: "magical",
-			dice: "4d8",
+			dice: "6d8",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {

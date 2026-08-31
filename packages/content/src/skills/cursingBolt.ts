@@ -18,7 +18,7 @@ export default buildSkill({
 			damageType: "necrotic",
 			damageClass: "magical",
 			attackRange: "ranged",
-			dice: "2d8",
+			dice: "3d8",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {
