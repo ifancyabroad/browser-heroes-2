@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "fire",
 			damageClass: "magical",
 			attackRange: "ranged",
-			dice: "4d6",
+			dice: "6d6",
 			attribute: "intelligence",
 			requiresAttackRoll: false,
 			save: {
