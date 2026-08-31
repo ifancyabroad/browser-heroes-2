@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "minotaur_charge",
 	name: "Minotaur Charge",
-	description: "Charge horns-first into the enemy with enough force to knock them senseless.",
+	description: "Charge horns-first into the enemy, then recover from the reckless impact.",
 	icon: "skills/unique/minotaur_charge.png",
 	pool: "unique",
 	kind: "weaponAttack",
@@ -14,7 +14,7 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 1,
+			multiplier: 1.5,
 			damageTypeOverride: "piercing",
 			attackRiders: [
 				{
@@ -22,14 +22,9 @@ export default buildSkill({
 					effects: [
 						{
 							type: "applyStatus",
-							target: "enemy",
+							target: "self",
 							statusId: "stunned",
 							duration: { unit: "turns", value: 1 },
-							save: {
-								attribute: "strength",
-								onSuccess: "noEffect",
-								dc: { attribute: "strength" },
-							},
 						},
 					],
 				},
