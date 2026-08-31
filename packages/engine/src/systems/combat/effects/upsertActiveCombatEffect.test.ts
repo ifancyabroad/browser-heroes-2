@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import type { ActiveCombatEffect } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
 import { advanceActiveEffects, getActiveEffectIds } from "./advanceActiveEffects";
 import { upsertActiveCombatEffect } from "./upsertActiveCombatEffect";
 
 describe("upsertActiveCombatEffect", () => {
 	it("adds an effect from a new source without mutating the combatant", () => {
-		const combatant = createTestRunState().combat!.player;
+		const combatant = createUnprotectedTestRunState().combat!.player;
 		const original = structuredClone(combatant);
 		const effect = createModifierEffect("new-effect", "new-source", 2, 1);
 
@@ -20,7 +20,7 @@ describe("upsertActiveCombatEffect", () => {
 		const existing = createModifierEffect("stable-id", "same-source", 1, 1);
 		const replacement = createModifierEffect("replacement-id", "same-source", 3, 2);
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createUnprotectedTestRunState().combat!.player,
 			activeEffects: [existing],
 		};
 
@@ -40,7 +40,7 @@ describe("upsertActiveCombatEffect", () => {
 		const existing = createModifierEffect("existing-id", "same-source", 1, 1);
 		const replacement = createModifierEffect("replacement-id", "same-source", 1, 2);
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createUnprotectedTestRunState().combat!.player,
 			activeEffects: [existing],
 		};
 		const effectIdsAtActionStart = getActiveEffectIds(combatant);
@@ -64,7 +64,7 @@ describe("upsertActiveCombatEffect", () => {
 			sourceSide: "enemy" as const,
 		};
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createUnprotectedTestRunState().combat!.player,
 			activeEffects: [existing],
 		};
 
@@ -88,7 +88,7 @@ describe("upsertActiveCombatEffect", () => {
 			},
 		};
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createUnprotectedTestRunState().combat!.player,
 			activeEffects: [existing],
 		};
 
@@ -101,7 +101,7 @@ describe("upsertActiveCombatEffect", () => {
 		const existing = createBasicAttackEffect("first", "giant_spider:mainHand");
 		const otherDefinition = createBasicAttackEffect("second", "vampire_bat:mainHand");
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createUnprotectedTestRunState().combat!.player,
 			activeEffects: [existing],
 		};
 

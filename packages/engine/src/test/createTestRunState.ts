@@ -11,6 +11,17 @@ export function createTestRunState(): RunState {
 	return createInitialRunState(TEST_RUN_INPUT);
 }
 
+export function createUnprotectedTestRunState(): RunState {
+	return modifyTestRunState(createTestRunState(), (draft) => {
+		if (!draft.combat) {
+			throw new Error("Expected test run to have combat");
+		}
+
+		draft.combat.player.activeEffects = [];
+		draft.combat.log = draft.combat.log.slice(0, 1);
+	});
+}
+
 export function createTestVictoryState(): RunState {
 	return modifyTestRunState(createTestRunState(), (draft) => {
 		if (!draft.combat) {

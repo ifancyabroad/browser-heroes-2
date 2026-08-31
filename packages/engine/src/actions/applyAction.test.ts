@@ -3,6 +3,7 @@ import { applyAction } from "./applyAction";
 import {
 	addPlayerStatus,
 	createTestRunState,
+	createUnprotectedTestRunState,
 	modifyTestRunState,
 } from "../test/createTestRunState";
 
@@ -125,7 +126,7 @@ describe("applyAction", () => {
 	});
 
 	it("moves the run to dead after a lethal enemy response", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createUnprotectedTestRunState(), (draft) => {
 			if (!draft.combat) {
 				throw new Error("Expected test run to have combat");
 			}
@@ -157,6 +158,28 @@ describe("applyAction", () => {
 				turnNumber: state.combat?.turnNumber,
 			}),
 		);
+	});
+
+	it("protects the hero from the first two enemy responses in battle 1", () => {
+		const state = modifyTestRunState(createTestRunState(), (draft) => {
+			if (!draft.combat) {
+				throw new Error("Expected test run to have combat");
+			}
+
+			draft.combat.player.currentHp = 1;
+			draft.combat.player.combatStats.armourClass = 0;
+			draft.combat.enemy.combatStats.attackRollBonus = 100;
+			draft.combat.enemy.skills = [];
+		});
+
+		const firstRound = applyAction(state, { type: "PLAYER_SKIP_TURN" });
+		expect(firstRound.ok && firstRound.state.hero.currentHp).toBe(1);
+
+		const secondRound = applyAction(firstRound.state, { type: "PLAYER_SKIP_TURN" });
+		expect(secondRound.ok && secondRound.state.hero.currentHp).toBe(1);
+
+		const thirdRound = applyAction(secondRound.state, { type: "PLAYER_SKIP_TURN" });
+		expect(thirdRound.ok && thirdRound.state.phase).toBe("dead");
 	});
 
 	it("records a lethal skill as the finishing player action", () => {

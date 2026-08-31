@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { createInitialRngState } from "../../../core/rng";
 import { runStateSchema } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
 import { resolveAttackDamageEffect } from "../skills/effects/resolveAttackDamageEffect";
 import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
 import { collectFeatAttackRiders } from "./collectFeatAttackRiders";
@@ -184,7 +184,7 @@ describe("feat attack riders", () => {
 	});
 
 	it("serializes active effects sourced from feats", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 		const combat = createCombatWithBerserker();
 		const result = resolveBasicAttack({
 			combat,
@@ -226,7 +226,7 @@ function createCombatWithBerserker() {
 }
 
 function createCombatWithFeat(featId: FeatId) {
-	const combat = structuredClone(createTestRunState().combat);
+	const combat = structuredClone(createUnprotectedTestRunState().combat);
 
 	if (!combat) {
 		throw new Error("Expected test run to have combat");

@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
 import { resolveBasicAttack } from "./resolveBasicAttack";
 
 describe("resolveBasicAttack charged roll modifiers", () => {
 	it("consumes an automatic miss during a basic attack", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = structuredClone(createUnprotectedTestRunState().combat!);
 		combat.player.activeEffects.push({
 			id: "automatic-miss",
 			type: "modifyRoll",
@@ -40,7 +40,7 @@ describe("resolveBasicAttack charged roll modifiers", () => {
 	});
 
 	it("records structured damage for a successful attack", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = structuredClone(createUnprotectedTestRunState().combat!);
 
 		const result = resolveBasicAttack({
 			combat,
@@ -60,7 +60,7 @@ describe("resolveBasicAttack charged roll modifiers", () => {
 	});
 
 	it("decrements charged advantage without removing duration-based modifiers", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = structuredClone(createUnprotectedTestRunState().combat!);
 		combat.player.activeEffects.push(
 			{
 				id: "charged-advantage",

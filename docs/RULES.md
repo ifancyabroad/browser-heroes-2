@@ -6,6 +6,8 @@ A run is a self-contained sequence of combat encounters connected by optional to
 
 A run begins on day 1. Each successful rest advances the run by one day. Day progression and rest-price escalation are cumulative for the full run and do not reset when the hero returns to town.
 
+During battle 1, Adventurer's Grace prevents the hero from taking damage during the opening two rounds.
+
 The run flow supports combat, victory rewards, boss reward choices, level-up choices, continuing to the next combat, returning to town, death, and victorious retirement.
 
 The main run is a 100-battle ladder. Every 10th battle is a boss encounter. Defeating the final boss at battle 100 unlocks the choice to retire victorious or continue into endless progression.

@@ -33,6 +33,21 @@ describe("createInitialRunState", () => {
 				eventType: "run_started",
 			}),
 		]);
+		expect(state.combat?.player.activeEffects).toEqual([
+			expect.objectContaining({
+				type: "modifyDamageTaken",
+				operation: "multiply",
+				value: 0,
+				duration: { unit: "turns", remaining: 3 },
+				source: expect.objectContaining({
+					type: "skill",
+					skillId: "adventurers_grace",
+				}),
+			}),
+		]);
+		expect(
+			state.combat?.log.some(({ message }) => message.includes("Adventurer's Grace")),
+		).toBe(true);
 	});
 
 	it("shares starting equipment and the first enemy across run identities", () => {

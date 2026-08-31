@@ -1,12 +1,6 @@
 import { createHash } from "node:crypto";
 import { Types } from "mongoose";
 import { classes, type ClassId } from "@app/content";
-import {
-	applyAction,
-	createInitialRunState,
-	selectAvailableActions,
-	type RunState,
-} from "@app/engine";
 import type { ChallengeLeaderboardQuery, RunStatus } from "@app/shared";
 import { DailyChallengeModel } from "../models/dailyChallenge.model";
 import { RunModel, type RunDocument } from "../models/run.model";
@@ -17,7 +11,6 @@ import { getRegisteredDisplayNames } from "./publicIdentity.service";
 const DAY_MS = 86_400_000;
 const ROTATION_EPOCH = Date.UTC(2026, 0, 1);
 const SEED_NAMESPACE = "browser-heroes-2:daily-challenge";
-const MAX_SEED_CANDIDATES = 20;
 const orderedClassIds = [...classes].sort((a, b) => a.order - b.order).map(({ id }) => id);
 
 export const DAILY_CHALLENGE_RANKING = {
@@ -203,15 +196,7 @@ export function deriveDailyChallengeDefinition(date: string): ChallengeDefinitio
 }
 
 function deriveDailyChallengeSeed(date: string): string {
-	return deriveDailyChallengeCandidateSeed(date, 0);
-}
-
-function deriveDailyChallengeCandidateSeed(date: string, candidate: number): string {
-	return deriveSeed(`${SEED_NAMESPACE}:${date}:candidate:${candidate}`);
-}
-
-function deriveSeed(value: string): string {
-	const bytes = createHash("sha256").update(value).digest().subarray(0, 16);
+	const bytes = createHash("sha256").update(`${SEED_NAMESPACE}:${date}`).digest().subarray(0, 16);
 
 	bytes[6] = (bytes[6] & 0x0f) | 0x80;
 	bytes[8] = (bytes[8] & 0x3f) | 0x80;
@@ -235,17 +220,7 @@ async function getDailyChallengeDefinition(date: string): Promise<ChallengeDefin
 
 async function materializeTodayChallenge(now = new Date()) {
 	const date = getTodayUtc(now);
-	const existing = await DailyChallengeModel.findOne({ date }).lean();
-
-	if (existing) {
-		return {
-			date: existing.date,
-			seed: existing.seed,
-			classId: existing.classId,
-		};
-	}
-
-	const definition = findSafeDailyChallengeDefinition(deriveDailyChallengeDefinition(date));
+	const definition = deriveDailyChallengeDefinition(date);
 
 	const challenge = await DailyChallengeModel.findOneAndUpdate(
 		{ date },
@@ -268,44 +243,6 @@ async function materializeTodayChallenge(now = new Date()) {
 		seed: challenge.seed,
 		classId: challenge.classId,
 	};
-}
-
-function findSafeDailyChallengeDefinition(definition: ChallengeDefinition): ChallengeDefinition {
-	for (let candidate = 0; candidate < MAX_SEED_CANDIDATES; candidate += 1) {
-		const seed = deriveDailyChallengeCandidateSeed(definition.date, candidate);
-
-		if (isSafeDailyChallengeOpening({ seed, classId: definition.classId })) {
-			return { ...definition, seed };
-		}
-	}
-
-	throw new Error("DAILY_CHALLENGE_NO_SAFE_SEED");
-}
-
-function isSafeDailyChallengeOpening(input: { seed: string; classId: ClassId }): boolean {
-	const state = createInitialRunState({
-		runId: "daily-challenge-validation",
-		seed: input.seed,
-		heroName: "Daily Hero",
-		classId: input.classId,
-	});
-
-	return survivesCombatTurns(state, 2);
-}
-
-function survivesCombatTurns(state: RunState, turnsRemaining: number): boolean {
-	if (state.phase === "dead") {
-		return false;
-	}
-
-	if (turnsRemaining === 0 || state.combat?.status !== "active") {
-		return true;
-	}
-
-	return selectAvailableActions(state).every((action) => {
-		const result = applyAction(state, action);
-		return result.ok && survivesCombatTurns(result.state, turnsRemaining - 1);
-	});
 }
 
 function assertChallengeDateIsNotFuture(date: string, now = new Date()): void {

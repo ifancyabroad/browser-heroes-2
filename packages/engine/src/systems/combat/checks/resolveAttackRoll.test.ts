@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
 import type { CombatantState } from "../../../schemas";
 import { resolveAttackRoll } from "./resolveAttackRoll";
 
 describe("resolveAttackRoll", () => {
 	it("always misses on a natural one despite sufficient bonuses", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 		const attacker = {
 			...state.combat!.player,
 			combatStats: {
@@ -28,7 +28,7 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("always hits and critically strikes on a natural twenty", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 		const defender = {
 			...state.combat!.enemy,
 			combatStats: {
@@ -51,7 +51,7 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("includes attribute, proficiency, and attack bonuses in the total", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 		const attacker = {
 			...state.combat!.player,
 			level: 5,
@@ -80,7 +80,7 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("applies an intrinsic attack roll mode to only that attack", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 
 		const result = resolveAttackRoll({
 			rngState: { value: 0 },
@@ -97,7 +97,7 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("cancels intrinsic advantage with active disadvantage", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 		const attacker = {
 			...state.combat!.player,
 			activeEffects: [
@@ -133,7 +133,7 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("forces a charged automatic miss even on a natural twenty", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 		const attacker = withAutomaticAttackModifier(state.combat!.player, "automaticFailure");
 
 		const result = resolveAttackRoll({
@@ -154,7 +154,7 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("forces a charged automatic critical even on a natural one", () => {
-		const state = createTestRunState();
+		const state = createUnprotectedTestRunState();
 		const attacker = withAutomaticAttackModifier(state.combat!.player, "automaticCritical");
 
 		const result = resolveAttackRoll({

@@ -5,6 +5,7 @@ import { createInitialHeroState } from "./createInitialHeroState";
 import { createCombat } from "../systems/combat/createCombat";
 import { ClassId } from "@app/content";
 import { STARTING_LEVEL_UP_REROLLS } from "../systems/progression/constants/levelUpRerolls";
+import { applyFirstBattleProtection } from "./applyFirstBattleProtection";
 
 export type CreateInitialRunStateInput = {
 	runId: string;
@@ -41,6 +42,8 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		throw new Error("Unable to create initial combat: NO_ELIGIBLE_ENEMY");
 	}
 
+	const combat = applyFirstBattleProtection(combatResult, input.seed);
+
 	const state: RunState = {
 		version: 1,
 
@@ -60,7 +63,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 
 		hero,
 
-		combat: combatResult,
+		combat,
 
 		town: null,
 		shopLocks: [],
