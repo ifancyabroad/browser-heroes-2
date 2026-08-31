@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "into_the_grinder",
 	name: "Into the Grinder",
 	description:
-		"Drag the enemy into a grinding maw that crushes them and leaves corrosive wounds.",
+		"Drag the enemy into a grinding maw that crushes them, tears through armour, and leaves corrosive wounds.",
 	icon: "skills/unique/into_the_grinder.png",
 	pool: "unique",
 	kind: "technique",
@@ -18,11 +18,23 @@ export default buildSkill({
 			damageType: "crushing",
 			damageClass: "physical",
 			attackRange: "melee",
-			dice: "5d8",
+			dice: "4d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
 				onSuccess: "halfDamage",
+				dc: { attribute: "strength" },
+			},
+		},
+		{
+			type: "modifyStat",
+			target: "enemy",
+			stat: "armourClass",
+			value: -4,
+			duration: { unit: "turns", value: 4 },
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
 				dc: { attribute: "strength" },
 			},
 		},

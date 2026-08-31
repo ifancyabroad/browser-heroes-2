@@ -33,10 +33,10 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "enemy",
 			stat: "armourClass",
-			value: -3,
+			value: -4,
 			duration: { unit: "turns", value: 4 },
 			save: {
-				attribute: "constitution",
+				attribute: "dexterity",
 				onSuccess: "noEffect",
 				dc: { attribute: "dexterity" },
 			},
