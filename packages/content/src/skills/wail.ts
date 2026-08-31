@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "necrotic",
 			damageClass: "magical",
-			dice: "6d6",
+			dice: "8d6",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",

@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "crushing",
 			damageClass: "magical",
-			dice: "4d8",
+			dice: "6d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
@@ -30,7 +30,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "cold",
 			damageClass: "magical",
-			dice: "4d8",
+			dice: "6d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",

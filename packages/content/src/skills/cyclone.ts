@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "lightning",
 			damageClass: "magical",
-			dice: "3d10",
+			dice: "5d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",
@@ -34,7 +34,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "crushing",
 			damageClass: "magical",
-			dice: "3d10",
+			dice: "5d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "constitution",

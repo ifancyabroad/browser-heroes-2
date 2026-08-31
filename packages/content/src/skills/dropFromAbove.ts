@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "crushing",
 			damageClass: "physical",
 			attackRange: "melee",
-			dice: "5d8",
+			dice: "6d8",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
