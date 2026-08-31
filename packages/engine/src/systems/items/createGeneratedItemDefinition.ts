@@ -139,7 +139,7 @@ function createGeneratedItemId(baseId: string): string {
 function calculateGeneratedItemPrice(basePrice: number, rarity: GeneratedItemRarity): number {
 	const rarityMultiplier: Record<GeneratedItemRarity, number> = {
 		common: 1,
-		uncommon: 3,
+		uncommon: 2,
 		rare: 7.5,
 		epic: 16,
 	};
