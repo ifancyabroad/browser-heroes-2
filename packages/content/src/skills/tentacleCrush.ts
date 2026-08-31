@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "crushing",
 			damageClass: "physical",
 			attackRange: "melee",
-			dice: "3d10",
+			dice: "7d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "strength",
