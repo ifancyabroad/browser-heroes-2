@@ -9,9 +9,9 @@ import { selectLevelUpOptions } from "./selectLevelUpOptions";
 
 describe("selectLevelUpOptions", () => {
 	it.each([
-		{ level: 3, rarities: ["common"] },
-		{ level: 5, rarities: ["uncommon"] },
-		{ level: 7, rarities: ["rare"] },
+		{ level: 3, rarities: ["common", "uncommon"] },
+		{ level: 5, rarities: ["uncommon", "rare"] },
+		{ level: 7, rarities: ["rare", "epic"] },
 		{ level: 9, rarities: ["epic", "legendary"] },
 	] as const)("offers only configured skill rarities at level $level", ({ level, rarities }) => {
 		const state = createTestRunState();
@@ -32,11 +32,13 @@ describe("selectLevelUpOptions", () => {
 		).toBe(true);
 	});
 
-	it("defines final skill offers with a 3:1 epic-to-legendary weight", () => {
-		expect(getLevelProgression(9)?.choice).toEqual({
-			type: "skill",
-			rarityWeights: { epic: 3, legendary: 1 },
-		});
+	it.each([
+		{ level: 3, rarityWeights: { common: 3, uncommon: 1 } },
+		{ level: 5, rarityWeights: { uncommon: 3, rare: 1 } },
+		{ level: 7, rarityWeights: { rare: 3, epic: 1 } },
+		{ level: 9, rarityWeights: { epic: 3, legendary: 1 } },
+	])("defines a 3:1 rarity weight at level $level", ({ level, rarityWeights }) => {
+		expect(getLevelProgression(level)?.choice).toEqual({ type: "skill", rarityWeights });
 	});
 
 	it.each([2, 6, 10])("offers only feats at level %i", (level) => {

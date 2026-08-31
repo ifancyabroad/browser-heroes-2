@@ -26,7 +26,7 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 3,
 		requiredXp: 1_000,
-		choice: { type: "skill", rarityWeights: { common: 1 } },
+		choice: { type: "skill", rarityWeights: { common: 3, uncommon: 1 } },
 	},
 	{
 		level: 4,
@@ -35,7 +35,7 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 5,
 		requiredXp: 12_000,
-		choice: { type: "skill", rarityWeights: { uncommon: 1 } },
+		choice: { type: "skill", rarityWeights: { uncommon: 3, rare: 1 } },
 	},
 	{
 		level: 6,
@@ -45,7 +45,7 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 7,
 		requiredXp: 35_000,
-		choice: { type: "skill", rarityWeights: { rare: 1 } },
+		choice: { type: "skill", rarityWeights: { rare: 3, epic: 1 } },
 	},
 	{
 		level: 8,
