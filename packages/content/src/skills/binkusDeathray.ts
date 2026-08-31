@@ -17,7 +17,7 @@ export default buildSkill({
 			damageType: "necrotic",
 			damageClass: "magical",
 			attackRange: "ranged",
-			dice: "6d10",
+			dice: "8d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
@@ -31,7 +31,7 @@ export default buildSkill({
 			damageType: "fire",
 			damageClass: "magical",
 			attackRange: "ranged",
-			dice: "6d10",
+			dice: "8d10",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",

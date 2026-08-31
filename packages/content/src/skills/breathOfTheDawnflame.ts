@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "fire",
 			damageClass: "magical",
-			dice: "10d6",
+			dice: "12d6",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
@@ -29,7 +29,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "radiant",
 			damageClass: "magical",
-			dice: "10d6",
+			dice: "12d6",
 			requiresAttackRoll: false,
 			save: {
 				attribute: "dexterity",
