@@ -33,7 +33,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["fireball", "iron_skin", "embrace_shadows"],
+		skillIds: ["fireball", "iron_skin", "embrace_shadows", "cursing_bolt"],
 		featIds: [],
 		tactic: "caster",
 	},
