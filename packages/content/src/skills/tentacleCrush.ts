@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tentacle_crush",
 	name: "Tentacle Crush",
-	description: "Crush the enemy in a massive tentacle, damaging and weakening them.",
+	description:
+		"Crush the enemy in a massive tentacle, damaging them and exposing their defences.",
 	icon: "skills/common/tentacle_crush.png",
 	pool: "common",
 	kind: "technique",
@@ -31,12 +32,11 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyDamage",
+			type: "modifyStat",
 			target: "enemy",
-			damageClass: "physical",
-			operation: "multiply",
-			value: 0.75,
-			duration: { unit: "turns", value: 3 },
+			stat: "armourClass",
+			value: -4,
+			duration: { unit: "turns", value: 4 },
 			save: {
 				attribute: "strength",
 				onSuccess: "noEffect",
