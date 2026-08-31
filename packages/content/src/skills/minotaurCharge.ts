@@ -14,7 +14,7 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 2,
+			multiplier: 1,
 			damageTypeOverride: "piercing",
 			attackRiders: [
 				{
@@ -24,7 +24,7 @@ export default buildSkill({
 							type: "applyStatus",
 							target: "enemy",
 							statusId: "stunned",
-							duration: { unit: "turns", value: 2 },
+							duration: { unit: "turns", value: 1 },
 							save: {
 								attribute: "strength",
 								onSuccess: "noEffect",
