@@ -44,21 +44,21 @@ export const LEVEL_PROGRESSION = [
 	},
 	{
 		level: 7,
-		requiredXp: 35_000,
+		requiredXp: 40_000,
 		choice: { type: "skill", rarityWeights: { rare: 3, epic: 1 } },
 	},
 	{
 		level: 8,
-		requiredXp: 55_000,
+		requiredXp: 65_000,
 	},
 	{
 		level: 9,
-		requiredXp: 80_000,
+		requiredXp: 95_000,
 		choice: { type: "skill", rarityWeights: { epic: 3, legendary: 1 } },
 	},
 	{
 		level: 10,
-		requiredXp: 100_000,
+		requiredXp: 130_000,
 		choice: { type: "feat" },
 	},
 ] as const satisfies readonly LevelProgressionEntry[];

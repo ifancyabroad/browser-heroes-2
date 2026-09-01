@@ -9,8 +9,8 @@ describe("getLevelForXp", () => {
 		[50, 2],
 		[999, 2],
 		[1_000, 3],
-		[99_999, 9],
-		[100_000, 10],
+		[129_999, 9],
+		[130_000, 10],
 		[1_000_000, 10],
 	] as const)("maps %i XP to level %i", (xp, expected) => {
 		expect(getLevelForXp(xp)).toBe(expected);
