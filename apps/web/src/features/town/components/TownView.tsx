@@ -20,6 +20,7 @@ import { TownActionBar } from "./TownActionBar";
 import { TownShopGrid } from "./TownShopGrid";
 import { useHowToPlayModalStore } from "../../howToPlay";
 import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
+import { TownGoldBalance } from "./TownGoldBalance";
 
 type TownViewProps = {
 	run: RunView;
@@ -181,25 +182,58 @@ export function TownView({ run }: TownViewProps) {
 			/>
 
 			<GameMainPanel
-				mobileHeader={
-					<div className="flex items-center justify-between gap-2">
-						<Button variant="primary" type="button" onClick={handleOpenSidebar}>
-							Hero
-						</Button>
-
-						<div className="flex items-center gap-2">
-							<Button type="button" onClick={openHowToPlay}>
-								How to play
+				header={
+					<nav
+						aria-label="Town navigation"
+						className="flex items-center justify-between gap-3"
+					>
+						<div className="flex min-w-0 items-center gap-1 md:hidden">
+							<Button
+								className="px-2"
+								variant="primary"
+								type="button"
+								onClick={handleOpenSidebar}
+							>
+								Hero
 							</Button>
 
-							<ButtonLink to="/">Home</ButtonLink>
+							<Button
+								className="px-2"
+								type="button"
+								aria-label="How to play"
+								onClick={openHowToPlay}
+							>
+								Help
+							</Button>
+
+							<ButtonLink className="px-2" to="/">
+								Home
+							</ButtonLink>
 						</div>
-					</div>
+						<div className="hidden items-center gap-6 md:flex">
+							<RouterLink
+								to="/"
+								className="inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+							>
+								<ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+								BACK
+							</RouterLink>
+
+							<button
+								type="button"
+								className="cursor-pointer text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+								onClick={openHowToPlay}
+							>
+								HOW TO PLAY
+							</button>
+						</div>
+
+						<TownGoldBalance gold={townView.gold} />
+					</nav>
 				}
 				actions={
 					<TownActionBar
 						isPending={applyRunAction.isPending}
-						gold={townView.gold}
 						canAffordRest={townView.canAffordRest}
 						canRest={availableActionTypes.has("REST_AT_TOWN") && townView.canAffordRest}
 						canAffordReroll={townView.canAffordReroll}
@@ -224,27 +258,6 @@ export function TownView({ run }: TownViewProps) {
 					/>
 				}
 			>
-				<nav
-					aria-label="Town navigation"
-					className="mb-4 hidden items-center justify-between md:flex"
-				>
-					<RouterLink
-						to="/"
-						className="inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-					>
-						<ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
-						BACK
-					</RouterLink>
-
-					<button
-						type="button"
-						className="cursor-pointer text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-						onClick={openHowToPlay}
-					>
-						HOW TO PLAY
-					</button>
-				</nav>
-
 				<TownShopGrid
 					shopSlots={townView.shopSlots}
 					isPending={applyRunAction.isPending}

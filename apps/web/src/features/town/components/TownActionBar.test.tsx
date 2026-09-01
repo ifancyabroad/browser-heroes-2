@@ -10,7 +10,6 @@ import { TownActionBar } from "./TownActionBar";
 function createProps(overrides = {}) {
 	return {
 		isPending: false,
-		gold: 50,
 		canAffordRest: true,
 		canRest: true,
 		canAffordReroll: true,
@@ -36,10 +35,9 @@ describe("TownActionBar", () => {
 		vi.clearAllMocks();
 	});
 
-	it("displays current resources and action costs", () => {
+	it("displays action costs", () => {
 		render(<TownActionBar {...createProps()} />);
 
-		expect(screen.getByLabelText("50 gold")).toHaveTextContent("50g");
 		expect(screen.getByRole("button", { name: "Reroll shop for 5 gold" })).toHaveTextContent(
 			"5g",
 		);

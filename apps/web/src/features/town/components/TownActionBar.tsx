@@ -2,14 +2,12 @@ import {
 	ActionBarGroup,
 	ActionBarTray,
 	ActionSlotButton,
-	ActionSlotDisplay,
 	getRemainingUsesClassName,
 } from "../../../components/ActionBar";
 import restIcon from "../../../assets/images/actions/Skill_Rest.png";
 import rerollIcon from "../../../assets/images/actions/Skill_Dice.png";
 import enterCombatIcon from "../../../assets/images/actions/Skill_Swords.png";
 import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
-import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 import {
 	ACTION_PENDING_DETAIL,
 	ActionTooltipContent,
@@ -17,7 +15,6 @@ import {
 
 type TownActionBarProps = {
 	isPending: boolean;
-	gold: number;
 	canAffordRest: boolean;
 	canRest: boolean;
 	canAffordReroll: boolean;
@@ -38,7 +35,6 @@ type TownActionBarProps = {
 
 export function TownActionBar({
 	isPending,
-	gold,
 	canAffordRest,
 	canRest,
 	canAffordReroll,
@@ -59,15 +55,6 @@ export function TownActionBar({
 	return (
 		<section aria-label="Town actions">
 			<ActionBarTray>
-				<ActionBarGroup aria-label="Town resources">
-					<ActionSlotDisplay
-						ariaLabel={`${gold} gold`}
-						icon={goldIcon}
-						label={`${gold}g`}
-						labelClassName="text-primary"
-					/>
-				</ActionBarGroup>
-
 				<ActionBarGroup aria-label="Town action buttons">
 					<ActionSlotButton
 						ariaLabel={`Reroll shop for ${rerollCost} gold`}

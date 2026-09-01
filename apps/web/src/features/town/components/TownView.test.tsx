@@ -30,11 +30,14 @@ vi.mock("../../../components/GameMainPanel", () => ({
 	GameMainPanel: ({
 		children,
 		actions,
+		header,
 	}: {
 		children: React.ReactNode;
 		actions: React.ReactNode;
+		header?: React.ReactNode;
 	}) => (
 		<div>
+			{header}
 			{children}
 			{actions}
 		</div>
