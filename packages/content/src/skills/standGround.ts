@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "stand_ground",
 	name: "Stand Ground",
-	description: "Stand your ground to greatly increase defenses but reduce mobility.",
+	description: "Stand your ground to halve physical damage but reduce mobility.",
 	icon: "skills/fighter/stand_ground.png",
 	pool: "fighter",
 	kind: "technique",
@@ -12,27 +12,11 @@ export default buildSkill({
 	maxUses: 3,
 	effects: [
 		{
-			type: "modifyDamageAffinity",
+			type: "modifyDamageTaken",
 			target: "self",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "slashing",
-			duration: { unit: "battles", value: 1 },
-		},
-		{
-			type: "modifyDamageAffinity",
-			target: "self",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "crushing",
-			duration: { unit: "battles", value: 1 },
-		},
-		{
-			type: "modifyDamageAffinity",
-			target: "self",
-			affinity: "resistance",
-			operation: "add",
-			damageType: "piercing",
+			damageClass: "physical",
+			operation: "multiply",
+			value: 0.5,
 			duration: { unit: "battles", value: 1 },
 		},
 		{
