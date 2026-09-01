@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Living Mold",
 	portrait: "enemies/forest/living_mold.png",
 	rank: "normal",
-	threat: 9,
+	threat: 7,
 	attributes: {
 		strength: 12,
 		dexterity: 8,

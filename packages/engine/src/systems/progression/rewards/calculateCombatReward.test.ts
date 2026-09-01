@@ -11,7 +11,7 @@ describe("calculateCombatReward", () => {
 			}),
 		).toEqual({
 			gold: 6,
-			xp: 56,
+			xp: 75,
 		});
 	});
 });

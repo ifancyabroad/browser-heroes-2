@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Shrieker",
 	portrait: "enemies/forest/shrieker.png",
 	rank: "normal",
-	threat: 7,
+	threat: 6,
 	attributes: {
 		strength: 12,
 		dexterity: 10,

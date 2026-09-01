@@ -6,7 +6,7 @@ export default buildEnemy({
 	description: "A wolf like creatue.",
 	portrait: "enemies/forest/worg.png",
 	rank: "normal",
-	threat: 5,
+	threat: 6,
 	attributes: {
 		strength: 14,
 		dexterity: 11,

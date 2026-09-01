@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Hobgoblin",
 	portrait: "enemies/forest/hobgoblin.png",
 	rank: "normal",
-	threat: 9,
+	threat: 7,
 	attributes: {
 		strength: 13,
 		dexterity: 12,

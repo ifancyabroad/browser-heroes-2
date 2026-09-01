@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Chomper",
 	portrait: "enemies/forest/chomper.png",
 	rank: "normal",
-	threat: 8,
+	threat: 9,
 	attributes: {
 		strength: 12,
 		dexterity: 14,

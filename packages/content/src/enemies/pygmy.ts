@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Pygmy",
 	portrait: "enemies/forest/pygmy.png",
 	rank: "normal",
-	threat: 5,
+	threat: 6,
 	attributes: {
 		strength: 13,
 		dexterity: 11,

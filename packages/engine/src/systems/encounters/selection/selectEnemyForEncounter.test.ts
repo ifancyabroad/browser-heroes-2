@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { createInitialRngState } from "../../../core/rng";
+import { LEVEL_PROGRESSION } from "../../progression/constants/levelProgression";
+import { calculateCombatReward } from "../../progression/rewards/calculateCombatReward";
+import { getEncounterCandidates } from "./getEncounterCandidates";
 import { selectEnemyForEncounter } from "./selectEnemyForEncounter";
 
 describe("selectEnemyForEncounter", () => {
@@ -11,7 +14,7 @@ describe("selectEnemyForEncounter", () => {
 				rngState: createInitialRngState(String(seed)),
 			});
 
-			expect(result?.value.threat).toBe(5);
+			expect(result?.value.threat).toBe(6);
 		}
 	});
 
@@ -30,6 +33,29 @@ describe("selectEnemyForEncounter", () => {
 			}
 		}
 
-		expect([...threats].some((threat) => threat > 5)).toBe(true);
+		expect([...threats].some((threat) => threat > 6)).toBe(true);
+	});
+
+	it("guarantees enough forest XP to reach level 3 before the first boss", () => {
+		const firstBattleCandidates = getEncounterCandidates({
+			zone: "forest",
+			encounterType: "standard",
+			battleNumber: 1,
+		});
+		const laterCandidates = getEncounterCandidates({
+			zone: "forest",
+			encounterType: "standard",
+			battleNumber: 2,
+		});
+		const minimumThreat =
+			Math.min(...firstBattleCandidates.map(({ threat }) => threat)) +
+			8 * Math.min(...laterCandidates.map(({ threat }) => threat));
+		const minimumXp = calculateCombatReward({
+			enemyLevel: 1,
+			enemyThreat: minimumThreat,
+			goldMultiplier: 1,
+		}).xp;
+
+		expect(minimumXp).toBeGreaterThanOrEqual(LEVEL_PROGRESSION[2].requiredXp);
 	});
 });

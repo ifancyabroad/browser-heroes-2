@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Runtling",
 	portrait: "enemies/forest/runtling.png",
 	rank: "normal",
-	threat: 6,
+	threat: 8,
 	attributes: {
 		strength: 8,
 		dexterity: 13,

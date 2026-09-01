@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Glompling",
 	portrait: "enemies/forest/glompling.png",
 	rank: "normal",
-	threat: 6,
+	threat: 8,
 	attributes: {
 		strength: 7,
 		dexterity: 14,
