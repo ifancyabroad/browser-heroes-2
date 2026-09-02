@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { createTestRunState } from "../../test/createTestRunState";
 import { getEnemyDefinition } from "../encounters/getEnemyDefinition";
 import { createEnemyCombatant } from "./combatants/createEnemyCombatant";
+import { createPlayerCombatant } from "./combatants/createPlayerCombatant";
 import { createCombat } from "./createCombat";
 
 describe("createCombat", () => {
@@ -25,5 +26,26 @@ describe("createCombat", () => {
 
 		const levelOneEnemy = createEnemyCombatant(definition!, "comparison-combat", 1);
 		expect(combat!.enemy.maxHp).toBeGreaterThan(levelOneEnemy.maxHp);
+	});
+
+	it("does not apply endless-cycle scaling to ghosts", () => {
+		const state = createTestRunState();
+		const combat = createCombat({
+			runId: state.id,
+			seed: state.seed,
+			hero: state.hero,
+			battleNumber: 101,
+			zoneNumber: 11,
+			endlessCycle: 2,
+			ghostEncounter: {
+				ghostId: "ghost-id",
+				ghostUsername: "Ghost Owner",
+				ghostSource: "player",
+				hero: state.hero,
+			},
+		});
+		const unscaledCombatant = createPlayerCombatant(state.hero, "comparison-combat");
+
+		expect(combat?.enemy.combatStats).toEqual(unscaledCombatant.combatStats);
 	});
 });

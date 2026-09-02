@@ -163,7 +163,7 @@ Player death immediately ends the run.
 
 Defeating the final boss at battle 100 is the victory condition. After resolving pending rewards and level-ups, the player may retire the hero to end the run, return to town, or continue directly into endless progression.
 
-Continuing beyond battle 100 starts a new endless cycle. Authored zone identities and enemy pools repeat, while cumulative zone numbers and enemy levels continue increasing. Enemies also gain additional endless-cycle combat scaling, and the run continues under the same deterministic rules until death. Ghosts preserve their original builds and receive the same endless-cycle combat scaling.
+Continuing beyond battle 100 starts a new endless cycle. Authored zone identities and enemy pools repeat, while cumulative zone numbers and enemy levels continue increasing. Authored enemies also gain additional endless-cycle combat scaling, and the run continues under the same deterministic rules until death. Ghosts preserve their original builds and do not receive this additional scaling.
 
 ## 11. Ghosts
 

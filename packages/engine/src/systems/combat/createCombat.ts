@@ -26,7 +26,7 @@ export function createCombat(input: CreateCombatInput): CombatState | null {
 	let encounterType: CombatState["encounterType"];
 
 	if (input.ghostEncounter) {
-		enemy = createGhostCombatant(input.ghostEncounter, combatId, input.endlessCycle);
+		enemy = createGhostCombatant(input.ghostEncounter, combatId);
 		encounterType = "ghost";
 	} else {
 		const selectedEnemy = selectEnemyForEncounter({
