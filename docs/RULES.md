@@ -70,7 +70,7 @@ Eligible standard encounters after the first boss may be replaced by ghosts crea
 
 Victorious combat awards XP and gold.
 
-Gold rewards are affected by the current streak. Continuing directly to the next combat increases the streak; returning to town resets it.
+Gold rewards are affected by the current streak. Continuing directly to the next combat increases the streak; returning to town resets it. The streak gold multiplier cannot exceed 3x.
 
 Boss victories can create a pending reward choice. Current boss reward choices contain two eligible equipment options and one gold option. The player must select one pending boss reward before normal run actions continue.
 

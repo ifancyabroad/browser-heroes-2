@@ -7,7 +7,7 @@ export default buildSystemGhost({
 	name: "Veyra",
 	classId: "rogue",
 	additionalSkillIds: ["quick_fingers", "enhance_poison"],
-	featIds: ["deadly_precision", "duelist"],
+	featIds: ["deadly_precision"],
 	equipment: {
 		head: { baseId: "base_hood", rarity: "uncommon" },
 		body: { baseId: "base_studded_leather", rarity: "uncommon" },

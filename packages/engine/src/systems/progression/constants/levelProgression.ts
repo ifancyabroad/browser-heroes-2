@@ -21,7 +21,6 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 2,
 		requiredXp: 50,
-		choice: { type: "feat" },
 	},
 	{
 		level: 3,
@@ -50,6 +49,7 @@ export const LEVEL_PROGRESSION = [
 	{
 		level: 8,
 		requiredXp: 65_000,
+		choice: { type: "feat" },
 	},
 	{
 		level: 9,

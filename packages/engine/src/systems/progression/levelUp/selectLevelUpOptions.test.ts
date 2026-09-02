@@ -41,7 +41,7 @@ describe("selectLevelUpOptions", () => {
 		expect(getLevelProgression(level)?.choice).toEqual({ type: "skill", rarityWeights });
 	});
 
-	it.each([2, 6, 10])("offers only feats at level %i", (level) => {
+	it.each([6, 8, 10])("offers only feats at level %i", (level) => {
 		const state = createTestRunState();
 		const options = selectLevelUpOptions(
 			state.hero,
@@ -53,9 +53,20 @@ describe("selectLevelUpOptions", () => {
 		expect(options.every((option) => option.type === "feat")).toBe(true);
 	});
 
+	it.each([2, 4])("offers no build choice at level %i", (level) => {
+		const state = createTestRunState();
+		const options = selectLevelUpOptions(
+			state.hero,
+			level,
+			createContextRngState(state.seed, "level-up", level, "none", 0),
+		);
+
+		expect(options).toEqual([]);
+	});
+
 	it("provides enough candidates for every configured choice", () => {
 		for (const classDefinition of classes) {
-			for (const level of [2, 3, 5, 6, 7, 9, 10]) {
+			for (const level of [3, 5, 6, 7, 8, 9, 10]) {
 				const candidates = getLevelUpOptionCandidates(classDefinition.id, level);
 
 				expect(

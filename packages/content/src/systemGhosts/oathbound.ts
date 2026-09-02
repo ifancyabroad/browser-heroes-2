@@ -7,7 +7,7 @@ export default buildSystemGhost({
 	name: "Caelan",
 	classId: "paladin",
 	additionalSkillIds: ["divine_strength", "divine_protection", "double_strike"],
-	featIds: ["duelist", "dawn_blessed"],
+	featIds: ["dawn_blessed"],
 	equipment: {
 		head: { baseId: "base_helmet", rarity: "uncommon" },
 		neck: { baseId: "base_amulet", rarity: "uncommon" },

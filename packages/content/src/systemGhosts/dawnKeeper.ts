@@ -7,7 +7,7 @@ export default buildSystemGhost({
 	name: "Elowen",
 	classId: "priest",
 	additionalSkillIds: ["cure_minor_wounds", "divine_protection"],
-	featIds: ["gifted_healer"],
+	featIds: [],
 	equipment: {
 		head: { baseId: "base_circlet", rarity: "uncommon" },
 		neck: { baseId: "base_amulet", rarity: "uncommon" },

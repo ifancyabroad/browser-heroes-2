@@ -96,10 +96,10 @@ describe("rerollLevelUp", () => {
 
 	it("rerolls feat offers using only eligible feat choices", () => {
 		const baseState = createTestVictoryState();
-		const eligible = getEligibleOptions(baseState.hero, 2);
+		const eligible = getEligibleOptions(baseState.hero, 6);
 		const current = eligible.slice(0, 3);
 		const state = modifyTestRunState(baseState, (draft) => {
-			draft.hero.pendingLevelUp = { level: 2, hpGain: 9, rerollIndex: 0, options: current };
+			draft.hero.pendingLevelUp = { level: 6, hpGain: 9, rerollIndex: 0, options: current };
 		});
 
 		const result = applyAction(state, { type: "REROLL_LEVEL_UP" });

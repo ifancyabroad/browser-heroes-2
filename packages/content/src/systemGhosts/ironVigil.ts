@@ -7,7 +7,7 @@ export default buildSystemGhost({
 	name: "Garran",
 	classId: "warrior",
 	additionalSkillIds: ["heavy_strike"],
-	featIds: ["juggernaut"],
+	featIds: [],
 	equipment: {
 		body: { baseId: "base_hide_armour", rarity: "common" },
 		hands: { baseId: "base_gauntlets", rarity: "uncommon" },

@@ -7,7 +7,7 @@ export default buildSystemGhost({
 	name: "Orin",
 	classId: "mage",
 	additionalSkillIds: ["flame_arrow"],
-	featIds: ["potent_casting"],
+	featIds: [],
 	equipment: {
 		head: { baseId: "base_circlet", rarity: "uncommon" },
 		body: { baseId: "base_robe", rarity: "common" },
