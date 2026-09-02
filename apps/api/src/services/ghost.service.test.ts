@@ -72,7 +72,7 @@ describe("ghost.service", () => {
 					name: state.hero.name,
 					classId: state.hero.classId,
 					heroLevel: state.hero.level,
-					encounterLevel: 10,
+					encounterLevel: 12,
 					snapshot: {
 						hero: {
 							...state.hero,
@@ -180,8 +180,8 @@ describe("ghost.service", () => {
 		await expect(
 			selectGhostEncounter({
 				encounterLevel: 10,
-				seed: "seed-73",
-				battleNumber: 12,
+				seed: "seed-7",
+				battleNumber: 91,
 				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
 				defeatedGhostIds: [],
 			}),
@@ -192,7 +192,50 @@ describe("ghost.service", () => {
 		expect(userModel.findById).not.toHaveBeenCalled();
 	});
 
-	it("groups ghosts by capped death zone while preserving their hero level", async () => {
+	it.each([
+		[91, "seed-7", 10, 10],
+		[99, "seed-29", 10, 10],
+		[101, "seed-10", 11, { $gt: 10 }],
+		[145, "seed-19", 15, { $gt: 10 }],
+	] as const)(
+		"selects the correct player ghost pool at battle %i",
+		async (battleNumber, seed, encounterLevel, encounterLevelFilter) => {
+			const cutoff = new Date("2026-08-23T00:00:00.000Z");
+			ghostModel.countDocuments.mockResolvedValue(0);
+
+			await selectGhostEncounter({
+				encounterLevel,
+				seed,
+				battleNumber,
+				ghostPoolCutoff: cutoff,
+				defeatedGhostIds: [],
+			});
+
+			expect(ghostModel.countDocuments).toHaveBeenCalledWith(
+				expect.objectContaining({
+					encounterLevel: encounterLevelFilter,
+				}),
+			);
+		},
+	);
+
+	it("does not use a system ghost when the endless player pool is empty", async () => {
+		ghostModel.countDocuments.mockResolvedValue(0);
+
+		await expect(
+			selectGhostEncounter({
+				encounterLevel: 11,
+				seed: "seed-10",
+				battleNumber: 101,
+				ghostPoolCutoff: new Date("2026-08-23T00:00:00.000Z"),
+				defeatedGhostIds: [],
+			}),
+		).resolves.toBeNull();
+		expect(ghostModel.findOne).not.toHaveBeenCalled();
+		expect(userModel.findById).not.toHaveBeenCalled();
+	});
+
+	it("preserves an endless ghost's death zone and hero level", async () => {
 		const state = createTestRunState();
 		state.battleNumber = 111;
 		state.zoneNumber = 12;
@@ -210,7 +253,7 @@ describe("ghost.service", () => {
 			expect.objectContaining({
 				$setOnInsert: expect.objectContaining({
 					heroLevel: 7,
-					encounterLevel: 10,
+					encounterLevel: 12,
 					snapshot: expect.objectContaining({
 						hero: expect.objectContaining({ level: 7 }),
 					}),

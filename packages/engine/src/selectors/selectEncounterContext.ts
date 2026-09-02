@@ -23,6 +23,6 @@ export function selectEncounterContext(battleNumber: number): EncounterContext {
 		zone: getZoneForRun(zoneNumber),
 		endlessCycle: getEndlessCycleForBattle(battleNumber),
 		encounterType: getEncounterTypeForBattle(battleNumber),
-		ghostEncounterLevel: Math.min(zoneNumber, 10),
+		ghostEncounterLevel: zoneNumber,
 	};
 }

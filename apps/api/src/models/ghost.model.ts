@@ -102,16 +102,13 @@ const ghostSchema = new Schema(
 		},
 
 		/**
-		 * The zone/encounter level this ghost should appear at.
-		 *
-		 * Normal ghosts should be matched to this level.
-		 * Endless encounters can pull from level 10 ghosts.
+		 * The cumulative zone in which the source hero died.
+		 * This remains uncapped for ghosts created during endless progression.
 		 */
 		encounterLevel: {
 			type: Number,
 			required: true,
 			min: 1,
-			max: 10,
 		},
 
 		/**

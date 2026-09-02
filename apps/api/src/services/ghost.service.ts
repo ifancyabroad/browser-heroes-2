@@ -9,7 +9,7 @@ import { GhostModel } from "../models/ghost.model";
 import { UserModel } from "../models/user.model";
 
 const FIRST_BOSS_BATTLE_NUMBER = 10;
-const MAX_ENCOUNTER_LEVEL = 10;
+const FINAL_NORMAL_ENCOUNTER_LEVEL = 10;
 const GHOST_ENCOUNTER_CHANCE = 0.05;
 const UNKNOWN_GHOST_USERNAME = "Unknown";
 
@@ -61,7 +61,7 @@ export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInpu
 				name: input.state.hero.name,
 				classId: input.state.hero.classId,
 				heroLevel: input.state.hero.level,
-				encounterLevel: getGhostEncounterLevel(input.state),
+				encounterLevel: input.state.zoneNumber,
 				status: "active",
 				banishedAt: null,
 				banishedBy: null,
@@ -90,7 +90,7 @@ export async function selectGhostEncounter(
 	}
 
 	const filter = {
-		encounterLevel: input.encounterLevel,
+		encounterLevel: getPlayerGhostEncounterLevelFilter(input.encounterLevel),
 		createdAt: { $lt: input.ghostPoolCutoff },
 		$or: [{ banishedAt: null }, { banishedAt: { $gte: input.ghostPoolCutoff } }],
 		_id: {
@@ -122,6 +122,12 @@ export async function selectGhostEncounter(
 		ghostSource: "player",
 		hero: ghost.snapshot.hero,
 	};
+}
+
+function getPlayerGhostEncounterLevelFilter(encounterLevel: number) {
+	return encounterLevel > FINAL_NORMAL_ENCOUNTER_LEVEL
+		? { $gt: FINAL_NORMAL_ENCOUNTER_LEVEL }
+		: encounterLevel;
 }
 
 export async function incrementGhostEncounters(input: IncrementGhostEncounterInput) {
@@ -182,16 +188,16 @@ function selectSystemGhostEncounter(
 	encounterLevel: number,
 	defeatedGhostIds: string[],
 ): GhostEncounter | null {
+	if (encounterLevel > FINAL_NORMAL_ENCOUNTER_LEVEL) {
+		return null;
+	}
+
 	const encounter = createSystemGhostEncounter(encounterLevel);
 	return defeatedGhostIds.includes(encounter.ghostId) ? null : encounter;
 }
 
 function isGhostEligible(state: RunState): boolean {
 	return state.battleNumber > FIRST_BOSS_BATTLE_NUMBER;
-}
-
-function getGhostEncounterLevel(state: RunState): number {
-	return Math.min(state.zoneNumber, MAX_ENCOUNTER_LEVEL);
 }
 
 function createGhostSnapshot(state: RunState): { hero: HeroState; createdFrom: unknown } {
