@@ -6,10 +6,12 @@ export default buildSystemGhost({
 	heroLevel: 3,
 	name: "Garran",
 	classId: "warrior",
-	additionalSkillIds: ["double_strike"],
+	additionalSkillIds: ["heavy_strike"],
 	featIds: ["juggernaut"],
 	equipment: {
 		body: { baseId: "base_hide_armour", rarity: "common" },
+		hands: { baseId: "base_gauntlets", rarity: "uncommon" },
+		feet: { baseId: "base_greaves", rarity: "uncommon" },
 		mainHand: { baseId: "base_longsword", rarity: "common" },
 	},
 });

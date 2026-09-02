@@ -1,8 +1,9 @@
-import { systemGhosts } from "@app/content";
+import { CLASSES_BY_ID, SKILLS_BY_ID, systemGhosts } from "@app/content";
 import { describe, expect, it } from "vitest";
 
 import { heroStateSchema } from "../../../schemas";
 import { deriveHeroStats } from "../../hero/deriveHeroStats";
+import { getLevelProgression } from "../../progression/level/getLevelProgression";
 import { createSystemGhostEncounter } from "./createSystemGhostEncounter";
 
 describe("createSystemGhostEncounter", () => {
@@ -37,6 +38,31 @@ describe("createSystemGhostEncounter", () => {
 		);
 		for (const skillState of first.hero.skills) {
 			expect(skillState.chargesRemaining).not.toBe(0);
+		}
+	});
+
+	it("authors builds that could be acquired through normal class progression", () => {
+		for (const ghost of systemGhosts) {
+			const progression = Array.from({ length: ghost.heroLevel }, (_, index) =>
+				getLevelProgression(index + 1),
+			).filter((entry) => entry?.choice);
+			const skillChoices = progression.filter((entry) => entry!.choice?.type === "skill");
+			const featChoices = progression.filter((entry) => entry!.choice?.type === "feat");
+			const classSkillPools = new Set(CLASSES_BY_ID[ghost.classId].skillPoolIds);
+
+			expect(ghost.additionalSkillIds).toHaveLength(skillChoices.length);
+			expect(ghost.featIds).toHaveLength(featChoices.length);
+
+			for (const [index, skillId] of ghost.additionalSkillIds.entries()) {
+				const skill = SKILLS_BY_ID[skillId];
+				const choice = skillChoices[index]!.choice;
+
+				expect(classSkillPools.has(skill.pool)).toBe(true);
+				expect(choice?.type).toBe("skill");
+				if (choice?.type === "skill") {
+					expect(choice.rarityWeights[skill.rarity]).toBeDefined();
+				}
+			}
 		}
 	});
 

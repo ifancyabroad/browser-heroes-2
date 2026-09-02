@@ -6,10 +6,13 @@ export default buildSystemGhost({
 	heroLevel: 4,
 	name: "Orin",
 	classId: "mage",
-	additionalSkillIds: ["fireball"],
+	additionalSkillIds: ["flame_arrow"],
 	featIds: ["potent_casting"],
 	equipment: {
+		head: { baseId: "base_circlet", rarity: "uncommon" },
 		body: { baseId: "base_robe", rarity: "common" },
+		hands: { baseId: "base_wraps", rarity: "uncommon" },
+		waist: { baseId: "base_sash", rarity: "uncommon" },
 		mainHand: { baseId: "base_fire_staff", rarity: "common" },
 	},
 });
