@@ -1,5 +1,6 @@
 import type { Socket } from "socket.io";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ZodError } from "zod";
 import { createTestRunDocument } from "../test/createTestRun";
 
 const engineService = vi.hoisted(() => ({
@@ -161,7 +162,29 @@ describe("registerRunSocket", () => {
 		});
 
 		expect(respond).toHaveBeenCalledWith({ ok: false, error: "INTERNAL_SERVER_ERROR" });
-		expect(consoleError).toHaveBeenCalledWith(error);
+		expect(consoleError).toHaveBeenCalledWith("Run action failed.", {
+			userId: "user-id",
+			runId: "run-id",
+			actionType: "PLAYER_SKIP_TURN",
+			error,
+		});
+	});
+
+	it("treats server-side validation failures as internal errors", async () => {
+		const error = new ZodError([]);
+		const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+		engineService.applyRunAction.mockRejectedValue(error);
+
+		const respond = await createSocket("user-id").invoke({
+			runId: "run-id",
+			action: { type: "PLAYER_SKIP_TURN" },
+		});
+
+		expect(respond).toHaveBeenCalledWith({ ok: false, error: "INTERNAL_SERVER_ERROR" });
+		expect(consoleError).toHaveBeenCalledWith(
+			"Run action failed.",
+			expect.objectContaining({ error }),
+		);
 	});
 
 	it("returns a stable error for non-Error failures", async () => {
@@ -174,6 +197,11 @@ describe("registerRunSocket", () => {
 		});
 
 		expect(respond).toHaveBeenCalledWith({ ok: false, error: "INTERNAL_SERVER_ERROR" });
-		expect(consoleError).toHaveBeenCalledWith("failure");
+		expect(consoleError).toHaveBeenCalledWith("Run action failed.", {
+			userId: "user-id",
+			runId: "run-id",
+			actionType: "PLAYER_SKIP_TURN",
+			error: "failure",
+		});
 	});
 });

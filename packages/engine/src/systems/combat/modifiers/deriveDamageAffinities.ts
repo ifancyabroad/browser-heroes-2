@@ -106,10 +106,26 @@ function isResolvedDamageAffinityModifier(
 }
 
 export function toDamageAffinities(derived: DerivedDamageAffinities): DamageAffinities {
+	const resistances = new Set(getActiveDamageTypes(derived.resistances));
+	const immunities = new Set(getActiveDamageTypes(derived.immunities));
+	const vulnerabilities = new Set(getActiveDamageTypes(derived.vulnerabilities));
+
+	for (const damageType of immunities) {
+		resistances.delete(damageType);
+		vulnerabilities.delete(damageType);
+	}
+
+	for (const damageType of resistances) {
+		if (vulnerabilities.has(damageType)) {
+			resistances.delete(damageType);
+			vulnerabilities.delete(damageType);
+		}
+	}
+
 	return {
-		resistances: getActiveDamageTypes(derived.resistances),
-		immunities: getActiveDamageTypes(derived.immunities),
-		vulnerabilities: getActiveDamageTypes(derived.vulnerabilities),
+		resistances: [...resistances],
+		immunities: [...immunities],
+		vulnerabilities: [...vulnerabilities],
 	};
 }
 
