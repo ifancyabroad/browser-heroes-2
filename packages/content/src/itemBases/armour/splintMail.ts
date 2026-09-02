@@ -3,7 +3,7 @@ import { buildItemBase } from "../../builders/buildItemBase";
 export default buildItemBase({
 	id: "base_splint_mail",
 	name: "Splint Mail",
-	basePrice: 125,
+	basePrice: 175,
 	type: "armour",
 	slot: "body",
 	category: "medium",
