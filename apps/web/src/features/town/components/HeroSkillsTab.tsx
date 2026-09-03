@@ -17,8 +17,40 @@ type HeroSkillsTabProps = {
 export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 	return (
 		<div className="grid gap-4">
-			<HeroSidebarSection title="Feats">
-				{featIds.length > 0 ? (
+			{skills.length > 0 && (
+				<ul className="grid gap-2" aria-label="Skills">
+					{skills.map((skill) => {
+						const definition = SKILLS_BY_ID[skill.skillId];
+						const usesLabel = getUsesLabel(skill, definition.maxUses);
+
+						return (
+							<li key={skill.skillId}>
+								<Tooltip
+									content={
+										<SkillTooltipContent
+											skill={skill}
+											definition={definition}
+										/>
+									}
+									placement="right"
+									className="group !block w-full min-w-0 max-w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+									contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+								>
+									<AbilityRow
+										icon={definition.icon}
+										name={definition.name}
+										meta={skillCategoryLabels[definition.category]}
+										badges={usesLabel ? [usesLabel] : []}
+									/>
+								</Tooltip>
+							</li>
+						);
+					})}
+				</ul>
+			)}
+
+			{featIds.length > 0 && (
+				<HeroSidebarSection title="Feats">
 					<ul className="grid gap-2">
 						{featIds.map((featId) => {
 							const feat = FEATS_BY_ID[featId];
@@ -42,46 +74,12 @@ export function HeroSkillsTab({ skills, featIds }: HeroSkillsTabProps) {
 							);
 						})}
 					</ul>
-				) : (
-					<EmptySidebarText>No feats</EmptySidebarText>
-				)}
-			</HeroSidebarSection>
+				</HeroSidebarSection>
+			)}
 
-			<HeroSidebarSection title="Skills">
-				{skills.length > 0 ? (
-					<ul className="grid gap-2">
-						{skills.map((skill) => {
-							const definition = SKILLS_BY_ID[skill.skillId];
-							const usesLabel = getUsesLabel(skill, definition.maxUses);
-
-							return (
-								<li key={skill.skillId}>
-									<Tooltip
-										content={
-											<SkillTooltipContent
-												skill={skill}
-												definition={definition}
-											/>
-										}
-										placement="right"
-										className="group !block w-full min-w-0 max-w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-										contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-									>
-										<AbilityRow
-											icon={definition.icon}
-											name={definition.name}
-											meta={skillCategoryLabels[definition.category]}
-											badges={usesLabel ? [usesLabel] : []}
-										/>
-									</Tooltip>
-								</li>
-							);
-						})}
-					</ul>
-				) : (
-					<EmptySidebarText>No skills</EmptySidebarText>
-				)}
-			</HeroSidebarSection>
+			{skills.length === 0 && featIds.length === 0 && (
+				<EmptySidebarText>No skills</EmptySidebarText>
+			)}
 		</div>
 	);
 }

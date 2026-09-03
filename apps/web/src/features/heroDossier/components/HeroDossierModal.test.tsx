@@ -132,6 +132,11 @@ describe("HeroDossierModal", () => {
 		expect(screen.getByText("2")).toBeInTheDocument();
 		expect(screen.getByText("Heavy Strike")).toBeInTheDocument();
 		expect(screen.getByText("Commanding Presence")).toBeInTheDocument();
+		expect(
+			screen
+				.getByRole("region", { name: "Skills" })
+				.compareDocumentPosition(screen.getByRole("region", { name: "Feats" })),
+		).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 		expect(screen.getAllByText("Passive")).toHaveLength(5);
 		expect(screen.getByRole("region", { name: "Combat" })).toHaveTextContent("Max HP");
 		expect(screen.getByText("Armour")).toBeInTheDocument();

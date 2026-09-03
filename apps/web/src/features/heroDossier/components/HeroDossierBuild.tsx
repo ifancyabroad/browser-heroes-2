@@ -60,8 +60,8 @@ export function EquipmentSection({ hero }: { hero: HeroView }) {
 export function AbilitiesSection({ hero }: { hero: HeroView }) {
 	return (
 		<div className="grid items-start gap-5">
-			<FeatsSection hero={hero} />
 			<SkillsSection hero={hero} />
+			{hero.featIds.length > 0 && <FeatsSection hero={hero} />}
 		</div>
 	);
 }
@@ -114,33 +114,29 @@ function FeatsSection({ hero }: { hero: HeroView }) {
 	return (
 		<section className="grid gap-3" aria-label="Feats">
 			<h2 className="text-text-bright">Feats</h2>
-			{hero.featIds.length > 0 ? (
-				<ul className="grid gap-1">
-					{hero.featIds.map((featId) => {
-						const feat = FEATS_BY_ID[featId];
+			<ul className="grid gap-1">
+				{hero.featIds.map((featId) => {
+					const feat = FEATS_BY_ID[featId];
 
-						return (
-							<li key={featId}>
-								<Tooltip
-									content={<FeatTooltipContent feat={feat} />}
-									placement="top"
-									className="!block w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-									contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-								>
-									<DossierEntryCard
-										icon={feat.icon}
-										name={feat.name}
-										subtitle={featCategoryLabels[feat.category]}
-										badge="Passive"
-									/>
-								</Tooltip>
-							</li>
-						);
-					})}
-				</ul>
-			) : (
-				<EmptyText>No feats learned.</EmptyText>
-			)}
+					return (
+						<li key={featId}>
+							<Tooltip
+								content={<FeatTooltipContent feat={feat} />}
+								placement="top"
+								className="!block w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+							>
+								<DossierEntryCard
+									icon={feat.icon}
+									name={feat.name}
+									subtitle={featCategoryLabels[feat.category]}
+									badge="Passive"
+								/>
+							</Tooltip>
+						</li>
+					);
+				})}
+			</ul>
 		</section>
 	);
 }
