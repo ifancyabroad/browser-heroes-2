@@ -47,7 +47,7 @@ export default buildClass({
 	skillPoolIds: ["fighter", "barbarian"],
 	startingEquipment: {
 		body: "base_hide_armour",
-		mainHand: "base_longsword",
+		mainHand: "base_handaxe",
 	},
 	tags: [],
 });
