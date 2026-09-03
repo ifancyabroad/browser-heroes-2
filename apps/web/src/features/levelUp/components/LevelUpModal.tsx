@@ -74,11 +74,9 @@ export function LevelUpModal({
 		>
 			<div className="grid gap-4 text-base">
 				<p>
-					Congratulations, you have reached{" "}
-					<span className="text-success">level {pendingLevelUp.level}</span>!
-					<br />
-					Max HP increased by{" "}
-					<span className="text-success">{pendingLevelUp.hpGain}</span>.
+					Congratulations, you reached{" "}
+					<span className="text-text-bright">level {pendingLevelUp.level}!</span> <br />
+					<span className="text-success">+{pendingLevelUp.hpGain} Max HP</span>
 				</p>
 
 				{hasOptions && (
