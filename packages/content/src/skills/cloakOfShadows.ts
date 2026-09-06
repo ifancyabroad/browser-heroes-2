@@ -18,7 +18,7 @@ export default buildSkill({
 			damageClass: "magical",
 			operation: "multiply",
 			value: 0.25,
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "turns", value: 4 },
 		},
 	],
 	tags: [],
