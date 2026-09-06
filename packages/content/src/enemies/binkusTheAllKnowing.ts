@@ -43,12 +43,12 @@ export default buildEnemy({
 			},
 		},
 		skillIds: [
-			"finger_of_death",
 			"globe_of_invulnerability",
 			"chain_lightning",
 			"dragon_breath",
 			"piercing_magic",
 			"binkus_deathray",
+			"embrace_elements",
 		],
 		featIds: [],
 		tactic: "caster",
