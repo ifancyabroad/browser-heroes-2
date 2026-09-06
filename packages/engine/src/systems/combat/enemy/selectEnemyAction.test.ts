@@ -7,55 +7,86 @@ import { getUsefulEnemySkillIds } from "./getUsefulEnemySkillIds";
 import { selectEnemyAction } from "./selectEnemyAction";
 
 describe("enemy skill usefulness", () => {
-	it("excludes healing at full health and preserves the rng state when no skill is useful", () => {
+	it("excludes healing above half health and preserves the rng state when no skill is useful", () => {
 		const { enemy, player } = createCombatants();
 		const healer = withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]);
 		const rngState = { value: 123 };
+		const healthyHealer = { ...healer, currentHp: Math.floor(healer.maxHp / 2) + 1 };
 
-		expect(getUsefulEnemySkillIds(healer, player)).toEqual([]);
-		expect(selectEnemyAction({ enemy: healer, player, tactic: "caster", rngState })).toEqual({
+		expect(getUsefulEnemySkillIds(healthyHealer, player)).toEqual([]);
+		expect(
+			selectEnemyAction({ enemy: healthyHealer, player, tactic: "caster", rngState }),
+		).toEqual({
 			value: { type: "basicAttack" },
 			rngState,
 		});
 	});
 
-	it("uses a heal only when enough of its expected value will not be wasted", () => {
+	it("allows direct healing below half health when enough of its expected value is useful", () => {
 		const { enemy, player } = createCombatants();
 		const healer = withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]);
 
-		expect(getUsefulEnemySkillIds({ ...healer, currentHp: healer.maxHp - 1 }, player)).toEqual(
-			[],
-		);
-		expect(getUsefulEnemySkillIds({ ...healer, currentHp: healer.maxHp - 4 }, player)).toEqual([
+		expect(getUsefulEnemySkillIds({ ...healer, currentHp: 1 }, player)).toEqual([
 			"cure_minor_wounds",
 		]);
 	});
 
-	it("accounts for active healing modifiers when judging expected healing", () => {
+	it("still avoids wasting most of an amplified direct heal below half health", () => {
 		const { enemy, player } = createCombatants();
 		const healer = {
 			...withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]),
-			currentHp: enemy.maxHp - 1,
+			currentHp: Math.floor(enemy.maxHp / 2),
 			activeEffects: [
 				...enemy.activeEffects,
 				{
-					id: "reduced-healing",
+					id: "amplified-healing",
 					type: "modifyHealing" as const,
 					sourceCombatantId: player.id,
 					sourceSide: "player" as const,
 					source: {
 						type: "skill" as const,
 						skillId: "curse" as const,
-						sourceName: "Reduced Healing",
+						sourceName: "Amplified Healing",
 						sourceEffectKey: "test",
 					},
 					duration: { unit: "turns", remaining: 2 },
-					multiplier: 0.1,
+					multiplier: 10,
 				},
 			],
 		};
 
-		expect(getUsefulEnemySkillIds(healer, player)).toEqual(["cure_minor_wounds"]);
+		expect(getUsefulEnemySkillIds(healer, player)).toEqual([]);
+	});
+
+	it("uses healing over time only at or below half health and while it is inactive", () => {
+		const { enemy, player } = createCombatants();
+		const healer = withSkills(enemy, [{ skillId: "regeneration", chargesRemaining: 2 }]);
+		const healthy = { ...healer, currentHp: Math.floor(healer.maxHp / 2) + 1 };
+		const wounded = { ...healer, currentHp: Math.floor(healer.maxHp / 2) };
+		const regenerating = {
+			...wounded,
+			activeEffects: [
+				...wounded.activeEffects,
+				{
+					id: "active-regeneration",
+					type: "healOverTime" as const,
+					sourceCombatantId: wounded.id,
+					sourceSide: "enemy" as const,
+					source: {
+						type: "skill" as const,
+						skillId: "regeneration" as const,
+						sourceName: "Regeneration",
+						sourceEffectKey: "effect:0",
+					},
+					duration: { unit: "turns" as const, remaining: 2 },
+					dice: "1d8" as const,
+				},
+			],
+		};
+
+		expect(getUsefulEnemySkillIds(healthy, player)).toEqual([]);
+		expect(getUsefulEnemySkillIds(wounded, player)).toEqual(["regeneration"]);
+		expect(getUsefulEnemySkillIds(regenerating, player)).toEqual([]);
 	});
 
 	it("keeps a mixed damage and healing skill useful at full health", () => {
@@ -63,6 +94,17 @@ describe("enemy skill usefulness", () => {
 		const healer = withSkills(enemy, [{ skillId: "drain_life", chargesRemaining: 2 }]);
 
 		expect(getUsefulEnemySkillIds(healer, player)).toEqual(["drain_life"]);
+		expect(getUsefulEnemySkillIds(healer, withImmunity(player, "necrotic"))).toEqual([]);
+	});
+
+	it("does not let defensive effects bypass the recovery threshold", () => {
+		const { enemy, player } = createCombatants();
+		const healer = withSkills(enemy, [
+			{ skillId: "last_stand", chargesRemaining: 1 },
+			{ skillId: "reconstruct", chargesRemaining: 1 },
+		]);
+
+		expect(getUsefulEnemySkillIds(healer, player)).toEqual([]);
 	});
 
 	it("excludes a pure temporary effect while that exact effect is active", () => {

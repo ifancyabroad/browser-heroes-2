@@ -22,18 +22,31 @@ export function getUsefulEnemySkillIds(enemy: CombatantState, player: CombatantS
 
 			return (
 				validation.ok &&
-				validation.value.effects.some((effect, effectIndex) =>
-					isEffectUseful(
-						effect,
-						`effect:${effectIndex}`,
-						enemy,
-						player,
-						skillState.skillId,
-					),
-				)
+				isSkillUseful(validation.value.effects, enemy, player, skillState.skillId)
 			);
 		})
 		.map((skillState) => skillState.skillId);
+}
+
+function isSkillUseful(
+	effects: Effect[],
+	enemy: CombatantState,
+	player: CombatantState,
+	skillId: SkillId,
+): boolean {
+	const recoveryIsRestricted = effects.some(isRecoveryEffect) && !canUseRecovery(enemy);
+
+	return effects.some((effect, effectIndex) => {
+		if (recoveryIsRestricted && effect.target !== "enemy") {
+			return false;
+		}
+
+		return isEffectUseful(effect, `effect:${effectIndex}`, enemy, player, skillId);
+	});
+}
+
+function isRecoveryEffect(effect: Effect): boolean {
+	return effect.type === "heal" || effect.type === "healOverTime";
 }
 
 function isEffectUseful(
@@ -73,11 +86,14 @@ function isEffectUseful(
 		}
 
 		case "heal":
-			return hasMeaningfulMissingHealth(enemy, expectedHealing(effect, enemy));
+			return (
+				canUseRecovery(enemy) &&
+				hasMeaningfulMissingHealth(enemy, expectedHealing(effect, enemy))
+			);
 
 		case "healOverTime":
 			return (
-				enemy.currentHp < enemy.maxHp &&
+				canUseRecovery(enemy) &&
 				!hasActiveSourceEffect(enemy, enemy, skillId, sourceEffectKey)
 			);
 
@@ -113,6 +129,10 @@ function isEffectUseful(
 		case "removeStatus":
 			return false;
 	}
+}
+
+function canUseRecovery(combatant: CombatantState): boolean {
+	return combatant.currentHp <= combatant.maxHp / 2;
 }
 
 function expectedHealing(effect: Extract<Effect, { type: "heal" }>, enemy: CombatantState): number {
