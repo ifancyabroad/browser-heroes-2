@@ -8,8 +8,8 @@ type SeasonSelectProps = {
 
 export function SeasonSelect({ season, currentSeason, onChange }: SeasonSelectProps) {
 	const options = Array.from({ length: currentSeason }, (_, index) => {
-		const value = index + 1;
-		return { label: `Season ${value}`, value: String(value) };
+		const optionSeason = index + 1;
+		return { label: `Season ${optionSeason}`, value: String(optionSeason) };
 	});
 
 	return (
@@ -19,6 +19,19 @@ export function SeasonSelect({ season, currentSeason, onChange }: SeasonSelectPr
 			options={options}
 			className="min-w-32"
 			onChange={(value) => onChange(Number(value))}
+		/>
+	);
+}
+
+export function UnavailableSeasonSelect() {
+	return (
+		<SelectField
+			label="SEASON"
+			value=""
+			options={[{ label: "—", value: "" }]}
+			className="min-w-32"
+			onChange={() => undefined}
+			disabled
 		/>
 	);
 }

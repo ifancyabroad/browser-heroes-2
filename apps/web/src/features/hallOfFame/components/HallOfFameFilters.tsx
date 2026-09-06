@@ -1,7 +1,7 @@
 import type { ClassId } from "@app/content";
 import { Button } from "../../../components/Button";
 import { ClassSelect } from "../../../components/ClassSelect";
-import { SeasonSelect } from "../../../components/SeasonSelect";
+import { SeasonSelect, UnavailableSeasonSelect } from "../../../components/SeasonSelect";
 
 export function HallOfFameFilters(props: {
 	classId: ClassId | "all";
@@ -17,12 +17,14 @@ export function HallOfFameFilters(props: {
 	return (
 		<div className="border-b-2 border-border-secondary bg-bg-panel p-3">
 			<div className="flex flex-wrap items-end gap-3">
-				{props.season && props.currentSeason && (
+				{props.season && props.currentSeason ? (
 					<SeasonSelect
 						season={props.season}
 						currentSeason={props.currentSeason}
 						onChange={props.onSeasonChange}
 					/>
+				) : (
+					<UnavailableSeasonSelect />
 				)}
 				<ClassSelect value={props.classId} onChange={props.onClassChange} />
 				{props.showUserOnly && (

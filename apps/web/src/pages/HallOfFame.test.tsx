@@ -38,7 +38,13 @@ import HallOfFame from "./HallOfFame";
 
 function queryState(entries: object[] = []) {
 	return {
-		data: { entries, total: entries.length, totalPages: entries.length ? 1 : 0 },
+		data: {
+			entries,
+			season: 1,
+			currentSeason: 1,
+			total: entries.length,
+			totalPages: entries.length ? 1 : 0,
+		},
 		isPending: false,
 		isError: false,
 		isFetching: false,
@@ -62,6 +68,22 @@ describe("HallOfFame", () => {
 		fireEvent.click(screen.getByRole("button", { name: "GHOSTS" }));
 		expect(screen.getByText("Ghost rankings")).toBeInTheDocument();
 		expect(hooks.useGhostHallOfFame).toHaveBeenLastCalledWith({ page: 1, limit: 20 }, true);
+	});
+
+	it("disables the season control while season metadata is unavailable", () => {
+		const loadingState = {
+			data: undefined,
+			isPending: true,
+			isError: false,
+			isFetching: true,
+		};
+		hooks.useHeroHallOfFame.mockReturnValue(loadingState);
+		hooks.useGhostHallOfFame.mockReturnValue(loadingState);
+
+		render(<HallOfFame />);
+
+		expect(screen.getByLabelText("SEASON")).toBeDisabled();
+		expect(screen.getByRole("option", { name: "—" })).toBeInTheDocument();
 	});
 
 	it("offers ownership filtering only when a session exists", () => {
