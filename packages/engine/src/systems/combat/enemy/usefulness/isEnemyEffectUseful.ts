@@ -3,6 +3,9 @@ import {
 	type Effect,
 	type FeatId,
 	type ModifyDamageAffinityEffect,
+	type ModifyDamageEffect,
+	type ModifyRollEffect,
+	type ModifyStatEffect,
 	type RiderEffect,
 	type SkillId,
 } from "@app/content";
@@ -77,12 +80,27 @@ export function isEnemyEffectUseful(input: IsEnemyEffectUsefulInput): boolean {
 			);
 
 		case "modifyStat":
+			return (
+				!hasActiveSourceEffect(target, source, sourceEffectKey) &&
+				isStatChangeUseful(effect)
+			);
+
 		case "modifyHealing":
-		case "modifyDamage":
 		case "modifyDamageTaken":
-		case "modifyRoll":
 		case "shield":
 			return !hasActiveSourceEffect(target, source, sourceEffectKey);
+
+		case "modifyDamage":
+			return (
+				!hasActiveSourceEffect(target, source, sourceEffectKey) &&
+				isDamageChangeUseful(effect)
+			);
+
+		case "modifyRoll":
+			return (
+				!hasActiveSourceEffect(target, source, sourceEffectKey) &&
+				isRollChangeUseful(effect)
+			);
 
 		case "modifyDamageAffinity":
 			return (
@@ -100,6 +118,28 @@ export function isEnemyEffectUseful(input: IsEnemyEffectUsefulInput): boolean {
 		case "removeStatus":
 			return false;
 	}
+}
+
+function isStatChangeUseful(effect: ModifyStatEffect): boolean {
+	return effect.value !== 0 && (effect.target === "self" ? effect.value > 0 : effect.value < 0);
+}
+
+function isDamageChangeUseful(effect: ModifyDamageEffect): boolean {
+	return effect.target === "self"
+		? effect.operation === "add"
+			? effect.value > 0
+			: effect.value > 1
+		: effect.operation === "add"
+			? effect.value < 0
+			: effect.value < 1;
+}
+
+function isRollChangeUseful(effect: ModifyRollEffect): boolean {
+	return effect.target === "self"
+		? effect.mode === "advantage" ||
+				effect.mode === "automaticSuccess" ||
+				effect.mode === "automaticCritical"
+		: effect.mode === "disadvantage" || effect.mode === "automaticFailure";
 }
 
 export function canUseRecovery(combatant: CombatantState): boolean {
