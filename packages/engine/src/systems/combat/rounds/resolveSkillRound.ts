@@ -4,10 +4,10 @@ import { failureResult } from "../../../core/result";
 import { consumeCombatantSkillCharge } from "../skills/consumeCombatantSkillCharge";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
-import { getActiveEffectIds } from "../effects/advanceActiveEffects";
 import { finishPlayerActionRound } from "./finishPlayerActionRound";
 import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { validatePlayerAction } from "./validatePlayerAction";
+import { preparePlayerActionRound } from "./preparePlayerActionRound";
 
 export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction): EngineResult {
 	if (!state.combat) {
@@ -28,13 +28,13 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		return failureResult(state, "PLAYER_IS_SILENCED");
 	}
 
-	const playerEffectIds = getActiveEffectIds(state.combat.player);
-
 	const skillValidation = validateCombatantSkillUse(state.combat.player, action.skillId);
 
 	if (!skillValidation.ok) {
 		return failureResult(state, skillValidation.error);
 	}
+
+	const roundStart = preparePlayerActionRound(state.combat, state.rngState);
 
 	const combatAfterCharge = consumeCombatantSkillCharge(state.combat, "player", action.skillId);
 
@@ -44,7 +44,7 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		effects: skillValidation.value.effects,
 		skillId: skillValidation.value.skill.id,
 		skillName: skillValidation.value.skill.name,
-		rngState: state.rngState,
+		rngState: roundStart.rngState,
 	});
 	const skillUsedEvent: EngineEvent = {
 		type: "SKILL_USED",
@@ -60,7 +60,8 @@ export function resolveSkillRound(state: RunState, action: PlayerUseSkillAction)
 		state,
 		combatAfterPlayerAction: playerSkill.value,
 		rngState: playerSkill.rngState,
-		playerEffectIds,
+		playerEffectIds: roundStart.playerEffectIds,
+		plannedEnemyAction: roundStart.plannedEnemyAction,
 		events: [skillUsedEvent],
 		playerActionContext: {
 			type: "skill",

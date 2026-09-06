@@ -11,6 +11,7 @@ import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
 import { advanceTurn } from "./advanceTurn";
 import { syncHeroFromPlayerCombatant } from "../combatants/syncHeroFromCombatant";
 import { isEndlessCycleVictory, isFinalBossVictory } from "../../endless/endlessProgression";
+import type { EnemyAction } from "../enemy/selectEnemyAction";
 
 export type PlayerActionContext = {
 	type: "basic_attack" | "skill";
@@ -24,6 +25,7 @@ type FinishPlayerActionRoundInput = {
 	playerEffectIds: ReadonlySet<string>;
 	events?: EngineEvent[];
 	playerActionContext: PlayerActionContext | null;
+	plannedEnemyAction: EnemyAction;
 };
 
 export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): EngineResult {
@@ -60,6 +62,7 @@ export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): En
 	const enemyTurn = resolveEnemyTurn({
 		combat: afterPlayerDeathCheck,
 		rngState: playerEffects.rngState,
+		plannedAction: input.plannedEnemyAction,
 	});
 
 	const enemyEffects = advanceCombatantEffects({

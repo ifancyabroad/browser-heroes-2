@@ -8,11 +8,12 @@ import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
 import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
 
-import { selectEnemyAction } from "./selectEnemyAction";
+import type { EnemyAction } from "./selectEnemyAction";
 
 type ResolveEnemyTurnInput = {
 	combat: CombatState;
 	rngState: RngState;
+	plannedAction: EnemyAction;
 };
 
 export function resolveEnemyTurn(input: ResolveEnemyTurnInput): RngResult<CombatState> {
@@ -41,35 +42,28 @@ export function resolveEnemyTurn(input: ResolveEnemyTurnInput): RngResult<Combat
 		});
 	}
 
-	const selectedAction = selectEnemyAction({
-		enemy: combat.enemy,
-		player: combat.player,
-		tactic: combat.enemy.tactic,
-		rngState: input.rngState,
-	});
-
-	if (selectedAction.value.type === "basicAttack") {
+	if (input.plannedAction.type === "basicAttack") {
 		return resolveBasicAttack({
 			combat,
 			attackerSide: "enemy",
-			rngState: selectedAction.rngState,
+			rngState: input.rngState,
 		});
 	}
 
-	const validation = validateCombatantSkillUse(combat.enemy, selectedAction.value.skillId);
+	const validation = validateCombatantSkillUse(combat.enemy, input.plannedAction.skillId);
 
 	if (!validation.ok) {
 		return resolveBasicAttack({
 			combat,
 			attackerSide: "enemy",
-			rngState: selectedAction.rngState,
+			rngState: input.rngState,
 		});
 	}
 
 	const combatAfterCharge = consumeCombatantSkillCharge(
 		combat,
 		"enemy",
-		selectedAction.value.skillId,
+		input.plannedAction.skillId,
 	);
 
 	return resolveSkillEffects({
@@ -78,6 +72,6 @@ export function resolveEnemyTurn(input: ResolveEnemyTurnInput): RngResult<Combat
 		effects: validation.value.effects,
 		skillId: validation.value.skill.id,
 		skillName: validation.value.skill.name,
-		rngState: selectedAction.rngState,
+		rngState: input.rngState,
 	});
 }

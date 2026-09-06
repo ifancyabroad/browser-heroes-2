@@ -2,10 +2,10 @@ import type { EngineResult, PlayerSkipTurnAction, RunState } from "../../../sche
 
 import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
-import { getActiveEffectIds } from "../effects/advanceActiveEffects";
 import { finishPlayerActionRound } from "./finishPlayerActionRound";
 import { validatePlayerAction } from "./validatePlayerAction";
 import { failureResult } from "../../../core/result";
+import { preparePlayerActionRound } from "./preparePlayerActionRound";
 
 export function resolveSkippedPlayerRound(
 	state: RunState,
@@ -21,7 +21,7 @@ export function resolveSkippedPlayerRound(
 		return failureResult(state, validation.error);
 	}
 
-	const playerEffectIds = getActiveEffectIds(state.combat.player);
+	const roundStart = preparePlayerActionRound(state.combat, state.rngState);
 
 	const message = hasActiveStatus(state.combat.player, "stunned")
 		? `${state.combat.player.name} is stunned and cannot act.`
@@ -37,8 +37,9 @@ export function resolveSkippedPlayerRound(
 	return finishPlayerActionRound({
 		state,
 		combatAfterPlayerAction: combatAfterPlayerSkip,
-		rngState: state.rngState,
-		playerEffectIds,
+		rngState: roundStart.rngState,
+		playerEffectIds: roundStart.playerEffectIds,
+		plannedEnemyAction: roundStart.plannedEnemyAction,
 		playerActionContext: null,
 	});
 }

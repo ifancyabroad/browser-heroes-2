@@ -2,10 +2,10 @@ import { failureResult } from "../../../core/result";
 import type { EngineResult, RunState } from "../../../schemas";
 
 import { resolveBasicAttack } from "../attacks/resolveBasicAttack";
-import { getActiveEffectIds } from "../effects/advanceActiveEffects";
 import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { finishPlayerActionRound } from "./finishPlayerActionRound";
 import { validatePlayerAction } from "./validatePlayerAction";
+import { preparePlayerActionRound } from "./preparePlayerActionRound";
 
 export function resolveBasicAttackRound(state: RunState): EngineResult {
 	if (!state.combat) {
@@ -22,19 +22,20 @@ export function resolveBasicAttackRound(state: RunState): EngineResult {
 		return failureResult(state, "PLAYER_CANNOT_ACT");
 	}
 
-	const playerEffectIds = getActiveEffectIds(state.combat.player);
+	const roundStart = preparePlayerActionRound(state.combat, state.rngState);
 
 	const playerAttack = resolveBasicAttack({
 		combat: state.combat,
 		attackerSide: "player",
-		rngState: state.rngState,
+		rngState: roundStart.rngState,
 	});
 
 	return finishPlayerActionRound({
 		state,
 		combatAfterPlayerAction: playerAttack.value,
 		rngState: playerAttack.rngState,
-		playerEffectIds,
+		playerEffectIds: roundStart.playerEffectIds,
+		plannedEnemyAction: roundStart.plannedEnemyAction,
 		playerActionContext: {
 			type: "basic_attack",
 			targetStartedAtFullHp: state.combat.enemy.currentHp === state.combat.enemy.maxHp,

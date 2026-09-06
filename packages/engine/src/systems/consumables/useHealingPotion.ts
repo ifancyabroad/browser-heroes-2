@@ -1,7 +1,6 @@
 import type { CombatantState, EngineResult, RunState } from "../../schemas";
 
 import { failureResult } from "../../core/result";
-import { getActiveEffectIds } from "../combat/effects/advanceActiveEffects";
 import { applyHealing } from "../combat/healing/applyHealing";
 import { replaceCombatant } from "../combat/combatants/combatantSelectors";
 import { appendCombatLog } from "../combat/logs/appendCombatLog";
@@ -11,6 +10,7 @@ import { getEffectiveHealingMultiplier } from "../combat/effects/getEffectiveHea
 import { finishPlayerActionRound } from "../combat/rounds/finishPlayerActionRound";
 import { hasActiveStatus } from "../combat/effects/hasActiveStatus";
 import { validatePlayerAction } from "../combat/rounds/validatePlayerAction";
+import { preparePlayerActionRound } from "../combat/rounds/preparePlayerActionRound";
 
 export function useHealingPotion(state: RunState): EngineResult {
 	if (!state.combat) {
@@ -31,7 +31,7 @@ export function useHealingPotion(state: RunState): EngineResult {
 		return failureResult(state, "NO_HEALING_POTIONS_AVAILABLE");
 	}
 
-	const playerEffectIds = getActiveEffectIds(state.combat.player);
+	const roundStart = preparePlayerActionRound(state.combat, state.rngState);
 
 	const healingAmount = calculateHealingPotionAmount(state.combat.player);
 
@@ -58,8 +58,9 @@ export function useHealingPotion(state: RunState): EngineResult {
 			},
 		},
 		combatAfterPlayerAction: combatAfterPotion,
-		rngState: state.rngState,
-		playerEffectIds,
+		rngState: roundStart.rngState,
+		playerEffectIds: roundStart.playerEffectIds,
+		plannedEnemyAction: roundStart.plannedEnemyAction,
 		playerActionContext: null,
 		events: [
 			{

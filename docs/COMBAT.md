@@ -82,14 +82,15 @@ Combat resolution is round-based from the player's perspective:
 
 1. The player submits a basic attack, skill, healing potion, or skip-turn action.
 2. The engine validates that combat is active.
-3. The player action resolves.
-4. The player's active effects advance.
-5. Combat status is checked.
-6. If the enemy dies, victory rewards are applied.
-7. If the enemy survives, its tactic selects and resolves a valid attack or skill.
-8. The enemy's active effects advance.
-9. Combat status is checked again.
-10. The run either advances the combat turn, ends in defeat, or waits at victory.
+3. The enemy's intended action is selected from the state at the start of the round.
+4. The player action resolves.
+5. The player's active effects advance.
+6. Combat status is checked.
+7. If the enemy dies, victory rewards are applied and its intended action is discarded.
+8. If the enemy survives, its intended action resolves unless a condition such as stun prevents it.
+9. The enemy's active effects advance.
+10. Combat status is checked again.
+11. The run either advances the combat turn, ends in defeat, or waits at victory.
 
 This keeps the UI simple while preserving engine-owned combat resolution.
 
@@ -213,7 +214,7 @@ Logs should explain what happened without exposing fragile internal implementati
 
 ## 13. Enemy Behavior
 
-Enemies select between basic attacks and useful skills. Mechanical validation first excludes skills that cannot resolve, then effect-aware checks avoid actions such as healing at full health, reapplying an existing effect without another useful outcome, or dealing only immune damage. Mixed-effect skills remain available when at least one outcome is useful.
+Enemies select between basic attacks and useful skills using the combat state at the start of the round. They do not reconsider that choice after seeing the player's action, although death, stun, or silence can still prevent or constrain its resolution. Mechanical validation first excludes skills that cannot resolve, then effect-aware checks avoid actions such as healing at full health, reapplying an existing effect without another useful outcome, or dealing only immune damage. Mixed-effect skills remain available when at least one outcome is useful.
 
 Tactics weight the remaining actions while preserving seeded deterministic selection. Aggressive enemies favor offensive effects, defensive enemies increasingly favor recovery and protection while wounded, casters strongly favor skills, and random enemies choose uniformly from useful actions. The Conceder boss uses his signature self-damaging skill repeatedly at or below half health while charges remain; intentional self-harm is otherwise not treated as useful general behavior.
 
