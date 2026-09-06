@@ -211,6 +211,7 @@ export const tactics = [
 	"caster",
 	"random",
 	"conceder",
+	"binkus",
 ] as const;
 
 export const tacticSchema = z.enum(tactics);

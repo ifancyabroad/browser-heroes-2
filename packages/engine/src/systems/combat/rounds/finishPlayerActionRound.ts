@@ -11,7 +11,7 @@ import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
 import { advanceTurn } from "./advanceTurn";
 import { syncHeroFromPlayerCombatant } from "../combatants/syncHeroFromCombatant";
 import { isEndlessCycleVictory, isFinalBossVictory } from "../../endless/endlessProgression";
-import type { EnemyAction } from "../enemy/selectEnemyAction";
+import type { EnemyAction } from "../enemy/selection/selectEnemyAction";
 
 export type PlayerActionContext = {
 	type: "basic_attack" | "skill";

@@ -8,7 +8,7 @@ import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
 import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
 
-import type { EnemyAction } from "./selectEnemyAction";
+import type { EnemyAction } from "./selection/selectEnemyAction";
 
 type ResolveEnemyTurnInput = {
 	combat: CombatState;

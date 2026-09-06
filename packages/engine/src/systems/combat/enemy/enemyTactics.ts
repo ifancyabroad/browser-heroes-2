@@ -2,39 +2,22 @@ import { SKILLS_BY_ID, type Skill, type SkillId, type Tactic } from "@app/conten
 
 import type { CombatantState } from "../../../schemas";
 
-import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
-
 export type EnemyAction = { type: "basicAttack" } | { type: "skill"; skillId: SkillId };
-
-const CONCEDE_SKILL_ID: SkillId = "thou_hast_bested_me";
-
-export function getForcedTacticAction(tactic: Tactic, enemy: CombatantState): EnemyAction | null {
-	if (
-		tactic === "conceder" &&
-		enemy.currentHp <= enemy.maxHp / 2 &&
-		validateCombatantSkillUse(enemy, CONCEDE_SKILL_ID).ok
-	) {
-		return { type: "skill", skillId: CONCEDE_SKILL_ID };
-	}
-
-	return null;
-}
+export type StandardEnemyTactic = Exclude<Tactic, "conceder" | "binkus">;
 
 export function getEnemyActionWeight(
-	tactic: Tactic,
+	tactic: StandardEnemyTactic,
 	enemy: CombatantState,
 	action: EnemyAction,
 ): number {
-	const standardTactic = tactic === "conceder" ? "default" : tactic;
-
 	if (action.type === "basicAttack") {
-		return getBasicAttackWeight(standardTactic, enemy);
+		return getBasicAttackWeight(tactic, enemy);
 	}
 
-	return getSkillWeight(standardTactic, enemy, SKILLS_BY_ID[action.skillId]);
+	return getSkillWeight(tactic, enemy, SKILLS_BY_ID[action.skillId]);
 }
 
-function getBasicAttackWeight(tactic: Exclude<Tactic, "conceder">, enemy: CombatantState): number {
+function getBasicAttackWeight(tactic: StandardEnemyTactic, enemy: CombatantState): number {
 	switch (tactic) {
 		case "caster":
 			return 1;
@@ -48,11 +31,7 @@ function getBasicAttackWeight(tactic: Exclude<Tactic, "conceder">, enemy: Combat
 	}
 }
 
-function getSkillWeight(
-	tactic: Exclude<Tactic, "conceder">,
-	enemy: CombatantState,
-	skill: Skill,
-): number {
+function getSkillWeight(tactic: StandardEnemyTactic, enemy: CombatantState, skill: Skill): number {
 	if (tactic === "random") {
 		return 1;
 	}

@@ -51,7 +51,7 @@ export default buildEnemy({
 			"embrace_elements",
 		],
 		featIds: [],
-		tactic: "caster",
+		tactic: "binkus",
 	},
 	proficiencies: {
 		savingThrows: ["intelligence", "wisdom", "charisma"],

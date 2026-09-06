@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import type { ActiveCombatEffect, CombatantState } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import type { ActiveCombatEffect, CombatantState } from "../../../../schemas";
+import { createTestRunState } from "../../../../test/createTestRunState";
 
-import { getUsefulEnemySkillIds } from "./getUsefulEnemySkillIds";
+import { getUsefulEnemySkillIds } from "../getUsefulEnemySkillIds";
 import { selectEnemyAction } from "./selectEnemyAction";
 
 describe("enemy skill usefulness", () => {
@@ -270,6 +270,75 @@ describe("conceder tactic", () => {
 				rngState,
 			}).value,
 		).toEqual({ type: "basicAttack" });
+	});
+});
+
+describe("Binkus tactic", () => {
+	it("forces each opening buff in order and retries an unspent buff", () => {
+		const { enemy, player } = createCombatants();
+		const rngState = { value: 246 };
+		const skills: CombatantState["skills"] = [
+			{ skillId: "globe_of_invulnerability", chargesRemaining: 2 },
+			{ skillId: "piercing_magic", chargesRemaining: 2 },
+			{ skillId: "embrace_elements", chargesRemaining: 4 },
+			{ skillId: "binkus_deathray", chargesRemaining: 1 },
+		];
+
+		const select = (nextSkills: CombatantState["skills"]) =>
+			selectEnemyAction({
+				enemy: withSkills(enemy, nextSkills),
+				player,
+				tactic: "binkus",
+				rngState,
+			});
+
+		expect(select(skills)).toEqual({
+			value: { type: "skill", skillId: "globe_of_invulnerability" },
+			rngState,
+		});
+		expect(select(skills).value).toEqual({
+			type: "skill",
+			skillId: "globe_of_invulnerability",
+		});
+		expect(select([{ ...skills[0], chargesRemaining: 1 }, ...skills.slice(1)]).value).toEqual({
+			type: "skill",
+			skillId: "piercing_magic",
+		});
+		expect(
+			select([
+				{ ...skills[0], chargesRemaining: 1 },
+				{ ...skills[1], chargesRemaining: 1 },
+				...skills.slice(2),
+			]).value,
+		).toEqual({ type: "skill", skillId: "embrace_elements" });
+	});
+
+	it("does not select setup buffs again after the opening", () => {
+		const { enemy, player } = createCombatants();
+		const binkus = withSkills(enemy, [
+			{ skillId: "globe_of_invulnerability", chargesRemaining: 1 },
+			{ skillId: "piercing_magic", chargesRemaining: 1 },
+			{ skillId: "embrace_elements", chargesRemaining: 3 },
+			{ skillId: "shocking_grasp", chargesRemaining: 12 },
+		]);
+
+		for (let value = 0; value < 20; value += 1) {
+			const action = selectEnemyAction({
+				enemy: binkus,
+				player,
+				tactic: "binkus",
+				rngState: { value },
+			}).value;
+
+			expect(action).not.toEqual(
+				expect.objectContaining({
+					type: "skill",
+					skillId: expect.stringMatching(
+						/globe_of_invulnerability|piercing_magic|embrace_elements/,
+					),
+				}),
+			);
+		}
 	});
 });
 
