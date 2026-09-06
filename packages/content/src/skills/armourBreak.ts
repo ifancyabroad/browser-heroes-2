@@ -12,23 +12,22 @@ export default buildSkill({
 	maxUses: 6,
 	effects: [
 		{
+			type: "modifyStat",
+			target: "enemy",
+			stat: "armourClass",
+			value: -4,
+			duration: { unit: "turns", value: 3 },
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
+		},
+		{
 			type: "attackDamage",
 			target: "enemy",
 			multiplier: 1,
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "modifyStat",
-							target: "enemy",
-							stat: "armourClass",
-							value: -4,
-							duration: { unit: "turns", value: 3 },
-						},
-					],
-				},
-			],
+			attackRiders: [],
 		},
 	],
 	tags: [],
