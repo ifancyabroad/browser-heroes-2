@@ -90,6 +90,12 @@ const runSummarySchema = new Schema(
 
 const runSchema = new Schema(
 	{
+		season: {
+			type: Number,
+			required: true,
+			min: 1,
+			immutable: true,
+		},
 		userId: {
 			type: Schema.Types.ObjectId,
 			ref: "User",
@@ -185,12 +191,14 @@ runSchema.index({
 	_id: 1,
 });
 runSchema.index({
+	season: 1,
 	"summary.kills": -1,
 	"summary.day": 1,
 	completedAt: 1,
 	_id: 1,
 });
 runSchema.index({
+	season: 1,
 	"summary.classId": 1,
 	"summary.kills": -1,
 	"summary.day": 1,

@@ -191,13 +191,17 @@ Each user identity may start the challenge once. Starting consumes the attempt e
 
 Dead and retired attempts contribute to the completed-attempt count and are ranked by kills, then fewer run days, then earlier completion. Active and abandoned attempts are not counted or ranked. Daily runs participate in achievements, lifetime progress, personal history, and normal ghost creation. Normal runs do not participate in Daily Challenge leaderboards.
 
-## 13. Achievements
+## 13. Seasons
+
+Each run belongs permanently to the season in which its normal run or Daily Challenge was created. Player ghosts can encounter only runs from their own season, and Hall of Fame rankings are separated by season. Previous seasons remain viewable, while achievements, lifetime progress, personal history, and date-based Daily Challenge leaderboards continue across season boundaries.
+
+## 14. Achievements
 
 Achievements are permanent account-level goals shared across a user's heroes. Guests earn achievements against their guest user record, and those unlocks remain attached when the guest registers.
 
 Achievement definitions are shared game content. Unlocks are awarded from authoritative gameplay outcomes and retain the date and time first earned. Locked achievements remain visible so players can pursue their requirements.
 
-## 14. Scope Boundaries
+## 15. Scope Boundaries
 
 This document does not define:
 

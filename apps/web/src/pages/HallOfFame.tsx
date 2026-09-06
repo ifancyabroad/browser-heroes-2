@@ -29,6 +29,7 @@ type HallOfFameTab = (typeof tabs)[number]["value"];
 export default function HallOfFame() {
 	const { hasSession } = useAuth();
 	const [activeTab, setActiveTab] = useState<HallOfFameTab>("heroes");
+	const [season, setSeason] = useState<number>();
 	const [classId, setClassId] = useState<ClassId | "all">("all");
 	const [userOnly, setUserOnly] = useState(false);
 	const [page, setPage] = useState(1);
@@ -42,6 +43,7 @@ export default function HallOfFame() {
 	}, [hasSession, userOnly]);
 
 	const sharedQuery = {
+		...(season ? { season } : {}),
 		...(classId !== "all" ? { classId } : {}),
 		...(userOnly && hasSession ? { userOnly: "true" as const } : {}),
 		page,
@@ -51,6 +53,10 @@ export default function HallOfFame() {
 	const ghostQuery: GetGhostHallOfFameQuery = sharedQuery;
 	const heroes = useHeroHallOfFame(heroQuery, activeTab === "heroes");
 	const ghosts = useGhostHallOfFame(ghostQuery, activeTab === "ghosts");
+	const activeData = activeTab === "heroes" ? heroes.data : ghosts.data;
+	const seasonMetadata = activeData ?? heroes.data ?? ghosts.data;
+	const displayedSeason = season ?? seasonMetadata?.season;
+	const currentSeason = seasonMetadata?.currentSeason;
 
 	function changeTab(tab: HallOfFameTab) {
 		setActiveTab(tab);
@@ -64,6 +70,11 @@ export default function HallOfFame() {
 
 	function changeUserOnly(nextUserOnly: boolean) {
 		setUserOnly(nextUserOnly);
+		setPage(1);
+	}
+
+	function changeSeason(nextSeason: number) {
+		setSeason(nextSeason);
 		setPage(1);
 	}
 
@@ -89,6 +100,9 @@ export default function HallOfFame() {
 							tab === "heroes" ? (
 								<>
 									<HallOfFameFilters
+										season={displayedSeason}
+										currentSeason={currentSeason}
+										onSeasonChange={changeSeason}
 										classId={classId}
 										onClassChange={changeClass}
 										showUserOnly={hasSession}
@@ -121,6 +135,9 @@ export default function HallOfFame() {
 							) : (
 								<>
 									<HallOfFameFilters
+										season={displayedSeason}
+										currentSeason={currentSeason}
+										onSeasonChange={changeSeason}
 										classId={classId}
 										onClassChange={changeClass}
 										showUserOnly={hasSession}

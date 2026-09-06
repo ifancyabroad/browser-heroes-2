@@ -13,6 +13,7 @@ export const envSchema = z
 		SES_FROM_EMAIL: z.email().default("noreply@browserheroes.com"),
 		EMAIL_DELIVERY: z.enum(["ses", "log"]).default("log"),
 		ADMIN_EMAIL: z.string().trim().toLowerCase().pipe(z.email()).optional(),
+		CURRENT_SEASON: z.coerce.number().int().min(1).optional(),
 	})
 	.superRefine((values, context) => {
 		if (values.NODE_ENV !== "production") {
@@ -58,10 +59,19 @@ export const envSchema = z
 				message: "ADMIN_EMAIL must be set in production.",
 			});
 		}
+
+		if (values.CURRENT_SEASON === undefined) {
+			context.addIssue({
+				code: "custom",
+				path: ["CURRENT_SEASON"],
+				message: "CURRENT_SEASON must be set explicitly in production.",
+			});
+		}
 	})
 	.transform((values) => ({
 		...values,
 		TRUST_PROXY_HOPS: values.TRUST_PROXY_HOPS ?? 0,
+		CURRENT_SEASON: values.CURRENT_SEASON ?? 1,
 	}));
 
 export const env = envSchema.parse(process.env);

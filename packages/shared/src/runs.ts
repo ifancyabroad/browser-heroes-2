@@ -44,6 +44,7 @@ export interface RunSummaryView {
 
 export interface RunView {
 	id: string;
+	season: number;
 	mode: RunMode;
 	dailyChallengeDate: string | null;
 	status: RunStatus;
@@ -68,6 +69,7 @@ export interface GetRunResponse {
 
 export interface RunHeroView {
 	displayName: string | null;
+	season: number;
 	hero: HeroState;
 	run: {
 		status: "dead" | "retired";

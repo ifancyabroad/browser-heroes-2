@@ -53,7 +53,7 @@ export async function getRunHeroController(
 ) {
 	const run = await getRunForHero(req.params.runId);
 	const displayName = run ? await getRegisteredDisplayName(run.userId) : null;
-	const view = run ? toRunHeroView(run.state, displayName) : null;
+	const view = run ? toRunHeroView(run.state, run.season, displayName) : null;
 
 	if (!view) {
 		res.status(404).json({

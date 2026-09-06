@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { Types } from "mongoose";
 import { classes, type ClassId } from "@app/content";
 import type { ChallengeLeaderboardQuery, RunStatus } from "@app/shared";
+import { env } from "../config/env";
 import { DailyChallengeModel } from "../models/dailyChallenge.model";
 import { RunModel, type RunDocument } from "../models/run.model";
 import { createDailyChallengeRun } from "./run.service";
@@ -127,6 +128,7 @@ export async function startTodayDailyChallenge(input: { userId: string; heroName
 
 	try {
 		return await createDailyChallengeRun({
+			season: definition.season,
 			userId: input.userId,
 			heroName: input.heroName,
 			classId: definition.classId,
@@ -226,6 +228,7 @@ async function materializeTodayChallenge(now = new Date()) {
 		{ date },
 		{
 			$setOnInsert: {
+				season: env.CURRENT_SEASON,
 				date,
 				seed: definition.seed,
 				classId: definition.classId,
@@ -239,6 +242,7 @@ async function materializeTodayChallenge(now = new Date()) {
 	}
 
 	return {
+		season: challenge.season,
 		date: challenge.date,
 		seed: challenge.seed,
 		classId: challenge.classId,

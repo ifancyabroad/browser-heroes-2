@@ -22,6 +22,7 @@ function createRun(
 ): RunView {
 	return {
 		id: "run-id",
+		season: 1,
 		mode: options.mode ?? "normal",
 		dailyChallengeDate: options.dailyChallengeDate ?? null,
 		status: phase === "town" || phase === "combat" ? "active" : phase,

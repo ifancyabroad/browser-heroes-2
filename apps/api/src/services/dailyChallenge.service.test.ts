@@ -26,6 +26,7 @@ import {
 
 const date = "2026-08-23";
 const definition = {
+	season: 1,
 	date,
 	classId: "warrior",
 	seed: "d47b9203-2ac8-8d97-a2ad-6e3f70c239d9",
@@ -59,7 +60,9 @@ describe("dailyChallenge.service", () => {
 	});
 
 	it("derives a stable UUID seed for each date", () => {
-		const seed = deriveDailyChallengeDefinition(date).seed;
+		const derived = deriveDailyChallengeDefinition(date);
+		const seed = derived.seed;
+		expect(derived).not.toHaveProperty("season");
 		expect(seed).toMatch(
 			/^[0-9a-f]{8}-[0-9a-f]{4}-8[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
 		);
@@ -129,6 +132,7 @@ describe("dailyChallenge.service", () => {
 			{ upsert: true, returnDocument: "after" },
 		);
 		expect(runService.createDailyChallengeRun).toHaveBeenCalledWith({
+			season: 1,
 			userId: "user-id",
 			heroName: "Hero",
 			classId: definition.classId,

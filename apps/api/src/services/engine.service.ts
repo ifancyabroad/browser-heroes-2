@@ -43,6 +43,7 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 		const currentState = runStateSchema.parse(run.state);
 
 		const externalInput = await selectExternalInput({
+			season: run.season,
 			state: currentState,
 			action: input.action,
 			ghostPoolCutoff: getGhostPoolCutoff(run),
@@ -128,6 +129,7 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 
 		if (run.status === "dead") {
 			await createGhostFromRunIfEligible({
+				season: run.season,
 				userId: input.userId,
 				runId: run._id,
 				state: result.state,
@@ -191,6 +193,7 @@ function deriveRunStatus(state: RunState): "active" | "dead" | "retired" {
 }
 
 async function selectExternalInput(input: {
+	season: number;
 	state: RunState;
 	action: EngineAction;
 	ghostPoolCutoff: Date;
@@ -212,6 +215,7 @@ async function selectExternalInput(input: {
 	}
 
 	const ghostEncounter = await selectGhostEncounter({
+		season: input.season,
 		encounterLevel: encounterContext.ghostEncounterLevel,
 		seed: input.state.seed,
 		battleNumber,

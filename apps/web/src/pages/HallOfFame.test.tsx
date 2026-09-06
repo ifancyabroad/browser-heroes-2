@@ -76,4 +76,23 @@ describe("HallOfFame", () => {
 		rerender(<HallOfFame />);
 		expect(screen.queryByRole("button", { name: "MY HEROES" })).not.toBeInTheDocument();
 	});
+
+	it("switches seasons and resets pagination", () => {
+		hooks.useHeroHallOfFame.mockReturnValue({
+			...queryState([{}]),
+			data: {
+				...queryState([{}]).data,
+				season: 2,
+				currentSeason: 2,
+			},
+		});
+
+		render(<HallOfFame />);
+		fireEvent.change(screen.getByLabelText("SEASON"), { target: { value: "1" } });
+
+		expect(hooks.useHeroHallOfFame).toHaveBeenLastCalledWith(
+			{ season: 1, page: 1, limit: 20 },
+			true,
+		);
+	});
 });

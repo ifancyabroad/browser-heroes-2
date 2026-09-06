@@ -29,6 +29,7 @@ export type GetRunHistoryQuery = z.infer<typeof getRunHistoryQuerySchema>;
 
 export interface RunHistoryEntryView {
 	runId: string;
+	season: number;
 	mode: RunMode;
 	dailyChallengeDate: string | null;
 	heroName: string;
@@ -75,6 +76,7 @@ export type GetGhostHistoryQuery = z.infer<typeof getGhostHistoryQuerySchema>;
 
 export interface GhostHistoryEntryView {
 	ghostId: string;
+	season: number;
 	sourceRunId: string;
 	name: string;
 	classId: ClassId;

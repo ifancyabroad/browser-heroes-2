@@ -14,6 +14,7 @@ const GHOST_ENCOUNTER_CHANCE = 0.05;
 const UNKNOWN_GHOST_USERNAME = "Unknown";
 
 type CreateGhostFromRunInput = {
+	season: number;
 	userId: string;
 	runId: Types.ObjectId;
 	state: RunState;
@@ -38,6 +39,7 @@ type RecordGhostCombatOutcomeInput = {
 };
 
 type SelectGhostEncounterInput = {
+	season: number;
 	encounterLevel: number;
 	seed: string;
 	battleNumber: number;
@@ -56,6 +58,7 @@ export async function createGhostFromRunIfEligible(input: CreateGhostFromRunInpu
 		},
 		{
 			$setOnInsert: {
+				season: input.season,
 				userId: input.userId,
 				sourceRunId: input.runId,
 				name: input.state.hero.name,
@@ -90,6 +93,7 @@ export async function selectGhostEncounter(
 	}
 
 	const filter = {
+		season: input.season,
 		encounterLevel: getPlayerGhostEncounterLevelFilter(input.encounterLevel),
 		createdAt: { $lt: input.ghostPoolCutoff },
 		$or: [{ banishedAt: null }, { banishedAt: { $gte: input.ghostPoolCutoff } }],

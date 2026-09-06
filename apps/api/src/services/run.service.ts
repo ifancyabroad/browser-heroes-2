@@ -3,6 +3,7 @@ import { HERO_NAME_MAX_LENGTH, HERO_NAME_PATTERN, type RunMode } from "@app/shar
 import { createInitialRunState } from "@app/engine";
 import type { ClassId } from "@app/content";
 import profanityFilter from "leo-profanity";
+import { env } from "../config/env";
 import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
 import { toRunSummary } from "./projection.service";
@@ -47,6 +48,7 @@ function normalizeAndValidateHeroName(heroName: string): string {
 
 export async function createRun(params: { userId: string; heroName: string; classId: ClassId }) {
 	return createRunRecord({
+		season: env.CURRENT_SEASON,
 		mode: "normal",
 		userId: params.userId,
 		heroName: params.heroName,
@@ -56,6 +58,7 @@ export async function createRun(params: { userId: string; heroName: string; clas
 }
 
 export function createDailyChallengeRun(params: {
+	season: number;
 	userId: string;
 	heroName: string;
 	classId: ClassId;
@@ -66,6 +69,7 @@ export function createDailyChallengeRun(params: {
 }
 
 async function createRunRecord(params: {
+	season: number;
 	userId: string;
 	heroName: string;
 	classId: ClassId;
@@ -105,6 +109,7 @@ async function createRunRecord(params: {
 			[
 				{
 					_id: runObjectId,
+					season: params.season,
 					userId: params.userId,
 					mode: params.mode,
 					dailyChallengeDate:

@@ -37,6 +37,7 @@ describe("ghost.service", () => {
 
 		await expect(
 			createGhostFromRunIfEligible({
+				season: 1,
 				userId: "user-id",
 				runId: "run-id" as never,
 				state,
@@ -57,6 +58,7 @@ describe("ghost.service", () => {
 		ghostModel.findOneAndUpdate.mockResolvedValue({ _id: "ghost-id" });
 
 		await createGhostFromRunIfEligible({
+			season: 1,
 			userId: "user-id",
 			runId: "run-id" as never,
 			state,
@@ -96,6 +98,7 @@ describe("ghost.service", () => {
 	it("uses the run seed and battle number for the encounter roll", async () => {
 		await expect(
 			selectGhostEncounter({
+				season: 1,
 				encounterLevel: 4,
 				seed: "seed",
 				battleNumber: 12,
@@ -127,6 +130,7 @@ describe("ghost.service", () => {
 
 		await expect(
 			selectGhostEncounter({
+				season: 1,
 				encounterLevel: 4,
 				seed: "seed-73",
 				battleNumber: 12,
@@ -139,6 +143,7 @@ describe("ghost.service", () => {
 			ghostSource: "player",
 		});
 		const filter = {
+			season: 1,
 			encounterLevel: 4,
 			createdAt: { $lt: cutoff },
 			$or: [{ banishedAt: null }, { banishedAt: { $gte: cutoff } }],
@@ -154,6 +159,7 @@ describe("ghost.service", () => {
 
 		await expect(
 			selectGhostEncounter({
+				season: 1,
 				encounterLevel: 4,
 				seed: "seed-73",
 				battleNumber: 12,
@@ -179,6 +185,7 @@ describe("ghost.service", () => {
 
 		await expect(
 			selectGhostEncounter({
+				season: 1,
 				encounterLevel: 10,
 				seed: "seed-7",
 				battleNumber: 91,
@@ -204,6 +211,7 @@ describe("ghost.service", () => {
 			ghostModel.countDocuments.mockResolvedValue(0);
 
 			await selectGhostEncounter({
+				season: 1,
 				encounterLevel,
 				seed,
 				battleNumber,
@@ -213,6 +221,7 @@ describe("ghost.service", () => {
 
 			expect(ghostModel.countDocuments).toHaveBeenCalledWith(
 				expect.objectContaining({
+					season: 1,
 					encounterLevel: encounterLevelFilter,
 				}),
 			);
@@ -224,6 +233,7 @@ describe("ghost.service", () => {
 
 		await expect(
 			selectGhostEncounter({
+				season: 1,
 				encounterLevel: 11,
 				seed: "seed-10",
 				battleNumber: 101,
@@ -242,6 +252,7 @@ describe("ghost.service", () => {
 		state.hero.level = 7;
 
 		await createGhostFromRunIfEligible({
+			season: 1,
 			userId: "user-id",
 			runId: "run-id" as never,
 			state,
@@ -270,6 +281,7 @@ describe("ghost.service", () => {
 		state.hero.level = 3;
 
 		await createGhostFromRunIfEligible({
+			season: 1,
 			userId: "user-id",
 			runId: "run-id" as never,
 			state,
@@ -347,6 +359,7 @@ describe("ghost.service", () => {
 
 		await expect(
 			selectGhostEncounter({
+				season: 1,
 				encounterLevel: 4,
 				seed: "seed-73",
 				battleNumber: 12,

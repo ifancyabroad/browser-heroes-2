@@ -4,6 +4,7 @@ import type { RunMode, RunSlainByView } from "./runs";
 import type { GhostBanisherView } from "./ghosts";
 
 const hallOfFameQueryFields = {
+	season: z.coerce.number().int().min(1).optional(),
 	classId: classIdSchema.optional(),
 	userOnly: z.enum(["true", "false"]).optional(),
 	page: z.coerce.number().int().min(1).default(1),
@@ -48,6 +49,8 @@ export interface GhostHallOfFameEntryView {
 
 export interface HallOfFameResponse<TEntry> {
 	entries: TEntry[];
+	season: number;
+	currentSeason: number;
 	page: number;
 	limit: number;
 	total: number;

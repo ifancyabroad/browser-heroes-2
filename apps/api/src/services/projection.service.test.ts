@@ -54,10 +54,10 @@ describe("projection.service", () => {
 	});
 
 	it("only exposes completed heroes for dead or retired runs", () => {
-		expect(toRunHeroView(createTestRunState(), null)).toBeNull();
+		expect(toRunHeroView(createTestRunState(), 1, null)).toBeNull();
 
 		const dead = createDeadTestRunState();
-		expect(toRunHeroView(dead, "Player")).toMatchObject({
+		expect(toRunHeroView(dead, 1, "Player")).toMatchObject({
 			displayName: "Player",
 			hero: dead.hero,
 			run: {

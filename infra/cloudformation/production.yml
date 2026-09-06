@@ -30,6 +30,11 @@ Parameters:
         Type: String
         Description: Registered Browser Heroes account allowed to access the admin application.
         AllowedPattern: ^[^@\s]+@[^@\s]+\.[^@\s]+$
+    CurrentSeason:
+        Type: Number
+        Default: 1
+        MinValue: 1
+        Description: Forward-only season assigned to newly created runs and Daily Challenges.
     PlatformArn:
         Type: String
         Default: arn:aws:elasticbeanstalk:eu-west-2::platform/Node.js 22 running on 64bit Amazon Linux 2023/6.11.5
@@ -429,6 +434,9 @@ Resources:
                 - Namespace: aws:elasticbeanstalk:application:environment
                   OptionName: ADMIN_EMAIL
                   Value: !Ref AdminEmail
+                - Namespace: aws:elasticbeanstalk:application:environment
+                  OptionName: CURRENT_SEASON
+                  Value: !Ref CurrentSeason
                 - Namespace: aws:elasticbeanstalk:application:environmentsecrets
                   OptionName: MONGO_URI
                   Value: !Sub "${MongoUriSecretArn}:MONGO_URI"

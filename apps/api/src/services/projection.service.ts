@@ -44,6 +44,7 @@ export function toRunSummary(state: RunState): RunSummaryView {
 export function toRunView(run: RunDocument & { _id: unknown }): RunView {
 	return {
 		id: String(run._id),
+		season: run.season,
 		mode: run.mode,
 		dailyChallengeDate: run.dailyChallengeDate ?? null,
 		status: run.status,
@@ -80,13 +81,18 @@ export function toChallengeEntry(
 	};
 }
 
-export function toRunHeroView(state: RunState, displayName: string | null): RunHeroView | null {
+export function toRunHeroView(
+	state: RunState,
+	season: number,
+	displayName: string | null,
+): RunHeroView | null {
 	if (state.phase !== "dead" && state.phase !== "retired") {
 		return null;
 	}
 
 	return {
 		displayName,
+		season,
 		hero: state.hero,
 		run: {
 			status: state.phase,

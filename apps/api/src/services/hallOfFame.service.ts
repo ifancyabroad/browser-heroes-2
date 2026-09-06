@@ -5,6 +5,7 @@ import type {
 	HeroHallOfFameEntryView,
 } from "@app/shared";
 import { Types } from "mongoose";
+import { env } from "../config/env";
 import { GhostModel, type GhostDocument } from "../models/ghost.model";
 import { RunModel, type RunDocument } from "../models/run.model";
 import { getRegisteredDisplayNames } from "./publicIdentity.service";
@@ -30,9 +31,12 @@ export async function getHeroHallOfFame(params: {
 	query: GetHeroHallOfFameQuery;
 }) {
 	const { query } = params;
+	const season = getHallOfFameSeason(query.season);
 	if (query.userOnly === "true" && !params.userId) {
 		return {
 			entries: [],
+			season,
+			currentSeason: env.CURRENT_SEASON,
 			page: query.page,
 			limit: query.limit,
 			total: 0,
@@ -41,6 +45,7 @@ export async function getHeroHallOfFame(params: {
 	}
 
 	const rankingFilter: Record<string, unknown> = {
+		season,
 		status: { $in: COMPLETED_RUN_STATUSES },
 		completedAt: { $ne: null },
 	};
@@ -82,6 +87,8 @@ export async function getHeroHallOfFame(params: {
 
 	return {
 		entries,
+		season,
+		currentSeason: env.CURRENT_SEASON,
 		page: query.page,
 		limit: query.limit,
 		total,
@@ -94,9 +101,12 @@ export async function getGhostHallOfFame(params: {
 	query: GetGhostHallOfFameQuery;
 }) {
 	const { query } = params;
+	const season = getHallOfFameSeason(query.season);
 	if (query.userOnly === "true" && !params.userId) {
 		return {
 			entries: [],
+			season,
+			currentSeason: env.CURRENT_SEASON,
 			page: query.page,
 			limit: query.limit,
 			total: 0,
@@ -104,7 +114,7 @@ export async function getGhostHallOfFame(params: {
 		};
 	}
 
-	const rankingFilter: Record<string, unknown> = {};
+	const rankingFilter: Record<string, unknown> = { season };
 	if (query.classId) {
 		rankingFilter.classId = query.classId;
 	}
@@ -149,11 +159,21 @@ export async function getGhostHallOfFame(params: {
 
 	return {
 		entries,
+		season,
+		currentSeason: env.CURRENT_SEASON,
 		page: query.page,
 		limit: query.limit,
 		total,
 		totalPages: Math.ceil(total / query.limit),
 	};
+}
+
+function getHallOfFameSeason(requestedSeason?: number): number {
+	const season = requestedSeason ?? env.CURRENT_SEASON;
+	if (season > env.CURRENT_SEASON) {
+		throw Object.assign(new Error("SEASON_NOT_AVAILABLE"), { status: 400 });
+	}
+	return season;
 }
 
 async function getHeroRank(

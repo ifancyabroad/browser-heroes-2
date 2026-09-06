@@ -55,10 +55,13 @@ Provide these values outside the source artifact:
 - `SES_FROM_EMAIL`
 - `EMAIL_DELIVERY=ses`
 - `ADMIN_EMAIL`
+- `CURRENT_SEASON`
 
 Set `APP_URL` to the public CloudFront-backed HTTPS origin. Verify the proxy-hop count against the deployed request path because it affects secure-cookie detection and IP rate limiting.
 
 Use the Elastic Beanstalk instance role for SES rather than shipping AWS access keys.
+
+`CURRENT_SEASON` is a positive, forward-only integer. Before enabling seasons, manually backfill existing runs, ghosts, and Daily Challenges to Season 1 in Atlas. Change the setting at a UTC Daily Challenge boundary.
 
 ## 6. CI/CD
 

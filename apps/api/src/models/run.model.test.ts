@@ -25,6 +25,7 @@ describe("RunModel daily challenge date", () => {
 
 function createRun(overrides: Record<string, unknown>) {
 	return new RunModel({
+		season: 1,
 		userId: new Types.ObjectId(),
 		state: {},
 		summary: {

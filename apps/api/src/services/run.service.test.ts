@@ -79,6 +79,7 @@ describe("run.service", () => {
 		expect(models.run.create).toHaveBeenCalledWith(
 			[
 				expect.objectContaining({
+					season: 1,
 					userId: "user-id",
 					status: "active",
 					state: testRunState,
@@ -92,6 +93,7 @@ describe("run.service", () => {
 
 	it("creates daily runs through the same run lifecycle with an explicit definition", async () => {
 		await createDailyChallengeRun({
+			season: 1,
 			userId: "user-id",
 			heroName: "Hero",
 			classId: "mage",
@@ -108,6 +110,7 @@ describe("run.service", () => {
 		expect(models.run.create).toHaveBeenCalledWith(
 			[
 				expect.objectContaining({
+					season: 1,
 					mode: "dailyChallenge",
 					dailyChallengeDate: "2026-08-23",
 				}),

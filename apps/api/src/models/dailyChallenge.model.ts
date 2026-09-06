@@ -3,6 +3,7 @@ import { classIds } from "@app/content";
 
 const dailyChallengeSchema = new Schema(
 	{
+		season: { type: Number, required: true, min: 1, immutable: true },
 		date: { type: String, required: true, unique: true },
 		seed: { type: String, required: true },
 		classId: { type: String, enum: classIds, required: true },

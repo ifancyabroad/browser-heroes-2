@@ -54,6 +54,12 @@ const ghostBanisherSchema = new Schema(
 
 const ghostSchema = new Schema(
 	{
+		season: {
+			type: Number,
+			required: true,
+			min: 1,
+			immutable: true,
+		},
 		status: {
 			type: String,
 			enum: ["active", "banished"],
@@ -137,14 +143,16 @@ const ghostSchema = new Schema(
 ghostSchema.index({ sourceRunId: 1 }, { unique: true });
 
 ghostSchema.index({ userId: 1, createdAt: -1 });
-ghostSchema.index({ encounterLevel: 1, createdAt: -1, banishedAt: 1, _id: 1 });
+ghostSchema.index({ season: 1, encounterLevel: 1, createdAt: -1, banishedAt: 1, _id: 1 });
 ghostSchema.index({
+	season: 1,
 	"stats.kills": -1,
 	status: 1,
 	createdAt: 1,
 	_id: 1,
 });
 ghostSchema.index({
+	season: 1,
 	classId: 1,
 	"stats.kills": -1,
 	status: 1,

@@ -9,6 +9,7 @@ const productionEnv = {
 	TRUST_PROXY_HOPS: "1",
 	EMAIL_DELIVERY: "ses",
 	ADMIN_EMAIL: " Admin@Example.COM ",
+	CURRENT_SEASON: "1",
 };
 
 describe("environment configuration", () => {
@@ -25,7 +26,12 @@ describe("environment configuration", () => {
 			TRUST_PROXY_HOPS: 0,
 			SES_REGION: "eu-west-1",
 			EMAIL_DELIVERY: "log",
+			CURRENT_SEASON: 1,
 		});
+	});
+
+	it.each(["0", "1.5", "not-a-season"])("rejects invalid season %s", (CURRENT_SEASON) => {
+		expect(() => envSchema.parse({ ...productionEnv, CURRENT_SEASON })).toThrow();
 	});
 
 	it("accepts an explicit production configuration", () => {
@@ -43,6 +49,7 @@ describe("environment configuration", () => {
 		["SES email delivery", { EMAIL_DELIVERY: "log" }],
 		["an explicit proxy-hop count", { TRUST_PROXY_HOPS: undefined }],
 		["an admin email", { ADMIN_EMAIL: undefined }],
+		["an explicit current season", { CURRENT_SEASON: undefined }],
 	])("requires %s in production", (_requirement, override) => {
 		expect(() => envSchema.parse({ ...productionEnv, ...override })).toThrow();
 	});

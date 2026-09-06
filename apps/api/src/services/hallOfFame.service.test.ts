@@ -60,6 +60,7 @@ describe("hallOfFame.service", () => {
 		});
 
 		const filter = {
+			season: 1,
 			status: { $in: ["dead", "retired"] },
 			completedAt: { $ne: null },
 			"summary.classId": "mage",
@@ -92,6 +93,8 @@ describe("hallOfFame.service", () => {
 					isCurrentUser: true,
 				},
 			],
+			season: 1,
+			currentSeason: 1,
 			page: 2,
 			limit: 10,
 			total: 21,
@@ -198,6 +201,8 @@ describe("hallOfFame.service", () => {
 
 			expect(response).toEqual({
 				entries: [],
+				season: 1,
+				currentSeason: 1,
 				page: 2,
 				limit: 10,
 				total: 0,
@@ -207,4 +212,11 @@ describe("hallOfFame.service", () => {
 			expect(models.ghosts.find).not.toHaveBeenCalled();
 		},
 	);
+
+	it("rejects seasons after the configured current season", async () => {
+		await expect(
+			getHeroHallOfFame({ query: { season: 2, page: 1, limit: 20 } }),
+		).rejects.toMatchObject({ message: "SEASON_NOT_AVAILABLE", status: 400 });
+		expect(models.runs.find).not.toHaveBeenCalled();
+	});
 });
