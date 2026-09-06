@@ -10,6 +10,7 @@ import {
 
 import { getEnemyActionWeight, getForcedTacticAction, type EnemyAction } from "./enemyTactics";
 import { getUsefulEnemySkillIds } from "./getUsefulEnemySkillIds";
+import { isEnemyBasicAttackUseful } from "./usefulness/isEnemyBasicAttackUseful";
 
 export type { EnemyAction } from "./enemyTactics";
 
@@ -33,10 +34,13 @@ export function selectEnemyAction(input: SelectEnemyActionInput): RngResult<Enem
 		return basicAttackResult(input.rngState);
 	}
 
-	const candidateActions: EnemyAction[] = [
-		{ type: "basicAttack" },
-		...usefulSkillIds.map((skillId): EnemyAction => ({ type: "skill", skillId })),
-	];
+	const candidateActions: EnemyAction[] = usefulSkillIds.map(
+		(skillId): EnemyAction => ({ type: "skill", skillId }),
+	);
+
+	if (isEnemyBasicAttackUseful(input.enemy, input.player)) {
+		candidateActions.unshift({ type: "basicAttack" });
+	}
 	const actions: WeightedItem<EnemyAction>[] = candidateActions.map((action) => ({
 		value: action,
 		weight: getEnemyActionWeight(input.tactic, input.enemy, action),

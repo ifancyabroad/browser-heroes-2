@@ -152,6 +152,33 @@ describe("enemy skill usefulness", () => {
 		expect(getUsefulEnemySkillIds(caster, immunePlayer)).toEqual([]);
 	});
 
+	it("excludes an immune basic attack when a useful skill is available", () => {
+		const { enemy, player } = createCombatants();
+		const attacker = withSkills(enemy, [{ skillId: "shocking_grasp", chargesRemaining: 12 }]);
+		const immunePlayer = withImmunity(player, enemy.basicAttack.damage.type);
+
+		for (let value = 0; value < 20; value += 1) {
+			expect(
+				selectEnemyAction({
+					enemy: attacker,
+					player: immunePlayer,
+					tactic: "random",
+					rngState: { value },
+				}).value,
+			).toEqual({ type: "skill", skillId: "shocking_grasp" });
+		}
+	});
+
+	it("falls back to an immune basic attack when no useful action exists", () => {
+		const { enemy, player } = createCombatants();
+		const immunePlayer = withImmunity(player, enemy.basicAttack.damage.type);
+		const rngState = { value: 321 };
+
+		expect(
+			selectEnemyAction({ enemy, player: immunePlayer, tactic: "default", rngState }),
+		).toEqual({ value: { type: "basicAttack" }, rngState });
+	});
+
 	it("keeps an attack useful when a non-immune rider can still resolve", () => {
 		const { enemy, player } = createCombatants();
 		const attacker = withSkills(enemy, [{ skillId: "acid_strike", chargesRemaining: 7 }]);
