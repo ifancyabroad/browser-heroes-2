@@ -34,6 +34,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Masterwork Crossbow",
+			icon: "items/weapons/crossbows/Crossbow_v2_03.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8+4",

@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Bony Fist",
+			icon: "skills/common/punch.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d4",

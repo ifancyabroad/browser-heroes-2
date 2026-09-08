@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Pincer",
+			icon: "skills/unique/crab_hammer.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",

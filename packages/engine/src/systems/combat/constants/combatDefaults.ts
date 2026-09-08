@@ -8,6 +8,7 @@ export const EMPTY_DAMAGE_AFFINITIES: CombatantState["combatStats"]["damageAffin
 
 export const PLAYER_UNARMED_ATTACK: CombatantState["basicAttack"] = {
 	name: "Unarmed Strike",
+	icon: "skills/common/punch.png",
 	attackRange: "melee",
 	attackAttribute: "strength",
 	proficient: true,

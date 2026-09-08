@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Fine Spear",
+			icon: "items/weapons/spears/Spear_03.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+1",

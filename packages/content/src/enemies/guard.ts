@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Longbow",
+			icon: "items/weapons/bows/Bow_01.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8",

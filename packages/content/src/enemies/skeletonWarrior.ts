@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Superior Handaxe",
+			icon: "items/weapons/axes/Axe_20.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6+2",

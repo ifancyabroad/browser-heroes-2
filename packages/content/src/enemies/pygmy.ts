@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Hammer",
+			icon: "items/weapons/hammers/Hammer_21.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",

@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Crossbow",
+			icon: "items/weapons/crossbows/Crossbow_01.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8",

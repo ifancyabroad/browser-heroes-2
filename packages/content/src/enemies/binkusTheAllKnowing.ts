@@ -34,6 +34,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Staff of the Archmage",
+			icon: "items/weapons/staves/staff_49.png",
 			attackAttribute: "intelligence",
 			damage: {
 				dice: "1d8+4",

@@ -34,6 +34,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Unholy Bolt",
+			icon: "skills/common/unholy_bolt.png",
 			attackAttribute: "wisdom",
 			damage: {
 				dice: "2d8",

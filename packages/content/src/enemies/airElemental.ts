@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Static Touch",
+			icon: "skills/wizard/sparks.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "2d6",

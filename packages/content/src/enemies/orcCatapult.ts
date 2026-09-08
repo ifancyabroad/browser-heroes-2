@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Catapult Shot",
+			icon: "skills/common/catapult_shot.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d12+1",

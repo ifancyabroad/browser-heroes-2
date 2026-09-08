@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Withering Touch",
+			icon: "skills/common/corrupting_touch.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "2d6",

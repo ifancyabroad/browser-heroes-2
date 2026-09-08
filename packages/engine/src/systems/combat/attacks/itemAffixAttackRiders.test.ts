@@ -36,6 +36,10 @@ describe("basic attack riders", () => {
 				type: "modifyRoll",
 				roll: "savingThrow",
 				mode: "disadvantage",
+				source: expect.objectContaining({
+					type: "basicAttack",
+					sourceIcon: combat.player.basicAttack.icon,
+				}),
 			}),
 		);
 	});

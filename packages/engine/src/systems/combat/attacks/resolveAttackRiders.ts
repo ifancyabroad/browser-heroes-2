@@ -26,6 +26,7 @@ type AttackRiderSourceContext =
 				type: "basicAttack";
 				sourceDefinitionId: string;
 				sourceName: string;
+				sourceIcon: string;
 			};
 			sourceEffectKeyPrefix: string;
 	  }

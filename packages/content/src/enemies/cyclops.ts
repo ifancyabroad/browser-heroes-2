@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Exceptional Battleaxe",
+			icon: "items/weapons/axes/Axe_10.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d10+3",

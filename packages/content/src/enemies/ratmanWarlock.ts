@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Necrotic Staff",
+			icon: "items/weapons/staves/staff_23.png",
 			attackAttribute: "intelligence",
 			damage: {
 				dice: "1d8+1",

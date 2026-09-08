@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Exceptional Shortsword",
+			icon: "items/weapons/swords/Sword_01.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6+3",

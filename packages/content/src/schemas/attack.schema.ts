@@ -11,6 +11,7 @@ import { attackRiderSchema } from "./effect.schema";
 
 export const basicAttackSchema = z.object({
 	name: z.string().nonempty(),
+	icon: z.string().nonempty(),
 	attackRange: attackRangeSchema,
 	attackAttribute: attributeSchema.optional(),
 	damage: z.object({

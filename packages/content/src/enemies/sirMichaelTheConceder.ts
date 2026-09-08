@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Michael's Lance",
+			icon: "items/weapons/spears/Spear_v2_10.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+1",

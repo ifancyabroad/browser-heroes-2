@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Lightning Staff",
+			icon: "items/weapons/staves/staff_26.png",
 			attackAttribute: "intelligence",
 			damage: {
 				dice: "1d8",

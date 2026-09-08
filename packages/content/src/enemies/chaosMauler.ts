@@ -34,6 +34,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Masterwork Warhammer",
+			icon: "items/weapons/hammers/Hammer_35.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d10+4",

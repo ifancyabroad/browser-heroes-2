@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Longsword",
+			icon: "items/weapons/swords/Sword_02.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8",

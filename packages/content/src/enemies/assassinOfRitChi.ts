@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Twin Daggers",
+			icon: "items/weapons/daggers/Dagger_02.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "2d4+1",

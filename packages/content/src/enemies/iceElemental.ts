@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Freezing Touch",
+			icon: "skills/wizard/deep_freeze.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d8",

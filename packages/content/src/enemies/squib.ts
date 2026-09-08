@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Quarterstaff",
+			icon: "items/weapons/staves/Staff_v2_01.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8",

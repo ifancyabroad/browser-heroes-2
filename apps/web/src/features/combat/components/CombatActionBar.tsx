@@ -12,7 +12,6 @@ import {
 	ActionTooltipContent,
 } from "../../../components/tooltips/ActionTooltipContent";
 import { SkillTooltipContent } from "../../../components/tooltips/SkillTooltipContent";
-import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import continueIcon from "../../../assets/images/actions/Skill_Swords.png";
 import townIcon from "../../../assets/images/actions/Town_01.png";
 import skipTurnIcon from "../../../assets/images/actions/Skill_Cancel_nb.png";
@@ -133,7 +132,7 @@ function CombatSlots({
 				<ActionSlotButton
 					ariaLabel={`Basic attack: ${player.basicAttack.name}`}
 					available={canBasicAttack}
-					icon={attackIcon}
+					icon={resolveImageUrl(player.basicAttack.icon)}
 					loading={isPending}
 					tooltip={
 						<ActionTooltipContent

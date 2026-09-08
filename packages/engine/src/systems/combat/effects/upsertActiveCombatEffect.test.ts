@@ -118,6 +118,7 @@ function createBasicAttackEffect(id: string, sourceDefinitionId: string): Active
 			type: "basicAttack",
 			sourceDefinitionId,
 			sourceName: "Bite",
+			sourceIcon: "skills/unique/shark_bite.png",
 			sourceEffectKey: "basicAttack:mainHand:rider:0:effect:0",
 		},
 	};

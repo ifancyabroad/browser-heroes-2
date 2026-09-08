@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Flail",
+			icon: "items/weapons/clubs/Club_v2_15.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8",

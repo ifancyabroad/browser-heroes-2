@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Ballista Bolt",
+			icon: "items/weapons/crossbows/Crossbow_07.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d10+2",

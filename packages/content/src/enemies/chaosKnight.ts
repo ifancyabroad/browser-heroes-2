@@ -34,6 +34,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Masterwork Greatsword",
+			icon: "items/weapons/swords/Sword_64.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6+4",

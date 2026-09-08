@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Hellfire Shot",
+			icon: "skills/common/catapult_shot.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d12+2",

@@ -7,7 +7,6 @@ import {
 	getActiveEffectTone,
 	getToneTextClassName,
 } from "../../../presentation/effects";
-import attackIcon from "../../../assets/images/actions/Skill_Attack.png";
 import { resolveImageUrl } from "../../../utils/image";
 
 type ActiveEffectsRowProps = {
@@ -143,7 +142,7 @@ function getActiveEffectDisplaySource(effect: ActiveCombatEffect) {
 	return {
 		key: `${sourceKeyPrefix}:${effect.source.sourceName}`,
 		sourceName: effect.source.sourceName,
-		icon: attackIcon,
+		icon: resolveImageUrl(effect.source.sourceIcon),
 	};
 }
 

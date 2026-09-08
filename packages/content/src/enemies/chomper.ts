@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Bite",
+			icon: "skills/common/bite.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d6",

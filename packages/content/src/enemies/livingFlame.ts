@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Burning Touch",
+			icon: "skills/barbarian/fire_strike.png",
 			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d8",

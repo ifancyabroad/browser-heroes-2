@@ -24,7 +24,8 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Tentacle",
+			name: "Tentacle Strike",
+			icon: "skills/common/tentacle_wrap.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6",

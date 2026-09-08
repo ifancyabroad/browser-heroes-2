@@ -14,7 +14,7 @@ type CombatActionBarProps = ComponentProps<typeof CombatActionBar>;
 function createProps(overrides: Partial<CombatActionBarProps> = {}): CombatActionBarProps {
 	return {
 		player: {
-			basicAttack: { name: "Longsword" },
+			basicAttack: { name: "Longsword", icon: "items/weapons/swords/Sword_02.png" },
 			skills: [],
 			currentHp: 8,
 			maxHp: 10,
@@ -63,6 +63,16 @@ describe("CombatActionBar", () => {
 		const buttons = screen.getAllByRole("button");
 		expect(buttons.at(-2)).toHaveAccessibleName("Use healing potion");
 		expect(buttons.at(-1)).toHaveAccessibleName("Skip turn");
+	});
+
+	it("uses the basic attack icon supplied by the engine", () => {
+		render(<CombatActionBar {...createProps()} />);
+
+		const button = screen.getByRole("button", { name: "Basic attack: Longsword" });
+		expect(button.querySelector("img")).toHaveAttribute(
+			"src",
+			expect.stringContaining("items/weapons/swords/Sword_02.png"),
+		);
 	});
 
 	it("does not invoke unavailable actions", () => {

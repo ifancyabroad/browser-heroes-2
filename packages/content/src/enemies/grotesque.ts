@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Superior Greatsword",
+			icon: "items/weapons/swords/Sword_54.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d6+2",

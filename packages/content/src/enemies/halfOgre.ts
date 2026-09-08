@@ -25,6 +25,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Fine Greatclub",
+			icon: "items/weapons/clubs/Club_v2_05.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+1",
