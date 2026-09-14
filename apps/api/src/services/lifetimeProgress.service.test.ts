@@ -149,36 +149,46 @@ describe("lifetimeProgress.service", () => {
 		});
 	});
 
-	it("atomically increments the user and returns the before-and-after values", async () => {
-		userModel.findByIdAndUpdate.mockResolvedValue({
-			lifetimeStats: { ...EMPTY_STATS, kills: 99 },
-		});
+	it.each(["plain object", "Mongoose document"])(
+		"records progress and awards a crossed threshold from a %s",
+		async (recordType) => {
+			const { UserModel } =
+				await vi.importActual<typeof import("../models/user.model")>(
+					"../models/user.model",
+				);
+			const user = new UserModel({ lifetimeStats: { kills: 99 } });
+			userModel.findByIdAndUpdate.mockResolvedValue(
+				recordType === "Mongoose document" ? user : user.toObject(),
+			);
 
-		const transition = await recordLifetimeProgress({
-			userId: "user",
-			classId: "warrior",
-			events: [
-				{
-					...COMBAT_EVENT_CONTEXT,
-					type: "COMBAT_ENDED",
-					outcome: "victory",
-					battleNumber: 1,
-					encounterType: "standard",
-					defeatedFinalBoss: false,
-					completedEndlessCycle: false,
-					finishingPlayerAction: null,
-					reward: { gold: 5, xp: 5 },
-				},
-			],
-			session: { id: "session" } as never,
-		});
+			const transition = await recordLifetimeProgress({
+				userId: "user",
+				classId: "warrior",
+				events: [
+					{
+						...COMBAT_EVENT_CONTEXT,
+						type: "COMBAT_ENDED",
+						outcome: "victory",
+						battleNumber: 1,
+						encounterType: "standard",
+						defeatedFinalBoss: false,
+						completedEndlessCycle: false,
+						finishingPlayerAction: null,
+						reward: { gold: 5, xp: 5 },
+					},
+				],
+				session: { id: "session" } as never,
+			});
 
-		expect(userModel.findByIdAndUpdate).toHaveBeenCalledWith(
-			"user",
-			{ $inc: { "lifetimeStats.kills": 1, "lifetimeStats.goldEarned": 5 } },
-			expect.objectContaining({ returnDocument: "before" }),
-		);
-		expect(transition?.previous.kills).toBe(99);
-		expect(transition?.current.kills).toBe(100);
-	});
+			expect(userModel.findByIdAndUpdate).toHaveBeenCalledWith(
+				"user",
+				{ $inc: { "lifetimeStats.kills": 1, "lifetimeStats.goldEarned": 5 } },
+				expect.objectContaining({ returnDocument: "before" }),
+			);
+			expect(transition?.previous).toEqual({ ...EMPTY_STATS, kills: 99 });
+			expect(transition?.current).toEqual({ ...EMPTY_STATS, kills: 100, goldEarned: 5 });
+			expect(evaluateLifetimeAchievementProgress(transition)).toEqual(["lifetime_kills_100"]);
+			expect(user.lifetimeStats.kills).toBe(99);
+		},
+	);
 });

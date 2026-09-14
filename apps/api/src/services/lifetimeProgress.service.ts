@@ -202,8 +202,15 @@ const LIFETIME_COUNTERS: readonly LifetimeCounter[] = [
 ];
 
 function copyLifetimeStats(value: LifetimeStats): LifetimeStats {
+	// Mongoose subdocument fields are accessors and are not copied by object spread.
 	return {
-		...value,
+		kills: value.kills,
+		bossesDefeated: value.bossesDefeated,
+		ghostsDefeated: value.ghostsDefeated,
+		goldEarned: value.goldEarned,
+		legendaryItemsAcquired: value.legendaryItemsAcquired,
+		gamesCompleted: value.gamesCompleted,
+		healingPotionsUsed: value.healingPotionsUsed,
 		completedGameClassIds: [...value.completedGameClassIds],
 	};
 }
