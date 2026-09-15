@@ -1,4 +1,5 @@
 import type { RunView } from "@app/shared";
+import { Crown } from "pixelarticons/react/Crown";
 import { ButtonLink } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { getTodayUtc } from "../../../utils/date";
@@ -10,6 +11,7 @@ export function DailyChallengeLandingPanel({ currentRun }: { currentRun: RunView
 	const summary = useDailyChallengeSummary(today);
 	const activeDailyRun = currentRun?.mode === "dailyChallenge" ? currentRun : null;
 	const challenge = summary.data?.challenge;
+	const leader = challenge?.leader;
 	const isLoading = summary.isPending;
 	const isUnavailable = summary.isError || (!isLoading && !challenge);
 	const isContentHidden = isLoading || isUnavailable;
@@ -36,18 +38,42 @@ export function DailyChallengeLandingPanel({ currentRun }: { currentRun: RunView
 					can you get?
 				</p>
 
-				{!activeDailyRun && (
-					<div className="flex justify-center gap-5 tabular-nums text-text-bright">
-						<span>
-							{challenge?.attemptCount ?? 0}{" "}
-							{challenge?.attemptCount === 1 ? "ATTEMPT" : "ATTEMPTS"}
+				{leader ? (
+					<div className="flex min-w-0 items-center justify-center gap-2 text-center">
+						<span
+							role="img"
+							aria-label="Current leader"
+							title="Current leader"
+							className="shrink-0 text-primary"
+						>
+							<Crown aria-hidden="true" className="h-4 w-4" />
 						</span>
-						<span>
-							{challenge?.leader
-								? `BEST ${challenge.leader.kills} ${challenge.leader.kills === 1 ? "KILL" : "KILLS"}`
-								: "NO FINISHES YET"}
+						<span
+							className="min-w-0 truncate"
+							title={`${leader.heroName}${leader.displayName ? ` (${leader.displayName})` : ""}`}
+						>
+							<span
+								className={
+									leader.isCurrentUser ? "text-primary" : "text-text-bright"
+								}
+							>
+								{leader.heroName}
+							</span>
+							{leader.displayName && (
+								<span className="text-info"> ({leader.displayName})</span>
+							)}
+						</span>
+						<span aria-hidden="true" className="shrink-0 text-text-muted">
+							/
+						</span>
+						<span className="shrink-0 tabular-nums text-text-bright">
+							{leader.kills} {leader.kills === 1 ? "KILL" : "KILLS"}
 						</span>
 					</div>
+				) : (
+					<p className="text-center text-text-muted">
+						Be the first to finish today’s challenge.
+					</p>
 				)}
 
 				{isContentHidden ? (
