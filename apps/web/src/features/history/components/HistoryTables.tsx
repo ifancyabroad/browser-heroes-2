@@ -6,6 +6,7 @@ import type {
 	GhostHistoryEntryView,
 	RunHistoryEntryView,
 } from "@app/shared";
+import { Cancel } from "pixelarticons/react/Cancel";
 import { Star } from "pixelarticons/react/Star";
 import {
 	DataTable,
@@ -17,6 +18,7 @@ import {
 	SortableDataTableHeading,
 } from "../../../components/DataTable";
 import { HeroIdentity } from "../../../components/HeroIdentity";
+import { PortraitBadge } from "../../../components/PortraitBadge";
 import { formatTitle } from "../../../presentation/effects";
 import { formatDisplayDate } from "../../../utils/date";
 
@@ -96,16 +98,9 @@ export function RunHistoryTable({
 									level={entry.level}
 									portraitAdornment={
 										entry.mode === "dailyChallenge" ? (
-											<span
-												aria-label="Daily Challenge"
-												title="Daily Challenge"
-												className="inline-flex shrink-0"
-											>
-												<Star
-													aria-hidden="true"
-													className="h-4 w-4 text-primary"
-												/>
-											</span>
+											<PortraitBadge label="Daily Challenge">
+												<Star className="text-primary" />
+											</PortraitBadge>
 										) : undefined
 									}
 								/>
@@ -186,6 +181,13 @@ export function GhostHistoryTable({
 								name={entry.name}
 								classId={entry.classId}
 								level={entry.heroLevel}
+								portraitAdornment={
+									entry.status === "banished" ? (
+										<PortraitBadge label="Banished">
+											<Cancel className="text-error" />
+										</PortraitBadge>
+									) : undefined
+								}
 							/>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>

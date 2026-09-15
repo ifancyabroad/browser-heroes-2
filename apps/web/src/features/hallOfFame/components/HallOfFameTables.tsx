@@ -1,6 +1,7 @@
 import { CLASSES_BY_ID } from "@app/content";
 import { getZoneForRun } from "@app/engine";
 import type { GhostHallOfFameEntryView, HeroHallOfFameEntryView } from "@app/shared";
+import { Cancel } from "pixelarticons/react/Cancel";
 import { Star } from "pixelarticons/react/Star";
 import {
 	DataTable,
@@ -11,6 +12,7 @@ import {
 	DataTableRowAction,
 } from "../../../components/DataTable";
 import { HeroIdentity } from "../../../components/HeroIdentity";
+import { PortraitBadge } from "../../../components/PortraitBadge";
 import { formatTitle } from "../../../presentation/effects";
 import { formatDisplayDate } from "../../../utils/date";
 
@@ -61,16 +63,9 @@ export function HeroHallOfFameTable(props: {
 									nameTone={entry.isCurrentUser ? "primary" : "default"}
 									portraitAdornment={
 										entry.mode === "dailyChallenge" ? (
-											<span
-												aria-label="Daily Challenge"
-												title="Daily Challenge"
-												className="inline-flex"
-											>
-												<Star
-													aria-hidden="true"
-													className="h-4 w-4 text-primary"
-												/>
-											</span>
+											<PortraitBadge label="Daily Challenge">
+												<Star className="text-primary" />
+											</PortraitBadge>
 										) : undefined
 									}
 								/>
@@ -124,6 +119,13 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 								name={entry.name}
 								classId={entry.classId}
 								level={entry.heroLevel}
+								portraitAdornment={
+									entry.status === "banished" ? (
+										<PortraitBadge label="Banished">
+											<Cancel className="text-error" />
+										</PortraitBadge>
+									) : undefined
+								}
 								displayName={entry.displayName}
 								nameTone={entry.isCurrentUser ? "primary" : "default"}
 							/>
