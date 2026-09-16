@@ -34,47 +34,53 @@ export function BestiaryCatalogue({ entries }: BestiaryCatalogueProps) {
 				{discoveredCount} / {enemies.length} DISCOVERED
 			</p>
 
-			{catalogueZones.map(({ zone, enemies: zoneEnemies }) => {
-				const zoneDiscoveredCount = zoneEnemies.filter((enemy) =>
-					records.has(enemy.id),
-				).length;
+			<div className="grid grid-cols-2 items-start gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+				{catalogueZones.map(({ zone, enemies: zoneEnemies }) => {
+					const zoneDiscoveredCount = zoneEnemies.filter((enemy) =>
+						records.has(enemy.id),
+					).length;
 
-				return (
-					<section key={zone} aria-labelledby={`zone-${zone}`} className="grid gap-3">
-						<div className="flex items-baseline justify-between gap-3 border-b-2 border-border-secondary pb-2">
-							<h2 id={`zone-${zone}`} className="text-text-bright">
-								{formatTitle(zone)}
-							</h2>
-							<span className="text-text-muted tabular-nums">
-								{zoneDiscoveredCount} / {zoneEnemies.length}
-							</span>
-						</div>
+					return (
+						<section
+							key={zone}
+							aria-labelledby={`zone-${zone}`}
+							className="grid min-w-0 gap-2"
+						>
+							<div className="flex items-baseline justify-between gap-3 border-b-2 border-border-secondary pb-2">
+								<h2 id={`zone-${zone}`} className="text-text-bright">
+									{formatTitle(zone)}
+								</h2>
+								<span className="shrink-0 text-text-muted tabular-nums">
+									{zoneDiscoveredCount} / {zoneEnemies.length}
+								</span>
+							</div>
 
-						<ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-							{zoneEnemies.map((enemy) => (
-								<li key={enemy.id} className="min-w-0">
-									{records.has(enemy.id) ? (
-										<button
-											type="button"
-											className="w-full cursor-pointer border border-border bg-bg-panel px-3 py-2 text-left break-words text-text-bright hover:border-primary focus-visible:outline-2 focus-visible:outline-primary"
-											onClick={(event) => {
-												triggerRef.current = event.currentTarget;
-												setSelectedEnemy(enemy);
-											}}
-										>
-											{enemy.name}
-										</button>
-									) : (
-										<span className="block border border-border-secondary px-3 py-2 text-text-muted">
-											Unknown
-										</span>
-									)}
-								</li>
-							))}
-						</ul>
-					</section>
-				);
-			})}
+							<ul>
+								{zoneEnemies.map((enemy) => (
+									<li key={enemy.id}>
+										{records.has(enemy.id) ? (
+											<button
+												type="button"
+												className="min-h-11 w-full cursor-pointer py-2 text-left break-words hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:min-h-0 sm:py-1"
+												onClick={(event) => {
+													triggerRef.current = event.currentTarget;
+													setSelectedEnemy(enemy);
+												}}
+											>
+												{enemy.name}
+											</button>
+										) : (
+											<span className="flex min-h-11 items-center py-2 text-text-muted sm:min-h-0 sm:py-1">
+												Unknown
+											</span>
+										)}
+									</li>
+								))}
+							</ul>
+						</section>
+					);
+				})}
+			</div>
 
 			{selectedEnemy && selectedRecord && (
 				<EnemyDetailsModal

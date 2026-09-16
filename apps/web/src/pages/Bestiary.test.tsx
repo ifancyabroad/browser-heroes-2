@@ -44,7 +44,8 @@ describe("Bestiary", () => {
 		auth.mockReturnValue({ hasSession: false });
 		render(<Bestiary />);
 		expect(query).toHaveBeenCalledWith(false);
-		expect(screen.getByText(/Play as a guest/)).toBeInTheDocument();
+		expect(screen.getAllByText("Unknown")).toHaveLength(enemies.length);
+		expect(screen.getByText(`0 / ${enemies.length} DISCOVERED`)).toBeInTheDocument();
 	});
 	it("shows loading and retryable errors instead of an empty collection", () => {
 		query.mockReturnValue({ isPending: true });

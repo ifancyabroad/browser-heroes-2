@@ -33,19 +33,7 @@ export default function Bestiary() {
 						</Button>
 					</div>
 				) : (
-					<div className="grid gap-4">
-						{!hasSession ? (
-							<p>
-								Play as a guest or sign in to discover enemies and keep your own
-								records.
-							</p>
-						) : (
-							entries.length === 0 && (
-								<p>Create a new hero to begin discovering enemies.</p>
-							)
-						)}
-						<BestiaryCatalogue key={user?.id ?? "anonymous"} entries={entries} />
-					</div>
+					<BestiaryCatalogue key={user?.id ?? "anonymous"} entries={entries} />
 				)}
 			</Container>
 			<Footer />
