@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { recordBestiaryProgress } from "./bestiary.service";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
 	createDeadTestRunState,
@@ -31,6 +32,9 @@ vi.mock("@app/engine", async (importOriginal) => ({
 vi.mock("./ghost.service", () => ghostService);
 vi.mock("./achievement.service", () => achievementService);
 vi.mock("./lifetimeProgress.service", () => lifetimeProgressService);
+vi.mock("./bestiary.service", () => ({
+	recordBestiaryProgress: vi.fn().mockResolvedValue(undefined),
+}));
 
 import { applyRunAction } from "./engine.service";
 
@@ -78,6 +82,13 @@ describe("engine.service", () => {
 			status: "active",
 		});
 		expect(sessionQuery).toHaveBeenCalledWith(session);
+		expect(recordBestiaryProgress).toHaveBeenCalledWith(
+			expect.objectContaining({
+				userId: "user-id",
+				events: [],
+				session,
+			}),
+		);
 	});
 
 	it("rejects missing or unowned active runs", async () => {
@@ -95,6 +106,53 @@ describe("engine.service", () => {
 
 		expect(engine.applyAction).not.toHaveBeenCalled();
 		expect(models.action.create).not.toHaveBeenCalled();
+	});
+
+	it("propagates bestiary failure to abort the enclosing transaction", async () => {
+		const { run } = arrangeRun();
+		engine.applyAction.mockReturnValue({ ok: true, state: run.state, events: [] });
+		vi.mocked(recordBestiaryProgress).mockRejectedValueOnce(new Error("bestiary write failed"));
+
+		await expect(
+			applyRunAction({
+				userId: "user-id",
+				runId: "run-id",
+				action: { type: "PLAYER_SKIP_TURN" },
+			}),
+		).rejects.toThrow("bestiary write failed");
+
+		expect(models.action.create).not.toHaveBeenCalled();
+	});
+
+	it("records combat events for existing runs without tracking metadata", async () => {
+		const { run } = arrangeRun();
+		const events = [
+			{
+				type: "COMBAT_STARTED",
+				combatId: "new-combat",
+				battleNumber: 2,
+				encounterType: "standard",
+				enemySourceId: "goblin",
+			},
+		];
+		engine.applyAction.mockReturnValue({
+			ok: true,
+			state: run.state,
+			events,
+		});
+
+		await applyRunAction({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "CONTINUE_TO_NEXT_COMBAT" },
+		});
+
+		expect(recordBestiaryProgress).toHaveBeenCalledWith({
+			userId: "user-id",
+			events,
+			session,
+		});
+		expect(run.save).toHaveBeenCalledWith({ session });
 	});
 
 	it("persists successful state transitions and action history", async () => {
@@ -154,6 +212,7 @@ describe("engine.service", () => {
 		});
 
 		expect(run.nextActionSequence).toBe(2);
+		expect(recordBestiaryProgress).not.toHaveBeenCalled();
 		expect(models.action.create).toHaveBeenCalledWith(
 			[
 				expect.objectContaining({

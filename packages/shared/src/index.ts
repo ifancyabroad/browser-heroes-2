@@ -8,4 +8,5 @@ export * from "./dailyChallenges";
 export * from "./hallOfFame";
 export * from "./history";
 export * from "./achievements";
+export * from "./bestiary";
 export * from "./adminMetrics";

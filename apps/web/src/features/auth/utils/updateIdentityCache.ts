@@ -1,3 +1,4 @@
+import { bestiaryKeys } from "../../bestiary/api/bestiaryKeys";
 import type { AuthUserResponse } from "@app/shared";
 import type { QueryClient } from "@tanstack/react-query";
 import { dailyChallengeKeys } from "../../dailyChallenges/api/dailyChallengeKeys";
@@ -9,6 +10,7 @@ import { hallOfFameKeys } from "../../hallOfFame/api/hallOfFameKeys";
 
 export function updateIdentityCache(queryClient: QueryClient, data: AuthUserResponse) {
 	queryClient.setQueryData(authKeys.currentUser(), data);
+	queryClient.removeQueries({ queryKey: bestiaryKeys.all });
 	queryClient.removeQueries({ queryKey: runKeys.all });
 	queryClient.removeQueries({ queryKey: historyKeys.all });
 	queryClient.removeQueries({ queryKey: achievementKeys.all });

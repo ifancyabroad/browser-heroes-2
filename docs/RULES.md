@@ -201,7 +201,17 @@ Achievements are permanent account-level goals shared across a user's heroes. Gu
 
 Achievement definitions are shared game content. Unlocks are awarded from authoritative gameplay outcomes and retain the date and time first earned. Locked achievements remain visible so players can pursue their requirements.
 
-## 15. Scope Boundaries
+## 15. Bestiary
+
+The Bestiary reveals an authored enemy or boss on first encounter, even if the hero loses.
+Undiscovered entries remain Unknown within their zone. Revealed entries show the enemy's
+portrait, authored traits and abilities, and personal counts of encounters, victories, and
+heroes slain. Ghosts are excluded. Repeat encounters, including endless cycles, count toward
+the same entry; abandoned encounters award neither a victory nor a death.
+
+Discovery and records persist across heroes, run modes, and seasons, including for guests who later register. Tracking starts with the Bestiary release for all runs; past encounters are not backfilled, so combats already underway at launch may have incomplete records. Enemy details describe current authored content rather than a historical or level-specific combat snapshot.
+
+## 16. Scope Boundaries
 
 This document does not define:
 

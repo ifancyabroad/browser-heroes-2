@@ -18,6 +18,15 @@ const baseInput = {
 };
 
 describe("planGuestCleanup", () => {
+	it("retains guests with bestiary progress even without retained runs", () => {
+		const plan = planGuestCleanup({
+			...baseInput,
+			userIds: ["collector"],
+			bestiaryUserIds: ["collector"],
+		});
+		expect(plan.emptyGuestIds).toEqual([]);
+		expect(plan.deletableGuestIds).toEqual([]);
+	});
 	it("deletes an empty guest", () => {
 		const plan = planGuestCleanup({ ...baseInput, userIds: ["empty"] });
 

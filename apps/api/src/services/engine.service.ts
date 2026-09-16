@@ -19,6 +19,7 @@ import {
 import { toRunSummary } from "./projection.service";
 import { processRunActionAchievements, type AchievementSource } from "./achievement.service";
 import { recordLifetimeProgress } from "./lifetimeProgress.service";
+import { recordBestiaryProgress } from "./bestiary.service";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 
@@ -74,6 +75,14 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 		run.nextActionSequence += 1;
 
 		await run.save({ session });
+
+		if (result.ok) {
+			await recordBestiaryProgress({
+				userId: input.userId,
+				events,
+				session,
+			});
+		}
 
 		if (startedPlayerGhostId) {
 			await incrementGhostEncounters({

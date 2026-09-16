@@ -6,6 +6,7 @@ import { isPlayableRunState } from "../utils/isPlayableRunState";
 import { achievementKeys } from "../../achievements/api/achievementKeys";
 import { useAchievementToastStore } from "../../achievements/stores/achievementToastStore";
 import { dailyChallengeKeys } from "../../dailyChallenges/api/dailyChallengeKeys";
+import { bestiaryKeys } from "../../bestiary/api/bestiaryKeys";
 
 export function useApplyRunAction() {
 	const queryClient = useQueryClient();
@@ -16,7 +17,7 @@ export function useApplyRunAction() {
 	return useMutation({
 		mutationFn: (payload: RunActionPayload) => applyRunAction(payload),
 
-		onSuccess: ({ run, unlockedAchievements }) => {
+		onSuccess: ({ run, result, unlockedAchievements }) => {
 			queryClient.setQueryData<CurrentRunResponse>(runKeys.game(), { run });
 
 			queryClient.setQueryData<GetRunResponse>(runKeys.detail(run.id), { run });
@@ -25,6 +26,19 @@ export function useApplyRunAction() {
 				runKeys.current(),
 				isPlayableRunState(run.state) ? { run } : { run: null },
 			);
+
+			const hasCombatEvent =
+				result.ok &&
+				result.events.some(
+					({ type }) => type === "COMBAT_STARTED" || type === "COMBAT_ENDED",
+				);
+
+			if (hasCombatEvent) {
+				void queryClient.invalidateQueries({
+					queryKey: bestiaryKeys.all,
+					refetchType: "none",
+				});
+			}
 
 			if (run.mode === "dailyChallenge" && !isPlayableRunState(run.state)) {
 				void queryClient.invalidateQueries({ queryKey: dailyChallengeKeys.all });

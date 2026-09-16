@@ -1,3 +1,4 @@
+import Bestiary from "./pages/Bestiary";
 import { Routes, Route } from "react-router-dom";
 import Game from "./pages/Game";
 import NotFound from "./pages/NotFound";
@@ -22,6 +23,7 @@ export default function App() {
 			<Route path="/daily-challenge" element={<DailyChallenge />} />
 			<Route path="/hall-of-fame" element={<HallOfFame />} />
 			<Route path="/history" element={<History />} />
+			<Route path="/bestiary" element={<Bestiary />} />
 			<Route path="/progress" element={<Progress />} />
 			<Route path="/contact" element={<Contact />} />
 			<Route element={<PrivateRoute />}>

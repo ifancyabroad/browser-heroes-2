@@ -21,11 +21,13 @@ describe("updateIdentityCache", () => {
 		} as const;
 		queryClient.setQueryData(historyKeys.runs(historyQuery), { entries: [] });
 		queryClient.setQueryData(["content"], { classes: [] });
+		queryClient.setQueryData(["bestiary"], { entries: [{ enemyId: "old-owner-enemy" }] });
 
 		updateIdentityCache(queryClient, { user: null });
 
 		expect(queryClient.getQueryData(authKeys.currentUser())).toEqual({ user: null });
 		expect(queryClient.getQueryData(runKeys.current())).toBeUndefined();
+		expect(queryClient.getQueryData(["bestiary"])).toBeUndefined();
 		expect(queryClient.getQueryData(historyKeys.runs(historyQuery))).toBeUndefined();
 		expect(queryClient.getQueryData(["content"])).toEqual({ classes: [] });
 		expect(invalidateQueries).toHaveBeenCalledWith({ queryKey: dailyChallengeKeys.all });

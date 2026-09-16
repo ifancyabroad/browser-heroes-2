@@ -1,12 +1,13 @@
 import mongoose, { Types } from "mongoose";
 import { HERO_NAME_MAX_LENGTH, HERO_NAME_PATTERN, type RunMode } from "@app/shared";
 import { createInitialRunState } from "@app/engine";
-import type { ClassId } from "@app/content";
+import { enemyIdSchema, type ClassId } from "@app/content";
 import profanityFilter from "leo-profanity";
 import { env } from "../config/env";
 import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
 import { toRunSummary } from "./projection.service";
+import { recordBestiaryEncounter } from "./bestiary.service";
 
 function createHeroNameError(message: string): Error & { status: number } {
 	return Object.assign(new Error(message), { status: 400 });
@@ -121,6 +122,12 @@ async function createRunRecord(params: {
 			],
 			{ session },
 		);
+
+		await recordBestiaryEncounter({
+			userId: params.userId,
+			enemyId: enemyIdSchema.parse(state.combat!.enemy.sourceId),
+			session,
+		});
 
 		return run;
 	});

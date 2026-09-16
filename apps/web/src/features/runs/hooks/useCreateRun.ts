@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { CurrentRunResponse, GetRunResponse } from "@app/shared";
 import { createRun } from "../api/createRun";
 import { runKeys } from "../api/runKeys";
-import type { CurrentRunResponse, GetRunResponse } from "@app/shared";
+import { bestiaryKeys } from "../../bestiary/api/bestiaryKeys";
 
 export function useCreateRun() {
 	const queryClient = useQueryClient();
@@ -16,6 +17,11 @@ export function useCreateRun() {
 			queryClient.setQueryData<CurrentRunResponse>(runKeys.game(), data);
 
 			queryClient.setQueryData<GetRunResponse>(runKeys.detail(run.id), data);
+
+			void queryClient.invalidateQueries({
+				queryKey: bestiaryKeys.all,
+				refetchType: "none",
+			});
 		},
 	});
 }

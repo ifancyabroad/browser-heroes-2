@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { runKeys } from "../../runs/api/runKeys";
 import { dailyChallengeKeys } from "../api/dailyChallengeKeys";
 import { startDailyChallenge } from "../api/startDailyChallenge";
+import { bestiaryKeys } from "../../bestiary/api/bestiaryKeys";
 
 export function useStartDailyChallenge() {
 	const queryClient = useQueryClient();
@@ -13,8 +14,13 @@ export function useStartDailyChallenge() {
 			queryClient.setQueryData<CurrentRunResponse>(runKeys.current(), response);
 			queryClient.setQueryData<CurrentRunResponse>(runKeys.game(), response);
 			queryClient.setQueryData<GetRunResponse>(runKeys.detail(run.id), response);
+
 			void queryClient.invalidateQueries({
 				queryKey: dailyChallengeKeys.all,
+				refetchType: "none",
+			});
+			void queryClient.invalidateQueries({
+				queryKey: bestiaryKeys.all,
 				refetchType: "none",
 			});
 		},

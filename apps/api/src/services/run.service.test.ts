@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { recordBestiaryEncounter } from "./bestiary.service";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const models = vi.hoisted(() => ({
@@ -24,6 +25,9 @@ vi.mock("../models/runAction.model", () => ({ RunActionModel: models.action }));
 vi.mock("@app/engine", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@app/engine")>()),
 	createInitialRunState: engine.createInitialRunState,
+}));
+vi.mock("./bestiary.service", () => ({
+	recordBestiaryEncounter: vi.fn().mockResolvedValue(undefined),
 }));
 vi.mock("leo-profanity", () => ({ default: profanity }));
 
@@ -89,6 +93,11 @@ describe("run.service", () => {
 			{ session },
 		);
 		expect(created).toEqual({ _id: "created-run" });
+		expect(recordBestiaryEncounter).toHaveBeenCalledWith({
+			userId: "user-id",
+			enemyId: testRunState.combat!.enemy.sourceId,
+			session,
+		});
 	});
 
 	it("creates daily runs through the same run lifecycle with an explicit definition", async () => {
@@ -99,6 +108,11 @@ describe("run.service", () => {
 			classId: "mage",
 			seed: "d47b9203-2ac8-8d97-a2ad-6e3f70c239d9",
 			dailyChallengeDate: "2026-08-23",
+		});
+		expect(recordBestiaryEncounter).toHaveBeenCalledWith({
+			userId: "user-id",
+			enemyId: testRunState.combat!.enemy.sourceId,
+			session,
 		});
 
 		expect(engine.createInitialRunState).toHaveBeenCalledWith({

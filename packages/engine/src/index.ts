@@ -49,6 +49,7 @@ export {
 	createSystemGhostEncounter,
 	getEncounterTypeForBattle,
 	getZoneForRun,
+	ZONE_ORDER,
 } from "./systems/encounters";
 
 export {

@@ -4,5 +4,6 @@ export const navigationItems = [
 	{ label: "HALL OF FAME", to: "/hall-of-fame", end: false },
 	{ label: "HISTORY", to: "/history", end: false },
 	{ label: "PROGRESS", to: "/progress", end: false },
+	{ label: "BESTIARY", to: "/bestiary", end: false },
 	{ label: "CONTACT", to: "/contact", end: false },
 ] as const;

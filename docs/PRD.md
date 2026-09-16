@@ -83,7 +83,7 @@ Town provides shopping, recovery, equipment management, and the choice to begin 
 
 Daily Challenges provide the fair public competitive mode: one attempt per identity on a shared UTC-date seed, class, opportunity schedule, and ghost pool, with historical leaderboards. The Hall of Fame separately recognizes all-time hero accomplishments across normal and Daily Challenge runs, and the most successful player ghosts, without implying equal run conditions.
 
-Ghost encounters, achievements, and personal hero and ghost history add asynchronous variety and goals around both run modes. Achievement progress belongs to the user across heroes and is available to guests as well as registered accounts. Broader world activity remains future direction.
+Ghost encounters, achievements, the Bestiary, and personal hero and ghost history add asynchronous variety and goals around both run modes. Achievements and enemy discovery persist across heroes for guests and registered accounts. Broader world activity remains future direction.
 
 Meta systems must not override deterministic run rules unless their effects are represented explicitly in run state.
 

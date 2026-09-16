@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import type { PropsWithChildren } from "react";
 import type { RunView } from "@app/shared";
+import type { EngineEvent } from "@app/engine";
+import { bestiaryKeys } from "../../bestiary/api/bestiaryKeys";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { runKeys } from "../api/runKeys";
 
@@ -137,6 +139,41 @@ describe("useApplyRunAction", () => {
 		expect(showAchievementUnlocks).not.toHaveBeenCalled();
 		expect(invalidateQueries).not.toHaveBeenCalled();
 	});
+
+	it.each([
+		{ type: "COMBAT_STARTED", encounterType: "standard", invalidated: true },
+		{ type: "COMBAT_ENDED", encounterType: "boss", invalidated: true },
+		{ type: "COMBAT_STARTED", encounterType: "ghost", invalidated: true },
+		{ type: "COMBAT_ENDED", encounterType: "ghost", invalidated: true },
+		{ type: "RESTED_AT_TOWN", encounterType: undefined, invalidated: false },
+	])(
+		"updates bestiary cache for $type / $encounterType: $invalidated",
+		async ({ type, encounterType, invalidated }) => {
+			const run = createRun("combat");
+			applyRunAction.mockResolvedValue({
+				run,
+				result: {
+					ok: true,
+					state: run.state,
+					events: [{ type, encounterType } as EngineEvent],
+				},
+			});
+			const { queryClient, wrapper } = createHarness();
+			queryClient.setQueryData(bestiaryKeys.entries(), { entries: [] });
+			const { result } = renderHook(() => useApplyRunAction(), { wrapper });
+
+			await act(() =>
+				result.current.mutateAsync({
+					runId: "run-id",
+					action: { type: "PLAYER_SKIP_TURN" },
+				}),
+			);
+
+			expect(queryClient.getQueryState(bestiaryKeys.entries())?.isInvalidated).toBe(
+				invalidated,
+			);
+		},
+	);
 
 	it.each(["dead", "retired"] as const)(
 		"removes %s runs from the playable current-run cache",
