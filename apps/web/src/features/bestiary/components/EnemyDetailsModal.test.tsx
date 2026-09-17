@@ -15,7 +15,7 @@ describe("EnemyDetailsModal", () => {
 		render(<EnemyDetailsModal enemy={enemy} record={record} onClose={close} />);
 		expect(screen.queryByRole("heading", { name: "Skills" })).not.toBeInTheDocument();
 		expect(screen.queryByRole("heading", { name: "Feats" })).not.toBeInTheDocument();
-		expect(screen.queryByRole("heading", { name: "Resistances" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("heading", { name: "Affinities" })).not.toBeInTheDocument();
 		expect(screen.getByRole("img").parentElement?.style.backgroundImage).toContain("bg_12.png");
 		fireEvent.keyDown(screen.getByRole("dialog"), { key: "Escape" });
 		expect(close).toHaveBeenCalled();
@@ -28,6 +28,6 @@ describe("EnemyDetailsModal", () => {
 		render(<EnemyDetailsModal enemy={enemy} record={record} onClose={vi.fn()} />);
 		expect(screen.getByRole("heading", { name: "Skills" })).toBeInTheDocument();
 		expect(screen.getByRole("heading", { name: feats[0].name })).toBeInTheDocument();
-		expect(screen.getByRole("heading", { name: "Resistances" })).toBeInTheDocument();
+		expect(screen.getByRole("heading", { name: "Affinities" })).toBeInTheDocument();
 	});
 });
