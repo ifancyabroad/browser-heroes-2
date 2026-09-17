@@ -1,10 +1,10 @@
 import { attributes, SKILLS_BY_ID, FEATS_BY_ID, type Enemy, type Zone } from "@app/content";
 import type { BestiaryEntryView } from "@app/shared";
 import type { PropsWithChildren } from "react";
+import { Skull } from "pixelarticons/react/Skull";
 import { Modal } from "../../../components/Modal";
 import { Button } from "../../../components/Button";
 import { Badge } from "../../../components/Badge";
-import { formatTitle } from "../../../presentation/effects";
 import { getDamageTypeBorderClass } from "../../../presentation/damage";
 import {
 	attributeShortLabels,
@@ -71,12 +71,24 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 			}
 		>
 			<article className="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:grid-rows-[min-content_1fr]">
-				<header className="grid min-w-0 gap-1 md:col-start-2">
-					<h2 className="break-words text-primary">{enemy.name}</h2>
-					<p className="text-text-muted">
-						{formatTitle(enemy.encounter.zone)} / {formatTitle(enemy.rank)}
-					</p>
-					{enemy.description && <p className="mt-1">{enemy.description}</p>}
+				<header className="grid min-w-0 gap-2 md:col-start-2">
+					<div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+						<h2 className="min-w-0 break-words text-primary">{enemy.name}</h2>
+						{enemy.rank === "boss" && (
+							<Badge
+								variant="muted"
+								textTone="bright"
+								className="inline-flex shrink-0 items-center gap-1"
+								label={
+									<>
+										<Skull className="size-4" aria-hidden="true" />
+										Boss
+									</>
+								}
+							/>
+						)}
+					</div>
+					{enemy.description && <p>{enemy.description}</p>}
 				</header>
 				<div className="grid gap-4 md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1">
 					<div
