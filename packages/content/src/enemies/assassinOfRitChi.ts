@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "assassin_of_rit_chi",
 	name: "Assassin of Rit Chi",
-	description:
-		"A hooded ratman in Rit Chi's service, with curved blades and very quiet footsteps.",
+	description: "Serves Rit Chi without a word. Silences those who ask too many questions.",
 	portrait: "enemies/desert/assassin_of_rit_chi.png",
 	rank: "normal",
 	threat: 15,

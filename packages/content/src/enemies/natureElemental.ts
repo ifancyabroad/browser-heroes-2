@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "nature_elemental",
 	name: "Nature Elemental",
 	description:
-		"A horned forest spirit draped in leaves. Poison gathers beneath its trailing roots.",
+		"Reclaims ground cleared by settlers. Poison spreads through the ruins left behind.",
 	portrait: "enemies/tower/nature_elemental.png",
 	rank: "normal",
 	threat: 27,

@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "beholder",
 	name: "Beholder",
 	description:
-		"One enormous eye, a mouthful of teeth, and little wings keeping the whole problem airborne.",
+		"Allows nothing to move through its territory unwatched. Pursues intruders until they fall.",
 	portrait: "enemies/volcano/beholder.png",
 	rank: "normal",
 	threat: 22,

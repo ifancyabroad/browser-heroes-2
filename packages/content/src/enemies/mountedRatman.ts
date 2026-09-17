@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "mounted_ratman",
 	name: "Mounted Ratman",
 	description:
-		"A ratman perched on a tusked mount. Both seem pleased to have something to charge at.",
+		"Runs down stragglers before they can reach cover, then circles back to the others.",
 	portrait: "enemies/desert/mounted_ratman.png",
 	rank: "normal",
 	threat: 13,

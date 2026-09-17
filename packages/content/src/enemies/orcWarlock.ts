@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "orc_warlock",
 	name: "Orc Warlock",
 	description:
-		"An orc spellcaster wrapped in dark magic, hurling curses and fire across the plains.",
+		"The other orcs lower their voices when it passes, even the ones who claim to fear nothing.",
 	portrait: "enemies/plains/orc_warlock.png",
 	rank: "normal",
 	threat: 15,

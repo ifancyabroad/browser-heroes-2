@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "pygmy",
 	name: "Pygmy",
-	description: "A small forest fighter with a hammer that hits harder than expected.",
+	description:
+		"Holds its patch of forest stubbornly. Larger creatures have learned to go around.",
 	portrait: "enemies/forest/pygmy.png",
 	rank: "normal",
 	threat: 6,

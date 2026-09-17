@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dunzarak_the_deceived",
 	name: "Dunzarak the Deceived",
-	description:
-		"A gaunt dragon with ragged wings, breathing fire beneath a storm of its own making.",
+	description: "Remembers the betrayal well enough. No longer cares who pays for it.",
 	portrait: "enemies/abyss/dunzarak_the_deceived.png",
 	rank: "boss",
 	threat: 28,

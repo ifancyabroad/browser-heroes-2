@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_warchief_zog",
 	name: "Orc Warchief Zog",
-	description: "Zog leads by example: knock them down, hit them again, then keep hitting.",
+	description:
+		"Knocks challengers flat and keeps hitting until the rest of the clan has seen enough.",
 	portrait: "enemies/plains/orc_warchief_zog.png",
 	rank: "boss",
 	threat: 21,

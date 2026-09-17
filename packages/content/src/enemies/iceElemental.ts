@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ice_elemental",
 	name: "Ice Elemental",
-	description: "A jagged shape of living ice. Frost spreads wherever its hands fall.",
+	description:
+		"Leaves frost inside locked rooms. By the time anyone notices, the door has frozen shut.",
 	portrait: "enemies/tower/ice_elemental.png",
 	rank: "normal",
 	threat: 28,

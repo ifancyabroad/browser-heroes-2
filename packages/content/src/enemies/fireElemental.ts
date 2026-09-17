@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_elemental",
 	name: "Fire Elemental",
-	description: "A roaring pillar of fire that lashes out at anything within reach.",
+	description:
+		"Burns long after the fuel is gone, reaching for anything that comes to put it out.",
 	portrait: "enemies/tower/fire_elemental.png",
 	rank: "normal",
 	threat: 25,

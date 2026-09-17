@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "orc_grunt",
 	name: "Orc Grunt",
 	description:
-		"A loud, eager fighter who starts with a war cry and goes straight for the armour.",
+		"Fights to earn a place among the veterans, pressing forward even when ordered back.",
 	portrait: "enemies/plains/orc_grunt.png",
 	rank: "normal",
 	threat: 12,

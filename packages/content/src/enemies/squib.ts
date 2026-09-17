@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "squib",
 	name: "Squib",
 	description:
-		"A small, wide-eyed traveller with a packed bag, a tall staff, and a deeply unsettling song.",
+		"Hums the same mournful tune wherever it goes. Those who hear it struggle to forget it.",
 	portrait: "enemies/ocean/squib.png",
 	rank: "normal",
 	threat: 13,

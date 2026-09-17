@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "void_creeper",
 	name: "Void Creeper",
-	description:
-		"A pale, many-eyed creature with dangling tendrils. Its presence chills the water and clouds the mind.",
+	description: "Draws close while its prey struggles to remember which way the surface lies.",
 	portrait: "enemies/ocean/void_creeper.png",
 	rank: "normal",
 	threat: 19,

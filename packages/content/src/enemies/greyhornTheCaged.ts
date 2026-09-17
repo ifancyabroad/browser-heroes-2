@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "greyhorn_the_caged",
 	name: "Greyhorn the Caged",
 	description:
-		"A furious minotaur with lowered horns. Whatever held Greyhorn, it hasn't improved his temper.",
+		"Captivity taught Greyhorn to watch for an opening. He charges the moment one appears.",
 	portrait: "enemies/forest/greyhorn_the_caged.png",
 	rank: "boss",
 	threat: 14,

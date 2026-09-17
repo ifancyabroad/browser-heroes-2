@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "piranhasaur",
 	name: "Piranhasaur",
-	description: "A finned predator with legs. Leaving the water won't solve this problem.",
+	description: "Follows prey into the shallows, then keeps going long after the water ends.",
 	portrait: "enemies/ocean/piranhasaur.png",
 	rank: "normal",
 	threat: 16,

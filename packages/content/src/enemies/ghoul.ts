@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ghoul",
 	name: "Ghoul",
-	description: "A corpse with clawing hands and a hunger the grave did nothing to satisfy.",
+	description: "Claws through fresh graves and carries the remains somewhere quiet to feed.",
 	portrait: "enemies/hills/ghoul.png",
 	rank: "normal",
 	threat: 13,

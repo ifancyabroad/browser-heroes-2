@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "air_elemental",
 	name: "Air Elemental",
-	description: "A restless swirl of wind and static that tears through the tower's halls.",
+	description: "Roams the tower at night, slamming doors hard enough to split the frames.",
 	portrait: "enemies/tower/air_elemental.png",
 	rank: "normal",
 	threat: 26,

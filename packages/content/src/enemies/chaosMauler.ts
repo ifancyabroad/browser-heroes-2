@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "chaos_mauler",
 	name: "Chaos Mauler",
-	description: "Takes a warhammer to armour until something gives. Usually the person inside.",
+	description: "Bears down on wounded opponents, giving them no room to recover.",
 	portrait: "enemies/dungeon/chaos_mauler.png",
 	rank: "normal",
 	threat: 25,

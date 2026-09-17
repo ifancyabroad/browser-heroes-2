@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "earth_elemental",
 	name: "Earth Elemental",
 	description:
-		"A lumbering heap of boulders with fists to match. The floor shudders with every step.",
+		"Rouses slowly when disturbed, then pursues intruders through the ruined passages.",
 	portrait: "enemies/tower/earth_elemental.png",
 	rank: "normal",
 	threat: 27,

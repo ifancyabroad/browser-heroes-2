@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "monk",
 	name: "Monk",
 	description:
-		"A quiet servant of the castle, equally ready to mend wounds or deliver holy punishment.",
+		"Keeps a steady prayer through the fighting, even when pain threatens to break it.",
 	portrait: "enemies/castle/monk.png",
 	rank: "normal",
 	threat: 10,

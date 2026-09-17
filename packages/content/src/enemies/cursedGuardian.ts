@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "cursed_guardian",
 	name: "Cursed Guardian",
-	description: "A twisted wooden guardian with a hollow grin and a hunger for souls.",
+	description:
+		"The paths it once guarded have vanished. It still punishes anyone who tries to pass.",
 	portrait: "enemies/abyss/cursed_guardian.png",
 	rank: "normal",
 	threat: 24,

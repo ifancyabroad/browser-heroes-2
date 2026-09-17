@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "avatar_of_rit_chi",
 	name: "Avatar of Rit Chi",
-	description:
-		"Rit Chi's power animates a towering rat skeleton. Its claws scrape the sand as it advances.",
+	description: "The faithful kneel when it approaches. It pays them little attention.",
 	portrait: "enemies/desert/avatar_of_rit_chi.png",
 	rank: "boss",
 	threat: 19,

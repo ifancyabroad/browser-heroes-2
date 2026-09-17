@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "dread_serpent",
 	name: "Dread Serpent",
 	description:
-		"A serpent with acid dripping from its jaws. Even its misses leave something hissing.",
+		"Leaves half-dissolved carcasses along the trails it hunts. Scavengers know to wait.",
 	portrait: "enemies/hills/dread_serpent.png",
 	rank: "normal",
 	threat: 17,

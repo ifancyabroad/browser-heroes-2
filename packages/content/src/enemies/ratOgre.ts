@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "rat_ogre",
 	name: "Rat Ogre",
 	description:
-		"An oversized rat brute that works itself into a frenzy before landing crushing blows.",
+		"Driven ahead of the raiding parties, it keeps attacking long after the defenders break.",
 	portrait: "enemies/desert/rat_ogre.png",
 	rank: "normal",
 	threat: 15,

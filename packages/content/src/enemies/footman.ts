@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "footman",
 	name: "Footman",
-	description: "A castle soldier with a battleaxe and a practised eye for weak armour.",
+	description:
+		"Has held this post through long winters and repeated sieges. Watches every approach for movement.",
 	portrait: "enemies/castle/footman.png",
 	rank: "normal",
 	threat: 11,

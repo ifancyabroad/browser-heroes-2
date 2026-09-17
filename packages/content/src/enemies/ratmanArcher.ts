@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ratman_archer",
 	name: "Ratman Archer",
-	description: "Dips arrows in poison and aims for anything that will slow the chase.",
+	description: "Poisons its arrows and follows wounded targets until they can no longer run.",
 	portrait: "enemies/desert/ratman_archer.png",
 	rank: "normal",
 	threat: 12,

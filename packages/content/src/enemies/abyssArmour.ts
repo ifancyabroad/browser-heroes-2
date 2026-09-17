@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abyss_armour",
 	name: "Abyss Armour",
-	description:
-		"An empty suit of gilded armour. The sword and shield seem to manage without an owner.",
+	description: "Still holds its post, though whoever wore it is long gone.",
 	portrait: "enemies/abyss/abyss_armour.png",
 	rank: "normal",
 	threat: 23,

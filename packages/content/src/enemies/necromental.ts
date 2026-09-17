@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "necromental",
 	name: "Necromental",
-	description: "A tangle of bones that pulls itself back together and reaches for living souls.",
+	description: "The bones come from several graves. None of their owners have found any rest.",
 	portrait: "enemies/tower/necromental.png",
 	rank: "normal",
 	threat: 27,

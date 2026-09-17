@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "wretch",
 	name: "Wretch",
-	description: "A hunched, feathered scavenger with a skull-like face and quick, grasping claws.",
+	description: "Follows the sound of fighting, hoping to find someone too hurt to fight again.",
 	portrait: "enemies/dungeon/wretch.png",
 	rank: "normal",
 	threat: 16,

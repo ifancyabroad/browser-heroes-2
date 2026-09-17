@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "ratman_slave",
 	name: "Ratman Slave",
 	description:
-		"A burdened ratman sent into battle with claws and poison. Given little choice in the matter.",
+		"Survived the march on scraps and threats. The promise of freedom sounds less convincing each day.",
 	portrait: "enemies/desert/ratman_slave.png",
 	rank: "normal",
 	threat: 8,

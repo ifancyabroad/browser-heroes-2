@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "lurker",
 	name: "Lurker",
-	description:
-		"A hunched, spiny brute that waits in the abyss for something to wander within reach.",
+	description: "Waits for lost travellers to stop and catch their breath before it moves.",
 	portrait: "enemies/abyss/lurker.png",
 	rank: "normal",
 	threat: 23,

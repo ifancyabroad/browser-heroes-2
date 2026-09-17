@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "living_flame",
 	name: "Living Flame",
-	description: "This fire chooses what to burn. It has taken an interest.",
+	description: "Chooses what to burn, lingering over anything that tries to escape.",
 	portrait: "enemies/volcano/living_flame.png",
 	rank: "normal",
 	threat: 21,

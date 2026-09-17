@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "gremlin_cultist",
 	name: "Gremlin Cultist",
-	description: "Mumbles prayers to the Nameless One. Something down here is listening.",
+	description:
+		"Mumbles prayers to the Nameless One. Pauses often, as though waiting for a reply.",
 	portrait: "enemies/dungeon/gremlin_cultist.png",
 	rank: "normal",
 	threat: 20,

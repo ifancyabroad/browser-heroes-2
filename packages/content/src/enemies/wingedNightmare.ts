@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "winged_nightmare",
 	name: "Winged Nightmare",
-	description: "Wings blot out the light. A drawn sword catches it on the way down.",
+	description: "Follows travellers until they stop watching the sky.",
 	portrait: "enemies/abyss/winged_nightmare.png",
 	rank: "normal",
 	threat: 24,

@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "chaos_knight",
 	name: "Chaos Knight",
-	description: "A heavily armoured swordsman whose sweeping blade leaves little room to retreat.",
+	description:
+		"Challenges anyone bearing arms. Leaves their weapons beside the bodies as a warning.",
 	portrait: "enemies/dungeon/chaos_knight.png",
 	rank: "normal",
 	threat: 25,

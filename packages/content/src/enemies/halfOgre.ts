@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "half_ogre",
 	name: "Half Ogre",
-	description: "An imposing fighter with a booming battle cry and a taste for cracking skulls.",
+	description: "The other raiders keep their distance once it starts enjoying the fight.",
 	portrait: "enemies/plains/half_ogre.png",
 	rank: "normal",
 	threat: 14,

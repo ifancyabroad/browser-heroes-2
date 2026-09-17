@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "the_elder_squid",
 	name: "The Elder Squid",
 	description:
-		"Ancient tentacles coil around its prey while something cold presses into the mind.",
+		"Takes hold of the mind before the body. By then, struggling feels strangely unimportant.",
 	portrait: "enemies/ocean/the_elder_squid.png",
 	rank: "boss",
 	threat: 24,

@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "knight",
 	name: "Knight",
-	description:
-		"An armoured knight who holds firm, answering each challenge with steel and holy fury.",
+	description: "Swore to hold the gate. Still intends to, however many bodies block it.",
 	portrait: "enemies/castle/knight.png",
 	rank: "normal",
 	threat: 14,

@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "golem",
 	name: "Golem",
-	description: "A tireless construct that pauses to repair itself, then resumes the beating.",
+	description: "Repairs itself after every fight, then resumes its patrol.",
 	portrait: "enemies/volcano/golem.png",
 	rank: "normal",
 	threat: 22,

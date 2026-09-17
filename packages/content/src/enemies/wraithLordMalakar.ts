@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "wraith_lord_malakar",
 	name: "Wraith Lord Malakar",
 	description:
-		"A wraith lord shrouded in shadow. His wail carries through the hills long after he passes.",
+		"His wail carries through the hills long after he passes. Doors stay barred until morning.",
 	portrait: "enemies/hills/wraith_lord_malakar.png",
 	rank: "boss",
 	threat: 22,

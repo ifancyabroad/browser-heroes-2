@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "guard",
 	name: "Guard",
-	description: "Keeps watch with a drawn bow. A warning shot is apparently optional.",
+	description: "Has heard every excuse for trespassing. None have improved with repetition.",
 	portrait: "enemies/castle/guard.png",
 	rank: "normal",
 	threat: 10,

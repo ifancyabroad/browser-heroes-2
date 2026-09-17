@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "munchling",
 	name: "Munchling",
 	description:
-		"A walking mouth on spindly limbs, with an unnerving knack for finding an unprotected eye.",
+		"Clings to its prey and claws at the eyes, even as it is dragged along the ground.",
 	portrait: "enemies/ocean/munchling.png",
 	rank: "normal",
 	threat: 15,

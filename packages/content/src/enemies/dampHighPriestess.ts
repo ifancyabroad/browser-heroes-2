@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "damp_high_priestess",
 	name: "Damp High Priestess",
-	description: "A serpent priestess with a trident in hand and holy fire at her call.",
+	description:
+		"Calls the faithful beneath the waves, where their prayers can no longer be heard from shore.",
 	portrait: "enemies/ocean/damp_high_priestess.png",
 	rank: "normal",
 	threat: 18,

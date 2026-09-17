@@ -3,8 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "wizard",
 	name: "Wizard",
-	description:
-		"A castle spellcaster with fire, frost, and a healthy reluctance to fight without magical armour.",
+	description: "Resents every hour spent guarding the castle instead of studying in it.",
 	portrait: "enemies/castle/wizard.png",
 	rank: "normal",
 	threat: 12,

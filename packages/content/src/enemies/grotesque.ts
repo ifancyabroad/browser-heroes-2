@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "grotesque",
 	name: "Grotesque",
-	description: "A bloated horror with a gaping mouth where its head ought to be.",
+	description: "Feeds until it can barely move, then lunges at the next thing that passes.",
 	portrait: "enemies/hills/grotesque.png",
 	rank: "normal",
 	threat: 17,

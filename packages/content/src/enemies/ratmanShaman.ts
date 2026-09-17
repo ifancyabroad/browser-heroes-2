@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ratman_shaman",
 	name: "Ratman Shaman",
-	description: "Murmurs blessings over old wounds, then calls down lightning on fresh enemies.",
+	description:
+		"Keeps the wounded alive through long desert marches, tending them whenever the column halts.",
 	portrait: "enemies/desert/ratman_shaman.png",
 	rank: "normal",
 	threat: 13,

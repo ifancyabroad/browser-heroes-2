@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "living_mold",
 	name: "Living Mold",
 	description:
-		"A green, grasping puddle with teeth. Cutting pieces off barely seems to inconvenience it.",
+		"Grows back wherever it is scraped away. Slowly swallows paths that nobody clears.",
 	portrait: "enemies/forest/living_mold.png",
 	rank: "normal",
 	threat: 7,

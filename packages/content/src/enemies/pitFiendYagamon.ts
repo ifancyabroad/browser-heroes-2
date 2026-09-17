@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "pit_fiend_yagamon",
 	name: "Pit Fiend Yagamon",
 	description:
-		"A towering fiend wreathed in fire. Wounding Yagamon only makes the next blast more personal.",
+		"Pursues those who wound him long after the battle ends, burning through whatever shelters them.",
 	portrait: "enemies/volcano/pit_fiend_yagamon.png",
 	rank: "boss",
 	threat: 26,

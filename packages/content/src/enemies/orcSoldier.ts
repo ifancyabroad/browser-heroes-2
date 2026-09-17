@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_soldier",
 	name: "Orc Soldier",
-	description: "A seasoned orc who knows how to break a guard and leave a deep wound.",
+	description:
+		"Has outlived plenty of louder orcs by knowing when to let the other fighter swing first.",
 	portrait: "enemies/plains/orc_soldier.png",
 	rank: "normal",
 	threat: 14,

@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "skeleton_warrior",
 	name: "Skeleton Warrior",
-	description: "Still remembers how to swing an axe. Has forgotten most reasons to stop.",
+	description:
+		"Repeats the drills it learned in life, striking at anyone who comes within reach.",
 	portrait: "enemies/hills/skeleton_warrior.png",
 	rank: "normal",
 	threat: 12,

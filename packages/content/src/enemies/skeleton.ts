@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "skeleton",
 	name: "Skeleton",
-	description: "Bare bones, clenched fists, and unfinished business.",
+	description: "Returns to places it knew in life, long after the people there have gone.",
 	portrait: "enemies/hills/skeleton.png",
 	rank: "normal",
 	threat: 8,

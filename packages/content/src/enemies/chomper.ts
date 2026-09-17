@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "chomper",
 	name: "Chomper",
-	description: "A leafy little horror with too many teeth. Watering it would be a mistake.",
+	description: "Feeds beside forest paths, waiting for the sound of a lone traveller.",
 	portrait: "enemies/forest/chomper.png",
 	rank: "normal",
 	threat: 9,
