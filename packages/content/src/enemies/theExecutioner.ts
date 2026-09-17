@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_executioner",
 	name: "The Executioner",
+	description: "A skeletal headsman with a broad axe. Still working through the condemned.",
 	portrait: "enemies/hills/the_executioner.png",
 	rank: "boss",
 	threat: 21,

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "hell_guard",
 	name: "Hell Guard",
+	description: "A winged fiend with a loaded crossbow and a clear view from above.",
 	portrait: "enemies/dungeon/hell_guard.png",
 	rank: "normal",
 	threat: 23,

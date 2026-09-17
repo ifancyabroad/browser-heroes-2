@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_beetle",
 	name: "Fire Beetle",
+	description: "A scuttling beetle with heat building beneath its shell. Give it room.",
 	portrait: "enemies/volcano/fire_beetle.png",
 	rank: "normal",
 	threat: 18,

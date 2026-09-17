@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_tracker",
 	name: "Orc Tracker",
+	description: "Lays a tripwire, finds a clear shot, and waits for the inevitable stumble.",
 	portrait: "enemies/plains/orc_tracker.png",
 	rank: "normal",
 	threat: 14,

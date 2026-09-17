@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "giant_yeti",
 	name: "Giant Yeti",
+	description: "A shaggy, horned beast whose roar fills the dungeon just before its fists do.",
 	portrait: "enemies/dungeon/giant_yeti.png",
 	rank: "normal",
 	threat: 25,

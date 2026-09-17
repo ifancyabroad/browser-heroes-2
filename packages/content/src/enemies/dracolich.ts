@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dracolich",
 	name: "Dracolich",
+	description: "The dragon died. Its bones still bite, and its breath reeks of the grave.",
 	portrait: "enemies/dungeon/dracolich.png",
 	rank: "normal",
 	threat: 26,

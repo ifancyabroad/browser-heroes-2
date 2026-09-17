@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dread_serpent",
 	name: "Dread Serpent",
+	description:
+		"A serpent with acid dripping from its jaws. Even its misses leave something hissing.",
 	portrait: "enemies/hills/dread_serpent.png",
 	rank: "normal",
 	threat: 17,

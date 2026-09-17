@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_engineer",
 	name: "Goblin Engineer",
+	description: "Carries an alarming collection of bombs. Some are even meant to explode.",
 	portrait: "enemies/abyss/goblin_engineer.png",
 	rank: "normal",
 	threat: 17,

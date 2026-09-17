@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "crabomination",
 	name: "Crabomination",
+	description: "A hulking crab with pincers built to crack far more than shells.",
 	portrait: "enemies/ocean/crabomination.png",
 	rank: "normal",
 	threat: 20,

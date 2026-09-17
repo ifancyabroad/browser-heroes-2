@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "runtling",
 	name: "Runtling",
+	description:
+		"A low-slung, spiny creature that charges teeth first. Small enough to underestimate once.",
 	portrait: "enemies/forest/runtling.png",
 	rank: "normal",
 	threat: 8,

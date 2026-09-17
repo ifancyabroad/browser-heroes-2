@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_wardog",
 	name: "Orc Wardog",
+	description: "An orc rider clings to a snarling war beast as it barrels into the fight.",
 	portrait: "enemies/plains/orc_wardog.png",
 	rank: "normal",
 	threat: 16,

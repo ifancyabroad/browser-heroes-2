@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_catapult",
 	name: "Orc Catapult",
+	description: "Built to batter walls. The crew sees no reason to wait for one.",
 	portrait: "enemies/plains/orc_catapult.png",
 	rank: "normal",
 	threat: 15,

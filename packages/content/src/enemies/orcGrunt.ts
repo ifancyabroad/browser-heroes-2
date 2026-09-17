@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_grunt",
 	name: "Orc Grunt",
+	description:
+		"A loud, eager fighter who starts with a war cry and goes straight for the armour.",
 	portrait: "enemies/plains/orc_grunt.png",
 	rank: "normal",
 	threat: 12,

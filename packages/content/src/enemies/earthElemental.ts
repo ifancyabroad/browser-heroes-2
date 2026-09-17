@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "earth_elemental",
 	name: "Earth Elemental",
+	description:
+		"A lumbering heap of boulders with fists to match. The floor shudders with every step.",
 	portrait: "enemies/tower/earth_elemental.png",
 	rank: "normal",
 	threat: 27,

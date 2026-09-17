@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "aetheris_the_dawnflame",
 	name: "Aetheris the Dawnflame",
+	description:
+		"A pale dragon crowned with sweeping horns. Even near death, its dawnfire can kindle anew.",
 	portrait: "enemies/tower/aetheris_the_dawnflame.png",
 	rank: "boss",
 	threat: 30,

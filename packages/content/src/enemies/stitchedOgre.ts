@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "stitched_ogre",
 	name: "Stitched Ogre",
+	description: "A hulking patchwork ogre, sewn shut in places that would be better left closed.",
 	portrait: "enemies/hills/stitched_ogre.png",
 	rank: "normal",
 	threat: 18,

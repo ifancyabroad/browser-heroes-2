@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_nameless_one",
 	name: "The Nameless One",
+	description:
+		"Tentacles drag prey beneath a knot of snapping heads. The mouths fight over what's left.",
 	portrait: "enemies/dungeon/the_nameless_one.png",
 	rank: "boss",
 	threat: 30,

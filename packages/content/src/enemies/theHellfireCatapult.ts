@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_hellfire_catapult",
 	name: "The Hellfire Catapult",
+	description: "Lobs hellfire and sickness across the desert. Its crew is generous with both.",
 	portrait: "enemies/desert/the_hellfire_catapult.png",
 	rank: "boss",
 	threat: 18,

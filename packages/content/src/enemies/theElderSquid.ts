@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_elder_squid",
 	name: "The Elder Squid",
+	description:
+		"Ancient tentacles coil around its prey while something cold presses into the mind.",
 	portrait: "enemies/ocean/the_elder_squid.png",
 	rank: "boss",
 	threat: 24,

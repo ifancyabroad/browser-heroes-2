@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "basilisk",
 	name: "Basilisk",
+	description:
+		"A squat, spiny creature with a stare that turns flesh to stone. Best not admire it for long.",
 	portrait: "enemies/volcano/basilisk.png",
 	rank: "normal",
 	threat: 16,

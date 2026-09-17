@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "flame_shrieker",
 	name: "Flame Shrieker",
+	description: "A red-plumed bird that announces every fiery lunge with an ear-splitting scream.",
 	portrait: "enemies/volcano/flame_shrieker.png",
 	rank: "normal",
 	threat: 18,

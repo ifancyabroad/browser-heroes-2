@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "living_mold",
 	name: "Living Mold",
+	description:
+		"A green, grasping puddle with teeth. Cutting pieces off barely seems to inconvenience it.",
 	portrait: "enemies/forest/living_mold.png",
 	rank: "normal",
 	threat: 7,

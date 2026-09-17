@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abomination",
 	name: "Abomination",
+	description: "A mangled brute with a swollen arm and enough strength to put it to ugly use.",
 	portrait: "enemies/hills/abomination.png",
 	rank: "normal",
 	threat: 17,

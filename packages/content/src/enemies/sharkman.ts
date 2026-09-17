@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "sharkman",
 	name: "Sharkman",
+	description: "A broad-shouldered shark on two legs. The grin is much worse at eye level.",
 	portrait: "enemies/ocean/sharkman.png",
 	rank: "normal",
 	threat: 17,

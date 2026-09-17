@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "magma_elemental",
 	name: "Magma Elemental",
+	description: "Molten rock heaves itself forward, spilling heat with every crushing blow.",
 	portrait: "enemies/tower/magma_elemental.png",
 	rank: "normal",
 	threat: 28,

@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "pit_fiend_yagamon",
 	name: "Pit Fiend Yagamon",
+	description:
+		"A towering fiend wreathed in fire. Wounding Yagamon only makes the next blast more personal.",
 	portrait: "enemies/volcano/pit_fiend_yagamon.png",
 	rank: "boss",
 	threat: 26,

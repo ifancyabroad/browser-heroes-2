@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "hydra_of_the_deep",
 	name: "Hydra of the Deep",
+	description:
+		"Many hungry heads rise from the depths, their breath cold enough to freeze the spray.",
 	portrait: "enemies/ocean/hydra_of_the_deep.png",
 	rank: "boss",
 	threat: 23,

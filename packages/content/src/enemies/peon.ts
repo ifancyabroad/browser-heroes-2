@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "peon",
 	name: "Peon",
+	description:
+		"A lowly worker dragged into a fight. Still knows how to put weight behind a swing.",
 	portrait: "enemies/plains/peon.png",
 	rank: "normal",
 	threat: 10,

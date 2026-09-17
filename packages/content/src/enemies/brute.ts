@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "brute",
 	name: "Brute",
+	description:
+		"Plants its feet, grips its flail, and waits for someone foolish enough to come closer.",
 	portrait: "enemies/castle/brute.png",
 	rank: "normal",
 	threat: 13,

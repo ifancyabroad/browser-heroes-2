@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "carrion_stalker",
 	name: "Carrion Stalker",
+	description:
+		"A skulking creature with a bare skull and hooked claws. Follows blood before it becomes carrion.",
 	portrait: "enemies/abyss/carrion_stalker.png",
 	rank: "normal",
 	threat: 16,

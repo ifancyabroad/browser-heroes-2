@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_warlock",
 	name: "Orc Warlock",
+	description:
+		"An orc spellcaster wrapped in dark magic, hurling curses and fire across the plains.",
 	portrait: "enemies/plains/orc_warlock.png",
 	rank: "normal",
 	threat: 15,

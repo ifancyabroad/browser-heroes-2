@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "cyclops",
 	name: "Cyclops",
+	description: "A hooded brute with one watchful eye. Its hooked weapon hangs ready at its side.",
 	portrait: "enemies/abyss/cyclops.png",
 	rank: "normal",
 	threat: 20,

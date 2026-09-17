@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "water_elemental",
 	name: "Water Elemental",
+	description: "A surge of living water that rises around its prey and closes overhead.",
 	portrait: "enemies/tower/water_elemental.png",
 	rank: "normal",
 	threat: 27,

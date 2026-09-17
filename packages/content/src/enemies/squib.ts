@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "squib",
 	name: "Squib",
+	description:
+		"A small, wide-eyed traveller with a packed bag, a tall staff, and a deeply unsettling song.",
 	portrait: "enemies/ocean/squib.png",
 	rank: "normal",
 	threat: 13,

@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "knight",
 	name: "Knight",
+	description:
+		"An armoured knight who holds firm, answering each challenge with steel and holy fury.",
 	portrait: "enemies/castle/knight.png",
 	rank: "normal",
 	threat: 14,

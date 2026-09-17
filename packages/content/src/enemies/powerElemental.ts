@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "power_elemental",
 	name: "Power Elemental",
+	description:
+		"A stone body split by searing purple light. Something inside is building towards a violent release.",
 	portrait: "enemies/tower/power_elemental.png",
 	rank: "normal",
 	threat: 28,

@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "binkus_the_all_knowing",
 	name: "Binkus the All Knowing",
+	description:
+		"Binkus knows a spell for every occasion. Most occasions apparently call for a deathray.",
 	portrait: "enemies/dungeon/binkus_the_all_knowing.png",
 	rank: "boss",
 	threat: 29,

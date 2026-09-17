@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "beholder",
 	name: "Beholder",
+	description:
+		"One enormous eye, a mouthful of teeth, and little wings keeping the whole problem airborne.",
 	portrait: "enemies/volcano/beholder.png",
 	rank: "normal",
 	threat: 22,

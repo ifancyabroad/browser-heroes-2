@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_snake",
 	name: "Fire Snake",
+	description: "Coils around its prey and squeezes, searing flesh with every tightening loop.",
 	portrait: "enemies/volcano/fire_snake.png",
 	rank: "normal",
 	threat: 18,

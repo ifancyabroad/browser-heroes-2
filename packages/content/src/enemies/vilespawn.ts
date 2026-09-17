@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "vilespawn",
 	name: "Vilespawn",
+	description: "A lean, red predator whose face opens into a ring of teeth.",
 	portrait: "enemies/dungeon/vilespawn.png",
 	rank: "normal",
 	threat: 22,

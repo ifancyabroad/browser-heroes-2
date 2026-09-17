@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_royal_ballista",
 	name: "The Royal Ballista",
+	description: "A royal siege engine loaded with burning bolts. The crown has spared no expense.",
 	portrait: "enemies/castle/the_royal_ballista.png",
 	rank: "boss",
 	threat: 15,

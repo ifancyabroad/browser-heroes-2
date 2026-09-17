@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "wight",
 	name: "Wight",
+	description:
+		"An uneasy shape among the hills, reaching out with a hand that withers living flesh.",
 	portrait: "enemies/hills/wight.png",
 	rank: "normal",
 	threat: 18,

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_drake",
 	name: "Fire Drake",
+	description: "Circles overhead before diving through its own fire to sink its teeth into prey.",
 	portrait: "enemies/volcano/fire_drake.png",
 	rank: "normal",
 	threat: 20,

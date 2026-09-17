@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "glompling",
 	name: "Glompling",
+	description: "A broad-mouthed forest creature with acid in its bite and mushrooms on its back.",
 	portrait: "enemies/forest/glompling.png",
 	rank: "normal",
 	threat: 8,

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "shrieker",
 	name: "Shrieker",
+	description: "A bright green bird with a shrill cry that carries far beyond the trees.",
 	portrait: "enemies/forest/shrieker.png",
 	rank: "normal",
 	threat: 6,

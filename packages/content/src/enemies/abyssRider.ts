@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abyss_rider",
 	name: "Abyss Rider",
+	description:
+		"A skeletal rider astride a fanged beast. Neither looks inclined to let anyone pass.",
 	portrait: "enemies/abyss/abyss_rider.png",
 	rank: "normal",
 	threat: 24,

@@ -3,6 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "munchling",
 	name: "Munchling",
+	description:
+		"A walking mouth on spindly limbs, with an unnerving knack for finding an unprotected eye.",
 	portrait: "enemies/ocean/munchling.png",
 	rank: "normal",
 	threat: 15,

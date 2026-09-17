@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "forsaken_brother_mcinnes",
 	name: "Forsaken Brother McInnes",
+	description: "Murmurs a prayer as his wounds close and his victim withers.",
 	portrait: "enemies/abyss/forsaken_brother_mcinnes.png",
 	rank: "boss",
 	threat: 27,
