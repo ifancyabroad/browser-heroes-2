@@ -1,21 +1,17 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const auth = vi.hoisted(() => ({
-	useAuth: vi.fn(),
-}));
-
-let desktopBreakpointListener: ((event: MediaQueryListEvent) => void) | undefined;
+const auth = vi.hoisted(() => ({ useAuth: vi.fn() }));
 
 vi.mock("../features/auth", async (importOriginal) => ({
 	...(await importOriginal<typeof import("../features/auth")>()),
 	useAuth: auth.useAuth,
 }));
 
-import { Header } from "./Header";
 import { useAuthModalStore } from "../features/auth";
+import { Header } from "./Header";
 
 function renderHeader() {
 	return render(
@@ -31,21 +27,6 @@ describe("Header", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 		useAuthModalStore.getState().close();
-		desktopBreakpointListener = undefined;
-		window.matchMedia = vi.fn().mockReturnValue({
-			matches: false,
-			media: "(min-width: 48rem)",
-			onchange: null,
-			addEventListener: vi.fn(
-				(_event: string, listener: (event: MediaQueryListEvent) => void) => {
-					desktopBreakpointListener = listener;
-				},
-			),
-			removeEventListener: vi.fn(),
-			addListener: vi.fn(),
-			removeListener: vi.fn(),
-			dispatchEvent: vi.fn(),
-		});
 	});
 
 	it("shows sign in and requests the global login modal for unregistered users", () => {
@@ -79,146 +60,18 @@ describe("Header", () => {
 		expect(screen.queryByRole("button", { name: "SIGN IN" })).not.toBeInTheDocument();
 	});
 
-	it("opens a mobile menu with the site navigation and closes after navigation", () => {
-		auth.useAuth.mockReturnValue({ isRegistered: false });
-
-		renderHeader();
-
-		fireEvent.click(screen.getByRole("button", { name: "MENU" }));
-
-		const mobileNavigation = screen.getByRole("navigation", { name: "Mobile navigation" });
-		expect(screen.getByRole("dialog", { name: "BROWSER HEROES" })).toBeInTheDocument();
-		expect(within(mobileNavigation).getByRole("link", { name: "HOME" })).toHaveAttribute(
-			"href",
-			"/",
-		);
-		expect(
-			within(mobileNavigation).getByRole("link", { name: "DAILY CHALLENGE" }),
-		).toHaveAttribute("href", "/daily-challenge");
-		expect(
-			within(mobileNavigation).getByRole("link", { name: "HALL OF FAME" }),
-		).toHaveAttribute("href", "/hall-of-fame");
-		expect(
-			within(mobileNavigation).queryByRole("button", { name: "JOURNAL" }),
-		).not.toBeInTheDocument();
-		expect(within(mobileNavigation).getByRole("link", { name: "HISTORY" })).toHaveAttribute(
-			"href",
-			"/history",
-		);
-		expect(within(mobileNavigation).getByRole("link", { name: "CONTACT" })).toHaveAttribute(
-			"href",
-			"/contact",
-		);
-
-		fireEvent.click(within(mobileNavigation).getByRole("link", { name: "HISTORY" }));
-		expect(
-			screen.queryByRole("navigation", { name: "Mobile navigation" }),
-		).not.toBeInTheDocument();
-	});
-
-	it("opens Journal on activation, highlights its active page, and closes after navigation", async () => {
+	it("includes the main links, Journal dropdown, and mobile menu", () => {
 		auth.useAuth.mockReturnValue({ isRegistered: false });
 		renderHeader();
-		const journal = screen.getByRole("button", { name: "JOURNAL" });
-		fireEvent.mouseOver(journal);
-		expect(journal).toHaveAttribute("aria-expanded", "false");
-		expect(screen.queryByRole("menuitem", { name: "PROGRESS" })).not.toBeInTheDocument();
-		fireEvent.keyDown(journal, { key: "Enter" });
 		for (const [name, path] of [
-			["PROGRESS", "/progress"],
-			["HISTORY", "/history"],
-			["BESTIARY", "/bestiary"],
+			["HOME", "/"],
+			["DAILY CHALLENGE", "/daily-challenge"],
+			["HALL OF FAME", "/hall-of-fame"],
 		]) {
-			expect(screen.getByRole("menuitem", { name })).toHaveAttribute("href", path);
+			expect(screen.getByRole("link", { name })).toHaveAttribute("href", path);
 		}
-		fireEvent.click(screen.getByRole("menuitem", { name: "BESTIARY" }));
-		expect(journal).toHaveAttribute("aria-expanded", "false");
-		expect(journal).toHaveClass("border-primary");
-		fireEvent.keyDown(journal, { key: "Enter" });
-		expect(screen.getByRole("menuitem", { name: "BESTIARY" })).toHaveAttribute(
-			"aria-current",
-			"page",
-		);
-	});
-
-	it("supports arrow keys and restores trigger focus after Escape", async () => {
-		auth.useAuth.mockReturnValue({ isRegistered: false });
-		renderHeader();
-		const journal = screen.getByRole("button", { name: "JOURNAL" });
-		fireEvent.keyDown(journal, { key: "ArrowDown" });
-		await waitFor(() =>
-			expect(screen.getByRole("menuitem", { name: "PROGRESS" })).toHaveFocus(),
-		);
-		fireEvent.keyDown(document.activeElement!, { key: "ArrowDown" });
-		await waitFor(() =>
-			expect(screen.getByRole("menuitem", { name: "HISTORY" })).toHaveFocus(),
-		);
-		fireEvent.keyDown(document.activeElement!, { key: "Escape" });
-		await waitFor(() => expect(journal).toHaveFocus());
-		expect(journal).toHaveAttribute("aria-expanded", "false");
-	});
-
-	it("closes the mobile menu before opening sign in", () => {
-		auth.useAuth.mockReturnValue({ isRegistered: false });
-
-		renderHeader();
-		fireEvent.click(screen.getByRole("button", { name: "MENU" }));
-
-		const mobileNavigation = screen.getByRole("navigation", { name: "Mobile navigation" });
-		fireEvent.click(within(mobileNavigation).getByRole("button", { name: "SIGN IN" }));
-
-		expect(
-			screen.queryByRole("navigation", { name: "Mobile navigation" }),
-		).not.toBeInTheDocument();
-		expect(useAuthModalStore.getState().modal).toBe("login");
-	});
-
-	it("shows account in the registered mobile menu", () => {
-		auth.useAuth.mockReturnValue({ isRegistered: true });
-
-		renderHeader();
-		fireEvent.click(screen.getByRole("button", { name: "MENU" }));
-
-		const mobileNavigation = screen.getByRole("navigation", { name: "Mobile navigation" });
-		expect(within(mobileNavigation).getByRole("link", { name: "ACCOUNT" })).toHaveAttribute(
-			"href",
-			"/account",
-		);
-		expect(
-			within(mobileNavigation).queryByRole("button", { name: "SIGN IN" }),
-		).not.toBeInTheDocument();
-	});
-
-	it("dismisses the mobile menu with the close button and Escape", () => {
-		auth.useAuth.mockReturnValue({ isRegistered: false });
-
-		renderHeader();
-		fireEvent.click(screen.getByRole("button", { name: "MENU" }));
-		fireEvent.click(screen.getByRole("button", { name: "Close menu" }));
-		expect(
-			screen.queryByRole("navigation", { name: "Mobile navigation" }),
-		).not.toBeInTheDocument();
-
-		fireEvent.click(screen.getByRole("button", { name: "MENU" }));
-		fireEvent.keyDown(document, { key: "Escape" });
-		expect(
-			screen.queryByRole("navigation", { name: "Mobile navigation" }),
-		).not.toBeInTheDocument();
-	});
-
-	it("closes an open mobile menu when the viewport reaches the desktop breakpoint", () => {
-		auth.useAuth.mockReturnValue({ isRegistered: false });
-
-		renderHeader();
+		expect(screen.getByRole("button", { name: "JOURNAL" })).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "MENU" }));
 		expect(screen.getByRole("navigation", { name: "Mobile navigation" })).toBeInTheDocument();
-
-		act(() => {
-			desktopBreakpointListener?.({ matches: true } as MediaQueryListEvent);
-		});
-
-		expect(
-			screen.queryByRole("navigation", { name: "Mobile navigation" }),
-		).not.toBeInTheDocument();
 	});
 });

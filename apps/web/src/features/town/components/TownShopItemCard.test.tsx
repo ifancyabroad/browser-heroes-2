@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { selectItemDefinition, type TownShopSlotView } from "@app/engine";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
 import { TownShopItemCard } from "./TownShopItemCard";
 
@@ -33,17 +33,6 @@ function createSlot(locked: boolean, overrides: Partial<TownShopSlotView> = {}):
 }
 
 describe("TownShopItemCard", () => {
-	beforeEach(() => {
-		Object.defineProperty(window, "matchMedia", {
-			configurable: true,
-			value: vi.fn().mockReturnValue({
-				matches: false,
-				addEventListener: vi.fn(),
-				removeEventListener: vi.fn(),
-			}),
-		});
-	});
-
 	it("exposes accessible lock and unlock controls", () => {
 		const onLockChange = vi.fn();
 		const { rerender } = render(

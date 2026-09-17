@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { selectItemDefinition, type RewardChoiceOptionView } from "@app/engine";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { RadioGroup } from "radix-ui";
 import { TooltipProvider } from "../../../components/Tooltip";
 import { RewardOptionCard } from "./RewardOptionCard";
@@ -35,17 +35,6 @@ function createOption(
 }
 
 describe("RewardOptionCard", () => {
-	beforeEach(() => {
-		Object.defineProperty(window, "matchMedia", {
-			configurable: true,
-			value: vi.fn().mockReturnValue({
-				matches: false,
-				addEventListener: vi.fn(),
-				removeEventListener: vi.fn(),
-			}),
-		});
-	});
-
 	it("does not describe replacements when an empty destination can be used", () => {
 		render(
 			<TooltipProvider>
