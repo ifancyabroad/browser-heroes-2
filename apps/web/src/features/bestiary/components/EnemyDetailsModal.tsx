@@ -43,6 +43,11 @@ type EnemyDetailsModalProps = {
 };
 
 export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalProps) {
+	const completedEncounters = record.victories + record.deaths;
+	const winRate =
+		completedEncounters > 0
+			? `${Math.round((record.victories / completedEncounters) * 100)}%`
+			: "—";
 	const attack = enemy.combat.basicAttack;
 	const affinities = enemy.combat.damageAffinities;
 	const skills = enemy.combat.skillIds.map((id) => SKILLS_BY_ID[id]);
@@ -87,9 +92,9 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 					</div>
 					<Section title="Your encounters">
 						<dl className="grid gap-1">
-							<RecordRow label="Encountered" count={record.encounters} />
-							<RecordRow label="Defeated" count={record.victories} />
-							<RecordRow label="Heroes slain" count={record.deaths} />
+							<RecordRow label="Encountered" value={record.encounters} />
+							<RecordRow label="Defeated" value={record.victories} />
+							<RecordRow label="Win rate" value={winRate} />
 						</dl>
 					</Section>
 				</div>
@@ -197,11 +202,11 @@ function Section({ title, children }: PropsWithChildren<{ title: string }>) {
 	);
 }
 
-function RecordRow({ label, count }: { label: string; count: number }) {
+function RecordRow({ label, value }: { label: string; value: number | string }) {
 	return (
 		<div className="flex justify-between gap-3">
 			<dt className="text-text-label">{label}</dt>
-			<dd>{count}</dd>
+			<dd>{value}</dd>
 		</div>
 	);
 }

@@ -5,6 +5,25 @@ import { EnemyDetailsModal } from "./EnemyDetailsModal";
 
 const record = { enemyId: enemies[0].id, encounters: 3, victories: 2, deaths: 1 };
 describe("EnemyDetailsModal", () => {
+	it.each([
+		{ victories: 2, deaths: 1, expected: "67%" },
+		{ victories: 0, deaths: 1, expected: "0%" },
+		{ victories: 2, deaths: 0, expected: "100%" },
+		{ victories: 0, deaths: 0, expected: "—" },
+	])(
+		"shows $expected for $victories wins and $deaths losses",
+		({ victories, deaths, expected }) => {
+			render(
+				<EnemyDetailsModal
+					enemy={enemies[0]}
+					record={{ ...record, encounters: 5, victories, deaths }}
+					onClose={vi.fn()}
+				/>,
+			);
+			expect(screen.getByText("Win rate").nextElementSibling).toHaveTextContent(expected);
+		},
+	);
+
 	it("hides empty sections and uses the matching zone background", () => {
 		const enemy: Enemy = structuredClone(enemies[0]);
 		enemy.encounter.zone = "forest";
