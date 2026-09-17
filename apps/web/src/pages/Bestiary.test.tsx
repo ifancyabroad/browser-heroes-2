@@ -31,7 +31,7 @@ describe("Bestiary", () => {
 		});
 		const { container } = render(<Bestiary />);
 		expect(container.querySelector("img")).toBeNull();
-		const button = screen.getByRole("button", { name: enemy.name });
+		const button = screen.getByRole("button", { name: `${enemy.name} Defeated` });
 		fireEvent.click(button);
 		const dialog = await screen.findByRole("dialog");
 		expect(within(dialog).getByRole("img", { name: enemy.name })).toBeInTheDocument();

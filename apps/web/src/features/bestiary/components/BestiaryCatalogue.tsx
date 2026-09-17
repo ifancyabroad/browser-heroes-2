@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import { Skull } from "pixelarticons/react/Skull";
+import { Check } from "pixelarticons/react/Check";
 import { enemies, type Enemy } from "@app/content";
 import { ZONE_ORDER } from "@app/engine";
 import type { BestiaryEntryView } from "@app/shared";
@@ -30,11 +32,23 @@ export function BestiaryCatalogue({ entries }: BestiaryCatalogueProps) {
 
 	return (
 		<div className="grid gap-6">
-			<p className="text-text-muted tabular-nums">
-				{discoveredCount} / {enemies.length} DISCOVERED
-			</p>
+			<div className="flex flex-wrap items-center justify-between gap-3 text-text-muted">
+				<p className="tabular-nums">
+					{discoveredCount} / {enemies.length} DISCOVERED
+				</p>
+				<div className="flex items-center gap-4">
+					<p className="flex items-center gap-2">
+						<Skull className="size-4 text-text-bright" aria-hidden="true" />
+						Boss
+					</p>
+					<p className="flex items-center gap-2">
+						<Check className="size-4 text-success" aria-hidden="true" />
+						Defeated
+					</p>
+				</div>
+			</div>
 
-			<div className="grid grid-cols-2 items-start gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+			<div className="grid grid-cols-1 items-start gap-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 				{catalogueZones.map(({ zone, enemies: zoneEnemies }) => {
 					const zoneDiscoveredCount = zoneEnemies.filter((enemy) =>
 						records.has(enemy.id),
@@ -55,22 +69,43 @@ export function BestiaryCatalogue({ entries }: BestiaryCatalogueProps) {
 								</span>
 							</div>
 
-							<ul>
+							<ul className="min-w-0">
 								{zoneEnemies.map((enemy) => (
 									<li key={enemy.id}>
 										{records.has(enemy.id) ? (
 											<button
 												type="button"
-												className="min-h-11 w-full cursor-pointer py-2 text-left break-words hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:min-h-0 sm:py-1"
+												className="flex w-full cursor-pointer items-start justify-between gap-2 py-1 text-left hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 												onClick={(event) => {
 													triggerRef.current = event.currentTarget;
 													setSelectedEnemy(enemy);
 												}}
 											>
-												{enemy.name}
+												<span className="min-w-0 break-words">
+													{enemy.name}
+												</span>{" "}
+												<span className="mt-1 flex shrink-0 items-center gap-2">
+													{enemy.rank === "boss" && (
+														<Skull
+															className="size-4 text-text-bright"
+															role="img"
+															aria-label="Boss"
+														/>
+													)}{" "}
+													<span className="size-4">
+														{(records.get(enemy.id)?.victories ?? 0) >
+															0 && (
+															<Check
+																className="size-4 text-success"
+																role="img"
+																aria-label="Defeated"
+															/>
+														)}
+													</span>
+												</span>
 											</button>
 										) : (
-											<span className="flex min-h-11 items-center py-2 text-text-muted sm:min-h-0 sm:py-1">
+											<span className="block py-1 text-text-muted">
 												Unknown
 											</span>
 										)}
