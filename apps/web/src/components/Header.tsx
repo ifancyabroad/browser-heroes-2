@@ -4,6 +4,7 @@ import { useAuth, useAuthModalStore } from "../features/auth";
 import { navigationItems } from "../config/navigation";
 import { MobileNavigation } from "./MobileNavigation";
 import { NavigationLink } from "./NavigationLink";
+import { NavigationDropdown } from "./NavigationDropdown";
 
 export function Header() {
 	const { isRegistered } = useAuth();
@@ -33,11 +34,19 @@ export function Header() {
 				</Link>
 
 				<div className="hidden items-center gap-4 md:flex">
-					{navigationItems.map((item) => (
-						<NavigationLink key={item.to} to={item.to} end={item.end}>
-							{item.label}
-						</NavigationLink>
-					))}
+					{navigationItems.map((item) =>
+						"items" in item ? (
+							<NavigationDropdown
+								key={item.label}
+								label={item.label}
+								items={item.items}
+							/>
+						) : (
+							<NavigationLink key={item.to} to={item.to} end={item.end}>
+								{item.label}
+							</NavigationLink>
+						),
+					)}
 					{isRegistered ? (
 						<NavigationLink to="/account">ACCOUNT</NavigationLink>
 					) : (

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { act, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -98,6 +98,9 @@ describe("Header", () => {
 		expect(
 			within(mobileNavigation).getByRole("link", { name: "HALL OF FAME" }),
 		).toHaveAttribute("href", "/hall-of-fame");
+		expect(
+			within(mobileNavigation).queryByRole("button", { name: "JOURNAL" }),
+		).not.toBeInTheDocument();
 		expect(within(mobileNavigation).getByRole("link", { name: "HISTORY" })).toHaveAttribute(
 			"href",
 			"/history",
@@ -107,10 +110,52 @@ describe("Header", () => {
 			"/contact",
 		);
 
-		fireEvent.click(within(mobileNavigation).getByRole("link", { name: "CONTACT" }));
+		fireEvent.click(within(mobileNavigation).getByRole("link", { name: "HISTORY" }));
 		expect(
 			screen.queryByRole("navigation", { name: "Mobile navigation" }),
 		).not.toBeInTheDocument();
+	});
+
+	it("opens Journal on activation, highlights its active page, and closes after navigation", async () => {
+		auth.useAuth.mockReturnValue({ isRegistered: false });
+		renderHeader();
+		const journal = screen.getByRole("button", { name: "JOURNAL" });
+		fireEvent.mouseOver(journal);
+		expect(journal).toHaveAttribute("aria-expanded", "false");
+		expect(screen.queryByRole("menuitem", { name: "PROGRESS" })).not.toBeInTheDocument();
+		fireEvent.keyDown(journal, { key: "Enter" });
+		for (const [name, path] of [
+			["PROGRESS", "/progress"],
+			["HISTORY", "/history"],
+			["BESTIARY", "/bestiary"],
+		]) {
+			expect(screen.getByRole("menuitem", { name })).toHaveAttribute("href", path);
+		}
+		fireEvent.click(screen.getByRole("menuitem", { name: "BESTIARY" }));
+		expect(journal).toHaveAttribute("aria-expanded", "false");
+		expect(journal).toHaveClass("border-primary");
+		fireEvent.keyDown(journal, { key: "Enter" });
+		expect(screen.getByRole("menuitem", { name: "BESTIARY" })).toHaveAttribute(
+			"aria-current",
+			"page",
+		);
+	});
+
+	it("supports arrow keys and restores trigger focus after Escape", async () => {
+		auth.useAuth.mockReturnValue({ isRegistered: false });
+		renderHeader();
+		const journal = screen.getByRole("button", { name: "JOURNAL" });
+		fireEvent.keyDown(journal, { key: "ArrowDown" });
+		await waitFor(() =>
+			expect(screen.getByRole("menuitem", { name: "PROGRESS" })).toHaveFocus(),
+		);
+		fireEvent.keyDown(document.activeElement!, { key: "ArrowDown" });
+		await waitFor(() =>
+			expect(screen.getByRole("menuitem", { name: "HISTORY" })).toHaveFocus(),
+		);
+		fireEvent.keyDown(document.activeElement!, { key: "Escape" });
+		await waitFor(() => expect(journal).toHaveFocus());
+		expect(journal).toHaveAttribute("aria-expanded", "false");
 	});
 
 	it("closes the mobile menu before opening sign in", () => {

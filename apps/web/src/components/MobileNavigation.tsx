@@ -3,9 +3,10 @@ import { Dialog } from "radix-ui";
 import { Close } from "pixelarticons/react/Close";
 import { Menu } from "pixelarticons/react/Menu";
 import browserHeroesIcon from "../assets/images/icons/browser_heroes.png";
-import { navigationItems } from "../config/navigation";
+import { navigationItems, type NavigationItem } from "../config/navigation";
 import { useAuth, useAuthModalStore } from "../features/auth";
 import { NavigationLink } from "./NavigationLink";
+
 import styles from "./MobileNavigation.module.css";
 
 export function MobileNavigation() {
@@ -86,16 +87,20 @@ export function MobileNavigation() {
 							aria-label="Mobile navigation"
 							className="flex flex-col items-start gap-3 overflow-y-auto px-4 py-4"
 						>
-							{navigationItems.map((item) => (
-								<NavigationLink
-									key={item.to}
-									to={item.to}
-									end={item.end}
-									onClick={() => setOpen(false)}
-								>
-									{item.label}
-								</NavigationLink>
-							))}
+							{navigationItems
+								.flatMap<NavigationItem>((item) =>
+									"items" in item ? item.items : [item],
+								)
+								.map((item) => (
+									<NavigationLink
+										key={item.to}
+										to={item.to}
+										end={item.end}
+										onClick={() => setOpen(false)}
+									>
+										{item.label}
+									</NavigationLink>
+								))}
 							{isRegistered ? (
 								<NavigationLink to="/account" onClick={() => setOpen(false)}>
 									ACCOUNT
