@@ -3,12 +3,12 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "reposition",
 	name: "Reposition",
-	description: "Move to protected ground and become considerably harder to strike.",
+	description: "Move to a protected vantage point, improving your defence and attack accuracy.",
 	icon: "skills/common/reposition.png",
 	pool: "common",
 	kind: "technique",
 	category: "buff",
-	rarity: "common",
+	rarity: "uncommon",
 	maxUses: 4,
 	effects: [
 		{
@@ -16,7 +16,14 @@ export default buildSkill({
 			target: "self",
 			stat: "armourClass",
 			value: 4,
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "turns", value: 4 },
+		},
+		{
+			type: "modifyStat",
+			target: "self",
+			stat: "attackRollBonus",
+			value: 4,
+			duration: { unit: "turns", value: 4 },
 		},
 	],
 	tags: [],
