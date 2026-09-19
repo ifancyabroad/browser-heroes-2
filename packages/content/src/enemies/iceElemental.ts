@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "ice_elemental",
 	name: "Ice Elemental",
 	description:
-		"Leaves frost inside locked rooms. By the time anyone notices, the door has frozen shut.",
+		"A spirit of bitter cold that freezes flesh with a touch. Once bound to preserve the tower’s stores, it has turned whole floors into sealed chambers of ice.",
 	portrait: "enemies/tower/ice_elemental.png",
 	rank: "normal",
 	threat: 28,

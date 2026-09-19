@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "necromental",
 	name: "Necromental",
-	description: "The bones come from several graves. None of their owners have found any rest.",
+	description:
+		"A spirit of death that assembles a body from the bones of many creatures. The tower’s scholars sought to bind death itself; their remains became part of the result.",
 	portrait: "enemies/tower/necromental.png",
 	rank: "normal",
 	threat: 27,

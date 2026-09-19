@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "power_elemental",
 	name: "Power Elemental",
 	description:
-		"Keeps drawing in more power than its body can hold. The cracks are getting wider.",
+		"Raw magical energy given a body of stone, drawing strength from the tower’s enchantments. It was created to store surplus power; nobody taught it when to stop.",
 	portrait: "enemies/tower/power_elemental.png",
 	rank: "normal",
 	threat: 28,

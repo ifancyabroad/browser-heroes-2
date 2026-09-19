@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "fire_elemental",
 	name: "Fire Elemental",
 	description:
-		"Burns long after the fuel is gone, reaching for anything that comes to put it out.",
+		"A spirit of consuming fire sustained by the tower’s magic. The braziers built to contain it have long since melted.",
 	portrait: "enemies/tower/fire_elemental.png",
 	rank: "normal",
 	threat: 25,

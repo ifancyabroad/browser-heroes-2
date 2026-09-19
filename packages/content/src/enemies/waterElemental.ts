@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "water_elemental",
 	name: "Water Elemental",
-	description: "Waits in shallow pools. Closes over anything that bends down to drink.",
+	description:
+		"A living current bound to the tower’s cisterns, able to engulf and drown intruders. Its waters still rise through channels built to supply chambers long abandoned.",
 	portrait: "enemies/tower/water_elemental.png",
 	rank: "normal",
 	threat: 27,

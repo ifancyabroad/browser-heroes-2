@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "aetheris_the_dawnflame",
 	name: "Aetheris the Dawnflame",
-	description: "Many have seen the Dawnflame falter. Few have lived through its return.",
+	description:
+		"An ancient dragon who guards the tower’s summit, bearing sacred fire that both destroys and renews. Aetheris has outlasted generations of challengers by rekindling that flame when defeat seems certain.",
 	portrait: "enemies/tower/aetheris_the_dawnflame.png",
 	rank: "boss",
 	threat: 30,

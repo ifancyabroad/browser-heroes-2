@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "nature_elemental",
 	name: "Nature Elemental",
 	description:
-		"Reclaims ground cleared by settlers. Poison spreads through the ruins left behind.",
+		"A spirit of unchecked growth that spreads poisonous vegetation through the tower. Summoned to tend its gardens, it now treats the stonework as an obstacle.",
 	portrait: "enemies/tower/nature_elemental.png",
 	rank: "normal",
 	threat: 27,

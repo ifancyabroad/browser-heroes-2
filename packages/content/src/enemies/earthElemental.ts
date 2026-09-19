@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "earth_elemental",
 	name: "Earth Elemental",
 	description:
-		"Rouses slowly when disturbed, then pursues intruders through the ruined passages.",
+		"A spirit of earth that draws its body from the tower’s foundations. Every time it rises to repel an intruder, another part of the building settles.",
 	portrait: "enemies/tower/earth_elemental.png",
 	rank: "normal",
 	threat: 27,

@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "darkness_elemental",
 	name: "Darkness Elemental",
-	description: "Follows sleepers into their dreams. Stays beside the bed after they wake.",
+	description:
+		"A spirit of living shadow that weakens its victims through waking nightmares. The tower’s keepers once maintained an unbroken watch of lamplighters to contain it.",
 	portrait: "enemies/tower/darkness_elemental.png",
 	rank: "normal",
 	threat: 26,
