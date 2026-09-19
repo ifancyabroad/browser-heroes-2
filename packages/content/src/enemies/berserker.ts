@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "berserker",
 	name: "Berserker",
-	description: "Refuses to leave a fight while an opponent can still stand.",
+	description:
+		"An axe-wielding mercenary hired to break enemy ranks through sheer ferocity. The garrison gives him a wide berth, even on payday.",
 	portrait: "enemies/castle/berserker.png",
 	rank: "normal",
 	threat: 12,

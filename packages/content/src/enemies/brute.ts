@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "brute",
 	name: "Brute",
-	description: "Lets the insults pass. Waits until the speaker is within reach.",
+	description:
+		"A heavily armoured enforcer trusted to hold the castle’s narrow passages. He lets intruders exhaust themselves before bringing his flail to bear.",
 	portrait: "enemies/castle/brute.png",
 	rank: "normal",
 	threat: 13,

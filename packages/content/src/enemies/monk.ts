@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "monk",
 	name: "Monk",
 	description:
-		"Keeps a steady prayer through the fighting, even when pain threatens to break it.",
+		"A brother of the castle chapel, trained to mend wounds and wield holy magic. His vows bind him to defend everyone sheltering within its walls.",
 	portrait: "enemies/castle/monk.png",
 	rank: "normal",
 	threat: 10,

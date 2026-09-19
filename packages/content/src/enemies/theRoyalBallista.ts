@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "the_royal_ballista",
 	name: "The Royal Ballista",
 	description:
-		"Guards the castle approach. Its crew keeps it loaded through every change of watch.",
+		"A royal siege engine that launches heavy bolts into anyone advancing on the gate. Its crew trains for invading armies and welcomes the occasional easier target.",
 	portrait: "enemies/castle/the_royal_ballista.png",
 	rank: "boss",
 	threat: 15,

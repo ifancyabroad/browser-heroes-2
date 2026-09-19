@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "guard_captain",
 	name: "Guard Captain",
-	description: "Knows every approach to the castle and where an intruder will have to slow down.",
+	description:
+		"A veteran marksman who commands the castle watch. Years spent organising patrols have taught him exactly where to wait with a loaded crossbow.",
 	portrait: "enemies/castle/guard_captain.png",
 	rank: "normal",
 	threat: 12,

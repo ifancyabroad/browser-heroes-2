@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "sir_michael_the_conceder",
 	name: "Sir Michael the Conceder",
 	description:
-		"Insists on a proper duel. Has rehearsed his surrender almost as carefully as his charge.",
+		"A royal jouster whose skill with a lance is matched by a talent for surviving defeat. He considers a graceful surrender part of proper knightly conduct.",
 	portrait: "enemies/castle/sir_michael_the_conceder.png",
 	rank: "boss",
 	threat: 15,

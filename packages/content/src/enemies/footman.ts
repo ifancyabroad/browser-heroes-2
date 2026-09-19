@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "footman",
 	name: "Footman",
 	description:
-		"Has held this post through long winters and repeated sieges. Watches every approach for movement.",
+		"A veteran infantryman trained to meet breaches in the castle defences. Years of siege duty have made holding a doorway second nature.",
 	portrait: "enemies/castle/footman.png",
 	rank: "normal",
 	threat: 11,

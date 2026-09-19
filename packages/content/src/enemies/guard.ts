@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "guard",
 	name: "Guard",
-	description: "Has heard every excuse for trespassing. None have improved with repetition.",
+	description:
+		"A garrison archer assigned to watch the castle walls and repel intruders. Warning shots are left to personal discretion.",
 	portrait: "enemies/castle/guard.png",
 	rank: "normal",
 	threat: 10,
