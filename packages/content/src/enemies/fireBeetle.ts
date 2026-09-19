@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "fire_beetle",
 	name: "Fire Beetle",
 	description:
-		"Burrows into warm ash to rest. Sends campers scrambling when they stir the embers.",
+		"A burrowing volcanic insect that releases bursts of flame when disturbed. Travellers occasionally mistake a sleeping colony for a convenient cooking fire.",
 	portrait: "enemies/volcano/fire_beetle.png",
 	rank: "normal",
 	threat: 18,

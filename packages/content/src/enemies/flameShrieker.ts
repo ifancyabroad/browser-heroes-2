@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "flame_shrieker",
 	name: "Flame Shrieker",
 	description:
-		"Returns to the same scorched nesting grounds each season, driving off anything that settles there.",
+		"A volcanic relative of the woodland shrieker that defends its nests with deafening cries and bursts of flame. Its breeding grounds remain bare long after the chicks depart.",
 	portrait: "enemies/volcano/flame_shrieker.png",
 	rank: "normal",
 	threat: 18,

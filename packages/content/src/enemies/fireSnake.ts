@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_snake",
 	name: "Fire Snake",
-	description: "Basks where the rock is too hot to touch. Hunts when the ground begins to cool.",
+	description:
+		"A volcanic constrictor whose bite sears flesh as deeply as its fangs pierce it. It shelters in warm fissures and emerges to hunt as the slopes cool.",
 	portrait: "enemies/volcano/fire_snake.png",
 	rank: "normal",
 	threat: 18,

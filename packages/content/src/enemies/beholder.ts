@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "beholder",
 	name: "Beholder",
 	description:
-		"Allows nothing to move through its territory unwatched. Pursues intruders until they fall.",
+		"A winged cavern predator that channels destructive magic through its single eye. It claims entire lava tunnels and treats passing through as a challenge to its rule.",
 	portrait: "enemies/volcano/beholder.png",
 	rank: "normal",
 	threat: 22,

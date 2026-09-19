@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "basilisk",
 	name: "Basilisk",
-	description: "Waits among its petrified victims, easy to miss until it turns to look.",
+	description:
+		"A venomous reptile whose gaze turns living flesh to stone. The lifelike figures along the mountain paths serve as warnings to those still able to turn back.",
 	portrait: "enemies/volcano/basilisk.png",
 	rank: "normal",
 	threat: 16,

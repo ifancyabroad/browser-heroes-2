@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "golem",
 	name: "Golem",
-	description: "Repairs itself after every fight, then resumes its patrol.",
+	description:
+		"An enchanted stone construct built to guard the mountain’s ancient forges. It rebuilds its damaged body from the same volcanic rock its makers quarried.",
 	portrait: "enemies/volcano/golem.png",
 	rank: "normal",
 	threat: 22,

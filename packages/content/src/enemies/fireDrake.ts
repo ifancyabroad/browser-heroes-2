@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_drake",
 	name: "Fire Drake",
-	description: "Drives prey out of shelter with fire, then hunts through the smoke.",
+	description:
+		"A winged dragonkin that flushes prey from cover with fiery breath before diving to seize it. It nests on cliffs kept warm by the volcano’s vents.",
 	portrait: "enemies/volcano/fire_drake.png",
 	rank: "normal",
 	threat: 20,
