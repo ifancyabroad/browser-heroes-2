@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "orc_soldier",
 	name: "Orc Soldier",
 	description:
-		"Has outlived plenty of louder orcs by knowing when to let the other fighter swing first.",
+		"A seasoned orc warrior who fights with axe and shield at the heart of the warband. Surviving several campaigns has taught him the value of both.",
 	portrait: "enemies/plains/orc_soldier.png",
 	rank: "normal",
 	threat: 14,

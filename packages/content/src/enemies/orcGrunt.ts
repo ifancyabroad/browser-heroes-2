@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "orc_grunt",
 	name: "Orc Grunt",
 	description:
-		"Fights to earn a place among the veterans, pressing forward even when ordered back.",
+		"A spear-armed recruit eager to earn a warrior’s standing in the clan. The veterans encourage him to lead the charge.",
 	portrait: "enemies/plains/orc_grunt.png",
 	rank: "normal",
 	threat: 12,

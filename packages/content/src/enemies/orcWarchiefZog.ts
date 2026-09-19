@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "orc_warchief_zog",
 	name: "Orc Warchief Zog",
 	description:
-		"Knocks challengers flat and keeps hitting until the rest of the clan has seen enough.",
+		"A veteran warlord who united the plains clans through conquest and promises of glory. He leads from the front, where every warrior can see why he remains in command.",
 	portrait: "enemies/plains/orc_warchief_zog.png",
 	rank: "boss",
 	threat: 21,

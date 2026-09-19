@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "half_ogre",
 	name: "Half Ogre",
-	description: "The other raiders keep their distance once it starts enjoying the fight.",
+	description:
+		"A warrior of mixed orc and ogre blood, valued for smashing through enemy lines. His place in the warband comes with double rations and very few arguments.",
 	portrait: "enemies/plains/half_ogre.png",
 	rank: "normal",
 	threat: 14,

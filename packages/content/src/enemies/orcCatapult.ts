@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "orc_catapult",
 	name: "Orc Catapult",
 	description:
-		"The crew follows the warband across the plains, bombarding any refuge that shelters its enemies.",
+		"A mobile stone-thrower built to batter the fortified settlements of the plains. Its crew measures accuracy by how much is still standing.",
 	portrait: "enemies/plains/orc_catapult.png",
 	rank: "normal",
 	threat: 15,

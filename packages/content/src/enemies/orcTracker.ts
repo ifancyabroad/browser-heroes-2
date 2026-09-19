@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_tracker",
 	name: "Orc Tracker",
-	description: "Checks its tripwires each morning. Waits nearby with an arrow ready.",
+	description:
+		"An orc hunter who scouts ahead of the warband and lays traps in the long grass. The same trails bring him game, enemy scouts, and occasional complaints from his own side.",
 	portrait: "enemies/plains/orc_tracker.png",
 	rank: "normal",
 	threat: 14,
