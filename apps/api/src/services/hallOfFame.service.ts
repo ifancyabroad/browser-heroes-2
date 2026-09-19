@@ -139,6 +139,7 @@ export async function getGhostHallOfFame(params: {
 		return {
 			rank: ranks[index]!,
 			ghostId: String(ghost._id),
+			sourceRunId: String(ghost.sourceRunId),
 			name: ghost.name,
 			displayName: displayNames.get(String(ghost.userId)) ?? null,
 			classId: ghost.classId,

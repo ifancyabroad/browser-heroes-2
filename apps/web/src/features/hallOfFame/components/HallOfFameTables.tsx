@@ -53,7 +53,6 @@ export function HeroHallOfFameTable(props: {
 						<DataTableCell>
 							<DataTableRowAction
 								label={`Inspect hero ${entry.heroName}${entry.displayName ? ` owned by ${entry.displayName}` : ""}`}
-								onSelect={() => props.onSelectRun(entry.runId)}
 							>
 								<HeroIdentity
 									name={entry.heroName}
@@ -93,7 +92,13 @@ export function HeroHallOfFameTable(props: {
 	);
 }
 
-export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntryView[] }) {
+export function GhostHallOfFameTable({
+	entries,
+	onSelectRun,
+}: {
+	entries: GhostHallOfFameEntryView[];
+	onSelectRun: (runId: string) => void;
+}) {
 	return (
 		<DataTable tableClassName="sm:min-w-184">
 			<colgroup>
@@ -112,23 +117,31 @@ export function GhostHallOfFameTable({ entries }: { entries: GhostHallOfFameEntr
 			</DataTableHeader>
 			<tbody>
 				{entries.map((entry) => (
-					<DataTableRow key={entry.ghostId} highlighted={entry.isCurrentUser}>
+					<DataTableRow
+						key={entry.ghostId}
+						highlighted={entry.isCurrentUser}
+						onSelect={() => onSelectRun(entry.sourceRunId)}
+					>
 						<DataTableCell numeric>{entry.rank}</DataTableCell>
 						<DataTableCell>
-							<HeroIdentity
-								name={entry.name}
-								classId={entry.classId}
-								level={entry.heroLevel}
-								portraitAdornment={
-									entry.status === "banished" ? (
-										<PortraitBadge label="Banished">
-											<Cancel className="text-error" />
-										</PortraitBadge>
-									) : undefined
-								}
-								displayName={entry.displayName}
-								nameTone={entry.isCurrentUser ? "primary" : "default"}
-							/>
+							<DataTableRowAction
+								label={`Inspect hero ${entry.name}${entry.displayName ? ` owned by ${entry.displayName}` : ""}`}
+							>
+								<HeroIdentity
+									name={entry.name}
+									classId={entry.classId}
+									level={entry.heroLevel}
+									portraitAdornment={
+										entry.status === "banished" ? (
+											<PortraitBadge label="Banished">
+												<Cancel className="text-error" />
+											</PortraitBadge>
+										) : undefined
+									}
+									displayName={entry.displayName}
+									nameTone={entry.isCurrentUser ? "primary" : "default"}
+								/>
+							</DataTableRowAction>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>

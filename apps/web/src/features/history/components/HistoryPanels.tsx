@@ -86,6 +86,7 @@ export function HeroHistoryPanel(props: CommonPanelProps) {
 }
 
 export function GhostHistoryPanel(props: CommonPanelProps) {
+	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 	const {
 		classId,
 		searchInput,
@@ -133,6 +134,7 @@ export function GhostHistoryPanel(props: CommonPanelProps) {
 			) : (
 				<GhostHistoryTable
 					entries={ghosts.data?.entries ?? []}
+					onSelectRun={setSelectedRunId}
 					sort={sort}
 					direction={direction}
 					onSort={handleSort}
@@ -148,6 +150,7 @@ export function GhostHistoryPanel(props: CommonPanelProps) {
 				/>
 			)}
 			{ghosts.isFetching && !ghosts.isPending && <UpdatingMessage />}
+			<HeroDossierModal runId={selectedRunId} onClose={() => setSelectedRunId(null)} />
 		</>
 	);
 }

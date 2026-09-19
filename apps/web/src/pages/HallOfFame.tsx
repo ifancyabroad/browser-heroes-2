@@ -150,7 +150,10 @@ export default function HallOfFame() {
 										emptyMessage="No ghosts match these filters."
 									>
 										{ghosts.data && (
-											<GhostHallOfFameTable entries={ghosts.data.entries} />
+											<GhostHallOfFameTable
+												entries={ghosts.data.entries}
+												onSelectRun={setSelectedRunId}
+											/>
 										)}
 									</HallOfFamePanel>
 									{ghosts.data && !ghosts.isError && (

@@ -11,9 +11,7 @@ describe("DataTableRow", () => {
 				<tbody>
 					<DataTableRow onSelect={onSelect}>
 						<DataTableCell>
-							<DataTableRowAction label="Inspect hero Aria" onSelect={onSelect}>
-								Aria
-							</DataTableRowAction>
+							<DataTableRowAction label="Inspect hero Aria">Aria</DataTableRowAction>
 						</DataTableCell>
 					</DataTableRow>
 				</tbody>
@@ -23,11 +21,16 @@ describe("DataTableRow", () => {
 		const row = screen.getByRole("row");
 		const action = screen.getByRole("button", { name: "Inspect hero Aria" });
 		expect(row).not.toHaveAttribute("tabindex");
+		expect(action).toHaveAttribute("type", "button");
+		action.focus();
+		expect(action).toHaveFocus();
 
 		fireEvent.click(row);
+		expect(onSelect).toHaveBeenCalledTimes(1);
+		onSelect.mockClear();
 		fireEvent.click(action);
 
-		expect(onSelect).toHaveBeenCalledTimes(2);
+		expect(onSelect).toHaveBeenCalledTimes(1);
 	});
 
 	it("leaves ordinary rows out of the keyboard tab order", () => {

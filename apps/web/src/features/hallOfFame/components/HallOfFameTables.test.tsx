@@ -43,13 +43,16 @@ describe("HeroHallOfFameTable", () => {
 		expect(onSelectRun).toHaveBeenCalledWith("run-id");
 	});
 
-	it("marks the current user's ghosts", () => {
+	it("marks the current user's ghosts and opens their source hero dossiers", () => {
+		const onSelectRun = vi.fn();
 		render(
 			<GhostHallOfFameTable
+				onSelectRun={onSelectRun}
 				entries={[
 					{
 						rank: 2,
 						ghostId: "ghost-id",
+						sourceRunId: "source-run-id",
 						name: "Echo",
 						displayName: null,
 						classId: "mage",
@@ -72,5 +75,11 @@ describe("HeroHallOfFameTable", () => {
 		expect(screen.queryByText("YOU")).not.toBeInTheDocument();
 		expect(screen.queryByText("(Player)")).not.toBeInTheDocument();
 		expect(screen.getByText("Dawn the Priest")).toBeInTheDocument();
+		const action = screen.getByRole("button", { name: "Inspect hero Echo" });
+		fireEvent.click(action);
+		expect(onSelectRun).toHaveBeenCalledExactlyOnceWith("source-run-id");
+		onSelectRun.mockClear();
+		fireEvent.click(action.closest("tr")!);
+		expect(onSelectRun).toHaveBeenCalledExactlyOnceWith("source-run-id");
 	});
 });

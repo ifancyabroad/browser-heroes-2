@@ -76,7 +76,6 @@ function LeaderboardEntryRow(props: {
 			<DataTableCell>
 				<DataTableRowAction
 					label={`Inspect hero ${entry.heroName}${entry.displayName ? ` owned by ${entry.displayName}` : ""}`}
-					onSelect={() => onSelectRun(entry.runId)}
 				>
 					<HeroIdentity
 						name={entry.heroName}

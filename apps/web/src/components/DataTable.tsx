@@ -154,22 +154,17 @@ export function DataTableRow({
 	);
 }
 
+// Native button activation bubbles to the containing DataTableRow's onSelect handler.
 export function DataTableRowAction({
 	children,
 	label,
-	onSelect,
 }: PropsWithChildren<{
 	label: string;
-	onSelect: () => void;
 }>) {
 	return (
 		<button
 			type="button"
 			aria-label={label}
-			onClick={(event) => {
-				event.stopPropagation();
-				onSelect();
-			}}
 			className="block cursor-pointer text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 		>
 			{children}

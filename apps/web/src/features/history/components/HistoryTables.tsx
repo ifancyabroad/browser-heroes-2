@@ -88,10 +88,7 @@ export function RunHistoryTable({
 				{entries.map((entry) => (
 					<DataTableRow key={entry.runId} onSelect={() => onSelectRun(entry.runId)}>
 						<DataTableCell>
-							<DataTableRowAction
-								label={`Inspect hero ${entry.heroName}`}
-								onSelect={() => onSelectRun(entry.runId)}
-							>
+							<DataTableRowAction label={`Inspect hero ${entry.heroName}`}>
 								<HeroIdentity
 									name={entry.heroName}
 									classId={entry.classId}
@@ -129,7 +126,11 @@ export function GhostHistoryTable({
 	sort,
 	direction,
 	onSort,
-}: { entries: GhostHistoryEntryView[] } & SortProps<GetGhostHistoryQuery["sort"]>) {
+	onSelectRun,
+}: {
+	entries: GhostHistoryEntryView[];
+	onSelectRun: (runId: string) => void;
+} & SortProps<GetGhostHistoryQuery["sort"]>) {
 	return (
 		<DataTable tableClassName="sm:min-w-220">
 			<colgroup>
@@ -175,20 +176,25 @@ export function GhostHistoryTable({
 			</DataTableHeader>
 			<tbody>
 				{entries.map((entry) => (
-					<DataTableRow key={entry.ghostId}>
+					<DataTableRow
+						key={entry.ghostId}
+						onSelect={() => onSelectRun(entry.sourceRunId)}
+					>
 						<DataTableCell>
-							<HeroIdentity
-								name={entry.name}
-								classId={entry.classId}
-								level={entry.heroLevel}
-								portraitAdornment={
-									entry.status === "banished" ? (
-										<PortraitBadge label="Banished">
-											<Cancel className="text-error" />
-										</PortraitBadge>
-									) : undefined
-								}
-							/>
+							<DataTableRowAction label={`Inspect hero ${entry.name}`}>
+								<HeroIdentity
+									name={entry.name}
+									classId={entry.classId}
+									level={entry.heroLevel}
+									portraitAdornment={
+										entry.status === "banished" ? (
+											<PortraitBadge label="Banished">
+												<Cancel className="text-error" />
+											</PortraitBadge>
+										) : undefined
+									}
+								/>
+							</DataTableRowAction>
 						</DataTableCell>
 						<DataTableCell numeric>{entry.kills}</DataTableCell>
 						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>

@@ -143,6 +143,7 @@ describe("hallOfFame.service", () => {
 		arrangeQuery(models.ghosts.find, [
 			{
 				_id: "507f1f77bcf86cd799439013",
+				sourceRunId: "507f1f77bcf86cd799439012",
 				userId,
 				name: "Shade",
 				classId: "rogue",
@@ -169,6 +170,7 @@ describe("hallOfFame.service", () => {
 		expect(response.entries[0]).toEqual({
 			rank: 4,
 			ghostId: "507f1f77bcf86cd799439013",
+			sourceRunId: "507f1f77bcf86cd799439012",
 			name: "Shade",
 			displayName: "Player",
 			classId: "rogue",

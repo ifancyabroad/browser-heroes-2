@@ -37,6 +37,7 @@ export interface HeroHallOfFameEntryView {
 export interface GhostHallOfFameEntryView {
 	rank: number;
 	ghostId: string;
+	sourceRunId: string;
 	name: string;
 	displayName: string | null;
 	classId: ClassId;
