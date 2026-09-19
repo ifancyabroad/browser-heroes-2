@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ratman_champion",
 	name: "Ratman Champion",
-	description: "Earned its place at the front. Has beaten every challenger trying to take it.",
+	description:
+		"An armoured clan warrior who leads raids and defends his rank in single combat. First choice of the plunder ensures a steady supply of challengers.",
 	portrait: "enemies/desert/ratman_champion.png",
 	rank: "normal",
 	threat: 16,

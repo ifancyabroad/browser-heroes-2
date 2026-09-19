@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "ratman_shaman",
 	name: "Ratman Shaman",
 	description:
-		"Keeps the wounded alive through long desert marches, tending them whenever the column halts.",
+		"A clan spiritual guide who heals the wounded and calls down lightning on enemies. Even the fiercest raiders heed the one keeping them alive.",
 	portrait: "enemies/desert/ratman_shaman.png",
 	rank: "normal",
 	threat: 13,

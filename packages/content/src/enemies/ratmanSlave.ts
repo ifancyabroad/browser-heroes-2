@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "ratman_slave",
 	name: "Ratman Slave",
 	description:
-		"Survived the march on scraps and threats. The promise of freedom sounds less convincing each day.",
+		"An enslaved ratman forced to carry supplies and fight for the raiding clans. Every campaign brings another promise of freedom.",
 	portrait: "enemies/desert/ratman_slave.png",
 	rank: "normal",
 	threat: 8,

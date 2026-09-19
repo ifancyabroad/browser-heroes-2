@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "mounted_ratman",
 	name: "Mounted Ratman",
 	description:
-		"Runs down stragglers before they can reach cover, then circles back to the others.",
+		"A ratman outrider mounted on a giant desert insect, scouting caravan routes and running down stragglers. Keeping the mount fed takes most of the spoils.",
 	portrait: "enemies/desert/mounted_ratman.png",
 	rank: "normal",
 	threat: 13,

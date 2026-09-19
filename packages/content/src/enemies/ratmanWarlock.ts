@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ratman_warlock",
 	name: "Ratman Warlock",
-	description: "Prefers victims who cannot see what's coming. Their panic makes the work easier.",
+	description:
+		"A ratman sorcerer who blinds enemies and assails them with shadow magic. Clan leaders tolerate his forbidden studies while the raids go well.",
 	portrait: "enemies/desert/ratman_warlock.png",
 	rank: "normal",
 	threat: 14,

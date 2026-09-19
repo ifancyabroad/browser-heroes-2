@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_hellfire_catapult",
 	name: "The Hellfire Catapult",
-	description: "Leaves scorched ground and sickness along the caravan routes it bombards.",
+	description:
+		"A ratman siege engine that hurls diseased payloads into caravan camps. The sickness it leaves behind can close a trade route for weeks.",
 	portrait: "enemies/desert/the_hellfire_catapult.png",
 	rank: "boss",
 	threat: 18,

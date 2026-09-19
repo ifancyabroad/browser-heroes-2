@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "rat_ogre",
 	name: "Rat Ogre",
 	description:
-		"Driven ahead of the raiding parties, it keeps attacking long after the defenders break.",
+		"A monstrous ratman bred for size and aggression, unleashed to tear through caravan defences. Its handlers wait for the screaming to stop before approaching.",
 	portrait: "enemies/desert/rat_ogre.png",
 	rank: "normal",
 	threat: 15,
