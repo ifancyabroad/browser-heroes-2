@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "sharkman",
 	name: "Sharkman",
 	description:
-		"Lingers near fishing boats, waiting for someone to lean a little too far over the side.",
+		"A shark-like humanoid that hunts around fishing grounds and follows boats home. Harbour bells sound whenever a fin approaches against the tide.",
 	portrait: "enemies/ocean/sharkman.png",
 	rank: "normal",
 	threat: 17,

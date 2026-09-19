@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "colossal_piranhasaur",
 	name: "Colossal Piranhasaur",
-	description: "Smaller predators abandon their kills when it comes ashore to feed.",
+	description:
+		"An immense piranhasaur that uses brute strength to claim the richest coastal hunting grounds. Smaller kin surrender their catches before becoming part of the meal.",
 	portrait: "enemies/ocean/colossal_piranhasaur.png",
 	rank: "normal",
 	threat: 19,

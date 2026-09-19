@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "void_creeper",
 	name: "Void Creeper",
-	description: "Draws close while its prey struggles to remember which way the surface lies.",
+	description:
+		"A deep-sea predator that disorients victims with psychic assaults before draining their vitality. Divers sometimes mistake its thoughts for their own.",
 	portrait: "enemies/ocean/void_creeper.png",
 	rank: "normal",
 	threat: 19,

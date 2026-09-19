@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "the_elder_squid",
 	name: "The Elder Squid",
 	description:
-		"Takes hold of the mind before the body. By then, struggling feels strangely unimportant.",
+		"An ancient cephalopod that subdues minds and siphons life from its captives. Coastal mystics seek its wisdom in dreams; some wake speaking with its voice.",
 	portrait: "enemies/ocean/the_elder_squid.png",
 	rank: "boss",
 	threat: 24,

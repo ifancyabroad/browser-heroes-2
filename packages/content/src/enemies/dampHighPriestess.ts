@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "damp_high_priestess",
 	name: "Damp High Priestess",
 	description:
-		"Calls the faithful beneath the waves, where their prayers can no longer be heard from shore.",
+		"A serpentine keeper of submerged shrines, versed in healing and divine punishment. She regards every shipwreck as an offering, regardless of the sailors’ intentions.",
 	portrait: "enemies/ocean/damp_high_priestess.png",
 	rank: "normal",
 	threat: 18,

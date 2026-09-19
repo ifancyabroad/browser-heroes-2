@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "munchling",
 	name: "Munchling",
 	description:
-		"Clings to its prey and claws at the eyes, even as it is dragged along the ground.",
+		"A small shore predator that clambers onto larger prey and attacks the face. Fishermen check their nets with an oar before reaching inside.",
 	portrait: "enemies/ocean/munchling.png",
 	rank: "normal",
 	threat: 15,
