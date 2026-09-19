@@ -15,7 +15,7 @@ export default buildSkill({
 		{
 			type: "shield",
 			target: "self",
-			amount: 40,
+			amount: 20,
 			duration: { unit: "battles", value: 1 },
 		},
 	],
