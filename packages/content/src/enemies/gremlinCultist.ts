@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "gremlin_cultist",
 	name: "Gremlin Cultist",
 	description:
-		"Mumbles prayers to the Nameless One. Pauses often, as though waiting for a reply.",
+		"A gremlin devotee who draws curses and stolen vitality from worship of the Nameless One. Being chosen for a blessing is an honour; being chosen as an offering is less popular.",
 	portrait: "enemies/dungeon/gremlin_cultist.png",
 	rank: "normal",
 	threat: 20,

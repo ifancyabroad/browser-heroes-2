@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "chaos_knight",
 	name: "Chaos Knight",
 	description:
-		"Challenges anyone bearing arms. Leaves their weapons beside the bodies as a warning.",
+		"An armoured swordsman strengthened by a pact with chaos. He seeks worthy opponents in the dungeon, hoping each victory will earn another favour from his patron.",
 	portrait: "enemies/dungeon/chaos_knight.png",
 	rank: "normal",
 	threat: 25,

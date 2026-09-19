@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "wretch",
 	name: "Wretch",
-	description: "Follows the sound of fighting, hoping to find someone too hurt to fight again.",
+	description:
+		"An undead scavenger that picks through the dungeon’s battlefields and attacks wounded survivors. It recognises the sound of a sword being sheathed as an invitation to approach.",
 	portrait: "enemies/dungeon/wretch.png",
 	rank: "normal",
 	threat: 16,

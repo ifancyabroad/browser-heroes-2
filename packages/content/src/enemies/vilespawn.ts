@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "vilespawn",
 	name: "Vilespawn",
-	description: "Dungeon vermin learn to keep quiet when one of these is feeding.",
+	description:
+		"A venomous tunnel predator that overwhelms prey with sudden leaps and a paralysing bite. The cultists feed it scraps to keep it away from their sleeping quarters.",
 	portrait: "enemies/dungeon/vilespawn.png",
 	rank: "normal",
 	threat: 22,

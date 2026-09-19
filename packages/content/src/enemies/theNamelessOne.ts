@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "the_nameless_one",
 	name: "The Nameless One",
 	description:
-		"Tentacles drag prey beneath a knot of snapping heads. The mouths fight over what's left.",
+		"A many-headed aberration worshipped by the dungeon’s gremlin cult. Its followers believe that feeding it will one day earn them a revelation; so far, it has only grown.",
 	portrait: "enemies/dungeon/the_nameless_one.png",
 	rank: "boss",
 	threat: 30,

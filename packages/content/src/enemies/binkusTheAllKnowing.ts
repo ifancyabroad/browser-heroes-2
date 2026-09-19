@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "binkus_the_all_knowing",
 	name: "Binkus the All Knowing",
-	description: "Knows a spell for every occasion. Usually settles on the deathray.",
+	description:
+		"An archmage who claimed the dungeon’s sealed libraries for his private research. His title is self-appointed, but disputing it requires surviving the demonstration.",
 	portrait: "enemies/dungeon/binkus_the_all_knowing.png",
 	rank: "boss",
 	threat: 29,
