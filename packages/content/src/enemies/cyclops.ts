@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "cyclops",
 	name: "Cyclops",
 	description:
-		"Keeps to narrow paths through the abyss, blocking the way until travellers are forced to turn back.",
+		"A one-eyed giant that claims narrow crossings and demands payment from travellers. Those who arrive empty-handed must bargain with whatever they can carry.",
 	portrait: "enemies/abyss/cyclops.png",
 	rank: "normal",
 	threat: 20,

@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "lurker",
 	name: "Lurker",
-	description: "Waits for lost travellers to stop and catch their breath before it moves.",
+	description:
+		"A heavily plated abyssal beast that ambushes prey with crushing claws. It favours sheltered hollows where exhausted travellers are likely to rest.",
 	portrait: "enemies/abyss/lurker.png",
 	rank: "normal",
 	threat: 23,

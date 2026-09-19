@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "forsaken_brother_mcinnes",
 	name: "Forsaken Brother McInnes",
-	description: "Murmurs a prayer as his wounds close and his victim withers.",
+	description:
+		"A fallen cleric who traded his faith for the power to escape death. He still speaks the prayers of his former order, though something else now answers.",
 	portrait: "enemies/abyss/forsaken_brother_mcinnes.png",
 	rank: "boss",
 	threat: 27,

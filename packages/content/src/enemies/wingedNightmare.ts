@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "winged_nightmare",
 	name: "Winged Nightmare",
-	description: "Follows travellers until they stop watching the sky.",
+	description:
+		"A winged abyssal swordsman that dives on travellers crossing exposed ground. It shadows groups for hours, waiting for someone to fall behind.",
 	portrait: "enemies/abyss/winged_nightmare.png",
 	rank: "normal",
 	threat: 24,

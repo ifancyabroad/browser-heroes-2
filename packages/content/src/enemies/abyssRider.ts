@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abyss_rider",
 	name: "Abyss Rider",
-	description: "Patrols the abyss without rest, driving the lost deeper into the dark.",
+	description:
+		"A mounted fiend that hunts escapees with a spear charged with lightning. Its patrols drive fugitives away from the upper paths and back into the depths.",
 	portrait: "enemies/abyss/abyss_rider.png",
 	rank: "normal",
 	threat: 24,

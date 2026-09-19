@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_engineer",
 	name: "Goblin Engineer",
-	description: "Tests each invention in battle. Keeps notes on the ones that work.",
+	description:
+		"A goblin scavenger who turns abyssal refuse into acid traps and poisonous bombs. He considers the steady supply of hostile creatures ideal working conditions.",
 	portrait: "enemies/abyss/goblin_engineer.png",
 	rank: "normal",
 	threat: 17,

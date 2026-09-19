@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abyss_armour",
 	name: "Abyss Armour",
-	description: "Still holds its post, though whoever wore it is long gone.",
+	description:
+		"An empty suit of armour animated by an oath the abyss will not release. Its wearer has vanished, but the obligation to stand guard remains.",
 	portrait: "enemies/abyss/abyss_armour.png",
 	rank: "normal",
 	threat: 23,

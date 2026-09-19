@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "cursed_guardian",
 	name: "Cursed Guardian",
 	description:
-		"The paths it once guarded have vanished. It still punishes anyone who tries to pass.",
+		"A former protector twisted into a soul-devouring sentinel by an abyssal curse. It can no longer distinguish those it sheltered from those it was sworn to repel.",
 	portrait: "enemies/abyss/cursed_guardian.png",
 	rank: "normal",
 	threat: 24,
