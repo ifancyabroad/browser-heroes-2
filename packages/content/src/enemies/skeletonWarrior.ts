@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "skeleton_warrior",
 	name: "Skeleton Warrior",
 	description:
-		"Repeats the drills it learned in life, striking at anyone who comes within reach.",
+		"A fallen soldier raised with the weapons buried beside it. Its battle drills have survived longer than the kingdom it served.",
 	portrait: "enemies/hills/skeleton_warrior.png",
 	rank: "normal",
 	threat: 12,

@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "the_executioner",
 	name: "The Executioner",
 	description:
-		"Carries out each sentence without hesitation, then waits beside the block for the next.",
+		"A giant skeletal headsman bound to the hills’ abandoned execution grounds. The court that commanded it is gone, but it still regards every arrival as condemned.",
 	portrait: "enemies/hills/the_executioner.png",
 	rank: "boss",
 	threat: 21,

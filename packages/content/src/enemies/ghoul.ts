@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ghoul",
 	name: "Ghoul",
-	description: "Claws through fresh graves and carries the remains somewhere quiet to feed.",
+	description:
+		"An undead scavenger whose claws can leave living prey helpless. Hillfolk weigh down fresh graves with stones to keep it from feeding.",
 	portrait: "enemies/hills/ghoul.png",
 	rank: "normal",
 	threat: 13,

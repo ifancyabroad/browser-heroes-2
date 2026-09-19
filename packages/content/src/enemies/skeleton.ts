@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "skeleton",
 	name: "Skeleton",
-	description: "Returns to places it knew in life, long after the people there have gone.",
+	description:
+		"Human remains stirred into motion by the dark magic seeping through the hills. Some still follow the paths between their graves and former homes.",
 	portrait: "enemies/hills/skeleton.png",
 	rank: "normal",
 	threat: 8,

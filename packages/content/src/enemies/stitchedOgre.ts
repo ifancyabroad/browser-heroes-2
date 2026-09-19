@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "stitched_ogre",
 	name: "Stitched Ogre",
 	description:
-		"Flinches at the pull of its stitches. Whatever brought it back did nothing for the pain.",
+		"An ogre corpse rebuilt with grafted claws and driven by dark magic. Its unnatural speed suggests its maker found ordinary ogres too easy to escape.",
 	portrait: "enemies/hills/stitched_ogre.png",
 	rank: "normal",
 	threat: 18,

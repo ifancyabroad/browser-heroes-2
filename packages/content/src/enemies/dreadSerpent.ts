@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "dread_serpent",
 	name: "Dread Serpent",
 	description:
-		"Leaves half-dissolved carcasses along the trails it hunts. Scavengers know to wait.",
+		"A venomous serpent twisted by the corruption beneath the hills, able to spit flesh-eating acid. Shepherds abandon pastures where its shed skins appear.",
 	portrait: "enemies/hills/dread_serpent.png",
 	rank: "normal",
 	threat: 17,

@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "wight",
 	name: "Wight",
-	description: "Wanders the hills after sundown. Grass blackens where it stops to rest.",
+	description:
+		"A restless undead spirit whose touch withers living flesh. It haunts the boundaries of land it owned in life, long after the fences have rotted.",
 	portrait: "enemies/hills/wight.png",
 	rank: "normal",
 	threat: 18,

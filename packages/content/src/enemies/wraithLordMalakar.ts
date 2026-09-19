@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "wraith_lord_malakar",
 	name: "Wraith Lord Malakar",
 	description:
-		"His wail carries through the hills long after he passes. Doors stay barred until morning.",
+		"The deathless spirit of a tyrant who once ruled the hill settlements. He still visits his former subjects, taking their vitality in place of tribute.",
 	portrait: "enemies/hills/wraith_lord_malakar.png",
 	rank: "boss",
 	threat: 22,

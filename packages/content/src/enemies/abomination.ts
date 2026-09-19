@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abomination",
 	name: "Abomination",
-	description: "Lashes out in constant pain, tearing at anything that comes within reach.",
+	description:
+		"A corpse warped by necromancy into a hulking creature of uncontrolled growth. Its makers abandoned it when it began attacking them too.",
 	portrait: "enemies/hills/abomination.png",
 	rank: "normal",
 	threat: 17,

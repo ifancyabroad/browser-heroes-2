@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "grotesque",
 	name: "Grotesque",
-	description: "Feeds until it can barely move, then lunges at the next thing that passes.",
+	description:
+		"A stitched undead glutton that hacks apart its prey before devouring it. Feeding was meant to keep it obedient; it only taught it to demand more.",
 	portrait: "enemies/hills/grotesque.png",
 	rank: "normal",
 	threat: 17,
