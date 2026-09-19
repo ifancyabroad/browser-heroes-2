@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "worg",
 	name: "Worg",
 	description:
-		"Obeys its handler's call, but strains at the reins whenever it catches the scent of prey.",
+		"A powerful wolf-like beast tamed to carry supplies through the forest. Its handlers feed it well and trust it sparingly.",
 	portrait: "enemies/forest/worg.png",
 	rank: "normal",
 	threat: 6,

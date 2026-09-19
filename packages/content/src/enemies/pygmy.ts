@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "pygmy",
 	name: "Pygmy",
 	description:
-		"Holds its patch of forest stubbornly. Larger creatures have learned to go around.",
+		"A small forest ape that defends its territory with handmade stone hammers. Its boundaries are unmarked but firmly enforced.",
 	portrait: "enemies/forest/pygmy.png",
 	rank: "normal",
 	threat: 6,

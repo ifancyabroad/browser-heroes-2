@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "shrieker",
 	name: "Shrieker",
-	description: "Keeps screaming long after intruders retreat. Few come back to disturb it twice.",
+	description:
+		"A territorial woodland bird whose piercing cries leave intruders reeling. One disturbed nest can wake half the forest.",
 	portrait: "enemies/forest/shrieker.png",
 	rank: "normal",
 	threat: 6,

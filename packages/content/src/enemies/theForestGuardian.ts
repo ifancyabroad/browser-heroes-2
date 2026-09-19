@@ -3,7 +3,8 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_forest_guardian",
 	name: "The Forest Guardian",
-	description: "Keeps watch over the forest, burning out whatever threatens to take root there.",
+	description:
+		"An ancient fire spirit that burns away blight to keep the woodland healthy. It has begun treating trespassers as another kind of infestation.",
 	portrait: "enemies/forest/the_forest_guardian.png",
 	rank: "boss",
 	threat: 13,

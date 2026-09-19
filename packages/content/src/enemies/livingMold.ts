@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "living_mold",
 	name: "Living Mold",
 	description:
-		"Grows back wherever it is scraped away. Slowly swallows paths that nobody clears.",
+		"A creeping mass of hungry fungus that feeds on the forest’s decay. It has little patience for things that are still alive.",
 	portrait: "enemies/forest/living_mold.png",
 	rank: "normal",
 	threat: 7,

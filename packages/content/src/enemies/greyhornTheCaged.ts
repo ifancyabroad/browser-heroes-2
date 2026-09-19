@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "greyhorn_the_caged",
 	name: "Greyhorn the Caged",
 	description:
-		"Captivity taught Greyhorn to watch for an opening. He charges the moment one appears.",
+		"A minotaur who escaped captivity and claimed the deep woods as his refuge. He sees a would-be captor in everyone who enters.",
 	portrait: "enemies/forest/greyhorn_the_caged.png",
 	rank: "boss",
 	threat: 14,
