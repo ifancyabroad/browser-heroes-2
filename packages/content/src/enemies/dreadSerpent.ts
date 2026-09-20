@@ -21,8 +21,8 @@ export default buildEnemy({
 		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
-			immunities: ["poison"],
-			vulnerabilities: ["radiant"],
+			immunities: [],
+			vulnerabilities: [],
 		},
 		basicAttack: {
 			attackRange: "melee",

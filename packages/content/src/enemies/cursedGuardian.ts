@@ -20,8 +20,17 @@ export default buildEnemy({
 		hitDie: "1d10",
 		armourClass: 18,
 		damageAffinities: {
-			resistances: ["acid", "cold", "crushing", "fire", "lightning", "piercing", "slashing"],
-			immunities: ["poison"],
+			resistances: [
+				"acid",
+				"cold",
+				"crushing",
+				"fire",
+				"lightning",
+				"piercing",
+				"poison",
+				"slashing",
+			],
+			immunities: [],
 			vulnerabilities: [],
 		},
 		basicAttack: {

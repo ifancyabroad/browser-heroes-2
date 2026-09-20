@@ -22,7 +22,7 @@ export default buildEnemy({
 		damageAffinities: {
 			resistances: [],
 			immunities: ["poison"],
-			vulnerabilities: ["radiant"],
+			vulnerabilities: [],
 		},
 		basicAttack: {
 			attackRange: "melee",

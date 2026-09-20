@@ -30,8 +30,8 @@ export default buildEnemy({
 				"poison",
 				"slashing",
 			],
-			immunities: ["necrotic"],
-			vulnerabilities: ["radiant"],
+			immunities: [],
+			vulnerabilities: [],
 		},
 		basicAttack: {
 			attackRange: "ranged",

@@ -20,9 +20,9 @@ export default buildEnemy({
 		hitDie: "1d12",
 		armourClass: 18,
 		damageAffinities: {
-			resistances: ["acid", "cold", "fire", "lightning", "piercing", "slashing"],
-			immunities: ["necrotic", "poison"],
-			vulnerabilities: ["crushing", "radiant"],
+			resistances: ["acid", "cold", "fire", "lightning", "necrotic", "piercing", "slashing"],
+			immunities: ["poison"],
+			vulnerabilities: ["crushing"],
 		},
 		basicAttack: {
 			attackRange: "melee",
