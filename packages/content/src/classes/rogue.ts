@@ -17,7 +17,7 @@ export default buildClass({
 		wisdom: 10,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		skillIds: ["poison_bomb"],
 		featIds: [],
 		tactic: "default",

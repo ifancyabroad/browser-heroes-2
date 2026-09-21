@@ -17,7 +17,7 @@ export default buildClass({
 		wisdom: 10,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		skillIds: ["flame_arrow"],
 		featIds: [],
 		tactic: "default",

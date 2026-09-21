@@ -17,7 +17,7 @@ export default buildClass({
 		wisdom: 16,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d10",
 		skillIds: ["inflict_wounds"],
 		featIds: [],
 		tactic: "default",
