@@ -160,6 +160,12 @@ Skills and consumables should have:
 
 Supported skill effect types include direct damage, weapon attack damage, healing, status application, temporary stat modifiers, temporary healing multipliers, temporary roll modifiers, temporary outgoing damage modifiers, temporary incoming damage modifiers, temporary damage affinity modifiers, damage over time, healing over time, and shields.
 
+Each weapon-attack effect follows the basic attack sequence: primary hand, then off hand if equipped
+and the target survives. Each hand rolls independently and triggers its own weapon and applicable
+feat riders. The off hand receives no attribute damage bonus. Enhancements attached to the skill's
+weapon-attack effect apply only to the primary hand; the off hand remains an ordinary attack.
+Skills with multiple weapon-attack effects repeat this sequence for each effect.
+
 `removeStatus` exists in the content schema and UI formatting, but skill resolution does not support it yet. Skills containing unsupported effects are rejected by engine validation rather than partially resolved.
 
 ## 9. Feats and Passive Modifiers

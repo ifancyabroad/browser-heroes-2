@@ -4,8 +4,9 @@ import type { CombatantState } from "../../../../schemas";
 import { createTestRunState } from "../../../../test/createTestRunState";
 
 import { isEnemyBasicAttackUseful } from "./isEnemyBasicAttackUseful";
+import { isEnemySkillUseful } from "./isEnemySkillUseful";
 
-describe("enemy basic attack usefulness", () => {
+describe("enemy weapon attack usefulness", () => {
 	it("keeps the action when an off-hand attack can damage an immune target", () => {
 		const { enemy, player } = createCombatants();
 		const immunePlayer = withImmunity(player, enemy.basicAttack.damage.type);
@@ -58,6 +59,14 @@ describe("enemy basic attack usefulness", () => {
 		};
 
 		expect(isEnemyBasicAttackUseful(woundedEnemy, immunePlayer)).toBe(true);
+		expect(
+			isEnemySkillUseful(
+				[{ type: "attackDamage", target: "enemy", multiplier: 1, attackRiders: [] }],
+				woundedEnemy,
+				immunePlayer,
+				"shadow_strike",
+			),
+		).toBe(true);
 	});
 });
 

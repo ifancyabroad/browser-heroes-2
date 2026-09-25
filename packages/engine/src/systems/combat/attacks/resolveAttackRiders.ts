@@ -12,7 +12,7 @@ import { applyStatusEffect } from "../skills/effects/applyStatusEffect";
 import { applyTemporaryModifierEffect } from "../skills/effects/applyTemporaryModifierEffect";
 import type { ActionResolution } from "../logs/actionOutcome";
 
-type AttackRiderSourceContext =
+export type AttackRiderSourceContext =
 	| {
 			source: {
 				type: "skill";

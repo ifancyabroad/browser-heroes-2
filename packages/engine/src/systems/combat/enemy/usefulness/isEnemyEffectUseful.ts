@@ -1,30 +1,26 @@
 import {
 	type DamageAffinityKind,
 	type Effect,
-	type FeatId,
 	type ModifyDamageAffinityEffect,
 	type ModifyDamageEffect,
 	type ModifyRollEffect,
 	type ModifyStatEffect,
-	type RiderEffect,
-	type SkillId,
 } from "@app/content";
 
 import type { ActiveCombatEffect, CombatantState } from "../../../../schemas";
 import { parseDiceFormula } from "../../../../core/dice";
 
+import {
+	collectWeaponAttackComponents,
+	type EnemyEffectSource,
+} from "./collectWeaponAttackComponents";
 import { getAttributeModifier } from "../../checks/getAttributeModifier";
 import { getDamageAffinity } from "../../damage/damageAffinity";
 import { getEffectiveDamageAffinities } from "../../effects/getEffectiveDamageAffinities";
 import { getEffectiveHealingMultiplier } from "../../effects/getEffectiveHealingMultiplier";
 
-export type EnemyEffectSource =
-	| { type: "skill"; skillId: SkillId }
-	| { type: "basicAttack"; sourceDefinitionId: string }
-	| { type: "feat"; featId: FeatId };
-
 type IsEnemyEffectUsefulInput = {
-	effect: Effect | RiderEffect;
+	effect: Effect;
 	source: EnemyEffectSource;
 	sourceEffectKey: string;
 	enemy: CombatantState;
@@ -36,31 +32,27 @@ export function isEnemyEffectUseful(input: IsEnemyEffectUsefulInput): boolean {
 	const target = effect.target === "self" ? enemy : player;
 
 	switch (effect.type) {
+		case "attackDamage": {
+			const components = collectWeaponAttackComponents(enemy, {
+				effect,
+				source,
+				sourceEffectKey,
+			});
+			return (
+				components.damageTypes.some(
+					(type) => getDamageAffinity(player, type) !== "immune",
+				) ||
+				components.riderEffects.some((riderEffect) =>
+					isEnemyEffectUseful({ ...riderEffect, enemy, player }),
+				)
+			);
+		}
+
 		case "damage":
 			return (
 				effect.target === "enemy" &&
 				getDamageAffinity(player, effect.damageType) !== "immune"
 			);
-
-		case "attackDamage": {
-			const attackDamageType = effect.damageTypeOverride ?? enemy.basicAttack.damage.type;
-			return (
-				getDamageAffinity(player, attackDamageType) !== "immune" ||
-				(effect.extraDamageType !== undefined &&
-					getDamageAffinity(player, effect.extraDamageType) !== "immune") ||
-				effect.attackRiders.some((rider, riderIndex) =>
-					rider.effects.some((riderEffect, riderEffectIndex) =>
-						isEnemyEffectUseful({
-							effect: riderEffect,
-							source,
-							sourceEffectKey: `${sourceEffectKey}:rider:${riderIndex}:effect:${riderEffectIndex}`,
-							enemy,
-							player,
-						}),
-					),
-				)
-			);
-		}
 
 		case "heal":
 			return (
