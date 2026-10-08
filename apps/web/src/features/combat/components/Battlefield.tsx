@@ -32,6 +32,7 @@ const ZONE_BACKGROUNDS = {
 } satisfies Record<Zone, string>;
 
 type BattlefieldProps = {
+	heroId: string;
 	enemyId: string;
 	enemyCurrentHp: number;
 	entries: CombatLogEntry[];
@@ -46,6 +47,7 @@ type BattlefieldProps = {
 };
 
 export function Battlefield({
+	heroId,
 	enemyId,
 	enemyCurrentHp,
 	entries,
@@ -113,7 +115,7 @@ export function Battlefield({
 			>
 				<BookOpen aria-hidden="true" />
 			</IconButton>
-			<CombatOutcomeOverlay enemyId={enemyId} entries={entries} />
+			<CombatOutcomeOverlay enemyId={enemyId} heroId={heroId} entries={entries} />
 			<EnemyPortrait
 				enemyId={enemyId}
 				currentHp={enemyCurrentHp}

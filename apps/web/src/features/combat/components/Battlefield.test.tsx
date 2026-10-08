@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { Battlefield } from "./Battlefield";
 
 const baseProps = {
+	heroId: "hero-1",
 	enemyId: "enemy-1",
 	enemyCurrentHp: 100,
 	enemyPortrait: null,
@@ -46,7 +47,7 @@ describe("Battlefield combat outcomes", () => {
 		const existing = damageEntry("existing", 5);
 		const { rerender } = render(<Battlefield {...baseProps} entries={[existing]} />);
 
-		expect(screen.queryByText("-5")).not.toBeInTheDocument();
+		expect(screen.queryByText("5")).not.toBeInTheDocument();
 
 		rerender(
 			<Battlefield
@@ -57,12 +58,12 @@ describe("Battlefield combat outcomes", () => {
 
 		expect(screen.getByText("CRIT")).toBeInTheDocument();
 		expect(screen.getByText(/3 BLOCKED/)).toBeInTheDocument();
-		expect(screen.getByText("-20")).toBeInTheDocument();
+		expect(screen.getByText("20")).toBeInTheDocument();
 		expect(screen.queryByText(/FIRE/)).not.toBeInTheDocument();
-		expect(screen.getByText("MISS")).toBeInTheDocument();
+		expect(screen.getByText("MISSED")).toBeInTheDocument();
 
 		act(() => vi.advanceTimersByTime(1_000));
-		expect(screen.queryByText("MISS")).not.toBeInTheDocument();
+		expect(screen.queryByText("MISSED")).not.toBeInTheDocument();
 	});
 
 	it("filters other targets and formats immune and fully blocked damage", () => {
@@ -79,7 +80,7 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		expect(screen.queryByText("-50")).not.toBeInTheDocument();
+		expect(screen.queryByText("50")).not.toBeInTheDocument();
 		expect(screen.getByText("IMMUNE (FIRE)")).toBeInTheDocument();
 		expect(screen.getByText("0")).toBeInTheDocument();
 		expect(screen.getByText(/5 BLOCKED/)).toBeInTheDocument();
@@ -100,10 +101,102 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		expect(screen.getByText("-15")).toBeInTheDocument();
-		expect(screen.getByText("-4")).toBeInTheDocument();
-		expect(screen.getByText("-3")).toBeInTheDocument();
+		expect(screen.getByText("15")).toBeInTheDocument();
+		expect(screen.getByText("4")).toBeInTheDocument();
+		expect(screen.getByText("3")).toBeInTheDocument();
+		expect(screen.queryByText("8")).not.toBeInTheDocument();
+	});
+
+	it("groups by recipient regardless of actor, with enemy outcomes first", () => {
+		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+		rerender(
+			<Battlefield
+				{...baseProps}
+				entries={[
+					{ ...damageEntry("hero-self", 7, 0, false, "hero-1"), actor: "player" },
+					{ ...damageEntry("enemy-self", 20), actor: "enemy" },
+					damageEntry("hero-dot", 3, 0, false, "hero-1", "normal", "effect_triggered"),
+				]}
+			/>,
+		);
+		expect(screen.getAllByText(/^(20|-7|-3)$/).map((outcome) => outcome.textContent)).toEqual([
+			"20",
+			"-7",
+			"-3",
+		]);
+	});
+
+	it.each([
+		{ targetId: "enemy-1", amount: "20", miss: "MISSED" },
+		{ targetId: "hero-1", amount: "-20", miss: "EVADED" },
+	])(
+		"preserves outcome details for $targetId with direction indicated by sign and miss wording",
+		({ targetId, amount, miss }) => {
+			const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+			rerender(
+				<Battlefield
+					{...baseProps}
+					entries={[
+						damageEntry("crit", 20, 3, true, targetId),
+						damageEntry(
+							"immune",
+							0,
+							0,
+							false,
+							targetId,
+							"immune",
+							"damage_dealt",
+							"cold",
+						),
+						missEntry("miss", targetId),
+					]}
+				/>,
+			);
+
+			expect(screen.getByText(amount)).toBeInTheDocument();
+			expect(screen.getByText("CRIT")).toBeInTheDocument();
+			expect(screen.getByText(/3 BLOCKED/)).toBeInTheDocument();
+			expect(screen.getByText("IMMUNE (COLD)")).toBeInTheDocument();
+			expect(screen.getByText(miss)).toBeInTheDocument();
+		},
+	);
+
+	it("replaces both directions on new actions and clears feedback when the encounter changes", () => {
+		const first = [
+			damageEntry("enemy-hit", 20),
+			damageEntry("hero-hit", 8, 0, false, "hero-1"),
+		];
+		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+		rerender(<Battlefield {...baseProps} entries={first} />);
+		expect(screen.getByText("-8")).toBeInTheDocument();
+		rerender(<Battlefield {...baseProps} entries={[...first, damageEntry("next-hit", 10)]} />);
 		expect(screen.queryByText("-8")).not.toBeInTheDocument();
+		expect(screen.queryByText("20")).not.toBeInTheDocument();
+		expect(screen.getByText("10")).toBeInTheDocument();
+		rerender(<Battlefield {...baseProps} enemyId="enemy-2" entries={[]} />);
+		expect(screen.queryByText("10")).not.toBeInTheDocument();
+	});
+
+	it("clears previous feedback when a new round has no supported outcomes", () => {
+		const hit = damageEntry("hit", 20);
+		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+		rerender(<Battlefield {...baseProps} entries={[hit]} />);
+		rerender(
+			<Battlefield
+				{...baseProps}
+				entries={[
+					hit,
+					{
+						id: "skip",
+						turnNumber: 2,
+						actor: "player",
+						eventType: "turn_skipped",
+						message: "Turn skipped",
+					},
+				]}
+			/>,
+		);
+		expect(screen.queryByText("20")).not.toBeInTheDocument();
 	});
 
 	it("restarts feedback when a new outcome arrives before the previous one expires", () => {
@@ -124,7 +217,7 @@ describe("Battlefield combat outcomes", () => {
 
 		const secondOverlay = container.querySelector('div[aria-hidden="true"]');
 		expect(secondOverlay).not.toBe(firstOverlay);
-		expect(screen.getByText("-20")).toBeInTheDocument();
+		expect(screen.getByText("20")).toBeInTheDocument();
 	});
 });
 
@@ -157,13 +250,13 @@ function damageEntry(
 	};
 }
 
-function missEntry(id: string): CombatLogEntry {
+function missEntry(id: string, targetId = "enemy-1"): CombatLogEntry {
 	return {
 		id,
 		turnNumber: 1,
 		actor: "player",
 		message: "Miss",
 		eventType: "attack_missed",
-		outcome: { type: "miss", targetId: "enemy-1" },
+		outcome: { type: "miss", targetId },
 	};
 }

@@ -198,6 +198,7 @@ export function CombatView({ run }: CombatViewProps) {
 				</section>
 
 				<Battlefield
+					heroId={combat.player.id}
 					enemyId={combat.enemy.id}
 					enemyCurrentHp={combat.enemy.currentHp}
 					entries={combat.log}

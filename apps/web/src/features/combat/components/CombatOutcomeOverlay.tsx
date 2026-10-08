@@ -7,10 +7,11 @@ const COMBAT_OUTCOME_FEEDBACK_MS = 1_000;
 
 type CombatOutcomeOverlayProps = {
 	enemyId: string;
+	heroId: string;
 	entries: CombatLogEntry[];
 };
 
-export function CombatOutcomeOverlay({ enemyId, entries }: CombatOutcomeOverlayProps) {
+export function CombatOutcomeOverlay({ enemyId, heroId, entries }: CombatOutcomeOverlayProps) {
 	const timeout = useRef<number | null>(null);
 	const nextBatchId = useRef(1);
 	const previousEnemyId = useRef(enemyId);
@@ -47,23 +48,32 @@ export function CombatOutcomeOverlay({ enemyId, entries }: CombatOutcomeOverlayP
 			processedEntryIds.current.add(entry.id);
 		}
 
-		const enemyOutcomes = groupEnemyOutcomes(newEntries, enemyId);
-
-		if (enemyOutcomes.length === 0) {
+		if (newEntries.length === 0) {
 			return;
 		}
 
+		const outcomes = [
+			...groupTargetOutcomes(newEntries, enemyId),
+			...groupTargetOutcomes(newEntries, heroId),
+		];
+
 		if (timeout.current !== null) {
 			window.clearTimeout(timeout.current);
+			timeout.current = null;
 		}
 
-		setVisibleBatch({ id: nextBatchId.current, outcomes: enemyOutcomes });
+		if (outcomes.length === 0) {
+			setVisibleBatch(null);
+			return;
+		}
+
+		setVisibleBatch({ id: nextBatchId.current, outcomes });
 		nextBatchId.current += 1;
 		timeout.current = window.setTimeout(() => {
 			setVisibleBatch(null);
 			timeout.current = null;
 		}, COMBAT_OUTCOME_FEEDBACK_MS);
-	}, [enemyId, entries]);
+	}, [enemyId, heroId, entries]);
 
 	if (!visibleBatch) {
 		return null;
@@ -79,21 +89,25 @@ export function CombatOutcomeOverlay({ enemyId, entries }: CombatOutcomeOverlayP
 				className={`flex max-w-full flex-col items-center px-2 text-center ${styles.feedback}`}
 			>
 				{visibleBatch.outcomes.map((outcome, index) => (
-					<CombatOutcomeText key={`${outcome.type}-${index}`} outcome={outcome} />
+					<CombatOutcomeText
+						key={`${outcome.targetId}-${outcome.type}-${index}`}
+						outcome={outcome}
+						isIncoming={outcome.targetId === heroId}
+					/>
 				))}
 			</div>
 		</div>
 	);
 }
 
-function groupEnemyOutcomes(entries: CombatLogEntry[], enemyId: string): CombatLogOutcome[] {
+function groupTargetOutcomes(entries: CombatLogEntry[], targetId: string): CombatLogOutcome[] {
 	const groupedOutcomes: CombatLogOutcome[] = [];
 	const damageGroupIndexes = new Map<string, number>();
 
 	for (const entry of entries) {
 		const outcome = entry.outcome;
 
-		if (!outcome || outcome.targetId !== enemyId) {
+		if (!outcome || outcome.targetId !== targetId) {
 			continue;
 		}
 
@@ -133,9 +147,21 @@ function groupEnemyOutcomes(entries: CombatLogEntry[], enemyId: string): CombatL
 	return groupedOutcomes;
 }
 
-function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
+function CombatOutcomeText({
+	outcome,
+	isIncoming,
+}: {
+	outcome: CombatLogOutcome;
+	isIncoming: boolean;
+}) {
 	if (outcome.type === "miss") {
-		return <p className="text-error text-2xl leading-tight">MISS</p>;
+		return (
+			<p
+				className={`${isIncoming ? "text-text-bright" : "text-error"} text-2xl leading-tight`}
+			>
+				{isIncoming ? "EVADED" : "MISSED"}
+			</p>
+		);
 	}
 
 	const damageType = outcome.damageType.toUpperCase();
@@ -149,8 +175,8 @@ function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
 
 	return (
 		<p className={`${damageTypeClass} tabular-nums leading-tight`} style={style}>
-			{outcome.hpDamage > 0 ? `-${outcome.hpDamage}` : "0"}
-			{outcome.critical && <span className="text-legendary"> CRIT</span>}
+			{isIncoming && outcome.hpDamage > 0 ? `-${outcome.hpDamage}` : outcome.hpDamage}
+			{outcome.critical && <span className="text-primary"> CRIT</span>}
 			{outcome.absorbedDamage > 0 && (
 				<span className="text-text-muted"> ({outcome.absorbedDamage} BLOCKED)</span>
 			)}
