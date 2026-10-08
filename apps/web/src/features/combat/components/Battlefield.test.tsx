@@ -18,6 +18,39 @@ const baseProps = {
 };
 
 describe("Battlefield combat outcomes", () => {
+	it("shows hero healing separately from damage and ignores enemy and zero healing", () => {
+		const healing = (
+			id: string,
+			amount: number,
+			targetId = "hero-1",
+			eventType: "healing_done" | "effect_triggered" = "healing_done",
+		): CombatLogEntry => ({
+			id,
+			turnNumber: 1,
+			actor: "player",
+			message: "Healing",
+			eventType,
+			outcome: { type: "healing", targetId, amount },
+		});
+		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+		rerender(
+			<Battlefield
+				{...baseProps}
+				entries={[
+					healing("hero-heal", 15),
+					healing("hero-tick", 4, "hero-1", "effect_triggered"),
+					healing("enemy-heal", 30, "enemy-1"),
+					healing("full-health", 0),
+					damageEntry("retaliation", 20, 0, false, "hero-1"),
+				]}
+			/>,
+		);
+		expect(screen.getByText("+15")).toBeInTheDocument();
+		expect(screen.getByText("+4")).toBeInTheDocument();
+		expect(screen.getByText("-20")).toBeInTheDocument();
+		expect(screen.queryByText("+30")).not.toBeInTheDocument();
+		expect(screen.queryByText("+0")).not.toBeInTheDocument();
+	});
 	afterEach(() => {
 		vi.useRealTimers();
 	});
@@ -88,23 +121,23 @@ describe("Battlefield combat outcomes", () => {
 
 	it("groups damage by event type and damage type", () => {
 		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+		const entries = [
+			damageEntry("fire-1", 8, 2),
+			damageEntry("fire-2", 7, 2, true),
+			damageEntry("cold", 4, 0, false, "enemy-1", "normal", "damage_dealt", "cold"),
+			damageEntry("fire-dot", 3, 0, false, "enemy-1", "normal", "effect_triggered"),
+		];
+		const original = structuredClone(entries);
 
-		rerender(
-			<Battlefield
-				{...baseProps}
-				entries={[
-					damageEntry("fire-1", 8),
-					damageEntry("fire-2", 7),
-					damageEntry("cold", 4, 0, false, "enemy-1", "normal", "damage_dealt", "cold"),
-					damageEntry("fire-dot", 3, 0, false, "enemy-1", "normal", "effect_triggered"),
-				]}
-			/>,
-		);
+		rerender(<Battlefield {...baseProps} entries={entries} />);
 
 		expect(screen.getByText("15")).toBeInTheDocument();
+		expect(screen.getByText("CRIT")).toBeInTheDocument();
+		expect(screen.getByText(/4 BLOCKED/)).toBeInTheDocument();
 		expect(screen.getByText("4")).toBeInTheDocument();
 		expect(screen.getByText("3")).toBeInTheDocument();
 		expect(screen.queryByText("8")).not.toBeInTheDocument();
+		expect(entries).toEqual(original);
 	});
 
 	it("groups by recipient regardless of actor, with enemy outcomes first", () => {

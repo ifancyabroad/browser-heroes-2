@@ -47,6 +47,11 @@ export function useHealingPotion(state: RunState): EngineResult {
 				? `${state.combat.player.name} drinks a healing potion but is already at full health.`
 				: `${state.combat.player.name} drinks a healing potion, restoring ${healing.actualHealing} health.`,
 		eventType: "healing_potion_used",
+		outcome: {
+			type: "healing",
+			targetId: state.combat.player.id,
+			amount: healing.actualHealing,
+		},
 	});
 
 	return finishPlayerActionRound({

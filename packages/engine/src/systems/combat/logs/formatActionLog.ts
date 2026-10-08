@@ -75,6 +75,11 @@ export function formatActionOutcome(outcome: ActionOutcome): CombatLogEntryConte
 						? `${outcome.targetName} is already at full health.`
 						: `${outcome.targetName} restores ${outcome.amount} health.`,
 				eventType: "healing_done",
+				outcome: {
+					type: "healing",
+					targetId: outcome.targetId,
+					amount: outcome.amount,
+				},
 			};
 
 		case "status":

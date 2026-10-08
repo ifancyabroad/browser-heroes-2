@@ -37,7 +37,14 @@ export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<Acti
 	return {
 		value: {
 			combat: updatedCombat,
-			outcomes: [{ type: "healing", targetName: target.name, amount: actualHealing }],
+			outcomes: [
+				{
+					type: "healing",
+					targetId: target.id,
+					targetName: target.name,
+					amount: actualHealing,
+				},
+			],
 		},
 		rngState: healing.rngState,
 	};

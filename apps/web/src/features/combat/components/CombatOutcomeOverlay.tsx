@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { CombatLogEntry, CombatLogOutcome } from "@app/engine";
-import { getDamageTypeTextClass } from "../../../presentation/damage";
+import { CombatOutcomeText } from "./CombatOutcomeText";
 import styles from "./CombatOutcomeOverlay.module.css";
 
 const COMBAT_OUTCOME_FEEDBACK_MS = 1_000;
@@ -52,10 +52,7 @@ export function CombatOutcomeOverlay({ enemyId, heroId, entries }: CombatOutcome
 			return;
 		}
 
-		const outcomes = [
-			...groupTargetOutcomes(newEntries, enemyId),
-			...groupTargetOutcomes(newEntries, heroId),
-		];
+		const outcomes = prepareCombatFeedback(newEntries, enemyId, heroId);
 
 		if (timeout.current !== null) {
 			window.clearTimeout(timeout.current);
@@ -100,7 +97,26 @@ export function CombatOutcomeOverlay({ enemyId, heroId, entries }: CombatOutcome
 	);
 }
 
-function groupTargetOutcomes(entries: CombatLogEntry[], targetId: string): CombatLogOutcome[] {
+function prepareCombatFeedback(
+	entries: readonly CombatLogEntry[],
+	enemyId: string,
+	heroId: string,
+): CombatLogOutcome[] {
+	const visibleEntries = entries.filter(
+		({ outcome }) =>
+			outcome?.type !== "healing" || (outcome.targetId === heroId && outcome.amount > 0),
+	);
+
+	return [
+		...groupTargetOutcomes(visibleEntries, enemyId),
+		...groupTargetOutcomes(visibleEntries, heroId),
+	];
+}
+
+function groupTargetOutcomes(
+	entries: readonly CombatLogEntry[],
+	targetId: string,
+): CombatLogOutcome[] {
 	const groupedOutcomes: CombatLogOutcome[] = [];
 	const damageGroupIndexes = new Map<string, number>();
 
@@ -111,7 +127,7 @@ function groupTargetOutcomes(entries: CombatLogEntry[], targetId: string): Comba
 			continue;
 		}
 
-		if (outcome.type === "miss") {
+		if (outcome.type !== "damage") {
 			groupedOutcomes.push(outcome);
 			continue;
 		}
@@ -145,41 +161,4 @@ function groupTargetOutcomes(entries: CombatLogEntry[], targetId: string): Comba
 	}
 
 	return groupedOutcomes;
-}
-
-function CombatOutcomeText({
-	outcome,
-	isIncoming,
-}: {
-	outcome: CombatLogOutcome;
-	isIncoming: boolean;
-}) {
-	if (outcome.type === "miss") {
-		return (
-			<p
-				className={`${isIncoming ? "text-text-bright" : "text-error"} text-2xl leading-tight`}
-			>
-				{isIncoming ? "EVADED" : "MISSED"}
-			</p>
-		);
-	}
-
-	const damageType = outcome.damageType.toUpperCase();
-	const damageTypeClass = getDamageTypeTextClass(outcome.damageType);
-	const sizeStep = Math.max(0, Math.floor(Math.log2(Math.max(1, outcome.hpDamage) / 10)) + 1);
-	const style = { fontSize: `${2 + sizeStep * 0.5}rem` };
-
-	if (outcome.affinity === "immune") {
-		return <p className={`${damageTypeClass} text-2xl leading-tight`}>IMMUNE ({damageType})</p>;
-	}
-
-	return (
-		<p className={`${damageTypeClass} tabular-nums leading-tight`} style={style}>
-			{isIncoming && outcome.hpDamage > 0 ? `-${outcome.hpDamage}` : outcome.hpDamage}
-			{outcome.critical && <span className="text-primary"> CRIT</span>}
-			{outcome.absorbedDamage > 0 && (
-				<span className="text-text-muted"> ({outcome.absorbedDamage} BLOCKED)</span>
-			)}
-		</p>
-	);
 }

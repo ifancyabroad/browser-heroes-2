@@ -23,6 +23,12 @@ const combatMissOutcomeSchema = z.object({
 	targetId: z.string(),
 });
 
+const combatHealingOutcomeSchema = z.object({
+	type: z.literal("healing"),
+	targetId: z.string(),
+	amount: z.number().int().min(0),
+});
+
 const otherCombatLogEventTypeSchema = z.enum([
 	"combat_started",
 	"basic_attack",
@@ -30,10 +36,8 @@ const otherCombatLogEventTypeSchema = z.enum([
 	"effect_applied",
 	"effect_resisted",
 	"effect_expired",
-	"healing_done",
 	"combat_ended",
 	"turn_skipped",
-	"healing_potion_used",
 	"combatant_slain",
 	"reward_gained",
 ]);
@@ -49,7 +53,11 @@ const combatLogEntryContentSchema = z.union([
 	}),
 	combatLogEntryContentBaseSchema.extend({
 		eventType: z.literal("effect_triggered"),
-		outcome: combatDamageOutcomeSchema.optional(),
+		outcome: z.union([combatDamageOutcomeSchema, combatHealingOutcomeSchema]),
+	}),
+	combatLogEntryContentBaseSchema.extend({
+		eventType: z.enum(["healing_done", "healing_potion_used"]),
+		outcome: combatHealingOutcomeSchema,
 	}),
 	combatLogEntryContentBaseSchema.extend({
 		eventType: otherCombatLogEventTypeSchema.optional(),

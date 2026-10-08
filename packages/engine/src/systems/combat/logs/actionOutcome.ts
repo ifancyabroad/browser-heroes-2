@@ -29,7 +29,7 @@ export type ActionOutcome =
 	  }
 	| { type: "miss"; targetId: string; targetName: string }
 	| { type: "resisted"; targetName: string; subject: string }
-	| { type: "healing"; targetName: string; amount: number }
+	| { type: "healing"; targetId: string; targetName: string; amount: number }
 	| {
 			type: "modifier";
 			targetName: string;

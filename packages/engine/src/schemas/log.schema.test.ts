@@ -9,6 +9,19 @@ const baseEntry = {
 };
 
 describe("combatLogEntrySchema", () => {
+	it.each(["healing_done", "healing_potion_used", "effect_triggered"])(
+		"requires valid healing metadata for %s entries",
+		(eventType) => {
+			const entry = { ...baseEntry, eventType };
+			expect(combatLogEntrySchema.safeParse(entry).success).toBe(false);
+			const outcome = { type: "healing", targetId: "hero", amount: 3 };
+			expect(combatLogEntrySchema.parse({ ...entry, outcome }).outcome).toEqual(outcome);
+			expect(
+				combatLogEntrySchema.safeParse({ ...entry, outcome: { ...outcome, amount: -1 } })
+					.success,
+			).toBe(false);
+		},
+	);
 	it("requires structured damage metadata for damage entries", () => {
 		expect(
 			combatLogEntrySchema.safeParse({
@@ -52,13 +65,13 @@ describe("combatLogEntrySchema", () => {
 		).toBe(false);
 	});
 
-	it("allows triggered effects with or without a damage outcome", () => {
+	it("requires an outcome for triggered effects", () => {
 		expect(
 			combatLogEntrySchema.safeParse({
 				...baseEntry,
 				eventType: "effect_triggered",
 			}).success,
-		).toBe(true);
+		).toBe(false);
 
 		expect(
 			combatLogEntrySchema.safeParse({

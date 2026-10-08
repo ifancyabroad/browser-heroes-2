@@ -48,6 +48,11 @@ export function resolveHealOverTimeEffects(
 				`${appliedHealing.actualHealing} health ` +
 				`to ${target.name}.`,
 			eventType: "effect_triggered",
+			outcome: {
+				type: "healing",
+				targetId: target.id,
+				amount: appliedHealing.actualHealing,
+			},
 		});
 	}
 
