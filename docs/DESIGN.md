@@ -22,9 +22,9 @@ Avoid neon defaults, scanlines, glowing borders, command prompts, diagnostic lan
 
 Tailwind CSS is the styling system. Reuse the semantic theme tokens in `apps/web/src/index.css` rather than hard-coded colors or repeated arbitrary values. Add a shared token only when a new visual role is expected to recur.
 
-Pixelify Sans is the single UI font. Body text, labels, controls, and headings should normally remain at 16px; establish hierarchy through color, spacing, borders, and placement instead of varied font sizes. Fixed-size title marks are the exception when they remain legible and responsive.
+Pixelify Sans is the single UI font. Body text, labels, controls, and headings should normally remain at 16px; establish hierarchy through color, spacing, borders, and placement instead of varied font sizes. Title marks and damage-scaled combat feedback are exceptions when they remain legible and responsive.
 
-Use tabular numerals for changing values such as health, prices, costs, and statistics. Keep motion restrained and honor reduced-motion preferences.
+Use tabular numerals for changing values such as health, prices, costs, and statistics. Keep motion restrained, honor reduced-motion preferences, and never delay combat input for animations.
 
 ## 4. Components
 

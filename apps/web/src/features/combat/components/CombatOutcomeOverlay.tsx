@@ -75,7 +75,9 @@ export function CombatOutcomeOverlay({ enemyId, entries }: CombatOutcomeOverlayP
 			className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center ${styles.overlay}`}
 			aria-hidden="true"
 		>
-			<div className="flex flex-col items-center text-center font-bold drop-shadow-[2px_2px_0_var(--color-bg-base)]">
+			<div
+				className={`flex max-w-full flex-col items-center px-2 text-center ${styles.feedback}`}
+			>
 				{visibleBatch.outcomes.map((outcome, index) => (
 					<CombatOutcomeText key={`${outcome.type}-${index}`} outcome={outcome} />
 				))}
@@ -133,25 +135,21 @@ function groupEnemyOutcomes(entries: CombatLogEntry[], enemyId: string): CombatL
 
 function CombatOutcomeText({ outcome }: { outcome: CombatLogOutcome }) {
 	if (outcome.type === "miss") {
-		return <p className="text-error">MISS</p>;
+		return <p className="text-error text-2xl leading-tight">MISS</p>;
 	}
 
 	const damageType = outcome.damageType.toUpperCase();
 	const damageTypeClass = getDamageTypeTextClass(outcome.damageType);
 	const sizeStep = Math.max(0, Math.floor(Math.log2(Math.max(1, outcome.hpDamage) / 10)) + 1);
-	const style = { fontSize: `${1 + sizeStep * 0.25}rem` };
+	const style = { fontSize: `${2 + sizeStep * 0.5}rem` };
 
 	if (outcome.affinity === "immune") {
-		return (
-			<p className={damageTypeClass} style={{ fontSize: "1rem" }}>
-				IMMUNE: {damageType}
-			</p>
-		);
+		return <p className={`${damageTypeClass} text-2xl leading-tight`}>IMMUNE ({damageType})</p>;
 	}
 
 	return (
-		<p className={damageTypeClass} style={style}>
-			{outcome.hpDamage > 0 ? `-${outcome.hpDamage}` : "0"} {damageType}
+		<p className={`${damageTypeClass} tabular-nums leading-tight`} style={style}>
+			{outcome.hpDamage > 0 ? `-${outcome.hpDamage}` : "0"}
 			{outcome.critical && <span className="text-legendary"> CRIT</span>}
 			{outcome.absorbedDamage > 0 && (
 				<span className="text-text-muted"> ({outcome.absorbedDamage} BLOCKED)</span>

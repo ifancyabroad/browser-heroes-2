@@ -46,7 +46,7 @@ describe("Battlefield combat outcomes", () => {
 		const existing = damageEntry("existing", 5);
 		const { rerender } = render(<Battlefield {...baseProps} entries={[existing]} />);
 
-		expect(screen.queryByText(/-5 FIRE/)).not.toBeInTheDocument();
+		expect(screen.queryByText("-5")).not.toBeInTheDocument();
 
 		rerender(
 			<Battlefield
@@ -57,7 +57,8 @@ describe("Battlefield combat outcomes", () => {
 
 		expect(screen.getByText("CRIT")).toBeInTheDocument();
 		expect(screen.getByText(/3 BLOCKED/)).toBeInTheDocument();
-		expect(screen.getByText(/-20 FIRE/)).toBeInTheDocument();
+		expect(screen.getByText("-20")).toBeInTheDocument();
+		expect(screen.queryByText(/FIRE/)).not.toBeInTheDocument();
 		expect(screen.getByText("MISS")).toBeInTheDocument();
 
 		act(() => vi.advanceTimersByTime(1_000));
@@ -78,9 +79,9 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		expect(screen.queryByText(/-50 FIRE/)).not.toBeInTheDocument();
-		expect(screen.getByText("IMMUNE: FIRE")).toBeInTheDocument();
-		expect(screen.getByText(/0 FIRE/)).toBeInTheDocument();
+		expect(screen.queryByText("-50")).not.toBeInTheDocument();
+		expect(screen.getByText("IMMUNE (FIRE)")).toBeInTheDocument();
+		expect(screen.getByText("0")).toBeInTheDocument();
 		expect(screen.getByText(/5 BLOCKED/)).toBeInTheDocument();
 	});
 
@@ -99,10 +100,10 @@ describe("Battlefield combat outcomes", () => {
 			/>,
 		);
 
-		expect(screen.getByText(/-15 FIRE/)).toBeInTheDocument();
-		expect(screen.getByText(/-4 COLD/)).toBeInTheDocument();
-		expect(screen.getByText(/-3 FIRE/)).toBeInTheDocument();
-		expect(screen.queryByText(/-8 FIRE/)).not.toBeInTheDocument();
+		expect(screen.getByText("-15")).toBeInTheDocument();
+		expect(screen.getByText("-4")).toBeInTheDocument();
+		expect(screen.getByText("-3")).toBeInTheDocument();
+		expect(screen.queryByText("-8")).not.toBeInTheDocument();
 	});
 
 	it("restarts feedback when a new outcome arrives before the previous one expires", () => {
@@ -123,7 +124,7 @@ describe("Battlefield combat outcomes", () => {
 
 		const secondOverlay = container.querySelector('div[aria-hidden="true"]');
 		expect(secondOverlay).not.toBe(firstOverlay);
-		expect(screen.getByText(/-20 FIRE/)).toBeInTheDocument();
+		expect(screen.getByText("-20")).toBeInTheDocument();
 	});
 });
 
