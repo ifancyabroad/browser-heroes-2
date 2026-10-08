@@ -7,6 +7,25 @@ import {
 } from "../../test/createTestRunState";
 
 describe("useHealingPotion", () => {
+	it.each([0, 3])("reports actual restored HP with %i HP missing", (missingHp) => {
+		const state = modifyTestRunState(createTestRunState(), (draft) => {
+			draft.combat!.player.maxHp = 100;
+			draft.combat!.player.currentHp = 100 - missingHp;
+			draft.hero.currentHp = draft.combat!.player.currentHp;
+		});
+
+		const result = applyAction(state, {
+			type: "PLAYER_USE_CONSUMABLE",
+			consumableType: "healingPotion",
+		});
+
+		expect(result.ok).toBe(true);
+		expect(
+			result.state.combat!.log.find((entry) => entry.eventType === "healing_potion_used")
+				?.outcome,
+		).toEqual({ type: "healing", targetId: state.combat!.player.id, amount: missingHp });
+	});
+
 	it("heals, consumes one potion, emits an event, and advances the round", () => {
 		const state = modifyTestRunState(createTestRunState(), (draft) => {
 			draft.hero.currentHp = 1;
