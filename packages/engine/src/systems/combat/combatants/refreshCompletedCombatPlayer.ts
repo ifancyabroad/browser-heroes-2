@@ -1,6 +1,7 @@
 import type { HeroState, RunState } from "../../../schemas";
 
 import { createPlayerCombatant } from "./createPlayerCombatant";
+import { replaceCombatantActiveEffects } from "../effects/replaceCombatantActiveEffects";
 
 export function refreshCompletedCombatPlayer(
 	combat: RunState["combat"],
@@ -12,6 +13,9 @@ export function refreshCompletedCombatPlayer(
 
 	return {
 		...combat,
-		player: createPlayerCombatant(hero, combat.id),
+		player: replaceCombatantActiveEffects(
+			createPlayerCombatant(hero, combat.id),
+			combat.player.activeEffects,
+		),
 	};
 }
