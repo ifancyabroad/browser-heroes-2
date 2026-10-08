@@ -22,7 +22,7 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "self",
 			stat: "armourClass",
-			value: 5,
+			value: 4,
 			duration: { unit: "battles", value: 1 },
 		},
 	],

@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "enemy",
 			roll: "attack",
 			mode: "disadvantage",
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "turns", value: 10 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
@@ -28,7 +28,7 @@ export default buildSkill({
 			target: "enemy",
 			operation: "multiply",
 			value: 0.5,
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "turns", value: 10 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",

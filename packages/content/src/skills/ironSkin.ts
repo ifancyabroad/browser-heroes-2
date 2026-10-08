@@ -9,7 +9,7 @@ export default buildSkill({
 	kind: "spell",
 	category: "defensive",
 	rarity: "uncommon",
-	maxUses: 4,
+	maxUses: 2,
 	effects: [
 		{
 			type: "modifyDamageAffinity",
@@ -17,7 +17,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "slashing",
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "battles", value: 5 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -25,7 +25,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "crushing",
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "battles", value: 5 },
 		},
 		{
 			type: "modifyDamageAffinity",
@@ -33,7 +33,7 @@ export default buildSkill({
 			affinity: "resistance",
 			operation: "add",
 			damageType: "piercing",
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "battles", value: 5 },
 		},
 	],
 	tags: [],

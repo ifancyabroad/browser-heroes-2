@@ -9,13 +9,13 @@ export default buildSkill({
 	kind: "technique",
 	category: "defensive",
 	rarity: "rare",
-	maxUses: 6,
+	maxUses: 4,
 	effects: [
 		{
 			type: "modifyStat",
 			target: "self",
 			stat: "armourClass",
-			value: 8,
+			value: 6,
 			duration: { unit: "battles", value: 1 },
 		},
 		{

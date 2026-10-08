@@ -17,7 +17,7 @@ export default buildSkill({
 			damageClass: "physical",
 			operation: "multiply",
 			value: 0.5,
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "turns", value: 6 },
 		},
 		{
 			type: "modifyRoll",
@@ -25,7 +25,7 @@ export default buildSkill({
 			roll: "savingThrow",
 			mode: "disadvantage",
 			attribute: "dexterity",
-			duration: { unit: "battles", value: 1 },
+			duration: { unit: "turns", value: 6 },
 		},
 	],
 	tags: [],
