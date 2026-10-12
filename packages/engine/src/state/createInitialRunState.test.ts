@@ -20,6 +20,7 @@ describe("createInitialRunState", () => {
 			phase: "combat",
 			battleNumber: 1,
 			zoneNumber: 1,
+			zone: "forest",
 			endlessCycle: 0,
 			levelUpRerolls: 5,
 			hero: {

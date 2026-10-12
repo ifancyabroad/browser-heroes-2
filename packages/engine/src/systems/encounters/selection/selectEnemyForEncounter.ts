@@ -1,25 +1,23 @@
-import type { Enemy } from "@app/content";
+import type { Enemy, Zone } from "@app/content";
 
 import type { RngResult, RngState } from "../../../core/rng";
 
 import { getEncounterTypeForBattle } from "../getEncounterTypeForBattle";
-import { getZoneForRun } from "../zones/getZoneForRun";
 import { getEncounterCandidates } from "./getEncounterCandidates";
 import { selectWeightedEnemy } from "./selectWeightedEnemy";
 
 type SelectEnemyForEncounterInput = {
 	battleNumber: number;
-	zoneNumber: number;
+	zone: Zone;
 	rngState: RngState;
 };
 
 export function selectEnemyForEncounter(
 	input: SelectEnemyForEncounterInput,
 ): RngResult<Enemy> | null {
-	const zone = getZoneForRun(input.zoneNumber);
 	const encounterType = getEncounterTypeForBattle(input.battleNumber);
 	const candidates = getEncounterCandidates({
-		zone,
+		zone: input.zone,
 		encounterType,
 		battleNumber: input.battleNumber,
 	});

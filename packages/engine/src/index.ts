@@ -48,8 +48,8 @@ export {
 export {
 	createSystemGhostEncounter,
 	getEncounterTypeForBattle,
-	getZoneForRun,
 	ZONE_ORDER,
+	ZONE_GROUPS,
 } from "./systems/encounters";
 
 export {

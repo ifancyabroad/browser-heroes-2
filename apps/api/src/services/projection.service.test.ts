@@ -13,8 +13,9 @@ import {
 } from "./projection.service";
 
 describe("projection.service", () => {
-	it("projects a run summary from authoritative state", () => {
+	it("projects the stored zone identity without reselecting from progression", () => {
 		const state = createTestRunState();
+		state.zone = "ocean";
 
 		expect(toRunSummary(state)).toEqual({
 			heroName: "Test Hero",
@@ -22,6 +23,7 @@ describe("projection.service", () => {
 			level: 1,
 			battleNumber: 1,
 			zoneNumber: 1,
+			zone: "ocean",
 			endlessCycle: 0,
 			day: 1,
 			kills: 0,
@@ -44,11 +46,13 @@ describe("projection.service", () => {
 		const state = createTestRunState();
 		state.battleNumber = 201;
 		state.zoneNumber = 21;
+		state.zone = "ocean";
 		state.endlessCycle = 2;
 
 		expect(toRunSummary(state)).toMatchObject({
 			battleNumber: 201,
 			zoneNumber: 21,
+			zone: "ocean",
 			endlessCycle: 2,
 		});
 	});

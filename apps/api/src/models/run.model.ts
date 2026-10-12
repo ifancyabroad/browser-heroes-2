@@ -1,5 +1,5 @@
 import { Schema, model, type InferSchemaType } from "mongoose";
-import { classIds } from "@app/content";
+import { classIds, zones } from "@app/content";
 import { runModes } from "@app/shared";
 
 export const RUN_STATUSES = ["active", "dead", "retired", "abandoned"] as const;
@@ -48,6 +48,11 @@ const runSummarySchema = new Schema(
 			required: true,
 			default: 1,
 			min: 1,
+		},
+		zone: {
+			type: String,
+			enum: zones,
+			required: true,
 		},
 		zoneNumber: {
 			type: Number,

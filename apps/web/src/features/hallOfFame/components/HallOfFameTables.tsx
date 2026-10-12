@@ -1,5 +1,4 @@
 import { CLASSES_BY_ID } from "@app/content";
-import { getZoneForRun } from "@app/engine";
 import type { GhostHallOfFameEntryView, HeroHallOfFameEntryView } from "@app/shared";
 import { Cancel } from "pixelarticons/react/Cancel";
 import { Star } from "pixelarticons/react/Star";
@@ -74,9 +73,7 @@ export function HeroHallOfFameTable(props: {
 						<DataTableCell numeric hideOnMobile>
 							{entry.day}
 						</DataTableCell>
-						<DataTableCell hideOnMobile>
-							{formatTitle(getZoneForRun(entry.zoneNumber))}
-						</DataTableCell>
+						<DataTableCell hideOnMobile>{formatTitle(entry.zone)}</DataTableCell>
 						<DataTableCell hideOnMobile>
 							<span className="block whitespace-normal break-words leading-5">
 								{entry.slainBy?.name ?? "—"}

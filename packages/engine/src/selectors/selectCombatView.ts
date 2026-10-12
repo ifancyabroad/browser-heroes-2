@@ -1,7 +1,7 @@
 import type { CombatState, RunState } from "../schemas";
 import type { Zone } from "@app/content";
+import { getZoneOptions } from "../systems/encounters/zones/getZoneOptions";
 
-import { getZoneForRun } from "../systems/encounters/zones/getZoneForRun";
 import { calculateGoldMultiplier } from "../systems/progression/rewards/calculateGoldMultiplier";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 
@@ -11,6 +11,7 @@ export type CombatViewState = {
 	battleNumber: number;
 	zoneNumber: number;
 	zone: Zone;
+	nextZoneOptions: readonly Zone[];
 
 	gold: number;
 	xp: number;
@@ -42,7 +43,8 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,
-		zone: getZoneForRun(state.zoneNumber),
+		zone: state.zone,
+		nextZoneOptions: getZoneOptions(state.zoneNumber + 1),
 
 		gold: state.gold,
 		xp: state.hero.xp,

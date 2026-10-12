@@ -17,6 +17,7 @@ describe("HeroHallOfFameTable", () => {
 						classId: "mage",
 						level: 8,
 						zoneNumber: 4,
+						zone: "ocean",
 						day: 3,
 						kills: 31,
 						status: "dead",
@@ -32,6 +33,7 @@ describe("HeroHallOfFameTable", () => {
 		const challengeMarker = screen.getByLabelText("Daily Challenge");
 		expect(challengeMarker.parentElement).toHaveClass("absolute");
 		expect(challengeMarker.parentElement).not.toHaveClass("bg-bg-base");
+		expect(screen.getByText("Ocean")).toBeInTheDocument();
 		expect(screen.getByText("Ada")).toHaveClass("text-primary");
 		expect(screen.getByText(/\(Player\)/)).toHaveClass("text-info");
 		expect(screen.queryByText("YOU")).not.toBeInTheDocument();

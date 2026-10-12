@@ -1,5 +1,4 @@
 import { CLASSES_BY_ID } from "@app/content";
-import { getZoneForRun } from "@app/engine";
 import type {
 	GetGhostHistoryQuery,
 	GetRunHistoryQuery,
@@ -107,9 +106,7 @@ export function RunHistoryTable({
 						<DataTableCell numeric hideOnMobile>
 							{entry.day}
 						</DataTableCell>
-						<DataTableCell hideOnMobile>
-							{formatTitle(getZoneForRun(entry.zoneNumber))}
-						</DataTableCell>
+						<DataTableCell hideOnMobile>{formatTitle(entry.zone)}</DataTableCell>
 						<DataTableCell hideOnMobile>{entry.status.toUpperCase()}</DataTableCell>
 						<DataTableCell hideOnMobile>
 							{formatDisplayDate(entry.completedAt)}

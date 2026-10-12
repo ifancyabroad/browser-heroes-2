@@ -85,6 +85,7 @@ export async function getRunHistory(params: { userId: string; query: GetRunHisto
 		level: run.summary.level,
 		battleNumber: run.summary.battleNumber,
 		zoneNumber: run.summary.zoneNumber,
+		zone: run.summary.zone,
 		endlessCycle: run.summary.endlessCycle,
 		day: run.summary.day,
 		kills: run.summary.kills,

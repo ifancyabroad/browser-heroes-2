@@ -7,7 +7,7 @@ import { createPlayerCombatant } from "./combatants/createPlayerCombatant";
 import { createCombat } from "./createCombat";
 
 describe("createCombat", () => {
-	it("uses cumulative enemy levels while repeating the authored zone", () => {
+	it("uses the supplied zone with cumulative enemy levels", () => {
 		const state = createTestRunState();
 		const combat = createCombat({
 			runId: state.id,
@@ -15,6 +15,7 @@ describe("createCombat", () => {
 			hero: state.hero,
 			battleNumber: 101,
 			zoneNumber: 11,
+			zone: "forest",
 			endlessCycle: 1,
 		});
 
@@ -36,6 +37,7 @@ describe("createCombat", () => {
 			hero: state.hero,
 			battleNumber: 101,
 			zoneNumber: 11,
+			zone: "forest",
 			endlessCycle: 2,
 			ghostEncounter: {
 				ghostId: "ghost-id",

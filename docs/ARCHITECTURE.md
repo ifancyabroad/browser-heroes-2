@@ -92,7 +92,7 @@ The following rules must hold:
 - identical state plus identical input produces identical outcome
 - engine randomness derives from the run seed
 - combat outcomes consume the run's sequential RNG state, while scheduled opportunities such as
-  enemies, level-up offers, rewards, and shops use independent context-derived RNG streams
+  zones, enemies, level-up offers, rewards, and shops use independent context-derived RNG streams
 - context-derived streams use stable run positions such as battle, level, reroll, and slot so
   decision-dependent combat rolls cannot shift later opportunities
 - externally selected data is passed into the engine as explicit input and recorded with the action
@@ -103,7 +103,7 @@ The following rules must hold:
 
 The entire run should always be representable as a snapshot. Save/load parity, replay investigation, server-side validation, and combat reconstruction should all build from that same explicit state model.
 
-Run position is explicit in serialized state: battle number, cumulative zone number, and endless cycle advance together through engine-owned transitions. The repeating authored zone identity is derived from the cumulative zone number.
+Run position is explicit in serialized state: battle number, cumulative zone number, selected zone identity, and endless cycle. The engine selects and stores a zone when entering each ten-battle segment; selectors and API summaries read that stored identity.
 
 ## 7. Selectors and Projections
 

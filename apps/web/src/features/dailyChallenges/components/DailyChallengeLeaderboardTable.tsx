@@ -1,4 +1,3 @@
-import { getZoneForRun } from "@app/engine";
 import type { ChallengeEntryView } from "@app/shared";
 import {
 	DataTable,
@@ -90,9 +89,7 @@ function LeaderboardEntryRow(props: {
 			<DataTableCell numeric hideOnMobile>
 				{entry.day}
 			</DataTableCell>
-			<DataTableCell hideOnMobile>
-				{formatTitle(getZoneForRun(entry.zoneNumber))}
-			</DataTableCell>
+			<DataTableCell hideOnMobile>{formatTitle(entry.zone)}</DataTableCell>
 			<DataTableCell hideOnMobile>
 				<span className="block whitespace-normal break-words leading-5">
 					{entry.slainBy?.name ?? "—"}

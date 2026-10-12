@@ -1,3 +1,4 @@
+import type { Zone } from "@app/content";
 import type { CombatantState, CombatState, GhostEncounter, HeroState } from "../../schemas";
 import { createContextRngState } from "../../core/rng";
 
@@ -14,6 +15,7 @@ type CreateCombatInput = {
 	hero: HeroState;
 	battleNumber: number;
 	zoneNumber: number;
+	zone: Zone;
 	endlessCycle: number;
 	ghostEncounter?: GhostEncounter;
 };
@@ -31,7 +33,7 @@ export function createCombat(input: CreateCombatInput): CombatState | null {
 	} else {
 		const selectedEnemy = selectEnemyForEncounter({
 			battleNumber: input.battleNumber,
-			zoneNumber: input.zoneNumber,
+			zone: input.zone,
 			rngState: createContextRngState(input.seed, "enemy", input.battleNumber),
 		});
 

@@ -12,6 +12,7 @@ const currentUserEntry: ChallengeEntryView = {
 	level: 4,
 	battleNumber: 9,
 	zoneNumber: 2,
+	zone: "ocean",
 	endlessCycle: 0,
 	day: 3,
 	kills: 8,
@@ -41,6 +42,7 @@ describe("DailyChallengeLeaderboardTable", () => {
 		expect(pinnedRow).not.toBeNull();
 		expect(rows[1]).toBe(pinnedRow);
 		expect(rows.indexOf(pinnedRow!)).toBeLessThan(rows.indexOf(leaderboardRow!));
+		expect(within(pinnedRow!).getByText("Ocean")).toBeInTheDocument();
 		expect(within(pinnedRow!).getByText("42")).toBeInTheDocument();
 		expect(within(pinnedRow!).getByText("Pinned Hero")).toHaveClass("text-primary");
 		expect(within(pinnedRow!).queryByText("YOU")).not.toBeInTheDocument();

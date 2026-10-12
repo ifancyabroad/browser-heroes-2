@@ -1,4 +1,4 @@
-import { classIdSchema, type ClassId } from "@app/content";
+import { classIdSchema, type ClassId, type Zone } from "@app/content";
 import { z } from "zod";
 import type { RunMode } from "./runs";
 import type { GhostBanisherView } from "./ghosts";
@@ -37,6 +37,7 @@ export interface RunHistoryEntryView {
 	level: number;
 	battleNumber: number;
 	zoneNumber: number;
+	zone: Zone;
 	endlessCycle: number;
 	day: number;
 	kills: number;

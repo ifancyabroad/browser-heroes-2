@@ -76,6 +76,7 @@ export async function getHeroHallOfFame(params: {
 		classId: run.summary.classId,
 		level: run.summary.level,
 		zoneNumber: run.summary.zoneNumber,
+		zone: run.summary.zone,
 		day: run.summary.day,
 		kills: run.summary.kills,
 		status: run.status as "dead" | "retired",

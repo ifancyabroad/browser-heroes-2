@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { zoneSchema } from "@app/content";
 import { heroStateSchema } from "./heroState.schema";
 import { combatStateSchema } from "./combatState.schema";
 import { runLogEntrySchema } from "./log.schema";
@@ -29,6 +30,7 @@ export const runStateSchema = z.object({
 	phase: runPhaseSchema,
 	battleNumber: z.number().int().min(1),
 	zoneNumber: z.number().int().min(1),
+	zone: zoneSchema,
 	endlessCycle: z.number().int().min(0),
 	day: z.number().int().min(1),
 	kills: z.number().int().min(0),

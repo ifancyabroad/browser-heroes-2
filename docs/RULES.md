@@ -60,9 +60,10 @@ Battle 1 selects only from the eligible enemies tied for the lowest authored thr
 
 Every 10th battle is a boss encounter. Non-boss battles are standard encounters.
 
-Zones are cumulative ten-battle segments. Each zone increases the level of authored enemies, while
-the sequence of authored zone identities and enemy pools repeats every ten zones. Endless cycles
-add further combat pressure on top of that continuing level progression.
+Zones are cumulative ten-battle segments with increasing enemy levels. Ten ordered difficulty
+groups repeat in endless progression. The seed selects one zone from each group for the entire
+segment, including its boss; town visits do not change it. Endless cycles can select different
+alternatives and add combat pressure on top of continuing level progression.
 
 Eligible standard encounters after the first boss may be replaced by ghosts created from other heroes who died beyond that point. Boss encounters are never replaced by ghosts.
 

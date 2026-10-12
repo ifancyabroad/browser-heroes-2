@@ -1,4 +1,4 @@
-import { classIdSchema, type ClassId } from "@app/content";
+import { classIdSchema, type ClassId, type Zone } from "@app/content";
 import {
 	engineActionSchema,
 	type EngineAction,
@@ -35,6 +35,7 @@ export interface RunSummaryView {
 	level: number;
 	battleNumber: number;
 	zoneNumber: number;
+	zone: Zone;
 	endlessCycle: number;
 	day: number;
 	kills: number;

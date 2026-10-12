@@ -1,4 +1,4 @@
-import { classIdSchema, type ClassId } from "@app/content";
+import { classIdSchema, type ClassId, type Zone } from "@app/content";
 import { z } from "zod";
 import type { RunMode, RunSlainByView } from "./runs";
 import type { GhostBanisherView } from "./ghosts";
@@ -25,6 +25,7 @@ export interface HeroHallOfFameEntryView {
 	classId: ClassId;
 	level: number;
 	zoneNumber: number;
+	zone: Zone;
 	day: number;
 	kills: number;
 	status: "dead" | "retired";

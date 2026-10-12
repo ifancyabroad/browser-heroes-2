@@ -1,4 +1,4 @@
-import type { ClassId } from "@app/content";
+import type { ClassId, Zone } from "@app/content";
 import { z } from "zod";
 import { HERO_NAME_MAX_LENGTH } from "./heroNames";
 import type { RunSlainByView, RunStatus, RunView } from "./runs";
@@ -26,6 +26,7 @@ export interface ChallengeEntryView {
 	level: number;
 	battleNumber: number;
 	zoneNumber: number;
+	zone: Zone;
 	endlessCycle: number;
 	day: number;
 	kills: number;

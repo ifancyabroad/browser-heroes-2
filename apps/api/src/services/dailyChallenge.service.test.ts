@@ -278,6 +278,7 @@ function createRankedAttempt() {
 			level: 4,
 			battleNumber: 9,
 			zoneNumber: 2,
+			zone: "ocean",
 			endlessCycle: 0,
 			day: 3,
 			kills: 8,

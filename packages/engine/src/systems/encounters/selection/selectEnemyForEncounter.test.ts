@@ -10,7 +10,7 @@ describe("selectEnemyForEncounter", () => {
 		for (let seed = 0; seed < 20; seed += 1) {
 			const result = selectEnemyForEncounter({
 				battleNumber: 1,
-				zoneNumber: 1,
+				zone: "forest",
 				rngState: createInitialRngState(String(seed)),
 			});
 
@@ -24,7 +24,7 @@ describe("selectEnemyForEncounter", () => {
 		for (let seed = 0; seed < 20; seed += 1) {
 			const result = selectEnemyForEncounter({
 				battleNumber: 2,
-				zoneNumber: 1,
+				zone: "forest",
 				rngState: createInitialRngState(String(seed)),
 			});
 

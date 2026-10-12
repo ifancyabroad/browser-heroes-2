@@ -1,9 +1,8 @@
 import type { EngineResult, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
-import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
 import { createTownState } from "../../state";
-import { getEndlessCycleForBattle } from "../endless/endlessProgression";
+import { getNextRunPosition } from "../progression/getNextRunPosition";
 
 export function returnToTown(state: RunState): EngineResult {
 	if (state.phase !== "combat" || !state.combat) {
@@ -22,9 +21,7 @@ export function returnToTown(state: RunState): EngineResult {
 		return failureResult(state, "REWARD_SELECTION_REQUIRED");
 	}
 
-	const battleNumber = state.battleNumber + 1;
-	const zoneNumber = getZoneNumberForBattle(battleNumber);
-	const endlessCycle = getEndlessCycleForBattle(battleNumber);
+	const { battleNumber, zoneNumber, zone, endlessCycle } = getNextRunPosition(state);
 
 	const town = createTownState({
 		runId: state.id,
@@ -42,6 +39,7 @@ export function returnToTown(state: RunState): EngineResult {
 			combat: null,
 			battleNumber,
 			zoneNumber,
+			zone,
 			endlessCycle,
 			streak: 0,
 			town,

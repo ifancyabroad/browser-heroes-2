@@ -14,6 +14,7 @@ export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): E
 		hero: state.hero,
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,
+		zone: state.zone,
 		endlessCycle: state.endlessCycle,
 		ghostEncounter,
 	});

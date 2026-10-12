@@ -1,7 +1,8 @@
 import { runStateSchema, type RunState } from "../schemas";
-import { createInitialRngState } from "../core/rng";
+import { createContextRngState, createInitialRngState } from "../core/rng";
 import { createRunLogId } from "../core/ids";
 import { createInitialHeroState } from "./createInitialHeroState";
+import { selectZone } from "../systems/encounters/zones/selectZone";
 import { createCombat } from "../systems/combat/createCombat";
 import { ClassId } from "@app/content";
 import { STARTING_LEVEL_UP_REROLLS } from "../systems/progression/constants/levelUpRerolls";
@@ -26,6 +27,8 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 
 	const hero = heroResult;
 	const zoneNumber = 1;
+	const zoneRngState = createContextRngState(input.seed, "zone", zoneNumber);
+	const zone = selectZone(zoneNumber, zoneRngState);
 	const battleNumber = 1;
 	const endlessCycle = 0;
 
@@ -35,6 +38,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		seed: input.seed,
 		battleNumber,
 		zoneNumber,
+		zone,
 		endlessCycle,
 	});
 
@@ -56,6 +60,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 
 		battleNumber,
 		zoneNumber,
+		zone,
 		endlessCycle,
 		day: 1,
 		kills: 0,

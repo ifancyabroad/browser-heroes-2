@@ -34,6 +34,7 @@ function createRun(overrides: Record<string, unknown>) {
 			level: 1,
 			battleNumber: 1,
 			zoneNumber: 1,
+			zone: "forest",
 			endlessCycle: 0,
 			day: 1,
 			kills: 0,

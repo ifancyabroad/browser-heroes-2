@@ -12,10 +12,48 @@ const baseProps = {
 	isEnemySlain: false,
 	battleNumber: 12,
 	goldMultiplier: 2,
-	nextZone: "forest" as const,
+	nextZoneOptions: ["forest"] as const,
 	zone: "forest" as const,
 	onOpenLog: vi.fn(),
 };
+
+describe("Battlefield background preloading", () => {
+	afterEach(() => {
+		vi.useRealTimers();
+		vi.unstubAllGlobals();
+	});
+
+	it("preloads all next-zone options except the current background", () => {
+		vi.useFakeTimers();
+		const images: { src: string; fetchPriority: string }[] = [];
+		vi.stubGlobal(
+			"Image",
+			class {
+				src = "";
+				fetchPriority = "";
+				constructor() {
+					images.push(this);
+				}
+			},
+		);
+		const { unmount } = render(
+			<Battlefield
+				{...baseProps}
+				entries={[]}
+				nextZoneOptions={["forest", "castle", "plains"]}
+			/>,
+		);
+		expect(images).toHaveLength(0);
+		act(() => vi.advanceTimersByTime(1_000));
+		expect(images).toHaveLength(2);
+		expect(images.map((image) => image.src)).toEqual([
+			expect.stringContaining("bg_27.png"),
+			expect.stringContaining("bg_46.png"),
+		]);
+		expect(images.every((image) => image.fetchPriority === "low")).toBe(true);
+		unmount();
+	});
+});
 
 describe("Battlefield combat outcomes", () => {
 	it("shows hero healing separately from damage and ignores enemy and zero healing", () => {

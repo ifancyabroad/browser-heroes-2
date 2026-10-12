@@ -2,8 +2,7 @@ import type { EngineResult, GhostEncounter, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { createCombat } from "../combat/createCombat";
-import { getZoneNumberForBattle } from "../encounters/zones/getZoneNumberForBattle";
-import { getEndlessCycleForBattle } from "../endless/endlessProgression";
+import { getNextRunPosition } from "./getNextRunPosition";
 import { carryBattleEffects } from "../combat/effects/carryBattleEffects";
 
 export function continueToNextCombat(
@@ -26,10 +25,7 @@ export function continueToNextCombat(
 		return failureResult(state, "REWARD_SELECTION_REQUIRED");
 	}
 
-	const battleNumber = state.battleNumber + 1;
-
-	const zoneNumber = getZoneNumberForBattle(battleNumber);
-	const endlessCycle = getEndlessCycleForBattle(battleNumber);
+	const { battleNumber, zoneNumber, zone, endlessCycle } = getNextRunPosition(state);
 
 	const combatResult = createCombat({
 		runId: state.id,
@@ -37,6 +33,7 @@ export function continueToNextCombat(
 		hero: state.hero,
 		battleNumber,
 		zoneNumber,
+		zone,
 		endlessCycle,
 		ghostEncounter,
 	});
@@ -58,6 +55,7 @@ export function continueToNextCombat(
 			town: null,
 			battleNumber,
 			zoneNumber,
+			zone,
 			endlessCycle,
 			streak: state.streak + 1,
 		},

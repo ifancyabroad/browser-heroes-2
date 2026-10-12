@@ -41,7 +41,7 @@ type BattlefieldProps = {
 	isEnemySlain: boolean;
 	battleNumber: number;
 	goldMultiplier: number;
-	nextZone: Zone;
+	nextZoneOptions: readonly Zone[];
 	zone: Zone;
 	onOpenLog: () => void;
 };
@@ -56,25 +56,26 @@ export function Battlefield({
 	isEnemySlain,
 	battleNumber,
 	goldMultiplier,
-	nextZone,
+	nextZoneOptions,
 	zone,
 	onOpenLog,
 }: BattlefieldProps) {
 	useEffect(() => {
-		if (nextZone === zone) {
-			return;
-		}
-
 		const preloadTimeout = window.setTimeout(() => {
-			const image = new Image();
-			image.fetchPriority = "low";
-			image.src = ZONE_BACKGROUNDS[nextZone];
+			for (const nextZone of nextZoneOptions) {
+				if (nextZone === zone) {
+					continue;
+				}
+				const image = new Image();
+				image.fetchPriority = "low";
+				image.src = ZONE_BACKGROUNDS[nextZone];
+			}
 		}, 1_000);
 
 		return () => {
 			window.clearTimeout(preloadTimeout);
 		};
-	}, [nextZone, zone]);
+	}, [nextZoneOptions, zone]);
 
 	return (
 		<section

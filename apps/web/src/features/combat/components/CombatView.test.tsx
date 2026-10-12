@@ -6,7 +6,6 @@ const selectors = vi.hoisted(() => ({
 	selectCombatView: vi.fn(),
 	selectAvailableActions: vi.fn(),
 	selectHeroProgression: vi.fn(),
-	selectEncounterContext: vi.fn(),
 }));
 const mutate = vi.hoisted(() => vi.fn());
 const showError = vi.hoisted(() => vi.fn());
@@ -96,6 +95,7 @@ function createCombatView() {
 		gold: 10,
 		goldMultiplier: 1,
 		zone: "forest",
+		nextZoneOptions: ["castle"],
 		healingPotions: 1,
 		maxHealingPotions: 3,
 		enemyDescriptor: undefined,
@@ -128,7 +128,6 @@ describe("CombatView", () => {
 			{ type: "RETURN_TO_TOWN" },
 		]);
 		selectors.selectHeroProgression.mockReturnValue({});
-		selectors.selectEncounterContext.mockReturnValue({ zone: "caves" });
 	});
 
 	it("shows a stable fallback when combat state is unavailable", () => {
