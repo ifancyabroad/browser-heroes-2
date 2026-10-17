@@ -44,7 +44,7 @@ export function ResourceBar({
 	return (
 		<div
 			className={clsx(
-				"grid grid-cols-[minmax(0,1fr)_10rem] items-center gap-3 text-base",
+				"grid grid-cols-[minmax(0,1fr)_9rem] items-center gap-3 text-base",
 				className,
 			)}
 			title={accessibleLabel}
