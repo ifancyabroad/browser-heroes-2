@@ -1,24 +1,15 @@
 @import "tailwindcss";
 
 @font-face {
-	font-family: "Pixelify Sans";
-	src: url("./assets/fonts/PixelifySans.ttf") format("truetype");
-	font-weight: 400 700;
+	font-family: "Recursive Mono";
+	src: url("./assets/fonts/Recursive.ttf") format("truetype");
+	font-weight: 300 1000;
 	font-style: normal;
 	font-display: swap;
 }
 
-@font-face {
-	font-family: "BH Five Rounded";
-	src: url("./assets/fonts/BHFive-Rounded.ttf") format("truetype");
-	font-weight: 400 700;
-	font-style: normal;
-	font-display: block;
-	unicode-range: U+0035;
-}
-
 :root {
-	--font-ui: "BH Five Rounded", "Pixelify Sans";
+	--font-ui: "Recursive Mono", monospace;
 }
 
 @theme {
@@ -117,6 +108,10 @@ body,
 
 body {
 	font-family: var(--font-ui), sans-serif;
+	/* Keep Recursive monospaced with the slightly casual preview styling. */
+	font-variation-settings:
+		"MONO" 1,
+		"CASL" 0.5;
 	font-variant-numeric: tabular-nums;
 	color: var(--color-text);
 	font-size: 16px;
