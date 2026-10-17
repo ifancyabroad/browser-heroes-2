@@ -111,7 +111,7 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 					</Section>
 				</div>
 				<div className="grid min-w-0 gap-5 md:col-start-2">
-					<Section title="Base attributes">
+					<Section title="Attributes">
 						<dl className="grid grid-cols-3 gap-x-2 gap-y-1 xs:grid-cols-6">
 							{attributes.map((attribute) => (
 								<div key={attribute} className="flex gap-2">
@@ -124,7 +124,7 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 						</dl>
 					</Section>
 
-					<Section title="Basic attack">
+					<Section title="Attack">
 						<div className="flex items-start gap-3">
 							<img
 								src={resolveImageUrl(attack.icon)}
@@ -180,7 +180,7 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 								{affinityGroups.map(({ title, types }) => (
 									<div
 										key={title}
-										className="grid grid-cols-[7.5rem_minmax(0,1fr)] items-start gap-2"
+										className="grid grid-cols-[9rem_minmax(0,1fr)] items-start gap-2"
 									>
 										<dt className="text-text-label">{title}</dt>
 										<dd className="flex flex-wrap gap-1">

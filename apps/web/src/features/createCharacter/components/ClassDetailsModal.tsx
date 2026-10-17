@@ -78,7 +78,7 @@ export function ClassDetailsModal({ gameClass, onChoose, onClose }: ClassDetails
 					/>
 				</div>
 				<div className="grid min-w-0 gap-5 md:col-start-2">
-					<DetailSection title="Starting attributes">
+					<DetailSection title="Attributes">
 						<dl className="grid grid-cols-3 gap-x-2 gap-y-1 xs:grid-cols-6">
 							{attributes.map((attribute) => (
 								<div key={attribute} className="flex gap-2">
