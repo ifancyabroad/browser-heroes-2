@@ -4,7 +4,7 @@ export default buildArmour({
 	id: "dragons_gem",
 	name: "Dragon's Gem",
 	description:
-		"A ring housing a sparkling dragon's gem, amplifying the wearer's power and resilience.",
+		"A ring housing a sparkling dragon's gem, amplifying the wearer's power and vitality.",
 	icon: "items/armour/ring/Ring_b_08.png",
 	price: 3400,
 	rarity: "legendary",

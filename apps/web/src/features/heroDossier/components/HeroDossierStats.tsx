@@ -10,7 +10,12 @@ import {
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
 import { formatDamageSelector, getDamageTypeBorderClass } from "../../../presentation/damage";
 import { formatModifierValue } from "../../../presentation/effects";
-import { attributeLabels, combatStatLabels, damageTypeLabels } from "../../../presentation/labels";
+import {
+	attributeLabels,
+	combatStatLabels,
+	combatStatShortLabels,
+	damageTypeLabels,
+} from "../../../presentation/labels";
 import {
 	getArmourClassStatPresentation,
 	getStatPresentation,
@@ -47,35 +52,35 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 	const optionalStats: CombatStatItem[] = [
 		{
 			label: combatStatLabels.attackRollBonus,
-			displayLabel: "Attack",
+			displayLabel: combatStatShortLabels.attackRollBonus,
 			stat: getStatPresentation(hero.combatStats.attackRollBonus),
 			signed: true,
 		},
 		{
 			label: combatStatLabels.savingThrowBonus,
-			displayLabel: "Save",
+			displayLabel: combatStatShortLabels.savingThrowBonus,
 			stat: getStatPresentation(hero.combatStats.savingThrowBonus),
 			signed: true,
 		},
 		{
 			label: combatStatLabels.saveDcBonus,
-			displayLabel: "Save DC",
+			displayLabel: combatStatShortLabels.saveDcBonus,
 			stat: getStatPresentation(hero.combatStats.saveDcBonus),
 			signed: true,
 		},
 		{
 			label: combatStatLabels.criticalRangeBonus,
-			displayLabel: "Crit Range",
+			displayLabel: combatStatShortLabels.criticalRangeBonus,
 			stat: getStatPresentation(hero.combatStats.criticalRangeBonus),
 		},
 		{
 			label: combatStatLabels.criticalDiceMultiplierBonus,
-			displayLabel: "Crit Dice",
+			displayLabel: combatStatShortLabels.criticalDiceMultiplierBonus,
 			stat: getStatPresentation(hero.combatStats.criticalDiceMultiplierBonus),
 		},
 		{
 			label: combatStatLabels.healingMultiplier,
-			displayLabel: "Healing",
+			displayLabel: combatStatShortLabels.healingMultiplier,
 			stat: getStatPresentation(hero.combatStats.healingMultiplier),
 		},
 	];

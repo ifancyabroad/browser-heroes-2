@@ -15,7 +15,7 @@ describe("content summaries", () => {
 			},
 		];
 
-		expect(modifierSummary(modifiers)).toBe("+3 save DC · +50% magical damage");
+		expect(modifierSummary(modifiers)).toBe("+3 focus · +50% magical damage");
 		expect(modifierSummary(modifiers)).not.toMatch(/modify[A-Z]/);
 	});
 

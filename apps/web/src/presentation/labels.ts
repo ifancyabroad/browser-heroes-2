@@ -48,8 +48,8 @@ export const attributeDescriptions: Record<Attribute, string> = {
 export const combatStatShortLabels = {
 	armourClass: "AC",
 	attackRollBonus: "Attack",
-	savingThrowBonus: "Save",
-	saveDcBonus: "Save DC",
+	savingThrowBonus: "Resolve",
+	saveDcBonus: "Focus",
 	criticalRangeBonus: "Crit Range",
 	criticalDiceMultiplierBonus: "Crit Dice",
 	healingMultiplier: "Healing",
@@ -59,8 +59,8 @@ export const combatStatShortLabels = {
 export const combatStatLabels = {
 	armourClass: "Armour Class",
 	attackRollBonus: "Attack Roll Bonus",
-	savingThrowBonus: "Saving Throw Bonus",
-	saveDcBonus: "Save DC Bonus",
+	savingThrowBonus: "Resolve",
+	saveDcBonus: "Focus",
 	criticalRangeBonus: "Critical Range Bonus",
 	criticalDiceMultiplierBonus: "Critical Dice Multiplier Bonus",
 	healingMultiplier: "Healing Multiplier",

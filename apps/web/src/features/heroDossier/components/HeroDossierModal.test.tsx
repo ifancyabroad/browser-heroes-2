@@ -141,8 +141,8 @@ describe("HeroDossierModal", () => {
 		expect(screen.getByRole("region", { name: "Combat" })).toHaveTextContent("Max HP");
 		expect(screen.getByText("Armour")).toBeInTheDocument();
 		expect(screen.queryByText("Attack")).not.toBeInTheDocument();
-		expect(screen.queryByText("Save")).not.toBeInTheDocument();
-		expect(screen.queryByText("Save DC")).not.toBeInTheDocument();
+		expect(screen.queryByText("Resolve")).not.toBeInTheDocument();
+		expect(screen.queryByText("Focus")).not.toBeInTheDocument();
 		expect(screen.getByText("Crit Range")).toBeInTheDocument();
 		expect(screen.getByText("Crit Dice")).toBeInTheDocument();
 		expect(screen.getByText("Healing")).toBeInTheDocument();

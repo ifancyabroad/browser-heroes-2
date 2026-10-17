@@ -5,8 +5,8 @@ type StatModifier = Extract<PassiveModifier, { type: "modifyStat" }>;
 const statLabels: Record<StatModifier["stat"], string> = {
 	armourClass: "AC",
 	attackRollBonus: "attack",
-	savingThrowBonus: "saves",
-	saveDcBonus: "save DC",
+	savingThrowBonus: "resolve",
+	saveDcBonus: "focus",
 	criticalRangeBonus: "crit range",
 	criticalDiceMultiplierBonus: "crit dice",
 	maxHpBonus: "max HP",
