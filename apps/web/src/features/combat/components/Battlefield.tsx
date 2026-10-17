@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { Zone } from "@app/content";
 import type { CombatLogEntry } from "@app/engine";
-import { BookOpen } from "pixelarticons/react/BookOpen";
+import { IconBook } from "@tabler/icons-react";
 import { Badge } from "../../../components/Badge";
 import { IconButton } from "../../../components/Button";
 import { CombatOutcomeOverlay } from "./CombatOutcomeOverlay";
@@ -114,7 +114,7 @@ export function Battlefield({
 				className="absolute left-2 top-2 z-20 lg:hidden"
 				onClick={onOpenLog}
 			>
-				<BookOpen aria-hidden="true" />
+				<IconBook aria-hidden="true" />
 			</IconButton>
 			<CombatOutcomeOverlay enemyId={enemyId} heroId={heroId} entries={entries} />
 			<EnemyPortrait

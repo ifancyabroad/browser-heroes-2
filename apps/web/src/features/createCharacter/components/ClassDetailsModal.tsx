@@ -6,7 +6,7 @@ import {
 	type SkillPool,
 } from "@app/content";
 import type { PropsWithChildren } from "react";
-import { ArrowRight } from "pixelarticons/react/ArrowRight";
+import { IconArrowRight } from "@tabler/icons-react";
 import { Badge } from "../../../components/Badge";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
@@ -60,7 +60,7 @@ export function ClassDetailsModal({ gameClass, onChoose, onClose }: ClassDetails
 					</Button>
 					<Button type="button" variant="primary" onClick={onChoose}>
 						<span>CHOOSE {gameClass.name.toUpperCase()}</span>
-						<ArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
+						<IconArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
 					</Button>
 				</>
 			}

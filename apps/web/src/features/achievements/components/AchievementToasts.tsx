@@ -1,6 +1,6 @@
 import { ACHIEVEMENTS_BY_ID } from "@app/content";
 import type { AchievementUnlockView } from "@app/shared";
-import { Close } from "pixelarticons/react/Close";
+import { IconX } from "@tabler/icons-react";
 import { Toast } from "radix-ui";
 import { useEffect, useState } from "react";
 import { Card } from "../../../components/Card";
@@ -86,7 +86,7 @@ function AchievementToastItem({
 					onClick={(event) => event.currentTarget.blur()}
 					className="p-1 text-text-muted hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 				>
-					<Close aria-hidden="true" className="h-5 w-5" />
+					<IconX aria-hidden="true" className="h-5 w-5" />
 				</Toast.Close>
 			</Card>
 		</Toast.Root>

@@ -7,7 +7,7 @@ import { useCreateRun } from "../features/runs";
 import { useErrorModalStore } from "../stores/errorModalStore";
 import { PageLayout } from "../components/PageLayout";
 import { Container } from "../components/Container";
-import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 const orderedClasses = [...classes].sort((a, b) => a.order - b.order);
 
@@ -58,7 +58,7 @@ export default function CreateCharacter() {
 						to="/"
 						className="mb-4 inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 					>
-						<ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+						<IconArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
 						BACK
 					</RouterLink>
 

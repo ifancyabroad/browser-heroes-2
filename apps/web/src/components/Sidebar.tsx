@@ -1,6 +1,6 @@
 import type { PropsWithChildren, ReactNode } from "react";
 import clsx from "clsx";
-import { Close } from "pixelarticons/react/Close";
+import { IconX } from "@tabler/icons-react";
 
 type SidebarProps = PropsWithChildren<{
 	open: boolean;
@@ -54,7 +54,7 @@ export function Sidebar({
 							aria-label="Close sidebar"
 							type="button"
 						>
-							<Close aria-hidden="true" className="h-4 w-4" />
+							<IconX aria-hidden="true" className="h-4 w-4" />
 						</button>
 					</div>
 				</header>

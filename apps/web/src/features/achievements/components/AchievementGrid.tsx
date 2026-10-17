@@ -1,7 +1,7 @@
 import { achievements, type Achievement } from "@app/content";
 import type { AchievementProgressView, AchievementUnlockView } from "@app/shared";
 import clsx from "clsx";
-import { LockSharp } from "pixelarticons/react/LockSharp";
+import { IconLock } from "@tabler/icons-react";
 import { Tooltip } from "../../../components/Tooltip";
 import { resolveImageUrl } from "../../../utils/image";
 
@@ -53,7 +53,7 @@ export function AchievementGrid({ unlocks, progress }: AchievementGridProps) {
 									)}
 								/>
 								{!unlock && (
-									<LockSharp
+									<IconLock
 										aria-hidden="true"
 										className="absolute h-6 w-6 text-text-muted drop-shadow-[2px_2px_0_var(--color-bg-base)] sm:h-8 sm:w-8"
 									/>

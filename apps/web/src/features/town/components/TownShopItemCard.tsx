@@ -12,7 +12,7 @@ import {
 	damageClassLabels,
 } from "../../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../../presentation/effects";
-import { LockSharp } from "pixelarticons/react/LockSharp";
+import { IconLock } from "@tabler/icons-react";
 import {
 	getItemKindLabel,
 	getItemRarityTextClassName,
@@ -236,7 +236,7 @@ function LockButton({
 			title={label}
 			onClick={() => onLockChange(!slot.locked)}
 		>
-			<LockSharp aria-hidden="true" className="h-5 w-5 shrink-0" />
+			<IconLock aria-hidden="true" className="h-5 w-5 shrink-0" />
 		</IconButton>
 	);
 }

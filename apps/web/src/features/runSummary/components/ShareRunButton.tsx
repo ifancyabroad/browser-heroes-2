@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Copy } from "pixelarticons/react/Copy";
-import { Share } from "pixelarticons/react/Share";
+import { IconCopy, IconShare } from "@tabler/icons-react";
+
 import { Button } from "../../../components/Button";
 
 type ShareRunButtonProps = {
@@ -34,7 +34,7 @@ export function ShareRunButton({ title, text }: ShareRunButtonProps) {
 	}
 
 	const label = canShare ? "Share Result" : status === "copied" ? "Result Copied" : "Copy Result";
-	const Icon = canShare ? Share : Copy;
+	const Icon = canShare ? IconShare : IconCopy;
 
 	return (
 		<div className="grid justify-items-center gap-2">

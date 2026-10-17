@@ -1,7 +1,7 @@
 import { attributes, SKILLS_BY_ID, FEATS_BY_ID, type Enemy, type Zone } from "@app/content";
 import type { BestiaryEntryView } from "@app/shared";
 import type { PropsWithChildren } from "react";
-import { Skull } from "pixelarticons/react/Skull";
+import { IconSkull } from "@tabler/icons-react";
 import { Modal } from "../../../components/Modal";
 import { Button } from "../../../components/Button";
 import { Badge } from "../../../components/Badge";
@@ -81,7 +81,7 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 								className="inline-flex shrink-0 items-center gap-1"
 								label={
 									<>
-										<Skull className="size-4" aria-hidden="true" />
+										<IconSkull className="size-4" aria-hidden="true" />
 										Boss
 									</>
 								}

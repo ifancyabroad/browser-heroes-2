@@ -1,6 +1,5 @@
 import { Button } from "./Button";
-import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
-import { ArrowRight } from "pixelarticons/react/ArrowRight";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
 type TablePaginationProps = {
 	page: number;
@@ -30,7 +29,7 @@ export function TablePagination({
 					disabled={page <= 1 || isFetching}
 					onClick={() => onPageChange(page - 1)}
 				>
-					<ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+					<IconArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
 					PREVIOUS
 				</Button>
 				<span className="whitespace-nowrap text-text-bright">
@@ -42,7 +41,7 @@ export function TablePagination({
 					onClick={() => onPageChange(page + 1)}
 				>
 					NEXT
-					<ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
+					<IconArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
 				</Button>
 			</div>
 		</div>

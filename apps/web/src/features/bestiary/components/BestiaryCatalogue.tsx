@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { Skull } from "pixelarticons/react/Skull";
-import { Check } from "pixelarticons/react/Check";
+import { IconSkull, IconCheck } from "@tabler/icons-react";
+
 import { enemies, type Enemy } from "@app/content";
 import { ZONE_ORDER } from "@app/engine";
 import type { BestiaryEntryView } from "@app/shared";
@@ -38,11 +38,11 @@ export function BestiaryCatalogue({ entries }: BestiaryCatalogueProps) {
 				</p>
 				<div className="flex items-center gap-4">
 					<p className="flex items-center gap-2">
-						<Skull className="size-4 text-text-bright" aria-hidden="true" />
+						<IconSkull className="size-4 text-text-bright" aria-hidden="true" />
 						Boss
 					</p>
 					<p className="flex items-center gap-2">
-						<Check className="size-4 text-success" aria-hidden="true" />
+						<IconCheck className="size-4 text-success" aria-hidden="true" />
 						Defeated
 					</p>
 				</div>
@@ -86,7 +86,7 @@ export function BestiaryCatalogue({ entries }: BestiaryCatalogueProps) {
 												</span>{" "}
 												<span className="mt-1 flex shrink-0 items-center gap-2">
 													{enemy.rank === "boss" && (
-														<Skull
+														<IconSkull
 															className="size-4 text-text-bright"
 															role="img"
 															aria-label="Boss"
@@ -95,7 +95,7 @@ export function BestiaryCatalogue({ entries }: BestiaryCatalogueProps) {
 													<span className="size-4">
 														{(records.get(enemy.id)?.victories ?? 0) >
 															0 && (
-															<Check
+															<IconCheck
 																className="size-4 text-success"
 																role="img"
 																aria-label="Defeated"

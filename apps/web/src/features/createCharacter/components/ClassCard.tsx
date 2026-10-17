@@ -1,6 +1,6 @@
 import { type Class, type ClassId } from "@app/content";
 import { resolveImageUrl } from "../../../utils/image";
-import { ArrowRight } from "pixelarticons/react/ArrowRight";
+import { IconArrowRight } from "@tabler/icons-react";
 import { Button } from "../../../components/Button";
 
 type ClassCardProps = {
@@ -44,7 +44,7 @@ export function ClassCard({ gameClass, onChoose, onViewDetails }: ClassCardProps
 					className="w-full"
 				>
 					<span>CHOOSE</span>
-					<ArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
+					<IconArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
 				</Button>
 			</div>
 		</article>

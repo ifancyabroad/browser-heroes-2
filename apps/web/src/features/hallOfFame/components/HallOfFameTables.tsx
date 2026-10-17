@@ -1,7 +1,7 @@
 import { CLASSES_BY_ID } from "@app/content";
 import type { GhostHallOfFameEntryView, HeroHallOfFameEntryView } from "@app/shared";
-import { Cancel } from "pixelarticons/react/Cancel";
-import { Star } from "pixelarticons/react/Star";
+import { IconBan, IconStar } from "@tabler/icons-react";
+
 import {
 	DataTable,
 	DataTableCell,
@@ -62,7 +62,7 @@ export function HeroHallOfFameTable(props: {
 									portraitAdornment={
 										entry.mode === "dailyChallenge" ? (
 											<PortraitBadge label="Daily Challenge">
-												<Star className="text-primary" />
+												<IconStar className="text-primary" />
 											</PortraitBadge>
 										) : undefined
 									}
@@ -131,7 +131,7 @@ export function GhostHallOfFameTable({
 									portraitAdornment={
 										entry.status === "banished" ? (
 											<PortraitBadge label="Banished">
-												<Cancel className="text-error" />
+												<IconBan className="text-error" />
 											</PortraitBadge>
 										) : undefined
 									}

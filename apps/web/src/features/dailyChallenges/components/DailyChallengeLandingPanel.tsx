@@ -1,5 +1,5 @@
 import type { RunView } from "@app/shared";
-import { Crown } from "pixelarticons/react/Crown";
+import { IconCrown } from "@tabler/icons-react";
 import { ButtonLink } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { getTodayUtc } from "../../../utils/date";
@@ -46,7 +46,7 @@ export function DailyChallengeLandingPanel({ currentRun }: { currentRun: RunView
 							title="Current leader"
 							className="shrink-0 text-primary"
 						>
-							<Crown aria-hidden="true" className="h-4 w-4" />
+							<IconCrown aria-hidden="true" className="h-4 w-4" />
 						</span>
 						<span
 							className="min-w-0 truncate"

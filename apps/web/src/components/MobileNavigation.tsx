@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Dialog } from "radix-ui";
-import { Close } from "pixelarticons/react/Close";
-import { Menu } from "pixelarticons/react/Menu";
+import { IconX, IconMenu2 } from "@tabler/icons-react";
+
 import browserHeroesIcon from "../assets/images/icons/browser_heroes.png";
 import { navigationItems, type NavigationItem } from "../config/navigation";
 import { useAuth, useAuthModalStore } from "../features/auth";
@@ -47,7 +47,7 @@ export function MobileNavigation() {
 						type="button"
 						className="inline-flex cursor-pointer items-center border-2 border-border bg-bg-panel px-3 py-1 text-text-bright hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 					>
-						<Menu aria-hidden="true" className="mr-2 h-4 w-4" />
+						<IconMenu2 aria-hidden="true" className="mr-2 h-4 w-4" />
 						MENU
 					</button>
 				</Dialog.Trigger>
@@ -78,7 +78,7 @@ export function MobileNavigation() {
 									className="border-2 border-border bg-bg-panel p-1 text-text-muted hover:border-primary hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 									aria-label="Close menu"
 								>
-									<Close aria-hidden="true" className="h-4 w-4" />
+									<IconX aria-hidden="true" className="h-4 w-4" />
 								</button>
 							</Dialog.Close>
 						</header>

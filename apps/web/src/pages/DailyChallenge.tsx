@@ -1,5 +1,5 @@
-import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
-import { ArrowRight } from "pixelarticons/react/ArrowRight";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button, IconButton } from "../components/Button";
@@ -52,7 +52,7 @@ export default function DailyChallenge() {
 								aria-label="Previous challenge"
 								onClick={() => changeDate(addUtcDays(date, -1))}
 							>
-								<ArrowLeft aria-hidden="true" className="h-4 w-4" />
+								<IconArrowLeft aria-hidden="true" className="h-4 w-4" />
 							</IconButton>
 							<div aria-hidden="true" className="invisible hidden sm:block">
 								<Button type="button" tabIndex={-1}>
@@ -78,7 +78,7 @@ export default function DailyChallenge() {
 								disabled={isToday}
 								onClick={() => changeDate(addUtcDays(date, 1))}
 							>
-								<ArrowRight aria-hidden="true" className="h-4 w-4" />
+								<IconArrowRight aria-hidden="true" className="h-4 w-4" />
 							</IconButton>
 						</div>
 					</div>

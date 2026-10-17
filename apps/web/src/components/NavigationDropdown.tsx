@@ -1,6 +1,6 @@
 import { matchPath, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ChevronDown } from "pixelarticons/react/ChevronDown";
+import { IconChevronDown } from "@tabler/icons-react";
 import clsx from "clsx";
 import type { NavigationItem } from "../config/navigation";
 import { Dropdown, DropdownItem } from "./Dropdown";
@@ -39,7 +39,7 @@ export function NavigationDropdown({ label, items }: NavigationDropdownProps) {
 					)}
 				>
 					{label}
-					<ChevronDown
+					<IconChevronDown
 						aria-hidden="true"
 						className="h-4 w-4 shrink-0 group-data-[state=open]:rotate-180"
 					/>

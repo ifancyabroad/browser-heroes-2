@@ -19,7 +19,7 @@ import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownActionBar } from "./TownActionBar";
 import { TownShopGrid } from "./TownShopGrid";
 import { useHowToPlayModalStore } from "../../howToPlay";
-import { ArrowLeft } from "pixelarticons/react/ArrowLeft";
+import { IconArrowLeft } from "@tabler/icons-react";
 import { TownGoldBalance } from "./TownGoldBalance";
 
 type TownViewProps = {
@@ -215,7 +215,7 @@ export function TownView({ run }: TownViewProps) {
 								to="/"
 								className="inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 							>
-								<ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+								<IconArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
 								BACK
 							</RouterLink>
 

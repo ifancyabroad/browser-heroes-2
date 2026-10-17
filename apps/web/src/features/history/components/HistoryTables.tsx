@@ -5,8 +5,8 @@ import type {
 	GhostHistoryEntryView,
 	RunHistoryEntryView,
 } from "@app/shared";
-import { Cancel } from "pixelarticons/react/Cancel";
-import { Star } from "pixelarticons/react/Star";
+import { IconBan, IconStar } from "@tabler/icons-react";
+
 import {
 	DataTable,
 	DataTableCell,
@@ -95,7 +95,7 @@ export function RunHistoryTable({
 									portraitAdornment={
 										entry.mode === "dailyChallenge" ? (
 											<PortraitBadge label="Daily Challenge">
-												<Star className="text-primary" />
+												<IconStar className="text-primary" />
 											</PortraitBadge>
 										) : undefined
 									}
@@ -186,7 +186,7 @@ export function GhostHistoryTable({
 									portraitAdornment={
 										entry.status === "banished" ? (
 											<PortraitBadge label="Banished">
-												<Cancel className="text-error" />
+												<IconBan className="text-error" />
 											</PortraitBadge>
 										) : undefined
 									}
