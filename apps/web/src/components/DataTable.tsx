@@ -9,7 +9,9 @@ type DataTableProps = PropsWithChildren<{
 export function DataTable({ children, tableClassName }: DataTableProps) {
 	return (
 		<div className="overflow-x-auto">
-			<table className={clsx("w-full table-fixed border-collapse", tableClassName)}>
+			<table
+				className={clsx("w-full table-fixed border-collapse bg-bg-base", tableClassName)}
+			>
 				{children}
 			</table>
 		</div>

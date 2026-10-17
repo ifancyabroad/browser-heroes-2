@@ -118,3 +118,16 @@ body {
 	line-height: 1.375;
 	background-color: #000000;
 }
+
+/* Keep the masonry quiet behind content and at a consistent scale across screens. */
+@utility bg-stone {
+	background-color: var(--color-bg-base);
+	background-image:
+		linear-gradient(rgb(0 0 0 / 72%), rgb(0 0 0 / 72%)),
+		url("./assets/images/backgrounds/stone-wall.webp");
+	background-size:
+		auto,
+		480px 336px;
+	background-repeat: repeat;
+	background-attachment: fixed;
+}
