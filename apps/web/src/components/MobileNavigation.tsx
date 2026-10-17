@@ -66,7 +66,7 @@ export function MobileNavigation() {
 									alt=""
 									width={32}
 									height={32}
-									className="h-8 w-8 [image-rendering:pixelated]"
+									className="h-8 w-8"
 								/>
 								<span>
 									BROWSER <span className="text-primary">HEROES</span>

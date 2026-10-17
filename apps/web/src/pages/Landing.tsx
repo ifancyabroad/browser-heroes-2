@@ -42,8 +42,8 @@ export default function Landing() {
 							<img
 								src={browserHeroesLogo}
 								alt="Browser Heroes"
-								width={504}
-								height={384}
+								width={1437}
+								height={1095}
 								className="h-auto w-full max-w-[19rem]"
 							/>
 						</h1>
