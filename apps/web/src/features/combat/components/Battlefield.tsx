@@ -86,7 +86,7 @@ export function Battlefield({
 			<div
 				className="absolute right-2 top-2 z-20 flex gap-1 tabular-nums"
 				role="group"
-				aria-label={`Battle ${battleNumber}, gold multiplier ${goldMultiplier} times`}
+				aria-label={`Battle ${battleNumber}, gold bonus ${goldMultiplier} times`}
 			>
 				<Badge
 					label={
@@ -100,7 +100,7 @@ export function Battlefield({
 				<Badge
 					label={
 						<>
-							<span className="text-text-label">Gold</span>{" "}
+							<span className="text-text-label">Bonus</span>{" "}
 							<span className="text-text-bright">×{goldMultiplier}</span>
 						</>
 					}
@@ -111,7 +111,7 @@ export function Battlefield({
 				type="button"
 				aria-label="Open combat log"
 				title="Combat log"
-				className="absolute left-2 top-2 z-20 md:hidden"
+				className="absolute left-2 top-2 z-20 lg:hidden"
 				onClick={onOpenLog}
 			>
 				<BookOpen aria-hidden="true" />

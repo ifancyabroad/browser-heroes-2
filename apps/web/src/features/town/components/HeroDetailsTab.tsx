@@ -233,7 +233,7 @@ type DamageAffinityGroupProps = {
 
 function DamageAffinityGroup({ label, affinityLabel, affinities }: DamageAffinityGroupProps) {
 	return (
-		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3">
+		<div className="grid grid-cols-[6rem_minmax(0,1fr)] items-start gap-3">
 			<p className="py-0.5 text-text-label">{label}</p>
 			<ul className="flex flex-wrap gap-1">
 				{affinities.map((affinity) => (
@@ -264,7 +264,7 @@ function DamageAffinityGroup({ label, affinityLabel, affinities }: DamageAffinit
 
 function ProficiencyGroup({ label, values }: { label: string; values: readonly string[] }) {
 	return (
-		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3">
+		<div className="grid grid-cols-[6rem_minmax(0,1fr)] items-start gap-3">
 			<p className="py-0.5 text-text-label">{label}</p>
 			{values.length > 0 ? (
 				<ul className="flex flex-wrap gap-1">
@@ -291,7 +291,7 @@ function DamageModifierList({
 	const label = kind === "damageReduction" ? "Reduction" : "Bonus";
 
 	return (
-		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-start gap-3">
+		<div className="grid grid-cols-[6rem_minmax(0,1fr)] items-start gap-3">
 			<p className="py-0.5 text-text-label">{label}</p>
 			<ul className="flex flex-wrap gap-1">
 				{modifiers.map((modifierGroup) => {

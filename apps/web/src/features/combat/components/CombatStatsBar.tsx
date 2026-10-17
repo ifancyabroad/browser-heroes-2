@@ -15,7 +15,7 @@ export function CombatStatsBar({
 		{ label: "Zone", value: zoneLabel },
 		{ label: "Battle", value: battleNumber },
 		{ label: "Turn", value: turnNumber },
-		{ label: "Gold", value: `${goldMultiplier}x` },
+		{ label: "Bonus", value: `×${goldMultiplier}` },
 	];
 
 	return (

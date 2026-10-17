@@ -143,8 +143,8 @@ describe("HeroDossierModal", () => {
 		expect(screen.queryByText("Attack")).not.toBeInTheDocument();
 		expect(screen.queryByText("Resolve")).not.toBeInTheDocument();
 		expect(screen.queryByText("Focus")).not.toBeInTheDocument();
-		expect(screen.getByText("Crit Range")).toBeInTheDocument();
-		expect(screen.getByText("Crit Dice")).toBeInTheDocument();
+		expect(screen.getByText("Crit R")).toBeInTheDocument();
+		expect(screen.getByText("Crit D")).toBeInTheDocument();
 		expect(screen.getByText("Healing")).toBeInTheDocument();
 		const damageSection = screen.getByRole("region", { name: "Damage" });
 		expect(damageSection).toHaveTextContent("VulnerabilitiesCold");

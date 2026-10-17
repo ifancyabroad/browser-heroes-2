@@ -50,8 +50,8 @@ export const combatStatShortLabels = {
 	attackRollBonus: "Attack",
 	savingThrowBonus: "Resolve",
 	saveDcBonus: "Focus",
-	criticalRangeBonus: "Crit Range",
-	criticalDiceMultiplierBonus: "Crit Dice",
+	criticalRangeBonus: "Crit R",
+	criticalDiceMultiplierBonus: "Crit D",
 	healingMultiplier: "Healing",
 	maxHpBonus: "Max HP",
 } as const;

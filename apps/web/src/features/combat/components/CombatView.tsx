@@ -177,8 +177,8 @@ export function CombatView({ run }: CombatViewProps) {
 					/>
 				}
 			>
-				<section className="grid gap-3 md:-mt-1 md:block" aria-label="Combatants">
-					<div className="md:hidden">
+				<section className="grid gap-3 lg:-mt-1 lg:block" aria-label="Combatants">
+					<div className="lg:hidden">
 						<CombatantPanel
 							combatant={combat.player}
 							identity={`${combat.player.name} the ${heroClass.name}`}

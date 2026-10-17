@@ -28,10 +28,10 @@ export function Sidebar({
 		<>
 			<div
 				onClick={onClose}
-				className={`fixed inset-0 z-40 bg-black/50 md:hidden ${open ? "block" : "hidden"}`}
+				className={`fixed inset-0 z-40 bg-black/50 lg:hidden ${open ? "block" : "hidden"}`}
 			/>
 
-			<div aria-hidden="true" className={clsx("hidden shrink-0 md:block", widthClassName)} />
+			<div aria-hidden="true" className={clsx("hidden shrink-0 lg:block", widthClassName)} />
 
 			<aside
 				aria-label={ariaLabel}
@@ -39,7 +39,7 @@ export function Sidebar({
 					"fixed inset-y-0 left-0 z-50",
 					"h-dvh max-h-dvh max-w-full overflow-y-auto border-r-2 border-border bg-bg-base",
 					"transform transition-transform duration-200",
-					open ? "translate-x-0" : "-translate-x-full md:translate-x-0",
+					open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
 					widthClassName,
 					className,
 				)}
@@ -50,7 +50,7 @@ export function Sidebar({
 
 						<button
 							onClick={onClose}
-							className="border-2 border-border bg-bg-elevated p-1 text-text-muted hover:border-primary hover:text-text-bright md:hidden"
+							className="border-2 border-border bg-bg-elevated p-1 text-text-muted hover:border-primary hover:text-text-bright lg:hidden"
 							aria-label="Close sidebar"
 							type="button"
 						>

@@ -187,7 +187,7 @@ export function TownView({ run }: TownViewProps) {
 						aria-label="Town navigation"
 						className="flex items-center justify-between gap-3"
 					>
-						<div className="flex min-w-0 items-center gap-1 md:hidden">
+						<div className="flex min-w-0 items-center gap-1 lg:hidden">
 							<Button
 								className="px-2"
 								variant="primary"
@@ -210,7 +210,7 @@ export function TownView({ run }: TownViewProps) {
 								Home
 							</ButtonLink>
 						</div>
-						<div className="hidden items-center gap-6 md:flex">
+						<div className="hidden items-center gap-6 lg:flex">
 							<RouterLink
 								to="/"
 								className="inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"

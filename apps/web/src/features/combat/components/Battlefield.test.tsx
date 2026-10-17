@@ -102,15 +102,15 @@ describe("Battlefield combat outcomes", () => {
 		expect(onOpenLog).toHaveBeenCalledOnce();
 	});
 
-	it("shows compact mobile battle and gold multiplier badges", () => {
+	it("shows compact mobile battle and gold bonus badges", () => {
 		render(<Battlefield {...baseProps} entries={[]} />);
 
 		const battleInfo = screen.getByRole("group", {
-			name: "Battle 12, gold multiplier 2 times",
+			name: "Battle 12, gold bonus 2 times",
 		});
 
 		expect(battleInfo).toHaveTextContent("Battle 12");
-		expect(battleInfo).toHaveTextContent("Gold ×2");
+		expect(battleInfo).toHaveTextContent("Bonus ×2");
 	});
 
 	it("ignores existing outcomes and shows all new enemy outcomes together", () => {

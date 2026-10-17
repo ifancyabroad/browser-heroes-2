@@ -107,7 +107,7 @@ function CombatRunInfo({ battleNumber, gold, goldMultiplier, zoneLabel }: Combat
 		{ label: "Zone", value: zoneLabel },
 		{ label: "Battle", value: battleNumber },
 		{ label: "Gold", value: gold },
-		{ label: "Multiplier", value: `${goldMultiplier}x` },
+		{ label: "Bonus", value: `×${goldMultiplier}` },
 	];
 
 	return (

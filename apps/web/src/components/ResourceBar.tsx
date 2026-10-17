@@ -44,7 +44,7 @@ export function ResourceBar({
 	return (
 		<div
 			className={clsx(
-				"grid grid-cols-[minmax(5rem,1fr)_7rem] items-center gap-3 text-base",
+				"grid grid-cols-[minmax(0,1fr)_10rem] items-center gap-3 text-base",
 				className,
 			)}
 			title={accessibleLabel}
@@ -73,7 +73,7 @@ export function ResourceBar({
 					/>
 				)}
 			</div>
-			<p className="min-w-0 truncate text-left">
+			<p className="whitespace-nowrap text-left">
 				<span className="text-text-label">{label}</span>{" "}
 				<span className="text-text-bright">{value}</span>
 			</p>
