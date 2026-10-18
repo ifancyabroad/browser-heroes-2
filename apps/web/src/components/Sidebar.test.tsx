@@ -22,10 +22,43 @@ function Example() {
 }
 
 describe("Sidebar", () => {
+	it.each([
+		{ width: 1023, heroVisible: false, worldVisible: false },
+		{ width: 1024, heroVisible: true, worldVisible: false },
+		{ width: 1663, heroVisible: true, worldVisible: false },
+		{ width: 1664, heroVisible: true, worldVisible: true },
+	])(
+		"shows the correct permanent panels at $width px",
+		({ width, heroVisible, worldVisible }) => {
+			const media = window.matchMedia("");
+			vi.mocked(window.matchMedia).mockImplementation((query) => ({
+				...media,
+				media: query,
+				matches: width >= Number(query.match(/min-width: (\d+)px/)?.[1] ?? Infinity),
+			}));
+			render(
+				<>
+					<Sidebar open={false} onClose={vi.fn()} aria-label="Hero">
+						Hero details
+					</Sidebar>
+					<Sidebar open={false} onClose={vi.fn()} side="right" aria-label="World log">
+						World events
+					</Sidebar>
+				</>,
+			);
+			expect(screen.queryByRole("complementary", { name: "Hero" }) !== null).toBe(
+				heroVisible,
+			);
+			expect(screen.queryByRole("complementary", { name: "World log" }) !== null).toBe(
+				worldVisible,
+			);
+		},
+	);
+
 	it("uses a modal drawer on mobile and one permanent panel on desktop", async () => {
 		let desktop = false;
 		const listeners = new Set<(event: MediaQueryListEvent) => void>();
-		const media = window.matchMedia("(min-width: 1280px)");
+		const media = window.matchMedia("(min-width: 1664px)");
 		vi.mocked(window.matchMedia).mockImplementation(
 			(query) =>
 				({

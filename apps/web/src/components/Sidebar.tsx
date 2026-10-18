@@ -19,7 +19,7 @@ export function Sidebar({
 	className,
 	"aria-label": label,
 }: SidebarProps) {
-	const desktop = useMediaQuery("(min-width: 1280px)");
+	const desktop = useMediaQuery(side === "left" ? "(min-width: 1024px)" : "(min-width: 1664px)");
 
 	useEffect(() => {
 		if (desktop && open) {

@@ -6,7 +6,6 @@ import {
 	type EngineAction,
 } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { GameNavigation } from "../../../components/GameNavigation";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { WorldLogSidebar } from "../../worldLog";
@@ -25,7 +24,6 @@ type CombatViewProps = {
 
 export function CombatView({ run }: CombatViewProps) {
 	const activeSidebar = useSidebarStore((state) => state.activeSidebar);
-	const openSidebar = useSidebarStore((state) => state.open);
 	const closeSidebar = useSidebarStore((state) => state.close);
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -167,13 +165,11 @@ export function CombatView({ run }: CombatViewProps) {
 					/>
 				}
 			>
-				<GameNavigation
-					label="Combat navigation"
-					activeSidebar={activeSidebar}
-					onOpenSidebar={openSidebar}
-				/>
-				<section className="grid items-start gap-2 md:grid-cols-2" aria-label="Combatants">
-					<div className="min-w-0 xl:hidden">
+				<section
+					className="grid items-start gap-2 md:grid-cols-2 lg:grid-cols-1"
+					aria-label="Combatants"
+				>
+					<div className="min-w-0 lg:hidden">
 						<CombatantPanel
 							combatant={combat.player}
 							identity={`${combat.player.name} the ${heroClass.name}`}

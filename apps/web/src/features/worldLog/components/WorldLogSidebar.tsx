@@ -18,7 +18,7 @@ export function WorldLogSidebar({ open, onClose }: WorldLogSidebarProps) {
 			onClose={onClose}
 			aria-label="World log"
 		>
-			<div className="flex min-h-0 flex-1 flex-col px-4 pb-3 pt-14 xl:pt-3">
+			<div className="flex min-h-0 flex-1 flex-col px-4 pb-3 pt-14 min-[104rem]:pt-3">
 				{pending && (
 					<p className="mt-auto" role="status">
 						Loading activity...

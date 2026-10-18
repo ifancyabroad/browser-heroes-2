@@ -21,10 +21,10 @@ export function GameNavigation({
 	return (
 		<nav
 			aria-label={label}
-			className={`flex flex-wrap items-center justify-between gap-3 ${onHowToPlay ? "" : "xl:hidden"}`}
+			className={`flex flex-wrap items-center justify-between gap-3 ${onHowToPlay ? "" : "min-[104rem]:hidden"}`}
 		>
 			<div className="flex items-center gap-1">
-				<NavigationTooltip label="Hero" className="xl:hidden">
+				<NavigationTooltip label="Hero" className="lg:hidden">
 					<IconButton
 						type="button"
 						variant="primary"
@@ -35,7 +35,7 @@ export function GameNavigation({
 						<IconScript aria-hidden="true" className="h-6 w-6" />
 					</IconButton>
 				</NavigationTooltip>
-				<NavigationTooltip label="World Log" className="xl:hidden">
+				<NavigationTooltip label="World Log" className="min-[104rem]:hidden">
 					<IconButton
 						type="button"
 						aria-label="World Log"

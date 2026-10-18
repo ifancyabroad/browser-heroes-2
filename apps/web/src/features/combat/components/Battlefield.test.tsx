@@ -1,7 +1,13 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, render as renderUI, screen } from "@testing-library/react";
+import type { ReactElement } from "react";
 import type { CombatLogEntry } from "@app/engine";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Battlefield } from "./Battlefield";
+import { TooltipProvider } from "../../../components/Tooltip";
+
+function render(ui: ReactElement) {
+	return renderUI(ui, { wrapper: TooltipProvider });
+}
 
 const baseProps = {
 	heroId: "hero-1",

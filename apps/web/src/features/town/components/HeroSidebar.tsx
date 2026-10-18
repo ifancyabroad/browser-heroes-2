@@ -56,7 +56,7 @@ export function HeroSidebar({
 
 	return (
 		<Sidebar className="border-border" open={open} onClose={onClose} aria-label="Hero details">
-			<header className="shrink-0 border-b-2 border-border px-4 py-3 pr-14 xl:pr-4">
+			<header className="shrink-0 border-b-2 border-border px-4 py-3 pr-14 lg:pr-4">
 				<div className="grid gap-2 text-base">
 					<h2 className="truncate text-base" title={heroTitle}>
 						<span className="text-primary">

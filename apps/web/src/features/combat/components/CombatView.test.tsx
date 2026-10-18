@@ -62,7 +62,6 @@ vi.mock("./CombatSidebar", () => ({
 vi.mock("./CombatantPanel", () => ({
 	CombatantPanel: ({ descriptor }: { descriptor?: string }) => <div>Combatant {descriptor}</div>,
 }));
-vi.mock("./Battlefield", () => ({ Battlefield: () => <div>Battlefield</div> }));
 vi.mock("./CombatActionBar", () => ({
 	CombatActionBar: (props: {
 		canBasicAttack: boolean;
