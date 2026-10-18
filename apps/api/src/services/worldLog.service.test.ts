@@ -83,8 +83,14 @@ describe("world log", () => {
 				state,
 			),
 		).toEqual({ type: "hero_died", battleNumber: 7, enemyName: state.combat!.enemy.name });
-		expect(toWorldLogEvent({ type: "RESTED_AT_TOWN", cost: 2, hpRestored: 5 }, state)).toEqual({
+		expect(
+			toWorldLogEvent(
+				{ type: "RESTED_AT_TOWN", cost: 2, hpRestored: 5 },
+				{ ...state, day: 3 },
+			),
+		).toEqual({
 			type: "hero_rested",
+			day: 3,
 		});
 		expect(toWorldLogEvent({ type: "RUN_RETIRED" }, state)).toEqual({ type: "hero_retired" });
 		expect(toWorldLogEvent({ type: "RETURNED_TO_TOWN" }, state)).toBeNull();

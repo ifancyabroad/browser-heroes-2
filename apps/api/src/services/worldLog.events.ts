@@ -42,7 +42,7 @@ export function toWorldLogEvent(event: EngineEvent, state: RunState): WorldLogEv
 				: null;
 
 		case "RESTED_AT_TOWN":
-			return { type: "hero_rested" };
+			return { type: "hero_rested", day: state.day };
 
 		case "RUN_RETIRED":
 			return { type: "hero_retired" };

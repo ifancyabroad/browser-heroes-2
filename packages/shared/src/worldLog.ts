@@ -8,7 +8,7 @@ export type WorldLogEvent =
 	| { type: "hero_died"; battleNumber: number; enemyName?: string }
 	| { type: "boss_defeated"; battleNumber: number; enemyName: string; finalBoss: boolean }
 	| { type: "legendary_acquired"; itemName: string }
-	| { type: "hero_rested" }
+	| { type: "hero_rested"; day: number }
 	| { type: "hero_retired" };
 
 export type WorldLogEntry = {

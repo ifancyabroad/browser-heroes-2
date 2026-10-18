@@ -14,6 +14,15 @@ const entry = (id: number): WorldLogEntry => ({
 });
 
 describe("world log presentation", () => {
+	it("shows the new day after rest in normal text", () => {
+		expect(
+			describeWorldLogEvent({ ...entry(1), event: { type: "hero_rested", day: 3 } }),
+		).toEqual({
+			text: "rested in town and began day 3.",
+			colour: "text-text",
+		});
+	});
+
 	it("names the killer while retaining readable older death entries", () => {
 		expect(
 			describeWorldLogEvent({

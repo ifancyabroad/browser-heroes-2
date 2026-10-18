@@ -35,7 +35,10 @@ export function describeWorldLogEvent(entry: WorldLogEntry): {
 			return { text: `acquired ${event.itemName}.`, colour: "text-legendary" };
 
 		case "hero_rested":
-			return { text: "rested in town.", colour: "text-text-muted" };
+			return {
+				text: `rested in town and began day ${event.day}.`,
+				colour: "text-text",
+			};
 
 		case "hero_retired":
 			return { text: "retired victorious.", colour: "text-primary", trophy: true };

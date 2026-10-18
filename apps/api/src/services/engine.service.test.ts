@@ -79,7 +79,7 @@ describe("engine.service", () => {
 			classId: "mage",
 			displayName: null,
 			mode: "normal",
-			event: { type: "hero_rested" },
+			event: { type: "hero_rested", day: 2 },
 		};
 		vi.mocked(recordWorldLog)
 			.mockResolvedValueOnce([{ ...entry, id: "aborted" }])
