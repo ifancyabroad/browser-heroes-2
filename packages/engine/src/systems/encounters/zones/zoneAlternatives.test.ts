@@ -26,7 +26,7 @@ function createRun(seed = "2") {
 		seed,
 		heroName: "Hero",
 		classId: "warrior",
-	});
+	}).state;
 }
 
 function chooseZone(seed: string, zoneNumber: number) {

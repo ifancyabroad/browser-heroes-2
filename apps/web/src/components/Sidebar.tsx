@@ -1,65 +1,52 @@
-import type { PropsWithChildren, ReactNode } from "react";
+import { useEffect, type PropsWithChildren } from "react";
 import clsx from "clsx";
-import { IconX } from "@tabler/icons-react";
+import { useMediaQuery } from "../hooks/useMediaQuery";
+import { Drawer } from "./Drawer";
 
 type SidebarProps = PropsWithChildren<{
 	open: boolean;
 	onClose: () => void;
-	title?: ReactNode;
 	className?: string;
-	contentClassName?: string;
-	widthClassName?: string;
-	"aria-label"?: string;
+	side?: "left" | "right";
+	"aria-label": string;
 }>;
-
-const DEFAULT_SIDEBAR_WIDTH_CLASS = "w-96";
 
 export function Sidebar({
 	open,
 	onClose,
-	title,
-	className,
-	contentClassName,
-	widthClassName = DEFAULT_SIDEBAR_WIDTH_CLASS,
+	side = "left",
 	children,
-	"aria-label": ariaLabel = "Sidebar",
+	className,
+	"aria-label": label,
 }: SidebarProps) {
+	const desktop = useMediaQuery("(min-width: 1280px)");
+
+	useEffect(() => {
+		if (desktop && open) {
+			onClose();
+		}
+	}, [desktop, open, onClose]);
+
+	if (!desktop) {
+		return (
+			<Drawer open={open} onClose={onClose} side={side} label={label} className={className}>
+				{children}
+			</Drawer>
+		);
+	}
+
 	return (
 		<>
-			<div
-				onClick={onClose}
-				className={`fixed inset-0 z-40 bg-black/50 lg:hidden ${open ? "block" : "hidden"}`}
-			/>
-
-			<div aria-hidden="true" className={clsx("hidden shrink-0 lg:block", widthClassName)} />
-
+			<div aria-hidden="true" className="w-96 shrink-0" />
 			<aside
-				aria-label={ariaLabel}
+				aria-label={label}
 				className={clsx(
-					"fixed inset-y-0 left-0 z-50",
-					"h-dvh max-h-dvh max-w-full overflow-y-auto border-r-2 border-border bg-bg-base",
-					"transform transition-transform duration-200",
-					open ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
-					widthClassName,
+					"fixed inset-y-0 z-50 flex h-dvh w-96 flex-col overflow-y-auto bg-bg-base",
+					side === "left" ? "left-0 border-r-2" : "right-0 border-l-2",
 					className,
 				)}
 			>
-				<header className="border-b-2 border-border bg-bg-base">
-					<div className="flex items-start justify-between gap-4 px-4 py-3 text-base">
-						<div className="min-w-0 flex-1">{title}</div>
-
-						<button
-							onClick={onClose}
-							className="border-2 border-border bg-bg-elevated p-1 text-text-muted hover:border-primary hover:text-text-bright lg:hidden"
-							aria-label="Close sidebar"
-							type="button"
-						>
-							<IconX aria-hidden="true" className="h-4 w-4" />
-						</button>
-					</div>
-				</header>
-
-				<div className={clsx("px-4 py-3 text-base", contentClassName)}>{children}</div>
+				{children}
 			</aside>
 		</>
 	);

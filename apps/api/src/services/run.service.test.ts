@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
-import { recordBestiaryEncounter } from "./bestiary.service";
+import type { WorldLogEntry } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { recordWorldLog, publishWorldLog } from "./worldLog.service";
+import { recordBestiaryEncounter } from "./bestiary.service";
 
 const models = vi.hoisted(() => ({
 	run: {
@@ -18,6 +20,11 @@ const engine = vi.hoisted(() => ({
 }));
 const profanity = vi.hoisted(() => ({
 	check: vi.fn(),
+}));
+
+vi.mock("./worldLog.service", () => ({
+	recordWorldLog: vi.fn().mockResolvedValue([]),
+	publishWorldLog: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock("../models/run.model", () => ({ RunModel: models.run }));
@@ -41,7 +48,7 @@ import {
 } from "./run.service";
 
 const actualEngine = await vi.importActual<typeof import("@app/engine")>("@app/engine");
-const testRunState = actualEngine.createInitialRunState({
+const { state: testRunState } = actualEngine.createInitialRunState({
 	runId: "test-run",
 	seed: "test-seed",
 	heroName: "Test Hero",
@@ -56,10 +63,66 @@ describe("run.service", () => {
 		vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) =>
 			callback(session as never),
 		);
-		engine.createInitialRunState.mockReturnValue(testRunState);
+		engine.createInitialRunState.mockReturnValue({
+			state: testRunState,
+			events: [{ type: "RUN_STARTED" }],
+		});
 		profanity.check.mockReturnValue(false);
 		models.run.updateMany.mockResolvedValue({});
 		models.run.create.mockResolvedValue([{ _id: "created-run" }]);
+	});
+
+	it.each(["normal", "dailyChallenge"] as const)(
+		"announces %s creation only after commit",
+		async (mode) => {
+			const entry: WorldLogEntry = {
+				id: "created",
+				createdAt: "2026-01-01T00:00:00.000Z",
+				heroName: "Hero",
+				classId: "warrior",
+				displayName: null,
+				mode,
+				event: { type: "hero_created" },
+			};
+			vi.mocked(recordWorldLog).mockResolvedValueOnce([entry]);
+			vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
+				const result = await callback(session as never);
+				expect(publishWorldLog).not.toHaveBeenCalled();
+
+				return result;
+			});
+			const params = { userId: "user-id", heroName: "Hero", classId: "warrior" as const };
+			if (mode === "normal") {
+				await createRun(params);
+			} else {
+				await createDailyChallengeRun({
+					...params,
+					season: 1,
+					seed: "daily-seed",
+					dailyChallengeDate: "2026-01-01",
+				});
+			}
+			expect(recordWorldLog).toHaveBeenCalledWith(
+				expect.objectContaining({
+					mode,
+					sequence: 0,
+					events: [{ type: "RUN_STARTED" }],
+					session,
+				}),
+			);
+			expect(publishWorldLog).toHaveBeenCalledExactlyOnceWith([entry]);
+		},
+	);
+
+	it("does not announce a rolled-back creation", async () => {
+		vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
+			await callback(session as never);
+			throw new Error("transaction aborted");
+		});
+		await expect(
+			createRun({ userId: "user-id", heroName: "Hero", classId: "warrior" }),
+		).rejects.toThrow("transaction aborted");
+		expect(publishWorldLog).not.toHaveBeenCalled();
 	});
 
 	it("normalizes the hero name and creates a run transactionally", async () => {

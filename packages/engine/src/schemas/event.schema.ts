@@ -139,11 +139,16 @@ const healingPotionBoughtEventSchema = z.object({
 	remainingPotions: z.number().int().min(0),
 });
 
+const runStartedEventSchema = z.object({
+	type: z.literal("RUN_STARTED"),
+});
+
 const runRetiredEventSchema = z.object({
 	type: z.literal("RUN_RETIRED"),
 });
 
 export const engineEventSchema = z.union([
+	runStartedEventSchema,
 	combatStartedEventSchema,
 	combatTurnResolvedEventSchema,
 	skillUsedEventSchema,

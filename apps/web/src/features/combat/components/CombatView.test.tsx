@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { useSidebarStore } from "../../../stores/sidebarStore";
 
 const selectors = vi.hoisted(() => ({
 	selectCombatView: vi.fn(),
@@ -9,6 +10,13 @@ const selectors = vi.hoisted(() => ({
 }));
 const mutate = vi.hoisted(() => vi.fn());
 const showError = vi.hoisted(() => vi.fn());
+
+vi.mock("../../worldLog", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../worldLog")>()),
+	WorldLogSidebar: ({ open }: { open: boolean }) => (
+		<div>World sidebar {open ? "open" : "closed"}</div>
+	),
+}));
 
 vi.mock("@app/engine", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@app/engine")>()),
@@ -93,7 +101,7 @@ import { CombatView } from "./CombatView";
 
 const run = {
 	id: "run-id",
-	state: { hero: { classId: "warrior" } },
+	state: { phase: "combat", hero: { classId: "warrior" } },
 } as RunView;
 
 function createCombatView() {
@@ -124,6 +132,7 @@ function createCombatView() {
 
 describe("CombatView", () => {
 	beforeEach(() => {
+		useSidebarStore.getState().close();
 		vi.clearAllMocks();
 		selectors.selectCombatView.mockReturnValue(createCombatView());
 		selectors.selectAvailableActions.mockReturnValue([
@@ -207,5 +216,19 @@ describe("CombatView", () => {
 		callbacks.onError();
 
 		expect(showError).toHaveBeenCalledWith("Unable to use a healing potion. Please try again.");
+	});
+
+	it("coordinates drawers and retains the world log in the outgoing combat frame", () => {
+		const view = render(<CombatView run={run} />);
+		fireEvent.click(screen.getByRole("button", { name: "Hero" }));
+		expect(screen.getByText("Combat sidebar open")).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: "World Log" }));
+		expect(screen.getByText("Combat sidebar closed")).toBeInTheDocument();
+		expect(screen.getByText("World sidebar open")).toBeInTheDocument();
+		view.unmount();
+
+		render(<CombatView run={{ ...run, state: { ...run.state, phase: "dead" } }} />);
+		expect(screen.getByRole("button", { name: "World Log" })).toBeInTheDocument();
+		expect(screen.getByText("World sidebar open")).toBeInTheDocument();
 	});
 });

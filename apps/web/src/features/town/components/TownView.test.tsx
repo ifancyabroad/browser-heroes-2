@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useHowToPlayModalStore } from "../../howToPlay";
 
 const selectors = vi.hoisted(() => ({
@@ -10,6 +11,13 @@ const selectors = vi.hoisted(() => ({
 }));
 const mutate = vi.hoisted(() => vi.fn());
 const showError = vi.hoisted(() => vi.fn());
+
+vi.mock("../../worldLog", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../worldLog")>()),
+	WorldLogSidebar: ({ open }: { open: boolean }) => (
+		<div>World sidebar {open ? "open" : "closed"}</div>
+	),
+}));
 
 vi.mock("@app/engine", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@app/engine")>()),
@@ -182,6 +190,7 @@ function renderView() {
 
 describe("TownView", () => {
 	beforeEach(() => {
+		useSidebarStore.getState().close();
 		vi.clearAllMocks();
 		useHowToPlayModalStore.setState({ isOpen: false });
 		selectors.selectTownView.mockReturnValue(createTownView());

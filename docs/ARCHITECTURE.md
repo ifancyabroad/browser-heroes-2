@@ -70,6 +70,7 @@ The API currently:
 - derives account achievements and bestiary progress from authoritative run creation and engine events, outside engine snapshots
 - creates UTC daily challenges and serves their persisted leaderboards, all-time Hall of Fame rankings, and personal hero and ghost history
 - exposes REST and socket-based action submission paths
+- projects engine events into public World Log announcements
 
 The web app currently:
 

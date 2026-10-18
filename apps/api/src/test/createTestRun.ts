@@ -7,7 +7,7 @@ export function createTestRunState() {
 		seed: "test-seed",
 		heroName: "Test Hero",
 		classId: "warrior",
-	});
+	}).state;
 }
 
 export function createDeadTestRunState() {

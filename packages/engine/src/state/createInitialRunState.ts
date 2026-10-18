@@ -1,4 +1,4 @@
-import { runStateSchema, type RunState } from "../schemas";
+import { runStateSchema, type EngineEvent, type RunState } from "../schemas";
 import { createContextRngState, createInitialRngState } from "../core/rng";
 import { createRunLogId } from "../core/ids";
 import { createInitialHeroState } from "./createInitialHeroState";
@@ -15,7 +15,10 @@ export type CreateInitialRunStateInput = {
 	classId: ClassId;
 };
 
-export function createInitialRunState(input: CreateInitialRunStateInput): RunState {
+export function createInitialRunState(input: CreateInitialRunStateInput): {
+	state: RunState;
+	events: EngineEvent[];
+} {
 	const initialRngState = createInitialRngState(input.seed);
 
 	const heroResult = createInitialHeroState({
@@ -88,5 +91,8 @@ export function createInitialRunState(input: CreateInitialRunStateInput): RunSta
 		pendingRewardChoice: null,
 	};
 
-	return runStateSchema.parse(state);
+	return {
+		state: runStateSchema.parse(state),
+		events: [{ type: "RUN_STARTED" }],
+	};
 }

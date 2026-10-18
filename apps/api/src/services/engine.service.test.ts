@@ -1,6 +1,8 @@
+import type { WorldLogEntry } from "@app/shared";
 import mongoose from "mongoose";
-import { recordBestiaryProgress } from "./bestiary.service";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { recordWorldLog, publishWorldLog } from "./worldLog.service";
+import { recordBestiaryProgress } from "./bestiary.service";
 import {
 	createDeadTestRunState,
 	createTestRunDocument,
@@ -22,6 +24,11 @@ const ghostService = vi.hoisted(() => ({
 }));
 const achievementService = vi.hoisted(() => ({ processRunActionAchievements: vi.fn() }));
 const lifetimeProgressService = vi.hoisted(() => ({ recordLifetimeProgress: vi.fn() }));
+
+vi.mock("./worldLog.service", () => ({
+	recordWorldLog: vi.fn().mockResolvedValue([]),
+	publishWorldLog: vi.fn().mockResolvedValue(undefined),
+}));
 
 vi.mock("../models/run.model", () => ({ RunModel: models.run }));
 vi.mock("../models/runAction.model", () => ({ RunActionModel: models.action }));
@@ -61,6 +68,53 @@ describe("engine.service", () => {
 		models.run.findOne.mockReturnValue({ session: sessionQuery });
 		return { run, sessionQuery };
 	}
+
+	it("publishes only the committed transaction result after a retry", async () => {
+		const { run } = arrangeRun();
+		engine.applyAction.mockReturnValue({ ok: true, state: run.state, events: [] });
+		const entry: WorldLogEntry = {
+			id: "committed",
+			createdAt: "2026-01-01T00:00:00.000Z",
+			heroName: "Mira",
+			classId: "mage",
+			displayName: null,
+			mode: "normal",
+			event: { type: "hero_rested" },
+		};
+		vi.mocked(recordWorldLog)
+			.mockResolvedValueOnce([{ ...entry, id: "aborted" }])
+			.mockResolvedValueOnce([entry]);
+		vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
+			await callback(session as never);
+			expect(publishWorldLog).not.toHaveBeenCalled();
+
+			return callback(session as never);
+		});
+		await applyRunAction({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "PLAYER_SKIP_TURN" },
+		});
+		expect(recordWorldLog).toHaveBeenCalledTimes(2);
+		expect(publishWorldLog).toHaveBeenCalledExactlyOnceWith([entry]);
+	});
+
+	it("does not publish when the transaction rolls back", async () => {
+		const { run } = arrangeRun();
+		engine.applyAction.mockReturnValue({ ok: true, state: run.state, events: [] });
+		vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
+			await callback(session as never);
+			throw new Error("transaction aborted");
+		});
+		await expect(
+			applyRunAction({
+				userId: "user-id",
+				runId: "run-id",
+				action: { type: "PLAYER_SKIP_TURN" },
+			}),
+		).rejects.toThrow("transaction aborted");
+		expect(publishWorldLog).not.toHaveBeenCalled();
+	});
 
 	it("loads an active run by id and owner inside the transaction", async () => {
 		const { run, sessionQuery } = arrangeRun();

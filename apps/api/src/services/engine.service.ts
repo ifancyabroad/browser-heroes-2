@@ -20,6 +20,7 @@ import { toRunSummary } from "./projection.service";
 import { processRunActionAchievements, type AchievementSource } from "./achievement.service";
 import { recordLifetimeProgress } from "./lifetimeProgress.service";
 import { recordBestiaryProgress } from "./bestiary.service";
+import { recordWorldLog, publishWorldLog } from "./worldLog.service";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 
@@ -30,7 +31,7 @@ export type ApplyRunActionInput = {
 };
 
 export async function applyRunAction(input: ApplyRunActionInput) {
-	return mongoose.connection.transaction(async (session) => {
+	const { response, worldLogEntries } = await mongoose.connection.transaction(async (session) => {
 		const run = await RunModel.findOne({
 			_id: input.runId,
 			userId: input.userId,
@@ -162,8 +163,22 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			{ session },
 		);
 
-		return { run, result, unlockedAchievements };
+		const worldLogEntries = await recordWorldLog({
+			runId: input.runId,
+			userId: input.userId,
+			mode: run.mode,
+			state: result.state,
+			sequence,
+			events,
+			session,
+		});
+
+		return { response: { run, result, unlockedAchievements }, worldLogEntries };
 	});
+
+	await publishWorldLog(worldLogEntries);
+
+	return response;
 }
 
 function getGhostPoolCutoff(run: RunDocument): Date {

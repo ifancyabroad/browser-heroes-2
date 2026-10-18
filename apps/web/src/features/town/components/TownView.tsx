@@ -12,14 +12,16 @@ import { Button } from "../../../components/Button";
 import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
+import { WorldLogSidebar } from "../../worldLog";
 import { ButtonLink } from "../../../components/Button";
 import { HeroSidebar } from "./HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
+import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownActionBar } from "./TownActionBar";
 import { TownShopGrid } from "./TownShopGrid";
 import { useHowToPlayModalStore } from "../../howToPlay";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconArrowLeft, IconWorld } from "@tabler/icons-react";
 import { TownGoldBalance } from "./TownGoldBalance";
 
 type TownViewProps = {
@@ -27,7 +29,9 @@ type TownViewProps = {
 };
 
 export function TownView({ run }: TownViewProps) {
-	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const activeSidebar = useSidebarStore((state) => state.activeSidebar);
+	const openSidebar = useSidebarStore((state) => state.open);
+	const closeSidebar = useSidebarStore((state) => state.close);
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -158,14 +162,6 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
-	function handleOpenSidebar() {
-		setSidebarOpen(true);
-	}
-
-	function handleCloseSidebar() {
-		setSidebarOpen(false);
-	}
-
 	return (
 		<GameLayout>
 			<HeroSidebar
@@ -174,10 +170,10 @@ export function TownView({ run }: TownViewProps) {
 				day={townView.day}
 				gold={townView.gold}
 				zone={townView.zone}
-				open={sidebarOpen}
+				open={activeSidebar === "hero"}
 				canSwapWeapons={availableActionTypes.has("SWAP_HAND_WEAPONS")}
 				isPending={applyRunAction.isPending}
-				onClose={handleCloseSidebar}
+				onClose={closeSidebar}
 				onSwapWeapons={handleSwapWeapons}
 			/>
 
@@ -186,14 +182,15 @@ export function TownView({ run }: TownViewProps) {
 				header={
 					<nav
 						aria-label="Town navigation"
-						className="flex items-center justify-between gap-3"
+						className="flex flex-wrap items-center justify-between gap-3"
 					>
-						<div className="flex min-w-0 items-center gap-1 lg:hidden">
+						<div className="flex min-w-0 items-center gap-1 xl:hidden">
 							<Button
 								className="px-2"
 								variant="primary"
 								type="button"
-								onClick={handleOpenSidebar}
+								aria-expanded={activeSidebar === "hero"}
+								onClick={() => openSidebar("hero")}
 							>
 								Hero
 							</Button>
@@ -207,11 +204,22 @@ export function TownView({ run }: TownViewProps) {
 								Help
 							</Button>
 
+							<Button
+								className="px-2"
+								type="button"
+								aria-label="World Log"
+								title="World Log"
+								aria-expanded={activeSidebar === "world"}
+								onClick={() => openSidebar("world")}
+							>
+								<IconWorld aria-hidden="true" className="h-5 w-5" />
+							</Button>
+
 							<ButtonLink className="px-2" to="/">
 								Home
 							</ButtonLink>
 						</div>
-						<div className="hidden items-center gap-6 lg:flex">
+						<div className="hidden items-center gap-6 xl:flex">
 							<RouterLink
 								to="/"
 								className="inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
@@ -266,6 +274,7 @@ export function TownView({ run }: TownViewProps) {
 					onLockChange={handleLockChange}
 				/>
 			</GameMainPanel>
+			<WorldLogSidebar open={activeSidebar === "world"} onClose={closeSidebar} />
 
 			{replacementSlot && (
 				<EquipmentReplacementModal

@@ -61,6 +61,8 @@ Run actions are recorded in sequence for debugging, replay investigation, and fu
 
 Achievement unlocks and bestiary records are stored separately from run snapshots, uniquely keyed by user and achievement or enemy. Updates participate in the authoritative gameplay transactions. Guests with achievements or bestiary progress are retained by cleanup.
 
+World Log entries are stored separately from run snapshots within gameplay transactions. Only recent activity is retained.
+
 ## 6. Networking
 
 Browser Heroes 2 is not a real-time multiplayer game.
@@ -73,6 +75,8 @@ Networking exists primarily for:
 - keeping persisted run state current
 - retrieving persisted and derived application data
 - lightweight event delivery where useful
+
+World Log announcements are broadcast over Socket.IO after transaction commit. Delivery is best effort; clients refetch recent activity on reconnect. Broadcasting is process-local, so running multiple API processes would require cross-process delivery.
 
 ## 7. Authentication and Sessions
 

@@ -55,11 +55,8 @@ export function HeroSidebar({
 	const heroTitle = `${heroView.name} the ${heroClass.name} / Level ${heroView.level}`;
 
 	return (
-		<Sidebar
-			open={open}
-			onClose={onClose}
-			aria-label="Hero details"
-			title={
+		<Sidebar className="border-border" open={open} onClose={onClose} aria-label="Hero details">
+			<header className="shrink-0 border-b-2 border-border px-4 py-3 pr-14 xl:pr-4">
 				<div className="grid gap-2 text-base">
 					<h2 className="truncate text-base" title={heroTitle}>
 						<span className="text-primary">
@@ -83,41 +80,44 @@ export function HeroSidebar({
 						/>
 					</section>
 				</div>
-			}
-			contentClassName="grid content-start gap-3"
-		>
-			<RunInfo
-				battleNumber={battleNumber}
-				day={day}
-				gold={gold}
-				zoneLabel={formatTitle(zone)}
-			/>
+			</header>
 
-			<Tabs
-				aria-label="Hero sidebar"
-				items={heroSidebarTabs}
-				value={activeTab}
-				onChange={setActiveTab}
-				className="w-full"
-				renderPanel={(tab) => {
-					if (tab === "details") {
-						return <HeroDetailsTab heroView={heroView} />;
-					}
+			<div className="grid content-start gap-3 px-4 py-3">
+				<RunInfo
+					battleNumber={battleNumber}
+					day={day}
+					gold={gold}
+					zoneLabel={formatTitle(zone)}
+				/>
 
-					if (tab === "equipment") {
+				<Tabs
+					aria-label="Hero sidebar"
+					items={heroSidebarTabs}
+					value={activeTab}
+					onChange={setActiveTab}
+					className="w-full"
+					renderPanel={(tab) => {
+						if (tab === "details") {
+							return <HeroDetailsTab heroView={heroView} />;
+						}
+
+						if (tab === "equipment") {
+							return (
+								<HeroEquipmentTab
+									equipment={heroView.equipment}
+									canSwap={canSwapWeapons}
+									isPending={isPending}
+									onSwap={onSwapWeapons}
+								/>
+							);
+						}
+
 						return (
-							<HeroEquipmentTab
-								equipment={heroView.equipment}
-								canSwap={canSwapWeapons}
-								isPending={isPending}
-								onSwap={onSwapWeapons}
-							/>
+							<HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />
 						);
-					}
-
-					return <HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />;
-				}}
-			/>
+					}}
+				/>
+			</div>
 		</Sidebar>
 	);
 }

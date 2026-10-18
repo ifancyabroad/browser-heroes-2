@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { IconWorld } from "@tabler/icons-react";
 import { CLASSES_BY_ID, type SkillId } from "@app/content";
 import {
 	selectAvailableActions,
@@ -10,7 +10,9 @@ import type { RunView } from "@app/shared";
 import { Button } from "../../../components/Button";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
+import { WorldLogSidebar } from "../../worldLog";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
+import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
@@ -23,7 +25,9 @@ type CombatViewProps = {
 };
 
 export function CombatView({ run }: CombatViewProps) {
-	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const activeSidebar = useSidebarStore((state) => state.activeSidebar);
+	const openSidebar = useSidebarStore((state) => state.open);
+	const closeSidebar = useSidebarStore((state) => state.close);
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
 
@@ -125,19 +129,11 @@ export function CombatView({ run }: CombatViewProps) {
 		);
 	}
 
-	function handleOpenSidebar() {
-		setSidebarOpen(true);
-	}
-
-	function handleCloseSidebar() {
-		setSidebarOpen(false);
-	}
-
 	return (
 		<GameLayout>
 			<CombatSidebar
-				open={sidebarOpen}
-				onClose={handleCloseSidebar}
+				open={activeSidebar === "hero"}
+				onClose={closeSidebar}
 				heroName={combat.player.name}
 				heroClassId={hero.classId}
 				heroLevel={combat.player.level}
@@ -172,19 +168,33 @@ export function CombatView({ run }: CombatViewProps) {
 					/>
 				}
 			>
-				<nav aria-label="Combat navigation" className="flex items-center lg:hidden">
+				<nav
+					aria-label="Combat navigation"
+					className="flex items-center justify-between xl:hidden"
+				>
 					<Button
 						className="px-2"
 						variant="primary"
 						type="button"
-						aria-expanded={sidebarOpen}
-						onClick={handleOpenSidebar}
+						aria-expanded={activeSidebar === "hero"}
+						onClick={() => openSidebar("hero")}
 					>
 						Hero
 					</Button>
+
+					<Button
+						className="px-2"
+						type="button"
+						aria-label="World Log"
+						title="World Log"
+						aria-expanded={activeSidebar === "world"}
+						onClick={() => openSidebar("world")}
+					>
+						<IconWorld aria-hidden="true" className="h-5 w-5" />
+					</Button>
 				</nav>
 				<section className="grid items-start gap-2 md:grid-cols-2" aria-label="Combatants">
-					<div className="min-w-0 lg:hidden">
+					<div className="min-w-0 xl:hidden">
 						<CombatantPanel
 							combatant={combat.player}
 							identity={`${combat.player.name} the ${heroClass.name}`}
@@ -216,6 +226,7 @@ export function CombatView({ run }: CombatViewProps) {
 					zone={zone}
 				/>
 			</GameMainPanel>
+			<WorldLogSidebar open={activeSidebar === "world"} onClose={closeSidebar} />
 		</GameLayout>
 	);
 }

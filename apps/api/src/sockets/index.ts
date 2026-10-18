@@ -3,6 +3,7 @@ import { Server } from "socket.io";
 import { env } from "../config/env";
 import { sessionMiddleware } from "../config/session";
 import { registerRunSocket } from "./run.socket";
+import { registerWorldLogSocket, subscribeWorldLogBroadcast } from "./worldLog.socket";
 
 export function createSocketServer(httpServer: HttpServer) {
 	const io = new Server(httpServer, {
@@ -15,8 +16,12 @@ export function createSocketServer(httpServer: HttpServer) {
 
 	io.engine.use(sessionMiddleware);
 
+	const unsubscribeWorldLog = subscribeWorldLogBroadcast(io);
+	httpServer.once("close", unsubscribeWorldLog);
+
 	io.on("connection", (socket) => {
 		registerRunSocket(socket);
+		registerWorldLogSocket(socket);
 	});
 
 	return io;

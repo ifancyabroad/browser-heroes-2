@@ -10,10 +10,12 @@ import { bestiaryRoutes } from "./bestiary.routes";
 import { apiBaselineLimit } from "../middlewares/rateLimits";
 import { adminRoutes } from "./admin.routes";
 import { hallOfFameRoutes } from "./hallOfFame.routes";
+import { worldLogRoutes } from "./worldLog.routes";
 
 export const routes = Router();
 
 routes.use(apiBaselineLimit);
+routes.use("/world-log", worldLogRoutes);
 routes.use("/auth", authRoutes);
 routes.use("/health", healthRoutes);
 routes.use("/runs", runRoutes);

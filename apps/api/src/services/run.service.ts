@@ -8,6 +8,7 @@ import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
 import { toRunSummary } from "./projection.service";
 import { recordBestiaryEncounter } from "./bestiary.service";
+import { recordWorldLog, publishWorldLog } from "./worldLog.service";
 
 function createHeroNameError(message: string): Error & { status: number } {
 	return Object.assign(new Error(message), { status: 400 });
@@ -80,7 +81,7 @@ async function createRunRecord(params: {
 }) {
 	const heroName = normalizeAndValidateHeroName(params.heroName);
 
-	return mongoose.connection.transaction(async (session) => {
+	const { response, worldLogEntries } = await mongoose.connection.transaction(async (session) => {
 		const now = new Date();
 
 		await RunModel.updateMany(
@@ -99,7 +100,7 @@ async function createRunRecord(params: {
 
 		const runObjectId = new Types.ObjectId();
 		const runId = runObjectId.toString();
-		const state = createInitialRunState({
+		const { state, events } = createInitialRunState({
 			runId,
 			seed: params.seed,
 			heroName,
@@ -129,8 +130,22 @@ async function createRunRecord(params: {
 			session,
 		});
 
-		return run;
+		const worldLogEntries = await recordWorldLog({
+			sequence: 0,
+			events,
+			runId,
+			userId: params.userId,
+			mode: params.mode,
+			state,
+			session,
+		});
+
+		return { response: run, worldLogEntries };
 	});
+
+	await publishWorldLog(worldLogEntries);
+
+	return response;
 }
 
 export async function getCurrentRunForUser(userId: string) {

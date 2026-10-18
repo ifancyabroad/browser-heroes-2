@@ -1,10 +1,25 @@
 import { describe, expect, it } from "vitest";
-import { runStateSchema } from "../schemas";
+import { engineEventSchema, runStateSchema } from "../schemas";
 import type { ItemInstance } from "../schemas";
 import { createTestRunState } from "../test/createTestRunState";
 import { createInitialRunState } from "./createInitialRunState";
 
 describe("createInitialRunState", () => {
+	it("returns deterministic initial state and a valid run-start event", () => {
+		const input = {
+			runId: "test-run",
+			seed: "test-seed",
+			heroName: "Mira",
+			classId: "mage" as const,
+		};
+
+		const result = createInitialRunState(input);
+
+		expect(result).toEqual(createInitialRunState(input));
+		expect(result.events).toEqual([{ type: "RUN_STARTED" }]);
+		expect(engineEventSchema.parse(result.events[0])).toEqual({ type: "RUN_STARTED" });
+	});
+
 	it("creates the same state for identical inputs", () => {
 		expect(createTestRunState()).toEqual(createTestRunState());
 	});
@@ -58,7 +73,7 @@ describe("createInitialRunState", () => {
 				seed: "shared-seed",
 				heroName: "Hero",
 				classId: "warrior",
-			});
+			}).state;
 		const first = create("first-run");
 		const second = create("second-run");
 

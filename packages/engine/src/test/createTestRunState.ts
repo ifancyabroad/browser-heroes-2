@@ -8,7 +8,7 @@ const TEST_RUN_INPUT = {
 } as const;
 
 export function createTestRunState(): RunState {
-	return createInitialRunState(TEST_RUN_INPUT);
+	return createInitialRunState(TEST_RUN_INPUT).state;
 }
 
 export function createUnprotectedTestRunState(): RunState {

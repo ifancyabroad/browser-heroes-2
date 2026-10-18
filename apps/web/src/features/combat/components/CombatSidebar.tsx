@@ -37,11 +37,12 @@ export function CombatSidebar({
 
 	return (
 		<Sidebar
+			className="border-border"
 			open={open}
 			onClose={onClose}
 			aria-label="Combat details"
-			className="flex flex-col"
-			title={
+		>
+			<header className="shrink-0 border-b-2 border-border px-4 py-3 pr-14 xl:pr-4">
 				<div className="grid gap-2 text-base">
 					<h2 className="truncate text-base" title={heroTitle}>
 						<span className="text-primary">
@@ -67,16 +68,17 @@ export function CombatSidebar({
 						<ActiveEffectsRow effects={activeEffects} label="Hero active effects" />
 					</section>
 				</div>
-			}
-			contentClassName="flex min-h-0 flex-1 flex-col"
-		>
-			<section
-				className="flex min-h-0 flex-1 flex-col gap-3 border-2 border-border-secondary bg-bg-panel p-3"
-				aria-label="Combat log"
-			>
-				<h2 className="text-text-bright">Combat Log</h2>
-				<CombatLogPanel entries={entries} className="min-h-0 flex-1" />
-			</section>
+			</header>
+
+			<div className="flex min-h-0 flex-1 flex-col px-4 py-3">
+				<section
+					className="flex min-h-0 flex-1 flex-col gap-3 border-2 border-border-secondary bg-bg-panel p-3"
+					aria-label="Combat log"
+				>
+					<h2 className="text-text-bright">Combat Log</h2>
+					<CombatLogPanel entries={entries} className="min-h-0 flex-1" />
+				</section>
+			</div>
 		</Sidebar>
 	);
 }
