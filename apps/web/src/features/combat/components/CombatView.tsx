@@ -149,7 +149,7 @@ export function CombatView({ run }: CombatViewProps) {
 			/>
 
 			<GameMainPanel
-				contentClassName="flex min-h-0 flex-1 flex-col gap-4"
+				contentClassName="flex min-h-0 flex-1 flex-col gap-2"
 				actions={
 					<CombatActionBar
 						player={combat.player}
@@ -183,8 +183,8 @@ export function CombatView({ run }: CombatViewProps) {
 						Hero
 					</Button>
 				</nav>
-				<section className="grid gap-3 lg:-mt-1 lg:block" aria-label="Combatants">
-					<div className="lg:hidden">
+				<section className="grid items-start gap-2 md:grid-cols-2" aria-label="Combatants">
+					<div className="min-w-0 lg:hidden">
 						<CombatantPanel
 							combatant={combat.player}
 							identity={`${combat.player.name} the ${heroClass.name}`}
