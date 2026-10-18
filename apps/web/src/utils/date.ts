@@ -13,7 +13,6 @@ export function addUtcDays(date: string, days: number) {
 export function formatDailyDate(date: string) {
 	return new Intl.DateTimeFormat(undefined, {
 		weekday: "short",
-		year: "numeric",
 		month: "short",
 		day: "numeric",
 		timeZone: "UTC",

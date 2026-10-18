@@ -1,4 +1,4 @@
-import { Button } from "./Button";
+import { IconButton } from "./Button";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
 type TablePaginationProps = {
@@ -24,25 +24,25 @@ export function TablePagination({
 				{total} {total === 1 ? "ENTRY" : "ENTRIES"}
 			</p>
 			<div className="flex items-center gap-2">
-				<Button
+				<IconButton
 					type="button"
+					aria-label="Previous page"
 					disabled={page <= 1 || isFetching}
 					onClick={() => onPageChange(page - 1)}
 				>
-					<IconArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
-					PREVIOUS
-				</Button>
+					<IconArrowLeft aria-hidden="true" className="h-4 w-4" />
+				</IconButton>
 				<span className="whitespace-nowrap text-text-bright">
 					PAGE {page} / {displayedTotalPages}
 				</span>
-				<Button
+				<IconButton
 					type="button"
+					aria-label="Next page"
 					disabled={page >= totalPages || isFetching}
 					onClick={() => onPageChange(page + 1)}
 				>
-					NEXT
-					<IconArrowRight aria-hidden="true" className="ml-2 h-4 w-4" />
-				</Button>
+					<IconArrowRight aria-hidden="true" className="h-4 w-4" />
+				</IconButton>
 			</div>
 		</div>
 	);
