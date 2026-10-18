@@ -182,6 +182,7 @@ export function TownView({ run }: TownViewProps) {
 			/>
 
 			<GameMainPanel
+				contentClassName="flex-1"
 				header={
 					<nav
 						aria-label="Town navigation"
