@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { TooltipProvider } from "../../../components/Tooltip";
 import { useSidebarStore } from "../../../stores/sidebarStore";
 
 const selectors = vi.hoisted(() => ({
@@ -149,13 +150,21 @@ describe("CombatView", () => {
 	it("shows a stable fallback when combat state is unavailable", () => {
 		selectors.selectCombatView.mockReturnValue(null);
 
-		render(<CombatView run={run} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 
 		expect(screen.getByText("Combat state is unavailable.")).toBeInTheDocument();
 	});
 
 	it("opens and closes the sidebar from the Hero navigation button", () => {
-		render(<CombatView run={run} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 		const heroButton = screen.getByRole("button", { name: "Hero" });
 		expect(heroButton).toHaveAttribute("aria-expanded", "false");
 		fireEvent.click(heroButton);
@@ -167,7 +176,11 @@ describe("CombatView", () => {
 	});
 
 	it("maps available engine actions to command availability", () => {
-		render(<CombatView run={run} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 
 		expect(screen.getByText("availability:true,true,true,true,true")).toBeInTheDocument();
 	});
@@ -178,7 +191,11 @@ describe("CombatView", () => {
 			enemyDescriptor: "Ghost Owner",
 		});
 
-		render(<CombatView run={run} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 
 		expect(screen.getByText("Combatant Ghost Owner")).toBeInTheDocument();
 	});
@@ -191,7 +208,11 @@ describe("CombatView", () => {
 		["Continue", { type: "CONTINUE_TO_NEXT_COMBAT" }],
 		["Town", { type: "RETURN_TO_TOWN" }],
 	])("submits the %s engine action", (button, action) => {
-		render(<CombatView run={run} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 
 		fireEvent.click(screen.getByRole("button", { name: button }));
 
@@ -199,7 +220,11 @@ describe("CombatView", () => {
 	});
 
 	it("shows translated engine failures", () => {
-		render(<CombatView run={run} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 		fireEvent.click(screen.getByRole("button", { name: "Basic" }));
 		const callbacks = mutate.mock.calls[0][1];
 
@@ -209,7 +234,11 @@ describe("CombatView", () => {
 	});
 
 	it("shows the action-specific transport failure", () => {
-		render(<CombatView run={run} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 		fireEvent.click(screen.getByRole("button", { name: "Potion" }));
 		const callbacks = mutate.mock.calls[0][1];
 
@@ -219,7 +248,11 @@ describe("CombatView", () => {
 	});
 
 	it("coordinates drawers and retains the world log in the outgoing combat frame", () => {
-		const view = render(<CombatView run={run} />);
+		const view = render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
 		fireEvent.click(screen.getByRole("button", { name: "Hero" }));
 		expect(screen.getByText("Combat sidebar open")).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "World Log" }));
@@ -227,7 +260,11 @@ describe("CombatView", () => {
 		expect(screen.getByText("World sidebar open")).toBeInTheDocument();
 		view.unmount();
 
-		render(<CombatView run={{ ...run, state: { ...run.state, phase: "dead" } }} />);
+		render(
+			<TooltipProvider>
+				<CombatView run={{ ...run, state: { ...run.state, phase: "dead" } }} />
+			</TooltipProvider>,
+		);
 		expect(screen.getByRole("button", { name: "World Log" })).toBeInTheDocument();
 		expect(screen.getByText("World sidebar open")).toBeInTheDocument();
 	});

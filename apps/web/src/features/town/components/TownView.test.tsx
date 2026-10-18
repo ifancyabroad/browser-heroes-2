@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { TooltipProvider } from "../../../components/Tooltip";
 import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useHowToPlayModalStore } from "../../howToPlay";
 
@@ -183,7 +184,9 @@ function createTownView() {
 function renderView() {
 	return render(
 		<MemoryRouter>
-			<TownView run={run} />
+			<TooltipProvider>
+				<TownView run={run} />
+			</TooltipProvider>
 		</MemoryRouter>,
 	);
 }

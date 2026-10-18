@@ -7,13 +7,11 @@ import {
 } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Button } from "../../../components/Button";
 import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
+import { GameNavigation } from "../../../components/GameNavigation";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { WorldLogSidebar } from "../../worldLog";
-import { ButtonLink } from "../../../components/Button";
 import { HeroSidebar } from "./HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useSidebarStore } from "../../../stores/sidebarStore";
@@ -21,7 +19,6 @@ import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownActionBar } from "./TownActionBar";
 import { TownShopGrid } from "./TownShopGrid";
 import { useHowToPlayModalStore } from "../../howToPlay";
-import { IconArrowLeft, IconWorld } from "@tabler/icons-react";
 import { TownGoldBalance } from "./TownGoldBalance";
 
 type TownViewProps = {
@@ -180,65 +177,14 @@ export function TownView({ run }: TownViewProps) {
 			<GameMainPanel
 				contentClassName="flex-1"
 				header={
-					<nav
-						aria-label="Town navigation"
-						className="flex flex-wrap items-center justify-between gap-3"
+					<GameNavigation
+						label="Town navigation"
+						activeSidebar={activeSidebar}
+						onOpenSidebar={openSidebar}
+						onHowToPlay={openHowToPlay}
 					>
-						<div className="flex min-w-0 items-center gap-1 xl:hidden">
-							<Button
-								className="px-2"
-								variant="primary"
-								type="button"
-								aria-expanded={activeSidebar === "hero"}
-								onClick={() => openSidebar("hero")}
-							>
-								Hero
-							</Button>
-
-							<Button
-								className="px-2"
-								type="button"
-								aria-label="How to play"
-								onClick={openHowToPlay}
-							>
-								Help
-							</Button>
-
-							<Button
-								className="px-2"
-								type="button"
-								aria-label="World Log"
-								title="World Log"
-								aria-expanded={activeSidebar === "world"}
-								onClick={() => openSidebar("world")}
-							>
-								<IconWorld aria-hidden="true" className="h-5 w-5" />
-							</Button>
-
-							<ButtonLink className="px-2" to="/">
-								Home
-							</ButtonLink>
-						</div>
-						<div className="hidden items-center gap-6 xl:flex">
-							<RouterLink
-								to="/"
-								className="inline-flex items-center text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-							>
-								<IconArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
-								BACK
-							</RouterLink>
-
-							<button
-								type="button"
-								className="cursor-pointer text-text-bright hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-								onClick={openHowToPlay}
-							>
-								HOW TO PLAY
-							</button>
-						</div>
-
 						<TownGoldBalance gold={townView.gold} />
-					</nav>
+					</GameNavigation>
 				}
 				actions={
 					<TownActionBar

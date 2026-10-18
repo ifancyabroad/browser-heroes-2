@@ -1,4 +1,3 @@
-import { IconWorld } from "@tabler/icons-react";
 import { CLASSES_BY_ID, type SkillId } from "@app/content";
 import {
 	selectAvailableActions,
@@ -7,7 +6,7 @@ import {
 	type EngineAction,
 } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { Button } from "../../../components/Button";
+import { GameNavigation } from "../../../components/GameNavigation";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { WorldLogSidebar } from "../../worldLog";
@@ -168,31 +167,11 @@ export function CombatView({ run }: CombatViewProps) {
 					/>
 				}
 			>
-				<nav
-					aria-label="Combat navigation"
-					className="flex items-center justify-between xl:hidden"
-				>
-					<Button
-						className="px-2"
-						variant="primary"
-						type="button"
-						aria-expanded={activeSidebar === "hero"}
-						onClick={() => openSidebar("hero")}
-					>
-						Hero
-					</Button>
-
-					<Button
-						className="px-2"
-						type="button"
-						aria-label="World Log"
-						title="World Log"
-						aria-expanded={activeSidebar === "world"}
-						onClick={() => openSidebar("world")}
-					>
-						<IconWorld aria-hidden="true" className="h-5 w-5" />
-					</Button>
-				</nav>
+				<GameNavigation
+					label="Combat navigation"
+					activeSidebar={activeSidebar}
+					onOpenSidebar={openSidebar}
+				/>
 				<section className="grid items-start gap-2 md:grid-cols-2" aria-label="Combatants">
 					<div className="min-w-0 xl:hidden">
 						<CombatantPanel
