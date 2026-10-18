@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import type { CombatLogEntry } from "@app/engine";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { Battlefield } from "./Battlefield";
@@ -11,10 +11,10 @@ const baseProps = {
 	enemyName: "Orc",
 	isEnemySlain: false,
 	battleNumber: 12,
+	gold: 125,
 	goldMultiplier: 2,
 	nextZoneOptions: ["forest"] as const,
 	zone: "forest" as const,
-	onOpenLog: vi.fn(),
 };
 
 describe("Battlefield background preloading", () => {
@@ -93,24 +93,17 @@ describe("Battlefield combat outcomes", () => {
 		vi.useRealTimers();
 	});
 
-	it("opens the combat log from the battlefield control", () => {
-		const onOpenLog = vi.fn();
-		render(<Battlefield {...baseProps} onOpenLog={onOpenLog} entries={[]} />);
-
-		fireEvent.click(screen.getByRole("button", { name: "Open combat log" }));
-
-		expect(onOpenLog).toHaveBeenCalledOnce();
-	});
-
-	it("shows compact mobile battle and gold bonus badges", () => {
+	it("shows grouped run information over the battlefield", () => {
 		render(<Battlefield {...baseProps} entries={[]} />);
 
 		const battleInfo = screen.getByRole("group", {
-			name: "Battle 12, gold bonus 2 times",
+			name: "Run information",
 		});
 
-		expect(battleInfo).toHaveTextContent("Battle 12");
-		expect(battleInfo).toHaveTextContent("Bonus ×2");
+		expect(battleInfo).toHaveTextContent("ZoneForest");
+		expect(battleInfo).toHaveTextContent("Battle12");
+		expect(battleInfo).toHaveTextContent("Gold125");
+		expect(battleInfo).toHaveTextContent("Bonus×2");
 	});
 
 	it("ignores existing outcomes and shows all new enemy outcomes together", () => {

@@ -16,10 +16,6 @@ type CombatSidebarProps = {
 	maxHp: number;
 	progression: HeroProgressionView;
 	activeEffects: ActiveCombatEffect[];
-	gold: number;
-	goldMultiplier: number;
-	battleNumber: number;
-	zoneLabel: string;
 	entries: CombatLogEntry[];
 };
 
@@ -33,10 +29,6 @@ export function CombatSidebar({
 	maxHp,
 	progression,
 	activeEffects,
-	gold,
-	goldMultiplier,
-	battleNumber,
-	zoneLabel,
 	entries,
 }: CombatSidebarProps) {
 	const heroClass = CLASSES_BY_ID[heroClassId];
@@ -76,14 +68,8 @@ export function CombatSidebar({
 					</section>
 				</div>
 			}
-			contentClassName="flex min-h-0 flex-1 flex-col gap-4"
+			contentClassName="flex min-h-0 flex-1 flex-col"
 		>
-			<CombatRunInfo
-				battleNumber={battleNumber}
-				gold={gold}
-				goldMultiplier={goldMultiplier}
-				zoneLabel={zoneLabel}
-			/>
 			<section
 				className="flex min-h-0 flex-1 flex-col gap-3 border-2 border-border-secondary bg-bg-panel p-3"
 				aria-label="Combat log"
@@ -92,34 +78,5 @@ export function CombatSidebar({
 				<CombatLogPanel entries={entries} className="min-h-0 flex-1" />
 			</section>
 		</Sidebar>
-	);
-}
-
-type CombatRunInfoProps = {
-	battleNumber: number;
-	gold: number;
-	goldMultiplier: number;
-	zoneLabel: string;
-};
-
-function CombatRunInfo({ battleNumber, gold, goldMultiplier, zoneLabel }: CombatRunInfoProps) {
-	const runItems = [
-		{ label: "Zone", value: zoneLabel },
-		{ label: "Battle", value: battleNumber },
-		{ label: "Gold", value: gold },
-		{ label: "Bonus", value: `×${goldMultiplier}` },
-	];
-
-	return (
-		<section aria-label="Combat">
-			<dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-base">
-				{runItems.map((item) => (
-					<div key={item.label} className="grid grid-cols-[5rem_minmax(0,1fr)] gap-2">
-						<dt className="text-text-label">{item.label}</dt>
-						<dd className="min-w-0 truncate text-text-bright">{item.value}</dd>
-					</div>
-				))}
-			</dl>
-		</section>
 	);
 }

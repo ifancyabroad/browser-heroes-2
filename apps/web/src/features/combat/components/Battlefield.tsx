@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import type { Zone } from "@app/content";
 import type { CombatLogEntry } from "@app/engine";
-import { IconBook } from "@tabler/icons-react";
-import { Badge } from "../../../components/Badge";
-import { IconButton } from "../../../components/Button";
+import { CombatStatsBar } from "./CombatStatsBar";
 import { CombatOutcomeOverlay } from "./CombatOutcomeOverlay";
 import { EnemyPortrait } from "./EnemyPortrait";
 
@@ -40,10 +38,10 @@ type BattlefieldProps = {
 	enemyName: string;
 	isEnemySlain: boolean;
 	battleNumber: number;
+	gold: number;
 	goldMultiplier: number;
 	nextZoneOptions: readonly Zone[];
 	zone: Zone;
-	onOpenLog: () => void;
 };
 
 export function Battlefield({
@@ -55,10 +53,10 @@ export function Battlefield({
 	enemyName,
 	isEnemySlain,
 	battleNumber,
+	gold,
 	goldMultiplier,
 	nextZoneOptions,
 	zone,
-	onOpenLog,
 }: BattlefieldProps) {
 	useEffect(() => {
 		const preloadTimeout = window.setTimeout(() => {
@@ -83,39 +81,12 @@ export function Battlefield({
 			aria-label="Battlefield"
 			style={{ backgroundImage: `url(${ZONE_BACKGROUNDS[zone]})` }}
 		>
-			<div
-				className="absolute right-2 top-2 z-20 flex gap-1 tabular-nums"
-				role="group"
-				aria-label={`Battle ${battleNumber}, gold bonus ${goldMultiplier} times`}
-			>
-				<Badge
-					label={
-						<>
-							<span className="text-text-label">Battle</span>{" "}
-							<span className="text-text-bright">{battleNumber}</span>
-						</>
-					}
-					className="bg-bg-base/90"
-				/>
-				<Badge
-					label={
-						<>
-							<span className="text-text-label">Bonus</span>{" "}
-							<span className="text-text-bright">×{goldMultiplier}</span>
-						</>
-					}
-					className="bg-bg-base/90"
-				/>
-			</div>
-			<IconButton
-				type="button"
-				aria-label="Open combat log"
-				title="Combat log"
-				className="absolute left-2 top-2 z-20 lg:hidden"
-				onClick={onOpenLog}
-			>
-				<IconBook aria-hidden="true" />
-			</IconButton>
+			<CombatStatsBar
+				zone={zone}
+				battleNumber={battleNumber}
+				gold={gold}
+				goldMultiplier={goldMultiplier}
+			/>
 			<CombatOutcomeOverlay enemyId={enemyId} heroId={heroId} entries={entries} />
 			<EnemyPortrait
 				enemyId={enemyId}

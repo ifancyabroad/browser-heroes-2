@@ -7,6 +7,7 @@ import {
 	type EngineAction,
 } from "@app/engine";
 import type { RunView } from "@app/shared";
+import { Button } from "../../../components/Button";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
@@ -15,7 +16,6 @@ import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
 import { CombatSidebar } from "./CombatSidebar";
 import { CombatantPanel } from "./CombatantPanel";
-import { formatTitle } from "../../../presentation/effects";
 import { resolveImageUrl } from "../../../utils/image";
 
 type CombatViewProps = {
@@ -37,7 +37,6 @@ export function CombatView({ run }: CombatViewProps) {
 	const { battleNumber, combat, gold, goldMultiplier, zone, nextZoneOptions } = combatView;
 	const heroClass = CLASSES_BY_ID[hero.classId];
 	const heroProgression = selectHeroProgression(run.state);
-	const zoneLabel = formatTitle(zone);
 	const isEnemySlain = combat.status === "player_won";
 	const availableActions = selectAvailableActions(run.state);
 	const availableActionTypes = new Set(availableActions.map((action) => action.type));
@@ -146,10 +145,6 @@ export function CombatView({ run }: CombatViewProps) {
 				maxHp={combat.player.maxHp}
 				progression={heroProgression}
 				activeEffects={combat.player.activeEffects}
-				battleNumber={battleNumber}
-				gold={gold}
-				goldMultiplier={goldMultiplier}
-				zoneLabel={zoneLabel}
 				entries={combat.log}
 			/>
 
@@ -177,6 +172,17 @@ export function CombatView({ run }: CombatViewProps) {
 					/>
 				}
 			>
+				<nav aria-label="Combat navigation" className="flex items-center lg:hidden">
+					<Button
+						className="px-2"
+						variant="primary"
+						type="button"
+						aria-expanded={sidebarOpen}
+						onClick={handleOpenSidebar}
+					>
+						Hero
+					</Button>
+				</nav>
 				<section className="grid gap-3 lg:-mt-1 lg:block" aria-label="Combatants">
 					<div className="lg:hidden">
 						<CombatantPanel
@@ -204,10 +210,10 @@ export function CombatView({ run }: CombatViewProps) {
 					enemyName={combat.enemy.name}
 					isEnemySlain={isEnemySlain}
 					battleNumber={battleNumber}
+					gold={gold}
 					goldMultiplier={goldMultiplier}
 					nextZoneOptions={nextZoneOptions}
 					zone={zone}
-					onOpenLog={handleOpenSidebar}
 				/>
 			</GameMainPanel>
 		</GameLayout>

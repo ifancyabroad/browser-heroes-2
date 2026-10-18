@@ -42,7 +42,14 @@ vi.mock("../../../components/GameMainPanel", () => ({
 		</div>
 	),
 }));
-vi.mock("./CombatSidebar", () => ({ CombatSidebar: () => <div>Combat sidebar</div> }));
+vi.mock("./CombatSidebar", () => ({
+	CombatSidebar: ({ open, onClose }: { open: boolean; onClose: () => void }) => (
+		<div>
+			Combat sidebar {open ? "open" : "closed"}
+			{open && <button onClick={onClose}>Close sidebar</button>}
+		</div>
+	),
+}));
 vi.mock("./CombatantPanel", () => ({
 	CombatantPanel: ({ descriptor }: { descriptor?: string }) => <div>Combatant {descriptor}</div>,
 }));
@@ -136,6 +143,18 @@ describe("CombatView", () => {
 		render(<CombatView run={run} />);
 
 		expect(screen.getByText("Combat state is unavailable.")).toBeInTheDocument();
+	});
+
+	it("opens and closes the sidebar from the Hero navigation button", () => {
+		render(<CombatView run={run} />);
+		const heroButton = screen.getByRole("button", { name: "Hero" });
+		expect(heroButton).toHaveAttribute("aria-expanded", "false");
+		fireEvent.click(heroButton);
+		expect(screen.getByText("Combat sidebar open")).toBeInTheDocument();
+		expect(heroButton).toHaveAttribute("aria-expanded", "true");
+		fireEvent.click(screen.getByRole("button", { name: "Close sidebar" }));
+		expect(screen.getByText("Combat sidebar closed")).toBeInTheDocument();
+		expect(heroButton).toHaveAttribute("aria-expanded", "false");
 	});
 
 	it("maps available engine actions to command availability", () => {
