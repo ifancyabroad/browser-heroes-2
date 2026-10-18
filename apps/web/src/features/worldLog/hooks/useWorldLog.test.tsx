@@ -116,13 +116,15 @@ describe("world log connection and sidebar", () => {
 		);
 	});
 
-	it("shows public names and challenge icons and coordinates keyboard-accessible drawers", async () => {
+	it("shows public names before messages and coordinates keyboard-accessible drawers", async () => {
 		transport.get.mockReturnValue({ json: async () => ({ entries: [entry("Aldric")] }) });
 		setup(true);
 		act(() => screen.getByRole("button", { name: "World Log" }).click());
-		await screen.findByText("Aldric the Warrior", { selector: "strong" });
-		expect(screen.getByText("· Edgar")).toBeInTheDocument();
-		expect(screen.getByRole("img", { name: "Daily Challenge" })).toBeInTheDocument();
+		const heroName = await screen.findByText("Aldric the Warrior", { selector: "strong" });
+		expect(heroName.parentElement).toHaveTextContent("Aldric the Warrior retired victorious.");
+		expect(heroName.parentElement?.previousElementSibling).toHaveTextContent("[Edgar]");
+		expect(screen.getByText("[Edgar]")).toBeInTheDocument();
+		expect(screen.queryByRole("img", { name: "Daily Challenge" })).not.toBeInTheDocument();
 		const sidebar = screen.getByRole("dialog", { name: "World log" });
 		act(() =>
 			sidebar.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })),
