@@ -12,7 +12,7 @@ type CombatStatsBarProps = {
 export function CombatStatsBar({ zone, battleNumber, gold, goldMultiplier }: CombatStatsBarProps) {
 	return (
 		<div
-			className="absolute left-2 top-2 z-20 w-max max-w-[calc(100%-1rem)] border border-border-secondary bg-bg-base/90 px-2 py-1 text-base tabular-nums sm:px-3 sm:py-2"
+			className="absolute left-2 top-2 z-10 w-max max-w-[calc(100%-1rem)] border border-border-secondary bg-bg-base/90 px-2 py-1 text-base tabular-nums sm:px-3 sm:py-2"
 			role="group"
 			aria-label="Run information"
 		>

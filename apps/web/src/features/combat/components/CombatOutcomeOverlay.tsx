@@ -79,7 +79,7 @@ export function CombatOutcomeOverlay({ enemyId, heroId, entries }: CombatOutcome
 	return (
 		<div
 			key={visibleBatch.id}
-			className={`pointer-events-none absolute inset-0 z-10 flex items-center justify-center ${styles.overlay}`}
+			className={`pointer-events-none absolute inset-0 z-20 flex items-center justify-center ${styles.overlay}`}
 			aria-hidden="true"
 		>
 			<div
