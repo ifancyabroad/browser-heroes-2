@@ -12,11 +12,11 @@ type CombatStatsBarProps = {
 export function CombatStatsBar({ zone, battleNumber, gold, goldMultiplier }: CombatStatsBarProps) {
 	return (
 		<div
-			className="min-w-0 border border-border-secondary bg-bg-base/90 px-2 py-1 text-base tabular-nums sm:px-3 sm:py-2"
+			className="absolute left-1/2 top-2 z-20 w-max max-w-[calc(100%-1rem)] -translate-x-1/2 border border-border-secondary bg-bg-base/90 px-2 py-1 text-base tabular-nums sm:left-auto sm:right-2 sm:translate-x-0 sm:px-3 sm:py-2"
 			role="group"
 			aria-label="Run information"
 		>
-			<dl className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1 sm:grid sm:gap-1">
+			<dl className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:grid sm:gap-1">
 				{[
 					{ label: "Zone", value: formatTitle(zone), icon: IconMapPin },
 					{ label: "Battle", value: battleNumber, icon: IconSwords },

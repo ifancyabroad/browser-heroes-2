@@ -7,7 +7,7 @@ type GameNavigationProps = {
 	label: string;
 	activeSidebar: "hero" | "world" | null;
 	onOpenSidebar: (sidebar: "hero" | "world") => void;
-	onHowToPlay?: () => void;
+	onHowToPlay: () => void;
 	children?: ReactNode;
 };
 
@@ -19,10 +19,7 @@ export function GameNavigation({
 	children,
 }: GameNavigationProps) {
 	return (
-		<nav
-			aria-label={label}
-			className={`flex flex-wrap items-center justify-between gap-3 ${onHowToPlay ? "" : "min-[104rem]:hidden"}`}
-		>
+		<nav aria-label={label} className="flex flex-wrap items-center justify-between gap-3">
 			<div className="flex items-center gap-1">
 				<NavigationTooltip label="Hero" className="lg:hidden">
 					<IconButton
@@ -45,20 +42,16 @@ export function GameNavigation({
 						<IconWorld aria-hidden="true" className="h-6 w-6" />
 					</IconButton>
 				</NavigationTooltip>
-				{onHowToPlay && (
-					<NavigationTooltip label="Home">
-						<ButtonLink to="/" aria-label="Home" className="h-9 w-9 p-0!">
-							<IconHome aria-hidden="true" className="h-6 w-6 shrink-0" />
-						</ButtonLink>
-					</NavigationTooltip>
-				)}
-				{onHowToPlay && (
-					<NavigationTooltip label="How to play">
-						<IconButton type="button" aria-label="How to play" onClick={onHowToPlay}>
-							<IconHelpCircle aria-hidden="true" className="h-6 w-6" />
-						</IconButton>
-					</NavigationTooltip>
-				)}
+				<NavigationTooltip label="Home">
+					<ButtonLink to="/" aria-label="Home" className="h-9 w-9 p-0!">
+						<IconHome aria-hidden="true" className="h-6 w-6 shrink-0" />
+					</ButtonLink>
+				</NavigationTooltip>
+				<NavigationTooltip label="How to play">
+					<IconButton type="button" aria-label="How to play" onClick={onHowToPlay}>
+						<IconHelpCircle aria-hidden="true" className="h-6 w-6" />
+					</IconButton>
+				</NavigationTooltip>
 			</div>
 			{children}
 		</nav>

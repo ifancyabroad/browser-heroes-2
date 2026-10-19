@@ -4,8 +4,6 @@ import type { CombatLogEntry } from "@app/engine";
 import { CombatStatsBar } from "./CombatStatsBar";
 import { CombatOutcomeOverlay } from "./CombatOutcomeOverlay";
 import { EnemyPortrait } from "./EnemyPortrait";
-import { GameNavigation } from "../../../components/GameNavigation";
-import { useSidebarStore } from "../../../stores/sidebarStore";
 
 import abyssBackground from "../../../assets/images/backgrounds/bg_41.png";
 import castleBackground from "../../../assets/images/backgrounds/bg_27.png";
@@ -60,9 +58,6 @@ export function Battlefield({
 	nextZoneOptions,
 	zone,
 }: BattlefieldProps) {
-	const activeSidebar = useSidebarStore((state) => state.activeSidebar);
-	const openSidebar = useSidebarStore((state) => state.open);
-
 	useEffect(() => {
 		const preloadTimeout = window.setTimeout(() => {
 			for (const nextZone of nextZoneOptions) {
@@ -86,21 +81,12 @@ export function Battlefield({
 			aria-label="Battlefield"
 			style={{ backgroundImage: `url(${ZONE_BACKGROUNDS[zone]})` }}
 		>
-			<div className="absolute inset-x-2 top-2 z-20 flex items-start justify-between gap-2">
-				<div className="shrink-0">
-					<GameNavigation
-						label="Combat navigation"
-						activeSidebar={activeSidebar}
-						onOpenSidebar={openSidebar}
-					/>
-				</div>
-				<CombatStatsBar
-					zone={zone}
-					battleNumber={battleNumber}
-					gold={gold}
-					goldMultiplier={goldMultiplier}
-				/>
-			</div>
+			<CombatStatsBar
+				zone={zone}
+				battleNumber={battleNumber}
+				gold={gold}
+				goldMultiplier={goldMultiplier}
+			/>
 			<CombatOutcomeOverlay enemyId={enemyId} heroId={heroId} entries={entries} />
 			<EnemyPortrait
 				enemyId={enemyId}

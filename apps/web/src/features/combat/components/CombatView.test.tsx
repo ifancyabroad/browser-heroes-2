@@ -1,8 +1,11 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render as renderUi, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
 import { useSidebarStore } from "../../../stores/sidebarStore";
+
+const render = (ui: React.ReactNode) => renderUi(ui, { wrapper: MemoryRouter });
 
 const selectors = vi.hoisted(() => ({
 	selectCombatView: vi.fn(),

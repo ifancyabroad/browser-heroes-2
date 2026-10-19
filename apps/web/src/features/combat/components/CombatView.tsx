@@ -7,6 +7,8 @@ import {
 } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
+import { GameNavigation } from "../../../components/GameNavigation";
+import { useHowToPlayModalStore } from "../../howToPlay";
 import { GameMainPanel } from "../../../components/GameMainPanel";
 import { WorldLogSidebar } from "../../worldLog";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
@@ -24,6 +26,8 @@ type CombatViewProps = {
 
 export function CombatView({ run }: CombatViewProps) {
 	const activeSidebar = useSidebarStore((state) => state.activeSidebar);
+	const openSidebar = useSidebarStore((state) => state.open);
+	const openHowToPlay = useHowToPlayModalStore((state) => state.open);
 	const closeSidebar = useSidebarStore((state) => state.close);
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -165,26 +169,36 @@ export function CombatView({ run }: CombatViewProps) {
 					/>
 				}
 			>
-				<section
-					className="grid items-start gap-2 md:grid-cols-2 lg:grid-cols-1"
-					aria-label="Combatants"
-				>
-					<div className="min-w-0 lg:hidden">
-						<CombatantPanel
-							combatant={combat.player}
-							identity={`${combat.player.name} the ${heroClass.name}`}
-							ariaLabel="Hero"
+				<div className="flex flex-col items-start gap-2 lg:flex-row lg:justify-between">
+					<div className="shrink-0 lg:order-last">
+						<GameNavigation
+							label="Combat navigation"
+							activeSidebar={activeSidebar}
+							onOpenSidebar={openSidebar}
+							onHowToPlay={openHowToPlay}
 						/>
 					</div>
-					<CombatantPanel
-						key={combat.enemy.id}
-						combatant={combat.enemy}
-						identity={combat.enemy.name}
-						ariaLabel="Enemy"
-						descriptor={combatView.enemyDescriptor}
-						statusLabel={isEnemySlain ? "SLAIN" : undefined}
-					/>
-				</section>
+					<section
+						className="grid w-full min-w-0 items-start gap-2 md:grid-cols-2 lg:flex-1 lg:grid-cols-1"
+						aria-label="Combatants"
+					>
+						<div className="min-w-0 lg:hidden">
+							<CombatantPanel
+								combatant={combat.player}
+								identity={`${combat.player.name} the ${heroClass.name}`}
+								ariaLabel="Hero"
+							/>
+						</div>
+						<CombatantPanel
+							key={combat.enemy.id}
+							combatant={combat.enemy}
+							identity={combat.enemy.name}
+							ariaLabel="Enemy"
+							descriptor={combatView.enemyDescriptor}
+							statusLabel={isEnemySlain ? "SLAIN" : undefined}
+						/>
+					</section>
+				</div>
 
 				<Battlefield
 					heroId={combat.player.id}
