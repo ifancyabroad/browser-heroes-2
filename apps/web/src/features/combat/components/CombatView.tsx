@@ -195,7 +195,6 @@ export function CombatView({ run }: CombatViewProps) {
 							identity={combat.enemy.name}
 							ariaLabel="Enemy"
 							descriptor={combatView.enemyDescriptor}
-							statusLabel={isEnemySlain ? "SLAIN" : undefined}
 						/>
 					</section>
 				</div>

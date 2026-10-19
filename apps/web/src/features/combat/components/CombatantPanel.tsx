@@ -1,16 +1,12 @@
 import type { CombatantState } from "@app/engine";
-import clsx from "clsx";
 import { ResourceBar } from "../../../components/ResourceBar";
-import { Badge } from "../../../components/Badge";
 import { ActiveEffectsRow } from "./ActiveEffectsRow";
-import styles from "./CombatantPanel.module.css";
 
 type CombatantPanelProps = {
 	combatant: CombatantState;
 	identity: string;
 	ariaLabel: string;
 	descriptor?: string;
-	statusLabel?: string;
 };
 
 export function CombatantPanel({
@@ -18,9 +14,8 @@ export function CombatantPanel({
 	identity,
 	ariaLabel,
 	descriptor,
-	statusLabel,
 }: CombatantPanelProps) {
-	const title = `${identity} / Level ${combatant.level}${descriptor ? ` / ${descriptor}` : ""}${statusLabel ? ` ${statusLabel}` : ""}`;
+	const title = `${identity} / Level ${combatant.level}${descriptor ? ` / ${descriptor}` : ""}`;
 
 	return (
 		<section className="grid w-full min-w-0 gap-2" aria-label={ariaLabel}>
@@ -34,12 +29,6 @@ export function CombatantPanel({
 						</>
 					)}
 				</span>
-				{statusLabel && (
-					<Badge
-						label={statusLabel}
-						className={clsx("shrink-0 leading-5 text-error", styles.statusLabel)}
-					/>
-				)}
 			</h2>
 			<ResourceBar
 				className="w-full lg:max-w-[22rem]"
