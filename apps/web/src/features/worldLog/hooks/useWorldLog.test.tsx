@@ -121,7 +121,7 @@ describe("world log connection and sidebar", () => {
 		setup(true);
 		act(() => screen.getByRole("button", { name: "World Log" }).click());
 		const heroName = await screen.findByText("Aldric the Warrior", { selector: "span" });
-		expect(heroName.parentElement).toHaveTextContent("Aldric the Warrior retired victorious.");
+		expect(heroName.parentElement).toHaveTextContent("Aldric the Warrior retired victorious");
 		expect(heroName.parentElement?.previousElementSibling).toHaveTextContent("[Edgar]");
 		expect(screen.getByText("[Edgar]")).toBeInTheDocument();
 		expect(screen.queryByRole("img", { name: "Daily Challenge" })).not.toBeInTheDocument();

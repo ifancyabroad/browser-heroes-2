@@ -18,7 +18,7 @@ describe("world log presentation", () => {
 		expect(
 			describeWorldLogEvent({ ...entry(1), event: { type: "hero_rested", day: 3 } }),
 		).toEqual({
-			text: "rested in town to begin day 3.",
+			text: "rested in town to begin day 3",
 			colour: "text-text",
 		});
 	});
@@ -34,7 +34,7 @@ describe("world log presentation", () => {
 					encounterType: "ghost",
 				},
 			}).text,
-		).toBe("was slain by Fallen Warrior Mira (12).");
+		).toBe("was slain by Fallen Warrior Mira (battle 12)");
 	});
 
 	it.each([
@@ -50,11 +50,11 @@ describe("world log presentation", () => {
 					...entry(1),
 					event: { type: "hero_died", battleNumber: 12, enemyName, encounterType },
 				}),
-			).toEqual({ text: `was slain by ${killer} (12).`, colour: "text-error" });
+			).toEqual({ text: `was slain by ${killer} (battle 12)`, colour: "text-error" });
 		},
 	);
 
-	it("uses concise, standard text for ordinary boss and ghost victories", () => {
+	it("uses grey for ordinary boss victories and the dedicated ghost colour for banishments", () => {
 		expect(
 			describeWorldLogEvent({
 				...entry(1),
@@ -65,13 +65,13 @@ describe("world log presentation", () => {
 					finalBoss: false,
 				},
 			}),
-		).toEqual({ text: "defeated Dragon (10).", colour: "text-text" });
+		).toEqual({ text: "defeated Dragon (battle 10)", colour: "text-text" });
 		expect(
 			describeWorldLogEvent({
 				...entry(1),
 				event: { type: "ghost_banished", enemyName: "Fallen Warrior Bob" },
 			}),
-		).toEqual({ text: "banished Fallen Warrior Bob.", colour: "text-text" });
+		).toEqual({ text: "banished Fallen Warrior Bob", colour: "text-[#b8a9e8]" });
 	});
 
 	it("merges overlapping fetches and socket arrivals with deterministic ordering and a 50-entry cap", () => {
@@ -100,7 +100,7 @@ describe("world log presentation", () => {
 				},
 			}),
 		).toEqual({
-			text: "defeated Dragon and conquered battle 100!",
+			text: "defeated Dragon and completed all 100 battles!",
 			colour: "text-primary",
 			trophy: true,
 		});
