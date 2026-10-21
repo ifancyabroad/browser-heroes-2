@@ -6,6 +6,12 @@ export function describeWorldLogEvent(entry: WorldLogEntry): {
 	trophy?: boolean;
 } {
 	const event = entry.event;
+	const enemyArticle =
+		event.type === "hero_died" && event.encounterType === "standard"
+			? /^[aeiou]/i.test(event.enemyName)
+				? "an "
+				: "a "
+			: "";
 
 	switch (event.type) {
 		case "hero_created":
@@ -13,9 +19,7 @@ export function describeWorldLogEvent(entry: WorldLogEntry): {
 
 		case "hero_died":
 			return {
-				text: event.enemyName
-					? `was slain by ${event.enemyName} in battle ${event.battleNumber}.`
-					: `fell in battle ${event.battleNumber}.`,
+				text: `was slain by ${enemyArticle}${event.enemyName} (${event.battleNumber}).`,
 				colour: "text-error",
 			};
 
@@ -27,16 +31,19 @@ export function describeWorldLogEvent(entry: WorldLogEntry): {
 						trophy: true,
 					}
 				: {
-						text: `defeated ${event.enemyName} in battle ${event.battleNumber}.`,
-						colour: "text-success",
+						text: `defeated ${event.enemyName} (${event.battleNumber}).`,
+						colour: "text-text",
 					};
+
+		case "ghost_banished":
+			return { text: `banished ${event.enemyName}.`, colour: "text-text" };
 
 		case "legendary_acquired":
 			return { text: `acquired ${event.itemName}.`, colour: "text-legendary" };
 
 		case "hero_rested":
 			return {
-				text: `rested in town and began day ${event.day}.`,
+				text: `rested in town to begin day ${event.day}.`,
 				colour: "text-text",
 			};
 

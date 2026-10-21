@@ -120,12 +120,13 @@ describe("world log connection and sidebar", () => {
 		transport.get.mockReturnValue({ json: async () => ({ entries: [entry("Aldric")] }) });
 		setup(true);
 		act(() => screen.getByRole("button", { name: "World Log" }).click());
-		const heroName = await screen.findByText("Aldric the Warrior", { selector: "strong" });
+		const heroName = await screen.findByText("Aldric the Warrior", { selector: "span" });
 		expect(heroName.parentElement).toHaveTextContent("Aldric the Warrior retired victorious.");
 		expect(heroName.parentElement?.previousElementSibling).toHaveTextContent("[Edgar]");
 		expect(screen.getByText("[Edgar]")).toBeInTheDocument();
 		expect(screen.queryByRole("img", { name: "Daily Challenge" })).not.toBeInTheDocument();
 		const sidebar = screen.getByRole("dialog", { name: "World log" });
+		expect(screen.getByRole("heading", { name: "World Log" })).toBeInTheDocument();
 		act(() =>
 			sidebar.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })),
 		);

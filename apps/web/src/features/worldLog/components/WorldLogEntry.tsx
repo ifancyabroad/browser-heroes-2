@@ -27,9 +27,9 @@ export function WorldLogEntry({ entry }: { entry: Entry }) {
 						className="mr-1 inline h-4 w-4 align-text-bottom"
 					/>
 				)}
-				<strong>
+				<span>
 					{entry.heroName} the {CLASSES_BY_ID[entry.classId].name}
-				</strong>{" "}
+				</span>{" "}
 				{presentation.text}
 			</span>
 		</li>

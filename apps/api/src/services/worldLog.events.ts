@@ -23,7 +23,12 @@ export function toWorldLogEvent(event: EngineEvent, state: RunState): WorldLogEv
 					type: "hero_died",
 					battleNumber: event.battleNumber,
 					enemyName: state.combat!.enemy.name,
+					encounterType: event.encounterType,
 				};
+			}
+
+			if (event.encounterType === "ghost") {
+				return { type: "ghost_banished", enemyName: state.combat!.enemy.name };
 			}
 
 			return event.encounterType === "boss"

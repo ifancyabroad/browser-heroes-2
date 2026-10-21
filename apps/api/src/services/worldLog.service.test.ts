@@ -68,6 +68,25 @@ describe("world log", () => {
 		expect(toWorldLogEvent({ ...victory, encounterType: "standard" }, state)).toBeNull();
 	});
 
+	it("announces ghost victories without also announcing a boss victory", () => {
+		expect(toWorldLogEvent({ ...victory, encounterType: "ghost" }, state)).toEqual({
+			type: "ghost_banished",
+			enemyName: state.combat!.enemy.name,
+		});
+	});
+
+	it.each(["standard", "boss", "ghost"] as const)(
+		"retains the %s encounter type for death wording",
+		(encounterType) => {
+			expect(
+				toWorldLogEvent({ ...victory, outcome: "defeat", encounterType }, state),
+			).toMatchObject({
+				type: "hero_died",
+				encounterType,
+			});
+		},
+	);
+
 	it("records deaths, rest and retirement, but not ordinary activity", () => {
 		expect(
 			toWorldLogEvent(
@@ -82,7 +101,12 @@ describe("world log", () => {
 				},
 				state,
 			),
-		).toEqual({ type: "hero_died", battleNumber: 7, enemyName: state.combat!.enemy.name });
+		).toEqual({
+			type: "hero_died",
+			battleNumber: 7,
+			enemyName: state.combat!.enemy.name,
+			encounterType: "ghost",
+		});
 		expect(
 			toWorldLogEvent(
 				{ type: "RESTED_AT_TOWN", cost: 2, hpRestored: 5 },

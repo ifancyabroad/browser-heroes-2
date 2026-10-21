@@ -18,22 +18,60 @@ describe("world log presentation", () => {
 		expect(
 			describeWorldLogEvent({ ...entry(1), event: { type: "hero_rested", day: 3 } }),
 		).toEqual({
-			text: "rested in town and began day 3.",
+			text: "rested in town to begin day 3.",
 			colour: "text-text",
 		});
 	});
 
-	it("names the killer while retaining readable older death entries", () => {
+	it("names the killer with a compact battle number suffix", () => {
 		expect(
 			describeWorldLogEvent({
 				...entry(1),
-				event: { type: "hero_died", battleNumber: 12, enemyName: "Ghost of Mira" },
+				event: {
+					type: "hero_died",
+					battleNumber: 12,
+					enemyName: "Fallen Warrior Mira",
+					encounterType: "ghost",
+				},
 			}).text,
-		).toBe("was slain by Ghost of Mira in battle 12.");
+		).toBe("was slain by Fallen Warrior Mira (12).");
+	});
+
+	it.each([
+		["standard", "Goblin", "a Goblin"],
+		["standard", "Orc", "an Orc"],
+		["boss", "Aetheris the Dawnflame", "Aetheris the Dawnflame"],
+		["ghost", "Fallen Warrior Bob", "Fallen Warrior Bob"],
+	] as const)(
+		"uses the appropriate article for %s enemies: %s",
+		(encounterType, enemyName, killer) => {
+			expect(
+				describeWorldLogEvent({
+					...entry(1),
+					event: { type: "hero_died", battleNumber: 12, enemyName, encounterType },
+				}),
+			).toEqual({ text: `was slain by ${killer} (12).`, colour: "text-error" });
+		},
+	);
+
+	it("uses concise, standard text for ordinary boss and ghost victories", () => {
 		expect(
-			describeWorldLogEvent({ ...entry(1), event: { type: "hero_died", battleNumber: 12 } })
-				.text,
-		).toBe("fell in battle 12.");
+			describeWorldLogEvent({
+				...entry(1),
+				event: {
+					type: "boss_defeated",
+					enemyName: "Dragon",
+					battleNumber: 10,
+					finalBoss: false,
+				},
+			}),
+		).toEqual({ text: "defeated Dragon (10).", colour: "text-text" });
+		expect(
+			describeWorldLogEvent({
+				...entry(1),
+				event: { type: "ghost_banished", enemyName: "Fallen Warrior Bob" },
+			}),
+		).toEqual({ text: "banished Fallen Warrior Bob.", colour: "text-text" });
 	});
 
 	it("merges overlapping fetches and socket arrivals with deterministic ordering and a 50-entry cap", () => {
