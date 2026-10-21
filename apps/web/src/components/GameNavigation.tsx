@@ -32,7 +32,7 @@ export function GameNavigation({
 						<IconScript aria-hidden="true" className="h-6 w-6" />
 					</IconButton>
 				</NavigationTooltip>
-				<NavigationTooltip label="World Log" className="min-[104rem]:hidden">
+				<NavigationTooltip label="World Log" className="2xl:hidden">
 					<IconButton
 						type="button"
 						aria-label="World Log"

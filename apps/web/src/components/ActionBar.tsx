@@ -17,7 +17,7 @@ export function ActionBarTray({ children, className }: ActionBarTrayProps) {
 	return (
 		<div
 			className={clsx(
-				"mx-auto flex w-full min-w-0 flex-wrap justify-center gap-1 sm:gap-2",
+				"mx-auto flex w-full min-w-0 flex-wrap justify-center gap-1 md:gap-2",
 				className,
 			)}
 		>
@@ -130,7 +130,7 @@ export function ActionSlotButton({
 		<Tooltip
 			content={tooltip}
 			placement="top"
-			className="h-16 w-16 sm:h-20 sm:w-20"
+			className="h-16 w-16 md:h-20 md:w-20"
 			contentClassName="w-64 max-w-[calc(100vw-1rem)]"
 			referenceTabIndex={null}
 			mobileBehavior="disabled"
@@ -205,14 +205,14 @@ function ActionSlotLabel({ children, className, position = "bottom-right" }: Act
 
 function getDisplaySlotClassName() {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden border-2 border-border bg-bg-panel outline outline-2 outline-bg-base sm:w-20 sm:outline-4",
+		"relative aspect-square w-16 overflow-hidden border-2 border-border bg-bg-panel outline outline-2 outline-bg-base md:w-20 md:outline-4",
 		"flex shrink-0 items-center justify-center text-center",
 	);
 }
 
 function getActionSlotClassName(disabled: boolean, showAvailabilityPulse: boolean) {
 	return clsx(
-		"relative aspect-square w-16 overflow-hidden border-2 bg-bg-panel outline outline-2 outline-bg-base sm:w-20 sm:outline-4",
+		"relative aspect-square w-16 overflow-hidden border-2 bg-bg-panel outline outline-2 outline-bg-base md:w-20 md:outline-4",
 		"flex shrink-0 items-center justify-center text-center",
 		disabled
 			? "cursor-not-allowed border-border/50"

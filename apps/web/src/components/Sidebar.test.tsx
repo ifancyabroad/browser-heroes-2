@@ -25,8 +25,8 @@ describe("Sidebar", () => {
 	it.each([
 		{ width: 1023, heroVisible: false, worldVisible: false },
 		{ width: 1024, heroVisible: true, worldVisible: false },
-		{ width: 1663, heroVisible: true, worldVisible: false },
-		{ width: 1664, heroVisible: true, worldVisible: true },
+		{ width: 1535, heroVisible: true, worldVisible: false },
+		{ width: 1536, heroVisible: true, worldVisible: true },
 	])(
 		"shows the correct permanent panels at $width px",
 		({ width, heroVisible, worldVisible }) => {
@@ -58,7 +58,7 @@ describe("Sidebar", () => {
 	it("uses a modal drawer on mobile and one permanent panel on desktop", async () => {
 		let desktop = false;
 		const listeners = new Set<(event: MediaQueryListEvent) => void>();
-		const media = window.matchMedia("(min-width: 1664px)");
+		const media = window.matchMedia("(min-width: 1536px)");
 		vi.mocked(window.matchMedia).mockImplementation(
 			(query) =>
 				({

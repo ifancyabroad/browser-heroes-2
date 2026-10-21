@@ -12,7 +12,7 @@ type CombatStatsBarProps = {
 export function CombatStatsBar({ zone, battleNumber, gold, goldMultiplier }: CombatStatsBarProps) {
 	return (
 		<div
-			className="absolute left-2 top-2 z-10 w-max max-w-[calc(100%-1rem)] border border-border-secondary bg-bg-base/90 px-2 py-1 text-base tabular-nums sm:px-3 sm:py-2"
+			className="absolute left-2 top-2 z-10 w-max max-w-[calc(100%-1rem)] border border-border-secondary bg-bg-base/90 px-2 py-1 text-base tabular-nums md:px-3 md:py-2"
 			role="group"
 			aria-label="Run information"
 		>
@@ -25,11 +25,11 @@ export function CombatStatsBar({ zone, battleNumber, gold, goldMultiplier }: Com
 				].map(({ label, value, icon: Icon }) => (
 					<div
 						key={label}
-						className="grid grid-cols-[1rem_minmax(0,1fr)] items-center gap-1 sm:grid-cols-[5ch_minmax(0,1fr)] sm:gap-3"
+						className="grid grid-cols-[1rem_minmax(0,1fr)] items-center gap-1 md:grid-cols-[5ch_minmax(0,1fr)] md:gap-3"
 					>
 						<dt className="text-text-label">
-							<Icon aria-hidden="true" className="h-4 w-4 sm:hidden" />
-							<span className="sr-only sm:not-sr-only">{label}</span>
+							<Icon aria-hidden="true" className="h-4 w-4 md:hidden" />
+							<span className="sr-only md:not-sr-only">{label}</span>
 						</dt>
 						<dd className="whitespace-nowrap text-right text-text-bright">{value}</dd>
 					</div>

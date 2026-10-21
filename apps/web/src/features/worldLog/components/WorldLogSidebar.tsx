@@ -18,7 +18,7 @@ export function WorldLogSidebar({ open, onClose }: WorldLogSidebarProps) {
 			onClose={onClose}
 			aria-label="World log"
 		>
-			<h2 className="flex h-14 shrink-0 items-center border-b-2 border-border-secondary pl-4 pr-16 text-text-bright min-[104rem]:pr-4">
+			<h2 className="flex h-14 shrink-0 items-center border-b-2 border-border-secondary pl-4 pr-16 text-text-bright 2xl:pr-4">
 				World Log
 			</h2>
 			<div className="flex min-h-0 flex-1 flex-col px-4 py-3">
