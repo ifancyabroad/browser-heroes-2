@@ -47,7 +47,7 @@ export function LevelUpOptionCard({ option, value, selected, disabled }: LevelUp
 				<Tooltip
 					content={tooltipContent}
 					contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-					className="w-fit max-w-full break-words text-text-bright underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+					className="w-fit max-w-full text-text-bright underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 				>
 					{content.name}
 				</Tooltip>

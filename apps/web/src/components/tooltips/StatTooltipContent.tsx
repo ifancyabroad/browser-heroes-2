@@ -18,7 +18,7 @@ export function StatTooltipContent({
 	return (
 		<div className="grid gap-2">
 			<div className="flex items-baseline justify-between gap-3">
-				<p className="min-w-0 break-words text-text-label">{label}</p>
+				<p className="min-w-0 text-text-label">{label}</p>
 				<p className="shrink-0 text-text-bright">{formatStatValue(stat.value, signed)}</p>
 			</div>
 
@@ -29,7 +29,7 @@ export function StatTooltipContent({
 							key={contribution.key}
 							className="flex items-baseline justify-between gap-3"
 						>
-							<span className="min-w-0 break-words">{contribution.label}</span>
+							<span className="min-w-0">{contribution.label}</span>
 							<span
 								className={clsx(
 									"shrink-0 text-right",

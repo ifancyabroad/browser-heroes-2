@@ -68,16 +68,11 @@ type ActiveEffectTooltipContentProps = {
 function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltipContentProps) {
 	return (
 		<div className="grid gap-1">
-			<p className="break-words text-text-bright">{sourceName}</p>
+			<p className="text-text-bright">{sourceName}</p>
 			<ul className="grid gap-1">
 				{effects.map((effect) => (
 					<li key={effect.id} className="flex items-baseline justify-between gap-3">
-						<span
-							className={clsx(
-								"min-w-0 break-words",
-								getActiveEffectTextClassName(effect),
-							)}
-						>
+						<span className={clsx("min-w-0", getActiveEffectTextClassName(effect))}>
 							{formatActiveEffectDetail(effect)}
 						</span>
 						<span className="shrink-0 text-text-muted">

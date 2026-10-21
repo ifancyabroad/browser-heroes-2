@@ -38,7 +38,7 @@ export function SkillTooltipContent({ definition }: SkillTooltipContentProps) {
 				</span>
 
 				<div className="grid min-w-0 content-center gap-1">
-					<p className="break-words text-text-bright">{definition.name}</p>
+					<p className="text-text-bright">{definition.name}</p>
 					<p className="text-text">{maxUsesLabel}</p>
 				</div>
 			</header>
@@ -54,7 +54,7 @@ export function SkillTooltipContent({ definition }: SkillTooltipContentProps) {
 			<TooltipSection title="Effects">
 				<ul className="grid gap-1">
 					{definition.effects.map((effect, index) => (
-						<li key={`${effect.type}-${index}`} className="grid gap-1 break-words">
+						<li key={`${effect.type}-${index}`} className="grid gap-1">
 							<p>{formatSkillEffect(effect)}</p>
 							{effect.type === "attackDamage" && effect.attackRiders.length > 0 && (
 								<AttackRiderTooltipList riders={effect.attackRiders} />

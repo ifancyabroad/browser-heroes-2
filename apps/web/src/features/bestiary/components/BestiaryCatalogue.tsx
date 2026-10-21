@@ -81,9 +81,7 @@ export function BestiaryCatalogue({ entries }: BestiaryCatalogueProps) {
 													setSelectedEnemy(enemy);
 												}}
 											>
-												<span className="min-w-0 break-words">
-													{enemy.name}
-												</span>{" "}
+												<span className="min-w-0">{enemy.name}</span>{" "}
 												<span className="mt-1 flex shrink-0 items-center gap-2">
 													{enemy.rank === "boss" && (
 														<IconSkull

@@ -73,7 +73,7 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 			<article className="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:grid-rows-[min-content_1fr]">
 				<header className="grid min-w-0 gap-2 md:col-start-2">
 					<div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-						<h2 className="min-w-0 break-words text-primary">{enemy.name}</h2>
+						<h2 className="min-w-0 text-primary">{enemy.name}</h2>
 						{enemy.rank === "boss" && (
 							<Badge
 								variant="muted"
@@ -134,7 +134,7 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 								className="shrink-0"
 							/>
 							<div className="grid min-w-0 gap-1">
-								<h3 className="break-words text-text-bright">{attack.name}</h3>
+								<h3 className="text-text-bright">{attack.name}</h3>
 								<dl className="grid gap-1">
 									<div className="grid grid-cols-[4rem_minmax(0,1fr)] gap-2">
 										<dt className="text-text-label">Damage</dt>
@@ -238,7 +238,7 @@ function AbilityRow({
 				className="shrink-0"
 			/>
 			<div className="grid min-w-0 gap-1">
-				<h3 className="break-words text-text-bright">{ability.name}</h3>
+				<h3 className="text-text-bright">{ability.name}</h3>
 				{ability.description && <p>{ability.description}</p>}
 			</div>
 		</li>

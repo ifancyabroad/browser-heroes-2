@@ -24,7 +24,7 @@ export function DamageAffinityTooltipContent({
 }: DamageAffinityTooltipContentProps) {
 	return (
 		<div className="grid gap-2">
-			<p className="break-words text-text-label">
+			<p className="text-text-label">
 				{damageTypeLabels[affinity.damageType]} {affinityLabel}
 			</p>
 
@@ -41,9 +41,7 @@ export function DamageAffinityTooltipContent({
 							key={`${contribution.source.type}-${contribution.operation}-${index}`}
 							className="flex items-baseline justify-between gap-3"
 						>
-							<span className="min-w-0 break-words">
-								{contribution.source.sourceName}
-							</span>
+							<span className="min-w-0">{contribution.source.sourceName}</span>
 							<span
 								className={clsx(
 									"shrink-0",
@@ -73,7 +71,7 @@ export function DamageModifierTooltipContent({
 
 	return (
 		<div className="grid gap-2">
-			<p className="break-words text-text-label">
+			<p className="text-text-label">
 				{damageSubject} Damage {kind === "damageReduction" ? "Reduction" : "Bonus"}
 			</p>
 			<ul className="grid gap-1">
@@ -82,7 +80,7 @@ export function DamageModifierTooltipContent({
 						key={`${source.type}-${index}`}
 						className="flex items-baseline justify-between gap-3"
 					>
-						<span className="min-w-0 break-words">{source.sourceName}</span>
+						<span className="min-w-0">{source.sourceName}</span>
 						<span
 							className={clsx(
 								"shrink-0 text-right",

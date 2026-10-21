@@ -89,7 +89,7 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 						{requiresReplacement && (
 							<p className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-2">
 								<span className="text-text-label">Replaces</span>
-								<span className="min-w-0 break-words text-text">
+								<span className="min-w-0 text-text">
 									<EquipmentReplacementItems destinations={destinations} />
 								</span>
 							</p>
@@ -117,7 +117,7 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 				<div className="pt-1 md:hidden">
 					<p className="min-w-0">
 						<span className="mr-1 text-text-label">Replaces:</span>
-						<span className="min-w-0 break-words text-text">
+						<span className="min-w-0 text-text">
 							<EquipmentReplacementItems destinations={destinations} />
 						</span>
 					</p>
@@ -145,7 +145,7 @@ function ItemHeading({ slot }: { slot: TownShopSlotView }) {
 					) : null
 				}
 				className={clsx(
-					"min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+					"min-w-0 max-w-full underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
@@ -266,7 +266,7 @@ function DetailLine({
 	return (
 		<p className="grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-2">
 			<span className="whitespace-nowrap text-text-label">{label}</span>
-			<span className={clsx("min-w-0 break-words", valueClassName)}>{value}</span>
+			<span className={clsx("min-w-0", valueClassName)}>{value}</span>
 		</p>
 	);
 }
@@ -281,7 +281,7 @@ function ModifierPreview({ slot }: { slot: TownShopSlotView }) {
 			{slot.item.modifiers.map((modifier, index) => (
 				<li
 					key={`${modifier.type}-${index}`}
-					className={clsx("min-w-0 break-words", getModifierTextClassName(modifier))}
+					className={clsx("min-w-0", getModifierTextClassName(modifier))}
 				>
 					{formatItemModifier(modifier)}
 				</li>

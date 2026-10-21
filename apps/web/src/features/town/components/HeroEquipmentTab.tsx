@@ -31,7 +31,7 @@ export function HeroEquipmentTab({ equipment, canSwap, isPending, onSwap }: Hero
 								content={<ItemTooltipContent item={item} />}
 								placement="right"
 								className={clsx(
-									"min-w-0 max-w-full justify-self-end break-words text-right underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+									"min-w-0 max-w-full justify-self-end text-right underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 									getItemRarityTextClassName(item.rarity),
 								)}
 								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
@@ -39,7 +39,7 @@ export function HeroEquipmentTab({ equipment, canSwap, isPending, onSwap }: Hero
 								{item.name}
 							</Tooltip>
 						) : (
-							<p className="min-w-0 break-words text-right text-text-muted">Empty</p>
+							<p className="min-w-0 text-right text-text-muted">Empty</p>
 						)}
 					</div>
 				);

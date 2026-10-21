@@ -134,7 +134,7 @@ function ReplacementChoice({ destination, selected, disabled }: ReplacementChoic
 			</span>
 			<span className="flex min-w-0 flex-wrap items-baseline gap-x-1 gap-y-1">
 				<span className="text-text-label">Equipped</span>
-				<span className="min-w-0 break-words text-text">
+				<span className="min-w-0 text-text">
 					<ReplacedItemNames destination={destination} />
 				</span>
 			</span>

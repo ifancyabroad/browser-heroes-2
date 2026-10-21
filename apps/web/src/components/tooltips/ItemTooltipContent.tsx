@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import {
 	attackRangeLabels,
 	attributeLabels,
@@ -40,9 +39,7 @@ export function ItemTooltipContent({ item }: ItemTooltipContentProps) {
 				</span>
 
 				<div className="grid min-w-0 content-center gap-1">
-					<p className={clsx("break-words", getItemRarityTextClassName(item.rarity))}>
-						{item.name}
-					</p>
+					<p className={getItemRarityTextClassName(item.rarity)}>{item.name}</p>
 					<p className="text-text">{itemRarityLabels[item.rarity]}</p>
 				</div>
 			</header>
@@ -55,7 +52,7 @@ export function ItemTooltipContent({ item }: ItemTooltipContentProps) {
 						{item.modifiers.map((modifier, index) => (
 							<li
 								key={`${modifier.type}-${index}`}
-								className={clsx("break-words", getModifierTextClassName(modifier))}
+								className={getModifierTextClassName(modifier)}
 							>
 								{formatItemModifier(modifier)}
 							</li>

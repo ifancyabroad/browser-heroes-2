@@ -1,5 +1,4 @@
 import type { Feat } from "@app/content";
-import clsx from "clsx";
 import { featCategoryLabels } from "../../presentation/labels";
 import { formatModifier, getModifierTextClassName } from "../../presentation/effects";
 import { AttackRiderTooltipList } from "./AttackRiderTooltipList";
@@ -25,7 +24,7 @@ export function FeatTooltipContent({ feat }: FeatTooltipContentProps) {
 				</span>
 
 				<div className="grid min-w-0 content-center gap-1">
-					<p className="break-words text-text-bright">{feat.name}</p>
+					<p className="text-text-bright">{feat.name}</p>
 					<p className="text-text">{featCategoryLabels[feat.category]}</p>
 				</div>
 			</header>
@@ -40,7 +39,7 @@ export function FeatTooltipContent({ feat }: FeatTooltipContentProps) {
 						{feat.modifiers.map((modifier, index) => (
 							<li
 								key={`${modifier.type}-${index}`}
-								className={clsx("break-words", getModifierTextClassName(modifier))}
+								className={getModifierTextClassName(modifier)}
 							>
 								{formatModifier(modifier)}
 							</li>

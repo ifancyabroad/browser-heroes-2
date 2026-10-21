@@ -112,7 +112,7 @@ function AbilityRow({ icon, name, meta, badges }: AbilityRowProps) {
 			</span>
 
 			<span className="grid min-w-0 content-center gap-1">
-				<span className="break-words text-text-bright">{name}</span>
+				<span className="text-text-bright">{name}</span>
 				<span>{meta}</span>
 			</span>
 

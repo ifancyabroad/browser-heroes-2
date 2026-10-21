@@ -67,7 +67,7 @@ export function ClassDetailsModal({ gameClass, onChoose, onClose }: ClassDetails
 		>
 			<article className="grid items-start gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,5fr)] md:grid-rows-[min-content_1fr]">
 				<header className="grid min-w-0 gap-2 md:col-start-2">
-					<h2 className="break-words text-primary">{gameClass.name}</h2>
+					<h2 className="text-primary">{gameClass.name}</h2>
 					{gameClass.description && <p>{gameClass.description}</p>}
 				</header>
 				<div className="flex h-56 justify-center overflow-hidden bg-bg-base md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-96">
@@ -115,9 +115,7 @@ export function ClassDetailsModal({ gameClass, onChoose, onClose }: ClassDetails
 											className="shrink-0"
 										/>
 										<div className="grid min-w-0 gap-1">
-											<h3 className="break-words text-text-bright">
-												{skill.name}
-											</h3>
+											<h3 className="text-text-bright">{skill.name}</h3>
 											{skill.description && <p>{skill.description}</p>}
 										</div>
 									</li>

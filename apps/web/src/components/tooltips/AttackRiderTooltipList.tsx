@@ -30,7 +30,7 @@ function AttackRiderTooltipItem({ rider, index }: { rider: AttackRider; index: n
 	const effectText = formatSavedRiderEffects(rider, effects);
 
 	return (
-		<li key={`${rider.timing}-${index}`} className="break-words">
+		<li key={`${rider.timing}-${index}`}>
 			<Badge label={trigger} className="text-primary" /> <span>{effectText}</span>
 		</li>
 	);

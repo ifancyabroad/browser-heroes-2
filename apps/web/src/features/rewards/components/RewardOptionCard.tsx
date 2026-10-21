@@ -44,7 +44,7 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 						<Tooltip
 							content={<ItemTooltipContent item={option.item} />}
 							className={clsx(
-								"w-fit min-w-0 max-w-full break-words underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+								"w-fit min-w-0 max-w-full underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 								getItemRarityTextClassName(option.item.rarity),
 							)}
 							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
@@ -73,7 +73,7 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 			{requiresReplacement && (
 				<p className="min-w-0 pt-1">
 					<span className="mr-1 text-text-label">Replaces:</span>
-					<span className="min-w-0 break-words text-text">
+					<span className="min-w-0 text-text">
 						<EquipmentReplacementItems
 							destinations={option.equipmentPlacement.destinations}
 						/>

@@ -1,6 +1,5 @@
 import { equipmentSlots, FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import { selectItemDefinition, type HeroView } from "@app/engine";
-import clsx from "clsx";
 import { Badge } from "../../../components/Badge";
 import { Tooltip } from "../../../components/Tooltip";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
@@ -164,9 +163,7 @@ function DossierEntryCard({
 				className="h-12 w-12 object-cover"
 			/>
 			<span className="grid min-w-0 gap-1">
-				<span className={clsx("break-words", nameClassName ?? "text-text-bright")}>
-					{name}
-				</span>
+				<span className={nameClassName ?? "text-text-bright"}>{name}</span>
 				<span className="text-text-muted">{subtitle}</span>
 			</span>
 			{badge && <Badge label={badge} className="text-primary" />}

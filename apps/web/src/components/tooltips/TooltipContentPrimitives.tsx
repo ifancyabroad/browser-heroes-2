@@ -18,11 +18,7 @@ export function TooltipDetailList({
 			{rows.map((row) => (
 				<div key={row.label} className="flex items-baseline justify-between gap-3">
 					<dt className="shrink-0 text-text-label">{row.label}</dt>
-					<dd
-						className={`min-w-0 break-words text-right ${
-							row.valueClassName ?? valueClassName
-						}`}
-					>
+					<dd className={`min-w-0 text-right ${row.valueClassName ?? valueClassName}`}>
 						{row.value}
 					</dd>
 				</div>
