@@ -93,12 +93,10 @@ export function HeroSidebar({
 							tone="xp"
 							fillPercent={xpResource.fillPercent}
 						/>
-						{combat && (
-							<ActiveEffectsRow
-								effects={combat.player.activeEffects}
-								label="Hero active effects"
-							/>
-						)}
+						<ActiveEffectsRow
+							effects={combat?.player.activeEffects ?? []}
+							label="Hero active effects"
+						/>
 					</section>
 				</div>
 			</header>
