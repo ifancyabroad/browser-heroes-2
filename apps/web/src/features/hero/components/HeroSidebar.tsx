@@ -101,7 +101,7 @@ export function HeroSidebar({
 				</div>
 			</header>
 
-			<div className="flex min-h-0 flex-1 flex-col gap-3 px-4 py-3">
+			<div className="flex flex-1 flex-col gap-3 px-4 py-3">
 				<RunInfo
 					battleNumber={state.battleNumber}
 					day={state.day}
@@ -115,7 +115,7 @@ export function HeroSidebar({
 					value={activeTab}
 					onChange={setActiveTab}
 					className="w-full shrink-0"
-					panelClassName="flex min-h-0 flex-1 flex-col"
+					panelClassName="flex flex-1 basis-0 flex-col"
 					renderPanel={(tab) => {
 						if (tab === "combat") {
 							return (
