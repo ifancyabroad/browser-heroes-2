@@ -50,7 +50,7 @@ export function ResourceBar({
 			title={accessibleLabel}
 		>
 			<div
-				className="relative isolate h-5 overflow-hidden bg-text-muted/30"
+				className="relative isolate h-5 overflow-hidden bg-[#222222]"
 				aria-label={accessibleLabel}
 			>
 				{damageChunk && (
