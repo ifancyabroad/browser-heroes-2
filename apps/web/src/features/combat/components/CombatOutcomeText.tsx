@@ -24,7 +24,7 @@ export function CombatOutcomeText({
 
 	if (outcome.type === "healing") {
 		return (
-			<p className="text-success tabular-nums leading-tight" style={style}>
+			<p className="text-healing tabular-nums leading-tight" style={style}>
 				+{outcome.amount}
 			</p>
 		);

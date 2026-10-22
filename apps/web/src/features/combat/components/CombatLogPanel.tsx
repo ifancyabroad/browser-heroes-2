@@ -1,16 +1,11 @@
 import { Fragment, useEffect, useRef } from "react";
 import clsx from "clsx";
 import type { CombatLogEntry } from "@app/engine";
+import { getCombatLogEntryClassName } from "../utils/combatLogPresentation";
 
 type CombatLogPanelProps = {
 	entries: CombatLogEntry[];
 	className?: string;
-};
-
-const logActorClass: Record<CombatLogEntry["actor"], string> = {
-	enemy: "text-text",
-	player: "text-text-bright",
-	system: "text-text-muted",
 };
 
 export function CombatLogPanel({ entries, className }: CombatLogPanelProps) {
@@ -24,8 +19,6 @@ export function CombatLogPanel({ entries, className }: CombatLogPanelProps) {
 		}
 	}, [entries.length]);
 
-	let previousTurnNumber: number | null = null;
-
 	return (
 		<div
 			ref={scrollRef}
@@ -33,9 +26,8 @@ export function CombatLogPanel({ entries, className }: CombatLogPanelProps) {
 			aria-label="Combat log"
 		>
 			<div className="flex min-h-full flex-col justify-end">
-				{entries.map((entry) => {
-					const showTurnHeading = entry.turnNumber !== previousTurnNumber;
-					previousTurnNumber = entry.turnNumber;
+				{entries.map((entry, index) => {
+					const showTurnHeading = entry.turnNumber !== entries[index - 1]?.turnNumber;
 
 					return (
 						<Fragment key={entry.id}>
@@ -44,7 +36,7 @@ export function CombatLogPanel({ entries, className }: CombatLogPanelProps) {
 									Round {entry.turnNumber}
 								</p>
 							)}
-							<p className={clsx("break-words", logActorClass[entry.actor])}>
+							<p className={getCombatLogEntryClassName(entry, showTurnHeading)}>
 								{entry.message}
 							</p>
 						</Fragment>
