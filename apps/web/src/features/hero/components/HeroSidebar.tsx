@@ -1,6 +1,11 @@
-import { CLASSES_BY_ID, type Zone } from "@app/content";
+import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroProgression, selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
+import { IconChartBar, IconSword, IconSparkles, IconScript, IconWorld } from "@tabler/icons-react";
+import { ActiveEffectsRow } from "../../combat/components/ActiveEffectsRow";
+import { CombatLogPanel } from "../../combat/components/CombatLogPanel";
+import { LogPanel } from "../../../components/LogPanel";
+import { useWorldLog, WorldLogPanel } from "../../worldLog";
 import { useState } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
@@ -13,45 +18,54 @@ import { HeroSkillsTab } from "./HeroSkillsTab";
 
 type HeroSidebarProps = {
 	run: RunView;
-	battleNumber: number;
-	day: number;
-	gold: number;
-	zone: Zone;
 	open: boolean;
-	canSwapWeapons: boolean;
+	canSwapWeapons?: boolean;
 	isPending: boolean;
 	onClose: () => void;
-	onSwapWeapons: () => void;
+	onSwapWeapons?: () => void;
 };
 
-type HeroSidebarTab = "details" | "equipment" | "skills";
+type HeroSidebarTab = "details" | "equipment" | "skills" | "combat" | "world";
 
-const heroSidebarTabs = [
-	{ label: "Stats", value: "details" },
-	{ label: "Equipment", value: "equipment" },
-	{ label: "Skills", value: "skills" },
+const sharedTabs = [
+	{ label: "Equipment", value: "equipment", icon: <IconSword className="h-6 w-6" /> },
+	{ label: "Skills", value: "skills", icon: <IconSparkles className="h-6 w-6" /> },
+	{ label: "World Log", value: "world", icon: <IconWorld className="h-6 w-6" /> },
 ] as const;
 
 export function HeroSidebar({
 	run,
-	battleNumber,
-	day,
-	gold,
-	zone,
 	open,
 	canSwapWeapons,
 	isPending,
 	onClose,
 	onSwapWeapons,
 }: HeroSidebarProps) {
-	const [activeTab, setActiveTab] = useState<HeroSidebarTab>("details");
-
 	const { state } = run;
+	const { combat } = state;
+	const isCombat = combat !== null;
+	const [activeTab, setActiveTab] = useState<HeroSidebarTab>(isCombat ? "combat" : "details");
+
 	const heroView = selectHeroView(state.hero);
+	const worldLog = useWorldLog();
+	const heroSidebarTabs = [
+		isCombat
+			? {
+					label: "Combat Log",
+					value: "combat" as const,
+					icon: <IconScript className="h-6 w-6" />,
+				}
+			: {
+					label: "Stats",
+					value: "details" as const,
+					icon: <IconChartBar className="h-6 w-6" />,
+				},
+		...sharedTabs,
+	];
 	const heroClass = CLASSES_BY_ID[heroView.classId];
 	const progression = selectHeroProgression(state);
 	const xpResource = getXpResource(progression);
-	const { health } = heroView;
+	const health = combat?.player ?? heroView.health;
 	const heroTitle = `${heroView.name} the ${heroClass.name} / Level ${heroView.level}`;
 
 	return (
@@ -71,6 +85,7 @@ export function HeroSidebar({
 							value={`${health.currentHp}/${health.maxHp}`}
 							tone="hp"
 							fillPercent={(health.currentHp / health.maxHp) * 100}
+							animateChanges={isCombat}
 						/>
 						<ResourceBar
 							label="XP"
@@ -78,16 +93,22 @@ export function HeroSidebar({
 							tone="xp"
 							fillPercent={xpResource.fillPercent}
 						/>
+						{combat && (
+							<ActiveEffectsRow
+								effects={combat.player.activeEffects}
+								label="Hero active effects"
+							/>
+						)}
 					</section>
 				</div>
 			</header>
 
-			<div className="grid content-start gap-3 px-4 py-3">
+			<div className="grid shrink-0 content-start gap-3 px-4 py-3">
 				<RunInfo
-					battleNumber={battleNumber}
-					day={day}
-					gold={gold}
-					zoneLabel={formatTitle(zone)}
+					battleNumber={state.battleNumber}
+					day={state.day}
+					gold={state.gold}
+					zoneLabel={formatTitle(state.zone)}
 				/>
 
 				<Tabs
@@ -97,6 +118,19 @@ export function HeroSidebar({
 					onChange={setActiveTab}
 					className="w-full"
 					renderPanel={(tab) => {
+						if (tab === "combat") {
+							return (
+								<LogPanel title="Combat Log">
+									<CombatLogPanel
+										entries={combat?.log ?? []}
+										className="flex-1"
+									/>
+								</LogPanel>
+							);
+						}
+						if (tab === "world") {
+							return <WorldLogPanel {...worldLog} />;
+						}
 						if (tab === "details") {
 							return <HeroDetailsTab heroView={heroView} />;
 						}
@@ -105,7 +139,7 @@ export function HeroSidebar({
 							return (
 								<HeroEquipmentTab
 									equipment={heroView.equipment}
-									canSwap={canSwapWeapons}
+									canSwap={canSwapWeapons ?? false}
 									isPending={isPending}
 									onSwap={onSwapWeapons}
 								/>
@@ -113,7 +147,10 @@ export function HeroSidebar({
 						}
 
 						return (
-							<HeroSkillsTab skills={heroView.skills} featIds={heroView.featIds} />
+							<HeroSkillsTab
+								skills={combat?.player.skills ?? heroView.skills}
+								featIds={combat?.player.featIds ?? heroView.featIds}
+							/>
 						);
 					}}
 				/>

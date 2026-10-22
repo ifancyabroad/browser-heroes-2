@@ -8,11 +8,10 @@ type DrawerProps = PropsWithChildren<{
 	open: boolean;
 	onClose: () => void;
 	className?: string;
-	side: "left" | "right";
 	label: string;
 }>;
 
-export function Drawer({ open, onClose, side, label, children, className }: DrawerProps) {
+export function Drawer({ open, onClose, label, children, className }: DrawerProps) {
 	const returnFocusRef = useRef<HTMLElement | null>(null);
 	const [portalContainer, setPortalContainer] = useState<HTMLDivElement | null>(null);
 
@@ -32,7 +31,7 @@ export function Drawer({ open, onClose, side, label, children, className }: Draw
 					aria-describedby={undefined}
 					className={clsx(
 						"fixed inset-y-0 z-50 flex h-dvh w-96 max-w-full flex-col overflow-y-auto bg-bg-base outline-none",
-						side === "left" ? "left-0 border-r-2" : "right-0 border-l-2",
+						"left-0 border-r-2",
 						className,
 					)}
 					onOpenAutoFocus={() => {

@@ -10,7 +10,7 @@ type HeroEquipmentTabProps = {
 	equipment: HeroView["equipment"];
 	canSwap: boolean;
 	isPending: boolean;
-	onSwap: () => void;
+	onSwap?: () => void;
 };
 
 export function HeroEquipmentTab({ equipment, canSwap, isPending, onSwap }: HeroEquipmentTabProps) {

@@ -22,7 +22,7 @@ export function WorldLogList({ entries }: WorldLogListProps) {
 		<div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto" aria-label="World activity">
 			<div className="flex min-h-full flex-col justify-end">
 				{entries.length ? (
-					<ol className="space-y-1">
+					<ol>
 						{entries.map((entry) => (
 							<WorldLogEntry key={entry.id} entry={entry} />
 						))}

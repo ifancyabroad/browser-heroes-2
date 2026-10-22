@@ -7,19 +7,11 @@ type SidebarProps = PropsWithChildren<{
 	open: boolean;
 	onClose: () => void;
 	className?: string;
-	side?: "left" | "right";
 	"aria-label": string;
 }>;
 
-export function Sidebar({
-	open,
-	onClose,
-	side = "left",
-	children,
-	className,
-	"aria-label": label,
-}: SidebarProps) {
-	const desktop = useMediaQuery(side === "left" ? "(min-width: 1024px)" : "(min-width: 1536px)");
+export function Sidebar({ open, onClose, children, className, "aria-label": label }: SidebarProps) {
+	const desktop = useMediaQuery("(min-width: 1024px)");
 
 	useEffect(() => {
 		if (desktop && open) {
@@ -29,7 +21,7 @@ export function Sidebar({
 
 	if (!desktop) {
 		return (
-			<Drawer open={open} onClose={onClose} side={side} label={label} className={className}>
+			<Drawer open={open} onClose={onClose} label={label} className={className}>
 				{children}
 			</Drawer>
 		);
@@ -42,7 +34,7 @@ export function Sidebar({
 				aria-label={label}
 				className={clsx(
 					"fixed inset-y-0 z-50 flex h-dvh w-96 flex-col overflow-y-auto bg-bg-base",
-					side === "left" ? "left-0 border-r-2" : "right-0 border-l-2",
+					"left-0 border-r-2",
 					className,
 				)}
 			>

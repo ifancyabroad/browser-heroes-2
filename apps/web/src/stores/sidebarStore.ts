@@ -1,15 +1,13 @@
 import { create } from "zustand";
 
-type Sidebar = "hero" | "world";
-
 type SidebarState = {
-	activeSidebar: Sidebar | null;
-	open: (sidebar: Sidebar) => void;
+	isOpen: boolean;
+	open: () => void;
 	close: () => void;
 };
 
 export const useSidebarStore = create<SidebarState>((set) => ({
-	activeSidebar: null,
-	open: (sidebar) => set({ activeSidebar: sidebar }),
-	close: () => set({ activeSidebar: null }),
+	isOpen: false,
+	open: () => set({ isOpen: true }),
+	close: () => set({ isOpen: false }),
 }));

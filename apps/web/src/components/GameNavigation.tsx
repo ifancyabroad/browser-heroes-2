@@ -1,19 +1,19 @@
 import type { ReactNode } from "react";
-import { IconHelpCircle, IconHome, IconScript, IconWorld } from "@tabler/icons-react";
+import { IconHelpCircle, IconHome, IconScript } from "@tabler/icons-react";
 import { ButtonLink, IconButton } from "./Button";
 import { Tooltip } from "./Tooltip";
 
 type GameNavigationProps = {
 	label: string;
-	activeSidebar: "hero" | "world" | null;
-	onOpenSidebar: (sidebar: "hero" | "world") => void;
+	isSidebarOpen: boolean;
+	onOpenSidebar: () => void;
 	onHowToPlay: () => void;
 	children?: ReactNode;
 };
 
 export function GameNavigation({
 	label,
-	activeSidebar,
+	isSidebarOpen,
 	onOpenSidebar,
 	onHowToPlay,
 	children,
@@ -26,20 +26,10 @@ export function GameNavigation({
 						type="button"
 						variant="primary"
 						aria-label="Hero"
-						aria-expanded={activeSidebar === "hero"}
-						onClick={() => onOpenSidebar("hero")}
+						aria-expanded={isSidebarOpen}
+						onClick={onOpenSidebar}
 					>
 						<IconScript aria-hidden="true" className="h-6 w-6" />
-					</IconButton>
-				</NavigationTooltip>
-				<NavigationTooltip label="World Log" className="2xl:hidden">
-					<IconButton
-						type="button"
-						aria-label="World Log"
-						aria-expanded={activeSidebar === "world"}
-						onClick={() => onOpenSidebar("world")}
-					>
-						<IconWorld aria-hidden="true" className="h-6 w-6" />
 					</IconButton>
 				</NavigationTooltip>
 				<NavigationTooltip label="Home">

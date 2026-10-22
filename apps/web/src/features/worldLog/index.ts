@@ -1,1 +1,2 @@
-export { WorldLogSidebar } from "./components/WorldLogSidebar";
+export { WorldLogPanel } from "./components/WorldLogPanel";
+export { useWorldLog } from "./hooks/useWorldLog";

@@ -15,13 +15,6 @@ const selectors = vi.hoisted(() => ({
 const mutate = vi.hoisted(() => vi.fn());
 const showError = vi.hoisted(() => vi.fn());
 
-vi.mock("../../worldLog", async (importOriginal) => ({
-	...(await importOriginal<typeof import("../../worldLog")>()),
-	WorldLogSidebar: ({ open }: { open: boolean }) => (
-		<div>World sidebar {open ? "open" : "closed"}</div>
-	),
-}));
-
 vi.mock("@app/engine", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@app/engine")>()),
 	...selectors,
@@ -54,8 +47,8 @@ vi.mock("../../../components/GameMainPanel", () => ({
 		</div>
 	),
 }));
-vi.mock("./CombatSidebar", () => ({
-	CombatSidebar: ({ open, onClose }: { open: boolean; onClose: () => void }) => (
+vi.mock("../../hero/components/HeroSidebar", () => ({
+	HeroSidebar: ({ open, onClose }: { open: boolean; onClose: () => void }) => (
 		<div>
 			Combat sidebar {open ? "open" : "closed"}
 			{open && <button onClick={onClose}>Close sidebar</button>}
@@ -249,25 +242,14 @@ describe("CombatView", () => {
 		expect(showError).toHaveBeenCalledWith("Unable to use a healing potion. Please try again.");
 	});
 
-	it("coordinates drawers and retains the world log in the outgoing combat frame", () => {
-		const view = render(
-			<TooltipProvider>
-				<CombatView run={run} />
-			</TooltipProvider>,
-		);
-		fireEvent.click(screen.getByRole("button", { name: "Hero" }));
-		expect(screen.getByText("Combat sidebar open")).toBeInTheDocument();
-		fireEvent.click(screen.getByRole("button", { name: "World Log" }));
-		expect(screen.getByText("Combat sidebar closed")).toBeInTheDocument();
-		expect(screen.getByText("World sidebar open")).toBeInTheDocument();
-		view.unmount();
-
+	it("retains the hero drawer in the outgoing combat frame without a world toggle", () => {
 		render(
 			<TooltipProvider>
 				<CombatView run={{ ...run, state: { ...run.state, phase: "dead" } }} />
 			</TooltipProvider>,
 		);
-		expect(screen.getByRole("button", { name: "World Log" })).toBeInTheDocument();
-		expect(screen.getByText("World sidebar open")).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: "Hero" }));
+		expect(screen.getByText("Combat sidebar open")).toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "World Log" })).not.toBeInTheDocument();
 	});
 });

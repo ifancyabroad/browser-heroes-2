@@ -4,6 +4,7 @@ import { Tabs as TabsPrimitive } from "radix-ui";
 
 export type TabItem<TValue extends string> = {
 	label: string;
+	icon?: ReactNode;
 	value: TValue;
 };
 
@@ -46,13 +47,24 @@ export function Tabs<TValue extends string>({
 						key={item.value}
 						value={item.value}
 						type="button"
+						aria-label={item.label}
+						title={item.icon ? item.label : undefined}
 						className={clsx(
 							"mb-[-2px] min-w-0 border-b-2 px-2 py-2 text-center focus-visible:z-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 							"data-[state=active]:border-primary data-[state=active]:bg-bg-elevated data-[state=active]:text-text-bright",
 							"data-[state=inactive]:border-transparent data-[state=inactive]:text-text-muted data-[state=inactive]:hover:text-text-bright",
 						)}
 					>
-						{item.label}
+						{item.icon ? (
+							<>
+								<span aria-hidden="true" className="flex justify-center">
+									{item.icon}
+								</span>
+								<span className="sr-only">{item.label}</span>
+							</>
+						) : (
+							item.label
+						)}
 					</TabsPrimitive.Trigger>
 				))}
 			</TabsPrimitive.List>

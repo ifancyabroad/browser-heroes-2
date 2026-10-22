@@ -30,7 +30,7 @@ vi.mock("../../../lib/socket", () => {
 vi.mock("../../../lib/api", () => ({ api: { get: transport.get } }));
 
 import { useWorldLog } from "./useWorldLog";
-import { WorldLogSidebar } from "../index";
+import { WorldLogPanel } from "../index";
 
 function entry(id: string): WorldLogEntry {
 	return {
@@ -50,21 +50,13 @@ function Entries() {
 	return <output data-testid="entries">{log.entries.map((entry) => entry.id).join(",")}</output>;
 }
 
-function Probe({ showSidebar }: { showSidebar: boolean }) {
-	const [activeSidebar, setActiveSidebar] = useState<"hero" | "world" | null>(null);
-
+function PanelProbe() {
+	const [visible, setVisible] = useState(false);
+	const log = useWorldLog();
 	return (
 		<>
-			{!showSidebar && <Entries />}
-			<button onClick={() => setActiveSidebar("hero")}>Hero</button>
-			<output data-testid="drawer">{activeSidebar}</output>
-			<button onClick={() => setActiveSidebar("world")}>World Log</button>
-			{showSidebar && (
-				<WorldLogSidebar
-					open={activeSidebar === "world"}
-					onClose={() => setActiveSidebar(null)}
-				/>
-			)}
+			<button onClick={() => setVisible(!visible)}>World Log</button>
+			{visible && <WorldLogPanel {...log} />}
 		</>
 	);
 }
@@ -74,12 +66,12 @@ function setup(showSidebar = false) {
 
 	return render(
 		<QueryClientProvider client={client}>
-			<Probe showSidebar={showSidebar} />
+			{showSidebar ? <PanelProbe /> : <Entries />}
 		</QueryClientProvider>,
 	);
 }
 
-describe("world log connection and sidebar", () => {
+describe("world log connection and panel", () => {
 	beforeEach(() => {
 		transport.listeners.clear();
 		transport.get.mockReset();
@@ -116,28 +108,23 @@ describe("world log connection and sidebar", () => {
 		);
 	});
 
-	it("shows public names before messages and coordinates keyboard-accessible drawers", async () => {
+	it("keeps receiving activity while the log tab is hidden", async () => {
 		transport.get.mockReturnValue({ json: async () => ({ entries: [entry("Aldric")] }) });
 		setup(true);
+		await waitFor(() => expect(transport.listeners.get("world-log:entry")?.size).toBe(1));
+		act(() => {
+			transport.listeners
+				.get("world-log:entry")!
+				.forEach((callback) => callback(entry("Mira") as never));
+		});
 		act(() => screen.getByRole("button", { name: "World Log" }).click());
 		const heroName = await screen.findByText("Aldric the Warrior", { selector: "span" });
 		expect(heroName.parentElement).toHaveTextContent("Aldric the Warrior retired victorious");
 		expect(heroName.parentElement?.previousElementSibling).toHaveTextContent("[Edgar]");
-		expect(screen.getByText("[Edgar]")).toBeInTheDocument();
-		expect(screen.queryByRole("img", { name: "Daily Challenge" })).not.toBeInTheDocument();
-		const sidebar = screen.getByRole("dialog", { name: "World log" });
-		expect(screen.getByRole("heading", { name: "World Log" })).toBeInTheDocument();
-		act(() =>
-			sidebar.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })),
-		);
-		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
-		const toggle = screen.getByRole("button", { name: "World Log" });
-		act(() => screen.getByRole("button", { name: "Hero" }).click());
-		expect(screen.getByTestId("drawer")).toHaveTextContent("hero");
-		toggle.focus();
-		act(() => toggle.click());
-		expect(screen.getByTestId("drawer")).toHaveTextContent("world");
-		act(() => screen.getByRole("button", { name: "Close sidebar" }).click());
-		await waitFor(() => expect(toggle).toHaveFocus());
+		expect(
+			await screen.findByText("Mira the Warrior", { selector: "span" }),
+		).toBeInTheDocument();
+		act(() => screen.getByRole("button", { name: "World Log" }).click());
+		expect(transport.listeners.get("world-log:entry")?.size).toBe(1);
 	});
 });

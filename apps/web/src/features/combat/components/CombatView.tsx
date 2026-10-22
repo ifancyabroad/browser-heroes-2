@@ -1,22 +1,16 @@
 import { CLASSES_BY_ID, type SkillId } from "@app/content";
-import {
-	selectAvailableActions,
-	selectCombatView,
-	selectHeroProgression,
-	type EngineAction,
-} from "@app/engine";
+import { selectAvailableActions, selectCombatView, type EngineAction } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameNavigation } from "../../../components/GameNavigation";
 import { useHowToPlayModalStore } from "../../howToPlay";
 import { GameMainPanel } from "../../../components/GameMainPanel";
-import { WorldLogSidebar } from "../../worldLog";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
-import { CombatSidebar } from "./CombatSidebar";
+import { HeroSidebar } from "../../hero/components/HeroSidebar";
 import { CombatantPanel } from "./CombatantPanel";
 import { resolveImageUrl } from "../../../utils/image";
 
@@ -25,7 +19,7 @@ type CombatViewProps = {
 };
 
 export function CombatView({ run }: CombatViewProps) {
-	const activeSidebar = useSidebarStore((state) => state.activeSidebar);
+	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
 	const openSidebar = useSidebarStore((state) => state.open);
 	const openHowToPlay = useHowToPlayModalStore((state) => state.open);
 	const closeSidebar = useSidebarStore((state) => state.close);
@@ -41,7 +35,6 @@ export function CombatView({ run }: CombatViewProps) {
 
 	const { battleNumber, combat, gold, goldMultiplier, zone, nextZoneOptions } = combatView;
 	const heroClass = CLASSES_BY_ID[hero.classId];
-	const heroProgression = selectHeroProgression(run.state);
 	const isEnemySlain = combat.status === "player_won";
 	const availableActions = selectAvailableActions(run.state);
 	const availableActionTypes = new Set(availableActions.map((action) => action.type));
@@ -132,17 +125,11 @@ export function CombatView({ run }: CombatViewProps) {
 
 	return (
 		<GameLayout>
-			<CombatSidebar
-				open={activeSidebar === "hero"}
+			<HeroSidebar
+				run={run}
+				open={isSidebarOpen}
 				onClose={closeSidebar}
-				heroName={combat.player.name}
-				heroClassId={hero.classId}
-				heroLevel={combat.player.level}
-				currentHp={combat.player.currentHp}
-				maxHp={combat.player.maxHp}
-				progression={heroProgression}
-				activeEffects={combat.player.activeEffects}
-				entries={combat.log}
+				isPending={applyRunAction.isPending}
 			/>
 
 			<GameMainPanel
@@ -173,7 +160,7 @@ export function CombatView({ run }: CombatViewProps) {
 					<div className="shrink-0 lg:order-last">
 						<GameNavigation
 							label="Combat navigation"
-							activeSidebar={activeSidebar}
+							isSidebarOpen={isSidebarOpen}
 							onOpenSidebar={openSidebar}
 							onHowToPlay={openHowToPlay}
 						/>
@@ -214,7 +201,6 @@ export function CombatView({ run }: CombatViewProps) {
 					zone={zone}
 				/>
 			</GameMainPanel>
-			<WorldLogSidebar open={activeSidebar === "world"} onClose={closeSidebar} />
 		</GameLayout>
 	);
 }

@@ -11,8 +11,7 @@ import { EquipmentReplacementModal } from "../../../components/EquipmentReplacem
 import { GameNavigation } from "../../../components/GameNavigation";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel } from "../../../components/GameMainPanel";
-import { WorldLogSidebar } from "../../worldLog";
-import { HeroSidebar } from "./HeroSidebar";
+import { HeroSidebar } from "../../hero/components/HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
@@ -26,7 +25,7 @@ type TownViewProps = {
 };
 
 export function TownView({ run }: TownViewProps) {
-	const activeSidebar = useSidebarStore((state) => state.activeSidebar);
+	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
 	const openSidebar = useSidebarStore((state) => state.open);
 	const closeSidebar = useSidebarStore((state) => state.close);
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
@@ -163,11 +162,7 @@ export function TownView({ run }: TownViewProps) {
 		<GameLayout>
 			<HeroSidebar
 				run={run}
-				battleNumber={townView.battleNumber}
-				day={townView.day}
-				gold={townView.gold}
-				zone={townView.zone}
-				open={activeSidebar === "hero"}
+				open={isSidebarOpen}
 				canSwapWeapons={availableActionTypes.has("SWAP_HAND_WEAPONS")}
 				isPending={applyRunAction.isPending}
 				onClose={closeSidebar}
@@ -179,7 +174,7 @@ export function TownView({ run }: TownViewProps) {
 				header={
 					<GameNavigation
 						label="Town navigation"
-						activeSidebar={activeSidebar}
+						isSidebarOpen={isSidebarOpen}
 						onOpenSidebar={openSidebar}
 						onHowToPlay={openHowToPlay}
 					>
@@ -220,7 +215,6 @@ export function TownView({ run }: TownViewProps) {
 					onLockChange={handleLockChange}
 				/>
 			</GameMainPanel>
-			<WorldLogSidebar open={activeSidebar === "world"} onClose={closeSidebar} />
 
 			{replacementSlot && (
 				<EquipmentReplacementModal

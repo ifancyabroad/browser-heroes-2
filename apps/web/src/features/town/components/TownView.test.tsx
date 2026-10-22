@@ -13,13 +13,6 @@ const selectors = vi.hoisted(() => ({
 const mutate = vi.hoisted(() => vi.fn());
 const showError = vi.hoisted(() => vi.fn());
 
-vi.mock("../../worldLog", async (importOriginal) => ({
-	...(await importOriginal<typeof import("../../worldLog")>()),
-	WorldLogSidebar: ({ open }: { open: boolean }) => (
-		<div>World sidebar {open ? "open" : "closed"}</div>
-	),
-}));
-
 vi.mock("@app/engine", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@app/engine")>()),
 	...selectors,
@@ -52,7 +45,7 @@ vi.mock("../../../components/GameMainPanel", () => ({
 		</div>
 	),
 }));
-vi.mock("./HeroSidebar", () => ({
+vi.mock("../../hero/components/HeroSidebar", () => ({
 	HeroSidebar: ({ onSwapWeapons }: { onSwapWeapons: () => void }) => (
 		<button onClick={onSwapWeapons}>Swap</button>
 	),
