@@ -62,7 +62,7 @@ describe("HeroSidebar", () => {
 		expect(screen.getByRole("tab", { name: "Stats" })).toHaveAttribute("aria-selected", "true");
 		expect(screen.queryByRole("tab", { name: "Combat Log" })).not.toBeInTheDocument();
 		selectTab("World Log");
-		expect(screen.getByRole("heading", { name: "World Log" })).toBeInTheDocument();
+		expect(screen.getByRole("region", { name: "World Log" })).toBeInTheDocument();
 		view.rerender(sidebar(run));
 		expect(screen.getByRole("tab", { name: "Combat Log" })).toHaveAttribute(
 			"aria-selected",
@@ -114,10 +114,7 @@ describe("HeroSidebar", () => {
 	it("keeps both logs in matching containers", () => {
 		render(sidebar(createRun()));
 		const combatPanel = screen.getByRole("region", { name: "Combat Log" });
-		expect(screen.getByRole("heading", { name: "Combat Log" }).nextElementSibling).toHaveClass(
-			"h-[12lh]",
-			"box-content",
-		);
+		expect(combatPanel).toHaveClass("min-h-[10lh]");
 		selectTab("World Log");
 		expect(screen.getByRole("region", { name: "World Log" }).className).toBe(
 			combatPanel.className,

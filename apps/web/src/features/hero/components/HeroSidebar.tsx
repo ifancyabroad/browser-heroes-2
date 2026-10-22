@@ -101,7 +101,7 @@ export function HeroSidebar({
 				</div>
 			</header>
 
-			<div className="grid shrink-0 content-start gap-3 px-4 py-3">
+			<div className="flex min-h-0 flex-1 flex-col gap-3 px-4 py-3">
 				<RunInfo
 					battleNumber={state.battleNumber}
 					day={state.day}
@@ -114,7 +114,8 @@ export function HeroSidebar({
 					items={heroSidebarTabs}
 					value={activeTab}
 					onChange={setActiveTab}
-					className="w-full"
+					className="w-full shrink-0"
+					panelClassName="flex min-h-0 flex-1 flex-col"
 					renderPanel={(tab) => {
 						if (tab === "combat") {
 							return (
@@ -173,7 +174,7 @@ function RunInfo({ gold, battleNumber, day, zoneLabel }: RunInfoProps) {
 	];
 
 	return (
-		<section aria-label="Run">
+		<section className="shrink-0" aria-label="Run">
 			<dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-base">
 				{runItems.map((item) => (
 					<div key={item.label} className="grid grid-cols-[4rem_minmax(0,1fr)] gap-2">
