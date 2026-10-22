@@ -40,7 +40,7 @@ export function CombatLogPanel({ entries, className }: CombatLogPanelProps) {
 					return (
 						<Fragment key={entry.id}>
 							{showTurnHeading && (
-								<p className="mt-[1lh] text-info first:mt-0">
+								<p className="mt-2 text-info first:mt-0">
 									Round {entry.turnNumber}
 								</p>
 							)}
