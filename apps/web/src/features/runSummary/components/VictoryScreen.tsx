@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import { CLASSES_BY_ID } from "@app/content";
-import { selectRunSummaryView, type CombatLogEntry } from "@app/engine";
+import { selectRunSummaryView } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
 import { ButtonLink } from "../../../components/Button";
 import { DailyChallengeResult } from "../../dailyChallenges";
 import { ShareRunButton } from "./ShareRunButton";
+import { getCombatLogEntryClassName } from "../../combat/utils/combatLogPresentation";
 
 type VictoryScreenProps = {
 	run: RunView;
@@ -80,13 +81,20 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 
 					{finalMomentEntries.length > 0 && (
 						<section
-							className="grid w-full max-w-xl gap-2 border-2 border-border bg-bg-panel p-3 text-left"
+							className="grid w-full max-w-xl border-2 border-border bg-bg-panel p-3 text-left"
 							aria-label="Final moments"
 						>
 							<h2 className="text-base text-info">Final Moments</h2>
-							<div className="grid gap-1">
-								{finalMomentEntries.map((entry) => (
-									<p key={entry.id} className={getLogEntryClassName(entry)}>
+							<div>
+								{finalMomentEntries.map((entry, index) => (
+									<p
+										key={entry.id}
+										className={getCombatLogEntryClassName(
+											entry,
+											entry.turnNumber !==
+												finalMomentEntries[index - 1]?.turnNumber,
+										)}
+									>
 										{entry.message}
 									</p>
 								))}
@@ -114,16 +122,4 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 
 function getContentClassName(maxWidth: string): string {
 	return `mx-auto grid min-h-full w-full ${maxWidth} content-center justify-items-center gap-5 text-center`;
-}
-
-function getLogEntryClassName(entry: CombatLogEntry): string {
-	if (entry.actor === "player") {
-		return "text-text-bright";
-	}
-
-	if (entry.actor === "system") {
-		return "text-text-muted";
-	}
-
-	return "text-text";
 }

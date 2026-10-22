@@ -46,23 +46,13 @@ function getLogEntryTextClass(entry: CombatLogEntry): string {
 }
 
 export function getCombatLogEntryClassName(entry: CombatLogEntry, startsRound: boolean): string {
-	let spacingClass: string | undefined;
+	const isAction =
+		entry.eventType === "basic_attack" ||
+		entry.eventType === "skill_used" ||
+		entry.eventType === "healing_potion_used" ||
+		entry.eventType === "turn_skipped";
 
-	switch (entry.eventType) {
-		case "basic_attack":
-		case "skill_used":
-		case "healing_potion_used":
-		case "turn_skipped":
-			spacingClass = startsRound ? undefined : "mt-2";
-			break;
-		case "effect_applied":
-		case "effect_resisted":
-		case "effect_expired":
-			spacingClass = "pl-3";
-			break;
-		default:
-			spacingClass = entry.outcome ? "pl-3" : undefined;
-	}
-
-	return clsx("break-words", getLogEntryTextClass(entry), spacingClass);
+	return clsx("break-words", getLogEntryTextClass(entry), {
+		"mt-2": isAction && !startsRound,
+	});
 }
