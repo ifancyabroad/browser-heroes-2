@@ -4,7 +4,7 @@ import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameNavigation } from "../../../components/GameNavigation";
 import { useHowToPlayModalStore } from "../../howToPlay";
-import { GameMainPanel } from "../../../components/GameMainPanel";
+import { GameMainPanel, GamePanelContainer } from "../../../components/GameMainPanel";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
@@ -132,74 +132,78 @@ export function CombatView({ run }: CombatViewProps) {
 				isPending={applyRunAction.isPending}
 			/>
 
-			<GameMainPanel
-				contentClassName="flex min-h-0 flex-1 flex-col gap-2"
-				actions={
-					<CombatActionBar
-						player={combat.player}
-						isPending={applyRunAction.isPending}
-						canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
-						canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
-						canUseHealingPotion={canUseHealingPotion}
-						availableSkillIds={availableSkillIds}
-						healingPotions={combatView.healingPotions}
-						maxHealingPotions={combatView.maxHealingPotions}
-						canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
-						canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
-						isEnemySlain={isEnemySlain}
-						onBasicAttack={handleBasicAttack}
-						onSkipTurn={handleSkipTurn}
-						onUseHealingPotion={handleUseHealingPotion}
-						onUseSkill={handleUseSkill}
-						onContinue={handleContinue}
-						onReturnToTown={handleReturnToTown}
-					/>
-				}
-			>
-				<div className="flex flex-col items-start gap-2 lg:flex-row lg:justify-between">
-					<div className="shrink-0 lg:order-last">
-						<GameNavigation
-							label="Combat navigation"
-							isSidebarOpen={isSidebarOpen}
-							onOpenSidebar={openSidebar}
-							onHowToPlay={openHowToPlay}
-						/>
-					</div>
-					<section
-						className="grid w-full min-w-0 items-start gap-2 md:grid-cols-2 lg:flex-1 lg:grid-cols-1"
-						aria-label="Combatants"
-					>
-						<div className="min-w-0 lg:hidden">
-							<CombatantPanel
-								combatant={combat.player}
-								identity={`${combat.player.name} the ${heroClass.name}`}
-								ariaLabel="Hero"
+			<GameMainPanel>
+				<div className="min-h-0 flex-1 overflow-y-auto">
+					<GamePanelContainer className="flex h-full flex-col py-3 md:py-4">
+						<div className="flex min-h-0 flex-1 flex-col gap-2">
+							<div className="flex flex-col items-start gap-2 lg:flex-row lg:justify-between">
+								<div className="shrink-0 lg:order-last">
+									<GameNavigation
+										label="Combat navigation"
+										isSidebarOpen={isSidebarOpen}
+										onOpenSidebar={openSidebar}
+										onHowToPlay={openHowToPlay}
+									/>
+								</div>
+								<section
+									className="grid w-full min-w-0 items-start gap-2 md:grid-cols-2 lg:flex-1 lg:grid-cols-1"
+									aria-label="Combatants"
+								>
+									<div className="min-w-0 lg:hidden">
+										<CombatantPanel
+											combatant={combat.player}
+											identity={`${combat.player.name} the ${heroClass.name}`}
+											ariaLabel="Hero"
+										/>
+									</div>
+									<CombatantPanel
+										key={combat.enemy.id}
+										combatant={combat.enemy}
+										identity={combat.enemy.name}
+										ariaLabel="Enemy"
+										descriptor={combatView.enemyDescriptor}
+									/>
+								</section>
+							</div>
+
+							<Battlefield
+								heroId={combat.player.id}
+								enemyId={combat.enemy.id}
+								enemyCurrentHp={combat.enemy.currentHp}
+								entries={combat.log}
+								enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
+								enemyName={combat.enemy.name}
+								isEnemySlain={isEnemySlain}
+								battleNumber={battleNumber}
+								gold={gold}
+								goldMultiplier={goldMultiplier}
+								nextZoneOptions={nextZoneOptions}
+								zone={zone}
 							/>
 						</div>
-						<CombatantPanel
-							key={combat.enemy.id}
-							combatant={combat.enemy}
-							identity={combat.enemy.name}
-							ariaLabel="Enemy"
-							descriptor={combatView.enemyDescriptor}
-						/>
-					</section>
+						<div className="sticky bottom-0 z-20 shrink-0 py-3">
+							<CombatActionBar
+								player={combat.player}
+								isPending={applyRunAction.isPending}
+								canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
+								canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
+								canUseHealingPotion={canUseHealingPotion}
+								availableSkillIds={availableSkillIds}
+								healingPotions={combatView.healingPotions}
+								maxHealingPotions={combatView.maxHealingPotions}
+								canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
+								canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
+								isEnemySlain={isEnemySlain}
+								onBasicAttack={handleBasicAttack}
+								onSkipTurn={handleSkipTurn}
+								onUseHealingPotion={handleUseHealingPotion}
+								onUseSkill={handleUseSkill}
+								onContinue={handleContinue}
+								onReturnToTown={handleReturnToTown}
+							/>
+						</div>
+					</GamePanelContainer>
 				</div>
-
-				<Battlefield
-					heroId={combat.player.id}
-					enemyId={combat.enemy.id}
-					enemyCurrentHp={combat.enemy.currentHp}
-					entries={combat.log}
-					enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
-					enemyName={combat.enemy.name}
-					isEnemySlain={isEnemySlain}
-					battleNumber={battleNumber}
-					gold={gold}
-					goldMultiplier={goldMultiplier}
-					nextZoneOptions={nextZoneOptions}
-					zone={zone}
-				/>
 			</GameMainPanel>
 		</GameLayout>
 	);

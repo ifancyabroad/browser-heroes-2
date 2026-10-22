@@ -10,7 +10,7 @@ import { useState } from "react";
 import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
 import { GameNavigation } from "../../../components/GameNavigation";
 import { GameLayout } from "../../../components/GameLayout";
-import { GameMainPanel } from "../../../components/GameMainPanel";
+import { GameMainPanel, GamePanelContainer } from "../../../components/GameMainPanel";
 import { HeroSidebar } from "../../hero/components/HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useSidebarStore } from "../../../stores/sidebarStore";
@@ -169,51 +169,61 @@ export function TownView({ run }: TownViewProps) {
 				onSwapWeapons={handleSwapWeapons}
 			/>
 
-			<GameMainPanel
-				contentClassName="flex-1"
-				header={
-					<GameNavigation
-						label="Town navigation"
-						isSidebarOpen={isSidebarOpen}
-						onOpenSidebar={openSidebar}
-						onHowToPlay={openHowToPlay}
-					>
-						<TownGoldBalance gold={townView.gold} />
-					</GameNavigation>
-				}
-				actions={
-					<TownActionBar
-						isPending={applyRunAction.isPending}
-						canAffordRest={townView.canAffordRest}
-						canRest={availableActionTypes.has("REST_AT_TOWN") && townView.canAffordRest}
-						canAffordReroll={townView.canAffordReroll}
-						canReroll={
-							availableActionTypes.has("REROLL_SHOP") && townView.canAffordReroll
-						}
-						canAffordHealingPotion={townView.canAffordHealingPotion}
-						canBuyHealingPotion={
-							availableActionTypes.has("BUY_CONSUMABLE") &&
-							townView.canBuyHealingPotion
-						}
-						canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-						restCost={townView.restCost}
-						rerollCost={townView.rerollCost}
-						healingPotions={townView.healingPotions}
-						maxHealingPotions={townView.maxHealingPotions}
-						healingPotionCost={townView.healingPotionCost}
-						onRest={handleRest}
-						onReroll={handleReroll}
-						onBuyHealingPotion={handleBuyHealingPotion}
-						onEnterCombat={handleEnterCombat}
-					/>
-				}
-			>
-				<TownShopGrid
-					shopSlots={townView.shopSlots}
-					isPending={applyRunAction.isPending}
-					onBuy={handleBuy}
-					onLockChange={handleLockChange}
-				/>
+			<GameMainPanel>
+				<header className="shrink-0">
+					<GamePanelContainer className="py-3 md:py-4">
+						<GameNavigation
+							label="Town navigation"
+							isSidebarOpen={isSidebarOpen}
+							onOpenSidebar={openSidebar}
+							onHowToPlay={openHowToPlay}
+						>
+							<TownGoldBalance gold={townView.gold} />
+						</GameNavigation>
+					</GamePanelContainer>
+				</header>
+				<div className="min-h-0 flex-1 overflow-y-auto">
+					<GamePanelContainer className="flex h-full flex-col py-3 md:py-4 md:pt-0">
+						<div className="flex-1">
+							<TownShopGrid
+								shopSlots={townView.shopSlots}
+								isPending={applyRunAction.isPending}
+								onBuy={handleBuy}
+								onLockChange={handleLockChange}
+							/>
+						</div>
+						<div className="sticky bottom-0 z-20 shrink-0 py-3">
+							<TownActionBar
+								isPending={applyRunAction.isPending}
+								canAffordRest={townView.canAffordRest}
+								canRest={
+									availableActionTypes.has("REST_AT_TOWN") &&
+									townView.canAffordRest
+								}
+								canAffordReroll={townView.canAffordReroll}
+								canReroll={
+									availableActionTypes.has("REROLL_SHOP") &&
+									townView.canAffordReroll
+								}
+								canAffordHealingPotion={townView.canAffordHealingPotion}
+								canBuyHealingPotion={
+									availableActionTypes.has("BUY_CONSUMABLE") &&
+									townView.canBuyHealingPotion
+								}
+								canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
+								restCost={townView.restCost}
+								rerollCost={townView.rerollCost}
+								healingPotions={townView.healingPotions}
+								maxHealingPotions={townView.maxHealingPotions}
+								healingPotionCost={townView.healingPotionCost}
+								onRest={handleRest}
+								onReroll={handleReroll}
+								onBuyHealingPotion={handleBuyHealingPotion}
+								onEnterCombat={handleEnterCombat}
+							/>
+						</div>
+					</GamePanelContainer>
+				</div>
 			</GameMainPanel>
 
 			{replacementSlot && (

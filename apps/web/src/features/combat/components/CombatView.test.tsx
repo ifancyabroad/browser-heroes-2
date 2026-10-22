@@ -30,23 +30,6 @@ vi.mock("../../../stores/errorModalStore", () => ({
 vi.mock("../../../components/GameLayout", () => ({
 	GameLayout: ({ children }: { children: React.ReactNode }) => children,
 }));
-vi.mock("../../../components/GameMainPanel", () => ({
-	GameMainPanel: ({
-		children,
-		actions,
-		header,
-	}: {
-		children: React.ReactNode;
-		actions: React.ReactNode;
-		header?: React.ReactNode;
-	}) => (
-		<div>
-			{header}
-			{children}
-			{actions}
-		</div>
-	),
-}));
 vi.mock("../../hero/components/HeroSidebar", () => ({
 	HeroSidebar: ({ open, onClose }: { open: boolean; onClose: () => void }) => (
 		<div>
