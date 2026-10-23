@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "knock_down",
 	name: "Knock Down",
-	description: "Deliver a forceful blow that may topple the enemy and deny their response.",
+	description:
+		"Make a weapon attack that deals crushing damage. On hit, a failed Strength saving throw stuns the enemy.",
 	icon: "skills/common/knock_down.png",
 	pool: "common",
 	kind: "weaponAttack",

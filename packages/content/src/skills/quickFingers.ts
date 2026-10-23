@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "quick_fingers",
 	name: "Quick Fingers",
-	description: "Settle into a precise rhythm that greatly increases critical strike chance.",
+	description: "Expand your critical hit range for the current battle.",
 	icon: "skills/thief/quick_fingers.png",
 	pool: "thief",
 	kind: "technique",

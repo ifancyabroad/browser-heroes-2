@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "reposition",
 	name: "Reposition",
-	description: "Move to a protected vantage point, improving your defence and attack accuracy.",
+	description: "Increase your Armour Class and attack roll bonus.",
 	icon: "skills/common/reposition.png",
 	pool: "common",
 	kind: "technique",

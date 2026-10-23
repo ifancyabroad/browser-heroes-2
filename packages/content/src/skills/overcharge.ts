@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "overcharge",
 	name: "Overcharge",
-	description: "Release a dangerously concentrated surge of lightning and radiant power.",
+	description: "Deal lightning and radiant damage to the enemy.",
 	icon: "skills/unique/overcharge.png",
 	pool: "unique",
 	kind: "spell",

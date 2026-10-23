@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "corrupted_arm",
 	name: "Corrupted Arm",
 	description:
-		"Smash the enemy with a corrupted limb that spreads necrosis and tears open their defences.",
+		"Make a weapon attack with increased damage, dealt as crushing damage, plus necrotic damage on hit. A separate failed Constitution saving throw reduces the enemy's Armour Class even if the attack misses.",
 	icon: "skills/unique/corrupted_arm.png",
 	pool: "unique",
 	kind: "weaponAttack",

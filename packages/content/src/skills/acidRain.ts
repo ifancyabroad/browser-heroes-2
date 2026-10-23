@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_rain",
 	name: "Acid Rain",
-	description: "Call down corrosive rain that burns the enemy and strips away armour.",
+	description: "Reduce the enemy's Armour Class and deal acid damage to them.",
 	icon: "skills/wizard/acid_rain.png",
 	pool: "wizard",
 	kind: "spell",

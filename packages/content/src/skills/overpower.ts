@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "overpower",
 	name: "Overpower",
 	description:
-		"Drive through the enemy's guard with a brutal blow that may leave their armour exposed.",
+		"Deal crushing damage to the enemy. A failed Strength saving throw also reduces their Armour Class.",
 	icon: "skills/common/overpower.png",
 	pool: "common",
 	kind: "technique",

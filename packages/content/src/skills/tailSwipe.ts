@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "tail_swipe",
 	name: "Tail Swipe",
-	description: "Sweep the enemy aside with a heavy tail strike that may knock them senseless.",
+	description:
+		"Make a weapon attack with increased damage, dealt as crushing damage. On hit, a failed Dexterity saving throw stuns the enemy.",
 	icon: "skills/common/tail_swipe.png",
 	pool: "common",
 	kind: "weaponAttack",

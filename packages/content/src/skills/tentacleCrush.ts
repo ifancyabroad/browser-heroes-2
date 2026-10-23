@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "tentacle_crush",
 	name: "Tentacle Crush",
 	description:
-		"Crush the enemy in a massive tentacle, damaging them and exposing their defences.",
+		"Deal crushing damage to the enemy. A failed Strength saving throw also reduces their Armour Class.",
 	icon: "skills/common/tentacle_crush.png",
 	pool: "common",
 	kind: "technique",

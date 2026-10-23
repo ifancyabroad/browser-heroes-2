@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_coating",
 	name: "Acid Coating",
-	description: "Prime your acid coating for a brief but devastating burst of corrosive damage.",
+	description: "Increase your acid damage dealt.",
 	icon: "skills/thief/acid_coating.png",
 	pool: "thief",
 	kind: "technique",

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "shocking_grasp",
 	name: "Shocking Grasp",
-	description: "Seize the enemy and discharge lightning through your grasp.",
+	description: "Make a melee attack that deals lightning damage.",
 	icon: "skills/wizard/sparks.png",
 	pool: "wizard",
 	kind: "spellAttack",

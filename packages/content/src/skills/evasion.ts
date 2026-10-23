@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "evasion",
 	name: "Evasion",
 	description:
-		"Adopt an evasive stance that makes you exceptionally difficult to hit and sharpens your reflexes.",
+		"Increase your Armour Class and automatically succeed on Dexterity saving throws while the effect lasts.",
 	icon: "skills/thief/evasion.png",
 	pool: "thief",
 	kind: "technique",

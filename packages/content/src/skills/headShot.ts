@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "head_shot",
 	name: "Head Shot",
 	description:
-		"Guarantee a critical shot to the enemy's head with a chance to leave them stunned.",
+		"Make your next attack roll an automatic critical hit, then make a weapon attack. On hit, a failed Constitution saving throw stuns the enemy.",
 	icon: "skills/common/head_shot.png",
 	pool: "common",
 	kind: "weaponAttack",

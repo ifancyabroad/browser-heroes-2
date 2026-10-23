@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "holy_bolt",
 	name: "Holy Bolt",
-	description: "Hurl a focused bolt of radiant energy with divine precision.",
+	description: "Make a ranged attack that deals radiant damage.",
 	icon: "skills/cleric/holy_bolt.png",
 	pool: "cleric",
 	kind: "prayer",

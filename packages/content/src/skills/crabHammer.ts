@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "crab_hammer",
 	name: "Crab Hammer",
-	description: "Hammer the enemy with a freezing claw that may crack their armour.",
+	description:
+		"Make a weapon attack that deals additional cold damage on hit. A separate failed Constitution saving throw reduces the enemy's Armour Class even if the attack misses.",
 	icon: "skills/unique/crab_hammer.png",
 	pool: "unique",
 	kind: "weaponAttack",

@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "minotaur_charge",
 	name: "Minotaur Charge",
-	description: "Charge horns-first into the enemy, then recover from the reckless impact.",
+	description:
+		"Make a weapon attack with increased damage, dealt as piercing damage. On hit, you become stunned.",
 	icon: "skills/unique/minotaur_charge.png",
 	pool: "unique",
 	kind: "weaponAttack",

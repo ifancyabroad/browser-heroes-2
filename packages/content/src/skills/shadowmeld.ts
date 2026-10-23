@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "shadowmeld",
 	name: "Shadowmeld",
-	description: "Vanish into the shadows, frustrating incoming attacks and preparing an ambush.",
+	description:
+		"Make the enemy's next attack roll an automatic miss, gain advantage on a limited number of attack rolls, and increase your critical hit damage dice multiplier.",
 	icon: "skills/assassin/shadowmeld.png",
 	pool: "assassin",
 	kind: "technique",

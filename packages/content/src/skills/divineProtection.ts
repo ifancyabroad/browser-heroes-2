@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "divine_protection",
 	name: "Divine Protection",
-	description: "Become impervious to divine radiance and the consuming power of death.",
+	description: "Gain immunity to radiant and necrotic damage.",
 	icon: "skills/cleric/divine_protection.png",
 	pool: "cleric",
 	kind: "prayer",

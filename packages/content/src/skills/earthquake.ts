@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "earthquake",
 	name: "Earthquake",
-	description: "Rupture the ground beneath the enemy, crushing and potentially toppling them.",
+	description:
+		"Deal crushing damage to the enemy. A failed Strength saving throw also stuns them.",
 	icon: "skills/common/earthquake.png",
 	pool: "common",
 	kind: "spell",

@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "crushing_fist",
 	name: "Crushing Fist",
-	description: "Unleash a mighty fist, pulverizing enemies with ethereal power.",
+	description:
+		"Deal crushing damage to the enemy. A failed Strength saving throw also stuns them.",
 	icon: "skills/warlock/crushing_fist.png",
 	pool: "warlock",
 	kind: "spell",

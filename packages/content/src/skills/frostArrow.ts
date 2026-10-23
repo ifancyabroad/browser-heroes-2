@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "frost_arrow",
 	name: "Frost Arrow",
-	description: "Conjure a shard of ice and launch it with deadly precision.",
+	description: "Make a ranged attack that deals cold damage.",
 	icon: "skills/wizard/frost_arrow.png",
 	pool: "wizard",
 	kind: "spellAttack",

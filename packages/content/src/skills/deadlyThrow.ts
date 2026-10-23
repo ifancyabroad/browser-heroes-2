@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "deadly_throw",
 	name: "Deadly Throw",
-	description: "Hurl three blades in rapid succession, each requiring a precise hit.",
+	description:
+		"Make three ranged attacks that deal piercing damage, rolling separately for each attack.",
 	icon: "skills/assassin/deadly_throw.png",
 	pool: "assassin",
 	kind: "technique",

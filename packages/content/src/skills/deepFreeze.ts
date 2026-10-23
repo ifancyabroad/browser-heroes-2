@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "deep_freeze",
 	name: "Deep Freeze",
 	description:
-		"A concentrated frost spell that encases the target in solid ice, dealing damage and rendering them unable to act.",
+		"Deal cold damage to the enemy. A failed Constitution saving throw also stuns them.",
 	icon: "skills/wizard/deep_freeze.png",
 	pool: "wizard",
 	kind: "spell",

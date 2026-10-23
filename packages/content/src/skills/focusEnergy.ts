@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "focus_energy",
 	name: "Focus Energy",
-	description:
-		"Channel your concentration to sharpen accuracy and deliver deadlier critical hits.",
+	description: "Gain advantage on attack rolls and expand your critical hit range.",
 	icon: "skills/fighter/focus_energy.png",
 	pool: "fighter",
 	kind: "technique",

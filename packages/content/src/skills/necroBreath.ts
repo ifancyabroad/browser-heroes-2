@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "necro_breath",
 	name: "Necro Breath",
-	description: "Exhale necrotic death that withers the enemy and impedes recovery.",
+	description:
+		"Deal necrotic damage to the enemy. A failed Constitution saving throw also reduces their healing.",
 	icon: "skills/common/necro_breath.png",
 	pool: "common",
 	kind: "spell",

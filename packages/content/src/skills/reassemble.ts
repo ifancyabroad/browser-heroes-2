@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "reassemble",
 	name: "Reassemble",
-	description: "Pull a shattered form back together and restore a large amount of health.",
+	description: "Restore your HP.",
 	icon: "skills/common/reassemble.png",
 	pool: "common",
 	kind: "technique",

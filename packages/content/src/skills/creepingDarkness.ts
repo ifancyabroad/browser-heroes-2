@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "creeping_darkness",
 	name: "Creeping Darkness",
-	description:
-		"Surround the enemy with encroaching darkness that may cloud the accuracy of their attacks.",
+	description: "Reduce the enemy's attack roll bonus on a failed Wisdom saving throw.",
 	icon: "skills/common/creeping_darkness.png",
 	pool: "common",
 	kind: "technique",

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "dancing_defense",
 	name: "Dancing Defense",
-	description: "Flow between attack and defense with rhythmic, evasive movement.",
+	description: "Gain advantage on attack rolls and increase your Armour Class.",
 	icon: "skills/fighter/dancing_defense.png",
 	pool: "fighter",
 	kind: "technique",

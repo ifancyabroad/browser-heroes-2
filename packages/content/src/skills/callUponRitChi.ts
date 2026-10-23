@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "call_upon_rit_chi",
 	name: "Call Upon Rit Chi",
-	description: "Invoke Rit Chi to grant overwhelming martial power and supernatural vitality.",
+	description:
+		"Gain advantage on attack rolls and increase your damage dealt and maximum HP for the current battle.",
 	icon: "skills/unique/call_upon_rit_chi.png",
 	pool: "unique",
 	kind: "prayer",

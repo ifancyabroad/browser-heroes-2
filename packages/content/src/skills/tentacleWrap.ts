@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "tentacle_wrap",
 	name: "Tentacle Wrap",
 	description:
-		"Wrap the enemy in a powerful tentacle, crushing and potentially immobilising them.",
+		"Deal crushing damage to the enemy. A failed Strength saving throw also stuns them.",
 	icon: "skills/common/tentacle_wrap.png",
 	pool: "common",
 	kind: "technique",

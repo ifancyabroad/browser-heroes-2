@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "poison_bomb",
 	name: "Poison Bomb",
 	description:
-		"Burst a poison bomb around the enemy, dealing immediate harm and lingering venom.",
+		"Deal poison damage to the enemy. A failed Constitution saving throw also causes poison damage over time.",
 	icon: "skills/assassin/poison_bomb.png",
 	pool: "assassin",
 	kind: "technique",

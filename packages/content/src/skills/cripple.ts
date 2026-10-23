@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "cripple",
 	name: "Cripple",
-	description: "Strike with a debilitating injury that may weaken the enemy's attacks.",
+	description:
+		"Make a weapon attack. On hit, a failed Constitution saving throw reduces the enemy's physical damage dealt.",
 	icon: "skills/common/cripple.png",
 	pool: "common",
 	kind: "weaponAttack",

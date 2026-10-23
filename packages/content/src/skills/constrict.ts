@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "constrict",
 	name: "Constrict",
-	description: "Coil around the enemy, crushing them and leaving their defences exposed.",
+	description:
+		"Deal crushing damage to the enemy. A failed Strength saving throw also reduces their Armour Class.",
 	icon: "skills/common/constrict.png",
 	pool: "common",
 	kind: "technique",

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "prayer",
 	name: "Prayer",
-	description: "Call upon divine favour to empower radiant attacks and restorative prayers.",
+	description: "Increase your radiant damage dealt and healing for the current battle.",
 	icon: "skills/cleric/prayer.png",
 	pool: "cleric",
 	kind: "prayer",

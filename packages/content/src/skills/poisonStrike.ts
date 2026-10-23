@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "poison_strike",
 	name: "Poison Strike",
-	description: "Coat your weapon with venom, delivering a toxic blow that poisons your target.",
+	description:
+		"Make a weapon attack. On hit, a failed Constitution saving throw causes additional poison damage immediately and over time.",
 	icon: "skills/assassin/poison_strike.png",
 	pool: "assassin",
 	kind: "weaponAttack",

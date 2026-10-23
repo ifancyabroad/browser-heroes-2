@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "frenzy",
 	name: "Frenzy",
 	description:
-		"Enter a reckless frenzy that increases attack accuracy and melee damage at the cost of defence.",
+		"Gain advantage on attack rolls and increase your melee damage dealt at the cost of Armour Class.",
 	icon: "skills/common/frenzy.png",
 	pool: "common",
 	kind: "technique",

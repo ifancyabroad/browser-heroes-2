@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "last_stand",
 	name: "Last Stand",
-	description:
-		"Summon your remaining strength to recover health and temporarily bolster your physical resilience.",
+	description: "Restore your HP and gain a shield that absorbs incoming damage.",
 	icon: "skills/fighter/last_stand.png",
 	pool: "fighter",
 	kind: "technique",

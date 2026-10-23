@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "embrace_elements",
 	name: "Embrace Elements",
-	description: "Fuse with elemental power, greatly amplifying cold, fire, and lightning magic.",
+	description: "Increase your cold, fire, and lightning damage dealt.",
 	icon: "skills/wizard/embrace_elements.png",
 	pool: "wizard",
 	kind: "spell",

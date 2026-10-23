@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "psionic_blast",
 	name: "Psionic Blast",
-	description:
-		"Assault the enemy's mind with psychic force that may leave them briefly incapacitated.",
+	description: "Deal necrotic damage to the enemy. A failed Wisdom saving throw also stuns them.",
 	icon: "skills/common/psionic_blast.png",
 	pool: "common",
 	kind: "spell",

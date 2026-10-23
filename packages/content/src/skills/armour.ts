@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "armour",
 	name: "Armour",
-	description: "Conjure a durable arcane shell that greatly reinforces your armour.",
+	description: "Increase your Armour Class across multiple battles.",
 	icon: "skills/wizard/armour.png",
 	pool: "wizard",
 	kind: "spell",

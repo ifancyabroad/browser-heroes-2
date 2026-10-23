@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "flame_slam",
 	name: "Flame Slam",
-	description: "Slam into the enemy with crushing force wreathed in elemental fire.",
+	description:
+		"Make a weapon attack with increased damage, dealt as crushing damage, plus fire damage on hit.",
 	icon: "skills/common/flame_slam.png",
 	pool: "common",
 	kind: "weaponAttack",

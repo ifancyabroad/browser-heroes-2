@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "combust",
 	name: "Combust",
-	description: "Overheat and erupt into a suicidal explosion that can only be partially escaped.",
+	description: "Deal fire damage to yourself and the enemy.",
 	icon: "skills/unique/combust.png",
 	pool: "unique",
 	kind: "technique",

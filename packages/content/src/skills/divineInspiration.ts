@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "divine_inspiration",
 	name: "Divine Inspiration",
-	description:
-		"Receive enduring divine inspiration that fortifies body and spirit against adversity.",
+	description: "Increase your saving throw bonus and maximum HP.",
 	icon: "skills/cleric/divine_inspiration.png",
 	pool: "cleric",
 	kind: "prayer",

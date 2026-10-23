@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "hunterss_mark",
 	name: "Hunter's Mark",
 	description:
-		"Mark the enemy as quarry, sharpening attacks and exposing them to piercing strikes.",
+		"Gain advantage on attack rolls. A failed Dexterity saving throw also makes the enemy vulnerable to piercing damage.",
 	icon: "skills/common/hunterss_mark.png",
 	pool: "common",
 	kind: "technique",

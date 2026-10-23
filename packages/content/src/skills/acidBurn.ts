@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_burn",
 	name: "Acid Burn",
-	description: "Douse the enemy in clinging acid that continues to burn through them.",
+	description:
+		"Deal acid damage to the enemy immediately and over time, and reduce their Armour Class.",
 	icon: "skills/thief/acid_burn.png",
 	pool: "thief",
 	kind: "technique",

@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "backstab",
 	name: "Backstab",
-	description: "Exploit the enemy's blind spot with a devastating, precise strike.",
+	description: "Make a weapon attack with advantage and increased damage.",
 	icon: "skills/assassin/backstab.png",
 	pool: "assassin",
 	kind: "weaponAttack",

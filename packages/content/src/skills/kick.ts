@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "kick",
 	name: "Kick",
-	description: "Drive a swift kick into the enemy, potentially knocking them off balance.",
+	description:
+		"Make a weapon attack with reduced damage, dealt as crushing damage. On hit, a failed Strength saving throw stuns the enemy.",
 	icon: "skills/thief/kick.png",
 	pool: "thief",
 	kind: "technique",

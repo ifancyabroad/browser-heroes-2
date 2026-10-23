@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "growth",
 	name: "Growth",
-	description: "Swell to unnatural size, gaining vitality and striking with greater force.",
+	description: "Increase your physical damage dealt and maximum HP.",
 	icon: "skills/common/growth.png",
 	pool: "common",
 	kind: "technique",

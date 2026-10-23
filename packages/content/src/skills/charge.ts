@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "charge",
 	name: "Charge",
-	description: "Sprint towards the enemy catching them off guard with a chance to stun.",
+	description:
+		"Make a weapon attack with increased damage. On hit, a failed Strength saving throw stuns the enemy.",
 	icon: "skills/barbarian/charge.png",
 	pool: "barbarian",
 	kind: "weaponAttack",

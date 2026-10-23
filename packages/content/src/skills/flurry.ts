@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "flurry",
 	name: "Flurry",
-	description: "Unleash a rapid series of strikes, overwhelming your enemy with speed and force.",
+	description: "Make four weapon attacks with reduced damage.",
 	icon: "skills/thief/flurry.png",
 	pool: "thief",
 	kind: "weaponAttack",

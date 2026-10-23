@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "unholy_strike",
 	name: "Unholy Strike",
-	description:
-		"Deliver a powerful blow infused with dark energy, dealing weapon and necrotic damage to your foe.",
+	description: "Make a weapon attack that deals additional necrotic damage on hit.",
 	icon: "skills/occultist/unholy_strike.png",
 	pool: "occultist",
 	kind: "weaponAttack",

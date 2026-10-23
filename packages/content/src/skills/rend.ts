@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "rend",
 	name: "Rend",
-	description: "Strike the enemy to pierce the skin and cause them to bleed.",
+	description:
+		"Make a weapon attack. On hit, a failed Constitution saving throw causes slashing damage over time.",
 	icon: "skills/fighter/rend.png",
 	pool: "fighter",
 	kind: "weaponAttack",

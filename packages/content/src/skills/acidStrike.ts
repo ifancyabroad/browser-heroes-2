@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_strike",
 	name: "Acid Strike",
-	description: "Infuse your attack with corrosive acid, eating away at flesh.",
+	description: "Make a weapon attack that deals additional acid damage on hit.",
 	icon: "skills/thief/acid_strike.png",
 	pool: "thief",
 	kind: "weaponAttack",

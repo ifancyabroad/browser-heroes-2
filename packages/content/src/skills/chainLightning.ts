@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "chain_lightning",
 	name: "Chain Lightning",
-	description: "Release cascading lightning that repeatedly tears through the target.",
+	description:
+		"Deal lightning damage to the enemy three times, with a separate saving throw for each.",
 	icon: "skills/wizard/chain_lightning.png",
 	pool: "wizard",
 	kind: "spell",

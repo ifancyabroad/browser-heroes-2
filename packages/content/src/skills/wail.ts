@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "wail",
 	name: "Wail",
-	description:
-		"Release a deathly wail that damages the soul and may leave the enemy paralysed with terror.",
+	description: "Deal necrotic damage to the enemy. A failed Wisdom saving throw also stuns them.",
 	icon: "skills/unique/wail.png",
 	pool: "unique",
 	kind: "spell",

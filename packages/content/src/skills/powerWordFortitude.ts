@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "power_word_fortitude",
 	name: "Power Word: Fortitude",
-	description:
-		"Speak a word of endurance that temporarily expands the body's capacity for punishment.",
+	description: "Increase your maximum HP across multiple battles.",
 	icon: "skills/common/power_word_fortitude.png",
 	pool: "common",
 	kind: "spell",

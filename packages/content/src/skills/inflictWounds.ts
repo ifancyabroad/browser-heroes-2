@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "inflict_wounds",
 	name: "Inflict Wounds",
 	description:
-		"Reach out with concentrated deathly power to inflict a grievous wound that continues to decay.",
+		"Deal necrotic damage to the enemy. A failed Constitution saving throw also causes necrotic damage over time.",
 	icon: "skills/occultist/inflict_wounds.png",
 	pool: "occultist",
 	kind: "spell",

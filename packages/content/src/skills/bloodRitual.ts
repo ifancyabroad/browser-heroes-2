@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "blood_ritual",
 	name: "Blood Ritual",
 	description:
-		"Sacrifice your own vitality, causing you to bleed and take minor slashing damage, while dealing a powerful burst of necrotic damage to your foe.",
+		"Take slashing damage immediately and over time, and deal necrotic damage to the enemy.",
 	icon: "skills/warlock/blood_ritual.png",
 	pool: "warlock",
 	kind: "spell",

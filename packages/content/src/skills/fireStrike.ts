@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "fire_strike",
 	name: "Fire Strike",
-	description: "Infuse your attack with searing flames for immediate fire damage.",
+	description: "Make a weapon attack that deals additional fire damage on hit.",
 	icon: "skills/barbarian/fire_strike.png",
 	pool: "barbarian",
 	kind: "weaponAttack",

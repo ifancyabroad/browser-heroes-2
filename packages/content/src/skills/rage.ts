@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "rage",
 	name: "Rage",
 	description:
-		"Tap into raw fury to amplify physical damage and shrug off blows at the cost of defense.",
+		"Increase your physical damage dealt and reduce all damage taken at the cost of Armour Class.",
 	icon: "skills/barbarian/rage.png",
 	pool: "barbarian",
 	kind: "technique",

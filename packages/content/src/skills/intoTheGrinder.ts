@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "into_the_grinder",
 	name: "Into the Grinder",
 	description:
-		"Drag the enemy into a grinding maw that crushes them, tears through armour, and leaves corrosive wounds.",
+		"Deal crushing damage to the enemy. A failed Strength saving throw reduces their Armour Class, and a separate failed Constitution saving throw causes acid damage over time.",
 	icon: "skills/unique/into_the_grinder.png",
 	pool: "unique",
 	kind: "technique",

@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_spray",
 	name: "Acid Spray",
-	description: "Spray corrosive acid that burns exposed flesh and may eat through armour.",
+	description:
+		"Deal acid damage to the enemy. A failed Dexterity saving throw also reduces their Armour Class.",
 	icon: "skills/common/acid_spray.png",
 	pool: "common",
 	kind: "spell",

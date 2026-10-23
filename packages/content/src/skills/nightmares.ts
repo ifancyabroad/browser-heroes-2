@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "nightmares",
 	name: "Nightmares",
-	description: "Invade the enemy's mind with waking nightmares that damage and terrorise them.",
+	description:
+		"Deal necrotic damage to the enemy. A failed Wisdom saving throw also gives them disadvantage on attack rolls.",
 	icon: "skills/common/nightmares.png",
 	pool: "common",
 	kind: "spell",

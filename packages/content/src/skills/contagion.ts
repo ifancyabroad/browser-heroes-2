@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "contagion",
 	name: "Contagion",
-	description:
-		"Infect the enemy with a virulent poison that ravages them over an extended period.",
+	description: "Deal poison damage over time to the enemy on a failed Constitution saving throw.",
 	icon: "skills/occultist/contagion.png",
 	pool: "occultist",
 	kind: "spell",

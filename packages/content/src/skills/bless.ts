@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "bless",
 	name: "Bless",
-	description: "Invoke a sacred boon that grants divine favour against harmful effects.",
+	description: "Gain advantage on saving throws for the current battle.",
 	icon: "skills/common/bless.png",
 	pool: "common",
 	kind: "prayer",

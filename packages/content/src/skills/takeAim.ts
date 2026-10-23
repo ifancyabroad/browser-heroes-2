@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "take_aim",
 	name: "Take Aim",
-	description: "Steady your aim to make the next sequence of attacks exceptionally precise.",
+	description: "Gain advantage on a limited number of attack rolls before the effect expires.",
 	icon: "skills/common/take_aim.png",
 	pool: "common",
 	kind: "technique",

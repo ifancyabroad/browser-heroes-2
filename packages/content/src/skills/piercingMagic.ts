@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "piercing_magic",
 	name: "Piercing Magic",
-	description: "Focus your arcane power, making your spells and effects harder to resist.",
+	description: "Increase your saving throw DCs across multiple battles.",
 	icon: "skills/wizard/piercing_magic.png",
 	pool: "wizard",
 	kind: "spell",

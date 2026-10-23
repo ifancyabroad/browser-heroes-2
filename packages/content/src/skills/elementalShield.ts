@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "elemental_shield",
 	name: "Elemental Shield",
-	description: "Raise a protective ward that resists fire, cold, and lightning for the battle.",
+	description: "Gain resistance to fire, cold, and lightning damage.",
 	icon: "skills/fighter/elemental_shield.png",
 	pool: "fighter",
 	kind: "technique",

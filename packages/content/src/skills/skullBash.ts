@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "skull_bash",
 	name: "Skull Bash",
 	description:
-		"Bash the enemy with crushing force and potentially leave them vulnerable to further impacts.",
+		"Make a weapon attack. On hit, a failed Constitution saving throw makes the enemy vulnerable to crushing damage.",
 	icon: "skills/common/skull_bash.png",
 	pool: "common",
 	kind: "weaponAttack",

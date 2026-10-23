@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "corrupting_touch",
 	name: "Corrupting Touch",
 	description:
-		"Flood the enemy with necrotic corruption that may leave them vulnerable to deathly power.",
+		"Deal necrotic damage to the enemy. A failed Constitution saving throw also makes them vulnerable to necrotic damage.",
 	icon: "skills/common/corrupting_touch.png",
 	pool: "common",
 	kind: "spell",

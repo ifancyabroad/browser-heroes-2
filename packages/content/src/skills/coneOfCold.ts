@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "cone_of_cold",
 	name: "Cone of Cold",
-	description: "Unleash a frigid blast that damages the enemy and numbs their attacks.",
+	description:
+		"Deal cold damage to the enemy. A failed Constitution saving throw also gives them disadvantage on attack rolls.",
 	icon: "skills/wizard/cone_of_cold.png",
 	pool: "wizard",
 	kind: "spell",

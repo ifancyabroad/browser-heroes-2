@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "magic_missiles",
 	name: "Magic Missiles",
-	description: "Conjure five arcane missiles that unerringly strike the enemy.",
+	description:
+		"Deal piercing damage to the enemy five times without attack rolls or saving throws.",
 	icon: "skills/wizard/magic_missiles.png",
 	pool: "wizard",
 	kind: "spell",

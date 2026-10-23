@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "armour_break",
 	name: "Armour Break",
-	description: "A powerful blow that weakens an enemy's defenses.",
+	description:
+		"Reduce the enemy's Armour Class on a failed Strength saving throw, then make a weapon attack.",
 	icon: "skills/fighter/armour_break.png",
 	pool: "fighter",
 	kind: "weaponAttack",

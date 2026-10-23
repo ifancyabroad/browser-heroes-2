@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "berserk",
 	name: "Berserk",
-	description: "Become enraged, greatly increasing melee power but lowering defenses.",
+	description: "Increase your melee damage dealt at the cost of Armour Class.",
 	icon: "skills/common/berserk.png",
 	pool: "common",
 	kind: "technique",

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "tenderise",
 	name: "Tenderise",
 	description:
-		"Batter the enemy with a crushing blow that may leave them vulnerable to physical damage.",
+		"Make a weapon attack that deals crushing damage. On hit, a failed Constitution saving throw increases the physical damage the enemy takes.",
 	icon: "skills/barbarian/tenderise.png",
 	pool: "barbarian",
 	kind: "weaponAttack",

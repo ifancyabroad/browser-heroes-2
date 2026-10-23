@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "obliterate",
 	name: "Obliterate",
 	description:
-		"Crush the enemy with overwhelming force and potentially leave their body vulnerable to further damage.",
+		"Deal crushing damage to the enemy. A failed Constitution saving throw also increases all damage they take.",
 	icon: "skills/common/obliterate.png",
 	pool: "common",
 	kind: "technique",

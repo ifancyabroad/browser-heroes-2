@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "battle_cry",
 	name: "Battle Cry",
-	description:
-		"Release a resounding battle cry that bolsters vitality and empowers physical attacks.",
+	description: "Increase your maximum HP and physical damage dealt for the current battle.",
 	icon: "skills/barbarian/battle_cry.png",
 	pool: "barbarian",
 	kind: "technique",

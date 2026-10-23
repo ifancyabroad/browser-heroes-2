@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "shadow_bolt",
 	name: "Shadow Bolt",
-	description: "Hurl a precise bolt of concentrated shadow at the enemy.",
+	description: "Make a ranged attack that deals necrotic damage.",
 	icon: "skills/warlock/shadow_bolt.png",
 	pool: "warlock",
 	kind: "spellAttack",

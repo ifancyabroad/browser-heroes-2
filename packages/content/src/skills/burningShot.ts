@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "burning_shot",
 	name: "Burning Shot",
-	description: "Loose an incendiary projectile that ignites its target on impact.",
+	description: "Make a weapon attack that deals additional fire damage over time on hit.",
 	icon: "skills/common/burning_shot.png",
 	pool: "common",
 	kind: "weaponAttack",

@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "fire_breath",
 	name: "Fire Breath",
-	description: "Exhale a torrent of flame that scorches and may ignite the enemy.",
+	description:
+		"Deal fire damage to the enemy. A failed Constitution saving throw also causes fire damage over time.",
 	icon: "skills/common/fire_breath.png",
 	pool: "common",
 	kind: "technique",

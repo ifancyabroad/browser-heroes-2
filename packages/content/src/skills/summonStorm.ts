@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "summon_storm",
 	name: "Summon Storm",
 	description:
-		"Summon a devastating storm that strikes immediately and continues to hound the enemy.",
+		"Deal lightning damage to the enemy. A failed Dexterity saving throw also causes lightning damage over time.",
 	icon: "skills/unique/summon_storm.png",
 	pool: "unique",
 	kind: "spell",

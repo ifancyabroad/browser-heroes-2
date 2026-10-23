@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "reconstruct",
 	name: "Reconstruct",
-	description: "Rebuild damaged components while reinforcing the body against physical attacks.",
+	description: "Restore your HP and gain resistance to slashing, crushing, and piercing damage.",
 	icon: "skills/unique/reconstruct.png",
 	pool: "unique",
 	kind: "technique",

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "intimidating_shout",
 	name: "Intimidating Shout",
 	description:
-		"Release a fearsome bellow that unsettles the enemy's attacks and may halve their physical damage.",
+		"Give the enemy disadvantage on attack rolls. A failed Wisdom saving throw also reduces their physical damage dealt.",
 	icon: "skills/barbarian/intimidating_shout.png",
 	pool: "barbarian",
 	kind: "technique",

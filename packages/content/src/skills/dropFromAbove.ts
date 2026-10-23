@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "drop_from_above",
 	name: "Drop from Above",
-	description: "Plunge onto the enemy with crushing force and potentially leave them stunned.",
+	description:
+		"Deal crushing damage to the enemy. A failed Strength saving throw also stuns them.",
 	icon: "skills/common/drop_from_above.png",
 	pool: "common",
 	kind: "weaponAttack",

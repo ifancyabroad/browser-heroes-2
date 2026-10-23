@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "renew",
 	name: "Renew",
-	description:
-		"Invoke divine restoration that immediately mends wounds and continues healing over time.",
+	description: "Restore your HP immediately and over time.",
 	icon: "skills/cleric/renew.png",
 	pool: "cleric",
 	kind: "prayer",

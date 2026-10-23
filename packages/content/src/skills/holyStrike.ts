@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "holy_strike",
 	name: "Holy Strike",
-	description: "Unleash divine retribution, smiting foes with holy power.",
+	description: "Make a weapon attack that deals additional radiant damage on hit.",
 	icon: "skills/cleric/holy_strike.png",
 	pool: "cleric",
 	kind: "weaponAttack",

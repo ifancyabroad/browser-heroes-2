@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "devour_soul",
 	name: "Devour Soul",
 	description:
-		"Tear at the enemy's soul, dealing necrotic damage and diminishing their capacity for life.",
+		"Deal necrotic damage to the enemy. A failed Wisdom saving throw also reduces their maximum HP.",
 	icon: "skills/common/devour_soul.png",
 	pool: "common",
 	kind: "spell",

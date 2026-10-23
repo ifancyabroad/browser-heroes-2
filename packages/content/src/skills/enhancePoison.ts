@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "enhance_poison",
 	name: "Enhance Poison",
-	description:
-		"Concentrate your toxins, greatly increasing poison damage for the encounter ahead.",
+	description: "Increase your poison damage dealt.",
 	icon: "skills/assassin/enhance_poison.png",
 	pool: "assassin",
 	kind: "technique",

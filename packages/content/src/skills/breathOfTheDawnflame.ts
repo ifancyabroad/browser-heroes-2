@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "breath_of_the_dawnflame",
 	name: "Breath of the Dawnflame",
-	description: "Exhale sacred fire that burns with both flame and divine radiance.",
+	description: "Deal fire and radiant damage to the enemy.",
 	icon: "skills/unique/breath_of_the_dawnflame.png",
 	pool: "unique",
 	kind: "spell",

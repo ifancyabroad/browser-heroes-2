@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "flame_arrow",
 	name: "Flame Arrow",
-	description: "Conjure a burning arrow and launch it with arcane precision.",
+	description: "Make a ranged attack that deals fire damage.",
 	icon: "skills/warlock/flame_arrow.png",
 	pool: "warlock",
 	kind: "spellAttack",

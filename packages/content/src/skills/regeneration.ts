@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "regeneration",
 	name: "Regeneration",
-	description: "Begin regenerating damaged tissue steadily over several turns.",
+	description: "Restore your HP over time.",
 	icon: "skills/common/regeneration.png",
 	pool: "common",
 	kind: "technique",

@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "crushing_blow",
 	name: "Crushing Blow",
-	description: "Land a concussive strike that can leave the enemy's attacks unsteady.",
+	description:
+		"Make a weapon attack that deals additional crushing damage on hit. On hit, a failed Constitution saving throw also reduces the enemy's attack roll bonus.",
 	icon: "skills/barbarian/crushing_blow.png",
 	pool: "barbarian",
 	kind: "weaponAttack",

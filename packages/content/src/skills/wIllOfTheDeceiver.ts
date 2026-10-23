@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "will_of_the_deceiver",
 	name: "Will of the Deceiver",
-	description: "Embrace the Deceiver's will to empower necrotic damage and healing.",
+	description: "Increase your necrotic damage dealt and healing for the current battle.",
 	icon: "skills/unique/will_of_the_deceiver.png",
 	pool: "unique",
 	kind: "spell",

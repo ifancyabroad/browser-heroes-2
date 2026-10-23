@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "adventurers_grace",
 	name: "Adventurer's Grace",
-	description: "Become immune to damage during the opening two rounds of your first battle.",
+	description: "Prevent all incoming damage during the opening rounds of your first battle.",
 	icon: "skills/unique/adventurers_grace.png",
 	pool: "unique",
 	kind: "spell",

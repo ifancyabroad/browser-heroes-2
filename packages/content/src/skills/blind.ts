@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "blind",
 	name: "Blind",
-	description: "Envelop the enemy's sight in shadow, reliably hindering their attacks.",
+	description: "Give the enemy disadvantage on attack rolls for the current battle.",
 	icon: "skills/warlock/blind.png",
 	pool: "warlock",
 	kind: "spell",

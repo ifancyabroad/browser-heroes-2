@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "doom_song",
 	name: "Doom Song",
 	description:
-		"Sing an omen of inevitable death that may sap the enemy's vitality and fighting spirit.",
+		"Reduce the enemy's maximum HP and damage dealt, each requiring a separate failed Wisdom saving throw.",
 	icon: "skills/unique/doom_song.png",
 	pool: "unique",
 	kind: "spell",

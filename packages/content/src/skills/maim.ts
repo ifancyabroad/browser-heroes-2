@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "maim",
 	name: "Maim",
-	description: "Deliver a vicious cut that can leave the enemy bleeding and weakened.",
+	description:
+		"Make a weapon attack with increased damage. On hit, a failed Constitution saving throw reduces the enemy's physical damage dealt and causes slashing damage over time.",
 	icon: "skills/assassin/maim.png",
 	pool: "assassin",
 	kind: "weaponAttack",

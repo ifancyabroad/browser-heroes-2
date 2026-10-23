@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "dragon_breath",
 	name: "Dragon Breath",
-	description: "Unleash a catastrophic cone of flame that devastates the enemy in an instant.",
+	description: "Deal fire damage to the enemy.",
 	icon: "skills/warlock/dragon_breath.png",
 	pool: "warlock",
 	kind: "spell",

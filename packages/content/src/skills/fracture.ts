@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "fracture",
 	name: "Fracture",
 	description:
-		"Drive a precise blow into the enemy's guard, leaving them vulnerable to piercing attacks.",
+		"Make a weapon attack with increased damage, dealt as piercing damage. On hit, a failed Constitution saving throw makes the enemy vulnerable to piercing damage.",
 	icon: "skills/assassin/fracture.png",
 	pool: "assassin",
 	kind: "weaponAttack",

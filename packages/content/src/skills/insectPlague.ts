@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "insect_plague",
 	name: "Insect Plague",
-	description:
-		"Engulf the enemy in a relentless swarm whose bites continue to tear at exposed flesh.",
+	description: "Deal piercing damage over time to the enemy on a failed Dexterity saving throw.",
 	icon: "skills/occultist/insect_plague.png",
 	pool: "occultist",
 	kind: "spell",

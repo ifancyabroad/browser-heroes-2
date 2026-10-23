@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "divine_strength",
 	name: "Divine Strength",
-	description:
-		"Infuse yourself with divine might, empowering the accuracy and damage of physical attacks.",
+	description: "Increase your attack roll bonus and physical damage dealt.",
 	icon: "skills/cleric/divine_strength.png",
 	pool: "cleric",
 	kind: "prayer",

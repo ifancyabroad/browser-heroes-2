@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "deafening_screech",
 	name: "Deafening Screech",
-	description:
-		"Release a piercing shriek that may leave the enemy unable to use their abilities.",
+	description: "Silence the enemy on a failed Constitution saving throw, preventing skill use.",
 	icon: "skills/common/deafening_screech.png",
 	pool: "common",
 	kind: "technique",

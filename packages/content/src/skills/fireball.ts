@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "fireball",
 	name: "Fireball",
-	description: "Hurl an explosive ball of flame that continues to burn the enemy.",
+	description: "Deal fire damage to the enemy immediately and over time.",
 	icon: "skills/warlock/fireball.png",
 	pool: "warlock",
 	kind: "spell",

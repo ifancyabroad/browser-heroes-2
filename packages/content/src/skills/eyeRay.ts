@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "eye_ray",
 	name: "Eye Ray",
 	description:
-		"Project a debilitating ray that ravages the enemy's mind and may leave them blinded or helpless.",
+		"Deal necrotic damage to the enemy. A failed Constitution saving throw stuns them, and a separate failed Wisdom saving throw gives them disadvantage on attack rolls.",
 	icon: "skills/unique/eye_ray.png",
 	pool: "unique",
 	kind: "spell",

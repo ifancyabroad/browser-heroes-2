@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "corruption",
 	name: "Corruption",
-	description: "Corrupt the enemy's body, leaving them profoundly vulnerable to necrotic power.",
+	description:
+		"Make the enemy vulnerable to necrotic damage and deal necrotic damage over time, each requiring a separate failed Constitution saving throw.",
 	icon: "skills/warlock/corruption.png",
 	pool: "warlock",
 	kind: "spell",

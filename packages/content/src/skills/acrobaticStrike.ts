@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "acrobatic_strike",
 	name: "Acrobatic Strike",
 	description:
-		"Vault past the enemy and strike from an unexpected angle, creating one exceptional opportunity to land a critical blow.",
+		"Make a weapon attack with disadvantage. On hit, your next attack roll becomes an automatic critical hit before the effect expires.",
 	icon: "skills/assassin/acrobatic_strike.png",
 	pool: "assassin",
 	kind: "weaponAttack",

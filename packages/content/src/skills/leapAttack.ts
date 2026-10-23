@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "leap_attack",
 	name: "Leap Attack",
-	description: "Leap into the enemy with a single heavy, committed strike.",
+	description: "Make a weapon attack with increased damage.",
 	icon: "skills/common/leap_attack.png",
 	pool: "common",
 	kind: "weaponAttack",

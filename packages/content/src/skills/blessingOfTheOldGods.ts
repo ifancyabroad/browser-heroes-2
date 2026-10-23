@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "blessing_of_the_old_gods",
 	name: "Blessing of the Old Gods",
-	description:
-		"Invoke an ancient blessing that halves all incoming damage for the decisive phase of battle.",
+	description: "Reduce all damage you take.",
 	icon: "skills/unique/blessing_of_the_old_gods.png",
 	pool: "unique",
 	kind: "spell",

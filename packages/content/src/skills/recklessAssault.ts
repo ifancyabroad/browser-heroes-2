@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "reckless_assault",
 	name: "Reckless Assault",
 	description:
-		"Commit everything to a devastating flame-wreathed assault, leaving yourself stunned in its aftermath.",
+		"Make a melee attack that deals fire damage, then become stunned even if the attack misses.",
 	icon: "skills/barbarian/reckless_assault.png",
 	pool: "barbarian",
 	kind: "technique",

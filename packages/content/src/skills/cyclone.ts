@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "cyclone",
 	name: "Cyclone",
-	description: "Engulf the enemy in a violent storm that shocks and may leave them reeling.",
+	description:
+		"Deal lightning and crushing damage to the enemy. A failed Strength saving throw also stuns them.",
 	icon: "skills/common/cyclone.png",
 	pool: "common",
 	kind: "spell",

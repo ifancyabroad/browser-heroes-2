@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "finger_of_death",
 	name: "Finger of Death",
-	description: "Unleash a concentrated beam of deathly power that ravages the target's soul.",
+	description: "Deal necrotic damage to the enemy.",
 	icon: "skills/warlock/finger_of_death.png",
 	pool: "warlock",
 	kind: "spell",

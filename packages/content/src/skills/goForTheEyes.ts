@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "go_for_the_eyes",
 	name: "Go For The Eyes",
-	description: "Aim for the opponent's eyes, impairing their attacks if the blow lands true.",
+	description:
+		"Make a weapon attack. On hit, a failed Constitution saving throw gives the enemy disadvantage on attack rolls.",
 	icon: "skills/thief/go_for_the_eyes.png",
 	pool: "thief",
 	kind: "weaponAttack",

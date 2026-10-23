@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "multi_strike",
 	name: "Multi Strike",
-	description: "Unleash three successive attacks before the enemy can recover.",
+	description: "Make three weapon attacks with reduced damage.",
 	icon: "skills/common/multi_strike.png",
 	pool: "common",
 	kind: "weaponAttack",

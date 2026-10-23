@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "engulf",
 	name: "Engulf",
 	description:
-		"Surround the enemy in living flame that burns immediately and continues to consume them.",
+		"Deal fire damage to the enemy. A failed Constitution saving throw also causes fire damage over time.",
 	icon: "skills/unique/engulf.png",
 	pool: "unique",
 	kind: "spell",

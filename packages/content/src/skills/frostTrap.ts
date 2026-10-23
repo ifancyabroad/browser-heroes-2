@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "frost_trap",
 	name: "Frost Trap",
 	description:
-		"Spring a freezing trap whose spikes pierce the enemy as its cold hampers their attacks.",
+		"Deal piercing and cold damage to the enemy. A failed Constitution saving throw also gives them disadvantage on attack rolls.",
 	icon: "skills/thief/frost_trap.png",
 	pool: "thief",
 	kind: "technique",

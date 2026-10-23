@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "yagamons_revenge",
 	name: "Yagamon's Revenge",
-	description:
-		"Invoke Yagamon's wrath to empower crushing and fire damage for the final assault.",
+	description: "Increase your crushing and fire damage dealt for the current battle.",
 	icon: "skills/unique/yagamons_revenge.png",
 	pool: "unique",
 	kind: "spell",

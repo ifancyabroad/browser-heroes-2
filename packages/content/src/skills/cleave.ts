@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "cleave",
 	name: "Cleave",
-	description: "A powerful weapon swing that deals additional slashing damage.",
+	description: "Make a weapon attack that deals additional slashing damage on hit.",
 	icon: "skills/barbarian/cleave.png",
 	pool: "barbarian",
 	kind: "weaponAttack",

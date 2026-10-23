@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "cursing_bolt",
 	name: "Cursing Bolt",
 	description:
-		"Fire a bolt of necrotic energy that deals damage and hinders the enemy's saving throws.",
+		"Deal necrotic damage to the enemy. A failed Wisdom saving throw also gives them disadvantage on saving throws.",
 	icon: "skills/warlock/cursing_bolt.png",
 	pool: "warlock",
 	kind: "spell",

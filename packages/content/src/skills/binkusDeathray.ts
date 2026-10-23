@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "binkus_deathray",
 	name: "Binkus' Deathray",
-	description: "Unleash a singular beam of annihilating fire and necrotic energy.",
+	description: "Deal necrotic and fire damage to the enemy.",
 	icon: "skills/unique/binkus_deathray.png",
 	pool: "unique",
 	kind: "spell",

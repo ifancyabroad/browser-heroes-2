@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "poison_shot",
 	name: "Poison Shot",
-	description: "Fire a poisoned projectile that delivers a persistent toxin on impact.",
+	description:
+		"Make a weapon attack. On hit, a failed Constitution saving throw causes poison damage over time.",
 	icon: "skills/common/poison_shot.png",
 	pool: "common",
 	kind: "weaponAttack",

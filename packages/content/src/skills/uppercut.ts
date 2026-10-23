@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "uppercut",
 	name: "Uppercut",
-	description: "A powerful upward strike with a chance to daze and stun your opponent.",
+	description:
+		"Make a weapon attack that deals crushing damage. On hit, a failed Constitution saving throw stuns the enemy.",
 	icon: "skills/fighter/uppercut.png",
 	pool: "fighter",
 	kind: "weaponAttack",

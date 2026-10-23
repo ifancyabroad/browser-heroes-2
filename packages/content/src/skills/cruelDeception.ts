@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "cruel_deception",
 	name: "Cruel Deception",
 	description:
-		"Lure the enemy into striking at a false opening while preparing two devastating counterattacks.",
+		"Make the enemy's next attack roll an automatic miss on a failed Wisdom saving throw. Your next two attack rolls become automatic critical hits before the effect expires.",
 	icon: "skills/thief/cruel_deception.png",
 	pool: "thief",
 	kind: "technique",

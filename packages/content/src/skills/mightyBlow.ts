@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "mighty_blow",
 	name: "Mighty Blow",
-	description: "A devastating strike that delivers heavy damage with overwhelming force.",
+	description: "Make a weapon attack with increased damage.",
 	icon: "skills/fighter/mighty_blow.png",
 	pool: "fighter",
 	kind: "weaponAttack",

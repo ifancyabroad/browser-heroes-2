@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "cloak_of_shadows",
 	name: "Cloak Of Shadows",
-	description:
-		"Shroud yourself in living shadow, reducing magical damage taken by 75% for the battle.",
+	description: "Reduce magical damage you take.",
 	icon: "skills/assassin/cloak_of_shadows.png",
 	pool: "assassin",
 	kind: "technique",

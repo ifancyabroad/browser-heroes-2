@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "spook",
 	name: "Spook",
 	description:
-		"Terrify the enemy with a sudden supernatural manifestation that may sap their resolve.",
+		"Deal necrotic damage to the enemy. A failed Wisdom saving throw also reduces their damage dealt.",
 	icon: "skills/common/spook.png",
 	pool: "common",
 	kind: "spell",

@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "shadow_strike",
 	name: "Shadow Strike",
-	description:
-		"Deliver a swift strike imbued with shadowy energy, dealing necrotic damage to your target.",
+	description: "Make a weapon attack that deals additional necrotic damage on hit.",
 	icon: "skills/assassin/shadow_strike.png",
 	pool: "assassin",
 	kind: "weaponAttack",

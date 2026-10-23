@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "iron_skin",
 	name: "Iron Skin",
-	description: "Harden the skin to greatly increase physical resistance.",
+	description: "Gain resistance to slashing, crushing, and piercing damage.",
 	icon: "skills/warlock/iron_skin.png",
 	pool: "warlock",
 	kind: "spell",

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "poison_cloud",
 	name: "Poison Cloud",
 	description:
-		"Envelop the enemy in toxic vapour that poisons immediately and lingers in their lungs.",
+		"Deal poison damage to the enemy. A failed Constitution saving throw also causes poison damage over time.",
 	icon: "skills/common/poison_cloud.png",
 	pool: "common",
 	kind: "spell",

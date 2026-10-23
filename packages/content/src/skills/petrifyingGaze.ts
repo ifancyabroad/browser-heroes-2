@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "petrifying_gaze",
 	name: "Petrifying Gaze",
-	description:
-		"Fix the enemy with a supernatural gaze that may temporarily turn their body to stone.",
+	description: "Stun the enemy on a failed Constitution saving throw.",
 	icon: "skills/common/petrifying_gaze.png",
 	pool: "common",
 	kind: "technique",

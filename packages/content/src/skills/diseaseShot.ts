@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "disease_shot",
 	name: "Disease Shot",
-	description: "Fire a diseased projectile that infects its target with lingering poison.",
+	description:
+		"Make a weapon attack. On hit, a failed Constitution saving throw causes poison damage over time.",
 	icon: "skills/common/disease_shot.png",
 	pool: "common",
 	kind: "weaponAttack",

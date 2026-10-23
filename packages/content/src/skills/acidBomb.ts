@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_bomb",
 	name: "Acid Bomb",
-	description:
-		"Throw a volatile bomb that scorches the enemy with fire and acid while corroding their armour.",
+	description: "Deal fire and acid damage to the enemy and reduce their Armour Class.",
 	icon: "skills/thief/acid_bomb.png",
 	pool: "thief",
 	kind: "technique",

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "call_lightning",
 	name: "Call Lightning",
 	description:
-		"Call down a violent storm that strikes immediately and continues to lash the enemy.",
+		"Deal lightning damage to the enemy. A failed Dexterity saving throw also causes lightning damage over time.",
 	icon: "skills/occultist/call_lightning.png",
 	pool: "occultist",
 	kind: "spell",

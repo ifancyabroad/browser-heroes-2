@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "web",
 	name: "Web",
 	description:
-		"Entangle the enemy in clinging webbing that hinders attacks and evasive movement.",
+		"Give the enemy disadvantage on attack rolls and Dexterity saving throws, each requiring a separate failed Dexterity saving throw.",
 	icon: "skills/common/web.png",
 	pool: "common",
 	kind: "technique",

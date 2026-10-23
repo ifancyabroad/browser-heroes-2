@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "flamestrike",
 	name: "Flamestrike",
-	description: "Call down searing divine fire that leaves the enemy burning in its wake.",
+	description:
+		"Deal radiant and fire damage to the enemy. A failed Constitution saving throw also causes fire damage over time.",
 	icon: "skills/cleric/flamestrike.png",
 	pool: "cleric",
 	kind: "prayer",

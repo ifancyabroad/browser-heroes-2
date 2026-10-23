@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "boon_of_the_dawnflame",
 	name: "Boon of the Dawnflame",
-	description: "Call upon the Dawnflame to greatly empower radiant and fire damage.",
+	description: "Increase your radiant and fire damage dealt for the current battle.",
 	icon: "skills/unique/boon_of_the_dawnflame.png",
 	pool: "unique",
 	kind: "spell",

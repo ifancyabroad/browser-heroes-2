@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acid_trap",
 	name: "Acid Trap",
-	description: "Spring a caustic snare that can pin the enemy and expose them to acid.",
+	description:
+		"Stun the enemy on a failed Dexterity saving throw and make them vulnerable to acid damage on a separate failed Constitution saving throw.",
 	icon: "skills/thief/acid_trap.png",
 	pool: "thief",
 	kind: "technique",

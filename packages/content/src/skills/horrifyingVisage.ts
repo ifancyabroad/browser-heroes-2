@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "horrifying_visage",
 	name: "Horrifying Visage",
-	description: "Reveal a horrifying countenance that may leave the enemy paralysed by fear.",
+	description:
+		"Give the enemy disadvantage on attack rolls and reduce their damage dealt, each requiring a separate failed Wisdom saving throw.",
 	icon: "skills/common/horrifying_visage.png",
 	pool: "common",
 	kind: "technique",

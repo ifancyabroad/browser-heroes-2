@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "whelm",
 	name: "Whelm",
 	description:
-		"Overwhelm the enemy beneath a freezing, crushing mass of water that may leave them unable to act.",
+		"Deal crushing and cold damage to the enemy. A failed Strength saving throw also stuns them.",
 	icon: "skills/unique/whelm.png",
 	pool: "unique",
 	kind: "spell",

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "molten_overdrive",
 	name: "Molten Overdrive",
 	description:
-		"Drive the molten core beyond its limits, gaining brutal precision and power while shedding armour.",
+		"Gain advantage on attack rolls, expand your critical hit range, and increase your crushing damage dealt at the cost of Armour Class.",
 	icon: "skills/unique/molten_overdrive.png",
 	pool: "unique",
 	kind: "technique",

@@ -3,8 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "power_word_shield",
 	name: "Power Word: Shield",
-	description:
-		"Speak a word of warding that surrounds you with a protective barrier for the battle.",
+	description: "Gain a shield that absorbs incoming damage for the current battle.",
 	icon: "skills/occultist/power_word_shield.png",
 	pool: "occultist",
 	kind: "spell",

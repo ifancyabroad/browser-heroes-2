@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "power_word_confusion",
 	name: "Power Word: Confusion",
 	description:
-		"Speak a disorienting word that may disrupt the enemy's attacks and silence their abilities.",
+		"Give the enemy disadvantage on attack rolls and silence them, each requiring a separate failed Wisdom saving throw.",
 	icon: "skills/occultist/power_word_confusion.png",
 	pool: "occultist",
 	kind: "spell",

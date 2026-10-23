@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "sunburst",
 	name: "Sunburst",
-	description: "Unleash overwhelming sunlight that sears the enemy and may leave them blinded.",
+	description:
+		"Deal radiant damage to the enemy. A failed Constitution saving throw also gives them disadvantage on attack rolls.",
 	icon: "skills/cleric/sunburst.png",
 	pool: "cleric",
 	kind: "prayer",

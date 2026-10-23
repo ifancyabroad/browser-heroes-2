@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "chosen_by_the_nameless",
 	name: "Chosen by the Nameless",
 	description:
-		"Receive the Nameless One's favour, transforming frail flesh into a vessel of terrible power.",
+		"Gain advantage on attack rolls and saving throws, and increase your damage dealt and maximum HP for the current battle.",
 	icon: "skills/unique/chosen_by_the_nameless.png",
 	pool: "unique",
 	kind: "spell",

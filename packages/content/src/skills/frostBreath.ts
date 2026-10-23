@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "frost_breath",
 	name: "Frost Breath",
-	description: "Exhale killing frost that damages and may numb the enemy's attacks.",
+	description:
+		"Deal cold damage to the enemy. A failed Constitution saving throw also gives them disadvantage on attack rolls.",
 	icon: "skills/common/frost_breath.png",
 	pool: "common",
 	kind: "technique",

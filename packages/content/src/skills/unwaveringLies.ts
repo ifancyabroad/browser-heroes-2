@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "unwavering_lies",
 	name: "Unwavering Lies",
 	description:
-		"Speak lies with such conviction that the enemy may doubt their strength and judgement.",
+		"Reduce the enemy's damage dealt and healing, each requiring a separate failed Wisdom saving throw.",
 	icon: "skills/unique/unwavering_lies.png",
 	pool: "unique",
 	kind: "spell",

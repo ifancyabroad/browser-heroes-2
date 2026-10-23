@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "acquire_target",
 	name: "Acquire Target",
-	description: "Lock onto the enemy to guarantee a critical hit with the next attack.",
+	description: "Make your next attack roll an automatic critical hit before the effect expires.",
 	icon: "skills/unique/acquire_target.png",
 	pool: "unique",
 	kind: "technique",

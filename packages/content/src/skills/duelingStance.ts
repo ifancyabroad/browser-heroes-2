@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "dueling_stance",
 	name: "Dueling Stance",
-	description: "Adopt a defensive posture that improves armour at the cost of damage dealt.",
+	description: "Increase your Armour Class at the cost of damage dealt.",
 	icon: "skills/fighter/dueling_stance.png",
 	pool: "fighter",
 	kind: "technique",
