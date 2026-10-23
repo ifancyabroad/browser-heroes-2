@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "dawn_blessed",
 	name: "Dawn-Blessed",
 	description:
-		"Radiant damage is multiplied by 1.5. Hits deal an additional 1d6 radiant damage and critical hits grant a 10-point shield for 2 turns, but you are vulnerable to necrotic damage.",
+		"Increase your radiant damage dealt and deal additional radiant damage on hit, but become vulnerable to necrotic damage. Critical hits grant a shield that absorbs incoming damage.",
 	icon: "feats/Skill_HolyMagic_nb.png",
 	kind: "elemental",
 	category: "offensive",

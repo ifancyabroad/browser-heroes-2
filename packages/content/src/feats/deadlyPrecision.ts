@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "deadly_precision",
 	name: "Deadly Precision",
 	description:
-		"Piercing damage is multiplied by 1.5. Hits deal an additional 1d6 piercing damage. Critical hits expose a weak point, making the enemy vulnerable to piercing damage until the end of your next turn, but you are vulnerable to slashing damage.",
+		"Increase your piercing damage dealt and deal additional piercing damage on hit, but become vulnerable to slashing damage. Critical hits temporarily make the enemy vulnerable to piercing damage.",
 	icon: "feats/Archerskill_50_nobg.png",
 	kind: "martial",
 	category: "offensive",

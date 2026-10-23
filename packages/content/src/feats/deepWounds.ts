@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "deep_wounds",
 	name: "Deep Wounds",
 	description:
-		"Slashing damage is multiplied by 1.5. Hits inflict 2d4 slashing damage over 2 turns, but you are vulnerable to crushing damage.",
+		"Increase your slashing damage dealt and deal additional slashing damage over time on hit, but become vulnerable to crushing damage.",
 	icon: "feats/skill_24_pierce.png",
 	kind: "martial",
 	category: "offensive",

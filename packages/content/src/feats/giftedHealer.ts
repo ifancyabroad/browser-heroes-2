@@ -3,8 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "gifted_healer",
 	name: "Gifted Healer",
-	description:
-		"Healing is multiplied by 1.5 and maximum HP increases by 25, but all outgoing damage is multiplied by 0.75.",
+	description: "Increase your healing and maximum HP at the cost of damage dealt.",
 	icon: "feats/Skill_HealingAura_nb.png",
 	kind: "survival",
 	category: "resource",

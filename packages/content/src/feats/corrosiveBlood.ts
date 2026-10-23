@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "corrosive_blood",
 	name: "Corrosive Blood",
 	description:
-		"Acid damage is multiplied by 1.5. Hits deal an additional 2d4 acid damage and can reduce enemy Armour Class by 2 for 2 turns, but your Armour Class is reduced by 3.",
+		"Increase your acid damage dealt and deal additional acid damage on hit at the cost of Armour Class. On hit, a failed Constitution saving throw also reduces the enemy's Armour Class.",
 	icon: "feats/skill_376_noBG.png",
 	kind: "elemental",
 	category: "offensive",

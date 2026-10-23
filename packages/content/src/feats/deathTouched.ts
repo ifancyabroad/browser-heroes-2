@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "death_touched",
 	name: "Death-Touched",
 	description:
-		"Necrotic damage is multiplied by 1.5. Hits deal 2d4 necrotic damage over 2 turns, but you are vulnerable to radiant damage.",
+		"Increase your necrotic damage dealt and deal additional necrotic damage over time on hit, but become vulnerable to radiant damage.",
 	icon: "feats/Skill_DeathMark_nb.png",
 	kind: "elemental",
 	category: "offensive",

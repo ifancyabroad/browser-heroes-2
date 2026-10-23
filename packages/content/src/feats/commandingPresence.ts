@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "commanding_presence",
 	name: "Commanding Presence",
 	description:
-		"Charisma increases by 6. Hits can impose disadvantage on enemy saving throws for 2 turns using your Charisma.",
+		"Increase your Charisma. On hit, a failed Wisdom saving throw gives the enemy disadvantage on saving throws.",
 	icon: "feats/Skill_Commander_nb.png",
 	kind: "utility",
 	category: "utility",

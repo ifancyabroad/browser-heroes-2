@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "winters_heart",
 	name: "Winter's Heart",
 	description:
-		"Cold damage is multiplied by 1.5. Hits deal an additional 1d8 cold damage, but you are vulnerable to fire damage.",
+		"Increase your cold damage dealt and deal additional cold damage on hit, but become vulnerable to fire damage.",
 	icon: "feats/Skill_FrostSpirit_nb.png",
 	kind: "elemental",
 	category: "offensive",

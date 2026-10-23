@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "spellbreaker",
 	name: "Spellbreaker",
 	description:
-		"Resolve increases by 4 and hits can silence the enemy for 1 turn, but focus is reduced by 4.",
+		"Increase your saving throw bonus at the cost of your saving throw DCs. On hit, a failed Wisdom saving throw silences the enemy.",
 	icon: "feats/Skill_IceArmorDestroy_nb.png",
 	kind: "martial",
 	category: "utility",

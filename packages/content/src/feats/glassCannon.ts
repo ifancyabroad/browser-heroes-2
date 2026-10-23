@@ -3,8 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "glass_cannon",
 	name: "Glass Cannon",
-	description:
-		"All outgoing damage is multiplied by 1.5, but all incoming damage is also multiplied by 1.5.",
+	description: "Increase all damage you deal, but also increase all damage you take.",
 	icon: "feats/Skill_BombardShot_nb.png",
 	kind: "utility",
 	category: "offensive",

@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "storm_conduit",
 	name: "Storm Conduit",
 	description:
-		"Lightning damage is multiplied by 1.5. Critical hits deal an additional 2d8 lightning damage and grant advantage on your next attack, but you are vulnerable to lightning damage.",
+		"Increase your lightning damage dealt, but become vulnerable to lightning damage. Critical hits deal additional lightning damage and grant advantage on your next attack roll.",
 	icon: "feats/Skill_LightningUltimate_nb.png",
 	kind: "elemental",
 	category: "offensive",

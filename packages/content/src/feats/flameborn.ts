@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "flameborn",
 	name: "Flameborn",
 	description:
-		"Fire damage is multiplied by 1.5. Hits deal an additional 1d8 fire damage, but you are vulnerable to cold damage.",
+		"Increase your fire damage dealt and deal additional fire damage on hit, but become vulnerable to cold damage.",
 	icon: "feats/Skill_FireMaster_nb.png",
 	kind: "elemental",
 	category: "offensive",

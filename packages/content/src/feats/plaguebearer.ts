@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "plaguebearer",
 	name: "Plaguebearer",
 	description:
-		"Poison damage is multiplied by 1.5. Hits poison the enemy for 2d4 damage over 2 turns, but all healing received is halved.",
+		"Increase your poison damage dealt and deal additional poison damage over time on hit at the cost of healing.",
 	icon: "feats/Aura_Infection_nb.png",
 	kind: "elemental",
 	category: "offensive",

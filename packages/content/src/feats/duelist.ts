@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "duelist",
 	name: "Duelist",
 	description:
-		"Attack rolls increase by 3 and hits can impose disadvantage on the enemy's next attack.",
+		"Increase your attack roll bonus. On hit, a failed Dexterity saving throw gives the enemy disadvantage on their next attack roll.",
 	icon: "feats/Skill_Parry_nb.png",
 	kind: "martial",
 	category: "offensive",

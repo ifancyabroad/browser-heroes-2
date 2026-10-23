@@ -3,8 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "juggernaut",
 	name: "Juggernaut",
-	description:
-		"Armour Class increases by 4 and maximum HP by 25, but attack rolls are reduced by 4.",
+	description: "Increase your Armour Class and maximum HP at the cost of your attack roll bonus.",
 	icon: "feats/Skill_UnholyStrength_nb.png",
 	kind: "survival",
 	category: "defensive",

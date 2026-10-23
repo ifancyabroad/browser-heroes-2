@@ -4,7 +4,7 @@ export default buildFeat({
 	id: "bonebreaker",
 	name: "Bonebreaker",
 	description:
-		"Crushing damage is multiplied by 1.5. Hits deal an additional 1d8 crushing damage, but you are vulnerable to piercing damage.",
+		"Increase your crushing damage dealt and deal additional crushing damage on hit, but become vulnerable to piercing damage.",
 	icon: "feats/skill_200_noBG.png",
 	kind: "martial",
 	category: "offensive",

@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "blood_drinker",
 	name: "Blood Drinker",
-	description: "Critical range increases by 2 and critical hits restore 2d8 HP.",
+	description: "Expand your critical hit range and restore HP on critical hits.",
 	icon: "feats/Skill_Thirst_nb.png",
 	kind: "martial",
 	category: "resource",

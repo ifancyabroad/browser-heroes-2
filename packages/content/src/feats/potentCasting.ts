@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "potent_casting",
 	name: "Potent Casting",
-	description: "Magical damage is multiplied by 1.5, but resolve is reduced by 4.",
+	description: "Increase your magical damage dealt at the cost of your saving throw bonus.",
 	icon: "feats/Aura_Wizards_nb.png",
 	kind: "spellcraft",
 	category: "offensive",
