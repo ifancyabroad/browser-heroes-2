@@ -26,12 +26,12 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Curved Knife",
+			name: "Twin Daggers",
 			icon: "items/weapons/daggers/Dagger_05.png",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d4",
-				type: "slashing",
+				dice: "2d4",
+				type: "piercing",
 				damageClass: "physical",
 				attribute: "dexterity",
 			},

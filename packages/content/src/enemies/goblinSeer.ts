@@ -30,7 +30,7 @@ export default buildEnemy({
 			icon: "items/weapons/staves/Staff_v2_35.png",
 			attackAttribute: "intelligence",
 			damage: {
-				dice: "1d6",
+				dice: "1d8",
 				type: "necrotic",
 				damageClass: "magical",
 				attribute: "intelligence",

@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "bloater",
 	name: "Bloater",
 	description:
-		"An unusually large goblin bred for strength and endurance in the tribe's fighting pits. He serves as the outpost's enforcer, wielding a heavy spiked mace.",
+		"An unusually large goblin bred for strength and endurance in the tribe's fighting pits. He serves as the outpost's enforcer, wielding a heavy greatclub.",
 	portrait: "enemies/outpost/09_Gb.PNG",
 	rank: "normal",
 	threat: 13,
@@ -26,8 +26,8 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Spiked Mace",
-			icon: "items/weapons/clubs/Club_v2_07.png",
+			name: "Greatclub",
+			icon: "items/weapons/clubs/Club_v2_05.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8",
