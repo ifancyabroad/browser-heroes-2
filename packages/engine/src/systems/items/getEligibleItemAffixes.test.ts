@@ -50,4 +50,84 @@ describe("getEligibleItemAffixes", () => {
 		expect(armourPrefixes).not.toContain("barbed");
 		expect(armourPrefixes).not.toContain("forceful");
 	});
+
+	it.each([
+		[
+			"brawny",
+			"titanforged",
+			["base_battleaxe", "base_greatclub", "base_greatsword", "base_warhammer"],
+		],
+		["hawkeyed", "eagle_eyed", ["base_longbow", "base_crossbow"]],
+		["deft", "dexterous", ["base_dagger", "base_shortsword"]],
+		[
+			"arcane",
+			"archonic",
+			[
+				"base_fire_staff",
+				"base_fire_wand",
+				"base_cold_staff",
+				"base_cold_wand",
+				"base_lightning_staff",
+				"base_lightning_wand",
+			],
+		],
+		[
+			"mystic",
+			"transcendent",
+			[
+				"base_radiant_staff",
+				"base_radiant_wand",
+				"base_necrotic_staff",
+				"base_necrotic_wand",
+			],
+		],
+	])(
+		"limits %s and its epic variant to their thematic weapons",
+		(rareId, epicId, expectedBases) => {
+			for (const [rarity, affixId] of [
+				["rare", rareId],
+				["epic", epicId],
+			] as const) {
+				const eligibleBases = Object.values(ITEMBASES_BY_ID)
+					.filter((base) => getAffixIds(base, rarity, "prefix").includes(affixId))
+					.map((base) => base.id);
+				expect(eligibleBases.sort()).toEqual([...expectedBases].sort());
+			}
+		},
+	);
+
+	it.each([
+		["stalwart", "indomitable"],
+		["dashing", "debonair"],
+		["studious", "erudite"],
+		["inspiring", "exalted"],
+	])("keeps %s and its epic variant available on every equipment base", (rareId, epicId) => {
+		for (const base of Object.values(ITEMBASES_BY_ID)) {
+			expect(getAffixIds(base, "rare", "prefix")).toContain(rareId);
+			expect(getAffixIds(base, "epic", "prefix")).toContain(epicId);
+		}
+	});
+
+	it("keeps combined AC exclusive to epic body armour and shields", () => {
+		for (const base of Object.values(ITEMBASES_BY_ID)) {
+			const eligible =
+				base.type === "armour" && (base.slot === "body" || base.slot === "shield");
+			expect(getAffixIds(base, "epic", "suffix").includes("of_sanctuary")).toBe(eligible);
+			expect(getAffixIds(base, "rare", "suffix")).not.toContain("of_sanctuary");
+		}
+	});
+
+	it("uses shared accuracy and save DC slots for Versatile rather than their union", () => {
+		expect(getAffixIds(ITEMBASES_BY_ID.base_fire_wand, "rare", "prefix")).toContain(
+			"versatile",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_ring, "rare", "prefix")).toContain("versatile");
+		expect(getAffixIds(ITEMBASES_BY_ID.base_longsword, "rare", "prefix")).not.toContain(
+			"versatile",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_amulet, "rare", "prefix")).not.toContain(
+			"versatile",
+		);
+		expect(getAffixIds(ITEMBASES_BY_ID.base_robe, "rare", "prefix")).not.toContain("versatile");
+	});
 });
