@@ -13,10 +13,10 @@ import ocean from "../assets/images/backgrounds/bg_25.png";
 import outpost from "../assets/images/backgrounds/bg_14.png";
 import plains from "../assets/images/backgrounds/bg_46.png";
 import swamp from "../assets/images/backgrounds/bg_37.png";
+import temple from "../assets/images/backgrounds/bg_04.png";
 import tower from "../assets/images/backgrounds/bg_38.png";
 import tundra from "../assets/images/backgrounds/bg_05.png";
 import volcano from "../assets/images/backgrounds/bg_16.png";
-import voidBackground from "../assets/images/backgrounds/bg_13.png";
 
 export const ZONE_BACKGROUNDS = {
 	abyss,
@@ -32,8 +32,8 @@ export const ZONE_BACKGROUNDS = {
 	outpost,
 	plains,
 	swamp,
+	temple,
 	tower,
 	tundra,
 	volcano,
-	void: voidBackground,
 } satisfies Record<Zone, string>;

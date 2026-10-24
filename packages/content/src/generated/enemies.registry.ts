@@ -142,34 +142,34 @@ import ene_swamp07_131 from '../enemies/swamp07';
 import ene_swamp08_132 from '../enemies/swamp08';
 import ene_swamp09_133 from '../enemies/swamp09';
 import ene_swamp10_134 from '../enemies/swamp10';
-import ene_theElderSquid_135 from '../enemies/theElderSquid';
-import ene_theExecutioner_136 from '../enemies/theExecutioner';
-import ene_theForestGuardian_137 from '../enemies/theForestGuardian';
-import ene_theHellfireCatapult_138 from '../enemies/theHellfireCatapult';
-import ene_theNamelessOne_139 from '../enemies/theNamelessOne';
-import ene_theRoyalBallista_140 from '../enemies/theRoyalBallista';
-import ene_tundra01_141 from '../enemies/tundra01';
-import ene_tundra02_142 from '../enemies/tundra02';
-import ene_tundra03_143 from '../enemies/tundra03';
-import ene_tundra04_144 from '../enemies/tundra04';
-import ene_tundra05_145 from '../enemies/tundra05';
-import ene_tundra06_146 from '../enemies/tundra06';
-import ene_tundra07_147 from '../enemies/tundra07';
-import ene_tundra08_148 from '../enemies/tundra08';
-import ene_tundra09_149 from '../enemies/tundra09';
-import ene_tundra10_150 from '../enemies/tundra10';
-import ene_urzulTheAscended_151 from '../enemies/urzulTheAscended';
-import ene_vilespawn_152 from '../enemies/vilespawn';
-import ene_void01_153 from '../enemies/void01';
-import ene_void02_154 from '../enemies/void02';
-import ene_void03_155 from '../enemies/void03';
-import ene_void04_156 from '../enemies/void04';
-import ene_void05_157 from '../enemies/void05';
-import ene_void06_158 from '../enemies/void06';
-import ene_void07_159 from '../enemies/void07';
-import ene_void08_160 from '../enemies/void08';
-import ene_void09_161 from '../enemies/void09';
-import ene_void10_162 from '../enemies/void10';
+import ene_temple01_135 from '../enemies/temple01';
+import ene_temple02_136 from '../enemies/temple02';
+import ene_temple03_137 from '../enemies/temple03';
+import ene_temple04_138 from '../enemies/temple04';
+import ene_temple05_139 from '../enemies/temple05';
+import ene_temple06_140 from '../enemies/temple06';
+import ene_temple07_141 from '../enemies/temple07';
+import ene_temple08_142 from '../enemies/temple08';
+import ene_temple09_143 from '../enemies/temple09';
+import ene_temple10_144 from '../enemies/temple10';
+import ene_theElderSquid_145 from '../enemies/theElderSquid';
+import ene_theExecutioner_146 from '../enemies/theExecutioner';
+import ene_theForestGuardian_147 from '../enemies/theForestGuardian';
+import ene_theHellfireCatapult_148 from '../enemies/theHellfireCatapult';
+import ene_theNamelessOne_149 from '../enemies/theNamelessOne';
+import ene_theRoyalBallista_150 from '../enemies/theRoyalBallista';
+import ene_tundra01_151 from '../enemies/tundra01';
+import ene_tundra02_152 from '../enemies/tundra02';
+import ene_tundra03_153 from '../enemies/tundra03';
+import ene_tundra04_154 from '../enemies/tundra04';
+import ene_tundra05_155 from '../enemies/tundra05';
+import ene_tundra06_156 from '../enemies/tundra06';
+import ene_tundra07_157 from '../enemies/tundra07';
+import ene_tundra08_158 from '../enemies/tundra08';
+import ene_tundra09_159 from '../enemies/tundra09';
+import ene_tundra10_160 from '../enemies/tundra10';
+import ene_urzulTheAscended_161 from '../enemies/urzulTheAscended';
+import ene_vilespawn_162 from '../enemies/vilespawn';
 import ene_voidCreeper_163 from '../enemies/voidCreeper';
 import ene_waterElemental_164 from '../enemies/waterElemental';
 import ene_wight_165 from '../enemies/wight';
@@ -186,7 +186,7 @@ export type Enemy = Omit<WithGeneratedId<EnemyDefinition, EnemyId>, 'combat'> & 
   combat: WithCombatContentIds<EnemyDefinition['combat'], SkillId, FeatId>;
 };
 
-const rawEnemies = [ene_abomination_0, ene_abyssArmour_1, ene_abyssRider_2, ene_aetherisTheDawnflame_3, ene_airElemental_4, ene_assassinOfRitChi_5, ene_avatarOfRitChi_6, ene_basilisk_7, ene_beholder_8, ene_berserker_9, ene_binkusTheAllKnowing_10, ene_brute_11, ene_carrionStalker_12, ene_chaosKnight_13, ene_chaosMauler_14, ene_chomper_15, ene_citadel01_16, ene_citadel02_17, ene_citadel03_18, ene_citadel04_19, ene_citadel05_20, ene_citadel06_21, ene_citadel07_22, ene_citadel08_23, ene_citadel09_24, ene_citadel10_25, ene_colossalPiranhasaur_26, ene_crabomination_27, ene_cursedGuardian_28, ene_cyclops_29, ene_dampHighPriestess_30, ene_darknessElemental_31, ene_dracolich_32, ene_drakusTheAwakened_33, ene_dreadSerpent_34, ene_dunzarakTheDeceived_35, ene_earthElemental_36, ene_fireBeetle_37, ene_fireDrake_38, ene_fireElemental_39, ene_fireSnake_40, ene_flameShrieker_41, ene_footman_42, ene_forsakenBrotherMcinnes_43, ene_ghoul_44, ene_giantYeti_45, ene_glompling_46, ene_goblinEngineer_47, ene_golem_48, ene_gremlinCultist_49, ene_greyhornTheCaged_50, ene_grotesque_51, ene_grove01_52, ene_grove02_53, ene_grove03_54, ene_grove04_55, ene_grove05_56, ene_grove06_57, ene_grove07_58, ene_grove08_59, ene_grove09_60, ene_grove10_61, ene_guard_62, ene_guardCaptain_63, ene_halfOgre_64, ene_hell01_65, ene_hell02_66, ene_hell03_67, ene_hell04_68, ene_hell05_69, ene_hell06_70, ene_hell07_71, ene_hell08_72, ene_hell09_73, ene_hell10_74, ene_hellGuard_75, ene_hobgoblin_76, ene_hydraOfTheDeep_77, ene_iceElemental_78, ene_knight_79, ene_livingFlame_80, ene_livingMold_81, ene_lurker_82, ene_magmaElemental_83, ene_monk_84, ene_mountedRatman_85, ene_munchling_86, ene_natureElemental_87, ene_necromental_88, ene_orcCatapult_89, ene_orcGrunt_90, ene_orcSoldier_91, ene_orcTracker_92, ene_orcWarchiefZog_93, ene_orcWardog_94, ene_orcWarlock_95, ene_outpost01_96, ene_outpost02_97, ene_outpost03_98, ene_outpost04_99, ene_outpost05_100, ene_outpost06_101, ene_outpost07_102, ene_outpost08_103, ene_outpost09_104, ene_outpost10_105, ene_peon_106, ene_piranhasaur_107, ene_pitFiendYagamon_108, ene_powerElemental_109, ene_pygmy_110, ene_ratOgre_116, ene_ratmanArcher_111, ene_ratmanChampion_112, ene_ratmanShaman_113, ene_ratmanSlave_114, ene_ratmanWarlock_115, ene_runtling_117, ene_sharkman_118, ene_shrieker_119, ene_sirMichaelTheConceder_120, ene_skeleton_121, ene_skeletonWarrior_122, ene_squib_123, ene_stitchedOgre_124, ene_swamp01_125, ene_swamp02_126, ene_swamp03_127, ene_swamp04_128, ene_swamp05_129, ene_swamp06_130, ene_swamp07_131, ene_swamp08_132, ene_swamp09_133, ene_swamp10_134, ene_theElderSquid_135, ene_theExecutioner_136, ene_theForestGuardian_137, ene_theHellfireCatapult_138, ene_theNamelessOne_139, ene_theRoyalBallista_140, ene_tundra01_141, ene_tundra02_142, ene_tundra03_143, ene_tundra04_144, ene_tundra05_145, ene_tundra06_146, ene_tundra07_147, ene_tundra08_148, ene_tundra09_149, ene_tundra10_150, ene_urzulTheAscended_151, ene_vilespawn_152, ene_void01_153, ene_void02_154, ene_void03_155, ene_void04_156, ene_void05_157, ene_void06_158, ene_void07_159, ene_void08_160, ene_void09_161, ene_void10_162, ene_voidCreeper_163, ene_waterElemental_164, ene_wight_165, ene_wingedNightmare_166, ene_wizard_167, ene_worg_168, ene_wraithLordMalakar_169, ene_wretch_170] satisfies readonly EnemyDefinition[];
+const rawEnemies = [ene_abomination_0, ene_abyssArmour_1, ene_abyssRider_2, ene_aetherisTheDawnflame_3, ene_airElemental_4, ene_assassinOfRitChi_5, ene_avatarOfRitChi_6, ene_basilisk_7, ene_beholder_8, ene_berserker_9, ene_binkusTheAllKnowing_10, ene_brute_11, ene_carrionStalker_12, ene_chaosKnight_13, ene_chaosMauler_14, ene_chomper_15, ene_citadel01_16, ene_citadel02_17, ene_citadel03_18, ene_citadel04_19, ene_citadel05_20, ene_citadel06_21, ene_citadel07_22, ene_citadel08_23, ene_citadel09_24, ene_citadel10_25, ene_colossalPiranhasaur_26, ene_crabomination_27, ene_cursedGuardian_28, ene_cyclops_29, ene_dampHighPriestess_30, ene_darknessElemental_31, ene_dracolich_32, ene_drakusTheAwakened_33, ene_dreadSerpent_34, ene_dunzarakTheDeceived_35, ene_earthElemental_36, ene_fireBeetle_37, ene_fireDrake_38, ene_fireElemental_39, ene_fireSnake_40, ene_flameShrieker_41, ene_footman_42, ene_forsakenBrotherMcinnes_43, ene_ghoul_44, ene_giantYeti_45, ene_glompling_46, ene_goblinEngineer_47, ene_golem_48, ene_gremlinCultist_49, ene_greyhornTheCaged_50, ene_grotesque_51, ene_grove01_52, ene_grove02_53, ene_grove03_54, ene_grove04_55, ene_grove05_56, ene_grove06_57, ene_grove07_58, ene_grove08_59, ene_grove09_60, ene_grove10_61, ene_guard_62, ene_guardCaptain_63, ene_halfOgre_64, ene_hell01_65, ene_hell02_66, ene_hell03_67, ene_hell04_68, ene_hell05_69, ene_hell06_70, ene_hell07_71, ene_hell08_72, ene_hell09_73, ene_hell10_74, ene_hellGuard_75, ene_hobgoblin_76, ene_hydraOfTheDeep_77, ene_iceElemental_78, ene_knight_79, ene_livingFlame_80, ene_livingMold_81, ene_lurker_82, ene_magmaElemental_83, ene_monk_84, ene_mountedRatman_85, ene_munchling_86, ene_natureElemental_87, ene_necromental_88, ene_orcCatapult_89, ene_orcGrunt_90, ene_orcSoldier_91, ene_orcTracker_92, ene_orcWarchiefZog_93, ene_orcWardog_94, ene_orcWarlock_95, ene_outpost01_96, ene_outpost02_97, ene_outpost03_98, ene_outpost04_99, ene_outpost05_100, ene_outpost06_101, ene_outpost07_102, ene_outpost08_103, ene_outpost09_104, ene_outpost10_105, ene_peon_106, ene_piranhasaur_107, ene_pitFiendYagamon_108, ene_powerElemental_109, ene_pygmy_110, ene_ratOgre_116, ene_ratmanArcher_111, ene_ratmanChampion_112, ene_ratmanShaman_113, ene_ratmanSlave_114, ene_ratmanWarlock_115, ene_runtling_117, ene_sharkman_118, ene_shrieker_119, ene_sirMichaelTheConceder_120, ene_skeleton_121, ene_skeletonWarrior_122, ene_squib_123, ene_stitchedOgre_124, ene_swamp01_125, ene_swamp02_126, ene_swamp03_127, ene_swamp04_128, ene_swamp05_129, ene_swamp06_130, ene_swamp07_131, ene_swamp08_132, ene_swamp09_133, ene_swamp10_134, ene_temple01_135, ene_temple02_136, ene_temple03_137, ene_temple04_138, ene_temple05_139, ene_temple06_140, ene_temple07_141, ene_temple08_142, ene_temple09_143, ene_temple10_144, ene_theElderSquid_145, ene_theExecutioner_146, ene_theForestGuardian_147, ene_theHellfireCatapult_148, ene_theNamelessOne_149, ene_theRoyalBallista_150, ene_tundra01_151, ene_tundra02_152, ene_tundra03_153, ene_tundra04_154, ene_tundra05_155, ene_tundra06_156, ene_tundra07_157, ene_tundra08_158, ene_tundra09_159, ene_tundra10_160, ene_urzulTheAscended_161, ene_vilespawn_162, ene_voidCreeper_163, ene_waterElemental_164, ene_wight_165, ene_wingedNightmare_166, ene_wizard_167, ene_worg_168, ene_wraithLordMalakar_169, ene_wretch_170] satisfies readonly EnemyDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const enemies = rawEnemies as readonly Enemy[];
@@ -327,34 +327,34 @@ const rawEnemiesById = {
   "swamp_08": ene_swamp08_132,
   "swamp_09": ene_swamp09_133,
   "swamp_10": ene_swamp10_134,
-  "the_elder_squid": ene_theElderSquid_135,
-  "the_executioner": ene_theExecutioner_136,
-  "the_forest_guardian": ene_theForestGuardian_137,
-  "the_hellfire_catapult": ene_theHellfireCatapult_138,
-  "the_nameless_one": ene_theNamelessOne_139,
-  "the_royal_ballista": ene_theRoyalBallista_140,
-  "tundra_01": ene_tundra01_141,
-  "tundra_02": ene_tundra02_142,
-  "tundra_03": ene_tundra03_143,
-  "tundra_04": ene_tundra04_144,
-  "tundra_05": ene_tundra05_145,
-  "tundra_06": ene_tundra06_146,
-  "tundra_07": ene_tundra07_147,
-  "tundra_08": ene_tundra08_148,
-  "tundra_09": ene_tundra09_149,
-  "tundra_10": ene_tundra10_150,
-  "urzul_the_ascended": ene_urzulTheAscended_151,
-  "vilespawn": ene_vilespawn_152,
-  "void_01": ene_void01_153,
-  "void_02": ene_void02_154,
-  "void_03": ene_void03_155,
-  "void_04": ene_void04_156,
-  "void_05": ene_void05_157,
-  "void_06": ene_void06_158,
-  "void_07": ene_void07_159,
-  "void_08": ene_void08_160,
-  "void_09": ene_void09_161,
-  "void_10": ene_void10_162,
+  "temple_01": ene_temple01_135,
+  "temple_02": ene_temple02_136,
+  "temple_03": ene_temple03_137,
+  "temple_04": ene_temple04_138,
+  "temple_05": ene_temple05_139,
+  "temple_06": ene_temple06_140,
+  "temple_07": ene_temple07_141,
+  "temple_08": ene_temple08_142,
+  "temple_09": ene_temple09_143,
+  "temple_10": ene_temple10_144,
+  "the_elder_squid": ene_theElderSquid_145,
+  "the_executioner": ene_theExecutioner_146,
+  "the_forest_guardian": ene_theForestGuardian_147,
+  "the_hellfire_catapult": ene_theHellfireCatapult_148,
+  "the_nameless_one": ene_theNamelessOne_149,
+  "the_royal_ballista": ene_theRoyalBallista_150,
+  "tundra_01": ene_tundra01_151,
+  "tundra_02": ene_tundra02_152,
+  "tundra_03": ene_tundra03_153,
+  "tundra_04": ene_tundra04_154,
+  "tundra_05": ene_tundra05_155,
+  "tundra_06": ene_tundra06_156,
+  "tundra_07": ene_tundra07_157,
+  "tundra_08": ene_tundra08_158,
+  "tundra_09": ene_tundra09_159,
+  "tundra_10": ene_tundra10_160,
+  "urzul_the_ascended": ene_urzulTheAscended_161,
+  "vilespawn": ene_vilespawn_162,
   "void_creeper": ene_voidCreeper_163,
   "water_elemental": ene_waterElemental_164,
   "wight": ene_wight_165,

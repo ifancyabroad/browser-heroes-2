@@ -1,11 +1,11 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "void_04",
-	name: "Void Enemy 04",
+	id: "temple_04",
+	name: "Temple Enemy 04",
 	description:
 		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
-	portrait: "enemies/void/04.PNG",
+	portrait: "enemies/temple/04.PNG",
 	rank: "normal",
 	threat: 1,
 	attributes: {
@@ -44,7 +44,7 @@ export default buildEnemy({
 		savingThrows: [],
 	},
 	encounter: {
-		zone: "void",
+		zone: "temple",
 		weight: 1,
 	},
 	tags: [],

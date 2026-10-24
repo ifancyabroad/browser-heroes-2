@@ -203,10 +203,10 @@ export const zones = [
 	"outpost",
 	"plains",
 	"swamp",
+	"temple",
 	"tower",
 	"tundra",
 	"volcano",
-	"void",
 ] as const;
 
 export const zoneSchema = z.enum(zones);

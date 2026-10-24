@@ -5,7 +5,7 @@ export const ZONE_GROUPS = [
 	["forest"],
 	["castle", "outpost"],
 	["desert", "swamp"],
-	["plains", "void"],
+	["plains", "temple"],
 	["hills"],
 	["ocean", "grove"],
 	["volcano", "tundra"],
