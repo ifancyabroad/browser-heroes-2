@@ -1,3 +1,4 @@
+import { systemGhosts } from "@app/content";
 import { describe, expect, it } from "vitest";
 import { catalogByKey, catalogs } from "./catalog";
 import { applyCatalogQuery, readCatalogQuery, writeCatalogQuery } from "./query";
@@ -30,20 +31,27 @@ describe("content catalogs", () => {
 		}
 	});
 
-	it("projects authored system ghost builds", () => {
+	it.each(systemGhosts)("projects the authored system ghost build $id", (definition) => {
 		const catalog = catalogByKey["system-ghosts"];
-		const ghost = catalog.entries.find((entry) => entry.id === "iron_vigil")!;
+		const ghost = catalog.entries.find((entry) => entry.id === definition.id)!;
 
 		expect(catalog.defaultSort).toBe("encounterLevel");
 		expect(ghost.cells).toEqual(
 			expect.objectContaining({
-				encounterLevel: 2,
-				heroLevel: 3,
-				class: "warrior",
+				encounterLevel: definition.encounterLevel,
+				heroLevel: definition.heroLevel,
+				class: definition.classId,
+				skills: definition.additionalSkillIds.join(", "),
+				feats: definition.featIds.join(", "),
 			}),
 		);
-		expect(ghost.searchText).toContain("double_strike");
-		expect(ghost.searchText).toContain("base_longsword");
+		for (const id of [
+			...definition.additionalSkillIds,
+			...definition.featIds,
+			...Object.values(definition.equipment).map((recipe) => recipe.baseId),
+		]) {
+			expect(ghost.searchText).toContain(id.toLocaleLowerCase());
+		}
 		expect(ghost.images).not.toHaveLength(0);
 	});
 

@@ -1,5 +1,6 @@
+import { systemGhosts } from "@app/content";
 import { describe, expect, it } from "vitest";
-import { catalogByKey } from "./catalog";
+import { catalogByKey, type CategoryKey } from "./catalog";
 import { getIncomingReferences, getOutgoingReferences } from "./references";
 
 describe("content references", () => {
@@ -25,22 +26,27 @@ describe("content references", () => {
 		expect(getOutgoingReferences("achievements", achievement)).toEqual([]);
 	});
 
-	it("links system ghost build references in both directions", () => {
+	it.each(systemGhosts)("links system ghost $id references in both directions", (definition) => {
 		const ghost = catalogByKey["system-ghosts"].entries.find(
-			(entry) => entry.id === "iron_vigil",
+			(entry) => entry.id === definition.id,
 		)!;
 		const outgoing = getOutgoingReferences("system-ghosts", ghost);
+		const expected: { category: CategoryKey; id: string }[] = [
+			{ category: "classes", id: definition.classId },
+			...definition.additionalSkillIds.map((id) => ({ category: "skills" as const, id })),
+			...definition.featIds.map((id) => ({ category: "feats" as const, id })),
+			...Object.values(definition.equipment).map((recipe) => ({
+				category: "item-bases" as const,
+				id: recipe.baseId,
+			})),
+		];
 
-		expect(outgoing).toEqual(
-			expect.arrayContaining([
-				expect.objectContaining({ category: "classes", id: "warrior" }),
-				expect.objectContaining({ category: "skills", id: "double_strike" }),
-				expect.objectContaining({ category: "feats", id: "juggernaut" }),
-				expect.objectContaining({ category: "item-bases", id: "base_longsword" }),
-			]),
-		);
-		expect(getIncomingReferences("classes", "warrior")).toContainEqual(
-			expect.objectContaining({ category: "system-ghosts", id: ghost.id }),
-		);
+		expect(outgoing).toHaveLength(expected.length);
+		for (const target of expected) {
+			expect(outgoing).toContainEqual(expect.objectContaining(target));
+			expect(getIncomingReferences(target.category, target.id)).toContainEqual(
+				expect.objectContaining({ category: "system-ghosts", id: ghost.id }),
+			);
+		}
 	});
 });
