@@ -108,6 +108,7 @@ export async function getGhostHistory(params: { userId: string; query: GetGhostH
 
 	const filter: Record<string, unknown> = {
 		userId: params.userId,
+		"stats.encounters": { $gt: 0 },
 	};
 
 	if (query.classId) {

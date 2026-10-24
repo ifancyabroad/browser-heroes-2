@@ -109,9 +109,9 @@ describe("ghost.service", () => {
 		expect(ghostModel.countDocuments).not.toHaveBeenCalled();
 	});
 
-	it("selects from the frozen ghost pool in stable order", async () => {
+	it("selects uniformly from the preferred frozen ghost pool in stable order", async () => {
 		const cutoff = new Date("2026-08-23T00:00:00.000Z");
-		ghostModel.countDocuments.mockResolvedValue(4);
+		ghostModel.countDocuments.mockResolvedValue(10);
 		const selectGhost = vi.fn().mockReturnValue({
 			lean: vi.fn().mockResolvedValue({
 				_id: "ghost-id",
@@ -149,9 +149,12 @@ describe("ghost.service", () => {
 			$or: [{ banishedAt: null }, { banishedAt: { $gte: cutoff } }],
 			_id: { $nin: ["507f1f77bcf86cd799439011"] },
 		};
-		expect(ghostModel.findOne).toHaveBeenCalledWith(filter);
+		expect(ghostModel.findOne).toHaveBeenCalledWith({
+			...filter,
+			firstEncounteredAt: { $type: "date", $lt: cutoff },
+		});
 		expect(sort).toHaveBeenCalledWith({ createdAt: -1, _id: 1 });
-		expect(skip).toHaveBeenCalledWith(2);
+		expect(skip).toHaveBeenCalledWith(7);
 	});
 
 	it("uses the level-matched system ghost when the frozen player pool is empty", async () => {
@@ -175,6 +178,54 @@ describe("ghost.service", () => {
 		expect(ghostModel.findOne).not.toHaveBeenCalled();
 		expect(userModel.findById).not.toHaveBeenCalled();
 	});
+
+	it.each(["2026-08-22", "2026-08-23", "2026-08-24", null])(
+		"freezes encounter priority at the cutoff when first encountered on %s",
+		async (firstEncounter) => {
+			const cutoff = new Date("2026-08-23T00:00:00.000Z");
+			const established = firstEncounter !== null && new Date(firstEncounter) < cutoff;
+			ghostModel.countDocuments.mockImplementation(async (filter) =>
+				filter.firstEncounteredAt ? (established ? 1 : 0) : 2,
+			);
+			const lean = vi.fn().mockResolvedValue({
+				_id: "ghost-id",
+				userId: "owner-id",
+				snapshot: { hero: { name: "Shade" } },
+			});
+			ghostModel.findOne.mockReturnValue({
+				sort: () => ({
+					skip: () => ({
+						select: () => ({ lean }),
+					}),
+				}),
+			});
+			userModel.findById.mockReturnValue({
+				select: () => ({
+					lean: async () => null,
+				}),
+			});
+			const input = {
+				season: 1,
+				encounterLevel: 4,
+				seed: "seed-73",
+				battleNumber: 12,
+				ghostPoolCutoff: cutoff,
+				defeatedGhostIds: [],
+			};
+
+			await selectGhostEncounter(input);
+
+			const selectedFilter = ghostModel.findOne.mock.calls[0]![0];
+
+			if (established) {
+				expect(selectedFilter.firstEncounteredAt).toEqual({ $type: "date", $lt: cutoff });
+				expect(ghostModel.countDocuments).toHaveBeenCalledTimes(1);
+			} else {
+				expect(selectedFilter).not.toHaveProperty("firstEncounteredAt");
+				expect(ghostModel.countDocuments).toHaveBeenCalledTimes(2);
+			}
+		},
+	);
 
 	it("uses the system ghost if the selected player record disappears", async () => {
 		ghostModel.countDocuments.mockResolvedValue(1);
@@ -306,7 +357,14 @@ describe("ghost.service", () => {
 			session: session as never,
 		});
 
-		expect(ghostModel.updateOne).toHaveBeenCalledWith(
+		expect(ghostModel.updateOne).toHaveBeenNthCalledWith(
+			1,
+			{ _id: "ghost-id", firstEncounteredAt: null },
+			{ $set: { firstEncounteredAt: expect.any(Date) } },
+			{ session },
+		);
+		expect(ghostModel.updateOne).toHaveBeenNthCalledWith(
+			2,
 			{ _id: "ghost-id" },
 			{ $inc: { "stats.encounters": 1 } },
 			{ session },

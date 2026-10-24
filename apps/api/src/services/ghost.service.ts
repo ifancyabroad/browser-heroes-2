@@ -92,7 +92,7 @@ export async function selectGhostEncounter(
 		return null;
 	}
 
-	const filter = {
+	let filter = {
 		season: input.season,
 		encounterLevel: getPlayerGhostEncounterLevelFilter(input.encounterLevel),
 		createdAt: { $lt: input.ghostPoolCutoff },
@@ -101,15 +101,25 @@ export async function selectGhostEncounter(
 			$nin: input.defeatedGhostIds.filter((ghostId) => Types.ObjectId.isValid(ghostId)),
 		},
 	};
-	const count = await GhostModel.countDocuments(filter);
+	const preferredFilter = {
+		...filter,
+		firstEncounteredAt: { $type: "date" as const, $lt: input.ghostPoolCutoff },
+	};
+
+	let count = await GhostModel.countDocuments(preferredFilter);
+
+	if (count > 0) {
+		filter = preferredFilter;
+	} else {
+		count = await GhostModel.countDocuments(filter);
+	}
+
 	if (count === 0) {
 		return selectSystemGhostEncounter(input.encounterLevel, input.defeatedGhostIds);
 	}
 
-	const index = selectDescendingWeightedIndex(
-		count,
-		getDeterministicFraction(`${selectionKey}:selection`),
-	);
+	const fraction = getDeterministicFraction(`${selectionKey}:selection`);
+	const index = Math.floor(fraction * count);
 	const ghost = await GhostModel.findOne(filter)
 		.sort({ createdAt: -1, _id: 1 })
 		.skip(index)
@@ -135,6 +145,23 @@ function getPlayerGhostEncounterLevelFilter(encounterLevel: number) {
 }
 
 export async function incrementGhostEncounters(input: IncrementGhostEncounterInput) {
+	// The conditional write and counter increment share the combat-start transaction.
+	// Concurrent starts retry on write conflicts and retain the first committed timestamp.
+	await GhostModel.updateOne(
+		{
+			_id: input.ghostId,
+			firstEncounteredAt: null,
+		},
+		{
+			$set: {
+				firstEncounteredAt: new Date(),
+			},
+		},
+		{
+			session: input.session,
+		},
+	);
+
 	await GhostModel.updateOne(
 		{
 			_id: input.ghostId,
@@ -227,15 +254,4 @@ function getDeterministicFraction(key: string): number {
 		hash = Math.imul(hash, 16777619);
 	}
 	return (hash >>> 0) / 4_294_967_296;
-}
-
-function selectDescendingWeightedIndex(itemCount: number, fraction: number): number {
-	let roll = fraction * ((itemCount * (itemCount + 1)) / 2);
-	for (let index = 0; index < itemCount; index += 1) {
-		roll -= itemCount - index;
-		if (roll <= 0) {
-			return index;
-		}
-	}
-	return itemCount - 1;
 }

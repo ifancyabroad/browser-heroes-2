@@ -115,7 +115,10 @@ export async function getGhostHallOfFame(params: {
 		};
 	}
 
-	const rankingFilter: Record<string, unknown> = { season };
+	const rankingFilter: Record<string, unknown> = {
+		season,
+		"stats.encounters": { $gt: 0 },
+	};
 	if (query.classId) {
 		rankingFilter.classId = query.classId;
 	}

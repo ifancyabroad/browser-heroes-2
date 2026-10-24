@@ -171,6 +171,7 @@ describe("history.service", () => {
 		const filter = {
 			userId: "user-id",
 			classId: "mage",
+			"stats.encounters": { $gt: 0 },
 			name: { $regex: "Shade\\+", $options: "i" },
 		};
 		expect(models.ghost.find).toHaveBeenCalledWith(filter);

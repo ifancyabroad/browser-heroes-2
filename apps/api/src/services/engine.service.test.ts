@@ -373,6 +373,7 @@ describe("engine.service", () => {
 		});
 
 		expect(ghostService.selectGhostEncounter).toHaveBeenCalledWith({
+			season: run.season,
 			encounterLevel: expect.any(Number),
 			seed: state.seed,
 			battleNumber: 11,

@@ -72,6 +72,11 @@ const ghostSchema = new Schema(
 			default: null,
 		},
 
+		firstEncounteredAt: {
+			type: Date,
+			default: null,
+		},
+
 		banishedBy: {
 			type: ghostBanisherSchema,
 			default: null,

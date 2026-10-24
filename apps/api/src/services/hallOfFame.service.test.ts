@@ -189,7 +189,18 @@ describe("hallOfFame.service", () => {
 			isCurrentUser: true,
 		});
 		expect(identities.getRegisteredDisplayNames).toHaveBeenCalledOnce();
+		expect(models.ghosts.find).toHaveBeenCalledWith({
+			season: 1,
+			userId,
+			"stats.encounters": { $gt: 0 },
+		});
+		expect(models.ghosts.countDocuments).toHaveBeenNthCalledWith(1, {
+			season: 1,
+			userId,
+			"stats.encounters": { $gt: 0 },
+		});
 		expect(models.ghosts.countDocuments.mock.calls[1]![0]).toMatchObject({
+			"stats.encounters": { $gt: 0 },
 			$or: expect.any(Array),
 		});
 		expect(models.ghosts.countDocuments.mock.calls[1]![0]).not.toHaveProperty("userId");
