@@ -3,14 +3,14 @@ import type { Zone } from "@app/content";
 // Each group occupies one ten-battle difficulty slot. Add alternatives within a group.
 export const ZONE_GROUPS = [
 	["forest"],
-	["castle"],
-	["desert"],
-	["plains"],
+	["castle", "outpost"],
+	["desert", "swamp"],
+	["plains", "void"],
 	["hills"],
-	["ocean"],
-	["volcano"],
-	["abyss"],
-	["dungeon"],
+	["ocean", "grove"],
+	["volcano", "tundra"],
+	["abyss", "citadel"],
+	["dungeon", "hell"],
 	["tower"],
 ] as const satisfies readonly (readonly [Zone, ...Zone[]])[];
 
