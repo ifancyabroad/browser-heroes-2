@@ -192,14 +192,21 @@ export const weaponTypeSchema = z.enum(weaponTypes);
 export const zones = [
 	"abyss",
 	"castle",
+	"citadel",
 	"desert",
 	"dungeon",
 	"forest",
+	"grove",
+	"hell",
 	"hills",
 	"ocean",
+	"outpost",
 	"plains",
+	"swamp",
 	"tower",
+	"tundra",
 	"volcano",
+	"void",
 ] as const;
 
 export const zoneSchema = z.enum(zones);

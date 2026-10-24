@@ -1,4 +1,4 @@
-import { attributes, SKILLS_BY_ID, FEATS_BY_ID, type Enemy, type Zone } from "@app/content";
+import { attributes, SKILLS_BY_ID, FEATS_BY_ID, type Enemy } from "@app/content";
 import type { BestiaryEntryView } from "@app/shared";
 import type { PropsWithChildren } from "react";
 import { IconSkull } from "@tabler/icons-react";
@@ -12,29 +12,7 @@ import {
 	damageTypeLabels,
 } from "../../../presentation/labels";
 import { resolveImageUrl } from "../../../utils/image";
-import abyss from "../../../assets/images/backgrounds/bg_41.png";
-import castle from "../../../assets/images/backgrounds/bg_27.png";
-import desert from "../../../assets/images/backgrounds/bg_09.png";
-import dungeon from "../../../assets/images/backgrounds/bg_50.png";
-import forest from "../../../assets/images/backgrounds/bg_12.png";
-import hills from "../../../assets/images/backgrounds/bg_22.png";
-import ocean from "../../../assets/images/backgrounds/bg_25.png";
-import plains from "../../../assets/images/backgrounds/bg_46.png";
-import tower from "../../../assets/images/backgrounds/bg_38.png";
-import volcano from "../../../assets/images/backgrounds/bg_16.png";
-
-const backgrounds = {
-	abyss,
-	castle,
-	desert,
-	dungeon,
-	forest,
-	hills,
-	ocean,
-	plains,
-	tower,
-	volcano,
-} satisfies Record<Zone, string>;
+import { ZONE_BACKGROUNDS } from "../../../presentation/zones";
 
 type EnemyDetailsModalProps = {
 	enemy: Enemy;
@@ -93,7 +71,9 @@ export function EnemyDetailsModal({ enemy, record, onClose }: EnemyDetailsModalP
 				<div className="grid gap-4 md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1">
 					<div
 						className="h-56 bg-cover bg-bottom md:h-72"
-						style={{ backgroundImage: `url(${backgrounds[enemy.encounter.zone]})` }}
+						style={{
+							backgroundImage: `url(${ZONE_BACKGROUNDS[enemy.encounter.zone]})`,
+						}}
 					>
 						<img
 							src={resolveImageUrl(enemy.portrait)}
