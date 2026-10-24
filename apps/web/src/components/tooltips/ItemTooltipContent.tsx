@@ -6,6 +6,7 @@ import {
 } from "../../presentation/labels";
 import { formatItemModifier, getModifierTextClassName } from "../../presentation/effects";
 import {
+	groupItemModifiers,
 	getItemKindLabel,
 	getItemRarityTextClassName,
 	getItemSlotLabel,
@@ -25,6 +26,8 @@ type ItemTooltipContentProps = {
 };
 
 export function ItemTooltipContent({ item }: ItemTooltipContentProps) {
+	const modifiers = groupItemModifiers(item.modifiers);
+
 	return (
 		<div className="grid gap-3">
 			<header className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-3">
@@ -46,10 +49,10 @@ export function ItemTooltipContent({ item }: ItemTooltipContentProps) {
 
 			<TooltipDetailList rows={getItemDetailRows(item)} />
 
-			{item.modifiers.length > 0 && (
+			{modifiers.length > 0 && (
 				<TooltipSection title="Bonuses">
 					<ul className="grid gap-1">
-						{item.modifiers.map((modifier, index) => (
+						{modifiers.map((modifier, index) => (
 							<li
 								key={`${modifier.type}-${index}`}
 								className={getModifierTextClassName(modifier)}

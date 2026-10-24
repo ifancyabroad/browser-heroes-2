@@ -16,6 +16,7 @@ import { formatItemModifier, getModifierTextClassName } from "../../../presentat
 import { IconLock } from "@tabler/icons-react";
 import {
 	getItemKindLabel,
+	groupItemModifiers,
 	getItemRarityTextClassName,
 	getItemSlotLabel,
 	getPrimaryItemStat,
@@ -272,13 +273,15 @@ function DetailLine({
 }
 
 function ModifierPreview({ slot }: { slot: TownShopSlotView }) {
-	if (slot.item.modifiers.length === 0) {
+	const modifiers = groupItemModifiers(slot.item.modifiers);
+
+	if (modifiers.length === 0) {
 		return null;
 	}
 
 	return (
 		<ul className="grid min-w-0 gap-1">
-			{slot.item.modifiers.map((modifier, index) => (
+			{modifiers.map((modifier, index) => (
 				<li
 					key={`${modifier.type}-${index}`}
 					className={clsx("min-w-0", getModifierTextClassName(modifier))}

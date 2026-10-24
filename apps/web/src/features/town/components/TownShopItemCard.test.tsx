@@ -3,6 +3,7 @@ import { selectItemDefinition, type TownShopSlotView } from "@app/engine";
 import { describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
 import { TownShopItemCard } from "./TownShopItemCard";
+import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 
 const item = selectItemDefinition({
 	instanceId: "shop-item",
@@ -33,6 +34,37 @@ function createSlot(locked: boolean, overrides: Partial<TownShopSlotView> = {}):
 }
 
 describe("TownShopItemCard", () => {
+	const repeatedStatItem = {
+		...testItem,
+		modifiers: [
+			{ type: "modifyStat" as const, stat: "criticalRangeBonus" as const, value: 4 },
+			{ type: "modifyStat" as const, stat: "criticalRangeBonus" as const, value: 2 },
+		],
+	};
+
+	it("shows a combined stat row in the shop preview", () => {
+		render(
+			<TownShopItemCard
+				slot={createSlot(false, { item: repeatedStatItem })}
+				isPending={false}
+				onBuy={vi.fn()}
+				onLockChange={vi.fn()}
+			/>,
+		);
+
+		expect(screen.getByText("+6 Critical Range Bonus")).toBeInTheDocument();
+		expect(screen.queryByText("+4 Critical Range Bonus")).not.toBeInTheDocument();
+		expect(screen.queryByText("+2 Critical Range Bonus")).not.toBeInTheDocument();
+	});
+
+	it("shows the same combined stat row in item tooltips", () => {
+		render(<ItemTooltipContent item={repeatedStatItem} />);
+
+		expect(screen.getByText("+6 Critical Range Bonus")).toBeInTheDocument();
+		expect(screen.queryByText("+4 Critical Range Bonus")).not.toBeInTheDocument();
+		expect(screen.queryByText("+2 Critical Range Bonus")).not.toBeInTheDocument();
+	});
+
 	it("exposes accessible lock and unlock controls", () => {
 		const onLockChange = vi.fn();
 		const { rerender } = render(
