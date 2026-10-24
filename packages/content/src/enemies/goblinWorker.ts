@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "outpost_09",
-	name: "Outpost Enemy 09",
+	id: "goblin_worker",
+	name: "Goblin Worker",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
-	portrait: "enemies/outpost/09_Gb.PNG",
+		"A goblin labourer who digs trenches and repairs the outpost's palisades. When the alarm sounds, he joins the defence with his mining pick.",
+	portrait: "enemies/outpost/01_Gb.png",
 	rank: "normal",
-	threat: 1,
+	threat: 8,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
+		strength: 8,
+		dexterity: 14,
 		constitution: 10,
 		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		wisdom: 8,
+		charisma: 8,
 	},
 	combat: {
-		hitDie: "1d8",
-		armourClass: 10,
+		hitDie: "1d6",
+		armourClass: 12,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,19 +26,19 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
+			name: "Mining Pick",
 			icon: "items/weapons/hammers/Hammer_21.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
-				type: "crushing",
+				type: "piercing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["heavy_strike"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: [],

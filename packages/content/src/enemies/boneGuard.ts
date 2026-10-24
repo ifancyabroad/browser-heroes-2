@@ -1,36 +1,36 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "outpost_04",
-	name: "Outpost Enemy 04",
+	id: "bone_guard",
+	name: "Bone Guard",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
-	portrait: "enemies/outpost/04_Gb.PNG",
+		"The animated remains of a goblin, bound to guard the outpost by tribal necromancy. It patrols without rest or recognition of its former kin.",
+	portrait: "enemies/outpost/02_Gb.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 7,
 	attributes: {
 		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		dexterity: 14,
+		constitution: 14,
+		intelligence: 6,
+		wisdom: 8,
+		charisma: 5,
 	},
 	combat: {
-		hitDie: "1d8",
-		armourClass: 10,
+		hitDie: "1d6",
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
-			immunities: [],
-			vulnerabilities: [],
+			immunities: ["poison"],
+			vulnerabilities: ["crushing"],
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Bony Fist",
+			icon: "skills/common/punch.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d4",
 				type: "crushing",
 				damageClass: "physical",
 				attribute: "strength",
