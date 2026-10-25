@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "temple_09",
-	name: "Temple Enemy 09",
+	id: "void_horror",
+	name: "Void Horror",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"A small, ravenous aberration drawn through the temple's breaches between worlds. Its luminous lure guides prey towards a mouth the priesthood regards as an instrument of sacrifice.",
 	portrait: "enemies/temple/09.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 16,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		strength: 14,
+		dexterity: 14,
+		constitution: 14,
+		intelligence: 8,
+		wisdom: 14,
+		charisma: 8,
 	},
 	combat: {
-		hitDie: "1d8",
-		armourClass: 10,
+		hitDie: "1d6",
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Bite",
+			icon: "skills/common/bite.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
-				type: "crushing",
+				type: "piercing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["blind", "drain_life"],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["constitution"],
 	},
 	encounter: {
 		zone: "temple",
