@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "swamp_08",
-	name: "Swamp Enemy 08",
+	id: "scuttler",
+	name: "Scuttler",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"A venomous marsh crustacean that hides beneath floating vegetation and snaps at passing limbs. Reed gatherers probe the shallows before stepping away from their boats.",
 	portrait: "enemies/swamp/08.png",
 	rank: "normal",
-	threat: 1,
+	threat: 10,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
+		strength: 14,
+		dexterity: 14,
+		constitution: 12,
+		intelligence: 1,
 		wisdom: 10,
-		charisma: 10,
+		charisma: 3,
 	},
 	combat: {
-		hitDie: "1d8",
-		armourClass: 10,
+		hitDie: "1d6",
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,8 +26,8 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Pincer",
+			icon: "skills/common/claw_strike.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
@@ -36,9 +36,9 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["poison_claw"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: [],

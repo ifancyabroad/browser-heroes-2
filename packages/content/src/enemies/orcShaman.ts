@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "swamp_06",
-	name: "Swamp Enemy 06",
+	id: "orc_shaman",
+	name: "Orc Shaman",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"An orc spiritual guide who calls storms and tends the wounds of marsh raiders. Clan leaders leave offerings before asking him to bless a crossing.",
 	portrait: "enemies/swamp/06.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 14,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
-		wisdom: 10,
+		strength: 16,
+		dexterity: 12,
+		constitution: 16,
+		intelligence: 14,
+		wisdom: 16,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Fine Boneclub",
+			icon: "items/weapons/clubs/Club_v2_01.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d6+1",
 				type: "crushing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["call_lightning", "renew", "bless"],
 		featIds: [],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "swamp",
