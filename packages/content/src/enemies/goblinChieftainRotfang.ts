@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "goblin_chieftain_rotfang",
 	name: "Goblin Chieftain Rotfang",
 	description:
-		"A goblin chieftain who holds the outpost through force and carefully guarded alliances. Scavenged plate and a prized blade mark his authority among the tribe.",
+		"An armoured chieftain who rules the outpost with a prized curved blade. Rival claimants have supplied much of the scavenged plate protecting him.",
 	portrait: "enemies/outpost/08_Gb.PNG",
 	rank: "boss",
 	threat: 15,

@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "goblin_seer",
 	name: "Goblin Seer",
 	description:
-		"A goblin diviner who reads omens in the dark orb of his staff. He turns those visions against intruders through apparitions and bursts of elemental magic.",
+		"A goblin diviner who channels fire, lightning, and fearful visions through his staff. The tribe consults his omens before sending raiders beyond the palisade.",
 	portrait: "enemies/outpost/05_Gb.PNG",
 	rank: "normal",
 	threat: 11,

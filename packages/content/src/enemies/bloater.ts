@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "bloater",
 	name: "Bloater",
 	description:
-		"An unusually large goblin bred for strength and endurance in the tribe's fighting pits. He serves as the outpost's enforcer, wielding a heavy greatclub.",
+		"A massive goblin bred for the tribe’s fighting pits, now serving as the outpost’s enforcer. Victorious breeders earn a place at the chieftain’s table.",
 	portrait: "enemies/outpost/09_Gb.PNG",
 	rank: "normal",
 	threat: 13,
