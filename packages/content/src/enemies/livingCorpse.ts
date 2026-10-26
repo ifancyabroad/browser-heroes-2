@@ -1,33 +1,33 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "citadel_05",
-	name: "Citadel Enemy 05",
+	id: "living_corpse",
+	name: "Living Corpse",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"A shambling corpse sustained by the citadel's restless magic. Bodies left unclaimed in the lower halls seldom remain where their companions last saw them.",
 	portrait: "enemies/citadel/05.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 10,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		strength: 13,
+		dexterity: 6,
+		constitution: 16,
+		intelligence: 3,
+		wisdom: 6,
+		charisma: 5,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 8,
 		damageAffinities: {
 			resistances: [],
-			immunities: [],
+			immunities: ["poison"],
 			vulnerabilities: [],
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Slam",
+			icon: "skills/common/punch.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d6",
@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["regeneration"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["wisdom"],
 	},
 	encounter: {
 		zone: "citadel",
