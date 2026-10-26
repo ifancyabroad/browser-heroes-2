@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "ogmunsta_acolyte",
 	name: "Og'munsta Acolyte",
 	description:
-		"An initiate learning to shape the cold light of the void. Those who endure their first communion are permitted to hear the temple's deeper prayers.",
+		"An initiate chosen for an innate psychic gift, learning to shape the void's cold light. Those who endure their first communion hear the temple's deeper prayers.",
 	portrait: "enemies/temple/08.PNG",
 	rank: "normal",
 	threat: 11,
