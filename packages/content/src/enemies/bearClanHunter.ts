@@ -10,15 +10,15 @@ export default buildEnemy({
 	threat: 20,
 	attributes: {
 		strength: 14,
-		dexterity: 20,
-		constitution: 14,
+		dexterity: 18,
+		constitution: 16,
 		intelligence: 10,
 		wisdom: 16,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 16,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

@@ -9,7 +9,7 @@ export default buildEnemy({
 	rank: "normal",
 	threat: 21,
 	attributes: {
-		strength: 20,
+		strength: 18,
 		dexterity: 14,
 		constitution: 18,
 		intelligence: 10,
