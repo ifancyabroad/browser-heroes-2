@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "tundra_01",
-	name: "Tundra Enemy 01",
+	id: "bear_clan_raider",
+	name: "Bear Clan Raider",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"A Bear Clan warrior who carries axe and shield on the winter raids. His share of the spoils must feed the household until the thaw.",
 	portrait: "enemies/tundra/N_01.png",
 	rank: "normal",
-	threat: 1,
+	threat: 20,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
+		strength: 20,
+		dexterity: 14,
+		constitution: 16,
 		intelligence: 10,
-		wisdom: 10,
+		wisdom: 12,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Exceptional Battleaxe",
+			icon: "items/weapons/axes/Axe_01.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d10+3",
+				type: "slashing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["cleave", "berserk"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "tundra",

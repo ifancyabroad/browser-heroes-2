@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "tundra_07",
-	name: "Tundra Enemy 07",
+	id: "bear_clan_cleric",
+	name: "Bear Clan Cleric",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"A warrior-priest who carries the clan's blessings into battle. Before each expedition, he recites the names of those whose remains never returned from the snow.",
 	portrait: "enemies/tundra/N_07.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 21,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
+		strength: 18,
+		dexterity: 14,
+		constitution: 16,
 		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		wisdom: 22,
+		charisma: 12,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Exceptional Stone Greatclub",
+			icon: "items/weapons/clubs/Club_v2_06.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d8+3",
 				type: "crushing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["holy_bolt", "flamestrike", "cure_critical_wounds", "prayer"],
 		featIds: [],
-		tactic: "default",
+		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["wisdom", "charisma"],
 	},
 	encounter: {
 		zone: "tundra",

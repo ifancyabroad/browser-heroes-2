@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "tundra_10",
-	name: "Tundra Enemy 10",
+	id: "bear_clan_elite",
+	name: "Bear Clan Elite",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
-	portrait: "enemies/tundra/N_10.PNG",
+		"A veteran sworn to hold the line around the jarl's household. The names carved inside his shield belong to companions who once stood beside him.",
+	portrait: "enemies/tundra/N_04.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 22,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
+		strength: 20,
+		dexterity: 14,
+		constitution: 18,
 		intelligence: 10,
-		wisdom: 10,
+		wisdom: 12,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Exceptional Longsword",
+			icon: "items/weapons/swords/Sword_17.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d8+3",
+				type: "slashing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["double_strike", "armour_break", "shield_wall"],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "tundra",
