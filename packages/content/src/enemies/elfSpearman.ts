@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "grove_06",
-	name: "Grove Enemy 06",
+	id: "elf_spearman",
+	name: "Elf Spearman",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"A trained soldier who holds the narrow approaches between the ancient trees. His company still practises formations devised for wars remembered only by the elves.",
 	portrait: "enemies/grove/06.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 17,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
-		wisdom: 10,
+		strength: 18,
+		dexterity: 16,
+		constitution: 14,
+		intelligence: 12,
+		wisdom: 14,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 17,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Superior Spear",
+			icon: "items/weapons/spears/Spear_24.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d8+2",
+				type: "piercing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["charge", "armour_break"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "grove",

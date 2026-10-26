@@ -1,24 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "grove_05",
-	name: "Grove Enemy 05",
+	id: "elf_captain",
+	name: "Elf Captain",
 	description:
-		"Placeholder enemy. Replace the name, description, stats, and abilities before enabling this zone.",
+		"An officer entrusted with the grove's spear companies and border defences. Her authority is renewed each spring before the elders and the royal court.",
 	portrait: "enemies/grove/05.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 20,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		strength: 18,
+		dexterity: 18,
+		constitution: 14,
+		intelligence: 14,
+		wisdom: 16,
+		charisma: 16,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 19,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Superior Spear",
+			icon: "items/weapons/spears/Spear_24.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d8+2",
+				type: "piercing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["battle_cry", "armour_break", "shield_wall"],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "grove",
