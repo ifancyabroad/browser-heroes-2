@@ -101,83 +101,103 @@ import ene_hobgoblin_90 from '../enemies/hobgoblin';
 import ene_hydraOfTheDeep_91 from '../enemies/hydraOfTheDeep';
 import ene_iceElemental_92 from '../enemies/iceElemental';
 import ene_imp_93 from '../enemies/imp';
-import ene_jarlAlfredBlondbeard_94 from '../enemies/jarlAlfredBlondbeard';
-import ene_knight_95 from '../enemies/knight';
-import ene_livingCorpse_96 from '../enemies/livingCorpse';
-import ene_livingFlame_97 from '../enemies/livingFlame';
-import ene_livingMold_98 from '../enemies/livingMold';
-import ene_lurker_99 from '../enemies/lurker';
-import ene_madGenie_100 from '../enemies/madGenie';
-import ene_magmaElemental_101 from '../enemies/magmaElemental';
-import ene_magog_102 from '../enemies/magog';
-import ene_marshBuilder_103 from '../enemies/marshBuilder';
-import ene_marshDweller_104 from '../enemies/marshDweller';
-import ene_mindWarper_105 from '../enemies/mindWarper';
-import ene_mireHound_106 from '../enemies/mireHound';
-import ene_monk_107 from '../enemies/monk';
-import ene_mountedRatman_108 from '../enemies/mountedRatman';
-import ene_munchling_109 from '../enemies/munchling';
-import ene_natureElemental_110 from '../enemies/natureElemental';
-import ene_necromental_111 from '../enemies/necromental';
-import ene_nightReaver_112 from '../enemies/nightReaver';
-import ene_ogmunstaAcolyte_113 from '../enemies/ogmunstaAcolyte';
-import ene_ogmunstasChampion_114 from '../enemies/ogmunstasChampion';
-import ene_orcCatapult_115 from '../enemies/orcCatapult';
-import ene_orcGrunt_116 from '../enemies/orcGrunt';
-import ene_orcShaman_117 from '../enemies/orcShaman';
-import ene_orcSoldier_118 from '../enemies/orcSoldier';
-import ene_orcTracker_119 from '../enemies/orcTracker';
-import ene_orcWarchiefZog_120 from '../enemies/orcWarchiefZog';
-import ene_orcWardog_121 from '../enemies/orcWardog';
-import ene_orcWarlock_122 from '../enemies/orcWarlock';
-import ene_peon_123 from '../enemies/peon';
-import ene_piranhasaur_124 from '../enemies/piranhasaur';
-import ene_pitFiendYagamon_125 from '../enemies/pitFiendYagamon';
-import ene_powerElemental_126 from '../enemies/powerElemental';
-import ene_priestOfOgmunsta_127 from '../enemies/priestOfOgmunsta';
-import ene_pygmy_128 from '../enemies/pygmy';
-import ene_quasit_129 from '../enemies/quasit';
-import ene_ratOgre_135 from '../enemies/ratOgre';
-import ene_ratmanArcher_130 from '../enemies/ratmanArcher';
-import ene_ratmanChampion_131 from '../enemies/ratmanChampion';
-import ene_ratmanShaman_132 from '../enemies/ratmanShaman';
-import ene_ratmanSlave_133 from '../enemies/ratmanSlave';
-import ene_ratmanWarlock_134 from '../enemies/ratmanWarlock';
-import ene_runtling_136 from '../enemies/runtling';
-import ene_scuttler_137 from '../enemies/scuttler';
-import ene_sharkman_138 from '../enemies/sharkman';
-import ene_shrieker_139 from '../enemies/shrieker';
-import ene_sirMichaelTheConceder_140 from '../enemies/sirMichaelTheConceder';
-import ene_skeleton_141 from '../enemies/skeleton';
-import ene_skeletonWarrior_142 from '../enemies/skeletonWarrior';
-import ene_skeletonWatchman_143 from '../enemies/skeletonWatchman';
-import ene_squib_144 from '../enemies/squib';
-import ene_stitchedOgre_145 from '../enemies/stitchedOgre';
-import ene_succubus_146 from '../enemies/succubus';
-import ene_theBoneCollector_147 from '../enemies/theBoneCollector';
-import ene_theElderSquid_148 from '../enemies/theElderSquid';
-import ene_theExecutioner_149 from '../enemies/theExecutioner';
-import ene_theForestGuardian_150 from '../enemies/theForestGuardian';
-import ene_theGreatFizzletrix_151 from '../enemies/theGreatFizzletrix';
-import ene_theHellfireCatapult_152 from '../enemies/theHellfireCatapult';
-import ene_theInfernalHorseman_153 from '../enemies/theInfernalHorseman';
-import ene_theNamelessOne_154 from '../enemies/theNamelessOne';
-import ene_theRoyalBallista_155 from '../enemies/theRoyalBallista';
-import ene_troll_156 from '../enemies/troll';
-import ene_tundraBeast_157 from '../enemies/tundraBeast';
-import ene_urzulTheAscended_158 from '../enemies/urzulTheAscended';
-import ene_vampireLord_159 from '../enemies/vampireLord';
-import ene_vhorakAndTheObliterator_160 from '../enemies/vhorakAndTheObliterator';
-import ene_vilespawn_161 from '../enemies/vilespawn';
-import ene_voidCreeper_162 from '../enemies/voidCreeper';
-import ene_voidHorror_163 from '../enemies/voidHorror';
-import ene_waterElemental_164 from '../enemies/waterElemental';
-import ene_wight_165 from '../enemies/wight';
-import ene_wingedNightmare_166 from '../enemies/wingedNightmare';
-import ene_wizard_167 from '../enemies/wizard';
-import ene_worg_168 from '../enemies/worg';
-import ene_wraithLordMalakar_169 from '../enemies/wraithLordMalakar';
-import ene_wretch_170 from '../enemies/wretch';
+import ene_island01_94 from '../enemies/island01';
+import ene_island02_95 from '../enemies/island02';
+import ene_island03_96 from '../enemies/island03';
+import ene_island04_97 from '../enemies/island04';
+import ene_island05_98 from '../enemies/island05';
+import ene_island06_99 from '../enemies/island06';
+import ene_island07_100 from '../enemies/island07';
+import ene_island08_101 from '../enemies/island08';
+import ene_island09_102 from '../enemies/island09';
+import ene_island10_103 from '../enemies/island10';
+import ene_jarlAlfredBlondbeard_104 from '../enemies/jarlAlfredBlondbeard';
+import ene_knight_105 from '../enemies/knight';
+import ene_livingCorpse_106 from '../enemies/livingCorpse';
+import ene_livingFlame_107 from '../enemies/livingFlame';
+import ene_livingMold_108 from '../enemies/livingMold';
+import ene_lurker_109 from '../enemies/lurker';
+import ene_madGenie_110 from '../enemies/madGenie';
+import ene_magmaElemental_111 from '../enemies/magmaElemental';
+import ene_magog_112 from '../enemies/magog';
+import ene_marshBuilder_113 from '../enemies/marshBuilder';
+import ene_marshDweller_114 from '../enemies/marshDweller';
+import ene_mindWarper_115 from '../enemies/mindWarper';
+import ene_mireHound_116 from '../enemies/mireHound';
+import ene_monk_117 from '../enemies/monk';
+import ene_mountain01_118 from '../enemies/mountain01';
+import ene_mountain02_119 from '../enemies/mountain02';
+import ene_mountain03_120 from '../enemies/mountain03';
+import ene_mountain04_121 from '../enemies/mountain04';
+import ene_mountain05_122 from '../enemies/mountain05';
+import ene_mountain06_123 from '../enemies/mountain06';
+import ene_mountain07_124 from '../enemies/mountain07';
+import ene_mountain08_125 from '../enemies/mountain08';
+import ene_mountain09_126 from '../enemies/mountain09';
+import ene_mountain10_127 from '../enemies/mountain10';
+import ene_mountedRatman_128 from '../enemies/mountedRatman';
+import ene_munchling_129 from '../enemies/munchling';
+import ene_natureElemental_130 from '../enemies/natureElemental';
+import ene_necromental_131 from '../enemies/necromental';
+import ene_nightReaver_132 from '../enemies/nightReaver';
+import ene_ogmunstaAcolyte_133 from '../enemies/ogmunstaAcolyte';
+import ene_ogmunstasChampion_134 from '../enemies/ogmunstasChampion';
+import ene_orcCatapult_135 from '../enemies/orcCatapult';
+import ene_orcGrunt_136 from '../enemies/orcGrunt';
+import ene_orcShaman_137 from '../enemies/orcShaman';
+import ene_orcSoldier_138 from '../enemies/orcSoldier';
+import ene_orcTracker_139 from '../enemies/orcTracker';
+import ene_orcWarchiefZog_140 from '../enemies/orcWarchiefZog';
+import ene_orcWardog_141 from '../enemies/orcWardog';
+import ene_orcWarlock_142 from '../enemies/orcWarlock';
+import ene_peon_143 from '../enemies/peon';
+import ene_piranhasaur_144 from '../enemies/piranhasaur';
+import ene_pitFiendYagamon_145 from '../enemies/pitFiendYagamon';
+import ene_powerElemental_146 from '../enemies/powerElemental';
+import ene_priestOfOgmunsta_147 from '../enemies/priestOfOgmunsta';
+import ene_pygmy_148 from '../enemies/pygmy';
+import ene_quasit_149 from '../enemies/quasit';
+import ene_ratOgre_155 from '../enemies/ratOgre';
+import ene_ratmanArcher_150 from '../enemies/ratmanArcher';
+import ene_ratmanChampion_151 from '../enemies/ratmanChampion';
+import ene_ratmanShaman_152 from '../enemies/ratmanShaman';
+import ene_ratmanSlave_153 from '../enemies/ratmanSlave';
+import ene_ratmanWarlock_154 from '../enemies/ratmanWarlock';
+import ene_runtling_156 from '../enemies/runtling';
+import ene_scuttler_157 from '../enemies/scuttler';
+import ene_sharkman_158 from '../enemies/sharkman';
+import ene_shrieker_159 from '../enemies/shrieker';
+import ene_sirMichaelTheConceder_160 from '../enemies/sirMichaelTheConceder';
+import ene_skeleton_161 from '../enemies/skeleton';
+import ene_skeletonWarrior_162 from '../enemies/skeletonWarrior';
+import ene_skeletonWatchman_163 from '../enemies/skeletonWatchman';
+import ene_squib_164 from '../enemies/squib';
+import ene_stitchedOgre_165 from '../enemies/stitchedOgre';
+import ene_succubus_166 from '../enemies/succubus';
+import ene_theBoneCollector_167 from '../enemies/theBoneCollector';
+import ene_theElderSquid_168 from '../enemies/theElderSquid';
+import ene_theExecutioner_169 from '../enemies/theExecutioner';
+import ene_theForestGuardian_170 from '../enemies/theForestGuardian';
+import ene_theGreatFizzletrix_171 from '../enemies/theGreatFizzletrix';
+import ene_theHellfireCatapult_172 from '../enemies/theHellfireCatapult';
+import ene_theInfernalHorseman_173 from '../enemies/theInfernalHorseman';
+import ene_theNamelessOne_174 from '../enemies/theNamelessOne';
+import ene_theRoyalBallista_175 from '../enemies/theRoyalBallista';
+import ene_troll_176 from '../enemies/troll';
+import ene_tundraBeast_177 from '../enemies/tundraBeast';
+import ene_urzulTheAscended_178 from '../enemies/urzulTheAscended';
+import ene_vampireLord_179 from '../enemies/vampireLord';
+import ene_vhorakAndTheObliterator_180 from '../enemies/vhorakAndTheObliterator';
+import ene_vilespawn_181 from '../enemies/vilespawn';
+import ene_voidCreeper_182 from '../enemies/voidCreeper';
+import ene_voidHorror_183 from '../enemies/voidHorror';
+import ene_waterElemental_184 from '../enemies/waterElemental';
+import ene_wight_185 from '../enemies/wight';
+import ene_wingedNightmare_186 from '../enemies/wingedNightmare';
+import ene_wizard_187 from '../enemies/wizard';
+import ene_worg_188 from '../enemies/worg';
+import ene_wraithLordMalakar_189 from '../enemies/wraithLordMalakar';
+import ene_wretch_190 from '../enemies/wretch';
 
 export { enemyIdSchema, enemyIds };
 export type { EnemyId } from './enemyIds';
@@ -186,7 +206,7 @@ export type Enemy = Omit<WithGeneratedId<EnemyDefinition, EnemyId>, 'combat'> & 
   combat: WithCombatContentIds<EnemyDefinition['combat'], SkillId, FeatId>;
 };
 
-const rawEnemies = [ene_abomination_0, ene_abyssArmour_1, ene_abyssRider_2, ene_aetherisTheDawnflame_3, ene_airElemental_4, ene_ancientWarlord_5, ene_ankhegQueen_6, ene_archmageVorath_7, ene_assassinOfRitChi_8, ene_avatarOfRitChi_9, ene_basilisk_10, ene_bearClanCleric_11, ene_bearClanElite_12, ene_bearClanHunter_13, ene_bearClanMage_14, ene_bearClanOutrider_15, ene_bearClanRaider_16, ene_bearClanRam_17, ene_beholder_18, ene_berserker_19, ene_bileDemon_20, ene_binkusTheAllKnowing_21, ene_bloater_22, ene_bogWitch_23, ene_boneGuard_24, ene_boneHound_25, ene_bonelessBlob_26, ene_brutalusTheDemonKing_27, ene_brute_28, ene_carrionStalker_29, ene_cerberus_30, ene_chaosKnight_31, ene_chaosMauler_32, ene_chomper_33, ene_colossalPiranhasaur_34, ene_crabomination_35, ene_crownPrinceThalanor_36, ene_cursedGuardian_37, ene_cyclops_38, ene_dampHighPriestess_39, ene_darknessElemental_40, ene_deathKnight_41, ene_deepbornHunter_42, ene_deepbornMystic_43, ene_deepbornRider_44, ene_deepbornWarrior_45, ene_devilspawn_46, ene_dracolich_47, ene_dragonSlayerEric_48, ene_drakusTheAwakened_49, ene_dreadFatherNicolas_50, ene_dreadSerpent_51, ene_dunzarakTheDeceived_52, ene_earthElemental_53, ene_elfCaptain_54, ene_elfKingsblade_55, ene_elfKingsguard_56, ene_elfNightsinger_57, ene_elfRanger_58, ene_elfScout_59, ene_elfSorceress_60, ene_elfSpearman_61, ene_fireBeetle_62, ene_fireDrake_63, ene_fireElemental_64, ene_fireSnake_65, ene_flameShrieker_66, ene_footman_67, ene_forsakenBrotherMcinnes_68, ene_ghoul_69, ene_giantYeti_70, ene_glompling_71, ene_goblinArcher_72, ene_goblinChieftainRotfang_73, ene_goblinEngineer_74, ene_goblinFanatic_75, ene_goblinHero_76, ene_goblinSeer_77, ene_goblinVanguard_78, ene_goblinWitchDoctor_79, ene_goblinWorker_80, ene_golem_81, ene_gremlinCultist_82, ene_greyhornTheCaged_83, ene_grotesque_84, ene_guard_85, ene_guardCaptain_86, ene_halfOgre_87, ene_hellGuard_88, ene_highExecutionerGrimhook_89, ene_hobgoblin_90, ene_hydraOfTheDeep_91, ene_iceElemental_92, ene_imp_93, ene_jarlAlfredBlondbeard_94, ene_knight_95, ene_livingCorpse_96, ene_livingFlame_97, ene_livingMold_98, ene_lurker_99, ene_madGenie_100, ene_magmaElemental_101, ene_magog_102, ene_marshBuilder_103, ene_marshDweller_104, ene_mindWarper_105, ene_mireHound_106, ene_monk_107, ene_mountedRatman_108, ene_munchling_109, ene_natureElemental_110, ene_necromental_111, ene_nightReaver_112, ene_ogmunstaAcolyte_113, ene_ogmunstasChampion_114, ene_orcCatapult_115, ene_orcGrunt_116, ene_orcShaman_117, ene_orcSoldier_118, ene_orcTracker_119, ene_orcWarchiefZog_120, ene_orcWardog_121, ene_orcWarlock_122, ene_peon_123, ene_piranhasaur_124, ene_pitFiendYagamon_125, ene_powerElemental_126, ene_priestOfOgmunsta_127, ene_pygmy_128, ene_quasit_129, ene_ratOgre_135, ene_ratmanArcher_130, ene_ratmanChampion_131, ene_ratmanShaman_132, ene_ratmanSlave_133, ene_ratmanWarlock_134, ene_runtling_136, ene_scuttler_137, ene_sharkman_138, ene_shrieker_139, ene_sirMichaelTheConceder_140, ene_skeleton_141, ene_skeletonWarrior_142, ene_skeletonWatchman_143, ene_squib_144, ene_stitchedOgre_145, ene_succubus_146, ene_theBoneCollector_147, ene_theElderSquid_148, ene_theExecutioner_149, ene_theForestGuardian_150, ene_theGreatFizzletrix_151, ene_theHellfireCatapult_152, ene_theInfernalHorseman_153, ene_theNamelessOne_154, ene_theRoyalBallista_155, ene_troll_156, ene_tundraBeast_157, ene_urzulTheAscended_158, ene_vampireLord_159, ene_vhorakAndTheObliterator_160, ene_vilespawn_161, ene_voidCreeper_162, ene_voidHorror_163, ene_waterElemental_164, ene_wight_165, ene_wingedNightmare_166, ene_wizard_167, ene_worg_168, ene_wraithLordMalakar_169, ene_wretch_170] satisfies readonly EnemyDefinition[];
+const rawEnemies = [ene_abomination_0, ene_abyssArmour_1, ene_abyssRider_2, ene_aetherisTheDawnflame_3, ene_airElemental_4, ene_ancientWarlord_5, ene_ankhegQueen_6, ene_archmageVorath_7, ene_assassinOfRitChi_8, ene_avatarOfRitChi_9, ene_basilisk_10, ene_bearClanCleric_11, ene_bearClanElite_12, ene_bearClanHunter_13, ene_bearClanMage_14, ene_bearClanOutrider_15, ene_bearClanRaider_16, ene_bearClanRam_17, ene_beholder_18, ene_berserker_19, ene_bileDemon_20, ene_binkusTheAllKnowing_21, ene_bloater_22, ene_bogWitch_23, ene_boneGuard_24, ene_boneHound_25, ene_bonelessBlob_26, ene_brutalusTheDemonKing_27, ene_brute_28, ene_carrionStalker_29, ene_cerberus_30, ene_chaosKnight_31, ene_chaosMauler_32, ene_chomper_33, ene_colossalPiranhasaur_34, ene_crabomination_35, ene_crownPrinceThalanor_36, ene_cursedGuardian_37, ene_cyclops_38, ene_dampHighPriestess_39, ene_darknessElemental_40, ene_deathKnight_41, ene_deepbornHunter_42, ene_deepbornMystic_43, ene_deepbornRider_44, ene_deepbornWarrior_45, ene_devilspawn_46, ene_dracolich_47, ene_dragonSlayerEric_48, ene_drakusTheAwakened_49, ene_dreadFatherNicolas_50, ene_dreadSerpent_51, ene_dunzarakTheDeceived_52, ene_earthElemental_53, ene_elfCaptain_54, ene_elfKingsblade_55, ene_elfKingsguard_56, ene_elfNightsinger_57, ene_elfRanger_58, ene_elfScout_59, ene_elfSorceress_60, ene_elfSpearman_61, ene_fireBeetle_62, ene_fireDrake_63, ene_fireElemental_64, ene_fireSnake_65, ene_flameShrieker_66, ene_footman_67, ene_forsakenBrotherMcinnes_68, ene_ghoul_69, ene_giantYeti_70, ene_glompling_71, ene_goblinArcher_72, ene_goblinChieftainRotfang_73, ene_goblinEngineer_74, ene_goblinFanatic_75, ene_goblinHero_76, ene_goblinSeer_77, ene_goblinVanguard_78, ene_goblinWitchDoctor_79, ene_goblinWorker_80, ene_golem_81, ene_gremlinCultist_82, ene_greyhornTheCaged_83, ene_grotesque_84, ene_guard_85, ene_guardCaptain_86, ene_halfOgre_87, ene_hellGuard_88, ene_highExecutionerGrimhook_89, ene_hobgoblin_90, ene_hydraOfTheDeep_91, ene_iceElemental_92, ene_imp_93, ene_island01_94, ene_island02_95, ene_island03_96, ene_island04_97, ene_island05_98, ene_island06_99, ene_island07_100, ene_island08_101, ene_island09_102, ene_island10_103, ene_jarlAlfredBlondbeard_104, ene_knight_105, ene_livingCorpse_106, ene_livingFlame_107, ene_livingMold_108, ene_lurker_109, ene_madGenie_110, ene_magmaElemental_111, ene_magog_112, ene_marshBuilder_113, ene_marshDweller_114, ene_mindWarper_115, ene_mireHound_116, ene_monk_117, ene_mountain01_118, ene_mountain02_119, ene_mountain03_120, ene_mountain04_121, ene_mountain05_122, ene_mountain06_123, ene_mountain07_124, ene_mountain08_125, ene_mountain09_126, ene_mountain10_127, ene_mountedRatman_128, ene_munchling_129, ene_natureElemental_130, ene_necromental_131, ene_nightReaver_132, ene_ogmunstaAcolyte_133, ene_ogmunstasChampion_134, ene_orcCatapult_135, ene_orcGrunt_136, ene_orcShaman_137, ene_orcSoldier_138, ene_orcTracker_139, ene_orcWarchiefZog_140, ene_orcWardog_141, ene_orcWarlock_142, ene_peon_143, ene_piranhasaur_144, ene_pitFiendYagamon_145, ene_powerElemental_146, ene_priestOfOgmunsta_147, ene_pygmy_148, ene_quasit_149, ene_ratOgre_155, ene_ratmanArcher_150, ene_ratmanChampion_151, ene_ratmanShaman_152, ene_ratmanSlave_153, ene_ratmanWarlock_154, ene_runtling_156, ene_scuttler_157, ene_sharkman_158, ene_shrieker_159, ene_sirMichaelTheConceder_160, ene_skeleton_161, ene_skeletonWarrior_162, ene_skeletonWatchman_163, ene_squib_164, ene_stitchedOgre_165, ene_succubus_166, ene_theBoneCollector_167, ene_theElderSquid_168, ene_theExecutioner_169, ene_theForestGuardian_170, ene_theGreatFizzletrix_171, ene_theHellfireCatapult_172, ene_theInfernalHorseman_173, ene_theNamelessOne_174, ene_theRoyalBallista_175, ene_troll_176, ene_tundraBeast_177, ene_urzulTheAscended_178, ene_vampireLord_179, ene_vhorakAndTheObliterator_180, ene_vilespawn_181, ene_voidCreeper_182, ene_voidHorror_183, ene_waterElemental_184, ene_wight_185, ene_wingedNightmare_186, ene_wizard_187, ene_worg_188, ene_wraithLordMalakar_189, ene_wretch_190] satisfies readonly EnemyDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const enemies = rawEnemies as readonly Enemy[];
@@ -286,83 +306,103 @@ const rawEnemiesById = {
   "hydra_of_the_deep": ene_hydraOfTheDeep_91,
   "ice_elemental": ene_iceElemental_92,
   "imp": ene_imp_93,
-  "jarl_alfred_blondbeard": ene_jarlAlfredBlondbeard_94,
-  "knight": ene_knight_95,
-  "living_corpse": ene_livingCorpse_96,
-  "living_flame": ene_livingFlame_97,
-  "living_mold": ene_livingMold_98,
-  "lurker": ene_lurker_99,
-  "mad_genie": ene_madGenie_100,
-  "magma_elemental": ene_magmaElemental_101,
-  "magog": ene_magog_102,
-  "marsh_builder": ene_marshBuilder_103,
-  "marsh_dweller": ene_marshDweller_104,
-  "mind_warper": ene_mindWarper_105,
-  "mire_hound": ene_mireHound_106,
-  "monk": ene_monk_107,
-  "mounted_ratman": ene_mountedRatman_108,
-  "munchling": ene_munchling_109,
-  "nature_elemental": ene_natureElemental_110,
-  "necromental": ene_necromental_111,
-  "night_reaver": ene_nightReaver_112,
-  "ogmunsta_acolyte": ene_ogmunstaAcolyte_113,
-  "ogmunstas_champion": ene_ogmunstasChampion_114,
-  "orc_catapult": ene_orcCatapult_115,
-  "orc_grunt": ene_orcGrunt_116,
-  "orc_shaman": ene_orcShaman_117,
-  "orc_soldier": ene_orcSoldier_118,
-  "orc_tracker": ene_orcTracker_119,
-  "orc_warchief_zog": ene_orcWarchiefZog_120,
-  "orc_wardog": ene_orcWardog_121,
-  "orc_warlock": ene_orcWarlock_122,
-  "peon": ene_peon_123,
-  "piranhasaur": ene_piranhasaur_124,
-  "pit_fiend_yagamon": ene_pitFiendYagamon_125,
-  "power_elemental": ene_powerElemental_126,
-  "priest_of_ogmunsta": ene_priestOfOgmunsta_127,
-  "pygmy": ene_pygmy_128,
-  "quasit": ene_quasit_129,
-  "rat_ogre": ene_ratOgre_135,
-  "ratman_archer": ene_ratmanArcher_130,
-  "ratman_champion": ene_ratmanChampion_131,
-  "ratman_shaman": ene_ratmanShaman_132,
-  "ratman_slave": ene_ratmanSlave_133,
-  "ratman_warlock": ene_ratmanWarlock_134,
-  "runtling": ene_runtling_136,
-  "scuttler": ene_scuttler_137,
-  "sharkman": ene_sharkman_138,
-  "shrieker": ene_shrieker_139,
-  "sir_michael_the_conceder": ene_sirMichaelTheConceder_140,
-  "skeleton": ene_skeleton_141,
-  "skeleton_warrior": ene_skeletonWarrior_142,
-  "skeleton_watchman": ene_skeletonWatchman_143,
-  "squib": ene_squib_144,
-  "stitched_ogre": ene_stitchedOgre_145,
-  "succubus": ene_succubus_146,
-  "the_bone_collector": ene_theBoneCollector_147,
-  "the_elder_squid": ene_theElderSquid_148,
-  "the_executioner": ene_theExecutioner_149,
-  "the_forest_guardian": ene_theForestGuardian_150,
-  "the_great_fizzletrix": ene_theGreatFizzletrix_151,
-  "the_hellfire_catapult": ene_theHellfireCatapult_152,
-  "the_infernal_horseman": ene_theInfernalHorseman_153,
-  "the_nameless_one": ene_theNamelessOne_154,
-  "the_royal_ballista": ene_theRoyalBallista_155,
-  "troll": ene_troll_156,
-  "tundra_beast": ene_tundraBeast_157,
-  "urzul_the_ascended": ene_urzulTheAscended_158,
-  "vampire_lord": ene_vampireLord_159,
-  "vhorak_and_the_obliterator": ene_vhorakAndTheObliterator_160,
-  "vilespawn": ene_vilespawn_161,
-  "void_creeper": ene_voidCreeper_162,
-  "void_horror": ene_voidHorror_163,
-  "water_elemental": ene_waterElemental_164,
-  "wight": ene_wight_165,
-  "winged_nightmare": ene_wingedNightmare_166,
-  "wizard": ene_wizard_167,
-  "worg": ene_worg_168,
-  "wraith_lord_malakar": ene_wraithLordMalakar_169,
-  "wretch": ene_wretch_170,
+  "island_01": ene_island01_94,
+  "island_02": ene_island02_95,
+  "island_03": ene_island03_96,
+  "island_04": ene_island04_97,
+  "island_05": ene_island05_98,
+  "island_06": ene_island06_99,
+  "island_07": ene_island07_100,
+  "island_08": ene_island08_101,
+  "island_09": ene_island09_102,
+  "island_10": ene_island10_103,
+  "jarl_alfred_blondbeard": ene_jarlAlfredBlondbeard_104,
+  "knight": ene_knight_105,
+  "living_corpse": ene_livingCorpse_106,
+  "living_flame": ene_livingFlame_107,
+  "living_mold": ene_livingMold_108,
+  "lurker": ene_lurker_109,
+  "mad_genie": ene_madGenie_110,
+  "magma_elemental": ene_magmaElemental_111,
+  "magog": ene_magog_112,
+  "marsh_builder": ene_marshBuilder_113,
+  "marsh_dweller": ene_marshDweller_114,
+  "mind_warper": ene_mindWarper_115,
+  "mire_hound": ene_mireHound_116,
+  "monk": ene_monk_117,
+  "mountain_01": ene_mountain01_118,
+  "mountain_02": ene_mountain02_119,
+  "mountain_03": ene_mountain03_120,
+  "mountain_04": ene_mountain04_121,
+  "mountain_05": ene_mountain05_122,
+  "mountain_06": ene_mountain06_123,
+  "mountain_07": ene_mountain07_124,
+  "mountain_08": ene_mountain08_125,
+  "mountain_09": ene_mountain09_126,
+  "mountain_10": ene_mountain10_127,
+  "mounted_ratman": ene_mountedRatman_128,
+  "munchling": ene_munchling_129,
+  "nature_elemental": ene_natureElemental_130,
+  "necromental": ene_necromental_131,
+  "night_reaver": ene_nightReaver_132,
+  "ogmunsta_acolyte": ene_ogmunstaAcolyte_133,
+  "ogmunstas_champion": ene_ogmunstasChampion_134,
+  "orc_catapult": ene_orcCatapult_135,
+  "orc_grunt": ene_orcGrunt_136,
+  "orc_shaman": ene_orcShaman_137,
+  "orc_soldier": ene_orcSoldier_138,
+  "orc_tracker": ene_orcTracker_139,
+  "orc_warchief_zog": ene_orcWarchiefZog_140,
+  "orc_wardog": ene_orcWardog_141,
+  "orc_warlock": ene_orcWarlock_142,
+  "peon": ene_peon_143,
+  "piranhasaur": ene_piranhasaur_144,
+  "pit_fiend_yagamon": ene_pitFiendYagamon_145,
+  "power_elemental": ene_powerElemental_146,
+  "priest_of_ogmunsta": ene_priestOfOgmunsta_147,
+  "pygmy": ene_pygmy_148,
+  "quasit": ene_quasit_149,
+  "rat_ogre": ene_ratOgre_155,
+  "ratman_archer": ene_ratmanArcher_150,
+  "ratman_champion": ene_ratmanChampion_151,
+  "ratman_shaman": ene_ratmanShaman_152,
+  "ratman_slave": ene_ratmanSlave_153,
+  "ratman_warlock": ene_ratmanWarlock_154,
+  "runtling": ene_runtling_156,
+  "scuttler": ene_scuttler_157,
+  "sharkman": ene_sharkman_158,
+  "shrieker": ene_shrieker_159,
+  "sir_michael_the_conceder": ene_sirMichaelTheConceder_160,
+  "skeleton": ene_skeleton_161,
+  "skeleton_warrior": ene_skeletonWarrior_162,
+  "skeleton_watchman": ene_skeletonWatchman_163,
+  "squib": ene_squib_164,
+  "stitched_ogre": ene_stitchedOgre_165,
+  "succubus": ene_succubus_166,
+  "the_bone_collector": ene_theBoneCollector_167,
+  "the_elder_squid": ene_theElderSquid_168,
+  "the_executioner": ene_theExecutioner_169,
+  "the_forest_guardian": ene_theForestGuardian_170,
+  "the_great_fizzletrix": ene_theGreatFizzletrix_171,
+  "the_hellfire_catapult": ene_theHellfireCatapult_172,
+  "the_infernal_horseman": ene_theInfernalHorseman_173,
+  "the_nameless_one": ene_theNamelessOne_174,
+  "the_royal_ballista": ene_theRoyalBallista_175,
+  "troll": ene_troll_176,
+  "tundra_beast": ene_tundraBeast_177,
+  "urzul_the_ascended": ene_urzulTheAscended_178,
+  "vampire_lord": ene_vampireLord_179,
+  "vhorak_and_the_obliterator": ene_vhorakAndTheObliterator_180,
+  "vilespawn": ene_vilespawn_181,
+  "void_creeper": ene_voidCreeper_182,
+  "void_horror": ene_voidHorror_183,
+  "water_elemental": ene_waterElemental_184,
+  "wight": ene_wight_185,
+  "winged_nightmare": ene_wingedNightmare_186,
+  "wizard": ene_wizard_187,
+  "worg": ene_worg_188,
+  "wraith_lord_malakar": ene_wraithLordMalakar_189,
+  "wretch": ene_wretch_190,
 } satisfies Record<EnemyId, EnemyDefinition>;
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
