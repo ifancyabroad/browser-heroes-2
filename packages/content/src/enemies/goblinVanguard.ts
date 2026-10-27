@@ -1,10 +1,10 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "gremlin_vanguard",
-	name: "Gremlin Vanguard",
+	id: "goblin_vanguard",
+	name: "Goblin Vanguard",
 	description:
-		"A gremlin soldier who patrols the raised roads with a long-handled halberd. His company collects passage dues for crossings it neither built nor maintains.",
+		"A goblin soldier who patrols the raised roads with a long-handled halberd. His company collects passage dues for crossings it neither built nor maintains.",
 	portrait: "enemies/swamp/02.PNG",
 	rank: "normal",
 	threat: 13,
@@ -17,7 +17,7 @@ export default buildEnemy({
 		charisma: 8,
 	},
 	combat: {
-		hitDie: "1d8",
+		hitDie: "1d6",
 		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
