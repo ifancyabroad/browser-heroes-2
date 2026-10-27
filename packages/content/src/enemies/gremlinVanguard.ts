@@ -26,11 +26,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Fine Halberd",
+			name: "Halberd",
 			icon: "items/weapons/spears/Spear_v2_02.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d10+1",
+				dice: "1d10",
 				type: "slashing",
 				damageClass: "physical",
 				attribute: "strength",

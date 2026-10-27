@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["poison_bomb", "shield_wall"],
+		skillIds: ["poison_jab", "shield_wall"],
 		featIds: [],
 		tactic: "default",
 	},

@@ -26,11 +26,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Fine Scimitar",
+			name: "Scimitar",
 			icon: "items/weapons/swords/Sword_v2_01.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6+1",
+				dice: "1d6",
 				type: "slashing",
 				damageClass: "physical",
 				attribute: "strength",

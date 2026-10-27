@@ -26,11 +26,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "ranged",
-			name: "Fine Longbow",
+			name: "Superior Longbow",
 			icon: "items/weapons/bows/Bow_03.png",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d8+1",
+				dice: "1d8+2",
 				type: "piercing",
 				damageClass: "physical",
 				attribute: "dexterity",

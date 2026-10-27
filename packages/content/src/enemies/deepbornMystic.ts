@@ -26,11 +26,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Fine Lightning Staff",
+			name: "Superior Lightning Staff",
 			icon: "items/weapons/staves/staff_29.png",
 			attackAttribute: "intelligence",
 			damage: {
-				dice: "1d8+1",
+				dice: "1d8+2",
 				type: "lightning",
 				damageClass: "magical",
 				attribute: "intelligence",
