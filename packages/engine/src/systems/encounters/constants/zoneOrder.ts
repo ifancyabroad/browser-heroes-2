@@ -4,8 +4,8 @@ import type { Zone } from "@app/content";
 export const ZONE_GROUPS = [
 	["forest", "outpost"],
 	["castle", "swamp"],
-	["desert"],
-	["plains"],
+	["desert", "island"],
+	["plains", "mountain"],
 	["hills", "temple"],
 	["ocean", "grove"],
 	["volcano", "tundra"],

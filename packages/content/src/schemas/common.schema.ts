@@ -199,6 +199,8 @@ export const zones = [
 	"grove",
 	"hell",
 	"hills",
+	"island",
+	"mountain",
 	"ocean",
 	"outpost",
 	"plains",
