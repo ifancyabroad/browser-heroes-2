@@ -1,23 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "mountain_03",
-	name: "Mountain Enemy 03",
-	description: "Placeholder enemy. Replace the name, description, stats, and abilities.",
+	id: "mountain_wolf",
+	name: "Mountain Wolf",
+	description:
+		"A powerful wolf that follows game along the mountain's narrow ridges. Shepherds abandon familiar routes when its pack begins watching the crossings.",
 	portrait: "enemies/mountain/03.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 13,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		strength: 17,
+		dexterity: 15,
+		constitution: 15,
+		intelligence: 3,
+		wisdom: 12,
+		charisma: 7,
 	},
 	combat: {
-		hitDie: "1d8",
-		armourClass: 10,
+		hitDie: "1d10",
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -25,19 +26,19 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Bite",
+			icon: "skills/common/bite.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "2d6",
+				type: "piercing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["knock_down", "detect_blood"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: [],

@@ -1,23 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "mountain_06",
-	name: "Mountain Enemy 06",
-	description: "Placeholder enemy. Replace the name, description, stats, and abilities.",
-	portrait: "enemies/mountain/06.PNG",
+	id: "gobbler",
+	name: "Gobbler",
+	description:
+		"A squat mountain scavenger that lunges from rocky crevices with its jaws spread wide. Travellers recognise its pale lure among the lights beside abandoned trails.",
+	portrait: "enemies/mountain/01.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 10,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
+		strength: 16,
+		dexterity: 12,
+		constitution: 14,
+		intelligence: 2,
 		wisdom: 10,
-		charisma: 10,
+		charisma: 4,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 12,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -25,19 +26,19 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Bite",
+			icon: "skills/common/bite.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d8",
+				type: "piercing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["leap_attack"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: [],
