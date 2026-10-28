@@ -7,18 +7,18 @@ export default buildEnemy({
 		"A massive goblin bred for the tribe’s fighting pits, now serving as the outpost’s enforcer. Victorious breeders earn a place at the chieftain’s table.",
 	portrait: "enemies/outpost/bloater.png",
 	rank: "normal",
-	threat: 13,
+	threat: 9,
 	attributes: {
-		strength: 16,
+		strength: 15,
 		dexterity: 10,
-		constitution: 18,
+		constitution: 16,
 		intelligence: 6,
 		wisdom: 8,
 		charisma: 8,
 	},
 	combat: {
 		hitDie: "1d10",
-		armourClass: 13,
+		armourClass: 10,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -41,7 +41,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: ["constitution"],
 	},
 	encounter: {
 		zone: "outpost",

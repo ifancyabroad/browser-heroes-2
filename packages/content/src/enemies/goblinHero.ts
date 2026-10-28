@@ -7,18 +7,18 @@ export default buildEnemy({
 		"A veteran raider who fights with sword, shield, and prepared poisons. Younger goblins follow his example, though few survive long enough to earn his standing.",
 	portrait: "enemies/outpost/goblin_hero.png",
 	rank: "normal",
-	threat: 13,
+	threat: 9,
 	attributes: {
 		strength: 12,
-		dexterity: 16,
-		constitution: 14,
+		dexterity: 15,
+		constitution: 12,
 		intelligence: 10,
-		wisdom: 10,
+		wisdom: 8,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d6",
-		armourClass: 16,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["poison_jab", "shield_wall"],
+		skillIds: ["poison_jab", "kick"],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "outpost",

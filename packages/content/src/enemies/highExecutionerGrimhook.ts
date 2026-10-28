@@ -7,17 +7,17 @@ export default buildEnemy({
 		"The outpost's executioner, mounted on a giant rat trained to pursue fleeing prisoners. His hooked polearm tears at enemies caught beneath the beast's pounce.",
 	portrait: "enemies/outpost/high_executioner_grimhook.png",
 	rank: "boss",
-	threat: 15,
+	threat: 13,
 	attributes: {
 		strength: 14,
 		dexterity: 14,
 		constitution: 16,
 		intelligence: 10,
-		wisdom: 10,
-		charisma: 10,
+		wisdom: 8,
+		charisma: 8,
 	},
 	combat: {
-		hitDie: "1d10",
+		hitDie: "1d8",
 		armourClass: 15,
 		damageAffinities: {
 			resistances: [],

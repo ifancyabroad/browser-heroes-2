@@ -7,14 +7,14 @@ export default buildEnemy({
 		"A keeper of tribal remedies who tends the outpost's wounded and binds its dead to service. His whispered rites mend goblin flesh and bring decay to intruders.",
 	portrait: "enemies/outpost/goblin_witch_doctor.png",
 	rank: "normal",
-	threat: 12,
+	threat: 8,
 	attributes: {
 		strength: 8,
 		dexterity: 14,
-		constitution: 14,
+		constitution: 10,
 		intelligence: 10,
-		wisdom: 16,
-		charisma: 10,
+		wisdom: 15,
+		charisma: 8,
 	},
 	combat: {
 		hitDie: "1d6",
@@ -41,7 +41,7 @@ export default buildEnemy({
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["wisdom", "charisma"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "outpost",

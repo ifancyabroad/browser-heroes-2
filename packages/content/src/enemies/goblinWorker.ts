@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A goblin labourer who digs trenches and repairs the outpost's palisades. When the alarm sounds, he joins the defence with his mining pick.",
 	portrait: "enemies/outpost/goblin_worker.png",
 	rank: "normal",
-	threat: 8,
+	threat: 6,
 	attributes: {
 		strength: 8,
 		dexterity: 14,
@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d6",
-		armourClass: 12,
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["heavy_strike"],
+		skillIds: ["poison_bomb"],
 		featIds: [],
 		tactic: "aggressive",
 	},

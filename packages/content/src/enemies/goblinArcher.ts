@@ -7,13 +7,13 @@ export default buildEnemy({
 		"A goblin bowman stationed along the outpost's palisades. He coats his arrows with venom prepared by the tribe's witch doctors.",
 	portrait: "enemies/outpost/goblin_archer.png",
 	rank: "normal",
-	threat: 10,
+	threat: 7,
 	attributes: {
 		strength: 8,
-		dexterity: 16,
-		constitution: 12,
+		dexterity: 15,
+		constitution: 10,
 		intelligence: 10,
-		wisdom: 10,
+		wisdom: 8,
 		charisma: 8,
 	},
 	combat: {
@@ -26,11 +26,11 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "ranged",
-			name: "Longbow",
+			name: "Shortbow",
 			icon: "items/weapons/bows/Bow_01.png",
 			attackAttribute: "dexterity",
 			damage: {
-				dice: "1d8",
+				dice: "1d6",
 				type: "piercing",
 				damageClass: "physical",
 				attribute: "dexterity",
@@ -41,7 +41,7 @@ export default buildEnemy({
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity"],
+		savingThrows: [],
 	},
 	encounter: {
 		zone: "outpost",

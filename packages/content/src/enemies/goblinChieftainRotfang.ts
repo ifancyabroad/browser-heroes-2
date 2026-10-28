@@ -7,18 +7,18 @@ export default buildEnemy({
 		"An armoured chieftain who rules the outpost with a prized curved blade. Rival claimants have supplied much of the scavenged plate protecting him.",
 	portrait: "enemies/outpost/goblin_chieftain_rotfang.png",
 	rank: "boss",
-	threat: 15,
+	threat: 14,
 	attributes: {
-		strength: 14,
+		strength: 12,
 		dexterity: 16,
-		constitution: 18,
+		constitution: 14,
 		intelligence: 10,
-		wisdom: 10,
+		wisdom: 8,
 		charisma: 12,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 16,
+		armourClass: 17,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -41,7 +41,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "constitution", "charisma"],
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "outpost",
