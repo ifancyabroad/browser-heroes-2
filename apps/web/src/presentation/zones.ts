@@ -9,7 +9,7 @@ import forest from "../assets/images/backgrounds/bg_12.png";
 import grove from "../assets/images/backgrounds/bg_33.png";
 import hell from "../assets/images/backgrounds/bg_30.png";
 import hills from "../assets/images/backgrounds/bg_22.png";
-import island from "../assets/images/backgrounds/bg_48.png";
+import island from "../assets/images/backgrounds/bg_45.png";
 import mountain from "../assets/images/backgrounds/bg_21.png";
 import ocean from "../assets/images/backgrounds/bg_25.png";
 import outpost from "../assets/images/backgrounds/bg_14.png";
