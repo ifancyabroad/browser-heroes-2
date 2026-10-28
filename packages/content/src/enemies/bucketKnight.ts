@@ -1,23 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "island_08",
-	name: "Island Enemy 08",
-	description: "Placeholder enemy. Replace the name, description, stats, and abilities.",
+	id: "bucket_knight",
+	name: "Bucket Knight",
+	description:
+		"A stranded swordsman protected by armour assembled from salvaged equipment. Islanders recognise mainland military markings on pieces that clearly belonged to several different owners.",
 	portrait: "enemies/island/08.png",
 	rank: "normal",
-	threat: 1,
+	threat: 12,
 	attributes: {
-		strength: 10,
+		strength: 14,
 		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
+		constitution: 14,
+		intelligence: 8,
 		wisdom: 10,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 17,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -25,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Fine Longsword",
+			icon: "items/weapons/swords/Sword_02.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d8+1",
+				type: "slashing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["taunt", "heavy_strike"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength"],
 	},
 	encounter: {
 		zone: "island",

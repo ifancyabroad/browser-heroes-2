@@ -1,23 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "island_09",
-	name: "Island Enemy 09",
-	description: "Placeholder enemy. Replace the name, description, stats, and abilities.",
+	id: "norc_mercenary",
+	name: "Norc Mercenary",
+	description:
+		"A broad-jawed island mercenary who breaks resistance with a heavy spiked club. Employers pay part of his fee before departure and the remainder before he enters their settlement.",
 	portrait: "enemies/island/09.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 15,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
-		intelligence: 10,
+		strength: 18,
+		dexterity: 12,
+		constitution: 16,
+		intelligence: 8,
 		wisdom: 10,
-		charisma: 10,
+		charisma: 8,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -25,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Fine Greatclub",
+			icon: "items/weapons/clubs/Club_v2_05.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
+				dice: "1d8+1",
 				type: "crushing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["berserk", "skull_bash"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "island",

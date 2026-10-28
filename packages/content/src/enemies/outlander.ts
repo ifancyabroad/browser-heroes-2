@@ -1,23 +1,24 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "island_07",
-	name: "Island Enemy 07",
-	description: "Placeholder enemy. Replace the name, description, stats, and abilities.",
+	id: "outlander",
+	name: "Outlander",
+	description:
+		"An armoured exile who survives by escorting travellers between isolated island settlements. The faded colours beneath his shield once belonged to a mainland company.",
 	portrait: "enemies/island/07.PNG",
 	rank: "normal",
-	threat: 1,
+	threat: 15,
 	attributes: {
-		strength: 10,
-		dexterity: 10,
-		constitution: 10,
+		strength: 16,
+		dexterity: 12,
+		constitution: 16,
 		intelligence: 10,
-		wisdom: 10,
+		wisdom: 12,
 		charisma: 10,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 10,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -25,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Basic Attack",
-			icon: "items/weapons/hammers/Hammer_21.png",
+			name: "Fine Scimitar",
+			icon: "items/weapons/swords/Sword_v2_01.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d6",
-				type: "crushing",
+				dice: "1d6+1",
+				type: "slashing",
 				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: [],
+		skillIds: ["stand_ground", "heavy_strike"],
 		featIds: [],
-		tactic: "default",
+		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "island",
