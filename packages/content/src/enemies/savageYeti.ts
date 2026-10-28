@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Savage Yeti",
 	description:
 		"A brown-furred alpine predator that hunts across scree slopes and sheltered valleys. Broken branches mark the places where it drags larger kills beneath the trees.",
-	portrait: "enemies/mountain/09.PNG",
+	portrait: "enemies/mountain/savage_yeti.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

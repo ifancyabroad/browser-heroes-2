@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Vampire Lord",
 	description:
 		"An ancient vampire who has traded courtly finery for a soldier's weapon and armour. Debts owed to his household survive the deaths of those who incurred them.",
-	portrait: "enemies/citadel/06.PNG",
+	portrait: "enemies/citadel/vampire_lord.png",
 	rank: "normal",
 	threat: 25,
 	attributes: {

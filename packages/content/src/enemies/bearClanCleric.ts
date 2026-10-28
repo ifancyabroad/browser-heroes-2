@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bear Clan Cleric",
 	description:
 		"A warrior-priest who carries the clan's blessings into battle. Before each expedition, he recites the names of those whose remains never returned from the snow.",
-	portrait: "enemies/tundra/N_07.PNG",
+	portrait: "enemies/tundra/bear_clan_cleric.png",
 	rank: "normal",
 	threat: 21,
 	attributes: {

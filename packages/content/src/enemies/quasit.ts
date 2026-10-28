@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Quasit",
 	description:
 		"A winged scavenger whose claws carry venom and whose presence unsettles the mind. Greater fiends employ it to spy on rivals and torment prisoners.",
-	portrait: "enemies/hell/D_02.png",
+	portrait: "enemies/hell/quasit.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

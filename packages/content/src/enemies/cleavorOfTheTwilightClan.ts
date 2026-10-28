@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Cleavor of the Twilight Clan",
 	description:
 		"A horned champion who leads the Twilight Clan with a heavy battleaxe. Challenges to his authority are settled before the clan gathers for its evening rites.",
-	portrait: "enemies/island/05.PNG",
+	portrait: "enemies/island/cleavor_of_the_twilight_clan.png",
 	rank: "boss",
 	threat: 19,
 	attributes: {

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Marsh Builder",
 	description:
 		"A shelled labourer who raises causeways and floodbanks through the marsh. Settlements depend on his clan to keep their roads above the seasonal floods.",
-	portrait: "enemies/swamp/01.png",
+	portrait: "enemies/swamp/marsh_builder.png",
 	rank: "normal",
 	threat: 10,
 	attributes: {

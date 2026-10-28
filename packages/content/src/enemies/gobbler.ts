@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Gobbler",
 	description:
 		"A squat mountain scavenger that lunges from rocky crevices with its jaws spread wide. Travellers recognise its pale lure among the lights beside abandoned trails.",
-	portrait: "enemies/mountain/01.PNG",
+	portrait: "enemies/mountain/gobbler.png",
 	rank: "normal",
 	threat: 10,
 	attributes: {

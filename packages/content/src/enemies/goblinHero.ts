@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Hero",
 	description:
 		"A veteran raider who fights with sword, shield, and prepared poisons. Younger goblins follow his example, though few survive long enough to earn his standing.",
-	portrait: "enemies/outpost/06_Gb.PNG",
+	portrait: "enemies/outpost/goblin_hero.png",
 	rank: "normal",
 	threat: 13,
 	attributes: {

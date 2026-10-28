@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Deepborn Mystic",
 	description:
 		"A void-born scholar who channels thought into destructive force. The temple's oldest records are preserved in minds like his rather than committed to mortal script.",
-	portrait: "enemies/temple/03.PNG",
+	portrait: "enemies/temple/deepborn_mystic.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

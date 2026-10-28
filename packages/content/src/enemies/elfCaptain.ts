@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Captain",
 	description:
 		"An officer entrusted with the grove's spear companies and border defences. Her authority is renewed each spring before the elders and the royal court.",
-	portrait: "enemies/grove/05.PNG",
+	portrait: "enemies/grove/elf_captain.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Tropical Shrieker",
 	description:
 		"A brightly feathered predator whose piercing calls disrupt the concentration of nearby intruders. Island hunters recognise its nesting grounds by the sudden silence of smaller birds.",
-	portrait: "enemies/island/03.PNG",
+	portrait: "enemies/island/tropical_shrieker.png",
 	rank: "normal",
 	threat: 11,
 	attributes: {

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Deepborn Rider",
 	description:
 		"A Deepborn outrider mounted on a plated beast brought through the void. Temple handlers rear its offspring in chambers built around fragments of their native world.",
-	portrait: "enemies/temple/07.PNG",
+	portrait: "enemies/temple/deepborn_rider.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

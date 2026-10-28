@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bloater",
 	description:
 		"A massive goblin bred for the tribe’s fighting pits, now serving as the outpost’s enforcer. Victorious breeders earn a place at the chieftain’s table.",
-	portrait: "enemies/outpost/09_Gb.PNG",
+	portrait: "enemies/outpost/bloater.png",
 	rank: "normal",
 	threat: 13,
 	attributes: {

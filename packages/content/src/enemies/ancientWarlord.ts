@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ancient Warlord",
 	description:
 		"The reanimated commander of a forgotten army, still directing battles from behind his shield. His soldiers carry standards belonging to a kingdom absent from surviving maps.",
-	portrait: "enemies/citadel/04.PNG",
+	portrait: "enemies/citadel/ancient_warlord.png",
 	rank: "normal",
 	threat: 23,
 	attributes: {

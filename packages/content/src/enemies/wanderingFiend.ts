@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Wandering Fiend",
 	description:
 		"A horned island predator that wanders between ruined settlements in search of prey. Its tracks often follow abandoned roads long after the surrounding jungle has reclaimed them.",
-	portrait: "enemies/island/01.png",
+	portrait: "enemies/island/wandering_fiend.png",
 	rank: "normal",
 	threat: 14,
 	attributes: {

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Fanatic",
 	description:
 		"A tribal zealot who fights with curved knives coated in venom. He darts around his enemies, cutting exposed flesh before slipping beyond their reach.",
-	portrait: "enemies/outpost/04_Gb.PNG",
+	portrait: "enemies/outpost/goblin_fanatic.png",
 	rank: "normal",
 	threat: 12,
 	attributes: {

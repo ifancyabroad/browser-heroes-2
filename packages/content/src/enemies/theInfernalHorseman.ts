@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "The Infernal Horseman",
 	description:
 		"A mounted enforcer who pursues fugitives with a burning scythe. Its passage marks the roads claimed by Brutalus, where even rival fiends travel under tribute.",
-	portrait: "enemies/hell/D_09.png",
+	portrait: "enemies/hell/the_infernal_horseman.png",
 	rank: "boss",
 	threat: 29,
 	attributes: {

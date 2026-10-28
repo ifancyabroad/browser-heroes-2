@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bear Clan Mage",
 	description:
 		"A clan hedge mage who binds winter winds into destructive spells. His knowledge passes from master to apprentice in stories outsiders mistake for fireside superstition.",
-	portrait: "enemies/tundra/N_03.PNG",
+	portrait: "enemies/tundra/bear_clan_mage.png",
 	rank: "normal",
 	threat: 21,
 	attributes: {

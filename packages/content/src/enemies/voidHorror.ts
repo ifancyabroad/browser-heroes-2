@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Void Horror",
 	description:
 		"A small, ravenous aberration drawn through the temple's breaches between worlds. Its luminous lure guides prey towards a mouth the priesthood regards as an instrument of sacrifice.",
-	portrait: "enemies/temple/09.PNG",
+	portrait: "enemies/temple/void_horror.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

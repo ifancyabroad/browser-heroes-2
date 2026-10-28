@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Archmage Vorath",
 	description:
 		"The royal archmage, entrusted with the grove's oldest celestial workings. He remembers when the stars above its canopy followed a different course.",
-	portrait: "enemies/grove/09.PNG",
+	portrait: "enemies/grove/archmage_vorath.png",
 	rank: "boss",
 	threat: 25,
 	attributes: {

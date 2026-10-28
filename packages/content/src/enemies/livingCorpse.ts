@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Living Corpse",
 	description:
 		"A shambling corpse sustained by the citadel's restless magic. Bodies left unclaimed in the lower halls seldom remain where their companions last saw them.",
-	portrait: "enemies/citadel/05.PNG",
+	portrait: "enemies/citadel/living_corpse.png",
 	rank: "normal",
 	threat: 10,
 	attributes: {

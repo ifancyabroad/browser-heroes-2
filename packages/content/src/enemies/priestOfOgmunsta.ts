@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Priest of Og'munsta",
 	description:
 		"A plated servant of Og'munsta who draws vitality from the temple's enemies. Each stolen life is offered towards awakening the presence beyond its sealed sanctuary.",
-	portrait: "enemies/temple/05.png",
+	portrait: "enemies/temple/priest_of_ogmunsta.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

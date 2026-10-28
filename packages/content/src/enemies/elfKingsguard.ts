@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Kingsguard",
 	description:
 		"An armoured defender sworn to protect the royal household. Each bears a shield passed down by a predecessor whose name remains inscribed beneath the straps.",
-	portrait: "enemies/grove/02.PNG",
+	portrait: "enemies/grove/elf_kingsguard.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

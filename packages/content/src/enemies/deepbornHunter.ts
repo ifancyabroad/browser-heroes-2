@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Deepborn Hunter",
 	description:
 		"A Deepborn tracker who guides arrows with unnatural concentration. Captives taken beyond the temple provide the priesthood with knowledge of worlds it has yet to reach.",
-	portrait: "enemies/temple/06.png",
+	portrait: "enemies/temple/deepborn_hunter.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

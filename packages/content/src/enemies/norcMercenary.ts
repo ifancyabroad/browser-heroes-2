@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Norc Mercenary",
 	description:
 		"A broad-jawed island mercenary who breaks resistance with a heavy spiked club. Employers pay part of his fee before departure and the remainder before he enters their settlement.",
-	portrait: "enemies/island/09.PNG",
+	portrait: "enemies/island/norc_mercenary.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

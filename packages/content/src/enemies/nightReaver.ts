@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Night Reaver",
 	description:
 		"An undead executioner who hunts the citadel's passages with a hooked blade. Prisoners once feared the scrape of its weapon more than the wardens' bells.",
-	portrait: "enemies/citadel/03.PNG",
+	portrait: "enemies/citadel/night_reaver.png",
 	rank: "normal",
 	threat: 21,
 	attributes: {

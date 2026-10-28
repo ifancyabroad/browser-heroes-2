@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Sorceress",
 	description:
 		"An elven spellcaster who draws destructive power from moonlight and storm. Her order tends the silver pools in which the court reads the changing heavens.",
-	portrait: "enemies/grove/08.PNG",
+	portrait: "enemies/grove/elf_sorceress.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

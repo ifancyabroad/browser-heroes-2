@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Dread Father Nicolas",
 	description:
 		"An undead priest who keeps the citadel's congregation bound to its altars. His sermons name the dead individually, including those whose remains were never recovered.",
-	portrait: "enemies/citadel/07.PNG",
+	portrait: "enemies/citadel/dread_father_nicolas.png",
 	rank: "boss",
 	threat: 28,
 	attributes: {

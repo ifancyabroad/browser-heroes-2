@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Mind Warper",
 	description:
 		"A crawling psychic organism cultivated within the temple's thought-vaults. Its keepers release it among prisoners before questioning those who retain enough memory to answer.",
-	portrait: "enemies/temple/10.PNG",
+	portrait: "enemies/temple/mind_warper.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

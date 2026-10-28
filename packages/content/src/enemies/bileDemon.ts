@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bile Demon",
 	description:
 		"A swollen fiend whose corrosive secretions foul the ground beneath its feet. Infernal armies drive it ahead of their baggage trains to clear contested passages.",
-	portrait: "enemies/hell/D_07.png",
+	portrait: "enemies/hell/bile_demon.png",
 	rank: "normal",
 	threat: 25,
 	attributes: {

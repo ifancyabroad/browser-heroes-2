@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Jarl Alfred Blondbeard",
 	description:
 		"The Bear Clan's war leader, whose paired blades have settled challenges from rival chiefs. His hall shelters every household that answers his summons before winter.",
-	portrait: "enemies/tundra/N_06.PNG",
+	portrait: "enemies/tundra/jarl_alfred_blondbeard.png",
 	rank: "boss",
 	threat: 26,
 	attributes: {

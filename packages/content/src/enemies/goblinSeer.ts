@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Seer",
 	description:
 		"A goblin diviner who channels fire, lightning, and fearful visions through his staff. The tribe consults his omens before sending raiders beyond the palisade.",
-	portrait: "enemies/outpost/05_Gb.PNG",
+	portrait: "enemies/outpost/goblin_seer.png",
 	rank: "normal",
 	threat: 11,
 	attributes: {

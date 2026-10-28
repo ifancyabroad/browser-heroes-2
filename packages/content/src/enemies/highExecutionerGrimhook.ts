@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "High Executioner Grimhook",
 	description:
 		"The outpost's executioner, mounted on a giant rat trained to pursue fleeing prisoners. His hooked polearm tears at enemies caught beneath the beast's pounce.",
-	portrait: "enemies/outpost/10_Gb.PNG",
+	portrait: "enemies/outpost/high_executioner_grimhook.png",
 	rank: "boss",
 	threat: 15,
 	attributes: {

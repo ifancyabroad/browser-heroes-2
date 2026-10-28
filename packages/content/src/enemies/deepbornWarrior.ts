@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Deepborn Warrior",
 	description:
 		"An armoured Deepborn sworn to defend the temple's inner passages. His company guards sealed doors whose contents are known only to the priesthood.",
-	portrait: "enemies/temple/04.PNG",
+	portrait: "enemies/temple/deepborn_warrior.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

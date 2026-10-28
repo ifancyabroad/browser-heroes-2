@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Crown Prince Thalanor",
 	description:
 		"The grove's crown prince, trained to fight from the saddle of a royal griffon. Their bond began before either was permitted beyond the palace grounds.",
-	portrait: "enemies/grove/10.PNG",
+	portrait: "enemies/grove/crown_prince_thalanor.png",
 	rank: "boss",
 	threat: 24,
 	attributes: {

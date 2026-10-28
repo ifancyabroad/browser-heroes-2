@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bog Witch",
 	description:
 		"A reclusive witch who brews poisons and trades in stolen vitality. Marsh villagers leave payment outside her dwelling rather than risk being invited inside.",
-	portrait: "enemies/swamp/09.png",
+	portrait: "enemies/swamp/bog_witch.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

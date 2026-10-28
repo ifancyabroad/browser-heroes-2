@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bear Clan Ram",
 	description:
 		"A covered siege engine built to break the gates of northern strongholds. Its shields bear the colours of households that supplied timber, iron and crew.",
-	portrait: "enemies/tundra/N_09.PNG",
+	portrait: "enemies/tundra/bear_clan_ram.png",
 	rank: "normal",
 	threat: 22,
 	attributes: {

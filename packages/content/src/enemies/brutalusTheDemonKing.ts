@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Brutalus the Demon King",
 	description:
 		"A demon king whose authority rests on conquest and the strength to silence challengers. The skulls beneath his throne record the dynasties absorbed into his dominion.",
-	portrait: "enemies/hell/D_10.png",
+	portrait: "enemies/hell/brutalus_the_demon_king.png",
 	rank: "boss",
 	threat: 30,
 	attributes: {

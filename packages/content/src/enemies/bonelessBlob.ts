@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Boneless Blob",
 	description:
 		"A mindless heap of demonic flesh that seizes prey with grasping tendrils. Lesser fiends lure it towards refuse pits, then pick through what remains.",
-	portrait: "enemies/hell/D_08.png",
+	portrait: "enemies/hell/boneless_blob.png",
 	rank: "normal",
 	threat: 23,
 	attributes: {

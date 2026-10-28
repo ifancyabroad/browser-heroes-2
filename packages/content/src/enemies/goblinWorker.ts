@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Worker",
 	description:
 		"A goblin labourer who digs trenches and repairs the outpost's palisades. When the alarm sounds, he joins the defence with his mining pick.",
-	portrait: "enemies/outpost/01_Gb.png",
+	portrait: "enemies/outpost/goblin_worker.png",
 	rank: "normal",
 	threat: 8,
 	attributes: {

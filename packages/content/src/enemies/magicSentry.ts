@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Magic Sentry",
 	description:
 		"A suit of island wargear animated by a sealed enchantment. Its cold-burning crown still answers commands inscribed before the surrounding fortress fell into ruin.",
-	portrait: "enemies/island/10.png",
+	portrait: "enemies/island/magic_sentry.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

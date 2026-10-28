@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "The Great Fizzletrix",
 	description:
 		"A masked sorcerer who commands acid and lightning from a secluded marsh sanctuary. Local raiders surrender their finest scavenged relics in exchange for his protection.",
-	portrait: "enemies/swamp/10.png",
+	portrait: "enemies/swamp/the_great_fizzletrix.png",
 	rank: "boss",
 	threat: 19,
 	attributes: {

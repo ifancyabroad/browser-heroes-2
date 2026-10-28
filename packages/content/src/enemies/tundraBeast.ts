@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Tundra Beast",
 	description:
 		"A horned mountain predator that drags its kills beneath the snow. Hunters recognise its territory by abandoned carcasses from which only the richest meat is missing.",
-	portrait: "enemies/tundra/N_10.PNG",
+	portrait: "enemies/tundra/tundra_beast.png",
 	rank: "normal",
 	threat: 22,
 	attributes: {

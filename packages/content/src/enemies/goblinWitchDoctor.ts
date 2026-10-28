@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Witch Doctor",
 	description:
 		"A keeper of tribal remedies who tends the outpost's wounded and binds its dead to service. His whispered rites mend goblin flesh and bring decay to intruders.",
-	portrait: "enemies/outpost/07_Gb.PNG",
+	portrait: "enemies/outpost/goblin_witch_doctor.png",
 	rank: "normal",
 	threat: 12,
 	attributes: {

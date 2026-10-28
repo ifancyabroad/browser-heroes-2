@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bear Clan Elite",
 	description:
 		"A veteran sworn to hold the line around the jarl's household. The names carved inside his shield belong to companions who once stood beside him.",
-	portrait: "enemies/tundra/N_04.PNG",
+	portrait: "enemies/tundra/bear_clan_elite.png",
 	rank: "normal",
 	threat: 22,
 	attributes: {

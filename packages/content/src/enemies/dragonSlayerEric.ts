@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Dragon Slayer Eric",
 	description:
 		"A dragon hunter who fights by sound and instinct with paired blades. Clan apprentices seek his instruction, but few endure their first winter of training.",
-	portrait: "enemies/tundra/N_05.PNG",
+	portrait: "enemies/tundra/dragon_slayer_eric.png",
 	rank: "boss",
 	threat: 26,
 	attributes: {

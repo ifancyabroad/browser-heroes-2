@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Scuttler",
 	description:
 		"A venomous marsh crustacean that hides beneath floating vegetation and snaps at passing limbs. Reed gatherers probe the shallows before stepping away from their boats.",
-	portrait: "enemies/swamp/08.png",
+	portrait: "enemies/swamp/scuttler.png",
 	rank: "normal",
 	threat: 10,
 	attributes: {

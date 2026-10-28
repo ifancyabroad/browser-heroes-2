@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Og'munsta's Champion",
 	description:
 		"A Deepborn warrior reshaped by prolonged communion with Og'munsta. The priesthood displays his altered body as proof that their god still answers from beyond the veil.",
-	portrait: "enemies/temple/02.PNG",
+	portrait: "enemies/temple/ogmunstas_champion.png",
 	rank: "boss",
 	threat: 22,
 	attributes: {

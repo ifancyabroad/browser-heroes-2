@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Spearman",
 	description:
 		"A trained soldier who holds the narrow approaches between the ancient trees. His company still practises formations devised for wars remembered only by the elves.",
-	portrait: "enemies/grove/06.PNG",
+	portrait: "enemies/grove/elf_spearman.png",
 	rank: "normal",
 	threat: 17,
 	attributes: {

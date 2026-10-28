@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Devilspawn",
 	description:
 		"A plated infernal soldier trained to reap enemies with a hooked scythe. Its warband claims the weapons of defeated companies as tribute to Brutalus.",
-	portrait: "enemies/hell/D_03.png",
+	portrait: "enemies/hell/devilspawn.png",
 	rank: "normal",
 	threat: 24,
 	attributes: {

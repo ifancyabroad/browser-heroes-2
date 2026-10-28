@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Succubus",
 	description:
 		"A winged temptress who weakens resolve with promises before drawing vitality from her victims. The courts of Hell value the secrets surrendered in her company.",
-	portrait: "enemies/hell/D_04.png",
+	portrait: "enemies/hell/succubus.png",
 	rank: "normal",
 	threat: 23,
 	attributes: {

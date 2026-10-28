@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ogre Warden",
 	description:
 		"An ogre enforcer who patrols the approaches to the mountain's quarries and prison caves. The keys at his belt have passed through several generations of less durable keepers.",
-	portrait: "enemies/mountain/07.PNG",
+	portrait: "enemies/mountain/ogre_warden.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

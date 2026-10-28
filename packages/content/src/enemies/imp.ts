@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Imp",
 	description:
 		"A lesser fiend armed with a fork scavenged from Hell's arsenals. Its patrols drive escaped captives towards the roads watched by greater demons.",
-	portrait: "enemies/hell/D_01.png",
+	portrait: "enemies/hell/imp.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

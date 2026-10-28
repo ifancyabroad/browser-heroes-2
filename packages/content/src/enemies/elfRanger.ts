@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Ranger",
 	description:
 		"A veteran hunter whose arrows carry the pale blessing of the stars. The oldest boundary stones bear the names of rangers who never returned.",
-	portrait: "enemies/grove/04.PNG",
+	portrait: "enemies/grove/elf_ranger.png",
 	rank: "normal",
 	threat: 19,
 	attributes: {

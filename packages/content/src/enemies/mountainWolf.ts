@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Mountain Wolf",
 	description:
 		"A powerful wolf that follows game along the mountain's narrow ridges. Shepherds abandon familiar routes when its pack begins watching the crossings.",
-	portrait: "enemies/mountain/03.PNG",
+	portrait: "enemies/mountain/mountain_wolf.png",
 	rank: "normal",
 	threat: 13,
 	attributes: {

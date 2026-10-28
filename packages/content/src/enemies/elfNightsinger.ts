@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Nightsinger",
 	description:
 		"An elven assassin who slips through the grove's outer settlements with paired blades. The court records those she kills as having departed before dawn.",
-	portrait: "enemies/grove/01.PNG",
+	portrait: "enemies/grove/elf_nightsinger.png",
 	rank: "normal",
 	threat: 19,
 	attributes: {

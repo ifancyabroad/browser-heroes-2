@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Styx the Cragrunner",
 	description:
 		"A human hunter who commands the high passes through traps and precise bowshots. Caravan masters pay for his guidance and seldom question the trophies beneath his skull mask.",
-	portrait: "enemies/mountain/02.PNG",
+	portrait: "enemies/mountain/styx_the_cragrunner.png",
 	rank: "boss",
 	threat: 21,
 	attributes: {

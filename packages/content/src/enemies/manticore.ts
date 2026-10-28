@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Manticore",
 	description:
 		"A winged mountain predator that scatters tail spikes before swooping down on wounded prey. Caravan guards recognise its nesting cliffs by the quills embedded in abandoned shields.",
-	portrait: "enemies/mountain/10.png",
+	portrait: "enemies/mountain/manticore.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

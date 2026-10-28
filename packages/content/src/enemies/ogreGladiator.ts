@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ogre Gladiator",
 	description:
 		"An ogre pit fighter trained to press an attack without exposing himself behind his shield. Scars beneath his armour record contests held in the mountain strongholds.",
-	portrait: "enemies/mountain/06.PNG",
+	portrait: "enemies/mountain/ogre_gladiator.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {

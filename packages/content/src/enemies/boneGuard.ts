@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bone Guard",
 	description:
 		"The animated remains of a goblin, bound to guard the outpost by tribal necromancy. It patrols without rest or recognition of its former kin.",
-	portrait: "enemies/outpost/02_Gb.PNG",
+	portrait: "enemies/outpost/bone_guard.png",
 	rank: "normal",
 	threat: 7,
 	attributes: {

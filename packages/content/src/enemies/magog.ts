@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Magog",
 	description:
 		"A horned firecaster who hurls burning projectiles into enemy ranks. Infernal commanders station these demons behind the advance, where retreat offers little shelter from their flames.",
-	portrait: "enemies/hell/D_06.png",
+	portrait: "enemies/hell/magog.png",
 	rank: "normal",
 	threat: 23,
 	attributes: {

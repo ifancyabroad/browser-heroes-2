@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Ankheg Queen",
 	description:
 		"A swollen ankheg matriarch whose burrowing colony undermines the marsh banks. Abandoned nests leave hollow ground that can swallow livestock long after the colony moves.",
-	portrait: "enemies/swamp/04.PNG",
+	portrait: "enemies/swamp/ankheg_queen.png",
 	rank: "boss",
 	threat: 19,
 	attributes: {

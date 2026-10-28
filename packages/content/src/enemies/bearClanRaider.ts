@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bear Clan Raider",
 	description:
 		"A Bear Clan warrior who carries axe and shield on the winter raids. His share of the spoils must feed the household until the thaw.",
-	portrait: "enemies/tundra/N_01.png",
+	portrait: "enemies/tundra/bear_clan_raider.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

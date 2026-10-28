@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "The Bone Collector",
 	description:
 		"A towering amalgamation that replaces shattered bones with pieces taken from its victims. The citadel's oldest burial chambers stand empty wherever its keepers have passed.",
-	portrait: "enemies/citadel/10.PNG",
+	portrait: "enemies/citadel/the_bone_collector.png",
 	rank: "boss",
 	threat: 28,
 	attributes: {

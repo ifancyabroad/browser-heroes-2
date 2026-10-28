@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Kingsblade",
 	description:
 		"A royal swordsman trained to break an enemy's defence with measured, powerful cuts. Admission to the order requires surrendering every claim to a family inheritance.",
-	portrait: "enemies/grove/07.PNG",
+	portrait: "enemies/grove/elf_kingsblade.png",
 	rank: "normal",
 	threat: 20,
 	attributes: {

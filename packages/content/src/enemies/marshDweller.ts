@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Marsh Dweller",
 	description:
 		"A reptilian warrior who guards the waterways surrounding his settlement. Families mark their fishing grounds with carved stakes, and trespassers seldom receive a second warning.",
-	portrait: "enemies/swamp/03.PNG",
+	portrait: "enemies/swamp/marsh_dweller.png",
 	rank: "normal",
 	threat: 14,
 	attributes: {

@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Elf Scout",
 	description:
 		"An elven bowman who watches the paths beyond the grove's borders. Small marks cut into the bark carry reports that outsiders rarely notice.",
-	portrait: "enemies/grove/03.PNG",
+	portrait: "enemies/grove/elf_scout.png",
 	rank: "normal",
 	threat: 15,
 	attributes: {

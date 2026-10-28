@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Vanguard",
 	description:
 		"A goblin soldier who patrols the raised roads with a long-handled halberd. His company collects passage dues for crossings it neither built nor maintains.",
-	portrait: "enemies/swamp/02.PNG",
+	portrait: "enemies/swamp/goblin_vanguard.png",
 	rank: "normal",
 	threat: 13,
 	attributes: {

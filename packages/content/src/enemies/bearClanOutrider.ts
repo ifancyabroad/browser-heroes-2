@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Bear Clan Outrider",
 	description:
 		"A clan swordsman mounted on a great mountain ram, trained to charge across broken ground. The finest breeding herds are guarded as closely as grain stores.",
-	portrait: "enemies/tundra/N_08.PNG",
+	portrait: "enemies/tundra/bear_clan_outrider.png",
 	rank: "normal",
 	threat: 21,
 	attributes: {
