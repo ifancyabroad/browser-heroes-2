@@ -228,6 +228,7 @@ const enemyEntries: CatalogEntry[] = enemies.map((enemy) => {
 			ac: enemy.combat.armourClass,
 			hitDie: enemy.combat.hitDie,
 			attack,
+			...enemy.attributes,
 			tactic: enemy.combat.tactic,
 			skills: join(enemy.combat.skillIds),
 			feats: join(enemy.combat.featIds),
@@ -350,9 +351,7 @@ const classEntries: CatalogEntry[] = classes.map((gameClass) => ({
 		id: gameClass.id,
 		hitDie: gameClass.combat.hitDie,
 		pools: join(gameClass.skillPoolIds),
-		attributes: Object.entries(gameClass.attributes)
-			.map(([key, value]) => `${key.slice(0, 3)} ${value}`)
-			.join(", "),
+		...gameClass.attributes,
 		proficiencies: join([
 			...gameClass.proficiencies.armourTypes,
 			...gameClass.proficiencies.weaponTypes,
@@ -549,6 +548,15 @@ const columns = (...values: readonly (string | [string, string] | [string, strin
 		return { key: value[0], label: value[1], numeric: value[2] };
 	});
 
+const attributeColumns: [string, string, boolean][] = [
+	["strength", "STR", true],
+	["dexterity", "DEX", true],
+	["constitution", "CON", true],
+	["intelligence", "INT", true],
+	["wisdom", "WIS", true],
+	["charisma", "CHA", true],
+];
+
 export const catalogs: readonly Catalog[] = [
 	{
 		key: "enemies",
@@ -566,6 +574,7 @@ export const catalogs: readonly Catalog[] = [
 			["ac", "AC", true],
 			"hitDie",
 			"attack",
+			...attributeColumns,
 			"tactic",
 			"skills",
 			"feats",
@@ -642,7 +651,7 @@ export const catalogs: readonly Catalog[] = [
 			"id",
 			"hitDie",
 			"pools",
-			"attributes",
+			...attributeColumns,
 			"proficiencies",
 			"skills",
 			"feats",
