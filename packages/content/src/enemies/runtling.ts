@@ -11,7 +11,7 @@ export default buildEnemy({
 	attributes: {
 		strength: 8,
 		dexterity: 13,
-		constitution: 9,
+		constitution: 10,
 		intelligence: 10,
 		wisdom: 8,
 		charisma: 8,
