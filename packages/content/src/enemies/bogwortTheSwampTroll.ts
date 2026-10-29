@@ -1,12 +1,12 @@
 import { buildEnemy } from "../builders/buildEnemy";
 
 export default buildEnemy({
-	id: "troll",
-	name: "Troll",
+	id: "bogwort_the_swamp_troll",
+	name: "Bogwort the Swamp Troll",
 	description:
 		"A ravenous swamp giant whose wounds close beneath its thick hide. Nearby settlements leave butchered livestock at the reed beds to divert it from their herds.",
-	portrait: "enemies/swamp/troll.png",
-	rank: "normal",
+	portrait: "enemies/swamp/bogwort_the_swamp_troll.png",
+	rank: "boss",
 	threat: 16,
 	attributes: {
 		strength: 18,
@@ -30,7 +30,7 @@ export default buildEnemy({
 			icon: "items/weapons/hammers/Hammer_01.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d8",
+				dice: "1d8+1",
 				type: "crushing",
 				damageClass: "physical",
 				attribute: "strength",

@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An undead hunting beast that follows the old paths between drowned settlements. Its former masters are gone, but it still drives strangers towards their ruined gates.",
 	portrait: "enemies/swamp/mire_hound.png",
 	rank: "normal",
-	threat: 13,
+	threat: 11,
 	attributes: {
 		strength: 15,
 		dexterity: 14,

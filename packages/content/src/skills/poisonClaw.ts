@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "poison_claw",
 	name: "Poison Claw",
 	description:
-		"Make a weapon attack that deals additional poison damage on hit, halved on a successful Constitution saving throw.",
+		"Make a weapon attack. On hit, a failed Constitution saving throw causes additional poison damage.",
 	icon: "skills/common/poison_claw.png",
 	pool: "common",
 	kind: "weaponAttack",
@@ -19,6 +19,11 @@ export default buildSkill({
 			attackRiders: [
 				{
 					timing: "onHit",
+					save: {
+						attribute: "constitution",
+						onSuccess: "noEffect",
+						dc: { attribute: "constitution" },
+					},
 					effects: [
 						{
 							type: "damage",
@@ -26,11 +31,6 @@ export default buildSkill({
 							damageType: "poison",
 							damageClass: "other",
 							dice: "1d4",
-							save: {
-								attribute: "constitution",
-								onSuccess: "halfDamage",
-								dc: { attribute: "constitution" },
-							},
 						},
 					],
 				},

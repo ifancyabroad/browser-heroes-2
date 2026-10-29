@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A goblin soldier who patrols the raised roads with a long-handled halberd. His company collects passage dues for crossings it neither built nor maintains.",
 	portrait: "enemies/swamp/goblin_vanguard.png",
 	rank: "normal",
-	threat: 13,
+	threat: 10,
 	attributes: {
 		strength: 14,
 		dexterity: 14,
@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d6",
-		armourClass: 16,
+		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

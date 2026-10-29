@@ -17,7 +17,7 @@ type SelectConcederActionInput = {
 
 export function selectConcederAction(input: SelectConcederActionInput): RngResult<EnemyAction> {
 	if (
-		input.enemy.currentHp <= input.enemy.maxHp / 2 &&
+		input.enemy.currentHp <= input.enemy.maxHp / 4 &&
 		validateCombatantSkillUse(input.enemy, CONCEDE_SKILL_ID).ok
 	) {
 		return {

@@ -7,10 +7,10 @@ export default buildEnemy({
 		"A reptilian warrior who guards the waterways surrounding his settlement. Families mark their fishing grounds with carved stakes, and trespassers seldom receive a second warning.",
 	portrait: "enemies/swamp/marsh_dweller.png",
 	rank: "normal",
-	threat: 14,
+	threat: 12,
 	attributes: {
-		strength: 16,
-		dexterity: 12,
+		strength: 12,
+		dexterity: 16,
 		constitution: 14,
 		intelligence: 7,
 		wisdom: 12,
@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 17,
+		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -28,20 +28,20 @@ export default buildEnemy({
 			attackRange: "melee",
 			name: "Scimitar",
 			icon: "items/weapons/swords/Sword_v2_01.png",
-			attackAttribute: "strength",
+			attackAttribute: "dexterity",
 			damage: {
 				dice: "1d6",
 				type: "slashing",
 				damageClass: "physical",
-				attribute: "strength",
+				attribute: "dexterity",
 			},
 		},
-		skillIds: ["shield_wall", "rend"],
+		skillIds: ["acid_strike", "shadowmeld"],
 		featIds: [],
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: ["dexterity", "constitution"],
 	},
 	encounter: {
 		zone: "swamp",

@@ -11,14 +11,14 @@ export default buildEnemy({
 	attributes: {
 		strength: 15,
 		dexterity: 10,
-		constitution: 14,
+		constitution: 16,
 		intelligence: 10,
 		wisdom: 12,
 		charisma: 8,
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 17,
+		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["stand_ground"],
+		skillIds: ["stand_ground", "acid_strike"],
 		featIds: [],
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["strength"],
 	},
 	encounter: {
 		zone: "swamp",
