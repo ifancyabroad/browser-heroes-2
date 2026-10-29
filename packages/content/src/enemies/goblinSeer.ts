@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["venom_bolt", "shocking_grasp", "spook"],
+		skillIds: ["venom_bolt", "acid_rain", "spook"],
 		featIds: [],
 		tactic: "caster",
 	},

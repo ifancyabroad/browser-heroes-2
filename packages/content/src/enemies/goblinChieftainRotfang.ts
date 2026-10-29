@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["rend", "go_for_the_eyes", "shield_wall"],
+		skillIds: ["rend", "go_for_the_eyes", "battle_cry"],
 		featIds: [],
 		tactic: "default",
 	},

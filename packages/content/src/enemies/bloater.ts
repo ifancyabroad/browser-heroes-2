@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["heavy_strike", "skull_bash"],
+		skillIds: ["heavy_strike"],
 		featIds: [],
 		tactic: "aggressive",
 	},

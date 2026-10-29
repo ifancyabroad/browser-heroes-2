@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "venom_bolt",
 	name: "Venom Bolt",
 	description: "Make a ranged attack that deals poison damage.",
-	icon: "skills/common/unholy_bolt.png",
+	icon: "skills/common/venom_bolt.png",
 	pool: "common",
 	kind: "spellAttack",
 	category: "damage",
