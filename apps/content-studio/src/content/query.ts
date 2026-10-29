@@ -1,3 +1,4 @@
+import { rarities } from "@app/content";
 import type { Catalog, CatalogEntry } from "./catalog";
 
 export type SortDirection = "asc" | "desc";
@@ -81,6 +82,13 @@ export function applyCatalogQuery(catalog: Catalog, query: CatalogQuery) {
 function compare(left: CatalogEntry, right: CatalogEntry, key: string) {
 	const leftValue = left.cells[key] ?? "";
 	const rightValue = right.cells[key] ?? "";
+	if (key === "rarity") {
+		return (
+			rarities.findIndex((rarity) => rarity === leftValue) -
+				rarities.findIndex((rarity) => rarity === rightValue) ||
+			left.id.localeCompare(right.id)
+		);
+	}
 	if (typeof leftValue === "number" && typeof rightValue === "number") {
 		return leftValue - rightValue || left.id.localeCompare(right.id);
 	}

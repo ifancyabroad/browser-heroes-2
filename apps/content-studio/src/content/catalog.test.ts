@@ -75,6 +75,22 @@ describe("content catalogs", () => {
 		);
 	});
 
+	it.each(["skills", "affixes"] as const)("sorts %s by rarity level", (key) => {
+		const catalog = catalogByKey[key];
+		const query = readCatalogQuery(catalog, new URLSearchParams("sort=rarity"));
+		const ascending = applyCatalogQuery(catalog, query);
+		const presentRarities = new Set(catalog.entries.map((entry) => entry.cells.rarity));
+		const expectedOrder = ["common", "uncommon", "rare", "epic", "legendary"].filter((rarity) =>
+			presentRarities.has(rarity),
+		);
+
+		expect(expectedOrder.length).toBeGreaterThan(1);
+		expect([...new Set(ascending.map((entry) => entry.cells.rarity))]).toEqual(expectedOrder);
+		expect(applyCatalogQuery(catalog, { ...query, direction: "desc" })).toEqual(
+			[...ascending].reverse(),
+		);
+	});
+
 	it("round trips bookmarkable view state", () => {
 		const catalog = catalogByKey.enemies;
 		const query = readCatalogQuery(
