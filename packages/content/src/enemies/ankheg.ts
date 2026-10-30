@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["acid_spray", "knock_down"],
+		skillIds: ["acid_spray"],
 		featIds: [],
 		tactic: "aggressive",
 	},

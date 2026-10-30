@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A brightly feathered predator whose piercing calls disrupt the concentration of nearby intruders. Island hunters recognise its nesting grounds by the sudden silence of smaller birds.",
 	portrait: "enemies/island/tropical_shrieker.png",
 	rank: "normal",
-	threat: 11,
+	threat: 10,
 	attributes: {
 		strength: 12,
 		dexterity: 16,
@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["deafening_screech", "evasion"],
+		skillIds: ["deafening_screech", "leap_attack"],
 		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: [],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "island",

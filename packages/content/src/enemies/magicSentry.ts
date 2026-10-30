@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A suit of island wargear animated by a sealed enchantment. Its cold-burning crown still answers commands inscribed before the surrounding fortress fell into ruin.",
 	portrait: "enemies/island/magic_sentry.png",
 	rank: "normal",
-	threat: 16,
+	threat: 15,
 	attributes: {
 		strength: 16,
 		dexterity: 10,
@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 18,
+		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
 			immunities: ["poison"],
@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Fine Frostblade",
+			name: "Fine Longsword",
 			icon: "items/weapons/swords/Sword_17.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+1",
-				type: "cold",
-				damageClass: "magical",
+				type: "slashing",
+				damageClass: "physical",
 				attribute: "strength",
 			},
 		},
-		skillIds: ["acquire_target", "power_word_shield"],
+		skillIds: ["overclock", "acquire_target"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: ["constitution"],
 	},
 	encounter: {
 		zone: "island",

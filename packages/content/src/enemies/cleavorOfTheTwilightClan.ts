@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["battle_cry", "cleave", "powerful_blow"],
+		skillIds: ["twilight_trance", "charge", "powerful_blow"],
 		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "charisma"],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "island",

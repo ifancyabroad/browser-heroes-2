@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["berserk", "skull_bash"],
+		skillIds: ["berserk", "crushing_blow"],
 		featIds: [],
 		tactic: "aggressive",
 	},

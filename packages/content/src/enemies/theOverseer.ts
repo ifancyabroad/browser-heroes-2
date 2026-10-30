@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d10",
-		armourClass: 19,
+		armourClass: 18,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["shield_wall", "armour_break", "powerful_blow"],
+		skillIds: ["intimidating_shout", "shield_bash", "double_strike"],
 		featIds: [],
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution", "wisdom"],
+		savingThrows: ["strength", "constitution"],
 	},
 	encounter: {
 		zone: "island",
