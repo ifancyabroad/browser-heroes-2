@@ -15,7 +15,8 @@ The user provides the skill's **name**, **pool**, **rarity**, and an **idea of w
 
 ## Icon
 
-- Search recursively in `C:\Users\edgar\OneDrive\Documents\Game Assets\6000FantasyIcons\SkillsIcons` and visually inspect suitable candidates.
+- Start with the [full library visual index](references/icon-library/index.md). Review the contact sheets across all collections, including background variants, before shortlisting; do not restrict discovery to filename keywords. The static index covers all 3,353 PNGs in `C:\Users\edgar\OneDrive\Documents\Game Assets\6000FantasyIcons\SkillsIcons`.
+- Use `references/icon-library/manifest.json` to resolve thumbnail IDs to original relative paths and SHA-256 hashes, then inspect shortlisted originals at full size. The manifest's `libraryRoot` gives the source location; substitute the actual root if the library moves. The library is assumed fixed, so no regeneration is needed during ordinary skill creation. If the index must be rebuilt, use `scripts/build-icon-index.ps1` (Windows PowerShell with System.Drawing; optional `-LibraryRoot`).
 - Use an image that is not already used anywhere in the game. Check existing repository images and content references; compare hashes to catch renamed copies and visually check likely resized or re-encoded duplicates.
 - If confidence is low or multiple good matches exist, report the candidates with previews or identifiable source paths and ask the user to choose or provide direction. Report an inaccessible library or lack of suitable unused images rather than substituting an already-used icon or generated artwork.
 - Copy the selected image to `apps/web/public/assets/images/skills/<pool>/`, preserving the source. Rename the copy to match existing skill icon conventions, typically `<snake_case_skill_id>.png`, preserving its actual image format. Set the skill's relative icon path accordingly.
