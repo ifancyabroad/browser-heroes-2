@@ -50,7 +50,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["magic_missiles", "drain_energy"],
+		skillIds: ["mana_burst"],
 		featIds: [],
 		tactic: "caster",
 	},

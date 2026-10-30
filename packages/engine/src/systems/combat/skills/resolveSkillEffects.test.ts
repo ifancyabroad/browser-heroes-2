@@ -5,13 +5,55 @@ import { createUnprotectedTestRunState } from "../../../test/createTestRunState"
 import { resolveSkillEffects } from "./resolveSkillEffects";
 
 describe("resolveSkillEffects", () => {
+	it.each(["player", "enemy"] as const)(
+		"resolves Mana Burst's damage to both combatants even when its %s user dies",
+		(actorSide) => {
+			const combat = structuredClone(createUnprotectedTestRunState().combat!);
+			const targetSide = actorSide === "player" ? "enemy" : "player";
+			combat[actorSide].currentHp = 1;
+			combat[targetSide].currentHp = 1000;
+			combat[targetSide].maxHp = 1000;
+			const skill = SKILLS_BY_ID.mana_burst;
+			const effects = skill.effects;
+			if (!effects.every((effect) => effect.type !== "removeStatus")) {
+				throw new Error("Mana Burst contains an unsupported effect");
+			}
+
+			const result = resolveSkillEffects({
+				combat,
+				actorSide,
+				effects,
+				skillId: skill.id,
+				skillName: skill.name,
+				rngState: { value: 7 },
+			});
+
+			expect(result.value[actorSide].currentHp).toBe(0);
+			expect(result.value[targetSide].currentHp).toBeLessThan(1000);
+			expect(result).toEqual(
+				resolveSkillEffects({
+					combat,
+					actorSide,
+					effects,
+					skillId: skill.id,
+					skillName: skill.name,
+					rngState: { value: 7 },
+				}),
+			);
+		},
+	);
+
 	it("applies and consumes Head Shot's automatic critical before its attack", () => {
 		const combat = structuredClone(createUnprotectedTestRunState().combat!);
 		const skill = SKILLS_BY_ID.head_shot;
+		const effects = skill.effects;
+		if (!effects.every((effect) => effect.type !== "removeStatus")) {
+			throw new Error("Head Shot contains an unsupported effect");
+		}
 		const result = resolveSkillEffects({
 			combat,
 			actorSide: "player",
-			effects: skill.effects,
+			effects,
 			skillId: skill.id,
 			skillName: skill.name,
 			rngState: { value: 7 },
