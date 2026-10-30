@@ -18,9 +18,8 @@ describe("deriveAttributes", () => {
 						type: "modifyStat",
 						stat: "strength",
 						value: 5,
-						operation: "add",
 					},
-					source: { type: "feat", featId: "armour", sourceName: "Test" },
+					source: { type: "feat", featId: "berserker", sourceName: "Test" },
 				},
 			],
 		);

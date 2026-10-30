@@ -1,15 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { createTestRunState } from "../../../test/createTestRunState";
+import type { CombatantState } from "../../../schemas";
+import { createTestCombat } from "../../../test/createTestCombat";
+import type { DamageResult } from "./calculateDamage";
 import { applyDamage } from "./applyDamage";
 
 describe("applyDamage", () => {
 	it("does not reduce current HP below zero", () => {
-		const combatant = createTestRunState().combat!.player;
+		const combatant = createTestCombat().player;
 
 		const result = applyDamage(combatant, {
 			amount: combatant.currentHp + 100,
 			affinity: "normal",
 			damageType: "slashing",
+			damageClass: "physical",
 			roll: {
 				formula: "1d4",
 				rolls: [4],
@@ -26,8 +29,8 @@ describe("applyDamage", () => {
 	});
 
 	it("consumes shields before current HP", () => {
-		const combatant = {
-			...createTestRunState().combat!.player,
+		const combatant: CombatantState = {
+			...createTestCombat().player,
 			activeEffects: [
 				{
 					id: "test-shield",
@@ -55,8 +58,8 @@ describe("applyDamage", () => {
 	});
 
 	it("preserves a partially depleted shield when it absorbs all damage", () => {
-		const combatant = {
-			...createTestRunState().combat!.player,
+		const combatant: CombatantState = {
+			...createTestCombat().player,
 			activeEffects: [
 				{
 					id: "test-shield",
@@ -84,11 +87,12 @@ describe("applyDamage", () => {
 	});
 });
 
-function createDamageResult(amount: number) {
+function createDamageResult(amount: number): DamageResult {
 	return {
 		amount,
 		affinity: "normal" as const,
 		damageType: "slashing" as const,
+		damageClass: "physical",
 		roll: {
 			formula: "1d4" as const,
 			rolls: [amount],

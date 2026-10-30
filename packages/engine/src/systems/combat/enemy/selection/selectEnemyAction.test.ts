@@ -33,7 +33,7 @@ describe("enemy skill usefulness", () => {
 
 	it("still avoids wasting most of an amplified direct heal below half health", () => {
 		const { enemy, player } = createCombatants();
-		const healer = {
+		const healer: CombatantState = {
 			...withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]),
 			currentHp: Math.floor(enemy.maxHp / 2),
 			activeEffects: [

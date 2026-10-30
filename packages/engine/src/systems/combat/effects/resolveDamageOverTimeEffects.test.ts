@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombat } from "../../../test/createTestCombat";
 import { resolveDamageOverTimeEffects } from "./resolveDamageOverTimeEffects";
 
 describe("resolveDamageOverTimeEffects", () => {
 	it("records recurring damage as a structured damage outcome", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = createTestCombat();
 		const effectId = "burning";
 		combat.enemy.activeEffects.push({
 			id: effectId,
@@ -13,12 +13,13 @@ describe("resolveDamageOverTimeEffects", () => {
 			sourceSide: "player",
 			source: {
 				type: "skill",
-				skillId: "burn",
-				sourceName: "Burn",
+				skillId: "burning_shot",
+				sourceName: "Test burning effect",
 				sourceEffectKey: "effect:0",
 			},
 			duration: { unit: "turns", remaining: 1 },
 			damageType: "fire",
+			damageClass: "magical",
 			dice: "1d4",
 		});
 

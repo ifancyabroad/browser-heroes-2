@@ -81,7 +81,7 @@ describe("getEligibleItemAffixes", () => {
 				"base_necrotic_wand",
 			],
 		],
-	])(
+	] as const)(
 		"limits %s and its epic variant to their thematic weapons",
 		(rareId, epicId, expectedBases) => {
 			for (const [rarity, affixId] of [

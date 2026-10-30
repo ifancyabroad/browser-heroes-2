@@ -30,7 +30,9 @@ describe("rerollLevelUp", () => {
 
 	it("guarantees the only new option and fills the offer from previous choices", () => {
 		const baseState = createTestVictoryState();
-		const eligible = getEligibleOptions(baseState.hero, 3);
+		const eligible = getEligibleOptions(baseState.hero, 3).filter(
+			(option) => option.type === "skill",
+		);
 		const current = eligible.slice(0, 3);
 		const alternative = eligible[3];
 		const owned = eligible.slice(4);
@@ -132,7 +134,9 @@ describe("rerollLevelUp", () => {
 		});
 
 		const baseState = createTestVictoryState();
-		const eligible = getEligibleOptions(baseState.hero, 3);
+		const eligible = getEligibleOptions(baseState.hero, 3).filter(
+			(option) => option.type === "skill",
+		);
 		const noAlternatives = modifyTestRunState(baseState, (draft) => {
 			draft.hero.skills.push(...eligible.slice(3).map(({ skillId }) => ({ skillId })));
 			draft.hero.pendingLevelUp = {
