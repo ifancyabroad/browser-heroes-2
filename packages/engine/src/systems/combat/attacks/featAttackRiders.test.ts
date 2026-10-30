@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { createInitialRngState } from "../../../core/rng";
 import { runStateSchema } from "../../../schemas";
+import { createTestCombat } from "../../../test/createTestCombat";
 import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
 import { resolveAttackDamageEffect } from "../skills/effects/resolveAttackDamageEffect";
 import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
@@ -128,6 +129,7 @@ describe("feat attack riders", () => {
 				type: "damage",
 				target: "enemy",
 				damageType: "lightning",
+				damageClass: "magical",
 				dice: "1d10",
 				attribute: "intelligence",
 				requiresAttackRoll: true,
@@ -154,7 +156,9 @@ describe("feat attack riders", () => {
 				type: "damage",
 				target: "enemy",
 				damageType: "lightning",
+				damageClass: "magical",
 				dice: "1d10",
+				requiresAttackRoll: false,
 			},
 			rngState: createInitialRngState("feat-skill-attack"),
 		});
@@ -173,6 +177,7 @@ describe("feat attack riders", () => {
 				type: "damage",
 				target: "enemy",
 				damageType: "lightning",
+				damageClass: "magical",
 				dice: "1d10",
 				attribute: "intelligence",
 				requiresAttackRoll: true,
@@ -226,11 +231,7 @@ function createCombatWithBerserker() {
 }
 
 function createCombatWithFeat(featId: FeatId) {
-	const combat = structuredClone(createUnprotectedTestRunState().combat);
-
-	if (!combat) {
-		throw new Error("Expected test run to have combat");
-	}
+	const combat = createTestCombat();
 
 	combat.player.featIds.push(featId);
 	combat.player.combatStats.attackRollBonus = 100;

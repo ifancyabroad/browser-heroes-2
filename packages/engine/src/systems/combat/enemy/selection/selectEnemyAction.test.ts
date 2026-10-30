@@ -221,11 +221,12 @@ describe("enemy skill usefulness", () => {
 });
 
 describe("conceder tactic", () => {
-	it("repeatedly concedes at or below half health while charges remain", () => {
+	it.each([25, 20, 1])("repeatedly concedes at %i%% health while charges remain", (currentHp) => {
 		const { enemy, player } = createCombatants();
 		const conceder = {
 			...withSkills(enemy, [{ skillId: "thou_hast_bested_me", chargesRemaining: 5 }]),
-			currentHp: Math.floor(enemy.maxHp / 2),
+			maxHp: 100,
+			currentHp,
 		};
 		const rngState = { value: 456 };
 
@@ -248,11 +249,13 @@ describe("conceder tactic", () => {
 		).toEqual({ value: { type: "skill", skillId: "thou_hast_bested_me" }, rngState });
 	});
 
-	it("does not concede above half health or without a charge", () => {
+	it("does not concede above quarter health or without a charge", () => {
 		const { enemy, player } = createCombatants();
-		const conceder = withSkills(enemy, [
-			{ skillId: "thou_hast_bested_me", chargesRemaining: 5 },
-		]);
+		const conceder = {
+			...withSkills(enemy, [{ skillId: "thou_hast_bested_me", chargesRemaining: 5 }]),
+			maxHp: 100,
+			currentHp: 26,
+		};
 		const rngState = { value: 789 };
 
 		expect(
@@ -262,7 +265,7 @@ describe("conceder tactic", () => {
 			selectEnemyAction({
 				enemy: {
 					...conceder,
-					currentHp: Math.floor(enemy.maxHp / 2),
+					currentHp: 25,
 					skills: [{ skillId: "thou_hast_bested_me", chargesRemaining: 0 }],
 				},
 				player,

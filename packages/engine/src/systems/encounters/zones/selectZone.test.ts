@@ -8,23 +8,15 @@ import { selectWeightedEnemy } from "../selection/selectWeightedEnemy";
 import { selectZone } from "./selectZone";
 
 describe("zone progression configuration", () => {
-	it("preserves the original zones and enemy schedule across endless cycles", () => {
-		const original = [
-			"forest",
-			"castle",
-			"desert",
-			"plains",
-			"hills",
-			"ocean",
-			"volcano",
-			"abyss",
-			"dungeon",
-			"tower",
-		] as const;
+	it("selects seeded zones from the repeating difficulty groups across endless cycles", () => {
 		for (const seed of ["test-seed", "daily", "another-run"]) {
 			for (let battleNumber = 1; battleNumber <= 210; battleNumber++) {
 				const zoneNumber = Math.ceil(battleNumber / 10);
-				const zone = original[(zoneNumber - 1) % original.length];
+				const zone = selectZone(
+					zoneNumber,
+					createContextRngState(seed, "zone", zoneNumber),
+				);
+				expect(ZONE_GROUPS[(zoneNumber - 1) % ZONE_GROUPS.length]).toContain(zone);
 				expect(
 					selectZone(zoneNumber, createContextRngState(seed, "zone", zoneNumber)),
 				).toBe(zone);

@@ -1,12 +1,7 @@
-import {
-	SKILLS_BY_ID,
-	type AttackDamageEffect,
-	type AttackRider,
-	type DamageType,
-} from "@app/content";
+import { type AttackDamageEffect, type AttackRider, type DamageType } from "@app/content";
 import { describe, expect, it } from "vitest";
 import type { CombatantSide, CombatState } from "../../../schemas";
-import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
+import { createTestCombat } from "../../../test/createTestCombat";
 import { resolveAttackDamageEffect } from "../skills/effects/resolveAttackDamageEffect";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { resolveBasicAttack } from "./resolveBasicAttack";
@@ -36,18 +31,9 @@ function damageRider(damageType: DamageType): AttackRider {
 }
 
 function createCombat(side: CombatantSide = "player", dualWielding = true) {
-	const combat = structuredClone(createUnprotectedTestRunState().combat!);
+	const combat = createTestCombat();
 	for (const actor of [combat.player, combat.enemy]) {
 		actor.currentHp = actor.maxHp = 10000;
-		actor.activeEffects = [];
-		actor.featIds = [];
-		actor.combatStats.damageModifiers = [];
-		actor.combatStats.damageTakenModifiers = [];
-		actor.combatStats.damageAffinities = {
-			immunities: [],
-			resistances: [],
-			vulnerabilities: [],
-		};
 	}
 	const actor = combat[side];
 	actor.attributes.strength = 18;
@@ -102,13 +88,13 @@ function resolve(combat: CombatState, effect = plainEffect, actorSide: Combatant
 
 describe("weapon skills and equipped hands", () => {
 	it.each(["player", "enemy"] as const)(
-		"applies Shadow Strike and each hand's riders for %s",
+		"applies the weapon skill's rider and each hand's riders for %s",
 		(side) => {
 			const combat = createCombat(side);
-			const effect = SKILLS_BY_ID.shadow_strike.effects[0];
-			if (effect.type !== "attackDamage") {
-				throw new Error("Expected weapon attack");
-			}
+			const effect: AttackDamageEffect = {
+				...plainEffect,
+				attackRiders: [damageRider("necrotic")],
+			};
 			const result = resolve(combat, effect, side);
 			const damage = result.value.outcomes.filter((outcome) => outcome.type === "damage");
 			expect(damage.map((outcome) => outcome.damageType)).toEqual([

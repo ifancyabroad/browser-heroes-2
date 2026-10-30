@@ -2,13 +2,20 @@ import type { AttackRider } from "@app/content";
 import { describe, expect, it } from "vitest";
 
 import { createInitialRngState } from "../../../core/rng";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombat } from "../../../test/createTestCombat";
 import { resolveBasicAttack } from "./resolveBasicAttack";
 
 const MULTI_EFFECT_RIDER: AttackRider = {
 	timing: "onCrit",
 	effects: [
-		{ type: "damage", target: "enemy", damageType: "lightning", dice: "1d4" },
+		{
+			type: "damage",
+			target: "enemy",
+			damageType: "lightning",
+			damageClass: "magical",
+			dice: "1d4",
+			requiresAttackRoll: false,
+		},
 		{
 			type: "modifyRoll",
 			target: "enemy",
@@ -63,11 +70,7 @@ describe("basic attack riders", () => {
 });
 
 function createGuaranteedCriticalCombat(rider: AttackRider) {
-	const combat = structuredClone(createTestRunState().combat);
-
-	if (!combat) {
-		throw new Error("Expected test run to have combat");
-	}
+	const combat = createTestCombat();
 
 	combat.player.basicAttack.attackRiders = [rider];
 	combat.player.combatStats.attackRollBonus = 100;

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { engineEventSchema, runStateSchema } from "../schemas";
 import type { ItemInstance } from "../schemas";
 import { createTestRunState } from "../test/createTestRunState";
+import { ZONE_GROUPS } from "../systems/encounters/constants/zoneOrder";
 import { createInitialRunState } from "./createInitialRunState";
 
 describe("createInitialRunState", () => {
@@ -35,7 +36,6 @@ describe("createInitialRunState", () => {
 			phase: "combat",
 			battleNumber: 1,
 			zoneNumber: 1,
-			zone: "forest",
 			endlessCycle: 0,
 			levelUpRerolls: 5,
 			hero: {
@@ -43,6 +43,7 @@ describe("createInitialRunState", () => {
 				classId: "warrior",
 			},
 		});
+		expect(ZONE_GROUPS[0]).toContain(state.zone);
 		expect(state.log).toEqual([
 			expect.objectContaining({
 				message: "Run started for Test Hero.",

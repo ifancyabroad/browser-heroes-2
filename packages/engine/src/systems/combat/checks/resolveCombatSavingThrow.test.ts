@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import type { CombatantState } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombat } from "../../../test/createTestCombat";
 import { resolveCombatSavingThrow } from "./resolveCombatSavingThrow";
 
 describe("resolveCombatSavingThrow", () => {
 	it("resolves an attribute-free DC with save DC bonuses", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = createTestCombat();
 		combat.player.combatStats.saveDcBonus = 2;
 
 		const result = resolveCombatSavingThrow({
@@ -25,7 +25,7 @@ describe("resolveCombatSavingThrow", () => {
 	});
 
 	it("forces failure and consumes one charge", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = createTestCombat();
 		combat.enemy = withSavingThrowModifier(combat.enemy, "automaticFailure", 2);
 
 		const result = resolveCombatSavingThrow({
@@ -48,7 +48,7 @@ describe("resolveCombatSavingThrow", () => {
 	});
 
 	it("removes a roll modifier after its final charge", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = createTestCombat();
 		combat.enemy = withSavingThrowModifier(combat.enemy, "automaticSuccess", 1);
 
 		const result = resolveCombatSavingThrow({
@@ -69,7 +69,7 @@ describe("resolveCombatSavingThrow", () => {
 	});
 
 	it("retains a duration-only automatic modifier after use", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = createTestCombat();
 		combat.enemy = withSavingThrowModifier(combat.enemy, "automaticSuccess");
 
 		const result = resolveCombatSavingThrow({

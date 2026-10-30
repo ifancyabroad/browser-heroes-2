@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
+import { createTestCombat } from "../../../test/createTestCombat";
 import type { CombatantState } from "../../../schemas";
 import { resolveAttackRoll } from "./resolveAttackRoll";
 
 describe("resolveAttackRoll", () => {
 	it("always misses on a natural one despite sufficient bonuses", () => {
-		const state = createUnprotectedTestRunState();
+		const combat = createTestCombat();
 		const attacker = {
-			...state.combat!.player,
+			...combat.player,
 			combatStats: {
-				...state.combat!.player.combatStats,
+				...combat.player.combatStats,
 				attackRollBonus: 100,
 			},
 		};
@@ -17,7 +17,7 @@ describe("resolveAttackRoll", () => {
 		const result = resolveAttackRoll({
 			rngState: { value: 7 },
 			attacker,
-			defender: state.combat!.enemy,
+			defender: combat.enemy,
 			attribute: "strength",
 			proficient: true,
 		});
@@ -28,18 +28,18 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("always hits and critically strikes on a natural twenty", () => {
-		const state = createUnprotectedTestRunState();
+		const combat = createTestCombat();
 		const defender = {
-			...state.combat!.enemy,
+			...combat.enemy,
 			combatStats: {
-				...state.combat!.enemy.combatStats,
+				...combat.enemy.combatStats,
 				armourClass: 1_000,
 			},
 		};
 
 		const result = resolveAttackRoll({
 			rngState: { value: 36 },
-			attacker: state.combat!.player,
+			attacker: combat.player,
 			defender,
 			attribute: "strength",
 			proficient: true,
@@ -51,16 +51,16 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("includes attribute, proficiency, and attack bonuses in the total", () => {
-		const state = createUnprotectedTestRunState();
+		const combat = createTestCombat();
 		const attacker = {
-			...state.combat!.player,
+			...combat.player,
 			level: 5,
 			attributes: {
-				...state.combat!.player.attributes,
+				...combat.player.attributes,
 				strength: 18,
 			},
 			combatStats: {
-				...state.combat!.player.combatStats,
+				...combat.player.combatStats,
 				attackRollBonus: 2,
 			},
 		};
@@ -68,7 +68,7 @@ describe("resolveAttackRoll", () => {
 		const result = resolveAttackRoll({
 			rngState: { value: 0 },
 			attacker,
-			defender: state.combat!.enemy,
+			defender: combat.enemy,
 			attribute: "strength",
 			proficient: true,
 		});
@@ -80,12 +80,12 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("applies an intrinsic attack roll mode to only that attack", () => {
-		const state = createUnprotectedTestRunState();
+		const combat = createTestCombat();
 
 		const result = resolveAttackRoll({
 			rngState: { value: 0 },
-			attacker: state.combat!.player,
-			defender: state.combat!.enemy,
+			attacker: combat.player,
+			defender: combat.enemy,
 			attribute: "strength",
 			proficient: true,
 			rollMode: "advantage",
@@ -93,18 +93,18 @@ describe("resolveAttackRoll", () => {
 
 		expect(result.value.rollMode).toBe("advantage");
 		expect(result.value.rolls).toHaveLength(2);
-		expect(state.combat!.player.activeEffects).toEqual([]);
+		expect(combat.player.activeEffects).toEqual([]);
 	});
 
 	it("cancels intrinsic advantage with active disadvantage", () => {
-		const state = createUnprotectedTestRunState();
-		const attacker = {
-			...state.combat!.player,
+		const combat = createTestCombat();
+		const attacker: CombatantState = {
+			...combat.player,
 			activeEffects: [
 				{
 					id: "test-disadvantage",
 					type: "modifyRoll" as const,
-					sourceCombatantId: state.combat!.enemy.id,
+					sourceCombatantId: combat.enemy.id,
 					sourceSide: "enemy" as const,
 					source: {
 						type: "skill" as const,
@@ -122,7 +122,7 @@ describe("resolveAttackRoll", () => {
 		const result = resolveAttackRoll({
 			rngState: { value: 0 },
 			attacker,
-			defender: state.combat!.enemy,
+			defender: combat.enemy,
 			attribute: "strength",
 			proficient: true,
 			rollMode: "advantage",
@@ -133,13 +133,13 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("forces a charged automatic miss even on a natural twenty", () => {
-		const state = createUnprotectedTestRunState();
-		const attacker = withAutomaticAttackModifier(state.combat!.player, "automaticFailure");
+		const combat = createTestCombat();
+		const attacker = withAutomaticAttackModifier(combat.player, "automaticFailure");
 
 		const result = resolveAttackRoll({
 			rngState: { value: 36 },
 			attacker,
-			defender: state.combat!.enemy,
+			defender: combat.enemy,
 			attribute: "strength",
 			proficient: true,
 		});
@@ -154,13 +154,13 @@ describe("resolveAttackRoll", () => {
 	});
 
 	it("forces a charged automatic critical even on a natural one", () => {
-		const state = createUnprotectedTestRunState();
-		const attacker = withAutomaticAttackModifier(state.combat!.player, "automaticCritical");
+		const combat = createTestCombat();
+		const attacker = withAutomaticAttackModifier(combat.player, "automaticCritical");
 
 		const result = resolveAttackRoll({
 			rngState: { value: 7 },
 			attacker,
-			defender: state.combat!.enemy,
+			defender: combat.enemy,
 			attribute: "strength",
 			proficient: true,
 		});
@@ -178,7 +178,7 @@ describe("resolveAttackRoll", () => {
 function withAutomaticAttackModifier(
 	combatant: CombatantState,
 	mode: "automaticFailure" | "automaticCritical",
-) {
+): CombatantState {
 	return {
 		...combatant,
 		activeEffects: [

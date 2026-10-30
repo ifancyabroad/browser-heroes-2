@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
+import { createTestCombat } from "../../../test/createTestCombat";
 import { resolveBasicAttack } from "./resolveBasicAttack";
 
 describe("resolveBasicAttack charged roll modifiers", () => {
 	it("consumes an automatic miss during a basic attack", () => {
-		const combat = structuredClone(createUnprotectedTestRunState().combat!);
+		const combat = createTestCombat();
 		combat.player.activeEffects.push({
 			id: "automatic-miss",
 			type: "modifyRoll",
@@ -40,7 +40,23 @@ describe("resolveBasicAttack charged roll modifiers", () => {
 	});
 
 	it("records structured damage for a successful attack", () => {
-		const combat = structuredClone(createUnprotectedTestRunState().combat!);
+		const combat = createTestCombat();
+		combat.player.activeEffects.push({
+			id: "automatic-hit",
+			type: "modifyRoll",
+			sourceCombatantId: combat.player.id,
+			sourceSide: "player",
+			source: {
+				type: "skill",
+				skillId: "focus_energy",
+				sourceName: "Test",
+				sourceEffectKey: "effect:0",
+			},
+			duration: { unit: "turns", remaining: 1 },
+			remainingCharges: 1,
+			roll: "attack",
+			mode: "automaticSuccess",
+		});
 
 		const result = resolveBasicAttack({
 			combat,
@@ -57,10 +73,11 @@ describe("resolveBasicAttack charged roll modifiers", () => {
 				absorbedDamage: 0,
 			}),
 		);
+		expect(result.value.enemy.currentHp).toBeLessThan(combat.enemy.currentHp);
 	});
 
 	it("decrements charged advantage without removing duration-based modifiers", () => {
-		const combat = structuredClone(createUnprotectedTestRunState().combat!);
+		const combat = createTestCombat();
 		combat.player.activeEffects.push(
 			{
 				id: "charged-advantage",

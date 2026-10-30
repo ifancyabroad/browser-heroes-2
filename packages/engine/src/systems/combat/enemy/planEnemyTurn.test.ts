@@ -39,7 +39,7 @@ describe("enemy turn planning", () => {
 	it("still prevents a planned action when the enemy is stunned during the round", () => {
 		const state = modifyTestRunState(createTestRunState(), (draft) => {
 			const enemy = draft.combat!.enemy;
-			enemy.currentHp = Math.floor(enemy.maxHp / 2);
+			enemy.currentHp = Math.floor(enemy.maxHp / 4);
 			enemy.skills = [{ skillId: "thou_hast_bested_me", chargesRemaining: 1 }];
 			enemy.tactic = "conceder";
 		});
