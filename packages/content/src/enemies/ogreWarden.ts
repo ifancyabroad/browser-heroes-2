@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An ogre enforcer who patrols the approaches to the mountain's quarries and prison caves. The keys at his belt have passed through several generations of less durable keepers.",
 	portrait: "enemies/mountain/ogre_warden.png",
 	rank: "normal",
-	threat: 16,
+	threat: 15,
 	attributes: {
 		strength: 19,
 		dexterity: 10,

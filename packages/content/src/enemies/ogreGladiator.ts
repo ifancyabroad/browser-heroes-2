@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An ogre pit fighter trained to press an attack without exposing himself behind his shield. Scars beneath his armour record contests held in the mountain strongholds.",
 	portrait: "enemies/mountain/ogre_gladiator.png",
 	rank: "normal",
-	threat: 16,
+	threat: 15,
 	attributes: {
 		strength: 19,
 		dexterity: 10,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "shield_wall", "armour_break"],
+		skillIds: ["taunt", "shield_bash", "armour_break"],
 		featIds: [],
 		tactic: "default",
 	},

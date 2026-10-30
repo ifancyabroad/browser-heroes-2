@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A winged mountain predator that scatters tail spikes before swooping down on wounded prey. Caravan guards recognise its nesting cliffs by the quills embedded in abandoned shields.",
 	portrait: "enemies/mountain/manticore.png",
 	rank: "normal",
-	threat: 16,
+	threat: 15,
 	attributes: {
 		strength: 17,
 		dexterity: 16,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["multi_shot", "drop_from_above", "rend"],
+		skillIds: ["leap_attack", "impale"],
 		featIds: [],
 		tactic: "aggressive",
 	},

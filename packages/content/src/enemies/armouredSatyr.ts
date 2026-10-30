@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["shield_wall", "armour_break"],
+		skillIds: ["charge", "armour_break"],
 		featIds: [],
 		tactic: "defensive",
 	},

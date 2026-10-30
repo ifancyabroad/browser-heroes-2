@@ -82,127 +82,131 @@ import ski_engulf_73 from '../skills/engulf';
 import ski_enhancePoison_74 from '../skills/enhancePoison';
 import ski_evasion_75 from '../skills/evasion';
 import ski_execute_76 from '../skills/execute';
-import ski_exposeWeakness_77 from '../skills/exposeWeakness';
-import ski_eyeRay_78 from '../skills/eyeRay';
-import ski_fingerOfDeath_79 from '../skills/fingerOfDeath';
-import ski_fireBreath_81 from '../skills/fireBreath';
-import ski_fireStrike_82 from '../skills/fireStrike';
-import ski_fireball_80 from '../skills/fireball';
-import ski_flameArrow_83 from '../skills/flameArrow';
-import ski_flameSlam_84 from '../skills/flameSlam';
-import ski_flamestrike_85 from '../skills/flamestrike';
-import ski_flurry_86 from '../skills/flurry';
-import ski_focusEnergy_87 from '../skills/focusEnergy';
-import ski_fracture_88 from '../skills/fracture';
-import ski_frenzy_89 from '../skills/frenzy';
-import ski_frostArrow_90 from '../skills/frostArrow';
-import ski_frostBreath_91 from '../skills/frostBreath';
-import ski_frostTrap_92 from '../skills/frostTrap';
-import ski_globeOfInvulnerability_93 from '../skills/globeOfInvulnerability';
-import ski_goForTheEyes_94 from '../skills/goForTheEyes';
-import ski_growth_95 from '../skills/growth';
-import ski_headShot_96 from '../skills/headShot';
-import ski_heavyStrike_97 from '../skills/heavyStrike';
-import ski_holyBolt_98 from '../skills/holyBolt';
-import ski_holyStrike_99 from '../skills/holyStrike';
-import ski_horrifyingVisage_100 from '../skills/horrifyingVisage';
-import ski_huntersMark_101 from '../skills/huntersMark';
-import ski_inflictWounds_102 from '../skills/inflictWounds';
-import ski_insectPlague_103 from '../skills/insectPlague';
-import ski_intimidatingShout_104 from '../skills/intimidatingShout';
-import ski_intoTheGrinder_105 from '../skills/intoTheGrinder';
-import ski_ironSkin_106 from '../skills/ironSkin';
-import ski_kick_107 from '../skills/kick';
-import ski_knockDown_108 from '../skills/knockDown';
-import ski_lastStand_109 from '../skills/lastStand';
-import ski_leapAttack_110 from '../skills/leapAttack';
-import ski_lightningBolt_111 from '../skills/lightningBolt';
-import ski_magicMissiles_112 from '../skills/magicMissiles';
-import ski_maim_113 from '../skills/maim';
-import ski_makeItRain_114 from '../skills/makeItRain';
-import ski_manaBurst_115 from '../skills/manaBurst';
-import ski_manaShield_116 from '../skills/manaShield';
-import ski_mightyBlow_117 from '../skills/mightyBlow';
-import ski_mindLance_118 from '../skills/mindLance';
-import ski_minotaurCharge_119 from '../skills/minotaurCharge';
-import ski_moltenOverdrive_120 from '../skills/moltenOverdrive';
-import ski_multiShot_121 from '../skills/multiShot';
-import ski_multiStrike_122 from '../skills/multiStrike';
-import ski_naturesBlessing_123 from '../skills/naturesBlessing';
-import ski_necroBreath_124 from '../skills/necroBreath';
-import ski_nightmares_125 from '../skills/nightmares';
-import ski_obliterate_126 from '../skills/obliterate';
-import ski_onTheHook_127 from '../skills/onTheHook';
-import ski_overcharge_128 from '../skills/overcharge';
-import ski_overclock_129 from '../skills/overclock';
-import ski_overpower_130 from '../skills/overpower';
-import ski_petrifyingGaze_131 from '../skills/petrifyingGaze';
-import ski_piercingMagic_132 from '../skills/piercingMagic';
-import ski_poisonBomb_133 from '../skills/poisonBomb';
-import ski_poisonClaw_134 from '../skills/poisonClaw';
-import ski_poisonCloud_135 from '../skills/poisonCloud';
-import ski_poisonJab_136 from '../skills/poisonJab';
-import ski_poisonShot_137 from '../skills/poisonShot';
-import ski_poisonStrike_138 from '../skills/poisonStrike';
-import ski_powerWordConfusion_140 from '../skills/powerWordConfusion';
-import ski_powerWordFortitude_141 from '../skills/powerWordFortitude';
-import ski_powerWordPain_142 from '../skills/powerWordPain';
-import ski_powerWordShield_143 from '../skills/powerWordShield';
-import ski_powerWordStun_144 from '../skills/powerWordStun';
-import ski_powerfulBlow_139 from '../skills/powerfulBlow';
-import ski_prayer_145 from '../skills/prayer';
-import ski_psionicBlast_146 from '../skills/psionicBlast';
-import ski_quickFingers_147 from '../skills/quickFingers';
-import ski_rage_148 from '../skills/rage';
-import ski_reassemble_149 from '../skills/reassemble';
-import ski_rebirth_150 from '../skills/rebirth';
-import ski_recklessAssault_151 from '../skills/recklessAssault';
-import ski_reconstruct_152 from '../skills/reconstruct';
-import ski_regeneration_153 from '../skills/regeneration';
-import ski_rend_154 from '../skills/rend';
-import ski_renew_155 from '../skills/renew';
-import ski_reposition_156 from '../skills/reposition';
-import ski_shadowBolt_157 from '../skills/shadowBolt';
-import ski_shadowStrike_159 from '../skills/shadowStrike';
-import ski_shadowmeld_158 from '../skills/shadowmeld';
-import ski_sharkBite_160 from '../skills/sharkBite';
-import ski_shieldBash_161 from '../skills/shieldBash';
-import ski_shieldWall_162 from '../skills/shieldWall';
-import ski_shockingGrasp_163 from '../skills/shockingGrasp';
-import ski_skullBash_164 from '../skills/skullBash';
-import ski_spook_165 from '../skills/spook';
-import ski_standGround_166 from '../skills/standGround';
-import ski_stokeTheFlames_167 from '../skills/stokeTheFlames';
-import ski_summonStorm_168 from '../skills/summonStorm';
-import ski_sunburst_169 from '../skills/sunburst';
-import ski_swampMagic_170 from '../skills/swampMagic';
-import ski_tailSwipe_171 from '../skills/tailSwipe';
-import ski_takeAim_172 from '../skills/takeAim';
-import ski_taunt_173 from '../skills/taunt';
-import ski_tenderise_174 from '../skills/tenderise';
-import ski_tentacleCrush_175 from '../skills/tentacleCrush';
-import ski_tentacleWrap_176 from '../skills/tentacleWrap';
-import ski_thouHastBestedMe_177 from '../skills/thouHastBestedMe';
-import ski_tripWire_178 from '../skills/tripWire';
-import ski_twilightTrance_179 from '../skills/twilightTrance';
-import ski_unholyStrike_180 from '../skills/unholyStrike';
-import ski_unwaveringLies_181 from '../skills/unwaveringLies';
-import ski_uppercut_182 from '../skills/uppercut';
-import ski_venomBolt_183 from '../skills/venomBolt';
-import ski_wail_184 from '../skills/wail';
-import ski_web_185 from '../skills/web';
-import ski_whelm_186 from '../skills/whelm';
-import ski_whirlwindStrike_187 from '../skills/whirlwindStrike';
-import ski_wIllOfTheDeceiver_188 from '../skills/wIllOfTheDeceiver';
-import ski_windStrike_189 from '../skills/windStrike';
-import ski_yagamonsRevenge_190 from '../skills/yagamonsRevenge';
+import ski_explosiveShot_77 from '../skills/explosiveShot';
+import ski_exposeWeakness_78 from '../skills/exposeWeakness';
+import ski_eyeRay_79 from '../skills/eyeRay';
+import ski_fingerOfDeath_80 from '../skills/fingerOfDeath';
+import ski_fireBreath_82 from '../skills/fireBreath';
+import ski_fireStrike_83 from '../skills/fireStrike';
+import ski_fireball_81 from '../skills/fireball';
+import ski_flameArrow_84 from '../skills/flameArrow';
+import ski_flameSlam_85 from '../skills/flameSlam';
+import ski_flamestrike_86 from '../skills/flamestrike';
+import ski_flurry_87 from '../skills/flurry';
+import ski_focusEnergy_88 from '../skills/focusEnergy';
+import ski_fracture_89 from '../skills/fracture';
+import ski_frenzy_90 from '../skills/frenzy';
+import ski_frostArrow_91 from '../skills/frostArrow';
+import ski_frostBreath_92 from '../skills/frostBreath';
+import ski_frostTrap_93 from '../skills/frostTrap';
+import ski_globeOfInvulnerability_94 from '../skills/globeOfInvulnerability';
+import ski_goForTheEyes_95 from '../skills/goForTheEyes';
+import ski_growth_96 from '../skills/growth';
+import ski_headShot_97 from '../skills/headShot';
+import ski_heavyStrike_98 from '../skills/heavyStrike';
+import ski_holyBolt_99 from '../skills/holyBolt';
+import ski_holyStrike_100 from '../skills/holyStrike';
+import ski_horrifyingVisage_101 from '../skills/horrifyingVisage';
+import ski_huntersMark_102 from '../skills/huntersMark';
+import ski_impale_103 from '../skills/impale';
+import ski_inflictWounds_104 from '../skills/inflictWounds';
+import ski_insectPlague_105 from '../skills/insectPlague';
+import ski_intimidatingShout_106 from '../skills/intimidatingShout';
+import ski_intoTheGrinder_107 from '../skills/intoTheGrinder';
+import ski_ironSkin_108 from '../skills/ironSkin';
+import ski_kick_109 from '../skills/kick';
+import ski_knockDown_110 from '../skills/knockDown';
+import ski_lastStand_111 from '../skills/lastStand';
+import ski_leapAttack_112 from '../skills/leapAttack';
+import ski_lightningBolt_113 from '../skills/lightningBolt';
+import ski_lure_114 from '../skills/lure';
+import ski_magicMissiles_115 from '../skills/magicMissiles';
+import ski_maim_116 from '../skills/maim';
+import ski_makeItRain_117 from '../skills/makeItRain';
+import ski_manaBurst_118 from '../skills/manaBurst';
+import ski_manaShield_119 from '../skills/manaShield';
+import ski_mightyBlow_120 from '../skills/mightyBlow';
+import ski_mindLance_121 from '../skills/mindLance';
+import ski_minotaurCharge_122 from '../skills/minotaurCharge';
+import ski_moltenOverdrive_123 from '../skills/moltenOverdrive';
+import ski_multiShot_124 from '../skills/multiShot';
+import ski_multiStrike_125 from '../skills/multiStrike';
+import ski_naturesBlessing_126 from '../skills/naturesBlessing';
+import ski_necroBreath_127 from '../skills/necroBreath';
+import ski_nightmares_128 from '../skills/nightmares';
+import ski_obliterate_129 from '../skills/obliterate';
+import ski_onTheHook_130 from '../skills/onTheHook';
+import ski_overcharge_131 from '../skills/overcharge';
+import ski_overclock_132 from '../skills/overclock';
+import ski_overpower_133 from '../skills/overpower';
+import ski_petrifyingGaze_134 from '../skills/petrifyingGaze';
+import ski_piercingMagic_135 from '../skills/piercingMagic';
+import ski_poisonBomb_136 from '../skills/poisonBomb';
+import ski_poisonClaw_137 from '../skills/poisonClaw';
+import ski_poisonCloud_138 from '../skills/poisonCloud';
+import ski_poisonJab_139 from '../skills/poisonJab';
+import ski_poisonShot_140 from '../skills/poisonShot';
+import ski_poisonStrike_141 from '../skills/poisonStrike';
+import ski_powerWordConfusion_143 from '../skills/powerWordConfusion';
+import ski_powerWordFortitude_144 from '../skills/powerWordFortitude';
+import ski_powerWordPain_145 from '../skills/powerWordPain';
+import ski_powerWordShield_146 from '../skills/powerWordShield';
+import ski_powerWordStun_147 from '../skills/powerWordStun';
+import ski_powerfulBlow_142 from '../skills/powerfulBlow';
+import ski_prayer_148 from '../skills/prayer';
+import ski_psionicBlast_149 from '../skills/psionicBlast';
+import ski_quickFingers_150 from '../skills/quickFingers';
+import ski_rage_151 from '../skills/rage';
+import ski_ravage_152 from '../skills/ravage';
+import ski_reassemble_153 from '../skills/reassemble';
+import ski_rebirth_154 from '../skills/rebirth';
+import ski_recklessAssault_155 from '../skills/recklessAssault';
+import ski_reconstruct_156 from '../skills/reconstruct';
+import ski_regeneration_157 from '../skills/regeneration';
+import ski_rend_158 from '../skills/rend';
+import ski_renew_159 from '../skills/renew';
+import ski_reposition_160 from '../skills/reposition';
+import ski_shadowBolt_161 from '../skills/shadowBolt';
+import ski_shadowStrike_163 from '../skills/shadowStrike';
+import ski_shadowmeld_162 from '../skills/shadowmeld';
+import ski_sharkBite_164 from '../skills/sharkBite';
+import ski_shieldBash_165 from '../skills/shieldBash';
+import ski_shieldWall_166 from '../skills/shieldWall';
+import ski_shockingGrasp_167 from '../skills/shockingGrasp';
+import ski_skullBash_168 from '../skills/skullBash';
+import ski_spook_169 from '../skills/spook';
+import ski_standGround_170 from '../skills/standGround';
+import ski_stokeTheFlames_171 from '../skills/stokeTheFlames';
+import ski_summonStorm_172 from '../skills/summonStorm';
+import ski_sunburst_173 from '../skills/sunburst';
+import ski_swampMagic_174 from '../skills/swampMagic';
+import ski_tailSwipe_175 from '../skills/tailSwipe';
+import ski_takeAim_176 from '../skills/takeAim';
+import ski_taunt_177 from '../skills/taunt';
+import ski_tenderise_178 from '../skills/tenderise';
+import ski_tentacleCrush_179 from '../skills/tentacleCrush';
+import ski_tentacleWrap_180 from '../skills/tentacleWrap';
+import ski_thouHastBestedMe_181 from '../skills/thouHastBestedMe';
+import ski_tripWire_182 from '../skills/tripWire';
+import ski_twilightTrance_183 from '../skills/twilightTrance';
+import ski_unholyStrike_184 from '../skills/unholyStrike';
+import ski_unwaveringLies_185 from '../skills/unwaveringLies';
+import ski_uppercut_186 from '../skills/uppercut';
+import ski_venomBolt_187 from '../skills/venomBolt';
+import ski_wail_188 from '../skills/wail';
+import ski_web_189 from '../skills/web';
+import ski_whelm_190 from '../skills/whelm';
+import ski_whirlwindStrike_191 from '../skills/whirlwindStrike';
+import ski_wIllOfTheDeceiver_192 from '../skills/wIllOfTheDeceiver';
+import ski_windStrike_193 from '../skills/windStrike';
+import ski_yagamonsRevenge_194 from '../skills/yagamonsRevenge';
 
 export { skillIdSchema, skillIds };
 export type { SkillId } from './skillIds';
 
 export type Skill = WithGeneratedId<SkillDefinition, SkillId>;
 
-const rawSkills = [ski_acidBomb_0, ski_acidBurn_1, ski_acidCoating_2, ski_acidRain_3, ski_acidSpray_4, ski_acidStrike_5, ski_acidTrap_6, ski_acquireTarget_7, ski_acrobaticStrike_8, ski_adventurersGrace_9, ski_armour_10, ski_armourBreak_11, ski_backstab_12, ski_battleCry_13, ski_berserk_14, ski_binkusDeathray_15, ski_bless_16, ski_blessingOfTheOldGods_17, ski_blind_18, ski_bloodRitual_19, ski_boonOfTheDawnflame_20, ski_breathOfTheDawnflame_21, ski_burningRampage_22, ski_burningShot_23, ski_callLightning_24, ski_callUponRitChi_25, ski_chainLightning_26, ski_charge_27, ski_chosenByTheNameless_28, ski_cleave_29, ski_cloakOfShadows_30, ski_combust_31, ski_coneOfCold_32, ski_constrict_33, ski_contagion_34, ski_corruptedArm_35, ski_corruptingTouch_36, ski_corruption_37, ski_crabHammer_38, ski_creepingDarkness_39, ski_cripple_40, ski_cruelDeception_41, ski_crushingBlow_42, ski_crushingFist_43, ski_cureCriticalWounds_44, ski_cureMajorWounds_45, ski_cureMinorWounds_46, ski_curse_47, ski_cursingBolt_48, ski_cyclone_49, ski_dancingDefense_50, ski_deadlyThrow_51, ski_deafeningRoar_52, ski_deafeningScreech_53, ski_deepFreeze_54, ski_detectBlood_55, ski_devourSoul_56, ski_diseaseShot_57, ski_divineInspiration_58, ski_divineProtection_59, ski_divineStrength_60, ski_doomSong_61, ski_doubleStrike_62, ski_dragonBreath_63, ski_dragonFocus_64, ski_drainEnergy_65, ski_drainLife_66, ski_dropFromAbove_67, ski_duelingStance_68, ski_earthquake_69, ski_elementalShield_70, ski_embraceElements_71, ski_embraceShadows_72, ski_engulf_73, ski_enhancePoison_74, ski_evasion_75, ski_execute_76, ski_exposeWeakness_77, ski_eyeRay_78, ski_fingerOfDeath_79, ski_fireBreath_81, ski_fireStrike_82, ski_fireball_80, ski_flameArrow_83, ski_flameSlam_84, ski_flamestrike_85, ski_flurry_86, ski_focusEnergy_87, ski_fracture_88, ski_frenzy_89, ski_frostArrow_90, ski_frostBreath_91, ski_frostTrap_92, ski_globeOfInvulnerability_93, ski_goForTheEyes_94, ski_growth_95, ski_headShot_96, ski_heavyStrike_97, ski_holyBolt_98, ski_holyStrike_99, ski_horrifyingVisage_100, ski_huntersMark_101, ski_inflictWounds_102, ski_insectPlague_103, ski_intimidatingShout_104, ski_intoTheGrinder_105, ski_ironSkin_106, ski_kick_107, ski_knockDown_108, ski_lastStand_109, ski_leapAttack_110, ski_lightningBolt_111, ski_magicMissiles_112, ski_maim_113, ski_makeItRain_114, ski_manaBurst_115, ski_manaShield_116, ski_mightyBlow_117, ski_mindLance_118, ski_minotaurCharge_119, ski_moltenOverdrive_120, ski_multiShot_121, ski_multiStrike_122, ski_naturesBlessing_123, ski_necroBreath_124, ski_nightmares_125, ski_obliterate_126, ski_onTheHook_127, ski_overcharge_128, ski_overclock_129, ski_overpower_130, ski_petrifyingGaze_131, ski_piercingMagic_132, ski_poisonBomb_133, ski_poisonClaw_134, ski_poisonCloud_135, ski_poisonJab_136, ski_poisonShot_137, ski_poisonStrike_138, ski_powerWordConfusion_140, ski_powerWordFortitude_141, ski_powerWordPain_142, ski_powerWordShield_143, ski_powerWordStun_144, ski_powerfulBlow_139, ski_prayer_145, ski_psionicBlast_146, ski_quickFingers_147, ski_rage_148, ski_reassemble_149, ski_rebirth_150, ski_recklessAssault_151, ski_reconstruct_152, ski_regeneration_153, ski_rend_154, ski_renew_155, ski_reposition_156, ski_shadowBolt_157, ski_shadowStrike_159, ski_shadowmeld_158, ski_sharkBite_160, ski_shieldBash_161, ski_shieldWall_162, ski_shockingGrasp_163, ski_skullBash_164, ski_spook_165, ski_standGround_166, ski_stokeTheFlames_167, ski_summonStorm_168, ski_sunburst_169, ski_swampMagic_170, ski_tailSwipe_171, ski_takeAim_172, ski_taunt_173, ski_tenderise_174, ski_tentacleCrush_175, ski_tentacleWrap_176, ski_thouHastBestedMe_177, ski_tripWire_178, ski_twilightTrance_179, ski_unholyStrike_180, ski_unwaveringLies_181, ski_uppercut_182, ski_venomBolt_183, ski_wail_184, ski_web_185, ski_whelm_186, ski_whirlwindStrike_187, ski_wIllOfTheDeceiver_188, ski_windStrike_189, ski_yagamonsRevenge_190] satisfies readonly SkillDefinition[];
+const rawSkills = [ski_acidBomb_0, ski_acidBurn_1, ski_acidCoating_2, ski_acidRain_3, ski_acidSpray_4, ski_acidStrike_5, ski_acidTrap_6, ski_acquireTarget_7, ski_acrobaticStrike_8, ski_adventurersGrace_9, ski_armour_10, ski_armourBreak_11, ski_backstab_12, ski_battleCry_13, ski_berserk_14, ski_binkusDeathray_15, ski_bless_16, ski_blessingOfTheOldGods_17, ski_blind_18, ski_bloodRitual_19, ski_boonOfTheDawnflame_20, ski_breathOfTheDawnflame_21, ski_burningRampage_22, ski_burningShot_23, ski_callLightning_24, ski_callUponRitChi_25, ski_chainLightning_26, ski_charge_27, ski_chosenByTheNameless_28, ski_cleave_29, ski_cloakOfShadows_30, ski_combust_31, ski_coneOfCold_32, ski_constrict_33, ski_contagion_34, ski_corruptedArm_35, ski_corruptingTouch_36, ski_corruption_37, ski_crabHammer_38, ski_creepingDarkness_39, ski_cripple_40, ski_cruelDeception_41, ski_crushingBlow_42, ski_crushingFist_43, ski_cureCriticalWounds_44, ski_cureMajorWounds_45, ski_cureMinorWounds_46, ski_curse_47, ski_cursingBolt_48, ski_cyclone_49, ski_dancingDefense_50, ski_deadlyThrow_51, ski_deafeningRoar_52, ski_deafeningScreech_53, ski_deepFreeze_54, ski_detectBlood_55, ski_devourSoul_56, ski_diseaseShot_57, ski_divineInspiration_58, ski_divineProtection_59, ski_divineStrength_60, ski_doomSong_61, ski_doubleStrike_62, ski_dragonBreath_63, ski_dragonFocus_64, ski_drainEnergy_65, ski_drainLife_66, ski_dropFromAbove_67, ski_duelingStance_68, ski_earthquake_69, ski_elementalShield_70, ski_embraceElements_71, ski_embraceShadows_72, ski_engulf_73, ski_enhancePoison_74, ski_evasion_75, ski_execute_76, ski_explosiveShot_77, ski_exposeWeakness_78, ski_eyeRay_79, ski_fingerOfDeath_80, ski_fireBreath_82, ski_fireStrike_83, ski_fireball_81, ski_flameArrow_84, ski_flameSlam_85, ski_flamestrike_86, ski_flurry_87, ski_focusEnergy_88, ski_fracture_89, ski_frenzy_90, ski_frostArrow_91, ski_frostBreath_92, ski_frostTrap_93, ski_globeOfInvulnerability_94, ski_goForTheEyes_95, ski_growth_96, ski_headShot_97, ski_heavyStrike_98, ski_holyBolt_99, ski_holyStrike_100, ski_horrifyingVisage_101, ski_huntersMark_102, ski_impale_103, ski_inflictWounds_104, ski_insectPlague_105, ski_intimidatingShout_106, ski_intoTheGrinder_107, ski_ironSkin_108, ski_kick_109, ski_knockDown_110, ski_lastStand_111, ski_leapAttack_112, ski_lightningBolt_113, ski_lure_114, ski_magicMissiles_115, ski_maim_116, ski_makeItRain_117, ski_manaBurst_118, ski_manaShield_119, ski_mightyBlow_120, ski_mindLance_121, ski_minotaurCharge_122, ski_moltenOverdrive_123, ski_multiShot_124, ski_multiStrike_125, ski_naturesBlessing_126, ski_necroBreath_127, ski_nightmares_128, ski_obliterate_129, ski_onTheHook_130, ski_overcharge_131, ski_overclock_132, ski_overpower_133, ski_petrifyingGaze_134, ski_piercingMagic_135, ski_poisonBomb_136, ski_poisonClaw_137, ski_poisonCloud_138, ski_poisonJab_139, ski_poisonShot_140, ski_poisonStrike_141, ski_powerWordConfusion_143, ski_powerWordFortitude_144, ski_powerWordPain_145, ski_powerWordShield_146, ski_powerWordStun_147, ski_powerfulBlow_142, ski_prayer_148, ski_psionicBlast_149, ski_quickFingers_150, ski_rage_151, ski_ravage_152, ski_reassemble_153, ski_rebirth_154, ski_recklessAssault_155, ski_reconstruct_156, ski_regeneration_157, ski_rend_158, ski_renew_159, ski_reposition_160, ski_shadowBolt_161, ski_shadowStrike_163, ski_shadowmeld_162, ski_sharkBite_164, ski_shieldBash_165, ski_shieldWall_166, ski_shockingGrasp_167, ski_skullBash_168, ski_spook_169, ski_standGround_170, ski_stokeTheFlames_171, ski_summonStorm_172, ski_sunburst_173, ski_swampMagic_174, ski_tailSwipe_175, ski_takeAim_176, ski_taunt_177, ski_tenderise_178, ski_tentacleCrush_179, ski_tentacleWrap_180, ski_thouHastBestedMe_181, ski_tripWire_182, ski_twilightTrance_183, ski_unholyStrike_184, ski_unwaveringLies_185, ski_uppercut_186, ski_venomBolt_187, ski_wail_188, ski_web_189, ski_whelm_190, ski_whirlwindStrike_191, ski_wIllOfTheDeceiver_192, ski_windStrike_193, ski_yagamonsRevenge_194] satisfies readonly SkillDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const skills = rawSkills as readonly Skill[];
@@ -285,120 +289,124 @@ const rawSkillsById = {
   "enhance_poison": ski_enhancePoison_74,
   "evasion": ski_evasion_75,
   "execute": ski_execute_76,
-  "expose_weakness": ski_exposeWeakness_77,
-  "eye_ray": ski_eyeRay_78,
-  "finger_of_death": ski_fingerOfDeath_79,
-  "fire_breath": ski_fireBreath_81,
-  "fire_strike": ski_fireStrike_82,
-  "fireball": ski_fireball_80,
-  "flame_arrow": ski_flameArrow_83,
-  "flame_slam": ski_flameSlam_84,
-  "flamestrike": ski_flamestrike_85,
-  "flurry": ski_flurry_86,
-  "focus_energy": ski_focusEnergy_87,
-  "fracture": ski_fracture_88,
-  "frenzy": ski_frenzy_89,
-  "frost_arrow": ski_frostArrow_90,
-  "frost_breath": ski_frostBreath_91,
-  "frost_trap": ski_frostTrap_92,
-  "globe_of_invulnerability": ski_globeOfInvulnerability_93,
-  "go_for_the_eyes": ski_goForTheEyes_94,
-  "growth": ski_growth_95,
-  "head_shot": ski_headShot_96,
-  "heavy_strike": ski_heavyStrike_97,
-  "holy_bolt": ski_holyBolt_98,
-  "holy_strike": ski_holyStrike_99,
-  "horrifying_visage": ski_horrifyingVisage_100,
-  "hunterss_mark": ski_huntersMark_101,
-  "inflict_wounds": ski_inflictWounds_102,
-  "insect_plague": ski_insectPlague_103,
-  "intimidating_shout": ski_intimidatingShout_104,
-  "into_the_grinder": ski_intoTheGrinder_105,
-  "iron_skin": ski_ironSkin_106,
-  "kick": ski_kick_107,
-  "knock_down": ski_knockDown_108,
-  "last_stand": ski_lastStand_109,
-  "leap_attack": ski_leapAttack_110,
-  "lightning_bolt": ski_lightningBolt_111,
-  "magic_missiles": ski_magicMissiles_112,
-  "maim": ski_maim_113,
-  "make_it_rain": ski_makeItRain_114,
-  "mana_burst": ski_manaBurst_115,
-  "mana_shield": ski_manaShield_116,
-  "mighty_blow": ski_mightyBlow_117,
-  "mind_lance": ski_mindLance_118,
-  "minotaur_charge": ski_minotaurCharge_119,
-  "molten_overdrive": ski_moltenOverdrive_120,
-  "multi_shot": ski_multiShot_121,
-  "multi_strike": ski_multiStrike_122,
-  "natures_blessing": ski_naturesBlessing_123,
-  "necro_breath": ski_necroBreath_124,
-  "nightmares": ski_nightmares_125,
-  "obliterate": ski_obliterate_126,
-  "on_the_hook": ski_onTheHook_127,
-  "overcharge": ski_overcharge_128,
-  "overclock": ski_overclock_129,
-  "overpower": ski_overpower_130,
-  "petrifying_gaze": ski_petrifyingGaze_131,
-  "piercing_magic": ski_piercingMagic_132,
-  "poison_bomb": ski_poisonBomb_133,
-  "poison_claw": ski_poisonClaw_134,
-  "poison_cloud": ski_poisonCloud_135,
-  "poison_jab": ski_poisonJab_136,
-  "poison_shot": ski_poisonShot_137,
-  "poison_strike": ski_poisonStrike_138,
-  "power_word_confusion": ski_powerWordConfusion_140,
-  "power_word_fortitude": ski_powerWordFortitude_141,
-  "power_word_pain": ski_powerWordPain_142,
-  "power_word_shield": ski_powerWordShield_143,
-  "power_word_stun": ski_powerWordStun_144,
-  "powerful_blow": ski_powerfulBlow_139,
-  "prayer": ski_prayer_145,
-  "psionic_blast": ski_psionicBlast_146,
-  "quick_fingers": ski_quickFingers_147,
-  "rage": ski_rage_148,
-  "reassemble": ski_reassemble_149,
-  "rebirth": ski_rebirth_150,
-  "reckless_assault": ski_recklessAssault_151,
-  "reconstruct": ski_reconstruct_152,
-  "regeneration": ski_regeneration_153,
-  "rend": ski_rend_154,
-  "renew": ski_renew_155,
-  "reposition": ski_reposition_156,
-  "shadow_bolt": ski_shadowBolt_157,
-  "shadow_strike": ski_shadowStrike_159,
-  "shadowmeld": ski_shadowmeld_158,
-  "shark_bite": ski_sharkBite_160,
-  "shield_bash": ski_shieldBash_161,
-  "shield_wall": ski_shieldWall_162,
-  "shocking_grasp": ski_shockingGrasp_163,
-  "skull_bash": ski_skullBash_164,
-  "spook": ski_spook_165,
-  "stand_ground": ski_standGround_166,
-  "stoke_the_flames": ski_stokeTheFlames_167,
-  "summon_storm": ski_summonStorm_168,
-  "sunburst": ski_sunburst_169,
-  "swamp_magic": ski_swampMagic_170,
-  "tail_swipe": ski_tailSwipe_171,
-  "take_aim": ski_takeAim_172,
-  "taunt": ski_taunt_173,
-  "tenderise": ski_tenderise_174,
-  "tentacle_crush": ski_tentacleCrush_175,
-  "tentacle_wrap": ski_tentacleWrap_176,
-  "thou_hast_bested_me": ski_thouHastBestedMe_177,
-  "trip_wire": ski_tripWire_178,
-  "twilight_trance": ski_twilightTrance_179,
-  "unholy_strike": ski_unholyStrike_180,
-  "unwavering_lies": ski_unwaveringLies_181,
-  "uppercut": ski_uppercut_182,
-  "venom_bolt": ski_venomBolt_183,
-  "wail": ski_wail_184,
-  "web": ski_web_185,
-  "whelm": ski_whelm_186,
-  "whirlwind_strike": ski_whirlwindStrike_187,
-  "will_of_the_deceiver": ski_wIllOfTheDeceiver_188,
-  "wind_strike": ski_windStrike_189,
-  "yagamons_revenge": ski_yagamonsRevenge_190,
+  "explosive_shot": ski_explosiveShot_77,
+  "expose_weakness": ski_exposeWeakness_78,
+  "eye_ray": ski_eyeRay_79,
+  "finger_of_death": ski_fingerOfDeath_80,
+  "fire_breath": ski_fireBreath_82,
+  "fire_strike": ski_fireStrike_83,
+  "fireball": ski_fireball_81,
+  "flame_arrow": ski_flameArrow_84,
+  "flame_slam": ski_flameSlam_85,
+  "flamestrike": ski_flamestrike_86,
+  "flurry": ski_flurry_87,
+  "focus_energy": ski_focusEnergy_88,
+  "fracture": ski_fracture_89,
+  "frenzy": ski_frenzy_90,
+  "frost_arrow": ski_frostArrow_91,
+  "frost_breath": ski_frostBreath_92,
+  "frost_trap": ski_frostTrap_93,
+  "globe_of_invulnerability": ski_globeOfInvulnerability_94,
+  "go_for_the_eyes": ski_goForTheEyes_95,
+  "growth": ski_growth_96,
+  "head_shot": ski_headShot_97,
+  "heavy_strike": ski_heavyStrike_98,
+  "holy_bolt": ski_holyBolt_99,
+  "holy_strike": ski_holyStrike_100,
+  "horrifying_visage": ski_horrifyingVisage_101,
+  "hunterss_mark": ski_huntersMark_102,
+  "impale": ski_impale_103,
+  "inflict_wounds": ski_inflictWounds_104,
+  "insect_plague": ski_insectPlague_105,
+  "intimidating_shout": ski_intimidatingShout_106,
+  "into_the_grinder": ski_intoTheGrinder_107,
+  "iron_skin": ski_ironSkin_108,
+  "kick": ski_kick_109,
+  "knock_down": ski_knockDown_110,
+  "last_stand": ski_lastStand_111,
+  "leap_attack": ski_leapAttack_112,
+  "lightning_bolt": ski_lightningBolt_113,
+  "lure": ski_lure_114,
+  "magic_missiles": ski_magicMissiles_115,
+  "maim": ski_maim_116,
+  "make_it_rain": ski_makeItRain_117,
+  "mana_burst": ski_manaBurst_118,
+  "mana_shield": ski_manaShield_119,
+  "mighty_blow": ski_mightyBlow_120,
+  "mind_lance": ski_mindLance_121,
+  "minotaur_charge": ski_minotaurCharge_122,
+  "molten_overdrive": ski_moltenOverdrive_123,
+  "multi_shot": ski_multiShot_124,
+  "multi_strike": ski_multiStrike_125,
+  "natures_blessing": ski_naturesBlessing_126,
+  "necro_breath": ski_necroBreath_127,
+  "nightmares": ski_nightmares_128,
+  "obliterate": ski_obliterate_129,
+  "on_the_hook": ski_onTheHook_130,
+  "overcharge": ski_overcharge_131,
+  "overclock": ski_overclock_132,
+  "overpower": ski_overpower_133,
+  "petrifying_gaze": ski_petrifyingGaze_134,
+  "piercing_magic": ski_piercingMagic_135,
+  "poison_bomb": ski_poisonBomb_136,
+  "poison_claw": ski_poisonClaw_137,
+  "poison_cloud": ski_poisonCloud_138,
+  "poison_jab": ski_poisonJab_139,
+  "poison_shot": ski_poisonShot_140,
+  "poison_strike": ski_poisonStrike_141,
+  "power_word_confusion": ski_powerWordConfusion_143,
+  "power_word_fortitude": ski_powerWordFortitude_144,
+  "power_word_pain": ski_powerWordPain_145,
+  "power_word_shield": ski_powerWordShield_146,
+  "power_word_stun": ski_powerWordStun_147,
+  "powerful_blow": ski_powerfulBlow_142,
+  "prayer": ski_prayer_148,
+  "psionic_blast": ski_psionicBlast_149,
+  "quick_fingers": ski_quickFingers_150,
+  "rage": ski_rage_151,
+  "ravage": ski_ravage_152,
+  "reassemble": ski_reassemble_153,
+  "rebirth": ski_rebirth_154,
+  "reckless_assault": ski_recklessAssault_155,
+  "reconstruct": ski_reconstruct_156,
+  "regeneration": ski_regeneration_157,
+  "rend": ski_rend_158,
+  "renew": ski_renew_159,
+  "reposition": ski_reposition_160,
+  "shadow_bolt": ski_shadowBolt_161,
+  "shadow_strike": ski_shadowStrike_163,
+  "shadowmeld": ski_shadowmeld_162,
+  "shark_bite": ski_sharkBite_164,
+  "shield_bash": ski_shieldBash_165,
+  "shield_wall": ski_shieldWall_166,
+  "shocking_grasp": ski_shockingGrasp_167,
+  "skull_bash": ski_skullBash_168,
+  "spook": ski_spook_169,
+  "stand_ground": ski_standGround_170,
+  "stoke_the_flames": ski_stokeTheFlames_171,
+  "summon_storm": ski_summonStorm_172,
+  "sunburst": ski_sunburst_173,
+  "swamp_magic": ski_swampMagic_174,
+  "tail_swipe": ski_tailSwipe_175,
+  "take_aim": ski_takeAim_176,
+  "taunt": ski_taunt_177,
+  "tenderise": ski_tenderise_178,
+  "tentacle_crush": ski_tentacleCrush_179,
+  "tentacle_wrap": ski_tentacleWrap_180,
+  "thou_hast_bested_me": ski_thouHastBestedMe_181,
+  "trip_wire": ski_tripWire_182,
+  "twilight_trance": ski_twilightTrance_183,
+  "unholy_strike": ski_unholyStrike_184,
+  "unwavering_lies": ski_unwaveringLies_185,
+  "uppercut": ski_uppercut_186,
+  "venom_bolt": ski_venomBolt_187,
+  "wail": ski_wail_188,
+  "web": ski_web_189,
+  "whelm": ski_whelm_190,
+  "whirlwind_strike": ski_whirlwindStrike_191,
+  "will_of_the_deceiver": ski_wIllOfTheDeceiver_192,
+  "wind_strike": ski_windStrike_193,
+  "yagamons_revenge": ski_yagamonsRevenge_194,
 } satisfies Record<SkillId, SkillDefinition>;
 
 // Reference IDs are validated by generateContent.ts before this registry is written.

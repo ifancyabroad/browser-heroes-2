@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["hunterss_mark", "multi_shot", "trip_wire", "reposition"],
+		skillIds: ["hunterss_mark", "multi_shot", "trip_wire", "explosive_shot"],
 		featIds: [],
 		tactic: "default",
 	},

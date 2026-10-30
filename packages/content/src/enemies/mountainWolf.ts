@@ -17,7 +17,7 @@ export default buildEnemy({
 		charisma: 7,
 	},
 	combat: {
-		hitDie: "1d10",
+		hitDie: "1d8",
 		armourClass: 14,
 		damageAffinities: {
 			resistances: [],
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["knock_down", "detect_blood"],
+		skillIds: ["leap_attack", "detect_blood"],
 		featIds: [],
 		tactic: "aggressive",
 	},
