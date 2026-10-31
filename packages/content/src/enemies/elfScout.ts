@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["take_aim", "frost_trap"],
+		skillIds: ["take_aim", "trip_wire"],
 		featIds: [],
 		tactic: "default",
 	},
