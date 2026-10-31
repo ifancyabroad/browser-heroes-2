@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["poison_jab", "evasion"],
+		skillIds: ["go_for_the_eyes"],
 		featIds: [],
 		tactic: "default",
 	},

@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A goblin bowman stationed along the outpost's palisades. He coats his arrows with venom prepared by the tribe's witch doctors.",
 	portrait: "enemies/outpost/goblin_archer.png",
 	rank: "normal",
-	threat: 7,
+	threat: 8,
 	attributes: {
 		strength: 8,
 		dexterity: 15,

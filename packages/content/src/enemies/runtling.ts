@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A small, spiny forest beast that charges anything approaching its den. Most predators learn to give its burrow a wide berth.",
 	portrait: "enemies/forest/runtling.png",
 	rank: "normal",
-	threat: 8,
+	threat: 7,
 	attributes: {
 		strength: 8,
 		dexterity: 13,

@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A cunning woodland hunter skilled with a bow and fiercely protective of its hunting grounds. Travellers are considered fair game.",
 	portrait: "enemies/forest/hobgoblin.png",
 	rank: "normal",
-	threat: 7,
+	threat: 8,
 	attributes: {
 		strength: 13,
 		dexterity: 12,
