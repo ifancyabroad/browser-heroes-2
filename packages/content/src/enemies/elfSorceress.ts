@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An elven spellcaster who draws destructive power from moonlight and storm. Her order tends the silver pools in which the court reads the changing heavens.",
 	portrait: "enemies/grove/elf_sorceress.png",
 	rank: "normal",
-	threat: 20,
+	threat: 19,
 	attributes: {
 		strength: 10,
 		dexterity: 16,
@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["lightning_bolt", "flamestrike", "power_word_shield"],
+		skillIds: ["lightning_bolt", "sunbeam", "mana_shield"],
 		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "charisma"],
+		savingThrows: ["intelligence"],
 	},
 	encounter: {
 		zone: "grove",

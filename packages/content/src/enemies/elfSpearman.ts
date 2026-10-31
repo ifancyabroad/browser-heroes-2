@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "armour_break"],
+		skillIds: ["stand_ground", "armour_break"],
 		featIds: [],
 		tactic: "aggressive",
 	},
 	proficiencies: {
-		savingThrows: ["strength", "constitution"],
+		savingThrows: ["strength"],
 	},
 	encounter: {
 		zone: "grove",

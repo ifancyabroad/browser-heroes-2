@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A veteran hunter whose arrows carry the pale blessing of the stars. The oldest boundary stones bear the names of rangers who never returned.",
 	portrait: "enemies/grove/elf_ranger.png",
 	rank: "normal",
-	threat: 19,
+	threat: 18,
 	attributes: {
 		strength: 12,
 		dexterity: 20,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["hunterss_mark", "multi_shot", "holy_strike"],
+		skillIds: ["hunterss_mark", "precision_shot"],
 		featIds: [],
 		tactic: "default",
 	},

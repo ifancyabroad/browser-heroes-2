@@ -7,7 +7,7 @@ export default buildEnemy({
 		"The grove's crown prince, trained to fight from the saddle of a royal griffon. Their bond began before either was permitted beyond the palace grounds.",
 	portrait: "enemies/grove/crown_prince_thalanor.png",
 	rank: "boss",
-	threat: 24,
+	threat: 23,
 	attributes: {
 		strength: 20,
 		dexterity: 18,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "holy_strike", "double_strike", "drop_from_above"],
+		skillIds: ["dawn_strike", "impale", "drop_from_above", "last_stand"],
 		featIds: [],
 		tactic: "aggressive",
 	},

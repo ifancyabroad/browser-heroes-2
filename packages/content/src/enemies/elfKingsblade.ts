@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A royal swordsman trained to break an enemy's defence with measured, powerful cuts. Admission to the order requires surrendering every claim to a family inheritance.",
 	portrait: "enemies/grove/elf_kingsblade.png",
 	rank: "normal",
-	threat: 20,
+	threat: 19,
 	attributes: {
 		strength: 18,
 		dexterity: 18,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "focus_energy"],
+		skillIds: ["dawn_strike", "focus_energy", "dueling_stance"],
 		featIds: [],
 		tactic: "aggressive",
 	},

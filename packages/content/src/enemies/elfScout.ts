@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["take_aim", "trip_wire"],
+		skillIds: ["take_aim", "frost_trap"],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "wisdom"],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "grove",

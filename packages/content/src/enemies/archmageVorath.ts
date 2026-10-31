@@ -7,7 +7,7 @@ export default buildEnemy({
 		"The royal archmage, entrusted with the grove's oldest celestial workings. He remembers when the stars above its canopy followed a different course.",
 	portrait: "enemies/grove/archmage_vorath.png",
 	rank: "boss",
-	threat: 25,
+	threat: 24,
 	attributes: {
 		strength: 10,
 		dexterity: 14,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["chain_lightning", "flamestrike", "power_word_shield", "elemental_shield"],
+		skillIds: ["chain_lightning", "sunbeam", "fireball", "shield_of_the_archmage"],
 		featIds: [],
 		tactic: "caster",
 	},
