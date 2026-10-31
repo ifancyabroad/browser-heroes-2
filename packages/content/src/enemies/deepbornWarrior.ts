@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An armoured Deepborn sworn to defend the temple's inner passages. His company guards sealed doors whose contents are known only to the priesthood.",
 	portrait: "enemies/temple/deepborn_warrior.png",
 	rank: "normal",
-	threat: 15,
+	threat: 14,
 	attributes: {
 		strength: 16,
 		dexterity: 14,
@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 18,
+		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

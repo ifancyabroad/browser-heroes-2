@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d10",
-		armourClass: 17,
+		armourClass: 16,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "powerful_blow"],
+		skillIds: ["charge", "leap_attack"],
 		featIds: [],
 		tactic: "aggressive",
 	},

@@ -26,22 +26,22 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Superior Lightning Staff",
+			name: "Superior Cold Staff",
 			icon: "items/weapons/staves/staff_29.png",
 			attackAttribute: "intelligence",
 			damage: {
 				dice: "1d8+2",
-				type: "lightning",
+				type: "cold",
 				damageClass: "magical",
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["cursing_bolt", "lightning_bolt", "power_word_shield"],
+		skillIds: ["cursing_bolt", "cone_of_cold", "mana_shield"],
 		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "wisdom", "charisma"],
+		savingThrows: ["intelligence", "wisdom"],
 	},
 	encounter: {
 		zone: "temple",

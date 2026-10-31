@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "mind_lance",
 	name: "Mind Lance",
 	description: "Deal necrotic damage to the enemy, halved on a successful Wisdom saving throw.",
-	icon: "skills/common/psionic_blast.png",
+	icon: "skills/common/mind_lance.png",
 	pool: "common",
 	kind: "spell",
 	category: "damage",

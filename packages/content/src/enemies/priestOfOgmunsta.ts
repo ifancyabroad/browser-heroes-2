@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["inflict_wounds", "drain_life", "power_word_shield"],
+		skillIds: ["mind_lance", "call_to_the_void", "drain_life"],
 		featIds: [],
 		tactic: "defensive",
 	},

@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A Deepborn tracker who guides arrows with unnatural concentration. Captives taken beyond the temple provide the priesthood with knowledge of worlds it has yet to reach.",
 	portrait: "enemies/temple/deepborn_hunter.png",
 	rank: "normal",
-	threat: 15,
+	threat: 14,
 	attributes: {
 		strength: 12,
 		dexterity: 18,
@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["take_aim", "cripple", "unholy_strike"],
+		skillIds: ["take_aim", "frost_shot"],
 		featIds: [],
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "wisdom"],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "temple",

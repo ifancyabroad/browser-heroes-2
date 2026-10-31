@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A Deepborn warrior reshaped by prolonged communion with Og'munsta. The priesthood displays his altered body as proof that their god still answers from beyond the veil.",
 	portrait: "enemies/temple/ogmunstas_champion.png",
 	rank: "boss",
-	threat: 22,
+	threat: 21,
 	attributes: {
 		strength: 20,
 		dexterity: 14,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "unholy_strike", "drain_energy"],
+		skillIds: ["call_to_the_void", "ogmunstas_boon", "unholy_strike", "heavy_strike"],
 		featIds: [],
 		tactic: "aggressive",
 	},

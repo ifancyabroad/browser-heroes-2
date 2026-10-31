@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["mind_lance", "power_word_confusion"],
+		skillIds: ["mind_lance", "mind_duel"],
 		featIds: [],
 		tactic: "caster",
 	},
