@@ -9,7 +9,7 @@ export default buildEnemy({
 	rank: "normal",
 	threat: 22,
 	attributes: {
-		strength: 24,
+		strength: 20,
 		dexterity: 8,
 		constitution: 20,
 		intelligence: 10,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["knock_down", "skull_bash", "powerful_blow"],
+		skillIds: ["knock_down", "powerful_blow"],
 		featIds: [],
 		tactic: "aggressive",
 	},

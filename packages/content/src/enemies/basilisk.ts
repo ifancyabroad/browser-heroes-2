@@ -9,15 +9,15 @@ export default buildEnemy({
 	rank: "normal",
 	threat: 16,
 	attributes: {
-		strength: 12,
+		strength: 15,
 		dexterity: 13,
-		constitution: 11,
+		constitution: 13,
 		intelligence: 2,
 		wisdom: 10,
 		charisma: 3,
 	},
 	combat: {
-		hitDie: "1d6",
+		hitDie: "1d8",
 		armourClass: 15,
 		damageAffinities: {
 			resistances: ["fire"],
@@ -68,7 +68,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["petrifying_gaze", "leap_attack"],
+		skillIds: ["petrifying_gaze", "leap_attack", "toxic_spit"],
 		featIds: [],
 		tactic: "aggressive",
 	},

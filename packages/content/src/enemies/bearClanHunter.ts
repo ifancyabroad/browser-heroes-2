@@ -41,7 +41,7 @@ export default buildEnemy({
 		tactic: "default",
 	},
 	proficiencies: {
-		savingThrows: ["dexterity", "wisdom"],
+		savingThrows: ["dexterity"],
 	},
 	encounter: {
 		zone: "tundra",

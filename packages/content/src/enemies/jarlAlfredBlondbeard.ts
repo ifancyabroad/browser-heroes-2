@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "battle_cry", "rage", "overpower"],
+		skillIds: ["bear_form", "multi_strike", "double_strike", "overpower"],
 		featIds: [],
 		tactic: "default",
 	},

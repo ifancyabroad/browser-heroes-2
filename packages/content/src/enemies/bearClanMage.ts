@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["cone_of_cold", "lightning_bolt", "iron_skin", "power_word_shield"],
+		skillIds: ["cone_of_cold", "lightning_bolt", "iron_skin"],
 		featIds: [],
 		tactic: "caster",
 	},
 	proficiencies: {
-		savingThrows: ["intelligence", "wisdom"],
+		savingThrows: ["intelligence"],
 	},
 	encounter: {
 		zone: "tundra",

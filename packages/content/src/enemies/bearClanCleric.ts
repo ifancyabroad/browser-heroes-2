@@ -36,12 +36,12 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["holy_bolt", "flamestrike", "cure_critical_wounds", "prayer"],
+		skillIds: ["holy_strike", "flamestrike", "cure_major_wounds"],
 		featIds: [],
 		tactic: "defensive",
 	},
 	proficiencies: {
-		savingThrows: ["wisdom", "charisma"],
+		savingThrows: ["wisdom"],
 	},
 	encounter: {
 		zone: "tundra",
