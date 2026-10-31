@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A court spellcaster who lends elemental magic to the castle’s defence. Access to the royal library almost makes the guard duty worthwhile.",
 	portrait: "enemies/castle/wizard.png",
 	rank: "normal",
-	threat: 12,
+	threat: 13,
 	attributes: {
 		strength: 10,
 		dexterity: 12,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["armour", "frost_arrow", "flame_arrow"],
+		skillIds: ["mana_shield", "frost_arrow", "flame_arrow"],
 		featIds: [],
 		tactic: "caster",
 	},

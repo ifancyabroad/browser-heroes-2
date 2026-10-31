@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["take_aim", "multi_shot"],
 		featIds: [],
-		tactic: "default",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

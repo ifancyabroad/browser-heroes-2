@@ -21,7 +21,7 @@ export default buildSkill({
 			target: "self",
 			damageType: "acid",
 			operation: "multiply",
-			value: 2,
+			value: 1.5,
 			duration: { unit: "turns", value: 6 },
 		},
 	],

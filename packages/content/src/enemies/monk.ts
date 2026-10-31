@@ -36,9 +36,9 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cure_minor_wounds", "holy_bolt"],
+		skillIds: ["cure_minor_wounds", "holy_bolt", "prayer"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "wisdom"],

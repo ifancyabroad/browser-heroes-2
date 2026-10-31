@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A reclusive witch who brews poisons and trades in stolen vitality. Marsh villagers leave payment outside her dwelling rather than risk being invited inside.",
 	portrait: "enemies/swamp/bog_witch.png",
 	rank: "normal",
-	threat: 11,
+	threat: 12,
 	attributes: {
 		strength: 10,
 		dexterity: 12,

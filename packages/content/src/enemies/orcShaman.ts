@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An orc spiritual guide who calls storms and tends the wounds of marsh raiders. Clan leaders leave offerings before asking him to bless a crossing.",
 	portrait: "enemies/swamp/orc_shaman.png",
 	rank: "normal",
-	threat: 12,
+	threat: 14,
 	attributes: {
 		strength: 16,
 		dexterity: 12,

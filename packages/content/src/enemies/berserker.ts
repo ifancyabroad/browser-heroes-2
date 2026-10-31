@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An axe-wielding mercenary hired to break enemy ranks through sheer ferocity. The garrison gives him a wide berth, even on payday.",
 	portrait: "enemies/castle/berserker.png",
 	rank: "normal",
-	threat: 12,
+	threat: 11,
 	attributes: {
 		strength: 16,
 		dexterity: 12,

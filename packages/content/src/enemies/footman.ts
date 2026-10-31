@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A veteran infantryman trained to meet breaches in the castle defences. Years of siege duty have made holding a doorway second nature.",
 	portrait: "enemies/castle/footman.png",
 	rank: "normal",
-	threat: 11,
+	threat: 12,
 	attributes: {
 		strength: 14,
 		dexterity: 14,

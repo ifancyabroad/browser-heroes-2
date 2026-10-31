@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A shelled labourer who raises causeways and floodbanks through the marsh. Settlements depend on his clan to keep their roads above the seasonal floods.",
 	portrait: "enemies/swamp/marsh_builder.png",
 	rank: "normal",
-	threat: 10,
+	threat: 12,
 	attributes: {
 		strength: 15,
 		dexterity: 10,
@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 16,
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
@@ -36,9 +36,9 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["stand_ground", "acid_strike"],
+		skillIds: ["acid_strike"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "aggressive",
 	},
 	proficiencies: {
 		savingThrows: ["strength"],
