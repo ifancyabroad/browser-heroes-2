@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A masked sorcerer who commands acid and lightning from a secluded marsh sanctuary. Local raiders surrender their finest scavenged relics in exchange for his protection.",
 	portrait: "enemies/swamp/the_great_fizzletrix.png",
 	rank: "boss",
-	threat: 15,
+	threat: 16,
 	attributes: {
 		strength: 10,
 		dexterity: 12,
@@ -18,7 +18,7 @@ export default buildEnemy({
 	},
 	combat: {
 		hitDie: "1d8",
-		armourClass: 15,
+		armourClass: 13,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],

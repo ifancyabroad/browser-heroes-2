@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A ravenous swamp giant whose wounds close beneath its thick hide. Nearby settlements leave butchered livestock at the reed beds to divert it from their herds.",
 	portrait: "enemies/swamp/bogwort_the_swamp_troll.png",
 	rank: "boss",
-	threat: 16,
+	threat: 15,
 	attributes: {
 		strength: 18,
 		dexterity: 13,
