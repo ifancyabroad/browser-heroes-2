@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A broad-jawed island mercenary who breaks resistance with a heavy spiked club. Employers pay part of his fee before departure and the remainder before he enters their settlement.",
 	portrait: "enemies/island/norc_mercenary.png",
 	rank: "normal",
-	threat: 15,
+	threat: 14,
 	attributes: {
 		strength: 18,
 		dexterity: 12,

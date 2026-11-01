@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An island beetle that stores stray magic beneath a translucent shell. It gathers around old enchantments, leaving abandoned wards dangerously depleted.",
 	portrait: "enemies/island/mana_bug.png",
 	rank: "normal",
-	threat: 12,
+	threat: 14,
 	attributes: {
 		strength: 6,
 		dexterity: 10,
