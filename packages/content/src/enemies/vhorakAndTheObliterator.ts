@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A Deepborn siege-master who carries the Obliterator into battle against the temple's enemies. Its ammunition is forged from tribute surrendered by worlds that resisted Og'munsta's worship.",
 	portrait: "enemies/temple/vhorak_and_the_obliterator.png",
 	rank: "boss",
-	threat: 22,
+	threat: 21,
 	attributes: {
 		strength: 20,
 		dexterity: 14,

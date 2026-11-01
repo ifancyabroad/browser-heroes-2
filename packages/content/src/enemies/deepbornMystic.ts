@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["cursing_bolt", "cone_of_cold", "arcane_shield"],
+		skillIds: ["cursing_bolt", "cone_of_cold", "mana_shield"],
 		featIds: [],
 		tactic: "caster",
 	},
