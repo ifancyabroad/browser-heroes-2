@@ -62,7 +62,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["detect_blood"],
+		skillIds: ["detect_blood", "drag_down_under"],
 		featIds: [],
 		tactic: "default",
 	},
