@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["chain_lightning", "cone_of_cold", "power_word_shield"],
+		skillIds: ["chain_lightning", "cone_of_cold", "embrace_elements"],
 		featIds: [],
 		tactic: "caster",
 	},

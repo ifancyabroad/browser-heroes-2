@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["charge", "leap_attack"],
+		skillIds: ["leap_attack", "deathly_howl"],
 		featIds: [],
 		tactic: "default",
 	},

@@ -47,10 +47,9 @@ export default buildEnemy({
 		},
 		skillIds: [
 			"power_word_pain",
-			"devour_soul",
-			"drain_life",
-			"cure_critical_wounds",
-			"cloak_of_shadows",
+			"power_word_shield",
+			"power_word_confusion",
+			"power_word_decay",
 		],
 		featIds: [],
 		tactic: "caster",

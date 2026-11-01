@@ -35,22 +35,8 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "strength",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "necrotic",
-							damageClass: "magical",
-							dice: "1d6",
-						},
-					],
-				},
-			],
 		},
-		skillIds: ["double_strike", "battle_cry", "armour_break"],
+		skillIds: ["double_strike", "armour_break", "reassemble"],
 		featIds: [],
 		tactic: "default",
 	},

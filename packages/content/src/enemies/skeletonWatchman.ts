@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["blind"],
+		skillIds: ["marked_for_death"],
 		featIds: [],
 		tactic: "caster",
 	},

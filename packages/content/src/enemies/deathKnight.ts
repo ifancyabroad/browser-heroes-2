@@ -35,22 +35,8 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "strength",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "necrotic",
-							damageClass: "magical",
-							dice: "1d8",
-						},
-					],
-				},
-			],
 		},
-		skillIds: ["charge", "unholy_strike", "overpower"],
+		skillIds: ["impale", "unholy_strike", "overpower"],
 		featIds: [],
 		tactic: "default",
 	},

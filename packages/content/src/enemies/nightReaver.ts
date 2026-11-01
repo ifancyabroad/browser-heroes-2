@@ -50,7 +50,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["shadow_strike", "double_strike", "evasion"],
+		skillIds: ["shadow_strike", "double_strike", "shadowmeld"],
 		featIds: [],
 		tactic: "default",
 	},

@@ -45,7 +45,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["double_strike", "drain_life", "regeneration"],
+		skillIds: ["double_strike", "drain_life", "drain_energy"],
 		featIds: [],
 		tactic: "default",
 	},
