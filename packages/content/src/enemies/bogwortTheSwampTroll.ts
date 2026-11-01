@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["regeneration", "heavy_strike"],
+		skillIds: ["regeneration", "crushing_blow", "skull_bash"],
 		featIds: [],
 		tactic: "default",
 	},
