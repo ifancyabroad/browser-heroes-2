@@ -58,7 +58,7 @@ export default buildEnemy({
 		},
 		skillIds: ["regeneration"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: [],

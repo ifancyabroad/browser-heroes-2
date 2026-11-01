@@ -13,13 +13,15 @@ import { parseDiceFormula } from "../../../../core/dice";
 import {
 	collectWeaponAttackComponents,
 	type EnemyEffectSource,
+	type WeaponSkillEffect,
 } from "./collectWeaponAttackComponents";
+import { getPreferredSkillCategory, type EnemySkillCategory } from "../enemyActions";
 import { getAttributeModifier } from "../../checks/getAttributeModifier";
 import { getDamageAffinity } from "../../damage/damageAffinity";
 import { getEffectiveDamageAffinities } from "../../effects/getEffectiveDamageAffinities";
 import { getEffectiveHealingMultiplier } from "../../effects/getEffectiveHealingMultiplier";
 
-type IsEnemyEffectUsefulInput = {
+type AssessEnemyEffectInput = {
 	effect: Effect;
 	source: EnemyEffectSource;
 	sourceEffectKey: string;
@@ -27,89 +29,119 @@ type IsEnemyEffectUsefulInput = {
 	player: CombatantState;
 };
 
-export function isEnemyEffectUseful(input: IsEnemyEffectUsefulInput): boolean {
+export function assessEnemyEffect(input: AssessEnemyEffectInput): EnemySkillCategory | null {
 	const { effect, sourceEffectKey, enemy, player, source } = input;
 	const target = effect.target === "self" ? enemy : player;
 
 	switch (effect.type) {
-		case "attackDamage": {
-			const components = collectWeaponAttackComponents(enemy, {
+		case "attackDamage":
+			return assessEnemyWeaponAttack(enemy, player, {
 				effect,
 				source,
 				sourceEffectKey,
 			});
-			return (
-				components.damageTypes.some(
-					(type) => getDamageAffinity(player, type) !== "immune",
-				) ||
-				components.riderEffects.some((riderEffect) =>
-					isEnemyEffectUseful({ ...riderEffect, enemy, player }),
-				)
-			);
-		}
 
 		case "damage":
-			return (
-				effect.target === "enemy" &&
+			return effect.target === "enemy" &&
 				getDamageAffinity(player, effect.damageType) !== "immune"
-			);
+				? "standard"
+				: null;
 
 		case "heal":
-			return (
-				canUseRecovery(enemy) &&
+			return canUseRecovery(enemy) &&
 				hasMeaningfulMissingHealth(enemy, expectedHealing(effect, enemy))
-			);
+				? "recovery"
+				: null;
 
 		case "healOverTime":
-			return canUseRecovery(enemy) && !hasActiveSourceEffect(target, source, sourceEffectKey);
+			return canUseRecovery(enemy) && !hasActiveSourceEffect(target, source, sourceEffectKey)
+				? "recovery"
+				: null;
 
-		case "applyStatus":
-			return (
-				!target.activeEffects.some(
+		case "applyStatus": {
+			const alreadyActive =
+				target.activeEffects.some(
 					(activeEffect) =>
 						activeEffect.type === "status" && activeEffect.statusId === effect.statusId,
-				) && !hasActiveSourceEffect(target, source, sourceEffectKey)
-			);
+				) || hasActiveSourceEffect(target, source, sourceEffectKey);
+			if (alreadyActive) {
+				return null;
+			}
+			// Preserve legacy eligibility for self-statuses, without setup preference.
+			return effect.target === "enemy" ? "setup" : "standard";
+		}
 
 		case "modifyStat":
-			return (
-				!hasActiveSourceEffect(target, source, sourceEffectKey) &&
+			return !hasActiveSourceEffect(target, source, sourceEffectKey) &&
 				isStatChangeUseful(effect)
-			);
+				? "setup"
+				: null;
 
-		case "modifyHealing":
-		case "modifyDamageTaken":
+		case "modifyHealing": {
+			if (hasActiveSourceEffect(target, source, sourceEffectKey)) {
+				return null;
+			}
+			const beneficial =
+				effect.target === "self" ? effect.multiplier > 1 : effect.multiplier < 1;
+			return beneficial ? "setup" : "standard";
+		}
+		case "modifyDamageTaken": {
+			if (hasActiveSourceEffect(target, source, sourceEffectKey)) {
+				return null;
+			}
+			const neutralValue = effect.operation === "add" ? 0 : 1;
+			const beneficial =
+				effect.target === "self"
+					? effect.value < neutralValue
+					: effect.value > neutralValue;
+			return beneficial ? "setup" : "standard";
+		}
 		case "shield":
-			return !hasActiveSourceEffect(target, source, sourceEffectKey);
+			return !hasActiveSourceEffect(target, source, sourceEffectKey) ? "setup" : null;
 
 		case "modifyDamage":
-			return (
-				!hasActiveSourceEffect(target, source, sourceEffectKey) &&
+			return !hasActiveSourceEffect(target, source, sourceEffectKey) &&
 				isDamageChangeUseful(effect)
-			);
+				? "setup"
+				: null;
 
 		case "modifyRoll":
-			return (
-				!hasActiveSourceEffect(target, source, sourceEffectKey) &&
+			return !hasActiveSourceEffect(target, source, sourceEffectKey) &&
 				isRollChangeUseful(effect)
-			);
+				? "setup"
+				: null;
 
 		case "modifyDamageAffinity":
-			return (
-				!hasActiveSourceEffect(target, source, sourceEffectKey) &&
+			return !hasActiveSourceEffect(target, source, sourceEffectKey) &&
 				isAffinityChangeUseful(effect, target, effect.target === "enemy")
-			);
+				? "setup"
+				: null;
 
 		case "damageOverTime":
-			return (
-				effect.target === "enemy" &&
+			return effect.target === "enemy" &&
 				getDamageAffinity(player, effect.damageType) !== "immune" &&
 				!hasActiveSourceEffect(target, source, sourceEffectKey)
-			);
+				? "setup"
+				: null;
 
 		case "removeStatus":
-			return false;
+			return null;
 	}
+}
+
+export function assessEnemyWeaponAttack(
+	enemy: CombatantState,
+	player: CombatantState,
+	skill?: WeaponSkillEffect,
+): EnemySkillCategory | null {
+	const components = collectWeaponAttackComponents(enemy, skill);
+	const categories = components.riderEffects.map((rider) =>
+		assessEnemyEffect({ ...rider, enemy, player }),
+	);
+	if (components.damageTypes.some((type) => getDamageAffinity(player, type) !== "immune")) {
+		categories.push("standard");
+	}
+	return getPreferredSkillCategory(categories);
 }
 
 function isStatChangeUseful(effect: ModifyStatEffect): boolean {

@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["call_to_the_void", "ogmunstas_boon", "unholy_strike", "heavy_strike"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "wisdom"],

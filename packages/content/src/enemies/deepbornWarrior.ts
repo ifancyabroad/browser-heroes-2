@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["cleave", "unholy_strike"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

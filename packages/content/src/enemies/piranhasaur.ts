@@ -64,7 +64,7 @@ export default buildEnemy({
 		},
 		skillIds: ["detect_blood"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: [],

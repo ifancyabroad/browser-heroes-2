@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["rend", "cleave"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity"],

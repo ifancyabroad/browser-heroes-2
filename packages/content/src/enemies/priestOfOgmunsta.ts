@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["mind_lance", "call_to_the_void", "drain_life"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["wisdom", "charisma"],

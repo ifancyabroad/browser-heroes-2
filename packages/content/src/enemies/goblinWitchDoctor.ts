@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["inflict_wounds", "curse", "cure_minor_wounds"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: [],

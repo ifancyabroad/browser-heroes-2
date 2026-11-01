@@ -3,12 +3,12 @@ import { type Tactic } from "@app/content";
 import type { CombatantState } from "../../../../schemas";
 import type { RngResult, RngState } from "../../../../core/rng";
 
-import type { EnemyAction } from "../enemyTactics";
+import type { EnemyAction } from "../enemyActions";
 import { selectBinkusAction } from "./selectBinkusAction";
 import { selectConcederAction } from "./selectConcederAction";
 import { selectStandardEnemyAction } from "./selectStandardEnemyAction";
 
-export type { EnemyAction } from "../enemyTactics";
+export type { EnemyAction } from "../enemyActions";
 
 type SelectEnemyActionInput = {
 	enemy: CombatantState;

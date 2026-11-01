@@ -1,20 +1,16 @@
 import { describe, expect, it } from "vitest";
 
-import { createTestRunState, modifyTestRunState } from "../../../test/createTestRunState";
+import { createTestCombat } from "../../../test/createTestCombat";
 
 import { planEnemyTurn } from "./planEnemyTurn";
 import { resolveEnemyTurn } from "./resolveEnemyTurn";
 
 describe("enemy turn planning", () => {
 	it("does not reconsider healing after taking damage during the round", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
-			const enemy = draft.combat!.enemy;
-			enemy.currentHp = enemy.maxHp;
-			enemy.skills = [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }];
-			enemy.tactic = "caster";
-		});
-		const combatAtRoundStart = state.combat!;
-		const plan = planEnemyTurn(combatAtRoundStart, state.rngState);
+		const combatAtRoundStart = createTestCombat();
+		combatAtRoundStart.enemy.skills = [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }];
+		combatAtRoundStart.enemy.tactic = "caster";
+		const plan = planEnemyTurn(combatAtRoundStart, { value: 7 });
 		const combatAfterPlayerDamage = {
 			...combatAtRoundStart,
 			enemy: { ...combatAtRoundStart.enemy, currentHp: 1 },
@@ -37,14 +33,11 @@ describe("enemy turn planning", () => {
 	});
 
 	it("still prevents a planned action when the enemy is stunned during the round", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
-			const enemy = draft.combat!.enemy;
-			enemy.currentHp = Math.floor(enemy.maxHp / 4);
-			enemy.skills = [{ skillId: "thou_hast_bested_me", chargesRemaining: 1 }];
-			enemy.tactic = "conceder";
-		});
-		const combatAtRoundStart = state.combat!;
-		const plan = planEnemyTurn(combatAtRoundStart, state.rngState);
+		const combatAtRoundStart = createTestCombat();
+		combatAtRoundStart.enemy.currentHp = 25;
+		combatAtRoundStart.enemy.skills = [{ skillId: "thou_hast_bested_me", chargesRemaining: 1 }];
+		combatAtRoundStart.enemy.tactic = "conceder";
+		const plan = planEnemyTurn(combatAtRoundStart, { value: 7 });
 		const combatAfterPlayerStun = {
 			...combatAtRoundStart,
 			enemy: {

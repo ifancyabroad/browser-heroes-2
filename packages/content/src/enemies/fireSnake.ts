@@ -52,7 +52,7 @@ export default buildEnemy({
 		},
 		skillIds: ["constrict", "flame_spit"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity"],

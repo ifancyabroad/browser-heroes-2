@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 
 import type { CombatantState } from "../../../../schemas";
-import { createTestRunState } from "../../../../test/createTestRunState";
+import { createTestCombat } from "../../../../test/createTestCombat";
 
-import { isEnemyBasicAttackUseful } from "./isEnemyBasicAttackUseful";
-import { isEnemySkillUseful } from "./isEnemySkillUseful";
+import { assessEnemyWeaponAttack } from "./assessEnemyEffect";
+import { assessEnemySkill } from "./assessEnemySkill";
 
 describe("enemy weapon attack usefulness", () => {
 	it("keeps the action when an off-hand attack can damage an immune target", () => {
@@ -18,7 +18,7 @@ describe("enemy weapon attack usefulness", () => {
 			},
 		};
 
-		expect(isEnemyBasicAttackUseful(dualWielder, immunePlayer)).toBe(true);
+		expect(assessEnemyWeaponAttack(dualWielder, immunePlayer)).not.toBeNull();
 	});
 
 	it("keeps the action when an authored rider can damage an immune target", () => {
@@ -46,7 +46,7 @@ describe("enemy weapon attack usefulness", () => {
 			},
 		};
 
-		expect(isEnemyBasicAttackUseful(riderEnemy, immunePlayer)).toBe(true);
+		expect(assessEnemyWeaponAttack(riderEnemy, immunePlayer)).not.toBeNull();
 	});
 
 	it("includes useful feat riders in the action", () => {
@@ -58,26 +58,20 @@ describe("enemy weapon attack usefulness", () => {
 			featIds: ["blood_drinker" as const],
 		};
 
-		expect(isEnemyBasicAttackUseful(woundedEnemy, immunePlayer)).toBe(true);
+		expect(assessEnemyWeaponAttack(woundedEnemy, immunePlayer)).not.toBeNull();
 		expect(
-			isEnemySkillUseful(
+			assessEnemySkill(
 				[{ type: "attackDamage", target: "enemy", multiplier: 1, attackRiders: [] }],
 				woundedEnemy,
 				immunePlayer,
 				"shadow_strike",
 			),
-		).toBe(true);
+		).not.toBeNull();
 	});
 });
 
-function createCombatants(): { enemy: CombatantState; player: CombatantState } {
-	const combat = createTestRunState().combat;
-
-	if (!combat) {
-		throw new Error("Expected test combat");
-	}
-
-	return { enemy: combat.enemy, player: combat.player };
+function createCombatants() {
+	return createTestCombat();
 }
 
 function withImmunity(

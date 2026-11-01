@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["wind_strike", "armour_break"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "wisdom"],

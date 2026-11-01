@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["dawn_strike", "focus_energy", "dueling_stance"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

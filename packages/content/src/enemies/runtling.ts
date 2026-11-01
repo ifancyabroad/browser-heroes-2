@@ -52,7 +52,7 @@ export default buildEnemy({
 		},
 		skillIds: ["charge"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: [],

@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["acid_strike", "shadowmeld"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["acid_strike"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength"],

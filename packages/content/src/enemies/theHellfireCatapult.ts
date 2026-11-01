@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["disease_shot", "make_it_rain", "reposition"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["constitution"],

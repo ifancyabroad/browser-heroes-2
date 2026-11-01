@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["shield_wall", "rend"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

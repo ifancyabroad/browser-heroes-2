@@ -64,7 +64,7 @@ export default buildEnemy({
 		},
 		skillIds: ["go_for_the_eyes"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: [],

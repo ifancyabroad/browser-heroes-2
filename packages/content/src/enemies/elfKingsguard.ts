@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["dawn_strike", "shield_wall", "shield_bash"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

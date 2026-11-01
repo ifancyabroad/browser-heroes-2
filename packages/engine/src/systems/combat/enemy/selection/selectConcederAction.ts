@@ -4,7 +4,7 @@ import type { CombatantState } from "../../../../schemas";
 import type { RngResult, RngState } from "../../../../core/rng";
 
 import { validateCombatantSkillUse } from "../../skills/validateCombatantSkillUse";
-import type { EnemyAction } from "../enemyTactics";
+import type { EnemyAction } from "../enemyActions";
 import { selectStandardEnemyAction } from "./selectStandardEnemyAction";
 
 const CONCEDE_SKILL_ID: SkillId = "thou_hast_bested_me";

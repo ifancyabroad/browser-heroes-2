@@ -52,7 +52,7 @@ export default buildEnemy({
 		},
 		skillIds: ["double_strike", "devour_soul", "reassemble", "overpower"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "wisdom"],

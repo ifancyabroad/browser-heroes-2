@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["double_strike", "reassemble", "devour_soul"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "wisdom"],

@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["overclock", "acquire_target"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["constitution"],

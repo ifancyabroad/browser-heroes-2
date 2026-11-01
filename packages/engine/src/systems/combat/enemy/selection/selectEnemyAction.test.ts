@@ -1,155 +1,42 @@
+import { SKILLS_BY_ID } from "@app/content";
 import { describe, expect, it } from "vitest";
 
-import type { ActiveCombatEffect, CombatantState } from "../../../../schemas";
-import { createTestRunState } from "../../../../test/createTestRunState";
+import type { CombatantState } from "../../../../schemas";
+import { createTestCombat } from "../../../../test/createTestCombat";
 
-import { getUsefulEnemySkillIds } from "../getUsefulEnemySkillIds";
 import { selectEnemyAction } from "./selectEnemyAction";
 
-describe("enemy skill usefulness", () => {
+describe("enemy action selection", () => {
+	it.each(["aggressive", "defensive"] as const)("treats legacy %s as default", (tactic) => {
+		const { enemy, player } = createCombatants();
+		enemy.skills = [
+			{ skillId: "stand_ground", chargesRemaining: 3 },
+			{ skillId: "shocking_grasp", chargesRemaining: 12 },
+			{ skillId: "regeneration", chargesRemaining: 2 },
+		];
+		for (const currentHp of [enemy.maxHp, 1]) {
+			const actor = { ...enemy, currentHp };
+			for (let value = 0; value < 100; value += 1) {
+				const input = { enemy: actor, player, rngState: { value } };
+				expect(selectEnemyAction({ ...input, tactic })).toEqual(
+					selectEnemyAction({ ...input, tactic: "default" }),
+				);
+			}
+		}
+	});
+
 	it("excludes healing above half health and preserves the rng state when no skill is useful", () => {
 		const { enemy, player } = createCombatants();
 		const healer = withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]);
 		const rngState = { value: 123 };
 		const healthyHealer = { ...healer, currentHp: Math.floor(healer.maxHp / 2) + 1 };
 
-		expect(getUsefulEnemySkillIds(healthyHealer, player)).toEqual([]);
 		expect(
 			selectEnemyAction({ enemy: healthyHealer, player, tactic: "caster", rngState }),
 		).toEqual({
 			value: { type: "basicAttack" },
 			rngState,
 		});
-	});
-
-	it("allows direct healing below half health when enough of its expected value is useful", () => {
-		const { enemy, player } = createCombatants();
-		const healer = withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]);
-
-		expect(getUsefulEnemySkillIds({ ...healer, currentHp: 1 }, player)).toEqual([
-			"cure_minor_wounds",
-		]);
-	});
-
-	it("still avoids wasting most of an amplified direct heal below half health", () => {
-		const { enemy, player } = createCombatants();
-		const healer: CombatantState = {
-			...withSkills(enemy, [{ skillId: "cure_minor_wounds", chargesRemaining: 2 }]),
-			currentHp: Math.floor(enemy.maxHp / 2),
-			activeEffects: [
-				...enemy.activeEffects,
-				{
-					id: "amplified-healing",
-					type: "modifyHealing" as const,
-					sourceCombatantId: player.id,
-					sourceSide: "player" as const,
-					source: {
-						type: "skill" as const,
-						skillId: "curse" as const,
-						sourceName: "Amplified Healing",
-						sourceEffectKey: "test",
-					},
-					duration: { unit: "turns", remaining: 2 },
-					multiplier: 10,
-				},
-			],
-		};
-
-		expect(getUsefulEnemySkillIds(healer, player)).toEqual([]);
-	});
-
-	it("uses healing over time only at or below half health and while it is inactive", () => {
-		const { enemy, player } = createCombatants();
-		const healer = withSkills(enemy, [{ skillId: "regeneration", chargesRemaining: 2 }]);
-		const healthy = { ...healer, currentHp: Math.floor(healer.maxHp / 2) + 1 };
-		const wounded = { ...healer, currentHp: Math.floor(healer.maxHp / 2) };
-		const regenerating = {
-			...wounded,
-			activeEffects: [
-				...wounded.activeEffects,
-				{
-					id: "active-regeneration",
-					type: "healOverTime" as const,
-					sourceCombatantId: wounded.id,
-					sourceSide: "enemy" as const,
-					source: {
-						type: "skill" as const,
-						skillId: "regeneration" as const,
-						sourceName: "Regeneration",
-						sourceEffectKey: "effect:0",
-					},
-					duration: { unit: "turns" as const, remaining: 2 },
-					dice: "1d8" as const,
-				},
-			],
-		};
-
-		expect(getUsefulEnemySkillIds(healthy, player)).toEqual([]);
-		expect(getUsefulEnemySkillIds(wounded, player)).toEqual(["regeneration"]);
-		expect(getUsefulEnemySkillIds(regenerating, player)).toEqual([]);
-	});
-
-	it("keeps a mixed damage and healing skill useful at full health", () => {
-		const { enemy, player } = createCombatants();
-		const healer = withSkills(enemy, [{ skillId: "drain_life", chargesRemaining: 2 }]);
-
-		expect(getUsefulEnemySkillIds(healer, player)).toEqual(["drain_life"]);
-		expect(getUsefulEnemySkillIds(healer, withImmunity(player, "necrotic"))).toEqual([]);
-	});
-
-	it("does not let defensive effects bypass the recovery threshold", () => {
-		const { enemy, player } = createCombatants();
-		const healer = withSkills(enemy, [
-			{ skillId: "last_stand", chargesRemaining: 1 },
-			{ skillId: "reconstruct", chargesRemaining: 1 },
-		]);
-
-		expect(getUsefulEnemySkillIds(healer, player)).toEqual([]);
-	});
-
-	it("excludes a pure temporary effect while that exact effect is active", () => {
-		const { enemy, player } = createCombatants();
-		const effect: ActiveCombatEffect = {
-			id: "shield-wall-effect",
-			type: "modifyStat",
-			sourceCombatantId: "previous-enemy",
-			sourceSide: "enemy",
-			source: {
-				type: "skill",
-				skillId: "shield_wall",
-				sourceName: "Shield Wall",
-				sourceEffectKey: "effect:0",
-			},
-			duration: { unit: "turns", remaining: 3 },
-			stat: "armourClass",
-			value: 3,
-		};
-		const defender = {
-			...withSkills(enemy, [{ skillId: "shield_wall", chargesRemaining: 5 }]),
-			activeEffects: [effect],
-		};
-
-		expect(getUsefulEnemySkillIds(defender, player)).toEqual([]);
-	});
-
-	it("excludes pure damage when the target is immune", () => {
-		const { enemy, player } = createCombatants();
-		const caster = withSkills(enemy, [{ skillId: "shocking_grasp", chargesRemaining: 12 }]);
-		const immunePlayer = {
-			...player,
-			combatStats: {
-				...player.combatStats,
-				damageAffinities: {
-					...player.combatStats.damageAffinities,
-					immunities: [
-						...player.combatStats.damageAffinities.immunities,
-						"lightning" as const,
-					],
-				},
-			},
-		};
-
-		expect(getUsefulEnemySkillIds(caster, immunePlayer)).toEqual([]);
 	});
 
 	it("excludes an immune basic attack when a useful skill is available", () => {
@@ -177,22 +64,6 @@ describe("enemy skill usefulness", () => {
 		expect(
 			selectEnemyAction({ enemy, player: immunePlayer, tactic: "default", rngState }),
 		).toEqual({ value: { type: "basicAttack" }, rngState });
-	});
-
-	it("keeps an attack useful when a non-immune rider can still resolve", () => {
-		const { enemy, player } = createCombatants();
-		const attacker = withSkills(enemy, [{ skillId: "acid_strike", chargesRemaining: 7 }]);
-		const immunePlayer = withImmunity(player, enemy.basicAttack.damage.type);
-
-		expect(getUsefulEnemySkillIds(attacker, immunePlayer)).toEqual(["acid_strike"]);
-	});
-
-	it("excludes affinity changes that do not improve an immune-damage skill", () => {
-		const { enemy, player } = createCombatants();
-		const caster = withSkills(enemy, [{ skillId: "fireball", chargesRemaining: 4 }]);
-		const immunePlayer = withImmunity(player, "fire");
-
-		expect(getUsefulEnemySkillIds(caster, immunePlayer)).toEqual([]);
 	});
 
 	it("makes caster tactics favor useful skills more strongly than the default tactic", () => {
@@ -280,12 +151,14 @@ describe("Binkus tactic", () => {
 	it("forces each opening buff in order and retries an unspent buff", () => {
 		const { enemy, player } = createCombatants();
 		const rngState = { value: 246 };
-		const skills: CombatantState["skills"] = [
-			{ skillId: "globe_of_invulnerability", chargesRemaining: 2 },
-			{ skillId: "piercing_magic", chargesRemaining: 2 },
-			{ skillId: "embrace_elements", chargesRemaining: 4 },
-			{ skillId: "binkus_deathray", chargesRemaining: 1 },
-		];
+		const skills = (
+			[
+				"globe_of_invulnerability",
+				"piercing_magic",
+				"embrace_elements",
+				"binkus_deathray",
+			] as const
+		).map((skillId) => ({ skillId, chargesRemaining: SKILLS_BY_ID[skillId].maxUses! }));
 
 		const select = (nextSkills: CombatantState["skills"]) =>
 			selectEnemyAction({
@@ -303,14 +176,19 @@ describe("Binkus tactic", () => {
 			type: "skill",
 			skillId: "globe_of_invulnerability",
 		});
-		expect(select([{ ...skills[0], chargesRemaining: 1 }, ...skills.slice(1)]).value).toEqual({
+		expect(
+			select([
+				{ ...skills[0], chargesRemaining: skills[0].chargesRemaining - 1 },
+				...skills.slice(1),
+			]).value,
+		).toEqual({
 			type: "skill",
 			skillId: "piercing_magic",
 		});
 		expect(
 			select([
-				{ ...skills[0], chargesRemaining: 1 },
-				{ ...skills[1], chargesRemaining: 1 },
+				{ ...skills[0], chargesRemaining: skills[0].chargesRemaining - 1 },
+				{ ...skills[1], chargesRemaining: skills[1].chargesRemaining - 1 },
 				...skills.slice(2),
 			]).value,
 		).toEqual({ type: "skill", skillId: "embrace_elements" });
@@ -318,10 +196,11 @@ describe("Binkus tactic", () => {
 
 	it("does not select setup buffs again after the opening", () => {
 		const { enemy, player } = createCombatants();
+		const setupSkills = (
+			["globe_of_invulnerability", "piercing_magic", "embrace_elements"] as const
+		).map((skillId) => ({ skillId, chargesRemaining: SKILLS_BY_ID[skillId].maxUses! - 1 }));
 		const binkus = withSkills(enemy, [
-			{ skillId: "globe_of_invulnerability", chargesRemaining: 1 },
-			{ skillId: "piercing_magic", chargesRemaining: 1 },
-			{ skillId: "embrace_elements", chargesRemaining: 3 },
+			...setupSkills,
 			{ skillId: "shocking_grasp", chargesRemaining: 12 },
 		]);
 
@@ -345,14 +224,8 @@ describe("Binkus tactic", () => {
 	});
 });
 
-function createCombatants(): { enemy: CombatantState; player: CombatantState } {
-	const combat = createTestRunState().combat;
-
-	if (!combat) {
-		throw new Error("Expected test combat");
-	}
-
-	return { enemy: combat.enemy, player: combat.player };
+function createCombatants() {
+	return createTestCombat();
 }
 
 function withSkills(enemy: CombatantState, skills: CombatantState["skills"]): CombatantState {

@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["tenderise", "double_strike"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

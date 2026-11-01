@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["holy_strike", "flamestrike", "cure_major_wounds"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["wisdom"],

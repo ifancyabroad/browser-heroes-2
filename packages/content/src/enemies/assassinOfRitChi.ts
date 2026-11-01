@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["acrobatic_strike", "evasion"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "intelligence"],

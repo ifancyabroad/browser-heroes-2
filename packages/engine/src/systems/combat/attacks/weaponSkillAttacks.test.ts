@@ -5,7 +5,7 @@ import { createTestCombat } from "../../../test/createTestCombat";
 import { resolveAttackDamageEffect } from "../skills/effects/resolveAttackDamageEffect";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { resolveBasicAttack } from "./resolveBasicAttack";
-import { isEnemySkillUseful } from "../enemy/usefulness/isEnemySkillUseful";
+import { assessEnemySkill } from "../enemy/assessment/assessEnemySkill";
 
 const plainEffect: AttackDamageEffect = {
 	type: "attackDamage",
@@ -270,16 +270,16 @@ describe("weapon skills and equipped hands", () => {
 			},
 		];
 		expect(
-			isEnemySkillUseful([plainEffect], combat.enemy, combat.player, "shadow_strike"),
-		).toBe(true);
+			assessEnemySkill([plainEffect], combat.enemy, combat.player, "shadow_strike"),
+		).not.toBeNull();
 		const applied = resolveBasicAttack({
 			combat,
 			attackerSide: "enemy",
 			rngState: { value: 7 },
 		}).value;
 		expect(
-			isEnemySkillUseful([plainEffect], applied.enemy, applied.player, "shadow_strike"),
-		).toBe(false);
+			assessEnemySkill([plainEffect], applied.enemy, applied.player, "shadow_strike"),
+		).toBeNull();
 	});
 
 	it.each(["mainHand", "offHand"])(
@@ -293,22 +293,22 @@ describe("weapon skills and equipped hands", () => {
 				hand === "mainHand" ? "cold" : "radiant",
 			];
 			expect(
-				isEnemySkillUseful(
+				assessEnemySkill(
 					[{ ...plainEffect, damageTypeOverride: "fire" }],
 					combat.enemy,
 					combat.player,
 					"shadow_strike",
 				),
-			).toBe(true);
+			).not.toBeNull();
 			combat.player.combatStats.damageAffinities.immunities.push("radiant", "cold");
 			expect(
-				isEnemySkillUseful(
+				assessEnemySkill(
 					[{ ...plainEffect, damageTypeOverride: "fire" }],
 					combat.enemy,
 					combat.player,
 					"shadow_strike",
 				),
-			).toBe(false);
+			).toBeNull();
 		},
 	);
 
@@ -318,21 +318,21 @@ describe("weapon skills and equipped hands", () => {
 		combat.enemy.offHandBasicAttack!.attackRiders = [];
 		combat.player.combatStats.damageAffinities.immunities = ["fire"];
 		expect(
-			isEnemySkillUseful(
+			assessEnemySkill(
 				[{ ...plainEffect, damageTypeOverride: "fire" }],
 				combat.enemy,
 				combat.player,
 				"shadow_strike",
 			),
-		).toBe(true);
+		).not.toBeNull();
 		combat.player.combatStats.damageAffinities.immunities.push("slashing");
 		expect(
-			isEnemySkillUseful(
+			assessEnemySkill(
 				[{ ...plainEffect, damageTypeOverride: "fire" }],
 				combat.enemy,
 				combat.player,
 				"shadow_strike",
 			),
-		).toBe(false);
+		).toBeNull();
 	});
 });

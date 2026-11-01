@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["taunt", "dueling_stance"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength"],

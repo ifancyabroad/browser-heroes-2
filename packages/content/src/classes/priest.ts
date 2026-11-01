@@ -20,7 +20,7 @@ export default buildClass({
 		hitDie: "1d10",
 		skillIds: ["holy_bolt"],
 		featIds: [],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		armourTypes: ["cloth", "shield"],

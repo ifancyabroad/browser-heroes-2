@@ -61,7 +61,7 @@ export default buildEnemy({
 		},
 		skillIds: ["evasion", "drop_from_above"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

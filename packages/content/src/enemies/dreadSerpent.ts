@@ -70,7 +70,7 @@ export default buildEnemy({
 		},
 		skillIds: ["acid_spray"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution"],

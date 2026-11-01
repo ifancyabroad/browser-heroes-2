@@ -11,6 +11,15 @@ import { deserializeRunStateJson } from "./deserializeRunState";
 import { serializeRunState } from "./serializeRunState";
 
 describe("serializeRunState", () => {
+	it.each(["aggressive", "defensive"] as const)("round trips legacy %s tactics", (tactic) => {
+		const state = createTestRunState();
+		if (!state.combat) {
+			throw new Error("Expected test combat");
+		}
+		state.combat.enemy.tactic = tactic;
+		expect(deserializeRunStateJson(serializeRunState(state))).toEqual({ ok: true, state });
+	});
+
 	it("round trips a valid initial state", () => {
 		const state = createTestRunState();
 

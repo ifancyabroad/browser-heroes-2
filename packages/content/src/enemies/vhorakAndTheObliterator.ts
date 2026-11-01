@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["bomb_barrage", "acid_bomb", "multi_shot"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution", "intelligence"],

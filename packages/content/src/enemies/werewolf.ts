@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["double_strike", "shadowmeld"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["constitution"],

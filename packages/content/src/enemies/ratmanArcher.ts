@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["cripple", "poison_shot"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity"],

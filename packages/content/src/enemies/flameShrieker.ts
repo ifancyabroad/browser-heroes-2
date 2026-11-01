@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["burning_rampage", "deafening_screech", "leap_attack"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity"],

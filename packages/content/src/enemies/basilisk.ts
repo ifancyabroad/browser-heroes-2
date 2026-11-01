@@ -70,7 +70,7 @@ export default buildEnemy({
 		},
 		skillIds: ["petrifying_gaze", "leap_attack", "toxic_spit"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: [],

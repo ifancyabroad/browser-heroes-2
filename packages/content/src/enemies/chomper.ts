@@ -58,7 +58,7 @@ export default buildEnemy({
 		},
 		skillIds: ["growth"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: [],

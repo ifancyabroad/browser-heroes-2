@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["renew", "bless", "lightning_bolt"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["wisdom", "charisma"],

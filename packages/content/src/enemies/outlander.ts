@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["mana_shield", "wind_strike"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

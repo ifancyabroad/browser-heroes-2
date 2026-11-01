@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["frost_breath", "deafening_roar", "dragon_focus", "multi_strike"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "wisdom"],

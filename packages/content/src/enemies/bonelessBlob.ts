@@ -61,7 +61,7 @@ export default buildEnemy({
 		},
 		skillIds: ["tentacle_wrap", "constrict", "regeneration"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["constitution"],

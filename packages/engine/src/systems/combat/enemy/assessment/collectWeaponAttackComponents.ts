@@ -23,7 +23,7 @@ type WeaponAttackComponents = {
 	}[];
 };
 
-type WeaponSkillEffect = {
+export type WeaponSkillEffect = {
 	effect: AttackDamageEffect;
 	source: EnemyEffectSource;
 	sourceEffectKey: string;

@@ -55,7 +55,7 @@ export default buildEnemy({
 			"rebirth",
 		],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity", "constitution", "wisdom", "charisma"],

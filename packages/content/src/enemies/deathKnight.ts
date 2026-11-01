@@ -52,7 +52,7 @@ export default buildEnemy({
 		},
 		skillIds: ["charge", "unholy_strike", "overpower"],
 		featIds: [],
-		tactic: "aggressive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution", "charisma"],

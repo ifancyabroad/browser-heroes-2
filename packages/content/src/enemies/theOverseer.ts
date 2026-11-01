@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["intimidating_shout", "shield_bash", "double_strike"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength", "constitution"],

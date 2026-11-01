@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["cripple", "take_aim"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["dexterity"],

@@ -38,7 +38,7 @@ export default buildEnemy({
 		},
 		skillIds: ["stand_ground", "focus_energy"],
 		featIds: [],
-		tactic: "defensive",
+		tactic: "default",
 	},
 	proficiencies: {
 		savingThrows: ["strength"],

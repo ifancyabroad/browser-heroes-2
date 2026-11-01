@@ -215,6 +215,7 @@ export const zoneSchema = z.enum(zones);
 
 export const tactics = [
 	"default",
+	// Legacy save values; both use default behaviour. Do not use in new content.
 	"aggressive",
 	"defensive",
 	"caster",
