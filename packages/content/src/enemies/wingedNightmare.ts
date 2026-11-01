@@ -44,22 +44,8 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "strength",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "lightning",
-							damageClass: "magical",
-							dice: "1d10",
-						},
-					],
-				},
-			],
 		},
-		skillIds: ["evasion", "drop_from_above"],
+		skillIds: ["evasion", "drop_from_above", "wind_strike"],
 		featIds: [],
 		tactic: "default",
 	},

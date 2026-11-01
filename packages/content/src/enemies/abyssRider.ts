@@ -44,22 +44,8 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "strength",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "lightning",
-							damageClass: "magical",
-							dice: "1d10",
-						},
-					],
-				},
-			],
 		},
-		skillIds: ["armour_break", "deafening_roar", "leap_attack"],
+		skillIds: ["armour_break", "deafening_roar", "leap_attack", "wind_strike"],
 		featIds: [],
 		tactic: "default",
 	},
