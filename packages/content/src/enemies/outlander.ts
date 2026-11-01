@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An armoured exile who survives by escorting travellers between isolated island settlements. The faded colours beneath his shield once belonged to a mainland company.",
 	portrait: "enemies/island/outlander.png",
 	rank: "normal",
-	threat: 14,
+	threat: 15,
 	attributes: {
 		strength: 16,
 		dexterity: 12,
