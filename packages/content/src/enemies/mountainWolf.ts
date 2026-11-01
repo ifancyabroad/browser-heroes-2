@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A powerful wolf that follows game along the mountain's narrow ridges. Shepherds abandon familiar routes when its pack begins watching the crossings.",
 	portrait: "enemies/mountain/mountain_wolf.png",
 	rank: "normal",
-	threat: 13,
+	threat: 14,
 	attributes: {
 		strength: 17,
 		dexterity: 15,

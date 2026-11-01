@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A satyr warrior who defends the mountain trails with curved blade and shield. His company still honours boundary agreements carved into stones above the tree line.",
 	portrait: "enemies/mountain/armoured_satyr.png",
 	rank: "normal",
-	threat: 14,
+	threat: 13,
 	attributes: {
 		strength: 14,
 		dexterity: 16,

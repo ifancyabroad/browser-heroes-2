@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A spear-armed recruit eager to earn a warrior’s standing in the clan. The veterans encourage him to lead the charge.",
 	portrait: "enemies/plains/orc_grunt.png",
 	rank: "normal",
-	threat: 12,
+	threat: 14,
 	attributes: {
 		strength: 16,
 		dexterity: 14,

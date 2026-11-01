@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An orc hunter who scouts ahead of the warband and lays traps in the long grass. The same trails bring him game, enemy scouts, and occasional complaints from his own side.",
 	portrait: "enemies/plains/orc_tracker.png",
 	rank: "normal",
-	threat: 14,
+	threat: 12,
 	attributes: {
 		strength: 14,
 		dexterity: 18,

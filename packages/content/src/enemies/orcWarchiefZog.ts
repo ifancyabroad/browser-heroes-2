@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A veteran warlord who united the plains clans through conquest and promises of glory. He leads from the front, where every warrior can see why he remains in command.",
 	portrait: "enemies/plains/orc_warchief_zog.png",
 	rank: "boss",
-	threat: 21,
+	threat: 20,
 	attributes: {
 		strength: 20,
 		dexterity: 16,

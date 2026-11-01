@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An orc shaman granted command of fire and storm by the old gods. Since his ascension, even warchiefs wait outside his tent to be summoned.",
 	portrait: "enemies/plains/urzul_the_ascended.png",
 	rank: "boss",
-	threat: 20,
+	threat: 21,
 	attributes: {
 		strength: 14,
 		dexterity: 12,

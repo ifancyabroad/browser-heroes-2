@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A hulking ogre chief who claims tribute from the settlements beneath his stronghold. Rival leaders are invited to dispute his demands before the assembled warband.",
 	portrait: "enemies/mountain/big_boss_griff.png",
 	rank: "boss",
-	threat: 21,
+	threat: 20,
 	attributes: {
 		strength: 22,
 		dexterity: 10,

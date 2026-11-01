@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A brown-furred alpine predator that hunts across scree slopes and sheltered valleys. Broken branches mark the places where it drags larger kills beneath the trees.",
 	portrait: "enemies/mountain/savage_yeti.png",
 	rank: "normal",
-	threat: 16,
+	threat: 14,
 	attributes: {
 		strength: 18,
 		dexterity: 13,
