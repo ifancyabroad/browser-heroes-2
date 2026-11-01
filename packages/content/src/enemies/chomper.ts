@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A carnivorous plant that subdues prey with a poisonous bite. It thrives beside busy trails, where fertiliser delivers itself.",
 	portrait: "enemies/forest/chomper.png",
 	rank: "normal",
-	threat: 8,
+	threat: 9,
 	attributes: {
 		strength: 12,
 		dexterity: 14,
