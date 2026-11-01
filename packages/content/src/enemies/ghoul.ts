@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An undead scavenger whose claws can leave living prey helpless. Hillfolk weigh down fresh graves with stones to keep it from feeding.",
 	portrait: "enemies/hills/ghoul.png",
 	rank: "normal",
-	threat: 13,
+	threat: 10,
 	attributes: {
 		strength: 13,
 		dexterity: 15,

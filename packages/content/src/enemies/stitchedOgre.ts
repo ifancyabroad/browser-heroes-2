@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An ogre corpse rebuilt with grafted claws and driven by dark magic. Its unnatural speed suggests its maker found ordinary ogres too easy to escape.",
 	portrait: "enemies/hills/stitched_ogre.png",
 	rank: "normal",
-	threat: 18,
+	threat: 17,
 	attributes: {
 		strength: 19,
 		dexterity: 16,
