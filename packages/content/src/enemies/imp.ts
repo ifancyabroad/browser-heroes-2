@@ -45,7 +45,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["fire_strike", "shadowmeld"],
+		skillIds: ["impale"],
 		featIds: [],
 		tactic: "default",
 	},

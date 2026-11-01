@@ -9,16 +9,16 @@ export default buildEnemy({
 	rank: "normal",
 	threat: 25,
 	attributes: {
-		strength: 20,
+		strength: 17,
 		dexterity: 12,
-		constitution: 18,
+		constitution: 14,
 		intelligence: 6,
-		wisdom: 14,
-		charisma: 8,
+		wisdom: 13,
+		charisma: 6,
 	},
 	combat: {
-		hitDie: "1d10",
-		armourClass: 16,
+		hitDie: "1d8",
+		armourClass: 15,
 		damageAffinities: {
 			resistances: [
 				"acid",

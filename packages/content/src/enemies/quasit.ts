@@ -4,16 +4,16 @@ export default buildEnemy({
 	id: "quasit",
 	name: "Quasit",
 	description:
-		"A winged scavenger whose claws carry venom and whose presence unsettles the mind. Greater fiends employ it to spy on rivals and torment prisoners.",
+		"A winged spellcaster who curses its enemies and hurls fire from behind an arcane shield. Greater fiends employ it to spy on rivals and torment prisoners.",
 	portrait: "enemies/hell/quasit.png",
 	rank: "normal",
 	threat: 16,
 	attributes: {
 		strength: 5,
-		dexterity: 17,
+		dexterity: 14,
 		constitution: 10,
-		intelligence: 7,
-		wisdom: 10,
+		intelligence: 17,
+		wisdom: 12,
 		charisma: 10,
 	},
 	combat: {
@@ -44,31 +44,10 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "dexterity",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "poison",
-							damageClass: "other",
-							dice: "2d4",
-							save: {
-								attribute: "constitution",
-								onSuccess: "halfDamage",
-								dc: {
-									attribute: "constitution",
-								},
-							},
-						},
-					],
-				},
-			],
 		},
-		skillIds: ["poison_claw", "spook", "shadowmeld"],
+		skillIds: ["cursing_bolt", "arcane_shield", "fireball"],
 		featIds: [],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: [],

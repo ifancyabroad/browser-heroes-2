@@ -34,9 +34,9 @@ export default buildEnemy({
 			vulnerabilities: [],
 		},
 		basicAttack: {
-			attackRange: "ranged",
-			name: "Unholy Bolt",
-			icon: "skills/common/unholy_bolt.png",
+			attackRange: "melee",
+			name: "Withering Touch",
+			icon: "skills/common/corrupting_touch.png",
 			attackAttribute: "wisdom",
 			damage: {
 				dice: "2d8",

@@ -59,7 +59,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["tentacle_wrap", "constrict", "regeneration"],
+		skillIds: ["reform", "consume"],
 		featIds: [],
 		tactic: "default",
 	},

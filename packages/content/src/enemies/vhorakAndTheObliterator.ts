@@ -30,7 +30,7 @@ export default buildEnemy({
 			icon: "items/weapons/crossbows/Crossbow_07.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "2d8+2",
+				dice: "2d8+3",
 				type: "piercing",
 				damageClass: "physical",
 				attribute: "strength",

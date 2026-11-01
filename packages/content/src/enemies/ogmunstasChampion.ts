@@ -30,7 +30,7 @@ export default buildEnemy({
 			icon: "items/weapons/spears/Spear_v2_02.png",
 			attackAttribute: "strength",
 			damage: {
-				dice: "1d10+2",
+				dice: "1d10+3",
 				type: "slashing",
 				damageClass: "physical",
 				attribute: "strength",
