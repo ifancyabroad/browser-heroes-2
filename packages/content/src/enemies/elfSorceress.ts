@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "intelligence",
 			},
 		},
-		skillIds: ["magic_missiles", "sunbeam", "mana_shield"],
+		skillIds: ["magic_missiles", "sunbeam", "arcane_shield"],
 		featIds: [],
 		tactic: "caster",
 	},
