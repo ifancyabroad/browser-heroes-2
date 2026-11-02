@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A royal swordsman trained to break an enemy's defence with measured, powerful cuts. Admission to the order requires surrendering every claim to a family inheritance.",
 	portrait: "enemies/grove/elf_kingsblade.png",
 	rank: "normal",
-	threat: 19,
+	threat: 18,
 	attributes: {
 		strength: 18,
 		dexterity: 18,

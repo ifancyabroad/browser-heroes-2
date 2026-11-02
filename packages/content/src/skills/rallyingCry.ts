@@ -3,7 +3,8 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "rallying_cry",
 	name: "Rallying Cry",
-	description: "Reduce all damage you take and gain advantage on saving throws.",
+	description:
+		"Restore your HP, reduce all damage you take, and gain advantage on saving throws.",
 	icon: "skills/common/rallying_cry.png",
 	pool: "common",
 	kind: "technique",
@@ -11,6 +12,12 @@ export default buildSkill({
 	rarity: "rare",
 	maxUses: 3,
 	effects: [
+		{
+			type: "heal",
+			target: "self",
+			dice: "3d8",
+			attribute: "constitution",
+		},
 		{
 			type: "modifyDamageTaken",
 			target: "self",

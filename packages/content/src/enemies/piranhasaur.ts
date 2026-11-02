@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An amphibious reptile that tracks wounded prey by the scent of blood. Reaching dry land offers little protection from something equally happy to run.",
 	portrait: "enemies/ocean/piranhasaur.png",
 	rank: "normal",
-	threat: 16,
+	threat: 17,
 	attributes: {
 		strength: 16,
 		dexterity: 14,

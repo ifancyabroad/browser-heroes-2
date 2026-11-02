@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A deep-sea predator that disorients victims with psychic assaults before draining their vitality. Divers sometimes mistake its thoughts for their own.",
 	portrait: "enemies/ocean/void_creeper.png",
 	rank: "normal",
-	threat: 19,
+	threat: 20,
 	attributes: {
 		strength: 9,
 		dexterity: 14,

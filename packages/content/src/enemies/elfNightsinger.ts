@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An elven assassin who slips through the grove's outer settlements with paired blades. The court records those she kills as having departed before dawn.",
 	portrait: "enemies/grove/elf_nightsinger.png",
 	rank: "normal",
-	threat: 18,
+	threat: 17,
 	attributes: {
 		strength: 12,
 		dexterity: 20,

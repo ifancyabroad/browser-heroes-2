@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A hulking crustacean whose pincers crush shell, timber, and armour with equal ease. Shipwrecks provide it with both shelter and packed lunches.",
 	portrait: "enemies/ocean/crabomination.png",
 	rank: "normal",
-	threat: 20,
+	threat: 19,
 	attributes: {
 		strength: 20,
 		dexterity: 10,

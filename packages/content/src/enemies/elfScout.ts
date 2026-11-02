@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An elven bowman who watches the paths beyond the grove's borders. Small marks cut into the bark carry reports that outsiders rarely notice.",
 	portrait: "enemies/grove/elf_scout.png",
 	rank: "normal",
-	threat: 15,
+	threat: 14,
 	attributes: {
 		strength: 12,
 		dexterity: 18,

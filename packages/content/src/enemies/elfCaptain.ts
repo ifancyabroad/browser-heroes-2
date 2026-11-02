@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An officer entrusted with the grove's spear companies and border defences. Her authority is renewed each spring before the elders and the royal court.",
 	portrait: "enemies/grove/elf_captain.png",
 	rank: "normal",
-	threat: 18,
+	threat: 17,
 	attributes: {
 		strength: 16,
 		dexterity: 18,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["rallying_cry", "armour_break", "shield_wall"],
+		skillIds: ["rallying_cry", "double_strike", "impale"],
 		featIds: [],
 		tactic: "default",
 	},
