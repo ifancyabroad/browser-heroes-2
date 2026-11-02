@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An ancient vampire who has traded courtly finery for a soldier's weapon and armour. Debts owed to his household survive the deaths of those who incurred them.",
 	portrait: "enemies/citadel/vampire_lord.png",
 	rank: "normal",
-	threat: 25,
+	threat: 24,
 	attributes: {
 		strength: 22,
 		dexterity: 18,

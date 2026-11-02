@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A mounted fiend that hunts escapees with a spear charged with lightning. Its patrols drive fugitives away from the upper paths and back into the depths.",
 	portrait: "enemies/abyss/abyss_rider.png",
 	rank: "normal",
-	threat: 24,
+	threat: 20,
 	attributes: {
 		strength: 18,
 		dexterity: 16,

@@ -34,7 +34,7 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "enemy",
 			stat: "maxHpBonus",
-			value: -15,
+			value: -20,
 			duration: { unit: "turns", value: 6 },
 			save: {
 				attribute: "wisdom",

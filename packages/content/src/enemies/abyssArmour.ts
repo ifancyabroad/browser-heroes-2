@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An empty suit of armour animated by an oath the abyss will not release. Its wearer has vanished, but the obligation to stand guard remains.",
 	portrait: "enemies/abyss/abyss_armour.png",
 	rank: "normal",
-	threat: 23,
+	threat: 22,
 	attributes: {
 		strength: 18,
 		dexterity: 10,

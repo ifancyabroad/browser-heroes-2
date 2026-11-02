@@ -7,7 +7,7 @@ export default buildEnemy({
 		"An oath-bound rider mounted on a beast raised from the citadel's charnel pits. Its patrol continues beyond the walls along roads buried by later generations.",
 	portrait: "enemies/citadel/death_knight.png",
 	rank: "normal",
-	threat: 25,
+	threat: 24,
 	attributes: {
 		strength: 22,
 		dexterity: 14,

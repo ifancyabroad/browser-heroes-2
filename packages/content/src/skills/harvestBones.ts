@@ -15,7 +15,7 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 1.5,
+			multiplier: 2,
 			attackRiders: [
 				{
 					timing: "onHit",
@@ -23,7 +23,7 @@ export default buildSkill({
 						{
 							type: "shield",
 							target: "self",
-							amount: 20,
+							amount: 30,
 							duration: { unit: "battles", value: 1 },
 						},
 					],

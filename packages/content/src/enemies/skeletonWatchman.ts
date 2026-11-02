@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A skeletal sentry whose lantern burns with a stolen soul. Its patrol follows a route laid down before the citadel's last living garrison vanished.",
 	portrait: "enemies/citadel/skeleton_watchman.png",
 	rank: "normal",
-	threat: 12,
+	threat: 15,
 	attributes: {
 		strength: 10,
 		dexterity: 14,

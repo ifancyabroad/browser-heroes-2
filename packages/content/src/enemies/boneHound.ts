@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A hound rebuilt from sharpened bones and driven by a captive spirit. Citadel wardens release it wherever the outer walls have been breached.",
 	portrait: "enemies/citadel/bone_hound.png",
 	rank: "normal",
-	threat: 14,
+	threat: 20,
 	attributes: {
 		strength: 14,
 		dexterity: 14,

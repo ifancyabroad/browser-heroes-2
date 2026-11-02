@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A captive elemental twisted by centuries of service within the citadel. The wording of its original bargain survives only in fragments carved beneath its golden bands.",
 	portrait: "enemies/citadel/mad_genie.png",
 	rank: "normal",
-	threat: 24,
+	threat: 25,
 	attributes: {
 		strength: 21,
 		dexterity: 16,

@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A one-eyed giant that claims narrow crossings and demands payment from travellers. Those who arrive empty-handed must bargain with whatever they can carry.",
 	portrait: "enemies/abyss/cyclops.png",
 	rank: "normal",
-	threat: 20,
+	threat: 22,
 	attributes: {
 		strength: 22,
 		dexterity: 11,

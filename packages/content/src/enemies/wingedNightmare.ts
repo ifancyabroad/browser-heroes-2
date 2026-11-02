@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A winged abyssal swordsman that dives on travellers crossing exposed ground. It shadows groups for hours, waiting for someone to fall behind.",
 	portrait: "enemies/abyss/winged_nightmare.png",
 	rank: "normal",
-	threat: 24,
+	threat: 22,
 	attributes: {
 		strength: 18,
 		dexterity: 22,
