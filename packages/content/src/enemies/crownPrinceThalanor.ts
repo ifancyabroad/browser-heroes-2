@@ -26,8 +26,8 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Exceptional Royal Lance",
-			icon: "items/weapons/spears/Spear_v2_10.png",
+			name: "Sunspire",
+			icon: "items/weapons/spears/Spear_30.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d8+3",
@@ -35,8 +35,23 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "radiant",
+							damageClass: "magical",
+							dice: "3d6",
+							requiresAttackRoll: false,
+						},
+					],
+				},
+			],
 		},
-		skillIds: ["dawn_strike", "impale", "drop_from_above", "last_stand"],
+		skillIds: ["light_of_elandria", "double_strike", "impale", "drop_from_above", "last_stand"],
 		featIds: [],
 		tactic: "default",
 	},
