@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A volcanic constrictor whose bite sears flesh as deeply as its fangs pierce it. It shelters in warm fissures and emerges to hunt as the slopes cool.",
 	portrait: "enemies/volcano/fire_snake.png",
 	rank: "normal",
-	threat: 19,
+	threat: 20,
 	attributes: {
 		strength: 19,
 		dexterity: 14,

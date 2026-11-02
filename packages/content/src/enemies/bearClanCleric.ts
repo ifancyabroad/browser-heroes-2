@@ -7,9 +7,9 @@ export default buildEnemy({
 		"A warrior-priest who carries the clan's blessings into battle. Before each expedition, he recites the names of those whose remains never returned from the snow.",
 	portrait: "enemies/tundra/bear_clan_cleric.png",
 	rank: "normal",
-	threat: 21,
+	threat: 20,
 	attributes: {
-		strength: 16,
+		strength: 18,
 		dexterity: 14,
 		constitution: 16,
 		intelligence: 10,
@@ -36,9 +36,9 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["holy_strike", "flamestrike", "cure_major_wounds"],
+		skillIds: ["holy_strike", "flamestrike", "cure_major_wounds", "prayer"],
 		featIds: [],
-		tactic: "default",
+		tactic: "caster",
 	},
 	proficiencies: {
 		savingThrows: ["wisdom"],

@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A veteran sworn to hold the line around the jarl's household. The names carved inside his shield belong to companions who once stood beside him.",
 	portrait: "enemies/tundra/bear_clan_elite.png",
 	rank: "normal",
-	threat: 22,
+	threat: 21,
 	attributes: {
 		strength: 20,
 		dexterity: 14,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["heavy_strike", "overpower", "shield_bash"],
+		skillIds: ["double_strike", "overpower", "shield_bash"],
 		featIds: [],
 		tactic: "default",
 	},

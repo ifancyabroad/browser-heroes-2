@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A volcanic relative of the woodland shrieker that defends its nests with deafening cries and bursts of flame. Its breeding grounds remain bare long after the chicks depart.",
 	portrait: "enemies/volcano/flame_shrieker.png",
 	rank: "normal",
-	threat: 18,
+	threat: 15,
 	attributes: {
 		strength: 18,
 		dexterity: 16,

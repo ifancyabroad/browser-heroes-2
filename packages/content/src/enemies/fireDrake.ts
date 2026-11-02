@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A winged dragonkin that flushes prey from cover with fiery breath before diving to seize it. It nests on cliffs kept warm by the volcano’s vents.",
 	portrait: "enemies/volcano/fire_drake.png",
 	rank: "normal",
-	threat: 20,
+	threat: 22,
 	attributes: {
 		strength: 21,
 		dexterity: 13,

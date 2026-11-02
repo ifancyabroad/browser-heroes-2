@@ -9,7 +9,7 @@ export default buildEnemy({
 	rank: "normal",
 	threat: 20,
 	attributes: {
-		strength: 18,
+		strength: 20,
 		dexterity: 14,
 		constitution: 18,
 		intelligence: 10,
@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["cleave", "berserk"],
+		skillIds: ["powerful_blow", "berserk"],
 		featIds: [],
 		tactic: "default",
 	},

@@ -36,7 +36,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["acrobatic_strike", "maim", "flurry", "dancing_defense"],
+		skillIds: ["spiritual_guidance", "double_strike", "maim", "flurry"],
 		featIds: [],
 		tactic: "default",
 	},

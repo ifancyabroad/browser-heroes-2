@@ -18,7 +18,7 @@ export default buildSkill({
 			damageClass: "physical",
 			operation: "multiply",
 			value: 2,
-			duration: { unit: "turns", value: 5 },
+			duration: { unit: "turns", value: 6 },
 		},
 		{
 			type: "modifyDamageTaken",
@@ -26,7 +26,7 @@ export default buildSkill({
 			damageClass: "physical",
 			operation: "multiply",
 			value: 0.5,
-			duration: { unit: "turns", value: 5 },
+			duration: { unit: "turns", value: 6 },
 		},
 	],
 	tags: [],
