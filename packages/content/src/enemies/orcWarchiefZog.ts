@@ -26,8 +26,8 @@ export default buildEnemy({
 		},
 		basicAttack: {
 			attackRange: "melee",
-			name: "Superior Battleaxe",
-			icon: "items/weapons/axes/Axe_11.png",
+			name: "Blood Drinker",
+			icon: "items/weapons/axes/Axe_v2_21.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d10+2",
@@ -35,6 +35,18 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "strength",
 			},
+			attackRiders: [
+				{
+					timing: "onHit",
+					effects: [
+						{
+							type: "heal",
+							target: "self",
+							dice: "2d6",
+						},
+					],
+				},
+			],
 		},
 		skillIds: ["berserk", "double_strike", "knock_down", "overpower"],
 		featIds: [],
