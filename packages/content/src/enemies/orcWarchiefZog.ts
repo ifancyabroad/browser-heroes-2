@@ -27,7 +27,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "melee",
 			name: "Blood Drinker",
-			icon: "items/weapons/axes/Axe_v2_21.png",
+			icon: "items/weapons/axes/Axe_v2_24.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "1d10+2",
