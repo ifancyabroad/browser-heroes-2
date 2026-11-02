@@ -27,7 +27,7 @@ export default buildEnemy({
 		basicAttack: {
 			attackRange: "ranged",
 			name: "Obliterator",
-			icon: "items/weapons/crossbows/Crossbow_07.png",
+			icon: "items/weapons/guns/Gun_v2_06.png",
 			attackAttribute: "strength",
 			damage: {
 				dice: "2d8+3",
