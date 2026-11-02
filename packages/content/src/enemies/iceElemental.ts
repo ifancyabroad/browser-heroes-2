@@ -55,7 +55,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["double_strike"],
+		skillIds: ["double_strike", "flash_freeze"],
 		featIds: [],
 		tactic: "default",
 	},

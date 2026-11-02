@@ -8,14 +8,14 @@ export default buildSkill({
 	pool: "common",
 	kind: "technique",
 	category: "debuff",
-	rarity: "uncommon",
+	rarity: "epic",
 	maxUses: 3,
 	effects: [
 		{
 			type: "modifyStat",
 			target: "enemy",
 			stat: "attackRollBonus",
-			value: -3,
+			value: -8,
 			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "wisdom",
