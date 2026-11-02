@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A winged spellcaster who curses its enemies and hurls fire from behind an arcane shield. Greater fiends employ it to spy on rivals and torment prisoners.",
 	portrait: "enemies/hell/quasit.png",
 	rank: "normal",
-	threat: 16,
+	threat: 19,
 	attributes: {
 		strength: 5,
 		dexterity: 14,

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "condemn",
 	name: "Condemn",
 	description:
-		"Reduce the enemy's maximum HP by 75 and healing by 75% until the battle ends, each requiring a separate failed Constitution saving throw.",
+		"Reduce the enemy's maximum HP by 75 and healing by 100% until the battle ends, each requiring a separate failed Constitution saving throw.",
 	icon: "skills/unique/condemn.png",
 	pool: "unique",
 	kind: "spell",
@@ -18,22 +18,12 @@ export default buildSkill({
 			stat: "maxHpBonus",
 			value: -75,
 			duration: { unit: "battles", value: 1 },
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: { attribute: "charisma" },
-			},
 		},
 		{
 			type: "modifyHealing",
 			target: "enemy",
-			multiplier: 0.25,
+			multiplier: 0,
 			duration: { unit: "battles", value: 1 },
-			save: {
-				attribute: "constitution",
-				onSuccess: "noEffect",
-				dc: { attribute: "charisma" },
-			},
 		},
 	],
 	tags: [],
