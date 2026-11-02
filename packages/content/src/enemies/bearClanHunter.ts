@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A patient bowman who follows game across the frozen uplands. Clan hunters mark safe crossings with antlers, though drifting snow often conceals the warnings.",
 	portrait: "enemies/tundra/bear_clan_hunter.png",
 	rank: "normal",
-	threat: 20,
+	threat: 19,
 	attributes: {
 		strength: 14,
 		dexterity: 18,

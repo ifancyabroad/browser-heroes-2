@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A corpse warped by necromancy into a hulking creature of uncontrolled growth. Its makers abandoned it when it began attacking them too.",
 	portrait: "enemies/hills/abomination.png",
 	rank: "normal",
-	threat: 17,
+	threat: 18,
 	attributes: {
 		strength: 20,
 		dexterity: 10,

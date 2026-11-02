@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A fallen cleric who traded his faith for the power to escape death. He still speaks the prayers of his former order, though something else now answers.",
 	portrait: "enemies/abyss/forsaken_brother_mcinnes.png",
 	rank: "boss",
-	threat: 27,
+	threat: 28,
 	attributes: {
 		strength: 12,
 		dexterity: 14,

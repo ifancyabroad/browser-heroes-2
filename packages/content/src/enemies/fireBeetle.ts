@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A burrowing volcanic insect that releases bursts of flame when disturbed. Travellers occasionally mistake a sleeping colony for a convenient cooking fire.",
 	portrait: "enemies/volcano/fire_beetle.png",
 	rank: "normal",
-	threat: 20,
+	threat: 18,
 	attributes: {
 		strength: 8,
 		dexterity: 10,

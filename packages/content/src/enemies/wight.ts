@@ -7,7 +7,7 @@ export default buildEnemy({
 		"A restless undead spirit whose touch withers living flesh. It haunts the boundaries of land it owned in life, long after the fences have rotted.",
 	portrait: "enemies/hills/wight.png",
 	rank: "normal",
-	threat: 18,
+	threat: 17,
 	attributes: {
 		strength: 15,
 		dexterity: 14,
