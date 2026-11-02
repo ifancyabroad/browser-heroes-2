@@ -45,7 +45,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["maim", "fire_strike"],
+		skillIds: ["demonic_pact", "maim", "fire_strike"],
 		featIds: [],
 		tactic: "default",
 	},

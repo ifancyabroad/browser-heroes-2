@@ -190,7 +190,9 @@ Current statuses are `stunned` and `silenced`. Stun prevents the affected combat
 
 Temporary roll modifiers can grant advantage or disadvantage on the affected combatant's own attack rolls or saving throws. Saving-throw modifiers may be limited to one attribute. Advantage rolls two D20s and uses the higher result, disadvantage uses the lower result, and having both resolves as a normal single roll regardless of how many sources provide either mode.
 
-Roll modifiers may have a limited number of charges as well as a duration. A matching attack roll or saving throw consumes one charge, and the modifier expires when its final charge is consumed or its duration ends. Charged modifiers can also force an attack to hit, miss, or critically hit, or force a saving throw to succeed or fail. Conflicting forced success and failure outcomes cancel, while a forced critical hit includes a successful hit. Automatic outcomes must be charge-limited.
+Roll modifiers may have a limited number of charges as well as a duration. A matching attack roll or saving throw consumes one charge, and the modifier expires when its final charge is consumed or its duration ends. Modifiers without charges apply to every matching roll until their duration ends. Modifiers can also force an attack to hit, miss, or critically hit, or force a saving throw to succeed or fail, with or without a charge limit. Conflicting forced success and failure outcomes cancel, while a forced critical hit includes a successful hit. Each hand of a weapon attack and each attack in a multi-attack skill resolves its own roll.
+
+Newly applied effects do not advance on the action that applies them. A self-targeted effect lasting 3 turns therefore remains active for the user's next 3 actions or skipped turns; recurring damage starts after the first of those subsequent actions. Critical hits normally roll twice the base damage dice; critical damage dice multiplier bonuses add to that multiplier rather than adding a fixed number of dice. Flat damage bonuses are not multiplied by this critical dice rule.
 
 ## 11. Death and Combat End
 

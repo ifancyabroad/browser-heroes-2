@@ -44,22 +44,8 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "strength",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "fire",
-							damageClass: "magical",
-							dice: "1d8",
-						},
-					],
-				},
-			],
 		},
-		skillIds: ["charge", "double_strike", "fire_strike", "horrifying_visage"],
+		skillIds: ["condemn", "charge", "double_strike", "fire_strike", "maim"],
 		featIds: [],
 		tactic: "default",
 	},

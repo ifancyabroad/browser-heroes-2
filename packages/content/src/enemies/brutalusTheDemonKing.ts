@@ -59,7 +59,7 @@ export default buildEnemy({
 				},
 			],
 		},
-		skillIds: ["double_strike", "overpower", "fireball", "battle_cry"],
+		skillIds: ["demonic_pact", "multi_strike", "flame_slam", "inferno"],
 		featIds: [],
 		tactic: "default",
 	},
