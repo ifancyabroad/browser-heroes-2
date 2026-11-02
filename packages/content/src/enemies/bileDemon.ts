@@ -53,7 +53,7 @@ export default buildEnemy({
 							target: "enemy",
 							damageType: "acid",
 							damageClass: "other",
-							dice: "1d6",
+							dice: "3d4",
 						},
 					],
 				},

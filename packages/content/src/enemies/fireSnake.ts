@@ -44,7 +44,7 @@ export default buildEnemy({
 							target: "enemy",
 							damageType: "fire",
 							damageClass: "other",
-							dice: "1d10",
+							dice: "2d6",
 						},
 					],
 				},

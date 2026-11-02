@@ -35,20 +35,6 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "dexterity",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "lightning",
-							damageClass: "magical",
-							dice: "1d4",
-						},
-					],
-				},
-			],
 		},
 		skillIds: ["mana_burst"],
 		featIds: [],

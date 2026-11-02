@@ -4,7 +4,7 @@ export default buildEnemy({
 	id: "boneless_blob",
 	name: "Boneless Blob",
 	description:
-		"A mindless heap of demonic flesh that seizes prey with grasping tendrils. Lesser fiends lure it towards refuse pits, then pick through what remains.",
+		"A mindless heap of demonic flesh that seizes prey with tendrils slick with digestive acid. Lesser fiends lure it towards refuse pits, then pick through what remains.",
 	portrait: "enemies/hell/boneless_blob.png",
 	rank: "normal",
 	threat: 23,
@@ -53,7 +53,7 @@ export default buildEnemy({
 							target: "enemy",
 							damageType: "acid",
 							damageClass: "other",
-							dice: "1d6",
+							dice: "3d4",
 						},
 					],
 				},

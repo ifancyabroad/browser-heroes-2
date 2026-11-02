@@ -35,20 +35,6 @@ export default buildEnemy({
 				damageClass: "physical",
 				attribute: "dexterity",
 			},
-			attackRiders: [
-				{
-					timing: "onHit",
-					effects: [
-						{
-							type: "damage",
-							target: "enemy",
-							damageType: "necrotic",
-							damageClass: "magical",
-							dice: "1d6",
-						},
-					],
-				},
-			],
 		},
 		skillIds: ["shadow_strike", "double_strike", "shadowmeld"],
 		featIds: [],
