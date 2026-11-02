@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "harvest_bones",
 	name: "Harvest Bones",
 	description:
-		"Make a weapon attack with increased damage. On hit, gain a shield that absorbs incoming damage for the current battle.",
+		"Make a weapon attack with increased damage. On hit, deal additional slashing damage and gain a shield that absorbs incoming damage for the current battle.",
 	icon: "skills/unique/harvest_bones.png",
 	pool: "unique",
 	kind: "weaponAttack",
@@ -15,11 +15,18 @@ export default buildSkill({
 		{
 			type: "attackDamage",
 			target: "enemy",
-			multiplier: 2,
+			multiplier: 1.5,
 			attackRiders: [
 				{
 					timing: "onHit",
 					effects: [
+						{
+							type: "damage",
+							target: "enemy",
+							damageType: "slashing",
+							damageClass: "physical",
+							dice: "6d8",
+						},
 						{
 							type: "shield",
 							target: "self",
