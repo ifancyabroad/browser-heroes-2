@@ -69,69 +69,72 @@ import iaf_necrotic_60 from '../itemAffixes/prefixes/necrotic';
 import iaf_nimble_61 from '../itemAffixes/prefixes/nimble';
 import iaf_of_acid_warding_114 from '../itemAffixes/suffixes/of_acid_warding';
 import iaf_of_agility_115 from '../itemAffixes/suffixes/of_agility';
-import iaf_of_annihilation_116 from '../itemAffixes/suffixes/of_annihilation';
-import iaf_of_antidotes_117 from '../itemAffixes/suffixes/of_antidotes';
-import iaf_of_arcane_supremacy_118 from '../itemAffixes/suffixes/of_arcane_supremacy';
-import iaf_of_blocking_119 from '../itemAffixes/suffixes/of_blocking';
-import iaf_of_carnage_120 from '../itemAffixes/suffixes/of_carnage';
-import iaf_of_conflagration_121 from '../itemAffixes/suffixes/of_conflagration';
-import iaf_of_corrosion_122 from '../itemAffixes/suffixes/of_corrosion';
-import iaf_of_decay_123 from '../itemAffixes/suffixes/of_decay';
-import iaf_of_defiance_124 from '../itemAffixes/suffixes/of_defiance';
-import iaf_of_deflection_125 from '../itemAffixes/suffixes/of_deflection';
-import iaf_of_devastation_126 from '../itemAffixes/suffixes/of_devastation';
-import iaf_of_dissolution_127 from '../itemAffixes/suffixes/of_dissolution';
-import iaf_of_embers_128 from '../itemAffixes/suffixes/of_embers';
-import iaf_of_endurance_129 from '../itemAffixes/suffixes/of_endurance';
-import iaf_of_evasion_130 from '../itemAffixes/suffixes/of_evasion';
-import iaf_of_ferocity_131 from '../itemAffixes/suffixes/of_ferocity';
-import iaf_of_fire_warding_132 from '../itemAffixes/suffixes/of_fire_warding';
-import iaf_of_fortitude_133 from '../itemAffixes/suffixes/of_fortitude';
-import iaf_of_grounding_134 from '../itemAffixes/suffixes/of_grounding';
-import iaf_of_guarding_135 from '../itemAffixes/suffixes/of_guarding';
-import iaf_of_immortality_136 from '../itemAffixes/suffixes/of_immortality';
-import iaf_of_impact_137 from '../itemAffixes/suffixes/of_impact';
-import iaf_of_insight_138 from '../itemAffixes/suffixes/of_insight';
-import iaf_of_lethality_139 from '../itemAffixes/suffixes/of_lethality';
-import iaf_of_life_warding_140 from '../itemAffixes/suffixes/of_life_warding';
-import iaf_of_light_141 from '../itemAffixes/suffixes/of_light';
-import iaf_of_marksmanship_142 from '../itemAffixes/suffixes/of_marksmanship';
-import iaf_of_martial_supremacy_143 from '../itemAffixes/suffixes/of_martial_supremacy';
-import iaf_of_mending_144 from '../itemAffixes/suffixes/of_mending';
-import iaf_of_might_145 from '../itemAffixes/suffixes/of_might';
-import iaf_of_oblivion_146 from '../itemAffixes/suffixes/of_oblivion';
-import iaf_of_pestilence_147 from '../itemAffixes/suffixes/of_pestilence';
-import iaf_of_presence_148 from '../itemAffixes/suffixes/of_presence';
-import iaf_of_protection_149 from '../itemAffixes/suffixes/of_protection';
-import iaf_of_prowess_150 from '../itemAffixes/suffixes/of_prowess';
-import iaf_of_resolve_151 from '../itemAffixes/suffixes/of_resolve';
-import iaf_of_restoration_152 from '../itemAffixes/suffixes/of_restoration';
-import iaf_of_rime_153 from '../itemAffixes/suffixes/of_rime';
-import iaf_of_sanctuary_154 from '../itemAffixes/suffixes/of_sanctuary';
-import iaf_of_sorcery_155 from '../itemAffixes/suffixes/of_sorcery';
-import iaf_of_stability_156 from '../itemAffixes/suffixes/of_stability';
-import iaf_of_storms_157 from '../itemAffixes/suffixes/of_storms';
-import iaf_of_striking_158 from '../itemAffixes/suffixes/of_striking';
-import iaf_of_supreme_defiance_159 from '../itemAffixes/suffixes/of_supreme_defiance';
-import iaf_of_tempering_160 from '../itemAffixes/suffixes/of_tempering';
-import iaf_of_tenacity_161 from '../itemAffixes/suffixes/of_tenacity';
-import iaf_of_the_alkaline_162 from '../itemAffixes/suffixes/of_the_alkaline';
-import iaf_of_the_deadeye_163 from '../itemAffixes/suffixes/of_the_deadeye';
-import iaf_of_the_duelist_164 from '../itemAffixes/suffixes/of_the_duelist';
-import iaf_of_the_eclipse_165 from '../itemAffixes/suffixes/of_the_eclipse';
-import iaf_of_the_glacier_166 from '../itemAffixes/suffixes/of_the_glacier';
-import iaf_of_the_inferno_167 from '../itemAffixes/suffixes/of_the_inferno';
-import iaf_of_the_stormless_168 from '../itemAffixes/suffixes/of_the_stormless';
-import iaf_of_the_sun_169 from '../itemAffixes/suffixes/of_the_sun';
-import iaf_of_the_tempest_170 from '../itemAffixes/suffixes/of_the_tempest';
-import iaf_of_the_unfrozen_171 from '../itemAffixes/suffixes/of_the_unfrozen';
-import iaf_of_the_vanguard_172 from '../itemAffixes/suffixes/of_the_vanguard';
-import iaf_of_the_venomless_173 from '../itemAffixes/suffixes/of_the_venomless';
-import iaf_of_venom_174 from '../itemAffixes/suffixes/of_venom';
-import iaf_of_vigor_175 from '../itemAffixes/suffixes/of_vigor';
-import iaf_of_vitality_176 from '../itemAffixes/suffixes/of_vitality';
-import iaf_of_warmth_177 from '../itemAffixes/suffixes/of_warmth';
-import iaf_of_wisdom_178 from '../itemAffixes/suffixes/of_wisdom';
+import iaf_of_alacrity_116 from '../itemAffixes/suffixes/of_alacrity';
+import iaf_of_annihilation_117 from '../itemAffixes/suffixes/of_annihilation';
+import iaf_of_antidotes_118 from '../itemAffixes/suffixes/of_antidotes';
+import iaf_of_arcane_supremacy_119 from '../itemAffixes/suffixes/of_arcane_supremacy';
+import iaf_of_blocking_120 from '../itemAffixes/suffixes/of_blocking';
+import iaf_of_carnage_121 from '../itemAffixes/suffixes/of_carnage';
+import iaf_of_conflagration_122 from '../itemAffixes/suffixes/of_conflagration';
+import iaf_of_corrosion_123 from '../itemAffixes/suffixes/of_corrosion';
+import iaf_of_decay_124 from '../itemAffixes/suffixes/of_decay';
+import iaf_of_defiance_125 from '../itemAffixes/suffixes/of_defiance';
+import iaf_of_deflection_126 from '../itemAffixes/suffixes/of_deflection';
+import iaf_of_devastation_127 from '../itemAffixes/suffixes/of_devastation';
+import iaf_of_dissolution_128 from '../itemAffixes/suffixes/of_dissolution';
+import iaf_of_embers_129 from '../itemAffixes/suffixes/of_embers';
+import iaf_of_endurance_130 from '../itemAffixes/suffixes/of_endurance';
+import iaf_of_evasion_131 from '../itemAffixes/suffixes/of_evasion';
+import iaf_of_ferocity_132 from '../itemAffixes/suffixes/of_ferocity';
+import iaf_of_fire_warding_133 from '../itemAffixes/suffixes/of_fire_warding';
+import iaf_of_fortitude_134 from '../itemAffixes/suffixes/of_fortitude';
+import iaf_of_grounding_135 from '../itemAffixes/suffixes/of_grounding';
+import iaf_of_guarding_136 from '../itemAffixes/suffixes/of_guarding';
+import iaf_of_immortality_137 from '../itemAffixes/suffixes/of_immortality';
+import iaf_of_impact_138 from '../itemAffixes/suffixes/of_impact';
+import iaf_of_insight_139 from '../itemAffixes/suffixes/of_insight';
+import iaf_of_lethality_140 from '../itemAffixes/suffixes/of_lethality';
+import iaf_of_life_warding_141 from '../itemAffixes/suffixes/of_life_warding';
+import iaf_of_light_142 from '../itemAffixes/suffixes/of_light';
+import iaf_of_marksmanship_143 from '../itemAffixes/suffixes/of_marksmanship';
+import iaf_of_martial_supremacy_144 from '../itemAffixes/suffixes/of_martial_supremacy';
+import iaf_of_mending_145 from '../itemAffixes/suffixes/of_mending';
+import iaf_of_might_146 from '../itemAffixes/suffixes/of_might';
+import iaf_of_oblivion_147 from '../itemAffixes/suffixes/of_oblivion';
+import iaf_of_pestilence_148 from '../itemAffixes/suffixes/of_pestilence';
+import iaf_of_presence_149 from '../itemAffixes/suffixes/of_presence';
+import iaf_of_protection_150 from '../itemAffixes/suffixes/of_protection';
+import iaf_of_prowess_151 from '../itemAffixes/suffixes/of_prowess';
+import iaf_of_quickness_152 from '../itemAffixes/suffixes/of_quickness';
+import iaf_of_resolve_153 from '../itemAffixes/suffixes/of_resolve';
+import iaf_of_restoration_154 from '../itemAffixes/suffixes/of_restoration';
+import iaf_of_rime_155 from '../itemAffixes/suffixes/of_rime';
+import iaf_of_sanctuary_156 from '../itemAffixes/suffixes/of_sanctuary';
+import iaf_of_sorcery_157 from '../itemAffixes/suffixes/of_sorcery';
+import iaf_of_stability_158 from '../itemAffixes/suffixes/of_stability';
+import iaf_of_storms_159 from '../itemAffixes/suffixes/of_storms';
+import iaf_of_striking_160 from '../itemAffixes/suffixes/of_striking';
+import iaf_of_supreme_defiance_161 from '../itemAffixes/suffixes/of_supreme_defiance';
+import iaf_of_swiftness_162 from '../itemAffixes/suffixes/of_swiftness';
+import iaf_of_tempering_163 from '../itemAffixes/suffixes/of_tempering';
+import iaf_of_tenacity_164 from '../itemAffixes/suffixes/of_tenacity';
+import iaf_of_the_alkaline_165 from '../itemAffixes/suffixes/of_the_alkaline';
+import iaf_of_the_deadeye_166 from '../itemAffixes/suffixes/of_the_deadeye';
+import iaf_of_the_duelist_167 from '../itemAffixes/suffixes/of_the_duelist';
+import iaf_of_the_eclipse_168 from '../itemAffixes/suffixes/of_the_eclipse';
+import iaf_of_the_glacier_169 from '../itemAffixes/suffixes/of_the_glacier';
+import iaf_of_the_inferno_170 from '../itemAffixes/suffixes/of_the_inferno';
+import iaf_of_the_stormless_171 from '../itemAffixes/suffixes/of_the_stormless';
+import iaf_of_the_sun_172 from '../itemAffixes/suffixes/of_the_sun';
+import iaf_of_the_tempest_173 from '../itemAffixes/suffixes/of_the_tempest';
+import iaf_of_the_unfrozen_174 from '../itemAffixes/suffixes/of_the_unfrozen';
+import iaf_of_the_vanguard_175 from '../itemAffixes/suffixes/of_the_vanguard';
+import iaf_of_the_venomless_176 from '../itemAffixes/suffixes/of_the_venomless';
+import iaf_of_venom_177 from '../itemAffixes/suffixes/of_venom';
+import iaf_of_vigor_178 from '../itemAffixes/suffixes/of_vigor';
+import iaf_of_vitality_179 from '../itemAffixes/suffixes/of_vitality';
+import iaf_of_warmth_180 from '../itemAffixes/suffixes/of_warmth';
+import iaf_of_wisdom_181 from '../itemAffixes/suffixes/of_wisdom';
 import iaf_overwhelming_62 from '../itemAffixes/prefixes/overwhelming';
 import iaf_perceptive_63 from '../itemAffixes/prefixes/perceptive';
 import iaf_permafrost_64 from '../itemAffixes/prefixes/permafrost';
@@ -190,7 +193,7 @@ export type { ItemAffixId } from './itemAffixIds';
 
 export type ItemAffix = WithGeneratedId<ItemAffixDefinition, ItemAffixId>;
 
-const rawItemAffixes = [iaf_accurate_0, iaf_acidic_1, iaf_analytical_2, iaf_arcane_3, iaf_archonic_4, iaf_astute_5, iaf_barbed_6, iaf_blessed_7, iaf_brawny_8, iaf_brilliant_9, iaf_brutal_10, iaf_caustic_11, iaf_charged_12, iaf_chilling_13, iaf_cinderbreaking_14, iaf_commanding_15, iaf_concussive_16, iaf_consecrated_17, iaf_corroding_18, iaf_dashing_19, iaf_dawnbound_20, iaf_deadly_21, iaf_deathbound_22, iaf_deathly_23, iaf_debonair_24, iaf_deep_freezing_25, iaf_defending_26, iaf_deft_27, iaf_dexterous_28, iaf_disrupting_29, iaf_dissolving_30, iaf_eagle_eyed_31, iaf_earthshaking_32, iaf_electrified_33, iaf_enfeebling_34, iaf_enlightened_35, iaf_entangling_36, iaf_erudite_37, iaf_everwatchful_38, iaf_exalted_39, iaf_flaming_40, iaf_flawless_41, iaf_focused_42, iaf_forceful_43, iaf_frosted_44, iaf_funereal_45, iaf_glacial_46, iaf_hardy_47, iaf_hawkeyed_48, iaf_icy_49, iaf_impaling_50, iaf_impervious_51, iaf_incendiary_52, iaf_indomitable_53, iaf_infernal_54, iaf_inspiring_55, iaf_keen_56, iaf_majestic_57, iaf_multifaceted_58, iaf_mystic_59, iaf_necrotic_60, iaf_nimble_61, iaf_of_acid_warding_114, iaf_of_agility_115, iaf_of_annihilation_116, iaf_of_antidotes_117, iaf_of_arcane_supremacy_118, iaf_of_blocking_119, iaf_of_carnage_120, iaf_of_conflagration_121, iaf_of_corrosion_122, iaf_of_decay_123, iaf_of_defiance_124, iaf_of_deflection_125, iaf_of_devastation_126, iaf_of_dissolution_127, iaf_of_embers_128, iaf_of_endurance_129, iaf_of_evasion_130, iaf_of_ferocity_131, iaf_of_fire_warding_132, iaf_of_fortitude_133, iaf_of_grounding_134, iaf_of_guarding_135, iaf_of_immortality_136, iaf_of_impact_137, iaf_of_insight_138, iaf_of_lethality_139, iaf_of_life_warding_140, iaf_of_light_141, iaf_of_marksmanship_142, iaf_of_martial_supremacy_143, iaf_of_mending_144, iaf_of_might_145, iaf_of_oblivion_146, iaf_of_pestilence_147, iaf_of_presence_148, iaf_of_protection_149, iaf_of_prowess_150, iaf_of_resolve_151, iaf_of_restoration_152, iaf_of_rime_153, iaf_of_sanctuary_154, iaf_of_sorcery_155, iaf_of_stability_156, iaf_of_storms_157, iaf_of_striking_158, iaf_of_supreme_defiance_159, iaf_of_tempering_160, iaf_of_tenacity_161, iaf_of_the_alkaline_162, iaf_of_the_deadeye_163, iaf_of_the_duelist_164, iaf_of_the_eclipse_165, iaf_of_the_glacier_166, iaf_of_the_inferno_167, iaf_of_the_stormless_168, iaf_of_the_sun_169, iaf_of_the_tempest_170, iaf_of_the_unfrozen_171, iaf_of_the_vanguard_172, iaf_of_the_venomless_173, iaf_of_venom_174, iaf_of_vigor_175, iaf_of_vitality_176, iaf_of_warmth_177, iaf_of_wisdom_178, iaf_overwhelming_62, iaf_perceptive_63, iaf_permafrost_64, iaf_plague_bearing_65, iaf_potent_66, iaf_powerful_67, iaf_precise_68, iaf_prescient_69, iaf_pulverising_70, iaf_puncturing_71, iaf_radiant_72, iaf_reinforced_73, iaf_rending_74, iaf_renewing_75, iaf_resolute_76, iaf_robust_77, iaf_sacred_78, iaf_sagacious_79, iaf_searing_80, iaf_serrated_81, iaf_severing_82, iaf_sharp_83, iaf_silencing_84, iaf_soul_draining_85, iaf_stalwart_86, iaf_storming_87, iaf_studious_88, iaf_stunning_89, iaf_sun_blessed_90, iaf_sundering_91, iaf_surehanded_92, iaf_tempestuous_93, iaf_thunderous_94, iaf_titanforged_95, iaf_titanic_96, iaf_toxic_97, iaf_transcendent_98, iaf_transfixing_99, iaf_unerring_100, iaf_unshakable_101, iaf_unyielding_102, iaf_vampiric_103, iaf_venomous_104, iaf_versatile_105, iaf_vigilant_106, iaf_virulent_107, iaf_vital_108, iaf_warded_109, iaf_watchful_110, iaf_weakening_111, iaf_windborne_112, iaf_withering_113] satisfies readonly ItemAffixDefinition[];
+const rawItemAffixes = [iaf_accurate_0, iaf_acidic_1, iaf_analytical_2, iaf_arcane_3, iaf_archonic_4, iaf_astute_5, iaf_barbed_6, iaf_blessed_7, iaf_brawny_8, iaf_brilliant_9, iaf_brutal_10, iaf_caustic_11, iaf_charged_12, iaf_chilling_13, iaf_cinderbreaking_14, iaf_commanding_15, iaf_concussive_16, iaf_consecrated_17, iaf_corroding_18, iaf_dashing_19, iaf_dawnbound_20, iaf_deadly_21, iaf_deathbound_22, iaf_deathly_23, iaf_debonair_24, iaf_deep_freezing_25, iaf_defending_26, iaf_deft_27, iaf_dexterous_28, iaf_disrupting_29, iaf_dissolving_30, iaf_eagle_eyed_31, iaf_earthshaking_32, iaf_electrified_33, iaf_enfeebling_34, iaf_enlightened_35, iaf_entangling_36, iaf_erudite_37, iaf_everwatchful_38, iaf_exalted_39, iaf_flaming_40, iaf_flawless_41, iaf_focused_42, iaf_forceful_43, iaf_frosted_44, iaf_funereal_45, iaf_glacial_46, iaf_hardy_47, iaf_hawkeyed_48, iaf_icy_49, iaf_impaling_50, iaf_impervious_51, iaf_incendiary_52, iaf_indomitable_53, iaf_infernal_54, iaf_inspiring_55, iaf_keen_56, iaf_majestic_57, iaf_multifaceted_58, iaf_mystic_59, iaf_necrotic_60, iaf_nimble_61, iaf_of_acid_warding_114, iaf_of_agility_115, iaf_of_alacrity_116, iaf_of_annihilation_117, iaf_of_antidotes_118, iaf_of_arcane_supremacy_119, iaf_of_blocking_120, iaf_of_carnage_121, iaf_of_conflagration_122, iaf_of_corrosion_123, iaf_of_decay_124, iaf_of_defiance_125, iaf_of_deflection_126, iaf_of_devastation_127, iaf_of_dissolution_128, iaf_of_embers_129, iaf_of_endurance_130, iaf_of_evasion_131, iaf_of_ferocity_132, iaf_of_fire_warding_133, iaf_of_fortitude_134, iaf_of_grounding_135, iaf_of_guarding_136, iaf_of_immortality_137, iaf_of_impact_138, iaf_of_insight_139, iaf_of_lethality_140, iaf_of_life_warding_141, iaf_of_light_142, iaf_of_marksmanship_143, iaf_of_martial_supremacy_144, iaf_of_mending_145, iaf_of_might_146, iaf_of_oblivion_147, iaf_of_pestilence_148, iaf_of_presence_149, iaf_of_protection_150, iaf_of_prowess_151, iaf_of_quickness_152, iaf_of_resolve_153, iaf_of_restoration_154, iaf_of_rime_155, iaf_of_sanctuary_156, iaf_of_sorcery_157, iaf_of_stability_158, iaf_of_storms_159, iaf_of_striking_160, iaf_of_supreme_defiance_161, iaf_of_swiftness_162, iaf_of_tempering_163, iaf_of_tenacity_164, iaf_of_the_alkaline_165, iaf_of_the_deadeye_166, iaf_of_the_duelist_167, iaf_of_the_eclipse_168, iaf_of_the_glacier_169, iaf_of_the_inferno_170, iaf_of_the_stormless_171, iaf_of_the_sun_172, iaf_of_the_tempest_173, iaf_of_the_unfrozen_174, iaf_of_the_vanguard_175, iaf_of_the_venomless_176, iaf_of_venom_177, iaf_of_vigor_178, iaf_of_vitality_179, iaf_of_warmth_180, iaf_of_wisdom_181, iaf_overwhelming_62, iaf_perceptive_63, iaf_permafrost_64, iaf_plague_bearing_65, iaf_potent_66, iaf_powerful_67, iaf_precise_68, iaf_prescient_69, iaf_pulverising_70, iaf_puncturing_71, iaf_radiant_72, iaf_reinforced_73, iaf_rending_74, iaf_renewing_75, iaf_resolute_76, iaf_robust_77, iaf_sacred_78, iaf_sagacious_79, iaf_searing_80, iaf_serrated_81, iaf_severing_82, iaf_sharp_83, iaf_silencing_84, iaf_soul_draining_85, iaf_stalwart_86, iaf_storming_87, iaf_studious_88, iaf_stunning_89, iaf_sun_blessed_90, iaf_sundering_91, iaf_surehanded_92, iaf_tempestuous_93, iaf_thunderous_94, iaf_titanforged_95, iaf_titanic_96, iaf_toxic_97, iaf_transcendent_98, iaf_transfixing_99, iaf_unerring_100, iaf_unshakable_101, iaf_unyielding_102, iaf_vampiric_103, iaf_venomous_104, iaf_versatile_105, iaf_vigilant_106, iaf_virulent_107, iaf_vital_108, iaf_warded_109, iaf_watchful_110, iaf_weakening_111, iaf_windborne_112, iaf_withering_113] satisfies readonly ItemAffixDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const itemAffixes = rawItemAffixes as readonly ItemAffix[];
@@ -260,69 +263,72 @@ const rawItemAffixesById = {
   "nimble": iaf_nimble_61,
   "of_acid_warding": iaf_of_acid_warding_114,
   "of_agility": iaf_of_agility_115,
-  "of_annihilation": iaf_of_annihilation_116,
-  "of_antidotes": iaf_of_antidotes_117,
-  "of_arcane_supremacy": iaf_of_arcane_supremacy_118,
-  "of_blocking": iaf_of_blocking_119,
-  "of_carnage": iaf_of_carnage_120,
-  "of_conflagration": iaf_of_conflagration_121,
-  "of_corrosion": iaf_of_corrosion_122,
-  "of_decay": iaf_of_decay_123,
-  "of_defiance": iaf_of_defiance_124,
-  "of_deflection": iaf_of_deflection_125,
-  "of_devastation": iaf_of_devastation_126,
-  "of_dissolution": iaf_of_dissolution_127,
-  "of_embers": iaf_of_embers_128,
-  "of_endurance": iaf_of_endurance_129,
-  "of_evasion": iaf_of_evasion_130,
-  "of_ferocity": iaf_of_ferocity_131,
-  "of_fire_warding": iaf_of_fire_warding_132,
-  "of_fortitude": iaf_of_fortitude_133,
-  "of_grounding": iaf_of_grounding_134,
-  "of_guarding": iaf_of_guarding_135,
-  "of_immortality": iaf_of_immortality_136,
-  "of_impact": iaf_of_impact_137,
-  "of_insight": iaf_of_insight_138,
-  "of_lethality": iaf_of_lethality_139,
-  "of_life_warding": iaf_of_life_warding_140,
-  "of_light": iaf_of_light_141,
-  "of_marksmanship": iaf_of_marksmanship_142,
-  "of_martial_supremacy": iaf_of_martial_supremacy_143,
-  "of_mending": iaf_of_mending_144,
-  "of_might": iaf_of_might_145,
-  "of_oblivion": iaf_of_oblivion_146,
-  "of_pestilence": iaf_of_pestilence_147,
-  "of_presence": iaf_of_presence_148,
-  "of_protection": iaf_of_protection_149,
-  "of_prowess": iaf_of_prowess_150,
-  "of_resolve": iaf_of_resolve_151,
-  "of_restoration": iaf_of_restoration_152,
-  "of_rime": iaf_of_rime_153,
-  "of_sanctuary": iaf_of_sanctuary_154,
-  "of_sorcery": iaf_of_sorcery_155,
-  "of_stability": iaf_of_stability_156,
-  "of_storms": iaf_of_storms_157,
-  "of_striking": iaf_of_striking_158,
-  "of_supreme_defiance": iaf_of_supreme_defiance_159,
-  "of_tempering": iaf_of_tempering_160,
-  "of_tenacity": iaf_of_tenacity_161,
-  "of_the_alkaline": iaf_of_the_alkaline_162,
-  "of_the_deadeye": iaf_of_the_deadeye_163,
-  "of_the_duelist": iaf_of_the_duelist_164,
-  "of_the_eclipse": iaf_of_the_eclipse_165,
-  "of_the_glacier": iaf_of_the_glacier_166,
-  "of_the_inferno": iaf_of_the_inferno_167,
-  "of_the_stormless": iaf_of_the_stormless_168,
-  "of_the_sun": iaf_of_the_sun_169,
-  "of_the_tempest": iaf_of_the_tempest_170,
-  "of_the_unfrozen": iaf_of_the_unfrozen_171,
-  "of_the_vanguard": iaf_of_the_vanguard_172,
-  "of_the_venomless": iaf_of_the_venomless_173,
-  "of_venom": iaf_of_venom_174,
-  "of_vigor": iaf_of_vigor_175,
-  "of_vitality": iaf_of_vitality_176,
-  "of_warmth": iaf_of_warmth_177,
-  "of_wisdom": iaf_of_wisdom_178,
+  "of_alacrity": iaf_of_alacrity_116,
+  "of_annihilation": iaf_of_annihilation_117,
+  "of_antidotes": iaf_of_antidotes_118,
+  "of_arcane_supremacy": iaf_of_arcane_supremacy_119,
+  "of_blocking": iaf_of_blocking_120,
+  "of_carnage": iaf_of_carnage_121,
+  "of_conflagration": iaf_of_conflagration_122,
+  "of_corrosion": iaf_of_corrosion_123,
+  "of_decay": iaf_of_decay_124,
+  "of_defiance": iaf_of_defiance_125,
+  "of_deflection": iaf_of_deflection_126,
+  "of_devastation": iaf_of_devastation_127,
+  "of_dissolution": iaf_of_dissolution_128,
+  "of_embers": iaf_of_embers_129,
+  "of_endurance": iaf_of_endurance_130,
+  "of_evasion": iaf_of_evasion_131,
+  "of_ferocity": iaf_of_ferocity_132,
+  "of_fire_warding": iaf_of_fire_warding_133,
+  "of_fortitude": iaf_of_fortitude_134,
+  "of_grounding": iaf_of_grounding_135,
+  "of_guarding": iaf_of_guarding_136,
+  "of_immortality": iaf_of_immortality_137,
+  "of_impact": iaf_of_impact_138,
+  "of_insight": iaf_of_insight_139,
+  "of_lethality": iaf_of_lethality_140,
+  "of_life_warding": iaf_of_life_warding_141,
+  "of_light": iaf_of_light_142,
+  "of_marksmanship": iaf_of_marksmanship_143,
+  "of_martial_supremacy": iaf_of_martial_supremacy_144,
+  "of_mending": iaf_of_mending_145,
+  "of_might": iaf_of_might_146,
+  "of_oblivion": iaf_of_oblivion_147,
+  "of_pestilence": iaf_of_pestilence_148,
+  "of_presence": iaf_of_presence_149,
+  "of_protection": iaf_of_protection_150,
+  "of_prowess": iaf_of_prowess_151,
+  "of_quickness": iaf_of_quickness_152,
+  "of_resolve": iaf_of_resolve_153,
+  "of_restoration": iaf_of_restoration_154,
+  "of_rime": iaf_of_rime_155,
+  "of_sanctuary": iaf_of_sanctuary_156,
+  "of_sorcery": iaf_of_sorcery_157,
+  "of_stability": iaf_of_stability_158,
+  "of_storms": iaf_of_storms_159,
+  "of_striking": iaf_of_striking_160,
+  "of_supreme_defiance": iaf_of_supreme_defiance_161,
+  "of_swiftness": iaf_of_swiftness_162,
+  "of_tempering": iaf_of_tempering_163,
+  "of_tenacity": iaf_of_tenacity_164,
+  "of_the_alkaline": iaf_of_the_alkaline_165,
+  "of_the_deadeye": iaf_of_the_deadeye_166,
+  "of_the_duelist": iaf_of_the_duelist_167,
+  "of_the_eclipse": iaf_of_the_eclipse_168,
+  "of_the_glacier": iaf_of_the_glacier_169,
+  "of_the_inferno": iaf_of_the_inferno_170,
+  "of_the_stormless": iaf_of_the_stormless_171,
+  "of_the_sun": iaf_of_the_sun_172,
+  "of_the_tempest": iaf_of_the_tempest_173,
+  "of_the_unfrozen": iaf_of_the_unfrozen_174,
+  "of_the_vanguard": iaf_of_the_vanguard_175,
+  "of_the_venomless": iaf_of_the_venomless_176,
+  "of_venom": iaf_of_venom_177,
+  "of_vigor": iaf_of_vigor_178,
+  "of_vitality": iaf_of_vitality_179,
+  "of_warmth": iaf_of_warmth_180,
+  "of_wisdom": iaf_of_wisdom_181,
   "overwhelming": iaf_overwhelming_62,
   "perceptive": iaf_perceptive_63,
   "permafrost": iaf_permafrost_64,

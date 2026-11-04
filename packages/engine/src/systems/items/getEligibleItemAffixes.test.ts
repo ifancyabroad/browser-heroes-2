@@ -52,6 +52,19 @@ describe("getEligibleItemAffixes", () => {
 	});
 
 	it.each([
+		["uncommon", "of_quickness"],
+		["rare", "of_swiftness"],
+		["epic", "of_alacrity"],
+	] as const)(
+		"keeps the %s Initiative suffix available on every equipment base",
+		(rarity, affixId) => {
+			for (const base of Object.values(ITEMBASES_BY_ID)) {
+				expect(getAffixIds(base, rarity, "suffix")).toContain(affixId);
+			}
+		},
+	);
+
+	it.each([
 		[
 			"brawny",
 			"titanforged",
