@@ -1,5 +1,7 @@
 import type { CombatantState } from "../../../schemas";
 
+export const BASE_HERO_INITIATIVE = 10;
+
 export const EMPTY_DAMAGE_AFFINITIES: CombatantState["combatStats"]["damageAffinities"] = {
 	resistances: [],
 	immunities: [],

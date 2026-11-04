@@ -59,6 +59,7 @@ describe("HeroSidebar", () => {
 		}
 		const townRun = { ...run, state: result.state };
 		const view = render(sidebar(townRun));
+		expect(screen.getByText("Init").closest("li")).toHaveTextContent("10");
 		expect(screen.getByRole("tab", { name: "Stats" })).toHaveAttribute("aria-selected", "true");
 		expect(screen.queryByRole("tab", { name: "Combat Log" })).not.toBeInTheDocument();
 		selectTab("World Log");

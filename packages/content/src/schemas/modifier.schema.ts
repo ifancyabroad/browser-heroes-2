@@ -7,6 +7,7 @@ import {
 } from "./common.schema";
 
 export const combatStats = [
+	"initiative",
 	"armourClass",
 	"attackRollBonus",
 	"savingThrowBonus",

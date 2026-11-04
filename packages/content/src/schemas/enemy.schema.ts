@@ -18,6 +18,7 @@ export const enemyProficienciesSchema = z.object({
 export const enemyCombatSchema = z.object({
 	hitDie: hitDieSchema,
 	armourClass: z.number().int().positive(),
+	initiative: z.number().int().nonnegative(),
 	damageAffinities: damageAffinitiesSchema.default({
 		resistances: [],
 		immunities: [],

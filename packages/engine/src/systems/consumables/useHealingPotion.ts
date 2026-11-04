@@ -1,80 +1,40 @@
-import type { CombatantState, EngineResult, RunState } from "../../schemas";
-
-import { failureResult } from "../../core/result";
+import type { CombatantState, CombatState, EngineEvent } from "../../schemas";
 import { applyHealing } from "../combat/healing/applyHealing";
 import { replaceCombatant } from "../combat/combatants/combatantSelectors";
 import { appendCombatLog } from "../combat/logs/appendCombatLog";
-
 import { HEALING_POTION_HEAL_PERCENT } from "./healingPotionConstants";
 import { getEffectiveHealingMultiplier } from "../combat/effects/getEffectiveHealingMultiplier";
-import { finishPlayerActionRound } from "../combat/rounds/finishPlayerActionRound";
-import { hasActiveStatus } from "../combat/effects/hasActiveStatus";
-import { validatePlayerAction } from "../combat/rounds/validatePlayerAction";
-import { preparePlayerActionRound } from "../combat/rounds/preparePlayerActionRound";
 
-export function useHealingPotion(state: RunState): EngineResult {
-	if (!state.combat) {
-		throw new Error("useHealingPotion requires active combat");
-	}
+export function useHealingPotion(
+	combat: CombatState,
+	healingPotions: number,
+): { combat: CombatState; remainingPotions: number; event: EngineEvent } {
+	const healingAmount = calculateHealingPotionAmount(combat.player);
 
-	const validation = validatePlayerAction(state.combat);
+	const healing = applyHealing(combat.player, healingAmount);
 
-	if (!validation.ok) {
-		return failureResult(state, validation.error);
-	}
+	const remainingPotions = healingPotions - 1;
 
-	if (hasActiveStatus(state.combat.player, "stunned")) {
-		return failureResult(state, "PLAYER_CANNOT_ACT");
-	}
-
-	if (state.hero.healingPotions <= 0) {
-		return failureResult(state, "NO_HEALING_POTIONS_AVAILABLE");
-	}
-
-	const roundStart = preparePlayerActionRound(state.combat, state.rngState);
-
-	const healingAmount = calculateHealingPotionAmount(state.combat.player);
-
-	const healing = applyHealing(state.combat.player, healingAmount);
-
-	const remainingPotions = state.hero.healingPotions - 1;
-
-	const combatAfterPotion = appendCombatLog(replaceCombatant(state.combat, healing.combatant), {
-		turnNumber: state.combat.turnNumber,
+	const combatAfterPotion = appendCombatLog(replaceCombatant(combat, healing.combatant), {
+		turnNumber: combat.turnNumber,
 		actor: "player",
 		message:
 			healing.actualHealing === 0
-				? `${state.combat.player.name} drinks a healing potion but is already at full health.`
-				: `${state.combat.player.name} drinks a healing potion, restoring ${healing.actualHealing} health.`,
+				? `${combat.player.name} drinks a healing potion but is already at full health.`
+				: `${combat.player.name} drinks a healing potion, restoring ${healing.actualHealing} health.`,
 		eventType: "healing_potion_used",
 		outcome: {
 			type: "healing",
-			targetId: state.combat.player.id,
+			targetId: combat.player.id,
 			amount: healing.actualHealing,
 		},
 	});
 
-	return finishPlayerActionRound({
-		state: {
-			...state,
-			hero: {
-				...state.hero,
-				healingPotions: remainingPotions,
-			},
-		},
-		combatAfterPlayerAction: combatAfterPotion,
-		rngState: roundStart.rngState,
-		playerEffectIds: roundStart.playerEffectIds,
-		plannedEnemyAction: roundStart.plannedEnemyAction,
-		playerActionContext: null,
-		events: [
-			{
-				type: "HEALING_POTION_USED",
-				amount: healing.actualHealing,
-				remainingPotions,
-			},
-		],
-	});
+	return {
+		combat: combatAfterPotion,
+		remainingPotions,
+		event: { type: "HEALING_POTION_USED", amount: healing.actualHealing, remainingPotions },
+	};
 }
 
 function calculateHealingPotionAmount(player: CombatantState): number {

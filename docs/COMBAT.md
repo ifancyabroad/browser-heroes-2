@@ -81,18 +81,11 @@ This document intentionally avoids exact formulas and tuning values.
 Combat resolution is round-based from the player's perspective:
 
 1. The player submits a basic attack, skill, healing potion, or skip-turn action.
-2. The engine validates that combat is active.
-3. The enemy's intended action is selected from the state at the start of the round.
-4. The player action resolves.
-5. The player's active effects advance.
-6. Combat status is checked.
-7. If the enemy dies, victory rewards are applied and its intended action is discarded.
-8. If the enemy survives, its intended action resolves unless a condition such as stun prevents it.
-9. The enemy's active effects advance.
-10. Combat status is checked again.
-11. The run either advances the combat turn, ends in defeat, or waits at victory.
-
-This keeps the UI simple while preserving engine-owned combat resolution.
+2. The engine validates the action and selects the enemy's intended action from round-start state.
+3. Effective Initiative determines action order for this round; ties favour the hero. Initiative changes during resolution affect the next round.
+4. Each combatant acts in that order, unless death ends combat or stun prevents the action. If the hero becomes silenced before a selected skill resolves, a basic attack replaces it. Interrupted skills and potions consume no resources.
+5. After each action or skipped turn, that combatant's active effects advance and combat status is checked. Existing effect-duration rules apply.
+6. Victory applies rewards once; defeat ends the run. Otherwise the round advances and the engine awaits the next player action.
 
 ## 6. Valid Actions
 

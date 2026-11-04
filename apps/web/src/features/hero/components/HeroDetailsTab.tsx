@@ -53,6 +53,12 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			stat: getArmourClassStatPresentation(heroView.armourClassBreakdown),
 		},
 		{
+			label: combatStatShortLabels.initiative,
+			fullLabel: combatStatLabels.initiative,
+			description: combatStatDescriptions.initiative,
+			stat: getStatPresentation(heroView.combatStats.initiative),
+		},
+		{
 			label: combatStatShortLabels.attackRollBonus,
 			fullLabel: combatStatLabels.attackRollBonus,
 			description: combatStatDescriptions.attackRollBonus,

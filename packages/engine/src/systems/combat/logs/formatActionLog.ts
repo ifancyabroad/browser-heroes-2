@@ -10,6 +10,7 @@ const statLabels: Record<ModifiableStat, string> = {
 	intelligence: "Intelligence",
 	wisdom: "Wisdom",
 	charisma: "Charisma",
+	initiative: "Initiative",
 	armourClass: "Armour Class",
 	attackRollBonus: "attack rolls",
 	savingThrowBonus: "resolve",

@@ -177,6 +177,7 @@ export const combatantDamageModifierSchema = z.object({
 });
 
 export const combatantCombatStatsSchema = z.object({
+	initiative: z.number(),
 	armourClass: z.number().int().min(0),
 	attackRollBonus: z.number(),
 	savingThrowBonus: z.number(),

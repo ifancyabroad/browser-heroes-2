@@ -1,7 +1,7 @@
 import { CLASSES_BY_ID, type Attributes, type Class, type FeatId } from "@app/content";
 
 import type { HeroState } from "../../schemas";
-import { EMPTY_DAMAGE_AFFINITIES } from "../combat/constants/combatDefaults";
+import { BASE_HERO_INITIATIVE, EMPTY_DAMAGE_AFFINITIES } from "../combat/constants/combatDefaults";
 import {
 	type BaseArmourClassBreakdown,
 	deriveBaseArmourClass,
@@ -57,6 +57,7 @@ export function deriveHeroStats(hero: HeroState): DerivedHeroStats {
 
 	const combatStats = deriveCombatStats({
 		baseArmourClass: baseArmourClass.baseValue,
+		baseInitiative: BASE_HERO_INITIATIVE,
 		baseDamageAffinities: EMPTY_DAMAGE_AFFINITIES,
 		modifiers,
 	});

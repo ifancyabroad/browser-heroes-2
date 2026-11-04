@@ -32,6 +32,7 @@ export function createEnemyCombatant(
 
 	const derivedCombatStats = deriveCombatStats({
 		baseArmourClass: enemy.combat.armourClass,
+		baseInitiative: enemy.combat.initiative,
 		baseDamageAffinities: enemy.combat.damageAffinities,
 		modifiers: passiveModifiers,
 	});

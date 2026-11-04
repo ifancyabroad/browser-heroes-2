@@ -1,106 +1,102 @@
-import type { CombatState, EngineEvent, EngineResult, RunState } from "../../../schemas";
-
+import type {
+	CombatState,
+	CombatantSide,
+	EngineEvent,
+	EngineResult,
+	RunState,
+} from "../../../schemas";
 import type { RngState } from "../../../core/rng";
-
 import { failureResult, successResult } from "../../../core/result";
 import { advanceCombatantEffects } from "../effects/advanceCombatantEffects";
 import { getActiveEffectIds } from "../effects/advanceActiveEffects";
+import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
 import { resolveCombatStatus } from "../death/resolveCombatStatus";
 import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward";
+import { planEnemyTurn } from "../enemy/planEnemyTurn";
 import { resolveEnemyTurn } from "../enemy/resolveEnemyTurn";
 import { advanceTurn } from "./advanceTurn";
 import { syncHeroFromPlayerCombatant } from "../combatants/syncHeroFromCombatant";
 import { isEndlessCycleVictory, isFinalBossVictory } from "../../endless/endlessProgression";
-import type { EnemyAction } from "../enemy/selection/selectEnemyAction";
+import { resolvePlayerTurn, type PlayerActionContext } from "./resolvePlayerTurn";
+import { validatePlayerAction, type PlayerRoundAction } from "./validatePlayerAction";
 
-export type PlayerActionContext = {
-	type: "basic_attack" | "skill";
-	targetStartedAtFullHp: boolean;
-};
+export function resolveCombatRound(state: RunState, action: PlayerRoundAction): EngineResult {
+	const validation = validatePlayerAction(state, action);
 
-type FinishPlayerActionRoundInput = {
-	state: RunState;
-	combatAfterPlayerAction: CombatState;
-	rngState: RngState;
-	playerEffectIds: ReadonlySet<string>;
-	events?: EngineEvent[];
-	playerActionContext: PlayerActionContext | null;
-	plannedEnemyAction: EnemyAction;
-};
+	if (!validation.ok) {
+		return failureResult(state, validation.error);
+	}
 
-export function finishPlayerActionRound(input: FinishPlayerActionRoundInput): EngineResult {
-	const playerEffects = advanceCombatantEffects({
-		combat: input.combatAfterPlayerAction,
-		combatantSide: "player",
-		effectIds: input.playerEffectIds,
-		rngState: input.rngState,
-	});
+	if (!state.combat) {
+		throw new Error("resolveCombatRound requires active combat");
+	}
 
-	const afterPlayerDeathCheck = resolveCombatStatus(playerEffects.value);
+	let combat = state.combat;
+	let currentState = state;
 
-	if (afterPlayerDeathCheck.status === "player_won") {
-		return finishVictory({
-			state: input.state,
-			combat: afterPlayerDeathCheck,
-			rngState: playerEffects.rngState,
-			events: input.events,
-			finishingPlayerAction: input.playerActionContext,
+	const enemyPlan = planEnemyTurn(combat, state.rngState);
+	let rngState = enemyPlan.rngState;
+
+	const events: EngineEvent[] = [];
+
+	const playerFirst =
+		getEffectiveCombatStatValue(combat.player, "initiative") >=
+		getEffectiveCombatStatValue(combat.enemy, "initiative");
+	const order: CombatantSide[] = playerFirst ? ["player", "enemy"] : ["enemy", "player"];
+
+	for (const side of order) {
+		combat = { ...combat, activeActor: side };
+		const effectIds = getActiveEffectIds(side === "player" ? combat.player : combat.enemy);
+		let playerActionContext: PlayerActionContext | null = null;
+
+		if (side === "player") {
+			const turn = resolvePlayerTurn({ ...currentState, combat, rngState }, action);
+
+			currentState = turn.state;
+			combat = turn.state.combat;
+			rngState = turn.state.rngState;
+			events.push(...turn.events);
+			playerActionContext = turn.actionContext;
+		} else {
+			const turn = resolveEnemyTurn({ combat, rngState, plannedAction: enemyPlan.value });
+
+			combat = turn.value;
+			rngState = turn.rngState;
+		}
+
+		const effects = advanceCombatantEffects({
+			combat,
+			combatantSide: side,
+			effectIds,
+			rngState,
 		});
-	}
 
-	if (afterPlayerDeathCheck.status === "enemy_won") {
-		return finishDefeat(
-			input.state,
-			afterPlayerDeathCheck,
-			playerEffects.rngState,
-			input.events,
-		);
-	}
+		combat = resolveCombatStatus(effects.value);
+		rngState = effects.rngState;
 
-	const enemyEffectIds = getActiveEffectIds(afterPlayerDeathCheck.enemy);
+		if (combat.status === "player_won") {
+			return finishVictory({
+				state: currentState,
+				combat,
+				rngState,
+				events,
+				finishingPlayerAction: playerActionContext,
+			});
+		}
 
-	const enemyTurn = resolveEnemyTurn({
-		combat: afterPlayerDeathCheck,
-		rngState: playerEffects.rngState,
-		plannedAction: input.plannedEnemyAction,
-	});
-
-	const enemyEffects = advanceCombatantEffects({
-		combat: enemyTurn.value,
-		combatantSide: "enemy",
-		effectIds: enemyEffectIds,
-		rngState: enemyTurn.rngState,
-	});
-
-	const afterEnemyDeathCheck = resolveCombatStatus(enemyEffects.value);
-
-	if (afterEnemyDeathCheck.status === "player_won") {
-		return finishVictory({
-			state: input.state,
-			combat: afterEnemyDeathCheck,
-			rngState: enemyEffects.rngState,
-			events: input.events,
-			finishingPlayerAction: null,
-		});
-	}
-
-	if (afterEnemyDeathCheck.status === "enemy_won") {
-		return finishDefeat(input.state, afterEnemyDeathCheck, enemyEffects.rngState, input.events);
+		if (combat.status === "enemy_won") {
+			return finishDefeat(currentState, combat, rngState, events);
+		}
 	}
 
 	return successResult(
 		{
-			...input.state,
-			rngState: enemyEffects.rngState,
-			hero: syncHeroFromPlayerCombatant(input.state.hero, afterEnemyDeathCheck.player),
-			combat: advanceTurn(afterEnemyDeathCheck),
+			...currentState,
+			rngState,
+			hero: syncHeroFromPlayerCombatant(currentState.hero, combat.player),
+			combat: advanceTurn(combat),
 		},
-		[
-			...(input.events ?? []),
-			{
-				type: "COMBAT_TURN_RESOLVED",
-			},
-		],
+		[...events, { type: "COMBAT_TURN_RESOLVED" }],
 	);
 }
 

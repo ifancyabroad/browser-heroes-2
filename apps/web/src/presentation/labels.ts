@@ -47,6 +47,7 @@ export const attributeDescriptions: Record<Attribute, string> = {
 
 export const combatStatShortLabels = {
 	armourClass: "AC",
+	initiative: "Init",
 	attackRollBonus: "Attack",
 	savingThrowBonus: "Resolve",
 	saveDcBonus: "Focus",
@@ -58,6 +59,7 @@ export const combatStatShortLabels = {
 
 export const combatStatLabels = {
 	armourClass: "Armour Class",
+	initiative: "Initiative",
 	attackRollBonus: "Attack Roll Bonus",
 	savingThrowBonus: "Resolve",
 	saveDcBonus: "Focus",
@@ -69,6 +71,7 @@ export const combatStatLabels = {
 
 export const combatStatDescriptions: Record<keyof typeof combatStatLabels, string> = {
 	armourClass: "Makes attacks less likely to hit you.",
+	initiative: "Higher Initiative acts first each round.",
 	attackRollBonus: "Makes your attacks more likely to hit.",
 	savingThrowBonus: "Helps you resist hostile effects.",
 	saveDcBonus: "Makes your effects harder for enemies to resist.",
@@ -80,6 +83,7 @@ export const combatStatDescriptions: Record<keyof typeof combatStatLabels, strin
 
 export const modifiableStatLabels: Record<ModifiableStat, string> = {
 	armourClass: combatStatShortLabels.armourClass,
+	initiative: combatStatShortLabels.initiative,
 	attackRollBonus: combatStatShortLabels.attackRollBonus,
 	savingThrowBonus: combatStatShortLabels.savingThrowBonus,
 	saveDcBonus: combatStatShortLabels.saveDcBonus,
@@ -96,6 +100,7 @@ export const modifiableStatLabels: Record<ModifiableStat, string> = {
 
 export const modifiableStatFullLabels: Record<ModifiableStat, string> = {
 	armourClass: combatStatLabels.armourClass,
+	initiative: combatStatLabels.initiative,
 	attackRollBonus: combatStatLabels.attackRollBonus,
 	savingThrowBonus: combatStatLabels.savingThrowBonus,
 	saveDcBonus: combatStatLabels.saveDcBonus,

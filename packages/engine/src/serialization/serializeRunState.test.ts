@@ -30,7 +30,11 @@ describe("serializeRunState", () => {
 	});
 
 	it("round trips a state after an action", () => {
-		const result = applyAction(createTestRunState(), { type: "PLAYER_SKIP_TURN" });
+		const state = createTestRunState();
+		state.combat!.player.combatStats.initiative = 13;
+		state.combat!.enemy.combatStats.initiative = 15;
+
+		const result = applyAction(state, { type: "PLAYER_SKIP_TURN" });
 
 		expect(result.ok).toBe(true);
 		expect(deserializeRunStateJson(serializeRunState(result.state))).toEqual({

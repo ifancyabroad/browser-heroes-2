@@ -1,6 +1,6 @@
 import type { EngineAction, EngineExternalInput, EngineResult, RunState } from "../schemas";
 import { enterCombat } from "../systems/combat/enterCombat";
-import { applyCombatAction } from "../systems/combat/applyCombatAction";
+import { resolveCombatRound } from "../systems/combat/rounds/resolveCombatRound";
 import { continueToNextCombat } from "../systems/progression/continueToNextCombat";
 import { returnToTown } from "../systems/town/returnToTown";
 import { failureResult } from "../core/result";
@@ -9,7 +9,6 @@ import { completeRewardChoice } from "../systems/progression/rewards/completeRew
 import { rerollShop } from "../systems/town/rerollShop";
 import { restAtTown } from "../systems/town/restAtTown";
 import { buyItem } from "../systems/town/buyItem";
-import { useConsumable } from "../systems/consumables/useConsumable";
 import { buyConsumable } from "../systems/town/buyConsumable";
 import { retireRun } from "../systems/endless/retireRun";
 import { swapHandWeapons } from "../systems/equipment/swapHandWeapons";
@@ -28,7 +27,8 @@ export function applyAction(
 		case "PLAYER_BASIC_ATTACK":
 		case "PLAYER_USE_SKILL":
 		case "PLAYER_SKIP_TURN":
-			return applyCombatAction(state, action);
+		case "PLAYER_USE_CONSUMABLE":
+			return resolveCombatRound(state, action);
 
 		case "CONTINUE_TO_NEXT_COMBAT":
 			return continueToNextCombat(state, externalInput.ghostEncounter);
@@ -56,9 +56,6 @@ export function applyAction(
 
 		case "BUY_ITEM":
 			return buyItem(state, action);
-
-		case "PLAYER_USE_CONSUMABLE":
-			return useConsumable(state, action);
 
 		case "BUY_CONSUMABLE":
 			return buyConsumable(state, action);

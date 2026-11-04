@@ -11,6 +11,21 @@ import {
 } from "./effects";
 
 describe("effect presentation", () => {
+	it("formats Initiative through the existing stat labels", () => {
+		expect(formatItemModifier({ type: "modifyStat", stat: "initiative", value: 2 })).toBe(
+			"+2 Initiative",
+		);
+		expect(
+			formatSkillEffect({
+				type: "modifyStat",
+				target: "self",
+				stat: "initiative",
+				value: 3,
+				duration: { unit: "turns", value: 2 },
+			}),
+		).toBe("Increase your Initiative by 3 for 2 turns.");
+	});
+
 	it("distinguishes typed amplification from added rider damage", () => {
 		expect(
 			formatItemModifier({

@@ -18,6 +18,7 @@ import { resolveAdditiveStat } from "./resolveAdditiveStat";
 import { resolveHealingMultiplier } from "./resolveHealingMultiplier";
 
 export type DerivedCombatStats = {
+	initiative: DerivedValue;
 	armourClass: DerivedValue;
 	attackRollBonus: DerivedValue;
 	savingThrowBonus: DerivedValue;
@@ -33,6 +34,7 @@ export type DerivedCombatStats = {
 
 type DeriveCombatStatsInput = {
 	baseArmourClass: number;
+	baseInitiative: number;
 	baseDamageAffinities: DamageAffinities;
 	modifiers: readonly ResolvedModifier[];
 };
@@ -41,6 +43,8 @@ export function deriveCombatStats(input: DeriveCombatStatsInput): DerivedCombatS
 	const { modifiers } = input;
 
 	return {
+		initiative: resolveAdditiveStat("initiative", input.baseInitiative, modifiers),
+
 		armourClass: resolveNonNegativeIntegerStat("armourClass", input.baseArmourClass, modifiers),
 
 		attackRollBonus: resolveAdditiveStat("attackRollBonus", 0, modifiers),
@@ -84,6 +88,7 @@ function resolveNonNegativeIntegerStat(
 export function toCombatantCombatStats(derived: DerivedCombatStats): CombatantCombatStats {
 	return {
 		armourClass: derived.armourClass.value,
+		initiative: derived.initiative.value,
 		attackRollBonus: derived.attackRollBonus.value,
 		savingThrowBonus: derived.savingThrowBonus.value,
 		saveDcBonus: derived.saveDcBonus.value,

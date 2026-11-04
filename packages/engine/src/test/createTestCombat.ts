@@ -36,6 +36,7 @@ function createCombatant(side: CombatantSide): CombatantState {
 		},
 		combatStats: {
 			armourClass: 10,
+			initiative: 10,
 			attackRollBonus: 0,
 			savingThrowBonus: 0,
 			saveDcBonus: 0,

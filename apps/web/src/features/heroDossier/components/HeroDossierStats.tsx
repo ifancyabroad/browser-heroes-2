@@ -101,6 +101,10 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 					displayLabel="Armour"
 					stat={getArmourClassStatPresentation(hero.armourClassBreakdown)}
 				/>
+				<StatRow
+					label={combatStatLabels.initiative}
+					stat={getStatPresentation(hero.combatStats.initiative)}
+				/>
 				{stats.map((item) => (
 					<StatRow key={item.label} {...item} />
 				))}
