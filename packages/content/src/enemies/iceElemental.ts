@@ -19,7 +19,7 @@ export default buildEnemy({
 	combat: {
 		hitDie: "1d10",
 		armourClass: 20,
-		initiative: 10,
+		initiative: 14,
 		damageAffinities: {
 			resistances: ["acid", "crushing", "lightning", "piercing", "slashing"],
 			immunities: ["cold", "poison"],
