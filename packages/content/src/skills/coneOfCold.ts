@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "cone_of_cold",
 	name: "Cone of Cold",
 	description:
-		"Deal cold damage to the enemy. A failed Constitution saving throw also gives them disadvantage on attack rolls.",
+		"Deal cold damage to the enemy. A failed Constitution saving throw also reduces their Initiative.",
 	icon: "skills/wizard/cone_of_cold.png",
 	pool: "wizard",
 	kind: "spell",
@@ -27,11 +27,11 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyRoll",
+			type: "modifyStat",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
-			duration: { unit: "turns", value: 2 },
+			stat: "initiative",
+			value: -3,
+			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

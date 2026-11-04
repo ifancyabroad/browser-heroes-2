@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "constrict",
 	name: "Constrict",
 	description:
-		"Deal crushing damage to the enemy. A failed Strength saving throw also reduces their Armour Class.",
+		"Deal crushing damage to the enemy. Separate failed Strength saving throws also reduce their Armour Class and Initiative.",
 	icon: "skills/common/constrict.png",
 	pool: "common",
 	kind: "technique",
@@ -35,6 +35,18 @@ export default buildSkill({
 			type: "modifyStat",
 			target: "enemy",
 			stat: "armourClass",
+			value: -4,
+			duration: { unit: "turns", value: 4 },
+			save: {
+				attribute: "strength",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
+		},
+		{
+			type: "modifyStat",
+			target: "enemy",
+			stat: "initiative",
 			value: -4,
 			duration: { unit: "turns", value: 4 },
 			save: {

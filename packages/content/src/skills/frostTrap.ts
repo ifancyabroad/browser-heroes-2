@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "frost_trap",
 	name: "Frost Trap",
 	description:
-		"Deal piercing and cold damage to the enemy. A failed Constitution saving throw also gives them disadvantage on attack rolls.",
+		"Deal piercing and cold damage to the enemy. A failed Constitution saving throw also reduces their Initiative.",
 	icon: "skills/thief/frost_trap.png",
 	pool: "thief",
 	kind: "technique",
@@ -39,10 +39,10 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyRoll",
+			type: "modifyStat",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
+			stat: "initiative",
+			value: -3,
 			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "constitution",

@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "frost_breath",
 	name: "Frost Breath",
 	description:
-		"Deal cold damage to the enemy. A failed Constitution saving throw also gives them disadvantage on attack rolls.",
+		"Deal cold damage to the enemy. A failed Constitution saving throw also reduces their Initiative.",
 	icon: "skills/common/frost_breath.png",
 	pool: "common",
 	kind: "technique",
@@ -26,10 +26,10 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyRoll",
+			type: "modifyStat",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
+			stat: "initiative",
+			value: -4,
 			duration: { unit: "turns", value: 3 },
 			save: {
 				attribute: "constitution",

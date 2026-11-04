@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "divine_inspiration",
 	name: "Divine Inspiration",
-	description: "Increase your saving throw bonus and maximum HP.",
+	description: "Increase your saving throw bonus, maximum HP, and Initiative.",
 	icon: "skills/cleric/divine_inspiration.png",
 	pool: "cleric",
 	kind: "prayer",
@@ -23,6 +23,13 @@ export default buildSkill({
 			target: "self",
 			stat: "maxHpBonus",
 			value: 40,
+			duration: { unit: "battles", value: 5 },
+		},
+		{
+			type: "modifyStat",
+			target: "self",
+			stat: "initiative",
+			value: 4,
 			duration: { unit: "battles", value: 5 },
 		},
 	],

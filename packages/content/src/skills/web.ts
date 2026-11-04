@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "web",
 	name: "Web",
 	description:
-		"Give the enemy disadvantage on attack rolls and Dexterity saving throws, each requiring a separate failed Dexterity saving throw.",
+		"Reduce the enemy's Initiative and give them disadvantage on Dexterity saving throws, each requiring a separate failed Dexterity saving throw.",
 	icon: "skills/common/web.png",
 	pool: "common",
 	kind: "technique",
@@ -13,10 +13,10 @@ export default buildSkill({
 	maxUses: 4,
 	effects: [
 		{
-			type: "modifyRoll",
+			type: "modifyStat",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
+			stat: "initiative",
+			value: -4,
 			duration: { unit: "battles", value: 1 },
 			save: {
 				attribute: "dexterity",

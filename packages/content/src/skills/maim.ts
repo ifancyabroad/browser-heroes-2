@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "maim",
 	name: "Maim",
 	description:
-		"Make a weapon attack with increased damage. On hit, a failed Constitution saving throw reduces the enemy's physical damage dealt and causes slashing damage over time.",
+		"Make a weapon attack with increased damage. On hit, a failed Constitution saving throw reduces the enemy's Initiative for the current battle and causes slashing damage over time.",
 	icon: "skills/assassin/maim.png",
 	pool: "assassin",
 	kind: "weaponAttack",
@@ -26,12 +26,11 @@ export default buildSkill({
 					},
 					effects: [
 						{
-							type: "modifyDamage",
+							type: "modifyStat",
 							target: "enemy",
-							damageClass: "physical",
-							operation: "multiply",
-							value: 0.75,
-							duration: { unit: "turns", value: 2 },
+							stat: "initiative",
+							value: -4,
+							duration: { unit: "battles", value: 1 },
 						},
 						{
 							type: "damageOverTime",

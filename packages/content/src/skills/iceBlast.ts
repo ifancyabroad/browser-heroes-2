@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "ice_blast",
 	name: "Ice Blast",
 	description:
-		"Deal cold damage to the enemy, halved on a successful Constitution saving throw. A separate failed Constitution saving throw gives them disadvantage on attack rolls for 1 turn.",
+		"Deal cold damage to the enemy, halved on a successful Constitution saving throw. A separate failed Constitution saving throw reduces their Initiative.",
 	icon: "skills/common/ice_blast.png",
 	pool: "common",
 	kind: "spell",
@@ -27,11 +27,11 @@ export default buildSkill({
 			},
 		},
 		{
-			type: "modifyRoll",
+			type: "modifyStat",
 			target: "enemy",
-			roll: "attack",
-			mode: "disadvantage",
-			duration: { unit: "turns", value: 1 },
+			stat: "initiative",
+			value: -2,
+			duration: { unit: "turns", value: 2 },
 			save: {
 				attribute: "constitution",
 				onSuccess: "noEffect",

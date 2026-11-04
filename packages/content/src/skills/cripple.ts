@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "cripple",
 	name: "Cripple",
 	description:
-		"Make a weapon attack. On hit, a failed Constitution saving throw reduces the enemy's physical damage dealt.",
+		"Make a weapon attack. On hit, a failed Constitution saving throw reduces the enemy's Initiative.",
 	icon: "skills/common/cripple.png",
 	pool: "common",
 	kind: "weaponAttack",
@@ -21,11 +21,10 @@ export default buildSkill({
 					timing: "onHit",
 					effects: [
 						{
-							type: "modifyDamage",
+							type: "modifyStat",
 							target: "enemy",
-							damageClass: "physical",
-							operation: "multiply",
-							value: 0.75,
+							stat: "initiative",
+							value: -3,
 							duration: { unit: "turns", value: 3 },
 							save: {
 								attribute: "constitution",
