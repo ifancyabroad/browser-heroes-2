@@ -4,6 +4,7 @@ import { failureResult, successResult } from "../../core/result";
 import { calculateRestCost } from "./townPricing";
 import { restoreHeroSkillCharges } from "../hero/restoreHeroSkillCharges";
 import { deriveHeroStats } from "../hero/deriveHeroStats";
+import { isHeroFullyRested } from "../hero/isHeroFullyRested";
 
 export function restAtTown(state: RunState): EngineResult {
 	if (state.phase !== "town" || !state.town) {
@@ -11,6 +12,11 @@ export function restAtTown(state: RunState): EngineResult {
 	}
 
 	const derivedHeroStats = deriveHeroStats(state.hero);
+
+	if (isHeroFullyRested(state.hero, derivedHeroStats.health.maxHp)) {
+		return failureResult(state, "HERO_FULLY_RESTED");
+	}
+
 	const effectiveCharisma = derivedHeroStats.effectiveAttributes.charisma;
 
 	const cost = calculateRestCost(effectiveCharisma, state.day);

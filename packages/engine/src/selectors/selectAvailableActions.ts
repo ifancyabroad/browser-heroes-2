@@ -6,6 +6,7 @@ import { isFinalBossVictory } from "../systems/endless/endlessProgression";
 import { canSwapHandWeapons } from "../systems/equipment/canSwapHandWeapons";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
 import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
+import { isHeroFullyRested } from "../systems/hero/isHeroFullyRested";
 import { canRerollLevelUp } from "../systems/progression/levelUp/selectLevelUpOptions";
 import {
 	calculateHealingPotionCost,
@@ -165,7 +166,8 @@ function getTownActions(state: RunState): EngineAction[] {
 		return [];
 	}
 
-	const effectiveCharisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
+	const derivedHeroStats = deriveHeroStats(state.hero);
+	const effectiveCharisma = derivedHeroStats.effectiveAttributes.charisma;
 
 	const rerollCost = calculateRerollCost(
 		effectiveCharisma,
@@ -189,7 +191,7 @@ function getTownActions(state: RunState): EngineAction[] {
 		});
 	}
 
-	if (state.gold >= restCost) {
+	if (state.gold >= restCost && !isHeroFullyRested(state.hero, derivedHeroStats.health.maxHp)) {
 		actions.push({
 			type: "REST_AT_TOWN",
 		});

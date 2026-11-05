@@ -145,6 +145,7 @@ function createTownView() {
 		zone: "forest",
 		canAffordRest: true,
 		isFullyHealed: false,
+		isFullyRested: false,
 		canAffordReroll: true,
 		canAffordHealingPotion: true,
 		canBuyHealingPotion: true,

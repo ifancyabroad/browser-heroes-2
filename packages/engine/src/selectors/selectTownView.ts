@@ -5,6 +5,7 @@ import type { RunState, RuntimeItem, TownShopSlot } from "../schemas";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
 import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
+import { isHeroFullyRested } from "../systems/hero/isHeroFullyRested";
 import {
 	calculateHealingPotionCost,
 	calculateRerollCost,
@@ -37,6 +38,7 @@ export type TownView = {
 	restCost: number;
 	canAffordRest: boolean;
 	isFullyHealed: boolean;
+	isFullyRested: boolean;
 
 	shopSlots: readonly TownShopSlotView[];
 
@@ -79,6 +81,7 @@ export function selectTownView(state: RunState): TownView | null {
 		restCost,
 		canAffordRest: state.gold >= restCost,
 		isFullyHealed: state.hero.currentHp >= derivedHeroStats.health.maxHp,
+		isFullyRested: isHeroFullyRested(state.hero, derivedHeroStats.health.maxHp),
 
 		shopSlots: state.town.shopSlots.flatMap((slot) =>
 			createTownShopSlotView(state, slot, effectiveCharisma),

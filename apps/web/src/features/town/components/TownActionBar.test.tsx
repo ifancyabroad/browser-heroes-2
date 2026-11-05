@@ -2,7 +2,12 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("../../../components/Tooltip", () => ({
-	Tooltip: ({ children }: { children: React.ReactNode }) => children,
+	Tooltip: ({ children, content }: { children: React.ReactNode; content: React.ReactNode }) => (
+		<>
+			{children}
+			{content}
+		</>
+	),
 }));
 
 import { TownActionBar } from "./TownActionBar";
@@ -12,6 +17,7 @@ function createProps(overrides = {}) {
 		isPending: false,
 		canAffordRest: true,
 		canRest: true,
+		isFullyRested: false,
 		canAffordReroll: true,
 		canReroll: true,
 		canAffordHealingPotion: true,
@@ -98,6 +104,19 @@ describe("TownActionBar", () => {
 		expect(props.onBuyHealingPotion).not.toHaveBeenCalled();
 		expect(props.onRest).not.toHaveBeenCalled();
 		expect(props.onEnterCombat).not.toHaveBeenCalled();
+	});
+
+	it("explains why rest is unavailable when fully rested", () => {
+		const props = createProps({ canRest: false, isFullyRested: true });
+		render(<TownActionBar {...props} />);
+
+		const button = screen.getByRole("button", { name: "Rest for 10 gold" });
+		expect(button).toHaveAttribute("aria-disabled", "true");
+		expect(
+			screen.getByText("Fully rested. Health and skill uses are already full."),
+		).toBeInTheDocument();
+		fireEvent.click(button);
+		expect(props.onRest).not.toHaveBeenCalled();
 	});
 
 	it("blocks every action while a request is pending", () => {

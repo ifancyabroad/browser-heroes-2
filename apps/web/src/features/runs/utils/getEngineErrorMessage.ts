@@ -30,6 +30,7 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	NO_HEALING_POTIONS_AVAILABLE: "You do not have any healing potions.",
 	CONSUMABLE_NOT_USABLE: "That consumable cannot be used right now.",
 	HEALING_POTIONS_FULL: "You cannot carry any more healing potions.",
+	HERO_FULLY_RESTED: "You are fully rested.",
 	CONSUMABLE_NOT_AVAILABLE: "That consumable is not available.",
 	NO_ELIGIBLE_ITEM_BASE: "No eligible item base.",
 };

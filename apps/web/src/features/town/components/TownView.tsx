@@ -196,6 +196,7 @@ export function TownView({ run }: TownViewProps) {
 							<TownActionBar
 								isPending={applyRunAction.isPending}
 								canAffordRest={townView.canAffordRest}
+								isFullyRested={townView.isFullyRested}
 								canRest={
 									availableActionTypes.has("REST_AT_TOWN") &&
 									townView.canAffordRest
