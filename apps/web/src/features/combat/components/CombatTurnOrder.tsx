@@ -10,7 +10,27 @@ type CombatTurnOrderProps = {
 
 export function CombatTurnOrder({ turnOrder, heroId }: CombatTurnOrderProps) {
 	return (
-		<Tooltip content="Turn order" placement="bottom" className="min-w-0">
+		<Tooltip
+			content={
+				<>
+					<p className="text-text-label">Turn order</p>
+					<ol className="mt-1 grid gap-1">
+						{turnOrder.map(({ id, shortName }, index) => (
+							<li key={id}>
+								<span className="text-text-label">{index + 1}.</span>{" "}
+								<span
+									className={id === heroId ? "text-primary" : "text-text-bright"}
+								>
+									{shortName}
+								</span>
+							</li>
+						))}
+					</ol>
+				</>
+			}
+			placement="bottom"
+			className="min-w-0"
+		>
 			<section
 				className="min-w-0 border border-border-secondary bg-bg-base/90 px-2 py-1 text-base tabular-nums md:px-3 md:py-2"
 				aria-label="Turn order"
@@ -34,7 +54,10 @@ export function CombatTurnOrder({ turnOrder, heroId }: CombatTurnOrderProps) {
 										id === heroId ? "text-primary" : "text-text-bright",
 									)}
 								>
-									{shortName}
+									<span aria-hidden="true" className="md:hidden">
+										◆
+									</span>
+									<span className="sr-only md:not-sr-only">{shortName}</span>
 								</span>
 							</li>
 						);

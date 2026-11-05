@@ -1,4 +1,4 @@
-import { act, render as renderUI, screen, within } from "@testing-library/react";
+import { act, fireEvent, render as renderUI, screen, within } from "@testing-library/react";
 import type { ReactElement } from "react";
 import type { CombatLogEntry } from "@app/engine";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -66,16 +66,34 @@ describe("Battlefield background preloading", () => {
 });
 
 describe("Battlefield combat outcomes", () => {
+	it("shows names in turn order in the tooltip and updates when the order changes", async () => {
+		const { rerender } = render(<Battlefield {...baseProps} entries={[]} />);
+		const panel = screen.getByRole("region", { name: "Turn order" });
+
+		fireEvent.focus(panel.parentElement!);
+		const tooltip = await screen.findByRole("tooltip");
+		expect(tooltip).toHaveTextContent("1. Aldric");
+		expect(tooltip).toHaveTextContent("2. Orc");
+
+		rerender(
+			<Battlefield
+				{...baseProps}
+				turnOrder={[...baseProps.turnOrder].reverse()}
+				entries={[]}
+			/>,
+		);
+		expect(tooltip).toHaveTextContent("1. Orc");
+		expect(tooltip).toHaveTextContent("2. Aldric");
+	});
+
 	it("renders compact names in supplied order and keeps the panel after victory", () => {
 		const props = { ...baseProps, turnOrder: [...baseProps.turnOrder].reverse() };
 		const { rerender } = render(<Battlefield {...props} entries={[]} />);
 		const panel = screen.getByRole("region", { name: "Turn order" });
 
-		expect(
-			within(panel)
-				.getAllByRole("listitem")
-				.map((row) => row.textContent),
-		).toEqual(["Orc", "Aldric"]);
+		const rows = within(panel).getAllByRole("listitem");
+		expect(within(rows[0]!).getByText("Orc")).toBeInTheDocument();
+		expect(within(rows[1]!).getByText("Aldric")).toBeInTheDocument();
 		rerender(<Battlefield {...props} entries={[]} isEnemySlain enemyCurrentHp={0} />);
 		expect(screen.getByRole("region", { name: "Turn order" })).toBeInTheDocument();
 	});
