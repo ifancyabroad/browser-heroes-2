@@ -49,7 +49,7 @@ export default buildEnemy({
 		},
 		skillIds: [
 			"power_word_pain",
-			"power_word_shield",
+			"power_word_aegis",
 			"power_word_confusion",
 			"power_word_decay",
 		],
