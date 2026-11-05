@@ -116,9 +116,9 @@ export function TownShopItemCard({ slot, isPending, onBuy, onLockChange }: TownS
 
 			{requiresReplacement && !isPurchased && (
 				<div className="pt-1 md:hidden">
-					<p className="min-w-0">
-						<span className="mr-1 text-text-label">Replaces:</span>
-						<span className="min-w-0 text-text">
+					<p className="flex min-w-0 gap-1">
+						<span className="shrink-0 text-text-label">Replaces:</span>
+						<span className="min-w-0 flex-1 text-text">
 							<EquipmentReplacementItems destinations={destinations} />
 						</span>
 					</p>
@@ -146,7 +146,7 @@ function ItemHeading({ slot }: { slot: TownShopSlotView }) {
 					) : null
 				}
 				className={clsx(
-					"min-w-0 max-w-full underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+					"min-w-0 max-w-full truncate align-bottom underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:overflow-visible md:whitespace-normal md:text-clip md:align-baseline",
 					getItemRarityTextClassName(item.rarity),
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"

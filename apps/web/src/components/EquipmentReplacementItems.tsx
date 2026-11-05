@@ -11,29 +11,33 @@ type EquipmentReplacementItemsProps = {
 export function EquipmentReplacementItems({ destinations }: EquipmentReplacementItemsProps) {
 	const replacements = getUniqueReplacements(destinations);
 
-	return replacements.map((replacedItem, index) => {
-		const item = selectItemDefinition(replacedItem);
+	return (
+		<span className="flex min-w-0 max-w-full">
+			{replacements.map((replacedItem, index) => {
+				const item = selectItemDefinition(replacedItem);
 
-		return (
-			<span key={replacedItem.instanceId}>
-				{index > 0 && ", "}
-				{item ? (
-					<Tooltip
-						content={<ItemTooltipContent item={item} />}
-						className={clsx(
-							"underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
-							getItemRarityTextClassName(item.rarity),
+				return (
+					<span key={replacedItem.instanceId} className="flex min-w-0 flex-1">
+						{index > 0 && <span className="shrink-0 whitespace-pre">, </span>}
+						{item ? (
+							<Tooltip
+								content={<ItemTooltipContent item={item} />}
+								className={clsx(
+									"min-w-0 max-w-full truncate align-bottom underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+									getItemRarityTextClassName(item.rarity),
+								)}
+								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
+							>
+								{item.name}
+							</Tooltip>
+						) : (
+							"Unknown item"
 						)}
-						contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
-					>
-						{item.name}
-					</Tooltip>
-				) : (
-					"Unknown item"
-				)}
-			</span>
-		);
-	});
+					</span>
+				);
+			})}
+		</span>
+	);
 }
 
 function getUniqueReplacements(destinations: readonly EquipmentDestinationView[]) {

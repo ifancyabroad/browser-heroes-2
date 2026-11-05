@@ -71,9 +71,9 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 			</RadioCard>
 
 			{requiresReplacement && (
-				<p className="min-w-0 pt-1">
-					<span className="mr-1 text-text-label">Replaces:</span>
-					<span className="min-w-0 text-text">
+				<p className="flex min-w-0 gap-1 pt-1">
+					<span className="shrink-0 text-text-label">Replaces:</span>
+					<span className="min-w-0 flex-1 text-text">
 						<EquipmentReplacementItems
 							destinations={option.equipmentPlacement.destinations}
 						/>
