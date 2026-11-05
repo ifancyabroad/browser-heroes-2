@@ -57,18 +57,6 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 			signed: true,
 		},
 		{
-			label: combatStatLabels.savingThrowBonus,
-			displayLabel: combatStatShortLabels.savingThrowBonus,
-			stat: getStatPresentation(hero.combatStats.savingThrowBonus),
-			signed: true,
-		},
-		{
-			label: combatStatLabels.saveDcBonus,
-			displayLabel: combatStatShortLabels.saveDcBonus,
-			stat: getStatPresentation(hero.combatStats.saveDcBonus),
-			signed: true,
-		},
-		{
 			label: combatStatLabels.criticalRangeBonus,
 			displayLabel: combatStatShortLabels.criticalRangeBonus,
 			stat: getStatPresentation(hero.combatStats.criticalRangeBonus),
@@ -77,6 +65,18 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 			label: combatStatLabels.criticalDiceMultiplierBonus,
 			displayLabel: combatStatShortLabels.criticalDiceMultiplierBonus,
 			stat: getStatPresentation(hero.combatStats.criticalDiceMultiplierBonus),
+		},
+		{
+			label: combatStatLabels.saveDcBonus,
+			displayLabel: combatStatShortLabels.saveDcBonus,
+			stat: getStatPresentation(hero.combatStats.saveDcBonus),
+			signed: true,
+		},
+		{
+			label: combatStatLabels.savingThrowBonus,
+			displayLabel: combatStatShortLabels.savingThrowBonus,
+			stat: getStatPresentation(hero.combatStats.savingThrowBonus),
+			signed: true,
 		},
 		{
 			label: combatStatLabels.healingMultiplier,

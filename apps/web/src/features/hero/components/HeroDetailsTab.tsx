@@ -59,24 +59,17 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			stat: getStatPresentation(heroView.combatStats.initiative),
 		},
 		{
+			label: combatStatShortLabels.maxHpBonus,
+			fullLabel: combatStatLabels.maxHpBonus,
+			description: combatStatDescriptions.maxHpBonus,
+			stat: getStatPresentation(heroView.combatStats.maxHpBonus),
+			signed: true,
+		},
+		{
 			label: combatStatShortLabels.attackRollBonus,
 			fullLabel: combatStatLabels.attackRollBonus,
 			description: combatStatDescriptions.attackRollBonus,
 			stat: getStatPresentation(heroView.combatStats.attackRollBonus),
-			signed: true,
-		},
-		{
-			label: combatStatShortLabels.savingThrowBonus,
-			fullLabel: combatStatLabels.savingThrowBonus,
-			description: combatStatDescriptions.savingThrowBonus,
-			stat: getStatPresentation(heroView.combatStats.savingThrowBonus),
-			signed: true,
-		},
-		{
-			label: combatStatShortLabels.saveDcBonus,
-			fullLabel: combatStatLabels.saveDcBonus,
-			description: combatStatDescriptions.saveDcBonus,
-			stat: getStatPresentation(heroView.combatStats.saveDcBonus),
 			signed: true,
 		},
 		{
@@ -92,17 +85,24 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 			stat: getStatPresentation(heroView.combatStats.criticalDiceMultiplierBonus),
 		},
 		{
+			label: combatStatShortLabels.saveDcBonus,
+			fullLabel: combatStatLabels.saveDcBonus,
+			description: combatStatDescriptions.saveDcBonus,
+			stat: getStatPresentation(heroView.combatStats.saveDcBonus),
+			signed: true,
+		},
+		{
+			label: combatStatShortLabels.savingThrowBonus,
+			fullLabel: combatStatLabels.savingThrowBonus,
+			description: combatStatDescriptions.savingThrowBonus,
+			stat: getStatPresentation(heroView.combatStats.savingThrowBonus),
+			signed: true,
+		},
+		{
 			label: combatStatShortLabels.healingMultiplier,
 			fullLabel: combatStatLabels.healingMultiplier,
 			description: combatStatDescriptions.healingMultiplier,
 			stat: getStatPresentation(heroView.combatStats.healingMultiplier),
-		},
-		{
-			label: combatStatShortLabels.maxHpBonus,
-			fullLabel: combatStatLabels.maxHpBonus,
-			description: combatStatDescriptions.maxHpBonus,
-			stat: getStatPresentation(heroView.combatStats.maxHpBonus),
-			signed: true,
 		},
 	];
 	const resistances = getActiveAffinities(heroView.combatStats.damageAffinities.resistances);
