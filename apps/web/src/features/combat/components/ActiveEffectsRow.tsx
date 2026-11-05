@@ -76,7 +76,7 @@ function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltip
 			<header className="mb-1">
 				<p className="text-text-bright">{sourceName}</p>
 			</header>
-			<ul className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-2">
+			<ul className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1">
 				{effects.map((effect) => (
 					<li key={effect.id} className="min-w-0">
 						<p className={getActiveEffectTextClassName(effect)}>
@@ -98,7 +98,7 @@ function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltip
 			</ul>
 			{sharedDuration && (
 				<footer
-					className={clsx("text-text-muted tabular-nums", effects.length > 1 && "mt-2")}
+					className={clsx("text-text-muted tabular-nums", effects.length > 1 && "mt-1")}
 				>
 					{formatRemainingDuration(sharedDuration)}
 				</footer>
