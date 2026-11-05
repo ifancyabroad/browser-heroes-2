@@ -40,11 +40,11 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 				</span>
 
 				<span className="grid min-w-0 gap-1 self-center">
-					{option.type === "item" && content.tooltipSlot ? (
+					{option.type === "item" ? (
 						<Tooltip
 							content={<ItemTooltipContent item={option.item} />}
 							className={clsx(
-								"w-fit min-w-0 max-w-full underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+								"w-fit min-w-0 max-w-full truncate underline decoration-border underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 								getItemRarityTextClassName(option.item.rarity),
 							)}
 							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
@@ -54,19 +54,18 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 					) : (
 						<span>{content.name}</span>
 					)}
-					{option.type === "item" &&
-						option.equipmentPlacement.destinations.length > 0 && (
-							<span>
-								<span className="mr-1 text-text-label">Slot:</span>
-								<span className="text-text">
-									{getEquipmentSlotLabel(
-										option.equipmentPlacement.destinations.map(
-											(destination) => destination.equipmentSlot,
-										),
-									)}
-								</span>
+					{option.type === "item" && (
+						<span>
+							<span className="mr-1 text-text-label">Slot:</span>
+							<span className="text-text">
+								{getEquipmentSlotLabel(
+									option.equipmentPlacement.destinations.map(
+										(destination) => destination.equipmentSlot,
+									),
+								)}
 							</span>
-						)}
+						</span>
+					)}
 				</span>
 			</RadioCard>
 
@@ -89,17 +88,11 @@ function getOptionContent(option: RewardChoiceOptionView) {
 		return {
 			icon: goldIcon,
 			name: `${option.amount} Gold`,
-			tooltipSlot: null,
 		};
 	}
-
-	const destinationSlots = option.equipmentPlacement.destinations.map(
-		(destinationOption) => destinationOption.equipmentSlot,
-	);
 
 	return {
 		icon: resolveImageUrl(option.item.icon),
 		name: option.item.name,
-		tooltipSlot: destinationSlots.length > 0 ? destinationSlots : null,
 	};
 }
