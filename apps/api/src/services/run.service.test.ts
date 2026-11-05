@@ -196,9 +196,18 @@ describe("run.service", () => {
 		);
 	});
 
+	it("accepts a hero name at the 12-character limit", async () => {
+		await createRun({ userId: "user-id", heroName: "abcdefghijkl", classId: "warrior" });
+
+		expect(engine.createInitialRunState).toHaveBeenCalledWith(
+			expect.objectContaining({ heroName: "Abcdefghijkl" }),
+		);
+	});
+
 	it.each([
 		["   ", "Hero name is required."],
 		["123", "Hero name can only contain letters."],
+		["abcdefghijklm", "Hero name must be 12 characters or fewer."],
 		["thisnameisfarbeyondtheallowedheronamelength", "characters or fewer"],
 	])("rejects invalid hero name %j", async (heroName, message) => {
 		await expect(

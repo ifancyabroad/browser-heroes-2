@@ -5,12 +5,10 @@ import { getZoneOptions } from "../systems/encounters/zones/getZoneOptions";
 import { calculateGoldMultiplier } from "../systems/progression/rewards/calculateGoldMultiplier";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
 import { getCombatTurnOrder } from "../systems/combat/rounds/getCombatTurnOrder";
-import { getEffectiveCombatStatValue } from "../systems/combat/effects/getEffectiveCombatStatValue";
 
 export type CombatTurnOrderEntry = {
 	id: string;
 	shortName: string;
-	initiative: number;
 };
 
 export type CombatViewState = {
@@ -84,7 +82,6 @@ function getTurnOrderView(combat: CombatState): CombatTurnOrderEntry[] {
 		return {
 			id: combatant.id,
 			shortName: combatant.shortName,
-			initiative: getEffectiveCombatStatValue(combatant, "initiative"),
 		};
 	});
 }

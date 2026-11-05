@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "death_knight",
 	name: "Death Knight",
-	shortName: "Death Knight",
+	shortName: "Knight",
 	description:
 		"An oath-bound rider mounted on a beast raised from the citadel's charnel pits. Its patrol continues beyond the walls along roads buried by later generations.",
 	portrait: "enemies/citadel/death_knight.png",

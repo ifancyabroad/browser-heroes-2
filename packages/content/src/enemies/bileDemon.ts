@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bile_demon",
 	name: "Bile Demon",
-	shortName: "Bile Demon",
+	shortName: "Demon",
 	description:
 		"A swollen fiend whose corrosive secretions foul the ground beneath its feet. Infernal armies drive it ahead of their baggage trains to clear contested passages.",
 	portrait: "enemies/hell/bile_demon.png",

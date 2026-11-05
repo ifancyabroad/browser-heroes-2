@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bone_guard",
 	name: "Bone Guard",
-	shortName: "Bone Guard",
+	shortName: "Guard",
 	description:
 		"The animated remains of a goblin, bound to guard the outpost by tribal necromancy. It patrols without rest or recognition of its former kin.",
 	portrait: "enemies/outpost/bone_guard.png",

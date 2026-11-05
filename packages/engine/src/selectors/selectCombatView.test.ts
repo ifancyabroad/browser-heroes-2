@@ -23,12 +23,11 @@ describe("selectCombatView", () => {
 			order.map((side) => ({
 				id: combat[side].id,
 				shortName: combat[side].shortName,
-				initiative: combat[side].combatStats.initiative,
 			})),
 		);
 	});
 
-	it("uses effective Initiative for both ordering and displayed values after combat too", () => {
+	it("uses effective Initiative for ordering after combat too", () => {
 		const state = createTestVictoryState();
 		const combat = state.combat!;
 		combat.player.combatStats.initiative = 10;
@@ -45,8 +44,8 @@ describe("selectCombatView", () => {
 		});
 
 		expect(selectCombatView(state)?.turnOrder).toEqual([
-			{ id: combat.enemy.id, shortName: combat.enemy.shortName, initiative: 14 },
-			{ id: combat.player.id, shortName: combat.player.shortName, initiative: 10 },
+			{ id: combat.enemy.id, shortName: combat.enemy.shortName },
+			{ id: combat.player.id, shortName: combat.player.shortName },
 		]);
 	});
 

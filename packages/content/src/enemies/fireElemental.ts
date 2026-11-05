@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_elemental",
 	name: "Fire Elemental",
-	shortName: "Fire Elemental",
+	shortName: "Elemental",
 	description:
 		"A spirit of consuming fire sustained by the tower’s magic. The braziers built to contain it have long since melted.",
 	portrait: "enemies/tower/fire_elemental.png",

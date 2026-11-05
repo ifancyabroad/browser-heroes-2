@@ -11,8 +11,8 @@ function render(ui: ReactElement) {
 
 const baseProps = {
 	turnOrder: [
-		{ id: "hero-1", shortName: "Aldric", initiative: 12 },
-		{ id: "enemy-1", shortName: "Orc", initiative: 10 },
+		{ id: "hero-1", shortName: "Aldric" },
+		{ id: "enemy-1", shortName: "Orc" },
 	],
 	heroId: "hero-1",
 	enemyId: "enemy-1",
@@ -75,7 +75,7 @@ describe("Battlefield combat outcomes", () => {
 			within(panel)
 				.getAllByRole("listitem")
 				.map((row) => row.textContent),
-		).toEqual(["OrcInitiative 10", "AldricInitiative 12"]);
+		).toEqual(["Orc", "Aldric"]);
 		rerender(<Battlefield {...props} entries={[]} isEnemySlain enemyCurrentHp={0} />);
 		expect(screen.getByRole("region", { name: "Turn order" })).toBeInTheDocument();
 	});

@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_shaman",
 	name: "Orc Shaman",
-	shortName: "Orc Shaman",
+	shortName: "Shaman",
 	description:
 		"An orc spiritual guide who calls storms and tends the wounds of marsh raiders. Clan leaders leave offerings before asking him to bless a crossing.",
 	portrait: "enemies/swamp/orc_shaman.png",

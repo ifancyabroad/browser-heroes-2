@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_wardog",
 	name: "Orc Wardog",
-	shortName: "Orc Wardog",
+	shortName: "Wardog",
 	description:
 		"A great hunting hound ridden into battle by an orc raider. Rider and beast train together to pursue enemies across the open grasslands.",
 	portrait: "enemies/plains/orc_wardog.png",

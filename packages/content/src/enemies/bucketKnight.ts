@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bucket_knight",
 	name: "Bucket Knight",
-	shortName: "Bucket Knight",
+	shortName: "Knight",
 	description:
 		"A stranded swordsman protected by armour assembled from salvaged equipment. Islanders recognise mainland military markings on pieces that clearly belonged to several different owners.",
 	portrait: "enemies/island/bucket_knight.png",

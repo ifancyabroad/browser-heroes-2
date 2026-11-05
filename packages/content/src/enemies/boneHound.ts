@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bone_hound",
 	name: "Bone Hound",
-	shortName: "Bone Hound",
+	shortName: "Hound",
 	description:
 		"A hound rebuilt from sharpened bones and driven by a captive spirit. Citadel wardens release it wherever the outer walls have been breached.",
 	portrait: "enemies/citadel/bone_hound.png",

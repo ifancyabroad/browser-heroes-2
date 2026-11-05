@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bear_clan_hunter",
 	name: "Bear Clan Hunter",
-	shortName: "Bear Hunter",
+	shortName: "Hunter",
 	description:
 		"A patient bowman who follows game across the frozen uplands. Clan hunters mark safe crossings with antlers, though drifting snow often conceals the warnings.",
 	portrait: "enemies/tundra/bear_clan_hunter.png",

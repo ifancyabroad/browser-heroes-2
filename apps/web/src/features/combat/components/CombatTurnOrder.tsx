@@ -16,13 +16,13 @@ export function CombatTurnOrder({ turnOrder, heroId }: CombatTurnOrderProps) {
 				aria-label="Turn order"
 			>
 				<ol className="grid min-w-0 gap-1">
-					{turnOrder.map(({ id, shortName, initiative }, index) => {
+					{turnOrder.map(({ id, shortName }, index) => {
 						const OrderIcon = index === 0 ? IconCircleNumber1 : IconCircleNumber2;
 
 						return (
 							<li
 								key={id}
-								className="grid min-w-0 grid-cols-[1rem_minmax(0,1fr)_auto] items-baseline gap-2 text-text"
+								className="grid min-w-0 grid-cols-[1rem_minmax(0,1fr)] items-baseline gap-2"
 							>
 								<OrderIcon
 									aria-hidden="true"
@@ -35,10 +35,6 @@ export function CombatTurnOrder({ turnOrder, heroId }: CombatTurnOrderProps) {
 									)}
 								>
 									{shortName}
-								</span>
-								<span className="shrink-0">
-									<span className="sr-only">Initiative </span>
-									{initiative}
 								</span>
 							</li>
 						);

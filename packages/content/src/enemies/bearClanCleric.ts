@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bear_clan_cleric",
 	name: "Bear Clan Cleric",
-	shortName: "Bear Cleric",
+	shortName: "Cleric",
 	description:
 		"A warrior-priest who carries the clan's blessings into battle. Before each expedition, he recites the names of those whose remains never returned from the snow.",
 	portrait: "enemies/tundra/bear_clan_cleric.png",

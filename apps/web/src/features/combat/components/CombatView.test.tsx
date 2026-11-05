@@ -86,8 +86,8 @@ const run = {
 function createCombatView() {
 	return {
 		turnOrder: [
-			{ id: "hero", shortName: "Hero", initiative: 10 },
-			{ id: "enemy", shortName: "Enemy", initiative: 9 },
+			{ id: "hero", shortName: "Hero" },
+			{ id: "enemy", shortName: "Enemy" },
 		],
 		battleNumber: 2,
 		gold: 10,

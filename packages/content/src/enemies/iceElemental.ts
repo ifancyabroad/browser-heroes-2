@@ -3,7 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ice_elemental",
 	name: "Ice Elemental",
-	shortName: "Ice Elemental",
+	shortName: "Elemental",
 	description:
 		"A spirit of bitter cold that freezes flesh with a touch. Once bound to preserve the tower’s stores, it has turned whole floors into sealed chambers of ice.",
 	portrait: "enemies/tower/ice_elemental.png",
