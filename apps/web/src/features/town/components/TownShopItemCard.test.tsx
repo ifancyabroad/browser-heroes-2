@@ -52,17 +52,17 @@ describe("TownShopItemCard", () => {
 			/>,
 		);
 
-		expect(screen.getByText("+6 Critical Range Bonus")).toBeInTheDocument();
-		expect(screen.queryByText("+4 Critical Range Bonus")).not.toBeInTheDocument();
-		expect(screen.queryByText("+2 Critical Range Bonus")).not.toBeInTheDocument();
+		expect(screen.getByText("+6 Critical Range")).toBeInTheDocument();
+		expect(screen.queryByText("+4 Critical Range")).not.toBeInTheDocument();
+		expect(screen.queryByText("+2 Critical Range")).not.toBeInTheDocument();
 	});
 
 	it("shows the same combined stat row in item tooltips", () => {
 		render(<ItemTooltipContent item={repeatedStatItem} />);
 
-		expect(screen.getByText("+6 Critical Range Bonus")).toBeInTheDocument();
-		expect(screen.queryByText("+4 Critical Range Bonus")).not.toBeInTheDocument();
-		expect(screen.queryByText("+2 Critical Range Bonus")).not.toBeInTheDocument();
+		expect(screen.getByText("+6 Critical Range")).toBeInTheDocument();
+		expect(screen.queryByText("+4 Critical Range")).not.toBeInTheDocument();
+		expect(screen.queryByText("+2 Critical Range")).not.toBeInTheDocument();
 	});
 
 	it("exposes accessible lock and unlock controls", () => {

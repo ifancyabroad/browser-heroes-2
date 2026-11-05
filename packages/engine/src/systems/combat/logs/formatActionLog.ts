@@ -16,7 +16,7 @@ const statLabels: Record<ModifiableStat, string> = {
 	savingThrowBonus: "resolve",
 	saveDcBonus: "focus",
 	criticalRangeBonus: "critical range",
-	criticalDiceMultiplierBonus: "critical damage dice multiplier",
+	criticalDiceMultiplierBonus: "critical dice",
 	maxHpBonus: "maximum HP",
 };
 

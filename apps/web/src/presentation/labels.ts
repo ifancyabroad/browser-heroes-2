@@ -60,13 +60,13 @@ export const combatStatShortLabels = {
 export const combatStatLabels = {
 	armourClass: "Armour Class",
 	initiative: "Initiative",
-	attackRollBonus: "Attack Roll Bonus",
+	attackRollBonus: "Attack Roll",
 	savingThrowBonus: "Resolve",
 	saveDcBonus: "Focus",
-	criticalRangeBonus: "Critical Range Bonus",
-	criticalDiceMultiplierBonus: "Critical Dice Multiplier Bonus",
+	criticalRangeBonus: "Critical Range",
+	criticalDiceMultiplierBonus: "Critical Dice",
 	healingMultiplier: "Healing Multiplier",
-	maxHpBonus: "Maximum HP Bonus",
+	maxHpBonus: "Maximum HP",
 } as const;
 
 export const combatStatDescriptions: Record<keyof typeof combatStatLabels, string> = {
@@ -79,23 +79,6 @@ export const combatStatDescriptions: Record<keyof typeof combatStatLabels, strin
 	criticalDiceMultiplierBonus: "Increases critical hit damage.",
 	healingMultiplier: "Increases health restored by healing.",
 	maxHpBonus: "Increases maximum health.",
-};
-
-export const modifiableStatLabels: Record<ModifiableStat, string> = {
-	armourClass: combatStatShortLabels.armourClass,
-	initiative: combatStatShortLabels.initiative,
-	attackRollBonus: combatStatShortLabels.attackRollBonus,
-	savingThrowBonus: combatStatShortLabels.savingThrowBonus,
-	saveDcBonus: combatStatShortLabels.saveDcBonus,
-	criticalRangeBonus: combatStatShortLabels.criticalRangeBonus,
-	criticalDiceMultiplierBonus: combatStatShortLabels.criticalDiceMultiplierBonus,
-	maxHpBonus: combatStatShortLabels.maxHpBonus,
-	strength: attributeShortLabels.strength,
-	dexterity: attributeShortLabels.dexterity,
-	constitution: attributeShortLabels.constitution,
-	intelligence: attributeShortLabels.intelligence,
-	wisdom: attributeShortLabels.wisdom,
-	charisma: attributeShortLabels.charisma,
 };
 
 export const modifiableStatFullLabels: Record<ModifiableStat, string> = {

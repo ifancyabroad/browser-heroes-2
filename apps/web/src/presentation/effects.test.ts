@@ -10,7 +10,116 @@ import {
 	getActiveEffectTone,
 } from "./effects";
 
+const activeEffectBase = {
+	id: "effect",
+	sourceCombatantId: "player",
+	sourceSide: "player",
+	source: {
+		type: "skill",
+		skillId: "focus_energy",
+		sourceName: "Focus Energy",
+		sourceEffectKey: "effect:0",
+	},
+	duration: { unit: "turns", remaining: 3 },
+} as const;
+
 describe("effect presentation", () => {
+	it.each([
+		["armourClass", "Armour Class"],
+		["initiative", "Initiative"],
+		["attackRollBonus", "Attack Roll"],
+		["criticalRangeBonus", "Critical Range"],
+		["criticalDiceMultiplierBonus", "Critical Dice"],
+		["maxHpBonus", "Maximum HP"],
+	] as const)("uses the same full %s label in modifiers and active effects", (stat, label) => {
+		const modifier = { type: "modifyStat", stat, value: 2 } as const;
+		expect(formatItemModifier(modifier)).toBe(`+2 ${label}`);
+		expect(formatActiveEffectDetail({ ...activeEffectBase, ...modifier })).toBe(`+2 ${label}`);
+		const effect = {
+			...modifier,
+			target: "self",
+			duration: { unit: "turns", value: 3 },
+		} as const;
+		expect(formatSkillEffect(effect)).toBe(`Increase your ${label} by 2 for 3 turns.`);
+		expect(formatRiderEffect(effect)).toBe(`Increase your ${label} by 2 for 3 turns.`);
+	});
+
+	it.each([
+		["attack", "automaticSuccess", undefined, "Automatic hits"],
+		["attack", "automaticFailure", undefined, "Automatic misses"],
+		["attack", "automaticCritical", undefined, "Automatic critical hits"],
+		["attack", "advantage", undefined, "Advantage on attack rolls"],
+		["savingThrow", "automaticSuccess", "wisdom", "WIS saves automatically succeed"],
+		["savingThrow", "automaticFailure", "dexterity", "DEX saves automatically fail"],
+		["savingThrow", "automaticSuccess", undefined, "Saves automatically succeed"],
+		["savingThrow", "automaticFailure", undefined, "Saves automatically fail"],
+		["savingThrow", "disadvantage", "wisdom", "Disadvantage on WIS saves"],
+	] as const)("formats active %s %s concisely", (roll, mode, attribute, expected) => {
+		expect(
+			formatActiveEffectDetail({
+				...activeEffectBase,
+				type: "modifyRoll",
+				roll,
+				mode,
+				attribute,
+			}),
+		).toBe(expected);
+	});
+
+	it("describes active affinities as states while skill and item descriptions retain actions", () => {
+		const modifier = {
+			type: "modifyDamageAffinity",
+			damageType: "fire",
+			affinity: "resistance",
+			operation: "add",
+		} as const;
+		expect(formatActiveEffectDetail({ ...activeEffectBase, ...modifier })).toBe(
+			"Fire resistance",
+		);
+		expect(
+			formatActiveEffectDetail({ ...activeEffectBase, ...modifier, operation: "remove" }),
+		).toBe("Fire resistance removed");
+		expect(formatItemModifier(modifier)).toBe("Gain fire resistance");
+		expect(
+			formatSkillEffect({
+				...modifier,
+				target: "self",
+				duration: { unit: "turns", value: 3 },
+			}),
+		).toBe("Grant fire resistance to yourself for 3 turns.");
+	});
+
+	it("uses sentence case for damage descriptions without adding recurring damage classes", () => {
+		expect(
+			formatActiveEffectDetail({
+				...activeEffectBase,
+				type: "modifyDamage",
+				operation: "add",
+				value: 2,
+				damageType: "fire",
+				damageClass: "magical",
+				attackRange: "ranged",
+			}),
+		).toBe("+2 magical ranged fire damage");
+		expect(
+			formatActiveEffectDetail({
+				...activeEffectBase,
+				type: "modifyDamageTaken",
+				operation: "add",
+				value: -2,
+			}),
+		).toBe("-2 all damage taken");
+		expect(
+			formatActiveEffectDetail({
+				...activeEffectBase,
+				type: "damageOverTime",
+				dice: "1d4",
+				damageType: "fire",
+				damageClass: "magical",
+			}),
+		).toBe("1d4 fire damage per turn");
+	});
+
 	it("formats Initiative through the existing stat labels", () => {
 		expect(formatItemModifier({ type: "modifyStat", stat: "initiative", value: 2 })).toBe(
 			"+2 Initiative",
@@ -45,7 +154,7 @@ describe("effect presentation", () => {
 				dice: "1d4",
 				requiresAttackRoll: false,
 			}),
-		).toBe("Deal 1d4 Fire damage.");
+		).toBe("Deal 1d4 fire damage.");
 	});
 
 	it("keeps saving throws concise while identifying both relevant attributes", () => {
@@ -72,7 +181,7 @@ describe("effect presentation", () => {
 				requiresAttackRoll: false,
 				save,
 			}),
-		).toBe("Deal 10d6 Fire damage. DEX save: half damage. Uses your CON modifier.");
+		).toBe("Deal 10d6 fire damage. DEX save: half damage. Uses your CON modifier.");
 	});
 
 	it("describes an attribute-free saving throw as a base DC", () => {
@@ -186,7 +295,7 @@ describe("effect presentation", () => {
 				attribute: "dexterity",
 				requiresAttackRoll: true,
 			}),
-		).toBe("Attack for 1d8 + DEX Piercing damage.");
+		).toBe("Attack for 1d8 + DEX piercing damage.");
 	});
 
 	it("describes battle-duration effects with singular and plural labels", () => {
@@ -227,7 +336,7 @@ describe("effect presentation", () => {
 			mode: "automaticCritical" as const,
 		};
 
-		expect(formatActiveEffectDetail(effect)).toBe("Automatic critical hits on attack rolls");
+		expect(formatActiveEffectDetail(effect)).toBe("Automatic critical hits");
 		expect(getActiveEffectTone(effect)).toBe("positive");
 	});
 });

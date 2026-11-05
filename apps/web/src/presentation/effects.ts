@@ -5,25 +5,19 @@ import type {
 	DamageModifierOperation,
 	PassiveModifier,
 	RiderEffect,
-	RollModifierMode,
 	SavingThrow,
 	EffectDuration,
 } from "@app/content";
 import type { ActiveCombatEffect } from "@app/engine";
-import {
-	attributeShortLabels,
-	damageTypeLabels,
-	modifiableStatFullLabels,
-	modifiableStatLabels,
-} from "./labels";
+import { attributeShortLabels, damageTypeLabels, modifiableStatFullLabels } from "./labels";
 import { formatDamageSubject } from "./damage";
 
 export type ModifierTone = "positive" | "negative" | "neutral";
 
 const damageAffinityLabels = {
-	resistance: "Resistance",
-	immunity: "Immunity",
-	vulnerability: "Vulnerability",
+	resistance: "resistance",
+	immunity: "immunity",
+	vulnerability: "vulnerability",
 } as const;
 
 export function formatTitle(value: string) {
@@ -52,7 +46,7 @@ export function formatModifier(modifier: ItemModifier | PassiveModifier) {
 		case "modifyDamageTaken":
 			return `${formatModifierValue(modifier.operation, modifier.value)} ${formatDamageTakenSubject(modifier)}`;
 		case "modifyDamageAffinity":
-			return `${modifier.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[modifier.damageType]} ${damageAffinityLabels[modifier.affinity]}`;
+			return `${modifier.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[modifier.damageType].toLowerCase()} ${damageAffinityLabels[modifier.affinity]}`;
 		default:
 			return assertNever(modifier);
 	}
@@ -101,7 +95,7 @@ export function formatSkillEffect(effect: Effect): string {
 		case "damage":
 			return formatDamageEffect(effect);
 		case "attackDamage":
-			return `Attack${effect.rollMode ? ` with ${effect.rollMode}` : ""} for ${effect.multiplier === 1 ? "" : `${effect.multiplier}x `}weapon damage${effect.damageTypeOverride ? ` as ${damageTypeLabels[effect.damageTypeOverride]} damage` : ""}${effect.extraDice ? ` plus ${effect.extraDice}${effect.extraDamageType ? ` ${damageTypeLabels[effect.extraDamageType]}` : ""} damage` : ""}.`;
+			return `Attack${effect.rollMode ? ` with ${effect.rollMode}` : ""} for ${effect.multiplier === 1 ? "" : `${effect.multiplier}x `}weapon damage${effect.damageTypeOverride ? ` as ${damageTypeLabels[effect.damageTypeOverride].toLowerCase()} damage` : ""}${effect.extraDice ? ` plus ${effect.extraDice}${effect.extraDamageType ? ` ${damageTypeLabels[effect.extraDamageType].toLowerCase()}` : ""} damage` : ""}.`;
 		case "heal":
 			return `Heal for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
@@ -132,7 +126,7 @@ export function formatSkillEffect(effect: Effect): string {
 		case "modifyDamage":
 			return formatTemporaryModifier(
 				effect.target,
-				formatDamageSubject(effect, "damage"),
+				formatDamageSubject(effect, "damage").toLowerCase(),
 				effect.operation,
 				effect.value,
 				effect.duration,
@@ -153,7 +147,7 @@ export function formatSkillEffect(effect: Effect): string {
 			return formatRollEffect(effect);
 		case "damageOverTime":
 			return formatSavedEffect(
-				`${effect.target === "self" ? "Take" : "Deal"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn for ${formatEffectDuration(effect.duration)}`,
+				`${effect.target === "self" ? "Take" : "Deal"} ${effect.dice} ${damageTypeLabels[effect.damageType].toLowerCase()} damage per turn for ${formatEffectDuration(effect.duration)}`,
 				effect.save,
 			);
 		case "healOverTime":
@@ -197,7 +191,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "modifyDamage":
 			return formatTemporaryModifier(
 				effect.target,
-				formatDamageSubject(effect, "damage"),
+				formatDamageSubject(effect, "damage").toLowerCase(),
 				effect.operation,
 				effect.value,
 				effect.duration,
@@ -218,7 +212,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 			return formatRollEffect(effect);
 		case "damageOverTime":
 			return formatSavedEffect(
-				`${effect.target === "self" ? "Take" : "Deal"} ${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn${formatDurationSuffix(effect.duration)}`,
+				`${effect.target === "self" ? "Take" : "Deal"} ${effect.dice} ${damageTypeLabels[effect.damageType].toLowerCase()} damage per turn${formatDurationSuffix(effect.duration)}`,
 				effect.save,
 			);
 		case "healOverTime":
@@ -235,19 +229,19 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 		case "status":
 			return formatTitle(effect.statusId);
 		case "modifyStat":
-			return `${formatModifierValue("add", effect.value)} ${modifiableStatLabels[effect.stat]}`;
+			return `${formatModifierValue("add", effect.value)} ${modifiableStatFullLabels[effect.stat]}`;
 		case "modifyHealing":
 			return `${formatModifierValue("multiply", effect.multiplier)} healing`;
 		case "modifyDamage":
-			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageSubject(effect)}`;
+			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageSubject(effect).toLowerCase()}`;
 		case "modifyDamageTaken":
-			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageTakenSubject(effect, "All damage taken")}`;
+			return `${formatModifierValue(effect.operation, effect.value)} ${formatDamageTakenSubject(effect, "all damage taken")}`;
 		case "modifyDamageAffinity":
-			return `${effect.operation === "add" ? "Gain" : "Lose"} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]}`;
+			return `${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]}${effect.operation === "remove" ? " removed" : ""}`;
 		case "modifyRoll":
-			return `${formatRollModifierMode(effect.mode, effect.roll)} on ${formatRollSubject(effect.roll, effect.attribute)}`;
+			return formatActiveRollModifier(effect);
 		case "damageOverTime":
-			return `${effect.dice} ${damageTypeLabels[effect.damageType]} damage per turn`;
+			return `${effect.dice} ${damageTypeLabels[effect.damageType].toLowerCase()} damage per turn`;
 		case "healOverTime":
 			return `${effect.dice} healing per turn`;
 		case "shield":
@@ -352,7 +346,7 @@ export function getNumberTone(value: number): ModifierTone {
 
 function formatDamageEffect(effect: Extract<Effect | RiderEffect, { type: "damage" }>) {
 	return formatSavedEffect(
-		`${effect.target === "self" ? "Take" : effect.requiresAttackRoll ? "Attack for" : "Deal"} ${formatDiceFormula(effect.dice, effect.attribute)} ${damageTypeLabels[effect.damageType]} damage`,
+		`${effect.target === "self" ? "Take" : effect.requiresAttackRoll ? "Attack for" : "Deal"} ${formatDiceFormula(effect.dice, effect.attribute)} ${damageTypeLabels[effect.damageType].toLowerCase()} damage`,
 		effect.save,
 	);
 }
@@ -361,7 +355,7 @@ function formatDamageAffinityEffect(
 	effect: Extract<Effect | RiderEffect, { type: "modifyDamageAffinity" }>,
 ) {
 	return formatSavedEffect(
-		`${effect.operation === "add" ? "Grant" : "Remove"} ${damageTypeLabels[effect.damageType]} ${damageAffinityLabels[effect.affinity]} ${effect.operation === "add" ? "to" : "from"} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
+		`${effect.operation === "add" ? "Grant" : "Remove"} ${damageTypeLabels[effect.damageType].toLowerCase()} ${damageAffinityLabels[effect.affinity]} ${effect.operation === "add" ? "to" : "from"} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
 		effect.save,
 	);
 }
@@ -410,15 +404,20 @@ function formatRollEffect(effect: Extract<Effect | RiderEffect, { type: "modifyR
 	);
 }
 
-function formatRollModifierMode(mode: RollModifierMode, roll: "attack" | "savingThrow") {
-	switch (mode) {
+function formatActiveRollModifier(effect: Extract<ActiveCombatEffect, { type: "modifyRoll" }>) {
+	const subject = formatRollSubject(effect.roll, effect.attribute);
+	switch (effect.mode) {
 		case "advantage":
 		case "disadvantage":
-			return formatTitle(mode);
+			return `${formatTitle(effect.mode)} on ${subject}`;
 		case "automaticSuccess":
-			return roll === "attack" ? "Automatic hits" : "Automatic successes";
+			return effect.roll === "attack"
+				? "Automatic hits"
+				: `${subject === "saves" ? "Saves" : subject} automatically succeed`;
 		case "automaticFailure":
-			return roll === "attack" ? "Automatic misses" : "Automatic failures";
+			return effect.roll === "attack"
+				? "Automatic misses"
+				: `${subject === "saves" ? "Saves" : subject} automatically fail`;
 		case "automaticCritical":
 			return "Automatic critical hits";
 	}
@@ -501,7 +500,7 @@ function formatDamageTakenSubject(
 	selector: Parameters<typeof formatDamageSubject>[0],
 	fallback = "damage taken",
 ) {
-	const subject = formatDamageSubject(selector, "");
+	const subject = formatDamageSubject(selector, "").toLowerCase();
 	return subject ? `${subject} taken` : fallback;
 }
 
