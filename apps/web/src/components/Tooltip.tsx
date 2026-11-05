@@ -67,7 +67,10 @@ export function Tooltip({
 						collisionPadding={8}
 						className={clsx(
 							getContentClassName(contentClassName),
-							"max-h-[var(--radix-popover-content-available-height)] max-w-[var(--radix-popover-content-available-width)] overflow-y-auto overscroll-contain",
+							"max-h-[var(--radix-popover-content-available-height)] overflow-y-auto overscroll-contain",
+							contentClassName
+								? "max-w-[var(--radix-popover-content-available-width)]"
+								: "max-w-[min(24rem,var(--radix-popover-content-available-width))]",
 						)}
 					>
 						{content}
@@ -87,7 +90,10 @@ export function Tooltip({
 					collisionPadding={8}
 					className={clsx(
 						getContentClassName(contentClassName),
-						"max-h-[var(--radix-tooltip-content-available-height)] max-w-[var(--radix-tooltip-content-available-width)] overflow-y-auto overscroll-contain",
+						"max-h-[var(--radix-tooltip-content-available-height)] overflow-y-auto overscroll-contain",
+						contentClassName
+							? "max-w-[var(--radix-tooltip-content-available-width)]"
+							: "max-w-[min(24rem,var(--radix-tooltip-content-available-width))]",
 					)}
 				>
 					{content}
@@ -117,7 +123,6 @@ function useCoarsePointer() {
 function getContentClassName(contentClassName?: string) {
 	return clsx(
 		"z-50 border-2 border-border bg-bg-elevated p-3 text-base text-text",
-		!contentClassName && "max-w-sm",
 		contentClassName,
 	);
 }
