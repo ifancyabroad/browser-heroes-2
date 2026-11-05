@@ -112,9 +112,7 @@ describe("TownActionBar", () => {
 
 		const button = screen.getByRole("button", { name: "Rest for 10 gold" });
 		expect(button).toHaveAttribute("aria-disabled", "true");
-		expect(
-			screen.getByText("Fully rested. Health and skill uses are already full."),
-		).toBeInTheDocument();
+		expect(screen.getByText("Fully rested.")).toBeInTheDocument();
 		fireEvent.click(button);
 		expect(props.onRest).not.toHaveBeenCalled();
 	});

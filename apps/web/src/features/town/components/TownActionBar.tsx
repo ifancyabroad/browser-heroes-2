@@ -202,7 +202,7 @@ function getRestTooltipDetail({
 		return ACTION_PENDING_DETAIL;
 	}
 	if (isFullyRested) {
-		return "Fully rested. Health and skill uses are already full.";
+		return "Fully rested.";
 	}
 	if (!canAffordRest) {
 		return `Requires ${restCost} gold.`;
