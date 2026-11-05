@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_vanguard",
 	name: "Goblin Vanguard",
+	shortName: "Vanguard",
 	description:
 		"A goblin soldier who patrols the raised roads with a long-handled halberd. His company collects passage dues for crossings it neither built nor maintains.",
 	portrait: "enemies/swamp/goblin_vanguard.png",

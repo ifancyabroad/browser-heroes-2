@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "hobgoblin",
 	name: "Hobgoblin",
+	shortName: "Hobgoblin",
 	description:
 		"A cunning woodland hunter skilled with a bow and fiercely protective of its hunting grounds. Travellers are considered fair game.",
 	portrait: "enemies/forest/hobgoblin.png",

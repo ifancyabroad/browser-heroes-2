@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "deepborn_rider",
 	name: "Deepborn Rider",
+	shortName: "Rider",
 	description:
 		"A Deepborn outrider mounted on a plated beast brought through the void. Temple handlers rear its offspring in chambers built around fragments of their native world.",
 	portrait: "enemies/temple/deepborn_rider.png",

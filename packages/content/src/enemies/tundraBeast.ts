@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "tundra_beast",
 	name: "Tundra Beast",
+	shortName: "Beast",
 	description:
 		"A horned mountain predator that drags its kills beneath the snow. Hunters recognise its territory by abandoned carcasses from which only the richest meat is missing.",
 	portrait: "enemies/tundra/tundra_beast.png",

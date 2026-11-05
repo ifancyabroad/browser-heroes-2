@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "beholder",
 	name: "Beholder",
+	shortName: "Beholder",
 	description:
 		"A winged cavern predator that channels destructive magic through its single eye. It claims entire lava tunnels and treats passing through as a challenge to its rule.",
 	portrait: "enemies/volcano/beholder.png",

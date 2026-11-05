@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "cursed_guardian",
 	name: "Cursed Guardian",
+	shortName: "Guardian",
 	description:
 		"A former protector twisted into a soul-devouring sentinel by an abyssal curse. It can no longer distinguish those it sheltered from those it was sworn to repel.",
 	portrait: "enemies/abyss/cursed_guardian.png",

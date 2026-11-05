@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "succubus",
 	name: "Succubus",
+	shortName: "Succubus",
 	description:
 		"A winged temptress who weakens resolve with promises before drawing vitality from her victims. The courts of Hell value the secrets surrendered in her company.",
 	portrait: "enemies/hell/succubus.png",

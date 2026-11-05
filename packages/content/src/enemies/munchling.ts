@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "munchling",
 	name: "Munchling",
+	shortName: "Munchling",
 	description:
 		"A small shore predator that clambers onto larger prey and attacks the face. Fishermen check their nets with an oar before reaching inside.",
 	portrait: "enemies/ocean/munchling.png",

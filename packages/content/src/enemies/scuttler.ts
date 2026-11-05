@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "scuttler",
 	name: "Scuttler",
+	shortName: "Scuttler",
 	description:
 		"A venomous marsh crustacean that hides beneath floating vegetation and snaps at passing limbs. Reed gatherers probe the shallows before stepping away from their boats.",
 	portrait: "enemies/swamp/scuttler.png",

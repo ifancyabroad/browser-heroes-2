@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "chomper",
 	name: "Chomper",
+	shortName: "Chomper",
 	description:
 		"A carnivorous plant that subdues prey with a poisonous bite. It thrives beside busy trails, where fertiliser delivers itself.",
 	portrait: "enemies/forest/chomper.png",

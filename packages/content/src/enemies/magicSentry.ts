@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "magic_sentry",
 	name: "Magic Sentry",
+	shortName: "Sentry",
 	description:
 		"A suit of island wargear animated by a sealed enchantment. Its cold-burning crown still answers commands inscribed before the surrounding fortress fell into ruin.",
 	portrait: "enemies/island/magic_sentry.png",

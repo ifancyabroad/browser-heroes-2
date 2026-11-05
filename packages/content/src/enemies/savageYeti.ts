@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "savage_yeti",
 	name: "Savage Yeti",
+	shortName: "Yeti",
 	description:
 		"A brown-furred alpine predator that hunts across scree slopes and sheltered valleys. Broken branches mark the places where it drags larger kills beneath the trees.",
 	portrait: "enemies/mountain/savage_yeti.png",

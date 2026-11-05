@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_kingsguard",
 	name: "Elf Kingsguard",
+	shortName: "Kingsguard",
 	description:
 		"An armoured defender sworn to protect the royal household. Each bears a shield passed down by a predecessor whose name remains inscribed beneath the straps.",
 	portrait: "enemies/grove/elf_kingsguard.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "vhorak_and_the_obliterator",
 	name: "Vhorak and the Obliterator",
+	shortName: "Vhorak",
 	description:
 		"A Deepborn siege-master who carries the Obliterator into battle against the temple's enemies. Its ammunition is forged from tribute surrendered by worlds that resisted Og'munsta's worship.",
 	portrait: "enemies/temple/vhorak_and_the_obliterator.png",

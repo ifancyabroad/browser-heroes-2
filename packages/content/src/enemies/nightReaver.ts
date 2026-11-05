@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "night_reaver",
 	name: "Night Reaver",
+	shortName: "Reaver",
 	description:
 		"An undead executioner who hunts the citadel's passages with a hooked blade. Prisoners once feared the scrape of its weapon more than the wardens' bells.",
 	portrait: "enemies/citadel/night_reaver.png",

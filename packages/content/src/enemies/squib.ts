@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "squib",
 	name: "Squib",
+	shortName: "Squib",
 	description:
 		"A small amphibious wanderer whose mournful songs carry a weakening curse. Coastal inns have learned to refuse requests for an encore.",
 	portrait: "enemies/ocean/squib.png",

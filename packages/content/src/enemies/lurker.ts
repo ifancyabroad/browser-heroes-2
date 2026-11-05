@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "lurker",
 	name: "Lurker",
+	shortName: "Lurker",
 	description:
 		"A heavily plated abyssal beast that ambushes prey with crushing claws. It favours sheltered hollows where exhausted travellers are likely to rest.",
 	portrait: "enemies/abyss/lurker.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "tropical_shrieker",
 	name: "Tropical Shrieker",
+	shortName: "Shrieker",
 	description:
 		"A brightly feathered predator whose piercing calls disrupt the concentration of nearby intruders. Island hunters recognise its nesting grounds by the sudden silence of smaller birds.",
 	portrait: "enemies/island/tropical_shrieker.png",

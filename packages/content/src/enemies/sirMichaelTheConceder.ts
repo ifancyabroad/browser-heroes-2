@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "sir_michael_the_conceder",
 	name: "Sir Michael the Conceder",
+	shortName: "Michael",
 	description:
 		"A royal jouster whose skill with a lance is matched by a talent for surviving defeat. He considers a graceful surrender part of proper knightly conduct.",
 	portrait: "enemies/castle/sir_michael_the_conceder.png",

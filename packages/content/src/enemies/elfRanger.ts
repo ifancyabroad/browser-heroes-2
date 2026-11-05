@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_ranger",
 	name: "Elf Ranger",
+	shortName: "Ranger",
 	description:
 		"A veteran hunter whose arrows carry the pale blessing of the stars. The oldest boundary stones bear the names of rangers who never returned.",
 	portrait: "enemies/grove/elf_ranger.png",

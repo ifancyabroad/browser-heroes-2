@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "living_mold",
 	name: "Living Mold",
+	shortName: "Mold",
 	description:
 		"A creeping mass of hungry fungus that feeds on the forest’s decay. It has little patience for things that are still alive.",
 	portrait: "enemies/forest/living_mold.png",

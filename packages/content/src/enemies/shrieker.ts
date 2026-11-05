@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "shrieker",
 	name: "Shrieker",
+	shortName: "Shrieker",
 	description:
 		"A territorial woodland bird whose piercing cries leave intruders reeling. One disturbed nest can wake half the forest.",
 	portrait: "enemies/forest/shrieker.png",

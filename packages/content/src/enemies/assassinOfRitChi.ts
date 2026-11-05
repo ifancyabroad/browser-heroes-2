@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "assassin_of_rit_chi",
 	name: "Assassin of Rit Chi",
+	shortName: "Assassin",
 	description:
 		"A devoted killer of Rit Chi’s cult, trained to strike swiftly with paired blades. The priesthood sends one when a rival’s influence outgrows its patience.",
 	portrait: "enemies/desert/assassin_of_rit_chi.png",

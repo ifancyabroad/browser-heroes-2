@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "norc_mercenary",
 	name: "Norc Mercenary",
+	shortName: "Mercenary",
 	description:
 		"A broad-jawed island mercenary who breaks resistance with a heavy spiked club. Employers pay part of his fee before departure and the remainder before he enters their settlement.",
 	portrait: "enemies/island/norc_mercenary.png",

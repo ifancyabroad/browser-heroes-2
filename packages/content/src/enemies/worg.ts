@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "worg",
 	name: "Worg",
+	shortName: "Worg",
 	description:
 		"A powerful wolf-like beast tamed to carry supplies through the forest. Its handlers feed it well and trust it sparingly.",
 	portrait: "enemies/forest/worg.png",

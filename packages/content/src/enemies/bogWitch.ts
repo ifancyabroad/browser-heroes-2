@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bog_witch",
 	name: "Bog Witch",
+	shortName: "Bog Witch",
 	description:
 		"A reclusive witch who brews poisons and trades in stolen vitality. Marsh villagers leave payment outside her dwelling rather than risk being invited inside.",
 	portrait: "enemies/swamp/bog_witch.png",

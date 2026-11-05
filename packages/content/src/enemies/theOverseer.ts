@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_overseer",
 	name: "The Overseer",
+	shortName: "Overseer",
 	description:
 		"A heavily armoured warden who controls passage through the island's ancient works. The toll marks carved into his shield record obligations that outlasted the builders.",
 	portrait: "enemies/island/the_overseer.png",

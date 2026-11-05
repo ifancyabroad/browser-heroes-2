@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "gobbler",
 	name: "Gobbler",
+	shortName: "Gobbler",
 	description:
 		"A squat mountain scavenger that lunges from rocky crevices with its jaws spread wide. Travellers recognise its pale lure among the lights beside abandoned trails.",
 	portrait: "enemies/mountain/gobbler.png",

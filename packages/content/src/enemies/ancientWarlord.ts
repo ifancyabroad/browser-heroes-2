@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ancient_warlord",
 	name: "Ancient Warlord",
+	shortName: "Warlord",
 	description:
 		"The reanimated commander of a forgotten army, still directing battles from behind his shield. His soldiers carry standards belonging to a kingdom absent from surviving maps.",
 	portrait: "enemies/citadel/ancient_warlord.png",

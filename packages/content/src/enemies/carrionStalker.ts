@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "carrion_stalker",
 	name: "Carrion Stalker",
+	shortName: "Stalker",
 	description:
 		"A wiry scavenger that tracks blood through the abyss and pounces on exhausted prey. It follows larger hunters at a respectful distance, waiting for leftovers.",
 	portrait: "enemies/abyss/carrion_stalker.png",

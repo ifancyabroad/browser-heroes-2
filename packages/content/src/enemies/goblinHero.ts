@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_hero",
 	name: "Goblin Hero",
+	shortName: "Hero",
 	description:
 		"A veteran raider who fights with sword, shield, and prepared poisons. Younger goblins follow his example, though few survive long enough to earn his standing.",
 	portrait: "enemies/outpost/goblin_hero.png",

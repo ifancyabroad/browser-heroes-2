@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "peon",
 	name: "Peon",
+	shortName: "Peon",
 	description:
 		"An orc labourer who raises camps and repairs the warband’s siege engines. Fighting is considered a break from the heavy work.",
 	portrait: "enemies/plains/peon.png",

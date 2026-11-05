@@ -22,6 +22,7 @@ function createCombatant(side: CombatantSide): CombatantState {
 		side,
 		sourceId: `test-${side}`,
 		name: `Test ${side}`,
+		shortName: `Test ${side}`,
 		portrait: "test.png",
 		level: 1,
 		maxHp: 100,

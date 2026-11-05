@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_sorceress",
 	name: "Elf Sorceress",
+	shortName: "Sorceress",
 	description:
 		"An elven spellcaster who draws destructive power from moonlight and storm. Her order tends the silver pools in which the court reads the changing heavens.",
 	portrait: "enemies/grove/elf_sorceress.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "darkness_elemental",
 	name: "Darkness Elemental",
+	shortName: "Dark Elemental",
 	description:
 		"A spirit of living shadow that weakens its victims through waking nightmares. The tower’s keepers once maintained an unbroken watch of lamplighters to contain it.",
 	portrait: "enemies/tower/darkness_elemental.png",

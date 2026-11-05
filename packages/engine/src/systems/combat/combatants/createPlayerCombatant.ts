@@ -26,6 +26,7 @@ export function createPlayerCombatant(hero: HeroState, combatId: string): Combat
 		side: "player",
 		sourceId: hero.classId,
 		name: hero.name,
+		shortName: hero.name,
 		portrait: classDefinition.portrait,
 		level: hero.level,
 		maxHp: derivedHeroStats.health.maxHp,

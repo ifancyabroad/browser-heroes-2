@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "void_horror",
 	name: "Void Horror",
+	shortName: "Horror",
 	description:
 		"A small, ravenous aberration drawn through the temple's breaches between worlds. Its luminous lure guides prey towards a mouth the priesthood regards as an instrument of sacrifice.",
 	portrait: "enemies/temple/void_horror.png",

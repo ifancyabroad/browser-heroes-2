@@ -167,6 +167,7 @@ export function CombatView({ run }: CombatViewProps) {
 							</div>
 
 							<Battlefield
+								turnOrder={combatView.turnOrder}
 								heroId={combat.player.id}
 								enemyId={combat.enemy.id}
 								enemyCurrentHp={combat.enemy.currentHp}

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "void_creeper",
 	name: "Void Creeper",
+	shortName: "Creeper",
 	description:
 		"A deep-sea predator that disorients victims with psychic assaults before draining their vitality. Divers sometimes mistake its thoughts for their own.",
 	portrait: "enemies/ocean/void_creeper.png",

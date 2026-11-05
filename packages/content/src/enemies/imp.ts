@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "imp",
 	name: "Imp",
+	shortName: "Imp",
 	description:
 		"A lesser fiend armed with a fork scavenged from Hell's arsenals. Its patrols drive escaped captives towards the roads watched by greater demons.",
 	portrait: "enemies/hell/imp.png",

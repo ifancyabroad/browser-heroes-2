@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_infernal_horseman",
 	name: "The Infernal Horseman",
+	shortName: "Horseman",
 	description:
 		"A mounted enforcer who pursues fugitives with a burning scythe. Its passage marks the roads claimed by Brutalus, where even rival fiends travel under tribute.",
 	portrait: "enemies/hell/the_infernal_horseman.png",

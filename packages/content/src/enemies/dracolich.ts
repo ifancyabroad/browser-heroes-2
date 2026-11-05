@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dracolich",
 	name: "Dracolich",
+	shortName: "Dracolich",
 	description:
 		"A dragon preserved in undeath by necromancy, its breath now carrying the same decay that consumes its body. It still guards a hoard accumulated across several lifetimes.",
 	portrait: "enemies/dungeon/dracolich.png",

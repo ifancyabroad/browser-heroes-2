@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "damp_high_priestess",
 	name: "Damp High Priestess",
+	shortName: "Priestess",
 	description:
 		"A serpentine keeper of submerged shrines, versed in healing and divine punishment. She regards every shipwreck as an offering, regardless of the sailors’ intentions.",
 	portrait: "enemies/ocean/damp_high_priestess.png",

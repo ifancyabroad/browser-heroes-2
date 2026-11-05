@@ -1,4 +1,4 @@
-import { act, render as renderUI, screen } from "@testing-library/react";
+import { act, render as renderUI, screen, within } from "@testing-library/react";
 import type { ReactElement } from "react";
 import type { CombatLogEntry } from "@app/engine";
 import { afterEach, describe, expect, it, vi } from "vitest";
@@ -10,6 +10,10 @@ function render(ui: ReactElement) {
 }
 
 const baseProps = {
+	turnOrder: [
+		{ id: "hero-1", shortName: "Aldric", initiative: 12 },
+		{ id: "enemy-1", shortName: "Orc", initiative: 10 },
+	],
 	heroId: "hero-1",
 	enemyId: "enemy-1",
 	enemyCurrentHp: 100,
@@ -62,6 +66,20 @@ describe("Battlefield background preloading", () => {
 });
 
 describe("Battlefield combat outcomes", () => {
+	it("renders compact names in supplied order and keeps the panel after victory", () => {
+		const props = { ...baseProps, turnOrder: [...baseProps.turnOrder].reverse() };
+		const { rerender } = render(<Battlefield {...props} entries={[]} />);
+		const panel = screen.getByRole("region", { name: "Turn order" });
+
+		expect(
+			within(panel)
+				.getAllByRole("listitem")
+				.map((row) => row.textContent),
+		).toEqual(["OrcInitiative 10", "AldricInitiative 12"]);
+		rerender(<Battlefield {...props} entries={[]} isEnemySlain enemyCurrentHp={0} />);
+		expect(screen.getByRole("region", { name: "Turn order" })).toBeInTheDocument();
+	});
+
 	it("shows hero healing separately from damage and ignores enemy and zero healing", () => {
 		const healing = (
 			id: string,
@@ -242,9 +260,9 @@ describe("Battlefield combat outcomes", () => {
 		rerender(<Battlefield {...baseProps} entries={[...first, damageEntry("next-hit", 10)]} />);
 		expect(screen.queryByText("-8")).not.toBeInTheDocument();
 		expect(screen.queryByText("20")).not.toBeInTheDocument();
-		expect(screen.getByText("10")).toBeInTheDocument();
+		expect(screen.getByText("10", { selector: "p" })).toBeInTheDocument();
 		rerender(<Battlefield {...baseProps} enemyId="enemy-2" entries={[]} />);
-		expect(screen.queryByText("10")).not.toBeInTheDocument();
+		expect(screen.queryByText("10", { selector: "p" })).not.toBeInTheDocument();
 	});
 
 	it("clears previous feedback when a new round has no supported outcomes", () => {

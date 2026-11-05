@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bear_clan_mage",
 	name: "Bear Clan Mage",
+	shortName: "Bear Mage",
 	description:
 		"A clan hedge mage who binds winter winds into destructive spells. His knowledge passes from master to apprentice in stories outsiders mistake for fireside superstition.",
 	portrait: "enemies/tundra/bear_clan_mage.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dread_serpent",
 	name: "Dread Serpent",
+	shortName: "Serpent",
 	description:
 		"A venomous serpent twisted by the corruption beneath the hills, able to spit flesh-eating acid. Shepherds abandon pastures where its shed skins appear.",
 	portrait: "enemies/hills/dread_serpent.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "pit_fiend_yagamon",
 	name: "Pit Fiend Yagamon",
+	shortName: "Yagamon",
 	description:
 		"An infernal lord who entered the world through a fissure beneath the volcano. He considers every wound a debt, collected from his attacker and anyone offering them shelter.",
 	portrait: "enemies/volcano/pit_fiend_yagamon.png",

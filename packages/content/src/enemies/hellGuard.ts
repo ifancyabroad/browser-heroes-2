@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "hell_guard",
 	name: "Hell Guard",
+	shortName: "Hell Guard",
 	description:
 		"A winged infernal sentry trained to hunt intruders with a crossbow. It patrols the dungeon’s vaulted chambers from ledges beyond torchlight.",
 	portrait: "enemies/dungeon/hell_guard.png",

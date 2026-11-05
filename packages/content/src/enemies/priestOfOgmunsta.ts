@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "priest_of_ogmunsta",
 	name: "Priest of Og'munsta",
+	shortName: "Priest",
 	description:
 		"A plated servant of Og'munsta who draws vitality from the temple's enemies. Each stolen life is offered towards awakening the presence beyond its sealed sanctuary.",
 	portrait: "enemies/temple/priest_of_ogmunsta.png",

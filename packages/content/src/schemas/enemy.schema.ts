@@ -38,6 +38,7 @@ export const enemyEncounterSchema = z.object({
 export const enemySchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
+	shortName: z.string().nonempty(),
 	description: z.string().optional(),
 	portrait: z.string().nonempty(),
 	rank: enemyRankSchema.default("normal"),

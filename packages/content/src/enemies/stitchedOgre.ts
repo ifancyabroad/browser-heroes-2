@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "stitched_ogre",
 	name: "Stitched Ogre",
+	shortName: "Ogre",
 	description:
 		"An ogre corpse rebuilt with grafted claws and driven by dark magic. Its unnatural speed suggests its maker found ordinary ogres too easy to escape.",
 	portrait: "enemies/hills/stitched_ogre.png",

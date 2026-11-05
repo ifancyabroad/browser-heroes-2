@@ -37,6 +37,8 @@ describe("createGhostCombatant", () => {
 
 		expect(ghost.combatStats.initiative).toBe(13);
 		expect(ghost.level).toBe(state.hero.level);
+		expect(ghost.name).toBe(`Fallen Warrior ${state.hero.name}`);
+		expect(ghost.shortName).toBe(state.hero.name);
 
 		expect(ghost.combatStats).toEqual(playerLikeCombatant.combatStats);
 	});

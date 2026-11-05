@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "outlander",
 	name: "Outlander",
+	shortName: "Outlander",
 	description:
 		"An armoured exile who survives by escorting travellers between isolated island settlements. The faded colours beneath his shield once belonged to a mainland company.",
 	portrait: "enemies/island/outlander.png",

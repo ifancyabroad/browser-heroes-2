@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "nature_elemental",
 	name: "Nature Elemental",
+	shortName: "Nature Elemental",
 	description:
 		"A spirit of unchecked growth that spreads poisonous vegetation through the tower. Summoned to tend its gardens, it now treats the stonework as an obstacle.",
 	portrait: "enemies/tower/nature_elemental.png",

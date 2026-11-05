@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_witch_doctor",
 	name: "Goblin Witch Doctor",
+	shortName: "Witch Doctor",
 	description:
 		"A keeper of tribal remedies who tends the outpost's wounded and binds its dead to service. His whispered rites mend goblin flesh and bring decay to intruders.",
 	portrait: "enemies/outpost/goblin_witch_doctor.png",

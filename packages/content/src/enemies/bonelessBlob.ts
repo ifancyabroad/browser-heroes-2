@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "boneless_blob",
 	name: "Boneless Blob",
+	shortName: "Blob",
 	description:
 		"A mindless heap of demonic flesh that seizes prey with tendrils slick with digestive acid. Lesser fiends lure it towards refuse pits, then pick through what remains.",
 	portrait: "enemies/hell/boneless_blob.png",

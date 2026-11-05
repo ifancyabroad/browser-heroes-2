@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "avatar_of_rit_chi",
 	name: "Avatar of Rit Chi",
+	shortName: "Avatar",
 	description:
 		"A towering skeletal vessel through which Rit Chi’s power enters the world. The priesthood calls its endless hunger a demand for offerings.",
 	portrait: "enemies/desert/avatar_of_rit_chi.png",

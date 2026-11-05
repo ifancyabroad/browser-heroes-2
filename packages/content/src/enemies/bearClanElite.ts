@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bear_clan_elite",
 	name: "Bear Clan Elite",
+	shortName: "Bear Elite",
 	description:
 		"A veteran sworn to hold the line around the jarl's household. The names carved inside his shield belong to companions who once stood beside him.",
 	portrait: "enemies/tundra/bear_clan_elite.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_warchief_zog",
 	name: "Orc Warchief Zog",
+	shortName: "Zog",
 	description:
 		"A veteran warlord who united the plains clans through conquest and promises of glory. He leads from the front, where every warrior can see why he remains in command.",
 	portrait: "enemies/plains/orc_warchief_zog.png",

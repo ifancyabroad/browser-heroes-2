@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bear_clan_ram",
 	name: "Bear Clan Ram",
+	shortName: "Ram",
 	description:
 		"A covered siege engine built to break the gates of northern strongholds. Its shields bear the colours of households that supplied timber, iron and crew.",
 	portrait: "enemies/tundra/bear_clan_ram.png",

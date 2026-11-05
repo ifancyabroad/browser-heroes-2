@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "mounted_ratman",
 	name: "Mounted Ratman",
+	shortName: "Rat Rider",
 	description:
 		"A ratman outrider mounted on a giant desert insect, scouting caravan routes and running down stragglers. Keeping the mount fed takes most of the spoils.",
 	portrait: "enemies/desert/mounted_ratman.png",

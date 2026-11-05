@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_fanatic",
 	name: "Goblin Fanatic",
+	shortName: "Fanatic",
 	description:
 		"A tribal zealot who fights with curved knives coated in venom. He darts around his enemies, cutting exposed flesh before slipping beyond their reach.",
 	portrait: "enemies/outpost/goblin_fanatic.png",

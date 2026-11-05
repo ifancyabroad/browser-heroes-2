@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "marsh_builder",
 	name: "Marsh Builder",
+	shortName: "Builder",
 	description:
 		"A shelled labourer who raises causeways and floodbanks through the marsh. Settlements depend on his clan to keep their roads above the seasonal floods.",
 	portrait: "enemies/swamp/marsh_builder.png",

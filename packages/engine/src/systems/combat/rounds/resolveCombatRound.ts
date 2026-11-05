@@ -1,15 +1,9 @@
-import type {
-	CombatState,
-	CombatantSide,
-	EngineEvent,
-	EngineResult,
-	RunState,
-} from "../../../schemas";
+import type { CombatState, EngineEvent, EngineResult, RunState } from "../../../schemas";
 import type { RngState } from "../../../core/rng";
 import { failureResult, successResult } from "../../../core/result";
 import { advanceCombatantEffects } from "../effects/advanceCombatantEffects";
 import { getActiveEffectIds } from "../effects/advanceActiveEffects";
-import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getCombatTurnOrder } from "./getCombatTurnOrder";
 import { resolveCombatStatus } from "../death/resolveCombatStatus";
 import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward";
 import { planEnemyTurn } from "../enemy/planEnemyTurn";
@@ -39,10 +33,7 @@ export function resolveCombatRound(state: RunState, action: PlayerRoundAction): 
 
 	const events: EngineEvent[] = [];
 
-	const playerFirst =
-		getEffectiveCombatStatValue(combat.player, "initiative") >=
-		getEffectiveCombatStatValue(combat.enemy, "initiative");
-	const order: CombatantSide[] = playerFirst ? ["player", "enemy"] : ["enemy", "player"];
+	const order = getCombatTurnOrder(combat);
 
 	for (const side of order) {
 		combat = { ...combat, activeActor: side };

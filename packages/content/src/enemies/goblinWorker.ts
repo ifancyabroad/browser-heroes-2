@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_worker",
 	name: "Goblin Worker",
+	shortName: "Worker",
 	description:
 		"A goblin labourer who digs trenches and repairs the outpost's palisades. When the alarm sounds, he joins the defence with his mining pick.",
 	portrait: "enemies/outpost/goblin_worker.png",

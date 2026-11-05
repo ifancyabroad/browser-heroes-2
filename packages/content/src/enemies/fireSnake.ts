@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_snake",
 	name: "Fire Snake",
+	shortName: "Fire Snake",
 	description:
 		"A volcanic constrictor whose bite sears flesh as deeply as its fangs pierce it. It shelters in warm fissures and emerges to hunt as the slopes cool.",
 	portrait: "enemies/volcano/fire_snake.png",

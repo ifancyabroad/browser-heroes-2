@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "brute",
 	name: "Brute",
+	shortName: "Brute",
 	description:
 		"A heavily armoured enforcer trusted to hold the castle’s narrow passages. He lets intruders exhaust themselves before bringing his flail to bear.",
 	portrait: "enemies/castle/brute.png",

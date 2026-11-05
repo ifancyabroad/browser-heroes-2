@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "earth_elemental",
 	name: "Earth Elemental",
+	shortName: "Earth Elemental",
 	description:
 		"A spirit of earth that draws its body from the tower’s foundations. Every time it rises to repel an intruder, another part of the building settles.",
 	portrait: "enemies/tower/earth_elemental.png",

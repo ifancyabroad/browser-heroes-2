@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "marsh_dweller",
 	name: "Marsh Dweller",
+	shortName: "Dweller",
 	description:
 		"A reptilian warrior who guards the waterways surrounding his settlement. Families mark their fishing grounds with carved stakes, and trespassers seldom receive a second warning.",
 	portrait: "enemies/swamp/marsh_dweller.png",

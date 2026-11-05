@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "footman",
 	name: "Footman",
+	shortName: "Footman",
 	description:
 		"A veteran infantryman trained to meet breaches in the castle defences. Years of siege duty have made holding a doorway second nature.",
 	portrait: "enemies/castle/footman.png",

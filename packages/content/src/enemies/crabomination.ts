@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "crabomination",
 	name: "Crabomination",
+	shortName: "Crabomination",
 	description:
 		"A hulking crustacean whose pincers crush shell, timber, and armour with equal ease. Shipwrecks provide it with both shelter and packed lunches.",
 	portrait: "enemies/ocean/crabomination.png",

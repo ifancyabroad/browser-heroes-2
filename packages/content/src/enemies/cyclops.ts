@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "cyclops",
 	name: "Cyclops",
+	shortName: "Cyclops",
 	description:
 		"A one-eyed giant that claims narrow crossings and demands payment from travellers. Those who arrive empty-handed must bargain with whatever they can carry.",
 	portrait: "enemies/abyss/cyclops.png",

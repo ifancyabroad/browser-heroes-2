@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_kingsblade",
 	name: "Elf Kingsblade",
+	shortName: "Kingsblade",
 	description:
 		"A royal swordsman trained to break an enemy's defence with measured, powerful cuts. Admission to the order requires surrendering every claim to a family inheritance.",
 	portrait: "enemies/grove/elf_kingsblade.png",

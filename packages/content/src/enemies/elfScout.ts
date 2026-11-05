@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_scout",
 	name: "Elf Scout",
+	shortName: "Scout",
 	description:
 		"An elven bowman who watches the paths beyond the grove's borders. Small marks cut into the bark carry reports that outsiders rarely notice.",
 	portrait: "enemies/grove/elf_scout.png",

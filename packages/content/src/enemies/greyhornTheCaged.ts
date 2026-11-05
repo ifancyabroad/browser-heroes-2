@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "greyhorn_the_caged",
 	name: "Greyhorn the Caged",
+	shortName: "Greyhorn",
 	description:
 		"A minotaur who escaped captivity and claimed the deep woods as his refuge. He sees a would-be captor in everyone who enters.",
 	portrait: "enemies/forest/greyhorn_the_caged.png",

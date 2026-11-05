@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "manticore",
 	name: "Manticore",
+	shortName: "Manticore",
 	description:
 		"A winged mountain predator that scatters tail spikes before swooping down on wounded prey. Caravan guards recognise its nesting cliffs by the quills embedded in abandoned shields.",
 	portrait: "enemies/mountain/manticore.png",

@@ -4,9 +4,18 @@ import { getZoneOptions } from "../systems/encounters/zones/getZoneOptions";
 
 import { calculateGoldMultiplier } from "../systems/progression/rewards/calculateGoldMultiplier";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { getCombatTurnOrder } from "../systems/combat/rounds/getCombatTurnOrder";
+import { getEffectiveCombatStatValue } from "../systems/combat/effects/getEffectiveCombatStatValue";
+
+export type CombatTurnOrderEntry = {
+	id: string;
+	shortName: string;
+	initiative: number;
+};
 
 export type CombatViewState = {
 	combat: CombatState;
+	turnOrder: CombatTurnOrderEntry[];
 
 	battleNumber: number;
 	zoneNumber: number;
@@ -40,6 +49,7 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 
 	return {
 		combat,
+		turnOrder: getTurnOrderView(combat),
 
 		battleNumber: state.battleNumber,
 		zoneNumber: state.zoneNumber,
@@ -65,6 +75,18 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 			state.hero.pendingLevelUp === null &&
 			state.pendingRewardChoice === null,
 	};
+}
+
+function getTurnOrderView(combat: CombatState): CombatTurnOrderEntry[] {
+	return getCombatTurnOrder(combat).map((side) => {
+		const combatant = combat[side];
+
+		return {
+			id: combatant.id,
+			shortName: combatant.shortName,
+			initiative: getEffectiveCombatStatValue(combatant, "initiative"),
+		};
+	});
 }
 
 function getEnemyDescriptor(combat: CombatState): string | undefined {

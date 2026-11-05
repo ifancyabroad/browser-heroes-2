@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_hellfire_catapult",
 	name: "The Hellfire Catapult",
+	shortName: "Catapult",
 	description:
 		"A ratman siege engine that hurls diseased payloads into caravan camps. The sickness it leaves behind can close a trade route for weeks.",
 	portrait: "enemies/desert/the_hellfire_catapult.png",

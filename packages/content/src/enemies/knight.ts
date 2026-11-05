@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "knight",
 	name: "Knight",
+	shortName: "Knight",
 	description:
 		"A sworn defender of the crown, schooled in swordplay and holy rites. To abandon the gate would break an oath made before both king and altar.",
 	portrait: "enemies/castle/knight.png",

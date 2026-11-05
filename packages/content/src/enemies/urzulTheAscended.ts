@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "urzul_the_ascended",
 	name: "Urzul the Ascended",
+	shortName: "Urzul",
 	description:
 		"An orc shaman granted command of fire and storm by the old gods. Since his ascension, even warchiefs wait outside his tent to be summoned.",
 	portrait: "enemies/plains/urzul_the_ascended.png",

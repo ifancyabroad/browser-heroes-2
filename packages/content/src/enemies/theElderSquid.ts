@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_elder_squid",
 	name: "The Elder Squid",
+	shortName: "Squid",
 	description:
 		"An ancient cephalopod that subdues minds and siphons life from its captives. Coastal mystics seek its wisdom in dreams; some wake speaking with its voice.",
 	portrait: "enemies/ocean/the_elder_squid.png",

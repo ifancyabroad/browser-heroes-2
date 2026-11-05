@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_bone_collector",
 	name: "The Bone Collector",
+	shortName: "Collector",
 	description:
 		"A towering amalgamation that replaces shattered bones with pieces taken from its victims. The citadel's oldest burial chambers stand empty wherever its keepers have passed.",
 	portrait: "enemies/citadel/the_bone_collector.png",

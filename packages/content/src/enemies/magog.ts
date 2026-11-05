@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "magog",
 	name: "Magog",
+	shortName: "Magog",
 	description:
 		"A horned firecaster who hurls burning projectiles into enemy ranks. Infernal commanders station these demons behind the advance, where retreat offers little shelter from their flames.",
 	portrait: "enemies/hell/magog.png",

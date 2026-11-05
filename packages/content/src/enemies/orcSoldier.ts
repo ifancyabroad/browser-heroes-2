@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_soldier",
 	name: "Orc Soldier",
+	shortName: "Soldier",
 	description:
 		"A seasoned orc warrior who fights with axe and shield at the heart of the warband. Surviving several campaigns has taught him the value of both.",
 	portrait: "enemies/plains/orc_soldier.png",

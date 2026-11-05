@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "cerberus",
 	name: "Cerberus",
+	shortName: "Cerberus",
 	description:
 		"A three-headed infernal hound bred to guard the roads between Hell's strongholds. Its keepers recognise each head's voice and know which heralds approaching prey.",
 	portrait: "enemies/hell/cerberus.png",

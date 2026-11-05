@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "deepborn_hunter",
 	name: "Deepborn Hunter",
+	shortName: "Hunter",
 	description:
 		"A Deepborn tracker who guides arrows with unnatural concentration. Captives taken beyond the temple provide the priesthood with knowledge of worlds it has yet to reach.",
 	portrait: "enemies/temple/deepborn_hunter.png",

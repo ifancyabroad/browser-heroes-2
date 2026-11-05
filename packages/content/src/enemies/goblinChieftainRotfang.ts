@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_chieftain_rotfang",
 	name: "Goblin Chieftain Rotfang",
+	shortName: "Rotfang",
 	description:
 		"An armoured chieftain who rules the outpost with a prized curved blade. Rival claimants have supplied much of the scavenged plate protecting him.",
 	portrait: "enemies/outpost/goblin_chieftain_rotfang.png",

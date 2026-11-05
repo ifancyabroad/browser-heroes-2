@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "giant_yeti",
 	name: "Giant Yeti",
+	shortName: "Giant Yeti",
 	description:
 		"A massive mountain beast brought below ground to guard the dungeon’s coldest vaults. It has outlived its keepers and expanded its hunting grounds.",
 	portrait: "enemies/dungeon/giant_yeti.png",

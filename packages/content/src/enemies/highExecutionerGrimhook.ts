@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "high_executioner_grimhook",
 	name: "High Executioner Grimhook",
+	shortName: "Grimhook",
 	description:
 		"The outpost's executioner, mounted on a giant rat trained to pursue fleeing prisoners. His hooked polearm tears at enemies caught beneath the beast's pounce.",
 	portrait: "enemies/outpost/high_executioner_grimhook.png",

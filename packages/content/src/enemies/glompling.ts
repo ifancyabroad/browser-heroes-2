@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "glompling",
 	name: "Glompling",
+	shortName: "Glompling",
 	description:
 		"A squat woodland predator with an acidic bite and a stubborn grip. It lurks among damp roots, where passing ankles are easy prey.",
 	portrait: "enemies/forest/glompling.png",

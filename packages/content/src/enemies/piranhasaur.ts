@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "piranhasaur",
 	name: "Piranhasaur",
+	shortName: "Piranhasaur",
 	description:
 		"An amphibious reptile that tracks wounded prey by the scent of blood. Reaching dry land offers little protection from something equally happy to run.",
 	portrait: "enemies/ocean/piranhasaur.png",

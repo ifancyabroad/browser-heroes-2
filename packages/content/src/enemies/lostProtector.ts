@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "lost_protector",
 	name: "Lost Protector",
+	shortName: "Protector",
 	description:
 		"An armoured warrior who still guards the approaches to a deserted stronghold. The insignia beneath his weathered armour belongs to a garrison absent from surviving island records.",
 	portrait: "enemies/island/lost_protector.png",

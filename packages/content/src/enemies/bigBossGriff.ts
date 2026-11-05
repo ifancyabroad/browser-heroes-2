@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "big_boss_griff",
 	name: "Big Boss Griff",
+	shortName: "Griff",
 	description:
 		"A hulking ogre chief who claims tribute from the settlements beneath his stronghold. Rival leaders are invited to dispute his demands before the assembled warband.",
 	portrait: "enemies/mountain/big_boss_griff.png",

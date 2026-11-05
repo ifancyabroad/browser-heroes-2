@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "rat_ogre",
 	name: "Rat Ogre",
+	shortName: "Rat Ogre",
 	description:
 		"A monstrous ratman bred for size and aggression, unleashed to tear through caravan defences. Its handlers wait for the screaming to stop before approaching.",
 	portrait: "enemies/desert/rat_ogre.png",

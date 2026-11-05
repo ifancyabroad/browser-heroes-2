@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "wandering_fiend",
 	name: "Wandering Fiend",
+	shortName: "Fiend",
 	description:
 		"A horned island predator that wanders between ruined settlements in search of prey. Its tracks often follow abandoned roads long after the surrounding jungle has reclaimed them.",
 	portrait: "enemies/island/wandering_fiend.png",

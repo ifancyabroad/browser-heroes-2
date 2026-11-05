@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_spearman",
 	name: "Elf Spearman",
+	shortName: "Spearman",
 	description:
 		"A trained soldier who holds the narrow approaches between the ancient trees. His company still practises formations devised for wars remembered only by the elves.",
 	portrait: "enemies/grove/elf_spearman.png",

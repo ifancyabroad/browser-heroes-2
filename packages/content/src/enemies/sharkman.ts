@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "sharkman",
 	name: "Sharkman",
+	shortName: "Sharkman",
 	description:
 		"A shark-like humanoid that hunts around fishing grounds and follows boats home. Harbour bells sound whenever a fin approaches against the tide.",
 	portrait: "enemies/ocean/sharkman.png",

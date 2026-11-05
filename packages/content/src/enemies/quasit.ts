@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "quasit",
 	name: "Quasit",
+	shortName: "Quasit",
 	description:
 		"A winged spellcaster who curses its enemies and hurls fire from behind an arcane shield. Greater fiends employ it to spy on rivals and torment prisoners.",
 	portrait: "enemies/hell/quasit.png",

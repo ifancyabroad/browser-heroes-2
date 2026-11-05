@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "mana_bug",
 	name: "Mana Bug",
+	shortName: "Mana Bug",
 	description:
 		"An island beetle that stores stray magic beneath a translucent shell. It gathers around old enchantments, leaving abandoned wards dangerously depleted.",
 	portrait: "enemies/island/mana_bug.png",

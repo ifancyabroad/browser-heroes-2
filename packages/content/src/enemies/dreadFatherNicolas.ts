@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dread_father_nicolas",
 	name: "Dread Father Nicolas",
+	shortName: "Nicolas",
 	description:
 		"An undead priest who keeps the citadel's congregation bound to its altars. His sermons name the dead individually, including those whose remains were never recovered.",
 	portrait: "enemies/citadel/dread_father_nicolas.png",

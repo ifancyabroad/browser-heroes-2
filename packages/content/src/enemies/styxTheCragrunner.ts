@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "styx_the_cragrunner",
 	name: "Styx the Cragrunner",
+	shortName: "Styx",
 	description:
 		"A human hunter who commands the high passes through traps and precise bowshots. Caravan masters pay for his guidance and seldom question the trophies beneath his skull mask.",
 	portrait: "enemies/mountain/styx_the_cragrunner.png",

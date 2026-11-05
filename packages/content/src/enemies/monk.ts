@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "monk",
 	name: "Monk",
+	shortName: "Monk",
 	description:
 		"A brother of the castle chapel, trained to mend wounds and wield holy magic. His vows bind him to defend everyone sheltering within its walls.",
 	portrait: "enemies/castle/monk.png",

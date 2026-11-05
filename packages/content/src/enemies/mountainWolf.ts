@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "mountain_wolf",
 	name: "Mountain Wolf",
+	shortName: "Wolf",
 	description:
 		"A powerful wolf that follows game along the mountain's narrow ridges. Shepherds abandon familiar routes when its pack begins watching the crossings.",
 	portrait: "enemies/mountain/mountain_wolf.png",

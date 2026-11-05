@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "jarl_alfred_blondbeard",
 	name: "Jarl Alfred Blondbeard",
+	shortName: "Alfred",
 	description:
 		"The Bear Clan's war leader, whose paired blades have settled challenges from rival chiefs. His hall shelters every household that answers his summons before winter.",
 	portrait: "enemies/tundra/jarl_alfred_blondbeard.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_seer",
 	name: "Goblin Seer",
+	shortName: "Seer",
 	description:
 		"A goblin diviner who channels fire, lightning, and fearful visions through his staff. The tribe consults his omens before sending raiders beyond the palisade.",
 	portrait: "enemies/outpost/goblin_seer.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "brutalus_the_demon_king",
 	name: "Brutalus the Demon King",
+	shortName: "Brutalus",
 	description:
 		"A demon king whose authority rests on conquest and the strength to silence challengers. The skulls beneath his throne record the dynasties absorbed into his dominion.",
 	portrait: "enemies/hell/brutalus_the_demon_king.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "skeleton_warrior",
 	name: "Skeleton Warrior",
+	shortName: "Warrior",
 	description:
 		"A fallen soldier raised with the weapons buried beside it. Its battle drills have survived longer than the kingdom it served.",
 	portrait: "enemies/hills/skeleton_warrior.png",

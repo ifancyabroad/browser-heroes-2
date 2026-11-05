@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "hydra_of_the_deep",
 	name: "Hydra of the Deep",
+	shortName: "Hydra",
 	description:
 		"A many-headed sea reptile whose freezing breath stills prey before its jaws close in. Sailors recognise its hunting waters by ice drifting through otherwise warm seas.",
 	portrait: "enemies/ocean/hydra_of_the_deep.png",

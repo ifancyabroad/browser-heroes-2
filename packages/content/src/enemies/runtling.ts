@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "runtling",
 	name: "Runtling",
+	shortName: "Runtling",
 	description:
 		"A small, spiny forest beast that charges anything approaching its den. Most predators learn to give its burrow a wide berth.",
 	portrait: "enemies/forest/runtling.png",

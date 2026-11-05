@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "vilespawn",
 	name: "Vilespawn",
+	shortName: "Vilespawn",
 	description:
 		"A venomous tunnel predator that overwhelms prey with sudden leaps and a bite whose poison lingers in the blood. The cultists feed it scraps to keep it away from their sleeping quarters.",
 	portrait: "enemies/dungeon/vilespawn.png",

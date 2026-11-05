@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "mire_hound",
 	name: "Mire Hound",
+	shortName: "Mire Hound",
 	description:
 		"An undead hunting beast that follows the old paths between drowned settlements. Its former masters are gone, but it still drives strangers towards their ruined gates.",
 	portrait: "enemies/swamp/mire_hound.png",

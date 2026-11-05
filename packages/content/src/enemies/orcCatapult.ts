@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "orc_catapult",
 	name: "Orc Catapult",
+	shortName: "Catapult",
 	description:
 		"A mobile stone-thrower built to batter the fortified settlements of the plains. Its crew measures accuracy by how much is still standing.",
 	portrait: "enemies/plains/orc_catapult.png",

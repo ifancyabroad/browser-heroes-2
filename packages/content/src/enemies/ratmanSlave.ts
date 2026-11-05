@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ratman_slave",
 	name: "Ratman Slave",
+	shortName: "Slave",
 	description:
 		"An enslaved ratman forced to carry supplies and fight for the raiding clans. Every campaign brings another promise of freedom.",
 	portrait: "enemies/desert/ratman_slave.png",

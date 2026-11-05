@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_great_fizzletrix",
 	name: "The Great Fizzletrix",
+	shortName: "Fizzletrix",
 	description:
 		"A masked sorcerer who commands acid and lightning from a secluded marsh sanctuary. Local raiders surrender their finest scavenged relics in exchange for his protection.",
 	portrait: "enemies/swamp/the_great_fizzletrix.png",

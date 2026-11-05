@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "armoured_satyr",
 	name: "Armoured Satyr",
+	shortName: "Satyr",
 	description:
 		"A satyr warrior who defends the mountain trails with curved blade and shield. His company still honours boundary agreements carved into stones above the tree line.",
 	portrait: "enemies/mountain/armoured_satyr.png",

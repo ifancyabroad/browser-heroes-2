@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "dragon_slayer_eric",
 	name: "Dragon Slayer Eric",
+	shortName: "Eric",
 	description:
 		"A dragon hunter who fights by sound and instinct with paired blades. Clan apprentices seek his instruction, but few endure their first winter of training.",
 	portrait: "enemies/tundra/dragon_slayer_eric.png",

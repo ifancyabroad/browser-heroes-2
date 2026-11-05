@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bear_clan_outrider",
 	name: "Bear Clan Outrider",
+	shortName: "Outrider",
 	description:
 		"A clan swordsman mounted on a great mountain ram, trained to charge across broken ground. The finest breeding herds are guarded as closely as grain stores.",
 	portrait: "enemies/tundra/bear_clan_outrider.png",

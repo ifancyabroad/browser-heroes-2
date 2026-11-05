@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bloater",
 	name: "Bloater",
+	shortName: "Bloater",
 	description:
 		"A massive goblin bred for the tribe’s fighting pits, now serving as the outpost’s enforcer. Victorious breeders earn a place at the chieftain’s table.",
 	portrait: "enemies/outpost/bloater.png",

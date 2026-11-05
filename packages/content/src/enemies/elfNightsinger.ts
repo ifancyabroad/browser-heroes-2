@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_nightsinger",
 	name: "Elf Nightsinger",
+	shortName: "Nightsinger",
 	description:
 		"An elven assassin who slips through the grove's outer settlements with paired blades. The court records those she kills as having departed before dawn.",
 	portrait: "enemies/grove/elf_nightsinger.png",

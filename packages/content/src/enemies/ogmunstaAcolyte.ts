@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ogmunsta_acolyte",
 	name: "Og'munsta Acolyte",
+	shortName: "Acolyte",
 	description:
 		"An initiate chosen for an innate psychic gift, learning to shape the void's cold light. Those who endure their first communion hear the temple's deeper prayers.",
 	portrait: "enemies/temple/ogmunsta_acolyte.png",

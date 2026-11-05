@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "wight",
 	name: "Wight",
+	shortName: "Wight",
 	description:
 		"A restless undead spirit whose touch withers living flesh. It haunts the boundaries of land it owned in life, long after the fences have rotted.",
 	portrait: "enemies/hills/wight.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "chaos_mauler",
 	name: "Chaos Mauler",
+	shortName: "Mauler",
 	description:
 		"A warrior empowered by chaos to crush armour and bone with a massive maul. The dungeon’s broken doors mark the routes he prefers to patrol.",
 	portrait: "enemies/dungeon/chaos_mauler.png",

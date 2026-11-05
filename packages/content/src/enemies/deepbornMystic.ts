@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "deepborn_mystic",
 	name: "Deepborn Mystic",
+	shortName: "Mystic",
 	description:
 		"A void-born scholar who channels thought into destructive force. The temple's oldest records are preserved in minds like his rather than committed to mortal script.",
 	portrait: "enemies/temple/deepborn_mystic.png",

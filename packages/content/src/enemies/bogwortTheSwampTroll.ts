@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bogwort_the_swamp_troll",
 	name: "Bogwort the Swamp Troll",
+	shortName: "Bogwort",
 	description:
 		"A ravenous swamp giant whose wounds close beneath its thick hide. Nearby settlements leave butchered livestock at the reed beds to divert it from their herds.",
 	portrait: "enemies/swamp/bogwort_the_swamp_troll.png",

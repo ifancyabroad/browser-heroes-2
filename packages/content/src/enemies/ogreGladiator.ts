@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ogre_gladiator",
 	name: "Ogre Gladiator",
+	shortName: "Gladiator",
 	description:
 		"An ogre pit fighter trained to press an attack without exposing himself behind his shield. Scars beneath his armour record contests held in the mountain strongholds.",
 	portrait: "enemies/mountain/ogre_gladiator.png",

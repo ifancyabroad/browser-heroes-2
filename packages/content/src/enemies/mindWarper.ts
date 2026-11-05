@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "mind_warper",
 	name: "Mind Warper",
+	shortName: "Warper",
 	description:
 		"A crawling psychic organism cultivated within the temple's thought-vaults. Its keepers release it among prisoners before questioning those who retain enough memory to answer.",
 	portrait: "enemies/temple/mind_warper.png",

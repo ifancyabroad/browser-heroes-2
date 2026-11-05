@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "living_flame",
 	name: "Living Flame",
+	shortName: "Flame",
 	description:
 		"An intelligent fire spirit drawn to the heat rising from the mountain’s depths. Smiths once bargained with these beings to kindle furnaces that never cooled.",
 	portrait: "enemies/volcano/living_flame.png",

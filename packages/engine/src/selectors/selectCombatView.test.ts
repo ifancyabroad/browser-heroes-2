@@ -8,6 +8,48 @@ import {
 import { selectCombatView } from "./selectCombatView";
 
 describe("selectCombatView", () => {
+	it.each([
+		[9, ["player", "enemy"]],
+		[10, ["player", "enemy"]],
+		[11, ["enemy", "player"]],
+	] as const)("projects turn order against enemy Initiative %i", (initiative, order) => {
+		const state = createTestRunState();
+		const combat = state.combat!;
+		combat.player.combatStats.initiative = 10;
+		combat.enemy.combatStats.initiative = initiative;
+		combat.enemy.shortName = "Rotfang";
+
+		expect(selectCombatView(state)?.turnOrder).toEqual(
+			order.map((side) => ({
+				id: combat[side].id,
+				shortName: combat[side].shortName,
+				initiative: combat[side].combatStats.initiative,
+			})),
+		);
+	});
+
+	it("uses effective Initiative for both ordering and displayed values after combat too", () => {
+		const state = createTestVictoryState();
+		const combat = state.combat!;
+		combat.player.combatStats.initiative = 10;
+		combat.enemy.combatStats.initiative = 9;
+		combat.enemy.activeEffects.push({
+			id: "initiative-buff",
+			type: "modifyStat",
+			stat: "initiative",
+			value: 5,
+			sourceCombatantId: combat.enemy.id,
+			sourceSide: "enemy",
+			source: { type: "skill", skillId: "armour", sourceName: "Test", sourceEffectKey: "0" },
+			duration: { unit: "turns", remaining: 1 },
+		});
+
+		expect(selectCombatView(state)?.turnOrder).toEqual([
+			{ id: combat.enemy.id, shortName: combat.enemy.shortName, initiative: 14 },
+			{ id: combat.player.id, shortName: combat.player.shortName, initiative: 10 },
+		]);
+	});
+
 	it("projects active and victory states", () => {
 		expect(selectCombatView(createTestRunState())).toMatchObject({
 			isActive: true,

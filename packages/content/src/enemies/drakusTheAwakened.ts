@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "drakus_the_awakened",
 	name: "Drakus the Awakened",
+	shortName: "Drakus",
 	description:
 		"An ancient red dragon roused from a long sleep beneath the volcano. Villages built during his slumber now stand on hunting grounds he still considers his own.",
 	portrait: "enemies/volcano/drakus_the_awakened.png",

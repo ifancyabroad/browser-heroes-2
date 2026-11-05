@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "goblin_archer",
 	name: "Goblin Archer",
+	shortName: "Archer",
 	description:
 		"A goblin bowman stationed along the outpost's palisades. He coats his arrows with venom prepared by the tribe's witch doctors.",
 	portrait: "enemies/outpost/goblin_archer.png",

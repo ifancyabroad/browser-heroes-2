@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "deepborn_warrior",
 	name: "Deepborn Warrior",
+	shortName: "Warrior",
 	description:
 		"An armoured Deepborn sworn to defend the temple's inner passages. His company guards sealed doors whose contents are known only to the priesthood.",
 	portrait: "enemies/temple/deepborn_warrior.png",

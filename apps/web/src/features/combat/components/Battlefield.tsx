@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import type { Zone } from "@app/content";
-import type { CombatLogEntry } from "@app/engine";
+import type { CombatLogEntry, CombatTurnOrderEntry } from "@app/engine";
 import { CombatStatsBar } from "./CombatStatsBar";
+import { CombatTurnOrder } from "./CombatTurnOrder";
 import { CombatOutcomeOverlay } from "./CombatOutcomeOverlay";
 import { EnemyPortrait } from "./EnemyPortrait";
 
 import { ZONE_BACKGROUNDS } from "../../../presentation/zones";
 
 type BattlefieldProps = {
+	turnOrder: CombatTurnOrderEntry[];
 	heroId: string;
 	enemyId: string;
 	enemyCurrentHp: number;
@@ -23,6 +25,7 @@ type BattlefieldProps = {
 };
 
 export function Battlefield({
+	turnOrder,
 	heroId,
 	enemyId,
 	enemyCurrentHp,
@@ -59,12 +62,15 @@ export function Battlefield({
 			aria-label="Battlefield"
 			style={{ backgroundImage: `url(${ZONE_BACKGROUNDS[zone]})` }}
 		>
-			<CombatStatsBar
-				zone={zone}
-				battleNumber={battleNumber}
-				gold={gold}
-				goldMultiplier={goldMultiplier}
-			/>
+			<div className="absolute left-2 right-2 top-2 z-10 flex items-start justify-between gap-2">
+				<CombatStatsBar
+					zone={zone}
+					battleNumber={battleNumber}
+					gold={gold}
+					goldMultiplier={goldMultiplier}
+				/>
+				<CombatTurnOrder turnOrder={turnOrder} heroId={heroId} />
+			</div>
 			<CombatOutcomeOverlay enemyId={enemyId} heroId={heroId} entries={entries} />
 			<EnemyPortrait
 				enemyId={enemyId}

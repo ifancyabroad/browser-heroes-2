@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "crown_prince_thalanor",
 	name: "Crown Prince Thalanor",
+	shortName: "Thalanor",
 	description:
 		"The grove's crown prince, trained to fight from the saddle of a royal griffon. Their bond began before either was permitted beyond the palace grounds.",
 	portrait: "enemies/grove/crown_prince_thalanor.png",

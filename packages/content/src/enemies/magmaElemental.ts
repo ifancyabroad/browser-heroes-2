@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "magma_elemental",
 	name: "Magma Elemental",
+	shortName: "Magma Elemental",
 	description:
 		"A fusion of earth and fire that breaks through obstacles with molten fists. The tower’s scorched summoning chambers record several attempts to separate its quarrelling halves.",
 	portrait: "enemies/tower/magma_elemental.png",

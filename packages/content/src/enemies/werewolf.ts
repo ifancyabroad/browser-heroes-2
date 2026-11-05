@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "werewolf",
 	name: "Werewolf",
+	shortName: "Werewolf",
 	description:
 		"A cursed highland hunter whose claws tear through flesh and whose hide turns ordinary blows. Isolated settlements bar their doors when its tracks appear beside the livestock pens.",
 	portrait: "enemies/mountain/werewolf.png",

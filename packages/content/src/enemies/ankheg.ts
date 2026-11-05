@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "ankheg",
 	name: "Ankheg",
+	shortName: "Ankheg",
 	description:
 		"A burrowing insect whose colony undermines the marsh banks. Abandoned nests leave hollow ground that can swallow livestock long after the colony moves.",
 	portrait: "enemies/swamp/ankheg.png",

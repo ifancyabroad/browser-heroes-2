@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "the_executioner",
 	name: "The Executioner",
+	shortName: "Executioner",
 	description:
 		"A giant skeletal headsman bound to the hills’ abandoned execution grounds. The court that commanded it is gone, but it still regards every arrival as condemned.",
 	portrait: "enemies/hills/the_executioner.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "devilspawn",
 	name: "Devilspawn",
+	shortName: "Devilspawn",
 	description:
 		"A plated infernal soldier trained to reap enemies with a hooked scythe. Its warband claims the weapons of defeated companies as tribute to Brutalus.",
 	portrait: "enemies/hell/devilspawn.png",

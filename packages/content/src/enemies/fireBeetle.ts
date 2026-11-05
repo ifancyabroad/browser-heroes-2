@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "fire_beetle",
 	name: "Fire Beetle",
+	shortName: "Beetle",
 	description:
 		"A burrowing volcanic insect that releases bursts of flame when disturbed. Travellers occasionally mistake a sleeping colony for a convenient cooking fire.",
 	portrait: "enemies/volcano/fire_beetle.png",

@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "vampire_lord",
 	name: "Vampire Lord",
+	shortName: "Vampire",
 	description:
 		"An ancient vampire who has traded courtly finery for a soldier's weapon and armour. Debts owed to his household survive the deaths of those who incurred them.",
 	portrait: "enemies/citadel/vampire_lord.png",

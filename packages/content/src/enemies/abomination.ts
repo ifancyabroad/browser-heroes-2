@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "abomination",
 	name: "Abomination",
+	shortName: "Abomination",
 	description:
 		"A corpse warped by necromancy into a hulking creature of uncontrolled growth. Its makers abandoned it when it began attacking them too.",
 	portrait: "enemies/hills/abomination.png",

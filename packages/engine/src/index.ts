@@ -66,6 +66,7 @@ export {
 
 export type {
 	CombatViewState,
+	CombatTurnOrderEntry,
 	EncounterContext,
 	HeroProgressionView,
 	HeroView,

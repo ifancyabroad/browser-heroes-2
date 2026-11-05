@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "bear_clan_raider",
 	name: "Bear Clan Raider",
+	shortName: "Bear Raider",
 	description:
 		"A Bear Clan warrior who carries axe and shield on the winter raids. His share of the spoils must feed the household until the thaw.",
 	portrait: "enemies/tundra/bear_clan_raider.png",

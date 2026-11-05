@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "archmage_vorath",
 	name: "Archmage Vorath",
+	shortName: "Vorath",
 	description:
 		"The royal archmage, entrusted with the grove's oldest celestial workings. He remembers when the stars above its canopy followed a different course.",
 	portrait: "enemies/grove/archmage_vorath.png",

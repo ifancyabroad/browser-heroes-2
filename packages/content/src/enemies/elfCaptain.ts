@@ -3,6 +3,7 @@ import { buildEnemy } from "../builders/buildEnemy";
 export default buildEnemy({
 	id: "elf_captain",
 	name: "Elf Captain",
+	shortName: "Captain",
 	description:
 		"An officer entrusted with the grove's spear companies and border defences. Her authority is renewed each spring before the elders and the royal court.",
 	portrait: "enemies/grove/elf_captain.png",
