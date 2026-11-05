@@ -17,7 +17,7 @@ export function EquipmentReplacementItems({ destinations }: EquipmentReplacement
 				const item = selectItemDefinition(replacedItem);
 
 				return (
-					<span key={replacedItem.instanceId} className="flex min-w-0 flex-1">
+					<span key={replacedItem.instanceId} className="flex min-w-0">
 						{index > 0 && <span className="shrink-0 whitespace-pre">, </span>}
 						{item ? (
 							<Tooltip
