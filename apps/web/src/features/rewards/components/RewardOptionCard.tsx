@@ -4,7 +4,7 @@ import { RadioCard } from "../../../components/RadioCard";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { EquipmentReplacementItems } from "../../../components/EquipmentReplacementItems";
-import { getEquipmentSlotLabel, getItemRarityTextClassName } from "../../../presentation/items";
+import { getItemSlotLabel, getItemRarityTextClassName } from "../../../presentation/items";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 import { resolveImageUrl } from "../../../utils/image";
 
@@ -57,13 +57,7 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 					{option.type === "item" && (
 						<span>
 							<span className="mr-1 text-text-label">Slot:</span>
-							<span className="text-text">
-								{getEquipmentSlotLabel(
-									option.equipmentPlacement.destinations.map(
-										(destination) => destination.equipmentSlot,
-									),
-								)}
-							</span>
+							<span className="text-text">{getItemSlotLabel(option.item)}</span>
 						</span>
 					)}
 				</span>
