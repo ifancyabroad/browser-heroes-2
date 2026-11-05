@@ -21,7 +21,14 @@ export function CombatantPanel({
 		<section className="grid w-full min-w-0 gap-2" aria-label={ariaLabel}>
 			<h2 className="flex min-w-0 items-center gap-2 text-base" title={title}>
 				<span className="min-w-0 truncate">
-					<span className="text-primary">{identity}</span> / Level {combatant.level}
+					<span
+						className={
+							combatant.side === "player" ? "text-primary" : "text-text-bright"
+						}
+					>
+						{identity}
+					</span>{" "}
+					/ Level {combatant.level}
 					{descriptor && (
 						<>
 							{" / "}
