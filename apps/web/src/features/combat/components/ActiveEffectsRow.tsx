@@ -73,7 +73,7 @@ function ActiveEffectTooltipContent({ sourceName, effects }: ActiveEffectTooltip
 
 	return (
 		<div className="min-w-0 [overflow-wrap:anywhere]">
-			<header className="mb-2">
+			<header className="mb-1">
 				<p className="text-text-bright">{sourceName}</p>
 			</header>
 			<ul className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-2">
