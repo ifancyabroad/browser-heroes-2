@@ -1,7 +1,5 @@
-import clsx from "clsx";
 import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { LevelUpOption } from "@app/engine";
-import { Badge } from "../../../components/Badge";
 import { RadioCard } from "../../../components/RadioCard";
 import { Tooltip } from "../../../components/Tooltip";
 import { FeatTooltipContent } from "../../../components/tooltips/FeatTooltipContent";
@@ -26,12 +24,7 @@ export function LevelUpOptionCard({ option, value, selected, disabled }: LevelUp
 			selected={selected}
 			selectionLabel={`Select ${content.name}`}
 			disabled={disabled}
-			className={clsx(
-				"w-full gap-3",
-				content.metaLabel
-					? "grid-cols-[3rem_minmax(0,1fr)_auto]"
-					: "grid-cols-[3rem_minmax(0,1fr)]",
-			)}
+			className="w-full grid-cols-[3rem_minmax(0,1fr)] gap-3"
 		>
 			<span className="h-12 w-12 overflow-hidden border-2 border-bg-elevated bg-bg-base">
 				<img
@@ -53,13 +46,6 @@ export function LevelUpOptionCard({ option, value, selected, disabled }: LevelUp
 				</Tooltip>
 				<span>{content.category}</span>
 			</span>
-
-			{content.metaLabel && (
-				<Badge
-					label={content.metaLabel}
-					className="self-center whitespace-nowrap text-primary"
-				/>
-			)}
 		</RadioCard>
 	);
 }
@@ -72,7 +58,6 @@ function getOptionContent(option: LevelUpOption) {
 			icon: skill.icon,
 			name: skill.name,
 			category: skillCategoryLabels[skill.category],
-			metaLabel: getMaxUsesLabel(skill.maxUses),
 		};
 	}
 
@@ -82,7 +67,6 @@ function getOptionContent(option: LevelUpOption) {
 		icon: feat.icon,
 		name: feat.name,
 		category: featCategoryLabels[feat.category],
-		metaLabel: "Passive",
 	};
 }
 
@@ -94,12 +78,4 @@ function getOptionTooltipContent(option: LevelUpOption) {
 	}
 
 	return <FeatTooltipContent feat={FEATS_BY_ID[option.featId]} />;
-}
-
-function getMaxUsesLabel(maxUses: number | undefined) {
-	if (!maxUses) {
-		return null;
-	}
-
-	return `${maxUses}/${maxUses}`;
 }
