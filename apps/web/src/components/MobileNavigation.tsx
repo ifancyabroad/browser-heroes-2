@@ -6,6 +6,7 @@ import browserHeroesIcon from "../assets/images/icons/browser_heroes.png";
 import { navigationItems, type NavigationItem } from "../config/navigation";
 import { useAuth, useAuthModalStore } from "../features/auth";
 import { NavigationLink } from "./NavigationLink";
+import { IconButton } from "./Button";
 
 import styles from "./MobileNavigation.module.css";
 
@@ -43,13 +44,9 @@ export function MobileNavigation() {
 		<div className="md:hidden">
 			<Dialog.Root open={open} onOpenChange={setOpen}>
 				<Dialog.Trigger asChild>
-					<button
-						type="button"
-						className="inline-flex cursor-pointer items-center border-2 border-border bg-bg-panel px-3 py-1 text-text-bright hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-					>
-						<IconMenu2 aria-hidden="true" className="mr-2 h-4 w-4" />
-						MENU
-					</button>
+					<IconButton type="button" aria-label="MENU">
+						<IconMenu2 aria-hidden="true" className="h-6 w-6" />
+					</IconButton>
 				</Dialog.Trigger>
 
 				<Dialog.Portal>
@@ -73,13 +70,9 @@ export function MobileNavigation() {
 								</span>
 							</Dialog.Title>
 							<Dialog.Close asChild>
-								<button
-									type="button"
-									className="border-2 border-border bg-bg-panel p-1 text-text-muted hover:border-primary hover:text-text-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-									aria-label="Close menu"
-								>
-									<IconX aria-hidden="true" className="h-4 w-4" />
-								</button>
+								<IconButton type="button" aria-label="Close menu">
+									<IconX aria-hidden="true" className="h-6 w-6" />
+								</IconButton>
 							</Dialog.Close>
 						</header>
 

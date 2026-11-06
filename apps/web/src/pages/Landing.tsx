@@ -69,7 +69,7 @@ export default function Landing() {
 							<span className="h-0.5 flex-1 bg-border-secondary" aria-hidden="true" />
 						</div>
 
-						<p className="text-text">Create your own hero and play at your own pace.</p>
+						<p className="text-text">Create a hero and play at your own pace.</p>
 
 						{adventureRun && <CurrentRunSection run={adventureRun} />}
 

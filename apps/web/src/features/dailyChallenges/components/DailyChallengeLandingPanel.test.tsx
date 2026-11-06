@@ -43,7 +43,7 @@ describe("DailyChallengeLandingPanel", () => {
 		expect(screen.getByRole("heading", { name: "DAILY CHALLENGE" })).toBeInTheDocument();
 		expect(
 			screen.getByText(
-				"Everyone faces the same adventure with the same hero class. One attempt. How far can you get?",
+				"Everyone faces the same adventure with the same class. How far can you get?",
 			),
 		).toBeInTheDocument();
 		expect(screen.getByRole("img", { name: "Current leader" })).toBeVisible();
@@ -161,6 +161,7 @@ describe("DailyChallengeLandingPanel", () => {
 				<DailyChallengeLandingPanel currentRun={run} />
 			</MemoryRouter>,
 		);
+		expect(screen.getByRole("heading", { name: "DAILY CHALLENGE" })).toBeVisible();
 		expect(screen.getByRole("link", { name: "CONTINUE DAILY CHALLENGE" })).toHaveAttribute(
 			"href",
 			"/game",

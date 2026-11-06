@@ -1,0 +1,58 @@
+.panel[data-state="open"] {
+	animation: drawer-in 200ms ease-out;
+}
+
+.panel[data-state="closed"] {
+	animation: drawer-out 200ms ease-in;
+}
+
+.overlay[data-state="open"] {
+	animation: drawer-overlay-in 200ms ease-out;
+}
+
+.overlay[data-state="closed"] {
+	animation: drawer-overlay-out 200ms ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.panel[data-state],
+	.overlay[data-state] {
+		animation: none;
+	}
+}
+
+@keyframes drawer-in {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes drawer-out {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes drawer-overlay-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes drawer-overlay-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}

@@ -30,12 +30,9 @@ export function DailyChallengeLandingPanel({ currentRun }: { currentRun: RunView
 				className={`grid gap-3 ${isContentHidden ? "invisible" : ""}`}
 				aria-hidden={isContentHidden}
 			>
-				<h2 className="text-primary">
-					{activeDailyRun ? "DAILY CHALLENGE IN PROGRESS" : "DAILY CHALLENGE"}
-				</h2>
+				<h2 className="text-primary">DAILY CHALLENGE</h2>
 				<p className="text-text">
-					Everyone faces the same adventure with the same hero class. One attempt. How far
-					can you get?
+					Everyone faces the same adventure with the same class. How far can you get?
 				</p>
 
 				{leader ? (

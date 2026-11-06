@@ -55,9 +55,7 @@ describe("Landing", () => {
 
 		expect(screen.getByText("Welcome back, Player.")).toBeInTheDocument();
 		expect(screen.getByRole("heading", { name: "YOUR ADVENTURE" })).toBeInTheDocument();
-		expect(
-			screen.getByText("Create your own hero and play at your own pace."),
-		).toBeInTheDocument();
+		expect(screen.getByText("Create a hero and play at your own pace.")).toBeInTheDocument();
 		expect(screen.queryByRole("button", { name: "CREATE ACCOUNT" })).not.toBeInTheDocument();
 	});
 
