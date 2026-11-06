@@ -9,7 +9,7 @@ import { PageLoader } from "../components/PageLoader";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { Container } from "../components/Container";
-import browserHeroesLogo from "../assets/images/logos/browser_heroes.png";
+import browserHeroesLogo from "../assets/images/logos/browser_heroes.webp";
 import { DailyChallengeLandingPanel } from "../features/dailyChallenges";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -42,8 +42,8 @@ export default function Landing() {
 							<img
 								src={browserHeroesLogo}
 								alt="Browser Heroes"
-								width={1437}
-								height={1095}
+								width={912}
+								height={695}
 								className="h-auto w-full max-w-[19rem]"
 							/>
 						</h1>

@@ -1,4 +1,4 @@
-import browserHeroesLogo from "../assets/images/logos/browser_heroes.png";
+import browserHeroesLogo from "../assets/images/logos/browser_heroes.webp";
 import { Container } from "../components/Container";
 import { PageLayout } from "../components/PageLayout";
 
@@ -11,6 +11,8 @@ export function HoldingPage() {
 						<img
 							src={browserHeroesLogo}
 							alt="Browser Heroes"
+							width={912}
+							height={695}
 							className="h-auto w-full max-w-[19rem]"
 						/>
 					</h1>
