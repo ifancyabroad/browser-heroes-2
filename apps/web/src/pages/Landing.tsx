@@ -1,4 +1,3 @@
-import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { useAuth, useAuthModalStore } from "../features/auth";
@@ -14,6 +13,7 @@ import { DailyChallengeLandingPanel } from "../features/dailyChallenges";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AbandonRunModal } from "../components/AbandonRunModal";
+import { HeroIdentity } from "../components/HeroIdentity";
 
 export default function Landing() {
 	const navigate = useNavigate();
@@ -119,19 +119,15 @@ type CurrentRunSectionProps = {
 
 function CurrentRunSection({ run }: CurrentRunSectionProps) {
 	const heroView = selectHeroView(run.state.hero);
-	const heroClass = CLASSES_BY_ID[heroView.classId];
 
 	return (
-		<div className="flex w-full items-center justify-between gap-3 border-2 border-border bg-bg-panel px-3 py-2 text-left">
-			<div className="min-w-0">
-				<p className="truncate text-text-bright">{heroView.name}</p>
+		<div className="mx-auto flex w-full max-w-sm items-center justify-between gap-3 border-2 border-border bg-bg-panel px-3 py-2 text-left">
+			<HeroIdentity name={heroView.name} classId={heroView.classId} level={heroView.level} />
 
-				<p className="text-text">
-					Level {heroView.level} {heroClass.name}
-				</p>
-			</div>
-
-			<p className="shrink-0 text-info">IN PROGRESS</p>
+			<p className="shrink-0 tabular-nums">
+				<span className="text-text-bright">BATTLE</span>{" "}
+				<span className="text-text-bright">{run.summary.battleNumber}</span>
+			</p>
 		</div>
 	);
 }

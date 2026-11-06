@@ -86,13 +86,14 @@ describe("Landing", () => {
 				run: {
 					mode: "normal",
 					state: { hero: {} },
-					summary: { heroName: "Ada" },
+					summary: { heroName: "Ada", battleNumber: 12 },
 				} as RunView,
 			},
 			isLoading: false,
 		});
 
 		renderLanding();
+		expect(screen.getByText("BATTLE").parentElement).toHaveTextContent("BATTLE 12");
 		fireEvent.click(screen.getByRole("button", { name: "NEW HERO" }));
 
 		expect(screen.getByRole("dialog", { name: "ABANDON CURRENT RUN?" })).toHaveTextContent(
