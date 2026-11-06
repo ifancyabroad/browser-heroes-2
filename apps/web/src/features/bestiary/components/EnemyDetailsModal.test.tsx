@@ -35,7 +35,9 @@ describe("EnemyDetailsModal", () => {
 		expect(screen.queryByRole("heading", { name: "Skills" })).not.toBeInTheDocument();
 		expect(screen.queryByRole("heading", { name: "Feats" })).not.toBeInTheDocument();
 		expect(screen.queryByRole("heading", { name: "Affinities" })).not.toBeInTheDocument();
-		expect(screen.getByRole("img").parentElement?.style.backgroundImage).toContain("bg_12.png");
+		expect(screen.getByRole("img").parentElement?.style.backgroundImage).toContain(
+			"bg_12.webp",
+		);
 		fireEvent.keyDown(screen.getByRole("dialog"), { key: "Escape" });
 		expect(close).toHaveBeenCalled();
 	});

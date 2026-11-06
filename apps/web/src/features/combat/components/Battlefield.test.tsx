@@ -57,8 +57,8 @@ describe("Battlefield background preloading", () => {
 		act(() => vi.advanceTimersByTime(1_000));
 		expect(images).toHaveLength(2);
 		expect(images.map((image) => image.src)).toEqual([
-			expect.stringContaining("bg_27.png"),
-			expect.stringContaining("bg_46.png"),
+			expect.stringContaining("bg_27.webp"),
+			expect.stringContaining("bg_46.webp"),
 		]);
 		expect(images.every((image) => image.fetchPriority === "low")).toBe(true);
 		unmount();
