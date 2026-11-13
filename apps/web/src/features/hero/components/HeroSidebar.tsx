@@ -1,11 +1,10 @@
 import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroProgression, selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { IconChartBar, IconSword, IconSparkles, IconScript, IconWorld } from "@tabler/icons-react";
+import { IconChartBar, IconSword, IconSparkles, IconScript } from "@tabler/icons-react";
 import { ActiveEffectsRow } from "../../combat/components/ActiveEffectsRow";
 import { CombatLogPanel } from "../../combat/components/CombatLogPanel";
 import { LogPanel } from "../../../components/LogPanel";
-import { useWorldLog, WorldLogPanel } from "../../worldLog";
 import { useState } from "react";
 import { Sidebar } from "../../../components/Sidebar";
 import { ResourceBar } from "../../../components/ResourceBar";
@@ -25,12 +24,11 @@ type HeroSidebarProps = {
 	onSwapWeapons?: () => void;
 };
 
-type HeroSidebarTab = "details" | "equipment" | "skills" | "combat" | "world";
+type HeroSidebarTab = "details" | "equipment" | "skills" | "combat";
 
 const sharedTabs = [
 	{ label: "Equipment", value: "equipment", icon: <IconSword className="h-6 w-6" /> },
 	{ label: "Skills", value: "skills", icon: <IconSparkles className="h-6 w-6" /> },
-	{ label: "World Log", value: "world", icon: <IconWorld className="h-6 w-6" /> },
 ] as const;
 
 export function HeroSidebar({
@@ -47,7 +45,6 @@ export function HeroSidebar({
 	const [activeTab, setActiveTab] = useState<HeroSidebarTab>(isCombat ? "combat" : "details");
 
 	const heroView = selectHeroView(state.hero);
-	const worldLog = useWorldLog();
 	const heroSidebarTabs = [
 		isCombat
 			? {
@@ -126,9 +123,6 @@ export function HeroSidebar({
 									/>
 								</LogPanel>
 							);
-						}
-						if (tab === "world") {
-							return <WorldLogPanel {...worldLog} />;
 						}
 						if (tab === "details") {
 							return <HeroDetailsTab heroView={heroView} />;

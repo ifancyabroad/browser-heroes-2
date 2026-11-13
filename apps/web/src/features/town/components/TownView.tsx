@@ -8,17 +8,20 @@ import {
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
-import { GameNavigation } from "../../../components/GameNavigation";
+import { ShopNavigationActions } from "./ShopNavigationActions";
+import { GameNavigation, DefaultGameNavigationActions } from "../../../components/GameNavigation";
+import { TownGoldBalance } from "./TownGoldBalance";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel, GamePanelContainer } from "../../../components/GameMainPanel";
 import { HeroSidebar } from "../../hero/components/HeroSidebar";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
-import { TownActionBar } from "./TownActionBar";
+import { TownHub } from "./TownHub";
+import { TavernModal } from "./TavernModal";
+import { AlchemistModal } from "./AlchemistModal";
+import { useWorldLog, WorldLogPanel } from "../../worldLog";
 import { TownShopGrid } from "./TownShopGrid";
-import { useHowToPlayModalStore } from "../../howToPlay";
-import { TownGoldBalance } from "./TownGoldBalance";
 
 type TownViewProps = {
 	run: RunView;
@@ -26,12 +29,13 @@ type TownViewProps = {
 
 export function TownView({ run }: TownViewProps) {
 	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
-	const openSidebar = useSidebarStore((state) => state.open);
 	const closeSidebar = useSidebarStore((state) => state.close);
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
+	const [screen, setScreen] = useState<"town" | "shop">("town");
+	const [service, setService] = useState<"tavern" | "alchemist" | null>(null);
+	const worldLog = useWorldLog();
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
-	const openHowToPlay = useHowToPlayModalStore((state) => state.open);
 	const townView = selectTownView(run.state);
 	const availableActions = selectAvailableActions(run.state);
 	const availableActionTypes = new Set(availableActions.map((action) => action.type));
@@ -40,23 +44,27 @@ export function TownView({ run }: TownViewProps) {
 		return <p>Town state is unavailable.</p>;
 	}
 
-	function submitAction(action: EngineAction, fallbackErrorMessage: string) {
-		applyRunAction.mutate(
-			{
+	async function submitAction(
+		action: EngineAction,
+		fallbackErrorMessage: string,
+	): Promise<boolean> {
+		if (applyRunAction.isPending) {
+			return false;
+		}
+		try {
+			const { result } = await applyRunAction.mutateAsync({
 				runId: run.id,
 				action,
-			},
-			{
-				onSuccess: ({ result }) => {
-					if (!result.ok) {
-						showError(getEngineErrorMessage(result.error));
-					}
-				},
-				onError: () => {
-					showError(fallbackErrorMessage);
-				},
-			},
-		);
+			});
+			if (!result.ok) {
+				showError(getEngineErrorMessage(result.error));
+				return false;
+			}
+			return true;
+		} catch {
+			showError(fallbackErrorMessage);
+			return false;
+		}
 	}
 
 	function handleBuy(slot: TownShopSlotView) {
@@ -81,12 +89,12 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
-	function handleConfirmReplacement(equipmentSlot: EquipmentSlot) {
+	async function handleConfirmReplacement(equipmentSlot: EquipmentSlot) {
 		if (!replacementSlot) {
 			return;
 		}
 
-		submitAction(
+		const applied = await submitAction(
 			{
 				type: "BUY_ITEM",
 				shopSlotId: replacementSlot.id,
@@ -94,16 +102,21 @@ export function TownView({ run }: TownViewProps) {
 			},
 			"Unable to buy that item. Please try again.",
 		);
-		setReplacementSlot(null);
+		if (applied) {
+			setReplacementSlot(null);
+		}
 	}
 
-	function handleRest() {
-		submitAction(
+	async function handleRest() {
+		const applied = await submitAction(
 			{
 				type: "REST_AT_TOWN",
 			},
 			"Unable to rest. Please try again.",
 		);
+		if (applied) {
+			setService(null);
+		}
 	}
 
 	function handleReroll() {
@@ -158,6 +171,9 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
+	const canRest = availableActionTypes.has("REST_AT_TOWN");
+	const canBuyPotion = availableActionTypes.has("BUY_CONSUMABLE");
+	const isShop = screen === "shop";
 	return (
 		<GameLayout>
 			<HeroSidebar
@@ -168,65 +184,82 @@ export function TownView({ run }: TownViewProps) {
 				onClose={closeSidebar}
 				onSwapWeapons={handleSwapWeapons}
 			/>
-
 			<GameMainPanel>
 				<header className="shrink-0">
 					<GamePanelContainer className="py-3 md:py-4">
 						<GameNavigation
-							label="Town navigation"
-							isSidebarOpen={isSidebarOpen}
-							onOpenSidebar={openSidebar}
-							onHowToPlay={openHowToPlay}
+							actions={
+								isShop ? (
+									<ShopNavigationActions
+										rerollCost={townView.rerollCost}
+										canReroll={availableActionTypes.has("REROLL_SHOP")}
+										isPending={applyRunAction.isPending}
+										onBack={() => setScreen("town")}
+										onReroll={handleReroll}
+									/>
+								) : (
+									<DefaultGameNavigationActions />
+								)
+							}
 						>
 							<TownGoldBalance gold={townView.gold} />
 						</GameNavigation>
 					</GamePanelContainer>
 				</header>
-				<div className="min-h-0 flex-1 overflow-y-auto">
-					<GamePanelContainer className="flex h-full flex-col py-3 md:py-4 md:pt-0">
-						<div className="flex-1">
+				<div
+					className={
+						isShop
+							? "min-h-0 flex-1 overflow-y-auto"
+							: "min-h-0 flex-initial shrink overflow-y-auto"
+					}
+				>
+					<GamePanelContainer className="pb-6">
+						{isShop ? (
 							<TownShopGrid
 								shopSlots={townView.shopSlots}
 								isPending={applyRunAction.isPending}
 								onBuy={handleBuy}
 								onLockChange={handleLockChange}
 							/>
-						</div>
-						<div className="sticky bottom-0 z-20 shrink-0 py-3">
-							<TownActionBar
+						) : (
+							<TownHub
+								town={townView}
 								isPending={applyRunAction.isPending}
-								canAffordRest={townView.canAffordRest}
-								isFullyRested={townView.isFullyRested}
-								canRest={
-									availableActionTypes.has("REST_AT_TOWN") &&
-									townView.canAffordRest
-								}
-								canAffordReroll={townView.canAffordReroll}
-								canReroll={
-									availableActionTypes.has("REROLL_SHOP") &&
-									townView.canAffordReroll
-								}
-								canAffordHealingPotion={townView.canAffordHealingPotion}
-								canBuyHealingPotion={
-									availableActionTypes.has("BUY_CONSUMABLE") &&
-									townView.canBuyHealingPotion
-								}
 								canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-								restCost={townView.restCost}
-								rerollCost={townView.rerollCost}
-								healingPotions={townView.healingPotions}
-								maxHealingPotions={townView.maxHealingPotions}
-								healingPotionCost={townView.healingPotionCost}
-								onRest={handleRest}
-								onReroll={handleReroll}
-								onBuyHealingPotion={handleBuyHealingPotion}
-								onEnterCombat={handleEnterCombat}
+								onVisitShop={() => setScreen("shop")}
+								onVisitTavern={() => setService("tavern")}
+								onVisitAlchemist={() => setService("alchemist")}
+								onContinue={handleEnterCombat}
 							/>
-						</div>
+						)}
 					</GamePanelContainer>
 				</div>
+				{!isShop && (
+					<div className="flex min-h-48 flex-1 flex-col border-t-2 border-border-secondary bg-bg-base md:min-h-40">
+						<GamePanelContainer className="flex min-h-0 flex-1 py-4">
+							<WorldLogPanel {...worldLog} />
+						</GamePanelContainer>
+					</div>
+				)}
 			</GameMainPanel>
-
+			{service === "tavern" && (
+				<TavernModal
+					town={townView}
+					isPending={applyRunAction.isPending}
+					canRest={canRest}
+					onClose={() => setService(null)}
+					onRest={handleRest}
+				/>
+			)}
+			{service === "alchemist" && (
+				<AlchemistModal
+					town={townView}
+					isPending={applyRunAction.isPending}
+					canBuyPotion={canBuyPotion}
+					onClose={() => setService(null)}
+					onBuyPotion={handleBuyHealingPotion}
+				/>
+			)}
 			{replacementSlot && (
 				<EquipmentReplacementModal
 					item={replacementSlot.item}

@@ -5,10 +5,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
 import { HeroSidebar } from "./HeroSidebar";
 
-vi.mock("../../worldLog/hooks/useWorldLog", () => ({
-	useWorldLog: () => ({ entries: [], pending: false, error: false }),
-}));
-
 function createRun(): RunView {
 	const { state } = createInitialRunState({
 		runId: "sidebar-test",
@@ -62,8 +58,8 @@ describe("HeroSidebar", () => {
 		expect(screen.getByText("Init").closest("li")).toHaveTextContent("10");
 		expect(screen.getByRole("tab", { name: "Stats" })).toHaveAttribute("aria-selected", "true");
 		expect(screen.queryByRole("tab", { name: "Combat Log" })).not.toBeInTheDocument();
-		selectTab("World Log");
-		expect(screen.getByRole("region", { name: "World Log" })).toBeInTheDocument();
+		expect(screen.queryByRole("tab", { name: "World Log" })).not.toBeInTheDocument();
+		selectTab("Equipment");
 		view.rerender(sidebar(run));
 		expect(screen.getByRole("tab", { name: "Combat Log" })).toHaveAttribute(
 			"aria-selected",
@@ -112,14 +108,11 @@ describe("HeroSidebar", () => {
 		expect(screen.queryByRole("tab", { name: "Stats" })).not.toBeInTheDocument();
 	});
 
-	it("keeps both logs in matching containers", () => {
+	it("keeps the combat log in a bounded scrolling container", () => {
 		render(sidebar(createRun()));
 		const combatPanel = screen.getByRole("region", { name: "Combat Log" });
-		expect(combatPanel).toHaveClass("min-h-[10lh]");
-		selectTab("World Log");
-		expect(screen.getByRole("region", { name: "World Log" }).className).toBe(
-			combatPanel.className,
-		);
+		expect(combatPanel).toHaveClass("min-h-0");
+		expect(screen.queryByRole("tab", { name: "World Log" })).not.toBeInTheDocument();
 	});
 
 	it("opens the same tabs in the mobile hero drawer", () => {
@@ -137,7 +130,7 @@ describe("HeroSidebar", () => {
 		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 		view.rerender(sidebar(run));
 		expect(screen.getByRole("dialog", { name: "Hero details" })).toBeInTheDocument();
-		expect(screen.getAllByRole("tab")).toHaveLength(4);
+		expect(screen.getAllByRole("tab")).toHaveLength(3);
 		expect(screen.getByRole("tab", { name: "Combat Log" })).toHaveAttribute(
 			"aria-selected",
 			"true",

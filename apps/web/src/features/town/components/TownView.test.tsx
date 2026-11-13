@@ -1,275 +1,395 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { applyAction, createInitialRunState, selectTownView } from "@app/engine";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import type { RunView } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
 import { useSidebarStore } from "../../../stores/sidebarStore";
+import { applyRunAction } from "../../runs/api/applyRunAction";
+import { runKeys } from "../../runs/api/runKeys";
+import type { ApplyRunActionResponse, RunView } from "@app/shared";
 import { useHowToPlayModalStore } from "../../howToPlay";
-
-const selectors = vi.hoisted(() => ({
-	selectTownView: vi.fn(),
-	selectAvailableActions: vi.fn(),
-}));
-const mutate = vi.hoisted(() => vi.fn());
-const showError = vi.hoisted(() => vi.fn());
-
-vi.mock("@app/engine", async (importOriginal) => ({
-	...(await importOriginal<typeof import("@app/engine")>()),
-	...selectors,
-}));
-vi.mock("../../runs", () => ({
-	useApplyRunAction: () => ({ mutate, isPending: false }),
-	getEngineErrorMessage: (error: string) => `Engine: ${error}`,
-}));
-vi.mock("../../../stores/errorModalStore", () => ({
-	useErrorModalStore: (selector: (state: { showError: typeof showError }) => unknown) =>
-		selector({ showError }),
-}));
-vi.mock("../../../components/GameLayout", () => ({
-	GameLayout: ({ children }: { children: React.ReactNode }) => children,
-}));
-vi.mock("../../hero/components/HeroSidebar", () => ({
-	HeroSidebar: ({ onSwapWeapons }: { onSwapWeapons: () => void }) => (
-		<button onClick={onSwapWeapons}>Swap</button>
-	),
-}));
-vi.mock("./TownActionBar", () => ({
-	TownActionBar: (props: {
-		canRest: boolean;
-		canReroll: boolean;
-		canBuyHealingPotion: boolean;
-		canEnterCombat: boolean;
-		onRest: () => void;
-		onReroll: () => void;
-		onBuyHealingPotion: () => void;
-		onEnterCombat: () => void;
-	}) => (
-		<div>
-			<span>
-				availability:
-				{[
-					props.canRest,
-					props.canReroll,
-					props.canBuyHealingPotion,
-					props.canEnterCombat,
-				].join(",")}
-			</span>
-			<button onClick={props.onRest}>Rest</button>
-			<button onClick={props.onReroll}>Reroll</button>
-			<button onClick={props.onBuyHealingPotion}>Buy potion</button>
-			<button onClick={props.onEnterCombat}>Enter</button>
-		</div>
-	),
-}));
-vi.mock("./TownShopGrid", () => ({
-	TownShopGrid: ({
-		onBuy,
-		onLockChange,
-	}: {
-		onBuy: (slot: unknown) => void;
-		onLockChange: (slot: unknown, locked: boolean) => void;
-	}) => (
-		<div>
-			<button
-				onClick={() =>
-					onBuy({
-						id: "simple-item",
-						purchased: false,
-						canAfford: true,
-						equipmentPlacement: {
-							destinations: [],
-							automaticDestination: { equipmentSlot: "mainHand", replacedItems: [] },
-						},
-					})
-				}
-			>
-				Buy item
-			</button>
-			<button
-				onClick={() =>
-					onBuy({
-						id: "replacement-item",
-						item: { id: "item-id" },
-						equipmentPlacement: {
-							destinations: ["mainHand"],
-							automaticDestination: null,
-						},
-						purchased: false,
-						canAfford: true,
-					})
-				}
-			>
-				Buy replacement
-			</button>
-			<button
-				onClick={() =>
-					onLockChange(
-						{
-							id: "lock-item",
-							purchased: false,
-						},
-						true,
-					)
-				}
-			>
-				Lock item
-			</button>
-		</div>
-	),
-}));
-vi.mock("../../../components/EquipmentReplacementModal", () => ({
-	EquipmentReplacementModal: ({
-		onCancel,
-		onConfirm,
-	}: {
-		onCancel: () => void;
-		onConfirm: (slot: "mainHand") => void;
-	}) => (
-		<div>
-			<span>Replacement modal</span>
-			<button onClick={onCancel}>Cancel</button>
-			<button onClick={() => onConfirm("mainHand")}>Confirm replacement</button>
-		</div>
-	),
-}));
-
+import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownView } from "./TownView";
 
-const run = { id: "run-id", state: {} } as RunView;
+vi.mock("../../runs/api/applyRunAction", () => ({ applyRunAction: vi.fn() }));
+vi.mock("../../worldLog/api/getWorldLog", () => ({
+	getWorldLog: vi.fn(async () => ({ entries: [] })),
+}));
 
-function createTownView() {
+function createTownRun(): RunView {
+	const { state: initial } = createInitialRunState({
+		runId: "run-id",
+		seed: "town-ui-tests",
+		heroName: "Mira",
+		classId: "warrior",
+	});
+	if (!initial.combat) {
+		throw new Error("Expected initial combat");
+	}
+	initial.combat.status = "player_won";
+	initial.combat.enemy.currentHp = 0;
+	const result = applyAction(initial, { type: "RETURN_TO_TOWN" });
+	if (!result.ok) {
+		throw new Error(result.error);
+	}
+	const state = result.state;
+	state.gold = 100;
+	state.hero.healingPotions = 1;
 	return {
-		battleNumber: 2,
-		day: 1,
-		gold: 50,
-		zone: "forest",
-		canAffordRest: true,
-		isFullyHealed: false,
-		isFullyRested: false,
-		canAffordReroll: true,
-		canAffordHealingPotion: true,
-		canBuyHealingPotion: true,
-		restCost: 10,
-		rerollCost: 5,
-		healingPotions: 1,
-		maxHealingPotions: 3,
-		healingPotionCost: 8,
-		shopSlots: [],
+		id: state.id,
+		season: 1,
+		mode: "normal",
+		dailyChallengeDate: null,
+		status: "active",
+		state,
+		summary: {
+			heroName: state.hero.name,
+			classId: state.hero.classId,
+			level: state.hero.level,
+			battleNumber: state.battleNumber,
+			zoneNumber: state.zoneNumber,
+			zone: state.zone,
+			endlessCycle: state.endlessCycle,
+			day: state.day,
+			kills: 1,
+			hasDefeatedFinalBoss: false,
+			slainBy: null,
+		},
+		createdAt: "2026-11-12T12:00:00Z",
+		updatedAt: "2026-11-12T12:00:00Z",
+		completedAt: null,
 	};
 }
 
-function renderView() {
-	return render(
-		<MemoryRouter>
-			<TooltipProvider>
-				<TownView run={run} />
-			</TooltipProvider>
-		</MemoryRouter>,
+function setup(run = createTownRun()) {
+	let currentRun = run;
+	const client = new QueryClient({
+		defaultOptions: {
+			queries: { retry: false, staleTime: Infinity },
+			mutations: { retry: false },
+		},
+	});
+	client.setQueryData(runKeys.game(), { run });
+	vi.mocked(applyRunAction).mockImplementation(async ({ action }) => {
+		const result = applyAction(currentRun.state, action);
+		currentRun = { ...currentRun, state: result.state };
+		return { run: currentRun, result, unlockedAchievements: [] };
+	});
+	function Game() {
+		const { data } = useQuery({
+			queryKey: runKeys.game(),
+			queryFn: async () => ({ run: currentRun }),
+		});
+		return <TownView run={data!.run} />;
+	}
+	render(
+		<QueryClientProvider client={client}>
+			<MemoryRouter>
+				<TooltipProvider>
+					<Game />
+				</TooltipProvider>
+			</MemoryRouter>
+		</QueryClientProvider>,
 	);
+	return { getRun: () => currentRun };
 }
 
 describe("TownView", () => {
 	beforeEach(() => {
-		useSidebarStore.getState().close();
 		vi.clearAllMocks();
+		useSidebarStore.getState().close();
 		useHowToPlayModalStore.setState({ isOpen: false });
-		selectors.selectTownView.mockReturnValue(createTownView());
-		selectors.selectAvailableActions.mockReturnValue([
-			{ type: "REST_AT_TOWN" },
-			{ type: "REROLL_SHOP" },
-			{ type: "BUY_CONSUMABLE" },
-			{ type: "ENTER_COMBAT" },
-			{ type: "SWAP_HAND_WEAPONS" },
-		]);
+		useErrorModalStore.getState().hideError();
+	});
+	it("buys one potion and renders the updated inventory and gold", async () => {
+		const run = createTownRun();
+		const cost = selectTownView(run.state)!.healingPotionCost;
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
+		const dialog = screen.getByRole("dialog", { name: "Alchemist" });
+		expect(
+			within(dialog).queryByRole("button", { name: "Buy maximum healing potions" }),
+		).not.toBeInTheDocument();
+		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
+		await waitFor(() => expect(within(dialog).getByText("2/3 potions")).toBeInTheDocument());
+		expect(within(dialog).getByLabelText(`${run.state.gold - cost} gold`)).toBeInTheDocument();
+		expect(getRun().state.hero.healingPotions).toBe(2);
+		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
+			runId: run.id,
+			action: { type: "BUY_CONSUMABLE", consumableType: "healingPotion" },
+		});
+	});
+	it("disables purchases after the final slot is filled while keeping visits available", async () => {
+		const run = createTownRun();
+		run.state.hero.healingPotions = 2;
+		setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
+		const dialog = screen.getByRole("dialog");
+		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
+		await waitFor(() => expect(within(dialog).getByText("3/3 MAX")).toBeInTheDocument());
+		expect(
+			within(dialog).getByRole("button", { name: "Buy one healing potion" }),
+		).toBeDisabled();
+		fireEvent.click(within(dialog).getByRole("button", { name: "Close" }));
+		expect(screen.getByRole("button", { name: "Visit Alchemist" })).toBeEnabled();
+	});
+	it("rests at full health to restore skill uses, then reflects full recovery", async () => {
+		const run = createTownRun();
+		run.state.hero.skills[0].chargesRemaining = 0;
+		expect(selectTownView(run.state)!.isFullyHealed).toBe(true);
+		const cost = selectTownView(run.state)!.restCost;
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
+		fireEvent.click(screen.getByRole("button", { name: "Buy rest" }));
+		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+		expect(getRun().state.hero.skills[0].chargesRemaining).toBeGreaterThan(0);
+		expect(getRun().state.gold).toBe(run.state.gold - cost);
+		expect(getRun().state.day).toBe(run.state.day + 1);
+		expect(screen.getByRole("article", { name: "Tavern" })).toHaveTextContent("Fully rested");
+		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
+		expect(screen.getByRole("button", { name: "Buy rest" })).toBeDisabled();
+	});
+	it.each([
+		{ service: "Tavern", action: "Buy rest" },
+		{ service: "Alchemist", action: "Buy one healing potion" },
+	])("allows visiting $service without gold but prevents purchasing", ({ service, action }) => {
+		const run = createTownRun();
+		run.state.gold = 0;
+		run.state.hero.currentHp = 1;
+		setup(run);
+		fireEvent.click(screen.getByRole("button", { name: `Visit ${service}` }));
+		const dialog = screen.getByRole("dialog", { name: service });
+		expect(within(dialog).getByRole("button", { name: action })).toBeDisabled();
+		expect(within(dialog).getByText(/Not enough gold/)).toBeInTheDocument();
+		expect(applyRunAction).not.toHaveBeenCalled();
 	});
 
-	it("shows a stable fallback when town state is unavailable", () => {
-		selectors.selectTownView.mockReturnValue(null);
-
-		renderView();
-
+	it("opens the shop with its own navigation and returns to town", () => {
+		setup();
+		expect(screen.getByRole("navigation", { name: "Game navigation" })).toBeInTheDocument();
+		expect(screen.getByRole("region", { name: "World Log" })).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: "How to play" }));
+		expect(useHowToPlayModalStore.getState().isOpen).toBe(true);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		expect(screen.queryByRole("region", { name: "World Log" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("link", { name: "Home" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "How to play" })).not.toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Reroll shop" })).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Visit Tavern" })).toBeInTheDocument();
+	});
+	it("shows a fallback outside town", () => {
+		const run = createTownRun();
+		run.state = createInitialRunState({
+			runId: run.id,
+			seed: "outside-town",
+			heroName: "Mira",
+			classId: "warrior",
+		}).state;
+		setup(run);
 		expect(screen.getByText("Town state is unavailable.")).toBeInTheDocument();
 	});
-
-	it("combines engine availability with affordability", () => {
-		renderView();
-
-		expect(screen.getByText("availability:true,true,true,true")).toBeInTheDocument();
+	it("blocks purchase and dismissal while a request is pending", async () => {
+		setup();
+		vi.mocked(applyRunAction).mockImplementation(() => new Promise(() => {}));
+		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
+		const buy = screen.getByRole("button", { name: "Buy one healing potion" });
+		fireEvent.click(buy);
+		await waitFor(() => expect(buy).toBeDisabled());
+		expect(screen.getByRole("button", { name: "Close" })).toBeDisabled();
+		fireEvent.keyDown(screen.getByRole("dialog"), { key: "Escape" });
+		expect(screen.getByRole("dialog", { name: "Alchemist" })).toBeInTheDocument();
+		expect(applyRunAction).toHaveBeenCalledTimes(1);
 	});
-
-	it("allows resting at full health so skill uses can be restored", () => {
-		selectors.selectTownView.mockReturnValue({
-			...createTownView(),
-			isFullyHealed: true,
+	it("waits for a successful rest response before closing the tavern", async () => {
+		const run = createTownRun();
+		run.state.hero.currentHp = 1;
+		setup(run);
+		let complete!: (response: ApplyRunActionResponse) => void;
+		vi.mocked(applyRunAction).mockReturnValueOnce(
+			new Promise((resolve) => {
+				complete = resolve;
+			}),
+		);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
+		const dialog = screen.getByRole("dialog", { name: "Tavern" });
+		const buy = within(dialog).getByRole("button", { name: "Buy rest" });
+		fireEvent.click(buy);
+		await waitFor(() => expect(buy).toBeDisabled());
+		expect(dialog).toBeInTheDocument();
+		const result = applyAction(run.state, { type: "REST_AT_TOWN" });
+		expect(result.ok).toBe(true);
+		await act(async () => {
+			complete({ run: { ...run, state: result.state }, result, unlockedAchievements: [] });
 		});
-
-		renderView();
-
-		expect(screen.getByText("availability:true,true,true,true")).toBeInTheDocument();
+		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
 	});
-
-	it("opens the how-to-play guide from above the shop", () => {
-		renderView();
-
-		const triggers = screen.getAllByRole("button", { name: /how to play/i });
-		fireEvent.click(triggers[0]);
-
-		expect(useHowToPlayModalStore.getState().isOpen).toBe(true);
+	it("reports engine and transport errors without closing the tavern", async () => {
+		const run = createTownRun();
+		run.state.hero.currentHp = 1;
+		setup(run);
+		vi.mocked(applyRunAction).mockResolvedValueOnce({
+			run,
+			result: { ok: false, error: "NOT_ENOUGH_GOLD", state: run.state, events: [] },
+			unlockedAchievements: [],
+		});
+		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
+		fireEvent.click(screen.getByRole("button", { name: "Buy rest" }));
+		await waitFor(() =>
+			expect(useErrorModalStore.getState().message).toBe("You do not have enough gold."),
+		);
+		expect(screen.getByRole("dialog", { name: "Tavern" })).toBeInTheDocument();
+		await waitFor(() => expect(screen.getByRole("button", { name: "Buy rest" })).toBeEnabled());
+		vi.mocked(applyRunAction).mockRejectedValueOnce(new Error("offline"));
+		fireEvent.click(screen.getByRole("button", { name: "Buy rest" }));
+		await waitFor(() =>
+			expect(useErrorModalStore.getState().message).toBe("Unable to rest. Please try again."),
+		);
+		expect(screen.getByRole("dialog", { name: "Tavern" })).toBeInTheDocument();
 	});
-
-	it.each([
-		["Rest", { type: "REST_AT_TOWN" }],
-		["Reroll", { type: "REROLL_SHOP" }],
-		["Buy potion", { type: "BUY_CONSUMABLE", consumableType: "healingPotion" }],
-		["Enter", { type: "ENTER_COMBAT" }],
-		["Swap", { type: "SWAP_HAND_WEAPONS" }],
-		["Buy item", { type: "BUY_ITEM", shopSlotId: "simple-item", equipmentSlot: "mainHand" }],
-		["Lock item", { type: "SET_SHOP_LOCK", shopSlotId: "lock-item", locked: true }],
-	])("submits the %s engine action", (button, action) => {
-		renderView();
-
-		fireEvent.click(screen.getByRole("button", { name: button }));
-
-		expect(mutate).toHaveBeenCalledWith({ runId: "run-id", action }, expect.any(Object));
-	});
-
-	it("collects an equipment slot before buying replacement items", () => {
-		renderView();
-		fireEvent.click(screen.getByRole("button", { name: "Buy replacement" }));
-		expect(screen.getByText("Replacement modal")).toBeInTheDocument();
-
-		fireEvent.click(screen.getByRole("button", { name: "Confirm replacement" }));
-
-		expect(mutate).toHaveBeenCalledWith(
+	it("buys shop equipment into an available slot", async () => {
+		const run = createTownRun();
+		run.state.gold = 10000;
+		run.state.hero.equipment.offHand = null;
+		run.state.town!.shopSlots = [
 			{
-				runId: "run-id",
-				action: {
-					type: "BUY_ITEM",
-					shopSlotId: "replacement-item",
-					equipmentSlot: "mainHand",
-				},
+				id: "shop-slot",
+				item: { instanceId: "shop-item", type: "static", itemId: "acid_edge" },
+				price: 10,
+				purchased: false,
 			},
-			expect.any(Object),
+		];
+		const slot = selectTownView(run.state)!.shopSlots[0];
+		expect(slot.equipmentPlacement.automaticDestination).not.toBeNull();
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		fireEvent.click(
+			screen.getByRole("button", { name: `Buy ${slot.item.name} for ${slot.price} gold` }),
+		);
+		await waitFor(() => expect(getRun().state.town!.shopSlots[0].purchased).toBe(true));
+		expect(applyRunAction).toHaveBeenCalledWith({
+			runId: run.id,
+			action: {
+				type: "BUY_ITEM",
+				shopSlotId: slot.id,
+				equipmentSlot: slot.equipmentPlacement.automaticDestination!.equipmentSlot,
+			},
+		});
+	});
+	it("keeps the replacement choice after failure and closes only after a successful purchase", async () => {
+		const run = createTownRun();
+		run.state.gold = 10000;
+		run.state.hero.equipment.offHand = {
+			...structuredClone(run.state.hero.equipment.mainHand!),
+			instanceId: "replacement-off-hand",
+		};
+		run.state.town!.shopSlots = [
+			{
+				id: "shop-slot",
+				item: { instanceId: "shop-item", type: "static", itemId: "acid_edge" },
+				price: 10,
+				purchased: false,
+			},
+		];
+		const slot = selectTownView(run.state)!.shopSlots[0];
+		expect(slot.equipmentPlacement.automaticDestination).toBeNull();
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		fireEvent.click(
+			screen.getByRole("button", { name: `Buy ${slot.item.name} for ${slot.price} gold` }),
+		);
+		expect(applyRunAction).not.toHaveBeenCalled();
+		const dialog = screen.getByRole("dialog");
+		const choices = within(dialog).queryAllByRole("radio");
+		if (choices.length) {
+			fireEvent.click(choices[0]);
+		}
+		const confirm = within(dialog).getByRole("button", { name: "Confirm" });
+		vi.mocked(applyRunAction).mockRejectedValueOnce(new Error("offline"));
+		fireEvent.click(confirm);
+		await waitFor(() =>
+			expect(useErrorModalStore.getState().message).toBe(
+				"Unable to buy that item. Please try again.",
+			),
+		);
+		expect(dialog).toBeInTheDocument();
+		if (choices.length) {
+			expect(choices[0]).toBeChecked();
+		}
+		await waitFor(() => expect(confirm).toBeEnabled());
+		fireEvent.click(confirm);
+		await waitFor(() => expect(getRun().state.town!.shopSlots[0].purchased).toBe(true));
+		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+		expect(applyRunAction).toHaveBeenCalledWith({
+			runId: run.id,
+			action: {
+				type: "BUY_ITEM",
+				shopSlotId: slot.id,
+				equipmentSlot: slot.equipmentPlacement.destinations[0].equipmentSlot,
+			},
+		});
+	});
+	it("disables reroll and marks its price when the engine does not offer it", () => {
+		const run = createTownRun();
+		run.state.gold = 0;
+		const cost = selectTownView(run.state)!.rerollCost;
+		setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		const navigation = screen.getByRole("navigation", { name: "Game navigation" });
+		expect(within(navigation).getByRole("button", { name: "Reroll shop" })).toBeDisabled();
+		expect(within(navigation).getByText(`${cost}g`)).toHaveClass("text-error");
+		expect(applyRunAction).not.toHaveBeenCalled();
+	});
+	it("preserves a locked item when rerolling the shop", async () => {
+		const run = createTownRun();
+		run.state.gold = 10000;
+		const slot = selectTownView(run.state)!.shopSlots[0];
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		fireEvent.click(screen.getByRole("button", { name: `Lock ${slot.item.name}` }));
+		await waitFor(() =>
+			expect(getRun().state.shopLocks.some((lock) => lock.id === slot.id)).toBe(true),
+		);
+		const reroll = screen.getByRole("button", { name: "Reroll shop" });
+		await waitFor(() => expect(reroll).toBeEnabled());
+		fireEvent.click(reroll);
+		await waitFor(() => expect(getRun().state.town!.rerollCount).toBe(1));
+		expect(getRun().state.town!.shopSlots).toContainEqual(
+			run.state.town!.shopSlots.find((item) => item.id === slot.id),
 		);
 	});
-
-	it("shows translated engine failures", () => {
-		renderView();
-		fireEvent.click(screen.getByRole("button", { name: "Rest" }));
-		const callbacks = mutate.mock.calls[0][1];
-
-		callbacks.onSuccess({ result: { ok: false, error: "NOT_ENOUGH_GOLD" } });
-
-		expect(showError).toHaveBeenCalledWith("Engine: NOT_ENOUGH_GOLD");
+	it("continues from town into combat", async () => {
+		const { getRun } = setup();
+		fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+		await waitFor(() => expect(getRun().state.phase).toBe("combat"));
+		expect(applyRunAction).toHaveBeenCalledWith({
+			runId: "run-id",
+			action: { type: "ENTER_COMBAT" },
+		});
 	});
-
-	it("shows the action-specific transport failure", () => {
-		renderView();
-		fireEvent.click(screen.getByRole("button", { name: "Reroll" }));
-		const callbacks = mutate.mock.calls[0][1];
-
-		callbacks.onError();
-
-		expect(showError).toHaveBeenCalledWith("Unable to reroll the shop. Please try again.");
+	it("opens the hero drawer and swaps equipped weapons", async () => {
+		const run = createTownRun();
+		const mainHand = run.state.hero.equipment.mainHand;
+		if (!mainHand) {
+			throw new Error("Expected a warrior weapon");
+		}
+		run.state.hero.equipment.offHand = { ...structuredClone(mainHand), instanceId: "off-hand" };
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Hero" }));
+		const drawer = screen.getByRole("dialog", { name: "Hero details" });
+		fireEvent.mouseDown(within(drawer).getByRole("tab", { name: "Equipment" }), {
+			button: 0,
+			ctrlKey: false,
+		});
+		fireEvent.click(within(drawer).getByRole("button", { name: "Swap Weapons" }));
+		await waitFor(() =>
+			expect(getRun().state.hero.equipment.mainHand?.instanceId).toBe("off-hand"),
+		);
+		expect(applyRunAction).toHaveBeenCalledWith({
+			runId: run.id,
+			action: { type: "SWAP_HAND_WEAPONS" },
+		});
 	});
 });

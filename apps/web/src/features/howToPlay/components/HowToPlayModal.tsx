@@ -17,7 +17,7 @@ const sections = [
 	},
 	{
 		title: "PREPARE IN TOWN",
-		body: "Spend gold on equipment and healing potions, rest to recover health, reroll the shop, and lock equipment you want to preserve across rerolls and future town visits.",
+		body: "Visit the shop for equipment, the tavern to recover health and skill uses, or the alchemist to buy healing potions. Reroll the shop and lock equipment you want to preserve across rerolls and future town visits.",
 	},
 	{
 		title: "SURVIVE THE JOURNEY",

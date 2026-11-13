@@ -2,8 +2,7 @@ import { CLASSES_BY_ID, type SkillId } from "@app/content";
 import { selectAvailableActions, selectCombatView, type EngineAction } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
-import { GameNavigation } from "../../../components/GameNavigation";
-import { useHowToPlayModalStore } from "../../howToPlay";
+import { GameNavigation, DefaultGameNavigationActions } from "../../../components/GameNavigation";
 import { GameMainPanel, GamePanelContainer } from "../../../components/GameMainPanel";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useSidebarStore } from "../../../stores/sidebarStore";
@@ -20,8 +19,6 @@ type CombatViewProps = {
 
 export function CombatView({ run }: CombatViewProps) {
 	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
-	const openSidebar = useSidebarStore((state) => state.open);
-	const openHowToPlay = useHowToPlayModalStore((state) => state.open);
 	const closeSidebar = useSidebarStore((state) => state.close);
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -138,12 +135,7 @@ export function CombatView({ run }: CombatViewProps) {
 						<div className="flex min-h-0 flex-1 flex-col gap-2">
 							<div className="flex flex-col items-start gap-2 lg:flex-row lg:justify-between">
 								<div className="shrink-0 lg:order-last">
-									<GameNavigation
-										label="Combat navigation"
-										isSidebarOpen={isSidebarOpen}
-										onOpenSidebar={openSidebar}
-										onHowToPlay={openHowToPlay}
-									/>
+									<GameNavigation actions={<DefaultGameNavigationActions />} />
 								</div>
 								<section
 									className="grid w-full min-w-0 items-start gap-2 md:grid-cols-2 lg:flex-1 lg:grid-cols-1"
