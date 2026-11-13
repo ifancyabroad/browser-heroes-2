@@ -107,14 +107,14 @@ describe("TownView", () => {
 		setup();
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New stock");
 		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
-		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		fireEvent.click(screen.getByRole("button", { name: "Close" }));
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
 		expect(applyRunAction).not.toHaveBeenCalled();
 	});
 	it("resets the shop status when the town screen remounts", () => {
 		const { unmount } = setup();
 		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
-		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		fireEvent.click(screen.getByRole("button", { name: "Close" }));
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
 		unmount();
 		setup();
@@ -245,18 +245,24 @@ describe("TownView", () => {
 		expect(applyRunAction).not.toHaveBeenCalled();
 	});
 
-	it("opens the shop with its own navigation and returns to town", () => {
+	it("opens the shop as a modal and returns to the existing town view", () => {
 		setup();
 		expect(screen.getByRole("navigation", { name: "Game navigation" })).toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "World Log" })).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "How to play" }));
 		expect(useHowToPlayModalStore.getState().isOpen).toBe(true);
 		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		const shop = screen.getByRole("dialog", { name: "Shop" });
 		expect(screen.queryByRole("region", { name: "World Log" })).not.toBeInTheDocument();
 		expect(screen.queryByRole("link", { name: "Home" })).not.toBeInTheDocument();
 		expect(screen.queryByRole("button", { name: "How to play" })).not.toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "Reroll shop" })).toBeInTheDocument();
-		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		expect(within(shop).getByRole("button", { name: /^Reroll / })).toBeInTheDocument();
+		expect(
+			within(shop).queryByRole("button", { name: "Back to town" }),
+		).not.toBeInTheDocument();
+		fireEvent.click(within(shop).getByRole("button", { name: "Close" }));
+		expect(screen.queryByRole("dialog", { name: "Shop" })).not.toBeInTheDocument();
+		expect(screen.getByRole("region", { name: "World Log" })).toBeInTheDocument();
 		expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
 		expect(screen.getByRole("button", { name: "Visit Tavern" })).toBeInTheDocument();
 	});
@@ -401,7 +407,8 @@ describe("TownView", () => {
 		await waitFor(() => expect(confirm).toBeEnabled());
 		fireEvent.click(confirm);
 		await waitFor(() => expect(getRun().state.town!.shopSlots[0].purchased).toBe(true));
-		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+		await waitFor(() => expect(dialog).not.toBeInTheDocument());
+		expect(screen.getByRole("dialog", { name: "Shop" })).toBeInTheDocument();
 		expect(applyRunAction).toHaveBeenCalledWith({
 			runId: run.id,
 			action: {
@@ -411,15 +418,14 @@ describe("TownView", () => {
 			},
 		});
 	});
-	it("disables reroll and marks its price when the engine does not offer it", () => {
+	it("disables reroll when the engine does not offer it", () => {
 		const run = createTownRun();
 		run.state.gold = 0;
 		const cost = selectTownView(run.state)!.rerollCost;
 		setup(run);
 		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
-		const navigation = screen.getByRole("navigation", { name: "Game navigation" });
-		expect(within(navigation).getByRole("button", { name: "Reroll shop" })).toBeDisabled();
-		expect(within(navigation).getByText(`${cost}g`)).toHaveClass("text-error");
+		const shop = screen.getByRole("dialog", { name: "Shop" });
+		expect(within(shop).getByRole("button", { name: `Reroll ${cost}g` })).toBeDisabled();
 		expect(applyRunAction).not.toHaveBeenCalled();
 	});
 	it("preserves a locked item when rerolling the shop", async () => {
@@ -432,14 +438,15 @@ describe("TownView", () => {
 		await waitFor(() =>
 			expect(getRun().state.shopLocks.some((lock) => lock.id === slot.id)).toBe(true),
 		);
-		const reroll = screen.getByRole("button", { name: "Reroll shop" });
+		const reroll = screen.getByRole("button", { name: /^Reroll / });
 		await waitFor(() => expect(reroll).toBeEnabled());
 		fireEvent.click(reroll);
 		await waitFor(() => expect(getRun().state.town!.rerollCount).toBe(1));
 		expect(getRun().state.town!.shopSlots).toContainEqual(
 			run.state.town!.shopSlots.find((item) => item.id === slot.id),
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		await waitFor(() => expect(screen.getByRole("button", { name: "Close" })).toBeEnabled());
+		fireEvent.click(screen.getByRole("button", { name: "Close" }));
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
 	});
 	it("continues from town into combat", async () => {

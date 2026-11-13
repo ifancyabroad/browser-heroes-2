@@ -8,7 +8,7 @@ import {
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
-import { ShopNavigationActions } from "./ShopNavigationActions";
+import { ShopModal } from "./ShopModal";
 import { GameNavigation, DefaultGameNavigationActions } from "../../../components/GameNavigation";
 import { TownGoldBalance } from "./TownGoldBalance";
 import { GameLayout } from "../../../components/GameLayout";
@@ -21,7 +21,6 @@ import { TownHub } from "./TownHub";
 import { TavernModal } from "./TavernModal";
 import { AlchemistModal } from "./AlchemistModal";
 import { useWorldLog, WorldLogPanel } from "../../worldLog";
-import { TownShopGrid } from "./TownShopGrid";
 
 type TownViewProps = {
 	run: RunView;
@@ -31,9 +30,8 @@ export function TownView({ run }: TownViewProps) {
 	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
 	const closeSidebar = useSidebarStore((state) => state.close);
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
-	const [screen, setScreen] = useState<"town" | "shop">("town");
 	const [hasViewedShop, setHasViewedShop] = useState(false);
-	const [service, setService] = useState<"tavern" | "alchemist" | null>(null);
+	const [service, setService] = useState<"shop" | "tavern" | "alchemist" | null>(null);
 	const worldLog = useWorldLog();
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -47,7 +45,7 @@ export function TownView({ run }: TownViewProps) {
 
 	function handleVisitShop() {
 		setHasViewedShop(true);
-		setScreen("shop");
+		setService("shop");
 	}
 
 	async function submitAction(
@@ -179,7 +177,6 @@ export function TownView({ run }: TownViewProps) {
 
 	const canRest = availableActionTypes.has("REST_AT_TOWN");
 	const canBuyPotion = availableActionTypes.has("BUY_CONSUMABLE");
-	const isShop = screen === "shop";
 	return (
 		<GameLayout>
 			<HeroSidebar
@@ -193,62 +190,42 @@ export function TownView({ run }: TownViewProps) {
 			<GameMainPanel>
 				<header className="shrink-0">
 					<GamePanelContainer className="py-3 md:py-4">
-						<GameNavigation
-							actions={
-								isShop ? (
-									<ShopNavigationActions
-										rerollCost={townView.rerollCost}
-										canReroll={availableActionTypes.has("REROLL_SHOP")}
-										isPending={applyRunAction.isPending}
-										onBack={() => setScreen("town")}
-										onReroll={handleReroll}
-									/>
-								) : (
-									<DefaultGameNavigationActions />
-								)
-							}
-						>
+						<GameNavigation actions={<DefaultGameNavigationActions />}>
 							<TownGoldBalance gold={townView.gold} />
 						</GameNavigation>
 					</GamePanelContainer>
 				</header>
-				<div
-					className={
-						isShop
-							? "min-h-0 flex-1 overflow-y-auto"
-							: "flex min-h-0 flex-1 flex-col overflow-y-auto md:flex-initial"
-					}
-				>
-					<GamePanelContainer className={isShop ? "pb-6" : "flex flex-1 flex-col pb-6"}>
-						{isShop ? (
-							<TownShopGrid
-								shopSlots={townView.shopSlots}
-								isPending={applyRunAction.isPending}
-								onBuy={handleBuy}
-								onLockChange={handleLockChange}
-							/>
-						) : (
-							<TownHub
-								town={townView}
-								isPending={applyRunAction.isPending}
-								canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-								hasViewedShop={hasViewedShop}
-								onVisitShop={handleVisitShop}
-								onVisitTavern={() => setService("tavern")}
-								onVisitAlchemist={() => setService("alchemist")}
-								onContinue={handleEnterCombat}
-							/>
-						)}
+				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto md:flex-initial">
+					<GamePanelContainer className="flex flex-1 flex-col pb-6">
+						<TownHub
+							town={townView}
+							isPending={applyRunAction.isPending}
+							canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
+							hasViewedShop={hasViewedShop}
+							onVisitShop={handleVisitShop}
+							onVisitTavern={() => setService("tavern")}
+							onVisitAlchemist={() => setService("alchemist")}
+							onContinue={handleEnterCombat}
+						/>
 					</GamePanelContainer>
 				</div>
-				{!isShop && (
-					<div className="flex shrink-0 flex-col border-t-2 border-border-secondary bg-bg-base py-4 md:min-h-40 md:flex-1">
-						<GamePanelContainer className="flex h-[8lh] min-h-0 shrink-0 leading-6 md:h-auto md:flex-1">
-							<WorldLogPanel {...worldLog} />
-						</GamePanelContainer>
-					</div>
-				)}
+				<div className="flex shrink-0 flex-col border-t-2 border-border-secondary bg-bg-base py-4 md:min-h-40 md:flex-1">
+					<GamePanelContainer className="flex h-[8lh] min-h-0 shrink-0 leading-6 md:h-auto md:flex-1">
+						<WorldLogPanel {...worldLog} />
+					</GamePanelContainer>
+				</div>
 			</GameMainPanel>
+			{service === "shop" && (
+				<ShopModal
+					town={townView}
+					isPending={applyRunAction.isPending}
+					canReroll={availableActionTypes.has("REROLL_SHOP")}
+					onClose={() => setService(null)}
+					onReroll={handleReroll}
+					onBuy={handleBuy}
+					onLockChange={handleLockChange}
+				/>
+			)}
 			{service === "tavern" && (
 				<TavernModal
 					town={townView}

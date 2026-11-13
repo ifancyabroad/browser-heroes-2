@@ -23,6 +23,7 @@ const modalSizeClassNames = {
 	"3xl": "max-w-3xl",
 	"4xl": "max-w-4xl",
 	"5xl": "max-w-5xl",
+	"6xl": "max-w-6xl",
 } as const;
 
 export function Modal({
@@ -36,6 +37,7 @@ export function Modal({
 	children,
 }: ModalProps) {
 	const contentRef = useRef<HTMLDivElement>(null);
+	const returnFocusRef = useRef<HTMLElement | null>(null);
 	const [portalContainer, setPortalContainer] = useState<HTMLDivElement | null>(null);
 	const setContentRef = useCallback((node: HTMLDivElement | null) => {
 		contentRef.current = node;
@@ -64,7 +66,17 @@ export function Modal({
 					tabIndex={-1}
 					onOpenAutoFocus={(event) => {
 						event.preventDefault();
+						returnFocusRef.current = document.activeElement as HTMLElement | null;
 						contentRef.current?.focus();
+					}}
+					onCloseAutoFocus={(event) => {
+						event.preventDefault();
+						const returnFocus = returnFocusRef.current;
+						returnFocus?.focus();
+						// If the opener cannot receive focus, return to its containing dialog.
+						if (returnFocus && document.activeElement !== returnFocus) {
+							returnFocus.closest<HTMLElement>('[role="dialog"]')?.focus();
+						}
 					}}
 					onEscapeKeyDown={preventDismiss}
 					onPointerDownOutside={preventDismiss}
