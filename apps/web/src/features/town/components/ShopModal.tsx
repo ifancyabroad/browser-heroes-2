@@ -1,8 +1,11 @@
 import type { TownShopSlotView, TownView } from "@app/engine";
+import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { TownGoldBalance } from "./TownGoldBalance";
 import { TownShopGrid } from "./TownShopGrid";
+import { MERCHANT_QUOTES } from "../quotes";
+import merchantPortrait from "../../../assets/images/town/merchant-portrait.png";
 
 type ShopModalProps = {
 	town: Pick<TownView, "gold" | "rerollCost" | "shopSlots">;
@@ -23,6 +26,9 @@ export function ShopModal({
 	onBuy,
 	onLockChange,
 }: ShopModalProps) {
+	const [quote] = useState(
+		() => MERCHANT_QUOTES[Math.floor(Math.random() * MERCHANT_QUOTES.length)],
+	);
 	return (
 		<Modal
 			open
@@ -49,6 +55,14 @@ export function ShopModal({
 				</div>
 			}
 		>
+			<div className="mb-5 flex items-center gap-3">
+				<img
+					src={merchantPortrait}
+					alt="Merchant"
+					className="h-12 w-12 shrink-0 object-contain sm:h-16 sm:w-16"
+				/>
+				<p className="min-w-0 text-text-muted">{quote}</p>
+			</div>
 			<TownShopGrid
 				shopSlots={town.shopSlots}
 				isPending={isPending}

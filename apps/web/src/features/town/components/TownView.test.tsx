@@ -11,7 +11,7 @@ import type { ApplyRunActionResponse, RunView } from "@app/shared";
 import { useHowToPlayModalStore } from "../../howToPlay";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownView } from "./TownView";
-import { ALCHEMIST_QUOTES, TAVERN_QUOTES } from "../quotes";
+import { ALCHEMIST_QUOTES, MERCHANT_QUOTES, TAVERN_QUOTES } from "../quotes";
 
 vi.mock("../../runs/api/applyRunAction", () => ({ applyRunAction: vi.fn() }));
 vi.mock("../../worldLog/api/getWorldLog", () => ({
@@ -158,6 +158,7 @@ describe("TownView", () => {
 		}
 	});
 	it.each([
+		{ service: "Shop", quotes: MERCHANT_QUOTES },
 		{ service: "Alchemist", quotes: ALCHEMIST_QUOTES },
 		{ service: "Tavern", quotes: TAVERN_QUOTES },
 	])("selects a quote on each visit to the $service", ({ service, quotes }) => {
@@ -434,6 +435,9 @@ describe("TownView", () => {
 		const slot = selectTownView(run.state)!.shopSlots[0];
 		const { getRun } = setup(run);
 		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		const shop = screen.getByRole("dialog", { name: "Shop" });
+		const quote = MERCHANT_QUOTES.find((line) => within(shop).queryByText(line));
+		expect(quote).toBeDefined();
 		fireEvent.click(screen.getByRole("button", { name: `Lock ${slot.item.name}` }));
 		await waitFor(() =>
 			expect(getRun().state.shopLocks.some((lock) => lock.id === slot.id)).toBe(true),
@@ -442,6 +446,7 @@ describe("TownView", () => {
 		await waitFor(() => expect(reroll).toBeEnabled());
 		fireEvent.click(reroll);
 		await waitFor(() => expect(getRun().state.town!.rerollCount).toBe(1));
+		expect(within(shop).getByText(quote!)).toBeInTheDocument();
 		expect(getRun().state.town!.shopSlots).toContainEqual(
 			run.state.town!.shopSlots.find((item) => item.id === slot.id),
 		);
