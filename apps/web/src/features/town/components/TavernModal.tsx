@@ -1,9 +1,11 @@
 import type { TownView } from "@app/engine";
+import { useState } from "react";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { TownGoldBalance } from "./TownGoldBalance";
 import { DotLeader } from "./DotLeader";
+import { TAVERN_QUOTES } from "../quotes";
 import tavernKeeper from "../../../assets/images/town/tavern-keeper.png";
 
 type TavernModalProps = {
@@ -15,6 +17,7 @@ type TavernModalProps = {
 };
 
 export function TavernModal({ town, isPending, canRest, onClose, onRest }: TavernModalProps) {
+	const [quote] = useState(() => TAVERN_QUOTES[Math.floor(Math.random() * TAVERN_QUOTES.length)]);
 	return (
 		<Modal
 			open
@@ -37,9 +40,7 @@ export function TavernModal({ town, isPending, canRest, onClose, onRest }: Taver
 					alt="Tavern keeper"
 					className="h-12 w-12 shrink-0 object-contain sm:h-16 sm:w-16"
 				/>
-				<p className="min-w-0 text-text-muted">
-					A warm meal and a quiet room. The road can wait.
-				</p>
+				<p className="min-w-0 text-text-muted">{quote}</p>
 			</div>
 			<dl className="tabular-nums">
 				<div className="flex items-center gap-2 sm:gap-3">

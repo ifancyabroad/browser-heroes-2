@@ -1,9 +1,11 @@
 import type { TownView } from "@app/engine";
+import { useState } from "react";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { TownGoldBalance } from "./TownGoldBalance";
 import { DotLeader } from "./DotLeader";
+import { ALCHEMIST_QUOTES } from "../quotes";
 import alchemistPortrait from "../../../assets/images/town/alchemist-portrait.png";
 
 type AlchemistModalProps = {
@@ -28,6 +30,9 @@ export function AlchemistModal({
 	onClose,
 	onBuyPotion,
 }: AlchemistModalProps) {
+	const [quote] = useState(
+		() => ALCHEMIST_QUOTES[Math.floor(Math.random() * ALCHEMIST_QUOTES.length)],
+	);
 	const potionsFull = town.healingPotions >= town.maxHealingPotions;
 	return (
 		<Modal
@@ -51,9 +56,7 @@ export function AlchemistModal({
 					alt="Alchemist"
 					className="h-12 w-12 shrink-0 object-contain sm:h-16 sm:w-16"
 				/>
-				<p className="min-w-0 text-text-muted">
-					My potions speak for themselves. Well, they would if they could.
-				</p>
+				<p className="min-w-0 text-text-muted">{quote}</p>
 			</div>
 			<p
 				className={clsx(

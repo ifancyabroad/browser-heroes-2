@@ -11,6 +11,7 @@ import type { ApplyRunActionResponse, RunView } from "@app/shared";
 import { useHowToPlayModalStore } from "../../howToPlay";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownView } from "./TownView";
+import { ALCHEMIST_QUOTES, TAVERN_QUOTES } from "../quotes";
 
 vi.mock("../../runs/api/applyRunAction", () => ({ applyRunAction: vi.fn() }));
 vi.mock("../../worldLog/api/getWorldLog", () => ({
@@ -130,17 +131,42 @@ describe("TownView", () => {
 			expect(badge).toHaveClass("border-2", tone);
 		}
 	});
+	it.each([
+		{ service: "Alchemist", quotes: ALCHEMIST_QUOTES },
+		{ service: "Tavern", quotes: TAVERN_QUOTES },
+	])("selects a quote on each visit to the $service", ({ service, quotes }) => {
+		setup();
+		const random = vi.spyOn(Math, "random").mockReturnValue(0);
+		try {
+			fireEvent.click(screen.getByRole("button", { name: `Visit ${service}` }));
+			const dialog = screen.getByRole("dialog", { name: service });
+			expect(within(dialog).getByText(quotes[0])).toBeInTheDocument();
+			fireEvent.click(within(dialog).getByRole("button", { name: "Close" }));
+			random.mockReturnValue(0.999);
+			fireEvent.click(screen.getByRole("button", { name: `Visit ${service}` }));
+			expect(
+				within(screen.getByRole("dialog", { name: service })).getByText(
+					quotes[quotes.length - 1],
+				),
+			).toBeInTheDocument();
+		} finally {
+			random.mockRestore();
+		}
+	});
 	it("buys one potion and renders the updated inventory and gold", async () => {
 		const run = createTownRun();
 		const cost = selectTownView(run.state)!.healingPotionCost;
 		const { getRun } = setup(run);
 		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
 		const dialog = screen.getByRole("dialog", { name: "Alchemist" });
+		const quote = ALCHEMIST_QUOTES.find((line) => within(dialog).queryByText(line));
+		expect(quote).toBeDefined();
 		expect(
 			within(dialog).queryByRole("button", { name: "Buy maximum healing potions" }),
 		).not.toBeInTheDocument();
 		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
 		await waitFor(() => expect(within(dialog).getByText("2/3 potions")).toBeInTheDocument());
+		expect(within(dialog).getByText(quote!)).toBeInTheDocument();
 		expect(within(dialog).getByLabelText(`${run.state.gold - cost} gold`)).toBeInTheDocument();
 		expect(getRun().state.hero.healingPotions).toBe(2);
 		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
