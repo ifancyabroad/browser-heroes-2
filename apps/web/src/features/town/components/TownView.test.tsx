@@ -192,7 +192,7 @@ describe("TownView", () => {
 			within(dialog).queryByRole("button", { name: "Buy maximum healing potions" }),
 		).not.toBeInTheDocument();
 		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
-		await waitFor(() => expect(within(dialog).getByText("2/3 potions")).toBeInTheDocument());
+		await waitFor(() => expect(within(dialog).getByText("2/3")).toBeInTheDocument());
 		expect(within(dialog).getByText(quote!)).toBeInTheDocument();
 		expect(within(dialog).getByLabelText(`${run.state.gold - cost} gold`)).toBeInTheDocument();
 		expect(getRun().state.hero.healingPotions).toBe(2);
@@ -222,17 +222,20 @@ describe("TownView", () => {
 		const cost = selectTownView(run.state)!.restCost;
 		const { getRun } = setup(run);
 		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
-		fireEvent.click(screen.getByRole("button", { name: "Buy rest" }));
+		const tavern = screen.getByRole("dialog", { name: "Tavern" });
+		expect(tavern).toHaveTextContent(`Would you like to rest for ${cost} gold?`);
+		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
 		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
 		expect(getRun().state.hero.skills[0].chargesRemaining).toBeGreaterThan(0);
 		expect(getRun().state.gold).toBe(run.state.gold - cost);
 		expect(getRun().state.day).toBe(run.state.day + 1);
 		expect(screen.getByRole("article", { name: "Tavern" })).toHaveTextContent("Rested");
 		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
-		expect(screen.getByRole("button", { name: "Buy rest" })).toBeDisabled();
+		expect(screen.getByText("You are already fully rested.")).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Confirm" })).toBeDisabled();
 	});
 	it.each([
-		{ service: "Tavern", action: "Buy rest" },
+		{ service: "Tavern", action: "Confirm" },
 		{ service: "Alchemist", action: "Buy one healing potion" },
 	])("allows visiting $service without gold but prevents purchasing", ({ service, action }) => {
 		const run = createTownRun();
@@ -242,7 +245,7 @@ describe("TownView", () => {
 		fireEvent.click(screen.getByRole("button", { name: `Visit ${service}` }));
 		const dialog = screen.getByRole("dialog", { name: service });
 		expect(within(dialog).getByRole("button", { name: action })).toBeDisabled();
-		expect(within(dialog).getByText(/Not enough gold/)).toBeInTheDocument();
+		expect(within(dialog).getByText(/enough gold/)).toBeInTheDocument();
 		expect(applyRunAction).not.toHaveBeenCalled();
 	});
 
@@ -302,9 +305,9 @@ describe("TownView", () => {
 		);
 		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
 		const dialog = screen.getByRole("dialog", { name: "Tavern" });
-		const buy = within(dialog).getByRole("button", { name: "Buy rest" });
-		fireEvent.click(buy);
-		await waitFor(() => expect(buy).toBeDisabled());
+		const confirm = within(dialog).getByRole("button", { name: "Confirm" });
+		fireEvent.click(confirm);
+		await waitFor(() => expect(confirm).toBeDisabled());
 		expect(dialog).toBeInTheDocument();
 		const result = applyAction(run.state, { type: "REST_AT_TOWN" });
 		expect(result.ok).toBe(true);
@@ -323,14 +326,14 @@ describe("TownView", () => {
 			unlockedAchievements: [],
 		});
 		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
-		fireEvent.click(screen.getByRole("button", { name: "Buy rest" }));
+		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
 		await waitFor(() =>
 			expect(useErrorModalStore.getState().message).toBe("You do not have enough gold."),
 		);
 		expect(screen.getByRole("dialog", { name: "Tavern" })).toBeInTheDocument();
-		await waitFor(() => expect(screen.getByRole("button", { name: "Buy rest" })).toBeEnabled());
+		await waitFor(() => expect(screen.getByRole("button", { name: "Confirm" })).toBeEnabled());
 		vi.mocked(applyRunAction).mockRejectedValueOnce(new Error("offline"));
-		fireEvent.click(screen.getByRole("button", { name: "Buy rest" }));
+		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
 		await waitFor(() =>
 			expect(useErrorModalStore.getState().message).toBe("Unable to rest. Please try again."),
 		);

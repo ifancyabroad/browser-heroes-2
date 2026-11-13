@@ -58,23 +58,10 @@ export function AlchemistModal({
 				/>
 				<p className="min-w-0 text-text-muted">{quote}</p>
 			</div>
-			<p
-				className={clsx(
-					"tabular-nums",
-					potionsFull
-						? "text-success"
-						: town.healingPotions === 0
-							? "text-error"
-							: "text-text",
-				)}
-			>
-				{town.healingPotions}/{town.maxHealingPotions}
-				{potionsFull ? " MAX" : " potions"}
-			</p>
-			<dl className="mt-5 tabular-nums">
+			<dl className="tabular-nums">
 				<div className="flex items-center gap-2 sm:gap-3">
 					<dt className="flex min-w-0 flex-1 items-baseline gap-2 sm:gap-3">
-						<span className="shrink-0">Healing Potion</span>
+						<span>Healing Potion</span>
 						<DotLeader />
 					</dt>
 					<dd className="flex shrink-0 items-center gap-2 sm:gap-3">
@@ -98,6 +85,19 @@ export function AlchemistModal({
 					</dd>
 				</div>
 			</dl>
+			<p
+				className={clsx(
+					"mt-1 tabular-nums",
+					potionsFull
+						? "text-success"
+						: town.healingPotions === 0
+							? "text-error"
+							: "text-warning",
+				)}
+			>
+				{town.healingPotions}/{town.maxHealingPotions}
+				{potionsFull && " MAX"}
+			</p>
 			{!town.canAffordHealingPotion && !potionsFull && (
 				<p className="mt-3 text-error">Not enough gold.</p>
 			)}
