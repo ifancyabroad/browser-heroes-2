@@ -1,6 +1,6 @@
 import { selectItemDefinition, type EquipmentDestinationView } from "@app/engine";
 import clsx from "clsx";
-import { getItemRarityTextClassName } from "../presentation/items";
+import { getItemKindLabel, getItemRarityTextClassName } from "../presentation/items";
 import { Tooltip } from "./Tooltip";
 import { ItemTooltipContent } from "./tooltips/ItemTooltipContent";
 
@@ -28,7 +28,8 @@ export function EquipmentReplacementItems({ destinations }: EquipmentReplacement
 								)}
 								contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 							>
-								{item.name}
+								<span className="xs:hidden">{getItemKindLabel(item)}</span>
+								<span className="hidden xs:inline">{item.name}</span>
 							</Tooltip>
 						) : (
 							"Unknown item"

@@ -151,7 +151,8 @@ function ItemHeading({ slot }: { slot: TownShopSlotView }) {
 				)}
 				contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 			>
-				{item.name}
+				<span className="xs:hidden">{getItemKindLabel(item)}</span>
+				<span className="hidden xs:inline">{item.name}</span>
 			</Tooltip>
 		</div>
 	);
@@ -191,7 +192,7 @@ function Price({
 }) {
 	return (
 		<p className={clsx("whitespace-nowrap tabular-nums", className)}>
-			{labelled && <span className="mr-1 text-text-label">Price:</span>}
+			{labelled && <span className="mr-1 hidden text-text-label xs:inline">Price:</span>}
 			<span className={getPriceClassName(slot)}>{slot.price}g</span>
 		</p>
 	);

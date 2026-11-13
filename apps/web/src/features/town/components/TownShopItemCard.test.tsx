@@ -151,7 +151,7 @@ describe("TownShopItemCard", () => {
 		expect(screen.getByText("Physical / Melee")).toBeInTheDocument();
 		expect(screen.getByText("Scaling")).toBeInTheDocument();
 		expect(screen.getByText("Slot")).toBeInTheDocument();
-		expect(screen.getByText("Handaxe")).toBeInTheDocument();
+		expect(screen.getByText("Type").parentElement).toHaveTextContent("Handaxe");
 		expect(screen.getByText("Hand")).toBeInTheDocument();
 	});
 

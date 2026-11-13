@@ -4,7 +4,11 @@ import { RadioCard } from "../../../components/RadioCard";
 import { Tooltip } from "../../../components/Tooltip";
 import { ItemTooltipContent } from "../../../components/tooltips/ItemTooltipContent";
 import { EquipmentReplacementItems } from "../../../components/EquipmentReplacementItems";
-import { getItemSlotLabel, getItemRarityTextClassName } from "../../../presentation/items";
+import {
+	getItemKindLabel,
+	getItemSlotLabel,
+	getItemRarityTextClassName,
+} from "../../../presentation/items";
 import goldIcon from "../../../assets/images/icons/GoldCoinTen.png";
 import { resolveImageUrl } from "../../../utils/image";
 
@@ -49,7 +53,8 @@ export function RewardOptionCard({ option, value, selected, disabled }: RewardOp
 							)}
 							contentClassName="w-80 max-w-[calc(100vw-1rem)] sm:w-96"
 						>
-							{content.name}
+							<span className="xs:hidden">{getItemKindLabel(option.item)}</span>
+							<span className="hidden xs:inline">{content.name}</span>
 						</Tooltip>
 					) : (
 						<span>{content.name}</span>
