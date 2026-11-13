@@ -72,8 +72,13 @@ describe("Battlefield combat outcomes", () => {
 
 		fireEvent.focus(panel.parentElement!);
 		const tooltip = await screen.findByRole("tooltip");
-		expect(tooltip).toHaveTextContent("1. Aldric");
-		expect(tooltip).toHaveTextContent("2. Orc");
+		expect(
+			within(tooltip)
+				.getAllByRole("listitem")
+				.map((row) => row.textContent),
+		).toEqual(["Aldric", "Orc"]);
+		expect(tooltip.querySelector(".tabler-icon-circle-number-1")).toBeInTheDocument();
+		expect(tooltip.querySelector(".tabler-icon-circle-number-2")).toBeInTheDocument();
 
 		rerender(
 			<Battlefield
@@ -82,8 +87,11 @@ describe("Battlefield combat outcomes", () => {
 				entries={[]}
 			/>,
 		);
-		expect(tooltip).toHaveTextContent("1. Orc");
-		expect(tooltip).toHaveTextContent("2. Aldric");
+		expect(
+			within(tooltip)
+				.getAllByRole("listitem")
+				.map((row) => row.textContent),
+		).toEqual(["Orc", "Aldric"]);
 	});
 
 	it("renders compact names in supplied order and keeps the panel after victory", () => {

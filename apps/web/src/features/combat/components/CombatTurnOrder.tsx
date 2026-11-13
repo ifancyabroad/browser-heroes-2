@@ -15,16 +15,25 @@ export function CombatTurnOrder({ turnOrder, heroId }: CombatTurnOrderProps) {
 				<>
 					<p className="text-text-label">Turn order</p>
 					<ol className="mt-1 grid gap-1">
-						{turnOrder.map(({ id, shortName }, index) => (
-							<li key={id}>
-								<span className="text-text-label">{index + 1}.</span>{" "}
-								<span
-									className={id === heroId ? "text-primary" : "text-text-bright"}
-								>
-									{shortName}
-								</span>
-							</li>
-						))}
+						{turnOrder.map(({ id, shortName }, index) => {
+							const OrderIcon = index === 0 ? IconCircleNumber1 : IconCircleNumber2;
+
+							return (
+								<li key={id} className="flex items-center gap-2">
+									<OrderIcon
+										aria-hidden="true"
+										className="h-4 w-4 shrink-0 text-text-label"
+									/>
+									<span
+										className={
+											id === heroId ? "text-primary" : "text-text-bright"
+										}
+									>
+										{shortName}
+									</span>
+								</li>
+							);
+						})}
 					</ol>
 				</>
 			}
