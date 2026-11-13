@@ -89,12 +89,15 @@ export function TownHub({
 	];
 	return (
 		<div className="flex flex-1 flex-col gap-3 md:grid md:grid-cols-[minmax(15rem,.9fr)_minmax(0,1.4fr)]">
-			<div className="grid shrink-0 auto-rows-fr gap-3" aria-label="Town services">
+			<div
+				className="grid shrink-0 auto-rows-fr grid-cols-[minmax(0,max-content)_minmax(max-content,1fr)_max-content] gap-x-2 gap-y-3 md:grid-cols-1 md:gap-3"
+				aria-label="Town services"
+			>
 				{services.map((service) => (
 					<article
 						key={service.id}
 						aria-labelledby={`town-${service.id}`}
-						className="flex min-w-0 items-center gap-3 border-2 border-border-secondary bg-bg-panel p-2.5 md:flex-col md:items-stretch md:p-3.5"
+						className="col-span-full grid min-w-0 grid-cols-subgrid items-center border-2 border-border-secondary bg-bg-panel p-2.5 md:flex md:flex-col md:items-stretch md:gap-3 md:p-3.5"
 					>
 						<div className="flex min-w-0 items-center gap-1 md:flex-1 md:items-start md:gap-3">
 							<img
@@ -102,13 +105,14 @@ export function TownHub({
 								alt=""
 								className="h-10 w-10 shrink-0 object-contain md:h-12 md:w-12"
 							/>
-							<div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 md:block md:flex-1">
-								<h2 id={`town-${service.id}`} className="min-w-0 text-text-bright">
+							<div className="min-w-0 md:flex-1">
+								<h2
+									id={`town-${service.id}`}
+									title={service.name}
+									className="truncate text-text-bright md:overflow-visible md:whitespace-normal"
+								>
 									{service.name}
 								</h2>
-								{service.status && (
-									<span className="inline-flex md:hidden">{service.status}</span>
-								)}
 								<p className="mt-1 hidden leading-6 md:block">
 									{service.description}
 								</p>
@@ -126,12 +130,12 @@ export function TownHub({
 							)}
 						</div>
 						<div className="contents md:mt-auto md:flex md:items-center md:justify-between md:gap-3">
-							{service.status && (
-								<span className="hidden md:inline-flex">{service.status}</span>
-							)}
+							<span className="flex justify-center md:justify-start">
+								{service.status}
+							</span>
 							<Button
 								variant="primary"
-								className="ml-auto shrink-0"
+								className="ml-auto shrink-0 max-md:px-2"
 								aria-label={`Visit ${service.name}`}
 								disabled={isPending}
 								onClick={service.onVisit}
