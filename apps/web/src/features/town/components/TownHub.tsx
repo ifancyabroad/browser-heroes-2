@@ -97,7 +97,7 @@ export function TownHub({
 					<article
 						key={service.id}
 						aria-labelledby={`town-${service.id}`}
-						className="col-span-full grid min-w-0 grid-cols-subgrid items-center border-2 border-border-secondary bg-bg-panel p-2.5 md:flex md:flex-col md:items-stretch md:gap-3 md:p-3.5"
+						className="col-span-full grid min-w-0 grid-cols-subgrid items-center border-2 border-border-secondary bg-bg-panel p-3 md:flex md:flex-col md:items-stretch md:gap-3"
 					>
 						<div className="flex min-w-0 items-center gap-1 md:flex-1 md:items-start md:gap-3">
 							<img
@@ -155,7 +155,7 @@ export function TownHub({
 					alt=""
 					className="absolute inset-0 -z-10 h-full w-full object-cover object-[50%_48%]"
 				/>
-				<div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-3 border-t border-border-secondary bg-black/85 p-2.5 md:p-3.5">
+				<div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-3 border-t border-border-secondary bg-black/85 p-3">
 					<div className="grid gap-1">
 						<h2 className="text-text-bright">{formatTitle(town.zone)}</h2>
 						<p>
