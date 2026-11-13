@@ -1,6 +1,7 @@
 import type { TownView } from "@app/engine";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
+import { Badge } from "../../../components/Badge";
 import { formatTitle } from "../../../presentation/effects";
 import { ZONE_BACKGROUNDS } from "../../../presentation/zones";
 import shopIcon from "../../../assets/images/town/shop.png";
@@ -26,6 +27,8 @@ export function TownHub({
 	onVisitAlchemist,
 	onContinue,
 }: TownHubProps) {
+	const potionsFull = town.healingPotions >= town.maxHealingPotions;
+	const potionCount = `${town.healingPotions}/${town.maxHealingPotions}`;
 	const services = [
 		{
 			id: "shop",
@@ -34,38 +37,43 @@ export function TownHub({
 			description: "Browse weapons, armour and accessories.",
 			price: null,
 			canAfford: true,
-			status: "",
-			statusClassName: "text-text",
+			status: null,
 			onVisit: onVisitShop,
 		},
 		{
 			id: "tavern",
 			name: "Tavern",
 			icon: tavernIcon,
-			description: "Recover your health and replenish skill uses.",
+			description: "Rest to recover health and skills.",
 			price: town.restCost,
 			canAfford: town.canAffordRest,
-			status: town.isFullyRested ? "Fully rested" : "",
-			statusClassName: "text-success",
+			status: (
+				<Badge
+					label={town.isFullyRested ? "Rested" : "Weary"}
+					variant={town.isFullyRested ? "success" : "warning"}
+					textTone="bright"
+					className="inline-flex items-center whitespace-nowrap tabular-nums leading-5"
+				/>
+			),
 			onVisit: onVisitTavern,
 		},
 		{
 			id: "alchemist",
 			name: "Alchemist",
 			icon: alchemistIcon,
-			description: "Stock up on healing potions for battle.",
+			description: "Stock up on healing potions.",
 			price: town.healingPotionCost,
 			canAfford: town.canAffordHealingPotion,
-			status:
-				town.healingPotions >= town.maxHealingPotions
-					? `${town.healingPotions}/${town.maxHealingPotions} MAX`
-					: `${town.healingPotions}/${town.maxHealingPotions}`,
-			statusClassName:
-				town.healingPotions >= town.maxHealingPotions
-					? "text-success"
-					: town.healingPotions === 0
-						? "text-error"
-						: "text-text",
+			status: (
+				<Badge
+					label={potionsFull ? `${potionCount} MAX` : potionCount}
+					variant={
+						potionsFull ? "success" : town.healingPotions === 0 ? "error" : "warning"
+					}
+					textTone="bright"
+					className="inline-flex items-center whitespace-nowrap tabular-nums leading-5"
+				/>
+			),
 			onVisit: onVisitAlchemist,
 		},
 	];
@@ -76,61 +84,40 @@ export function TownHub({
 					<article
 						key={service.id}
 						aria-labelledby={`town-${service.id}`}
-						className="flex min-w-0 items-center gap-2 border-2 border-border-secondary bg-bg-panel p-3 md:flex-col md:items-stretch md:gap-3 md:p-3.5"
+						className="flex min-w-0 items-center gap-1 border-2 border-border-secondary bg-bg-panel p-2.5 md:flex-col md:items-stretch md:gap-3 md:p-3.5"
 					>
-						<div className="flex min-w-0 flex-1 items-center gap-2 md:items-start md:gap-3">
+						<div className="flex min-w-0 flex-1 items-center gap-1 md:items-start md:gap-3">
 							<img
 								src={service.icon}
 								alt=""
 								className="h-10 w-10 shrink-0 object-contain md:h-12 md:w-12"
 							/>
 							<div className="min-w-0 flex-1">
-								<div className="flex items-baseline justify-between gap-3">
-									<h2
-										id={`town-${service.id}`}
-										className="min-w-0 text-text-bright"
-									>
-										{service.name}
-									</h2>
-									{service.price !== null && (
-										<span
-											className={clsx(
-												"ml-auto hidden shrink-0 whitespace-nowrap text-right tabular-nums md:block",
-												service.canAfford
-													? "text-text-bright"
-													: "text-error",
-											)}
-											aria-label={`${service.price} gold${service.id === "alchemist" ? " each" : ""}`}
-										>
-											{service.price}g
-										</span>
-									)}
-								</div>
-								<p className="mt-1.5 hidden leading-6 md:block">
+								<h2 id={`town-${service.id}`} className="min-w-0 text-text-bright">
+									{service.name}
+								</h2>
+								<p className="mt-1 hidden leading-6 md:block">
 									{service.description}
 								</p>
 								{service.status && (
-									<span
-										className={clsx(
-											"block whitespace-nowrap tabular-nums md:hidden",
-											service.statusClassName,
-										)}
-									>
-										{service.status}
-									</span>
+									<span className="inline-flex md:hidden">{service.status}</span>
 								)}
 							</div>
+							{service.price !== null && (
+								<span
+									className={clsx(
+										"ml-1 hidden shrink-0 whitespace-nowrap text-right tabular-nums md:block",
+										service.canAfford ? "text-text-bright" : "text-error",
+									)}
+									aria-label={`${service.price} gold${service.id === "alchemist" ? " each" : ""}`}
+								>
+									{service.price}g
+								</span>
+							)}
 						</div>
 						<div className="contents md:mt-auto md:flex md:items-center md:justify-between md:gap-3">
 							{service.status && (
-								<span
-									className={clsx(
-										"hidden whitespace-nowrap tabular-nums md:inline",
-										service.statusClassName,
-									)}
-								>
-									{service.status}
-								</span>
+								<span className="hidden md:inline-flex">{service.status}</span>
 							)}
 							<Button
 								variant="primary"

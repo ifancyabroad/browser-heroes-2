@@ -102,6 +102,34 @@ describe("TownView", () => {
 		useHowToPlayModalStore.setState({ isOpen: false });
 		useErrorModalStore.getState().hideError();
 	});
+	it.each([
+		{ count: 0, label: "0/3", tone: "border-error" },
+		{ count: 1, label: "1/3", tone: "border-warning" },
+		{ count: 2, label: "2/3", tone: "border-warning" },
+		{ count: 3, label: "3/3 MAX", tone: "border-success" },
+	])("shows $label with the appropriate potion status colour", ({ count, label, tone }) => {
+		const run = createTownRun();
+		run.state.hero.healingPotions = count;
+		setup(run);
+		const card = screen.getByRole("article", { name: "Alchemist" });
+		for (const badge of within(card).getAllByText(label)) {
+			expect(badge).toHaveClass("border-2", tone);
+		}
+	});
+	it.each([
+		{ rested: false, label: "Weary", tone: "border-warning" },
+		{ rested: true, label: "Rested", tone: "border-success" },
+	])("shows $label for the tavern", ({ rested, label, tone }) => {
+		const run = createTownRun();
+		if (!rested) {
+			run.state.hero.skills[0].chargesRemaining = 0;
+		}
+		setup(run);
+		const card = screen.getByRole("article", { name: "Tavern" });
+		for (const badge of within(card).getAllByText(label)) {
+			expect(badge).toHaveClass("border-2", tone);
+		}
+	});
 	it("buys one potion and renders the updated inventory and gold", async () => {
 		const run = createTownRun();
 		const cost = selectTownView(run.state)!.healingPotionCost;
@@ -146,7 +174,7 @@ describe("TownView", () => {
 		expect(getRun().state.hero.skills[0].chargesRemaining).toBeGreaterThan(0);
 		expect(getRun().state.gold).toBe(run.state.gold - cost);
 		expect(getRun().state.day).toBe(run.state.day + 1);
-		expect(screen.getByRole("article", { name: "Tavern" })).toHaveTextContent("Fully rested");
+		expect(screen.getByRole("article", { name: "Tavern" })).toHaveTextContent("Rested");
 		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
 		expect(screen.getByRole("button", { name: "Buy rest" })).toBeDisabled();
 	});

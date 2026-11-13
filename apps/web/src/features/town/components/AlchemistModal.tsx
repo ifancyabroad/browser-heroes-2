@@ -71,7 +71,7 @@ export function AlchemistModal({
 			<dl className="mt-5 tabular-nums">
 				<div className="flex items-center gap-2 sm:gap-3">
 					<dt className="flex min-w-0 flex-1 items-baseline gap-2 sm:gap-3">
-						<span className="shrink-0">Each</span>
+						<span className="shrink-0">Healing Potion</span>
 						<DotLeader />
 					</dt>
 					<dd className="flex shrink-0 items-center gap-2 sm:gap-3">

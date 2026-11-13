@@ -1,9 +1,17 @@
 import type { ReactNode } from "react";
 import clsx from "clsx";
 
+const variantClasses = {
+	default: "border-border",
+	muted: "border-border-secondary",
+	error: "border-error",
+	warning: "border-warning",
+	success: "border-success",
+};
+
 type BadgeProps = {
 	label: ReactNode;
-	variant?: "default" | "muted";
+	variant?: keyof typeof variantClasses;
 	textTone?: "default" | "bright";
 	className?: string;
 };
@@ -13,7 +21,7 @@ export function Badge({ label, variant = "default", textTone = "default", classN
 		<span
 			className={clsx(
 				"border-2 px-1",
-				variant === "default" ? "border-border" : "border-border-secondary",
+				variantClasses[variant],
 				textTone === "bright" ? "text-text-bright" : variant === "muted" && "text-text",
 				className,
 			)}
