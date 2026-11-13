@@ -1,4 +1,5 @@
 import type { TownView } from "@app/engine";
+import { IconArrowRight } from "@tabler/icons-react";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Badge } from "../../../components/Badge";
@@ -78,30 +79,30 @@ export function TownHub({
 		},
 	];
 	return (
-		<div className="grid gap-3 md:grid-cols-[minmax(15rem,.9fr)_minmax(0,1.4fr)]">
-			<div className="grid auto-rows-fr gap-3" aria-label="Town services">
+		<div className="flex flex-1 flex-col gap-3 md:grid md:grid-cols-[minmax(15rem,.9fr)_minmax(0,1.4fr)]">
+			<div className="grid shrink-0 auto-rows-fr gap-3" aria-label="Town services">
 				{services.map((service) => (
 					<article
 						key={service.id}
 						aria-labelledby={`town-${service.id}`}
-						className="flex min-w-0 items-center gap-1 border-2 border-border-secondary bg-bg-panel p-2.5 md:flex-col md:items-stretch md:gap-3 md:p-3.5"
+						className="flex min-w-0 items-center gap-3 border-2 border-border-secondary bg-bg-panel p-2.5 md:flex-col md:items-stretch md:p-3.5"
 					>
-						<div className="flex min-w-0 flex-1 items-center gap-1 md:items-start md:gap-3">
+						<div className="flex min-w-0 items-center gap-1 md:flex-1 md:items-start md:gap-3">
 							<img
 								src={service.icon}
 								alt=""
 								className="h-10 w-10 shrink-0 object-contain md:h-12 md:w-12"
 							/>
-							<div className="min-w-0 flex-1">
+							<div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 md:block md:flex-1">
 								<h2 id={`town-${service.id}`} className="min-w-0 text-text-bright">
 									{service.name}
 								</h2>
-								<p className="mt-1 hidden leading-6 md:block">
-									{service.description}
-								</p>
 								{service.status && (
 									<span className="inline-flex md:hidden">{service.status}</span>
 								)}
+								<p className="mt-1 hidden leading-6 md:block">
+									{service.description}
+								</p>
 							</div>
 							{service.price !== null && (
 								<span
@@ -134,28 +135,28 @@ export function TownHub({
 			</div>
 			<section
 				aria-label="Next battle"
-				className="relative isolate min-h-60 overflow-hidden border-2 border-border-secondary bg-bg-base md:min-h-0"
+				className="relative isolate min-h-40 flex-1 overflow-hidden border-2 border-border-secondary bg-bg-base md:min-h-0"
 			>
 				<img
 					src={ZONE_BACKGROUNDS[town.zone]}
 					alt=""
 					className="absolute inset-0 -z-10 h-full w-full object-cover object-[50%_48%]"
 				/>
-				<div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-3 border-t border-border-secondary bg-black/85 p-4">
+				<div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-3 border-t border-border-secondary bg-black/85 p-2.5 md:p-3.5">
 					<div className="grid gap-1">
 						<h2 className="text-text-bright">{formatTitle(town.zone)}</h2>
-						<p>Battle {town.battleNumber}</p>
+						<p>
+							Battle {town.zoneBattleNumber}/{town.battlesPerZone}
+						</p>
 					</div>
 					<Button
 						variant="primary"
 						disabled={isPending || !canEnterCombat}
 						onClick={onContinue}
-						className="ml-auto min-h-10"
+						className="ml-auto"
 					>
-						Continue{" "}
-						<span aria-hidden="true" className="ml-3">
-							→
-						</span>
+						Continue
+						<IconArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
 					</Button>
 				</div>
 			</section>

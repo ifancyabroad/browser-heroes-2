@@ -3,6 +3,7 @@ import { type Zone } from "@app/content";
 import type { RunState, RuntimeItem, TownShopSlot } from "../schemas";
 
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { BATTLES_PER_ZONE } from "../systems/encounters/zones/getZoneNumberForBattle";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
 import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
 import { isHeroFullyRested } from "../systems/hero/isHeroFullyRested";
@@ -26,6 +27,8 @@ export type TownShopSlotView = {
 
 export type TownView = {
 	battleNumber: number;
+	zoneBattleNumber: number;
+	battlesPerZone: number;
 	zoneNumber: number;
 	zone: Zone;
 	day: number;
@@ -69,6 +72,8 @@ export function selectTownView(state: RunState): TownView | null {
 
 	return {
 		battleNumber: state.battleNumber,
+		zoneBattleNumber: ((state.battleNumber - 1) % BATTLES_PER_ZONE) + 1,
+		battlesPerZone: BATTLES_PER_ZONE,
 		zoneNumber: state.zoneNumber,
 		zone: state.zone,
 		day: state.day,

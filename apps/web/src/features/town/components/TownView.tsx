@@ -210,10 +210,10 @@ export function TownView({ run }: TownViewProps) {
 					className={
 						isShop
 							? "min-h-0 flex-1 overflow-y-auto"
-							: "min-h-0 flex-initial shrink overflow-y-auto"
+							: "flex min-h-0 flex-1 flex-col overflow-y-auto md:flex-initial"
 					}
 				>
-					<GamePanelContainer className="pb-6">
+					<GamePanelContainer className={isShop ? "pb-6" : "flex flex-1 flex-col pb-6"}>
 						{isShop ? (
 							<TownShopGrid
 								shopSlots={townView.shopSlots}
@@ -235,8 +235,8 @@ export function TownView({ run }: TownViewProps) {
 					</GamePanelContainer>
 				</div>
 				{!isShop && (
-					<div className="flex min-h-48 flex-1 flex-col border-t-2 border-border-secondary bg-bg-base md:min-h-40">
-						<GamePanelContainer className="flex min-h-0 flex-1 py-4">
+					<div className="flex shrink-0 flex-col border-t-2 border-border-secondary bg-bg-base py-4 md:min-h-40 md:flex-1">
+						<GamePanelContainer className="flex h-[8lh] min-h-0 shrink-0 leading-6 md:h-auto md:flex-1">
 							<WorldLogPanel {...worldLog} />
 						</GamePanelContainer>
 					</div>
