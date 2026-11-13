@@ -32,6 +32,7 @@ export function TownView({ run }: TownViewProps) {
 	const closeSidebar = useSidebarStore((state) => state.close);
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
 	const [screen, setScreen] = useState<"town" | "shop">("town");
+	const [hasViewedShop, setHasViewedShop] = useState(false);
 	const [service, setService] = useState<"tavern" | "alchemist" | null>(null);
 	const worldLog = useWorldLog();
 	const applyRunAction = useApplyRunAction();
@@ -42,6 +43,11 @@ export function TownView({ run }: TownViewProps) {
 
 	if (!townView) {
 		return <p>Town state is unavailable.</p>;
+	}
+
+	function handleVisitShop() {
+		setHasViewedShop(true);
+		setScreen("shop");
 	}
 
 	async function submitAction(
@@ -226,7 +232,8 @@ export function TownView({ run }: TownViewProps) {
 								town={townView}
 								isPending={applyRunAction.isPending}
 								canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-								onVisitShop={() => setScreen("shop")}
+								hasViewedShop={hasViewedShop}
+								onVisitShop={handleVisitShop}
 								onVisitTavern={() => setService("tavern")}
 								onVisitAlchemist={() => setService("alchemist")}
 								onContinue={handleEnterCombat}

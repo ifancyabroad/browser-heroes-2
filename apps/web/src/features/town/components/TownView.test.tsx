@@ -84,7 +84,7 @@ function setup(run = createTownRun()) {
 		});
 		return <TownView run={data!.run} />;
 	}
-	render(
+	const { unmount } = render(
 		<QueryClientProvider client={client}>
 			<MemoryRouter>
 				<TooltipProvider>
@@ -93,7 +93,7 @@ function setup(run = createTownRun()) {
 			</MemoryRouter>
 		</QueryClientProvider>,
 	);
-	return { getRun: () => currentRun };
+	return { getRun: () => currentRun, unmount };
 }
 
 describe("TownView", () => {
@@ -102,6 +102,23 @@ describe("TownView", () => {
 		useSidebarStore.getState().close();
 		useHowToPlayModalStore.setState({ isOpen: false });
 		useErrorModalStore.getState().hideError();
+	});
+	it("marks stock as viewed after visiting the shop without submitting an action", () => {
+		setup();
+		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New stock");
+		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
+		expect(applyRunAction).not.toHaveBeenCalled();
+	});
+	it("resets the shop status when the town screen remounts", () => {
+		const { unmount } = setup();
+		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
+		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
+		unmount();
+		setup();
+		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New stock");
 	});
 	it("shows zone-relative battle progress", () => {
 		const run = createTownRun();
@@ -422,6 +439,8 @@ describe("TownView", () => {
 		expect(getRun().state.town!.shopSlots).toContainEqual(
 			run.state.town!.shopSlots.find((item) => item.id === slot.id),
 		);
+		fireEvent.click(screen.getByRole("button", { name: "Back to town" }));
+		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
 	});
 	it("continues from town into combat", async () => {
 		const { getRun } = setup();

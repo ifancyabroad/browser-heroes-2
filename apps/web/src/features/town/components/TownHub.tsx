@@ -13,6 +13,7 @@ type TownHubProps = {
 	town: TownView;
 	isPending: boolean;
 	canEnterCombat: boolean;
+	hasViewedShop: boolean;
 	onVisitShop: () => void;
 	onVisitTavern: () => void;
 	onVisitAlchemist: () => void;
@@ -23,6 +24,7 @@ export function TownHub({
 	town,
 	isPending,
 	canEnterCombat,
+	hasViewedShop,
 	onVisitShop,
 	onVisitTavern,
 	onVisitAlchemist,
@@ -38,7 +40,14 @@ export function TownHub({
 			description: "Browse weapons, armour and accessories.",
 			price: null,
 			canAfford: true,
-			status: null,
+			status: (
+				<Badge
+					label={hasViewedShop ? "Viewed" : "New stock"}
+					variant={hasViewedShop ? "success" : "warning"}
+					textTone="bright"
+					className="inline-flex items-center whitespace-nowrap tabular-nums leading-5"
+				/>
+			),
 			onVisit: onVisitShop,
 		},
 		{
