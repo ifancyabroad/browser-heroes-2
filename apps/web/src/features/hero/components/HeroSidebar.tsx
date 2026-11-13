@@ -1,7 +1,6 @@
 import { CLASSES_BY_ID } from "@app/content";
 import { selectHeroProgression, selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
-import { IconChartBar, IconSword, IconSparkles, IconScript } from "@tabler/icons-react";
 import { ActiveEffectsRow } from "../../combat/components/ActiveEffectsRow";
 import { CombatLogPanel } from "../../combat/components/CombatLogPanel";
 import { LogPanel } from "../../../components/LogPanel";
@@ -27,8 +26,8 @@ type HeroSidebarProps = {
 type HeroSidebarTab = "details" | "equipment" | "skills" | "combat";
 
 const sharedTabs = [
-	{ label: "Equipment", value: "equipment", icon: <IconSword className="h-6 w-6" /> },
-	{ label: "Skills", value: "skills", icon: <IconSparkles className="h-6 w-6" /> },
+	{ label: "Equipment", value: "equipment" },
+	{ label: "Skills", value: "skills" },
 ] as const;
 
 export function HeroSidebar({
@@ -50,12 +49,10 @@ export function HeroSidebar({
 			? {
 					label: "Combat Log",
 					value: "combat" as const,
-					icon: <IconScript className="h-6 w-6" />,
 				}
 			: {
 					label: "Stats",
 					value: "details" as const,
-					icon: <IconChartBar className="h-6 w-6" />,
 				},
 		...sharedTabs,
 	];
