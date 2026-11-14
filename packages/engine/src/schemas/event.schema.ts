@@ -135,6 +135,7 @@ const healingPotionUsedEventSchema = z.object({
 
 const healingPotionBoughtEventSchema = z.object({
 	type: z.literal("HEALING_POTION_BOUGHT"),
+	quantity: z.number().int().positive(),
 	cost: z.number().int().min(0),
 	remainingPotions: z.number().int().min(0),
 });

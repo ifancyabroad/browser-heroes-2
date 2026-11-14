@@ -26,6 +26,7 @@ export const playerUseConsumableActionSchema = z.object({
 export const buyConsumableActionSchema = z.object({
 	type: z.literal("BUY_CONSUMABLE"),
 	consumableType: consumableTypeSchema,
+	quantity: z.number().int().positive(),
 });
 
 export const continueToNextCombatActionSchema = z.object({

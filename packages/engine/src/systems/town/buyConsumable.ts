@@ -6,7 +6,7 @@ import { buyHealingPotion } from "./buyHealingPotion";
 export function buyConsumable(state: RunState, action: BuyConsumableAction): EngineResult {
 	switch (action.consumableType) {
 		case "healingPotion":
-			return buyHealingPotion(state);
+			return buyHealingPotion(state, action.quantity);
 
 		default:
 			return failureResult(state, "CONSUMABLE_NOT_AVAILABLE");

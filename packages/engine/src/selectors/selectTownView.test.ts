@@ -3,6 +3,18 @@ import { createTestTownState } from "../test/createTestRunState";
 import { selectTownView } from "./selectTownView";
 
 describe("selectTownView", () => {
+	it("separates refill affordability from carrying capacity", () => {
+		const state = createTestTownState();
+		state.hero.healingPotions = 3;
+		state.gold = 0;
+		expect(selectTownView(state)).toMatchObject({
+			healingPotionRefillQuantity: 0,
+			healingPotionRefillCost: 0,
+			canAffordHealingPotionRefill: true,
+			canBuyHealingPotion: false,
+		});
+	});
+
 	it.each([
 		[2, 2],
 		[9, 9],

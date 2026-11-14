@@ -147,13 +147,14 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
-	function handleBuyHealingPotion() {
+	function handleBuyHealingPotion(quantity: number) {
 		submitAction(
 			{
 				type: "BUY_CONSUMABLE",
 				consumableType: "healingPotion",
+				quantity,
 			},
-			"Unable to buy a healing potion. Please try again.",
+			"Unable to buy healing potions. Please try again.",
 		);
 	}
 

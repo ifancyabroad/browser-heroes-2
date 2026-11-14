@@ -16,11 +16,14 @@ type AlchemistModalProps = {
 		| "maxHealingPotions"
 		| "healingPotionCost"
 		| "canAffordHealingPotion"
+		| "healingPotionRefillQuantity"
+		| "healingPotionRefillCost"
+		| "canAffordHealingPotionRefill"
 	>;
 	isPending: boolean;
 	canBuyPotion: boolean;
 	onClose: () => void;
-	onBuyPotion: () => void;
+	onBuyPotion: (quantity: number) => void;
 };
 
 export function AlchemistModal({
@@ -78,7 +81,36 @@ export function AlchemistModal({
 							className="w-16 shrink-0 px-2!"
 							aria-label="Buy one healing potion"
 							disabled={isPending || !canBuyPotion}
-							onClick={onBuyPotion}
+							onClick={() => onBuyPotion(1)}
+						>
+							Buy
+						</Button>
+					</dd>
+				</div>
+				<div className="mt-3 flex items-center gap-2 sm:gap-3">
+					<dt className="flex min-w-0 flex-1 items-baseline gap-2 sm:gap-3">
+						<span>Max potions ({town.healingPotionRefillQuantity})</span>
+						<DotLeader />
+					</dt>
+					<dd className="flex shrink-0 items-center gap-2 sm:gap-3">
+						<span
+							className={clsx(
+								"whitespace-nowrap text-right",
+								town.canAffordHealingPotionRefill
+									? "text-text-bright"
+									: "text-error",
+							)}
+						>
+							{town.healingPotionRefillCost}g
+						</span>
+						<Button
+							variant="primary"
+							className="w-16 shrink-0 px-2!"
+							aria-label="Buy maximum healing potions"
+							disabled={
+								isPending || !canBuyPotion || !town.canAffordHealingPotionRefill
+							}
+							onClick={() => onBuyPotion(town.healingPotionRefillQuantity)}
 						>
 							Buy
 						</Button>

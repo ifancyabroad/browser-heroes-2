@@ -201,6 +201,7 @@ function getTownActions(state: RunState): EngineAction[] {
 		actions.push({
 			type: "BUY_CONSUMABLE",
 			consumableType: "healingPotion",
+			quantity: 1,
 		});
 	}
 

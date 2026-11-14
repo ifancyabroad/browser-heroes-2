@@ -180,6 +180,40 @@ describe("TownView", () => {
 			random.mockRestore();
 		}
 	});
+	it("refills potions with a single purchase", async () => {
+		const run = createTownRun();
+		const town = selectTownView(run.state)!;
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
+		const buy = screen.getByRole("button", { name: "Buy maximum healing potions" });
+		fireEvent.click(buy);
+		await waitFor(() =>
+			expect(
+				within(screen.getByRole("dialog", { name: "Alchemist" })).getByText("3/3"),
+			).toBeInTheDocument(),
+		);
+		expect(buy).toBeDisabled();
+		expect(getRun().state.gold).toBe(run.state.gold - town.healingPotionRefillCost);
+		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
+			runId: run.id,
+			action: {
+				type: "BUY_CONSUMABLE",
+				consumableType: "healingPotion",
+				quantity: town.healingPotionRefillQuantity,
+			},
+		});
+	});
+
+	it("allows single purchases when a full refill is unaffordable", () => {
+		const run = createTownRun();
+		run.state.hero.healingPotions = 0;
+		run.state.gold = selectTownView(run.state)!.healingPotionCost;
+		setup(run);
+		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
+		expect(screen.getByRole("button", { name: "Buy maximum healing potions" })).toBeDisabled();
+		expect(screen.getByRole("button", { name: "Buy one healing potion" })).toBeEnabled();
+	});
+
 	it("buys one potion and renders the updated inventory and gold", async () => {
 		const run = createTownRun();
 		const cost = selectTownView(run.state)!.healingPotionCost;
@@ -190,7 +224,7 @@ describe("TownView", () => {
 		expect(quote).toBeDefined();
 		expect(
 			within(dialog).queryByRole("button", { name: "Buy maximum healing potions" }),
-		).not.toBeInTheDocument();
+		).toBeEnabled();
 		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
 		await waitFor(() => expect(within(dialog).getByText("2/3")).toBeInTheDocument());
 		expect(within(dialog).getByText(quote!)).toBeInTheDocument();
@@ -198,7 +232,7 @@ describe("TownView", () => {
 		expect(getRun().state.hero.healingPotions).toBe(2);
 		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
 			runId: run.id,
-			action: { type: "BUY_CONSUMABLE", consumableType: "healingPotion" },
+			action: { type: "BUY_CONSUMABLE", consumableType: "healingPotion", quantity: 1 },
 		});
 	});
 	it("disables purchases after the final slot is filled while keeping visits available", async () => {
@@ -209,6 +243,9 @@ describe("TownView", () => {
 		const dialog = screen.getByRole("dialog");
 		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
 		await waitFor(() => expect(within(dialog).getByText("3/3")).toBeInTheDocument());
+		expect(
+			within(dialog).getByRole("button", { name: "Buy maximum healing potions" }),
+		).toBeDisabled();
 		expect(
 			within(dialog).getByRole("button", { name: "Buy one healing potion" }),
 		).toBeDisabled();
