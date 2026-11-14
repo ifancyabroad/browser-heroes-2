@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
 import {
-	createTestRunState,
+	createTestCombatState,
 	createTestVictoryState,
 	modifyTestRunState,
 } from "../../test/createTestRunState";
@@ -20,7 +20,7 @@ describe("retireRun", () => {
 	});
 
 	it("rejects retirement before final-boss victory", () => {
-		for (const state of [createTestRunState(), createTestVictoryState()]) {
+		for (const state of [createTestCombatState(), createTestVictoryState()]) {
 			expect(applyAction(state, { type: "RETIRE_RUN" })).toMatchObject({
 				ok: false,
 				error: "INVALID_PHASE",

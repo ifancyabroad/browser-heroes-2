@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { modifyRollEffectSchema, type ModifyRollEffect } from "@app/content";
 
-import { createTestRunState } from "../../../../test/createTestRunState";
+import { createTestCombatState } from "../../../../test/createTestRunState";
 import { applyTemporaryModifierEffect } from "./applyTemporaryModifierEffect";
 
 const source = {
@@ -71,7 +71,7 @@ describe("applyTemporaryModifierEffect", () => {
 	});
 
 	it("stores roll modifier charges on the active effect", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = structuredClone(createTestCombatState().combat!);
 		const result = applyTemporaryModifierEffect({
 			combat,
 			actorSide: "player",
@@ -97,7 +97,7 @@ describe("applyTemporaryModifierEffect", () => {
 	});
 
 	it("does not apply a hostile modifier when its saving throw succeeds", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = structuredClone(createTestCombatState().combat!);
 		combat.enemy.attributes.wisdom = 30;
 		combat.enemy.savingThrowProficiencies = ["wisdom"];
 
@@ -116,7 +116,7 @@ describe("applyTemporaryModifierEffect", () => {
 	});
 
 	it("applies a hostile modifier when its saving throw fails", () => {
-		const combat = structuredClone(createTestRunState().combat!);
+		const combat = structuredClone(createTestCombatState().combat!);
 		combat.enemy.attributes.wisdom = 1;
 		combat.enemy.savingThrowProficiencies = [];
 

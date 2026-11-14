@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-	createTestRunState,
+	createTestCombatState,
 	createTestTownState,
 	createTestVictoryState,
 	modifyTestRunState,
@@ -13,7 +13,7 @@ describe("selectCombatView", () => {
 		[10, ["player", "enemy"]],
 		[11, ["enemy", "player"]],
 	] as const)("projects turn order against enemy Initiative %i", (initiative, order) => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		const combat = state.combat!;
 		combat.player.combatStats.initiative = 10;
 		combat.enemy.combatStats.initiative = initiative;
@@ -50,7 +50,7 @@ describe("selectCombatView", () => {
 	});
 
 	it("projects active and victory states", () => {
-		expect(selectCombatView(createTestRunState())).toMatchObject({
+		expect(selectCombatView(createTestCombatState())).toMatchObject({
 			isActive: true,
 			isVictory: false,
 			isDefeat: false,
@@ -64,7 +64,7 @@ describe("selectCombatView", () => {
 	});
 
 	it("retains the final combat for dead runs and returns null in town", () => {
-		const dead = modifyTestRunState(createTestRunState(), (draft) => {
+		const dead = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.phase = "dead";
 			draft.combat!.status = "enemy_won";
 			draft.combat!.player.currentHp = 0;
@@ -75,15 +75,15 @@ describe("selectCombatView", () => {
 	});
 
 	it("describes boss and ghost enemies for presentation", () => {
-		const boss = modifyTestRunState(createTestRunState(), (draft) => {
+		const boss = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.combat!.encounterType = "boss";
 		});
-		const ghost = modifyTestRunState(createTestRunState(), (draft) => {
+		const ghost = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.combat!.encounterType = "ghost";
 			draft.combat!.ghostUsername = "Ghost Owner";
 		});
 
-		expect(selectCombatView(createTestRunState())?.enemyDescriptor).toBeUndefined();
+		expect(selectCombatView(createTestCombatState())?.enemyDescriptor).toBeUndefined();
 		expect(selectCombatView(boss)?.enemyDescriptor).toBe("Boss");
 		expect(selectCombatView(ghost)?.enemyDescriptor).toBe("Ghost Owner");
 	});

@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { createTestRunState } from "../test/createTestRunState";
+import { createTestCombatState } from "../test/createTestRunState";
 import { deserializeRunState, deserializeRunStateJson } from "./deserializeRunState";
 
 describe("deserializeRunState", () => {
 	it("rejects combatants missing required Initiative", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		const missingInitiative = JSON.stringify(state, (key, value) =>
 			key === "initiative" ? undefined : value,
 		);

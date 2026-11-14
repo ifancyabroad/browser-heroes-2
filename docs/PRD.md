@@ -25,7 +25,7 @@ The current implementation supports the complete run loop:
 
 1. Start a guest session.
 2. Create a hero by choosing a class and name.
-3. Start battle 1 combat.
+3. Start in town and enter battle 1 when ready.
 4. Resolve combat through attacks, skills, consumables, and readable active effects.
 5. Earn XP and gold after victory.
 6. Select a boss reward when offered.
@@ -75,7 +75,7 @@ Content should support variety and synergy without moving gameplay authority int
 
 ### 4.5 Town System
 
-Town is a strategic checkpoint between fights.
+Town is the starting point of a run and a strategic checkpoint between fights.
 
 Town provides shopping, recovery, equipment management, and the choice to begin the next encounter. It may deepen preparation choices without moving gameplay authority into the UI.
 

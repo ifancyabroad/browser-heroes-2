@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { ActiveCombatEffect } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../test/createTestRunState";
 import { advanceActiveEffects } from "./advanceActiveEffects";
 
 describe("advanceActiveEffects", () => {
 	it("decrements effects that existed at the start of the turn", () => {
 		const effect = createStatusEffect("existing", 2);
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createTestCombatState().combat!.player,
 			activeEffects: [effect],
 		};
 
@@ -22,7 +22,7 @@ describe("advanceActiveEffects", () => {
 	it("expires effects after their final turn", () => {
 		const effect = createStatusEffect("expiring", 1);
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createTestCombatState().combat!.player,
 			activeEffects: [effect],
 		};
 
@@ -35,7 +35,7 @@ describe("advanceActiveEffects", () => {
 	it("does not decrement an effect applied during the current turn", () => {
 		const effect = createStatusEffect("new", 2);
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createTestCombatState().combat!.player,
 			activeEffects: [effect],
 		};
 
@@ -51,7 +51,7 @@ describe("advanceActiveEffects", () => {
 			duration: { unit: "battles" as const, remaining: 2 },
 		};
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createTestCombatState().combat!.player,
 			activeEffects: [effect],
 		};
 

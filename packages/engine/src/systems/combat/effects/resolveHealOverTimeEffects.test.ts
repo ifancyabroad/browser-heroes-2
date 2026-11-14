@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../test/createTestRunState";
 import { resolveHealOverTimeEffects } from "./resolveHealOverTimeEffects";
 
 describe("resolveHealOverTimeEffects", () => {
 	it.each([0, 3])("reports actual restored HP with %i HP missing", (missingHp) => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		const combat = state.combat!;
 		combat.player.maxHp = 100;
 		combat.player.currentHp = 100 - missingHp;

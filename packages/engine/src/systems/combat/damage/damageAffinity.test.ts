@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CombatantState } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../test/createTestRunState";
 import { applyDamageAffinity, getDamageAffinity } from "./damageAffinity";
 
 describe("applyDamageAffinity", () => {
@@ -22,9 +22,9 @@ describe("applyDamageAffinity", () => {
 describe("getDamageAffinity", () => {
 	it("reads the defender's configured affinity", () => {
 		const defender: CombatantState = {
-			...createTestRunState().combat!.enemy,
+			...createTestCombatState().combat!.enemy,
 			combatStats: {
-				...createTestRunState().combat!.enemy.combatStats,
+				...createTestCombatState().combat!.enemy.combatStats,
 				damageAffinities: {
 					resistances: ["cold"],
 					immunities: ["fire"],
@@ -41,9 +41,9 @@ describe("getDamageAffinity", () => {
 
 	it("cancels resistance and vulnerability for the same damage type", () => {
 		const defender: CombatantState = {
-			...createTestRunState().combat!.enemy,
+			...createTestCombatState().combat!.enemy,
 			combatStats: {
-				...createTestRunState().combat!.enemy.combatStats,
+				...createTestCombatState().combat!.enemy.combatStats,
 				damageAffinities: {
 					resistances: ["cold"],
 					immunities: [],
@@ -57,9 +57,9 @@ describe("getDamageAffinity", () => {
 
 	it("keeps immunity when all affinities apply to the same damage type", () => {
 		const defender: CombatantState = {
-			...createTestRunState().combat!.enemy,
+			...createTestCombatState().combat!.enemy,
 			combatStats: {
-				...createTestRunState().combat!.enemy.combatStats,
+				...createTestCombatState().combat!.enemy.combatStats,
 				damageAffinities: {
 					resistances: ["fire"],
 					immunities: ["fire"],

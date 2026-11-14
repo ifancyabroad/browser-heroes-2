@@ -1,7 +1,7 @@
 import type { Socket } from "socket.io";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ZodError } from "zod";
-import { createTestRunDocument } from "../test/createTestRun";
+import { createTestCombatState, createTestRunDocument } from "../test/createTestRun";
 
 const engineService = vi.hoisted(() => ({
 	applyRunAction: vi.fn(),
@@ -100,7 +100,7 @@ describe("registerRunSocket", () => {
 	});
 
 	it("applies valid actions and projects the response", async () => {
-		const run = createTestRunDocument();
+		const run = createTestRunDocument({ state: createTestCombatState() });
 		const result = { ok: true, state: run.state, events: [] };
 		engineService.applyRunAction.mockResolvedValue({ run, result });
 

@@ -3,7 +3,7 @@ import type { ClientSession } from "mongoose";
 import type { EngineEvent } from "@app/engine";
 import { toWorldLogEvent } from "./worldLog.events";
 import { subscribeToWorldLog } from "../notifications/worldLog";
-import { createTestRunState } from "../test/createTestRun";
+import { createTestCombatState, createTestRunState } from "../test/createTestRun";
 
 const model = vi.hoisted(() => ({
 	create: vi.fn(),
@@ -18,7 +18,7 @@ vi.mock("./publicIdentity.service", () => ({
 
 import { getWorldLog, pruneWorldLog, publishWorldLog, recordWorldLog } from "./worldLog.service";
 
-const state = createTestRunState();
+const state = createTestCombatState();
 const victory: EngineEvent = {
 	type: "COMBAT_ENDED",
 	combatId: "combat",
@@ -37,7 +37,7 @@ const input = {
 	runId: "run",
 	userId: "owner",
 	mode: "dailyChallenge" as const,
-	state,
+	state: createTestRunState(),
 	session,
 	sequence: 0,
 	events: [{ type: "RUN_STARTED" }] as EngineEvent[],

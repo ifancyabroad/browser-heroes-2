@@ -3,7 +3,7 @@ import { applyAction } from "../../actions";
 import { selectAvailableActions } from "../../selectors/selectAvailableActions";
 import { selectTownView } from "../../selectors/selectTownView";
 import {
-	createTestRunState,
+	createTestCombatState,
 	createTestTownState,
 	modifyTestRunState,
 } from "../../test/createTestRunState";
@@ -109,7 +109,7 @@ describe("restAtTown", () => {
 	});
 
 	it("rejects resting outside town", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 
 		expect(applyAction(state, { type: "REST_AT_TOWN" })).toMatchObject({
 			ok: false,

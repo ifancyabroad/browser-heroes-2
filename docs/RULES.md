@@ -2,7 +2,7 @@
 
 ## 1. Run Structure
 
-A run is a self-contained sequence of combat encounters connected by optional town visits and progression choices. A newly created run begins directly in battle 1 combat; town first becomes available as a checkpoint after a victory.
+A run is a self-contained sequence of combat encounters connected by optional town visits and progression choices. A newly created run begins in town before battle 1. After victories, town visits are optional.
 
 A run begins on day 1. Each successful rest advances the run by one day. Day progression and rest-price escalation are cumulative for the full run and do not reset when the hero returns to town.
 
@@ -16,7 +16,7 @@ The main run is a 100-battle ladder. Every 10th battle is a boss encounter. Defe
 
 The run has four phases:
 
-- Town: an optional between-combat checkpoint after victory for shopping, resting, rerolling shop inventory, inspecting the hero, and entering combat.
+- Town: the starting phase and an optional checkpoint after victory for shopping, resting, rerolling shop inventory, inspecting the hero, and entering combat.
 - Combat: a turn-based encounter between the hero and one enemy.
 - Dead: the run has ended after player defeat.
 - Retired: the hero ended the run after defeating the final boss.
@@ -131,7 +131,7 @@ Healing potions can be bought in town up to the carrying limit and used during c
 
 ## 9. Town Rules
 
-Town is a strategic checkpoint between encounters.
+Town is the starting point of a run and a strategic checkpoint between encounters.
 
 Town allows the player to inspect the hero, enter combat, buy equipment and healing potions, swap eligible hand weapons, rest to full HP, and reroll the shop.
 

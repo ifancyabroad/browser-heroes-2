@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
 import { selectAvailableActions, selectTownView } from "../../selectors";
 import {
-	createTestRunState,
+	createTestCombatState,
 	createTestTownState,
 	modifyTestRunState,
 } from "../../test/createTestRunState";
@@ -53,7 +53,7 @@ describe("setShopLock", () => {
 
 	it("rejects invalid phases, missing slots, and purchased slots", () => {
 		expect(
-			applyAction(createTestRunState(), {
+			applyAction(createTestCombatState(), {
 				type: "SET_SHOP_LOCK",
 				shopSlotId: "missing",
 				locked: true,

@@ -3,10 +3,9 @@ import { createContextRngState, createInitialRngState } from "../core/rng";
 import { createRunLogId } from "../core/ids";
 import { createInitialHeroState } from "./createInitialHeroState";
 import { selectZone } from "../systems/encounters/zones/selectZone";
-import { createCombat } from "../systems/combat/createCombat";
+import { createTownState } from "./createTownState";
 import { ClassId } from "@app/content";
 import { STARTING_LEVEL_UP_REROLLS } from "../systems/progression/constants/levelUpRerolls";
-import { applyFirstBattleProtection } from "./applyFirstBattleProtection";
 
 export type CreateInitialRunStateInput = {
 	runId: string;
@@ -35,21 +34,14 @@ export function createInitialRunState(input: CreateInitialRunStateInput): {
 	const battleNumber = 1;
 	const endlessCycle = 0;
 
-	const combatResult = createCombat({
+	const town = createTownState({
 		runId: input.runId,
 		hero,
 		seed: input.seed,
 		battleNumber,
 		zoneNumber,
-		zone,
-		endlessCycle,
+		shopLocks: [],
 	});
-
-	if (!combatResult) {
-		throw new Error("Unable to create initial combat: NO_ELIGIBLE_ENEMY");
-	}
-
-	const combat = applyFirstBattleProtection(combatResult, input.seed);
 
 	const state: RunState = {
 		version: 1,
@@ -59,7 +51,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): {
 		seed: input.seed,
 		rngState: initialRngState,
 
-		phase: "combat",
+		phase: "town",
 
 		battleNumber,
 		zoneNumber,
@@ -71,9 +63,9 @@ export function createInitialRunState(input: CreateInitialRunStateInput): {
 
 		hero,
 
-		combat,
+		combat: null,
 
-		town: null,
+		town,
 		shopLocks: [],
 
 		gold: 0,

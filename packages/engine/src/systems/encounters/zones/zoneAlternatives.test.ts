@@ -21,12 +21,17 @@ vi.mock("../constants/zoneOrder", async (importOriginal) => {
 afterEach(() => vi.restoreAllMocks());
 
 function createRun(seed = "2") {
-	return createInitialRunState({
+	const { state } = createInitialRunState({
 		runId: "zone-test",
 		seed,
 		heroName: "Hero",
 		classId: "warrior",
-	}).state;
+	});
+	const result = enterCombat(state);
+	if (!result.ok) {
+		throw new Error(result.error);
+	}
+	return result.state;
 }
 
 function chooseZone(seed: string, zoneNumber: number) {

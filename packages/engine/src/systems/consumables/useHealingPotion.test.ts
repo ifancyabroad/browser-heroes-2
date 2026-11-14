@@ -2,13 +2,13 @@ import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
 import {
 	addPlayerStatus,
-	createTestRunState,
+	createTestCombatState,
 	modifyTestRunState,
 } from "../../test/createTestRunState";
 
 describe("useHealingPotion", () => {
 	it.each([0, 3])("reports actual restored HP with %i HP missing", (missingHp) => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.combat!.player.maxHp = 100;
 			draft.combat!.player.currentHp = 100 - missingHp;
 			draft.hero.currentHp = draft.combat!.player.currentHp;
@@ -27,7 +27,7 @@ describe("useHealingPotion", () => {
 	});
 
 	it("heals, consumes one potion, emits an event, and advances the round", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.hero.currentHp = 1;
 			draft.combat!.player.currentHp = 1;
 		});
@@ -49,7 +49,7 @@ describe("useHealingPotion", () => {
 	});
 
 	it("rejects use with no potions or while stunned", () => {
-		const empty = modifyTestRunState(createTestRunState(), (draft) => {
+		const empty = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.hero.healingPotions = 0;
 		});
 		expect(
@@ -59,7 +59,7 @@ describe("useHealingPotion", () => {
 			}),
 		).toMatchObject({ ok: false, error: "NO_HEALING_POTIONS_AVAILABLE" });
 
-		const stunned = addPlayerStatus(createTestRunState(), "stunned");
+		const stunned = addPlayerStatus(createTestCombatState(), "stunned");
 		expect(
 			applyAction(stunned, {
 				type: "PLAYER_USE_CONSUMABLE",

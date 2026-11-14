@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
 import {
-	createTestRunState,
+	createTestCombatState,
 	createTestTownState,
 	modifyTestRunState,
 } from "../../test/createTestRunState";
@@ -29,7 +29,7 @@ describe("swapHandWeapons", () => {
 	});
 
 	it("rejects swapping outside town or without two weapons", () => {
-		expect(applyAction(createTestRunState(), { type: "SWAP_HAND_WEAPONS" })).toMatchObject({
+		expect(applyAction(createTestCombatState(), { type: "SWAP_HAND_WEAPONS" })).toMatchObject({
 			ok: false,
 			error: "INVALID_EQUIPMENT_SLOT",
 		});

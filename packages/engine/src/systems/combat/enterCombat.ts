@@ -2,6 +2,7 @@ import type { EngineResult, GhostEncounter, RunState } from "../../schemas";
 
 import { failureResult, successResult } from "../../core/result";
 import { createCombat } from "./createCombat";
+import { applyFirstBattleProtection } from "../../state/applyFirstBattleProtection";
 
 export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): EngineResult {
 	if (state.phase !== "town") {
@@ -23,11 +24,16 @@ export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): E
 		return failureResult(state, "NO_ELIGIBLE_ENEMY");
 	}
 
+	const combat =
+		state.battleNumber === 1
+			? applyFirstBattleProtection(combatResult, state.seed)
+			: combatResult;
+
 	return successResult(
 		{
 			...state,
 			phase: "combat",
-			combat: combatResult,
+			combat,
 			town: null,
 		},
 		[

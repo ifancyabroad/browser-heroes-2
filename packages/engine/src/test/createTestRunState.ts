@@ -11,8 +11,18 @@ export function createTestRunState(): RunState {
 	return createInitialRunState(TEST_RUN_INPUT).state;
 }
 
+export function createTestCombatState(): RunState {
+	const result = applyAction(createTestRunState(), {
+		type: "ENTER_COMBAT",
+	});
+	if (!result.ok) {
+		throw new Error(`Unable to create test combat state: ${result.error}`);
+	}
+	return result.state;
+}
+
 export function createUnprotectedTestRunState(): RunState {
-	return modifyTestRunState(createTestRunState(), (draft) => {
+	return modifyTestRunState(createTestCombatState(), (draft) => {
 		if (!draft.combat) {
 			throw new Error("Expected test run to have combat");
 		}
@@ -23,7 +33,7 @@ export function createUnprotectedTestRunState(): RunState {
 }
 
 export function createTestVictoryState(): RunState {
-	return modifyTestRunState(createTestRunState(), (draft) => {
+	return modifyTestRunState(createTestCombatState(), (draft) => {
 		if (!draft.combat) {
 			throw new Error("Expected test run to have combat");
 		}

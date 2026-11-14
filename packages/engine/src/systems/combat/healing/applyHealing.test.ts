@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../test/createTestRunState";
 import { applyHealing } from "./applyHealing";
 
 describe("applyHealing", () => {
 	it("does not exceed maximum HP and reports actual healing", () => {
 		const combatant = {
-			...createTestRunState().combat!.player,
+			...createTestCombatState().combat!.player,
 			currentHp: 1,
 		};
 

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
 import {
-	createTestRunState,
+	createTestCombatState,
 	createTestVictoryState,
 	modifyTestRunState,
 } from "../../test/createTestRunState";
@@ -56,7 +56,7 @@ describe("continueToNextCombat", () => {
 	});
 
 	it("rejects continuation before victory", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 
 		expect(applyAction(state, { type: "CONTINUE_TO_NEXT_COMBAT" })).toEqual({
 			ok: false,

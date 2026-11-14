@@ -6,12 +6,13 @@ import { TooltipProvider } from "../../../components/Tooltip";
 import { HeroSidebar } from "./HeroSidebar";
 
 function createRun(): RunView {
-	const { state } = createInitialRunState({
+	const { state: initial } = createInitialRunState({
 		runId: "sidebar-test",
 		seed: "sidebar-test",
 		heroName: "Mira",
 		classId: "warrior",
 	});
+	const state = applyAction(initial, { type: "ENTER_COMBAT" }).state;
 	state.hero.skills = [{ skillId: "heavy_strike", chargesRemaining: 6 }];
 	state.combat!.player.skills = [{ skillId: "heavy_strike", chargesRemaining: 2 }];
 	return { id: "sidebar-test", state } as RunView;

@@ -6,7 +6,7 @@ import { recordBestiaryProgress } from "./bestiary.service";
 import {
 	createDeadTestRunState,
 	createTestRunDocument,
-	createTestRunState,
+	createTestCombatState,
 } from "../test/createTestRun";
 
 const models = vi.hoisted(() => ({
@@ -60,7 +60,7 @@ describe("engine.service", () => {
 
 	function arrangeRun(overrides = {}) {
 		const run = {
-			...createTestRunDocument(),
+			...createTestRunDocument({ state: createTestCombatState() }),
 			save: vi.fn().mockResolvedValue(undefined),
 			...overrides,
 		};
@@ -178,6 +178,37 @@ describe("engine.service", () => {
 		expect(models.action.create).not.toHaveBeenCalled();
 	});
 
+	it.each(["normal", "dailyChallenge"])(
+		"records the first encounter when a %s run leaves opening town",
+		async (mode) => {
+			const actualEngine = await vi.importActual<typeof import("@app/engine")>("@app/engine");
+			const { state } = actualEngine.createInitialRunState({
+				runId: "test-run",
+				seed: "test-seed",
+				heroName: "Hero",
+				classId: "warrior",
+			});
+			const { run } = arrangeRun({
+				state,
+				mode,
+				dailyChallengeDate: mode === "dailyChallenge" ? "2026-01-01" : undefined,
+			});
+			engine.applyAction.mockImplementationOnce(actualEngine.applyAction);
+			const response = await applyRunAction({
+				userId: "user-id",
+				runId: "run-id",
+				action: { type: "ENTER_COMBAT" },
+			});
+			expect(response.result.ok).toBe(true);
+			expect(run.state.phase).toBe("combat");
+			expect(recordBestiaryProgress).toHaveBeenCalledExactlyOnceWith({
+				userId: "user-id",
+				session,
+				events: [expect.objectContaining({ type: "COMBAT_STARTED", battleNumber: 1 })],
+			});
+		},
+	);
+
 	it("records combat events for existing runs without tracking metadata", async () => {
 		const { run } = arrangeRun();
 		const events = [
@@ -210,7 +241,7 @@ describe("engine.service", () => {
 	});
 
 	it("persists successful state transitions and action history", async () => {
-		const nextState = structuredClone(createTestRunState());
+		const nextState = structuredClone(createTestCombatState());
 		nextState.kills = 2;
 		const { run } = arrangeRun({ nextActionSequence: 4 });
 		const events = [{ type: "COMBAT_TURN_RESOLVED" as const }];
@@ -250,7 +281,7 @@ describe("engine.service", () => {
 	});
 
 	it("persists failed engine attempts with their error code", async () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		const { run } = arrangeRun();
 		engine.applyAction.mockReturnValue({
 			ok: false,
@@ -305,7 +336,7 @@ describe("engine.service", () => {
 	});
 
 	it("marks retired runs complete without creating a ghost", async () => {
-		const retiredState = structuredClone(createTestRunState());
+		const retiredState = structuredClone(createTestCombatState());
 		retiredState.phase = "retired";
 		const { run } = arrangeRun();
 		engine.applyAction.mockReturnValue({
@@ -345,7 +376,7 @@ describe("engine.service", () => {
 	});
 
 	it("adds an eligible selected ghost to combat and increments its encounters", async () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		state.battleNumber = 11;
 		const resultState = structuredClone(state);
 		resultState.phase = "combat";
@@ -402,7 +433,7 @@ describe("engine.service", () => {
 	});
 
 	it("records a system ghost encounter without incrementing persisted ghost statistics", async () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		state.battleNumber = 11;
 		const resultState = structuredClone(state);
 		resultState.phase = "combat";
@@ -433,7 +464,7 @@ describe("engine.service", () => {
 	});
 
 	it("derives a daily run's ghost cutoff from its challenge date", async () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		state.battleNumber = 11;
 		arrangeRun({
 			mode: "dailyChallenge",
@@ -460,7 +491,7 @@ describe("engine.service", () => {
 		["enemy_won", "ghost_won"],
 		["player_won", "ghost_lost"],
 	] as const)("records a resolved ghost %s outcome", async (combatStatus, outcome) => {
-		const previousState = createTestRunState();
+		const previousState = createTestCombatState();
 		previousState.combat!.encounterType = "ghost";
 		previousState.combat!.ghostSource = "player";
 		previousState.combat!.enemy.sourceId = "ghost-id";
@@ -494,7 +525,7 @@ describe("engine.service", () => {
 	});
 
 	it("does not persist a resolved system ghost outcome", async () => {
-		const previousState = createTestRunState();
+		const previousState = createTestCombatState();
 		previousState.combat!.encounterType = "ghost";
 		previousState.combat!.ghostSource = "system";
 		previousState.combat!.enemy.sourceId = "system-ghost:iron_vigil";
@@ -525,7 +556,7 @@ describe("engine.service", () => {
 	});
 
 	it("does not record unresolved ghost combat", async () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		state.combat!.encounterType = "ghost";
 		state.combat!.ghostSource = "player";
 		state.combat!.enemy.sourceId = "ghost-id";

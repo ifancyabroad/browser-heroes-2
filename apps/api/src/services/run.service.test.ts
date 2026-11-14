@@ -156,11 +156,9 @@ describe("run.service", () => {
 			{ session },
 		);
 		expect(created).toEqual({ _id: "created-run" });
-		expect(recordBestiaryEncounter).toHaveBeenCalledWith({
-			userId: "user-id",
-			enemyId: testRunState.combat!.enemy.sourceId,
-			session,
-		});
+		expect(testRunState.phase).toBe("town");
+		expect(testRunState.combat).toBeNull();
+		expect(recordBestiaryEncounter).not.toHaveBeenCalled();
 	});
 
 	it("creates daily runs through the same run lifecycle with an explicit definition", async () => {
@@ -172,11 +170,7 @@ describe("run.service", () => {
 			seed: "d47b9203-2ac8-8d97-a2ad-6e3f70c239d9",
 			dailyChallengeDate: "2026-08-23",
 		});
-		expect(recordBestiaryEncounter).toHaveBeenCalledWith({
-			userId: "user-id",
-			enemyId: testRunState.combat!.enemy.sourceId,
-			session,
-		});
+		expect(recordBestiaryEncounter).not.toHaveBeenCalled();
 
 		expect(engine.createInitialRunState).toHaveBeenCalledWith({
 			runId: expect.any(String),

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
-import { createTestRunState, createTestVictoryState } from "../../test/createTestRunState";
+import { createTestCombatState, createTestVictoryState } from "../../test/createTestRunState";
 import { getItemInstanceDefinition } from "../items/getItemInstanceDefinition";
 
 describe("returnToTown", () => {
@@ -41,7 +41,7 @@ describe("returnToTown", () => {
 	});
 
 	it("rejects returning before victory", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 
 		expect(applyAction(state, { type: "RETURN_TO_TOWN" })).toMatchObject({
 			ok: false,
@@ -51,7 +51,7 @@ describe("returnToTown", () => {
 	});
 
 	it("restores locked slots on a later town visit", () => {
-		const firstTown = createTestRunState();
+		const firstTown = createTestCombatState();
 		const firstVictory = {
 			...firstTown,
 			combat: firstTown.combat

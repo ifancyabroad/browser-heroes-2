@@ -1,6 +1,10 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import request from "supertest";
-import { createDeadTestRunState, createTestRunDocument } from "../test/createTestRun";
+import {
+	createDeadTestRunState,
+	createTestCombatState,
+	createTestRunDocument,
+} from "../test/createTestRun";
 
 const runService = vi.hoisted(() => ({
 	createRun: vi.fn(),
@@ -124,7 +128,7 @@ describe("run routes", () => {
 	});
 
 	it("submits a validated action and projects the result", async () => {
-		const run = createTestRunDocument();
+		const run = createTestRunDocument({ state: createTestCombatState() });
 		const result = { ok: true, state: run.state, events: [] };
 		engineService.applyRunAction.mockResolvedValue({ run, result });
 

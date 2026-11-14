@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { selectAvailableActions } from "./selectAvailableActions";
 import {
 	addPlayerStatus,
+	createTestCombatState,
 	createTestRunState,
 	createTestTownState,
 	createTestVictoryState,
@@ -10,7 +11,7 @@ import {
 
 describe("selectAvailableActions", () => {
 	it("returns combat actions for an active player", () => {
-		expect(createActionTypes(createTestRunState())).toEqual([
+		expect(createActionTypes(createTestCombatState())).toEqual([
 			"PLAYER_BASIC_ATTACK",
 			"PLAYER_USE_SKILL",
 			"PLAYER_USE_CONSUMABLE",
@@ -19,13 +20,13 @@ describe("selectAvailableActions", () => {
 	});
 
 	it("only permits skipping while stunned", () => {
-		expect(createActionTypes(addPlayerStatus(createTestRunState(), "stunned"))).toEqual([
+		expect(createActionTypes(addPlayerStatus(createTestCombatState(), "stunned"))).toEqual([
 			"PLAYER_SKIP_TURN",
 		]);
 	});
 
 	it("removes skills while silenced", () => {
-		expect(createActionTypes(addPlayerStatus(createTestRunState(), "silenced"))).toEqual([
+		expect(createActionTypes(addPlayerStatus(createTestCombatState(), "silenced"))).toEqual([
 			"PLAYER_BASIC_ATTACK",
 			"PLAYER_USE_CONSUMABLE",
 			"PLAYER_SKIP_TURN",
@@ -33,7 +34,7 @@ describe("selectAvailableActions", () => {
 	});
 
 	it("omits depleted skills and unavailable potions", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.hero.healingPotions = 0;
 			if (!draft.combat) {
 				throw new Error("Expected test run to have combat");
@@ -75,7 +76,7 @@ describe("selectAvailableActions", () => {
 	});
 
 	it.each(["dead", "retired"] as const)("returns no actions for a %s run", (phase) => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.phase = phase;
 		});
 
@@ -92,6 +93,6 @@ describe("selectAvailableActions", () => {
 	});
 });
 
-function createActionTypes(state: ReturnType<typeof createTestRunState>) {
+function createActionTypes(state: ReturnType<typeof createTestCombatState>) {
 	return selectAvailableActions(state).map((action) => action.type);
 }

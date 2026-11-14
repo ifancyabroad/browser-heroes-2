@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { RollModifierMode } from "@app/content";
 import type { ActiveRollModifier, CombatantState } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../test/createTestRunState";
 import { getChargedRollModifierIds, getEffectiveRollMode } from "./getEffectiveRollMode";
 
 describe("getEffectiveRollMode", () => {
@@ -13,7 +13,7 @@ describe("getEffectiveRollMode", () => {
 		[["advantage", "advantage", "disadvantage"], "normal"],
 	] as const)("resolves %j to %s", (modes, expected) => {
 		const combatant = withRollModifiers(
-			createTestRunState().combat!.player,
+			createTestCombatState().combat!.player,
 			modes.map((mode, index) => createRollModifier(`effect-${index}`, mode)),
 		);
 
@@ -21,7 +21,7 @@ describe("getEffectiveRollMode", () => {
 	});
 
 	it("only applies attribute-specific modifiers to matching saving throws", () => {
-		const combatant = withRollModifiers(createTestRunState().combat!.player, [
+		const combatant = withRollModifiers(createTestCombatState().combat!.player, [
 			createRollModifier("strength-save", "advantage", "savingThrow", "strength"),
 		]);
 

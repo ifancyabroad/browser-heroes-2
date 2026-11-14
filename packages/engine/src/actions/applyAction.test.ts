@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { applyAction } from "./applyAction";
 import {
 	addPlayerStatus,
+	createTestCombatState,
 	createTestRunState,
 	createUnprotectedTestRunState,
 	modifyTestRunState,
@@ -9,7 +10,7 @@ import {
 
 describe("applyAction", () => {
 	it("is deterministic and does not mutate its input", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		const original = structuredClone(state);
 		const action = { type: "PLAYER_SKIP_TURN" } as const;
 
@@ -18,7 +19,7 @@ describe("applyAction", () => {
 	});
 
 	it("resolves both actors and advances the combat turn", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 
 		const result = applyAction(state, { type: "PLAYER_SKIP_TURN" });
 
@@ -38,10 +39,7 @@ describe("applyAction", () => {
 	});
 
 	it("rejects combat actions when combat is unavailable and preserves state", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
-			draft.phase = "town";
-			draft.combat = null;
-		});
+		const state = createTestRunState();
 
 		const result = applyAction(state, { type: "PLAYER_BASIC_ATTACK" });
 
@@ -54,7 +52,7 @@ describe("applyAction", () => {
 	});
 
 	it("prevents a stunned player from attacking", () => {
-		const state = addPlayerStatus(createTestRunState(), "stunned");
+		const state = addPlayerStatus(createTestCombatState(), "stunned");
 
 		const result = applyAction(state, { type: "PLAYER_BASIC_ATTACK" });
 
@@ -62,7 +60,7 @@ describe("applyAction", () => {
 	});
 
 	it("prevents a silenced player from using a skill", () => {
-		const state = addPlayerStatus(createTestRunState(), "silenced");
+		const state = addPlayerStatus(createTestCombatState(), "silenced");
 
 		const result = applyAction(state, {
 			type: "PLAYER_USE_SKILL",
@@ -73,7 +71,7 @@ describe("applyAction", () => {
 	});
 
 	it("rejects a skill the player does not know", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 
 		const result = applyAction(state, {
 			type: "PLAYER_USE_SKILL",
@@ -84,7 +82,7 @@ describe("applyAction", () => {
 	});
 
 	it("resolves victory and rewards after a lethal basic attack", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			if (!draft.combat) {
 				throw new Error("Expected test run to have combat");
 			}
@@ -161,7 +159,7 @@ describe("applyAction", () => {
 	});
 
 	it("protects the hero from the first two enemy responses in battle 1", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			if (!draft.combat) {
 				throw new Error("Expected test run to have combat");
 			}
@@ -183,7 +181,7 @@ describe("applyAction", () => {
 	});
 
 	it("records a lethal skill as the finishing player action", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			if (!draft.combat) {
 				throw new Error("Expected test run to have combat");
 			}
@@ -221,7 +219,7 @@ describe("applyAction", () => {
 	});
 
 	it("records when a finishing action started against a damaged enemy", () => {
-		const state = modifyTestRunState(createTestRunState(), (draft) => {
+		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			if (!draft.combat) {
 				throw new Error("Expected test run to have combat");
 			}

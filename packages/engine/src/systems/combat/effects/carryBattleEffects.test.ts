@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import type { ActiveCombatEffect } from "../../../schemas";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../test/createTestRunState";
 import { carryBattleEffects } from "./carryBattleEffects";
 
 describe("carryBattleEffects", () => {
 	it("preserves effect-specific state and reconciles temporary maximum HP", () => {
-		const previousPlayer = createTestRunState().combat!.player;
+		const previousPlayer = createTestCombatState().combat!.player;
 		const nextPlayer = {
 			...previousPlayer,
 			id: "next-player",

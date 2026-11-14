@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { applyAction } from "../actions";
 import {
 	createTestRunState,
+	createTestCombatState,
 	createTestVictoryState,
 	modifyTestRunState,
 } from "../test/createTestRunState";
@@ -12,7 +13,7 @@ import { serializeRunState } from "./serializeRunState";
 
 describe("serializeRunState", () => {
 	it.each(["aggressive", "defensive"] as const)("round trips legacy %s tactics", (tactic) => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		if (!state.combat) {
 			throw new Error("Expected test combat");
 		}
@@ -22,6 +23,7 @@ describe("serializeRunState", () => {
 
 	it("round trips a valid initial state", () => {
 		const state = createTestRunState();
+		expect(state.phase).toBe("town");
 
 		expect(deserializeRunStateJson(serializeRunState(state))).toEqual({
 			ok: true,
@@ -30,7 +32,7 @@ describe("serializeRunState", () => {
 	});
 
 	it("round trips a state after an action", () => {
-		const state = createTestRunState();
+		const state = createTestCombatState();
 		state.combat!.player.combatStats.initiative = 13;
 		state.combat!.enemy.combatStats.initiative = 15;
 

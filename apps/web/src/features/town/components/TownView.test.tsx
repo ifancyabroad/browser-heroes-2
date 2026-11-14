@@ -19,12 +19,13 @@ vi.mock("../../worldLog/api/getWorldLog", () => ({
 }));
 
 function createTownRun(): RunView {
-	const { state: initial } = createInitialRunState({
+	const { state: town } = createInitialRunState({
 		runId: "run-id",
 		seed: "town-ui-tests",
 		heroName: "Mira",
 		classId: "warrior",
 	});
+	const initial = applyAction(town, { type: "ENTER_COMBAT" }).state;
 	if (!initial.combat) {
 		throw new Error("Expected initial combat");
 	}
@@ -315,6 +316,7 @@ describe("TownView", () => {
 			heroName: "Mira",
 			classId: "warrior",
 		}).state;
+		run.state = applyAction(run.state, { type: "ENTER_COMBAT" }).state;
 		setup(run);
 		expect(screen.getByText("Town state is unavailable.")).toBeInTheDocument();
 	});

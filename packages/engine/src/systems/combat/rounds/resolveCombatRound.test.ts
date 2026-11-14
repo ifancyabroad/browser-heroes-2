@@ -3,11 +3,11 @@ import { describe, expect, it } from "vitest";
 import { applyAction } from "../../../actions";
 import type { CombatantSide, EngineAction, RunState } from "../../../schemas";
 import { createTestCombat } from "../../../test/createTestCombat";
-import { createTestRunState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../test/createTestRunState";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 
 function createRoundState(enemyInitiative = 11) {
-	const state = createTestRunState();
+	const state = createTestCombatState();
 	const sourceId = state.combat!.enemy.sourceId;
 	state.combat = createTestCombat();
 	state.combat.enemy.sourceId = sourceId;

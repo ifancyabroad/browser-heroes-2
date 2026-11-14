@@ -1,5 +1,8 @@
-import { createInitialRunState, runStateSchema } from "@app/engine";
+import { vi } from "vitest";
 import type { RunDocument } from "../models/run.model";
+
+const { applyAction, createInitialRunState, runStateSchema } =
+	await vi.importActual<typeof import("@app/engine")>("@app/engine");
 
 export function createTestRunState() {
 	return createInitialRunState({
@@ -10,8 +13,16 @@ export function createTestRunState() {
 	}).state;
 }
 
+export function createTestCombatState() {
+	const result = applyAction(createTestRunState(), { type: "ENTER_COMBAT" });
+	if (!result.ok) {
+		throw new Error(`Unable to create test combat state: ${result.error}`);
+	}
+	return result.state;
+}
+
 export function createDeadTestRunState() {
-	const state = structuredClone(createTestRunState());
+	const state = structuredClone(createTestCombatState());
 	state.phase = "dead";
 	state.combat!.status = "enemy_won";
 	state.combat!.player.currentHp = 0;
