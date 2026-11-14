@@ -42,7 +42,7 @@ export function TownHub({
 			canAfford: true,
 			status: (
 				<Badge
-					label={hasViewedShop ? "Viewed" : "New stock"}
+					label={hasViewedShop ? "Viewed" : "New"}
 					variant={hasViewedShop ? "success" : "warning"}
 					textTone="bright"
 					className="inline-flex items-center whitespace-nowrap tabular-nums leading-5"
@@ -76,7 +76,7 @@ export function TownHub({
 			canAfford: town.canAffordHealingPotion,
 			status: (
 				<Badge
-					label={potionsFull ? `${potionCount} MAX` : potionCount}
+					label={potionCount}
 					variant={
 						potionsFull ? "success" : town.healingPotions === 0 ? "error" : "warning"
 					}

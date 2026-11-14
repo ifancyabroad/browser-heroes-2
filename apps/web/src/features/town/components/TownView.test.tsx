@@ -105,7 +105,7 @@ describe("TownView", () => {
 	});
 	it("marks stock as viewed after visiting the shop without submitting an action", () => {
 		setup();
-		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New stock");
+		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New");
 		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
 		fireEvent.click(screen.getByRole("button", { name: "Close" }));
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
@@ -118,7 +118,7 @@ describe("TownView", () => {
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
 		unmount();
 		setup();
-		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New stock");
+		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New");
 	});
 	it("shows zone-relative battle progress", () => {
 		const run = createTownRun();
@@ -133,7 +133,7 @@ describe("TownView", () => {
 		{ count: 0, label: "0/3", tone: "border-error" },
 		{ count: 1, label: "1/3", tone: "border-warning" },
 		{ count: 2, label: "2/3", tone: "border-warning" },
-		{ count: 3, label: "3/3 MAX", tone: "border-success" },
+		{ count: 3, label: "3/3", tone: "border-success" },
 	])("shows $label with the appropriate potion status colour", ({ count, label, tone }) => {
 		const run = createTownRun();
 		run.state.hero.healingPotions = count;
@@ -208,7 +208,7 @@ describe("TownView", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
 		const dialog = screen.getByRole("dialog");
 		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
-		await waitFor(() => expect(within(dialog).getByText("3/3 MAX")).toBeInTheDocument());
+		await waitFor(() => expect(within(dialog).getByText("3/3")).toBeInTheDocument());
 		expect(
 			within(dialog).getByRole("button", { name: "Buy one healing potion" }),
 		).toBeDisabled();

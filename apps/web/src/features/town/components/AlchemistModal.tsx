@@ -96,7 +96,6 @@ export function AlchemistModal({
 				)}
 			>
 				{town.healingPotions}/{town.maxHealingPotions}
-				{potionsFull && " MAX"}
 			</p>
 			{!town.canAffordHealingPotion && !potionsFull && (
 				<p className="mt-3 text-error">Not enough gold.</p>
