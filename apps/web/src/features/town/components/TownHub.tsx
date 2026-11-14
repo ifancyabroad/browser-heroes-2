@@ -166,7 +166,7 @@ export function TownHub({
 						onClick={onContinue}
 						className="ml-auto"
 					>
-						Continue
+						{town.battleNumber === 1 ? "Start" : "Continue"}
 						<IconArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
 					</Button>
 				</div>

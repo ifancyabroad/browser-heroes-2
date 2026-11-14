@@ -496,9 +496,14 @@ describe("TownView", () => {
 		fireEvent.click(screen.getByRole("button", { name: "Close" }));
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("Viewed");
 	});
-	it("continues from town into combat", async () => {
-		const { getRun } = setup();
-		fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+	it.each([
+		{ battleNumber: 1, label: "Start" },
+		{ battleNumber: 2, label: "Continue" },
+	])("enters battle $battleNumber using $label", async ({ battleNumber, label }) => {
+		const run = createTownRun();
+		run.state.battleNumber = battleNumber;
+		const { getRun } = setup(run);
+		fireEvent.click(screen.getByRole("button", { name: label }));
 		await waitFor(() => expect(getRun().state.phase).toBe("combat"));
 		expect(applyRunAction).toHaveBeenCalledWith({
 			runId: "run-id",

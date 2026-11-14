@@ -8,7 +8,7 @@ export default buildEnemy({
 		"A powerful wolf-like beast tamed to carry supplies through the forest. Its handlers feed it well and trust it sparingly.",
 	portrait: "enemies/forest/worg.png",
 	rank: "normal",
-	threat: 6,
+	threat: 7,
 	attributes: {
 		strength: 14,
 		dexterity: 12,
@@ -20,7 +20,7 @@ export default buildEnemy({
 	combat: {
 		hitDie: "1d8",
 		armourClass: 10,
-		initiative: 10,
+		initiative: 11,
 		damageAffinities: {
 			resistances: [],
 			immunities: [],
