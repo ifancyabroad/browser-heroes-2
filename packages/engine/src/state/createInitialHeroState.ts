@@ -14,7 +14,7 @@ import {
 } from "../schemas";
 import { createStartingItemInstanceId } from "../core/ids";
 import { calculateMaxHpForLevel } from "../systems/progression/health/calculateMaxHpForLevel";
-import { STARTING_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { STARTING_HEALING_POTIONS } from "./runDefaults";
 import { createContextRngState } from "../core/rng";
 import { createGeneratedItemInstance } from "../systems/items/createGeneratedItemInstance";
 import { isClassProficientWithItem } from "../systems/items/isClassProficientWithItem";

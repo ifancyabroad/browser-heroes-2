@@ -49,7 +49,7 @@ describe("createInitialRunState", () => {
 			day: 1,
 			kills: 0,
 			streak: 0,
-			gold: 0,
+			gold: 200,
 			levelUpRerolls: 5,
 			hero: {
 				name: "Test Hero",

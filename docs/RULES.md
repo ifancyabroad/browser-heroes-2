@@ -4,7 +4,7 @@
 
 A run is a self-contained sequence of combat encounters connected by optional town visits and progression choices. A newly created run begins in town before battle 1. After victories, town visits are optional.
 
-A run begins on day 1. Each successful rest advances the run by one day. Day progression and rest-price escalation are cumulative for the full run and do not reset when the hero returns to town.
+A run begins on day 1 with 200 gold. Each successful rest advances the run by one day. Day progression and rest-price escalation are cumulative for the full run and do not reset when the hero returns to town.
 
 During battle 1, Adventurer's Grace prevents the hero from taking damage during the opening two rounds.
 

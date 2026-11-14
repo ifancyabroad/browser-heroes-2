@@ -5,7 +5,7 @@ import { createInitialHeroState } from "./createInitialHeroState";
 import { selectZone } from "../systems/encounters/zones/selectZone";
 import { createTownState } from "./createTownState";
 import { ClassId } from "@app/content";
-import { STARTING_LEVEL_UP_REROLLS } from "../systems/progression/constants/levelUpRerolls";
+import { STARTING_GOLD, STARTING_LEVEL_UP_REROLLS } from "./runDefaults";
 
 export type CreateInitialRunStateInput = {
 	runId: string;
@@ -68,7 +68,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): {
 		town,
 		shopLocks: [],
 
-		gold: 0,
+		gold: STARTING_GOLD,
 		levelUpRerolls: STARTING_LEVEL_UP_REROLLS,
 		streak: 0,
 

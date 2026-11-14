@@ -1,0 +1,3 @@
+export const STARTING_GOLD = 200;
+export const STARTING_HEALING_POTIONS = 3;
+export const STARTING_LEVEL_UP_REROLLS = 5;

@@ -1,1 +1,0 @@
-export const STARTING_LEVEL_UP_REROLLS = 5;
