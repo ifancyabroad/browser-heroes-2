@@ -37,7 +37,7 @@ export function TownHub({
 			id: "shop",
 			name: "Shop",
 			icon: shopIcon,
-			description: "Browse weapons, armour and accessories.",
+			description: "Buy items",
 			price: null,
 			canAfford: true,
 			status: (
@@ -54,7 +54,7 @@ export function TownHub({
 			id: "tavern",
 			name: "Tavern",
 			icon: tavernIcon,
-			description: "Rest to recover health and skills.",
+			description: "Rest",
 			price: town.restCost,
 			canAfford: town.canAffordRest,
 			status: (
@@ -71,7 +71,7 @@ export function TownHub({
 			id: "alchemist",
 			name: "Alchemist",
 			icon: alchemistIcon,
-			description: "Stock up on healing potions.",
+			description: "Buy potions",
 			price: town.healingPotionCost,
 			canAfford: town.canAffordHealingPotion,
 			status: (
@@ -90,7 +90,7 @@ export function TownHub({
 	return (
 		<div className="flex flex-1 flex-col gap-3 md:grid md:grid-cols-[minmax(15rem,.9fr)_minmax(0,1.4fr)]">
 			<div
-				className="grid shrink-0 auto-rows-fr grid-cols-[minmax(0,max-content)_minmax(max-content,1fr)_max-content] gap-x-2 gap-y-3 md:grid-cols-1 md:gap-3"
+				className="grid shrink-0 grid-cols-[minmax(0,1fr)_max-content_max-content] content-start gap-x-2 gap-y-3 md:grid-cols-1 md:gap-3"
 				aria-label="Town services"
 			>
 				{services.map((service) => (
@@ -113,9 +113,7 @@ export function TownHub({
 								>
 									{service.name}
 								</h2>
-								<p className="mt-1 hidden leading-6 md:block">
-									{service.description}
-								</p>
+								<p className="mt-1 leading-6">{service.description}</p>
 							</div>
 							{service.price !== null && (
 								<span
