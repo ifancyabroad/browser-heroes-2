@@ -53,8 +53,8 @@ export default function Landing() {
 							<p className="text-text-bright">Welcome back, {user?.displayName}.</p>
 						)}
 						<p>
-							Create a hero, master their skills, and survive a turn-based journey
-							through increasingly deadly encounters.
+							A free turn-based RPG. Slay monsters, get loot and survive as long as
+							you can.
 						</p>
 					</div>
 
