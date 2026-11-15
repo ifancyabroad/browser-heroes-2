@@ -4,24 +4,24 @@ import { useHowToPlayModalStore } from "../stores/howToPlayModalStore";
 
 const sections = [
 	{
-		title: "FIGHT",
-		body: "Combat is turn-based. Use basic attacks, class skills, and healing potions to defeat each enemy before they defeat you.",
+		title: "OBJECTIVE",
+		body: "Progress as far as you can against a neverending queue of enemies. If your hero dies, the run ends.",
 	},
 	{
-		title: "GROW STRONGER",
-		body: "Victories award XP and gold. Level up to learn skills and feats, and defeat bosses to earn valuable reward choices.",
+		title: "COMBAT",
+		body: "Combat is turn-based. Use attacks, skills and healing potions to defeat enemies. You cannot retreat once a battle begins.",
 	},
 	{
-		title: "CHOOSE YOUR PACE",
-		body: "After a victory, continue fighting to build a more rewarding streak or return to town to prepare. Returning to town ends your streak.",
+		title: "LEVEL UP",
+		body: "Defeat enemies to earn XP and gold. Level up to choose new skills and feats. Defeat bosses for additional rewards.",
 	},
 	{
-		title: "PREPARE IN TOWN",
-		body: "Visit the shop for equipment, the tavern to recover health and skill uses, or the alchemist to buy healing potions. Reroll the shop and lock equipment you want to preserve across rerolls and future town visits.",
+		title: "TOWN",
+		body: "Buy equipment at the shop and healing potions at the alchemist. Rest at the tavern to restore health and skill uses.",
 	},
 	{
-		title: "SURVIVE THE JOURNEY",
-		body: "Bosses guard every tenth battle. Push toward the final boss, but choose your risks carefully: if your hero dies, the run ends.",
+		title: "STREAKS",
+		body: "After a victory, keep fighting to increase your gold multiplier or return to town to recover and buy supplies. Returning to town resets your streak.",
 	},
 ] as const;
 
@@ -42,9 +42,16 @@ export function HowToPlayModal() {
 			}
 		>
 			<div className="grid gap-4 text-base">
+				<p className="text-text-bright">Welcome to Safehaven.</p>
 				<p className="text-text-bright">
-					Guide your hero through a dangerous ladder of battles, growing stronger with
-					every victory.
+					You are an adventurer that has been tasked with ridding the area of monsters.
+					Unfortunately for you, this particular town happens to be surrounded by evil,
+					each zone more deadly than the last.
+				</p>
+
+				<p className="text-text-bright">
+					With that said, what are adventurers for if not slaying monsters? Now get out
+					there and kill everything in sight!
 				</p>
 
 				<div className="grid gap-4">
@@ -55,11 +62,6 @@ export function HowToPlayModal() {
 						</section>
 					))}
 				</div>
-
-				<p className="text-text-muted">
-					There is no retreat after combat begins. Prepare well, then choose each action
-					carefully.
-				</p>
 			</div>
 		</Modal>
 	);
