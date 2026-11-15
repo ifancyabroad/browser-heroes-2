@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "potent_casting",
 	name: "Potent Casting",
-	description: "Increase your magical damage dealt at the cost of your saving throw bonus.",
+	description: "Increase your magical damage dealt at the cost of your Initiative.",
 	icon: "feats/Aura_Wizards_nb.png",
 	kind: "spellcraft",
 	category: "offensive",
@@ -16,7 +16,7 @@ export default buildFeat({
 		},
 		{
 			type: "modifyStat",
-			stat: "savingThrowBonus",
+			stat: "initiative",
 			value: -4,
 		},
 	],
