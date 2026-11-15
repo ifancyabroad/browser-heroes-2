@@ -19,8 +19,7 @@ export default function Progress() {
 				<header className="mb-5 grid gap-2">
 					<h1 className="text-primary">PROGRESS</h1>
 					<p className="max-w-3xl text-text">
-						Complete achievements across your heroes and leave a lasting mark on the
-						world.
+						Unlock achievements across all your heroes.
 					</p>
 				</header>
 

@@ -17,10 +17,7 @@ export default function Bestiary() {
 			<Container>
 				<header className="mb-5 grid gap-2">
 					<h1 className="text-primary">BESTIARY</h1>
-					<p>
-						Encounter enemies across your adventures to reveal their traits and
-						abilities.
-					</p>
+					<p>Encounter enemies to reveal their traits and abilities.</p>
 				</header>
 
 				{hasSession && bestiaryQuery.isPending ? (

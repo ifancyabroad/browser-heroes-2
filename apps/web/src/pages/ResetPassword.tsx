@@ -39,7 +39,7 @@ export default function ResetPassword() {
 						</header>
 
 						<Button type="button" variant="primary" onClick={openLogin}>
-							CONTINUE TO SIGN IN
+							SIGN IN
 						</Button>
 					</section>
 				) : (

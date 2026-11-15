@@ -66,7 +66,6 @@ export default function CreateCharacter() {
 						<h1 className="text-primary">CHOOSE YOUR CALLING</h1>
 						<p className="max-w-2xl text-text">
 							Your class determines your starting strengths, equipment, and skills.
-							Your build will evolve as the journey continues.
 						</p>
 					</header>
 
