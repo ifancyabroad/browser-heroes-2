@@ -219,7 +219,7 @@ function LockButton({
 			title={label}
 			onClick={() => onLockChange(!slot.locked)}
 		>
-			<IconLock aria-hidden="true" className="h-5 w-5 shrink-0" />
+			<IconLock aria-hidden="true" className="h-6 w-6 shrink-0" />
 		</IconButton>
 	);
 }

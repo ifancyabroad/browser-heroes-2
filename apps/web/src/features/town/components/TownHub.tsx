@@ -1,5 +1,5 @@
 import type { TownView } from "@app/engine";
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconArrowRight, IconBeer, IconBuildingStore, IconFlask2 } from "@tabler/icons-react";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Badge } from "../../../components/Badge";
@@ -37,6 +37,7 @@ export function TownHub({
 			id: "shop",
 			name: "Shop",
 			icon: shopIcon,
+			visitIcon: IconBuildingStore,
 			description: "Buy items",
 			price: null,
 			canAfford: true,
@@ -54,6 +55,7 @@ export function TownHub({
 			id: "tavern",
 			name: "Tavern",
 			icon: tavernIcon,
+			visitIcon: IconBeer,
 			description: "Rest",
 			price: town.restCost,
 			canAfford: town.canAffordRest,
@@ -71,6 +73,7 @@ export function TownHub({
 			id: "alchemist",
 			name: "Alchemist",
 			icon: alchemistIcon,
+			visitIcon: IconFlask2,
 			description: "Buy potions",
 			price: town.healingPotionCost,
 			canAfford: town.canAffordHealingPotion,
@@ -99,7 +102,7 @@ export function TownHub({
 						aria-labelledby={`town-${service.id}`}
 						className="col-span-full grid min-w-0 grid-cols-subgrid items-center border-2 border-border-secondary bg-bg-panel p-3 md:flex md:flex-col md:items-stretch md:gap-3"
 					>
-						<div className="flex min-w-0 items-center gap-1 md:flex-1 md:items-start md:gap-3">
+						<div className="flex min-w-0 items-center gap-3 md:flex-1 md:items-start">
 							<img
 								src={service.icon}
 								alt=""
@@ -133,12 +136,17 @@ export function TownHub({
 							</span>
 							<Button
 								variant="primary"
-								className="ml-auto shrink-0 max-md:px-2"
+								className="ml-1 shrink-0 max-md:h-9 max-md:w-9 max-md:p-0 md:ml-auto"
 								aria-label={`Visit ${service.name}`}
+								title={`Visit ${service.name}`}
 								disabled={isPending}
 								onClick={service.onVisit}
 							>
-								Visit
+								<service.visitIcon
+									aria-hidden="true"
+									className="h-6 w-6 md:hidden"
+								/>
+								<span className="hidden md:inline">Visit</span>
 							</Button>
 						</div>
 					</article>
