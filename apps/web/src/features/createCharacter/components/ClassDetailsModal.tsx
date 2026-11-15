@@ -154,21 +154,21 @@ export function ClassDetailsModal({ gameClass, onChoose, onClose }: ClassDetails
 							<DetailRow label="Hit die" value={gameClass.combat.hitDie} />
 							<DetailRow
 								label="Saves"
-								value={gameClass.proficiencies.savingThrows
-									.map((attribute) => attributeShortLabels[attribute])
-									.join(" / ")}
+								value={gameClass.proficiencies.savingThrows.map(
+									(attribute) => attributeShortLabels[attribute],
+								)}
 							/>
 							<DetailRow
 								label="Armour"
-								value={gameClass.proficiencies.armourTypes
-									.map((type) => armourTypeLabels[type])
-									.join(" / ")}
+								value={gameClass.proficiencies.armourTypes.map(
+									(type) => armourTypeLabels[type],
+								)}
 							/>
 							<DetailRow
 								label="Weapons"
-								value={gameClass.proficiencies.weaponTypes
-									.map((type) => weaponTypeLabels[type])
-									.join(" / ")}
+								value={gameClass.proficiencies.weaponTypes.map(
+									(type) => weaponTypeLabels[type],
+								)}
 							/>
 						</dl>
 					</DetailSection>
@@ -187,11 +187,27 @@ function DetailSection({ title, children }: PropsWithChildren<{ title: string }>
 	);
 }
 
-function DetailRow({ label, value }: { label: string; value: string }) {
+function DetailRow({ label, value }: { label: string; value: string | string[] }) {
 	return (
-		<div className="grid grid-cols-[5rem_minmax(0,1fr)] items-baseline gap-3">
+		<div className="grid grid-cols-[6rem_minmax(0,1fr)] items-baseline gap-3">
 			<dt className="text-text-label">{label}</dt>
-			<dd className="min-w-0">{value || "None"}</dd>
+			<dd className="min-w-0">
+				{Array.isArray(value) ? (
+					value.length > 0 ? (
+						<ul className="flex flex-wrap gap-1">
+							{value.map((label) => (
+								<li key={label} className="flex">
+									<Badge label={label} variant="muted" textTone="bright" />
+								</li>
+							))}
+						</ul>
+					) : (
+						"None"
+					)
+				) : (
+					value || "None"
+				)}
+			</dd>
 		</div>
 	);
 }
