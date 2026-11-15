@@ -196,7 +196,7 @@ export function TownView({ run }: TownViewProps) {
 						</GameNavigation>
 					</GamePanelContainer>
 				</header>
-				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto md:flex-initial">
+				<div className="flex min-h-0 flex-col overflow-y-auto">
 					<GamePanelContainer className="flex flex-1 flex-col pb-6">
 						<TownHub
 							town={townView}
@@ -210,8 +210,8 @@ export function TownView({ run }: TownViewProps) {
 						/>
 					</GamePanelContainer>
 				</div>
-				<div className="flex shrink-0 flex-col border-t-2 border-border-secondary bg-bg-base py-4 md:min-h-40 md:flex-1">
-					<GamePanelContainer className="flex h-[8lh] min-h-0 shrink-0 leading-6 md:h-auto md:flex-1">
+				<div className="flex min-h-40 flex-1 flex-col border-t-2 border-border-secondary bg-bg-base py-4">
+					<GamePanelContainer className="flex min-h-0 flex-1 leading-6">
 						<WorldLogPanel {...worldLog} />
 					</GamePanelContainer>
 				</div>

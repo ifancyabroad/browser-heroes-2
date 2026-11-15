@@ -1,5 +1,5 @@
 import type { TownView } from "@app/engine";
-import { IconArrowRight, IconBeer, IconBuildingStore, IconFlask2 } from "@tabler/icons-react";
+import { IconArrowRight, IconSwords } from "@tabler/icons-react";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Badge } from "../../../components/Badge";
@@ -8,6 +8,12 @@ import { ZONE_BACKGROUNDS } from "../../../presentation/zones";
 import shopIcon from "../../../assets/images/town/shop.png";
 import tavernIcon from "../../../assets/images/town/tavern.png";
 import alchemistIcon from "../../../assets/images/town/alchemist.png";
+
+const mobileTileButtonClassName =
+	"relative min-w-0 max-md:h-full max-md:w-full max-md:flex-col max-md:p-0 md:ml-auto";
+
+const mobileTileLabelClassName =
+	"flex h-10 w-full shrink-0 items-center justify-center bg-black px-2 text-text-bright md:hidden";
 
 type TownHubProps = {
 	town: TownView;
@@ -30,6 +36,7 @@ export function TownHub({
 	onVisitAlchemist,
 	onContinue,
 }: TownHubProps) {
+	const zoneName = formatTitle(town.zone);
 	const potionsFull = town.healingPotions >= town.maxHealingPotions;
 	const potionCount = `${town.healingPotions}/${town.maxHealingPotions}`;
 	const services = [
@@ -37,7 +44,6 @@ export function TownHub({
 			id: "shop",
 			name: "Shop",
 			icon: shopIcon,
-			visitIcon: IconBuildingStore,
 			description: "Buy items",
 			price: null,
 			canAfford: true,
@@ -55,7 +61,6 @@ export function TownHub({
 			id: "tavern",
 			name: "Tavern",
 			icon: tavernIcon,
-			visitIcon: IconBeer,
 			description: "Rest",
 			price: town.restCost,
 			canAfford: town.canAffordRest,
@@ -73,7 +78,6 @@ export function TownHub({
 			id: "alchemist",
 			name: "Alchemist",
 			icon: alchemistIcon,
-			visitIcon: IconFlask2,
 			description: "Buy potions",
 			price: town.healingPotionCost,
 			canAfford: town.canAffordHealingPotion,
@@ -91,28 +95,28 @@ export function TownHub({
 		},
 	];
 	return (
-		<div className="flex flex-1 flex-col gap-3 md:grid md:grid-cols-[minmax(15rem,.9fr)_minmax(0,1.4fr)]">
+		<div className="grid grid-cols-2 gap-3 max-md:auto-rows-[clamp(9rem,25dvh,12.5rem)] md:flex-1 md:grid-cols-[minmax(15rem,.9fr)_minmax(0,1.4fr)]">
 			<div
-				className="grid shrink-0 grid-cols-[minmax(0,1fr)_max-content_max-content] content-start gap-x-2 gap-y-3 md:grid-cols-1 md:gap-3"
+				className="contents md:grid md:grid-cols-1 md:content-start md:gap-3"
 				aria-label="Town services"
 			>
 				{services.map((service) => (
 					<article
 						key={service.id}
 						aria-labelledby={`town-${service.id}`}
-						className="col-span-full grid min-w-0 grid-cols-subgrid items-center border-2 border-border-secondary bg-bg-panel p-3 md:flex md:flex-col md:items-stretch md:gap-3"
+						className="min-w-0 md:flex md:flex-col md:gap-3 md:border-2 md:border-border-secondary md:bg-bg-panel md:p-3"
 					>
-						<div className="flex min-w-0 items-center gap-3 md:flex-1 md:items-start">
+						<div className="hidden min-w-0 gap-3 md:flex md:flex-1">
 							<img
 								src={service.icon}
 								alt=""
-								className="h-10 w-10 shrink-0 object-contain md:h-12 md:w-12"
+								className="h-12 w-12 shrink-0 object-contain"
 							/>
-							<div className="min-w-0 md:flex-1">
+							<div className="min-w-0 flex-1">
 								<h2
 									id={`town-${service.id}`}
 									title={service.name}
-									className="truncate text-text-bright md:overflow-visible md:whitespace-normal"
+									className="text-text-bright"
 								>
 									{service.name}
 								</h2>
@@ -121,7 +125,7 @@ export function TownHub({
 							{service.price !== null && (
 								<span
 									className={clsx(
-										"ml-1 hidden shrink-0 whitespace-nowrap text-right tabular-nums md:block",
+										"ml-1 shrink-0 whitespace-nowrap text-right tabular-nums",
 										service.canAfford ? "text-text-bright" : "text-error",
 									)}
 									aria-label={`${service.price} gold${service.id === "alchemist" ? " each" : ""}`}
@@ -130,22 +134,25 @@ export function TownHub({
 								</span>
 							)}
 						</div>
-						<div className="contents md:mt-auto md:flex md:items-center md:justify-between md:gap-3">
-							<span className="flex justify-center md:justify-start">
-								{service.status}
-							</span>
+						<div className="flex h-full md:mt-auto md:h-auto md:items-center md:justify-between md:gap-3">
+							<span className="hidden md:block">{service.status}</span>
 							<Button
 								variant="primary"
-								className="ml-1 shrink-0 max-md:h-9 max-md:w-9 max-md:p-0 md:ml-auto"
+								className={mobileTileButtonClassName}
 								aria-label={`Visit ${service.name}`}
 								title={`Visit ${service.name}`}
 								disabled={isPending}
 								onClick={service.onVisit}
 							>
-								<service.visitIcon
-									aria-hidden="true"
-									className="h-6 w-6 md:hidden"
+								<img
+									src={service.icon}
+									alt=""
+									className="min-h-0 w-full flex-1 object-contain p-3 md:hidden"
 								/>
+								<span className={mobileTileLabelClassName}>{service.name}</span>
+								<span className="absolute right-2 top-2 bg-bg-panel md:hidden">
+									{service.status}
+								</span>
 								<span className="hidden md:inline">Visit</span>
 							</Button>
 						</div>
@@ -154,16 +161,16 @@ export function TownHub({
 			</div>
 			<section
 				aria-label="Next battle"
-				className="relative isolate min-h-40 flex-1 overflow-hidden border-2 border-border-secondary bg-bg-base md:min-h-0"
+				className="min-w-0 md:relative md:isolate md:overflow-hidden md:border-2 md:border-border-secondary md:bg-bg-base"
 			>
 				<img
 					src={ZONE_BACKGROUNDS[town.zone]}
 					alt=""
-					className="absolute inset-0 -z-10 h-full w-full object-cover object-[50%_48%]"
+					className="absolute inset-0 -z-10 hidden h-full w-full object-cover md:block"
 				/>
-				<div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-3 border-t border-border-secondary bg-black/85 p-3">
-					<div className="grid gap-1">
-						<h2 className="text-text-bright">{formatTitle(town.zone)}</h2>
+				<div className="flex h-full md:absolute md:inset-x-0 md:bottom-0 md:h-auto md:flex-wrap md:items-center md:justify-between md:gap-3 md:border-t md:border-border-secondary md:bg-black/85 md:p-3">
+					<div className="hidden gap-1 md:grid">
+						<h2 className="text-text-bright">{zoneName}</h2>
 						<p>
 							Battle {town.zoneBattleNumber}/{town.battlesPerZone}
 						</p>
@@ -172,10 +179,33 @@ export function TownHub({
 						variant="primary"
 						disabled={isPending || !canEnterCombat}
 						onClick={onContinue}
-						className="ml-auto"
+						aria-label={`Battle in ${zoneName}`}
+						title={`Battle in ${zoneName}`}
+						className={mobileTileButtonClassName}
 					>
-						{town.battleNumber === 1 ? "Start" : "Continue"}
-						<IconArrowRight aria-hidden="true" className="ml-1 h-4 w-4 shrink-0" />
+						<span className="relative flex min-h-0 w-full flex-1 items-center justify-center md:hidden">
+							<img
+								src={ZONE_BACKGROUNDS[town.zone]}
+								alt=""
+								className="absolute inset-0 h-full w-full object-cover"
+							/>
+							<span className="relative size-12" aria-hidden="true">
+								<IconSwords
+									strokeWidth={4}
+									className="absolute inset-0 h-full w-full text-black"
+								/>
+								<IconSwords
+									strokeWidth={2}
+									className="absolute inset-0 h-full w-full text-text-bright"
+								/>
+							</span>
+						</span>
+						<span className={mobileTileLabelClassName}>{zoneName}</span>
+						<span className="hidden md:inline">Battle</span>
+						<IconArrowRight
+							aria-hidden="true"
+							className="ml-1 hidden h-4 w-4 shrink-0 md:block"
+						/>
 					</Button>
 				</div>
 			</section>
