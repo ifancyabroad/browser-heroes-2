@@ -63,7 +63,7 @@ export function TownHub({
 	] as const;
 	return (
 		<div
-			className="m-auto grid w-full grid-cols-2 auto-rows-[12rem] gap-3 md:max-w-[62rem] md:grid-cols-[min(12rem,33%)_minmax(0,1fr)] md:grid-rows-[clamp(26.25rem,calc(100dvh-20rem),34rem)]"
+			className="m-auto grid w-full grid-cols-2 auto-rows-[12rem] gap-3 md:grid-cols-[min(12rem,33%)_minmax(0,1fr)] md:grid-rows-[clamp(26.25rem,calc(100dvh-20rem),34rem)]"
 			aria-label="Town destinations"
 		>
 			<div
