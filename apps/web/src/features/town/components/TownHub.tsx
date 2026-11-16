@@ -63,7 +63,7 @@ export function TownHub({
 	] as const;
 	return (
 		<div
-			className="m-auto grid w-full grid-cols-2 auto-rows-[12rem] gap-3 md:grid-cols-[min(12rem,33%)_minmax(0,1fr)] md:grid-rows-[clamp(26.25rem,calc(100dvh-20rem),34rem)]"
+			className="m-auto grid w-full grid-cols-2 auto-rows-[12rem] gap-3 md:grid-cols-[min(12rem,33%)_minmax(0,1fr)] md:grid-rows-[clamp(22.5rem,calc(100dvh-20rem),34rem)]"
 			aria-label="Town destinations"
 		>
 			<div
@@ -126,7 +126,12 @@ export function TownHub({
 							/>
 						</span>
 					</span>
-					<span className={captionClassName}>{zoneName}</span>
+					<span className={`${captionClassName} flex-wrap gap-x-2`}>
+						<span>{zoneName}</span>
+						<span className="text-text tabular-nums">
+							{town.zoneBattleNumber}/{town.battlesPerZone}
+						</span>
+					</span>
 				</Button>
 			</section>
 		</div>
