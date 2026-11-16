@@ -1,4 +1,4 @@
-import { recordAdminActivity, publishAdminActivity } from "./adminActivity.service";
+import { recordAndPublishAdminActivity } from "./adminActivity.service";
 import type { WorldLogEntry } from "@app/shared";
 import mongoose from "mongoose";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -27,8 +27,7 @@ const achievementService = vi.hoisted(() => ({ processRunActionAchievements: vi.
 const lifetimeProgressService = vi.hoisted(() => ({ recordLifetimeProgress: vi.fn() }));
 
 vi.mock("./adminActivity.service", () => ({
-	recordAdminActivity: vi.fn().mockResolvedValue([]),
-	publishAdminActivity: vi.fn().mockResolvedValue(undefined),
+	recordAndPublishAdminActivity: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock("./worldLog.service", () => ({
@@ -77,7 +76,11 @@ describe("engine.service", () => {
 
 	it("publishes only the committed transaction result after a retry", async () => {
 		const { run } = arrangeRun();
-		engine.applyAction.mockReturnValue({ ok: true, state: run.state, events: [] });
+		const abortedState = { ...run.state, day: 2 };
+		const committedState = { ...run.state, day: 3 };
+		engine.applyAction
+			.mockReturnValueOnce({ ok: true, state: abortedState, events: [] })
+			.mockReturnValueOnce({ ok: true, state: committedState, events: [] });
 		const entry: WorldLogEntry = {
 			id: "committed",
 			createdAt: "2026-01-01T00:00:00.000Z",
@@ -87,25 +90,13 @@ describe("engine.service", () => {
 			mode: "normal",
 			event: { type: "hero_rested", day: 2 },
 		};
-		vi.mocked(recordAdminActivity)
-			.mockResolvedValueOnce([
-				{
-					...entry,
-					event: { type: "hero_rested" as const, day: 2 },
-					runId: "run-id",
-					id: "aborted",
-				},
-			])
-			.mockResolvedValueOnce([
-				{ ...entry, event: { type: "hero_rested" as const, day: 2 }, runId: "run-id" },
-			]);
 		vi.mocked(recordWorldLog)
 			.mockResolvedValueOnce([{ ...entry, id: "aborted" }])
 			.mockResolvedValueOnce([entry]);
 		vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
 			await callback(session as never);
 			expect(publishWorldLog).not.toHaveBeenCalled();
-			expect(publishAdminActivity).not.toHaveBeenCalled();
+			expect(recordAndPublishAdminActivity).not.toHaveBeenCalled();
 
 			return callback(session as never);
 		});
@@ -116,9 +107,14 @@ describe("engine.service", () => {
 		});
 		expect(recordWorldLog).toHaveBeenCalledTimes(2);
 		expect(publishWorldLog).toHaveBeenCalledExactlyOnceWith([entry]);
-		expect(publishAdminActivity).toHaveBeenCalledExactlyOnceWith([
-			{ ...entry, event: { type: "hero_rested" as const, day: 2 }, runId: "run-id" },
-		]);
+		expect(recordAndPublishAdminActivity).toHaveBeenCalledExactlyOnceWith({
+			runId: "run-id",
+			userId: "user-id",
+			mode: "normal",
+			state: committedState,
+			sequence: expect.any(Number),
+			events: [],
+		});
 	});
 
 	it("does not publish when the transaction rolls back", async () => {
@@ -136,7 +132,29 @@ describe("engine.service", () => {
 			}),
 		).rejects.toThrow("transaction aborted");
 		expect(publishWorldLog).not.toHaveBeenCalled();
-		expect(publishAdminActivity).not.toHaveBeenCalled();
+		expect(recordAndPublishAdminActivity).not.toHaveBeenCalled();
+	});
+
+	it("returns gameplay and publishes the World Log while admin work is still pending", async () => {
+		const { run } = arrangeRun();
+		engine.applyAction.mockReturnValue({ ok: true, state: run.state, events: [] });
+		let finish!: () => void;
+		const background = new Promise<void>((resolve) => {
+			finish = resolve;
+		});
+		vi.mocked(recordAndPublishAdminActivity).mockReturnValueOnce(background);
+
+		const response = await applyRunAction({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "PLAYER_SKIP_TURN" },
+		});
+
+		expect(response.run).toBe(run);
+		expect(recordAndPublishAdminActivity).toHaveBeenCalledOnce();
+		expect(publishWorldLog).toHaveBeenCalledOnce();
+		finish();
+		await background;
 	});
 
 	it("loads an active run by id and owner inside the transaction", async () => {

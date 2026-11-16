@@ -1,20 +1,33 @@
 import type { EngineEvent, RunState } from "@app/engine";
 import { ADMIN_ACTIVITY_LIMIT, type AdminActivityEntry, type RunMode } from "@app/shared";
-import type { ClientSession, Types } from "mongoose";
+import type { Types } from "mongoose";
 import { AdminActivityModel, type AdminActivityRecord } from "../models/adminActivity.model";
 import { notifyAdminActivity } from "../notifications/adminActivity";
 import { getRegisteredDisplayName } from "./publicIdentity.service";
 import { toAdminActivityEvent } from "./adminActivity.events";
 
-export async function recordAdminActivity(input: {
+type AdminActivityInput = {
 	runId: string;
 	userId: string;
 	mode: RunMode;
 	state: RunState;
 	sequence: number;
 	events: readonly EngineEvent[];
-	session: ClientSession;
-}): Promise<AdminActivityEntry[]> {
+};
+
+// Best effort: callers start this after commit without awaiting it. Restarts can leave feed gaps.
+export async function recordAndPublishAdminActivity(input: AdminActivityInput): Promise<void> {
+	try {
+		const entries = await recordAdminActivity(input);
+		await publishAdminActivity(entries);
+	} catch (error) {
+		console.error("Admin activity recording failed", error);
+	}
+}
+
+export async function recordAdminActivity(
+	input: AdminActivityInput,
+): Promise<AdminActivityEntry[]> {
 	const events = input.events.flatMap((event, index) => {
 		const mapped = toAdminActivityEvent(event, input.state);
 		return mapped ? [{ index, event: mapped }] : [];
@@ -22,8 +35,8 @@ export async function recordAdminActivity(input: {
 	if (!events.length) {
 		return [];
 	}
-	const displayName = await getRegisteredDisplayName(input.userId);
 	const createdAt = new Date();
+	const displayName = await getRegisteredDisplayName(input.userId);
 	const records = await AdminActivityModel.create(
 		events.map(({ index, event }) => ({
 			sourceKey: `${input.runId}:${input.sequence}:${index}`,
@@ -35,7 +48,7 @@ export async function recordAdminActivity(input: {
 			displayName,
 			event,
 		})),
-		{ session: input.session, ordered: true },
+		{ ordered: true },
 	);
 	return records.map(toEntry);
 }
@@ -64,7 +77,7 @@ export async function pruneAdminActivity(): Promise<void> {
 	});
 }
 
-// Only publish the transaction's returned entries after commit, including after transaction retries.
+// Delivery and cleanup failures must not affect already committed gameplay.
 export async function publishAdminActivity(entries: AdminActivityEntry[]): Promise<void> {
 	if (!entries.length) {
 		return;

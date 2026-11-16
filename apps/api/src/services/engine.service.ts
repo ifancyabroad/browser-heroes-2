@@ -21,7 +21,7 @@ import { processRunActionAchievements, type AchievementSource } from "./achievem
 import { recordLifetimeProgress } from "./lifetimeProgress.service";
 import { recordBestiaryProgress } from "./bestiary.service";
 import { recordWorldLog, publishWorldLog } from "./worldLog.service";
-import { recordAdminActivity, publishAdminActivity } from "./adminActivity.service";
+import { recordAndPublishAdminActivity } from "./adminActivity.service";
 
 const FIRST_GHOST_ENCOUNTER_BATTLE = 11;
 
@@ -173,25 +173,24 @@ export async function applyRunAction(input: ApplyRunActionInput) {
 			events,
 			session,
 		});
-		const adminActivityEntries = await recordAdminActivity({
+		const adminActivity = {
 			runId: input.runId,
 			userId: input.userId,
 			mode: run.mode,
 			state: result.state,
 			sequence,
 			events,
-			session,
-		});
+		};
 
 		return {
 			response: { run, result, unlockedAchievements },
 			worldLogEntries,
-			adminActivityEntries,
+			adminActivity,
 		};
 	});
 
-	const { response, worldLogEntries, adminActivityEntries } = committed;
-	await publishAdminActivity(adminActivityEntries);
+	const { response, worldLogEntries, adminActivity } = committed;
+	void recordAndPublishAdminActivity(adminActivity);
 	await publishWorldLog(worldLogEntries);
 
 	return response;

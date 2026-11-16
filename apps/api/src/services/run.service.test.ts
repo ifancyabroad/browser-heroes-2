@@ -1,4 +1,4 @@
-import { recordAdminActivity, publishAdminActivity } from "./adminActivity.service";
+import { recordAndPublishAdminActivity } from "./adminActivity.service";
 import mongoose from "mongoose";
 import type { WorldLogEntry } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -24,8 +24,7 @@ const profanity = vi.hoisted(() => ({
 }));
 
 vi.mock("./adminActivity.service", () => ({
-	recordAdminActivity: vi.fn().mockResolvedValue([]),
-	publishAdminActivity: vi.fn().mockResolvedValue(undefined),
+	recordAndPublishAdminActivity: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock("./worldLog.service", () => ({
@@ -91,13 +90,10 @@ describe("run.service", () => {
 				event: { type: "hero_created" },
 			};
 			vi.mocked(recordWorldLog).mockResolvedValueOnce([entry]);
-			vi.mocked(recordAdminActivity).mockResolvedValueOnce([
-				{ ...entry, event: { type: "hero_created" as const }, runId: "run-id" },
-			]);
 			vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
 				const result = await callback(session as never);
 				expect(publishWorldLog).not.toHaveBeenCalled();
-				expect(publishAdminActivity).not.toHaveBeenCalled();
+				expect(recordAndPublishAdminActivity).not.toHaveBeenCalled();
 
 				return result;
 			});
@@ -121,9 +117,14 @@ describe("run.service", () => {
 				}),
 			);
 			expect(publishWorldLog).toHaveBeenCalledExactlyOnceWith([entry]);
-			expect(publishAdminActivity).toHaveBeenCalledExactlyOnceWith([
-				{ ...entry, event: { type: "hero_created" as const }, runId: "run-id" },
-			]);
+			expect(recordAndPublishAdminActivity).toHaveBeenCalledExactlyOnceWith({
+				runId: expect.any(String),
+				userId: "user-id",
+				mode,
+				sequence: 0,
+				state: testRunState,
+				events: [{ type: "RUN_STARTED" }],
+			});
 		},
 	);
 
@@ -136,7 +137,48 @@ describe("run.service", () => {
 			createRun({ userId: "user-id", heroName: "Hero", classId: "warrior" }),
 		).rejects.toThrow("transaction aborted");
 		expect(publishWorldLog).not.toHaveBeenCalled();
+		expect(recordAndPublishAdminActivity).not.toHaveBeenCalled();
 	});
+
+	it("starts admin recording only for the successful creation attempt after a retry", async () => {
+		vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
+			await callback(session as never);
+			expect(recordAndPublishAdminActivity).not.toHaveBeenCalled();
+			return callback(session as never);
+		});
+		await createRun({ userId: "user-id", heroName: "Hero", classId: "warrior" });
+		const firstRunId = String(models.run.create.mock.calls[0][0][0]._id);
+		const committedRunId = String(models.run.create.mock.calls[1][0][0]._id);
+		expect(committedRunId).not.toBe(firstRunId);
+		expect(recordAndPublishAdminActivity).toHaveBeenCalledExactlyOnceWith(
+			expect.objectContaining({ runId: committedRunId }),
+		);
+	});
+
+	it.each(["normal", "dailyChallenge"] as const)(
+		"returns %s creation while admin work is still pending",
+		async (mode) => {
+			let finish!: () => void;
+			const background = new Promise<void>((resolve) => {
+				finish = resolve;
+			});
+			vi.mocked(recordAndPublishAdminActivity).mockReturnValueOnce(background);
+			const params = { userId: "user-id", heroName: "Hero", classId: "warrior" as const };
+			const run =
+				mode === "normal"
+					? await createRun(params)
+					: await createDailyChallengeRun({
+							...params,
+							season: 1,
+							seed: "daily-seed",
+							dailyChallengeDate: "2026-01-01",
+						});
+			expect(run._id).toBe("created-run");
+			expect(publishWorldLog).toHaveBeenCalledOnce();
+			finish();
+			await background;
+		},
+	);
 
 	it("normalizes the hero name and creates a run transactionally", async () => {
 		const created = await createRun({

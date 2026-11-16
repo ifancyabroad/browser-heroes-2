@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { ClientSession, Types } from "mongoose";
+import type { Types } from "mongoose";
 import type { AdminActivityEntry } from "@app/shared";
 import { SKILLS_BY_ID } from "@app/content";
 import { createTestCombatState } from "../test/createTestRun";
@@ -10,11 +10,12 @@ const mocks = vi.hoisted(() => ({
 	findOne: vi.fn(),
 	deleteMany: vi.fn(),
 	notify: vi.fn(),
+	name: vi.fn(),
 }));
 vi.mock("../models/adminActivity.model", () => ({ AdminActivityModel: mocks }));
 vi.mock("../notifications/adminActivity", () => ({ notifyAdminActivity: mocks.notify }));
 vi.mock("./publicIdentity.service", () => ({
-	getRegisteredDisplayName: vi.fn().mockResolvedValue("Player"),
+	getRegisteredDisplayName: mocks.name,
 }));
 
 import { toAdminActivityEvent } from "./adminActivity.events";
@@ -22,12 +23,14 @@ import {
 	getAdminActivity,
 	recordAdminActivity,
 	publishAdminActivity,
+	recordAndPublishAdminActivity,
 } from "./adminActivity.service";
 
 describe("admin activity", () => {
 	const state = createTestCombatState();
 	beforeEach(() => {
 		vi.clearAllMocks();
+		mocks.name.mockResolvedValue("Player");
 	});
 
 	it("projects all battle outcomes once, preserving encounter significance", () => {
@@ -121,21 +124,19 @@ describe("admin activity", () => {
 		expect(toAdminActivityEvent({ type: "COMBAT_TURN_RESOLVED" }, state)).toBeNull();
 	});
 
-	it("records source keys by original event index inside the supplied transaction", async () => {
+	it("records source keys by original event index without a gameplay session", async () => {
 		mocks.create.mockImplementation(async (records) =>
 			records.map((record: object) => ({
 				...record,
 				_id: "id" as unknown as Types.ObjectId,
 			})),
 		);
-		const session = {} as ClientSession;
 		await recordAdminActivity({
 			runId: "run",
 			userId: "user",
 			mode: "normal",
 			state,
 			sequence: 4,
-			session,
 			events: [{ type: "COMBAT_TURN_RESOLVED" }, { type: "RUN_STARTED" }],
 		});
 		expect(mocks.create).toHaveBeenCalledWith(
@@ -146,10 +147,60 @@ describe("admin activity", () => {
 					displayName: "Player",
 				}),
 			],
-			{ session, ordered: true },
+			{ ordered: true },
 		);
 		expect(mocks.notify).not.toHaveBeenCalled();
 	});
+
+	it("records, publishes and prunes committed activity in the background task", async () => {
+		mocks.create.mockImplementation(async (records) =>
+			records.map((record: object) => ({ ...record, _id: "id" })),
+		);
+		mocks.findOne.mockReturnValue({
+			sort: vi.fn().mockReturnThis(),
+			skip: vi.fn().mockReturnThis(),
+			lean: vi.fn().mockResolvedValue(null),
+		});
+		await recordAndPublishAdminActivity({
+			runId: "run",
+			userId: "user",
+			mode: "normal",
+			state,
+			sequence: 1,
+			events: [{ type: "RUN_STARTED" }],
+		});
+		expect(mocks.notify).toHaveBeenCalledExactlyOnceWith([
+			expect.objectContaining({ id: "id", runId: "run", event: { type: "hero_created" } }),
+		]);
+		expect(mocks.findOne).toHaveBeenCalledOnce();
+	});
+
+	it.each(["identity", "storage"])(
+		"catches background %s failures without publishing unsaved events",
+		async (failure) => {
+			const log = vi.spyOn(console, "error").mockImplementation(() => {});
+			const error = new Error(`${failure} failed`);
+			if (failure === "identity") {
+				mocks.name.mockRejectedValueOnce(error);
+			} else {
+				mocks.create.mockRejectedValueOnce(error);
+			}
+			await expect(
+				recordAndPublishAdminActivity({
+					runId: "run",
+					userId: "user",
+					mode: "normal",
+					state,
+					sequence: 1,
+					events: [{ type: "RUN_STARTED" }],
+				}),
+			).resolves.toBeUndefined();
+			expect(mocks.notify).not.toHaveBeenCalled();
+			expect(mocks.findOne).not.toHaveBeenCalled();
+			expect(log).toHaveBeenCalledExactlyOnceWith("Admin activity recording failed", error);
+			log.mockRestore();
+		},
+	);
 
 	it("fetches bounded chronological history and prunes timestamp ties by ID", async () => {
 		const createdAt = new Date("2026-11-16T12:00:00Z");

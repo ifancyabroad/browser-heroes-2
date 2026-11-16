@@ -71,7 +71,7 @@ The API currently:
 - creates UTC daily challenges and serves their persisted leaderboards, all-time Hall of Fame rankings, and personal hero and ghost history
 - exposes REST and socket-based action submission paths
 - projects engine events into public World Log announcements
-- independently projects engine events into protected admin activity entries, without changing the public World Log
+- records and broadcasts protected admin activity in the background after gameplay commits; this best-effort feed may have gaps after failures or restarts
 
 The web app currently:
 

@@ -8,7 +8,7 @@ import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
 import { toRunSummary } from "./projection.service";
 import { recordWorldLog, publishWorldLog } from "./worldLog.service";
-import { recordAdminActivity, publishAdminActivity } from "./adminActivity.service";
+import { recordAndPublishAdminActivity } from "./adminActivity.service";
 
 function createHeroNameError(message: string): Error & { status: number } {
 	return Object.assign(new Error(message), { status: 400 });
@@ -133,21 +133,20 @@ async function createRunRecord(params: {
 			state,
 			session,
 		});
-		const adminActivityEntries = await recordAdminActivity({
+		const adminActivity = {
 			sequence: 0,
 			events,
 			runId,
 			userId: params.userId,
 			mode: params.mode,
 			state,
-			session,
-		});
+		};
 
-		return { response: run, worldLogEntries, adminActivityEntries };
+		return { response: run, worldLogEntries, adminActivity };
 	});
 
-	const { response, worldLogEntries, adminActivityEntries } = committed;
-	await publishAdminActivity(adminActivityEntries);
+	const { response, worldLogEntries, adminActivity } = committed;
+	void recordAndPublishAdminActivity(adminActivity);
 	await publishWorldLog(worldLogEntries);
 
 	return response;
