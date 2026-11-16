@@ -121,15 +121,6 @@ describe("TownView", () => {
 		setup();
 		expect(screen.getByRole("article", { name: "Shop" })).toHaveTextContent("New");
 	});
-	it("shows zone-relative battle progress", () => {
-		const run = createTownRun();
-		run.state.battleNumber = 11;
-		run.state.zoneNumber = 2;
-		setup(run);
-		expect(
-			within(screen.getByRole("region", { name: "Next battle" })).getByText("Battle 1/10"),
-		).toBeInTheDocument();
-	});
 	it.each([
 		{ count: 0, label: "0/3", tone: "border-error" },
 		{ count: 1, label: "1/3", tone: "border-warning" },

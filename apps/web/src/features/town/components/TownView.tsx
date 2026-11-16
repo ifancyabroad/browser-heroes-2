@@ -190,14 +190,14 @@ export function TownView({ run }: TownViewProps) {
 			/>
 			<GameMainPanel>
 				<header className="shrink-0">
-					<GamePanelContainer className="py-3 md:py-4">
+					<GamePanelContainer className="py-3">
 						<GameNavigation actions={<DefaultGameNavigationActions />}>
 							<TownGoldBalance gold={townView.gold} />
 						</GameNavigation>
 					</GamePanelContainer>
 				</header>
-				<div className="flex min-h-0 flex-col overflow-y-auto">
-					<GamePanelContainer className="flex flex-1 flex-col pb-6">
+				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+					<GamePanelContainer className="flex flex-1 flex-col py-3">
 						<TownHub
 							town={townView}
 							isPending={applyRunAction.isPending}
@@ -210,7 +210,7 @@ export function TownView({ run }: TownViewProps) {
 						/>
 					</GamePanelContainer>
 				</div>
-				<div className="flex min-h-40 flex-1 flex-col border-t-2 border-border-secondary bg-bg-base py-4">
+				<div className="box-content flex h-36 shrink-0 flex-col border-t-2 border-border-secondary bg-bg-base py-3">
 					<GamePanelContainer className="flex min-h-0 flex-1 leading-6">
 						<WorldLogPanel {...worldLog} />
 					</GamePanelContainer>
