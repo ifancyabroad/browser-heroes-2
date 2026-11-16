@@ -210,11 +210,11 @@ export function TownView({ run }: TownViewProps) {
 						/>
 					</GamePanelContainer>
 				</div>
-				<div className="box-content flex h-36 shrink-0 flex-col border-t-2 border-border-secondary bg-bg-base py-3">
-					<GamePanelContainer className="flex min-h-0 flex-1 leading-6">
+				<GamePanelContainer className="shrink-0 max-md:px-0 md:max-lg:px-0">
+					<div className="box-content flex h-36 flex-col border-t-2 border-border-secondary bg-bg-base p-3 leading-6">
 						<WorldLogPanel {...worldLog} />
-					</GamePanelContainer>
-				</div>
+					</div>
+				</GamePanelContainer>
 			</GameMainPanel>
 			{service === "shop" && (
 				<ShopModal
