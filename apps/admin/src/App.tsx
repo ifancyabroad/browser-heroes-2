@@ -11,6 +11,7 @@ import { OverviewPage } from "./pages/OverviewPage";
 import { PlayersPage } from "./pages/PlayersPage";
 import { RunsPage } from "./pages/RunsPage";
 import { SkillsPage } from "./pages/SkillsPage";
+import { RealtimePage } from "./pages/RealtimePage";
 
 export default function App() {
 	const auth = useCurrentUser();
@@ -46,6 +47,7 @@ export default function App() {
 				}
 			>
 				<Route index element={<OverviewPage />} />
+				<Route path="realtime" element={<RealtimePage />} />
 				<Route path="players" element={<PlayersPage />} />
 				<Route path="runs" element={<RunsPage />} />
 				<Route path="classes" element={<ClassesPage />} />

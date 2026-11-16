@@ -1,3 +1,4 @@
+import { recordAdminActivity, publishAdminActivity } from "./adminActivity.service";
 import mongoose from "mongoose";
 import type { WorldLogEntry } from "@app/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -20,6 +21,11 @@ const engine = vi.hoisted(() => ({
 }));
 const profanity = vi.hoisted(() => ({
 	check: vi.fn(),
+}));
+
+vi.mock("./adminActivity.service", () => ({
+	recordAdminActivity: vi.fn().mockResolvedValue([]),
+	publishAdminActivity: vi.fn().mockResolvedValue(undefined),
 }));
 
 vi.mock("./worldLog.service", () => ({
@@ -85,9 +91,13 @@ describe("run.service", () => {
 				event: { type: "hero_created" },
 			};
 			vi.mocked(recordWorldLog).mockResolvedValueOnce([entry]);
+			vi.mocked(recordAdminActivity).mockResolvedValueOnce([
+				{ ...entry, event: { type: "hero_created" as const }, runId: "run-id" },
+			]);
 			vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
 				const result = await callback(session as never);
 				expect(publishWorldLog).not.toHaveBeenCalled();
+				expect(publishAdminActivity).not.toHaveBeenCalled();
 
 				return result;
 			});
@@ -111,6 +121,9 @@ describe("run.service", () => {
 				}),
 			);
 			expect(publishWorldLog).toHaveBeenCalledExactlyOnceWith([entry]);
+			expect(publishAdminActivity).toHaveBeenCalledExactlyOnceWith([
+				{ ...entry, event: { type: "hero_created" as const }, runId: "run-id" },
+			]);
 		},
 	);
 

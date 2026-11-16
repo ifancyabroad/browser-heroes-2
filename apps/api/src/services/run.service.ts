@@ -8,6 +8,7 @@ import { RunModel } from "../models/run.model";
 import { RunActionModel } from "../models/runAction.model";
 import { toRunSummary } from "./projection.service";
 import { recordWorldLog, publishWorldLog } from "./worldLog.service";
+import { recordAdminActivity, publishAdminActivity } from "./adminActivity.service";
 
 function createHeroNameError(message: string): Error & { status: number } {
 	return Object.assign(new Error(message), { status: 400 });
@@ -80,7 +81,7 @@ async function createRunRecord(params: {
 }) {
 	const heroName = normalizeAndValidateHeroName(params.heroName);
 
-	const { response, worldLogEntries } = await mongoose.connection.transaction(async (session) => {
+	const committed = await mongoose.connection.transaction(async (session) => {
 		const now = new Date();
 
 		await RunModel.updateMany(
@@ -132,10 +133,21 @@ async function createRunRecord(params: {
 			state,
 			session,
 		});
+		const adminActivityEntries = await recordAdminActivity({
+			sequence: 0,
+			events,
+			runId,
+			userId: params.userId,
+			mode: params.mode,
+			state,
+			session,
+		});
 
-		return { response: run, worldLogEntries };
+		return { response: run, worldLogEntries, adminActivityEntries };
 	});
 
+	const { response, worldLogEntries, adminActivityEntries } = committed;
+	await publishAdminActivity(adminActivityEntries);
 	await publishWorldLog(worldLogEntries);
 
 	return response;

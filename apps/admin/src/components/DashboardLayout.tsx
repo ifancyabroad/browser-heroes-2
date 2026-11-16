@@ -34,6 +34,9 @@ export function DashboardLayout(props: {
 					<NavLink to="/players">
 						<Users aria-hidden="true" /> Players
 					</NavLink>
+					<NavLink to="/realtime">
+						<Activity aria-hidden="true" /> Realtime
+					</NavLink>
 					<NavLink to="/runs">
 						<Swords aria-hidden="true" /> Runs
 					</NavLink>
@@ -60,13 +63,15 @@ export function DashboardLayout(props: {
 						<p className="header-description">{page.description}</p>
 					</div>
 				</header>
-				<div className="filter-bar">
-					<Filters
-						filters={props.filters}
-						preset={props.preset}
-						onChange={props.onFiltersChange}
-					/>
-				</div>
+				{location.pathname !== "/realtime" && (
+					<div className="filter-bar">
+						<Filters
+							filters={props.filters}
+							preset={props.preset}
+							onChange={props.onFiltersChange}
+						/>
+					</div>
+				)}
 				<Outlet
 					context={
 						{
@@ -80,6 +85,11 @@ export function DashboardLayout(props: {
 }
 
 const pageDetails: Record<string, { title: string; description: string; section: string }> = {
+	"/realtime": {
+		title: "Realtime",
+		description: "Follow adventures as they happen.",
+		section: "Live activity",
+	},
 	"/": {
 		title: "Game health",
 		description: "A clear view of activity, outcomes, and progression.",

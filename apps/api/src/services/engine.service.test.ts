@@ -1,3 +1,4 @@
+import { recordAdminActivity, publishAdminActivity } from "./adminActivity.service";
 import type { WorldLogEntry } from "@app/shared";
 import mongoose from "mongoose";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -24,6 +25,11 @@ const ghostService = vi.hoisted(() => ({
 }));
 const achievementService = vi.hoisted(() => ({ processRunActionAchievements: vi.fn() }));
 const lifetimeProgressService = vi.hoisted(() => ({ recordLifetimeProgress: vi.fn() }));
+
+vi.mock("./adminActivity.service", () => ({
+	recordAdminActivity: vi.fn().mockResolvedValue([]),
+	publishAdminActivity: vi.fn().mockResolvedValue(undefined),
+}));
 
 vi.mock("./worldLog.service", () => ({
 	recordWorldLog: vi.fn().mockResolvedValue([]),
@@ -81,12 +87,25 @@ describe("engine.service", () => {
 			mode: "normal",
 			event: { type: "hero_rested", day: 2 },
 		};
+		vi.mocked(recordAdminActivity)
+			.mockResolvedValueOnce([
+				{
+					...entry,
+					event: { type: "hero_rested" as const, day: 2 },
+					runId: "run-id",
+					id: "aborted",
+				},
+			])
+			.mockResolvedValueOnce([
+				{ ...entry, event: { type: "hero_rested" as const, day: 2 }, runId: "run-id" },
+			]);
 		vi.mocked(recordWorldLog)
 			.mockResolvedValueOnce([{ ...entry, id: "aborted" }])
 			.mockResolvedValueOnce([entry]);
 		vi.spyOn(mongoose.connection, "transaction").mockImplementation(async (callback) => {
 			await callback(session as never);
 			expect(publishWorldLog).not.toHaveBeenCalled();
+			expect(publishAdminActivity).not.toHaveBeenCalled();
 
 			return callback(session as never);
 		});
@@ -97,6 +116,9 @@ describe("engine.service", () => {
 		});
 		expect(recordWorldLog).toHaveBeenCalledTimes(2);
 		expect(publishWorldLog).toHaveBeenCalledExactlyOnceWith([entry]);
+		expect(publishAdminActivity).toHaveBeenCalledExactlyOnceWith([
+			{ ...entry, event: { type: "hero_rested" as const, day: 2 }, runId: "run-id" },
+		]);
 	});
 
 	it("does not publish when the transaction rolls back", async () => {
@@ -114,6 +136,7 @@ describe("engine.service", () => {
 			}),
 		).rejects.toThrow("transaction aborted");
 		expect(publishWorldLog).not.toHaveBeenCalled();
+		expect(publishAdminActivity).not.toHaveBeenCalled();
 	});
 
 	it("loads an active run by id and owner inside the transaction", async () => {

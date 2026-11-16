@@ -17,7 +17,7 @@ The project is a pnpm workspace with apps and packages that have distinct respon
 - `packages/shared` owns contracts shared by the web app and API, such as request/response shapes and socket payload contracts that are not gameplay rules.
 - `apps/web` owns presentation, user interaction, client orchestration, query/socket integration, and rendering projected engine state.
 - `apps/api` owns sessions, persistence, backend orchestration, action submission, validation, run/action storage, external encounter selection, and allowlisted aggregate metrics.
-- `apps/admin` owns the internal, read-only metrics dashboard served under `/admin`; it consumes anonymous aggregate contracts and does not access persistence directly.
+- `apps/admin` owns the internal, read-only dashboard served under `/admin`; it consumes aggregate metrics and protected realtime activity/hero summaries through the API and does not access persistence directly.
 - `apps/content-studio` owns local, read-only review of generated content registries; TypeScript content definitions remain authoritative.
 
 Cross-package dependencies should remain deliberate and acyclic. Gameplay authority belongs in the engine and content packages, not in app-specific code.
@@ -71,6 +71,7 @@ The API currently:
 - creates UTC daily challenges and serves their persisted leaderboards, all-time Hall of Fame rankings, and personal hero and ghost history
 - exposes REST and socket-based action submission paths
 - projects engine events into public World Log announcements
+- independently projects engine events into protected admin activity entries, without changing the public World Log
 
 The web app currently:
 

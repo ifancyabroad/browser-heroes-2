@@ -9,9 +9,13 @@ const mocks = vi.hoisted(() => ({
 	getClasses: vi.fn(),
 	getEnemies: vi.fn(),
 	getSkills: vi.fn(),
+	getActivity: vi.fn(),
+	getHeroes: vi.fn(),
 }));
 
 vi.mock("../models/user.model", () => ({ UserModel: { findById: mocks.findUser } }));
+vi.mock("../services/adminActivity.service", () => ({ getAdminActivity: mocks.getActivity }));
+vi.mock("../services/adminRealtime.service", () => ({ getAdminActiveHeroes: mocks.getHeroes }));
 vi.mock("../services/adminMetrics.service", () => ({
 	getAdminMetricsOverview: mocks.getOverview,
 	getAdminPlayerMetrics: mocks.getPlayers,
@@ -52,6 +56,39 @@ describe("admin routes", () => {
 		mocks.getClasses.mockResolvedValue({ classes: [] });
 		mocks.getEnemies.mockResolvedValue({ enemies: [] });
 		mocks.getSkills.mockResolvedValue({ skills: [] });
+		mocks.getActivity.mockResolvedValue([]);
+		mocks.getHeroes.mockResolvedValue([]);
+	});
+
+	it.each(["activity", "heroes"])(
+		"protects realtime %s for anonymous, guest and non-admin accounts",
+		async (endpoint) => {
+			const path = `/api/admin/realtime/${endpoint}`;
+			await request(buildApp()).get(path).expect(401);
+			for (const user of [
+				{ type: "guest" },
+				{ type: "registered", email: "other@example.com" },
+			]) {
+				mocks.findUser.mockReturnValue({ select: vi.fn().mockResolvedValue(user) });
+				await request(buildApp()).get(path).set("x-test-user-id", "other").expect(403);
+			}
+		},
+	);
+
+	it("serves private activity and validates the hero mode filter", async () => {
+		await request(buildApp())
+			.get("/api/admin/realtime/activity")
+			.set("x-test-user-id", "admin")
+			.expect(200, { entries: [] });
+		await request(buildApp())
+			.get("/api/admin/realtime/heroes?mode=dailyChallenge")
+			.set("x-test-user-id", "admin")
+			.expect(200, { heroes: [] });
+		expect(mocks.getHeroes).toHaveBeenCalledWith("dailyChallenge");
+		await request(buildApp())
+			.get("/api/admin/realtime/heroes?mode=invalid")
+			.set("x-test-user-id", "admin")
+			.expect(400);
 	});
 
 	it("requires an authenticated session", async () => {

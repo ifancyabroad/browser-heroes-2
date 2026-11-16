@@ -4,6 +4,7 @@ import { env } from "../config/env";
 import { sessionMiddleware } from "../config/session";
 import { registerRunSocket } from "./run.socket";
 import { registerWorldLogSocket, subscribeWorldLogBroadcast } from "./worldLog.socket";
+import { registerAdminRealtime } from "./adminRealtime.socket";
 
 export function createSocketServer(httpServer: HttpServer) {
 	const io = new Server(httpServer, {
@@ -15,6 +16,8 @@ export function createSocketServer(httpServer: HttpServer) {
 	});
 
 	io.engine.use(sessionMiddleware);
+	const unsubscribeAdmin = registerAdminRealtime(io);
+	httpServer.once("close", unsubscribeAdmin);
 
 	const unsubscribeWorldLog = subscribeWorldLogBroadcast(io);
 	httpServer.once("close", unsubscribeWorldLog);

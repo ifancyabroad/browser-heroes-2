@@ -11,3 +11,4 @@ export * from "./achievements";
 export * from "./bestiary";
 export * from "./adminMetrics";
 export * from "./worldLog";
+export * from "./adminRealtime";
