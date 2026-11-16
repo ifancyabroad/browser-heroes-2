@@ -115,7 +115,7 @@ export function TownHub({
 							alt=""
 							className="absolute inset-0 h-full w-full object-cover"
 						/>
-						<span className="relative size-12 md:size-16" aria-hidden="true">
+						<span className="relative size-12 md:size-24" aria-hidden="true">
 							<IconSwords
 								strokeWidth={4}
 								className="absolute inset-0 h-full w-full text-black"
