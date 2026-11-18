@@ -133,8 +133,8 @@ export function CombatView({ run }: CombatViewProps) {
 					</GamePanelContainer>
 				</header>
 				<div className="min-h-0 flex-1 overflow-y-auto">
-					<GamePanelContainer className="flex h-full flex-col py-3">
-						<div className="grid min-h-0 flex-1 grid-rows-[auto_auto_minmax(12rem,1fr)] gap-2 md:grid-cols-[20rem_minmax(0,1fr)] md:grid-rows-[auto_minmax(16rem,1fr)] md:gap-x-6">
+					<GamePanelContainer className="flex h-full flex-col">
+						<div className="grid flex-1 grid-rows-[auto_auto_minmax(12rem,1fr)] gap-2 md:grid-cols-[20rem_minmax(0,1fr)] md:grid-rows-[auto_minmax(16rem,1fr)] md:gap-x-6">
 							<HeroSummary run={run} />
 							<EnemySummary
 								key={combat.enemy.id}
@@ -143,10 +143,10 @@ export function CombatView({ run }: CombatViewProps) {
 							/>
 							<CombatLogPanel
 								entries={combat.log}
-								className="hidden bg-bg-base p-3 md:block"
+								className="hidden bg-bg-base p-3 contain-size md:block"
 							/>
 
-							<div className="flex min-h-0">
+							<div className="flex min-h-0 contain-size">
 								<Battlefield
 									turnOrder={combatView.turnOrder}
 									heroId={combat.player.id}
