@@ -172,7 +172,7 @@ export function TownView({ run }: TownViewProps) {
 				<div className="min-h-0 flex-1 overflow-y-auto">
 					<GamePanelContainer className="flex min-h-full flex-col">
 						<div className="grid flex-1 items-start gap-6 py-3 md:grid-cols-[20rem_minmax(0,1fr)]">
-							<div className="grid gap-4 lg:sticky lg:top-3">
+							<div className="grid gap-4 md:sticky md:top-3">
 								<HeroSummary run={run} />
 								<dl className="flex flex-wrap gap-x-4 gap-y-1" aria-label="Run">
 									{[
