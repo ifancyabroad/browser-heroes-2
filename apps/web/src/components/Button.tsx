@@ -9,7 +9,7 @@ const commandFocusClassName =
 	"focus-visible:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
 const commandInteractionClassName =
-	"enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:text-text-muted";
+	"enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:border-border-secondary disabled:text-text-muted";
 
 type CommandVariant = "default" | "primary" | "secondary" | "info" | "success" | "danger";
 
