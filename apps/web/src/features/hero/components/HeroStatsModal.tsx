@@ -20,7 +20,7 @@ export function HeroStatsModal({ run }: { run: RunView }) {
 		<Modal
 			open
 			title="Stats"
-			size="3xl"
+			size="2xl"
 			onClose={close}
 			footer={
 				<Button type="button" onClick={close}>
@@ -28,7 +28,7 @@ export function HeroStatsModal({ run }: { run: RunView }) {
 				</Button>
 			}
 		>
-			<article className="grid items-start gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,5fr)] md:grid-rows-[min-content_1fr]">
+			<article className="grid items-start gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,7fr)] md:grid-rows-[min-content_1fr]">
 				<header className="grid min-w-0 gap-2 md:col-start-2">
 					<h2 className="text-primary wrap-anywhere">
 						{heroView.name} the {heroClass.name}
@@ -36,7 +36,7 @@ export function HeroStatsModal({ run }: { run: RunView }) {
 					<p>Level {heroView.level}</p>
 				</header>
 				<div
-					className="flex h-56 justify-center overflow-hidden bg-cover bg-bottom md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-96"
+					className="flex h-56 justify-center overflow-hidden bg-cover bg-bottom md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-80"
 					style={{ backgroundImage: `url(${classBackground})` }}
 				>
 					<img

@@ -10,7 +10,6 @@ import {
 } from "../../../components/tooltips/DamageTooltipContent";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
 import {
-	armourTypeLabels,
 	attributeDescriptions,
 	attributeLabels,
 	attributeShortLabels,
@@ -18,7 +17,6 @@ import {
 	combatStatLabels,
 	combatStatShortLabels,
 	damageTypeLabels,
-	weaponTypeLabels,
 } from "../../../presentation/labels";
 import { formatModifierValue } from "../../../presentation/effects";
 import { formatDamageSelector, getDamageTypeBorderClass } from "../../../presentation/damage";
@@ -167,30 +165,6 @@ export function HeroStatsDetails({ heroView }: { heroView: HeroView }) {
 					</div>
 				</section>
 			)}
-
-			<section className="grid gap-2" aria-label="Proficiencies">
-				<h2 className="text-text-bright">Proficiencies</h2>
-				<div className="grid gap-2">
-					<ProficiencyGroup
-						label="Armour"
-						values={heroView.proficiencies.armourTypes.map(
-							(armourType) => armourTypeLabels[armourType],
-						)}
-					/>
-					<ProficiencyGroup
-						label="Weapons"
-						values={heroView.proficiencies.weaponTypes.map(
-							(weaponType) => weaponTypeLabels[weaponType],
-						)}
-					/>
-					<ProficiencyGroup
-						label="Saves"
-						values={heroView.proficiencies.savingThrows.map(
-							(attribute) => attributeShortLabels[attribute],
-						)}
-					/>
-				</div>
-			</section>
 		</div>
 	);
 }
@@ -285,25 +259,6 @@ function DamageAffinityGroup({ label, affinityLabel, affinities }: DamageAffinit
 					</li>
 				))}
 			</ul>
-		</div>
-	);
-}
-
-function ProficiencyGroup({ label, values }: { label: string; values: readonly string[] }) {
-	return (
-		<div className="grid grid-cols-[6rem_minmax(0,1fr)] items-start gap-3">
-			<p className="py-0.5 text-text-label">{label}</p>
-			{values.length > 0 ? (
-				<ul className="flex flex-wrap gap-1">
-					{values.map((value) => (
-						<li key={value} className="flex">
-							<Badge label={value} variant="muted" textTone="bright" />
-						</li>
-					))}
-				</ul>
-			) : (
-				<p className="text-text-muted">None</p>
-			)}
 		</div>
 	);
 }
