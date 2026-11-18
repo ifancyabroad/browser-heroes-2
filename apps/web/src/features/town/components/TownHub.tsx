@@ -18,9 +18,10 @@ type TownHubProps = {
 };
 
 const tileClassName =
-	"relative flex h-36 w-full flex-col overflow-hidden border-2 border-border bg-bg-panel text-text-bright enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60 focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
-const artClassName = "relative flex min-h-0 flex-1 items-center justify-center";
-const captionClassName = "flex shrink-0 items-center justify-center bg-bg-base p-2";
+	"group relative flex h-36 w-full flex-col overflow-hidden border-2 border-border bg-bg-panel text-text-bright enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:border-border-secondary disabled:text-text-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+const artClassName =
+	"relative flex min-h-0 flex-1 items-center justify-center group-disabled:grayscale";
+const captionClassName = "flex shrink-0 items-center justify-center p-2";
 
 export function TownHub({
 	town,
