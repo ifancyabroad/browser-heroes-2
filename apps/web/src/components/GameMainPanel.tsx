@@ -10,6 +10,6 @@ export function GamePanelContainer({
 	className,
 }: PropsWithChildren<{ className?: string }>) {
 	return (
-		<div className={clsx("mx-auto w-full max-w-5xl px-4 md:px-6", className)}>{children}</div>
+		<div className={clsx("mx-auto w-full max-w-7xl px-4 md:px-6", className)}>{children}</div>
 	);
 }

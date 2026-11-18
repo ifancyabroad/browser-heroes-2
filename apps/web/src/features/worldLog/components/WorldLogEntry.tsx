@@ -3,11 +3,11 @@ import type { WorldLogEntry as Entry } from "@app/shared";
 import { IconTrophy } from "@tabler/icons-react";
 import { describeWorldLogEvent } from "../utils/describeWorldLogEvent";
 
-export function WorldLogEntry({ entry }: { entry: Entry }) {
+export function WorldLogEntry({ entry, compact = false }: { entry: Entry; compact?: boolean }) {
 	const presentation = describeWorldLogEvent(entry);
 
 	return (
-		<li data-entry={entry.id} className="break-words">
+		<li data-entry={entry.id} className={compact ? "truncate" : "wrap-break-word"}>
 			<span className="mr-2 text-text-muted">
 				<time dateTime={entry.createdAt} title={new Date(entry.createdAt).toLocaleString()}>
 					{new Date(entry.createdAt).toLocaleTimeString([], {

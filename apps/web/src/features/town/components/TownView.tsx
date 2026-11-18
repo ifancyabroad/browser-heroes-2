@@ -8,7 +8,8 @@ import {
 import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
-import { ShopModal } from "./ShopModal";
+import { Button } from "../../../components/Button";
+import { TownShopGrid } from "./TownShopGrid";
 import { GameNavigation } from "../../../components/GameNavigation";
 import { TownGoldBalance } from "./TownGoldBalance";
 import { GameLayout } from "../../../components/GameLayout";
@@ -28,8 +29,7 @@ type TownViewProps = {
 
 export function TownView({ run }: TownViewProps) {
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
-	const [hasViewedShop, setHasViewedShop] = useState(false);
-	const [service, setService] = useState<"shop" | "tavern" | "alchemist" | null>(null);
+	const [service, setService] = useState<"tavern" | "alchemist" | null>(null);
 	const worldLog = useWorldLog();
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -39,11 +39,6 @@ export function TownView({ run }: TownViewProps) {
 
 	if (!townView) {
 		return <p>Town state is unavailable.</p>;
-	}
-
-	function handleVisitShop() {
-		setHasViewedShop(true);
-		setService("shop");
 	}
 
 	async function submitAction(
@@ -177,52 +172,59 @@ export function TownView({ run }: TownViewProps) {
 						</GameNavigation>
 					</GamePanelContainer>
 				</header>
-				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-					<GamePanelContainer className="flex flex-1 flex-col py-3">
-						<div className="grid w-full max-w-80 shrink-0 gap-3 pb-4">
-							<HeroSummary run={run} />
-							<dl className="flex flex-wrap gap-x-4 gap-y-1" aria-label="Run">
-								{[
-									{ label: "Zone", value: formatTitle(run.state.zone) },
-									{ label: "Battle", value: run.state.battleNumber },
-									{ label: "Day", value: run.state.day },
-								].map(({ label, value }) => (
-									<div key={label} className="flex gap-2">
-										<dt className="text-text-label">{label}</dt>
-										<dd className="text-text-bright">{value}</dd>
-									</div>
-								))}
-							</dl>
+				<div className="min-h-0 flex-1 overflow-y-auto">
+					<GamePanelContainer className="flex min-h-full flex-col">
+						<div className="grid flex-1 items-start gap-6 py-3 md:grid-cols-[20rem_minmax(0,1fr)]">
+							<div className="grid gap-4 lg:sticky lg:top-3">
+								<HeroSummary run={run} />
+								<dl className="flex flex-wrap gap-x-4 gap-y-1" aria-label="Run">
+									{[
+										{ label: "Zone", value: formatTitle(run.state.zone) },
+										{ label: "Battle", value: run.state.battleNumber },
+										{ label: "Day", value: run.state.day },
+									].map(({ label, value }) => (
+										<div key={label} className="flex gap-2">
+											<dt className="text-text-label">{label}</dt>
+											<dd className="text-text-bright">{value}</dd>
+										</div>
+									))}
+								</dl>
+								<TownHub
+									town={townView}
+									isPending={applyRunAction.isPending}
+									canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
+									onVisitTavern={() => setService("tavern")}
+									onVisitAlchemist={() => setService("alchemist")}
+									onContinue={handleEnterCombat}
+								/>
+							</div>
+							<section aria-label="Shop" className="min-w-0">
+								<TownShopGrid
+									shopSlots={townView.shopSlots}
+									isPending={applyRunAction.isPending}
+									onBuy={handleBuy}
+									onLockChange={handleLockChange}
+								/>
+								<div className="pointer-events-none sticky bottom-0 z-20 flex justify-end py-3">
+									<Button
+										type="button"
+										variant="primary"
+										className="pointer-events-auto tabular-nums"
+										disabled={
+											applyRunAction.isPending ||
+											!availableActionTypes.has("REROLL_SHOP")
+										}
+										onClick={handleReroll}
+									>
+										Reroll {townView.rerollCost}g
+									</Button>
+								</div>
+							</section>
 						</div>
-						<TownHub
-							town={townView}
-							isPending={applyRunAction.isPending}
-							canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-							hasViewedShop={hasViewedShop}
-							onVisitShop={handleVisitShop}
-							onVisitTavern={() => setService("tavern")}
-							onVisitAlchemist={() => setService("alchemist")}
-							onContinue={handleEnterCombat}
-						/>
+						<WorldLogPanel {...worldLog} />
 					</GamePanelContainer>
 				</div>
-				<GamePanelContainer className="shrink-0 max-md:px-0 md:max-lg:px-0">
-					<div className="box-content flex h-36 flex-col border-t-2 border-border-secondary bg-bg-base p-3 leading-6">
-						<WorldLogPanel {...worldLog} />
-					</div>
-				</GamePanelContainer>
 			</GameMainPanel>
-			{service === "shop" && (
-				<ShopModal
-					town={townView}
-					isPending={applyRunAction.isPending}
-					canReroll={availableActionTypes.has("REROLL_SHOP")}
-					onClose={() => setService(null)}
-					onReroll={handleReroll}
-					onBuy={handleBuy}
-					onLockChange={handleLockChange}
-				/>
-			)}
 			{service === "tavern" && (
 				<TavernModal
 					town={townView}

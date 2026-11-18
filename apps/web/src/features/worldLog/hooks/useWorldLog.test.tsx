@@ -61,12 +61,12 @@ function PanelProbe() {
 	);
 }
 
-function setup(showSidebar = false) {
+function setup(showPanel = false) {
 	const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
 
 	return render(
 		<QueryClientProvider client={client}>
-			{showSidebar ? <PanelProbe /> : <Entries />}
+			{showPanel ? <PanelProbe /> : <Entries />}
 		</QueryClientProvider>,
 	);
 }
@@ -108,7 +108,7 @@ describe("world log connection and panel", () => {
 		);
 	});
 
-	it("keeps receiving activity while the log tab is hidden", async () => {
+	it("keeps receiving activity while the log panel is hidden", async () => {
 		transport.get.mockReturnValue({ json: async () => ({ entries: [entry("Aldric")] }) });
 		setup(true);
 		await waitFor(() => expect(transport.listeners.get("world-log:entry")?.size).toBe(1));
@@ -118,6 +118,7 @@ describe("world log connection and panel", () => {
 				.forEach((callback) => callback(entry("Mira") as never));
 		});
 		act(() => screen.getByRole("button", { name: "World Log" }).click());
+		act(() => screen.getByRole("button", { name: "Expand world log" }).click());
 		const heroName = await screen.findByText("Aldric the Warrior", { selector: "span" });
 		expect(heroName.parentElement).toHaveTextContent("Aldric the Warrior retired victorious");
 		expect(heroName.parentElement?.previousElementSibling).toHaveTextContent("[Edgar]");

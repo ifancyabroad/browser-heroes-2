@@ -1,10 +1,8 @@
 import type { TownView } from "@app/engine";
 import { IconSwords } from "@tabler/icons-react";
 import { Badge } from "../../../components/Badge";
-import { Button } from "../../../components/Button";
 import { formatTitle } from "../../../presentation/effects";
 import { ZONE_BACKGROUNDS } from "../../../presentation/zones";
-import shopIcon from "../../../assets/images/town/shop.png";
 import tavernIcon from "../../../assets/images/town/tavern.png";
 import alchemistIcon from "../../../assets/images/town/alchemist.png";
 
@@ -12,23 +10,20 @@ type TownHubProps = {
 	town: TownView;
 	isPending: boolean;
 	canEnterCombat: boolean;
-	hasViewedShop: boolean;
-	onVisitShop: () => void;
 	onVisitTavern: () => void;
 	onVisitAlchemist: () => void;
 	onContinue: () => void;
 };
 
-const tileClassName = "relative h-full w-full min-w-0 flex-col overflow-hidden p-0!";
-const artClassName = "relative flex min-h-0 w-full flex-1 items-center justify-center";
-const captionClassName = "flex min-h-10 w-full shrink-0 items-center justify-center bg-bg-base p-2";
+const tileClassName =
+	"relative flex h-36 w-full flex-col overflow-hidden border-2 border-border bg-bg-panel text-text-bright enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:text-text-muted disabled:opacity-60 focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+const artClassName = "relative flex min-h-0 flex-1 items-center justify-center";
+const captionClassName = "flex shrink-0 items-center justify-center bg-bg-base p-2";
 
 export function TownHub({
 	town,
 	isPending,
 	canEnterCombat,
-	hasViewedShop,
-	onVisitShop,
 	onVisitTavern,
 	onVisitAlchemist,
 	onContinue,
@@ -36,14 +31,6 @@ export function TownHub({
 	const zoneName = formatTitle(town.zone);
 	const potionsFull = town.healingPotions >= town.maxHealingPotions;
 	const services = [
-		{
-			id: "shop",
-			name: "Shop",
-			icon: shopIcon,
-			status: hasViewedShop ? "Viewed" : "New",
-			variant: hasViewedShop ? "success" : "warning",
-			onVisit: onVisitShop,
-		},
 		{
 			id: "tavern",
 			name: "Tavern",
@@ -62,48 +49,38 @@ export function TownHub({
 		},
 	] as const;
 	return (
-		<div
-			className="m-auto grid w-full grid-cols-2 auto-rows-[12rem] gap-3 md:grid-cols-[min(12rem,33%)_minmax(0,1fr)] md:grid-rows-[clamp(22.5rem,calc(100dvh-20rem),34rem)]"
-			aria-label="Town destinations"
-		>
-			<div
-				className="contents md:grid md:min-h-0 md:grid-rows-3 md:gap-3"
-				aria-label="Town services"
-			>
-				{services.map((service) => (
-					<article
-						key={service.id}
-						aria-labelledby={`town-${service.id}`}
-						className="min-h-0 min-w-0"
+		<div className="grid grid-cols-2 gap-3" aria-label="Town destinations">
+			{services.map((service) => (
+				<article key={service.id} aria-labelledby={`town-${service.id}`}>
+					<button
+						type="button"
+						className={tileClassName}
+						aria-label={`Visit ${service.name}`}
+						disabled={isPending}
+						onClick={service.onVisit}
 					>
-						<Button
-							className={tileClassName}
-							aria-label={`Visit ${service.name}`}
-							disabled={isPending}
-							onClick={service.onVisit}
-						>
-							<span className={artClassName}>
-								<img
-									src={service.icon}
-									alt=""
-									className="h-full w-full object-contain p-3"
-								/>
-							</span>
-							<Badge
-								label={service.status}
-								variant={service.variant}
-								textTone="bright"
-								className="absolute right-2 top-2 bg-bg-panel"
+						<span className={artClassName}>
+							<img
+								src={service.icon}
+								alt=""
+								className="size-full object-contain p-3"
 							/>
-							<span id={`town-${service.id}`} className={captionClassName}>
-								{service.name}
-							</span>
-						</Button>
-					</article>
-				))}
-			</div>
-			<section aria-label="Next battle" className="min-h-0 min-w-0">
-				<Button
+						</span>
+						<Badge
+							label={service.status}
+							variant={service.variant}
+							textTone="bright"
+							className="absolute right-2 top-2 bg-bg-panel"
+						/>
+						<span id={`town-${service.id}`} className={captionClassName}>
+							{service.name}
+						</span>
+					</button>
+				</article>
+			))}
+			<section aria-label="Next battle" className="col-span-2">
+				<button
+					type="button"
 					className={tileClassName}
 					aria-label={`Battle in ${zoneName}`}
 					disabled={isPending || !canEnterCombat}
@@ -113,16 +90,16 @@ export function TownHub({
 						<img
 							src={ZONE_BACKGROUNDS[town.zone]}
 							alt=""
-							className="absolute inset-0 h-full w-full object-cover"
+							className="absolute inset-0 size-full object-cover"
 						/>
-						<span className="relative size-12 md:size-24" aria-hidden="true">
+						<span className="relative size-12" aria-hidden="true">
 							<IconSwords
 								strokeWidth={4}
-								className="absolute inset-0 h-full w-full text-black"
+								className="absolute inset-0 size-full text-black"
 							/>
 							<IconSwords
 								strokeWidth={2}
-								className="absolute inset-0 h-full w-full text-text-bright"
+								className="absolute inset-0 size-full text-text-bright"
 							/>
 						</span>
 					</span>
@@ -132,7 +109,7 @@ export function TownHub({
 							{town.zoneBattleNumber}/{town.battlesPerZone}
 						</span>
 					</span>
-				</Button>
+				</button>
 			</section>
 		</div>
 	);
