@@ -15,7 +15,7 @@ export function HeroDossierModal({ runId, onClose }: HeroDossierModalProps) {
 			open={Boolean(runId)}
 			title="HERO DOSSIER"
 			onClose={onClose}
-			size="3xl"
+			size="6xl"
 			footer={
 				<Button type="button" onClick={onClose}>
 					CLOSE

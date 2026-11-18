@@ -125,11 +125,11 @@ describe("HeroDossierModal", () => {
 		expect(screen.getByText("Aria")).toHaveClass("text-primary");
 		expect(screen.getByText(/\(Player\)/)).toHaveClass("text-info");
 		expect(screen.getByText("Level 9 Warrior")).toBeInTheDocument();
+		expect(screen.getByRole("img", { name: "Warrior class portrait" })).toBeInTheDocument();
 		expect(screen.getByText("Slain by The Nameless One")).toBeInTheDocument();
 		expect(screen.getByText("Battle")).toBeInTheDocument();
 		expect(screen.getByText("42")).toBeInTheDocument();
-		expect(screen.getByText("Cycle")).toBeInTheDocument();
-		expect(screen.getByText("2")).toBeInTheDocument();
+		expect(screen.queryByText("Cycle")).not.toBeInTheDocument();
 		expect(screen.getByText("Heavy Strike")).toBeInTheDocument();
 		expect(screen.getByText("Commanding Presence")).toBeInTheDocument();
 		expect(
