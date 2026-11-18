@@ -2,7 +2,7 @@ import type { TownView } from "@app/engine";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
-import { TownGoldBalance } from "./TownGoldBalance";
+import { GoldBalance } from "../../../components/GoldBalance";
 import { TAVERN_QUOTES } from "../quotes";
 import tavernKeeper from "../../../assets/images/town/tavern-keeper.png";
 
@@ -25,7 +25,7 @@ export function TavernModal({ town, isPending, canRest, onClose, onRest }: Taver
 			onClose={onClose}
 			footer={
 				<div className="flex w-full flex-wrap items-center justify-between gap-3">
-					<TownGoldBalance gold={town.gold} />
+					<GoldBalance gold={town.gold} />
 					<div className="ml-auto flex items-center gap-3">
 						<Button disabled={isPending} onClick={onClose}>
 							Close

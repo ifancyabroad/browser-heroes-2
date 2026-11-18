@@ -14,7 +14,10 @@ export function HeroSummary({ run }: { run: RunView }) {
 
 	return (
 		<section className="grid min-w-0 gap-2" aria-label="Hero summary">
-			<h2 className="wrap-anywhere">
+			<h2
+				className="truncate"
+				title={`${hero.name} the ${heroClass.name} / Level ${hero.level}`}
+			>
 				<span className="text-primary">
 					{hero.name} the {heroClass.name}
 				</span>

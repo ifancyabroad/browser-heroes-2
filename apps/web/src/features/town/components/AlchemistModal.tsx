@@ -3,7 +3,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
-import { TownGoldBalance } from "./TownGoldBalance";
+import { GoldBalance } from "../../../components/GoldBalance";
 import { DotLeader } from "./DotLeader";
 import { ALCHEMIST_QUOTES } from "../quotes";
 import alchemistPortrait from "../../../assets/images/town/alchemist-portrait.png";
@@ -46,7 +46,7 @@ export function AlchemistModal({
 			onClose={onClose}
 			footer={
 				<div className="flex w-full items-center justify-between gap-3">
-					<TownGoldBalance gold={town.gold} />
+					<GoldBalance gold={town.gold} />
 					<Button disabled={isPending} onClick={onClose}>
 						Close
 					</Button>

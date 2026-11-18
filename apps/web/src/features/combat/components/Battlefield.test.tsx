@@ -21,7 +21,6 @@ const baseProps = {
 	enemyName: "Orc",
 	isEnemySlain: false,
 	battleNumber: 12,
-	gold: 125,
 	goldMultiplier: 2,
 	nextZoneOptions: ["forest"] as const,
 	zone: "forest" as const,
@@ -152,7 +151,7 @@ describe("Battlefield combat outcomes", () => {
 
 		expect(battleInfo).toHaveTextContent("ZoneForest");
 		expect(battleInfo).toHaveTextContent("Battle12");
-		expect(battleInfo).toHaveTextContent("Gold125");
+		expect(battleInfo).not.toHaveTextContent("Gold");
 		expect(battleInfo).toHaveTextContent("Bonus×2");
 	});
 

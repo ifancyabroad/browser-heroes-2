@@ -11,7 +11,6 @@ import { EquipmentReplacementModal } from "../../../components/EquipmentReplacem
 import { Button } from "../../../components/Button";
 import { TownShopGrid } from "./TownShopGrid";
 import { GameNavigation } from "../../../components/GameNavigation";
-import { TownGoldBalance } from "./TownGoldBalance";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel, GamePanelContainer } from "../../../components/GameMainPanel";
 import { HeroSummary } from "../../hero";
@@ -167,9 +166,7 @@ export function TownView({ run }: TownViewProps) {
 			<GameMainPanel>
 				<header className="shrink-0">
 					<GamePanelContainer className="py-3">
-						<GameNavigation>
-							<TownGoldBalance gold={townView.gold} />
-						</GameNavigation>
+						<GameNavigation gold={townView.gold} />
 					</GamePanelContainer>
 				</header>
 				<div className="min-h-0 flex-1 overflow-y-auto">

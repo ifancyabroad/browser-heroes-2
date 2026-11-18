@@ -9,7 +9,8 @@ import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
 import { HeroSummary } from "../../hero";
-import { CombatantPanel } from "./CombatantPanel";
+import { EnemySummary } from "./EnemySummary";
+import { CombatLogPanel } from "./CombatLogPanel";
 import { resolveImageUrl } from "../../../utils/image";
 
 type CombatViewProps = {
@@ -118,41 +119,41 @@ export function CombatView({ run }: CombatViewProps) {
 	return (
 		<GameLayout>
 			<GameMainPanel>
+				<header className="shrink-0">
+					<GamePanelContainer className="py-3">
+						<GameNavigation gold={gold} showCombatLog />
+					</GamePanelContainer>
+				</header>
 				<div className="min-h-0 flex-1 overflow-y-auto">
-					<GamePanelContainer className="flex h-full flex-col py-3 md:py-4">
-						<div className="flex min-h-0 flex-1 flex-col gap-2">
-							<div className="flex flex-col items-start gap-2">
-								<GameNavigation showCombatLog />
-								<section
-									className="grid w-full min-w-0 items-start gap-2 md:grid-cols-2"
-									aria-label="Combatants"
-								>
-									<HeroSummary run={run} />
-									<CombatantPanel
-										key={combat.enemy.id}
-										combatant={combat.enemy}
-										identity={combat.enemy.name}
-										ariaLabel="Enemy"
-										descriptor={combatView.enemyDescriptor}
-									/>
-								</section>
-							</div>
-
-							<Battlefield
-								turnOrder={combatView.turnOrder}
-								heroId={combat.player.id}
-								enemyId={combat.enemy.id}
-								enemyCurrentHp={combat.enemy.currentHp}
-								entries={combat.log}
-								enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
-								enemyName={combat.enemy.name}
-								isEnemySlain={isEnemySlain}
-								battleNumber={battleNumber}
-								gold={gold}
-								goldMultiplier={goldMultiplier}
-								nextZoneOptions={nextZoneOptions}
-								zone={zone}
+					<GamePanelContainer className="flex h-full flex-col py-3">
+						<div className="grid min-h-0 flex-1 grid-rows-[auto_auto_minmax(12rem,1fr)] gap-2 md:grid-cols-[20rem_minmax(0,1fr)] md:grid-rows-[auto_minmax(16rem,1fr)] md:gap-x-6">
+							<HeroSummary run={run} />
+							<EnemySummary
+								key={combat.enemy.id}
+								enemy={combat.enemy}
+								descriptor={combatView.enemyDescriptor}
 							/>
+							<CombatLogPanel
+								entries={combat.log}
+								className="hidden bg-bg-base p-3 md:block"
+							/>
+
+							<div className="flex min-h-0">
+								<Battlefield
+									turnOrder={combatView.turnOrder}
+									heroId={combat.player.id}
+									enemyId={combat.enemy.id}
+									enemyCurrentHp={combat.enemy.currentHp}
+									entries={combat.log}
+									enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
+									enemyName={combat.enemy.name}
+									isEnemySlain={isEnemySlain}
+									battleNumber={battleNumber}
+									goldMultiplier={goldMultiplier}
+									nextZoneOptions={nextZoneOptions}
+									zone={zone}
+								/>
+							</div>
 						</div>
 						<div className="sticky bottom-0 z-20 shrink-0 py-3">
 							<CombatActionBar

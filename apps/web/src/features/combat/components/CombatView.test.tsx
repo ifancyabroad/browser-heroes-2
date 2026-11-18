@@ -30,8 +30,8 @@ vi.mock("../../../stores/errorModalStore", () => ({
 vi.mock("../../../components/GameLayout", () => ({
 	GameLayout: ({ children }: { children: React.ReactNode }) => children,
 }));
-vi.mock("./CombatantPanel", () => ({
-	CombatantPanel: ({ descriptor }: { descriptor?: string }) => <div>Combatant {descriptor}</div>,
+vi.mock("./EnemySummary", () => ({
+	EnemySummary: ({ descriptor }: { descriptor?: string }) => <div>Enemy {descriptor}</div>,
 }));
 vi.mock("./CombatActionBar", () => ({
 	CombatActionBar: (props: {
@@ -154,6 +154,34 @@ describe("CombatView", () => {
 		expect(logButton).toHaveAttribute("aria-expanded", "false");
 	});
 
+	it("renders the current combat log and follows updates from the selector", () => {
+		const combatView = createCombatView();
+		const log = run.state.combat!.log;
+		selectors.selectCombatView.mockReturnValue({
+			...combatView,
+			combat: { ...combatView.combat, log },
+		});
+		const view = render(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
+		expect(screen.getByLabelText("Combat log")).toHaveTextContent(log[0].message);
+		selectors.selectCombatView.mockReturnValue({
+			...combatView,
+			combat: {
+				...combatView.combat,
+				log: [...log, { ...log[0], id: "next-entry", message: "The hero attacks." }],
+			},
+		});
+		view.rerender(
+			<TooltipProvider>
+				<CombatView run={run} />
+			</TooltipProvider>,
+		);
+		expect(screen.getByLabelText("Combat log")).toHaveTextContent("The hero attacks.");
+	});
+
 	it("maps available engine actions to command availability", () => {
 		render(
 			<TooltipProvider>
@@ -162,9 +190,10 @@ describe("CombatView", () => {
 		);
 
 		expect(screen.getByText("availability:true,true,true,true,true")).toBeInTheDocument();
+		expect(screen.getByLabelText("10 gold")).toBeInTheDocument();
 	});
 
-	it("passes the enemy descriptor from the combat selector to the combatant panel", () => {
+	it("passes the enemy descriptor from the combat selector to the enemy summary", () => {
 		selectors.selectCombatView.mockReturnValue({
 			...createCombatView(),
 			enemyDescriptor: "Ghost Owner",
@@ -176,7 +205,7 @@ describe("CombatView", () => {
 			</TooltipProvider>,
 		);
 
-		expect(screen.getByText("Combatant Ghost Owner")).toBeInTheDocument();
+		expect(screen.getByText("Enemy Ghost Owner")).toBeInTheDocument();
 	});
 
 	it.each([

@@ -8,12 +8,13 @@ import {
 	IconWand,
 } from "@tabler/icons-react";
 import { IconButton, IconButtonLink } from "./Button";
+import { GoldBalance } from "./GoldBalance";
 import { Tooltip } from "./Tooltip";
 import { useGameModalStore } from "../stores/gameModalStore";
 
 type GameNavigationProps = {
+	gold: number;
 	showCombatLog?: boolean;
-	children?: ReactNode;
 };
 
 const heroButtons = [
@@ -22,7 +23,7 @@ const heroButtons = [
 	{ modal: "skills", label: "Skills and feats", icon: IconWand },
 ] as const;
 
-export function GameNavigation({ showCombatLog = false, children }: GameNavigationProps) {
+export function GameNavigation({ gold, showCombatLog = false }: GameNavigationProps) {
 	const activeModal = useGameModalStore((state) => state.modal);
 	const open = useGameModalStore((state) => state.open);
 	return (
@@ -44,19 +45,7 @@ export function GameNavigation({ showCombatLog = false, children }: GameNavigati
 						</IconButton>
 					</NavigationTooltip>
 				))}
-				{showCombatLog && (
-					<NavigationTooltip label="Combat Log">
-						<IconButton
-							type="button"
-							aria-label="Combat Log"
-							aria-haspopup="dialog"
-							aria-expanded={activeModal === "combatLog"}
-							onClick={() => open("combatLog")}
-						>
-							<IconScript aria-hidden="true" className="size-6" />
-						</IconButton>
-					</NavigationTooltip>
-				)}
+
 				<NavigationTooltip label="Home">
 					<IconButtonLink to="/" aria-label="Home">
 						<IconHome aria-hidden="true" className="size-6" />
@@ -73,8 +62,23 @@ export function GameNavigation({ showCombatLog = false, children }: GameNavigati
 						<IconHelpCircle aria-hidden="true" className="size-6" />
 					</IconButton>
 				</NavigationTooltip>
+				{showCombatLog && (
+					<div className="md:hidden">
+						<NavigationTooltip label="Combat Log">
+							<IconButton
+								type="button"
+								aria-label="Combat Log"
+								aria-haspopup="dialog"
+								aria-expanded={activeModal === "combatLog"}
+								onClick={() => open("combatLog")}
+							>
+								<IconScript aria-hidden="true" className="size-6 text-primary" />
+							</IconButton>
+						</NavigationTooltip>
+					</div>
+				)}
 			</div>
-			{children}
+			<GoldBalance gold={gold} />
 		</nav>
 	);
 }

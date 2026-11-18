@@ -18,7 +18,6 @@ type BattlefieldProps = {
 	enemyName: string;
 	isEnemySlain: boolean;
 	battleNumber: number;
-	gold: number;
 	goldMultiplier: number;
 	nextZoneOptions: readonly Zone[];
 	zone: Zone;
@@ -34,7 +33,6 @@ export function Battlefield({
 	enemyName,
 	isEnemySlain,
 	battleNumber,
-	gold,
 	goldMultiplier,
 	nextZoneOptions,
 	zone,
@@ -66,7 +64,6 @@ export function Battlefield({
 				<CombatStatsBar
 					zone={zone}
 					battleNumber={battleNumber}
-					gold={gold}
 					goldMultiplier={goldMultiplier}
 				/>
 				<CombatTurnOrder turnOrder={turnOrder} heroId={heroId} />

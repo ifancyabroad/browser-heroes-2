@@ -38,7 +38,7 @@ function menu(run: RunView) {
 	return (
 		<MemoryRouter>
 			<TooltipProvider>
-				<GameNavigation showCombatLog={run.state.combat !== null} />
+				<GameNavigation gold={run.state.gold} showCombatLog={run.state.combat !== null} />
 				<HeroStatsModal run={run} />
 				<HeroEquipmentModal run={run} />
 				<HeroSkillsModal run={run} />
