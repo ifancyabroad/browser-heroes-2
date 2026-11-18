@@ -18,6 +18,7 @@ import {
 	weaponTypeLabels,
 } from "../../../presentation/labels";
 import { resolveImageUrl } from "../../../utils/image";
+import classBackground from "../../../assets/images/backgrounds/bg_07.png";
 
 type ClassDetailsModalProps = {
 	gameClass: Class;
@@ -70,7 +71,10 @@ export function ClassDetailsModal({ gameClass, onChoose, onClose }: ClassDetails
 					<h2 className="text-primary">{gameClass.name}</h2>
 					{gameClass.description && <p>{gameClass.description}</p>}
 				</header>
-				<div className="flex h-56 justify-center overflow-hidden bg-bg-base md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-96">
+				<div
+					className="flex h-56 justify-center overflow-hidden bg-cover bg-bottom md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-96"
+					style={{ backgroundImage: `url(${classBackground})` }}
+				>
 					<img
 						src={resolveImageUrl(gameClass.portrait)}
 						alt={gameClass.name + " class portrait"}

@@ -4,6 +4,7 @@ import type { RunView } from "@app/shared";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
 import { resolveImageUrl } from "../../../utils/image";
+import classBackground from "../../../assets/images/backgrounds/bg_07.png";
 import { HeroStatsDetails } from "./HeroStatsDetails";
 import { useGameModalStore } from "../../../stores/gameModalStore";
 
@@ -34,7 +35,10 @@ export function HeroStatsModal({ run }: { run: RunView }) {
 					</h2>
 					<p>Level {heroView.level}</p>
 				</header>
-				<div className="flex h-56 justify-center overflow-hidden bg-bg-base md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-96">
+				<div
+					className="flex h-56 justify-center overflow-hidden bg-cover bg-bottom md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-96"
+					style={{ backgroundImage: `url(${classBackground})` }}
+				>
 					<img
 						src={resolveImageUrl(heroClass.portrait)}
 						alt={`${heroClass.name} class portrait`}
