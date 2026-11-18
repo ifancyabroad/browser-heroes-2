@@ -4,11 +4,17 @@ import { formatTitle } from "../../../presentation/effects";
 
 type CombatStatsBarProps = {
 	zone: Zone;
-	battleNumber: number;
+	zoneBattleNumber: number;
+	battlesPerZone: number;
 	goldMultiplier: number;
 };
 
-export function CombatStatsBar({ zone, battleNumber, goldMultiplier }: CombatStatsBarProps) {
+export function CombatStatsBar({
+	zone,
+	zoneBattleNumber,
+	battlesPerZone,
+	goldMultiplier,
+}: CombatStatsBarProps) {
 	return (
 		<div
 			className="shrink-0 border border-border-secondary bg-bg-base/90 px-2 py-1 tabular-nums md:px-3 md:py-2"
@@ -18,7 +24,11 @@ export function CombatStatsBar({ zone, battleNumber, goldMultiplier }: CombatSta
 			<dl className="grid gap-1">
 				{[
 					{ label: "Zone", value: formatTitle(zone), icon: IconMapPin },
-					{ label: "Battle", value: battleNumber, icon: IconSwords },
+					{
+						label: "Battle",
+						value: `${zoneBattleNumber}/${battlesPerZone}`,
+						icon: IconSwords,
+					},
 					{ label: "Bonus", value: `×${goldMultiplier}`, icon: IconBolt },
 				].map(({ label, value, icon: Icon }) => (
 					<div

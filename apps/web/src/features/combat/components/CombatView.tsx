@@ -27,7 +27,15 @@ export function CombatView({ run }: CombatViewProps) {
 		return <p>Combat state is unavailable.</p>;
 	}
 
-	const { battleNumber, combat, gold, goldMultiplier, zone, nextZoneOptions } = combatView;
+	const {
+		zoneBattleNumber,
+		battlesPerZone,
+		combat,
+		gold,
+		goldMultiplier,
+		zone,
+		nextZoneOptions,
+	} = combatView;
 	const isEnemySlain = combat.status === "player_won";
 	const availableActions = selectAvailableActions(run.state);
 	const availableActionTypes = new Set(availableActions.map((action) => action.type));
@@ -148,7 +156,8 @@ export function CombatView({ run }: CombatViewProps) {
 									enemyPortrait={resolveImageUrl(combat.enemy.portrait)}
 									enemyName={combat.enemy.name}
 									isEnemySlain={isEnemySlain}
-									battleNumber={battleNumber}
+									zoneBattleNumber={zoneBattleNumber}
+									battlesPerZone={battlesPerZone}
 									goldMultiplier={goldMultiplier}
 									nextZoneOptions={nextZoneOptions}
 									zone={zone}

@@ -88,6 +88,8 @@ function createCombatView() {
 			{ id: "enemy", shortName: "Enemy" },
 		],
 		battleNumber: 2,
+		zoneBattleNumber: 2,
+		battlesPerZone: 10,
 		gold: 10,
 		goldMultiplier: 1,
 		zone: "forest",

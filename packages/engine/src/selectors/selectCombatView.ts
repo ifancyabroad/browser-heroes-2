@@ -1,6 +1,10 @@
 import type { CombatState, RunState } from "../schemas";
 import type { Zone } from "@app/content";
 import { getZoneOptions } from "../systems/encounters/zones/getZoneOptions";
+import {
+	BATTLES_PER_ZONE,
+	getZoneBattleNumber,
+} from "../systems/encounters/zones/getZoneNumberForBattle";
 
 import { calculateGoldMultiplier } from "../systems/progression/rewards/calculateGoldMultiplier";
 import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
@@ -16,6 +20,8 @@ export type CombatViewState = {
 	turnOrder: CombatTurnOrderEntry[];
 
 	battleNumber: number;
+	zoneBattleNumber: number;
+	battlesPerZone: number;
 	zoneNumber: number;
 	zone: Zone;
 	nextZoneOptions: readonly Zone[];
@@ -50,6 +56,8 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 		turnOrder: getTurnOrderView(combat),
 
 		battleNumber: state.battleNumber,
+		zoneBattleNumber: getZoneBattleNumber(state.battleNumber),
+		battlesPerZone: BATTLES_PER_ZONE,
 		zoneNumber: state.zoneNumber,
 		zone: state.zone,
 		nextZoneOptions: getZoneOptions(state.zoneNumber + 1),

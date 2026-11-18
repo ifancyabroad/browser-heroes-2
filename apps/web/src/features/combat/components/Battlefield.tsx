@@ -17,7 +17,8 @@ type BattlefieldProps = {
 	enemyPortrait: string | null;
 	enemyName: string;
 	isEnemySlain: boolean;
-	battleNumber: number;
+	zoneBattleNumber: number;
+	battlesPerZone: number;
 	goldMultiplier: number;
 	nextZoneOptions: readonly Zone[];
 	zone: Zone;
@@ -32,7 +33,8 @@ export function Battlefield({
 	enemyPortrait,
 	enemyName,
 	isEnemySlain,
-	battleNumber,
+	zoneBattleNumber,
+	battlesPerZone,
 	goldMultiplier,
 	nextZoneOptions,
 	zone,
@@ -63,7 +65,8 @@ export function Battlefield({
 			<div className="absolute left-2 right-2 top-2 z-10 flex items-start justify-between gap-2">
 				<CombatStatsBar
 					zone={zone}
-					battleNumber={battleNumber}
+					zoneBattleNumber={zoneBattleNumber}
+					battlesPerZone={battlesPerZone}
 					goldMultiplier={goldMultiplier}
 				/>
 				<CombatTurnOrder turnOrder={turnOrder} heroId={heroId} />

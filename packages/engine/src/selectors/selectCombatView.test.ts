@@ -9,6 +9,23 @@ import { selectCombatView } from "./selectCombatView";
 
 describe("selectCombatView", () => {
 	it.each([
+		[1, 1],
+		[10, 10],
+		[11, 1],
+		[100, 10],
+		[101, 1],
+		[110, 10],
+	])("projects battle %i as zone battle %i", (battleNumber, zoneBattleNumber) => {
+		const state = createTestCombatState();
+		state.battleNumber = battleNumber;
+		expect(selectCombatView(state)).toMatchObject({
+			battleNumber,
+			zoneBattleNumber,
+			battlesPerZone: 10,
+		});
+	});
+
+	it.each([
 		[9, ["player", "enemy"]],
 		[10, ["player", "enemy"]],
 		[11, ["enemy", "player"]],
