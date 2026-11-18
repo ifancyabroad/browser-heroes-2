@@ -212,7 +212,7 @@ function LockButton({
 	return (
 		<IconButton
 			type="button"
-			className="aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-contrast enabled:aria-pressed:hover:border-primary enabled:aria-pressed:hover:brightness-90"
+			className="border-border-secondary aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-contrast enabled:aria-pressed:hover:border-primary enabled:aria-pressed:hover:brightness-90"
 			disabled={isPending || slot.purchased}
 			aria-pressed={slot.locked}
 			aria-label={label}
@@ -237,7 +237,7 @@ function BuyButton({
 		<Button
 			type="button"
 			variant="primary"
-			className="whitespace-nowrap border-border-secondary px-2 tabular-nums"
+			className="whitespace-nowrap px-2 tabular-nums"
 			disabled={disabled}
 			aria-label={getBuyLabel(slot)}
 			title={getBuyLabel(slot)}
