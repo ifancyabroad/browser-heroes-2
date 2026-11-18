@@ -153,9 +153,8 @@ export function ClassDetailsModal({ gameClass, onChoose, onClose }: ClassDetails
 							))}
 						</dl>
 					</DetailSection>
-					<DetailSection title="Training">
+					<DetailSection title="Proficiencies">
 						<dl className="grid gap-2">
-							<DetailRow label="Hit die" value={gameClass.combat.hitDie} />
 							<DetailRow
 								label="Saves"
 								value={gameClass.proficiencies.savingThrows.map(
