@@ -1,6 +1,6 @@
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
-import { useHowToPlayModalStore } from "../stores/howToPlayModalStore";
+import { useGameModalStore } from "../../../stores/gameModalStore";
 
 const sections = [
 	{
@@ -26,8 +26,8 @@ const sections = [
 ] as const;
 
 export function HowToPlayModal() {
-	const isOpen = useHowToPlayModalStore((state) => state.isOpen);
-	const close = useHowToPlayModalStore((state) => state.close);
+	const isOpen = useGameModalStore((state) => state.modal === "howToPlay");
+	const close = useGameModalStore((state) => state.close);
 
 	return (
 		<Modal

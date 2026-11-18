@@ -9,13 +9,13 @@ import type { RunView } from "@app/shared";
 import { useState } from "react";
 import { EquipmentReplacementModal } from "../../../components/EquipmentReplacementModal";
 import { ShopModal } from "./ShopModal";
-import { GameNavigation, DefaultGameNavigationActions } from "../../../components/GameNavigation";
+import { GameNavigation } from "../../../components/GameNavigation";
 import { TownGoldBalance } from "./TownGoldBalance";
 import { GameLayout } from "../../../components/GameLayout";
 import { GameMainPanel, GamePanelContainer } from "../../../components/GameMainPanel";
-import { HeroSidebar } from "../../hero/components/HeroSidebar";
+import { HeroSummary } from "../../hero";
+import { formatTitle } from "../../../presentation/effects";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
-import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownHub } from "./TownHub";
 import { TavernModal } from "./TavernModal";
@@ -27,8 +27,6 @@ type TownViewProps = {
 };
 
 export function TownView({ run }: TownViewProps) {
-	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
-	const closeSidebar = useSidebarStore((state) => state.close);
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
 	const [hasViewedShop, setHasViewedShop] = useState(false);
 	const [service, setService] = useState<"shop" | "tavern" | "alchemist" | null>(null);
@@ -167,37 +165,35 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
-	function handleSwapWeapons() {
-		submitAction(
-			{
-				type: "SWAP_HAND_WEAPONS",
-			},
-			"Unable to swap weapons. Please try again.",
-		);
-	}
-
 	const canRest = availableActionTypes.has("REST_AT_TOWN");
 	const canBuyPotion = availableActionTypes.has("BUY_CONSUMABLE");
 	return (
 		<GameLayout>
-			<HeroSidebar
-				run={run}
-				open={isSidebarOpen}
-				canSwapWeapons={availableActionTypes.has("SWAP_HAND_WEAPONS")}
-				isPending={applyRunAction.isPending}
-				onClose={closeSidebar}
-				onSwapWeapons={handleSwapWeapons}
-			/>
 			<GameMainPanel>
 				<header className="shrink-0">
 					<GamePanelContainer className="py-3">
-						<GameNavigation actions={<DefaultGameNavigationActions />}>
+						<GameNavigation>
 							<TownGoldBalance gold={townView.gold} />
 						</GameNavigation>
 					</GamePanelContainer>
 				</header>
 				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
 					<GamePanelContainer className="flex flex-1 flex-col py-3">
+						<div className="grid w-full max-w-80 shrink-0 gap-3 pb-4">
+							<HeroSummary run={run} />
+							<dl className="flex flex-wrap gap-x-4 gap-y-1" aria-label="Run">
+								{[
+									{ label: "Zone", value: formatTitle(run.state.zone) },
+									{ label: "Battle", value: run.state.battleNumber },
+									{ label: "Day", value: run.state.day },
+								].map(({ label, value }) => (
+									<div key={label} className="flex gap-2">
+										<dt className="text-text-label">{label}</dt>
+										<dd className="text-text-bright">{value}</dd>
+									</div>
+								))}
+							</dl>
+						</div>
 						<TownHub
 							town={townView}
 							isPending={applyRunAction.isPending}

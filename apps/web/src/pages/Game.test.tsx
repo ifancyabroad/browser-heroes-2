@@ -5,7 +5,10 @@ import type { RunView } from "@app/shared";
 
 const useGameRun = vi.hoisted(() => vi.fn());
 
-vi.mock("../features/runs", () => ({ useGameRun }));
+vi.mock("../features/runs", () => ({
+	useGameRun,
+	useApplyRunAction: () => ({ mutate: vi.fn(), isPending: false }),
+}));
 vi.mock("../features/town", () => ({ TownView: () => <div>Town view</div> }));
 vi.mock("../features/combat", () => ({ CombatView: () => <div>Combat view</div> }));
 vi.mock("../features/runSummary", () => ({

@@ -1,74 +1,89 @@
 import type { ReactNode } from "react";
-import { IconHelpCircle, IconHome, IconScript } from "@tabler/icons-react";
-import { ButtonLink, IconButton } from "./Button";
+import {
+	IconChartBar,
+	IconHelpCircle,
+	IconHome,
+	IconScript,
+	IconShirt,
+	IconWand,
+} from "@tabler/icons-react";
+import { IconButton, IconButtonLink } from "./Button";
 import { Tooltip } from "./Tooltip";
-import { useSidebarStore } from "../stores/sidebarStore";
-import { useHowToPlayModalStore } from "../features/howToPlay";
+import { useGameModalStore } from "../stores/gameModalStore";
 
 type GameNavigationProps = {
-	actions: ReactNode;
+	showCombatLog?: boolean;
 	children?: ReactNode;
 };
 
-export function GameNavigation({ actions, children }: GameNavigationProps) {
-	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
-	const openSidebar = useSidebarStore((state) => state.open);
+const heroButtons = [
+	{ modal: "stats", label: "Hero stats", icon: IconChartBar },
+	{ modal: "equipment", label: "Equipment", icon: IconShirt },
+	{ modal: "skills", label: "Skills and feats", icon: IconWand },
+] as const;
+
+export function GameNavigation({ showCombatLog = false, children }: GameNavigationProps) {
+	const activeModal = useGameModalStore((state) => state.modal);
+	const open = useGameModalStore((state) => state.open);
 	return (
 		<nav
 			aria-label="Game navigation"
 			className="flex flex-wrap items-center justify-between gap-3"
 		>
 			<div className="flex items-center gap-1">
-				<NavigationTooltip label="Hero" className="lg:hidden">
+				{heroButtons.map(({ modal, label, icon: Icon }) => (
+					<NavigationTooltip key={modal} label={label}>
+						<IconButton
+							type="button"
+							aria-label={label}
+							aria-haspopup="dialog"
+							aria-expanded={activeModal === modal}
+							onClick={() => open(modal)}
+						>
+							<Icon aria-hidden="true" className="size-6" />
+						</IconButton>
+					</NavigationTooltip>
+				))}
+				{showCombatLog && (
+					<NavigationTooltip label="Combat Log">
+						<IconButton
+							type="button"
+							aria-label="Combat Log"
+							aria-haspopup="dialog"
+							aria-expanded={activeModal === "combatLog"}
+							onClick={() => open("combatLog")}
+						>
+							<IconScript aria-hidden="true" className="size-6" />
+						</IconButton>
+					</NavigationTooltip>
+				)}
+				<NavigationTooltip label="Home">
+					<IconButtonLink to="/" aria-label="Home">
+						<IconHome aria-hidden="true" className="size-6" />
+					</IconButtonLink>
+				</NavigationTooltip>
+				<NavigationTooltip label="How to play">
 					<IconButton
 						type="button"
-						variant="primary"
-						aria-label="Hero"
-						aria-expanded={isSidebarOpen}
-						onClick={openSidebar}
+						aria-label="How to play"
+						aria-haspopup="dialog"
+						aria-expanded={activeModal === "howToPlay"}
+						onClick={() => open("howToPlay")}
 					>
-						<IconScript aria-hidden="true" className="h-6 w-6" />
+						<IconHelpCircle aria-hidden="true" className="size-6" />
 					</IconButton>
 				</NavigationTooltip>
-				{actions}
 			</div>
 			{children}
 		</nav>
 	);
 }
 
-export function DefaultGameNavigationActions() {
-	const openHowToPlay = useHowToPlayModalStore((state) => state.open);
-	return (
-		<>
-			<NavigationTooltip label="Home">
-				<ButtonLink to="/" aria-label="Home" className="h-9 w-9 p-0!">
-					<IconHome aria-hidden="true" className="h-6 w-6 shrink-0" />
-				</ButtonLink>
-			</NavigationTooltip>
-			<NavigationTooltip label="How to play">
-				<IconButton type="button" aria-label="How to play" onClick={openHowToPlay}>
-					<IconHelpCircle aria-hidden="true" className="h-6 w-6" />
-				</IconButton>
-			</NavigationTooltip>
-		</>
-	);
-}
-
-function NavigationTooltip({
-	label,
-	className,
-	children,
-}: {
-	label: string;
-	className?: string;
-	children: ReactNode;
-}) {
+function NavigationTooltip({ label, children }: { label: string; children: ReactNode }) {
 	return (
 		<Tooltip
 			content={label}
 			placement="bottom"
-			className={className}
 			referenceTabIndex={null}
 			mobileBehavior="disabled"
 		>

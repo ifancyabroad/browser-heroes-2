@@ -83,3 +83,22 @@ export function ButtonLink({ className, variant = "default", ...props }: ButtonL
 		/>
 	);
 }
+
+type IconButtonLinkProps = Omit<ButtonLinkProps, "aria-label"> & {
+	"aria-label": string;
+};
+
+export function IconButtonLink({ className, variant = "default", ...props }: IconButtonLinkProps) {
+	return (
+		<RouterLink
+			className={clsx(
+				commandFrameClassName,
+				commandVariantClassNames[variant],
+				"size-9 cursor-pointer hover:border-border-bright",
+				commandFocusClassName,
+				className,
+			)}
+			{...props}
+		/>
+	);
+}

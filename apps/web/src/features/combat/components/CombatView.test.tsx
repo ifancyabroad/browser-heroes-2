@@ -1,16 +1,16 @@
-import { fireEvent, render as renderUi, screen } from "@testing-library/react";
+import { act, fireEvent, render as renderUi, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { RunView } from "@app/shared";
+import { applyAction, createInitialRunState } from "@app/engine";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
-import { useSidebarStore } from "../../../stores/sidebarStore";
+import { useGameModalStore } from "../../../stores/gameModalStore";
 
 const render = (ui: React.ReactNode) => renderUi(ui, { wrapper: MemoryRouter });
 
 const selectors = vi.hoisted(() => ({
 	selectCombatView: vi.fn(),
 	selectAvailableActions: vi.fn(),
-	selectHeroProgression: vi.fn(),
 }));
 const mutate = vi.hoisted(() => vi.fn());
 const showError = vi.hoisted(() => vi.fn());
@@ -29,14 +29,6 @@ vi.mock("../../../stores/errorModalStore", () => ({
 }));
 vi.mock("../../../components/GameLayout", () => ({
 	GameLayout: ({ children }: { children: React.ReactNode }) => children,
-}));
-vi.mock("../../hero/components/HeroSidebar", () => ({
-	HeroSidebar: ({ open, onClose }: { open: boolean; onClose: () => void }) => (
-		<div>
-			Combat sidebar {open ? "open" : "closed"}
-			{open && <button onClick={onClose}>Close sidebar</button>}
-		</div>
-	),
 }));
 vi.mock("./CombatantPanel", () => ({
 	CombatantPanel: ({ descriptor }: { descriptor?: string }) => <div>Combatant {descriptor}</div>,
@@ -78,9 +70,15 @@ vi.mock("./CombatActionBar", () => ({
 
 import { CombatView } from "./CombatView";
 
+const { state: initialState } = createInitialRunState({
+	runId: "run-id",
+	seed: "combat-view-test",
+	heroName: "Hero",
+	classId: "warrior",
+});
 const run = {
 	id: "run-id",
-	state: { phase: "combat", hero: { classId: "warrior" } },
+	state: applyAction(initialState, { type: "ENTER_COMBAT" }).state,
 } as RunView;
 
 function createCombatView() {
@@ -115,7 +113,7 @@ function createCombatView() {
 
 describe("CombatView", () => {
 	beforeEach(() => {
-		useSidebarStore.getState().close();
+		useGameModalStore.setState({ modal: null });
 		vi.clearAllMocks();
 		selectors.selectCombatView.mockReturnValue(createCombatView());
 		selectors.selectAvailableActions.mockReturnValue([
@@ -126,7 +124,6 @@ describe("CombatView", () => {
 			{ type: "CONTINUE_TO_NEXT_COMBAT" },
 			{ type: "RETURN_TO_TOWN" },
 		]);
-		selectors.selectHeroProgression.mockReturnValue({});
 	});
 
 	it("shows a stable fallback when combat state is unavailable", () => {
@@ -141,20 +138,20 @@ describe("CombatView", () => {
 		expect(screen.getByText("Combat state is unavailable.")).toBeInTheDocument();
 	});
 
-	it("opens and closes the sidebar from the Hero navigation button", () => {
+	it("opens and closes the combat log from navigation", () => {
 		render(
 			<TooltipProvider>
 				<CombatView run={run} />
 			</TooltipProvider>,
 		);
-		const heroButton = screen.getByRole("button", { name: "Hero" });
-		expect(heroButton).toHaveAttribute("aria-expanded", "false");
-		fireEvent.click(heroButton);
-		expect(screen.getByText("Combat sidebar open")).toBeInTheDocument();
-		expect(heroButton).toHaveAttribute("aria-expanded", "true");
-		fireEvent.click(screen.getByRole("button", { name: "Close sidebar" }));
-		expect(screen.getByText("Combat sidebar closed")).toBeInTheDocument();
-		expect(heroButton).toHaveAttribute("aria-expanded", "false");
+		const logButton = screen.getByRole("button", { name: "Combat Log" });
+		expect(logButton).toHaveAttribute("aria-expanded", "false");
+		fireEvent.click(logButton);
+		expect(useGameModalStore.getState().modal).toBe("combatLog");
+		expect(logButton).toHaveAttribute("aria-expanded", "true");
+		act(() => useGameModalStore.getState().close());
+		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+		expect(logButton).toHaveAttribute("aria-expanded", "false");
 	});
 
 	it("maps available engine actions to command availability", () => {
@@ -229,14 +226,14 @@ describe("CombatView", () => {
 		expect(showError).toHaveBeenCalledWith("Unable to use a healing potion. Please try again.");
 	});
 
-	it("retains the hero drawer in the outgoing combat frame without a world toggle", () => {
+	it("retains combat log access in the outgoing combat frame without a world toggle", () => {
 		render(
 			<TooltipProvider>
 				<CombatView run={{ ...run, state: { ...run.state, phase: "dead" } }} />
 			</TooltipProvider>,
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Hero" }));
-		expect(screen.getByText("Combat sidebar open")).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: "Combat Log" }));
+		expect(useGameModalStore.getState().modal).toBe("combatLog");
 		expect(screen.queryByRole("button", { name: "World Log" })).not.toBeInTheDocument();
 	});
 });

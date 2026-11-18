@@ -4,11 +4,11 @@ import { act, fireEvent, render, screen, waitFor, within } from "@testing-librar
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
-import { useSidebarStore } from "../../../stores/sidebarStore";
 import { applyRunAction } from "../../runs/api/applyRunAction";
 import { runKeys } from "../../runs/api/runKeys";
 import type { ApplyRunActionResponse, RunView } from "@app/shared";
-import { useHowToPlayModalStore } from "../../howToPlay";
+import { useGameModalStore } from "../../../stores/gameModalStore";
+import { HeroEquipmentModal } from "../../hero";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownView } from "./TownView";
 import { ALCHEMIST_QUOTES, MERCHANT_QUOTES, TAVERN_QUOTES } from "../quotes";
@@ -83,7 +83,12 @@ function setup(run = createTownRun()) {
 			queryKey: runKeys.game(),
 			queryFn: async () => ({ run: currentRun }),
 		});
-		return <TownView run={data!.run} />;
+		return (
+			<>
+				<TownView run={data!.run} />
+				<HeroEquipmentModal run={data!.run} />
+			</>
+		);
 	}
 	const { unmount } = render(
 		<QueryClientProvider client={client}>
@@ -100,8 +105,7 @@ function setup(run = createTownRun()) {
 describe("TownView", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
-		useSidebarStore.getState().close();
-		useHowToPlayModalStore.setState({ isOpen: false });
+		useGameModalStore.setState({ modal: null });
 		useErrorModalStore.getState().hideError();
 	});
 	it("marks stock as viewed after visiting the shop without submitting an action", () => {
@@ -283,7 +287,7 @@ describe("TownView", () => {
 		expect(screen.getByRole("navigation", { name: "Game navigation" })).toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "World Log" })).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "How to play" }));
-		expect(useHowToPlayModalStore.getState().isOpen).toBe(true);
+		expect(useGameModalStore.getState().modal).toBe("howToPlay");
 		fireEvent.click(screen.getByRole("button", { name: "Visit Shop" }));
 		const shop = screen.getByRole("dialog", { name: "Shop" });
 		expect(screen.queryByRole("region", { name: "World Log" })).not.toBeInTheDocument();
@@ -498,7 +502,7 @@ describe("TownView", () => {
 			action: { type: "ENTER_COMBAT" },
 		});
 	});
-	it("opens the hero drawer and swaps equipped weapons", async () => {
+	it("opens the equipment modal and swaps equipped weapons", async () => {
 		const run = createTownRun();
 		const mainHand = run.state.hero.equipment.mainHand;
 		if (!mainHand) {
@@ -506,13 +510,9 @@ describe("TownView", () => {
 		}
 		run.state.hero.equipment.offHand = { ...structuredClone(mainHand), instanceId: "off-hand" };
 		const { getRun } = setup(run);
-		fireEvent.click(screen.getByRole("button", { name: "Hero" }));
-		const drawer = screen.getByRole("dialog", { name: "Hero details" });
-		fireEvent.mouseDown(within(drawer).getByRole("tab", { name: "Equipment" }), {
-			button: 0,
-			ctrlKey: false,
-		});
-		fireEvent.click(within(drawer).getByRole("button", { name: "Swap Weapons" }));
+		fireEvent.click(screen.getByRole("button", { name: "Equipment" }));
+		const equipment = screen.getByRole("dialog", { name: "Equipment" });
+		fireEvent.click(within(equipment).getByRole("button", { name: "Swap Weapons" }));
 		await waitFor(() =>
 			expect(getRun().state.hero.equipment.mainHand?.instanceId).toBe("off-hand"),
 		);

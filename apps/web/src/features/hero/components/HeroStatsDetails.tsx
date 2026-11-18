@@ -9,7 +9,6 @@ import {
 	type DamageModifierKind,
 } from "../../../components/tooltips/DamageTooltipContent";
 import { StatTooltipContent } from "../../../components/tooltips/StatTooltipContent";
-import { EmptySidebarText, HeroSidebarSection } from "./HeroSidebarPrimitives";
 import {
 	armourTypeLabels,
 	attributeDescriptions,
@@ -37,7 +36,7 @@ type StatGridItem = {
 	signed?: boolean;
 };
 
-export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
+export function HeroStatsDetails({ heroView }: { heroView: HeroView }) {
 	const attributeItems: StatGridItem[] = attributes.map((attribute) => ({
 		label: attributeShortLabels[attribute],
 		fullLabel: attributeLabels[attribute],
@@ -121,16 +120,19 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 
 	return (
 		<div className="grid gap-3">
-			<HeroSidebarSection title="Attributes">
-				<StatGrid items={attributeItems} />
-			</HeroSidebarSection>
+			<section className="grid gap-2" aria-label="Attributes">
+				<h2 className="text-text-bright">Attributes</h2>
+				<StatGrid items={attributeItems} layout="attributes" />
+			</section>
 
-			<HeroSidebarSection title="Combat">
-				<StatGrid items={combatItems} />
-			</HeroSidebarSection>
+			<section className="grid gap-2" aria-label="Combat">
+				<h2 className="text-text-bright">Combat</h2>
+				<StatGrid items={combatItems} layout="combat" />
+			</section>
 
 			{hasDamageDetails && (
-				<HeroSidebarSection title="Damage">
+				<section className="grid gap-2" aria-label="Damage">
+					<h2 className="text-text-bright">Damage</h2>
 					<div className="grid gap-2">
 						{resistances.length > 0 && (
 							<DamageAffinityGroup
@@ -163,10 +165,11 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 							/>
 						)}
 					</div>
-				</HeroSidebarSection>
+				</section>
 			)}
 
-			<HeroSidebarSection title="Proficiencies">
+			<section className="grid gap-2" aria-label="Proficiencies">
+				<h2 className="text-text-bright">Proficiencies</h2>
 				<div className="grid gap-2">
 					<ProficiencyGroup
 						label="Armour"
@@ -187,14 +190,26 @@ export function HeroDetailsTab({ heroView }: { heroView: HeroView }) {
 						)}
 					/>
 				</div>
-			</HeroSidebarSection>
+			</section>
 		</div>
 	);
 }
 
-function StatGrid({ items }: { items: readonly StatGridItem[] }) {
+function StatGrid({
+	items,
+	layout,
+}: {
+	items: readonly StatGridItem[];
+	layout: "attributes" | "combat";
+}) {
 	return (
-		<ul className="grid grid-cols-3 gap-x-4 gap-y-2">
+		<ul
+			className={
+				layout === "attributes"
+					? "grid grid-cols-3 gap-x-2 gap-y-1 xs:grid-cols-6"
+					: "grid grid-cols-2 gap-x-4 gap-y-2 xs:grid-cols-3"
+			}
+		>
 			{items.map((item) => (
 				<li key={item.label}>
 					<Tooltip
@@ -207,10 +222,16 @@ function StatGrid({ items }: { items: readonly StatGridItem[] }) {
 							/>
 						}
 						placement="top"
-						className="w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-						contentClassName="w-56 max-w-[calc(100vw-1rem)]"
+						className="w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+						contentClassName="w-56"
 					>
-						<span className="flex items-baseline justify-between gap-2">
+						<span
+							className={
+								layout === "attributes"
+									? "flex items-baseline gap-2"
+									: "flex items-baseline justify-between gap-2"
+							}
+						>
 							<span className="text-text-label">{item.label}</span>
 							<span className="text-right">
 								<HeroStatValue stat={item.stat} signed={item.signed} />
@@ -251,14 +272,14 @@ function DamageAffinityGroup({ label, affinityLabel, affinities }: DamageAffinit
 									affinityLabel={affinityLabel}
 								/>
 							}
-							contentClassName="w-64 max-w-[calc(100vw-1rem)]"
-							className="!flex focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+							contentClassName="w-64"
+							className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 						>
 							<Badge
 								label={damageTypeLabels[affinity.damageType]}
 								variant="muted"
 								textTone="bright"
-								className={getDamageTypeBorderClass(affinity.damageType)}
+								className={`block ${getDamageTypeBorderClass(affinity.damageType)}`}
 							/>
 						</Tooltip>
 					</li>
@@ -281,7 +302,7 @@ function ProficiencyGroup({ label, values }: { label: string; values: readonly s
 					))}
 				</ul>
 			) : (
-				<EmptySidebarText>None</EmptySidebarText>
+				<p className="text-text-muted">None</p>
 			)}
 		</div>
 	);
@@ -316,18 +337,14 @@ function DamageModifierList({
 										kind={kind}
 									/>
 								}
-								contentClassName="w-64 max-w-[calc(100vw-1rem)]"
-								className="!flex focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+								contentClassName="w-64"
+								className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
 							>
 								<Badge
 									label={badgeLabel}
 									variant="muted"
 									textTone="bright"
-									className={
-										modifierGroup.damageType
-											? getDamageTypeBorderClass(modifierGroup.damageType)
-											: undefined
-									}
+									className={`block ${modifierGroup.damageType ? getDamageTypeBorderClass(modifierGroup.damageType) : ""}`}
 								/>
 							</Tooltip>
 						</li>

@@ -5,6 +5,8 @@ import { PageLoader } from "../components/PageLoader";
 import { CombatView } from "../features/combat";
 import { DeathScreen, VictoryScreen } from "../features/runSummary";
 import { HowToPlayModal } from "../features/howToPlay";
+import { HeroStatsModal, HeroEquipmentModal, HeroSkillsModal } from "../features/hero";
+import { CombatLogModal } from "../features/combat/components/CombatLogModal";
 import { GamePhaseTransition } from "./game/GamePhaseTransition";
 import { PostBattleModals } from "./game/PostBattleModals";
 
@@ -44,6 +46,10 @@ export default function Game() {
 		<>
 			<GamePhaseTransition run={run}>{view}</GamePhaseTransition>
 			<PostBattleModals run={run} />
+			<HeroStatsModal run={run} />
+			<HeroEquipmentModal run={run} />
+			<HeroSkillsModal run={run} />
+			<CombatLogModal run={run} />
 			<HowToPlayModal />
 		</>
 	);

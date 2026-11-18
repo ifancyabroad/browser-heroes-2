@@ -1,15 +1,14 @@
-import { CLASSES_BY_ID, type SkillId } from "@app/content";
+import type { SkillId } from "@app/content";
 import { selectAvailableActions, selectCombatView, type EngineAction } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
-import { GameNavigation, DefaultGameNavigationActions } from "../../../components/GameNavigation";
+import { GameNavigation } from "../../../components/GameNavigation";
 import { GameMainPanel, GamePanelContainer } from "../../../components/GameMainPanel";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
-import { useSidebarStore } from "../../../stores/sidebarStore";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { CombatActionBar } from "./CombatActionBar";
 import { Battlefield } from "./Battlefield";
-import { HeroSidebar } from "../../hero/components/HeroSidebar";
+import { HeroSummary } from "../../hero";
 import { CombatantPanel } from "./CombatantPanel";
 import { resolveImageUrl } from "../../../utils/image";
 
@@ -18,12 +17,9 @@ type CombatViewProps = {
 };
 
 export function CombatView({ run }: CombatViewProps) {
-	const isSidebarOpen = useSidebarStore((state) => state.isOpen);
-	const closeSidebar = useSidebarStore((state) => state.close);
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
 
-	const { hero } = run.state;
 	const combatView = selectCombatView(run.state);
 
 	if (!combatView) {
@@ -31,7 +27,6 @@ export function CombatView({ run }: CombatViewProps) {
 	}
 
 	const { battleNumber, combat, gold, goldMultiplier, zone, nextZoneOptions } = combatView;
-	const heroClass = CLASSES_BY_ID[hero.classId];
 	const isEnemySlain = combat.status === "player_won";
 	const availableActions = selectAvailableActions(run.state);
 	const availableActionTypes = new Set(availableActions.map((action) => action.type));
@@ -122,32 +117,17 @@ export function CombatView({ run }: CombatViewProps) {
 
 	return (
 		<GameLayout>
-			<HeroSidebar
-				run={run}
-				open={isSidebarOpen}
-				onClose={closeSidebar}
-				isPending={applyRunAction.isPending}
-			/>
-
 			<GameMainPanel>
 				<div className="min-h-0 flex-1 overflow-y-auto">
 					<GamePanelContainer className="flex h-full flex-col py-3 md:py-4">
 						<div className="flex min-h-0 flex-1 flex-col gap-2">
-							<div className="flex flex-col items-start gap-2 lg:flex-row lg:justify-between">
-								<div className="shrink-0 lg:order-last">
-									<GameNavigation actions={<DefaultGameNavigationActions />} />
-								</div>
+							<div className="flex flex-col items-start gap-2">
+								<GameNavigation showCombatLog />
 								<section
-									className="grid w-full min-w-0 items-start gap-2 md:grid-cols-2 lg:flex-1 lg:grid-cols-1"
+									className="grid w-full min-w-0 items-start gap-2 md:grid-cols-2"
 									aria-label="Combatants"
 								>
-									<div className="min-w-0 lg:hidden">
-										<CombatantPanel
-											combatant={combat.player}
-											identity={`${combat.player.name} the ${heroClass.name}`}
-											ariaLabel="Hero"
-										/>
-									</div>
+									<HeroSummary run={run} />
 									<CombatantPanel
 										key={combat.enemy.id}
 										combatant={combat.enemy}
