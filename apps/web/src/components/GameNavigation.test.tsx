@@ -64,7 +64,10 @@ describe("GameNavigation", () => {
 		expect(
 			within(dialog).getByRole("region", { name: "Attributes" }).querySelector("li"),
 		).toHaveTextContent("23");
-		expect(within(dialog).getByRole("region", { name: "Proficiencies" })).toBeInTheDocument();
+		expect(within(dialog).getByRole("region", { name: "Combat" })).toBeInTheDocument();
+		expect(
+			within(dialog).queryByRole("region", { name: "Proficiencies" }),
+		).not.toBeInTheDocument();
 		fireEvent.click(within(dialog).getByRole("button", { name: "Close" }));
 		await waitFor(() => expect(opener).toHaveFocus());
 		expect(opener).toHaveAttribute("aria-expanded", "false");
