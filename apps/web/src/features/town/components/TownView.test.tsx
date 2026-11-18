@@ -11,7 +11,6 @@ import { useGameModalStore } from "../../../stores/gameModalStore";
 import { HeroEquipmentModal } from "../../hero";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownView } from "./TownView";
-import { ALCHEMIST_QUOTES, TAVERN_QUOTES } from "../quotes";
 
 vi.mock("../../runs/api/applyRunAction", () => ({ applyRunAction: vi.fn() }));
 vi.mock("../../worldLog/api/getWorldLog", () => ({
@@ -136,134 +135,73 @@ describe("TownView", () => {
 			expect(badge).toHaveClass("border-2", tone);
 		}
 	});
-	it.each([
-		{ service: "Alchemist", quotes: ALCHEMIST_QUOTES },
-		{ service: "Tavern", quotes: TAVERN_QUOTES },
-	])("selects a quote on each visit to the $service", ({ service, quotes }) => {
-		setup();
-		const random = vi.spyOn(Math, "random").mockReturnValue(0);
-		try {
-			fireEvent.click(screen.getByRole("button", { name: `Visit ${service}` }));
-			const dialog = screen.getByRole("dialog", { name: service });
-			expect(within(dialog).getByText(quotes[0])).toBeInTheDocument();
-			fireEvent.click(within(dialog).getByRole("button", { name: "Close" }));
-			random.mockReturnValue(0.999);
-			fireEvent.click(screen.getByRole("button", { name: `Visit ${service}` }));
-			expect(
-				within(screen.getByRole("dialog", { name: service })).getByText(
-					quotes[quotes.length - 1],
-				),
-			).toBeInTheDocument();
-		} finally {
-			random.mockRestore();
-		}
-	});
-	it("refills potions with a single purchase", async () => {
+	it("buys one potion per click and renders the updated inventory and gold", async () => {
 		const run = createTownRun();
 		const town = selectTownView(run.state)!;
 		const { getRun } = setup(run);
-		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
-		const buy = screen.getByRole("button", { name: "Buy maximum healing potions" });
-		fireEvent.click(buy);
-		await waitFor(() =>
-			expect(
-				within(screen.getByRole("dialog", { name: "Alchemist" })).getByText("3/3"),
-			).toBeInTheDocument(),
-		);
-		expect(buy).toBeDisabled();
-		expect(getRun().state.gold).toBe(run.state.gold - town.healingPotionRefillCost);
-		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
-			runId: run.id,
-			action: {
-				type: "BUY_CONSUMABLE",
-				consumableType: "healingPotion",
-				quantity: town.healingPotionRefillQuantity,
-			},
-		});
-	});
-
-	it("allows single purchases when a full refill is unaffordable", () => {
-		const run = createTownRun();
-		run.state.hero.healingPotions = 0;
-		run.state.gold = selectTownView(run.state)!.healingPotionCost;
-		setup(run);
-		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
-		expect(screen.getByRole("button", { name: "Buy maximum healing potions" })).toBeDisabled();
-		expect(screen.getByRole("button", { name: "Buy one healing potion" })).toBeEnabled();
-	});
-
-	it("buys one potion and renders the updated inventory and gold", async () => {
-		const run = createTownRun();
-		const cost = selectTownView(run.state)!.healingPotionCost;
-		const { getRun } = setup(run);
-		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
-		const dialog = screen.getByRole("dialog", { name: "Alchemist" });
-		const quote = ALCHEMIST_QUOTES.find((line) => within(dialog).queryByText(line));
-		expect(quote).toBeDefined();
+		const alchemist = screen.getByRole("article", { name: "Alchemist" });
+		expect(within(alchemist).getByText(`${town.healingPotionCost}g`)).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: "Buy one healing potion" }));
+		await waitFor(() => expect(within(alchemist).getByText("2/3")).toBeInTheDocument());
 		expect(
-			within(dialog).queryByRole("button", { name: "Buy maximum healing potions" }),
-		).toBeEnabled();
-		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
-		await waitFor(() => expect(within(dialog).getByText("2/3")).toBeInTheDocument());
-		expect(within(dialog).getByText(quote!)).toBeInTheDocument();
-		expect(within(dialog).getByLabelText(`${run.state.gold - cost} gold`)).toBeInTheDocument();
+			screen.getByLabelText(`${run.state.gold - town.healingPotionCost} gold`),
+		).toBeInTheDocument();
+		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 		expect(getRun().state.hero.healingPotions).toBe(2);
 		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
 			runId: run.id,
 			action: { type: "BUY_CONSUMABLE", consumableType: "healingPotion", quantity: 1 },
 		});
 	});
-	it("disables purchases after the final slot is filled while keeping visits available", async () => {
+
+	it("disables the alchemist after the final potion slot is filled", async () => {
 		const run = createTownRun();
 		run.state.hero.healingPotions = 2;
 		setup(run);
-		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
-		const dialog = screen.getByRole("dialog");
-		fireEvent.click(within(dialog).getByRole("button", { name: "Buy one healing potion" }));
-		await waitFor(() => expect(within(dialog).getByText("3/3")).toBeInTheDocument());
-		expect(
-			within(dialog).getByRole("button", { name: "Buy maximum healing potions" }),
-		).toBeDisabled();
-		expect(
-			within(dialog).getByRole("button", { name: "Buy one healing potion" }),
-		).toBeDisabled();
-		fireEvent.click(within(dialog).getByRole("button", { name: "Close" }));
-		expect(screen.getByRole("button", { name: "Visit Alchemist" })).toBeEnabled();
+		const buy = screen.getByRole("button", { name: "Buy one healing potion" });
+		fireEvent.click(buy);
+		await waitFor(() => expect(buy).toBeDisabled());
+		expect(screen.getByRole("article", { name: "Alchemist" })).toHaveTextContent("3/3");
+		fireEvent.click(buy);
+		expect(applyRunAction).toHaveBeenCalledTimes(1);
 	});
-	it("rests at full health to restore skill uses, then reflects full recovery", async () => {
+
+	it("rests immediately at full health to restore skill uses, then disables further rest", async () => {
 		const run = createTownRun();
 		run.state.hero.skills[0].chargesRemaining = 0;
 		expect(selectTownView(run.state)!.isFullyHealed).toBe(true);
 		const cost = selectTownView(run.state)!.restCost;
 		const { getRun } = setup(run);
-		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
-		const tavern = screen.getByRole("dialog", { name: "Tavern" });
-		expect(tavern).toHaveTextContent(`Would you like to rest for ${cost} gold?`);
-		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
-		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+		const rest = screen.getByRole("button", { name: "Rest at tavern" });
+		expect(
+			within(screen.getByRole("article", { name: "Tavern" })).getByText(`${cost}g`),
+		).toBeInTheDocument();
+		fireEvent.click(rest);
+		await waitFor(() => expect(getRun().state.day).toBe(run.state.day + 1));
 		expect(getRun().state.hero.skills[0].chargesRemaining).toBeGreaterThan(0);
 		expect(getRun().state.gold).toBe(run.state.gold - cost);
-		expect(getRun().state.day).toBe(run.state.day + 1);
 		expect(screen.getByRole("article", { name: "Tavern" })).toHaveTextContent("Rested");
-		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
-		expect(screen.getByText("You are already fully rested.")).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "Confirm" })).toBeDisabled();
-	});
-	it.each([
-		{ service: "Tavern", action: "Confirm" },
-		{ service: "Alchemist", action: "Buy one healing potion" },
-	])("allows visiting $service without gold but prevents purchasing", ({ service, action }) => {
-		const run = createTownRun();
-		run.state.gold = 0;
-		run.state.hero.currentHp = 1;
-		setup(run);
-		fireEvent.click(screen.getByRole("button", { name: `Visit ${service}` }));
-		const dialog = screen.getByRole("dialog", { name: service });
-		expect(within(dialog).getByRole("button", { name: action })).toBeDisabled();
-		expect(within(dialog).getByText(/enough gold/)).toBeInTheDocument();
-		expect(applyRunAction).not.toHaveBeenCalled();
+		expect(rest).toBeDisabled();
+		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
+			runId: run.id,
+			action: { type: "REST_AT_TOWN" },
+		});
 	});
 
+	it.each(["Rest at tavern", "Buy one healing potion"])(
+		"disables %s when it is unaffordable",
+		(action) => {
+			const run = createTownRun();
+			run.state.gold = 0;
+			run.state.hero.currentHp = 1;
+			setup(run);
+			const button = screen.getByRole("button", { name: action });
+			expect(button).toBeDisabled();
+			fireEvent.click(button);
+			expect(applyRunAction).not.toHaveBeenCalled();
+		},
+	);
 	it("shows shop stock directly alongside navigation and town services", () => {
 		setup();
 		expect(screen.getByRole("navigation", { name: "Game navigation" })).toBeInTheDocument();
@@ -276,7 +214,7 @@ describe("TownView", () => {
 		expect(screen.queryByRole("dialog", { name: "Shop" })).not.toBeInTheDocument();
 		expect(screen.getByRole("region", { name: "World Log" })).toBeInTheDocument();
 		expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "Visit Tavern" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Rest at tavern" })).toBeInTheDocument();
 	});
 	it("shows a fallback outside town", () => {
 		const run = createTownRun();
@@ -290,19 +228,19 @@ describe("TownView", () => {
 		setup(run);
 		expect(screen.getByText("Town state is unavailable.")).toBeInTheDocument();
 	});
-	it("blocks purchase and dismissal while a request is pending", async () => {
+	it("blocks repeated actions while a service request is pending", async () => {
 		setup();
 		vi.mocked(applyRunAction).mockImplementation(() => new Promise(() => {}));
-		fireEvent.click(screen.getByRole("button", { name: "Visit Alchemist" }));
 		const buy = screen.getByRole("button", { name: "Buy one healing potion" });
 		fireEvent.click(buy);
 		await waitFor(() => expect(buy).toBeDisabled());
-		expect(screen.getByRole("button", { name: "Close" })).toBeDisabled();
-		fireEvent.keyDown(screen.getByRole("dialog"), { key: "Escape" });
-		expect(screen.getByRole("dialog", { name: "Alchemist" })).toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "Rest at tavern" })).toBeDisabled();
+		expect(screen.getByRole("button", { name: /^Battle in / })).toBeDisabled();
+		fireEvent.click(buy);
 		expect(applyRunAction).toHaveBeenCalledTimes(1);
 	});
-	it("waits for a successful rest response before closing the tavern", async () => {
+
+	it("updates rest status only after a successful response", async () => {
 		const run = createTownRun();
 		run.state.hero.currentHp = 1;
 		setup(run);
@@ -312,20 +250,21 @@ describe("TownView", () => {
 				complete = resolve;
 			}),
 		);
-		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
-		const dialog = screen.getByRole("dialog", { name: "Tavern" });
-		const confirm = within(dialog).getByRole("button", { name: "Confirm" });
-		fireEvent.click(confirm);
-		await waitFor(() => expect(confirm).toBeDisabled());
-		expect(dialog).toBeInTheDocument();
+		const rest = screen.getByRole("button", { name: "Rest at tavern" });
+		fireEvent.click(rest);
+		await waitFor(() => expect(rest).toBeDisabled());
+		expect(screen.getByRole("article", { name: "Tavern" })).toHaveTextContent("Weary");
 		const result = applyAction(run.state, { type: "REST_AT_TOWN" });
 		expect(result.ok).toBe(true);
 		await act(async () => {
 			complete({ run: { ...run, state: result.state }, result, unlockedAchievements: [] });
 		});
-		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+		await waitFor(() =>
+			expect(screen.getByRole("article", { name: "Tavern" })).toHaveTextContent("Rested"),
+		);
 	});
-	it("reports engine and transport errors without closing the tavern", async () => {
+
+	it("reports engine and transport errors and leaves rest available to retry", async () => {
 		const run = createTownRun();
 		run.state.hero.currentHp = 1;
 		setup(run);
@@ -334,19 +273,18 @@ describe("TownView", () => {
 			result: { ok: false, error: "NOT_ENOUGH_GOLD", state: run.state, events: [] },
 			unlockedAchievements: [],
 		});
-		fireEvent.click(screen.getByRole("button", { name: "Visit Tavern" }));
-		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
+		const rest = screen.getByRole("button", { name: "Rest at tavern" });
+		fireEvent.click(rest);
 		await waitFor(() =>
 			expect(useErrorModalStore.getState().message).toBe("You do not have enough gold."),
 		);
-		expect(screen.getByRole("dialog", { name: "Tavern" })).toBeInTheDocument();
-		await waitFor(() => expect(screen.getByRole("button", { name: "Confirm" })).toBeEnabled());
+		await waitFor(() => expect(rest).toBeEnabled());
 		vi.mocked(applyRunAction).mockRejectedValueOnce(new Error("offline"));
-		fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
+		fireEvent.click(rest);
 		await waitFor(() =>
 			expect(useErrorModalStore.getState().message).toBe("Unable to rest. Please try again."),
 		);
-		expect(screen.getByRole("dialog", { name: "Tavern" })).toBeInTheDocument();
+		await waitFor(() => expect(rest).toBeEnabled());
 	});
 	it("buys shop equipment into an available slot", async () => {
 		const run = createTownRun();

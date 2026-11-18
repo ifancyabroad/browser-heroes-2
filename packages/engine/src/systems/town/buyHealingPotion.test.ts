@@ -65,7 +65,6 @@ describe("buyHealingPotion", () => {
 		state.gold = selectTownView(state)!.healingPotionCost;
 		expect(selectTownView(state)).toMatchObject({
 			canBuyHealingPotion: true,
-			canAffordHealingPotionRefill: false,
 		});
 		expect(
 			applyAction(state, {

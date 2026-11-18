@@ -4,14 +4,16 @@ import { Badge } from "../../../components/Badge";
 import { formatTitle } from "../../../presentation/effects";
 import { ZONE_BACKGROUNDS } from "../../../presentation/zones";
 import tavernIcon from "../../../assets/images/town/tavern.png";
-import alchemistIcon from "../../../assets/images/town/alchemist.png";
+import healingPotionIcon from "../../../assets/images/actions/Res_49_health.png";
 
 type TownHubProps = {
 	town: TownView;
 	isPending: boolean;
 	canEnterCombat: boolean;
-	onVisitTavern: () => void;
-	onVisitAlchemist: () => void;
+	canRest: boolean;
+	canBuyPotion: boolean;
+	onRest: () => void;
+	onBuyPotion: () => void;
 	onContinue: () => void;
 };
 
@@ -24,8 +26,10 @@ export function TownHub({
 	town,
 	isPending,
 	canEnterCombat,
-	onVisitTavern,
-	onVisitAlchemist,
+	canRest,
+	canBuyPotion,
+	onRest,
+	onBuyPotion,
 	onContinue,
 }: TownHubProps) {
 	const zoneName = formatTitle(town.zone);
@@ -37,15 +41,23 @@ export function TownHub({
 			icon: tavernIcon,
 			status: town.isFullyRested ? "Rested" : "Weary",
 			variant: town.isFullyRested ? "success" : "warning",
-			onVisit: onVisitTavern,
+			price: town.restCost,
+			canAfford: town.canAffordRest,
+			label: "Rest at tavern",
+			disabled: isPending || !canRest,
+			onClick: onRest,
 		},
 		{
 			id: "alchemist",
 			name: "Alchemist",
-			icon: alchemistIcon,
+			icon: healingPotionIcon,
 			status: `${town.healingPotions}/${town.maxHealingPotions}`,
 			variant: potionsFull ? "success" : town.healingPotions === 0 ? "error" : "warning",
-			onVisit: onVisitAlchemist,
+			price: town.healingPotionCost,
+			canAfford: town.canAffordHealingPotion,
+			label: "Buy one healing potion",
+			disabled: isPending || !canBuyPotion,
+			onClick: onBuyPotion,
 		},
 	] as const;
 	return (
@@ -55,9 +67,9 @@ export function TownHub({
 					<button
 						type="button"
 						className={tileClassName}
-						aria-label={`Visit ${service.name}`}
-						disabled={isPending}
-						onClick={service.onVisit}
+						aria-label={service.label}
+						disabled={service.disabled}
+						onClick={service.onClick}
 					>
 						<span className={artClassName}>
 							<img
@@ -65,6 +77,11 @@ export function TownHub({
 								alt=""
 								className="size-full object-contain p-3"
 							/>
+						</span>
+						<span
+							className={`absolute left-2 top-2 tabular-nums ${service.canAfford ? "text-text-bright" : "text-error"}`}
+						>
+							{service.price}g
 						</span>
 						<Badge
 							label={service.status}

@@ -18,8 +18,6 @@ import { formatTitle } from "../../../presentation/effects";
 import { getEngineErrorMessage, useApplyRunAction } from "../../runs";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownHub } from "./TownHub";
-import { TavernModal } from "./TavernModal";
-import { AlchemistModal } from "./AlchemistModal";
 import { useWorldLog, WorldLogPanel } from "../../worldLog";
 
 type TownViewProps = {
@@ -28,7 +26,6 @@ type TownViewProps = {
 
 export function TownView({ run }: TownViewProps) {
 	const [replacementSlot, setReplacementSlot] = useState<TownShopSlotView | null>(null);
-	const [service, setService] = useState<"tavern" | "alchemist" | null>(null);
 	const worldLog = useWorldLog();
 	const applyRunAction = useApplyRunAction();
 	const showError = useErrorModalStore((state) => state.showError);
@@ -103,16 +100,13 @@ export function TownView({ run }: TownViewProps) {
 		}
 	}
 
-	async function handleRest() {
-		const applied = await submitAction(
+	function handleRest() {
+		submitAction(
 			{
 				type: "REST_AT_TOWN",
 			},
 			"Unable to rest. Please try again.",
 		);
-		if (applied) {
-			setService(null);
-		}
 	}
 
 	function handleReroll() {
@@ -139,12 +133,12 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
-	function handleBuyHealingPotion(quantity: number) {
+	function handleBuyHealingPotion() {
 		submitAction(
 			{
 				type: "BUY_CONSUMABLE",
 				consumableType: "healingPotion",
-				quantity,
+				quantity: 1,
 			},
 			"Unable to buy healing potions. Please try again.",
 		);
@@ -190,8 +184,10 @@ export function TownView({ run }: TownViewProps) {
 									town={townView}
 									isPending={applyRunAction.isPending}
 									canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
-									onVisitTavern={() => setService("tavern")}
-									onVisitAlchemist={() => setService("alchemist")}
+									canRest={canRest}
+									canBuyPotion={canBuyPotion}
+									onRest={handleRest}
+									onBuyPotion={handleBuyHealingPotion}
 									onContinue={handleEnterCombat}
 								/>
 							</div>
@@ -222,24 +218,6 @@ export function TownView({ run }: TownViewProps) {
 					</GamePanelContainer>
 				</div>
 			</GameMainPanel>
-			{service === "tavern" && (
-				<TavernModal
-					town={townView}
-					isPending={applyRunAction.isPending}
-					canRest={canRest}
-					onClose={() => setService(null)}
-					onRest={handleRest}
-				/>
-			)}
-			{service === "alchemist" && (
-				<AlchemistModal
-					town={townView}
-					isPending={applyRunAction.isPending}
-					canBuyPotion={canBuyPotion}
-					onClose={() => setService(null)}
-					onBuyPotion={handleBuyHealingPotion}
-				/>
-			)}
 			{replacementSlot && (
 				<EquipmentReplacementModal
 					item={replacementSlot.item}

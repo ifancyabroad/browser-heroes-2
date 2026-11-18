@@ -50,9 +50,6 @@ export type TownView = {
 	healingPotionCost: number;
 	canAffordHealingPotion: boolean;
 	canBuyHealingPotion: boolean;
-	healingPotionRefillQuantity: number;
-	healingPotionRefillCost: number;
-	canAffordHealingPotionRefill: boolean;
 };
 
 export function selectTownView(state: RunState): TownView | null {
@@ -72,8 +69,6 @@ export function selectTownView(state: RunState): TownView | null {
 	const restCost = calculateRestCost(effectiveCharisma, state.day);
 
 	const healingPotionCost = calculateHealingPotionCost(effectiveCharisma, state.zoneNumber);
-	const healingPotionRefillQuantity = MAX_HEALING_POTIONS - state.hero.healingPotions;
-	const healingPotionRefillCost = healingPotionRefillQuantity * healingPotionCost;
 
 	return {
 		battleNumber: state.battleNumber,
@@ -98,9 +93,6 @@ export function selectTownView(state: RunState): TownView | null {
 		),
 
 		healingPotions: state.hero.healingPotions,
-		healingPotionRefillQuantity,
-		healingPotionRefillCost,
-		canAffordHealingPotionRefill: state.gold >= healingPotionRefillCost,
 		maxHealingPotions: MAX_HEALING_POTIONS,
 		healingPotionCost,
 		canAffordHealingPotion: state.gold >= healingPotionCost,

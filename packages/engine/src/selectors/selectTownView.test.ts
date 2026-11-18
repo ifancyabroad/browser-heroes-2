@@ -3,14 +3,12 @@ import { createTestTownState } from "../test/createTestRunState";
 import { selectTownView } from "./selectTownView";
 
 describe("selectTownView", () => {
-	it("separates refill affordability from carrying capacity", () => {
+	it("prevents potion purchases when full even when they are affordable", () => {
 		const state = createTestTownState();
 		state.hero.healingPotions = 3;
-		state.gold = 0;
+		state.gold = 1000;
 		expect(selectTownView(state)).toMatchObject({
-			healingPotionRefillQuantity: 0,
-			healingPotionRefillCost: 0,
-			canAffordHealingPotionRefill: true,
+			canAffordHealingPotion: true,
 			canBuyHealingPotion: false,
 		});
 	});
