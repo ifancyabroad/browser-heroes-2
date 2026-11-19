@@ -19,9 +19,6 @@ type TownHubProps = {
 
 const tileClassName =
 	"group relative flex h-36 w-full flex-col overflow-hidden border-2 border-border bg-bg-panel text-text-bright enabled:cursor-pointer enabled:hover:border-border-bright disabled:cursor-not-allowed disabled:border-border-secondary disabled:text-text-muted focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
-const artClassName =
-	"relative flex min-h-0 flex-1 items-center justify-center group-disabled:grayscale";
-const captionClassName = "flex shrink-0 items-center justify-center p-2";
 
 export function TownHub({
 	town,
@@ -67,18 +64,16 @@ export function TownHub({
 				<article key={service.id} aria-labelledby={`town-${service.id}`}>
 					<button
 						type="button"
-						className={tileClassName}
+						className={`${tileClassName} items-center justify-end gap-2 p-3`}
 						aria-label={service.label}
 						disabled={service.disabled}
 						onClick={service.onClick}
 					>
-						<span className={artClassName}>
-							<img
-								src={service.icon}
-								alt=""
-								className="size-full object-contain p-3"
-							/>
-						</span>
+						<img
+							src={service.icon}
+							alt=""
+							className="size-18 shrink-0 object-contain group-disabled:grayscale"
+						/>
 						<span
 							className={`absolute left-2 top-2 tabular-nums ${service.canAfford ? "text-text-bright" : "text-error"}`}
 						>
@@ -90,7 +85,7 @@ export function TownHub({
 							textTone="bright"
 							className="absolute right-2 top-2 bg-bg-panel"
 						/>
-						<span id={`town-${service.id}`} className={captionClassName}>
+						<span id={`town-${service.id}`} className="shrink-0">
 							{service.name}
 						</span>
 					</button>
@@ -104,7 +99,7 @@ export function TownHub({
 					disabled={isPending || !canEnterCombat}
 					onClick={onContinue}
 				>
-					<span className={artClassName}>
+					<span className="relative flex min-h-0 flex-1 items-center justify-center group-disabled:grayscale">
 						<img
 							src={ZONE_BACKGROUNDS[town.zone]}
 							alt=""
@@ -121,7 +116,7 @@ export function TownHub({
 							/>
 						</span>
 					</span>
-					<span className={`${captionClassName} flex-wrap gap-x-2`}>
+					<span className="flex shrink-0 flex-wrap items-center justify-center gap-x-2 p-2">
 						<span>{zoneName}</span>
 						<span className="text-text tabular-nums">
 							{town.zoneBattleNumber}/{town.battlesPerZone}
