@@ -3,8 +3,6 @@ import { selectHeroView } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { Button } from "../../../components/Button";
 import { Modal } from "../../../components/Modal";
-import { resolveImageUrl } from "../../../utils/image";
-import classBackground from "../../../assets/images/backgrounds/bg_07.png";
 import { HeroStatsDetails } from "./HeroStatsDetails";
 import { useGameModalStore } from "../../../stores/gameModalStore";
 
@@ -20,7 +18,7 @@ export function HeroStatsModal({ run }: { run: RunView }) {
 		<Modal
 			open
 			title="Stats"
-			size="2xl"
+			size="lg"
 			onClose={close}
 			footer={
 				<Button type="button" onClick={close}>
@@ -28,24 +26,14 @@ export function HeroStatsModal({ run }: { run: RunView }) {
 				</Button>
 			}
 		>
-			<article className="grid items-start gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,7fr)] md:grid-rows-[min-content_1fr]">
-				<header className="grid min-w-0 gap-2 md:col-start-2">
+			<article className="grid min-w-0 gap-6">
+				<header className="grid min-w-0 gap-2">
 					<h2 className="text-primary wrap-anywhere">
 						{heroView.name} the {heroClass.name}
 					</h2>
 					<p>Level {heroView.level}</p>
 				</header>
-				<div
-					className="flex h-56 justify-center overflow-hidden bg-cover bg-bottom md:sticky md:top-0 md:col-start-1 md:row-span-2 md:row-start-1 md:h-80"
-					style={{ backgroundImage: `url(${classBackground})` }}
-				>
-					<img
-						src={resolveImageUrl(heroClass.portrait)}
-						alt={`${heroClass.name} class portrait`}
-						className="h-full w-auto max-w-none shrink-0"
-					/>
-				</div>
-				<div className="min-w-0 md:col-start-2">
+				<div className="min-w-0">
 					<HeroStatsDetails heroView={heroView} />
 				</div>
 			</article>

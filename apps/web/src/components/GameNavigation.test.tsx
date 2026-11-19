@@ -49,7 +49,7 @@ function menu(run: RunView) {
 }
 
 describe("GameNavigation", () => {
-	it("shows current hero stats with the class portrait and restores focus on close", async () => {
+	it("shows current hero stats without the class portrait and restores focus on close", async () => {
 		const run = createRun();
 		run.state.hero.attributes.strength = 23;
 		render(menu(run));
@@ -58,8 +58,8 @@ describe("GameNavigation", () => {
 		fireEvent.click(opener);
 		const dialog = screen.getByRole("dialog", { name: "Stats" });
 		expect(
-			within(dialog).getByRole("img", { name: "Warrior class portrait" }),
-		).toBeInTheDocument();
+			within(dialog).queryByRole("img", { name: "Warrior class portrait" }),
+		).not.toBeInTheDocument();
 		expect(within(dialog).getByText("Mira the Warrior")).toBeInTheDocument();
 		expect(
 			within(dialog).getByRole("region", { name: "Attributes" }).querySelector("li"),
