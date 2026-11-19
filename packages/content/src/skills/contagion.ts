@@ -16,7 +16,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "poison",
 			damageClass: "magical",
-			dice: "4d4",
+			dice: "4d8",
 			duration: { unit: "turns", value: 5 },
 			save: {
 				attribute: "constitution",
