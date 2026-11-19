@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "crushing_blow",
 	name: "Crushing Blow",
 	description:
-		"Make a weapon attack that deals additional crushing damage on hit. On hit, a failed Constitution saving throw also reduces the enemy's Initiative.",
+		"Make a weapon attack that deals crushing damage, plus additional crushing damage on hit. On hit, a failed Constitution saving throw also reduces the enemy's Initiative.",
 	icon: "skills/barbarian/crushing_blow.png",
 	pool: "barbarian",
 	kind: "weaponAttack",
@@ -16,6 +16,7 @@ export default buildSkill({
 			type: "attackDamage",
 			target: "enemy",
 			multiplier: 1,
+			damageTypeOverride: "crushing",
 			attackRiders: [
 				{
 					timing: "onHit",
