@@ -5,7 +5,7 @@ export default buildSkill({
 	name: "Unholy Strike",
 	description: "Make a weapon attack that deals additional necrotic damage on hit.",
 	icon: "skills/occultist/unholy_strike.png",
-	pool: "occultist",
+	pool: "common",
 	kind: "weaponAttack",
 	category: "damage",
 	rarity: "uncommon",
