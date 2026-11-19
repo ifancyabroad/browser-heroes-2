@@ -3,7 +3,7 @@ import { buildFeat } from "../builders/buildFeat";
 export default buildFeat({
 	id: "juggernaut",
 	name: "Juggernaut",
-	description: "Increase your Armour Class and maximum HP at the cost of your attack roll bonus.",
+	description: "Increase your Armour Class and maximum HP at the cost of your Initiative.",
 	icon: "feats/Skill_UnholyStrength_nb.png",
 	kind: "survival",
 	category: "defensive",
@@ -20,7 +20,7 @@ export default buildFeat({
 		},
 		{
 			type: "modifyStat",
-			stat: "attackRollBonus",
+			stat: "initiative",
 			value: -4,
 		},
 	],
