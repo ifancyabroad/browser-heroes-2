@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "marked_for_death",
 	name: "Marked for Death",
 	description:
-		"Increase all damage the enemy takes by 25% for 3 battles on a failed Wisdom saving throw.",
+		"Increase all damage the enemy takes by 50% for 3 battles on a failed Wisdom saving throw.",
 	icon: "skills/unique/marked_for_death.png",
 	pool: "unique",
 	kind: "spell",
