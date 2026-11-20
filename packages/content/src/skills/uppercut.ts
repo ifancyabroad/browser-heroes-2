@@ -4,37 +4,39 @@ export default buildSkill({
 	id: "uppercut",
 	name: "Uppercut",
 	description:
-		"Make a weapon attack that deals crushing damage. On hit, a failed Constitution saving throw stuns the enemy.",
+		"Deal crushing damage to the enemy, halved on a successful Constitution saving throw. A separate failed Constitution saving throw stuns them for 2 turns.",
 	icon: "skills/fighter/uppercut.png",
 	pool: "fighter",
-	kind: "weaponAttack",
+	kind: "technique",
 	category: "debuff",
 	rarity: "rare",
 	maxUses: 2,
 	effects: [
 		{
-			type: "attackDamage",
+			type: "damage",
 			target: "enemy",
-			multiplier: 1,
-			damageTypeOverride: "crushing",
-			attackRiders: [
-				{
-					timing: "onHit",
-					save: {
-						attribute: "constitution",
-						onSuccess: "noEffect",
-						dc: { attribute: "strength" },
-					},
-					effects: [
-						{
-							type: "applyStatus",
-							target: "enemy",
-							statusId: "stunned",
-							duration: { unit: "turns", value: 1 },
-						},
-					],
-				},
-			],
+			damageType: "crushing",
+			damageClass: "physical",
+			attackRange: "melee",
+			dice: "2d8",
+			attribute: "strength",
+			requiresAttackRoll: false,
+			save: {
+				attribute: "constitution",
+				onSuccess: "halfDamage",
+				dc: { attribute: "strength" },
+			},
+		},
+		{
+			type: "applyStatus",
+			target: "enemy",
+			statusId: "stunned",
+			duration: { unit: "turns", value: 2 },
+			save: {
+				attribute: "constitution",
+				onSuccess: "noEffect",
+				dc: { attribute: "strength" },
+			},
 		},
 	],
 	tags: [],

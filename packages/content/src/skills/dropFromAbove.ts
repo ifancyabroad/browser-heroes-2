@@ -7,7 +7,7 @@ export default buildSkill({
 		"Deal crushing damage to the enemy. A failed Strength saving throw also stuns them.",
 	icon: "skills/common/drop_from_above.png",
 	pool: "common",
-	kind: "weaponAttack",
+	kind: "technique",
 	category: "damage",
 	rarity: "rare",
 	maxUses: 1,

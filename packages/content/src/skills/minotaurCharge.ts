@@ -9,7 +9,7 @@ export default buildSkill({
 	pool: "unique",
 	kind: "weaponAttack",
 	category: "damage",
-	rarity: "rare",
+	rarity: "common",
 	maxUses: 1,
 	effects: [
 		{
