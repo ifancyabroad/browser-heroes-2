@@ -19,7 +19,7 @@ export default buildSkill({
 		{
 			type: "healOverTime",
 			target: "self",
-			dice: "1d6",
+			dice: "2d6",
 			duration: { unit: "turns", value: 4 },
 		},
 	],
