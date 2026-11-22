@@ -37,7 +37,7 @@ export default buildSkill({
 			target: "enemy",
 			damageType: "acid",
 			damageClass: "other",
-			dice: "1d6",
+			dice: "2d6",
 			duration: { unit: "turns", value: 3 },
 		},
 	],
