@@ -18,7 +18,7 @@ export default buildClass({
 	},
 	combat: {
 		hitDie: "1d10",
-		skillIds: ["acid_strike"],
+		skillIds: ["acid_rain"],
 		featIds: [],
 		tactic: "default",
 	},
