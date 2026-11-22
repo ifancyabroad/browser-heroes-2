@@ -5,7 +5,7 @@ export default buildEnemy({
 	name: "Goblin Engineer",
 	shortName: "Engineer",
 	description:
-		"A goblin scavenger who turns abyssal refuse into acid traps and poisonous bombs. He considers the steady supply of hostile creatures ideal working conditions.",
+		"A goblin scavenger who turns abyssal refuse into acid traps and explosive bombs. He considers the steady supply of hostile creatures ideal working conditions.",
 	portrait: "enemies/abyss/goblin_engineer.png",
 	rank: "normal",
 	threat: 17,
@@ -38,7 +38,7 @@ export default buildEnemy({
 				attribute: "dexterity",
 			},
 		},
-		skillIds: ["acid_bomb", "acid_trap", "poison_bomb"],
+		skillIds: ["acid_bomb", "acid_trap", "da_bomb"],
 		featIds: [],
 		tactic: "caster",
 	},
