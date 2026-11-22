@@ -30,7 +30,7 @@ export default buildSkill({
 							target: "enemy",
 							damageType: "poison",
 							damageClass: "other",
-							dice: "1d4",
+							dice: "2d4",
 							duration: { unit: "turns", value: 3 },
 						},
 						{
