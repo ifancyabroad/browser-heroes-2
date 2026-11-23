@@ -38,7 +38,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["disease_shot", "make_it_rain", "reposition"],
+		skillIds: ["disease_shot", "make_it_rain", "reposition", "repair"],
 		featIds: [],
 		tactic: "default",
 	},
