@@ -17,7 +17,7 @@ export default buildSkill({
 			target: "enemy",
 			operation: "multiply",
 			value: 0.5,
-			duration: { unit: "turns", value: 10 },
+			duration: { unit: "turns", value: 6 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
@@ -28,7 +28,7 @@ export default buildSkill({
 			type: "modifyHealing",
 			target: "enemy",
 			multiplier: 0.5,
-			duration: { unit: "turns", value: 10 },
+			duration: { unit: "turns", value: 6 },
 			save: {
 				attribute: "wisdom",
 				onSuccess: "noEffect",
