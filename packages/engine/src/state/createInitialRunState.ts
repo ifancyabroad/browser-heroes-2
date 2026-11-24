@@ -44,7 +44,7 @@ export function createInitialRunState(input: CreateInitialRunStateInput): {
 	});
 
 	const state: RunState = {
-		version: 1,
+		version: 2,
 
 		id: input.runId,
 

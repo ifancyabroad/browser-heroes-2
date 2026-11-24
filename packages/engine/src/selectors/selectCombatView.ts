@@ -66,7 +66,7 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 		xp: state.hero.xp,
 		streak: state.streak,
 		goldMultiplier: calculateGoldMultiplier(state.streak),
-		healingPotions: state.hero.healingPotions,
+		healingPotions: state.hero.consumables.healingPotion,
 		maxHealingPotions: MAX_HEALING_POTIONS,
 		enemyDescriptor: getEnemyDescriptor(combat),
 

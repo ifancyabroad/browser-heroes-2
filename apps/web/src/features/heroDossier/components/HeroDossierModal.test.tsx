@@ -98,7 +98,7 @@ describe("HeroDossierModal", () => {
 						],
 						equipment: emptyEquipment,
 						pendingLevelUp: null,
-						healingPotions: 3,
+						consumables: { healingPotion: 3 },
 					},
 					run: {
 						status: "dead",

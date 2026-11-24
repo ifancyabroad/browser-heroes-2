@@ -47,13 +47,19 @@ export function resolvePlayerTurn(
 	}
 
 	if (action.type === "PLAYER_USE_CONSUMABLE") {
-		const potion = useHealingPotion(combat, state.hero.healingPotions);
+		const potion = useHealingPotion(combat, state.hero.consumables.healingPotion);
 
 		return {
 			state: {
 				...state,
 				combat: potion.combat,
-				hero: { ...state.hero, healingPotions: potion.remainingPotions },
+				hero: {
+					...state.hero,
+					consumables: {
+						...state.hero.consumables,
+						healingPotion: potion.remainingPotions,
+					},
+				},
 			},
 			events: [potion.event],
 			actionContext: null,

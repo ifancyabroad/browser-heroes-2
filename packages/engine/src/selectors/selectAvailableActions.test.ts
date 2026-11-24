@@ -35,7 +35,7 @@ describe("selectAvailableActions", () => {
 
 	it("omits depleted skills and unavailable potions", () => {
 		const state = modifyTestRunState(createTestCombatState(), (draft) => {
-			draft.hero.healingPotions = 0;
+			draft.hero.consumables.healingPotion = 0;
 			if (!draft.combat) {
 				throw new Error("Expected test run to have combat");
 			}

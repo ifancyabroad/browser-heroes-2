@@ -46,7 +46,7 @@ export function validatePlayerAction(
 		}
 	}
 
-	if (action.type === "PLAYER_USE_CONSUMABLE" && state.hero.healingPotions <= 0) {
+	if (action.type === "PLAYER_USE_CONSUMABLE" && state.hero.consumables.healingPotion <= 0) {
 		return { ok: false, error: "NO_HEALING_POTIONS_AVAILABLE" };
 	}
 

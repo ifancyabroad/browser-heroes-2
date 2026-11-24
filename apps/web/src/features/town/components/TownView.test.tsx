@@ -36,7 +36,7 @@ function createTownRun(): RunView {
 	}
 	const state = result.state;
 	state.gold = 100;
-	state.hero.healingPotions = 1;
+	state.hero.consumables.healingPotion = 1;
 	return {
 		id: state.id,
 		season: 1,
@@ -114,7 +114,7 @@ describe("TownView", () => {
 		{ count: 3, label: "3/3", tone: "border-success" },
 	])("shows $label with the appropriate potion status colour", ({ count, label, tone }) => {
 		const run = createTownRun();
-		run.state.hero.healingPotions = count;
+		run.state.hero.consumables.healingPotion = count;
 		setup(run);
 		const card = screen.getByRole("article", { name: "Alchemist" });
 		for (const badge of within(card).getAllByText(label)) {
@@ -147,7 +147,7 @@ describe("TownView", () => {
 			screen.getByLabelText(`${run.state.gold - town.healingPotionCost} gold`),
 		).toBeInTheDocument();
 		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-		expect(getRun().state.hero.healingPotions).toBe(2);
+		expect(getRun().state.hero.consumables.healingPotion).toBe(2);
 		expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
 			runId: run.id,
 			action: { type: "BUY_CONSUMABLE", consumableType: "healingPotion", quantity: 1 },
@@ -156,7 +156,7 @@ describe("TownView", () => {
 
 	it("disables the alchemist after the final potion slot is filled", async () => {
 		const run = createTownRun();
-		run.state.hero.healingPotions = 2;
+		run.state.hero.consumables.healingPotion = 2;
 		setup(run);
 		const buy = screen.getByRole("button", { name: "Buy one healing potion" });
 		fireEvent.click(buy);

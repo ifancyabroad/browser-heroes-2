@@ -13,7 +13,7 @@ describe("buyHealingPotion", () => {
 	it("buys a full batch at the combined price", () => {
 		const state = createTestTownState();
 		state.gold = 1000;
-		state.hero.healingPotions = 0;
+		state.hero.consumables.healingPotion = 0;
 		// The starting warrior pays 19 gold per potion in zone 1: three cost 57.
 		const result = applyAction(state, {
 			type: "BUY_CONSUMABLE",
@@ -21,7 +21,7 @@ describe("buyHealingPotion", () => {
 			quantity: 3,
 		});
 		expect(result.ok).toBe(true);
-		expect(result.state.hero.healingPotions).toBe(3);
+		expect(result.state.hero.consumables.healingPotion).toBe(3);
 		expect(result.state.gold).toBe(943);
 		expect(result.events).toContainEqual({
 			type: "HEALING_POTION_BOUGHT",
@@ -48,7 +48,7 @@ describe("buyHealingPotion", () => {
 
 	it("rejects a batch exceeding capacity without changing state", () => {
 		const state = createTestTownState();
-		state.hero.healingPotions = 2;
+		state.hero.consumables.healingPotion = 2;
 		state.gold = 1000;
 		expect(
 			applyAction(state, {
@@ -61,7 +61,7 @@ describe("buyHealingPotion", () => {
 
 	it("rejects an unaffordable refill even when one potion is affordable", () => {
 		const state = createTestTownState();
-		state.hero.healingPotions = 0;
+		state.hero.consumables.healingPotion = 0;
 		state.gold = selectTownView(state)!.healingPotionCost;
 		expect(selectTownView(state)).toMatchObject({
 			canBuyHealingPotion: true,
@@ -77,7 +77,7 @@ describe("buyHealingPotion", () => {
 	it("charges gold and adds one potion", () => {
 		const state = modifyTestRunState(createTestTownState(), (draft) => {
 			draft.gold = 100;
-			draft.hero.healingPotions = 1;
+			draft.hero.consumables.healingPotion = 1;
 		});
 
 		const result = applyAction(state, {
@@ -88,7 +88,7 @@ describe("buyHealingPotion", () => {
 
 		expect(result.ok).toBe(true);
 		expect(result.state.gold).toBeLessThan(state.gold);
-		expect(result.state.hero.healingPotions).toBe(2);
+		expect(result.state.hero.consumables.healingPotion).toBe(2);
 		expect(result.events).toContainEqual(
 			expect.objectContaining({
 				type: "HEALING_POTION_BOUGHT",
@@ -101,7 +101,7 @@ describe("buyHealingPotion", () => {
 	it("rejects buying at the inventory limit", () => {
 		const state = modifyTestRunState(createTestTownState(), (draft) => {
 			draft.gold = 100;
-			draft.hero.healingPotions = 3;
+			draft.hero.consumables.healingPotion = 3;
 		});
 
 		expect(
@@ -119,7 +119,7 @@ describe("buyHealingPotion", () => {
 			draft.zoneNumber = 11;
 			draft.endlessCycle = 1;
 			draft.gold = 1_000;
-			draft.hero.healingPotions = 0;
+			draft.hero.consumables.healingPotion = 0;
 		});
 
 		const result = applyAction(state, {
@@ -141,7 +141,7 @@ describe("buyHealingPotion", () => {
 	it("rejects buying without enough gold", () => {
 		const state = modifyTestRunState(createTestTownState(), (draft) => {
 			draft.gold = 0;
-			draft.hero.healingPotions = 0;
+			draft.hero.consumables.healingPotion = 0;
 		});
 
 		expect(

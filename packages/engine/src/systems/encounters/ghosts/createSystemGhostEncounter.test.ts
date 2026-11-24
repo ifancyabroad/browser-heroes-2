@@ -22,7 +22,7 @@ describe("createSystemGhostEncounter", () => {
 			expect(encounter.hero.level).toBe(definition!.heroLevel);
 			expect(encounter.hero.xp).toBe(0);
 			expect(encounter.hero.pendingLevelUp).toBeNull();
-			expect(encounter.hero.healingPotions).toBe(0);
+			expect(encounter.hero.consumables.healingPotion).toBe(0);
 			expect(heroStateSchema.safeParse(encounter.hero).success).toBe(true);
 			expect(encounter.hero.currentHp).toBe(deriveHeroStats(encounter.hero).health.maxHp);
 		}

@@ -95,12 +95,13 @@ export function selectTownView(state: RunState): TownView | null {
 			createTownShopSlotView(state, slot, effectiveCharisma),
 		),
 
-		healingPotions: state.hero.healingPotions,
+		healingPotions: state.hero.consumables.healingPotion,
 		maxHealingPotions: MAX_HEALING_POTIONS,
 		healingPotionCost,
 		canAffordHealingPotion: state.gold >= healingPotionCost,
 		canBuyHealingPotion:
-			state.hero.healingPotions < MAX_HEALING_POTIONS && state.gold >= healingPotionCost,
+			state.hero.consumables.healingPotion < MAX_HEALING_POTIONS &&
+			state.gold >= healingPotionCost,
 	};
 }
 

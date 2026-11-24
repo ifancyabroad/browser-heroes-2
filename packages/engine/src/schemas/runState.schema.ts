@@ -23,7 +23,7 @@ export const townStateSchema = z.object({
 });
 
 export const runStateSchema = z.object({
-	version: z.number().int().min(1),
+	version: z.literal(2),
 	id: z.string(),
 	seed: z.string(),
 	rngState: rngStateSchema,

@@ -43,7 +43,7 @@ export function selectHeroView(hero: HeroState): HeroView {
 		equipment: hero.equipment,
 		proficiencies: derivedStats.proficiencies,
 
-		healingPotions: hero.healingPotions,
+		healingPotions: hero.consumables.healingPotion,
 		maxHealingPotions: MAX_HEALING_POTIONS,
 	};
 }

@@ -22,6 +22,7 @@ export type {
 	RunState,
 	RunPhase,
 	HeroState,
+	ConsumableInventory,
 	CombatState,
 	CombatantState,
 	CombatantSkillState,

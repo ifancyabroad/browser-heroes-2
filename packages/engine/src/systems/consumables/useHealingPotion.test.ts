@@ -38,19 +38,21 @@ describe("useHealingPotion", () => {
 		});
 
 		expect(result.ok).toBe(true);
-		expect(result.state.hero.healingPotions).toBe(state.hero.healingPotions - 1);
+		expect(result.state.hero.consumables.healingPotion).toBe(
+			state.hero.consumables.healingPotion - 1,
+		);
 		expect(result.state.combat!.turnNumber).toBe(state.combat!.turnNumber + 1);
 		expect(result.events).toContainEqual(
 			expect.objectContaining({
 				type: "HEALING_POTION_USED",
-				remainingPotions: state.hero.healingPotions - 1,
+				remainingPotions: state.hero.consumables.healingPotion - 1,
 			}),
 		);
 	});
 
 	it("rejects use with no potions or while stunned", () => {
 		const empty = modifyTestRunState(createTestCombatState(), (draft) => {
-			draft.hero.healingPotions = 0;
+			draft.hero.consumables.healingPotion = 0;
 		});
 		expect(
 			applyAction(empty, {

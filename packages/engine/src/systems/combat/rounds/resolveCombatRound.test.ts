@@ -141,7 +141,9 @@ describe("resolveCombatRound", () => {
 
 			expect(result.ok).toBe(true);
 			expect(attackOrder(result.state)).toEqual(["enemy"]);
-			expect(result.state.hero.healingPotions).toBe(state.hero.healingPotions);
+			expect(result.state.hero.consumables.healingPotion).toBe(
+				state.hero.consumables.healingPotion,
+			);
 			expect(result.state.combat!.player.skills).toEqual(state.combat!.player.skills);
 			expect(result.events.map((event) => event.type)).toEqual(["COMBAT_TURN_RESOLVED"]);
 			expect(result.state.combat!.log).toContainEqual(
@@ -279,7 +281,9 @@ describe("resolveCombatRound", () => {
 
 			expect(result.state.phase).toBe("dead");
 			expect(attackOrder(result.state)).toEqual(["enemy"]);
-			expect(result.state.hero.healingPotions).toBe(state.hero.healingPotions);
+			expect(result.state.hero.consumables.healingPotion).toBe(
+				state.hero.consumables.healingPotion,
+			);
 			expect(result.state.combat!.player.skills).toEqual(state.combat!.player.skills);
 			expect(result.events).toEqual([
 				expect.objectContaining({ type: "COMBAT_ENDED", outcome: "defeat" }),

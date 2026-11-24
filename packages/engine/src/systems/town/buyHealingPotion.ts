@@ -14,7 +14,7 @@ export function buyHealingPotion(state: RunState, quantity: number): EngineResul
 		return failureResult(state, "INVALID_ACTION");
 	}
 
-	if (quantity > MAX_HEALING_POTIONS - state.hero.healingPotions) {
+	if (quantity > MAX_HEALING_POTIONS - state.hero.consumables.healingPotion) {
 		return failureResult(state, "HEALING_POTIONS_FULL");
 	}
 
@@ -26,7 +26,7 @@ export function buyHealingPotion(state: RunState, quantity: number): EngineResul
 		return failureResult(state, "NOT_ENOUGH_GOLD");
 	}
 
-	const remainingPotions = state.hero.healingPotions + quantity;
+	const remainingPotions = state.hero.consumables.healingPotion + quantity;
 
 	return successResult(
 		{
@@ -34,7 +34,7 @@ export function buyHealingPotion(state: RunState, quantity: number): EngineResul
 			gold: state.gold - cost,
 			hero: {
 				...state.hero,
-				healingPotions: remainingPotions,
+				consumables: { ...state.hero.consumables, healingPotion: remainingPotions },
 			},
 		},
 		[

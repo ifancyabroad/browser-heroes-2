@@ -71,6 +71,11 @@ export type {
 	HeroEquipmentState,
 	EquippedItemState,
 } from "./heroState.schema";
+
+export { consumableInventorySchema } from "./consumableInventory.schema";
+
+export type { ConsumableInventory } from "./consumableInventory.schema";
+
 export {
 	combatStateSchema,
 	combatStatusSchema,

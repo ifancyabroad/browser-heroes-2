@@ -11,7 +11,7 @@ describe("selectHeroView", () => {
 			name: "Test Hero",
 			level: 1,
 			classId: "warrior",
-			healingPotions: state.hero.healingPotions,
+			healingPotions: state.hero.consumables.healingPotion,
 			maxHealingPotions: 3,
 			equipment: state.hero.equipment,
 		});

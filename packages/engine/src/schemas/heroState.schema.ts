@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { attributesSchema, classIdSchema, featIdSchema, skillIdSchema } from "@app/content";
 import { pendingLevelUpSchema } from "./levelUp.schema";
-import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { consumableInventorySchema } from "./consumableInventory.schema";
 import { itemInstanceSchema } from "./itemInstance.schema";
 
 export const heroSkillStateSchema = z.object({
@@ -39,7 +39,7 @@ export const heroStateSchema = z.object({
 	featIds: z.array(featIdSchema),
 	equipment: heroEquipmentStateSchema,
 	pendingLevelUp: pendingLevelUpSchema.nullable(),
-	healingPotions: z.number().int().min(0).max(MAX_HEALING_POTIONS),
+	consumables: consumableInventorySchema,
 });
 
 export type EquippedItemState = z.infer<typeof equippedItemStateSchema>;

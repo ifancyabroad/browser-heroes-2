@@ -49,7 +49,7 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 			actions.push(...getSkillActions(state));
 		}
 
-		if (state.hero.healingPotions > 0) {
+		if (state.hero.consumables.healingPotion > 0) {
 			actions.push({
 				type: "PLAYER_USE_CONSUMABLE",
 				consumableType: "healingPotion",
@@ -197,7 +197,10 @@ function getTownActions(state: RunState): EngineAction[] {
 		});
 	}
 
-	if (state.hero.healingPotions < MAX_HEALING_POTIONS && state.gold >= healingPotionCost) {
+	if (
+		state.hero.consumables.healingPotion < MAX_HEALING_POTIONS &&
+		state.gold >= healingPotionCost
+	) {
 		actions.push({
 			type: "BUY_CONSUMABLE",
 			consumableType: "healingPotion",

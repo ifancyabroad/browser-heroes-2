@@ -5,7 +5,7 @@ import { selectTownView } from "./selectTownView";
 describe("selectTownView", () => {
 	it("prevents potion purchases when full even when they are affordable", () => {
 		const state = createTestTownState();
-		state.hero.healingPotions = 3;
+		state.hero.consumables.healingPotion = 3;
 		state.gold = 1000;
 		expect(selectTownView(state)).toMatchObject({
 			canAffordHealingPotion: true,
