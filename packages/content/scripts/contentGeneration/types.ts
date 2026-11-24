@@ -7,7 +7,8 @@ export type ContentType =
 	| "class"
 	| "feat"
 	| "achievement"
-	| "systemGhost";
+	| "systemGhost"
+	| "consumable";
 
 export type ReferencePath =
 	| "combat.skillIds[]"

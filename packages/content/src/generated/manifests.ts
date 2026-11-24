@@ -9,6 +9,7 @@ import { classIdSchema, classIds } from './classIds';
 import { featIdSchema, featIds } from './featIds';
 import { achievementIdSchema, achievementIds } from './achievementIds';
 import { systemGhostIdSchema, systemGhostIds } from './systemGhostIds';
+import { consumableIdSchema, consumableIds } from './consumableIds';
 
 export const SKILL_IDS = skillIds;
 export const ENEMY_IDS = enemyIds;
@@ -19,6 +20,7 @@ export const CLASS_IDS = classIds;
 export const FEAT_IDS = featIds;
 export const ACHIEVEMENT_IDS = achievementIds;
 export const SYSTEMGHOST_IDS = systemGhostIds;
+export const CONSUMABLE_IDS = consumableIds;
 
 export const SKILL_ID_SCHEMA = skillIdSchema;
 export const ENEMY_ID_SCHEMA = enemyIdSchema;
@@ -29,3 +31,4 @@ export const CLASS_ID_SCHEMA = classIdSchema;
 export const FEAT_ID_SCHEMA = featIdSchema;
 export const ACHIEVEMENT_ID_SCHEMA = achievementIdSchema;
 export const SYSTEMGHOST_ID_SCHEMA = systemGhostIdSchema;
+export const CONSUMABLE_ID_SCHEMA = consumableIdSchema;

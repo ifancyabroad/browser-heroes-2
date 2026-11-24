@@ -153,4 +153,17 @@ export const contentSpecs = [
 			{ path: "equipment.*.baseId", targetType: "itemBase" },
 		],
 	},
+	{
+		type: "consumable",
+		typeName: "Consumable",
+		plural: "consumables",
+		dirName: "consumables",
+		importPrefix: "con",
+		definitionType: "ConsumableDefinition",
+		definitionImportPath: "../schemas",
+		typeImportLines: [],
+		helperTypeNames: ["WithGeneratedId"],
+		typeExpression: "WithGeneratedId<ConsumableDefinition, ConsumableId>",
+		referenceRules: [],
+	},
 ] as const satisfies readonly ContentSpec[];

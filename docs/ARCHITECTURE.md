@@ -45,7 +45,7 @@ The simulation layer must remain framework-agnostic. It must not depend on React
 
 The content layer owns authored game definitions and generated lookup surfaces.
 
-It includes classes, enemies, fixed items, item bases, item affixes, skills, feats, and supporting content types. Authored content is validated through builders and schemas, then collected into generated IDs, registries, and manifests.
+It includes classes, enemies, fixed items, item bases, item affixes, skills, feats, consumables, and supporting content types. Authored content is validated through builders and schemas, then collected into generated IDs, registries, and manifests.
 
 System ghost builds are authored content. The engine materializes them into deterministic combat-ready snapshots, while the API decides when they substitute for an empty frozen player-ghost pool.
 

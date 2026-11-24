@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+	calculateConsumableCost,
 	calculateHealingPotionCost,
 	calculateRerollCost,
 	calculateRestCost,
@@ -48,11 +49,19 @@ describe("town pricing", () => {
 		expect(calculateRestCost(10, 3)).toBe(31);
 	});
 
-	it("scales healing potion cost by zone and charisma", () => {
-		expect(calculateHealingPotionCost(10, 1)).toBe(20);
-		expect(calculateHealingPotionCost(10, 3)).toBe(60);
-		expect(calculateHealingPotionCost(10, 11)).toBe(220);
-		expect(calculateHealingPotionCost(10, 21)).toBe(420);
-		expect(calculateHealingPotionCost(18, 3)).toBe(44);
-	});
+	it.each([
+		[10, 1, 20],
+		[10, 3, 60],
+		[10, 11, 220],
+		[10, 21, 420],
+		[18, 3, 44],
+		[8, 1, 21],
+		[30, 1, 7],
+	] as const)(
+		"prices healing at charisma %i and zone %i as %i through both pricing paths",
+		(charisma, zone, expected) => {
+			expect(calculateConsumableCost("healingPotion", charisma, zone)).toBe(expected);
+			expect(calculateHealingPotionCost(charisma, zone)).toBe(expected);
+		},
+	);
 });

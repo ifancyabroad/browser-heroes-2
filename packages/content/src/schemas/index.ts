@@ -14,3 +14,4 @@ export * from "./itemAffix.schema";
 export * from "./rarity.schema";
 export * from "./achievement.schema";
 export * from "./systemGhost.schema";
+export * from "./consumable.schema";

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { equipmentSlotSchema, skillIdSchema } from "@app/content";
+import { consumableIdSchema, equipmentSlotSchema, skillIdSchema } from "@app/content";
 import { levelUpSelectionSchema } from "./levelUp.schema";
 import { rewardSelectionSchema } from "./reward.schema";
 
@@ -16,7 +16,7 @@ export const playerUseSkillActionSchema = z.object({
 	skillId: skillIdSchema,
 });
 
-export const consumableTypeSchema = z.enum(["healingPotion"]);
+export const consumableTypeSchema = consumableIdSchema;
 
 export const playerUseConsumableActionSchema = z.object({
 	type: z.literal("PLAYER_USE_CONSUMABLE"),

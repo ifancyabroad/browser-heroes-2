@@ -1,3 +1,4 @@
+import { CONSUMABLES_BY_ID, type ConsumableId } from "@app/content";
 import { calculateAttributeModifier } from "../../core/attributes";
 
 const CHARISMA_DISCOUNT_DIVISOR = 15;
@@ -7,8 +8,6 @@ const REROLL_MULTIPLIER = 1.5;
 
 const BASE_REST_COST = 20;
 const REST_MULTIPLIER = 1.25;
-
-const BASE_HEALING_POTION_COST = 20;
 
 export function calculateTownDiscountMultiplier(effectiveCharisma: number): number {
 	const charismaModifier = calculateAttributeModifier(effectiveCharisma);
@@ -46,8 +45,16 @@ export function calculateShopLevel(zoneNumber: number): number {
 }
 
 export function calculateHealingPotionCost(effectiveCharisma: number, zoneNumber: number): number {
+	return calculateConsumableCost("healingPotion", effectiveCharisma, zoneNumber);
+}
+
+export function calculateConsumableCost(
+	consumableId: ConsumableId,
+	effectiveCharisma: number,
+	zoneNumber: number,
+): number {
 	return Math.round(
-		BASE_HEALING_POTION_COST *
+		CONSUMABLES_BY_ID[consumableId].basePrice *
 			Math.max(1, zoneNumber) *
 			calculateTownDiscountMultiplier(effectiveCharisma),
 	);
