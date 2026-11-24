@@ -10,7 +10,10 @@ describe("consumable projections", () => {
 	it("projects quantities and carrying limits consistently for inventory, hero, and combat views", () => {
 		const state = createTestCombatState();
 		state.hero.consumables.healingPotion = 2;
-		const expected = { healingPotion: { name: "Healing Potion", quantity: 2, maxCarry: 3 } };
+		const expected = {
+			healingPotion: { name: "Healing Potion", quantity: 2, maxCarry: 3 },
+			explosivePotion: { name: "Explosive Potion", quantity: 0, maxCarry: 3 },
+		};
 		expect(selectConsumableInventory(state.hero)).toEqual(expected);
 		expect(selectHeroView(state.hero).consumables).toEqual(expected);
 		expect(selectCombatView(state)!.consumables).toEqual(expected);

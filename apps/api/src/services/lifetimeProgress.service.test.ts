@@ -52,6 +52,18 @@ describe("lifetimeProgress.service", () => {
 			remainingQuantity: 2,
 		};
 		expect(deriveLifetimeStatsDelta([purchase], "warrior")).toEqual({});
+		expect(
+			deriveLifetimeStatsDelta(
+				[
+					{
+						type: "CONSUMABLE_USED",
+						consumableType: "explosivePotion",
+						remainingQuantity: 2,
+					},
+				],
+				"warrior",
+			),
+		).toEqual({});
 		expect(deriveLifetimeStatsDelta([purchase, use], "warrior")).toEqual({
 			healingPotionsUsed: 1,
 		});

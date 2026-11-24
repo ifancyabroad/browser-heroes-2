@@ -27,8 +27,10 @@ describe("useConsumable (healing potion)", () => {
 			},
 			duration: { unit: "turns", remaining: 2 },
 		});
-		const result = resolveConsumableEffect(combat, CONSUMABLES_BY_ID.healingPotion);
-		expect(result.outcomes).toEqual([
+		const result = resolveConsumableEffect(combat, CONSUMABLES_BY_ID.healingPotion, {
+			value: 0,
+		});
+		expect(result.value.outcomes).toEqual([
 			{
 				type: "healing",
 				targetId: combat.player.id,
@@ -36,7 +38,8 @@ describe("useConsumable (healing potion)", () => {
 				amount: 76,
 			},
 		]);
-		expect(result.combat.player.currentHp).toBe(86);
+		expect(result.value.combat.player.currentHp).toBe(86);
+		expect(result.rngState).toEqual({ value: 0 });
 	});
 
 	it("allows use while silenced and leaves skill charges untouched", () => {

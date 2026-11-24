@@ -9,26 +9,42 @@ describe("consumable inventory", () => {
 	it("starts a current-format run with three healing potions", () => {
 		const state = createTestRunState();
 		expect(state.version).toBe(2);
-		expect(state.hero.consumables).toEqual({ healingPotion: 3 });
+		expect(state.hero.consumables).toEqual({ healingPotion: 3, explosivePotion: 0 });
 		expect(state.hero).not.toHaveProperty("healingPotions");
 	});
 
 	it.each([0, 1, 3])("accepts %i healing potions", (quantity) => {
-		expect(consumableInventorySchema.parse({ healingPotion: quantity })).toEqual({
+		expect(
+			consumableInventorySchema.parse({ healingPotion: quantity, explosivePotion: 0 }),
+		).toEqual({
 			healingPotion: quantity,
+			explosivePotion: 0,
 		});
 	});
 
 	it.each([-1, 4, 1.5, NaN, Infinity, "1", null])("rejects invalid quantity %s", (quantity) => {
-		expect(consumableInventorySchema.safeParse({ healingPotion: quantity }).success).toBe(
-			false,
-		);
+		expect(
+			consumableInventorySchema.safeParse({ healingPotion: quantity, explosivePotion: 0 })
+				.success,
+		).toBe(false);
 	});
 
 	it("requires registered quantities and rejects unknown consumables", () => {
 		expect(consumableInventorySchema.safeParse({}).success).toBe(false);
+		expect(consumableInventorySchema.safeParse({ healingPotion: 1 }).success).toBe(false);
 		expect(
-			consumableInventorySchema.safeParse({ healingPotion: 1, unknownPotion: 1 }).success,
+			consumableInventorySchema.safeParse({
+				healingPotion: 1,
+				explosivePotion: 0,
+				unknownPotion: 1,
+			}).success,
+		).toBe(false);
+	});
+
+	it.each([-1, 4, 1.5])("rejects invalid explosive potion quantity %s", (quantity) => {
+		expect(
+			consumableInventorySchema.safeParse({ healingPotion: 3, explosivePotion: quantity })
+				.success,
 		).toBe(false);
 	});
 

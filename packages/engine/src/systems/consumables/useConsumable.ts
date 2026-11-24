@@ -8,18 +8,19 @@ export function useConsumable(
 	consumableType: ConsumableId,
 ): { state: RunState & { combat: CombatState }; events: EngineEvent[] } {
 	const definition = CONSUMABLES_BY_ID[consumableType];
-	const result = resolveConsumableEffect(state.combat, definition);
+	const result = resolveConsumableEffect(state.combat, definition, state.rngState);
 	const remainingQuantity = state.hero.consumables[consumableType] - 1;
 
 	return {
 		state: {
 			...state,
+			rngState: result.rngState,
 			combat: appendActionLog({
-				combat: result.combat,
+				combat: result.value.combat,
 				actor: "player",
 				heading: `${state.combat.player.name} uses ${definition.name}.`,
 				eventType: "consumable_used",
-				outcomes: result.outcomes,
+				outcomes: result.value.outcomes,
 			}),
 			hero: {
 				...state.hero,

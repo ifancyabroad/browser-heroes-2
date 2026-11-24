@@ -1,0 +1,15 @@
+import { buildConsumable } from "../builders/buildConsumable";
+
+export default buildConsumable({
+	id: "explosivePotion",
+	name: "Explosive Potion",
+	description: "Deal 3d6 fire damage to the enemy. Always hits and cannot critically hit.",
+	basePrice: 10,
+	maxCarry: 3,
+	effect: {
+		type: "damage",
+		dice: "3d6",
+		damageType: "fire",
+		damageClass: "other",
+	},
+});
