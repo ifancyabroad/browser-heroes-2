@@ -1,4 +1,4 @@
-import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
+import { CONSUMABLES_BY_ID, FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import type { EngineEvent, RunState } from "@app/engine";
 import type { AdminActivityEvent } from "@app/shared";
 
@@ -25,8 +25,13 @@ export function toAdminActivityEvent(
 				rarity: event.item.rarity,
 				price: event.price,
 			};
-		case "HEALING_POTION_BOUGHT":
-			return { type: "potions_purchased", quantity: event.quantity, cost: event.cost };
+		case "CONSUMABLE_BOUGHT":
+			return {
+				type: "consumables_purchased",
+				consumableName: CONSUMABLES_BY_ID[event.consumableType].name,
+				quantity: event.quantity,
+				cost: event.cost,
+			};
 		case "LEVEL_UP_COMPLETED":
 			return {
 				type: "level_up",

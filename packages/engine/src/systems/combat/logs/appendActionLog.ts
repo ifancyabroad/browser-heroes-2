@@ -4,7 +4,7 @@ import type { ActionOutcome } from "./actionOutcome";
 import { appendCombatLog } from "./appendCombatLog";
 import { formatActionOutcome } from "./formatActionLog";
 
-type ActionEventType = "skill_used" | "basic_attack";
+type ActionEventType = "skill_used" | "basic_attack" | "consumable_used";
 
 export function appendActionLog(input: {
 	combat: CombatState;

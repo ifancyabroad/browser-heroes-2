@@ -265,10 +265,15 @@ describe("resolveCombatRound", () => {
 		expect(damageTaken).toBeGreaterThan(0);
 		expect(player.currentHp).toBe(player.maxHp);
 		expect(result.events).toContainEqual({
-			type: "HEALING_POTION_USED",
-			amount: damageTaken,
-			remainingPotions: 2,
+			type: "CONSUMABLE_USED",
+			consumableType: "healingPotion",
+			remainingQuantity: 2,
 		});
+		expect(
+			result.state.combat!.log.find(
+				(entry) => entry.eventType === "healing_done" && entry.actor === "player",
+			)?.outcome,
+		).toEqual({ type: "healing", targetId: player.id, amount: damageTaken });
 	});
 
 	it.each([attack, skill, potion])(

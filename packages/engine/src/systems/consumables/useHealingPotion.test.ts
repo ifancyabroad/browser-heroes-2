@@ -28,7 +28,14 @@ describe("useConsumable (healing potion)", () => {
 			duration: { unit: "turns", remaining: 2 },
 		});
 		const result = resolveConsumableEffect(combat, CONSUMABLES_BY_ID.healingPotion);
-		expect(result.amount).toBe(76);
+		expect(result.outcomes).toEqual([
+			{
+				type: "healing",
+				targetId: combat.player.id,
+				targetName: combat.player.name,
+				amount: 76,
+			},
+		]);
 		expect(result.combat.player.currentHp).toBe(86);
 	});
 
@@ -41,9 +48,7 @@ describe("useConsumable (healing potion)", () => {
 		expect(result.ok).toBe(true);
 		expect(result.state.hero.consumables.healingPotion).toBe(2);
 		expect(result.state.hero.skills).toEqual(state.hero.skills);
-		expect(result.events.filter((event) => event.type === "HEALING_POTION_USED")).toHaveLength(
-			1,
-		);
+		expect(result.events.filter((event) => event.type === "CONSUMABLE_USED")).toHaveLength(1);
 	});
 	it.each([0, 3])("reports actual restored HP with %i HP missing", (missingHp) => {
 		const state = modifyTestRunState(createTestCombatState(), (draft) => {
@@ -59,8 +64,9 @@ describe("useConsumable (healing potion)", () => {
 
 		expect(result.ok).toBe(true);
 		expect(
-			result.state.combat!.log.find((entry) => entry.eventType === "healing_potion_used")
-				?.outcome,
+			result.state.combat!.log.find(
+				(entry) => entry.eventType === "healing_done" && entry.actor === "player",
+			)?.outcome,
 		).toEqual({ type: "healing", targetId: state.combat!.player.id, amount: missingHp });
 	});
 
@@ -82,8 +88,9 @@ describe("useConsumable (healing potion)", () => {
 		expect(result.state.combat!.turnNumber).toBe(state.combat!.turnNumber + 1);
 		expect(result.events).toContainEqual(
 			expect.objectContaining({
-				type: "HEALING_POTION_USED",
-				remainingPotions: state.hero.consumables.healingPotion - 1,
+				type: "CONSUMABLE_USED",
+				consumableType: "healingPotion",
+				remainingQuantity: state.hero.consumables.healingPotion - 1,
 			}),
 		);
 	});
@@ -97,7 +104,7 @@ describe("useConsumable (healing potion)", () => {
 				type: "PLAYER_USE_CONSUMABLE",
 				consumableType: "healingPotion",
 			}),
-		).toMatchObject({ ok: false, error: "NO_HEALING_POTIONS_AVAILABLE" });
+		).toMatchObject({ ok: false, error: "NO_CONSUMABLES_AVAILABLE" });
 
 		const stunned = addPlayerStatus(createTestCombatState(), "stunned");
 		expect(

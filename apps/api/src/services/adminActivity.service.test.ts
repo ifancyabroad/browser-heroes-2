@@ -92,10 +92,21 @@ describe("admin activity", () => {
 		).toEqual({ type: "item_purchased", itemName: "Treasure", rarity: "legendary", price: 42 });
 		expect(
 			toAdminActivityEvent(
-				{ type: "HEALING_POTION_BOUGHT", quantity: 3, cost: 15, remainingPotions: 4 },
+				{
+					type: "CONSUMABLE_BOUGHT",
+					consumableType: "healingPotion",
+					quantity: 3,
+					cost: 15,
+					remainingQuantity: 4,
+				},
 				state,
 			),
-		).toEqual({ type: "potions_purchased", quantity: 3, cost: 15 });
+		).toEqual({
+			type: "consumables_purchased",
+			consumableName: "Healing Potion",
+			quantity: 3,
+			cost: 15,
+		});
 		expect(
 			toAdminActivityEvent(
 				{ type: "REWARD_SELECTED", rewardType: "item", item, equipmentSlot: "mainHand" },

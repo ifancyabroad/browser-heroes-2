@@ -24,10 +24,11 @@ describe("buyConsumable (healing potion)", () => {
 		expect(result.state.hero.consumables.healingPotion).toBe(3);
 		expect(result.state.gold).toBe(943);
 		expect(result.events).toContainEqual({
-			type: "HEALING_POTION_BOUGHT",
+			type: "CONSUMABLE_BOUGHT",
+			consumableType: "healingPotion",
 			quantity: 3,
 			cost: 57,
-			remainingPotions: 3,
+			remainingQuantity: 3,
 		});
 	});
 
@@ -56,7 +57,7 @@ describe("buyConsumable (healing potion)", () => {
 				consumableType: "healingPotion",
 				quantity: 2,
 			}),
-		).toMatchObject({ ok: false, error: "HEALING_POTIONS_FULL", state });
+		).toMatchObject({ ok: false, error: "CONSUMABLES_FULL", state });
 	});
 
 	it("rejects an unaffordable refill even when one potion is affordable", () => {
@@ -91,9 +92,10 @@ describe("buyConsumable (healing potion)", () => {
 		expect(result.state.hero.consumables.healingPotion).toBe(2);
 		expect(result.events).toContainEqual(
 			expect.objectContaining({
-				type: "HEALING_POTION_BOUGHT",
+				type: "CONSUMABLE_BOUGHT",
+				consumableType: "healingPotion",
 				quantity: 1,
-				remainingPotions: 2,
+				remainingQuantity: 2,
 			}),
 		);
 	});
@@ -110,7 +112,7 @@ describe("buyConsumable (healing potion)", () => {
 				consumableType: "healingPotion",
 				quantity: 1,
 			}),
-		).toMatchObject({ ok: false, error: "HEALING_POTIONS_FULL", state });
+		).toMatchObject({ ok: false, error: "CONSUMABLES_FULL", state });
 	});
 
 	it("continues scaling the price after the first zone cycle", () => {
@@ -131,10 +133,11 @@ describe("buyConsumable (healing potion)", () => {
 		expect(result.ok).toBe(true);
 		expect(result.state.gold).toBe(795);
 		expect(result.events).toContainEqual({
-			type: "HEALING_POTION_BOUGHT",
+			type: "CONSUMABLE_BOUGHT",
+			consumableType: "healingPotion",
 			quantity: 1,
 			cost: 205,
-			remainingPotions: 1,
+			remainingQuantity: 1,
 		});
 	});
 

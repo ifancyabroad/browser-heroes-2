@@ -20,7 +20,7 @@ export function buyConsumable(state: RunState, action: BuyConsumableAction): Eng
 	const definition = CONSUMABLES_BY_ID[consumableType];
 	const currentQuantity = state.hero.consumables[consumableType];
 	if (quantity > definition.maxCarry - currentQuantity) {
-		return failureResult(state, "HEALING_POTIONS_FULL");
+		return failureResult(state, "CONSUMABLES_FULL");
 	}
 
 	const charisma = deriveHeroStats(state.hero).effectiveAttributes.charisma;
@@ -39,6 +39,6 @@ export function buyConsumable(state: RunState, action: BuyConsumableAction): Eng
 				consumables: { ...state.hero.consumables, [consumableType]: remainingQuantity },
 			},
 		},
-		[{ type: "HEALING_POTION_BOUGHT", quantity, cost, remainingPotions: remainingQuantity }],
+		[{ type: "CONSUMABLE_BOUGHT", consumableType, quantity, cost, remainingQuantity }],
 	);
 }

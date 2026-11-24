@@ -20,7 +20,7 @@ export type AdminActivityEvent =
 			finalBoss: boolean;
 	  }
 	| { type: "item_purchased"; itemName: string; rarity: Rarity; price: number }
-	| { type: "potions_purchased"; quantity: number; cost: number }
+	| { type: "consumables_purchased"; consumableName: string; quantity: number; cost: number }
 	| {
 			type: "level_up";
 			level: number;

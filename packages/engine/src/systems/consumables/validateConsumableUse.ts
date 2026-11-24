@@ -11,7 +11,7 @@ export function validateConsumableUse(
 		return { ok: false, error: "CONSUMABLE_NOT_AVAILABLE" };
 	}
 	if (hero.consumables[consumableType] <= 0) {
-		return { ok: false, error: "NO_HEALING_POTIONS_AVAILABLE" };
+		return { ok: false, error: "NO_CONSUMABLES_AVAILABLE" };
 	}
 	return { ok: true };
 }

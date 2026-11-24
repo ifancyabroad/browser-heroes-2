@@ -33,6 +33,7 @@ const otherCombatLogEventTypeSchema = z.enum([
 	"combat_started",
 	"basic_attack",
 	"skill_used",
+	"consumable_used",
 	"effect_applied",
 	"effect_resisted",
 	"effect_expired",
@@ -56,7 +57,7 @@ const combatLogEntryContentSchema = z.union([
 		outcome: z.union([combatDamageOutcomeSchema, combatHealingOutcomeSchema]),
 	}),
 	combatLogEntryContentBaseSchema.extend({
-		eventType: z.enum(["healing_done", "healing_potion_used"]),
+		eventType: z.literal("healing_done"),
 		outcome: combatHealingOutcomeSchema,
 	}),
 	combatLogEntryContentBaseSchema.extend({

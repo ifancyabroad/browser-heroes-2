@@ -15,6 +15,9 @@ import {
 	type LifetimeStats,
 } from "./lifetimeProgress.service";
 
+const { UserModel: ActualUserModel } =
+	await vi.importActual<typeof import("../models/user.model")>("../models/user.model");
+
 const EMPTY_STATS: LifetimeStats = {
 	kills: 0,
 	bossesDefeated: 0,
@@ -35,6 +38,25 @@ const COMBAT_EVENT_CONTEXT = {
 describe("lifetimeProgress.service", () => {
 	beforeEach(() => vi.clearAllMocks());
 
+	it("counts healing usage once while purchases do not advance the usage counter", () => {
+		const purchase: EngineEvent = {
+			type: "CONSUMABLE_BOUGHT",
+			consumableType: "healingPotion",
+			quantity: 3,
+			cost: 57,
+			remainingQuantity: 3,
+		};
+		const use: EngineEvent = {
+			type: "CONSUMABLE_USED",
+			consumableType: "healingPotion",
+			remainingQuantity: 2,
+		};
+		expect(deriveLifetimeStatsDelta([purchase], "warrior")).toEqual({});
+		expect(deriveLifetimeStatsDelta([purchase, use], "warrior")).toEqual({
+			healingPotionsUsed: 1,
+		});
+	});
+
 	it("derives account progress from general engine events", () => {
 		const events: EngineEvent[] = [
 			{
@@ -49,7 +71,7 @@ describe("lifetimeProgress.service", () => {
 				reward: { gold: 50, xp: 10 },
 			},
 			{ type: "REWARD_SELECTED", rewardType: "gold", amount: 25 },
-			{ type: "HEALING_POTION_USED", amount: 10, remainingPotions: 1 },
+			{ type: "CONSUMABLE_USED", consumableType: "healingPotion", remainingQuantity: 1 },
 		];
 
 		expect(deriveLifetimeStatsDelta(events, "warrior")).toEqual({
@@ -152,11 +174,7 @@ describe("lifetimeProgress.service", () => {
 	it.each(["plain object", "Mongoose document"])(
 		"records progress and awards a crossed threshold from a %s",
 		async (recordType) => {
-			const { UserModel } =
-				await vi.importActual<typeof import("../models/user.model")>(
-					"../models/user.model",
-				);
-			const user = new UserModel({ lifetimeStats: { kills: 99 } });
+			const user = new ActualUserModel({ lifetimeStats: { kills: 99 } });
 			userModel.findByIdAndUpdate.mockResolvedValue(
 				recordType === "Mongoose document" ? user : user.toObject(),
 			);

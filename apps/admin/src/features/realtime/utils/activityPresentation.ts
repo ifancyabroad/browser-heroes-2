@@ -15,7 +15,7 @@ export function activityGroup(event: AdminActivityEvent): ActivityGroup {
 		case "battle_result":
 			return "Battles";
 		case "item_purchased":
-		case "potions_purchased":
+		case "consumables_purchased":
 			return "Purchases";
 		case "level_up":
 			return "Level-ups";
@@ -48,9 +48,9 @@ export function describeActivity(event: AdminActivityEvent): { text: string; ton
 				text: `bought ${event.itemName} (${event.rarity}) for ${event.price} gold`,
 				tone: event.rarity === "legendary" ? "activity-highlight" : "",
 			};
-		case "potions_purchased":
+		case "consumables_purchased":
 			return {
-				text: `bought ${event.quantity} healing potion${event.quantity === 1 ? "" : "s"} for ${event.cost} gold`,
+				text: `bought ${event.quantity} × ${event.consumableName} for ${event.cost} gold`,
 				tone: "",
 			};
 		case "level_up":

@@ -183,7 +183,7 @@ export function deriveLifetimeStatsDelta(
 			increment(delta, "legendaryItemsAcquired", 1);
 		}
 
-		if (event.type === "HEALING_POTION_USED") {
+		if (event.type === "CONSUMABLE_USED" && event.consumableType === "healingPotion") {
 			increment(delta, "healingPotionsUsed", 1);
 		}
 	}

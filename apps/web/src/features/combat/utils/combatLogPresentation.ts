@@ -49,7 +49,7 @@ export function getCombatLogEntryClassName(entry: CombatLogEntry, startsRound: b
 	const isAction =
 		entry.eventType === "basic_attack" ||
 		entry.eventType === "skill_used" ||
-		entry.eventType === "healing_potion_used" ||
+		entry.eventType === "consumable_used" ||
 		entry.eventType === "turn_skipped";
 
 	return clsx("break-words", getLogEntryTextClass(entry), {

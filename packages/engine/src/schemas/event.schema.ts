@@ -1,4 +1,10 @@
-import { equipmentSlotSchema, featIdSchema, raritySchema, skillIdSchema } from "@app/content";
+import {
+	consumableIdSchema,
+	equipmentSlotSchema,
+	featIdSchema,
+	raritySchema,
+	skillIdSchema,
+} from "@app/content";
 import { z } from "zod";
 
 const itemEventPayloadSchema = z.object({
@@ -127,17 +133,18 @@ const itemBoughtEventSchema = z.object({
 	price: z.number().int().min(0),
 });
 
-const healingPotionUsedEventSchema = z.object({
-	type: z.literal("HEALING_POTION_USED"),
-	amount: z.number().int().min(0),
-	remainingPotions: z.number().int().min(0),
+const consumableUsedEventSchema = z.object({
+	type: z.literal("CONSUMABLE_USED"),
+	consumableType: consumableIdSchema,
+	remainingQuantity: z.number().int().min(0),
 });
 
-const healingPotionBoughtEventSchema = z.object({
-	type: z.literal("HEALING_POTION_BOUGHT"),
+const consumableBoughtEventSchema = z.object({
+	type: z.literal("CONSUMABLE_BOUGHT"),
+	consumableType: consumableIdSchema,
 	quantity: z.number().int().positive(),
 	cost: z.number().int().min(0),
-	remainingPotions: z.number().int().min(0),
+	remainingQuantity: z.number().int().min(0),
 });
 
 const runStartedEventSchema = z.object({
@@ -165,8 +172,8 @@ export const engineEventSchema = z.union([
 	shopLockChangedEventSchema,
 	restedAtTownEventSchema,
 	itemBoughtEventSchema,
-	healingPotionUsedEventSchema,
-	healingPotionBoughtEventSchema,
+	consumableUsedEventSchema,
+	consumableBoughtEventSchema,
 ]);
 
 export type EngineEvent = z.infer<typeof engineEventSchema>;

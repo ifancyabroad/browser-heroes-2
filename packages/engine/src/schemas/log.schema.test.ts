@@ -9,7 +9,18 @@ const baseEntry = {
 };
 
 describe("combatLogEntrySchema", () => {
-	it.each(["healing_done", "healing_potion_used", "effect_triggered"])(
+	it("records consumable headings separately from their outcomes", () => {
+		const heading = { ...baseEntry, eventType: "consumable_used" };
+		expect(combatLogEntrySchema.parse(heading)).toEqual(heading);
+		expect(
+			combatLogEntrySchema.safeParse({
+				...heading,
+				outcome: { type: "healing", targetId: "hero", amount: 3 },
+			}).success,
+		).toBe(false);
+	});
+
+	it.each(["healing_done", "effect_triggered"])(
 		"requires valid healing metadata for %s entries",
 		(eventType) => {
 			const entry = { ...baseEntry, eventType };

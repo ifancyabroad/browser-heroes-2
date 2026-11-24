@@ -17,6 +17,19 @@ function entry(id: string): AdminActivityEntry {
 }
 
 describe("activity presentation", () => {
+	it("describes consumable purchases using their supplied names", () => {
+		const event = {
+			type: "consumables_purchased" as const,
+			consumableName: "Healing Potion",
+			quantity: 2,
+			cost: 38,
+		};
+		expect(activityGroup(event)).toBe("Purchases");
+		expect(describeActivity(event)).toEqual({
+			text: "bought 2 × Healing Potion for 38 gold",
+			tone: "",
+		});
+	});
 	it("deduplicates races, orders timestamp ties and bounds the live buffer", () => {
 		expect(
 			mergeActivity([entry("b"), entry("a")], [entry("a")]).map((value) => value.id),

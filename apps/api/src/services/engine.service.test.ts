@@ -74,6 +74,34 @@ describe("engine.service", () => {
 		return { run, sessionQuery };
 	}
 
+	it("persists one generic consumable usage event and forwards it to progress tracking", async () => {
+		const actualEngine = await vi.importActual<typeof import("@app/engine")>("@app/engine");
+		const { run } = arrangeRun();
+		engine.applyAction.mockImplementationOnce(actualEngine.applyAction);
+		const { result } = await applyRunAction({
+			userId: "user-id",
+			runId: "run-id",
+			action: { type: "PLAYER_USE_CONSUMABLE", consumableType: "healingPotion" },
+		});
+		expect(result.ok).toBe(true);
+		expect(result.events.filter((event) => event.type === "CONSUMABLE_USED")).toEqual([
+			{ type: "CONSUMABLE_USED", consumableType: "healingPotion", remainingQuantity: 2 },
+		]);
+		expect(
+			result.state.combat!.log.filter((entry) => entry.eventType === "consumable_used"),
+		).toHaveLength(1);
+		expect(models.action.create).toHaveBeenCalledWith(
+			[expect.objectContaining({ events: result.events, success: true })],
+			{ session },
+		);
+		expect(lifetimeProgressService.recordLifetimeProgress).toHaveBeenCalledWith({
+			userId: "user-id",
+			classId: run.state.hero.classId,
+			events: result.events,
+			session,
+		});
+	});
+
 	it("publishes only the committed transaction result after a retry", async () => {
 		const { run } = arrangeRun();
 		const abortedState = { ...run.state, day: 2 };
