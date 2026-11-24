@@ -5,7 +5,7 @@ import { appendCombatLog } from "../logs/appendCombatLog";
 import { consumeCombatantSkillCharge } from "../skills/consumeCombatantSkillCharge";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
-import { useHealingPotion } from "../../consumables/useHealingPotion";
+import { useConsumable } from "../../consumables/useConsumable";
 import type { PlayerRoundAction } from "./validatePlayerAction";
 
 export type PlayerActionContext = {
@@ -47,23 +47,7 @@ export function resolvePlayerTurn(
 	}
 
 	if (action.type === "PLAYER_USE_CONSUMABLE") {
-		const potion = useHealingPotion(combat, state.hero.consumables.healingPotion);
-
-		return {
-			state: {
-				...state,
-				combat: potion.combat,
-				hero: {
-					...state.hero,
-					consumables: {
-						...state.hero.consumables,
-						healingPotion: potion.remainingPotions,
-					},
-				},
-			},
-			events: [potion.event],
-			actionContext: null,
-		};
+		return { ...useConsumable(state, action.consumableType), actionContext: null };
 	}
 
 	const targetStartedAtFullHp = combat.enemy.currentHp === combat.enemy.maxHp;

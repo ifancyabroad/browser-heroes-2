@@ -4,7 +4,7 @@ import { validateAction } from "../../actions/validateAction";
 import { selectTownView } from "../../selectors/selectTownView";
 import { createTestTownState, modifyTestRunState } from "../../test/createTestRunState";
 
-describe("buyHealingPotion", () => {
+describe("buyConsumable (healing potion)", () => {
 	it("requires an explicit purchase quantity", () => {
 		expect(validateAction({ type: "BUY_CONSUMABLE", consumableType: "healingPotion" }).ok).toBe(
 			false,
@@ -62,9 +62,9 @@ describe("buyHealingPotion", () => {
 	it("rejects an unaffordable refill even when one potion is affordable", () => {
 		const state = createTestTownState();
 		state.hero.consumables.healingPotion = 0;
-		state.gold = selectTownView(state)!.healingPotionCost;
+		state.gold = selectTownView(state)!.consumables.healingPotion.price;
 		expect(selectTownView(state)).toMatchObject({
-			canBuyHealingPotion: true,
+			consumables: { healingPotion: { canBuy: true } },
 		});
 		expect(
 			applyAction(state, {

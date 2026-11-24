@@ -20,7 +20,7 @@ export type { EquipmentDestinationView, EquipmentPlacementView } from "./selectE
 
 export { selectTownView } from "./selectTownView";
 
-export type { TownShopSlotView, TownView } from "./selectTownView";
+export type { TownShopSlotView, TownView, TownConsumableView } from "./selectTownView";
 
 export { selectRunSummaryView } from "./selectRunSummaryView";
 
@@ -35,3 +35,7 @@ export { selectEncounterContext } from "./selectEncounterContext";
 export type { EncounterContext } from "./selectEncounterContext";
 
 export { selectItemDefinition } from "./selectItemDefinition";
+
+export { selectConsumableInventory } from "./selectConsumableInventory";
+
+export type { ConsumableView, ConsumableInventoryView } from "./selectConsumableInventory";

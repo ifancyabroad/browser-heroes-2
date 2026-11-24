@@ -140,11 +140,13 @@ describe("TownView", () => {
 		const town = selectTownView(run.state)!;
 		const { getRun } = setup(run);
 		const alchemist = screen.getByRole("article", { name: "Alchemist" });
-		expect(within(alchemist).getByText(`${town.healingPotionCost}g`)).toBeInTheDocument();
+		expect(
+			within(alchemist).getByText(`${town.consumables.healingPotion.price}g`),
+		).toBeInTheDocument();
 		fireEvent.click(screen.getByRole("button", { name: "Buy one healing potion" }));
 		await waitFor(() => expect(within(alchemist).getByText("2/3")).toBeInTheDocument());
 		expect(
-			screen.getByLabelText(`${run.state.gold - town.healingPotionCost} gold`),
+			screen.getByLabelText(`${run.state.gold - town.consumables.healingPotion.price} gold`),
 		).toBeInTheDocument();
 		expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 		expect(getRun().state.hero.consumables.healingPotion).toBe(2);

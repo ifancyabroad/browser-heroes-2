@@ -8,8 +8,7 @@ describe("selectTownView", () => {
 		state.hero.consumables.healingPotion = 3;
 		state.gold = 1000;
 		expect(selectTownView(state)).toMatchObject({
-			canAffordHealingPotion: true,
-			canBuyHealingPotion: false,
+			consumables: { healingPotion: { canAfford: true, canBuy: false } },
 		});
 	});
 

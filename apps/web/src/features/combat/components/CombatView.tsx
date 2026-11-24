@@ -172,8 +172,8 @@ export function CombatView({ run }: CombatViewProps) {
 								canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
 								canUseHealingPotion={canUseHealingPotion}
 								availableSkillIds={availableSkillIds}
-								healingPotions={combatView.healingPotions}
-								maxHealingPotions={combatView.maxHealingPotions}
+								healingPotions={combatView.consumables.healingPotion.quantity}
+								maxHealingPotions={combatView.consumables.healingPotion.maxCarry}
 								canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
 								canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
 								isEnemySlain={isEnemySlain}

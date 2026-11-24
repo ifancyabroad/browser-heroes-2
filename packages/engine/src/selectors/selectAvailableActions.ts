@@ -1,7 +1,8 @@
 import type { EngineAction, PlayerUseSkillAction, RunState } from "../schemas";
 import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
-import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { consumables } from "@app/content";
+import { validateConsumableUse } from "../systems/consumables/validateConsumableUse";
 import { isFinalBossVictory } from "../systems/endless/endlessProgression";
 import { canSwapHandWeapons } from "../systems/equipment/canSwapHandWeapons";
 import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefinition";
@@ -9,7 +10,7 @@ import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
 import { isHeroFullyRested } from "../systems/hero/isHeroFullyRested";
 import { canRerollLevelUp } from "../systems/progression/levelUp/selectLevelUpOptions";
 import {
-	calculateHealingPotionCost,
+	calculateConsumableCost,
 	calculateRerollCost,
 	calculateRestCost,
 	calculateTownItemPrice,
@@ -49,11 +50,10 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 			actions.push(...getSkillActions(state));
 		}
 
-		if (state.hero.consumables.healingPotion > 0) {
-			actions.push({
-				type: "PLAYER_USE_CONSUMABLE",
-				consumableType: "healingPotion",
-			});
+		for (const definition of consumables) {
+			if (validateConsumableUse(state.hero, definition.id).ok) {
+				actions.push({ type: "PLAYER_USE_CONSUMABLE", consumableType: definition.id });
+			}
 		}
 
 		actions.push({
@@ -177,8 +177,6 @@ function getTownActions(state: RunState): EngineAction[] {
 
 	const restCost = calculateRestCost(effectiveCharisma, state.day);
 
-	const healingPotionCost = calculateHealingPotionCost(effectiveCharisma, state.zoneNumber);
-
 	const actions: EngineAction[] = [
 		{
 			type: "ENTER_COMBAT",
@@ -197,15 +195,11 @@ function getTownActions(state: RunState): EngineAction[] {
 		});
 	}
 
-	if (
-		state.hero.consumables.healingPotion < MAX_HEALING_POTIONS &&
-		state.gold >= healingPotionCost
-	) {
-		actions.push({
-			type: "BUY_CONSUMABLE",
-			consumableType: "healingPotion",
-			quantity: 1,
-		});
+	for (const definition of consumables) {
+		const price = calculateConsumableCost(definition.id, effectiveCharisma, state.zoneNumber);
+		if (state.hero.consumables[definition.id] < definition.maxCarry && state.gold >= price) {
+			actions.push({ type: "BUY_CONSUMABLE", consumableType: definition.id, quantity: 1 });
+		}
 	}
 
 	if (canSwapHandWeapons(state)) {

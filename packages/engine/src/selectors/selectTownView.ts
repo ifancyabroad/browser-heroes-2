@@ -1,8 +1,8 @@
-import { type Zone } from "@app/content";
+import { consumableIds, type ConsumableId, type Zone } from "@app/content";
 
 import type { RunState, RuntimeItem, TownShopSlot } from "../schemas";
 
-import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import { selectConsumableInventory, type ConsumableView } from "./selectConsumableInventory";
 import {
 	BATTLES_PER_ZONE,
 	getZoneBattleNumber,
@@ -11,7 +11,7 @@ import { getItemInstanceDefinition } from "../systems/items/getItemInstanceDefin
 import { deriveHeroStats } from "../systems/hero/deriveHeroStats";
 import { isHeroFullyRested } from "../systems/hero/isHeroFullyRested";
 import {
-	calculateHealingPotionCost,
+	calculateConsumableCost,
 	calculateRerollCost,
 	calculateRestCost,
 	calculateTownItemPrice,
@@ -48,11 +48,13 @@ export type TownView = {
 
 	shopSlots: readonly TownShopSlotView[];
 
-	healingPotions: number;
-	maxHealingPotions: number;
-	healingPotionCost: number;
-	canAffordHealingPotion: boolean;
-	canBuyHealingPotion: boolean;
+	consumables: Record<ConsumableId, TownConsumableView>;
+};
+
+export type TownConsumableView = ConsumableView & {
+	price: number;
+	canAfford: boolean;
+	canBuy: boolean;
 };
 
 export function selectTownView(state: RunState): TownView | null {
@@ -70,8 +72,6 @@ export function selectTownView(state: RunState): TownView | null {
 	);
 
 	const restCost = calculateRestCost(effectiveCharisma, state.day);
-
-	const healingPotionCost = calculateHealingPotionCost(effectiveCharisma, state.zoneNumber);
 
 	return {
 		battleNumber: state.battleNumber,
@@ -95,14 +95,30 @@ export function selectTownView(state: RunState): TownView | null {
 			createTownShopSlotView(state, slot, effectiveCharisma),
 		),
 
-		healingPotions: state.hero.consumables.healingPotion,
-		maxHealingPotions: MAX_HEALING_POTIONS,
-		healingPotionCost,
-		canAffordHealingPotion: state.gold >= healingPotionCost,
-		canBuyHealingPotion:
-			state.hero.consumables.healingPotion < MAX_HEALING_POTIONS &&
-			state.gold >= healingPotionCost,
+		consumables: selectTownConsumables(state, effectiveCharisma),
 	};
+}
+
+function selectTownConsumables(
+	state: RunState,
+	effectiveCharisma: number,
+): Record<ConsumableId, TownConsumableView> {
+	const inventory = selectConsumableInventory(state.hero);
+	return Object.fromEntries(
+		consumableIds.map((id) => {
+			const entry = inventory[id];
+			const price = calculateConsumableCost(id, effectiveCharisma, state.zoneNumber);
+			return [
+				id,
+				{
+					...entry,
+					price,
+					canAfford: state.gold >= price,
+					canBuy: entry.quantity < entry.maxCarry && state.gold >= price,
+				},
+			];
+		}),
+	) as Record<ConsumableId, TownConsumableView>;
 }
 
 function createTownShopSlotView(

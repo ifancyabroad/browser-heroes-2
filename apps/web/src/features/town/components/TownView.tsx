@@ -154,7 +154,9 @@ export function TownView({ run }: TownViewProps) {
 	}
 
 	const canRest = availableActionTypes.has("REST_AT_TOWN");
-	const canBuyPotion = availableActionTypes.has("BUY_CONSUMABLE");
+	const canBuyPotion = availableActions.some(
+		(action) => action.type === "BUY_CONSUMABLE" && action.consumableType === "healingPotion",
+	);
 	return (
 		<GameLayout>
 			<GameMainPanel>

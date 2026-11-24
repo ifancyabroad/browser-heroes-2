@@ -94,8 +94,7 @@ function createCombatView() {
 		goldMultiplier: 1,
 		zone: "forest",
 		nextZoneOptions: ["castle"],
-		healingPotions: 1,
-		maxHealingPotions: 3,
+		consumables: { healingPotion: { name: "Healing Potion", quantity: 1, maxCarry: 3 } },
 		enemyDescriptor: undefined,
 		combat: {
 			status: "active",

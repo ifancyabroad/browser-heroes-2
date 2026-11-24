@@ -44,10 +44,6 @@ export function calculateShopLevel(zoneNumber: number): number {
 	return Math.max(1, zoneNumber);
 }
 
-export function calculateHealingPotionCost(effectiveCharisma: number, zoneNumber: number): number {
-	return calculateConsumableCost("healingPotion", effectiveCharisma, zoneNumber);
-}
-
 export function calculateConsumableCost(
 	consumableId: ConsumableId,
 	effectiveCharisma: number,

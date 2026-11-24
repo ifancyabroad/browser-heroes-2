@@ -8,6 +8,7 @@ import type {
 } from "../../../schemas";
 import { hasActiveStatus } from "../effects/hasActiveStatus";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
+import { validateConsumableUse } from "../../consumables/validateConsumableUse";
 
 export type PlayerRoundAction =
 	| PlayerBasicAttackAction
@@ -46,8 +47,11 @@ export function validatePlayerAction(
 		}
 	}
 
-	if (action.type === "PLAYER_USE_CONSUMABLE" && state.hero.consumables.healingPotion <= 0) {
-		return { ok: false, error: "NO_HEALING_POTIONS_AVAILABLE" };
+	if (action.type === "PLAYER_USE_CONSUMABLE") {
+		const validation = validateConsumableUse(state.hero, action.consumableType);
+		if (!validation.ok) {
+			return validation;
+		}
 	}
 
 	return { ok: true };

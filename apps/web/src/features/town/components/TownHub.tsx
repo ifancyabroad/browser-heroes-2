@@ -31,7 +31,8 @@ export function TownHub({
 	onContinue,
 }: TownHubProps) {
 	const zoneName = formatTitle(town.zone);
-	const potionsFull = town.healingPotions >= town.maxHealingPotions;
+	const potion = town.consumables.healingPotion;
+	const potionsFull = potion.quantity >= potion.maxCarry;
 	const services = [
 		{
 			id: "tavern",
@@ -49,10 +50,10 @@ export function TownHub({
 			id: "alchemist",
 			name: "Alchemist",
 			icon: healingPotionIcon,
-			status: `${town.healingPotions}/${town.maxHealingPotions}`,
-			variant: potionsFull ? "success" : town.healingPotions === 0 ? "error" : "warning",
-			price: town.healingPotionCost,
-			canAfford: town.canAffordHealingPotion,
+			status: `${potion.quantity}/${potion.maxCarry}`,
+			variant: potionsFull ? "success" : potion.quantity === 0 ? "error" : "warning",
+			price: potion.price,
+			canAfford: potion.canAfford,
 			label: "Buy one healing potion",
 			disabled: isPending || !canBuyPotion,
 			onClick: onBuyPotion,

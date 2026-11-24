@@ -1,12 +1,50 @@
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
+import { CONSUMABLES_BY_ID } from "@app/content";
+import { resolveConsumableEffect } from "./resolveConsumableEffect";
 import {
 	addPlayerStatus,
 	createTestCombatState,
 	modifyTestRunState,
 } from "../../test/createTestRunState";
 
-describe("useHealingPotion", () => {
+describe("useConsumable (healing potion)", () => {
+	it("resolves percentage healing with the existing rounding and healing modifiers", () => {
+		const combat = createTestCombatState().combat!;
+		combat.player.maxHp = 101;
+		combat.player.currentHp = 10;
+		combat.player.activeEffects.push({
+			id: "healing-boost",
+			type: "modifyHealing",
+			multiplier: 1.5,
+			sourceCombatantId: combat.player.id,
+			sourceSide: "player",
+			source: {
+				type: "skill",
+				skillId: "armour",
+				sourceName: "Boost",
+				sourceEffectKey: "healing",
+			},
+			duration: { unit: "turns", remaining: 2 },
+		});
+		const result = resolveConsumableEffect(combat, CONSUMABLES_BY_ID.healingPotion);
+		expect(result.amount).toBe(76);
+		expect(result.combat.player.currentHp).toBe(86);
+	});
+
+	it("allows use while silenced and leaves skill charges untouched", () => {
+		const state = addPlayerStatus(createTestCombatState(), "silenced");
+		const result = applyAction(state, {
+			type: "PLAYER_USE_CONSUMABLE",
+			consumableType: "healingPotion",
+		});
+		expect(result.ok).toBe(true);
+		expect(result.state.hero.consumables.healingPotion).toBe(2);
+		expect(result.state.hero.skills).toEqual(state.hero.skills);
+		expect(result.events.filter((event) => event.type === "HEALING_POTION_USED")).toHaveLength(
+			1,
+		);
+	});
 	it.each([0, 3])("reports actual restored HP with %i HP missing", (missingHp) => {
 		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.combat!.player.maxHp = 100;

@@ -7,7 +7,10 @@ import {
 } from "../systems/encounters/zones/getZoneNumberForBattle";
 
 import { calculateGoldMultiplier } from "../systems/progression/rewards/calculateGoldMultiplier";
-import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import {
+	selectConsumableInventory,
+	type ConsumableInventoryView,
+} from "./selectConsumableInventory";
 import { getCombatTurnOrder } from "../systems/combat/rounds/getCombatTurnOrder";
 
 export type CombatTurnOrderEntry = {
@@ -30,8 +33,7 @@ export type CombatViewState = {
 	xp: number;
 	streak: number;
 	goldMultiplier: number;
-	healingPotions: number;
-	maxHealingPotions: number;
+	consumables: ConsumableInventoryView;
 	enemyDescriptor: string | undefined;
 
 	isActive: boolean;
@@ -66,8 +68,7 @@ export function selectCombatView(state: RunState): CombatViewState | null {
 		xp: state.hero.xp,
 		streak: state.streak,
 		goldMultiplier: calculateGoldMultiplier(state.streak),
-		healingPotions: state.hero.consumables.healingPotion,
-		maxHealingPotions: MAX_HEALING_POTIONS,
+		consumables: selectConsumableInventory(state.hero),
 		enemyDescriptor: getEnemyDescriptor(combat),
 
 		isActive: combat.status === "active",

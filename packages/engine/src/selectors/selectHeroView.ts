@@ -2,7 +2,10 @@ import type { ClassId, FeatId } from "@app/content";
 
 import type { HeroEquipmentState, HeroSkillState, HeroState } from "../schemas";
 import { deriveHeroStats, type DerivedHeroStats } from "../systems/hero/deriveHeroStats";
-import { MAX_HEALING_POTIONS } from "../systems/consumables/healingPotionConstants";
+import {
+	selectConsumableInventory,
+	type ConsumableInventoryView,
+} from "./selectConsumableInventory";
 
 export type HeroView = {
 	name: string;
@@ -20,8 +23,7 @@ export type HeroView = {
 	equipment: HeroEquipmentState;
 	proficiencies: DerivedHeroStats["proficiencies"];
 
-	healingPotions: number;
-	maxHealingPotions: number;
+	consumables: ConsumableInventoryView;
 };
 
 export function selectHeroView(hero: HeroState): HeroView {
@@ -43,7 +45,6 @@ export function selectHeroView(hero: HeroState): HeroView {
 		equipment: hero.equipment,
 		proficiencies: derivedStats.proficiencies,
 
-		healingPotions: hero.consumables.healingPotion,
-		maxHealingPotions: MAX_HEALING_POTIONS,
+		consumables: selectConsumableInventory(hero),
 	};
 }

@@ -11,8 +11,13 @@ describe("selectHeroView", () => {
 			name: "Test Hero",
 			level: 1,
 			classId: "warrior",
-			healingPotions: state.hero.consumables.healingPotion,
-			maxHealingPotions: 3,
+			consumables: {
+				healingPotion: {
+					name: "Healing Potion",
+					quantity: state.hero.consumables.healingPotion,
+					maxCarry: 3,
+				},
+			},
 			equipment: state.hero.equipment,
 		});
 		expect(view.health.maxHp).toBeGreaterThan(0);

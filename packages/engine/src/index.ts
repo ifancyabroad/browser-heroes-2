@@ -63,6 +63,7 @@ export {
 	selectRewardChoiceView,
 	selectRunSummaryView,
 	selectTownView,
+	selectConsumableInventory,
 } from "./selectors";
 
 export type {
@@ -80,4 +81,7 @@ export type {
 	RunSummaryView,
 	TownShopSlotView,
 	TownView,
+	TownConsumableView,
+	ConsumableView,
+	ConsumableInventoryView,
 } from "./selectors";
