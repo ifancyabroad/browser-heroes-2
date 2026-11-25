@@ -102,6 +102,14 @@ export function formatActionOutcome(outcome: ActionOutcome): CombatLogEntryConte
 				message: formatRecurringOutcome(outcome),
 				eventType: "effect_applied",
 			};
+
+		case "actFirst":
+			return {
+				message: outcome.refreshed
+					? `${outcome.targetName}'s turn priority is refreshed for ${formatEffectDuration(outcome.effect.duration)}.`
+					: `${outcome.targetName} acts first for ${formatEffectDuration(outcome.effect.duration)}.`,
+				eventType: "effect_applied",
+			};
 	}
 }
 

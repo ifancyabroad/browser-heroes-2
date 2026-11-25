@@ -9,23 +9,35 @@ describe("consumable inventory", () => {
 	it("starts a current-format run with three healing potions", () => {
 		const state = createTestRunState();
 		expect(state.version).toBe(2);
-		expect(state.hero.consumables).toEqual({ healingPotion: 3, explosivePotion: 0 });
+		expect(state.hero.consumables).toEqual({
+			healingPotion: 3,
+			explosivePotion: 0,
+			speedPotion: 0,
+		});
 		expect(state.hero).not.toHaveProperty("healingPotions");
 	});
 
 	it.each([0, 1, 3])("accepts %i healing potions", (quantity) => {
 		expect(
-			consumableInventorySchema.parse({ healingPotion: quantity, explosivePotion: 0 }),
+			consumableInventorySchema.parse({
+				healingPotion: quantity,
+				explosivePotion: 0,
+				speedPotion: 0,
+			}),
 		).toEqual({
 			healingPotion: quantity,
 			explosivePotion: 0,
+			speedPotion: 0,
 		});
 	});
 
 	it.each([-1, 4, 1.5, NaN, Infinity, "1", null])("rejects invalid quantity %s", (quantity) => {
 		expect(
-			consumableInventorySchema.safeParse({ healingPotion: quantity, explosivePotion: 0 })
-				.success,
+			consumableInventorySchema.safeParse({
+				healingPotion: quantity,
+				explosivePotion: 0,
+				speedPotion: 0,
+			}).success,
 		).toBe(false);
 	});
 
@@ -36,6 +48,7 @@ describe("consumable inventory", () => {
 			consumableInventorySchema.safeParse({
 				healingPotion: 1,
 				explosivePotion: 0,
+				speedPotion: 0,
 				unknownPotion: 1,
 			}).success,
 		).toBe(false);
@@ -43,13 +56,26 @@ describe("consumable inventory", () => {
 
 	it.each([-1, 4, 1.5])("rejects invalid explosive potion quantity %s", (quantity) => {
 		expect(
-			consumableInventorySchema.safeParse({ healingPotion: 3, explosivePotion: quantity })
-				.success,
+			consumableInventorySchema.safeParse({
+				healingPotion: 3,
+				explosivePotion: quantity,
+				speedPotion: 0,
+			}).success,
 		).toBe(false);
 	});
 
 	it.each([1, 3])("rejects snapshot version %i instead of converting it", (version) => {
 		expect(runStateSchema.safeParse({ ...createTestRunState(), version }).success).toBe(false);
+	});
+
+	it.each([-1, 3, 1.5])("rejects invalid speed potion quantity %s", (quantity) => {
+		expect(
+			consumableInventorySchema.safeParse({
+				healingPotion: 3,
+				explosivePotion: 0,
+				speedPotion: quantity,
+			}).success,
+		).toBe(false);
 	});
 
 	it("requires the current inventory shape for both run heroes and ghost snapshots", () => {

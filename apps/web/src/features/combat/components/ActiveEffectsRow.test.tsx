@@ -39,6 +39,38 @@ const statEffect: ActiveCombatEffect = {
 };
 
 describe("ActiveEffectsRow", () => {
+	it("displays a consumable-sourced priority effect using its content icon", () => {
+		render(
+			<ActiveEffectsRow
+				label="Active effects"
+				effects={[
+					{
+						id: "speed",
+						type: "actFirst",
+						sourceCombatantId: "player",
+						sourceSide: "player",
+						source: {
+							type: "consumable",
+							consumableId: "speedPotion",
+							sourceName: "Potion of Speed",
+							sourceEffectKey: "effect:0",
+						},
+						duration: { unit: "battles", remaining: 1 },
+					},
+				]}
+			/>,
+		);
+		expect(screen.getByText("Potion of Speed")).toBeInTheDocument();
+		expect(screen.getByText("Always act first")).toBeInTheDocument();
+		expect(screen.getByText("1 battle remaining")).toBeInTheDocument();
+		expect(
+			screen.getByLabelText("Potion of Speed active effects").querySelector("img"),
+		).toHaveAttribute(
+			"src",
+			expect.stringContaining("consumables/Alchemy_24_energy_potion.png"),
+		);
+	});
+
 	it("shows matching durations once below all effects and keeps charges with their effect", () => {
 		render(<ActiveEffectsRow label="Active effects" effects={[rollEffect, statEffect]} />);
 

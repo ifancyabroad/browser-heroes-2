@@ -19,5 +19,9 @@ export function isSameActiveEffectSource(a: ActiveCombatEffect, b: ActiveCombatE
 				b.source.type === "basicAttack" &&
 				a.source.sourceDefinitionId === b.source.sourceDefinitionId
 			);
+		case "consumable":
+			return (
+				b.source.type === "consumable" && a.source.consumableId === b.source.consumableId
+			);
 	}
 }

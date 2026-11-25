@@ -52,7 +52,11 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 		featIds: [],
 		equipment,
 		pendingLevelUp: null,
-		consumables: { healingPotion: STARTING_HEALING_POTIONS, explosivePotion: 0 },
+		consumables: {
+			healingPotion: STARTING_HEALING_POTIONS,
+			explosivePotion: 0,
+			speedPotion: 0,
+		},
 	};
 
 	return heroStateSchema.parse({

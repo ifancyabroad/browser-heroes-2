@@ -1,4 +1,4 @@
-import { FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
+import { CONSUMABLES_BY_ID, FEATS_BY_ID, SKILLS_BY_ID } from "@app/content";
 import clsx from "clsx";
 import type { ActiveCombatEffect } from "@app/engine";
 import { Tooltip } from "../../../components/Tooltip";
@@ -151,6 +151,15 @@ function getActiveEffectDisplaySource(effect: ActiveCombatEffect) {
 			key: `${sourceKeyPrefix}:${effect.source.featId}`,
 			sourceName: feat.name,
 			icon: resolveImageUrl(feat.icon),
+		};
+	}
+
+	if (effect.source.type === "consumable") {
+		const consumable = CONSUMABLES_BY_ID[effect.source.consumableId];
+		return {
+			key: `${sourceKeyPrefix}:${effect.source.consumableId}`,
+			sourceName: consumable.name,
+			icon: resolveImageUrl(consumable.icon),
 		};
 	}
 

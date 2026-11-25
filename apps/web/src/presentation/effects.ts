@@ -246,6 +246,8 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 			return `${effect.dice} healing per turn`;
 		case "shield":
 			return `${effect.remainingAmount}-point shield`;
+		case "actFirst":
+			return "Always act first";
 		default:
 			return assertNever(effect);
 	}
@@ -274,6 +276,7 @@ export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 				: "negative";
 		case "healOverTime":
 		case "shield":
+		case "actFirst":
 			return "positive";
 		default:
 			return assertNever(effect);

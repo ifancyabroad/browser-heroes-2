@@ -112,7 +112,11 @@ describe("useConsumable (explosive potion)", () => {
 		expect(selectAvailableActions(state)).toContainEqual(usePotion);
 		const result = applyAction(state, usePotion);
 		expect(result.ok).toBe(true);
-		expect(result.state.hero.consumables).toEqual({ healingPotion: 3, explosivePotion: 1 });
+		expect(result.state.hero.consumables).toEqual({
+			healingPotion: 3,
+			explosivePotion: 1,
+			speedPotion: 0,
+		});
 		expect(result.state.combat!.turnNumber).toBe(2);
 		expect(
 			result.state.combat!.log.filter((entry) => entry.eventType === "consumable_used"),
@@ -246,7 +250,11 @@ describe("useConsumable (explosive potion)", () => {
 		const result = applyAction(state, buy);
 		expect(result.ok).toBe(true);
 		expect(result.state.gold).toBe(73);
-		expect(result.state.hero.consumables).toEqual({ healingPotion: 3, explosivePotion: 3 });
+		expect(result.state.hero.consumables).toEqual({
+			healingPotion: 3,
+			explosivePotion: 3,
+			speedPotion: 0,
+		});
 		expect(result.events).toContainEqual({
 			type: "CONSUMABLE_BOUGHT",
 			consumableType: "explosivePotion",

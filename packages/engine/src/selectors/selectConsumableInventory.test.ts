@@ -13,6 +13,7 @@ describe("consumable projections", () => {
 		const expected = {
 			healingPotion: { name: "Healing Potion", quantity: 2, maxCarry: 3 },
 			explosivePotion: { name: "Explosive Potion", quantity: 0, maxCarry: 3 },
+			speedPotion: { name: "Potion of Speed", quantity: 0, maxCarry: 2 },
 		};
 		expect(selectConsumableInventory(state.hero)).toEqual(expected);
 		expect(selectHeroView(state.hero).consumables).toEqual(expected);

@@ -1,5 +1,6 @@
 import type {
 	ApplyStatusEffect,
+	ConsumableActFirstEffect,
 	DamageOverTimeEffect,
 	DamageType,
 	HealOverTimeEffect,
@@ -30,6 +31,7 @@ export type ActionOutcome =
 	| { type: "miss"; targetId: string; targetName: string }
 	| { type: "resisted"; targetName: string; subject: string }
 	| { type: "healing"; targetId: string; targetName: string; amount: number }
+	| { type: "actFirst"; targetName: string; effect: ConsumableActFirstEffect; refreshed: boolean }
 	| {
 			type: "modifier";
 			targetName: string;

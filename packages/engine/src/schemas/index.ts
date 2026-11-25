@@ -112,6 +112,7 @@ export type {
 	ActiveDamageOverTimeEffect,
 	ActiveHealOverTimeEffect,
 	ActiveShieldEffect,
+	ActiveActFirstEffect,
 	ActiveEffectSource,
 	ActiveTurnDuration,
 	ActiveBattleDuration,

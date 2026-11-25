@@ -58,7 +58,7 @@ export function createSystemGhostEncounter(encounterLevel: number): GhostEncount
 		featIds: [...definition.featIds],
 		equipment: applyEquipmentRecipes(initialHero.equipment, definition),
 		pendingLevelUp: null,
-		consumables: { healingPotion: 0, explosivePotion: 0 },
+		consumables: { healingPotion: 0, explosivePotion: 0, speedPotion: 0 },
 	};
 	const derivedMaxHp = deriveHeroStats(heroWithAuthoredBuild).health.maxHp;
 	const hero = heroStateSchema.parse({
