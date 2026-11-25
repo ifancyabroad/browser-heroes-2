@@ -246,10 +246,12 @@ export const statusEffectDescriptions: Record<StatusEffect, string> = {
 	stunned: "Stunned",
 	silenced: "Silenced",
 	haste: "Always act first",
+	invisible: "Untargetable",
 };
 
 export const statusEffectVerbs: Record<StatusEffect, string> = {
 	stunned: "Stun",
 	silenced: "Silence",
 	haste: "Hasten",
+	invisible: "Turn invisible",
 };

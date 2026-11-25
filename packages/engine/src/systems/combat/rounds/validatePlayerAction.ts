@@ -9,6 +9,7 @@ import type {
 import { hasActiveStatus } from "../effects/statuses/hasActiveStatus";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
 import { validateConsumableUse } from "../../consumables/validateConsumableUse";
+import { canTargetCombatant } from "../combatants/canTargetCombatant";
 
 export type PlayerRoundAction =
 	| PlayerBasicAttackAction
@@ -40,7 +41,7 @@ export function validatePlayerAction(
 			return { ok: false, error: "PLAYER_IS_SILENCED" };
 		}
 
-		const validation = validateCombatantSkillUse(combat.player, action.skillId);
+		const validation = validateCombatantSkillUse(combat.player, action.skillId, combat.enemy);
 
 		if (!validation.ok) {
 			return validation;
@@ -48,10 +49,14 @@ export function validatePlayerAction(
 	}
 
 	if (action.type === "PLAYER_USE_CONSUMABLE") {
-		const validation = validateConsumableUse(state.hero, action.consumableType);
+		const validation = validateConsumableUse(state.hero, action.consumableType, combat);
 		if (!validation.ok) {
 			return validation;
 		}
+	}
+
+	if (action.type === "PLAYER_BASIC_ATTACK" && !canTargetCombatant(combat.player, combat.enemy)) {
+		return { ok: false, error: "TARGET_NOT_AVAILABLE" };
 	}
 
 	return { ok: true };

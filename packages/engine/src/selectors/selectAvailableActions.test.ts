@@ -1,3 +1,4 @@
+import { createTestCombat, createTestStatus } from "../test/createTestCombat";
 import { describe, expect, it } from "vitest";
 import { selectAvailableActions } from "./selectAvailableActions";
 import {
@@ -118,3 +119,26 @@ describe("selectAvailableActions", () => {
 function createActionTypes(state: ReturnType<typeof createTestCombatState>) {
 	return selectAvailableActions(state).map((action) => action.type);
 }
+
+describe("selectAvailableActions targeting", () => {
+	it("excludes opponent-targeting actions while retaining self-targeted actions and skip", () => {
+		const state = createTestCombatState();
+		state.combat = createTestCombat();
+		state.combat.enemy.activeEffects.push(createTestStatus(state.combat.enemy, "invisible", 3));
+		state.combat.player.skills = [
+			{ skillId: "armour", chargesRemaining: 2 },
+			{ skillId: "shocking_grasp", chargesRemaining: 2 },
+		];
+		state.hero.consumables.healingPotion = 1;
+		state.hero.consumables.explosivePotion = 1;
+		state.hero.consumables.speedPotion = 1;
+		state.hero.consumables.invisibilityPotion = 1;
+		expect(selectAvailableActions(state)).toEqual([
+			{ type: "PLAYER_USE_SKILL", skillId: "armour" },
+			{ type: "PLAYER_USE_CONSUMABLE", consumableType: "healingPotion" },
+			{ type: "PLAYER_USE_CONSUMABLE", consumableType: "invisibilityPotion" },
+			{ type: "PLAYER_USE_CONSUMABLE", consumableType: "speedPotion" },
+			{ type: "PLAYER_SKIP_TURN" },
+		]);
+	});
+});

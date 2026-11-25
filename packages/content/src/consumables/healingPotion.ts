@@ -9,6 +9,7 @@ export default buildConsumable({
 	maxCarry: 3,
 	effect: {
 		type: "healPercent",
+		target: "self",
 		percent: 0.5,
 	},
 });

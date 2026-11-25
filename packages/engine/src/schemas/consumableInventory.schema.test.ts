@@ -13,6 +13,7 @@ describe("consumable inventory", () => {
 			healingPotion: 3,
 			explosivePotion: 0,
 			speedPotion: 0,
+			invisibilityPotion: 0,
 		});
 		expect(state.hero).not.toHaveProperty("healingPotions");
 	});
@@ -23,11 +24,13 @@ describe("consumable inventory", () => {
 				healingPotion: quantity,
 				explosivePotion: 0,
 				speedPotion: 0,
+				invisibilityPotion: 0,
 			}),
 		).toEqual({
 			healingPotion: quantity,
 			explosivePotion: 0,
 			speedPotion: 0,
+			invisibilityPotion: 0,
 		});
 	});
 
@@ -37,6 +40,7 @@ describe("consumable inventory", () => {
 				healingPotion: quantity,
 				explosivePotion: 0,
 				speedPotion: 0,
+				invisibilityPotion: 0,
 			}).success,
 		).toBe(false);
 	});
@@ -49,6 +53,7 @@ describe("consumable inventory", () => {
 				healingPotion: 1,
 				explosivePotion: 0,
 				speedPotion: 0,
+				invisibilityPotion: 0,
 				unknownPotion: 1,
 			}).success,
 		).toBe(false);
@@ -60,6 +65,7 @@ describe("consumable inventory", () => {
 				healingPotion: 3,
 				explosivePotion: quantity,
 				speedPotion: 0,
+				invisibilityPotion: 0,
 			}).success,
 		).toBe(false);
 	});
@@ -74,6 +80,7 @@ describe("consumable inventory", () => {
 				healingPotion: 3,
 				explosivePotion: 0,
 				speedPotion: quantity,
+				invisibilityPotion: 0,
 			}).success,
 		).toBe(false);
 	});

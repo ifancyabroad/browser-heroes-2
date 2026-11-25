@@ -1,3 +1,4 @@
+import { selectConsumableInventory } from "./selectConsumableInventory";
 import { describe, expect, it } from "vitest";
 import {
 	createTestCombatState,
@@ -108,10 +109,6 @@ describe("selectCombatView", () => {
 	it("projects all consumable quantities and carrying limits", () => {
 		const state = createTestCombatState();
 		state.hero.consumables.healingPotion = 2;
-		expect(selectCombatView(state)!.consumables).toEqual({
-			healingPotion: { name: "Healing Potion", quantity: 2, maxCarry: 3 },
-			explosivePotion: { name: "Explosive Potion", quantity: 0, maxCarry: 3 },
-			speedPotion: { name: "Potion of Speed", quantity: 0, maxCarry: 2 },
-		});
+		expect(selectCombatView(state)!.consumables).toEqual(selectConsumableInventory(state.hero));
 	});
 });

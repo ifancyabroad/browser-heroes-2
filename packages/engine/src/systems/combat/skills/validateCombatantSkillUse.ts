@@ -19,6 +19,7 @@ import {
 } from "@app/content";
 
 import type { CombatantSkillState, CombatantState, EngineErrorCode } from "../../../schemas";
+import { canTargetCombatant } from "../combatants/canTargetCombatant";
 
 export type SupportedSkillEffect =
 	| DamageEffect
@@ -54,6 +55,7 @@ type ValidateCombatantSkillUseResult =
 export function validateCombatantSkillUse(
 	combatant: CombatantState,
 	skillId: SkillId,
+	opponent: CombatantState,
 ): ValidateCombatantSkillUseResult {
 	const skillState = combatant.skills.find((skill) => skill.skillId === skillId);
 
@@ -80,6 +82,13 @@ export function validateCombatantSkillUse(
 			ok: false,
 			error: "SKILL_EFFECT_NOT_SUPPORTED",
 		};
+	}
+
+	if (
+		effects.some((effect) => effect.target === "enemy") &&
+		!canTargetCombatant(combatant, opponent)
+	) {
+		return { ok: false, error: "TARGET_NOT_AVAILABLE" };
 	}
 
 	return {

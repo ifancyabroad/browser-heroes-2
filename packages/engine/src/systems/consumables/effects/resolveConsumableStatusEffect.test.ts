@@ -6,6 +6,7 @@ import { resolveConsumableStatusEffect } from "./resolveConsumableStatusEffect";
 
 const hasteEffect = {
 	type: "applyStatus",
+	target: "self",
 	statusId: "haste",
 	duration: { unit: "battles", value: 1 },
 } as const;
@@ -43,8 +44,8 @@ describe("resolveConsumableStatusEffect", () => {
 			effects: [
 				{
 					type: "applyStatus",
-					statusId: "haste",
 					target: "self",
+					statusId: "haste",
 					duration: { unit: "battles", value: 1 },
 				},
 			],

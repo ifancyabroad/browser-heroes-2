@@ -93,20 +93,23 @@ describe("serializeRunState", () => {
 		});
 	});
 
-	it("preserves the effect and deterministic turn order through save/load", () => {
-		const state = createTestCombatState();
-		state.hero.consumables.speedPotion = 2;
-		const first = applyAction(state, {
-			type: "PLAYER_USE_CONSUMABLE",
-			consumableType: "speedPotion",
-		});
-		const restored = deserializeRunStateJson(serializeRunState(first.state));
-		expect(restored.ok).toBe(true);
-		if (!restored.ok) {
-			throw new Error(restored.error);
-		}
-		expect(applyAction(restored.state, { type: "PLAYER_SKIP_TURN" })).toEqual(
-			applyAction(first.state, { type: "PLAYER_SKIP_TURN" }),
-		);
-	});
+	it.each(["speedPotion", "invisibilityPotion"] as const)(
+		"preserves %s effects and deterministic resolution through save/load",
+		(consumableType) => {
+			const state = createTestCombatState();
+			state.hero.consumables[consumableType] = 1;
+			const first = applyAction(state, {
+				type: "PLAYER_USE_CONSUMABLE",
+				consumableType,
+			});
+			const restored = deserializeRunStateJson(serializeRunState(first.state));
+			expect(restored.ok).toBe(true);
+			if (!restored.ok) {
+				throw new Error(restored.error);
+			}
+			expect(applyAction(restored.state, { type: "PLAYER_SKIP_TURN" })).toEqual(
+				applyAction(first.state, { type: "PLAYER_SKIP_TURN" }),
+			);
+		},
+	);
 });

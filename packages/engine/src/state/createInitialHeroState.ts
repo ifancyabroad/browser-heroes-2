@@ -56,6 +56,7 @@ export function createInitialHeroState(input: CreateInitialHeroStateInput): Hero
 			healingPotion: STARTING_HEALING_POTIONS,
 			explosivePotion: 0,
 			speedPotion: 0,
+			invisibilityPotion: 0,
 		},
 	};
 

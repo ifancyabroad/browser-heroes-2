@@ -94,6 +94,7 @@ describe("useConsumable", () => {
 				healingPotion: 3,
 				explosivePotion: 1,
 				speedPotion: 0,
+				invisibilityPotion: 0,
 			});
 			expect(result.state.combat!.turnNumber).toBe(2);
 			expect(

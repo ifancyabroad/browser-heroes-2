@@ -4,6 +4,7 @@ import { resolveConsumableDamageEffect } from "./resolveConsumableDamageEffect";
 
 const explosiveEffect = {
 	type: "damage",
+	target: "enemy",
 	dice: "3d6",
 	damageType: "fire",
 	damageClass: "other",

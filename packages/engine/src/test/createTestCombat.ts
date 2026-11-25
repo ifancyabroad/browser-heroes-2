@@ -1,4 +1,26 @@
-import type { CombatantSide, CombatantState, CombatState } from "../schemas";
+import type { ActiveStatusEffect, CombatantSide, CombatantState, CombatState } from "../schemas";
+import type { StatusEffect } from "@app/content";
+
+export function createTestStatus(
+	combatant: CombatantState,
+	statusId: StatusEffect,
+	remainingTurns: number,
+): ActiveStatusEffect {
+	return {
+		id: `test-${combatant.side}-${statusId}`,
+		type: "status",
+		statusId,
+		sourceCombatantId: combatant.id,
+		sourceSide: combatant.side,
+		source: {
+			type: "skill",
+			skillId: "armour",
+			sourceName: `Test ${statusId}`,
+			sourceEffectKey: statusId,
+		},
+		duration: { unit: "turns", remaining: remainingTurns },
+	};
+}
 
 // Behaviour tests start from explicit values, independent of authored content and run generation.
 export function createTestCombat(): CombatState {

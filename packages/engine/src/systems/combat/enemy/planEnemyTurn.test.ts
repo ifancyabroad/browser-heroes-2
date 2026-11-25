@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createTestCombat } from "../../../test/createTestCombat";
+import { createTestCombat, createTestStatus } from "../../../test/createTestCombat";
 
 import { planEnemyTurn } from "./planEnemyTurn";
 import { resolveEnemyTurn } from "./resolveEnemyTurn";
@@ -76,5 +76,27 @@ describe("enemy turn planning", () => {
 		expect(result.value.log).toEqual(
 			expect.arrayContaining([expect.objectContaining({ eventType: "turn_skipped" })]),
 		);
+	});
+});
+
+describe("planEnemyTurn targeting", () => {
+	it("plans a useful self-targeted skill when its opponent is invisible", () => {
+		const combat = createTestCombat();
+		combat.player.activeEffects.push(createTestStatus(combat.player, "invisible", 3));
+		combat.enemy.skills = [
+			{ skillId: "armour", chargesRemaining: 2 },
+			{ skillId: "shocking_grasp", chargesRemaining: 2 },
+		];
+		const plan = planEnemyTurn(combat, { value: 7 });
+		expect(plan.value).toEqual({ type: "skill", skillId: "armour" });
+	});
+	it("passes without consuming RNG when no useful action can target a combatant", () => {
+		const combat = createTestCombat();
+		combat.player.activeEffects.push(createTestStatus(combat.player, "invisible", 3));
+		combat.enemy.skills = [{ skillId: "shocking_grasp", chargesRemaining: 2 }];
+		expect(planEnemyTurn(combat, { value: 7 })).toEqual({
+			value: { type: "skip" },
+			rngState: { value: 7 },
+		});
 	});
 });

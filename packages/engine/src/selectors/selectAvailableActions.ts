@@ -1,5 +1,7 @@
 import type { EngineAction, PlayerUseSkillAction, RunState } from "../schemas";
 import { hasActiveStatus } from "../systems/combat/effects/statuses/hasActiveStatus";
+import { canTargetCombatant } from "../systems/combat/combatants/canTargetCombatant";
+import { validateCombatantSkillUse } from "../systems/combat/skills/validateCombatantSkillUse";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { consumables } from "@app/content";
 import { validateConsumableUse } from "../systems/consumables/validateConsumableUse";
@@ -40,18 +42,17 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 			];
 		}
 
-		const actions: EngineAction[] = [
-			{
-				type: "PLAYER_BASIC_ATTACK",
-			},
-		];
+		const actions: EngineAction[] = [];
+		if (canTargetCombatant(player, state.combat.enemy)) {
+			actions.push({ type: "PLAYER_BASIC_ATTACK" });
+		}
 
 		if (!hasActiveStatus(player, "silenced")) {
 			actions.push(...getSkillActions(state));
 		}
 
 		for (const definition of consumables) {
-			if (validateConsumableUse(state.hero, definition.id).ok) {
+			if (validateConsumableUse(state.hero, definition.id, state.combat).ok) {
 				actions.push({ type: "PLAYER_USE_CONSUMABLE", consumableType: definition.id });
 			}
 		}
@@ -275,8 +276,9 @@ function getSkillActions(state: RunState): PlayerUseSkillAction[] {
 		return [];
 	}
 
-	return state.combat.player.skills
-		.filter((skill) => skill.chargesRemaining === undefined || skill.chargesRemaining > 0)
+	const { player, enemy } = state.combat;
+	return player.skills
+		.filter((skill) => validateCombatantSkillUse(player, skill.skillId, enemy).ok)
 		.map((skill) => ({
 			type: "PLAYER_USE_SKILL",
 			skillId: skill.skillId,

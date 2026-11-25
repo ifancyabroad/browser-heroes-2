@@ -7,6 +7,9 @@ import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
 import { useConsumable } from "../../consumables/useConsumable";
 import type { PlayerRoundAction } from "./validatePlayerAction";
+import { removeInvisibility } from "../effects/lifecycle/removeInvisibility";
+import { validateConsumableUse } from "../../consumables/validateConsumableUse";
+import { canTargetCombatant } from "../combatants/canTargetCombatant";
 
 export type PlayerActionContext = {
 	type: "basic_attack" | "skill";
@@ -31,36 +34,46 @@ export function resolvePlayerTurn(
 			? `${combat.player.name} is stunned and cannot act.`
 			: `${combat.player.name} skips their turn.`;
 
-		return {
-			state: {
-				...state,
-				combat: appendCombatLog(combat, {
-					turnNumber: combat.turnNumber,
-					actor: "player",
-					message,
-					eventType: "turn_skipped",
-				}),
-			},
-			events: [],
-			actionContext: null,
-		};
+		return skipPlayerTurn(state, message);
 	}
 
+	const unavailableTargetMessage = `${combat.enemy.name} is invisible and cannot be targeted by ${combat.player.name}.`;
+
 	if (action.type === "PLAYER_USE_CONSUMABLE") {
-		return { ...useConsumable(state, action.consumableType), actionContext: null };
+		const validation = validateConsumableUse(state.hero, action.consumableType, combat);
+		if (!validation.ok) {
+			if (validation.error === "TARGET_NOT_AVAILABLE") {
+				return skipPlayerTurn(state, unavailableTargetMessage);
+			}
+			throw new Error("Validated player consumable became unavailable during the round");
+		}
+		return {
+			...useConsumable(
+				{ ...state, combat: removeInvisibility(combat, "player") },
+				action.consumableType,
+			),
+			actionContext: null,
+		};
 	}
 
 	const targetStartedAtFullHp = combat.enemy.currentHp === combat.enemy.maxHp;
 
 	if (action.type === "PLAYER_USE_SKILL" && !hasActiveStatus(combat.player, "silenced")) {
-		const validation = validateCombatantSkillUse(combat.player, action.skillId);
+		const validation = validateCombatantSkillUse(combat.player, action.skillId, combat.enemy);
 
 		if (!validation.ok) {
+			if (validation.error === "TARGET_NOT_AVAILABLE") {
+				return skipPlayerTurn(state, unavailableTargetMessage);
+			}
 			throw new Error("Validated player skill became unavailable during the round");
 		}
 
 		const result = resolveSkillEffects({
-			combat: consumeCombatantSkillCharge(combat, "player", action.skillId),
+			combat: consumeCombatantSkillCharge(
+				removeInvisibility(combat, "player"),
+				"player",
+				action.skillId,
+			),
 			actorSide: "player",
 			effects: validation.value.effects,
 			skillId: action.skillId,
@@ -85,11 +98,34 @@ export function resolvePlayerTurn(
 		};
 	}
 
-	const attack = resolveBasicAttack({ combat, attackerSide: "player", rngState });
+	if (!canTargetCombatant(combat.player, combat.enemy)) {
+		return skipPlayerTurn(state, unavailableTargetMessage);
+	}
+	const attack = resolveBasicAttack({
+		combat: removeInvisibility(combat, "player"),
+		attackerSide: "player",
+		rngState,
+	});
 
 	return {
 		state: { ...state, combat: attack.value, rngState: attack.rngState },
 		events: [],
 		actionContext: { type: "basic_attack", targetStartedAtFullHp },
+	};
+}
+
+function skipPlayerTurn(state: CombatRunState, message: string): PlayerTurnResult {
+	return {
+		state: {
+			...state,
+			combat: appendCombatLog(state.combat, {
+				turnNumber: state.combat.turnNumber,
+				actor: "player",
+				message,
+				eventType: "turn_skipped",
+			}),
+		},
+		events: [],
+		actionContext: null,
 	};
 }

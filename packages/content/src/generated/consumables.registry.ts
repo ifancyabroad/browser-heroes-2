@@ -7,14 +7,15 @@ import { consumableIdSchema, consumableIds } from './consumableIds';
 
 import con_explosivePotion_0 from '../consumables/explosivePotion';
 import con_healingPotion_1 from '../consumables/healingPotion';
-import con_speedPotion_2 from '../consumables/speedPotion';
+import con_invisibilityPotion_2 from '../consumables/invisibilityPotion';
+import con_speedPotion_3 from '../consumables/speedPotion';
 
 export { consumableIdSchema, consumableIds };
 export type { ConsumableId } from './consumableIds';
 
 export type Consumable = WithGeneratedId<ConsumableDefinition, ConsumableId>;
 
-const rawConsumables = [con_explosivePotion_0, con_healingPotion_1, con_speedPotion_2] satisfies readonly ConsumableDefinition[];
+const rawConsumables = [con_explosivePotion_0, con_healingPotion_1, con_invisibilityPotion_2, con_speedPotion_3] satisfies readonly ConsumableDefinition[];
 
 // Reference IDs are validated by generateContent.ts before this registry is written.
 export const consumables = rawConsumables as readonly Consumable[];
@@ -22,7 +23,8 @@ export const consumables = rawConsumables as readonly Consumable[];
 const rawConsumablesById = {
   "explosivePotion": con_explosivePotion_0,
   "healingPotion": con_healingPotion_1,
-  "speedPotion": con_speedPotion_2,
+  "invisibilityPotion": con_invisibilityPotion_2,
+  "speedPotion": con_speedPotion_3,
 } satisfies Record<ConsumableId, ConsumableDefinition>;
 
 // Reference IDs are validated by generateContent.ts before this registry is written.

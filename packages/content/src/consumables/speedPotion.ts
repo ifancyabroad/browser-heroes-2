@@ -9,6 +9,7 @@ export default buildConsumable({
 	maxCarry: 2,
 	effect: {
 		type: "applyStatus",
+		target: "self",
 		statusId: "haste",
 		duration: { unit: "battles", value: 1 },
 	},

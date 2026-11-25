@@ -3,7 +3,8 @@ import type { RiderEffect } from "@app/content";
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../../actions";
 import type { CombatantSide, EngineAction, RunState } from "../../../schemas";
-import { createTestCombat } from "../../../test/createTestCombat";
+import { createTestCombat, createTestStatus } from "../../../test/createTestCombat";
+import { hasActiveStatus } from "../effects/statuses/hasActiveStatus";
 import {
 	createTestCombatState,
 	addPlayerStatus,
@@ -505,6 +506,7 @@ describe("resolveCombatRound", () => {
 			healingPotion: 3,
 			explosivePotion: 0,
 			speedPotion: 1,
+			invisibilityPotion: 0,
 		});
 		expect(first.events).toContainEqual({
 			type: "CONSUMABLE_USED",
@@ -584,5 +586,115 @@ describe("resolveCombatRound", () => {
 		expect(result.state.combat!.player.activeEffects).toEqual(
 			first.state.combat!.player.activeEffects,
 		);
+	});
+});
+
+describe("resolveCombatRound invisibility", () => {
+	function invisibleState(remaining = 3) {
+		const state = createRoundState(9);
+		state.combat!.player.activeEffects.push(
+			createTestStatus(state.combat!.player, "invisible", remaining),
+		);
+		return state;
+	}
+
+	it.each([9, 11])(
+		"takes effect when the potion executes against enemy Initiative %i",
+		(initiative) => {
+			const state = createRoundState(initiative);
+			state.hero.consumables.invisibilityPotion = 1;
+			const result = applyAction(state, {
+				type: "PLAYER_USE_CONSUMABLE",
+				consumableType: "invisibilityPotion",
+			});
+			expect(result.ok).toBe(true);
+			expect(result.state.hero.consumables.invisibilityPotion).toBe(0);
+			expect(hasActiveStatus(result.state.combat!.player, "invisible")).toBe(true);
+			expect(attackOrder(result.state)).toEqual(initiative > 10 ? ["enemy"] : []);
+		},
+	);
+
+	it("advances duration on skipped turns and allows targeting after expiration", () => {
+		const first = applyAction(invisibleState(2), { type: "PLAYER_SKIP_TURN" });
+		expect(hasActiveStatus(first.state.combat!.player, "invisible")).toBe(true);
+		expect(attackOrder(first.state)).toEqual([]);
+		const second = applyAction(first.state, { type: "PLAYER_SKIP_TURN" });
+		expect(hasActiveStatus(second.state.combat!.player, "invisible")).toBe(false);
+		// The enemy planned a skip before expiration and does not reconsider it.
+		expect(attackOrder(second.state, 2)).toEqual([]);
+		const third = applyAction(second.state, { type: "PLAYER_SKIP_TURN" });
+		expect(attackOrder(third.state, 3)).toEqual(["enemy"]);
+	});
+
+	it.each([attack, skill, potion, explosivePotion, speedPotion])(
+		"reveals the hero when $type executes",
+		(action) => {
+			const state = invisibleState();
+			if (action.type === "PLAYER_USE_CONSUMABLE") {
+				state.hero.consumables[action.consumableType] = 1;
+			}
+			const result = applyAction(state, action);
+			expect(result.ok).toBe(true);
+			expect(hasActiveStatus(result.state.combat!.player, "invisible")).toBe(false);
+			expect(result.state.combat!.log).toContainEqual(
+				expect.objectContaining({
+					actor: "player",
+					eventType: "effect_expired",
+					message: "Invisibility ends on Test player.",
+				}),
+			);
+			// A previously planned skip remains a skip even when the hero becomes visible.
+			expect(attackOrder(result.state).filter((side) => side === "enemy")).toEqual([]);
+		},
+	);
+
+	it("reveals an attacking hero even when the attack misses", () => {
+		const state = invisibleState();
+		const attackRoll = state.combat!.player.activeEffects.find(
+			(effect) => effect.type === "modifyRoll",
+		);
+		if (!attackRoll || attackRoll.type !== "modifyRoll") {
+			throw new Error("Expected the test attack roll modifier");
+		}
+		attackRoll.mode = "automaticFailure";
+		const result = applyAction(state, attack);
+		expect(result.ok).toBe(true);
+		expect(result.state.combat!.enemy.currentHp).toBe(state.combat!.enemy.currentHp);
+		expect(attackOrder(result.state)).toEqual(["player"]);
+		expect(hasActiveStatus(result.state.combat!.player, "invisible")).toBe(false);
+	});
+
+	it("preserves invisibility when stun prevents an action", () => {
+		const state = invisibleState();
+		state.combat!.player.activeEffects.push(
+			createTestStatus(state.combat!.player, "stunned", 1),
+		);
+		const result = applyAction(state, { type: "PLAYER_SKIP_TURN" });
+		expect(result.ok).toBe(true);
+		expect(hasActiveStatus(result.state.combat!.player, "invisible")).toBe(true);
+	});
+
+	it("continues existing damage over time without revealing the source", () => {
+		const state = invisibleState();
+		state.combat!.enemy.activeEffects.push({
+			id: "existing-poison",
+			type: "damageOverTime",
+			dice: "1d4",
+			damageType: "poison",
+			damageClass: "other",
+			sourceCombatantId: state.combat!.player.id,
+			sourceSide: "player",
+			source: {
+				type: "skill",
+				skillId: "armour",
+				sourceName: "Test poison",
+				sourceEffectKey: "poison",
+			},
+			duration: { unit: "turns", remaining: 2 },
+		});
+		const result = applyAction(state, { type: "PLAYER_SKIP_TURN" });
+		expect(result.ok).toBe(true);
+		expect(result.state.combat!.enemy.currentHp).toBeLessThan(state.combat!.enemy.currentHp);
+		expect(hasActiveStatus(result.state.combat!.player, "invisible")).toBe(true);
 	});
 });

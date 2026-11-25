@@ -4,4 +4,5 @@ export const statusLabels: Record<StatusEffect, { name: string; adjective: strin
 	stunned: { name: "Stun", adjective: "stunned" },
 	silenced: { name: "Silence", adjective: "silenced" },
 	haste: { name: "Haste", adjective: "hastened" },
+	invisible: { name: "Invisibility", adjective: "invisible" },
 };

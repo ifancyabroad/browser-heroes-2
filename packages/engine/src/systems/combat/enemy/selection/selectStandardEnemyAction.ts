@@ -9,7 +9,7 @@ import {
 	normalizeEnemyTactic,
 	type StandardEnemyTactic,
 } from "../enemyTactics";
-import { getEnemyActionCandidates } from "../getEnemyActionCandidates";
+import { getEnemyActionOptions } from "../getEnemyActionOptions";
 
 type SelectStandardEnemyActionInput = {
 	enemy: CombatantState;
@@ -22,17 +22,20 @@ type SelectStandardEnemyActionInput = {
 export function selectStandardEnemyAction(
 	input: SelectStandardEnemyActionInput,
 ): RngResult<EnemyAction> {
-	const candidates = getEnemyActionCandidates(input.enemy, input.player, input.excludedSkillIds);
+	const options = getEnemyActionOptions(input.enemy, input.player, input.excludedSkillIds);
+	if (options.type === "fallback") {
+		return { value: options.action, rngState: input.rngState };
+	}
+
 	const behaviour = normalizeEnemyTactic(input.tactic);
-	const weightedActions = candidates.map((candidate) => ({
+	const weightedActions = options.candidates.map((candidate) => ({
 		value: candidate.action,
 		weight: getEnemyActionWeight(behaviour, candidate),
 	}));
 
-	return (
-		selectWeightedItem(weightedActions, input.rngState) ?? {
-			value: { type: "basicAttack" },
-			rngState: input.rngState,
-		}
-	);
+	const selected = selectWeightedItem(weightedActions, input.rngState);
+	if (!selected) {
+		throw new Error("Enemy action candidates must have a positive weight");
+	}
+	return selected;
 }

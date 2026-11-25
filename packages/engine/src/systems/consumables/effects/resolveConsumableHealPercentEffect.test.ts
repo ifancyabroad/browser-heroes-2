@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { createTestCombat } from "../../../test/createTestCombat";
 import { resolveConsumableHealPercentEffect } from "./resolveConsumableHealPercentEffect";
 
-const healingEffect = { type: "healPercent", percent: 0.5 } as const;
+const healingEffect = { type: "healPercent", target: "self", percent: 0.5 } as const;
 describe("resolveConsumableHealPercentEffect", () => {
 	it("resolves percentage healing with the existing rounding and healing modifiers", () => {
 		const combat = createTestCombat();

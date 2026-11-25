@@ -16,6 +16,7 @@ const engineErrorMessages: Record<EngineErrorCode, string> = {
 	SKILL_HAS_NO_USES_REMAINING: "That skill has no uses remaining.",
 	SKILL_EFFECT_NOT_SUPPORTED: "That skill is not supported yet.",
 	PLAYER_CANNOT_ACT: "You cannot act right now.",
+	TARGET_NOT_AVAILABLE: "Your opponent cannot be targeted right now.",
 	PLAYER_IS_SILENCED: "You cannot use skills while silenced.",
 	LEVEL_UP_REQUIRED: "Choose a level-up reward before continuing.",
 	REWARD_SELECTION_REQUIRED: "Choose a reward before continuing.",

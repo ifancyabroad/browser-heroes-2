@@ -9,6 +9,7 @@ export default buildConsumable({
 	maxCarry: 3,
 	effect: {
 		type: "damage",
+		target: "enemy",
 		dice: "3d6",
 		damageType: "fire",
 		damageClass: "other",

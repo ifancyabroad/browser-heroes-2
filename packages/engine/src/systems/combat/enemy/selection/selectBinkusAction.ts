@@ -27,7 +27,7 @@ export function selectBinkusAction(input: SelectBinkusActionInput): RngResult<En
 		if (
 			maxUses !== undefined &&
 			skillState?.chargesRemaining === maxUses &&
-			validateCombatantSkillUse(input.enemy, skillId).ok
+			validateCombatantSkillUse(input.enemy, skillId, input.player).ok
 		) {
 			return { value: { type: "skill", skillId }, rngState: input.rngState };
 		}

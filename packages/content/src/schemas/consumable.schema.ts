@@ -4,11 +4,13 @@ import { effectDurationSchema, statusEffectSchema } from "./effect.schema";
 
 export const consumableHealPercentEffectSchema = z.object({
 	type: z.literal("healPercent"),
+	target: z.literal("self"),
 	percent: z.number().positive().max(1),
 });
 
 export const consumableDamageEffectSchema = z.object({
 	type: z.literal("damage"),
+	target: z.literal("enemy"),
 	dice: diceFormulaSchema,
 	damageType: damageTypeSchema,
 	damageClass: damageClassSchema,
@@ -16,6 +18,7 @@ export const consumableDamageEffectSchema = z.object({
 
 export const consumableApplyStatusEffectSchema = z.object({
 	type: z.literal("applyStatus"),
+	target: z.literal("self"),
 	statusId: statusEffectSchema,
 	duration: effectDurationSchema,
 });

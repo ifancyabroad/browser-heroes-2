@@ -171,6 +171,7 @@ describe("buyConsumable", () => {
 			healingPotion: 3,
 			explosivePotion: 3,
 			speedPotion: 0,
+			invisibilityPotion: 0,
 		});
 		expect(result.events).toContainEqual({
 			type: "CONSUMABLE_BOUGHT",

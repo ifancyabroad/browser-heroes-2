@@ -4,6 +4,7 @@ const beneficialStatuses: Record<StatusEffect, boolean> = {
 	stunned: false,
 	silenced: false,
 	haste: true,
+	invisible: true,
 };
 
 export function isBeneficialStatus(statusId: StatusEffect): boolean {

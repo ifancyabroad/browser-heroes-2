@@ -4,20 +4,21 @@ import type { CombatantState } from "../../../schemas";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
 import { assessEnemySkill } from "./assessment/assessEnemySkill";
 import { assessEnemyWeaponAttack } from "./assessment/assessEnemyEffect";
-import type { EnemyActionCandidate } from "./enemyActions";
+import type { EnemyActionCandidate, EnemyActionOptions } from "./enemyActions";
+import { canTargetCombatant } from "../combatants/canTargetCombatant";
 
-export function getEnemyActionCandidates(
+export function getEnemyActionOptions(
 	enemy: CombatantState,
 	player: CombatantState,
 	excludedSkillIds: readonly SkillId[] = [],
-): EnemyActionCandidate[] {
+): EnemyActionOptions {
 	const candidates: EnemyActionCandidate[] = [];
 
 	for (const { skillId } of enemy.skills) {
 		if (excludedSkillIds.includes(skillId)) {
 			continue;
 		}
-		const validation = validateCombatantSkillUse(enemy, skillId);
+		const validation = validateCombatantSkillUse(enemy, skillId, player);
 		if (!validation.ok) {
 			continue;
 		}
@@ -27,11 +28,15 @@ export function getEnemyActionCandidates(
 		}
 	}
 
-	// With no useful skills, selection falls back to a basic attack without consuming RNG.
-	if (candidates.length > 0 && assessEnemyWeaponAttack(enemy, player) !== null) {
+	const canAttack = canTargetCombatant(enemy, player);
+	if (candidates.length === 0) {
+		return { type: "fallback", action: canAttack ? { type: "basicAttack" } : { type: "skip" } };
+	}
+
+	if (canAttack && assessEnemyWeaponAttack(enemy, player) !== null) {
 		// Basic attacks use their own weight category regardless of their riders.
 		candidates.unshift({ action: { type: "basicAttack" }, category: "basicAttack" });
 	}
 
-	return candidates;
+	return { type: "choices", candidates };
 }

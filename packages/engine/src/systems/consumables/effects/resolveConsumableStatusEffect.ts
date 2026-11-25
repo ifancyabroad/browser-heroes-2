@@ -17,7 +17,7 @@ export function resolveConsumableStatusEffect(
 	return applyStatusEffect({
 		combat,
 		actorSide: "player",
-		effect: { ...effect, target: "self" },
+		effect,
 		source: {
 			type: "consumable",
 			consumableId,
