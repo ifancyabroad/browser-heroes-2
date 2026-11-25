@@ -1,9 +1,14 @@
+import { selectAvailableActions } from "../../../selectors/selectAvailableActions";
 import type { RiderEffect } from "@app/content";
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../../actions";
 import type { CombatantSide, EngineAction, RunState } from "../../../schemas";
 import { createTestCombat } from "../../../test/createTestCombat";
-import { createTestCombatState } from "../../../test/createTestRunState";
+import {
+	createTestCombatState,
+	addPlayerStatus,
+	modifyTestRunState,
+} from "../../../test/createTestRunState";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 
 function createRoundState(enemyInitiative = 11) {
@@ -52,6 +57,21 @@ function attackOrder(state: RunState, turnNumber = 1) {
 const attack = { type: "PLAYER_BASIC_ATTACK" } as const;
 const skill = { type: "PLAYER_USE_SKILL", skillId: "armour" } as const;
 const potion = { type: "PLAYER_USE_CONSUMABLE", consumableType: "healingPotion" } as const;
+
+const explosivePotion = {
+	type: "PLAYER_USE_CONSUMABLE",
+	consumableType: "explosivePotion",
+} as const;
+const speedPotion = { type: "PLAYER_USE_CONSUMABLE", consumableType: "speedPotion" } as const;
+function createConsumableRoundState(
+	consumableType: "speedPotion" | "explosivePotion",
+	enemyFirst = false,
+) {
+	const state = createRoundState(enemyFirst ? 10000 : 9);
+	state.combat!.player.activeEffects = [];
+	state.hero.consumables[consumableType] = 2;
+	return { ...state, combat: state.combat!, rngState: { value: 0 } };
+}
 
 describe("resolveCombatRound", () => {
 	it.each([
@@ -126,10 +146,13 @@ describe("resolveCombatRound", () => {
 		expect(attackOrder(second.state, 2)).toEqual(["enemy", "player"]);
 	});
 
-	it.each([attack, skill, potion])(
+	it.each([attack, skill, potion, explosivePotion, speedPotion])(
 		"cancels $type when the faster enemy stuns the hero",
 		(action) => {
 			const state = createRoundState();
+			if (action.type === "PLAYER_USE_CONSUMABLE") {
+				state.hero.consumables[action.consumableType] = 2;
+			}
 			addRider(state, "enemy", {
 				type: "applyStatus",
 				target: "enemy",
@@ -140,10 +163,17 @@ describe("resolveCombatRound", () => {
 			const result = applyAction(state, action);
 
 			expect(result.ok).toBe(true);
+			expect(result.state.combat!.status).toBe("active");
 			expect(attackOrder(result.state)).toEqual(["enemy"]);
-			expect(result.state.hero.consumables.healingPotion).toBe(
-				state.hero.consumables.healingPotion,
-			);
+			expect(result.state.hero.consumables).toEqual(state.hero.consumables);
+			expect(
+				result.state.combat!.log.some((entry) => entry.eventType === "consumable_used"),
+			).toBe(false);
+			expect(
+				result.state.combat!.player.activeEffects.some(
+					(effect) => effect.type === "status" && effect.statusId === "haste",
+				),
+			).toBe(false);
 			expect(result.state.combat!.player.skills).toEqual(state.combat!.player.skills);
 			expect(result.events.map((event) => event.type)).toEqual(["COMBAT_TURN_RESOLVED"]);
 			expect(result.state.combat!.log).toContainEqual(
@@ -276,19 +306,30 @@ describe("resolveCombatRound", () => {
 		).toEqual({ type: "healing", targetId: player.id, amount: damageTaken });
 	});
 
-	it.each([attack, skill, potion])(
+	it.each([attack, skill, potion, explosivePotion, speedPotion])(
 		"ends in defeat without executing $type after lethal enemy damage",
 		(action) => {
 			const state = createRoundState();
+			if (action.type === "PLAYER_USE_CONSUMABLE") {
+				state.hero.consumables[action.consumableType] = 2;
+			}
 			state.combat!.player.currentHp = 1;
 
 			const result = applyAction(state, action);
 
 			expect(result.state.phase).toBe("dead");
+			expect(result.ok).toBe(true);
+			expect(result.state.combat!.status).toBe("enemy_won");
 			expect(attackOrder(result.state)).toEqual(["enemy"]);
-			expect(result.state.hero.consumables.healingPotion).toBe(
-				state.hero.consumables.healingPotion,
-			);
+			expect(result.state.hero.consumables).toEqual(state.hero.consumables);
+			expect(
+				result.state.combat!.log.some((entry) => entry.eventType === "consumable_used"),
+			).toBe(false);
+			expect(
+				result.state.combat!.player.activeEffects.some(
+					(effect) => effect.type === "status" && effect.statusId === "haste",
+				),
+			).toBe(false);
 			expect(result.state.combat!.player.skills).toEqual(state.combat!.player.skills);
 			expect(result.events).toEqual([
 				expect.objectContaining({ type: "COMBAT_ENDED", outcome: "defeat" }),
@@ -398,5 +439,150 @@ describe("resolveCombatRound", () => {
 		expect(second.ok).toBe(true);
 		expect(first).toEqual(second);
 		expect(state).toEqual(original);
+	});
+
+	it("rejects use with no potions or while stunned", () => {
+		const empty = modifyTestRunState(createTestCombatState(), (draft) => {
+			draft.hero.consumables.healingPotion = 0;
+		});
+		expect(
+			applyAction(empty, {
+				type: "PLAYER_USE_CONSUMABLE",
+				consumableType: "healingPotion",
+			}),
+		).toMatchObject({ ok: false, error: "NO_CONSUMABLES_AVAILABLE" });
+
+		const stunned = addPlayerStatus(createTestCombatState(), "stunned");
+		expect(
+			applyAction(stunned, {
+				type: "PLAYER_USE_CONSUMABLE",
+				consumableType: "healingPotion",
+			}),
+		).toMatchObject({ ok: false, error: "PLAYER_CANNOT_ACT" });
+	});
+
+	it("ends combat with normal rewards before the enemy acts on a killing throw", () => {
+		const state = createConsumableRoundState("explosivePotion");
+		state.combat.enemy.currentHp = 1;
+		const result = applyAction(state, explosivePotion);
+		expect(result.ok).toBe(true);
+		expect(result.state.combat!.status).toBe("player_won");
+		expect(result.state.kills).toBe(state.kills + 1);
+		expect(result.state.gold).toBeGreaterThan(state.gold);
+		expect(result.events.filter((event) => event.type === "COMBAT_ENDED")).toHaveLength(1);
+		expect(
+			result.state.combat!.log.some(
+				(entry) => entry.actor === "enemy" && entry.eventType === "basic_attack",
+			),
+		).toBe(false);
+	});
+
+	it("rejects use with an empty inventory without advancing RNG", () => {
+		const state = createConsumableRoundState("explosivePotion");
+		state.hero.consumables.explosivePotion = 0;
+		expect(selectAvailableActions(state)).not.toContainEqual(explosivePotion);
+		expect(applyAction(state, explosivePotion)).toMatchObject({
+			ok: false,
+			error: "NO_CONSUMABLES_AVAILABLE",
+			state,
+		});
+	});
+
+	it("preserves the drinking round's order and guarantees first action in later rounds", () => {
+		const state = createConsumableRoundState("speedPotion", true);
+		expect(selectAvailableActions(state)).toContainEqual(speedPotion);
+		const first = applyAction(state, speedPotion);
+		expect(first.ok).toBe(true);
+		expect(
+			first.state
+				.combat!.log.filter(
+					(entry) =>
+						entry.eventType === "consumable_used" || entry.eventType === "basic_attack",
+				)
+				.map((entry) => entry.actor),
+		).toEqual(["enemy", "player"]);
+		expect(first.state.hero.consumables).toEqual({
+			healingPotion: 3,
+			explosivePotion: 0,
+			speedPotion: 1,
+		});
+		expect(first.events).toContainEqual({
+			type: "CONSUMABLE_USED",
+			consumableType: "speedPotion",
+			remainingQuantity: 1,
+		});
+		expect(first.events).toContainEqual({ type: "COMBAT_TURN_RESOLVED" });
+		expect(first.state.combat!.player.activeEffects).toEqual([
+			expect.objectContaining({
+				type: "status",
+				statusId: "haste",
+				duration: { unit: "battles", remaining: 1 },
+				source: {
+					type: "consumable",
+					consumableId: "speedPotion",
+					sourceName: "Potion of Speed",
+					sourceEffectKey: "effect:0",
+				},
+			}),
+		]);
+		expect(first.state.combat!.log).toContainEqual(
+			expect.objectContaining({
+				eventType: "effect_applied",
+				message: "Test player is hastened for 1 battle.",
+			}),
+		);
+
+		const second = applyAction(first.state, { type: "PLAYER_SKIP_TURN" });
+		expect(second.ok).toBe(true);
+		expect(
+			second.state
+				.combat!.log.filter(
+					(entry) =>
+						entry.turnNumber === 2 &&
+						(entry.eventType === "turn_skipped" || entry.eventType === "basic_attack"),
+				)
+				.map((entry) => entry.actor),
+		).toEqual(["player", "enemy"]);
+		expect(second.state.combat!.player.activeEffects).toEqual(
+			first.state.combat!.player.activeEffects,
+		);
+	});
+
+	it("allows drinking while silenced, but rejects empty inventory and a stunned drinker", () => {
+		const state = createConsumableRoundState("speedPotion", true);
+		expect(applyAction(addPlayerStatus(state, "silenced"), speedPotion).ok).toBe(true);
+		expect(applyAction(addPlayerStatus(state, "stunned"), speedPotion)).toMatchObject({
+			ok: false,
+			error: "PLAYER_CANNOT_ACT",
+		});
+		state.hero.consumables.speedPotion = 0;
+		expect(selectAvailableActions(state)).not.toContainEqual(speedPotion);
+		expect(applyAction(state, speedPotion)).toMatchObject({
+			ok: false,
+			error: "NO_CONSUMABLES_AVAILABLE",
+			state,
+		});
+	});
+
+	it("preserves priority through a stunned skip without allowing the hero to act", () => {
+		const first = applyAction(createConsumableRoundState("speedPotion", true), speedPotion);
+		const stunned = addPlayerStatus(first.state, "stunned");
+		const result = applyAction(stunned, { type: "PLAYER_SKIP_TURN" });
+		expect(result.ok).toBe(true);
+		expect(
+			result.state
+				.combat!.log.filter(
+					(entry) =>
+						entry.turnNumber === 2 &&
+						(entry.eventType === "turn_skipped" || entry.eventType === "basic_attack"),
+				)
+				.map((entry) => [entry.actor, entry.eventType]),
+		).toEqual([
+			["player", "turn_skipped"],
+			["enemy", "basic_attack"],
+		]);
+		expect(result.state.combat!.player.activeEffects).toEqual(
+			first.state.combat!.player.activeEffects,
+		);
 	});
 });

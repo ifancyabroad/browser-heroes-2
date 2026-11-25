@@ -104,4 +104,14 @@ describe("selectCombatView", () => {
 		expect(selectCombatView(boss)?.enemyDescriptor).toBe("Boss");
 		expect(selectCombatView(ghost)?.enemyDescriptor).toBe("Ghost Owner");
 	});
+
+	it("projects all consumable quantities and carrying limits", () => {
+		const state = createTestCombatState();
+		state.hero.consumables.healingPotion = 2;
+		expect(selectCombatView(state)!.consumables).toEqual({
+			healingPotion: { name: "Healing Potion", quantity: 2, maxCarry: 3 },
+			explosivePotion: { name: "Explosive Potion", quantity: 0, maxCarry: 3 },
+			speedPotion: { name: "Potion of Speed", quantity: 0, maxCarry: 2 },
+		});
+	});
 });

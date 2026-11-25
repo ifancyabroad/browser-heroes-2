@@ -91,6 +91,28 @@ describe("selectAvailableActions", () => {
 
 		expect(state).toEqual(original);
 	});
+
+	it.each([
+		{ consumableType: "healingPotion", quantity: 0, gold: 0, canBuy: false },
+		{ consumableType: "healingPotion", quantity: 0, gold: 1000, canBuy: true },
+		{ consumableType: "healingPotion", quantity: 3, gold: 1000, canBuy: false },
+		{ consumableType: "explosivePotion", quantity: 0, gold: 100, canBuy: true },
+		{ consumableType: "speedPotion", quantity: 0, gold: 100, canBuy: true },
+	] as const)(
+		"offers $consumableType with $quantity potions and $gold gold",
+		({ consumableType, quantity, gold, canBuy }) => {
+			const state = createTestTownState();
+			state.hero.consumables[consumableType] = quantity;
+			state.gold = gold;
+			expect(
+				selectAvailableActions(state).some(
+					(action) =>
+						action.type === "BUY_CONSUMABLE" &&
+						action.consumableType === consumableType,
+				),
+			).toBe(canBuy);
+		},
+	);
 });
 
 function createActionTypes(state: ReturnType<typeof createTestCombatState>) {

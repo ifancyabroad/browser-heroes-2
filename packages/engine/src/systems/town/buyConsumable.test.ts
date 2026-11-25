@@ -4,7 +4,7 @@ import { validateAction } from "../../actions/validateAction";
 import { selectTownView } from "../../selectors/selectTownView";
 import { createTestTownState, modifyTestRunState } from "../../test/createTestRunState";
 
-describe("buyConsumable (healing potion)", () => {
+describe("buyConsumable", () => {
 	it("requires an explicit purchase quantity", () => {
 		expect(validateAction({ type: "BUY_CONSUMABLE", consumableType: "healingPotion" }).ok).toBe(
 			false,
@@ -154,5 +154,57 @@ describe("buyConsumable (healing potion)", () => {
 				quantity: 1,
 			}),
 		).toMatchObject({ ok: false, error: "NOT_ENOUGH_GOLD", state });
+	});
+
+	it("buys an explosive potion batch and rejects overflow", () => {
+		const state = createTestTownState();
+		state.gold = 100;
+		const buy = {
+			type: "BUY_CONSUMABLE",
+			consumableType: "explosivePotion",
+			quantity: 3,
+		} as const;
+		const result = applyAction(state, buy);
+		expect(result.ok).toBe(true);
+		expect(result.state.gold).toBe(73);
+		expect(result.state.hero.consumables).toEqual({
+			healingPotion: 3,
+			explosivePotion: 3,
+			speedPotion: 0,
+		});
+		expect(result.events).toContainEqual({
+			type: "CONSUMABLE_BOUGHT",
+			consumableType: "explosivePotion",
+			quantity: 3,
+			cost: 27,
+			remainingQuantity: 3,
+		});
+		expect(applyAction(result.state, { ...buy, quantity: 1 })).toMatchObject({
+			ok: false,
+			error: "CONSUMABLES_FULL",
+			state: result.state,
+		});
+	});
+
+	it("buys up to two speed potions and rejects overflow", () => {
+		const state = createTestTownState();
+		state.gold = 100;
+		const buy = { type: "BUY_CONSUMABLE", consumableType: "speedPotion", quantity: 2 } as const;
+		const result = applyAction(state, buy);
+		expect(result.ok).toBe(true);
+		expect(result.state.gold).toBe(44);
+		expect(result.state.hero.consumables.speedPotion).toBe(2);
+		expect(result.events).toContainEqual({
+			type: "CONSUMABLE_BOUGHT",
+			consumableType: "speedPotion",
+			quantity: 2,
+			cost: 56,
+			remainingQuantity: 2,
+		});
+		expect(applyAction(result.state, { ...buy, quantity: 1 })).toMatchObject({
+			ok: false,
+			error: "CONSUMABLES_FULL",
+			state: result.state,
+		});
 	});
 });

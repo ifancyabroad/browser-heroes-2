@@ -68,4 +68,45 @@ describe("serializeRunState", () => {
 			applyAction(state, { type: "REROLL_LEVEL_UP" }),
 		);
 	});
+
+	it("replays identically after saving and loading", () => {
+		const state = createTestCombatState();
+		state.hero.consumables.explosivePotion = 2;
+		const restored = deserializeRunStateJson(serializeRunState(state));
+		expect(restored.ok).toBe(true);
+		if (!restored.ok) {
+			throw new Error(restored.error);
+		}
+		const result = applyAction(state, {
+			type: "PLAYER_USE_CONSUMABLE",
+			consumableType: "explosivePotion",
+		} as const);
+		expect(
+			applyAction(restored.state, {
+				type: "PLAYER_USE_CONSUMABLE",
+				consumableType: "explosivePotion",
+			} as const),
+		).toEqual(result);
+		expect(deserializeRunStateJson(serializeRunState(result.state))).toEqual({
+			ok: true,
+			state: result.state,
+		});
+	});
+
+	it("preserves the effect and deterministic turn order through save/load", () => {
+		const state = createTestCombatState();
+		state.hero.consumables.speedPotion = 2;
+		const first = applyAction(state, {
+			type: "PLAYER_USE_CONSUMABLE",
+			consumableType: "speedPotion",
+		});
+		const restored = deserializeRunStateJson(serializeRunState(first.state));
+		expect(restored.ok).toBe(true);
+		if (!restored.ok) {
+			throw new Error(restored.error);
+		}
+		expect(applyAction(restored.state, { type: "PLAYER_SKIP_TURN" })).toEqual(
+			applyAction(first.state, { type: "PLAYER_SKIP_TURN" }),
+		);
+	});
 });

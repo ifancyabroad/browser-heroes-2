@@ -1,3 +1,5 @@
+import { resolveConsumableEffect } from "../consumables/resolveConsumableEffect";
+import { CONSUMABLES_BY_ID } from "@app/content";
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
 import { createTestCombatState, createTestVictoryState } from "../../test/createTestRunState";
@@ -80,5 +82,23 @@ describe("returnToTown", () => {
 		expect(returned.state.town?.rerollCount).toBe(0);
 		expect(returned.state.town?.shopSlots[0]).toEqual(lockedSlot);
 		expect(returned.state.shopLocks).toEqual([lockedSlot]);
+	});
+
+	it("does not carry a speed potion's Haste into the next encounter", () => {
+		const state = createTestVictoryState();
+		state.combat = resolveConsumableEffect(
+			state.combat!,
+			CONSUMABLES_BY_ID.speedPotion,
+			state.rngState,
+		).value.combat;
+		const transition = applyAction(state, { type: "RETURN_TO_TOWN" });
+		expect(transition.ok).toBe(true);
+		const next = applyAction(transition.state, { type: "ENTER_COMBAT" });
+		expect(next.ok).toBe(true);
+		expect(
+			next.state.combat!.player.activeEffects.some(
+				(effect) => effect.type === "status" && effect.statusId === "haste",
+			),
+		).toBe(false);
 	});
 });

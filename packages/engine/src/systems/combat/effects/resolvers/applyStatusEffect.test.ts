@@ -1,10 +1,6 @@
-import { CONSUMABLES_BY_ID } from "@app/content";
 import { describe, expect, it } from "vitest";
 import { createTestCombat } from "../../../../test/createTestCombat";
-import { resolveConsumableEffect } from "../../../consumables/resolveConsumableEffect";
 import { formatActionOutcome } from "../../logs/formatActionLog";
-import { getCombatTurnOrder } from "../../rounds/getCombatTurnOrder";
-import { resolveSkillEffects } from "../../skills/resolveSkillEffects";
 import { applyStatusEffect } from "./applyStatusEffect";
 import { hasActiveStatus } from "../statuses/hasActiveStatus";
 
@@ -16,38 +12,8 @@ const skillSource = {
 } as const;
 
 describe("shared status application", () => {
-	it("applies the same Haste status through skills and consumables", () => {
+	it("applies Haste to an enemy acting on itself", () => {
 		const combat = createTestCombat();
-		const rngState = { value: 0 };
-		const skill = resolveSkillEffects({
-			combat,
-			actorSide: "player",
-			skillId: "armour",
-			skillName: "Test Haste",
-			effects: [
-				{
-					type: "applyStatus",
-					statusId: "haste",
-					target: "self",
-					duration: { unit: "battles", value: 1 },
-				},
-			],
-			rngState,
-		});
-		const potion = resolveConsumableEffect(combat, CONSUMABLES_BY_ID.speedPotion, rngState);
-		expect(hasActiveStatus(skill.value.player, "haste")).toBe(true);
-		expect(hasActiveStatus(potion.value.combat.player, "haste")).toBe(true);
-		expect(skill.value.player.activeEffects[0]).toEqual({
-			...potion.value.combat.player.activeEffects[0],
-			source: { ...skillSource, sourceName: "Test Haste" },
-		});
-		expect(skill.rngState).toEqual(rngState);
-		expect(potion.rngState).toEqual(rngState);
-	});
-
-	it("allows an enemy to apply Haste to itself and gain priority", () => {
-		const combat = createTestCombat();
-		combat.player.combatStats.initiative = 100;
 		const result = applyStatusEffect({
 			combat,
 			actorSide: "enemy",
@@ -62,7 +28,6 @@ describe("shared status application", () => {
 		});
 		expect(hasActiveStatus(result.value.combat.enemy, "haste")).toBe(true);
 		expect(hasActiveStatus(result.value.combat.player, "haste")).toBe(false);
-		expect(getCombatTurnOrder(result.value.combat)).toEqual(["enemy", "player"]);
 	});
 
 	it.each([

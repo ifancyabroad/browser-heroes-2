@@ -25,4 +25,14 @@ describe("selectHeroView", () => {
 			state.hero.attributes.strength,
 		);
 	});
+
+	it("projects all consumable quantities and carrying limits", () => {
+		const state = createTestRunState();
+		state.hero.consumables.healingPotion = 2;
+		expect(selectHeroView(state.hero).consumables).toEqual({
+			healingPotion: { name: "Healing Potion", quantity: 2, maxCarry: 3 },
+			explosivePotion: { name: "Explosive Potion", quantity: 0, maxCarry: 3 },
+			speedPotion: { name: "Potion of Speed", quantity: 0, maxCarry: 2 },
+		});
+	});
 });
