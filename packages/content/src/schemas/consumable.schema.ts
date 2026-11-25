@@ -22,6 +22,7 @@ export const consumableSchema = z.object({
 	id: z.string().nonempty(),
 	name: z.string().nonempty(),
 	description: z.string().optional(),
+	icon: z.string().nonempty(),
 	basePrice: z.number().int().positive(),
 	maxCarry: z.number().int().positive(),
 	effect: consumableEffectSchema,
