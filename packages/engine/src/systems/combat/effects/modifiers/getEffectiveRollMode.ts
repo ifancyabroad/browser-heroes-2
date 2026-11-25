@@ -1,7 +1,7 @@
 import type { Attribute, RollMode, RollType } from "@app/content";
 
-import type { ActiveRollModifier, CombatantState } from "../../../schemas";
-import { combineD20RollModes, type D20RollMode } from "../../../core/dice";
+import type { ActiveRollModifier, CombatantState } from "../../../../schemas";
+import { combineD20RollModes, type D20RollMode } from "../../../../core/dice";
 
 export function getEffectiveRollMode(
 	combatant: CombatantState,

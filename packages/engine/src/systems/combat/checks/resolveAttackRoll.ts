@@ -12,12 +12,12 @@ import {
 
 import { getAttributeModifier } from "./getAttributeModifier";
 
-import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveCombatStatValue } from "../effects/modifiers/getEffectiveCombatStatValue";
 import {
 	getChargedRollModifierIds,
 	getMatchingRollModifiers,
 	getRollModeFromModifiers,
-} from "../effects/getEffectiveRollMode";
+} from "../effects/modifiers/getEffectiveRollMode";
 import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type AttackRollResult = {

@@ -1,6 +1,6 @@
 import type { CombatantState, HeroState } from "../../../schemas";
 import { adjustCurrentHpForMaxHpChange } from "../../health/adjustCurrentHpForMaxHpChange";
-import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveCombatStatValue } from "../effects/modifiers/getEffectiveCombatStatValue";
 
 export function syncHeroFromPlayerCombatant(hero: HeroState, player: CombatantState): HeroState {
 	const temporaryMaxHpDelta =

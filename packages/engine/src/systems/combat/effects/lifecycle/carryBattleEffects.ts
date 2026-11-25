@@ -1,5 +1,5 @@
-import type { CombatantState } from "../../../schemas";
-import { replaceCombatantActiveEffects } from "./replaceCombatantActiveEffects";
+import type { CombatantState } from "../../../../schemas";
+import { replaceCombatantActiveEffects } from "../state/replaceCombatantActiveEffects";
 
 export function carryBattleEffects(
 	previousPlayer: CombatantState,

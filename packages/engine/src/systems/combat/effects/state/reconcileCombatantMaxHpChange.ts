@@ -1,6 +1,6 @@
-import type { CombatantState } from "../../../schemas";
-import { adjustCurrentHpForMaxHpChange } from "../../health/adjustCurrentHpForMaxHpChange";
-import { getEffectiveCombatStatValue } from "./getEffectiveCombatStatValue";
+import type { CombatantState } from "../../../../schemas";
+import { adjustCurrentHpForMaxHpChange } from "../../../health/adjustCurrentHpForMaxHpChange";
+import { getEffectiveCombatStatValue } from "../modifiers/getEffectiveCombatStatValue";
 
 export function reconcileCombatantMaxHpChange(
 	previous: CombatantState,

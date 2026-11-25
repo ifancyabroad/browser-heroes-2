@@ -1,6 +1,6 @@
 import type { CombatantSide, CombatState } from "../../../schemas";
-import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
-import { hasActiveStatus } from "../effects/hasActiveStatus";
+import { getEffectiveCombatStatValue } from "../effects/modifiers/getEffectiveCombatStatValue";
+import { hasActiveStatus } from "../effects/statuses/hasActiveStatus";
 
 export function getCombatTurnOrder(combat: CombatState): [CombatantSide, CombatantSide] {
 	const playerActsFirst = hasActiveStatus(combat.player, "haste");

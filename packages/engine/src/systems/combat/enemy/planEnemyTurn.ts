@@ -1,7 +1,7 @@
 import type { CombatState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
 
-import { hasActiveStatus } from "../effects/hasActiveStatus";
+import { hasActiveStatus } from "../effects/statuses/hasActiveStatus";
 
 import { selectEnemyAction, type EnemyAction } from "./selection/selectEnemyAction";
 

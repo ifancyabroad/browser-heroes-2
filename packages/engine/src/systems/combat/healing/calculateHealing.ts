@@ -4,7 +4,7 @@ import type { CombatantState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
 
 import { getAttributeModifier } from "../checks/getAttributeModifier";
-import { getEffectiveHealingMultiplier } from "../effects/getEffectiveHealingMultiplier";
+import { getEffectiveHealingMultiplier } from "../effects/modifiers/getEffectiveHealingMultiplier";
 import { rollDamageDice } from "../damage/rollDamageDice";
 
 export type HealingResult = {

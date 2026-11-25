@@ -6,7 +6,7 @@ import { formatActionOutcome } from "../../logs/formatActionLog";
 import { getCombatTurnOrder } from "../../rounds/getCombatTurnOrder";
 import { resolveSkillEffects } from "../../skills/resolveSkillEffects";
 import { applyStatusEffect } from "./applyStatusEffect";
-import { hasActiveStatus } from "../hasActiveStatus";
+import { hasActiveStatus } from "../statuses/hasActiveStatus";
 
 const skillSource = {
 	type: "skill",

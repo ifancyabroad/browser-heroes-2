@@ -1,4 +1,4 @@
-import type { ActiveHealingModifier, CombatantState } from "../../../schemas";
+import type { ActiveHealingModifier, CombatantState } from "../../../../schemas";
 
 export function getEffectiveHealingMultiplier(combatant: CombatantState): number {
 	return combatant.activeEffects

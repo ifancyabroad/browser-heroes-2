@@ -1,12 +1,12 @@
-import type { ActiveCombatEffect, CombatantSide, CombatState } from "../../../schemas";
+import type { ActiveCombatEffect, CombatantSide, CombatState } from "../../../../schemas";
 
 import { advanceActiveEffects } from "./advanceActiveEffects";
-import { getCombatant, replaceCombatant } from "../combatants/combatantSelectors";
-import { appendCombatLog } from "../logs/appendCombatLog";
-import { RngResult, RngState } from "../../../core/rng";
+import { getCombatant, replaceCombatant } from "../../combatants/combatantSelectors";
+import { appendCombatLog } from "../../logs/appendCombatLog";
+import { RngResult, RngState } from "../../../../core/rng";
 import { resolveDamageOverTimeEffects } from "./resolveDamageOverTimeEffects";
 import { resolveHealOverTimeEffects } from "./resolveHealOverTimeEffects";
-import { isSameActiveEffectSource } from "./activeEffectSource";
+import { isSameActiveEffectSource } from "../state/activeEffectSource";
 
 type AdvanceCombatantEffectsInput = {
 	combat: CombatState;

@@ -1,5 +1,5 @@
 import type { EngineAction, PlayerUseSkillAction, RunState } from "../schemas";
-import { hasActiveStatus } from "../systems/combat/effects/hasActiveStatus";
+import { hasActiveStatus } from "../systems/combat/effects/statuses/hasActiveStatus";
 import { getValidEquipmentSlots } from "../systems/equipment/getValidEquipmentSlots";
 import { consumables } from "@app/content";
 import { validateConsumableUse } from "../systems/consumables/validateConsumableUse";

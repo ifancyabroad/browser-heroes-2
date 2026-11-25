@@ -1,8 +1,8 @@
 import type { CombatState, EngineEvent, EngineResult, RunState } from "../../../schemas";
 import type { RngState } from "../../../core/rng";
 import { failureResult, successResult } from "../../../core/result";
-import { advanceCombatantEffects } from "../effects/advanceCombatantEffects";
-import { getActiveEffectIds } from "../effects/advanceActiveEffects";
+import { advanceCombatantEffects } from "../effects/lifecycle/advanceCombatantEffects";
+import { getActiveEffectIds } from "../effects/lifecycle/advanceActiveEffects";
 import { getCombatTurnOrder } from "./getCombatTurnOrder";
 import { resolveCombatStatus } from "../death/resolveCombatStatus";
 import { applyVictoryReward } from "../../progression/rewards/applyVictoryReward";

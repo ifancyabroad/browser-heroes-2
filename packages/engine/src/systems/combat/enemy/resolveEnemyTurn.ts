@@ -5,7 +5,7 @@ import { resolveBasicAttack } from "../attacks/resolveBasicAttack";
 import { consumeCombatantSkillCharge } from "../skills/consumeCombatantSkillCharge";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
-import { hasActiveStatus } from "../effects/hasActiveStatus";
+import { hasActiveStatus } from "../effects/statuses/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
 
 import type { EnemyAction } from "./selection/selectEnemyAction";

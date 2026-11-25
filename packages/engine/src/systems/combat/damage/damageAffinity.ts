@@ -1,6 +1,6 @@
 import type { DamageType } from "@app/content";
 import type { CombatantState } from "../../../schemas";
-import { getEffectiveDamageAffinities } from "../effects/getEffectiveDamageAffinities";
+import { getEffectiveDamageAffinities } from "../effects/modifiers/getEffectiveDamageAffinities";
 
 export type DamageAffinity = "normal" | "resistant" | "immune" | "vulnerable";
 

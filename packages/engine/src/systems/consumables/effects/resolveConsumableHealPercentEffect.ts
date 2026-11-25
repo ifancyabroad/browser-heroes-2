@@ -4,7 +4,7 @@ import type { RngResult, RngState } from "../../../core/rng";
 import { applyHealing } from "../../combat/healing/applyHealing";
 import { replaceCombatant } from "../../combat/combatants/combatantSelectors";
 import type { ActionResolution } from "../../combat/logs/actionOutcome";
-import { getEffectiveHealingMultiplier } from "../../combat/effects/getEffectiveHealingMultiplier";
+import { getEffectiveHealingMultiplier } from "../../combat/effects/modifiers/getEffectiveHealingMultiplier";
 
 export function resolveConsumableHealPercentEffect(
 	combat: CombatState,

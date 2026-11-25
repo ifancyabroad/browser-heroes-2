@@ -1,7 +1,7 @@
 import type { CombatantState } from "../../../schemas";
 
 import type { DamageResult } from "./calculateDamage";
-import { replaceCombatantActiveEffects } from "../effects/replaceCombatantActiveEffects";
+import { replaceCombatantActiveEffects } from "../effects/state/replaceCombatantActiveEffects";
 
 export type ApplyDamageResult = {
 	combatant: CombatantState;

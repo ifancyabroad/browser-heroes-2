@@ -11,7 +11,7 @@ import { getCombatant, getOpponent, replaceCombatant } from "../combatants/comba
 import { resolveAttackRiders, type AttackRiderSourceContext } from "./resolveAttackRiders";
 import type { ActionResolution } from "../logs/actionOutcome";
 import { resolveFeatAttackRiders } from "./resolveFeatAttackRiders";
-import { consumeCombatantRollModifierCharges } from "../effects/consumeRollModifierCharges";
+import { consumeCombatantRollModifierCharges } from "../effects/modifiers/consumeRollModifierCharges";
 
 type WeaponSkillEnhancement = {
 	effect: AttackDamageEffect;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createTestCombat } from "../../../test/createTestCombat";
+import { createTestCombat } from "../../../../test/createTestCombat";
 import { resolveDamageOverTimeEffects } from "./resolveDamageOverTimeEffects";
 
 describe("resolveDamageOverTimeEffects", () => {

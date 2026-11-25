@@ -1,4 +1,4 @@
-import type { ActiveCombatEffect, CombatantState } from "../../../schemas";
+import type { ActiveCombatEffect, CombatantState } from "../../../../schemas";
 
 import { isSameActiveEffectSource } from "./activeEffectSource";
 import { replaceCombatantActiveEffects } from "./replaceCombatantActiveEffects";

@@ -1,6 +1,6 @@
 import type { EffectDuration } from "@app/content";
 
-import type { ActiveEffectDuration } from "../../../schemas";
+import type { ActiveEffectDuration } from "../../../../schemas";
 
 export function createActiveEffectDuration(duration: EffectDuration): ActiveEffectDuration {
 	return {

@@ -1,7 +1,7 @@
-import type { CombatantSide, CombatantState, CombatState } from "../../../schemas";
+import type { CombatantSide, CombatantState, CombatState } from "../../../../schemas";
 
-import { getCombatant, replaceCombatant } from "../combatants/combatantSelectors";
-import { replaceCombatantActiveEffects } from "./replaceCombatantActiveEffects";
+import { getCombatant, replaceCombatant } from "../../combatants/combatantSelectors";
+import { replaceCombatantActiveEffects } from "../state/replaceCombatantActiveEffects";
 
 export function consumeCombatantRollModifierCharges(
 	combat: CombatState,

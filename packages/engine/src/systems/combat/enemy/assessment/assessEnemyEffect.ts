@@ -18,9 +18,9 @@ import {
 import { getPreferredSkillCategory, type EnemySkillCategory } from "../enemyActions";
 import { getAttributeModifier } from "../../checks/getAttributeModifier";
 import { getDamageAffinity } from "../../damage/damageAffinity";
-import { getEffectiveDamageAffinities } from "../../effects/getEffectiveDamageAffinities";
-import { getEffectiveHealingMultiplier } from "../../effects/getEffectiveHealingMultiplier";
-import { isBeneficialStatus } from "../../effects/isBeneficialStatus";
+import { getEffectiveDamageAffinities } from "../../effects/modifiers/getEffectiveDamageAffinities";
+import { getEffectiveHealingMultiplier } from "../../effects/modifiers/getEffectiveHealingMultiplier";
+import { isBeneficialStatus } from "../../effects/statuses/isBeneficialStatus";
 
 type AssessEnemyEffectInput = {
 	effect: Effect;

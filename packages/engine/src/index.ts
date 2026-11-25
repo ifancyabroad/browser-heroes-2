@@ -40,7 +40,7 @@ export type {
 
 export { serializeRunState, deserializeRunState, deserializeRunStateJson } from "./serialization";
 
-export { isBeneficialStatus } from "./systems/combat/effects/isBeneficialStatus";
+export { isBeneficialStatus } from "./systems/combat/effects/statuses/isBeneficialStatus";
 
 export {
 	hasReachedArmourClassThreshold,

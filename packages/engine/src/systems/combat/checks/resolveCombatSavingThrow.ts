@@ -4,7 +4,7 @@ import type { CombatantSide, CombatState } from "../../../schemas";
 import type { RngResult, RngState } from "../../../core/rng";
 
 import { getCombatant } from "../combatants/combatantSelectors";
-import { consumeCombatantRollModifierCharges } from "../effects/consumeRollModifierCharges";
+import { consumeCombatantRollModifierCharges } from "../effects/modifiers/consumeRollModifierCharges";
 import { resolveSavingThrow, type SavingThrowResult } from "./resolveSavingThrow";
 
 type ResolveCombatSavingThrowInput = {

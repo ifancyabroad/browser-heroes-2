@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import type { ActiveCombatEffect } from "../../../schemas";
-import { createTestCombatState } from "../../../test/createTestRunState";
+import type { ActiveCombatEffect } from "../../../../schemas";
+import { createTestCombatState } from "../../../../test/createTestRunState";
 import { carryBattleEffects } from "./carryBattleEffects";
 
 describe("carryBattleEffects", () => {

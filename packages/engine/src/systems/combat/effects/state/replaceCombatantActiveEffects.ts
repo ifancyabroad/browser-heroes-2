@@ -1,4 +1,4 @@
-import type { ActiveCombatEffect, CombatantState } from "../../../schemas";
+import type { ActiveCombatEffect, CombatantState } from "../../../../schemas";
 import { reconcileCombatantMaxHpChange } from "./reconcileCombatantMaxHpChange";
 
 export function replaceCombatantActiveEffects(

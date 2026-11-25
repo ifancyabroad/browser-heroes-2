@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createTestCombatState } from "../../../test/createTestRunState";
+import { createTestCombatState } from "../../../../test/createTestRunState";
 import { resolveHealOverTimeEffects } from "./resolveHealOverTimeEffects";
 
 describe("resolveHealOverTimeEffects", () => {

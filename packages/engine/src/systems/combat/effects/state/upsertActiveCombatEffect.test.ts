@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import type { ActiveCombatEffect } from "../../../schemas";
-import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
-import { advanceActiveEffects, getActiveEffectIds } from "./advanceActiveEffects";
+import type { ActiveCombatEffect } from "../../../../schemas";
+import { createUnprotectedTestRunState } from "../../../../test/createTestRunState";
+import { advanceActiveEffects, getActiveEffectIds } from "../lifecycle/advanceActiveEffects";
 import { upsertActiveCombatEffect } from "./upsertActiveCombatEffect";
 
 describe("upsertActiveCombatEffect", () => {

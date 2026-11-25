@@ -1,5 +1,5 @@
-import type { ActiveCombatEffect, CombatantState } from "../../../schemas";
-import { replaceCombatantActiveEffects } from "./replaceCombatantActiveEffects";
+import type { ActiveCombatEffect, CombatantState } from "../../../../schemas";
+import { replaceCombatantActiveEffects } from "../state/replaceCombatantActiveEffects";
 
 export type AdvanceActiveEffectsResult = {
 	combatant: CombatantState;

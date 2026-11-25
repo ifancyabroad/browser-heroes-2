@@ -1,6 +1,6 @@
 import type { DamageType } from "@app/content";
 
-import type { ActiveDamageAffinityModifier, CombatantState } from "../../../schemas";
+import type { ActiveDamageAffinityModifier, CombatantState } from "../../../../schemas";
 
 type DamageAffinityKey = "resistances" | "immunities" | "vulnerabilities";
 

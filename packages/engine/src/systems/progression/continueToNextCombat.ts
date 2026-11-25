@@ -3,7 +3,7 @@ import type { EngineResult, GhostEncounter, RunState } from "../../schemas";
 import { failureResult, successResult } from "../../core/result";
 import { createCombat } from "../combat/createCombat";
 import { getNextRunPosition } from "./getNextRunPosition";
-import { carryBattleEffects } from "../combat/effects/carryBattleEffects";
+import { carryBattleEffects } from "../combat/effects/lifecycle/carryBattleEffects";
 
 export function continueToNextCombat(
 	state: RunState,

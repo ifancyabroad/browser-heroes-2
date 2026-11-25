@@ -5,12 +5,12 @@ import type { RngResult, RngState } from "../../../core/rng";
 
 import { rollD20WithMode, type D20Roll, type D20RollMode } from "../../../core/dice";
 import { getAttributeModifier } from "./getAttributeModifier";
-import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveCombatStatValue } from "../effects/modifiers/getEffectiveCombatStatValue";
 import {
 	getChargedRollModifierIds,
 	getMatchingRollModifiers,
 	getRollModeFromModifiers,
-} from "../effects/getEffectiveRollMode";
+} from "../effects/modifiers/getEffectiveRollMode";
 import { calculateBaseProficiencyBonus } from "../rules/calculateBaseProficiencyBonus";
 
 export type SavingThrowResult = {

@@ -18,9 +18,9 @@ import type { RngResult, RngState } from "../../../../core/rng";
 import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
-import { upsertActiveCombatEffect } from "../upsertActiveCombatEffect";
-import { isSameActiveEffectSource } from "../activeEffectSource";
-import { createActiveEffectDuration } from "../createActiveEffectDuration";
+import { upsertActiveCombatEffect } from "../state/upsertActiveCombatEffect";
+import { isSameActiveEffectSource } from "../state/activeEffectSource";
+import { createActiveEffectDuration } from "../state/createActiveEffectDuration";
 import type { ActionResolution } from "../../logs/actionOutcome";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 

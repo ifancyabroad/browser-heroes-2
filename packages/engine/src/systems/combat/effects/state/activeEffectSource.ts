@@ -1,4 +1,4 @@
-import type { ActiveCombatEffect } from "../../../schemas";
+import type { ActiveCombatEffect } from "../../../../schemas";
 
 export function isSameActiveEffectSource(a: ActiveCombatEffect, b: ActiveCombatEffect): boolean {
 	if (

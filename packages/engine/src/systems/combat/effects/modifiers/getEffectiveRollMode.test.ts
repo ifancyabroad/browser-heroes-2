@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { RollModifierMode } from "@app/content";
-import type { ActiveRollModifier, CombatantState } from "../../../schemas";
-import { createTestCombatState } from "../../../test/createTestRunState";
+import type { ActiveRollModifier, CombatantState } from "../../../../schemas";
+import { createTestCombatState } from "../../../../test/createTestRunState";
 import { getChargedRollModifierIds, getEffectiveRollMode } from "./getEffectiveRollMode";
 
 describe("getEffectiveRollMode", () => {

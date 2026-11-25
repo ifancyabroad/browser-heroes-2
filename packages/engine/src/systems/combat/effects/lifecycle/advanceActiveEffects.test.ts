@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { ActiveCombatEffect } from "../../../schemas";
-import { createTestCombatState } from "../../../test/createTestRunState";
+import type { ActiveCombatEffect } from "../../../../schemas";
+import { createTestCombatState } from "../../../../test/createTestRunState";
 import { advanceActiveEffects } from "./advanceActiveEffects";
 
 describe("advanceActiveEffects", () => {

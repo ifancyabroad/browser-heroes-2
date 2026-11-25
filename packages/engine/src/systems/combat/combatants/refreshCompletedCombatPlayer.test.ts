@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { applyAction } from "../../../actions";
 import { createTestVictoryState } from "../../../test/createTestRunState";
 import { createPlayerCombatant } from "./createPlayerCombatant";
-import { replaceCombatantActiveEffects } from "../effects/replaceCombatantActiveEffects";
+import { replaceCombatantActiveEffects } from "../effects/state/replaceCombatantActiveEffects";
 
 describe("completed combat player refresh", () => {
 	it.each([

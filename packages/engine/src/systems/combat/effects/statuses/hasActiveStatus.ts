@@ -1,6 +1,6 @@
 import type { StatusEffect } from "@app/content";
 
-import type { CombatantState } from "../../../schemas";
+import type { CombatantState } from "../../../../schemas";
 
 export function hasActiveStatus(combatant: CombatantState, statusId: StatusEffect): boolean {
 	return combatant.activeEffects.some(

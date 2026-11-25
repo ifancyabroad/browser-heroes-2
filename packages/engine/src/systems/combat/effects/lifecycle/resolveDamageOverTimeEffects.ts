@@ -1,11 +1,15 @@
-import type { ActiveDamageOverTimeEffect, CombatantSide, CombatState } from "../../../schemas";
+import type { ActiveDamageOverTimeEffect, CombatantSide, CombatState } from "../../../../schemas";
 
-import type { RngResult, RngState } from "../../../core/rng";
+import type { RngResult, RngState } from "../../../../core/rng";
 
-import { getCombatant, getCombatantById, replaceCombatant } from "../combatants/combatantSelectors";
-import { applyDamage } from "../damage/applyDamage";
-import { calculateDamage } from "../damage/calculateDamage";
-import { appendCombatLog } from "../logs/appendCombatLog";
+import {
+	getCombatant,
+	getCombatantById,
+	replaceCombatant,
+} from "../../combatants/combatantSelectors";
+import { applyDamage } from "../../damage/applyDamage";
+import { calculateDamage } from "../../damage/calculateDamage";
+import { appendCombatLog } from "../../logs/appendCombatLog";
 
 type ResolveDamageOverTimeEffectsInput = {
 	combat: CombatState;

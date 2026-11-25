@@ -6,7 +6,7 @@ import type {
 	PlayerSkipTurnAction,
 	RunState,
 } from "../../../schemas";
-import { hasActiveStatus } from "../effects/hasActiveStatus";
+import { hasActiveStatus } from "../effects/statuses/hasActiveStatus";
 import { validateCombatantSkillUse } from "../skills/validateCombatantSkillUse";
 import { validateConsumableUse } from "../../consumables/validateConsumableUse";
 

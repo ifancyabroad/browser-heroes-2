@@ -13,11 +13,11 @@ import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
-import { upsertActiveCombatEffect } from "../upsertActiveCombatEffect";
-import { isSameActiveEffectSource } from "../activeEffectSource";
+import { upsertActiveCombatEffect } from "../state/upsertActiveCombatEffect";
+import { isSameActiveEffectSource } from "../state/activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
 import { statusLabels } from "../../logs/statusLabels";
-import { createActiveEffectDuration } from "../createActiveEffectDuration";
+import { createActiveEffectDuration } from "../state/createActiveEffectDuration";
 
 type ApplyStatusEffectInput = {
 	combat: CombatState;

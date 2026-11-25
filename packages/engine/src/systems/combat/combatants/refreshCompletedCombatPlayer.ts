@@ -1,7 +1,7 @@
 import type { HeroState, RunState } from "../../../schemas";
 
 import { createPlayerCombatant } from "./createPlayerCombatant";
-import { replaceCombatantActiveEffects } from "../effects/replaceCombatantActiveEffects";
+import { replaceCombatantActiveEffects } from "../effects/state/replaceCombatantActiveEffects";
 
 export function refreshCompletedCombatPlayer(
 	combat: RunState["combat"],

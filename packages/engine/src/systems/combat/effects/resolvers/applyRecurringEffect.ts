@@ -10,12 +10,12 @@ import type {
 import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
-import { upsertActiveCombatEffect } from "../upsertActiveCombatEffect";
+import { upsertActiveCombatEffect } from "../state/upsertActiveCombatEffect";
 import type { RngResult, RngState } from "../../../../core/rng";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
-import { isSameActiveEffectSource } from "../activeEffectSource";
+import { isSameActiveEffectSource } from "../state/activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
-import { createActiveEffectDuration } from "../createActiveEffectDuration";
+import { createActiveEffectDuration } from "../state/createActiveEffectDuration";
 
 type RecurringEffect = DamageOverTimeEffect | HealOverTimeEffect | ShieldEffect;
 

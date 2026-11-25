@@ -9,9 +9,9 @@ import { applyDamageAffinity, getDamageAffinity, type DamageAffinity } from "./d
 
 import { rollDamageDice, type DamageRollSummary } from "./rollDamageDice";
 import { applyDamageModifiers } from "./applyDamageModifiers";
-import { getEffectiveDamageModifiers } from "../effects/getEffectiveDamageModifiers";
-import { getEffectiveDamageTakenModifiers } from "../effects/getEffectiveDamageTakenModifiers";
-import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { getEffectiveDamageModifiers } from "../effects/modifiers/getEffectiveDamageModifiers";
+import { getEffectiveDamageTakenModifiers } from "../effects/modifiers/getEffectiveDamageTakenModifiers";
+import { getEffectiveCombatStatValue } from "../effects/modifiers/getEffectiveCombatStatValue";
 
 export type DamageResult = {
 	amount: number;

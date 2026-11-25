@@ -1,4 +1,4 @@
-import type { ActiveDamageModifier, CombatantState } from "../../../schemas";
+import type { ActiveDamageModifier, CombatantState } from "../../../../schemas";
 
 export function getEffectiveDamageModifiers(
 	combatant: CombatantState,

@@ -1,11 +1,11 @@
-import type { ActiveHealOverTimeEffect, CombatantSide, CombatState } from "../../../schemas";
+import type { ActiveHealOverTimeEffect, CombatantSide, CombatState } from "../../../../schemas";
 
-import type { RngResult, RngState } from "../../../core/rng";
+import type { RngResult, RngState } from "../../../../core/rng";
 
-import { getCombatant, replaceCombatant } from "../combatants/combatantSelectors";
-import { calculateHealing } from "../healing/calculateHealing";
-import { applyHealing } from "../healing/applyHealing";
-import { appendCombatLog } from "../logs/appendCombatLog";
+import { getCombatant, replaceCombatant } from "../../combatants/combatantSelectors";
+import { calculateHealing } from "../../healing/calculateHealing";
+import { applyHealing } from "../../healing/applyHealing";
+import { appendCombatLog } from "../../logs/appendCombatLog";
 
 type ResolveHealOverTimeEffectsInput = {
 	combat: CombatState;

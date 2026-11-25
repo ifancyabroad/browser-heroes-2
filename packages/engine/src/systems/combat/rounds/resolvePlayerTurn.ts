@@ -1,6 +1,6 @@
 import type { CombatState, EngineEvent, RunState } from "../../../schemas";
 import { resolveBasicAttack } from "../attacks/resolveBasicAttack";
-import { hasActiveStatus } from "../effects/hasActiveStatus";
+import { hasActiveStatus } from "../effects/statuses/hasActiveStatus";
 import { appendCombatLog } from "../logs/appendCombatLog";
 import { consumeCombatantSkillCharge } from "../skills/consumeCombatantSkillCharge";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";

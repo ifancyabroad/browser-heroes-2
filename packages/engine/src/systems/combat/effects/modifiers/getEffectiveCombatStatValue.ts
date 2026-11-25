@@ -1,6 +1,6 @@
 import type { CombatStat } from "@app/content";
 
-import type { ActiveStatModifier, CombatantState } from "../../../schemas";
+import type { ActiveStatModifier, CombatantState } from "../../../../schemas";
 
 export function getEffectiveCombatStatValue(combatant: CombatantState, stat: CombatStat): number {
 	const modifiers = combatant.activeEffects.filter(
