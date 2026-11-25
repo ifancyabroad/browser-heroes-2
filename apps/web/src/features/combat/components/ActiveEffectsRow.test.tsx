@@ -46,7 +46,8 @@ describe("ActiveEffectsRow", () => {
 				effects={[
 					{
 						id: "speed",
-						type: "actFirst",
+						type: "status",
+						statusId: "haste",
 						sourceCombatantId: "player",
 						sourceSide: "player",
 						source: {

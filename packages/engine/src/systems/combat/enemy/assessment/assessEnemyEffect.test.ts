@@ -16,6 +16,56 @@ function assess(effect: Effect) {
 }
 
 describe("enemy effect assessment", () => {
+	it.each([
+		["haste", "self", "setup"],
+		["haste", "enemy", "standard"],
+		["stunned", "enemy", "setup"],
+		["silenced", "enemy", "setup"],
+	] as const)("assesses %s targeting %s as %s", (statusId, target, expected) => {
+		expect(
+			assess({
+				type: "applyStatus",
+				statusId,
+				target,
+				duration: { unit: "turns", value: 2 },
+			}),
+		).toBe(expected);
+	});
+
+	it("does not choose a Haste buff when the target is already hastened by another source", () => {
+		const { enemy, player } = createTestCombat();
+		enemy.activeEffects = [
+			{
+				id: "haste",
+				type: "status",
+				statusId: "haste",
+				sourceCombatantId: enemy.id,
+				sourceSide: "enemy",
+				source: {
+					type: "consumable",
+					consumableId: "speedPotion",
+					sourceName: "Potion of Speed",
+					sourceEffectKey: "effect:0",
+				},
+				duration: { unit: "battles", remaining: 1 },
+			},
+		];
+		expect(
+			assessEnemyEffect({
+				enemy,
+				player,
+				effect: {
+					type: "applyStatus",
+					target: "self",
+					statusId: "haste",
+					duration: { unit: "turns", value: 2 },
+				},
+				source: { type: "skill", skillId: "stand_ground" },
+				sourceEffectKey: "effect:0",
+			}),
+		).toBeNull();
+	});
+
 	it("preserves legacy self-status eligibility without setup preference", () => {
 		expect(
 			assess({

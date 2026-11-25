@@ -1,4 +1,11 @@
-import type { DamageOverTimeEffect, HealOverTimeEffect, ShieldEffect } from "@app/content";
+import type {
+	ModifyDamageAffinityEffect,
+	ModifyDamageEffect,
+	ModifyDamageTakenEffect,
+	ModifyHealingEffect,
+	ModifyRollEffect,
+	ModifyStatEffect,
+} from "@app/content";
 
 import type {
 	ActiveCombatEffect,
@@ -6,39 +13,44 @@ import type {
 	CombatantSide,
 	CombatState,
 } from "../../../../schemas";
+import type { RngResult, RngState } from "../../../../core/rng";
 
 import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
-import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
-import type { RngResult, RngState } from "../../../../core/rng";
-import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
-import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
+import { upsertActiveCombatEffect } from "../upsertActiveCombatEffect";
+import { isSameActiveEffectSource } from "../activeEffectSource";
+import { createActiveEffectDuration } from "../createActiveEffectDuration";
 import type { ActionResolution } from "../../logs/actionOutcome";
-import { createActiveEffectDuration } from "../../effects/createActiveEffectDuration";
+import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 
-type RecurringEffect = DamageOverTimeEffect | HealOverTimeEffect | ShieldEffect;
+type TemporaryModifierEffect =
+	| ModifyStatEffect
+	| ModifyHealingEffect
+	| ModifyDamageEffect
+	| ModifyDamageTakenEffect
+	| ModifyDamageAffinityEffect
+	| ModifyRollEffect;
 
-type ApplyRecurringEffectInput = {
+type ApplyTemporaryModifierEffectInput = {
 	combat: CombatState;
 	actorSide: CombatantSide;
-	effect: RecurringEffect;
+	effect: TemporaryModifierEffect;
 	source: ActiveEffectSource;
 	rngState: RngState;
 };
 
-export function applyRecurringEffect(
-	input: ApplyRecurringEffectInput,
+export function applyTemporaryModifierEffect(
+	input: ApplyTemporaryModifierEffectInput,
 ): RngResult<ActionResolution> {
 	let combat = input.combat;
 	const actor = getCombatant(input.combat, input.actorSide);
 
 	const target =
 		input.effect.target === "self" ? actor : getOpponent(input.combat, input.actorSide);
-
 	let rngState = input.rngState;
 
-	if (input.effect.type === "damageOverTime" && input.effect.save) {
+	if (input.effect.save) {
 		const savingThrow = resolveCombatSavingThrow({
 			combat,
 			rngState,
@@ -58,7 +70,7 @@ export function applyRecurringEffect(
 						{
 							type: "resisted",
 							targetName: target.name,
-							subject: `${input.effect.damageType} damage`,
+							subject: `${input.source.sourceName}'s effect`,
 						},
 					],
 				},
@@ -67,7 +79,7 @@ export function applyRecurringEffect(
 		}
 	}
 
-	const activeEffect = createActiveRecurringEffect({
+	const activeEffect = createActiveCombatEffect({
 		combat,
 		actorId: actor.id,
 		actorSide: actor.side,
@@ -87,18 +99,18 @@ export function applyRecurringEffect(
 		value: {
 			combat: updatedCombat,
 			outcomes: [
-				{ type: "recurring", targetName: target.name, effect: input.effect, refreshed },
+				{ type: "modifier", targetName: target.name, effect: input.effect, refreshed },
 			],
 		},
 		rngState,
 	};
 }
 
-function createActiveRecurringEffect(input: {
+function createActiveCombatEffect(input: {
 	combat: CombatState;
 	actorId: string;
 	actorSide: CombatantSide;
-	effect: RecurringEffect;
+	effect: TemporaryModifierEffect;
 	source: ActiveEffectSource;
 }): ActiveCombatEffect {
 	const base = {
@@ -115,27 +127,60 @@ function createActiveRecurringEffect(input: {
 	};
 
 	switch (input.effect.type) {
-		case "damageOverTime":
+		case "modifyStat":
 			return {
 				...base,
-				type: "damageOverTime",
+				type: "modifyStat",
+				stat: input.effect.stat,
+				value: input.effect.value,
+			};
+
+		case "modifyHealing":
+			return {
+				...base,
+				type: "modifyHealing",
+				multiplier: input.effect.multiplier,
+			};
+
+		case "modifyDamage":
+			return {
+				...base,
+				type: "modifyDamage",
 				damageType: input.effect.damageType,
 				damageClass: input.effect.damageClass,
-				dice: input.effect.dice,
+				attackRange: input.effect.attackRange,
+				operation: input.effect.operation,
+				value: input.effect.value,
 			};
 
-		case "healOverTime":
+		case "modifyDamageTaken":
 			return {
 				...base,
-				type: "healOverTime",
-				dice: input.effect.dice,
+				type: "modifyDamageTaken",
+				damageType: input.effect.damageType,
+				damageClass: input.effect.damageClass,
+				attackRange: input.effect.attackRange,
+				operation: input.effect.operation,
+				value: input.effect.value,
 			};
 
-		case "shield":
+		case "modifyDamageAffinity":
 			return {
 				...base,
-				type: "shield",
-				remainingAmount: input.effect.amount,
+				type: "modifyDamageAffinity",
+				affinity: input.effect.affinity,
+				operation: input.effect.operation,
+				damageType: input.effect.damageType,
+			};
+
+		case "modifyRoll":
+			return {
+				...base,
+				type: "modifyRoll",
+				roll: input.effect.roll,
+				mode: input.effect.mode,
+				attribute: input.effect.attribute,
+				remainingCharges: input.effect.charges,
 			};
 	}
 }

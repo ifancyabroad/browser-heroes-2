@@ -9,7 +9,7 @@ import { calculateDamage } from "../../damage/calculateDamage";
 import { resolveAttackRoll } from "../../checks/resolveAttackRoll";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
 import type { ActionResolution } from "../../logs/actionOutcome";
-import { consumeCombatantRollModifierCharges } from "../../effects/consumeRollModifierCharges";
+import { consumeCombatantRollModifierCharges } from "../consumeRollModifierCharges";
 import { resolveFeatAttackRiders } from "../../attacks/resolveFeatAttackRiders";
 
 type ResolveDamageEffectInput = {

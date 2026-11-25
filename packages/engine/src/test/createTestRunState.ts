@@ -1,4 +1,5 @@
 import { applyAction, createInitialRunState, runStateSchema, type RunState } from "../index";
+import type { StatusEffect } from "@app/content";
 
 const TEST_RUN_INPUT = {
 	runId: "test-run",
@@ -59,7 +60,7 @@ export function modifyTestRunState(state: RunState, modify: (draft: RunState) =>
 	return runStateSchema.parse(draft);
 }
 
-export function addPlayerStatus(state: RunState, statusId: "stunned" | "silenced"): RunState {
+export function addPlayerStatus(state: RunState, statusId: StatusEffect): RunState {
 	return modifyTestRunState(state, (draft) => {
 		if (!draft.combat) {
 			throw new Error("Expected test run to have combat");

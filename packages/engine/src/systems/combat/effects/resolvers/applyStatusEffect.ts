@@ -13,10 +13,11 @@ import { createEffectInstanceId } from "../../../../core/ids";
 
 import { getCombatant, getOpponent, replaceCombatant } from "../../combatants/combatantSelectors";
 import { resolveCombatSavingThrow } from "../../checks/resolveCombatSavingThrow";
-import { upsertActiveCombatEffect } from "../../effects/upsertActiveCombatEffect";
-import { isSameActiveEffectSource } from "../../effects/activeEffectSource";
+import { upsertActiveCombatEffect } from "../upsertActiveCombatEffect";
+import { isSameActiveEffectSource } from "../activeEffectSource";
 import type { ActionResolution } from "../../logs/actionOutcome";
-import { createActiveEffectDuration } from "../../effects/createActiveEffectDuration";
+import { statusLabels } from "../../logs/statusLabels";
+import { createActiveEffectDuration } from "../createActiveEffectDuration";
 
 type ApplyStatusEffectInput = {
 	combat: CombatState;
@@ -55,10 +56,7 @@ export function applyStatusEffect(input: ApplyStatusEffectInput): RngResult<Acti
 						{
 							type: "resisted",
 							targetName: target.name,
-							subject:
-								input.effect.statusId === "stunned"
-									? "being stunned"
-									: "being silenced",
+							subject: `being ${statusLabels[input.effect.statusId].adjective}`,
 						},
 					],
 				},

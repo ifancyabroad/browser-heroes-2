@@ -2,14 +2,14 @@ import type { ActiveEffectSource, CombatantSide, CombatState } from "../../../sc
 
 import type { RngResult, RngState } from "../../../core/rng";
 
-import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
-import { resolveHealEffect } from "../skills/effects/resolveHealEffect";
+import { resolveDamageEffect } from "../effects/resolvers/resolveDamageEffect";
+import { resolveHealEffect } from "../effects/resolvers/resolveHealEffect";
 import type { FeatId, RiderEffect, SavingThrow, SkillId } from "@app/content";
 import { getCombatant, getOpponent } from "../combatants/combatantSelectors";
 import { resolveCombatSavingThrow } from "../checks/resolveCombatSavingThrow";
-import { applyRecurringEffect } from "../skills/effects/applyRecurringEffect";
-import { applyStatusEffect } from "../skills/effects/applyStatusEffect";
-import { applyTemporaryModifierEffect } from "../skills/effects/applyTemporaryModifierEffect";
+import { applyRecurringEffect } from "../effects/resolvers/applyRecurringEffect";
+import { applyStatusEffect } from "../effects/resolvers/applyStatusEffect";
+import { applyTemporaryModifierEffect } from "../effects/resolvers/applyTemporaryModifierEffect";
 import type { ActionResolution } from "../logs/actionOutcome";
 
 export type AttackRiderSourceContext =

@@ -8,7 +8,8 @@ export default buildConsumable({
 	basePrice: 30,
 	maxCarry: 2,
 	effect: {
-		type: "actFirst",
+		type: "applyStatus",
+		statusId: "haste",
 		duration: { unit: "battles", value: 1 },
 	},
 });

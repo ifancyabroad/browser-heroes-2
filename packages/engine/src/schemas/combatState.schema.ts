@@ -153,10 +153,6 @@ export const activeShieldEffectSchema = activeCombatEffectBaseSchema.extend({
 	remainingAmount: z.number().int().min(0),
 });
 
-export const activeActFirstEffectSchema = activeCombatEffectBaseSchema.extend({
-	type: z.literal("actFirst"),
-});
-
 export const activeCombatEffectSchema = z.discriminatedUnion("type", [
 	activeStatModifierSchema,
 	activeHealingModifierSchema,
@@ -168,7 +164,6 @@ export const activeCombatEffectSchema = z.discriminatedUnion("type", [
 	activeDamageOverTimeEffectSchema,
 	activeHealOverTimeEffectSchema,
 	activeShieldEffectSchema,
-	activeActFirstEffectSchema,
 ]);
 
 export const combatantSkillStateSchema = z.object({
@@ -257,7 +252,6 @@ export type ActiveStatusEffect = z.infer<typeof activeStatusEffectSchema>;
 export type ActiveDamageOverTimeEffect = z.infer<typeof activeDamageOverTimeEffectSchema>;
 export type ActiveHealOverTimeEffect = z.infer<typeof activeHealOverTimeEffectSchema>;
 export type ActiveShieldEffect = z.infer<typeof activeShieldEffectSchema>;
-export type ActiveActFirstEffect = z.infer<typeof activeActFirstEffectSchema>;
 export type ActiveCombatEffect = z.infer<typeof activeCombatEffectSchema>;
 export type ActiveEffectSource = z.infer<typeof activeEffectSourceSchema>;
 export type ActiveTurnDuration = z.infer<typeof activeTurnDurationSchema>;

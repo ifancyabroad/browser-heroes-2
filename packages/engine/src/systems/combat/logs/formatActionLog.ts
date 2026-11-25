@@ -2,6 +2,7 @@ import type { EffectDuration, ModifiableStat, RollModifierMode } from "@app/cont
 
 import type { CombatLogEntryContent } from "../../../schemas/log.schema";
 import type { ActionOutcome } from "./actionOutcome";
+import { statusLabels } from "./statusLabels";
 
 const statLabels: Record<ModifiableStat, string> = {
 	strength: "Strength",
@@ -86,8 +87,8 @@ export function formatActionOutcome(outcome: ActionOutcome): CombatLogEntryConte
 		case "status":
 			return {
 				message: outcome.refreshed
-					? `${capitalize(outcome.effect.statusId === "stunned" ? "stun" : "silence")} on ${outcome.targetName} is refreshed for ${formatEffectDuration(outcome.effect.duration)}.`
-					: `${outcome.targetName} is ${outcome.effect.statusId} for ${formatEffectDuration(outcome.effect.duration)}.`,
+					? `${statusLabels[outcome.effect.statusId].name} on ${outcome.targetName} is refreshed for ${formatEffectDuration(outcome.effect.duration)}.`
+					: `${outcome.targetName} is ${statusLabels[outcome.effect.statusId].adjective} for ${formatEffectDuration(outcome.effect.duration)}.`,
 				eventType: "effect_applied",
 			};
 
@@ -100,14 +101,6 @@ export function formatActionOutcome(outcome: ActionOutcome): CombatLogEntryConte
 		case "recurring":
 			return {
 				message: formatRecurringOutcome(outcome),
-				eventType: "effect_applied",
-			};
-
-		case "actFirst":
-			return {
-				message: outcome.refreshed
-					? `${outcome.targetName}'s turn priority is refreshed for ${formatEffectDuration(outcome.effect.duration)}.`
-					: `${outcome.targetName} acts first for ${formatEffectDuration(outcome.effect.duration)}.`,
 				eventType: "effect_applied",
 			};
 	}
@@ -251,8 +244,4 @@ export function formatTurns(turns: number): string {
 
 function formatEffectDuration(duration: EffectDuration): string {
 	return `${duration.value} ${duration.value === 1 ? duration.unit.slice(0, -1) : duration.unit}`;
-}
-
-function capitalize(value: string): string {
-	return value.charAt(0).toUpperCase() + value.slice(1);
 }

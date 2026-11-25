@@ -20,6 +20,7 @@ import { getAttributeModifier } from "../../checks/getAttributeModifier";
 import { getDamageAffinity } from "../../damage/damageAffinity";
 import { getEffectiveDamageAffinities } from "../../effects/getEffectiveDamageAffinities";
 import { getEffectiveHealingMultiplier } from "../../effects/getEffectiveHealingMultiplier";
+import { isBeneficialStatus } from "../../effects/isBeneficialStatus";
 
 type AssessEnemyEffectInput = {
 	effect: Effect;
@@ -67,8 +68,9 @@ export function assessEnemyEffect(input: AssessEnemyEffectInput): EnemySkillCate
 			if (alreadyActive) {
 				return null;
 			}
-			// Preserve legacy eligibility for self-statuses, without setup preference.
-			return effect.target === "enemy" ? "setup" : "standard";
+			const beneficial = isBeneficialStatus(effect.statusId);
+			const improvesActor = effect.target === "self" ? beneficial : !beneficial;
+			return improvesActor ? "setup" : "standard";
 		}
 
 		case "modifyStat":

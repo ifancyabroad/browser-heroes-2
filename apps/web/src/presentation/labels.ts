@@ -16,6 +16,7 @@ import type {
 	SkillPool,
 	WeaponHandedness,
 	WeaponType,
+	StatusEffect,
 } from "@app/content";
 
 export const attributeShortLabels: Record<Attribute, string> = {
@@ -239,4 +240,16 @@ export const featKindLabels: Record<FeatKind, string> = {
 	spellcraft: "Spellcraft",
 	survival: "Survival",
 	utility: "Utility",
+};
+
+export const statusEffectDescriptions: Record<StatusEffect, string> = {
+	stunned: "Stunned",
+	silenced: "Silenced",
+	haste: "Always act first",
+};
+
+export const statusEffectVerbs: Record<StatusEffect, string> = {
+	stunned: "Stun",
+	silenced: "Silence",
+	haste: "Hasten",
 };

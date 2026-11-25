@@ -2,7 +2,7 @@ import { type AttackDamageEffect, type AttackRider, type DamageType } from "@app
 import { describe, expect, it } from "vitest";
 import type { CombatantSide, CombatState } from "../../../schemas";
 import { createTestCombat } from "../../../test/createTestCombat";
-import { resolveAttackDamageEffect } from "../skills/effects/resolveAttackDamageEffect";
+import { resolveAttackDamageEffect } from "../effects/resolvers/resolveAttackDamageEffect";
 import { resolveSkillEffects } from "../skills/resolveSkillEffects";
 import { resolveBasicAttack } from "./resolveBasicAttack";
 import { assessEnemySkill } from "../enemy/assessment/assessEnemySkill";

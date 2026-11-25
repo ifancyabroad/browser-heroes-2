@@ -54,7 +54,8 @@ describe("useConsumable (speed potion)", () => {
 		expect(first.events).toContainEqual({ type: "COMBAT_TURN_RESOLVED" });
 		expect(first.state.combat!.player.activeEffects).toEqual([
 			expect.objectContaining({
-				type: "actFirst",
+				type: "status",
+				statusId: "haste",
 				duration: { unit: "battles", remaining: 1 },
 				source: {
 					type: "consumable",
@@ -67,7 +68,7 @@ describe("useConsumable (speed potion)", () => {
 		expect(first.state.combat!.log).toContainEqual(
 			expect.objectContaining({
 				eventType: "effect_applied",
-				message: "Test player acts first for 1 battle.",
+				message: "Test player is hastened for 1 battle.",
 			}),
 		);
 
@@ -108,13 +109,13 @@ describe("useConsumable (speed potion)", () => {
 		expect(second.state.hero.consumables.speedPotion).toBe(0);
 		expect(
 			second.state.combat!.player.activeEffects.filter(
-				(effect) => effect.type === "actFirst",
+				(effect) => effect.type === "status" && effect.statusId === "haste",
 			),
 		).toHaveLength(1);
 		expect(second.state.combat!.log).toContainEqual(
 			expect.objectContaining({
 				eventType: "effect_applied",
-				message: "Test player's turn priority is refreshed for 1 battle.",
+				message: "Haste on Test player is refreshed for 1 battle.",
 			}),
 		);
 	});
@@ -175,7 +176,7 @@ describe("useConsumable (speed potion)", () => {
 			expect(result.state.hero.consumables.speedPotion).toBe(2);
 			expect(
 				result.state.combat!.player.activeEffects.some(
-					(effect) => effect.type === "actFirst",
+					(effect) => effect.type === "status" && effect.statusId === "haste",
 				),
 			).toBe(false);
 			expect(result.events.some((event) => event.type === "CONSUMABLE_USED")).toBe(false);
@@ -222,7 +223,7 @@ describe("useConsumable (speed potion)", () => {
 			expect(next.ok).toBe(true);
 			expect(
 				next.state.combat!.player.activeEffects.some(
-					(effect) => effect.type === "actFirst",
+					(effect) => effect.type === "status" && effect.statusId === "haste",
 				),
 			).toBe(false);
 		},

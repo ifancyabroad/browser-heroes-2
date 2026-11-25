@@ -76,7 +76,7 @@ export const healEffectSchema = z.object({
 	attribute: attributeSchema.optional(),
 });
 
-export const statusEffectSchema = z.enum(["stunned", "silenced"]);
+export const statusEffectSchema = z.enum(["stunned", "silenced", "haste"]);
 
 export const applyStatusEffectSchema = z.object({
 	type: z.literal("applyStatus"),

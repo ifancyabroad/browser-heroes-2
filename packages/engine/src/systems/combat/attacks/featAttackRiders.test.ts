@@ -5,8 +5,8 @@ import { createInitialRngState } from "../../../core/rng";
 import { runStateSchema } from "../../../schemas";
 import { createTestCombat } from "../../../test/createTestCombat";
 import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
-import { resolveAttackDamageEffect } from "../skills/effects/resolveAttackDamageEffect";
-import { resolveDamageEffect } from "../skills/effects/resolveDamageEffect";
+import { resolveAttackDamageEffect } from "../effects/resolvers/resolveAttackDamageEffect";
+import { resolveDamageEffect } from "../effects/resolvers/resolveDamageEffect";
 import { collectFeatAttackRiders } from "./collectFeatAttackRiders";
 import { resolveBasicAttack } from "./resolveBasicAttack";
 

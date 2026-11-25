@@ -25,6 +25,27 @@ const activeEffectBase = {
 
 describe("effect presentation", () => {
 	it.each([
+		["stunned", "Stunned", "negative"],
+		["silenced", "Silenced", "negative"],
+		["haste", "Always act first", "positive"],
+	] as const)("describes %s with the appropriate tone", (statusId, detail, tone) => {
+		const effect = { ...activeEffectBase, type: "status" as const, statusId };
+		expect(formatActiveEffectDetail(effect)).toBe(detail);
+		expect(getActiveEffectTone(effect)).toBe(tone);
+	});
+
+	it("formats Haste application for both skills and attack riders", () => {
+		const effect = {
+			type: "applyStatus" as const,
+			statusId: "haste" as const,
+			target: "self" as const,
+			duration: { unit: "turns" as const, value: 2 },
+		};
+		expect(formatSkillEffect(effect)).toBe("Hasten yourself for 2 turns.");
+		expect(formatRiderEffect(effect)).toBe("Hasten yourself for 2 turns.");
+	});
+
+	it.each([
 		["armourClass", "Armour Class"],
 		["initiative", "Initiative"],
 		["attackRollBonus", "Attack Roll"],

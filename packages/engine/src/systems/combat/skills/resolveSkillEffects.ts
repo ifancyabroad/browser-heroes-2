@@ -6,12 +6,12 @@ import type { RngResult, RngState } from "../../../core/rng";
 
 import type { SupportedSkillEffect } from "./validateCombatantSkillUse";
 
-import { resolveDamageEffect } from "./effects/resolveDamageEffect";
-import { resolveAttackDamageEffect } from "./effects/resolveAttackDamageEffect";
-import { resolveHealEffect } from "./effects/resolveHealEffect";
-import { applyTemporaryModifierEffect } from "./effects/applyTemporaryModifierEffect";
-import { applyRecurringEffect } from "./effects/applyRecurringEffect";
-import { applyStatusEffect } from "./effects/applyStatusEffect";
+import { resolveDamageEffect } from "../effects/resolvers/resolveDamageEffect";
+import { resolveAttackDamageEffect } from "../effects/resolvers/resolveAttackDamageEffect";
+import { resolveHealEffect } from "../effects/resolvers/resolveHealEffect";
+import { applyTemporaryModifierEffect } from "../effects/resolvers/applyTemporaryModifierEffect";
+import { applyRecurringEffect } from "../effects/resolvers/applyRecurringEffect";
+import { applyStatusEffect } from "../effects/resolvers/applyStatusEffect";
 import type { ActionResolution } from "../logs/actionOutcome";
 import { formatSkillHeading } from "../logs/formatActionLog";
 import { getCombatant } from "../combatants/combatantSelectors";

@@ -1,11 +1,10 @@
 import type { CombatantSide, CombatState } from "../../../schemas";
 import { getEffectiveCombatStatValue } from "../effects/getEffectiveCombatStatValue";
+import { hasActiveStatus } from "../effects/hasActiveStatus";
 
 export function getCombatTurnOrder(combat: CombatState): [CombatantSide, CombatantSide] {
-	const playerActsFirst = combat.player.activeEffects.some(
-		(effect) => effect.type === "actFirst",
-	);
-	const enemyActsFirst = combat.enemy.activeEffects.some((effect) => effect.type === "actFirst");
+	const playerActsFirst = hasActiveStatus(combat.player, "haste");
+	const enemyActsFirst = hasActiveStatus(combat.enemy, "haste");
 	if (playerActsFirst !== enemyActsFirst) {
 		return playerActsFirst ? ["player", "enemy"] : ["enemy", "player"];
 	}

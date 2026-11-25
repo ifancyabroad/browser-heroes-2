@@ -8,8 +8,14 @@ import type {
 	SavingThrow,
 	EffectDuration,
 } from "@app/content";
-import type { ActiveCombatEffect } from "@app/engine";
-import { attributeShortLabels, damageTypeLabels, modifiableStatFullLabels } from "./labels";
+import { isBeneficialStatus, type ActiveCombatEffect } from "@app/engine";
+import {
+	attributeShortLabels,
+	damageTypeLabels,
+	modifiableStatFullLabels,
+	statusEffectDescriptions,
+	statusEffectVerbs,
+} from "./labels";
 import { formatDamageSubject } from "./damage";
 
 export type ModifierTone = "positive" | "negative" | "neutral";
@@ -100,7 +106,7 @@ export function formatSkillEffect(effect: Effect): string {
 			return `Heal for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
 			return formatSavedEffect(
-				`${formatStatusAction(effect.statusId)} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
+				`${statusEffectVerbs[effect.statusId]} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
 				effect.save,
 			);
 		case "removeStatus":
@@ -167,7 +173,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 			return `Heal for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
 		case "applyStatus":
 			return formatSavedEffect(
-				`${formatStatusAction(effect.statusId)} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
+				`${statusEffectVerbs[effect.statusId]} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
 				effect.save,
 			);
 		case "modifyStat":
@@ -227,7 +233,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 	switch (effect.type) {
 		case "status":
-			return formatTitle(effect.statusId);
+			return statusEffectDescriptions[effect.statusId];
 		case "modifyStat":
 			return `${formatModifierValue("add", effect.value)} ${modifiableStatFullLabels[effect.stat]}`;
 		case "modifyHealing":
@@ -246,8 +252,6 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 			return `${effect.dice} healing per turn`;
 		case "shield":
 			return `${effect.remainingAmount}-point shield`;
-		case "actFirst":
-			return "Always act first";
 		default:
 			return assertNever(effect);
 	}
@@ -256,6 +260,7 @@ export function formatActiveEffectDetail(effect: ActiveCombatEffect): string {
 export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 	switch (effect.type) {
 		case "status":
+			return isBeneficialStatus(effect.statusId) ? "positive" : "negative";
 		case "damageOverTime":
 			return "negative";
 		case "modifyStat":
@@ -276,7 +281,6 @@ export function getActiveEffectTone(effect: ActiveCombatEffect): ModifierTone {
 				: "negative";
 		case "healOverTime":
 		case "shield":
-		case "actFirst":
 			return "positive";
 		default:
 			return assertNever(effect);
@@ -485,10 +489,6 @@ function formatSavedEffect(effectText: string, save: SavingThrow | undefined) {
 	}
 
 	return `${effectText}. ${formatSavingThrow(save)}: half damage. ${formatSavingThrowModifier(save)}`;
-}
-
-function formatStatusAction(statusId: "stunned" | "silenced") {
-	return statusId === "stunned" ? "Stun" : "Silence";
 }
 
 function lowercaseFirst(value: string) {

@@ -4,7 +4,7 @@ import type { RngResult, RngState } from "../../core/rng";
 import type { ActionResolution } from "../combat/logs/actionOutcome";
 import { resolveConsumableHealPercentEffect } from "./effects/resolveConsumableHealPercentEffect";
 import { resolveConsumableDamageEffect } from "./effects/resolveConsumableDamageEffect";
-import { resolveConsumableActFirstEffect } from "./effects/resolveConsumableActFirstEffect";
+import { resolveConsumableStatusEffect } from "./effects/resolveConsumableStatusEffect";
 
 export function resolveConsumableEffect(
 	combat: CombatState,
@@ -16,16 +16,11 @@ export function resolveConsumableEffect(
 			return resolveConsumableHealPercentEffect(combat, consumable.effect, rngState);
 		case "damage":
 			return resolveConsumableDamageEffect(combat, consumable.effect, rngState);
-		case "actFirst":
-			return resolveConsumableActFirstEffect(
+		case "applyStatus":
+			return resolveConsumableStatusEffect(
 				combat,
 				consumable.effect,
-				{
-					type: "consumable",
-					consumableId: consumable.id,
-					sourceName: consumable.name,
-					sourceEffectKey: "effect:0",
-				},
+				consumable.id,
 				rngState,
 			);
 	}
