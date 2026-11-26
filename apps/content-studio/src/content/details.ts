@@ -1,6 +1,7 @@
 import type {
 	BasicAttack,
 	Class,
+	Consumable,
 	Enemy,
 	Feat,
 	Item,
@@ -100,6 +101,17 @@ export function getDetailPresentation(
 		};
 	}
 	switch (category) {
+		case "consumables": {
+			const consumable = entry.definition as Consumable;
+			return view(
+				["basePrice", "maxCarry", "effects"],
+				[
+					{ label: "Base price", value: consumable.basePrice },
+					{ label: "Carry limit", value: consumable.maxCarry },
+				],
+				[mechanics("effects", "Effects", consumable.effects)],
+			);
+		}
 		case "skills": {
 			const skill = entry.definition as Skill;
 			return view(

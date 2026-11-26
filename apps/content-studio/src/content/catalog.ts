@@ -1,6 +1,7 @@
 import {
 	achievements,
 	classes,
+	consumables,
 	enemies,
 	feats,
 	itemAffixes,
@@ -10,6 +11,7 @@ import {
 	systemGhosts,
 	type Achievement,
 	type Class,
+	type Consumable,
 	type Enemy,
 	type Feat,
 	type Item,
@@ -29,6 +31,7 @@ export type CategoryKey =
 	| "item-bases"
 	| "affixes"
 	| "items"
+	| "consumables"
 	| "achievements";
 
 export type ContentDefinition =
@@ -40,6 +43,7 @@ export type ContentDefinition =
 	| ItemBase
 	| ItemAffix
 	| Item
+	| Consumable
 	| Achievement;
 
 export type CellValue = string | number;
@@ -295,6 +299,43 @@ const skillEntries: CatalogEntry[] = skills.map((skill) => {
 			tags: join(skill.tags),
 		},
 		definition: skill,
+	};
+});
+
+const consumableEntries: CatalogEntry[] = consumables.map((consumable) => {
+	const effectTypes = describeEffects(consumable.effects);
+	const targets = effectTargets(consumable.effects);
+	const damageTypes = effectDamageTypes(consumable.effects);
+	const durations = durationSummary(consumable.effects);
+	return {
+		id: consumable.id,
+		name: consumable.name,
+		description: consumable.description,
+		images: [consumable.icon],
+		searchText: makeSearchText(consumable, [
+			...effectTypes,
+			...targets,
+			...damageTypes,
+			...durations,
+			...collectProperties(consumable.effects, new Set(["statusId"])),
+		]),
+		facets: {
+			effect: effectTypes,
+			target: targets,
+			damageType: damageTypes,
+			durationUnit: unique(effectDurations(consumable.effects).map(({ unit }) => unit)),
+		},
+		cells: {
+			name: consumable.name,
+			id: consumable.id,
+			price: consumable.basePrice,
+			maxCarry: consumable.maxCarry,
+			effects: join(effectTypes),
+			targets: join(targets),
+			damageTypes: join(damageTypes),
+			durations: join(durations),
+		},
+		definition: consumable,
 	};
 });
 
@@ -763,6 +804,30 @@ export const catalogs: readonly Catalog[] = [
 			{ key: "subtype", label: "Subtype" },
 			{ key: "damageType", label: "Damage type" },
 			{ key: "modifier", label: "Modifier" },
+		]),
+	},
+	{
+		key: "consumables",
+		label: "Consumables",
+		singular: "Consumable",
+		entries: consumableEntries,
+		hasImages: true,
+		defaultSort: "name",
+		columns: columns(
+			"name",
+			"id",
+			["price", "Base price", true],
+			["maxCarry", "Carry limit", true],
+			"effects",
+			"targets",
+			"damageTypes",
+			"durations",
+		),
+		filters: makeFilters(consumableEntries, [
+			{ key: "effect", label: "Effect" },
+			{ key: "target", label: "Target" },
+			{ key: "damageType", label: "Damage type" },
+			{ key: "durationUnit", label: "Duration unit" },
 		]),
 	},
 	{

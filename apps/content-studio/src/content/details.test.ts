@@ -49,7 +49,7 @@ describe("category detail presentations", () => {
 
 	it("describes skills without a usage limit explicitly", () => {
 		const skill = catalogByKey.skills.entries.find(
-			(entry) => "effects" in entry.definition && entry.definition.maxUses === undefined,
+			(entry) => "pool" in entry.definition && entry.definition.maxUses === undefined,
 		)!;
 		expect(getDetailPresentation("skills", skill).summary).toContainEqual({
 			label: "Maximum uses",

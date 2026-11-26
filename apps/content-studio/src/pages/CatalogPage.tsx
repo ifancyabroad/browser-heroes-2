@@ -20,6 +20,7 @@ const previewColumns: Record<CategoryKey, readonly string[]> = {
 	"item-bases": ["type", "subtype", "stat", "price"],
 	affixes: ["position", "rarity", "appliesTo", "modifiers"],
 	items: ["type", "stat", "modifiers", "riders"],
+	consumables: ["price", "maxCarry", "effects", "targets"],
 	achievements: ["order", "description"],
 };
 

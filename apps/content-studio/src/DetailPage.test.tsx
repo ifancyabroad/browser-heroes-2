@@ -14,6 +14,7 @@ const sectionByCategory = {
 	"item-bases": "Additional properties",
 	affixes: "Applies to",
 	items: "Passive modifiers",
+	consumables: "Effects",
 	achievements: "Unlock requirement",
 };
 

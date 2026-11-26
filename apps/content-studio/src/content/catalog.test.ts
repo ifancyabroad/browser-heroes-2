@@ -1,4 +1,4 @@
-import { systemGhosts } from "@app/content";
+import { consumables, systemGhosts } from "@app/content";
 import { describe, expect, it } from "vitest";
 import { catalogByKey, catalogs } from "./catalog";
 import { applyCatalogQuery, readCatalogQuery, writeCatalogQuery } from "./query";
@@ -14,6 +14,7 @@ describe("content catalogs", () => {
 			"item-bases",
 			"affixes",
 			"items",
+			"consumables",
 			"achievements",
 		]);
 		for (const catalog of catalogs) {
@@ -29,6 +30,43 @@ describe("content catalogs", () => {
 				),
 			).toBe(true);
 		}
+	});
+
+	it("projects every consumable and supports effect filters and numeric sorting", () => {
+		const catalog = catalogByKey.consumables;
+		expect(catalog.entries.map((entry) => entry.id)).toEqual(
+			consumables.map((entry) => entry.id),
+		);
+		for (const definition of consumables) {
+			const entry = catalog.entries.find((entry) => entry.id === definition.id)!;
+			expect(entry.definition).toBe(definition);
+			expect(entry.cells).toMatchObject({
+				price: definition.basePrice,
+				maxCarry: definition.maxCarry,
+			});
+			expect(entry.images).toEqual([definition.icon]);
+		}
+		const filtered = applyCatalogQuery(
+			catalog,
+			readCatalogQuery(
+				catalog,
+				new URLSearchParams("effect=applyStatus&target=self&durationUnit=battles"),
+			),
+		);
+		expect(filtered.map((entry) => entry.id)).toEqual(["speedPotion"]);
+		const prices = applyCatalogQuery(
+			catalog,
+			readCatalogQuery(catalog, new URLSearchParams("sort=price")),
+		).map((entry) => entry.cells.price);
+		expect(prices).toEqual(
+			[...consumables.map((entry) => entry.basePrice)].sort((a, b) => a - b),
+		);
+		expect(
+			applyCatalogQuery(
+				catalog,
+				readCatalogQuery(catalog, new URLSearchParams("q=invisible")),
+			).map((entry) => entry.id),
+		).toEqual(["invisibilityPotion"]);
 	});
 
 	it.each(systemGhosts)("projects the authored system ghost build $id", (definition) => {
