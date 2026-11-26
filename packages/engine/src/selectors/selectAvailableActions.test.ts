@@ -34,6 +34,14 @@ describe("selectAvailableActions", () => {
 		]);
 	});
 
+	it("offers returning to town while invisible, unless stunned", () => {
+		const state = addPlayerStatus(createTestCombatState(), "invisible");
+
+		expect(selectAvailableActions(state)).toContainEqual({ type: "RETURN_TO_TOWN" });
+		expect(createActionTypes(addPlayerStatus(state, "silenced"))).toContain("RETURN_TO_TOWN");
+		expect(createActionTypes(addPlayerStatus(state, "stunned"))).toEqual(["PLAYER_SKIP_TURN"]);
+	});
+
 	it("omits depleted skills and unavailable potions", () => {
 		const state = modifyTestRunState(createTestCombatState(), (draft) => {
 			draft.hero.consumables.healingPotion = 0;

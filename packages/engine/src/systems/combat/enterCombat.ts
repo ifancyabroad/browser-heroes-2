@@ -34,7 +34,6 @@ export function enterCombat(state: RunState, ghostEncounter?: GhostEncounter): E
 			...state,
 			phase: "combat",
 			combat,
-			town: null,
 		},
 		[
 			{

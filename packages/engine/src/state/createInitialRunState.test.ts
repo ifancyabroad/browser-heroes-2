@@ -75,7 +75,7 @@ describe("createInitialRunState", () => {
 		expect(result.ok).toBe(true);
 		expect(result.state).toMatchObject({
 			phase: "combat",
-			town: null,
+			town: loaded.state.town,
 			battleNumber: 1,
 			day: 1,
 			kills: 0,

@@ -61,6 +61,10 @@ export function selectAvailableActions(state: RunState): EngineAction[] {
 			type: "PLAYER_SKIP_TURN",
 		});
 
+		if (hasActiveStatus(player, "invisible")) {
+			actions.push({ type: "RETURN_TO_TOWN" });
+		}
+
 		return actions;
 	}
 
