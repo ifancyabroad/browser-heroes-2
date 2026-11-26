@@ -55,6 +55,14 @@ export function getOutgoingReferences(category: CategoryKey, entry: CatalogEntry
 		);
 	}
 
+	if (category === "items" && "restrictedToClassIds" in entry.definition) {
+		references.push(
+			...(entry.definition.restrictedToClassIds ?? []).map((id) =>
+				reference("classes", id, "Class restriction"),
+			),
+		);
+	}
+
 	return references.filter((value): value is ContentReference => value !== null);
 }
 

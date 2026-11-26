@@ -10,6 +10,7 @@ export type CatalogQuery = {
 	direction: SortDirection;
 	page: number;
 	mode: DisplayMode;
+	fullTable: boolean;
 	filters: Readonly<Record<string, string>>;
 };
 
@@ -33,6 +34,7 @@ export function readCatalogQuery(catalog: Catalog, params: URLSearchParams): Cat
 		direction: params.get("dir") === "desc" ? "desc" : "asc",
 		page: Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1,
 		mode: catalog.hasImages && params.get("view") === "images" ? "images" : "table",
+		fullTable: params.get("columns") === "all",
 		filters,
 	};
 }
@@ -53,6 +55,9 @@ export function writeCatalogQuery(query: CatalogQuery) {
 	}
 	if (query.mode === "images") {
 		params.set("view", "images");
+	}
+	if (query.fullTable) {
+		params.set("columns", "all");
 	}
 	for (const [key, value] of Object.entries(query.filters)) {
 		if (value) {

@@ -1,5 +1,7 @@
 import type { AttackRider, HealEffect, PassiveModifier, RiderEffect } from "@app/content";
 
+import { formatDuration } from "./presentation";
+
 type StatModifier = Extract<PassiveModifier, { type: "modifyStat" }>;
 
 const statLabels: Record<StatModifier["stat"], string> = {
@@ -27,8 +29,6 @@ const damageLabel = (damageType?: string, damageClass?: string, attackRange?: st
 	const selectors = [damageClass, attackRange, damageType].filter(Boolean);
 	return selectors.length > 0 ? `${selectors.join(" ")} damage` : "damage";
 };
-const durationLabel = (duration: { unit: string; value: number }) =>
-	`${duration.value} ${duration.value === 1 ? duration.unit.replace(/s$/, "") : duration.unit}`;
 
 export function modifierSummary(modifiers: readonly PassiveModifier[]) {
 	return modifiers.map(formatModifier).join(" · ");
@@ -66,25 +66,25 @@ function formatRiderEffect(effect: RiderEffect): string {
 		case "heal":
 			return formatHealEffect(effect);
 		case "applyStatus":
-			return `${effect.statusId} · ${durationLabel(effect.duration)}`;
+			return `${effect.statusId} · ${formatDuration(effect.duration)}`;
 		case "modifyStat":
-			return `${signed(effect.value)} ${statLabels[effect.stat]} · ${durationLabel(effect.duration)}`;
+			return `${signed(effect.value)} ${statLabels[effect.stat]} · ${formatDuration(effect.duration)}`;
 		case "modifyHealing":
-			return `${percentChange(effect.multiplier)} healing · ${durationLabel(effect.duration)}`;
+			return `${percentChange(effect.multiplier)} healing · ${formatDuration(effect.duration)}`;
 		case "modifyDamage":
-			return `${formatOperation(effect.operation, effect.value)} ${damageLabel(effect.damageType, effect.damageClass, effect.attackRange)} · ${durationLabel(effect.duration)}`;
+			return `${formatOperation(effect.operation, effect.value)} ${damageLabel(effect.damageType, effect.damageClass, effect.attackRange)} · ${formatDuration(effect.duration)}`;
 		case "modifyDamageTaken":
-			return `${formatOperation(effect.operation, effect.value)} ${damageLabel(effect.damageType, effect.damageClass, effect.attackRange)} taken · ${durationLabel(effect.duration)}`;
+			return `${formatOperation(effect.operation, effect.value)} ${damageLabel(effect.damageType, effect.damageClass, effect.attackRange)} taken · ${formatDuration(effect.duration)}`;
 		case "modifyDamageAffinity":
-			return `${effect.operation === "add" ? "" : "lose "}${effect.damageType} ${effect.affinity} · ${durationLabel(effect.duration)}`;
+			return `${effect.operation === "add" ? "" : "lose "}${effect.damageType} ${effect.affinity} · ${formatDuration(effect.duration)}`;
 		case "modifyRoll":
-			return `${titleCase(effect.mode)} ${effect.roll === "savingThrow" ? "save" : "attack"}${effect.charges ? ` ×${effect.charges}` : ""} · ${durationLabel(effect.duration)}`;
+			return `${titleCase(effect.mode)} ${effect.roll === "savingThrow" ? "save" : "attack"}${effect.charges ? ` ×${effect.charges}` : ""} · ${formatDuration(effect.duration)}`;
 		case "damageOverTime":
-			return `${effect.dice} ${effect.damageType}/turn · ${durationLabel(effect.duration)}`;
+			return `${effect.dice} ${effect.damageType}/turn · ${formatDuration(effect.duration)}`;
 		case "healOverTime":
-			return `heal ${effect.dice}/turn · ${durationLabel(effect.duration)}`;
+			return `heal ${effect.dice}/turn · ${formatDuration(effect.duration)}`;
 		case "shield":
-			return `${effect.amount} shield · ${durationLabel(effect.duration)}`;
+			return `${effect.amount} shield · ${formatDuration(effect.duration)}`;
 	}
 }
 

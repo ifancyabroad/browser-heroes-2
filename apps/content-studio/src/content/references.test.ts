@@ -4,6 +4,28 @@ import { catalogByKey, type CategoryKey } from "./catalog";
 import { getIncomingReferences, getOutgoingReferences } from "./references";
 
 describe("content references", () => {
+	it("includes class restrictions in both reference directions", () => {
+		const item = catalogByKey.items.entries.find(
+			(entry) =>
+				"restrictedToClassIds" in entry.definition &&
+				entry.definition.restrictedToClassIds?.length,
+		)!;
+		if (!("restrictedToClassIds" in item.definition)) {
+			throw new Error("Expected a restricted item");
+		}
+		for (const classId of item.definition.restrictedToClassIds ?? []) {
+			expect(getOutgoingReferences("items", item)).toContainEqual(
+				expect.objectContaining({
+					category: "classes",
+					id: classId,
+					relation: "Class restriction",
+				}),
+			);
+			expect(getIncomingReferences("classes", classId)).toContainEqual(
+				expect.objectContaining({ category: "items", id: item.id }),
+			);
+		}
+	});
 	it("links enemy skills and supplies the reverse reference", () => {
 		const enemy = catalogByKey.enemies.entries.find(
 			(entry) => "combat" in entry.definition && entry.definition.combat.skillIds.length > 0,

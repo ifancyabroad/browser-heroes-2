@@ -33,18 +33,3 @@ export function ContentImage({
 		/>
 	);
 }
-
-export function ImageStrip({ paths, label }: { paths: readonly string[]; label: string }) {
-	return (
-		<div className="image-strip" aria-label={`${paths.length} images for ${label}`}>
-			{paths.slice(0, 4).map((path, index) => (
-				<ContentImage
-					key={`${path}-${index}`}
-					path={path}
-					label={`${label} ${index + 1}`}
-				/>
-			))}
-			{paths.length > 4 && <span className="image-count">+{paths.length - 4}</span>}
-		</div>
-	);
-}

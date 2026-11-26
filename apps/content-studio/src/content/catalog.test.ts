@@ -95,9 +95,12 @@ describe("content catalogs", () => {
 		const catalog = catalogByKey.enemies;
 		const query = readCatalogQuery(
 			catalog,
-			new URLSearchParams("q=rat&zone=dungeon&sort=threat&dir=desc&page=2&view=images"),
+			new URLSearchParams(
+				"q=rat&zone=dungeon&sort=threat&dir=desc&page=2&view=images&columns=all",
+			),
 		);
 		expect(readCatalogQuery(catalog, writeCatalogQuery(query))).toEqual(query);
+		expect(query.fullTable).toBe(true);
 	});
 
 	it("includes nested attack-rider metadata in skill projections", () => {

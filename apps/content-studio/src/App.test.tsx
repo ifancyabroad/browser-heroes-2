@@ -22,6 +22,19 @@ const sampleEnemySkill = catalogByKey.skills.entries.find(
 )!;
 
 describe("content studio routes", () => {
+	it("navigates categories through the compact category picker", () => {
+		render(
+			<MemoryRouter initialEntries={["/classes/warrior"]}>
+				<App />
+			</MemoryRouter>,
+		);
+		expect(screen.getByRole("combobox", { name: "Content category" })).toHaveValue("classes");
+		fireEvent.change(screen.getByRole("combobox", { name: "Content category" }), {
+			target: { value: "skills" },
+		});
+		expect(screen.getByRole("heading", { name: "Skills" })).toBeInTheDocument();
+		expect(screen.getByRole("combobox", { name: "Content category" })).toHaveValue("skills");
+	});
 	it("renders a filterable category table and switches to image mode", () => {
 		render(
 			<MemoryRouter initialEntries={[`/skills?q=${sampleSkill.id}`]}>
@@ -61,15 +74,44 @@ describe("content studio routes", () => {
 
 	it("preserves list state in the detail back link", () => {
 		render(
-			<MemoryRouter initialEntries={[`/enemies?q=${sampleEnemy.id}`]}>
+			<MemoryRouter initialEntries={[`/enemies?q=${sampleEnemy.id}&columns=all`]}>
 				<App />
 			</MemoryRouter>,
 		);
 		fireEvent.click(screen.getAllByRole("link", { name: sampleEnemy.name })[0]!);
 		expect(screen.getByRole("link", { name: /Back to Enemies/ })).toHaveAttribute(
 			"href",
-			`/enemies?q=${sampleEnemy.id}`,
+			`/enemies?q=${sampleEnemy.id}&columns=all`,
 		);
+	});
+
+	it("offers compact comparisons and the complete column set", () => {
+		render(
+			<MemoryRouter initialEntries={["/skills"]}>
+				<App />
+			</MemoryRouter>,
+		);
+		expect(screen.getAllByRole("columnheader")).toHaveLength(5);
+		fireEvent.click(screen.getByRole("button", { name: "All columns" }));
+		expect(screen.getAllByRole("columnheader")).toHaveLength(
+			catalogByKey.skills.columns.length,
+		);
+		fireEvent.click(screen.getByRole("button", { name: "Compact columns" }));
+		expect(screen.getAllByRole("columnheader")).toHaveLength(5);
+	});
+
+	it("reveals bookmarked advanced filters and clears them", () => {
+		render(
+			<MemoryRouter initialEntries={["/skills?rarity=rare"]}>
+				<App />
+			</MemoryRouter>,
+		);
+		const rarity = screen.getByLabelText("Rarity");
+		expect(rarity).toHaveValue("rare");
+		expect(rarity.closest("details")).toHaveAttribute("open");
+		fireEvent.click(screen.getByRole("button", { name: "Clear filters" }));
+		expect(screen.getByLabelText("Rarity")).toHaveValue("");
+		expect(screen.getByRole("button", { name: "Clear filters" })).toBeDisabled();
 	});
 
 	it("shows a useful message for an unknown registry id", () => {
