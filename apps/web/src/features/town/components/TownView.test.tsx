@@ -11,6 +11,19 @@ import { useGameModalStore } from "../../../stores/gameModalStore";
 import { HeroEquipmentModal } from "../../hero";
 import { useErrorModalStore } from "../../../stores/errorModalStore";
 import { TownView } from "./TownView";
+import type { ComponentProps } from "react";
+import type { TownHub } from "./TownHub";
+
+const renderTownHub = vi.hoisted(() => vi.fn());
+vi.mock("./TownHub", async (importOriginal) => {
+	const original = await importOriginal<typeof import("./TownHub")>();
+	return {
+		TownHub: (props: ComponentProps<typeof TownHub>) => {
+			renderTownHub(props);
+			return <original.TownHub {...props} />;
+		},
+	};
+});
 
 vi.mock("../../runs/api/applyRunAction", () => ({ applyRunAction: vi.fn() }));
 vi.mock("../../worldLog/api/getWorldLog", () => ({
@@ -155,6 +168,26 @@ describe("TownView", () => {
 			action: { type: "BUY_CONSUMABLE", consumableType: "healingPotion", quantity: 1 },
 		});
 	});
+
+	it.each(["explosivePotion", "speedPotion", "invisibilityPotion"] as const)(
+		"submits %s purchases through the generic callback without exposing new controls",
+		async (consumableType) => {
+			const run = createTownRun();
+			run.state.gold = 100000;
+			const { getRun } = setup(run);
+			const props = renderTownHub.mock.lastCall![0] as ComponentProps<typeof TownHub>;
+			expect(props.availableConsumableIds.has(consumableType)).toBe(true);
+			act(() => props.onBuyConsumable(consumableType));
+			await waitFor(() => expect(getRun().state.hero.consumables[consumableType]).toBe(1));
+			expect(applyRunAction).toHaveBeenCalledExactlyOnceWith({
+				runId: run.id,
+				action: { type: "BUY_CONSUMABLE", consumableType, quantity: 1 },
+			});
+			expect(
+				screen.queryByRole("button", { name: /explosive|speed|invisibility/i }),
+			).not.toBeInTheDocument();
+		},
+	);
 
 	it("disables the alchemist after the final potion slot is filled", async () => {
 		const run = createTownRun();

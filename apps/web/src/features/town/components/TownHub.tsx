@@ -1,4 +1,5 @@
 import type { TownView } from "@app/engine";
+import type { ConsumableId } from "@app/content";
 import { IconSwords } from "@tabler/icons-react";
 import { Badge } from "../../../components/Badge";
 import { formatTitle } from "../../../presentation/effects";
@@ -11,9 +12,9 @@ type TownHubProps = {
 	isPending: boolean;
 	canEnterCombat: boolean;
 	canRest: boolean;
-	canBuyPotion: boolean;
+	availableConsumableIds: ReadonlySet<ConsumableId>;
 	onRest: () => void;
-	onBuyPotion: () => void;
+	onBuyConsumable: (consumableType: ConsumableId) => void;
 	onContinue: () => void;
 };
 
@@ -25,9 +26,9 @@ export function TownHub({
 	isPending,
 	canEnterCombat,
 	canRest,
-	canBuyPotion,
+	availableConsumableIds,
 	onRest,
-	onBuyPotion,
+	onBuyConsumable,
 	onContinue,
 }: TownHubProps) {
 	const zoneName = formatTitle(town.zone);
@@ -55,8 +56,8 @@ export function TownHub({
 			price: potion.price,
 			canAfford: potion.canAfford,
 			label: "Buy one healing potion",
-			disabled: isPending || !canBuyPotion,
-			onClick: onBuyPotion,
+			disabled: isPending || !availableConsumableIds.has("healingPotion"),
+			onClick: () => onBuyConsumable("healingPotion"),
 		},
 	] as const;
 	return (

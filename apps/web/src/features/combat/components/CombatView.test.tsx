@@ -1,7 +1,9 @@
 import { act, fireEvent, render as renderUi, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import type { RunView } from "@app/shared";
-import { applyAction, createInitialRunState } from "@app/engine";
+import type { ComponentProps } from "react";
+import type { CombatActionBar } from "./CombatActionBar";
+import { applyAction, createInitialRunState, selectConsumableInventory } from "@app/engine";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "../../../components/Tooltip";
 import { useGameModalStore } from "../../../stores/gameModalStore";
@@ -14,6 +16,7 @@ const selectors = vi.hoisted(() => ({
 }));
 const mutate = vi.hoisted(() => vi.fn());
 const showError = vi.hoisted(() => vi.fn());
+const renderActionBar = vi.hoisted(() => vi.fn());
 
 vi.mock("@app/engine", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@app/engine")>()),
@@ -34,38 +37,29 @@ vi.mock("./EnemySummary", () => ({
 	EnemySummary: ({ descriptor }: { descriptor?: string }) => <div>Enemy {descriptor}</div>,
 }));
 vi.mock("./CombatActionBar", () => ({
-	CombatActionBar: (props: {
-		canBasicAttack: boolean;
-		canSkipTurn: boolean;
-		canUseHealingPotion: boolean;
-		canContinue: boolean;
-		canReturnToTown: boolean;
-		onBasicAttack: () => void;
-		onSkipTurn: () => void;
-		onUseHealingPotion: () => void;
-		onUseSkill: (id: "heavy_strike") => void;
-		onContinue: () => void;
-		onReturnToTown: () => void;
-	}) => (
-		<div>
-			<span>
-				availability:
-				{[
-					props.canBasicAttack,
-					props.canSkipTurn,
-					props.canUseHealingPotion,
-					props.canContinue,
-					props.canReturnToTown,
-				].join(",")}
-			</span>
-			<button onClick={props.onBasicAttack}>Basic</button>
-			<button onClick={props.onSkipTurn}>Skip</button>
-			<button onClick={props.onUseHealingPotion}>Potion</button>
-			<button onClick={() => props.onUseSkill("heavy_strike")}>Skill</button>
-			<button onClick={props.onContinue}>Continue</button>
-			<button onClick={props.onReturnToTown}>Town</button>
-		</div>
-	),
+	CombatActionBar: (props: ComponentProps<typeof CombatActionBar>) => {
+		renderActionBar(props);
+		return (
+			<div>
+				<span>
+					availability:
+					{[
+						props.canBasicAttack,
+						props.canSkipTurn,
+						props.availableConsumableIds.has("healingPotion"),
+						props.canContinue,
+						props.canReturnToTown,
+					].join(",")}
+				</span>
+				<button onClick={props.onBasicAttack}>Basic</button>
+				<button onClick={props.onSkipTurn}>Skip</button>
+				<button onClick={() => props.onUseConsumable("healingPotion")}>Potion</button>
+				<button onClick={() => props.onUseSkill("heavy_strike")}>Skill</button>
+				<button onClick={props.onContinue}>Continue</button>
+				<button onClick={props.onReturnToTown}>Town</button>
+			</div>
+		);
+	},
 }));
 
 import { CombatView } from "./CombatView";
@@ -94,7 +88,7 @@ function createCombatView() {
 		goldMultiplier: 1,
 		zone: "forest",
 		nextZoneOptions: ["castle"],
-		consumables: { healingPotion: { name: "Healing Potion", quantity: 1, maxCarry: 3 } },
+		consumables: selectConsumableInventory(run.state.hero),
 		enemyDescriptor: undefined,
 		combat: {
 			status: "active",
@@ -242,6 +236,33 @@ describe("CombatView", () => {
 		expect(showError).toHaveBeenCalledWith("Engine: PLAYER_CANNOT_ACT");
 	});
 
+	it.each(["explosivePotion", "speedPotion", "invisibilityPotion"] as const)(
+		"passes consumable data and submits %s through the generic callback",
+		(consumableType) => {
+			const combatView = createCombatView();
+			combatView.consumables[consumableType].quantity = 1;
+			selectors.selectCombatView.mockReturnValue(combatView);
+			selectors.selectAvailableActions.mockReturnValue([
+				{ type: "PLAYER_USE_CONSUMABLE", consumableType },
+			]);
+			render(
+				<TooltipProvider>
+					<CombatView run={run} />
+				</TooltipProvider>,
+			);
+			const props = renderActionBar.mock.lastCall![0] as ComponentProps<
+				typeof CombatActionBar
+			>;
+			expect(props.consumables).toBe(combatView.consumables);
+			expect(props.availableConsumableIds).toEqual(new Set([consumableType]));
+			act(() => props.onUseConsumable(consumableType));
+			expect(mutate).toHaveBeenCalledWith(
+				{ runId: run.id, action: { type: "PLAYER_USE_CONSUMABLE", consumableType } },
+				expect.any(Object),
+			);
+		},
+	);
+
 	it("shows the action-specific transport failure", () => {
 		render(
 			<TooltipProvider>
@@ -253,7 +274,7 @@ describe("CombatView", () => {
 
 		callbacks.onError();
 
-		expect(showError).toHaveBeenCalledWith("Unable to use a healing potion. Please try again.");
+		expect(showError).toHaveBeenCalledWith("Unable to use that consumable. Please try again.");
 	});
 
 	it("retains combat log access in the outgoing combat frame without a world toggle", () => {

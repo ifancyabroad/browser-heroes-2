@@ -1,5 +1,5 @@
-import { SKILLS_BY_ID, type SkillId } from "@app/content";
-import type { CombatantSkillState, CombatantState } from "@app/engine";
+import { SKILLS_BY_ID, type ConsumableId, type SkillId } from "@app/content";
+import type { CombatantSkillState, CombatantState, ConsumableInventoryView } from "@app/engine";
 import {
 	ActionBarGroup,
 	ActionBarTray,
@@ -23,16 +23,15 @@ type CombatActionBarProps = {
 	isPending: boolean;
 	canBasicAttack: boolean;
 	canSkipTurn: boolean;
-	canUseHealingPotion: boolean;
+	availableConsumableIds: ReadonlySet<ConsumableId>;
 	availableSkillIds: ReadonlySet<SkillId>;
-	healingPotions: number;
-	maxHealingPotions: number;
+	consumables: ConsumableInventoryView;
 	canContinue: boolean;
 	canReturnToTown: boolean;
 	isEnemySlain: boolean;
 	onBasicAttack: () => void;
 	onSkipTurn: () => void;
-	onUseHealingPotion: () => void;
+	onUseConsumable: (consumableType: ConsumableId) => void;
 	onUseSkill: (skillId: SkillId) => void;
 	onContinue: () => void;
 	onReturnToTown: () => void;
@@ -43,16 +42,15 @@ export function CombatActionBar({
 	isPending,
 	canBasicAttack,
 	canSkipTurn,
-	canUseHealingPotion,
+	availableConsumableIds,
 	availableSkillIds,
-	healingPotions,
-	maxHealingPotions,
+	consumables,
 	canContinue,
 	canReturnToTown,
 	isEnemySlain,
 	onBasicAttack,
 	onSkipTurn,
-	onUseHealingPotion,
+	onUseConsumable,
 	onUseSkill,
 	onContinue,
 	onReturnToTown,
@@ -80,13 +78,12 @@ export function CombatActionBar({
 						isPending={isPending}
 						canBasicAttack={canBasicAttack}
 						canSkipTurn={canSkipTurn}
-						canUseHealingPotion={canUseHealingPotion}
+						availableConsumableIds={availableConsumableIds}
 						availableSkillIds={availableSkillIds}
-						healingPotions={healingPotions}
-						maxHealingPotions={maxHealingPotions}
+						consumables={consumables}
 						onBasicAttack={onBasicAttack}
 						onSkipTurn={onSkipTurn}
-						onUseHealingPotion={onUseHealingPotion}
+						onUseConsumable={onUseConsumable}
 						onUseSkill={onUseSkill}
 					/>
 				</ActionBarGroup>
@@ -101,13 +98,12 @@ type CombatSlotsProps = {
 	isPending: boolean;
 	canBasicAttack: boolean;
 	canSkipTurn: boolean;
-	canUseHealingPotion: boolean;
+	availableConsumableIds: ReadonlySet<ConsumableId>;
 	availableSkillIds: ReadonlySet<SkillId>;
-	healingPotions: number;
-	maxHealingPotions: number;
+	consumables: ConsumableInventoryView;
 	onBasicAttack: () => void;
 	onSkipTurn: () => void;
-	onUseHealingPotion: () => void;
+	onUseConsumable: (consumableType: ConsumableId) => void;
 	onUseSkill: (skillId: SkillId) => void;
 };
 
@@ -117,15 +113,18 @@ function CombatSlots({
 	isPending,
 	canBasicAttack,
 	canSkipTurn,
-	canUseHealingPotion,
+	availableConsumableIds,
 	availableSkillIds,
-	healingPotions,
-	maxHealingPotions,
+	consumables,
 	onBasicAttack,
 	onSkipTurn,
-	onUseHealingPotion,
+	onUseConsumable,
 	onUseSkill,
 }: CombatSlotsProps) {
+	const canUseHealingPotion = availableConsumableIds.has("healingPotion");
+	const healingPotions = consumables.healingPotion.quantity;
+	const maxHealingPotions = consumables.healingPotion.maxCarry;
+
 	return (
 		<>
 			{showRoundActions ? (
@@ -175,7 +174,7 @@ function CombatSlots({
 						})}
 					/>
 				}
-				onClick={onUseHealingPotion}
+				onClick={() => onUseConsumable("healingPotion")}
 			/>
 			{showRoundActions ? (
 				<ActionSlotButton

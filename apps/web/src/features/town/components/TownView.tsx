@@ -1,4 +1,4 @@
-import type { EquipmentSlot } from "@app/content";
+import type { ConsumableId, EquipmentSlot } from "@app/content";
 import {
 	selectAvailableActions,
 	selectTownView,
@@ -133,14 +133,14 @@ export function TownView({ run }: TownViewProps) {
 		);
 	}
 
-	function handleBuyHealingPotion() {
+	function handleBuyConsumable(consumableType: ConsumableId) {
 		submitAction(
 			{
 				type: "BUY_CONSUMABLE",
-				consumableType: "healingPotion",
+				consumableType,
 				quantity: 1,
 			},
-			"Unable to buy healing potions. Please try again.",
+			"Unable to buy that consumable. Please try again.",
 		);
 	}
 
@@ -154,8 +154,10 @@ export function TownView({ run }: TownViewProps) {
 	}
 
 	const canRest = availableActionTypes.has("REST_AT_TOWN");
-	const canBuyPotion = availableActions.some(
-		(action) => action.type === "BUY_CONSUMABLE" && action.consumableType === "healingPotion",
+	const availableConsumableIds = new Set(
+		availableActions.flatMap((action) =>
+			action.type === "BUY_CONSUMABLE" ? [action.consumableType] : [],
+		),
 	);
 	return (
 		<GameLayout>
@@ -187,9 +189,9 @@ export function TownView({ run }: TownViewProps) {
 									isPending={applyRunAction.isPending}
 									canEnterCombat={availableActionTypes.has("ENTER_COMBAT")}
 									canRest={canRest}
-									canBuyPotion={canBuyPotion}
+									availableConsumableIds={availableConsumableIds}
 									onRest={handleRest}
-									onBuyPotion={handleBuyHealingPotion}
+									onBuyConsumable={handleBuyConsumable}
 									onContinue={handleEnterCombat}
 								/>
 							</div>

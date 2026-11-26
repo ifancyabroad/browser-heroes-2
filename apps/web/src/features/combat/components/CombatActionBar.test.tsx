@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { CombatantState } from "@app/engine";
+import { createInitialRunState, selectConsumableInventory, type CombatantState } from "@app/engine";
 import type { ComponentProps } from "react";
 
 vi.mock("../../../components/Tooltip", () => ({
@@ -12,6 +12,14 @@ import { CombatActionBar } from "./CombatActionBar";
 type CombatActionBarProps = ComponentProps<typeof CombatActionBar>;
 
 function createProps(overrides: Partial<CombatActionBarProps> = {}): CombatActionBarProps {
+	const { state } = createInitialRunState({
+		runId: "test",
+		seed: "action-bar",
+		heroName: "Hero",
+		classId: "warrior",
+	});
+	const consumables = selectConsumableInventory(state.hero);
+	consumables.healingPotion = { name: "Healing Potion", quantity: 2, maxCarry: 3 };
 	return {
 		player: {
 			basicAttack: { name: "Longsword", icon: "items/weapons/swords/Sword_02.png" },
@@ -22,16 +30,15 @@ function createProps(overrides: Partial<CombatActionBarProps> = {}): CombatActio
 		isPending: false,
 		canBasicAttack: true,
 		canSkipTurn: true,
-		canUseHealingPotion: true,
+		availableConsumableIds: new Set(["healingPotion"]),
 		availableSkillIds: new Set(),
-		healingPotions: 2,
-		maxHealingPotions: 3,
+		consumables,
 		canContinue: false,
 		canReturnToTown: false,
 		isEnemySlain: false,
 		onBasicAttack: vi.fn(),
 		onSkipTurn: vi.fn(),
-		onUseHealingPotion: vi.fn(),
+		onUseConsumable: vi.fn(),
 		onUseSkill: vi.fn(),
 		onContinue: vi.fn(),
 		onReturnToTown: vi.fn(),
@@ -54,7 +61,7 @@ describe("CombatActionBar", () => {
 
 		expect(props.onBasicAttack).toHaveBeenCalledOnce();
 		expect(props.onSkipTurn).toHaveBeenCalledOnce();
-		expect(props.onUseHealingPotion).toHaveBeenCalledOnce();
+		expect(props.onUseConsumable).toHaveBeenCalledExactlyOnceWith("healingPotion");
 		expect(
 			screen.queryByRole("button", { name: "Continue to next battle" }),
 		).not.toBeInTheDocument();
@@ -79,7 +86,7 @@ describe("CombatActionBar", () => {
 		const props = createProps({
 			canBasicAttack: false,
 			canSkipTurn: false,
-			canUseHealingPotion: false,
+			availableConsumableIds: new Set(),
 		});
 		render(<CombatActionBar {...props} />);
 
@@ -89,7 +96,26 @@ describe("CombatActionBar", () => {
 
 		expect(props.onBasicAttack).not.toHaveBeenCalled();
 		expect(props.onSkipTurn).not.toHaveBeenCalled();
-		expect(props.onUseHealingPotion).not.toHaveBeenCalled();
+		expect(props.onUseConsumable).not.toHaveBeenCalled();
+	});
+
+	it("keeps the visible controls healing-only when other consumables are available", () => {
+		const props = createProps({
+			availableConsumableIds: new Set([
+				"explosivePotion",
+				"speedPotion",
+				"invisibilityPotion",
+			]),
+		});
+		props.consumables.explosivePotion.quantity = 1;
+		props.consumables.speedPotion.quantity = 1;
+		props.consumables.invisibilityPotion.quantity = 1;
+		render(<CombatActionBar {...props} />);
+		expect(screen.getAllByRole("button")).toHaveLength(3);
+		const healing = screen.getByRole("button", { name: "Use healing potion" });
+		expect(healing).toHaveAttribute("aria-disabled", "true");
+		fireEvent.click(healing);
+		expect(props.onUseConsumable).not.toHaveBeenCalled();
 	});
 
 	it("blocks every action while a request is pending", () => {
@@ -129,7 +155,9 @@ describe("CombatActionBar", () => {
 	});
 
 	it("renders potion inventory accessibly", () => {
-		render(<CombatActionBar {...createProps({ healingPotions: 1, maxHealingPotions: 4 })} />);
+		const props = createProps();
+		props.consumables.healingPotion = { name: "Healing Potion", quantity: 1, maxCarry: 4 };
+		render(<CombatActionBar {...props} />);
 
 		expect(screen.getByRole("button", { name: "Use healing potion" })).toHaveTextContent("1/4");
 	});
@@ -141,7 +169,9 @@ describe("CombatActionBar", () => {
 	])(
 		"styles the $healingPotions/3 potion counter with $expectedClass",
 		({ healingPotions, expectedClass }) => {
-			render(<CombatActionBar {...createProps({ healingPotions })} />);
+			const props = createProps();
+			props.consumables.healingPotion.quantity = healingPotions;
+			render(<CombatActionBar {...props} />);
 
 			expect(screen.getByText(`${healingPotions}/3`)).toHaveClass(expectedClass);
 		},

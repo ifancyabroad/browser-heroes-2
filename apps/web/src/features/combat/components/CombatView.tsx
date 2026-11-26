@@ -1,4 +1,4 @@
-import type { SkillId } from "@app/content";
+import type { ConsumableId, SkillId } from "@app/content";
 import { selectAvailableActions, selectCombatView, type EngineAction } from "@app/engine";
 import type { RunView } from "@app/shared";
 import { GameLayout } from "../../../components/GameLayout";
@@ -44,9 +44,10 @@ export function CombatView({ run }: CombatViewProps) {
 			action.type === "PLAYER_USE_SKILL" ? [action.skillId] : [],
 		),
 	);
-	const canUseHealingPotion = availableActions.some(
-		(action) =>
-			action.type === "PLAYER_USE_CONSUMABLE" && action.consumableType === "healingPotion",
+	const availableConsumableIds = new Set(
+		availableActions.flatMap((action) =>
+			action.type === "PLAYER_USE_CONSUMABLE" ? [action.consumableType] : [],
+		),
 	);
 
 	function submitAction(action: EngineAction, fallbackErrorMessage: string) {
@@ -114,13 +115,13 @@ export function CombatView({ run }: CombatViewProps) {
 		);
 	}
 
-	function handleUseHealingPotion() {
+	function handleUseConsumable(consumableType: ConsumableId) {
 		submitAction(
 			{
 				type: "PLAYER_USE_CONSUMABLE",
-				consumableType: "healingPotion",
+				consumableType,
 			},
-			"Unable to use a healing potion. Please try again.",
+			"Unable to use that consumable. Please try again.",
 		);
 	}
 
@@ -170,16 +171,15 @@ export function CombatView({ run }: CombatViewProps) {
 								isPending={applyRunAction.isPending}
 								canBasicAttack={availableActionTypes.has("PLAYER_BASIC_ATTACK")}
 								canSkipTurn={availableActionTypes.has("PLAYER_SKIP_TURN")}
-								canUseHealingPotion={canUseHealingPotion}
+								availableConsumableIds={availableConsumableIds}
 								availableSkillIds={availableSkillIds}
-								healingPotions={combatView.consumables.healingPotion.quantity}
-								maxHealingPotions={combatView.consumables.healingPotion.maxCarry}
+								consumables={combatView.consumables}
 								canContinue={availableActionTypes.has("CONTINUE_TO_NEXT_COMBAT")}
 								canReturnToTown={availableActionTypes.has("RETURN_TO_TOWN")}
 								isEnemySlain={isEnemySlain}
 								onBasicAttack={handleBasicAttack}
 								onSkipTurn={handleSkipTurn}
-								onUseHealingPotion={handleUseHealingPotion}
+								onUseConsumable={handleUseConsumable}
 								onUseSkill={handleUseSkill}
 								onContinue={handleContinue}
 								onReturnToTown={handleReturnToTown}
