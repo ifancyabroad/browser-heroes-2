@@ -1,6 +1,6 @@
 import { CONSUMABLES_BY_ID, type ConsumableId } from "@app/content";
 import type { CombatState, EngineEvent, RunState } from "../../schemas";
-import { resolveConsumableEffect } from "./resolveConsumableEffect";
+import { resolveConsumableEffects } from "./resolveConsumableEffects";
 import { appendActionLog } from "../combat/logs/appendActionLog";
 
 export function useConsumable(
@@ -8,7 +8,7 @@ export function useConsumable(
 	consumableType: ConsumableId,
 ): { state: RunState & { combat: CombatState }; events: EngineEvent[] } {
 	const definition = CONSUMABLES_BY_ID[consumableType];
-	const result = resolveConsumableEffect(state.combat, definition, state.rngState);
+	const result = resolveConsumableEffects(state.combat, definition, state.rngState);
 	const remainingQuantity = state.hero.consumables[consumableType] - 1;
 
 	return {

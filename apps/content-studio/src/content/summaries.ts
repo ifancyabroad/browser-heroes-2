@@ -1,4 +1,4 @@
-import type { AttackRider, PassiveModifier, RiderEffect } from "@app/content";
+import type { AttackRider, HealEffect, PassiveModifier, RiderEffect } from "@app/content";
 
 type StatModifier = Extract<PassiveModifier, { type: "modifyStat" }>;
 
@@ -64,7 +64,7 @@ function formatRiderEffect(effect: RiderEffect): string {
 		case "damage":
 			return `${effect.dice} ${effect.damageType}`;
 		case "heal":
-			return `heal ${effect.dice}${effect.attribute ? ` + ${effect.attribute.slice(0, 3).toUpperCase()}` : ""}`;
+			return formatHealEffect(effect);
 		case "applyStatus":
 			return `${effect.statusId} · ${durationLabel(effect.duration)}`;
 		case "modifyStat":
@@ -86,6 +86,14 @@ function formatRiderEffect(effect: RiderEffect): string {
 		case "shield":
 			return `${effect.amount} shield · ${durationLabel(effect.duration)}`;
 	}
+}
+
+function formatHealEffect(effect: HealEffect): string {
+	if (effect.percent !== undefined) {
+		return `heal ${effect.percent * 100}% max HP`;
+	}
+	const attribute = effect.attribute ? ` + ${effect.attribute.slice(0, 3).toUpperCase()}` : "";
+	return `heal ${effect.dice}${attribute}`;
 }
 
 function formatOperation(operation: "add" | "multiply", value: number) {

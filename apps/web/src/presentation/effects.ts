@@ -1,6 +1,7 @@
 import type {
 	Attribute,
 	Effect,
+	HealEffect,
 	ItemModifier,
 	DamageModifierOperation,
 	PassiveModifier,
@@ -103,7 +104,7 @@ export function formatSkillEffect(effect: Effect): string {
 		case "attackDamage":
 			return `Attack${effect.rollMode ? ` with ${effect.rollMode}` : ""} for ${effect.multiplier === 1 ? "" : `${effect.multiplier}x `}weapon damage${effect.damageTypeOverride ? ` as ${damageTypeLabels[effect.damageTypeOverride].toLowerCase()} damage` : ""}${effect.extraDice ? ` plus ${effect.extraDice}${effect.extraDamageType ? ` ${damageTypeLabels[effect.extraDamageType].toLowerCase()}` : ""} damage` : ""}.`;
 		case "heal":
-			return `Heal for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
+			return formatHealEffect(effect);
 		case "applyStatus":
 			return formatSavedEffect(
 				`${statusEffectVerbs[effect.statusId]} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
@@ -170,7 +171,7 @@ export function formatRiderEffect(effect: RiderEffect): string {
 		case "damage":
 			return formatDamageEffect(effect);
 		case "heal":
-			return `Heal for ${formatDiceFormula(effect.dice, effect.attribute)}.`;
+			return formatHealEffect(effect);
 		case "applyStatus":
 			return formatSavedEffect(
 				`${statusEffectVerbs[effect.statusId]} ${formatTargetObject(effect.target)} for ${formatEffectDuration(effect.duration)}`,
@@ -349,6 +350,13 @@ export function getNumberTone(value: number): ModifierTone {
 		return "negative";
 	}
 	return "neutral";
+}
+
+function formatHealEffect(effect: HealEffect): string {
+	if (effect.percent !== undefined) {
+		return `Heal for ${effect.percent * 100}% of maximum health.`;
+	}
+	return `Heal for ${formatDiceFormula(effect.dice!, effect.attribute)}.`;
 }
 
 function formatDamageEffect(effect: Extract<Effect | RiderEffect, { type: "damage" }>) {

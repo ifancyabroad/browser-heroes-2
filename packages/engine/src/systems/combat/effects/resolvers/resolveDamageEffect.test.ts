@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { createTestCombat } from "../../../test/createTestCombat";
-import { resolveConsumableDamageEffect } from "./resolveConsumableDamageEffect";
+import { createTestCombat } from "../../../../test/createTestCombat";
+import { resolveDamageEffect } from "./resolveDamageEffect";
 
 const explosiveEffect = {
 	type: "damage",
@@ -8,8 +8,9 @@ const explosiveEffect = {
 	dice: "3d6",
 	damageType: "fire",
 	damageClass: "other",
+	requiresAttackRoll: false,
 } as const;
-describe("resolveConsumableDamageEffect", () => {
+describe("resolveDamageEffect", () => {
 	it("rolls exactly 3d6 with no attack, save, attribute, critical, or level scaling", () => {
 		const combat = createTestCombat();
 		combat.player.level = 100;
@@ -21,8 +22,11 @@ describe("resolveConsumableDamageEffect", () => {
 		combat.enemy.combatStats.savingThrowBonus = 1000;
 		const before = structuredClone(combat);
 
-		const result = resolveConsumableDamageEffect(combat, explosiveEffect, {
-			value: 0,
+		const result = resolveDamageEffect({
+			combat,
+			actorSide: "player",
+			effect: explosiveEffect,
+			rngState: { value: 0 },
 		});
 
 		// Seed 0 rolls 2, 5, 4; the next RNG state proves no extra checks were rolled.
@@ -51,8 +55,11 @@ describe("resolveConsumableDamageEffect", () => {
 	] as const)("applies fire %s", (field, amount, affinity) => {
 		const combat = createTestCombat();
 		combat.enemy.combatStats.damageAffinities[field] = ["fire"];
-		const result = resolveConsumableDamageEffect(combat, explosiveEffect, {
-			value: 0,
+		const result = resolveDamageEffect({
+			combat,
+			actorSide: "player",
+			effect: explosiveEffect,
+			rngState: { value: 0 },
 		});
 		expect(result.value.combat.enemy.currentHp).toBe(100 - amount);
 		expect(result.value.outcomes[0]).toMatchObject({ hpDamage: amount, affinity });
@@ -82,8 +89,11 @@ describe("resolveConsumableDamageEffect", () => {
 			},
 			duration: { unit: "turns", remaining: 2 },
 		});
-		const result = resolveConsumableDamageEffect(combat, explosiveEffect, {
-			value: 0,
+		const result = resolveDamageEffect({
+			combat,
+			actorSide: "player",
+			effect: explosiveEffect,
+			rngState: { value: 0 },
 		});
 		expect(result.value.outcomes[0]).toMatchObject({ hpDamage: 23, absorbedDamage: 5 });
 		expect(result.value.combat.enemy.activeEffects).toEqual([]);

@@ -17,6 +17,7 @@ const damage: Effect = {
 	requiresAttackRoll: false,
 };
 const heal: Effect = { type: "heal", target: "self", dice: "1d4" };
+const percentageHeal: Effect = { type: "heal", target: "self", percent: 0.25 };
 const regeneration: Effect = { type: "healOverTime", target: "self", dice: "1d4", duration };
 const protection: Effect = {
 	type: "modifyDamageTaken",
@@ -111,21 +112,24 @@ describe("enemy skill assessment", () => {
 		expect(assess(combat, [damage, vulnerability])).toBeNull();
 	});
 
-	it("requires recovery to be useful before it overrides other effects", () => {
-		const combat = createTestCombat();
-		expect(assess(combat, [damage, heal])).toBe("standard");
-		expect(assess(combat, [heal, protection])).toBeNull();
-		combat.enemy.currentHp = 25;
-		expect(assess(combat, [damage, heal])).toBe("recovery");
-		expect(assess(combat, [heal, protection])).toBe("recovery");
-	});
+	it.each([heal, percentageHeal])(
+		"requires $type recovery to be useful before it overrides other effects",
+		(recovery) => {
+			const combat = createTestCombat();
+			expect(assess(combat, [damage, recovery])).toBe("standard");
+			expect(assess(combat, [recovery, protection])).toBeNull();
+			combat.enemy.currentHp = 25;
+			expect(assess(combat, [damage, recovery])).toBe("recovery");
+			expect(assess(combat, [recovery, protection])).toBe("recovery");
+		},
+	);
 
-	it("avoids wasting most of an amplified direct heal", () => {
+	it.each([heal, percentageHeal])("avoids wasting most of an amplified $type", (recovery) => {
 		const combat = createTestCombat();
 		combat.enemy.currentHp = 50;
-		expect(assess(combat, [heal])).toBe("recovery");
+		expect(assess(combat, [recovery])).toBe("recovery");
 		combat.enemy.combatStats.healingMultiplier = 100;
-		expect(assess(combat, [heal])).toBeNull();
+		expect(assess(combat, [recovery])).toBeNull();
 	});
 
 	it("does not reapply active regeneration and allows it again after expiry", () => {

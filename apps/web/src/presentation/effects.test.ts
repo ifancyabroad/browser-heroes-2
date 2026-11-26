@@ -24,6 +24,17 @@ const activeEffectBase = {
 } as const;
 
 describe("effect presentation", () => {
+	it("describes percentage healing without a dice roll or attribute bonus", () => {
+		const effect = { type: "heal", target: "self", percent: 0.25 } as const;
+		expect(formatSkillEffect(effect)).toBe("Heal for 25% of maximum health.");
+		expect(formatRiderEffect(effect)).toBe("Heal for 25% of maximum health.");
+	});
+
+	it("retains dice and attribute details in healing descriptions", () => {
+		const effect = { type: "heal", target: "self", dice: "1d8", attribute: "wisdom" } as const;
+		expect(formatSkillEffect(effect)).toBe("Heal for 1d8 + WIS.");
+		expect(formatRiderEffect(effect)).toBe("Heal for 1d8 + WIS.");
+	});
 	it.each([
 		["stunned", "Stunned", "negative"],
 		["silenced", "Silenced", "negative"],

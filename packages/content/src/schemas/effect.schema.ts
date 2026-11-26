@@ -69,12 +69,32 @@ export const damageEffectSchema = z
 		path: ["attribute"],
 	});
 
-export const healEffectSchema = z.object({
-	type: z.literal("heal"),
-	target: z.literal("self").default("self"),
-	dice: diceFormulaSchema,
-	attribute: attributeSchema.optional(),
-});
+export const healEffectSchema = z
+	.object({
+		type: z.literal("heal"),
+		target: z.literal("self").default("self"),
+		dice: diceFormulaSchema.optional(),
+		percent: z.number().positive().max(1).optional(),
+		attribute: attributeSchema.optional(),
+	})
+	.superRefine((effect, ctx) => {
+		const hasDice = effect.dice !== undefined;
+		const hasPercent = effect.percent !== undefined;
+		if (hasDice === hasPercent) {
+			ctx.addIssue({
+				code: "custom",
+				message: "Healing must provide either dice or percent, but not both",
+				path: ["dice"],
+			});
+		}
+		if (effect.attribute !== undefined && !hasDice) {
+			ctx.addIssue({
+				code: "custom",
+				message: "Only dice-based healing can use an attribute",
+				path: ["attribute"],
+			});
+		}
+	});
 
 export const statusEffectSchema = z.enum(["stunned", "silenced", "haste", "invisible"]);
 
@@ -207,7 +227,7 @@ export const shieldEffectSchema = z.object({
 	duration: effectDurationSchema,
 });
 
-export const riderEffectSchema = z.discriminatedUnion("type", [
+export const sharedEffectSchema = z.discriminatedUnion("type", [
 	damageEffectSchema,
 	healEffectSchema,
 	applyStatusEffectSchema,
@@ -227,7 +247,7 @@ export const attackRiderTimingSchema = z.enum(["onHit", "onCrit"]);
 export const attackRiderSchema = z.object({
 	timing: attackRiderTimingSchema,
 	save: negatingSavingThrowSchema.optional(),
-	effects: z.array(riderEffectSchema).min(1),
+	effects: z.array(sharedEffectSchema).min(1),
 });
 
 export const attackDamageEffectSchema = z
@@ -258,20 +278,9 @@ export const attackDamageEffectSchema = z
 	});
 
 export const effectSchema = z.discriminatedUnion("type", [
-	damageEffectSchema,
+	sharedEffectSchema,
 	attackDamageEffectSchema,
-	healEffectSchema,
-	applyStatusEffectSchema,
 	removeStatusEffectSchema,
-	modifyStatEffectSchema,
-	modifyHealingEffectSchema,
-	modifyDamageEffectSchema,
-	modifyDamageTakenEffectSchema,
-	modifyDamageAffinityEffectSchema,
-	modifyRollEffectSchema,
-	damageOverTimeEffectSchema,
-	healOverTimeEffectSchema,
-	shieldEffectSchema,
 ]);
 
 export type StatusEffect = z.infer<typeof statusEffectSchema>;
@@ -286,7 +295,7 @@ export type RollMode = z.infer<typeof rollModeSchema>;
 export type AutomaticRollOutcome = z.infer<typeof automaticRollOutcomeSchema>;
 export type RollModifierMode = z.infer<typeof rollModifierModeSchema>;
 
-export type RiderEffect = z.infer<typeof riderEffectSchema>;
+export type RiderEffect = z.infer<typeof sharedEffectSchema>;
 export type AttackRiderTiming = z.infer<typeof attackRiderTimingSchema>;
 export type AttackRider = z.infer<typeof attackRiderSchema>;
 

@@ -7,9 +7,11 @@ export default buildConsumable({
 	icon: "consumables/Res_49_health.png",
 	basePrice: 20,
 	maxCarry: 3,
-	effect: {
-		type: "healPercent",
-		target: "self",
-		percent: 0.5,
-	},
+	effects: [
+		{
+			type: "heal",
+			target: "self",
+			percent: 0.5,
+		},
+	],
 });

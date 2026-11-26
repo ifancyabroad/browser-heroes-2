@@ -7,10 +7,12 @@ export default buildConsumable({
 	icon: "consumables/Alchemy_24_energy_potion.png",
 	basePrice: 30,
 	maxCarry: 2,
-	effect: {
-		type: "applyStatus",
-		target: "self",
-		statusId: "haste",
-		duration: { unit: "battles", value: 1 },
-	},
+	effects: [
+		{
+			type: "applyStatus",
+			target: "self",
+			statusId: "haste",
+			duration: { unit: "battles", value: 1 },
+		},
+	],
 });

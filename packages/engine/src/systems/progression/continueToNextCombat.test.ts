@@ -1,4 +1,4 @@
-import { resolveConsumableEffect } from "../consumables/resolveConsumableEffect";
+import { resolveConsumableEffects } from "../consumables/resolveConsumableEffects";
 import { CONSUMABLES_BY_ID } from "@app/content";
 import { describe, expect, it } from "vitest";
 import { applyAction } from "../../actions";
@@ -173,7 +173,7 @@ describe("continueToNextCombat", () => {
 
 	it("does not carry a speed potion's Haste into the next encounter", () => {
 		const state = createTestVictoryState();
-		state.combat = resolveConsumableEffect(
+		state.combat = resolveConsumableEffects(
 			state.combat!,
 			CONSUMABLES_BY_ID.speedPotion,
 			state.rngState,

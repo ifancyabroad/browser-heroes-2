@@ -4,6 +4,18 @@ import { describe, expect, it } from "vitest";
 import { modifierSummary, riderSummary } from "./summaries";
 
 describe("content summaries", () => {
+	it("summarizes both healing forms without mixing their amount fields", () => {
+		const riders: AttackRider[] = [
+			{
+				timing: "onHit",
+				effects: [
+					{ type: "heal", target: "self", dice: "1d8", attribute: "wisdom" },
+					{ type: "heal", target: "self", percent: 0.25 },
+				],
+			},
+		];
+		expect(riderSummary(riders)).toBe("Hit: heal 1d8 + WIS + heal 25% max HP");
+	});
 	it("formats modifiers without exposing schema names", () => {
 		const modifiers: PassiveModifier[] = [
 			{ type: "modifyStat", stat: "saveDcBonus", value: 3 },

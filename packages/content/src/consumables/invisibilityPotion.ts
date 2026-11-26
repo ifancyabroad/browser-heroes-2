@@ -7,10 +7,12 @@ export default buildConsumable({
 	icon: "consumables/Alchemy_35_invisibility_flask.png",
 	basePrice: 500,
 	maxCarry: 1,
-	effect: {
-		type: "applyStatus",
-		target: "self",
-		statusId: "invisible",
-		duration: { unit: "turns", value: 4 },
-	},
+	effects: [
+		{
+			type: "applyStatus",
+			target: "self",
+			statusId: "invisible",
+			duration: { unit: "turns", value: 4 },
+		},
+	],
 });

@@ -7,11 +7,13 @@ export default buildConsumable({
 	icon: "consumables/Alchemy_34_bigenergy_flask.png",
 	basePrice: 10,
 	maxCarry: 3,
-	effect: {
-		type: "damage",
-		target: "enemy",
-		dice: "3d6",
-		damageType: "fire",
-		damageClass: "other",
-	},
+	effects: [
+		{
+			type: "damage",
+			target: "enemy",
+			dice: "3d6",
+			damageType: "fire",
+			damageClass: "other",
+		},
+	],
 });

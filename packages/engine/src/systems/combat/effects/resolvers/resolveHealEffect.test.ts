@@ -1,3 +1,4 @@
+import { createTestCombat } from "../../../../test/createTestCombat";
 import { describe, expect, it } from "vitest";
 import { createTestCombatState } from "../../../../test/createTestRunState";
 import { formatActionOutcome } from "../../logs/formatActionLog";
@@ -23,4 +24,44 @@ describe("resolveHealEffect", () => {
 			amount: missingHp,
 		});
 	});
+
+	it.each(["player", "enemy"] as const)(
+		"resolves percentage healing for %s with rounding and healing modifiers",
+		(actorSide) => {
+			const combat = createTestCombat();
+			const target = combat[actorSide];
+			target.maxHp = 101;
+			target.currentHp = 10;
+			target.activeEffects.push({
+				id: "healing-boost",
+				type: "modifyHealing",
+				multiplier: 1.5,
+				sourceCombatantId: target.id,
+				sourceSide: actorSide,
+				source: {
+					type: "skill",
+					skillId: "armour",
+					sourceName: "Boost",
+					sourceEffectKey: "healing",
+				},
+				duration: { unit: "turns", remaining: 2 },
+			});
+			const result = resolveHealEffect({
+				combat,
+				actorSide,
+				effect: { type: "heal", target: "self", percent: 0.5 },
+				rngState: { value: 0 },
+			});
+			expect(result.value.outcomes).toEqual([
+				{
+					type: "healing",
+					targetId: target.id,
+					targetName: target.name,
+					amount: 76,
+				},
+			]);
+			expect(result.value.combat[actorSide].currentHp).toBe(86);
+			expect(result.rngState).toEqual({ value: 0 });
+		},
+	);
 });

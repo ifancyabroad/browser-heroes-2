@@ -16,7 +16,7 @@ export function validateConsumableUse(
 		return { ok: false, error: "NO_CONSUMABLES_AVAILABLE" };
 	}
 	if (
-		CONSUMABLES_BY_ID[consumableType].effect.target === "enemy" &&
+		CONSUMABLES_BY_ID[consumableType].effects.some((effect) => effect.target === "enemy") &&
 		!canTargetCombatant(combat.player, combat.enemy)
 	) {
 		return { ok: false, error: "TARGET_NOT_AVAILABLE" };

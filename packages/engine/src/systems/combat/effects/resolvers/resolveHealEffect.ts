@@ -24,6 +24,7 @@ export function resolveHealEffect(input: ResolveHealEffectInput): RngResult<Acti
 		rngState: input.rngState,
 		healer: actor,
 		dice: input.effect.dice,
+		percent: input.effect.percent,
 		attribute: input.effect.attribute,
 	});
 

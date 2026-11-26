@@ -3,8 +3,38 @@ import { describe, expect, it } from "vitest";
 
 import { createUnprotectedTestRunState } from "../../../test/createTestRunState";
 import { resolveSkillEffects } from "./resolveSkillEffects";
+import { createTestCombat } from "../../../test/createTestCombat";
 
 describe("resolveSkillEffects", () => {
+	it("applies shared percentage healing after an earlier skill modifier", () => {
+		const combat = createTestCombat();
+		combat.enemy.currentHp = 10;
+		const result = resolveSkillEffects({
+			combat,
+			actorSide: "enemy",
+			effects: [
+				{
+					type: "modifyHealing",
+					target: "self",
+					multiplier: 2,
+					duration: { unit: "turns", value: 2 },
+				},
+				{ type: "heal", target: "self", percent: 0.25 },
+			],
+			skillId: "armour",
+			skillName: "Test recovery",
+			rngState: { value: 7 },
+		});
+		expect(result.value.enemy.currentHp).toBe(60);
+		expect(result.value.player).toEqual(combat.player);
+		expect(result.rngState).toEqual({ value: 7 });
+		expect(result.value.log).toContainEqual(
+			expect.objectContaining({
+				eventType: "healing_done",
+				outcome: { type: "healing", targetId: combat.enemy.id, amount: 50 },
+			}),
+		);
+	});
 	it.each(["player", "enemy"] as const)(
 		"resolves Mana Burst's damage to both combatants even when its %s user dies",
 		(actorSide) => {

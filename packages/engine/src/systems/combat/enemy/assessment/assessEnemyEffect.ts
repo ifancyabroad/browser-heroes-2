@@ -48,11 +48,12 @@ export function assessEnemyEffect(input: AssessEnemyEffectInput): EnemySkillCate
 				? "standard"
 				: null;
 
-		case "heal":
-			return canUseRecovery(enemy) &&
-				hasMeaningfulMissingHealth(enemy, expectedHealing(effect, enemy))
+		case "heal": {
+			const amount = expectedHealing(effect, enemy);
+			return canUseRecovery(enemy) && amount > 0 && hasMeaningfulMissingHealth(enemy, amount)
 				? "recovery"
 				: null;
+		}
 
 		case "healOverTime":
 			return canUseRecovery(enemy) && !hasActiveSourceEffect(target, source, sourceEffectKey)
@@ -173,11 +174,16 @@ export function canUseRecovery(combatant: CombatantState): boolean {
 }
 
 function expectedHealing(effect: Extract<Effect, { type: "heal" }>, enemy: CombatantState): number {
-	const { count, sides, modifier } = parseDiceFormula(effect.dice);
+	const healingMultiplier = getEffectiveHealingMultiplier(enemy);
+	if (effect.percent !== undefined) {
+		const baseAmount = Math.round(enemy.maxHp * effect.percent);
+		return Math.max(0, Math.floor(baseAmount * healingMultiplier));
+	}
+	const { count, sides, modifier } = parseDiceFormula(effect.dice!);
 	const diceAverage = count * ((sides + 1) / 2) + modifier;
 	const attributeModifier = effect.attribute ? getAttributeModifier(enemy, effect.attribute) : 0;
 
-	return Math.max(1, (diceAverage + attributeModifier) * getEffectiveHealingMultiplier(enemy));
+	return Math.max(1, (diceAverage + attributeModifier) * healingMultiplier);
 }
 
 function hasMeaningfulMissingHealth(combatant: CombatantState, expectedAmount: number): boolean {
