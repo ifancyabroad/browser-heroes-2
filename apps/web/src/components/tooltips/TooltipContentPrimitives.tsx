@@ -30,7 +30,6 @@ export function TooltipDetailList({
 export function TooltipSection({ title, children }: { title: string; children: ReactNode }) {
 	return (
 		<section className="grid gap-1 border-t-2 border-border/70 pt-2" aria-label={title}>
-			<p className="text-text-label">{title}</p>
 			{children}
 		</section>
 	);
