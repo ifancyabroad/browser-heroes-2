@@ -127,7 +127,7 @@ function AbilityRow({ icon, name, meta, badge }: AbilityRowProps) {
 				<span>{meta}</span>
 			</span>
 
-			{badge && <Badge label={badge} className="shrink-0 self-start text-primary" />}
+			{badge && <Badge label={badge} className="shrink-0 self-center text-primary" />}
 		</div>
 	);
 }
