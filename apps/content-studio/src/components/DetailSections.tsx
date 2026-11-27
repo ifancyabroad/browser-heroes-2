@@ -1,9 +1,8 @@
 import { attributes } from "@app/content";
-import { Link } from "react-router-dom";
-import { catalogByKey } from "../content/catalog";
-import type { DetailFact, DetailSection, EntryLink } from "../content/details";
+import type { DetailFact, DetailSection } from "../content/details";
 import { formatLabel } from "../content/presentation";
 import { ContentImage } from "./ContentImage";
+import { ContentCard } from "./ContentCard";
 import { RiderFlow } from "./EffectFlow";
 import { StructuredValue } from "./StructuredValue";
 
@@ -17,32 +16,9 @@ export function DetailFacts({
 	return (
 		<dl className={summary ? "detail-summary" : "profile-facts"}>
 			{facts.map(({ label, value }) => (
-				<div
-					key={label}
-					className={
-						!summary && Array.isArray(value)
-							? value.length > 6
-								? "wide-fact"
-								: "list-fact"
-							: undefined
-					}
-				>
+				<div key={label}>
 					<dt>{label}</dt>
-					<dd>
-						{Array.isArray(value) ? (
-							summary ? (
-								value.join(", ")
-							) : (
-								<ul className="value-chips">
-									{value.map((item, index) => (
-										<li key={index}>{item}</li>
-									))}
-								</ul>
-							)
-						) : (
-							value
-						)}
-					</dd>
+					<dd>{Array.isArray(value) ? value.join(", ") : value}</dd>
 				</div>
 			))}
 		</dl>
@@ -68,7 +44,7 @@ function SectionBody({ section }: { section: DetailSection }) {
 	switch (section.kind) {
 		case "facts":
 			return <DetailFacts facts={section.facts} />;
-		case "profile":
+		case "profile": {
 			return (
 				<>
 					<DetailFacts facts={section.facts} />
@@ -89,13 +65,14 @@ function SectionBody({ section }: { section: DetailSection }) {
 					</div>
 				</>
 			);
+		}
 		case "mechanics":
 			return <StructuredValue value={section.value} field={section.field} />;
 		case "links":
 			return (
-				<div className="detail-links">
+				<div className="content-cards">
 					{section.links.map((link, index) => (
-						<RelatedEntry key={`${link.category}:${link.id}:${index}`} link={link} />
+						<ContentCard key={`${link.category}:${link.id}:${index}`} link={link} />
 					))}
 				</div>
 			);
@@ -162,40 +139,4 @@ function SectionBody({ section }: { section: DetailSection }) {
 			);
 		}
 	}
-}
-
-function RelatedEntry({ link }: { link: EntryLink }) {
-	const catalog = catalogByKey[link.category];
-	const entry = catalog.entries.find((entry) => entry.id === link.id);
-	if (!entry) {
-		return (
-			<div className="related-entry">
-				<strong>{link.id}</strong>
-				<span className="muted">Unresolved {catalog.singular.toLowerCase()} reference</span>
-			</div>
-		);
-	}
-	const description =
-		entry.description ??
-		[entry.cells.subtype, entry.cells.stat]
-			.filter((value) => value && value !== "—")
-			.join(" · ");
-	return (
-		<Link className="related-entry" to={`/${link.category}/${link.id}`} aria-label={entry.name}>
-			{entry.images[0] && <ContentImage path={entry.images[0]} label="" />}
-			<div className="related-entry-copy">
-				{(link.label || link.detail) && (
-					<span className="related-entry-label">
-						{[link.label, link.detail].filter(Boolean).join(" · ")}
-					</span>
-				)}
-				<strong>{entry.name}</strong>
-				{description && <p>{description}</p>}
-				<code>{entry.id}</code>
-			</div>
-			<span className="related-entry-arrow" aria-hidden="true">
-				→
-			</span>
-		</Link>
-	);
 }

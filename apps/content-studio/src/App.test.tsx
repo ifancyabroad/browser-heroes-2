@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import App from "./App";
 import { catalogByKey } from "./content/catalog";
 
@@ -22,6 +22,61 @@ const sampleEnemySkill = catalogByKey.skills.entries.find(
 )!;
 
 describe("content studio routes", () => {
+	it("uses one link per table row and opens details from a data cell", () => {
+		render(
+			<MemoryRouter initialEntries={[`/enemies?q=${sampleEnemy.id}`]}>
+				<App />
+			</MemoryRouter>,
+		);
+		const row = screen.getByRole("table").querySelector("tbody tr")!;
+		expect(within(row as HTMLElement).getAllByRole("link")).toHaveLength(1);
+		fireEvent.click(row.querySelectorAll("td")[2]!);
+		expect(screen.getByRole("heading", { name: sampleEnemy.name })).toBeInTheDocument();
+		expect(screen.getByRole("link", { name: /Back to Enemies/ })).toHaveAttribute(
+			"href",
+			`/enemies?q=${sampleEnemy.id}`,
+		);
+	});
+
+	it("allows selecting table values without opening the entry", () => {
+		render(
+			<MemoryRouter initialEntries={[`/enemies?q=${sampleEnemy.id}`]}>
+				<App />
+			</MemoryRouter>,
+		);
+		const cell = screen.getByRole("table").querySelectorAll("tbody tr td")[2]!;
+		const selection = window.getSelection()!;
+		const range = document.createRange();
+		range.selectNodeContents(cell);
+		selection.addRange(range);
+		try {
+			fireEvent.click(cell);
+			expect(screen.getByRole("heading", { name: "Enemies" })).toBeInTheDocument();
+		} finally {
+			selection.removeAllRanges();
+		}
+	});
+
+	it("opens modified and middle row clicks separately", () => {
+		render(
+			<MemoryRouter initialEntries={[`/enemies?q=${sampleEnemy.id}`]}>
+				<App />
+			</MemoryRouter>,
+		);
+		const row = screen.getByRole("table").querySelector("tbody tr")!;
+		const link = row.querySelector("a")!;
+		const open = vi.spyOn(window, "open").mockImplementation(() => null);
+		try {
+			fireEvent.click(row.querySelectorAll("td")[2]!, { ctrlKey: true });
+			fireEvent.mouseDown(row, { button: 1 });
+			expect(open).toHaveBeenCalledTimes(2);
+			expect(open).toHaveBeenCalledWith(link.href, "_blank", "noopener,noreferrer");
+			expect(screen.getByRole("heading", { name: "Enemies" })).toBeInTheDocument();
+		} finally {
+			open.mockRestore();
+		}
+		expect(link).toHaveAttribute("href", `/enemies/${sampleEnemy.id}`);
+	});
 	it("navigates categories through the compact category picker", () => {
 		render(
 			<MemoryRouter initialEntries={["/classes/warrior"]}>

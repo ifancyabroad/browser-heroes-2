@@ -1,5 +1,6 @@
 import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import { ContentImage } from "../components/ContentImage";
+import { ContentCard } from "../components/ContentCard";
 import { StructuredValue } from "../components/StructuredValue";
 import { DetailFacts, DetailSectionView } from "../components/DetailSections";
 import { getDetailPresentation } from "../content/details";
@@ -113,11 +114,7 @@ export function DetailPage() {
 					</div>
 				</details>
 			)}
-			{incoming.length > 0 && (
-				<div className="incoming-references" id="references">
-					<IncomingReferences references={incoming} />
-				</div>
-			)}
+			{incoming.length > 0 && <IncomingReferences references={incoming} />}
 			{entry.images.length > 0 && (
 				<details className="panel disclosure" id="artwork">
 					<summary>
@@ -152,23 +149,33 @@ export function DetailPage() {
 }
 
 function IncomingReferences({ references }: { references: readonly ContentReference[] }) {
+	const categories = [...new Set(references.map((reference) => reference.category))];
 	return (
-		<section className="panel references" aria-label="Referenced by">
+		<section className="panel" id="references" aria-label="Referenced by">
 			<div className="section-heading">
 				<h3>Referenced by</h3>
 				<span className="section-note">{references.length}</span>
 			</div>
-			<ul>
-				{references.map((reference) => (
-					<li key={`${reference.category}:${reference.id}`}>
-						<span>{reference.relation}</span>
-						<Link to={`/${reference.category}/${reference.id}`}>
-							{reference.name}
-							<code>{reference.id}</code>
-						</Link>
-					</li>
-				))}
-			</ul>
+			{categories.map((category) => (
+				<section
+					key={category}
+					className="reference-group"
+					aria-labelledby={`references-${category}`}
+				>
+					<h4 id={`references-${category}`}>{catalogByKey[category].label}</h4>
+					<div className="content-cards">
+						{references
+							.filter((reference) => reference.category === category)
+							.map((reference) => (
+								<ContentCard
+									key={reference.id}
+									link={{ category, id: reference.id }}
+									showDescription={false}
+								/>
+							))}
+					</div>
+				</section>
+			))}
 		</section>
 	);
 }

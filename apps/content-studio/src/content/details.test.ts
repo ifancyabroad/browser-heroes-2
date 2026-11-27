@@ -33,6 +33,26 @@ describe("category detail presentations", () => {
 			label: "Armour class",
 			value: enemy.definition.combat.armourClass,
 		});
+		expect(profile.facts).toContainEqual({
+			label: "Saving throw proficiencies",
+			value: ["Constitution", "Wisdom"],
+		});
+	});
+
+	it("preserves class proficiencies in the profile facts", () => {
+		const view = getDetailPresentation("classes", entry("classes", "warrior"));
+		const profile = view.sections.find((section) => section.kind === "profile")!;
+		if (profile.kind !== "profile") {
+			throw new Error("Expected a class profile");
+		}
+		expect(profile.facts.map((fact) => fact.label)).toEqual([
+			"Armour",
+			"Saving throws",
+			"Weapons",
+		]);
+		expect(
+			profile.facts.every((fact) => Array.isArray(fact.value) && fact.value.length > 0),
+		).toBe(true);
 	});
 
 	it("keeps a skill's useful metadata together and omits empty tags", () => {

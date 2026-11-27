@@ -1,4 +1,5 @@
 import { Link, Navigate, useLocation, useParams, useSearchParams } from "react-router-dom";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { EntryCards } from "../components/EntryCards";
 import { ContentImage } from "../components/ContentImage";
 import { formatLabel, formatValue } from "../content/presentation";
@@ -247,7 +248,17 @@ export function CatalogPage() {
 							</thead>
 							<tbody>
 								{visible.map((entry) => (
-									<tr key={entry.id}>
+									<tr
+										className="catalog-row"
+										key={entry.id}
+										onClick={followRowLink}
+										onMouseDown={(event) => {
+											// Handle middle presses before the browser starts auto-scrolling.
+											if (event.button === 1) {
+												followRowLink(event);
+											}
+										}}
+									>
 										<td className="identity-cell">
 											<Link
 												className="entry-identity"
@@ -271,19 +282,11 @@ export function CatalogPage() {
 													column.numeric ? "numeric" : "summary-cell"
 												}
 											>
-												<Link
-													to={`/${category}/${entry.id}`}
-													state={{ catalogSearch: location.search }}
-												>
-													{entry.cells[column.key] === "" ? (
-														<span className="muted">—</span>
-													) : (
-														formatValue(
-															column.key,
-															entry.cells[column.key],
-														)
-													)}
-												</Link>
+												{entry.cells[column.key] === "" ? (
+													<span className="muted">—</span>
+												) : (
+													formatValue(column.key, entry.cells[column.key])
+												)}
 											</td>
 										))}
 									</tr>
@@ -316,6 +319,35 @@ export function CatalogPage() {
 			</div>
 		</section>
 	);
+}
+
+// Keep text selection and the name link's native behaviour; extend navigation to the row.
+function followRowLink(event: ReactMouseEvent<HTMLTableRowElement>) {
+	if (event.defaultPrevented || (event.button !== 0 && event.button !== 1)) {
+		return;
+	}
+	if (
+		event.target instanceof window.Element &&
+		event.target.closest("a, button, input, select")
+	) {
+		return;
+	}
+	if (window.getSelection()?.toString()) {
+		return;
+	}
+	if (event.altKey) {
+		return;
+	}
+	const link = event.currentTarget.querySelector("a");
+	if (!link) {
+		return;
+	}
+	event.preventDefault();
+	if (event.button === 1 || event.ctrlKey || event.metaKey || event.shiftKey) {
+		window.open(link.href, "_blank", "noopener,noreferrer");
+		return;
+	}
+	link.click();
 }
 
 function Filter({
