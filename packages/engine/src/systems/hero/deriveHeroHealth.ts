@@ -3,6 +3,7 @@ import { calculateAttributeModifier } from "../../core/attributes";
 export type DerivedHeroHealth = {
 	currentHp: number;
 	maxHp: number;
+	baseMaxHp: number;
 };
 
 type DeriveHeroHealthInput = {
@@ -25,6 +26,7 @@ export function deriveHeroHealth(input: DeriveHeroHealthInput): DerivedHeroHealt
 
 	return {
 		maxHp,
+		baseMaxHp: Math.max(1, input.maxHp + constitutionHpBonus),
 		currentHp: Math.max(0, Math.min(input.currentHp, maxHp)),
 	};
 }

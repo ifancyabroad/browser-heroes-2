@@ -6,6 +6,26 @@ import { createTestRunState } from "../../test/createTestRunState";
 import { deriveHeroStats } from "./deriveHeroStats";
 
 describe("deriveHeroStats", () => {
+	it("includes Constitution in base HP and exposes named HP bonuses separately", () => {
+		const { hero } = createTestRunState();
+		hero.level = 5;
+		hero.attributes.constitution = 16;
+		hero.maxHp = 50;
+		hero.currentHp = 100;
+		hero.featIds = ["jack_of_all_trades", "juggernaut"];
+
+		const stats = deriveHeroStats(hero);
+
+		expect(stats.health).toEqual({
+			baseMaxHp: 55,
+			maxHp: 80,
+			currentHp: 80,
+		});
+		expect(stats.combatStats.maxHpBonus.contributions).toMatchObject([
+			{ source: { sourceName: "Juggernaut" }, modifierValue: 25 },
+		]);
+	});
+
 	it.each(Object.keys(CLASSES_BY_ID) as ClassId[])(
 		"starts %s at 10 independently of Dexterity and level",
 		(classId) => {

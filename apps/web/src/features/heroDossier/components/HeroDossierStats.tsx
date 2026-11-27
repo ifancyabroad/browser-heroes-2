@@ -18,6 +18,7 @@ import {
 } from "../../../presentation/labels";
 import {
 	getArmourClassStatPresentation,
+	getMaxHpStatPresentation,
 	getStatPresentation,
 	type StatPresentation,
 } from "../../../presentation/stats";
@@ -90,12 +91,7 @@ export function CombatSection({ hero }: { hero: HeroView }) {
 		<section className="grid gap-3" aria-label="Combat">
 			<h2 className="text-text-bright">Combat</h2>
 			<ul className="grid gap-y-2">
-				<li className="grid grid-cols-[1fr_auto] items-baseline gap-4 px-1">
-					<span className="text-text-label">Max HP</span>
-					<span className="text-right text-text-bright tabular-nums">
-						{hero.health.maxHp}
-					</span>
-				</li>
+				<StatRow label="Max HP" stat={getMaxHpStatPresentation(hero)} />
 				<StatRow
 					label={combatStatLabels.armourClass}
 					displayLabel="Armour"

@@ -12,12 +12,7 @@ import {
 } from "../combat/modifiers/collectPassiveModifiers";
 import { deriveAttributes, type DerivedAttributes } from "../combat/modifiers/deriveAttributes";
 import { deriveCombatStats, type DerivedCombatStats } from "../combat/modifiers/deriveCombatStats";
-import { deriveHeroHealth } from "./deriveHeroHealth";
-
-export type DerivedHeroHealth = {
-	maxHp: number;
-	currentHp: number;
-};
+import { deriveHeroHealth, type DerivedHeroHealth } from "./deriveHeroHealth";
 
 export type DerivedArmourClassBreakdown = BaseArmourClassBreakdown &
 	Pick<DerivedCombatStats["armourClass"], "value" | "contributions">;

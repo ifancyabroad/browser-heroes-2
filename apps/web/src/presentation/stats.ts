@@ -66,6 +66,16 @@ export function getArmourClassStatPresentation(
 	};
 }
 
+export function getMaxHpStatPresentation(hero: HeroView): StatPresentation {
+	return {
+		value: hero.health.maxHp,
+		referenceValue: hero.health.baseMaxHp,
+		contributions: hero.combatStats.maxHpBonus.contributions.map(
+			getModifierContributionPresentation,
+		),
+	};
+}
+
 function getModifierContributionPresentation(
 	contribution: ModifierContribution,
 	index: number,
