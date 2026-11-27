@@ -4,7 +4,7 @@ export default buildSkill({
 	id: "minotaur_charge",
 	name: "Minotaur Charge",
 	description:
-		"Make a weapon attack with increased damage, dealt as piercing damage. On hit, you become stunned.",
+		"Make a weapon attack with increased damage, dealt as piercing damage. On hit, a failed Strength saving throw stuns the enemy.",
 	icon: "skills/unique/minotaur_charge.png",
 	pool: "unique",
 	kind: "weaponAttack",
@@ -20,10 +20,15 @@ export default buildSkill({
 			attackRiders: [
 				{
 					timing: "onHit",
+					save: {
+						attribute: "strength",
+						onSuccess: "noEffect",
+						dc: { attribute: "strength" },
+					},
 					effects: [
 						{
 							type: "applyStatus",
-							target: "self",
+							target: "enemy",
 							statusId: "stunned",
 							duration: { unit: "turns", value: 1 },
 						},
