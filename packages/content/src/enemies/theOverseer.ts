@@ -38,7 +38,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["intimidating_shout", "shield_bash", "double_strike"],
+		skillIds: ["intimidating_shout", "shield_bash", "double_strike", "consume_flesh"],
 		featIds: [],
 		tactic: "default",
 	},
