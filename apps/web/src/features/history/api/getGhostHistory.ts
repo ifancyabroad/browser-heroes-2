@@ -8,6 +8,7 @@ export function getGhostHistory(query: GetGhostHistoryQuery, signal?: AbortSigna
 			searchParams: {
 				page: query.page,
 				limit: query.limit,
+				...(query.status ? { status: query.status } : {}),
 				...(query.classId ? { classId: query.classId } : {}),
 				...(query.search ? { search: query.search } : {}),
 				sort: query.sort,

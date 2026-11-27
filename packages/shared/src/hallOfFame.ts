@@ -3,16 +3,17 @@ import { z } from "zod";
 import type { RunMode, RunSlainByView } from "./runs";
 import type { GhostBanisherView } from "./ghosts";
 
-const hallOfFameQueryFields = {
+export const getHeroHallOfFameQuerySchema = z.object({
 	season: z.coerce.number().int().min(1).optional(),
 	classId: classIdSchema.optional(),
 	userOnly: z.enum(["true", "false"]).optional(),
 	page: z.coerce.number().int().min(1).default(1),
 	limit: z.coerce.number().int().min(1).max(100).default(20),
-};
+});
 
-export const getHeroHallOfFameQuerySchema = z.object(hallOfFameQueryFields);
-export const getGhostHallOfFameQuerySchema = z.object(hallOfFameQueryFields);
+export const getGhostHallOfFameQuerySchema = getHeroHallOfFameQuerySchema.extend({
+	status: z.literal("active").optional(),
+});
 
 export type GetHeroHallOfFameQuery = z.infer<typeof getHeroHallOfFameQuerySchema>;
 export type GetGhostHallOfFameQuery = z.infer<typeof getGhostHallOfFameQuerySchema>;

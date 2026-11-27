@@ -3,9 +3,14 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const hooks = vi.hoisted(() => ({
 	useAuth: vi.fn(),
+	useGhostHistory: vi.fn(),
 }));
 
 vi.mock("../features/auth", () => ({ useAuth: hooks.useAuth }));
+vi.mock("../features/history/hooks/useGhostHistory", () => ({
+	useGhostHistory: hooks.useGhostHistory,
+}));
+vi.mock("../features/heroDossier", () => ({ HeroDossierModal: () => null }));
 vi.mock("../components/PageLayout", () => ({
 	PageLayout: ({ children }: { children: React.ReactNode }) => children,
 }));
@@ -29,12 +34,10 @@ vi.mock("../components/Tabs", () => ({
 		</div>
 	),
 }));
-vi.mock("../features/history/components/HistoryPanels", () => ({
+vi.mock("../features/history/components/HistoryPanels", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../features/history/components/HistoryPanels")>()),
 	HeroHistoryPanel: (props: { hasSession: boolean }) => (
 		<div>Hero panel {String(props.hasSession)}</div>
-	),
-	GhostHistoryPanel: (props: { hasSession: boolean }) => (
-		<div>Ghost panel {String(props.hasSession)}</div>
 	),
 }));
 
@@ -44,6 +47,12 @@ describe("History", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 		hooks.useAuth.mockReturnValue({ hasSession: true });
+		hooks.useGhostHistory.mockReturnValue({
+			data: { entries: [], total: 40, totalPages: 2 },
+			isPending: false,
+			isError: false,
+			isFetching: false,
+		});
 	});
 
 	it("renders personal history for signed-in users", () => {
@@ -61,11 +70,44 @@ describe("History", () => {
 		expect(screen.getByText("Hero panel false")).toBeInTheDocument();
 	});
 
+	it("filters active ghosts and resets pagination while preserving class", () => {
+		render(<History />);
+		fireEvent.click(screen.getByRole("button", { name: "Ghosts tab" }));
+		expect(screen.getByRole("button", { name: "ALL" })).toHaveAttribute("aria-pressed", "true");
+		fireEvent.change(screen.getByLabelText("CLASS"), { target: { value: "mage" } });
+		fireEvent.click(screen.getByRole("button", { name: "Next page" }));
+		expect(hooks.useGhostHistory).toHaveBeenLastCalledWith(
+			{ classId: "mage", page: 2, limit: 20, sort: "updatedAt", direction: "desc" },
+			true,
+		);
+		fireEvent.click(screen.getByRole("button", { name: "ACTIVE" }));
+		expect(hooks.useGhostHistory).toHaveBeenLastCalledWith(
+			{
+				status: "active",
+				classId: "mage",
+				page: 1,
+				limit: 20,
+				sort: "updatedAt",
+				direction: "desc",
+			},
+			true,
+		);
+		expect(screen.getByRole("button", { name: "ACTIVE" })).toHaveAttribute(
+			"aria-pressed",
+			"true",
+		);
+		fireEvent.click(screen.getByRole("button", { name: "ALL" }));
+		expect(hooks.useGhostHistory).toHaveBeenLastCalledWith(
+			{ classId: "mage", page: 1, limit: 20, sort: "updatedAt", direction: "desc" },
+			true,
+		);
+	});
+
 	it("switches between hero and ghost panels", () => {
 		render(<History />);
 
 		fireEvent.click(screen.getByRole("button", { name: "Ghosts tab" }));
 
-		expect(screen.getByText("Ghost panel true")).toBeInTheDocument();
+		expect(screen.getByText("No ghosts yet.")).toBeInTheDocument();
 	});
 });

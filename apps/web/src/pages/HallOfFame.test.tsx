@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const hooks = vi.hoisted(() => ({
@@ -70,6 +70,44 @@ describe("HallOfFame", () => {
 		expect(hooks.useGhostHallOfFame).toHaveBeenLastCalledWith({ page: 1, limit: 20 }, true);
 	});
 
+	it("filters active ghosts and resets pagination while preserving ownership", () => {
+		hooks.useGhostHallOfFame.mockReturnValue({
+			...queryState([{}]),
+			data: { ...queryState([{}]).data, total: 40, totalPages: 2 },
+		});
+		render(<HallOfFame />);
+		fireEvent.click(screen.getByRole("button", { name: "GHOSTS" }));
+		expect(
+			within(screen.getByText("STATUS").parentElement!).getByRole("button", {
+				name: "ALL",
+			}),
+		).toHaveAttribute("aria-pressed", "true");
+		fireEvent.click(screen.getByRole("button", { name: "MINE" }));
+		fireEvent.click(screen.getByRole("button", { name: "Next page" }));
+		expect(hooks.useGhostHallOfFame).toHaveBeenLastCalledWith(
+			{ userOnly: "true", page: 2, limit: 20 },
+			true,
+		);
+		fireEvent.click(screen.getByRole("button", { name: "ACTIVE" }));
+		expect(hooks.useGhostHallOfFame).toHaveBeenLastCalledWith(
+			{ status: "active", userOnly: "true", page: 1, limit: 20 },
+			true,
+		);
+		expect(screen.getByRole("button", { name: "ACTIVE" })).toHaveAttribute(
+			"aria-pressed",
+			"true",
+		);
+		fireEvent.click(
+			within(screen.getByText("STATUS").parentElement!).getByRole("button", {
+				name: "ALL",
+			}),
+		);
+		expect(hooks.useGhostHallOfFame).toHaveBeenLastCalledWith(
+			{ userOnly: "true", page: 1, limit: 20 },
+			true,
+		);
+	});
+
 	it("disables the season control while season metadata is unavailable", () => {
 		const loadingState = {
 			data: undefined,
@@ -88,7 +126,7 @@ describe("HallOfFame", () => {
 
 	it("offers ownership filtering only when a session exists", () => {
 		const { rerender } = render(<HallOfFame />);
-		fireEvent.click(screen.getByRole("button", { name: "MY HEROES" }));
+		fireEvent.click(screen.getByRole("button", { name: "MINE" }));
 		expect(hooks.useHeroHallOfFame).toHaveBeenLastCalledWith(
 			{ userOnly: "true", page: 1, limit: 20 },
 			true,
@@ -96,7 +134,7 @@ describe("HallOfFame", () => {
 
 		hooks.useAuth.mockReturnValue({ hasSession: false });
 		rerender(<HallOfFame />);
-		expect(screen.queryByRole("button", { name: "MY HEROES" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "MINE" })).not.toBeInTheDocument();
 	});
 
 	it("switches seasons and resets pagination", () => {

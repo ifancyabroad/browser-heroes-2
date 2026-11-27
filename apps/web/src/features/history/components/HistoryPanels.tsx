@@ -20,6 +20,7 @@ export function HeroHistoryPanel(props: CommonPanelProps) {
 	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 	const {
 		classId,
+		status,
 		searchInput,
 		search,
 		sort,
@@ -27,6 +28,7 @@ export function HeroHistoryPanel(props: CommonPanelProps) {
 		page,
 		setPage,
 		handleClassChange,
+		handleStatusChange,
 		handleSearchInputChange,
 		handleSort,
 	} = useHistoryTableControls<GetRunHistoryQuery["sort"]>({
@@ -49,6 +51,8 @@ export function HeroHistoryPanel(props: CommonPanelProps) {
 				classId={classId}
 				searchInput={searchInput}
 				onClassChange={handleClassChange}
+				status={status}
+				onStatusChange={handleStatusChange}
 				onSearchInputChange={handleSearchInputChange}
 			/>
 			{runs.isPending && props.hasSession ? (
@@ -89,6 +93,7 @@ export function GhostHistoryPanel(props: CommonPanelProps) {
 	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 	const {
 		classId,
+		status,
 		searchInput,
 		search,
 		sort,
@@ -96,6 +101,7 @@ export function GhostHistoryPanel(props: CommonPanelProps) {
 		page,
 		setPage,
 		handleClassChange,
+		handleStatusChange,
 		handleSearchInputChange,
 		handleSort,
 	} = useHistoryTableControls<GetGhostHistoryQuery["sort"]>({
@@ -110,6 +116,9 @@ export function GhostHistoryPanel(props: CommonPanelProps) {
 		...(classId !== "all" ? { classId } : {}),
 		...(search ? { search } : {}),
 	};
+	if (status !== "all") {
+		query.status = status;
+	}
 	const ghosts = useGhostHistory(query, props.hasSession && props.isActive);
 	return (
 		<>
@@ -118,6 +127,8 @@ export function GhostHistoryPanel(props: CommonPanelProps) {
 				classId={classId}
 				searchInput={searchInput}
 				onClassChange={handleClassChange}
+				status={status}
+				onStatusChange={handleStatusChange}
 				onSearchInputChange={handleSearchInputChange}
 			/>
 			{ghosts.isPending && props.hasSession ? (
@@ -126,7 +137,7 @@ export function GhostHistoryPanel(props: CommonPanelProps) {
 			  0 ? (
 				<HistoryDataState
 					message={
-						search || classId !== "all"
+						status !== "all" || search || classId !== "all"
 							? "No ghosts match these filters."
 							: "No ghosts yet."
 					}

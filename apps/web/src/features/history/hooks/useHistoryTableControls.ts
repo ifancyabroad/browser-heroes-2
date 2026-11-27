@@ -10,6 +10,7 @@ export function useHistoryTableControls<TSort extends string>({
 	nameSort: TSort;
 }) {
 	const [classId, setClassId] = useState<ClassId | "all">("all");
+	const [status, setStatus] = useState<"all" | "active">("all");
 	const [searchInput, setSearchInput] = useState("");
 	const search = useDebouncedValue(searchInput.trim(), 300);
 	const [sort, setSort] = useState<TSort>(defaultSort);
@@ -18,6 +19,11 @@ export function useHistoryTableControls<TSort extends string>({
 
 	function handleClassChange(value: ClassId | "all") {
 		setClassId(value);
+		setPage(1);
+	}
+
+	function handleStatusChange(value: "all" | "active") {
+		setStatus(value);
 		setPage(1);
 	}
 
@@ -38,6 +44,7 @@ export function useHistoryTableControls<TSort extends string>({
 
 	return {
 		classId,
+		status,
 		searchInput,
 		search,
 		sort,
@@ -45,6 +52,7 @@ export function useHistoryTableControls<TSort extends string>({
 		page,
 		setPage,
 		handleClassChange,
+		handleStatusChange,
 		handleSearchInputChange,
 		handleSort,
 	};

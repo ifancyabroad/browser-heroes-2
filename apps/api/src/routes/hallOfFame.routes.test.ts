@@ -28,12 +28,14 @@ describe("Hall of Fame routes", () => {
 
 	it("forwards class, ownership, and pagination filters", async () => {
 		await request(buildApp())
-			.get("/api/hall-of-fame/ghosts?classId=mage&userOnly=true&page=2&limit=10")
+			.get(
+				"/api/hall-of-fame/ghosts?classId=mage&userOnly=true&page=2&limit=10&status=active",
+			)
 			.set("x-test-user-id", "507f1f77bcf86cd799439011")
 			.expect(200);
 		expect(hallOfFameService.getGhostHallOfFame).toHaveBeenCalledWith({
 			userId: "507f1f77bcf86cd799439011",
-			query: { classId: "mage", userOnly: "true", page: 2, limit: 10 },
+			query: { classId: "mage", userOnly: "true", status: "active", page: 2, limit: 10 },
 		});
 	});
 
@@ -71,5 +73,12 @@ describe("Hall of Fame routes", () => {
 	it("rejects invalid pagination", async () => {
 		await request(buildApp()).get("/api/hall-of-fame/heroes?page=0&limit=101").expect(400);
 		expect(hallOfFameService.getHeroHallOfFame).not.toHaveBeenCalled();
+	});
+	it("rejects an invalid ghost status", async () => {
+		await request(buildApp())
+			.get("/api/hall-of-fame/ghosts?status=invalid")
+			.set("x-test-user-id", "user-id")
+			.expect(400);
+		expect(hallOfFameService.getGhostHallOfFame).not.toHaveBeenCalled();
 	});
 });

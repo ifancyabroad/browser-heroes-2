@@ -11,6 +11,8 @@ export function HallOfFameFilters(props: {
 	onClassChange: (classId: ClassId | "all") => void;
 	showUserOnly: boolean;
 	entryType: "heroes" | "ghosts";
+	status: "all" | "active";
+	onStatusChange: (status: "all" | "active") => void;
 	userOnly: boolean;
 	onUserOnlyChange: (userOnly: boolean) => void;
 }) {
@@ -37,7 +39,7 @@ export function HallOfFameFilters(props: {
 								aria-pressed={!props.userOnly}
 								onClick={() => props.onUserOnlyChange(false)}
 							>
-								ALL {props.entryType.toUpperCase()}
+								ALL
 							</Button>
 							<Button
 								type="button"
@@ -45,7 +47,30 @@ export function HallOfFameFilters(props: {
 								aria-pressed={props.userOnly}
 								onClick={() => props.onUserOnlyChange(true)}
 							>
-								MY {props.entryType.toUpperCase()}
+								MINE
+							</Button>
+						</div>
+					</div>
+				)}
+				{props.entryType === "ghosts" && (
+					<div className="grid gap-1">
+						<span className="text-text-label">STATUS</span>
+						<div className="flex gap-2">
+							<Button
+								type="button"
+								variant={props.status === "all" ? "primary" : "default"}
+								aria-pressed={props.status === "all"}
+								onClick={() => props.onStatusChange("all")}
+							>
+								ALL
+							</Button>
+							<Button
+								type="button"
+								variant={props.status === "active" ? "primary" : "default"}
+								aria-pressed={props.status === "active"}
+								onClick={() => props.onStatusChange("active")}
+							>
+								ACTIVE
 							</Button>
 						</div>
 					</div>

@@ -93,7 +93,9 @@ describe("history routes", () => {
 
 	it("forwards ghost history filters", async () => {
 		await request(buildApp())
-			.get("/api/history/ghosts?classId=mage&search=Shade&sort=status&direction=asc")
+			.get(
+				"/api/history/ghosts?classId=mage&search=Shade&sort=status&direction=asc&status=active",
+			)
 			.set("x-test-user-id", "user-id")
 			.expect(200);
 
@@ -104,6 +106,7 @@ describe("history routes", () => {
 				limit: 20,
 				classId: "mage",
 				search: "Shade",
+				status: "active",
 				sort: "status",
 				direction: "asc",
 			},
@@ -122,5 +125,12 @@ describe("history routes", () => {
 	it("does not expose removed stats or summary endpoints", async () => {
 		await request(buildApp()).get("/api/stats/runs").expect(404);
 		await request(buildApp()).get("/api/history/summary").expect(404);
+	});
+	it("rejects an invalid ghost status", async () => {
+		await request(buildApp())
+			.get("/api/history/ghosts?status=invalid")
+			.set("x-test-user-id", "user-id")
+			.expect(400);
+		expect(historyService.getGhostHistory).not.toHaveBeenCalled();
 	});
 });

@@ -153,33 +153,38 @@ describe("history.service", () => {
 		});
 	});
 
-	it("queries user ghosts with filters and mapped sorting", async () => {
-		const query = arrangeQuery(models.ghost.find, []);
+	it.each([undefined, "active"] as const)(
+		"queries user ghosts with status=%s and other filters",
+		async (status) => {
+			const query = arrangeQuery(models.ghost.find, []);
 
-		await getGhostHistory({
-			userId: "user-id",
-			query: {
-				page: 2,
-				limit: 5,
+			await getGhostHistory({
+				userId: "user-id",
+				query: {
+					page: 2,
+					limit: 5,
+					classId: "mage",
+					search: "Shade+",
+					status,
+					sort: "status",
+					direction: "desc",
+				},
+			});
+
+			const filter = {
+				userId: "user-id",
 				classId: "mage",
-				search: "Shade+",
-				sort: "status",
-				direction: "desc",
-			},
-		});
-
-		const filter = {
-			userId: "user-id",
-			classId: "mage",
-			"stats.encounters": { $gt: 0 },
-			name: { $regex: "Shade\\+", $options: "i" },
-		};
-		expect(models.ghost.find).toHaveBeenCalledWith(filter);
-		expect(models.ghost.countDocuments).toHaveBeenCalledWith(filter);
-		expect(query.sort).toHaveBeenCalledWith({ status: -1, _id: 1 });
-		expect(query.skip).toHaveBeenCalledWith(5);
-		expect(query.limit).toHaveBeenCalledWith(5);
-	});
+				"stats.encounters": { $gt: 0 },
+				name: { $regex: "Shade\\+", $options: "i" },
+				...(status === "active" ? { status: "active" } : {}),
+			};
+			expect(models.ghost.find).toHaveBeenCalledWith(filter);
+			expect(models.ghost.countDocuments).toHaveBeenCalledWith(filter);
+			expect(query.sort).toHaveBeenCalledWith({ status: -1, _id: 1 });
+			expect(query.skip).toHaveBeenCalledWith(5);
+			expect(query.limit).toHaveBeenCalledWith(5);
+		},
+	);
 
 	it.each([
 		["updatedAt", "updatedAt"],

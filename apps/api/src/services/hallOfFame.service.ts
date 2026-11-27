@@ -119,6 +119,10 @@ export async function getGhostHallOfFame(params: {
 		season,
 		"stats.encounters": { $gt: 0 },
 	};
+	if (query.status) {
+		rankingFilter.status = query.status;
+	}
+
 	if (query.classId) {
 		rankingFilter.classId = query.classId;
 	}

@@ -142,6 +142,25 @@ describe("hallOfFame.service", () => {
 		expect(models.runs.countDocuments.mock.calls[1]![0]).not.toHaveProperty("userId");
 	});
 
+	it.each([undefined, "active"] as const)(
+		"filters ghost rankings with status=%s",
+		async (status) => {
+			await getGhostHallOfFame({
+				userId,
+				query: { status, userOnly: "true", classId: "mage", page: 1, limit: 20 },
+			});
+			const filter = {
+				season: 1,
+				userId,
+				classId: "mage",
+				"stats.encounters": { $gt: 0 },
+				...(status === "active" ? { status: "active" } : {}),
+			};
+			expect(models.ghosts.find).toHaveBeenCalledWith(filter);
+			expect(models.ghosts.countDocuments).toHaveBeenCalledWith(filter);
+		},
+	);
+
 	it("maps ghost statistics and preserves personal ranks", async () => {
 		arrangeQuery(models.ghosts.find, [
 			{

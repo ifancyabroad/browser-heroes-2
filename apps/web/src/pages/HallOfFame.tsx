@@ -32,6 +32,7 @@ export default function HallOfFame() {
 	const [season, setSeason] = useState<number>();
 	const [classId, setClassId] = useState<ClassId | "all">("all");
 	const [userOnly, setUserOnly] = useState(false);
+	const [status, setStatus] = useState<"all" | "active">("all");
 	const [page, setPage] = useState(1);
 	const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
 
@@ -50,7 +51,10 @@ export default function HallOfFame() {
 		limit: PAGE_SIZE,
 	};
 	const heroQuery: GetHeroHallOfFameQuery = sharedQuery;
-	const ghostQuery: GetGhostHallOfFameQuery = sharedQuery;
+	const ghostQuery: GetGhostHallOfFameQuery = { ...sharedQuery };
+	if (status !== "all") {
+		ghostQuery.status = status;
+	}
 	const heroes = useHeroHallOfFame(heroQuery, activeTab === "heroes");
 	const ghosts = useGhostHallOfFame(ghostQuery, activeTab === "ghosts");
 	const activeData = activeTab === "heroes" ? heroes.data : ghosts.data;
@@ -65,6 +69,11 @@ export default function HallOfFame() {
 
 	function changeClass(nextClassId: ClassId | "all") {
 		setClassId(nextClassId);
+		setPage(1);
+	}
+
+	function changeStatus(nextStatus: "all" | "active") {
+		setStatus(nextStatus);
 		setPage(1);
 	}
 
@@ -109,6 +118,8 @@ export default function HallOfFame() {
 										entryType="heroes"
 										userOnly={userOnly}
 										onUserOnlyChange={changeUserOnly}
+										status={status}
+										onStatusChange={changeStatus}
 									/>
 									<HallOfFamePanel
 										query={heroes}
@@ -144,6 +155,8 @@ export default function HallOfFame() {
 										entryType="ghosts"
 										userOnly={userOnly}
 										onUserOnlyChange={changeUserOnly}
+										status={status}
+										onStatusChange={changeStatus}
 									/>
 									<HallOfFamePanel
 										query={ghosts}

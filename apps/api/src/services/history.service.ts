@@ -111,6 +111,10 @@ export async function getGhostHistory(params: { userId: string; query: GetGhostH
 		"stats.encounters": { $gt: 0 },
 	};
 
+	if (query.status) {
+		filter.status = query.status;
+	}
+
 	if (query.classId) {
 		filter.classId = query.classId;
 	}
