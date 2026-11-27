@@ -36,7 +36,6 @@ function HeroHeader({
 	heroClass: Class;
 }) {
 	const journey = [
-		{ label: "Battle", value: view.run.battleNumber },
 		{ label: "Kills", value: view.run.kills },
 		{ label: "Day", value: view.run.day },
 	];
