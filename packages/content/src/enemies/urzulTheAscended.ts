@@ -42,6 +42,7 @@ export default buildEnemy({
 			"cure_major_wounds",
 			"flamestrike",
 			"lightning_bolt",
+			"call_lightning",
 			"blessing_of_the_old_gods",
 		],
 		featIds: [],

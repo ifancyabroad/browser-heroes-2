@@ -3,7 +3,7 @@ import { buildSkill } from "../builders/buildSkill";
 export default buildSkill({
 	id: "blessing_of_the_old_gods",
 	name: "Blessing of the Old Gods",
-	description: "Reduce all damage you take.",
+	description: "Reduce all damage you take and increase your lightning damage dealt.",
 	icon: "skills/unique/blessing_of_the_old_gods.png",
 	pool: "unique",
 	kind: "spell",
@@ -11,6 +11,14 @@ export default buildSkill({
 	rarity: "epic",
 	maxUses: 1,
 	effects: [
+		{
+			type: "modifyDamage",
+			target: "self",
+			damageType: "lightning",
+			operation: "multiply",
+			value: 1.5,
+			duration: { unit: "turns", value: 5 },
+		},
 		{
 			type: "modifyDamageTaken",
 			target: "self",
