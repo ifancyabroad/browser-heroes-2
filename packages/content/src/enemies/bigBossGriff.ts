@@ -38,7 +38,7 @@ export default buildEnemy({
 				attribute: "strength",
 			},
 		},
-		skillIds: ["powerful_blow", "skull_bash", "knock_down"],
+		skillIds: ["powerful_blow", "skull_bash", "knock_down", "meat_shield"],
 		featIds: [],
 		tactic: "default",
 	},
