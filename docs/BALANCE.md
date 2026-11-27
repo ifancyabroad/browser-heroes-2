@@ -1,10 +1,10 @@
-# Browser Heroes 2 - Balance Guide
+# Browser Heroes - Balance Guide
 
 ## 1. Purpose
 
 This document guides the authoring and review of feats, skills, items, affixes, enemies, and other gameplay content. It provides shared reference points, not strict formulas.
 
-Browser Heroes 2 is intentionally variable. A fortunate, focused build may defeat enemies before they act, avoid damage for several battles, or become exceptionally powerful through synergy. Enemy scaling, encounter matchups, and the difficulty of assembling that build provide its wider context.
+Browser Heroes is intentionally variable. A fortunate, focused build may defeat enemies before they act, avoid damage for several battles, or become exceptionally powerful through synergy. Enemy scaling, encounter matchups, and the difficulty of assembling that build provide its wider context.
 
 Balance should protect meaningful choices without making content uniform. Theme and identity are at least as important as numerical precision and should take priority when the numbers are reasonably comparable. An unusual effect is welcome when it is coherent, readable, and appropriately limited.
 

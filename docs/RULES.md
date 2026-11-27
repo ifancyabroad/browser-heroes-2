@@ -1,4 +1,4 @@
-# Browser Heroes 2 - Game Rules
+# Browser Heroes - Game Rules
 
 ## 1. Run Structure
 

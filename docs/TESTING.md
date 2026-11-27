@@ -1,4 +1,4 @@
-# Browser Heroes 2 - Testing
+# Browser Heroes - Testing
 
 ## 1. Purpose
 

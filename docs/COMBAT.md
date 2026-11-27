@@ -1,4 +1,4 @@
-# Browser Heroes 2 - Combat Design
+# Browser Heroes - Combat Design
 
 ## 1. Combat Goals
 

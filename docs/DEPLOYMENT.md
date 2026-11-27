@@ -1,4 +1,4 @@
-# Browser Heroes 2 - Deployment
+# Browser Heroes - Deployment
 
 ## 1. Purpose
 

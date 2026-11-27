@@ -1,8 +1,8 @@
-# Browser Heroes 2 - Infrastructure
+# Browser Heroes - Infrastructure
 
 ## 1. Purpose
 
-This document defines runtime, persistence, networking, deployment, authentication, and operational direction for Browser Heroes 2.
+This document defines runtime, persistence, networking, deployment, authentication, and operational direction for Browser Heroes.
 
 Architecture boundaries belong in `ARCHITECTURE.md`. Gameplay rules belong in `RULES.md` and `COMBAT.md`.
 
@@ -65,7 +65,7 @@ World Log entries are stored separately from run snapshots within gameplay trans
 
 ## 6. Networking
 
-Browser Heroes 2 is not a real-time multiplayer game.
+Browser Heroes is not a real-time multiplayer game.
 
 Current networking supports standard HTTP API requests and Socket.IO action submission. Both paths should route gameplay actions through the same backend engine application flow.
 

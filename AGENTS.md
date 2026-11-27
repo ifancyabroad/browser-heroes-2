@@ -1,4 +1,4 @@
-# Browser Heroes 2 — Contributor & AI Agent Rules
+# Browser Heroes — Contributor & AI Agent Rules
 
 ## Project Docs
 

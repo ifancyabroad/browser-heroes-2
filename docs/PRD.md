@@ -1,8 +1,8 @@
-# Browser Heroes 2 - Product Requirements
+# Browser Heroes - Product Requirements
 
 ## 1. Vision
 
-Browser Heroes 2 is a browser roguelike RPG built around fast, repeatable runs of deterministic turn-based combat.
+Browser Heroes is a browser roguelike RPG built around fast, repeatable runs of deterministic turn-based combat.
 
 Players create a hero, push through a sequence of encounters, develop a flexible build through class identity, skills, feats, and equipment, and decide when to press forward or return to town.
 

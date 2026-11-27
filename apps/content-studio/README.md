@@ -1,4 +1,4 @@
-# Browser Heroes 2 Content Studio
+# Browser Heroes Content Studio
 
 The content studio is a local, read-only browser for the generated `@app/content` registries.
 It does not ship with the production game. TypeScript definitions remain the source of truth.

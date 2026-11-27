@@ -17,7 +17,7 @@ export function StudioLayout() {
 			</a>
 			<header className="studio-header">
 				<div>
-					<span className="eyebrow">Browser Heroes 2</span>
+					<span className="eyebrow">Browser Heroes</span>
 					<h1>Content Studio</h1>
 				</div>
 				<div className="studio-status">

@@ -1,4 +1,4 @@
-# Browser Heroes 2 - Design Principles
+# Browser Heroes - Design Principles
 
 ## 1. Purpose
 
@@ -6,7 +6,7 @@ This document defines the durable visual, component, layout, and interaction pri
 
 ## 2. Visual Identity
 
-Browser Heroes 2 should feel like a compact retro fantasy RPG: an old roguelike, dungeon ledger, or adventurer's journal rather than a terminal emulator or general fantasy website.
+Browser Heroes should feel like a compact retro fantasy RPG: an old roguelike, dungeon ledger, or adventurer's journal rather than a terminal emulator or general fantasy website.
 
 The interface should favor:
 
@@ -65,4 +65,4 @@ It must not calculate damage, rewards, progression, enemy selection, action vali
 
 This document does not define exact page layouts, component APIs, gameplay rules, content schemas, or marketing art direction.
 
-The guiding principle is to use the smallest consistent pattern that keeps the game readable and recognizably Browser Heroes 2.
+The guiding principle is to use the smallest consistent pattern that keeps the game readable and recognizably Browser Heroes.

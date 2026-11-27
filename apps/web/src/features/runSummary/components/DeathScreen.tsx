@@ -50,7 +50,7 @@ export function DeathScreen({ run }: DeathScreenProps) {
 	const heroClassName = CLASSES_BY_ID[summary.hero.classId]?.name ?? summary.hero.classId;
 	const slainBy = summary.finalEnemy?.name ?? "Unknown enemy";
 	const finalMomentEntries = summary.finalMomentLog;
-	const shareText = `${summary.hero.name} the ${heroClassName} was slain by ${slainBy} on battle ${summary.battleNumber} in Browser Heroes 2. Can you do better?`;
+	const shareText = `${summary.hero.name} the ${heroClassName} was slain by ${slainBy} on battle ${summary.battleNumber} in Browser Heroes. Can you do better?`;
 
 	return (
 		<GameLayout>

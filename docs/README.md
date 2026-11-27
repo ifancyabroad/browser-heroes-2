@@ -1,6 +1,6 @@
 # Documentation Map
 
-This directory contains the concise source-of-truth docs for Browser Heroes 2.
+This directory contains the concise source-of-truth docs for Browser Heroes.
 
 The docs are written for contributors and AI agents working on the project. They should explain current behavior, stable intent, and ownership boundaries without becoming code mirrors.
 

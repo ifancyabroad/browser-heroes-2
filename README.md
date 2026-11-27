@@ -1,6 +1,6 @@
-# Browser Heroes 2
+# Browser Heroes
 
-Browser Heroes 2 is a browser roguelike RPG built around fast, repeatable runs of deterministic turn-based combat.
+Browser Heroes is a browser roguelike RPG built around fast, repeatable runs of deterministic turn-based combat.
 
 The project uses a pnpm workspace monorepo so the web app, API, shared gameplay engine, and content package can evolve together without duplicating rules.
 

@@ -1,12 +1,12 @@
-# Browser Heroes 2 - Architecture
+# Browser Heroes - Architecture
 
 ## 1. Purpose
 
-This document defines system ownership and boundaries for Browser Heroes 2.
+This document defines system ownership and boundaries for Browser Heroes.
 
 It covers architecture only. Product intent, player-facing rules, combat behavior, UI design, and operational infrastructure belong in their own documents.
 
-Browser Heroes 2 uses a deterministic, framework-agnostic gameplay core with explicit serializable state and deliberately simple package boundaries.
+Browser Heroes uses a deterministic, framework-agnostic gameplay core with explicit serializable state and deliberately simple package boundaries.
 
 ## 2. Workspace Ownership
 

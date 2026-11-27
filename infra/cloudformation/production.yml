@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Low-cost Browser Heroes 2 production infrastructure in eu-west-2.
+Description: Low-cost Browser Heroes production infrastructure in eu-west-2.
 
 Parameters:
     RepositoryId:
@@ -144,7 +144,7 @@ Resources:
             DistributionConfig:
                 Aliases:
                     - browserheroes.com
-                Comment: Browser Heroes 2 production
+                Comment: Browser Heroes production
                 DefaultCacheBehavior:
                     AllowedMethods:
                         - GET
@@ -292,7 +292,7 @@ Resources:
         Type: AWS::SecretsManager::Secret
         Properties:
             Name: browser-heroes/production/session-secret
-            Description: Express session signing secret for Browser Heroes 2 production.
+            Description: Express session signing secret for Browser Heroes production.
             GenerateSecretString:
                 PasswordLength: 64
                 ExcludePunctuation: true
@@ -350,7 +350,7 @@ Resources:
         Type: AWS::ElasticBeanstalk::Application
         Properties:
             ApplicationName: browser-heroes-api
-            Description: Browser Heroes 2 API
+            Description: Browser Heroes API
             ResourceLifecycleConfig:
                 ServiceRole: arn:aws:iam::391673454505:role/aws-elasticbeanstalk-service-role
                 VersionLifecycleConfig:

@@ -51,7 +51,7 @@ export function VictoryScreen({ run }: VictoryScreenProps) {
 	const heroClassName = heroClass?.name ?? summary.hero.classId;
 	const finalEnemy = summary.finalEnemy?.name ?? "the final boss";
 	const finalMomentEntries = summary.finalMomentLog;
-	const shareText = `${summary.hero.name} the ${heroClassName} defeated ${finalEnemy} and retired victorious in Browser Heroes 2. Can you do better?`;
+	const shareText = `${summary.hero.name} the ${heroClassName} defeated ${finalEnemy} and retired victorious in Browser Heroes. Can you do better?`;
 
 	return (
 		<GameLayout>

@@ -1,6 +1,6 @@
-# Browser Heroes 2 Web
+# Browser Heroes Web
 
-The web app is the React and Vite client for Browser Heroes 2.
+The web app is the React and Vite client for Browser Heroes.
 
 ## Frontend Direction
 
