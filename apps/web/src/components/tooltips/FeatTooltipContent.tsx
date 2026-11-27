@@ -33,24 +33,23 @@ export function FeatTooltipContent({ feat }: FeatTooltipContentProps) {
 				<p className="border-t-2 border-border/70 pt-2 text-text">{feat.description}</p>
 			)}
 
-			{feat.modifiers.length > 0 && (
-				<TooltipSection title="Bonuses">
-					<ul className="grid gap-1">
-						{feat.modifiers.map((modifier, index) => (
-							<li
-								key={`${modifier.type}-${index}`}
-								className={getModifierTextClassName(modifier)}
-							>
-								{formatModifier(modifier)}
-							</li>
-						))}
-					</ul>
-				</TooltipSection>
-			)}
-
-			{feat.attackRiders.length > 0 && (
-				<TooltipSection title="Attack Riders">
-					<AttackRiderTooltipList riders={feat.attackRiders} />
+			{(feat.modifiers.length > 0 || feat.attackRiders.length > 0) && (
+				<TooltipSection title="Effects">
+					{feat.modifiers.length > 0 && (
+						<ul className="grid gap-1">
+							{feat.modifiers.map((modifier, index) => (
+								<li
+									key={`${modifier.type}-${index}`}
+									className={getModifierTextClassName(modifier)}
+								>
+									{formatModifier(modifier)}
+								</li>
+							))}
+						</ul>
+					)}
+					{feat.attackRiders.length > 0 && (
+						<AttackRiderTooltipList riders={feat.attackRiders} />
+					)}
 				</TooltipSection>
 			)}
 		</div>

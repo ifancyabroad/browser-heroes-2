@@ -49,24 +49,23 @@ export function ItemTooltipContent({ item }: ItemTooltipContentProps) {
 
 			<TooltipDetailList rows={getItemDetailRows(item)} />
 
-			{modifiers.length > 0 && (
-				<TooltipSection title="Bonuses">
-					<ul className="grid gap-1">
-						{modifiers.map((modifier, index) => (
-							<li
-								key={`${modifier.type}-${index}`}
-								className={getModifierTextClassName(modifier)}
-							>
-								{formatItemModifier(modifier)}
-							</li>
-						))}
-					</ul>
-				</TooltipSection>
-			)}
-
-			{item.type === "weapon" && item.attackRiders.length > 0 && (
-				<TooltipSection title="Attack Riders">
-					<AttackRiderTooltipList riders={item.attackRiders} />
+			{(modifiers.length > 0 || (item.type === "weapon" && item.attackRiders.length > 0)) && (
+				<TooltipSection title="Effects">
+					{modifiers.length > 0 && (
+						<ul className="grid gap-1">
+							{modifiers.map((modifier, index) => (
+								<li
+									key={`${modifier.type}-${index}`}
+									className={getModifierTextClassName(modifier)}
+								>
+									{formatItemModifier(modifier)}
+								</li>
+							))}
+						</ul>
+					)}
+					{item.type === "weapon" && item.attackRiders.length > 0 && (
+						<AttackRiderTooltipList riders={item.attackRiders} />
+					)}
 				</TooltipSection>
 			)}
 		</div>
