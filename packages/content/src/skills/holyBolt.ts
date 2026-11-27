@@ -9,7 +9,7 @@ export default buildSkill({
 	kind: "prayer",
 	category: "damage",
 	rarity: "common",
-	maxUses: 12,
+	maxUses: 20,
 	effects: [
 		{
 			type: "damage",

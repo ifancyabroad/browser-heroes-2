@@ -9,7 +9,7 @@ export default buildSkill({
 	kind: "spell",
 	category: "damage",
 	rarity: "common",
-	maxUses: 6,
+	maxUses: 10,
 	effects: [
 		{
 			type: "modifyStat",

@@ -10,7 +10,7 @@ export default buildSkill({
 	kind: "spell",
 	category: "debuff",
 	rarity: "uncommon",
-	maxUses: 4,
+	maxUses: 6,
 	effects: [
 		{
 			type: "damage",
