@@ -58,7 +58,7 @@ export function Battlefield({
 
 	return (
 		<section
-			className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-cover bg-bottom bg-no-repeat"
+			className="relative flex min-h-0 flex-1 items-center justify-center bg-cover bg-bottom bg-no-repeat"
 			aria-label="Battlefield"
 			style={{ backgroundImage: `url(${ZONE_BACKGROUNDS[zone]})` }}
 		>
